@@ -1,1 +1,1 @@
-# mindee-python
+# Mindee API helper library for python
