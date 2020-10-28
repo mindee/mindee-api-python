@@ -10,24 +10,9 @@ with open("README.md", "r", newline="", encoding="utf-8") as fh:
     long_description = fh.read()
 
 
-def get_latest_git_tag(filepath):
-    try:
-        return (
-            subprocess.check_output(
-                ["git", "describe", "--tags", "--abbrev=0"],
-                cwd=os.path.dirname(filepath),
-            )
-            .strip()
-            .decode()
-        )
-    except subprocess.CalledProcessError:
-        return "no_tag_found"
-
-
 APP_NAME = "mindee"
 PACKAGE_NAME = "mindee"
 GIT_URL = "https://github.com/publicMindee/mindee-api-python"
-VERSION = "v0.3"
 
 
 def make_requirements_list(file="requirements.txt", only_regular=True):
@@ -53,7 +38,7 @@ setup(
     python_requires=">=3.0",
     name=f"{PACKAGE_NAME}",
     description="Mindee API helper library for python",
-    version=VERSION,
+    version="v1.0.0",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url=GIT_URL,
