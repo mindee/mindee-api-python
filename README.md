@@ -216,4 +216,3 @@ mindee_client = Client(
 financial_document = mindee_client.parse_financial_document("./path/to/invoice.pdf/or/receipt.jpg")
 print(financial_document.document)
 ```
-
