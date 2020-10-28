@@ -2,15 +2,12 @@ import os
 import subprocess
 import re
 from setuptools import find_packages, setup
-import pathlib
+import io
 
 __version__ = None
 
-# The directory containing this file
-HERE = pathlib.Path(__file__).parent
-
 # The text of the README file
-README = (HERE / "README.md").read_text()
+README = io.open("README.md", encoding="utf-8").read()
 
 
 def get_latest_git_tag(filepath):
@@ -30,7 +27,7 @@ def get_latest_git_tag(filepath):
 APP_NAME = "mindee"
 PACKAGE_NAME = "mindee"
 GIT_URL = "https://github.com/publicMindee/mindee-api-python"
-VERSION = "v0.1"
+VERSION = "v0.2"
 
 
 def make_requirements_list(file="requirements.txt", only_regular=True):
@@ -53,12 +50,16 @@ def make_requirements_list(file="requirements.txt", only_regular=True):
 
 
 setup(
+    python_requires=">=3.0",
     name=f"{PACKAGE_NAME}",
     version=VERSION,
+    license="MIT",
+    long_description=README,
     long_description_content_type="text/markdown",
     url=GIT_URL,
-    long_description=README,
     packages=find_packages(),
+    author="Mindee",
+    author_email="contact@mindee.com",
     install_requires=make_requirements_list(),
     include_package_data=True
 )
