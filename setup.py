@@ -22,7 +22,7 @@ def get_latest_git_tag(filepath):
 
 APP_NAME = "mindee"
 PACKAGE_NAME = "mindee"
-GIT_URL = "https://github.com/teamMindee/python-mindee"
+GIT_URL = "https://github.com/publicMindee/mindee-api-python"
 VERSION = get_latest_git_tag(__file__)
 
 
