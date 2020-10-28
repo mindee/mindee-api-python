@@ -1,0 +1,75 @@
+{
+  "input_type": "path",
+  "filename": "receipt.jpg",
+  "filepath": "/dummy/receipt.jpg",
+  "file_extension": "image/png",
+  "document_type": "receipt",
+  "call": {
+    "endpoint": {
+      "name": "expense_receipts",
+      "version": "2.1"
+    },
+    "finished_at": "2020-10-09T20:56:38+00:00",
+    "id": "d1c35ec5-8c22-4a2f-a735-861440bbe6cf",
+    "n_documents": 1,
+    "n_inputs": 1,
+    "processing_time": 0.896,
+    "started_at": "2020-10-09T20:56:37+00:00"
+  },
+  "documents": [
+    {
+      "id": "65943b99-a7bb-464d-8728-ba3df2d38962",
+      "name": "receipt.jpg"
+    }
+  ],
+  "predictions": [
+    {
+      "category": {
+        "probability": 0.99,
+        "value": "N/A"
+      },
+      "date": {
+        "value": "N/A",
+        "probability": 0.09,
+        "raw": "",
+        "segmentation": {
+          "bounding_box": []
+        }
+      },
+      "locale": {
+        "country": "N/A",
+        "currency": "N/A",
+        "language": "N/A",
+        "probability": 0.82,
+        "value": "N/A"
+      },
+      "supplier": {
+        "value": "N/A",
+        "probability": 0.71,
+        "segmentation": {
+          "bounding_box": []
+        }
+      },
+      "orientation": {
+        "degrees": 0,
+        "probability": 0.99
+      },
+      "taxes": [],
+      "time": {
+        "value": "N/A",
+        "probability": 0.99,
+        "raw": "",
+        "segmentation": {
+          "bounding_box": []
+        }
+      },
+      "total_incl": {
+        "value": "N/A",
+        "probability": 0.99,
+        "segmentation": {
+          "bounding_box": []
+        }
+      }
+    }
+  ]
+}

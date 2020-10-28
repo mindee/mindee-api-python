@@ -1,0 +1,30 @@
+{
+  "input_type": "path",
+  "filename": "receipt.jpg",
+  "filepath": "/dummy/receipt.jpg",
+  "file_extension": "image/png",
+  "call": {
+    "endpoint": {
+      "name": "license_plates",
+      "version": "1.0"
+    },
+    "finished_at": "2020-10-09T20:56:34+00:00",
+    "id": "c9877842-6090-413b-bb4c-77fed33ad18e",
+    "n_documents": 1,
+    "n_inputs": 1,
+    "processing_time": 0.413,
+    "started_at": "2020-10-09T20:56:33+00:00"
+  },
+  "documents": [
+    {
+      "id": "2d5b968b-fd81-4309-a227-f654cf72de69",
+      "name": "plate.png"
+    }
+  ],
+  "predictions": [
+    {
+      "license_plates": [
+      ]
+    }
+  ]
+}

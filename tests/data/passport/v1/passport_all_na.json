@@ -1,0 +1,114 @@
+{
+  "input_type": "path",
+  "filename": "receipt.jpg",
+  "filepath": "/dummy/receipt.jpg",
+  "file_extension": "image/png",
+  "call": {
+    "endpoint": {
+      "name": "passport",
+      "version": "1.0"
+    },
+    "finished_at": "2020-10-09T20:56:36+00:00",
+    "id": "ddde5355-17d6-4c82-a7ae-0a10fbe34d8c",
+    "n_documents": 1,
+    "n_inputs": 1,
+    "processing_time": 1.412,
+    "started_at": "2020-10-09T20:56:35+00:00"
+  },
+  "documents": [
+    {
+      "id": "07beeefd-025d-42a0-a8e8-b8085f4f1dd6",
+      "name": "passport.jpeg"
+    }
+  ],
+  "predictions": [
+    {
+      "birth_date": {
+        "probability": 1.0,
+        "segmentation": {
+          "bounding_box": [
+          ]
+        },
+        "value": "N/A"
+      },
+      "birth_place": {
+        "probability": 0.9,
+        "segmentation": {
+          "bounding_box": [
+          ]
+        },
+        "value": "N/A"
+      },
+      "country": {
+        "probability": 1.0,
+        "segmentation": {
+          "bounding_box": [
+          ]
+        },
+        "value": "N/A"
+      },
+      "expiry_date": {
+        "probability": 1.0,
+        "segmentation": {
+          "bounding_box": [
+          ]
+        },
+        "value": "N/A"
+      },
+      "gender": {
+        "probability": 1.0,
+        "segmentation": {
+          "bounding_box": [
+          ]
+        },
+        "value": "N/A"
+      },
+      "given_names": [
+      ],
+      "id_number": {
+        "probability": 1.0,
+        "segmentation": {
+          "bounding_box": [
+          ]
+        },
+        "value": "N/A"
+      },
+      "issuance_date": {
+        "probability": 1.0,
+        "segmentation": {
+          "bounding_box": [
+          ]
+        },
+        "value": "N/A"
+      },
+      "mrz1": {
+        "probability": 0.99,
+        "segmentation": {
+          "bounding_box": [
+          ]
+        },
+        "value": "N/A"
+      },
+      "mrz2": {
+        "probability": 1.0,
+        "segmentation": {
+          "bounding_box": [
+          ]
+        },
+        "value": "N/A"
+      },
+      "orientation": {
+        "degrees": 0,
+        "probability": 0.99
+      },
+      "surname": {
+        "probability": 0.99,
+        "segmentation": {
+          "bounding_box": [
+          ]
+        },
+        "value": "N/A"
+      }
+    }
+  ]
+}

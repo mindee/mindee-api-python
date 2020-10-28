@@ -1,0 +1,300 @@
+{
+  "input_type": "base64",
+  "file": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAgGBgiwQw+5sv/2Q==",
+  "filepath": "/dummy/receipt.jpg",
+  "filename": "receipt.jpg",
+  "file_extension": "image/png",
+  "document_type": "passport",
+  "call": {
+    "endpoint": {
+      "name": "passport",
+      "version": "1.0"
+    },
+    "finished_at": "2020-10-09T20:56:36+00:00",
+    "id": "ddde5355-17d6-4c82-a7ae-0a10fbe34d8c",
+    "n_documents": 1,
+    "n_inputs": 1,
+    "processing_time": 1.412,
+    "started_at": "2020-10-09T20:56:35+00:00"
+  },
+  "documents": [
+    {
+      "id": "07beeefd-025d-42a0-a8e8-b8085f4f1dd6",
+      "name": "passport.jpeg"
+    }
+  ],
+  "predictions": [
+    {
+      "birth_date": {
+        "probability": 1.0,
+        "segmentation": {
+          "bounding_box": [
+            [
+              0.341,
+              0.689
+            ],
+            [
+              0.571,
+              0.689
+            ],
+            [
+              0.571,
+              0.714
+            ],
+            [
+              0.341,
+              0.714
+            ]
+          ]
+        },
+        "value": "1995-05-20"
+      },
+      "birth_place": {
+        "probability": 0.9,
+        "segmentation": {
+          "bounding_box": [
+            [
+              0.441,
+              0.724
+            ],
+            [
+              0.556,
+              0.724
+            ],
+            [
+              0.556,
+              0.744
+            ],
+            [
+              0.441,
+              0.744
+            ]
+          ]
+        },
+        "value": "CAMTETH"
+      },
+      "country": {
+        "probability": 1.0,
+        "segmentation": {
+          "bounding_box": [
+            [
+              0.508,
+              0.547
+            ],
+            [
+              0.559,
+              0.547
+            ],
+            [
+              0.559,
+              0.568
+            ],
+            [
+              0.508,
+              0.568
+            ]
+          ]
+        },
+        "value": "GBR"
+      },
+      "expiry_date": {
+        "probability": 1.0,
+        "segmentation": {
+          "bounding_box": [
+            [
+              0.34,
+              0.796
+            ],
+            [
+              0.576,
+              0.796
+            ],
+            [
+              0.576,
+              0.82
+            ],
+            [
+              0.34,
+              0.82
+            ]
+          ]
+        },
+        "value": "2017-04-22"
+      },
+      "gender": {
+        "probability": 1.0,
+        "segmentation": {
+          "bounding_box": [
+            [
+              0.054,
+              0.919
+            ],
+            [
+              0.928,
+              0.919
+            ],
+            [
+              0.928,
+              0.945
+            ],
+            [
+              0.054,
+              0.945
+            ]
+          ]
+        },
+        "value": "M"
+      },
+      "given_names": [
+        {
+          "probability": 0.99,
+          "segmentation": {
+            "bounding_box": [
+              [
+                0.341,
+                0.617
+              ],
+              [
+                0.435,
+                0.617
+              ],
+              [
+                0.435,
+                0.638
+              ],
+              [
+                0.341,
+                0.638
+              ]
+            ]
+          },
+          "value": "HENERT"
+        }
+      ],
+      "id_number": {
+        "probability": 1.0,
+        "segmentation": {
+          "bounding_box": [
+            [
+              0.723,
+              0.547
+            ],
+            [
+              0.899,
+              0.547
+            ],
+            [
+              0.899,
+              0.569
+            ],
+            [
+              0.723,
+              0.569
+            ]
+          ]
+        },
+        "value": "707797979"
+      },
+      "issuance_date": {
+        "probability": 1.0,
+        "segmentation": {
+          "bounding_box": [
+            [
+              0.34,
+              0.763
+            ],
+            [
+              0.565,
+              0.763
+            ],
+            [
+              0.565,
+              0.788
+            ],
+            [
+              0.34,
+              0.788
+            ]
+          ]
+        },
+        "value": "2012-04-22"
+      },
+      "mrz1": {
+        "probability": 0.99,
+        "segmentation": {
+          "bounding_box": [
+            [
+              0.055,
+              0.882
+            ],
+            [
+              0.926,
+              0.882
+            ],
+            [
+              0.926,
+              0.911
+            ],
+            [
+              0.055,
+              0.911
+            ]
+          ]
+        },
+        "value": "P<GBRPUDARSAN<<HENERT<<<<<<<<<<<<<<<<<<<<<<<"
+      },
+      "mrz2": {
+        "probability": 1.0,
+        "segmentation": {
+          "bounding_box": [
+            [
+              0.054,
+              0.919
+            ],
+            [
+              0.928,
+              0.919
+            ],
+            [
+              0.928,
+              0.945
+            ],
+            [
+              0.054,
+              0.945
+            ]
+          ]
+        },
+        "value": "7077979792GBR9505209M1704224<<<<<<<<<<<<<<00"
+      },
+      "orientation": {
+        "degrees": 0,
+        "probability": 0.99
+      },
+      "surname": {
+        "probability": 0.99,
+        "segmentation": {
+          "bounding_box": [
+            [
+              0.34,
+              0.581
+            ],
+            [
+              0.473,
+              0.581
+            ],
+            [
+              0.473,
+              0.604
+            ],
+            [
+              0.34,
+              0.604
+            ]
+          ]
+        },
+        "value": "PUDARSAN"
+      }
+    }
+  ]
+}

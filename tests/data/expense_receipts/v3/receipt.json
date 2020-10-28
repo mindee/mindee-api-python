@@ -1,0 +1,170 @@
+{
+  "input_type": "path",
+  "filename": "receipt.jpg",
+  "filepath": "/dummy/receipt.jpg",
+  "file_extension": "image/png",
+  "document_type": "receipt",
+  "call": {
+    "endpoint": {
+      "name": "expense_receipts",
+      "version": "2.1"
+    },
+    "finished_at": "2020-10-09T20:56:38+00:00",
+    "id": "d1c35ec5-8c22-4a2f-a735-861440bbe6cf",
+    "n_documents": 1,
+    "n_inputs": 1,
+    "processing_time": 0.896,
+    "started_at": "2020-10-09T20:56:37+00:00"
+  },
+  "documents": [
+    {
+      "id": "65943b99-a7bb-464d-8728-ba3df2d38962",
+      "name": "receipt.jpg"
+    }
+  ],
+  "predictions": [
+    {
+      "category": {
+        "probability": 0.99,
+        "value": "food"
+      },
+      "date": {
+        "value": "2016-02-26",
+        "probability": 0.99,
+        "raw": "26-Feb-2016",
+        "segmentation": {
+          "bounding_box": [
+            [
+              0.479,
+              0.172
+            ],
+            [
+              0.611,
+              0.172
+            ],
+            [
+              0.611,
+              0.196
+            ],
+            [
+              0.479,
+              0.196
+            ]
+          ]
+        }
+      },
+      "locale": {
+        "country": "GB",
+        "currency": "GBP",
+        "language": "en",
+        "probability": 0.82,
+        "value": "en-GB"
+      },
+      "supplier": {
+        "value": "CLACHAN",
+        "probability": 0.71,
+        "segmentation": {
+          "bounding_box": [
+            [
+              0.394,
+              0.068
+            ],
+            [
+              0.477,
+              0.068
+            ],
+            [
+              0.477,
+              0.087
+            ],
+            [
+              0.394,
+              0.087
+            ]
+          ]
+        }
+      },
+      "orientation": {
+        "degrees": 0,
+        "probability": 0.99
+      },
+      "taxes": [
+        {
+          "value": 1.7,
+          "probability": 1.0,
+          "rate": 20.0,
+          "code": "N/A",
+          "segmentation": {
+            "bounding_box": [
+              [
+                0.17,
+                0.647
+              ],
+              [
+                0.719,
+                0.647
+              ],
+              [
+                0.719,
+                0.675
+              ],
+              [
+                0.17,
+                0.675
+              ]
+            ]
+          }
+        }
+      ],
+      "time": {
+        "value": "15:20",
+        "probability": 0.99,
+        "raw": "15:20",
+        "segmentation": {
+          "bounding_box": [
+            [
+              0.623,
+              0.172
+            ],
+            [
+              0.68,
+              0.172
+            ],
+            [
+              0.68,
+              0.189
+            ],
+            [
+              0.623,
+              0.189
+            ]
+          ]
+        }
+      },
+      "total_incl": {
+        "value": 10.2,
+        "probability": 0.99,
+        "segmentation": {
+          "bounding_box": [
+            [
+              0.564,
+              0.614
+            ],
+            [
+              0.725,
+              0.614
+            ],
+            [
+              0.725,
+              0.644
+            ],
+            [
+              0.564,
+              0.644
+            ]
+          ]
+        }
+      }
+    }
+  ]
+}

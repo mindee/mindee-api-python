@@ -1,0 +1,407 @@
+{
+  "input_type": "path",
+  "filename": "receipt.jpg",
+  "filepath": "/dummy/receipt.jpg",
+  "file_extension": "image/png",
+  "document_type": "invoice",
+  "call": {
+    "endpoint": {
+      "name": "invoices",
+      "version": "1.0"
+    },
+    "finished_at": "2020-10-09T20:56:42+00:00",
+    "id": "3a290e78-6b98-4164-92e7-de13167b701c",
+    "n_documents": 2,
+    "n_inputs": 2,
+    "processing_time": 3.713,
+    "started_at": "2020-10-09T20:56:38+00:00"
+  },
+  "documents": [
+    {
+      "id": "339c0813-2968-4485-a291-8e7ef88b62e8",
+      "name": "invoice.pdf-p001"
+    },
+    {
+      "id": "82930746-3d65-4733-9f19-36c0c606568a",
+      "name": "invoice.pdf-p002"
+    }
+  ],
+  "predictions": [
+    {
+      "company_number": {
+        "probability": 0.37,
+        "segmentation": {
+          "bounding_box": [
+            [
+              0.756,
+              0.124
+            ],
+            [
+              0.857,
+              0.124
+            ],
+            [
+              0.857,
+              0.138
+            ],
+            [
+              0.756,
+              0.138
+            ]
+          ]
+        },
+        "type": "SIREN",
+        "value": "112476536"
+      },
+      "due_date": {
+        "iso": "2020-02-17",
+        "probability": 0.26,
+        "raw": "ARECEPTION",
+        "segmentation": {
+          "bounding_box": [
+            [
+              0.399,
+              0.801
+            ],
+            [
+              0.461,
+              0.801
+            ],
+            [
+              0.461,
+              0.812
+            ],
+            [
+              0.399,
+              0.812
+            ]
+          ]
+        }
+      },
+      "invoice_date": {
+        "iso": "2020-02-17",
+        "probability": 0.99,
+        "segmentation": {
+          "bounding_box": [
+            [
+              0.381,
+              0.306
+            ],
+            [
+              0.44,
+              0.306
+            ],
+            [
+              0.44,
+              0.318
+            ],
+            [
+              0.381,
+              0.318
+            ]
+          ]
+        }
+      },
+      "invoice_number": {
+        "probability": 0.63,
+        "segmentation": {
+          "bounding_box": [
+            [
+              0.168,
+              0.306
+            ],
+            [
+              0.271,
+              0.306
+            ],
+            [
+              0.271,
+              0.32
+            ],
+            [
+              0.168,
+              0.32
+            ]
+          ]
+        },
+        "value": "00420048013511"
+      },
+      "locale": {
+        "currency": "EUR",
+        "language": "fr",
+        "probability": 0.81
+      },
+      "orientation": {
+        "degrees": 0,
+        "probability": 0.99
+      },
+      "payment_details": {
+        "iban": "00000000000000000000",
+        "probability": 0.0,
+        "segmentation": {
+          "bounding_box": []
+        }
+      },
+      "supplier": {
+        "probability": 0.0,
+        "segmentation": {
+          "bounding_box": []
+        },
+        "value": "Google"
+      },
+      "tax_id": {
+        "probability": 0.37,
+        "segmentation": {
+          "bounding_box": [
+            [
+              0.756,
+              0.124
+            ],
+            [
+              0.857,
+              0.124
+            ],
+            [
+              0.857,
+              0.138
+            ],
+            [
+              0.756,
+              0.138
+            ]
+          ]
+        },
+        "value": "FR85112476536"
+      },
+      "taxes": [
+        {
+          "amount": 97.98,
+          "probability": 0.98,
+          "rate": 20.0,
+          "segmentation": {
+            "bounding_box": [
+              [
+                0.292,
+                0.748
+              ],
+              [
+                0.548,
+                0.748
+              ],
+              [
+                0.548,
+                0.761
+              ],
+              [
+                0.292,
+                0.761
+              ]
+            ]
+          }
+        }
+      ],
+      "total_excl": {
+        "amount": 489.97,
+        "probability": 0.99,
+        "segmentation": {
+          "bounding_box": [
+            [
+              0.661,
+              0.763
+            ],
+            [
+              0.709,
+              0.763
+            ],
+            [
+              0.709,
+              0.778
+            ],
+            [
+              0.661,
+              0.778
+            ]
+          ]
+        }
+      },
+      "total_incl": {
+        "amount": 587.95,
+        "probability": 0.99,
+        "segmentation": {
+          "bounding_box": [
+            [
+              0.889,
+              0.784
+            ],
+            [
+              0.936,
+              0.784
+            ],
+            [
+              0.936,
+              0.795
+            ],
+            [
+              0.889,
+              0.795
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "company_number": {
+        "probability": 0.0,
+        "segmentation": {
+          "bounding_box": []
+        },
+        "type": "N/A",
+        "value": "N/A"
+      },
+      "due_date": {
+        "iso": "N/A",
+        "probability": 0.0,
+        "raw": "N/A",
+        "segmentation": {
+          "bounding_box": []
+        }
+      },
+      "invoice_date": {
+        "iso": "2018-09-25",
+        "probability": 0.99,
+        "segmentation": {
+          "bounding_box": [
+            [
+              0.84,
+              0.305
+            ],
+            [
+              0.931,
+              0.305
+            ],
+            [
+              0.931,
+              0.319
+            ],
+            [
+              0.84,
+              0.319
+            ]
+          ]
+        }
+      },
+      "invoice_number": {
+        "probability": 0.0,
+        "segmentation": {
+          "bounding_box": []
+        },
+        "value": "N/A"
+      },
+      "locale": {
+        "currency": "CAD",
+        "language": "en",
+        "probability": 0.94
+      },
+      "orientation": {
+        "degrees": 0,
+        "probability": 0.99
+      },
+      "payment_details": {
+        "iban": "00000000000000000000",
+        "probability": 0.0,
+        "segmentation": {
+          "bounding_box": []
+        }
+      },
+      "supplier": {
+        "probability": 0.41,
+        "segmentation": {
+          "bounding_box": [
+            [
+              0.165,
+              0.089
+            ],
+            [
+              0.388,
+              0.089
+            ],
+            [
+              0.388,
+              0.145
+            ],
+            [
+              0.165,
+              0.145
+            ]
+          ]
+        },
+        "value": "DESIGNS TURNPIKE CO"
+      },
+      "tax_id": {
+        "probability": 0.0,
+        "segmentation": {
+          "bounding_box": []
+        },
+        "value": "00000000000000000000"
+      },
+      "taxes": [
+        {
+          "amount": 193.2,
+          "probability": 0.74,
+          "rate": 8.0,
+          "segmentation": {
+            "bounding_box": [
+              [
+                0.785,
+                0.746
+              ],
+              [
+                0.963,
+                0.746
+              ],
+              [
+                0.963,
+                0.759
+              ],
+              [
+                0.785,
+                0.759
+              ]
+            ]
+          }
+        }
+      ],
+      "total_excl": {
+        "amount": "N/A",
+        "probability": 0.0,
+        "segmentation": {
+          "bounding_box": []
+        }
+      },
+      "total_incl": {
+        "amount": 2608.2,
+        "probability": 0.99,
+        "segmentation": {
+          "bounding_box": [
+            [
+              0.897,
+              0.841
+            ],
+            [
+              0.966,
+              0.841
+            ],
+            [
+              0.966,
+              0.853
+            ],
+            [
+              0.897,
+              0.853
+            ]
+          ]
+        }
+      }
+    }
+  ]
+}
