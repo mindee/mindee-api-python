@@ -1,5 +1,3 @@
-import os
-import subprocess
 import re
 from setuptools import find_packages, setup
 
@@ -22,7 +20,6 @@ def make_requirements_list(file="requirements.txt", only_regular=True):
     :param only_regular: remove rows with /, #, space or empty
     :return:
     """
-
     with open(file) as f:
         lines = f.read().splitlines()
     if only_regular:
@@ -38,7 +35,7 @@ setup(
     python_requires=">=3.0",
     name=f"{PACKAGE_NAME}",
     description="Mindee API helper library for python",
-    version="v1.0.0",
+    version="v1.0.1",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url=GIT_URL,
