@@ -1,6 +1,6 @@
 # Mindee API helper library for python
 
-The full documentation is availabale [here](https://mindee.com/documentation/get-started/setup-your-account)
+The full documentation is available [here](https://mindee.com/documentation/get-started/setup-your-account)
 
 ## Install
 
