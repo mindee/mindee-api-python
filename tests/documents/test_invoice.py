@@ -290,3 +290,21 @@ def test_empty_object_works():
     invoice = Invoice()
     assert invoice.total_tax.value is None
 
+def test_null_tax_rates_dont_raise():
+    invoice = Invoice(
+        locale="fr",
+        total_incl=12,
+        total_excl=15,
+        invoice_date="2018-12-21",
+        invoice_number="001",
+        due_date="2019-01-01",
+        taxes={(1, 0), (2, 20)},
+        supplier="Amazon",
+        payment_details="1231456498799765",
+        company_number="asdqsdae",
+        vat_number="1231231232",
+        orientation=0,
+        total_tax=3
+    )
+    assert invoice.checklist["taxes_match_total_incl"] is False
+    assert invoice.checklist["taxes_match_total_excl"] is False
