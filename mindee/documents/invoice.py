@@ -208,6 +208,8 @@ class Invoice(Document):
         total_vat = 0
         reconstructed_total = 0
         for tax in self.taxes:
+            if tax.value is None or tax.rate is None or tax.rate == 0:
+                return False
             total_vat += tax.value
             reconstructed_total += tax.value + 100 * tax.value / tax.rate
 
@@ -241,6 +243,8 @@ class Invoice(Document):
         total_vat = 0
         reconstructed_total = 0
         for tax in self.taxes:
+            if tax.value is None or tax.rate is None or tax.rate == 0:
+                return False
             total_vat += tax.value
             reconstructed_total += 100 * tax.value / tax.rate
 

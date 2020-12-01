@@ -179,3 +179,15 @@ def test_compare_4(receipt_object_from_scratch):
 def test_empty_object_works():
     receipt = Receipt()
     assert receipt.total_tax.value is None
+
+
+def test_null_tax_rates_dont_raise():
+    invoice = Receipt(
+        locale="fr",
+        total_incl=12,
+        total_excl=15,
+        taxes={(1, 0), (2, 20)},
+        orientation=0,
+        total_tax=3
+    )
+    assert invoice.checklist["taxes_match_total_incl"] is False
