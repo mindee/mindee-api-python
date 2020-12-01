@@ -179,3 +179,5 @@ def test_compare_4(receipt_object_from_scratch):
 def test_empty_object_works():
     receipt = Receipt()
     assert receipt.total_tax.value is None
+
+

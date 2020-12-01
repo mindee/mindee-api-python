@@ -290,6 +290,7 @@ def test_empty_object_works():
     invoice = Invoice()
     assert invoice.total_tax.value is None
 
+
 def test_null_tax_rates_dont_raise():
     invoice = Invoice(
         locale="fr",
