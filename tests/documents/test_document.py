@@ -30,14 +30,14 @@ def test_responseWrapper_plate(dummy_file_input):
 # Invoice tests
 
 def test_responseWrapper_invoice(dummy_file_input):
-    response = json.load(open('./tests/data/invoices/v1/invoice.json'))
+    response = json.load(open('./tests/data/invoices/v2/invoice.json'))
     parsed_invoice = Response.format_response(response, "invoice", dummy_file_input)
     assert parsed_invoice.invoice.invoice_date.value == "2020-02-17"
 
 
 from mindee import Invoice
 
-json_repsonse = json.load(open("./tests/data/invoices/v1/invoice.json"))
+json_repsonse = json.load(open("./tests/data/invoices/v2/invoice.json"))
 invoice_0 = Invoice(json_repsonse["predictions"][0])
 invoice_1 = Invoice(json_repsonse["predictions"][1])
 
@@ -64,7 +64,7 @@ def test_responseWrapper_financial_document_with_receipt(dummy_file_input):
 
 
 def test_responseWrapper_financial_document_with_invoice(dummy_file_input):
-    response = json.load(open('./tests/data/invoices/v1/invoice.json'))
+    response = json.load(open('./tests/data/invoices/v2/invoice.json'))
     parsed_financial_doc = Response.format_response(response, "financial_document", dummy_file_input)
     assert parsed_financial_doc.financial_document.date.value == "2020-02-17"
 
