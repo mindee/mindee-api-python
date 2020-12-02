@@ -152,7 +152,7 @@ class Client(object):
             self,
             file,
             input_type="path",
-            version="1",
+            version="2",
             cut_pdf=True,
             include_words=False
     ):
