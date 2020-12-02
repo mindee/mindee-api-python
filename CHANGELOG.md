@@ -1,5 +1,11 @@
 # Mindee python SDK
 
+## v1.1.0 (2020-12-02)
+
+### Chg
+
+* Updated invoice API endpoint to V2 
+
 ## v1.0.2 (2020-12-01)
 
 ### Fix
