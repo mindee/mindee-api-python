@@ -4,6 +4,7 @@ from mindee.fields.date import Date
 from mindee.fields.amount import Amount
 from mindee.fields.locale import Locale
 from mindee.fields.orientation import Orientation
+from mindee.fields.payment_details import PaymentDetails
 from mindee.fields.tax import Tax
 from mindee.http import request
 from mindee.benchmark import Benchmark
@@ -59,7 +60,6 @@ class Invoice(Document):
         self.supplier = None
         self.payment_details = None
         self.company_number = None
-        self.vat_number = None
         self.orientation = None
         self.total_tax = None
 
@@ -82,7 +82,6 @@ class Invoice(Document):
             self.invoice_number = Field({"value": invoice_number}, value_key="value", page_n=page_n)
             self.payment_details = Field({"value": payment_details}, value_key="value", page_n=page_n)
             self.company_number = Field({"value": company_number}, value_key="value", page_n=page_n)
-            self.vat_number = Field({"value": vat_number}, value_key="value", page_n=page_n)
 
         # Invoke Document constructor
         super(Invoice, self).__init__(input_file)
@@ -99,18 +98,27 @@ class Invoice(Document):
         :param page_n: Page number for multi pages pdf input
         :return: (void) set the object attributes with api prediction values
         """
-        self.locale = Locale(api_prediction["locale"], value_key="language", page_n=page_n)
-        self.total_incl = Amount(api_prediction["total_incl"], page_n=page_n)
-        self.total_excl = Amount(api_prediction["total_excl"], page_n=page_n)
-        self.invoice_date = Date(api_prediction["invoice_date"], page_n=page_n)
+        self.company_number = [
+            Field(company_reg, extra_fields={"type"}, page_n=page_n) for company_reg in
+            api_prediction["company_registration"]
+        ]
+        self.invoice_date = Date(api_prediction["date"], value_key="value", page_n=page_n)
+        self.due_date = Date(api_prediction["due_date"], value_key="value", page_n=page_n)
         self.invoice_number = Field(api_prediction["invoice_number"], page_n=page_n)
-        self.due_date = Date(api_prediction["due_date"], page_n=page_n)
-        self.taxes = [Tax(tax_prediction, page_n=page_n) for tax_prediction in api_prediction["taxes"]]
-        self.supplier = Field(api_prediction["supplier"], page_n=page_n)
-        self.payment_details = Field(api_prediction["payment_details"], value_key="iban", page_n=page_n)
-        self.vat_number = Field(api_prediction["tax_id"], page_n=page_n)
-        self.company_number = Field(api_prediction["company_number"], extra_fields={"type"}, page_n=page_n)
+        self.locale = Locale(api_prediction["locale"], value_key="language", page_n=page_n)
         self.orientation = Orientation(api_prediction["orientation"], page_n=page_n)
+        self.supplier = Field(api_prediction["supplier"], page_n=page_n)
+        self.taxes = [
+            Tax(tax_prediction, page_n=page_n, value_key="value") for tax_prediction in api_prediction["taxes"]
+        ]
+        self.payment_details = [
+            PaymentDetails(
+                payment_detail,
+                page_n=page_n
+            ) for payment_detail in api_prediction["payment_details"]
+        ]
+        self.total_incl = Amount(api_prediction["total_incl"], value_key="value", page_n=page_n)
+        self.total_excl = Amount(api_prediction["total_excl"], value_key="value", page_n=page_n)
         self.total_tax = Amount({"value": None, "probability": 0.}, value_key="value", page_n=page_n)
 
     def __str__(self):
@@ -162,7 +170,7 @@ class Invoice(Document):
             input_file,
             base_url,
             invoice_token=None,
-            version="1",
+            version="2",
             include_words=False
     ):
         """
