@@ -1,0 +1,424 @@
+{
+  "call": {
+    "endpoint": {
+      "name": "invoices",
+      "version": "2.0"
+    },
+    "finished_at": "2020-12-02T16:04:28+00:00",
+    "id": "084301d1-51a1-4e2e-9457-c25569583144",
+    "n_documents": 2,
+    "n_inputs": 2,
+    "processing_time": 3.999,
+    "started_at": "2020-12-02T16:04:24+00:00"
+  },
+  "documents": [
+    {
+      "id": "283be3f3-b328-43c8-baeb-c6223fee912b",
+      "name": "file.pdf-p001"
+    },
+    {
+      "id": "9a4ae3af-858d-4274-ac5c-2878982022ba",
+      "name": "file.pdf-p002"
+    }
+  ],
+  "predictions": [
+    {
+      "company_registration": [
+        {
+          "probability": 0.49,
+          "segmentation": {
+            "bounding_box": [
+              [
+                0.756,
+                0.124
+              ],
+              [
+                0.836,
+                0.124
+              ],
+              [
+                0.836,
+                0.138
+              ],
+              [
+                0.756,
+                0.138
+              ]
+            ]
+          },
+          "type": "SIREN",
+          "value": "501124705"
+        },
+        {
+          "probability": 0.49,
+          "segmentation": {
+            "bounding_box": [
+              [
+                0.756,
+                0.124
+              ],
+              [
+                0.836,
+                0.124
+              ],
+              [
+                0.836,
+                0.138
+              ],
+              [
+                0.756,
+                0.138
+              ]
+            ]
+          },
+          "type": "VAT NUMBER",
+          "value": "FR33501124705"
+        }
+      ],
+      "date": {
+        "probability": 0.99,
+        "segmentation": {
+          "bounding_box": [
+            [
+              0.381,
+              0.306
+            ],
+            [
+              0.439,
+              0.306
+            ],
+            [
+              0.439,
+              0.318
+            ],
+            [
+              0.381,
+              0.318
+            ]
+          ]
+        },
+        "value": "2020-02-17"
+      },
+      "document_type": {
+        "value": "INVOICE"
+      },
+      "due_date": {
+        "probability": 0.25,
+        "raw": "\u00e0 r\u00e9ceptionet",
+        "segmentation": {
+          "bounding_box": [
+            [
+              0.399,
+              0.801
+            ],
+            [
+              0.46,
+              0.801
+            ],
+            [
+              0.46,
+              0.812
+            ],
+            [
+              0.399,
+              0.812
+            ]
+          ]
+        },
+        "value": "2020-02-17"
+      },
+      "invoice_number": {
+        "probability": 0.8,
+        "segmentation": {
+          "bounding_box": [
+            [
+              0.168,
+              0.306
+            ],
+            [
+              0.265,
+              0.306
+            ],
+            [
+              0.265,
+              0.32
+            ],
+            [
+              0.168,
+              0.32
+            ]
+          ]
+        },
+        "value": "0042004801351"
+      },
+      "locale": {
+        "currency": "EUR",
+        "language": "fr",
+        "probability": 0.77
+      },
+      "orientation": {
+        "degrees": 0,
+        "probability": 0.99
+      },
+      "payment_details": [],
+      "supplier": {
+        "probability": 0.0,
+        "segmentation": {
+          "bounding_box": []
+        },
+        "value": "N/A"
+      },
+      "taxes": [
+        {
+          "probability": 0.87,
+          "rate": 20.0,
+          "segmentation": {
+            "bounding_box": [
+              [
+                0.29,
+                0.748
+              ],
+              [
+                0.543,
+                0.748
+              ],
+              [
+                0.543,
+                0.766
+              ],
+              [
+                0.29,
+                0.766
+              ]
+            ]
+          },
+          "value": 97.98
+        }
+      ],
+      "total_excl": {
+        "probability": 0.99,
+        "segmentation": {
+          "bounding_box": [
+            [
+              0.659,
+              0.762
+            ],
+            [
+              0.713,
+              0.762
+            ],
+            [
+              0.713,
+              0.781
+            ],
+            [
+              0.659,
+              0.781
+            ]
+          ]
+        },
+        "value": 489.97
+      },
+      "total_incl": {
+        "probability": 0.99,
+        "segmentation": {
+          "bounding_box": [
+            [
+              0.886,
+              0.762
+            ],
+            [
+              0.938,
+              0.762
+            ],
+            [
+              0.938,
+              0.779
+            ],
+            [
+              0.886,
+              0.779
+            ]
+          ]
+        },
+        "value": 587.95
+      }
+    },
+    {
+      "company_registration": [],
+      "date": {
+        "probability": 0.99,
+        "segmentation": {
+          "bounding_box": [
+            [
+              0.838,
+              0.304
+            ],
+            [
+              0.932,
+              0.304
+            ],
+            [
+              0.932,
+              0.318
+            ],
+            [
+              0.838,
+              0.318
+            ]
+          ]
+        },
+        "value": "2018-09-25"
+      },
+      "document_type": {
+        "value": "INVOICE"
+      },
+      "due_date": {
+        "probability": 0.85,
+        "raw": "Upon receipt",
+        "segmentation": {
+          "bounding_box": [
+            [
+              0.84,
+              0.323
+            ],
+            [
+              0.939,
+              0.323
+            ],
+            [
+              0.939,
+              0.339
+            ],
+            [
+              0.84,
+              0.339
+            ]
+          ]
+        },
+        "value": "2018-09-25"
+      },
+      "invoice_number": {
+        "probability": 0.99,
+        "segmentation": {
+          "bounding_box": [
+            [
+              0.841,
+              0.264
+            ],
+            [
+              0.862,
+              0.264
+            ],
+            [
+              0.862,
+              0.279
+            ],
+            [
+              0.841,
+              0.279
+            ]
+          ]
+        },
+        "value": "14"
+      },
+      "locale": {
+        "currency": "CAD",
+        "language": "en",
+        "probability": 0.94
+      },
+      "orientation": {
+        "degrees": 0,
+        "probability": 0.99
+      },
+      "payment_details": [],
+      "supplier": {
+        "probability": 0.15,
+        "segmentation": {
+          "bounding_box": [
+            [
+              0.165,
+              0.089
+            ],
+            [
+              0.385,
+              0.089
+            ],
+            [
+              0.385,
+              0.144
+            ],
+            [
+              0.165,
+              0.144
+            ]
+          ]
+        },
+        "value": "DESIGNS TURNPIKE CO"
+      },
+      "taxes": [
+        {
+          "probability": 0.73,
+          "rate": 8.0,
+          "segmentation": {
+            "bounding_box": [
+              [
+                0.785,
+                0.744
+              ],
+              [
+                0.963,
+                0.744
+              ],
+              [
+                0.963,
+                0.759
+              ],
+              [
+                0.785,
+                0.759
+              ]
+            ]
+          },
+          "value": 193.2
+        }
+      ],
+      "total_excl": {
+        "probability": 0.0,
+        "segmentation": {
+          "bounding_box": []
+        },
+        "value": "N/A"
+      },
+      "total_incl": {
+        "probability": 0.99,
+        "segmentation": {
+          "bounding_box": [
+            [
+              0.886,
+              0.84
+            ],
+            [
+              0.969,
+              0.84
+            ],
+            [
+              0.969,
+              0.858
+            ],
+            [
+              0.886,
+              0.858
+            ]
+          ]
+        },
+        "value": 2608.2
+      }
+    }
+  ],
+  "document_type": "invoice",
+  "input_type": "path",
+  "filename": "invoice.pdf",
+  "filepath": "/home/jonathan/mindee/dev/issues_git/mindee-api-python/tests/data/invoices/invoice.pdf",
+  "file_extension": "application/pdf"
+}

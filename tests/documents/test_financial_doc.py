@@ -5,7 +5,7 @@ from mindee import FinancialDocument
 
 @pytest.fixture
 def financial_doc_from_invoice_object():
-    invoice_json_repsonse = json.load(open("./tests/data/invoices/v1/invoice.json"))
+    invoice_json_repsonse = json.load(open("./tests/data/invoices/v2/invoice.json"))
     return FinancialDocument(invoice_json_repsonse["predictions"][0])
 
 
@@ -28,7 +28,6 @@ def financial_doc_object_from_scratch():
         merchant_name="Amazon",
         payment_details="1231456498799765",
         company_number="asdqsdae",
-        vat_number="1231231232",
         orientation=0,
         total_tax=3,
         time="12:15"
@@ -43,7 +42,7 @@ def financial_doc_from_receipt_object_all_na():
 
 @pytest.fixture
 def financial_doc_from_invoice_object_all_na():
-    json_repsonse = json.load(open("./tests/data/invoices/v1/invoice_all_na.json"))
+    json_repsonse = json.load(open("./tests/data/invoices/v2/invoice_all_na.json"))
     return FinancialDocument(json_repsonse["predictions"][0])
 
 
@@ -54,7 +53,7 @@ def receipt_pred():
 
 @pytest.fixture
 def invoice_pred():
-    return json.load(open("./tests/data/invoices/v1/invoice_all_na.json"))["predictions"][0]
+    return json.load(open("./tests/data/invoices/v2/invoice_all_na.json"))["predictions"][0]
 
 
 def test_constructor_1(financial_doc_from_invoice_object):
@@ -184,9 +183,9 @@ def test__invoice_reconstruct_total_excl_from_total_and_taxes_2(invoice_pred):
 
 def test__invoice_reconstruct_total_excl_from_total_and_taxes_3(invoice_pred):
     # working example
-    invoice_pred["total_incl"] = {"amount": 12.54, "probability": 0.5}
-    invoice_pred["taxes"] = [{"rate": 20, "amount": 0.5, "probability": 0.1},
-                             {"rate": 10, "amount": 4.25, "probability": 0.6}]
+    invoice_pred["total_incl"] = {"value": 12.54, "probability": 0.5}
+    invoice_pred["taxes"] = [{"rate": 20, "value": 0.5, "probability": 0.1},
+                             {"rate": 10, "value": 4.25, "probability": 0.6}]
     financial_doc = FinancialDocument(invoice_pred)
     assert financial_doc.total_excl.probability == 0.03
     assert financial_doc.total_excl.value == 7.79
@@ -201,8 +200,8 @@ def test__invoice_reconstruct_total_tax_1(invoice_pred):
 
 def test__invoice_reconstruct_total_tax_2(invoice_pred):
     # working example
-    invoice_pred["taxes"] = [{"rate": 20, "amount": 10.2, "probability": 0.5},
-                             {"rate": 10, "amount": 40.0, "probability": 0.1}]
+    invoice_pred["taxes"] = [{"rate": 20, "value": 10.2, "probability": 0.5},
+                             {"rate": 10, "value": 40.0, "probability": 0.1}]
     financial_doc = FinancialDocument(invoice_pred)
     assert financial_doc.total_tax.value == 50.2
     assert financial_doc.total_tax.probability == 0.05
@@ -210,9 +209,9 @@ def test__invoice_reconstruct_total_tax_2(invoice_pred):
 
 def test__invoice_taxes_match_total_incl_1(invoice_pred):
     # matching example
-    invoice_pred["total_incl"] = {"amount": 507.25, "probability": 0.6}
-    invoice_pred["taxes"] = [{"rate": 20, "amount": 10.99, "probability": 0.5},
-                             {"rate": 10, "amount": 40.12, "probability": 0.1}]
+    invoice_pred["total_incl"] = {"value": 507.25, "probability": 0.6}
+    invoice_pred["taxes"] = [{"rate": 20, "value": 10.99, "probability": 0.5},
+                             {"rate": 10, "value": 40.12, "probability": 0.1}]
     financial_doc = FinancialDocument(invoice_pred)
     assert financial_doc.checklist["taxes_match_total_incl"] is True
     assert financial_doc.total_incl.probability == 1.
@@ -222,17 +221,17 @@ def test__invoice_taxes_match_total_incl_1(invoice_pred):
 
 def test__invoice_taxes_match_total_incl_2(invoice_pred):
     # not matching example with close error
-    invoice_pred["total_incl"] = {"amount": 507.25, "probability": 0.6}
-    invoice_pred["taxes"] = [{"rate": 20, "amount": 10.9, "probability": 0.5},
-                             {"rate": 10, "amount": 40.12, "probability": 0.1}]
+    invoice_pred["total_incl"] = {"value": 507.25, "probability": 0.6}
+    invoice_pred["taxes"] = [{"rate": 20, "value": 10.9, "probability": 0.5},
+                             {"rate": 10, "value": 40.12, "probability": 0.1}]
     financial_doc = FinancialDocument(invoice_pred)
     assert financial_doc.checklist["taxes_match_total_incl"] is False
 
 
 def test__invoice_taxes_match_total_incl_3(invoice_pred):
     # sanity check with null tax
-    invoice_pred["total_incl"] = {"amount": 507.25, "probability": 0.6}
-    invoice_pred["taxes"] = [{"rate": 20, "amount": 0., "probability": 0.5}]
+    invoice_pred["total_incl"] = {"value": 507.25, "probability": 0.6}
+    invoice_pred["taxes"] = [{"rate": 20, "value": 0., "probability": 0.5}]
     financial_doc = FinancialDocument(invoice_pred)
     assert financial_doc.checklist["taxes_match_total_incl"] is False
 

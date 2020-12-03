@@ -1,0 +1,95 @@
+{
+  "call": {
+    "endpoint": {
+      "name": "invoices",
+      "version": "2.0"
+    },
+    "finished_at": "2020-12-02T16:04:28+00:00",
+    "id": "084301d1-51a1-4e2e-9457-c25569583144",
+    "n_documents": 2,
+    "n_inputs": 2,
+    "processing_time": 3.999,
+    "started_at": "2020-12-02T16:04:24+00:00"
+  },
+  "documents": [
+    {
+      "id": "283be3f3-b328-43c8-baeb-c6223fee912b",
+      "name": "file.pdf-p001"
+    },
+    {
+      "id": "9a4ae3af-858d-4274-ac5c-2878982022ba",
+      "name": "file.pdf-p002"
+    }
+  ],
+  "predictions": [
+    {
+      "company_registration": [
+      ],
+      "date": {
+        "probability": 0.99,
+        "segmentation": {
+          "bounding_box": [
+          ]
+        },
+        "value": "N/A"
+      },
+      "due_date": {
+        "probability": 0.25,
+        "raw": "N/A",
+        "segmentation": {
+          "bounding_box": [
+          ]
+        },
+        "value": "N/A"
+      },
+      "invoice_number": {
+        "probability": 0.8,
+        "segmentation": {
+          "bounding_box": [
+            ]
+        },
+        "value": "N/A"
+      },
+      "locale": {
+        "currency": "N/A",
+        "language": "N/A",
+        "probability": 0.77
+      },
+      "orientation": {
+        "degrees": 0,
+        "probability": 0.99
+      },
+      "payment_details": [],
+      "supplier": {
+        "probability": 0.0,
+        "segmentation": {
+          "bounding_box": []
+        },
+        "value": "N/A"
+      },
+      "taxes": [
+      ],
+      "total_excl": {
+        "probability": 0.99,
+        "segmentation": {
+          "bounding_box": [
+          ]
+        },
+        "value": "N/A"
+      },
+      "total_incl": {
+        "probability": 0.99,
+        "segmentation": {
+          "bounding_box": [
+          ]
+        },
+        "value": "N/A"
+      }
+    }
+  ],
+  "document_type": "invoice",
+  "input_type": "path",
+  "filename": "invoice.pdf",
+  "filepath": "/home/jonathan/mindee/dev/issues_git/mindee-api-python/tests/data/invoices/invoice.pdf",
+  "file_extension": "application/pdf"
+}
