@@ -1,5 +1,11 @@
 # Mindee python SDK
 
+## v1.1.1 (2020-01-31)
+
+### Chg
+
+* Updated total tax reconstruction for invoice
+
 ## v1.1.0 (2020-12-02)
 
 ### Chg
