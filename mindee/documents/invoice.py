@@ -188,9 +188,10 @@ class Invoice(Document):
         """
         Call fields reconstruction methods
         """
-        self.__reconstruct_total_tax()
+        self.__reconstruct_total_tax_from_tax_lines()
         self.__reconstruct_total_excl_from_tcc_and_taxes()
         self.__reconstruct_total_incl_from_taxes_plus_excl()
+        self.__reconstruct_total_tax_from_incl_and_excl()
 
     def _checklist(self):
         """
@@ -337,7 +338,7 @@ class Invoice(Document):
             }
             self.total_excl = Amount(total_excl, value_key="value", reconstructed=True)
 
-    def __reconstruct_total_tax(self):
+    def __reconstruct_total_tax_from_tax_lines(self):
         """
         Set self.total_tax with Amount object
         The total_tax Amount value is the sum of all self.taxes value
@@ -349,6 +350,25 @@ class Invoice(Document):
                 "probability": Field.array_probability(self.taxes)
             }
             if total_tax["value"] > 0:
+                self.total_tax = Amount(total_tax, value_key="value", reconstructed=True)
+
+    def __reconstruct_total_tax_from_incl_and_excl(self):
+        """
+        Set self.total_tax with Amount object
+        Check if the total tax was already set
+        If not, set thta total tax amount to the diff of incl and excl
+        """
+        if self.total_tax.value is not None or\
+                self.total_excl.value is None or\
+                self.total_incl.value is None:
+                pass
+        else:
+
+            total_tax = {
+                "value": self.total_incl.value - self.total_excl.value,
+                "probability": self.total_incl.probability * self.total_excl.probability
+            }
+            if total_tax["value"] >= 0:
                 self.total_tax = Amount(total_tax, value_key="value", reconstructed=True)
 
     @staticmethod
