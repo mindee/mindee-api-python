@@ -1,5 +1,11 @@
 # Mindee python SDK
 
+## v1.1.2 (2020-02-19)
+
+### Fix
+
+* :bug: Fixed FinancialDoc invoice version and reconstruction
+
 ## v1.1.1 (2020-01-31)
 
 ### Chg
