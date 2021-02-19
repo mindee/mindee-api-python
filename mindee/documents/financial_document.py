@@ -192,7 +192,7 @@ class FinancialDocument(Document):
         :param invoice_token: Invoices API token
         """
         if "pdf" in input_file.file_extension:
-            url = os.path.join(base_url, "invoices", "v1", "predict")
+            url = os.path.join(base_url, "invoices", "v2", "predict")
             return request(url, input_file, invoice_token, include_words)
         else:
             url = os.path.join(base_url, "expense_receipts", "v3", "predict")
@@ -218,8 +218,9 @@ class FinancialDocument(Document):
         total_vat = 0
         reconstructed_total = 0
         for tax in self.taxes:
-            total_vat += tax.value
-            reconstructed_total += tax.value + 100 * tax.value / tax.rate
+            if tax.rate is not None and tax.rate != 0:
+                total_vat += tax.value
+                reconstructed_total += tax.value + 100 * tax.value / tax.rate
 
         # Sanity check
         if total_vat <= 0:
