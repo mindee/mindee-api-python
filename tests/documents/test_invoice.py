@@ -252,6 +252,15 @@ def test__taxes_plus_total_excl_match_total_incl_3(invoice_pred):
     assert invoice.checklist["taxes_match_total_incl"] is False
 
 
+def test__shouldnt_raise_when_tax_rate_none(invoice_pred):
+    # sanity check with null tax
+    invoice_pred["total_excl"] = {"value": 456.15, "probability": 0.6}
+    invoice_pred["total_incl"] = {"value": 507.25, "probability": 0.6}
+    invoice_pred["taxes"] = [{"rate": "N/A", "value": 0., "probability": 0.5}]
+    invoice = Invoice(invoice_pred)
+    assert invoice.checklist["taxes_match_total_incl"] is False
+
+
 def test_compare_1(invoice_object):
     # Compare same object must return all True
     benchmark = Invoice.compare(invoice_object, invoice_object)
