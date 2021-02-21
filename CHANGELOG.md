@@ -1,5 +1,11 @@
 # Mindee python SDK
 
+## v1.1.3 (2020-02-21)
+
+### Fix
+
+* :zap: FinancialDoc attributes have same type from invoice or receipt
+
 ## v1.1.2 (2020-02-19)
 
 ### Fix
