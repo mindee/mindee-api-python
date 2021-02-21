@@ -134,8 +134,8 @@ class FinancialDocument(Document):
             self.time = receipt.time
             self.total_tax = receipt.total_tax
             self.invoice_number = Field({"value": None, "probability": 0.})
-            self.payment_details = Field({"value": None, "probability": 0.})
-            self.company_number = Field({"value": None, "probability": 0.})
+            self.payment_details = []
+            self.company_number = []
 
     def __str__(self):
         return "-----Financial document-----\n" \
@@ -218,7 +218,7 @@ class FinancialDocument(Document):
         total_vat = 0
         reconstructed_total = 0
         for tax in self.taxes:
-            if tax.rate is not None and tax.rate != 0:
+            if tax.rate is not None and tax.rate != 0 and tax.value is not None:
                 total_vat += tax.value
                 reconstructed_total += tax.value + 100 * tax.value / tax.rate
 
