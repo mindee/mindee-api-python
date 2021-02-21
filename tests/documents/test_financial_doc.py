@@ -286,3 +286,11 @@ def test_compare_4(financial_doc_object_from_scratch):
 def test_empty_object_works():
     financial_doc = FinancialDocument()
     assert financial_doc.total_tax.value is None
+
+
+def test_invoice_or_receipt_get_same_field_types(receipt_pred, invoice_pred):
+    financial_doc_from_receipt = FinancialDocument(receipt_pred)
+    financial_doc_from_invoice = FinancialDocument(invoice_pred)
+    assert set(dir(financial_doc_from_invoice)) == set(dir(financial_doc_from_receipt))
+    for key in dir(financial_doc_from_receipt):
+        assert type(getattr(financial_doc_from_receipt, key)) == type(getattr(financial_doc_from_invoice, key))
