@@ -1,6 +1,6 @@
 # Receipt, passport and invoice OCR python helper for Mindee API
 
-The full documentation is available [here](https://mindee.com/documentation/get-started/setup-your-account)
+The full documentation is available [here](https://developers.mindee.com/docs/getting-started)
 
 ## Install
 
