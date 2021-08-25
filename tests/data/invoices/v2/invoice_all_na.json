@@ -1,95 +1,152 @@
 {
-  "call": {
-    "endpoint": {
-      "name": "invoices",
-      "version": "2.0"
-    },
-    "finished_at": "2020-12-02T16:04:28+00:00",
-    "id": "084301d1-51a1-4e2e-9457-c25569583144",
-    "n_documents": 2,
-    "n_inputs": 2,
-    "processing_time": 3.999,
-    "started_at": "2020-12-02T16:04:24+00:00"
+  "api_request": {
+    "error": {},
+    "resources": [
+      "document"
+    ],
+    "status": "success",
+    "status_code": 201,
+    "url": "http://api.mindee.net/v1/products/mindee/invoices/v2/predict?include_mvision=True"
   },
-  "documents": [
-    {
-      "id": "283be3f3-b328-43c8-baeb-c6223fee912b",
-      "name": "file.pdf-p001"
+  "document": {
+    "annotations": {
+      "labels": []
     },
-    {
-      "id": "9a4ae3af-858d-4274-ac5c-2878982022ba",
-      "name": "file.pdf-p002"
-    }
-  ],
-  "predictions": [
-    {
-      "company_registration": [
+    "id": "dffeef9c-dc36-4688-9973-c0f1b6af2b05",
+    "inference": {
+      "finished_at": "2021-08-24T08:07:06+00:00",
+      "pages": [
+        {
+          "id": 0,
+          "prediction": {
+            "company_registration": [],
+            "date": {
+              "confidence": 0.0,
+              "polygon": [],
+              "value": null
+            },
+            "document_type": {
+              "value": "INVOICE"
+            },
+            "due_date": {
+              "confidence": 0.0,
+              "polygon": [],
+              "raw": null,
+              "value": null
+            },
+            "invoice_number": {
+              "confidence": 0.0,
+              "polygon": [],
+              "value": null
+            },
+            "locale": {
+              "confidence": 0.36,
+              "currency": null,
+              "language": null
+            },
+            "orientation": {
+              "confidence": 0.99,
+              "degrees": 0
+            },
+            "payment_details": [],
+            "supplier": {
+              "confidence": 0.0,
+              "polygon": [],
+              "value": null
+            },
+            "taxes": [],
+            "total_excl": {
+              "confidence": 0.0,
+              "polygon": [],
+              "value": null
+            },
+            "total_incl": {
+              "confidence": 0.0,
+              "polygon": [],
+              "value": null
+            }
+          }
+        }
       ],
-      "date": {
-        "probability": 0.99,
-        "segmentation": {
-          "bounding_box": [
-          ]
+      "prediction": {
+        "company_registration": [],
+        "date": {
+          "confidence": 0.0,
+          "page_id": null,
+          "polygon": [],
+          "value": null
         },
-        "value": "N/A"
-      },
-      "due_date": {
-        "probability": 0.25,
-        "raw": "N/A",
-        "segmentation": {
-          "bounding_box": [
-          ]
+        "document_type": {
+          "value": "INVOICE"
         },
-        "value": "N/A"
-      },
-      "invoice_number": {
-        "probability": 0.8,
-        "segmentation": {
-          "bounding_box": [
-            ]
+        "due_date": {
+          "confidence": 0.0,
+          "page_id": null,
+          "polygon": [],
+          "raw": null,
+          "value": null
         },
-        "value": "N/A"
-      },
-      "locale": {
-        "currency": "N/A",
-        "language": "N/A",
-        "probability": 0.77
-      },
-      "orientation": {
-        "degrees": 0,
-        "probability": 0.99
-      },
-      "payment_details": [],
-      "supplier": {
-        "probability": 0.0,
-        "segmentation": {
-          "bounding_box": []
+        "invoice_number": {
+          "confidence": 0.0,
+          "page_id": null,
+          "polygon": [],
+          "value": null
         },
-        "value": "N/A"
-      },
-      "taxes": [
-      ],
-      "total_excl": {
-        "probability": 0.99,
-        "segmentation": {
-          "bounding_box": [
-          ]
+        "locale": {
+          "confidence": 0.36,
+          "currency": "EUR",
+          "language": "fr"
         },
-        "value": "N/A"
-      },
-      "total_incl": {
-        "probability": 0.99,
-        "segmentation": {
-          "bounding_box": [
-          ]
+        "payment_details": [],
+        "supplier": {
+          "confidence": 0.0,
+          "page_id": 0,
+          "polygon": [],
+          "value": null
         },
-        "value": "N/A"
-      }
-    }
-  ],
+        "taxes": [],
+        "total_excl": {
+          "confidence": 0.0,
+          "page_id": null,
+          "polygon": [],
+          "value": null
+        },
+        "total_incl": {
+          "confidence": 0.0,
+          "page_id": null,
+          "polygon": [],
+          "value": null
+        }
+      },
+      "processing_time": 1.641,
+      "product": {
+        "features": [
+          "locale",
+          "invoice_number",
+          "date",
+          "due_date",
+          "total_incl",
+          "total_excl",
+          "taxes",
+          "document_type",
+          "payment_details",
+          "company_registration",
+          "supplier",
+          "orientation"
+        ],
+        "name": "mindee/invoices",
+        "type": "standard",
+        "version": "2.1"
+      },
+      "started_at": "2021-08-24T08:07:05+00:00"
+    },
+    "n_pages": 1,
+    "name": "document",
+    "ocr": {}
+  },
   "document_type": "invoice",
   "input_type": "path",
-  "filename": "invoice.pdf",
-  "filepath": "/home/jonathan/mindee/dev/issues_git/mindee-api-python/tests/data/invoices/invoice.pdf",
-  "file_extension": "application/pdf"
+  "filename": "passport.jpeg",
+  "filepath": "./tests/data/passport/passport.jpeg",
+  "file_extension": "image/jpeg"
 }

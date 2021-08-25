@@ -1,5 +1,3 @@
-import json
-
 import pytest
 from mindee import Client, Response, Receipt, Passport
 
@@ -154,6 +152,12 @@ def test_request_with_base64(dummy_client):
 
 def test_request_without_raise_on_error(dummy_client_dont_raise):
     result = dummy_client_dont_raise.parse_receipt('./tests/data/expense_receipts/receipt.jpg', input_type="path")
+    assert result.receipt is None
+    assert len(result.receipts) == 0
+
+
+def test_request_without_raise_on_error_include_words(dummy_client_dont_raise):
+    result = dummy_client_dont_raise.parse_receipt('./tests/data/expense_receipts/receipt.jpg', input_type="path", include_words=True)
     assert result.receipt is None
     assert len(result.receipts) == 0
 

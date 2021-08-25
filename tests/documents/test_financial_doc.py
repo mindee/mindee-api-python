@@ -6,13 +6,13 @@ from mindee import FinancialDocument
 @pytest.fixture
 def financial_doc_from_invoice_object():
     invoice_json_repsonse = json.load(open("./tests/data/invoices/v2/invoice.json"))
-    return FinancialDocument(invoice_json_repsonse["predictions"][0])
+    return FinancialDocument(invoice_json_repsonse["document"]["inference"]["pages"][0]["prediction"])
 
 
 @pytest.fixture
 def financial_doc_from_receipt_object():
     receipt_json_repsonse = json.load(open("./tests/data/expense_receipts/v3/receipt.json"))
-    return FinancialDocument(receipt_json_repsonse["predictions"][0])
+    return FinancialDocument(receipt_json_repsonse["document"]["inference"]["pages"][0]["prediction"])
 
 
 @pytest.fixture
@@ -37,23 +37,23 @@ def financial_doc_object_from_scratch():
 @pytest.fixture
 def financial_doc_from_receipt_object_all_na():
     json_repsonse = json.load(open("./tests/data/expense_receipts/v3/receipt_all_na.json"))
-    return FinancialDocument(json_repsonse["predictions"][0])
+    return FinancialDocument(json_repsonse["document"]["inference"]["pages"][0]["prediction"])
 
 
 @pytest.fixture
 def financial_doc_from_invoice_object_all_na():
     json_repsonse = json.load(open("./tests/data/invoices/v2/invoice_all_na.json"))
-    return FinancialDocument(json_repsonse["predictions"][0])
+    return FinancialDocument(json_repsonse["document"]["inference"]["pages"][0]["prediction"])
 
 
 @pytest.fixture
 def receipt_pred():
-    return json.load(open("./tests/data/expense_receipts/v3/receipt_all_na.json"))["predictions"][0]
+    return json.load(open("./tests/data/expense_receipts/v3/receipt_all_na.json"))["document"]["inference"]["pages"][0]["prediction"]
 
 
 @pytest.fixture
 def invoice_pred():
-    return json.load(open("./tests/data/invoices/v2/invoice_all_na.json"))["predictions"][0]
+    return json.load(open("./tests/data/invoices/v2/invoice_all_na.json"))["document"]["inference"]["pages"][0]["prediction"]
 
 
 def test_constructor_1(financial_doc_from_invoice_object):

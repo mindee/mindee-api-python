@@ -1,75 +1,130 @@
 {
-  "input_type": "path",
-  "filename": "receipt.jpg",
-  "filepath": "/dummy/receipt.jpg",
-  "file_extension": "image/png",
-  "document_type": "receipt",
-  "call": {
-    "endpoint": {
-      "name": "expense_receipts",
-      "version": "2.1"
-    },
-    "finished_at": "2020-10-09T20:56:38+00:00",
-    "id": "d1c35ec5-8c22-4a2f-a735-861440bbe6cf",
-    "n_documents": 1,
-    "n_inputs": 1,
-    "processing_time": 0.896,
-    "started_at": "2020-10-09T20:56:37+00:00"
+  "api_request": {
+    "error": {},
+    "resources": [
+      "document"
+    ],
+    "status": "success",
+    "status_code": 201,
+    "url": "http://api.mindee.net/v1/products/mindee/expense_receipts/v3/predict?include_mvision=True"
   },
-  "documents": [
-    {
-      "id": "65943b99-a7bb-464d-8728-ba3df2d38962",
-      "name": "receipt.jpg"
-    }
-  ],
-  "predictions": [
-    {
-      "category": {
-        "probability": 0.99,
-        "value": "N/A"
-      },
-      "date": {
-        "value": "N/A",
-        "probability": 0.09,
-        "raw": "",
-        "segmentation": {
-          "bounding_box": []
+  "document": {
+    "annotations": {
+      "labels": []
+    },
+    "id": "0fdf5179-d31c-4cc6-9aae-b69cbca2d70d",
+    "inference": {
+      "finished_at": "2021-08-24T08:11:28+00:00",
+      "pages": [
+        {
+          "id": 0,
+          "prediction": {
+            "category": {
+              "confidence": 0.46,
+              "value": "food"
+            },
+            "date": {
+              "confidence": 0.0,
+              "polygon": [],
+              "raw": null,
+              "value": null
+            },
+            "locale": {
+              "confidence": 0.15,
+              "country": null,
+              "currency": null,
+              "language": null,
+              "value": null
+            },
+            "orientation": {
+              "confidence": 0.99,
+              "degrees": 0
+            },
+            "supplier": {
+              "confidence": 0.0,
+              "polygon": [],
+              "value": null
+            },
+            "taxes": [],
+            "time": {
+              "confidence": 0.0,
+              "polygon": [],
+              "raw": null,
+              "value": null
+            },
+            "total_incl": {
+              "confidence": 0.0,
+              "polygon": [],
+              "value": null
+            }
+          }
+        }
+      ],
+      "prediction": {
+        "category": {
+          "confidence": 0.46,
+          "value": "food"
+        },
+        "date": {
+          "confidence": 0.0,
+          "page_id": null,
+          "polygon": [],
+          "raw": null,
+          "value": null
+        },
+        "locale": {
+          "confidence": 0.15,
+          "country": "FR",
+          "currency": "EUR",
+          "language": "fr",
+          "value": "fr-FR"
+        },
+        "supplier": {
+          "confidence": 0.0,
+          "page_id": null,
+          "polygon": [],
+          "value": null
+        },
+        "taxes": [],
+        "time": {
+          "confidence": 0.0,
+          "page_id": null,
+          "polygon": [],
+          "raw": null,
+          "value": null
+        },
+        "total_incl": {
+          "confidence": 0.0,
+          "page_id": null,
+          "polygon": [],
+          "value": null
         }
       },
-      "locale": {
-        "country": "N/A",
-        "currency": "N/A",
-        "language": "N/A",
-        "probability": 0.82,
-        "value": "N/A"
+      "processing_time": 1.42,
+      "product": {
+        "features": [
+          "locale",
+          "category",
+          "date",
+          "time",
+          "total_incl",
+          "taxes",
+          "supplier",
+          "orientation"
+        ],
+        "name": "mindee/expense_receipts",
+        "type": "standard",
+        "version": "3.0"
       },
-      "supplier": {
-        "value": "N/A",
-        "probability": 0.71,
-        "segmentation": {
-          "bounding_box": []
-        }
-      },
-      "orientation": {
-        "degrees": 0,
-        "probability": 0.99
-      },
-      "taxes": [],
-      "time": {
-        "value": "N/A",
-        "probability": 0.99,
-        "raw": "",
-        "segmentation": {
-          "bounding_box": []
-        }
-      },
-      "total_incl": {
-        "value": "N/A",
-        "probability": 0.99,
-        "segmentation": {
-          "bounding_box": []
-        }
-      }
-    }
-  ]
+      "started_at": "2021-08-24T08:11:26+00:00"
+    },
+    "n_pages": 1,
+    "name": "document",
+    "ocr": {}
+  },
+  "document_type": "receipt",
+  "input_type": "path",
+  "filename": "passport.jpeg",
+  "filepath": "./tests/data/passport/passport.jpeg",
+  "file_extension": "image/jpeg"
 }

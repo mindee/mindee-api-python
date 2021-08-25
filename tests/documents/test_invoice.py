@@ -6,7 +6,7 @@ from mindee import Invoice
 @pytest.fixture
 def invoice_object():
     json_repsonse = json.load(open("./tests/data/invoices/v2/invoice.json"))
-    return Invoice(json_repsonse["predictions"][0])
+    return Invoice(json_repsonse["document"]["inference"]["pages"][0]["prediction"])
 
 
 @pytest.fixture
@@ -30,12 +30,12 @@ def invoice_object_from_scratch():
 @pytest.fixture
 def invoice_object_all_na():
     json_repsonse = json.load(open("./tests/data/invoices/v2/invoice_all_na.json"))
-    return Invoice(json_repsonse["predictions"][0])
+    return Invoice(json_repsonse["document"]["inference"]["pages"][0]["prediction"])
 
 
 @pytest.fixture
 def invoice_pred():
-    return json.load(open("./tests/data/invoices/v2/invoice_all_na.json"))["predictions"][0]
+    return json.load(open("./tests/data/invoices/v2/invoice_all_na.json"))["document"]["inference"]["pages"][0]["prediction"]
 
 
 # Technical tests
