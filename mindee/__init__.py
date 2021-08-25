@@ -10,6 +10,14 @@ from mindee.documents.invoice import Invoice
 from mindee.documents.passport import Passport
 from mindee.benchmark import Benchmark
 
+DOCUMENT_CLASSES = {
+    "receipt": Receipt,
+    "invoice": Invoice,
+    "financial_document": FinancialDocument,
+    "passport": Passport,
+    "license_plate": CarPlate
+}
+
 
 class Client(object):
     def __init__(
@@ -29,7 +37,7 @@ class Client(object):
         """
         assert type(raise_on_error) == bool
         self.raise_on_error = raise_on_error
-        self.base_url = "https://api.mindee.net/products/"
+        self.base_url = "https://api.mindee.net/v1/products/mindee/"
         self.expense_receipt_token = expense_receipt_token
         self.invoice_token = invoice_token
         self.passport_token = passport_token
@@ -79,10 +87,11 @@ class Client(object):
         :return: Full response object
         """
         dict_response = response.json()
-        if response.status_code != 200 and self.raise_on_error:
+
+        if response.status_code > 201 and self.raise_on_error:
             raise HTTPException(
                 "Receipt API %s HTTP error: %s" % (response.status_code, json.dumps(dict_response)))
-        elif response.status_code != 200:
+        elif response.status_code > 201:
             return Response(
                 http_response=dict_response,
                 pages=[],
@@ -288,55 +297,30 @@ class Response(object):
         json_response["filepath"] = input_file.filepath
         json_response["file_extension"] = input_file.file_extension
         pages = []
-        for page_n, page_prediction in enumerate(json_response["predictions"]):
-            if document_type == "receipt":
-                pages.append(
-                    Receipt(
-                        api_prediction=page_prediction,
-                        input_file=input_file,
-                        page_n=page_n
-                    )
-                )
-            elif document_type == "invoice":
-                pages.append(
-                    Invoice(
-                        api_prediction=page_prediction,
-                        input_file=input_file,
-                        page_n=page_n
-                    )
-                )
-            elif document_type == "financial_document":
-                pages.append(
-                    FinancialDocument(
-                        api_prediction=page_prediction,
-                        input_file=input_file,
-                        page_n=page_n
-                    )
-                )
-            elif document_type == "passport":
-                pages.append(
-                    Passport(
-                        api_prediction=page_prediction,
-                        input_file=input_file,
-                        page_n=page_n
-                    )
-                )
-            elif document_type == "license_plate":
-                pages.append(
-                    CarPlate(
-                        api_prediction=page_prediction,
-                        input_file=input_file,
-                        page_n=page_n
-                    )
-                )
-            else:
-                raise Exception("Document type not supported.")
 
-        document = Document.merge_pages(pages)
+        if document_type not in DOCUMENT_CLASSES.keys():
+            raise Exception("Document type not supported.")
+
+        # Create page level objects
+        for page_n, page_prediction in enumerate(json_response["document"]["inference"]["pages"]):
+            pages.append(
+                DOCUMENT_CLASSES[document_type](
+                    api_prediction=page_prediction["prediction"],
+                    input_file=input_file,
+                    page_n=page_prediction["id"]
+                )
+            )
+
+        # Create the document level object
+        document_level = DOCUMENT_CLASSES[document_type](
+            api_prediction=json_response["document"]["inference"]["prediction"],
+            input_file=input_file,
+            page_n="-1"
+        )
 
         return Response(
             http_response=json_response,
             pages=pages,
-            document=document,
+            document=document_level,
             document_type=document_type
         )

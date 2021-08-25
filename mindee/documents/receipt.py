@@ -117,7 +117,8 @@ class Receipt(Document):
         self.taxes = [
             Tax(tax_prediction, page_n=page_n, value_key="value", rate_key="rate", code_key="code")
             for tax_prediction in api_prediction["taxes"]]
-        self.orientation = Orientation(api_prediction["orientation"], page_n=page_n)
+        if str(page_n) != "-1":
+            self.orientation = Orientation(api_prediction["orientation"], page_n=page_n)
         self.total_tax = Amount({"value": None, "probability": 0.}, value_key="value", page_n=page_n)
         self.total_excl = Amount({"value": None, "probability": 0.}, value_key="value", page_n=page_n)
 
