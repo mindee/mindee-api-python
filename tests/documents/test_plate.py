@@ -8,7 +8,7 @@ from mindee import CarPlate
 @pytest.fixture
 def car_plate_object():
     json_repsonse = json.load(open("./tests/data/license_plates/v1/plate.json"))
-    return CarPlate(json_repsonse["predictions"][0])
+    return CarPlate(json_repsonse["document"]["inference"]["pages"][0]["prediction"])
 
 
 @pytest.fixture
@@ -21,7 +21,7 @@ def car_plate_object_from_scratch():
 @pytest.fixture
 def car_plate_object_all_na():
     json_repsonse = json.load(open("./tests/data/license_plates/v1/plate_all_na.json"))
-    return CarPlate(json_repsonse["predictions"][0])
+    return CarPlate(json_repsonse["document"]["inference"]["pages"][0]["prediction"])
 
 
 def test_constructor(car_plate_object):

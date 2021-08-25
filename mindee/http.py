@@ -11,7 +11,7 @@ def request(url, input_file, token, include_words=False):
     """
     input_file.file_object.seek(0)
 
-    files = {"file": input_file.file_object.read()}
+    files = {"document": input_file.file_object.read()}
 
     headers = {"X-Inferuser-Token": token}
 
@@ -20,7 +20,7 @@ def request(url, input_file, token, include_words=False):
         params["include_mvision"] = "true"
 
     response = requests.post(
-        url+"?include_mvision=True",
+        url,
         files=files,
         headers=headers,
         data=params

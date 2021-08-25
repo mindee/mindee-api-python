@@ -1,33 +1,57 @@
 {
-  "input_type": "path",
-  "filename": "receipt.jpg",
-  "filepath": "/dummy/receipt.jpg",
-  "file_extension": "image/png",
-  "call": {
-    "endpoint": {
-      "name": "license_plates",
-      "version": "1.0"
-    },
-    "finished_at": "2020-10-09T20:56:34+00:00",
-    "id": "c9877842-6090-413b-bb4c-77fed33ad18e",
-    "n_documents": 1,
-    "n_inputs": 1,
-    "processing_time": 0.413,
-    "started_at": "2020-10-09T20:56:33+00:00"
+  "api_request": {
+    "error": {},
+    "resources": [
+      "document"
+    ],
+    "status": "success",
+    "status_code": 201,
+    "url": "http://api.mindee.net/v1/products/mindee/license_plates/v1/predict?include_mvision=True"
   },
-  "documents": [
-    {
-      "id": "2d5b968b-fd81-4309-a227-f654cf72de69",
-      "name": "plate.png"
-    }
-  ],
-  "predictions": [
-    {
-      "license_plates": [
+  "document": {
+    "annotations": {
+      "labels": []
+    },
+    "id": "8d12cace-3541-449d-8819-4ef4fb601e02",
+    "inference": {
+      "finished_at": "2021-08-24T08:14:06+00:00",
+      "pages": [
         {
-          "probability": 0.97,
-          "segmentation": {
-            "bounding_box": [
+          "id": 0,
+          "prediction": {
+            "license_plates": [
+              {
+                "confidence": 0.97,
+                "polygon": [
+                  [
+                    0.574,
+                    0.492
+                  ],
+                  [
+                    0.761,
+                    0.492
+                  ],
+                  [
+                    0.761,
+                    0.553
+                  ],
+                  [
+                    0.574,
+                    0.553
+                  ]
+                ],
+                "value": "7EQE707"
+              }
+            ]
+          }
+        }
+      ],
+      "prediction": {
+        "license_plates": [
+          {
+            "confidence": 0.97,
+            "page_id": 0,
+            "polygon": [
               [
                 0.574,
                 0.492
@@ -44,11 +68,29 @@
                 0.574,
                 0.553
               ]
-            ]
-          },
-          "value": "7EQE707"
-        }
-      ]
-    }
-  ]
+            ],
+            "value": "7EQE707"
+          }
+        ]
+      },
+      "processing_time": 0.741,
+      "product": {
+        "features": [
+          "license_plates"
+        ],
+        "name": "mindee/license_plates",
+        "type": "standard",
+        "version": "1.0"
+      },
+      "started_at": "2021-08-24T08:14:06+00:00"
+    },
+    "n_pages": 1,
+    "name": "document",
+    "ocr": {}
+  },
+  "document_type": "license_plate",
+  "input_type": "path",
+  "filename": "plate.png",
+  "filepath": "./tests/data/license_plates/plate.png",
+  "file_extension": "image/png"
 }

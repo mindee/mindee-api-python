@@ -5,14 +5,12 @@ def test_constructor():
     field_dict = {
         'value': "test",
         'probability': 0.1,
-        'segmentation': {
-            "bounding_box": [
-                [0.016, 0.707],
-                [0.414, 0.707],
-                [0.414, 0.831],
-                [0.016, 0.831]
-            ]
-        }
+        "polygon": [
+            [0.016, 0.707],
+            [0.414, 0.707],
+            [0.414, 0.831],
+            [0.016, 0.831]
+        ]
     }
     field = Field(field_dict)
     assert field.value == "test"
@@ -63,7 +61,7 @@ def test_no_probability():
 
 def test_array_probability():
     fields = [Field({"value": None, "probability": 0.1}), Field({"value": None, "probability": 0.8})]
-    assert Field.array_probability(fields) == 0.8*0.1
+    assert Field.array_probability(fields) == 0.8 * 0.1
     fields = [Field({"value": None, "probability": 0.1}), Field({"value": None, "probability": None})]
     assert Field.array_probability(fields) == 0.
 

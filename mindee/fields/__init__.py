@@ -27,8 +27,8 @@ class Field(object):
             else:
                 self.probability = 0.
 
-            if "segmentation" in abstract_prediction:
-                self.bbox = abstract_prediction["segmentation"]["bounding_box"]
+            if "polygon" in abstract_prediction:
+                self.bbox = abstract_prediction["polygon"]
             else:
                 self.bbox = []
 

@@ -1,114 +1,175 @@
 {
-  "input_type": "path",
-  "filename": "receipt.jpg",
-  "filepath": "/dummy/receipt.jpg",
-  "file_extension": "image/png",
-  "call": {
-    "endpoint": {
-      "name": "passport",
-      "version": "1.0"
-    },
-    "finished_at": "2020-10-09T20:56:36+00:00",
-    "id": "ddde5355-17d6-4c82-a7ae-0a10fbe34d8c",
-    "n_documents": 1,
-    "n_inputs": 1,
-    "processing_time": 1.412,
-    "started_at": "2020-10-09T20:56:35+00:00"
+  "api_request": {
+    "error": {},
+    "resources": [
+      "document"
+    ],
+    "status": "success",
+    "status_code": 201,
+    "url": "http://api.mindee.net/v1/products/mindee/passport/v1/predict?include_mvision=True"
   },
-  "documents": [
-    {
-      "id": "07beeefd-025d-42a0-a8e8-b8085f4f1dd6",
-      "name": "passport.jpeg"
-    }
-  ],
-  "predictions": [
-    {
-      "birth_date": {
-        "probability": 1.0,
-        "segmentation": {
-          "bounding_box": [
-          ]
-        },
-        "value": "N/A"
-      },
-      "birth_place": {
-        "probability": 0.9,
-        "segmentation": {
-          "bounding_box": [
-          ]
-        },
-        "value": "N/A"
-      },
-      "country": {
-        "probability": 1.0,
-        "segmentation": {
-          "bounding_box": [
-          ]
-        },
-        "value": "N/A"
-      },
-      "expiry_date": {
-        "probability": 1.0,
-        "segmentation": {
-          "bounding_box": [
-          ]
-        },
-        "value": "N/A"
-      },
-      "gender": {
-        "probability": 1.0,
-        "segmentation": {
-          "bounding_box": [
-          ]
-        },
-        "value": "N/A"
-      },
-      "given_names": [
+  "document": {
+    "annotations": {
+      "labels": []
+    },
+    "id": "25300120-d3da-41a8-870f-5dd09a51835a",
+    "inference": {
+      "finished_at": "2021-08-24T08:18:07+00:00",
+      "pages": [
+        {
+          "id": 0,
+          "prediction": {
+            "birth_date": {
+              "confidence": 0.0,
+              "polygon": [],
+              "value": null
+            },
+            "birth_place": {
+              "confidence": 0.0,
+              "polygon": [],
+              "value": null
+            },
+            "country": {
+              "confidence": 0.0,
+              "polygon": [],
+              "value": null
+            },
+            "expiry_date": {
+              "confidence": 0.0,
+              "polygon": [],
+              "value": null
+            },
+            "gender": {
+              "confidence": 0.0,
+              "polygon": [],
+              "value": null
+            },
+            "given_names": [],
+            "id_number": {
+              "confidence": 0.0,
+              "page_id": null,
+              "polygon": [],
+              "value": null
+            },
+            "issuance_date": {
+              "confidence": 0.0,
+              "polygon": [],
+              "value": null
+            },
+            "mrz1": {
+              "confidence": 0.0,
+              "polygon": [],
+              "value": null
+            },
+            "mrz2": {
+              "confidence": 0.0,
+              "polygon": [],
+              "value": null
+            },
+            "orientation": {
+              "confidence": 0.99,
+              "degrees": 0
+            },
+            "surname": {
+              "confidence": 0.0,
+              "polygon": [],
+              "value": null
+            }
+          }
+        }
       ],
-      "id_number": {
-        "probability": 1.0,
-        "segmentation": {
-          "bounding_box": [
-          ]
+      "prediction": {
+        "birth_date": {
+          "confidence": 0.0,
+          "page_id": null,
+          "polygon": [],
+          "value": null
         },
-        "value": "N/A"
-      },
-      "issuance_date": {
-        "probability": 1.0,
-        "segmentation": {
-          "bounding_box": [
-          ]
+        "birth_place": {
+          "confidence": 0.0,
+          "page_id": null,
+          "polygon": [],
+          "value": null
         },
-        "value": "N/A"
-      },
-      "mrz1": {
-        "probability": 0.99,
-        "segmentation": {
-          "bounding_box": [
-          ]
+        "country": {
+          "confidence": 0.0,
+          "page_id": null,
+          "polygon": [],
+          "value": null
         },
-        "value": "N/A"
-      },
-      "mrz2": {
-        "probability": 1.0,
-        "segmentation": {
-          "bounding_box": [
-          ]
+        "expiry_date": {
+          "confidence": 0.0,
+          "page_id": null,
+          "polygon": [],
+          "value": null
         },
-        "value": "N/A"
-      },
-      "orientation": {
-        "degrees": 0,
-        "probability": 0.99
-      },
-      "surname": {
-        "probability": 0.99,
-        "segmentation": {
-          "bounding_box": [
-          ]
+        "gender": {
+          "confidence": 0.0,
+          "page_id": null,
+          "polygon": [],
+          "value": null
         },
-        "value": "N/A"
-      }
-    }
-  ]
+        "given_names": [],
+        "id_number": {
+          "confidence": 0.0,
+          "page_id": 0,
+          "polygon": [],
+          "value": null
+        },
+        "issuance_date": {
+          "confidence": 0.0,
+          "page_id": null,
+          "polygon": [],
+          "value": null
+        },
+        "mrz1": {
+          "confidence": 0.0,
+          "page_id": null,
+          "polygon": [],
+          "value": null
+        },
+        "mrz2": {
+          "confidence": 0.0,
+          "page_id": null,
+          "polygon": [],
+          "value": null
+        },
+        "surname": {
+          "confidence": 0.0,
+          "page_id": null,
+          "polygon": [],
+          "value": null
+        }
+      },
+      "processing_time": 0.772,
+      "product": {
+        "features": [
+          "country",
+          "id_number",
+          "given_names",
+          "surname",
+          "birth_date",
+          "birth_place",
+          "gender",
+          "issuance_date",
+          "expiry_date",
+          "orientation",
+          "mrz1",
+          "mrz2"
+        ],
+        "name": "mindee/passport",
+        "type": "standard",
+        "version": "1.0"
+      },
+      "started_at": "2021-08-24T08:18:06+00:00"
+    },
+    "n_pages": 1,
+    "name": "document",
+    "ocr": {}
+  },
+  "document_type": "passport",
+  "input_type": "path",
+  "filename": "plate.png",
+  "filepath": "./tests/data/license_plates/plate.png",
+  "file_extension": "image/png"
 }

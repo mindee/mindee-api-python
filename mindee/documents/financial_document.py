@@ -138,18 +138,26 @@ class FinancialDocument(Document):
             self.company_number = []
 
     def __str__(self):
-        return "-----Financial document-----\n" \
+        return "-----Financial Document data-----\n" \
                "Filename: %s \n" \
-               "Total amount: %s \n" \
+               "Invoice number: %s \n" \
+               "Total amount including taxes: %s \n" \
+               "Total amount excluding taxes: %s \n" \
                "Date: %s\n" \
-               "Merchant name: %s\n" \
+               "Invoice due date: %s\n" \
+               "Supplier name: %s\n" \
+               "Taxes: %s\n" \
                "Total taxes: %s\n" \
                "----------------------" % \
                (
                    self.filename,
+                   self.invoice_number.value,
                    self.total_incl.value,
+                   self.total_excl.value,
                    self.date.value,
+                   self.due_date.value,
                    self.merchant_name.value,
+                   ",".join([str(t.value) + " " + str(t.rate) + "%" for t in self.taxes]),
                    self.total_tax.value
                )
 

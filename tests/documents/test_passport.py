@@ -6,7 +6,7 @@ from mindee import Passport
 @pytest.fixture
 def passport_object():
     json_repsonse = json.load(open("./tests/data/passport/v1/passport.json"))
-    return Passport(json_repsonse["predictions"][0])
+    return Passport(json_repsonse["document"]["inference"]["pages"][0]["prediction"])
 
 
 @pytest.fixture
@@ -31,7 +31,7 @@ def passport_object_from_scratch():
 @pytest.fixture
 def passport_object_all_na():
     json_repsonse = json.load(open("./tests/data/passport/v1/passport_all_na.json"))
-    return Passport(json_repsonse["predictions"][0])
+    return Passport(json_repsonse["document"]["inference"]["pages"][0]["prediction"])
 
 
 def test_constructor(passport_object):

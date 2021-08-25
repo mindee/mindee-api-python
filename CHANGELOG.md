@@ -1,5 +1,14 @@
 # Mindee python SDK
 
+## v1.2.0 (2020-08-25)
+
+### Chg
+
+* :sparkles: Adapted SDK to the new Mindee API endpoint
+* :zap: Single page object reconstruction is now server-side
+* :heavy_minus_sign: Removed Numpy dependency
+* :white_check_mark: Updated tests with new data
+
 ## v1.1.3 (2020-02-21)
 
 ### Fix

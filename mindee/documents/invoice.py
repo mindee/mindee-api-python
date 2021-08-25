@@ -26,7 +26,6 @@ class Invoice(Document):
             supplier=None,
             payment_details=None,
             company_number=None,
-            vat_number=None,
             orientation=None,
             total_tax=None,
             page_n=0
@@ -106,7 +105,8 @@ class Invoice(Document):
         self.due_date = Date(api_prediction["due_date"], value_key="value", page_n=page_n)
         self.invoice_number = Field(api_prediction["invoice_number"], page_n=page_n)
         self.locale = Locale(api_prediction["locale"], value_key="language", page_n=page_n)
-        self.orientation = Orientation(api_prediction["orientation"], page_n=page_n)
+        if str(page_n) != "-1":
+            self.orientation = Orientation(api_prediction["orientation"], page_n=page_n)
         self.supplier = Field(api_prediction["supplier"], page_n=page_n)
         self.taxes = [
             Tax(tax_prediction, page_n=page_n, value_key="value") for tax_prediction in api_prediction["taxes"]
@@ -128,6 +128,7 @@ class Invoice(Document):
                "Total amount including taxes: %s \n" \
                "Total amount excluding taxes: %s \n" \
                "Invoice date: %s\n" \
+               "Invoice due date: %s\n" \
                "Supplier name: %s\n" \
                "Taxes: %s\n" \
                "Total taxes: %s\n" \
@@ -138,6 +139,7 @@ class Invoice(Document):
                    self.total_incl.value,
                    self.total_excl.value,
                    self.invoice_date.value,
+                   self.due_date.value,
                    self.supplier.value,
                    ",".join([str(t.value) + " " + str(t.rate) + "%" for t in self.taxes]),
                    self.total_tax.value

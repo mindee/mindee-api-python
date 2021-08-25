@@ -7,14 +7,12 @@ def test_constructor():
         'rate': 0.2,
         'code': "QST",
         'probability': 0.1,
-        'segmentation': {
-            "bounding_box": [
-                [0.016, 0.707],
-                [0.414, 0.707],
-                [0.414, 0.831],
-                [0.016, 0.831]
-            ]
-        }
+        "polygon": [
+            [0.016, 0.707],
+            [0.414, 0.707],
+            [0.414, 0.831],
+            [0.016, 0.831]
+        ]
     }
     tax = Tax(field_dict, value_key="value")
     assert tax.value == 2

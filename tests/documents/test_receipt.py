@@ -6,7 +6,7 @@ from mindee import Receipt
 @pytest.fixture
 def receipt_object():
     json_repsonse = json.load(open("./tests/data/expense_receipts/v3/receipt.json"))
-    return Receipt(json_repsonse["predictions"][0])
+    return Receipt(json_repsonse["document"]["inference"]["pages"][0]["prediction"])
 
 
 @pytest.fixture
@@ -30,12 +30,12 @@ def receipt_base64():
 @pytest.fixture
 def receipt_object_all_na():
     json_repsonse = json.load(open("./tests/data/expense_receipts/v3/receipt_all_na.json"))
-    return Receipt(json_repsonse["predictions"][0])
+    return Receipt(json_repsonse["document"]["inference"]["pages"][0]["prediction"])
 
 
 @pytest.fixture
 def receipt_pred():
-    return json.load(open("./tests/data/expense_receipts/v3/receipt_all_na.json"))["predictions"][0]
+    return json.load(open("./tests/data/expense_receipts/v3/receipt_all_na.json"))["document"]["inference"]["pages"][0]["prediction"]
 
 
 # Technical tests
