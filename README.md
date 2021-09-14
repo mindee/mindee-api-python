@@ -31,7 +31,7 @@ Depending on what type of document you want to parse, you need to add specifics 
 from mindee import Client
 
 mindee_client = Client(
-    expense_receipts_token="your_expense_receipts_api_token_here",
+    expense_receipt_token="your_expense_receipt_api_token_here",
     invoice_token="your_invoice_api_token_here",
     passport_token="your_passport_api_token_here",
     license_plate_token="your_license_plate_api_token_here",
