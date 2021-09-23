@@ -13,7 +13,7 @@ def request(url, input_file, token, include_words=False):
 
     files = {"document": input_file.file_object.read()}
 
-    headers = {"X-Inferuser-Token": token}
+    headers = {"Authorization": f"Token {token}"}
 
     params = {}
     if include_words:
