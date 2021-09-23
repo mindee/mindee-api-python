@@ -11,8 +11,7 @@ def request(url, input_file, token, include_words=False):
     """
     input_file.file_object.seek(0)
 
-    files = {"document": input_file.file_object.read()}
-
+    files = {"document": (input_file.filename, input_file.file_object.read())}
     headers = {"Authorization": f"Token {token}"}
 
     params = {}
