@@ -1,5 +1,12 @@
 # Mindee python SDK
 
+## v1.2.1 (2020-09-23)
+
+### Fix
+
+* :bug: Forward uploaded file name for file verification rules
+* :bug: Change token management for new header format
+
 ## v1.2.0 (2020-08-25)
 
 ### Chg
@@ -31,13 +38,13 @@
 
 ### Chg
 
-* Updated invoice API endpoint to V2 
+* Updated invoice API endpoint to V2
 
 ## v1.0.2 (2020-12-01)
 
 ### Fix
 
-* Fixed null tax rate issue 
+* Fixed null tax rate issue
 
 ## v1.0.0 (2020-10-28)
 

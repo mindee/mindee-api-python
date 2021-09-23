@@ -35,13 +35,13 @@ setup(
     python_requires=">=3.0",
     name=f"{PACKAGE_NAME}",
     description="Mindee API helper library for python",
-    version="v1.1.3",
+    version="v1.2.1",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url=GIT_URL,
     packages=find_packages(),
     author="Mindee",
-    author_email="contact@mindee.com",
+    author_email="devrel@mindee.com",
     install_requires=make_requirements_list(),
     include_package_data=True
 )
