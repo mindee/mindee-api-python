@@ -49,9 +49,14 @@ class Client(object):
             input_type="path",
             version="3",
             cut_pdf=True,
-            include_words=False
+            include_words=False,
+            cut_pdf_mode=3,
     ):
         """
+        :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a pdf with.
+                        if 1: pages [0]
+                        if 2: pages [0, n-2]
+                        if 3: pages [0, n-2, n-1]
         :param include_words: Bool, extract all words into http_response
         :param cut_pdf: Automatically reconstruct pdf with more than 4 pages
         :param input_type: String in {'path', 'stream', 'base64'}
@@ -62,7 +67,7 @@ class Client(object):
         if not self.expense_receipt_token:
             raise Exception("Missing 'expense_receipt_token' arg in parse_receipt() function.")
 
-        input_file = Inputs(file, input_type, cut_pdf=cut_pdf)
+        input_file = Inputs(file, input_type, cut_pdf=cut_pdf, n_pdf_pages=cut_pdf_mode)
 
         response = Receipt.request(
             input_file,
@@ -106,9 +111,14 @@ class Client(object):
             file,
             input_type="path",
             version="1",
-            cut_pdf=True
+            cut_pdf=True,
+            cut_pdf_mode=3,
     ):
         """
+        :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a pdf with.
+                        if 1: pages [0]
+                        if 2: pages [0, n-2]
+                        if 3: pages [0, n-2, n-1]
         :param cut_pdf: Automatically reconstruct pdf with more than 4 pages
         :param input_type: String in {'path', 'stream', 'base64'}
         :param file: Passport filepath (allowed jpg, png, pdf)
@@ -118,7 +128,7 @@ class Client(object):
         if not self.passport_token:
             raise Exception("Missing 'passport_token' arg in parse_passport() function.")
 
-        input_file = Inputs(file, input_type, cut_pdf=cut_pdf)
+        input_file = Inputs(file, input_type, cut_pdf=cut_pdf, n_pdf_pages=cut_pdf_mode)
 
         response = Passport.request(
             input_file,
@@ -134,9 +144,14 @@ class Client(object):
             file,
             input_type="path",
             version="1",
-            cut_pdf=True
+            cut_pdf=True,
+            cut_pdf_mode=3,
     ):
         """
+        :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a pdf with.
+                        if 1: pages [0]
+                        if 2: pages [0, n-2]
+                        if 3: pages [0, n-2, n-1]
         :param cut_pdf: Automatically reconstruct pdf with more than 4 pages
         :param input_type: String in {'path', 'stream', 'base64'}
         :param file: CarPlate filepath (allowed jpg, png, pdf)
@@ -146,7 +161,7 @@ class Client(object):
         if not self.license_plate_token:
             raise Exception("Missing 'license_plate_token' arg in license_plate_token() function.")
 
-        input_file = Inputs(file, input_type, cut_pdf=cut_pdf)
+        input_file = Inputs(file, input_type, cut_pdf=cut_pdf, n_pdf_pages=cut_pdf_mode)
 
         response = CarPlate.request(
             input_file,
@@ -163,9 +178,14 @@ class Client(object):
             input_type="path",
             version="2",
             cut_pdf=True,
-            include_words=False
+            include_words=False,
+            cut_pdf_mode=3,
     ):
         """
+        :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a pdf with.
+                        if 1: pages [0]
+                        if 2: pages [0, n-2]
+                        if 3: pages [0, n-2, n-1]
         :param include_words: Bool, extract all words into http_response
         :param cut_pdf: Automatically reconstruct pdf with more than 4 pages
         :param input_type: String in {'path', 'stream', 'base64'}
@@ -176,7 +196,7 @@ class Client(object):
         if not self.invoice_token:
             raise Exception("Missing 'invoice_token' arg in parse_invoice() function.")
 
-        input_file = Inputs(file, input_type, cut_pdf=cut_pdf)
+        input_file = Inputs(file, input_type, cut_pdf=cut_pdf, n_pdf_pages=cut_pdf_mode)
 
         response = Invoice.request(
             input_file,
@@ -193,9 +213,14 @@ class Client(object):
             file,
             input_type="path",
             cut_pdf=True,
-            include_words=False
+            include_words=False,
+            cut_pdf_mode=3,
     ):
         """
+        :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a pdf with.
+                        if 1: pages [0]
+                        if 2: pages [0, n-2]
+                        if 3: pages [0, n-2, n-1]
         :param include_words: Bool, extract all words into http_response
         :param cut_pdf: Automatically reconstruct pdf with more than 4 pages
         :param input_type: String in {'path', 'stream', 'base64'}
@@ -205,7 +230,7 @@ class Client(object):
         if not self.invoice_token or not self.expense_receipt_token:
             raise Exception("parse_invoice() function must include 'invoice_token' and 'expense_receipt_token' args.")
 
-        input_file = Inputs(file, input_type, cut_pdf=cut_pdf)
+        input_file = Inputs(file, input_type, cut_pdf=cut_pdf, n_pdf_pages=cut_pdf_mode)
 
         response = FinancialDocument.request(
             input_file,
