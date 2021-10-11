@@ -1,5 +1,16 @@
 # Mindee python SDK
 
+## v1.2.2 (2020-10-11)
+
+### Fix
+
+*  🐛 Fixed [#15](https://github.com/mindee/mindee-api-python/issues/15)
+
+### Chg
+
+* ✨ Added pdf page number parameter for multi-pages pdfs
+
+
 ## v1.2.1 (2020-09-23)
 
 ### Fix
