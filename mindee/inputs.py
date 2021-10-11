@@ -11,7 +11,8 @@ class Inputs(object):
             file,
             input_type="path",
             filename=None,
-            cut_pdf=True
+            cut_pdf=True,
+            n_pdf_pages=3
     ):
         """
         :param file: Either path or base64 string, or stream
@@ -21,6 +22,7 @@ class Inputs(object):
         """
         self.allowed_extensions = ["image/png", "image/jpg", "image/jpeg", "image/webp", "application/pdf"]
         assert input_type in ["base64", "path", "stream", "dummy"]
+        assert 0 < n_pdf_pages <= 3
 
         if input_type == "base64":
             # Only for images
@@ -54,9 +56,9 @@ class Inputs(object):
             raise Exception("File type not allowed, must be in {%s}" % ", ".join(self.allowed_extensions))
 
         if self.file_extension == "application/pdf" and cut_pdf is True:
-            n_pages = self.count_pdf_pages()
-            if n_pages > 3:
-                self.merge_pdf_pages({0, n_pages - 2, n_pages - 1})
+            count_pages = self.count_pdf_pages()
+            if count_pages > 3:
+                self.merge_pdf_pages([0, count_pages - 2, count_pages - 1][:n_pdf_pages])
 
     @staticmethod
     def load(input_type, filename, filepath, file_extension):
@@ -111,7 +113,10 @@ class Inputs(object):
             height = spage.MediaBoxSize[1]
             r = fitz.Rect(0, 0, width, height)
             page = doc.newPage(-1, width=width, height=height)
-            page.showPDFpage(r, src, spage.number)
+            try:
+                page.showPDFpage(r, src, spage.number)
+            except:
+                pass
         self.file_object.close()
         self.file_object = io.BytesIO(doc.write())
 
