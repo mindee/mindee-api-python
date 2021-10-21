@@ -35,7 +35,7 @@ setup(
     python_requires=">=3.0",
     name=f"{PACKAGE_NAME}",
     description="Mindee API helper library for python",
-    version="v1.2.1",
+    version="v1.2.2",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url=GIT_URL,
