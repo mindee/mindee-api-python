@@ -9,6 +9,7 @@
 ### Chg
 
 * ✨ Added pdf page number parameter for multi-pages pdfs
+* ✨ Added a blank pages only PDF detection & error raising
 
 
 ## v1.2.1 (2020-09-23)
