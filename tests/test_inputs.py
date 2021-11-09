@@ -12,6 +12,11 @@ def test_mpdf_reconstruct_check_n_pages():
     input_obj_3 = Inputs('./tests/data/invoices/invoice_6p.pdf', cut_pdf=True, n_pdf_pages=3)
     input_obj_2 = Inputs('./tests/data/invoices/invoice_6p.pdf', cut_pdf=True, n_pdf_pages=2)
     input_obj_1 = Inputs('./tests/data/invoices/invoice_6p.pdf', cut_pdf=True, n_pdf_pages=1)
+
+    input_obj_3.file_object.seek(0)
+    input_obj_2.file_object.seek(0)
+    input_obj_1.file_object.seek(0)
+
     src_3 = fitz.open(
                 stream=input_obj_3.file_object.read(),
                 filetype="application/pdf",
