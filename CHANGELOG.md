@@ -1,6 +1,6 @@
 # Mindee python SDK
 
-## v1.2.2 (2020-10-11)
+## v1.2.2 (2021-10-11)
 
 ### Fix
 
@@ -12,14 +12,14 @@
 * ✨ Added a blank pages only PDF detection & error raising
 
 
-## v1.2.1 (2020-09-23)
+## v1.2.1 (2021-09-23)
 
 ### Fix
 
 * :bug: Forward uploaded file name for file verification rules
 * :bug: Change token management for new header format
 
-## v1.2.0 (2020-08-25)
+## v1.2.0 (2021-08-25)
 
 ### Chg
 
@@ -28,19 +28,19 @@
 * :heavy_minus_sign: Removed Numpy dependency
 * :white_check_mark: Updated tests with new data
 
-## v1.1.3 (2020-02-21)
+## v1.1.3 (2021-02-21)
 
 ### Fix
 
 * :zap: FinancialDoc attributes have same type from invoice or receipt
 
-## v1.1.2 (2020-02-19)
+## v1.1.2 (2021-02-19)
 
 ### Fix
 
 * :bug: Fixed FinancialDoc invoice version and reconstruction
 
-## v1.1.1 (2020-01-31)
+## v1.1.1 (2021-01-31)
 
 ### Chg
 
