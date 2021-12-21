@@ -5,10 +5,9 @@ from mindee.fields.orientation import Orientation
 from mindee.fields.tax import Tax
 from mindee.documents import Document
 from mindee.fields import Field
-from mindee.http import request
+from mindee.http import make_api_url, make_api_request
 from mindee.documents.invoice import Invoice
 from mindee.documents.receipt import Receipt
-import os
 
 
 class FinancialDocument(Document):
@@ -202,32 +201,31 @@ class FinancialDocument(Document):
         # Compute Accuracy metrics
         metrics.update(
             FinancialDocument.compute_accuracy(financial_document, ground_truth)
+
         )
+
 
         return metrics
 
     @staticmethod
     def request(
-        input_file,
-        base_url,
-        expense_receipt_token=None,
-        invoice_token=None,
-        include_words=False,
+        input_file, expense_receipt_token=None, invoice_token=None, include_words=False,
     ):
         """
         Make request to invoices endpoint if .pdf, expense_receipts otherwise
-        :param include_words: Bool, extract all words into http_response
         :param input_file: Input object
-        :param base_url: API base URL
         :param expense_receipt_token: Expense receipts API token
         :param invoice_token: Invoices API token
+        :param include_words: Bool, extract all words into http_response
         """
         if "pdf" in input_file.file_extension:
-            url = os.path.join(base_url, "invoices", "v2", "predict")
-            return request(url, input_file, invoice_token, include_words)
+            url = make_api_url(Invoice.ENDPOINT, Invoice.VERSION)
+            return make_api_request(url, input_file, invoice_token, include_words)
         else:
-            url = os.path.join(base_url, "expense_receipts", "v3", "predict")
-            return request(url, input_file, expense_receipt_token, include_words)
+            url = make_api_url(Receipt.ENDPOINT, Receipt.VERSION)
+            return make_api_request(
+                url, input_file, expense_receipt_token, include_words
+            )
 
     def _checklist(self):
         """

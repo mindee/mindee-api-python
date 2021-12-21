@@ -1,7 +1,29 @@
 import requests
 
+MINDEE_API_URL = "https://api.mindee.net/v1"
 
-def request(url, input_file, token, include_words=False):
+
+def make_api_url(endpoint: str, version: str, owner: str = "mindee"):
+    """
+    Returns full HTTP URL for a product at specific version
+    :param endpoint: my_api
+    :param version: 1
+    :param owner: mindee
+    :return: full URL, i.e. https://api.mindee.net/v1/products/mindee/invoices/2/predict
+    """
+    return (
+        MINDEE_API_URL
+        + "/products/"
+        + owner
+        + "/"
+        + endpoint
+        + "/"
+        + version
+        + "/predict"
+    )
+
+
+def make_api_request(url, input_file, token, include_words=False):
     """
     :param input_file: Input object
     :param url: Endpoint url

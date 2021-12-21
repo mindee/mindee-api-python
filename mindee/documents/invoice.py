@@ -6,11 +6,14 @@ from mindee.fields.locale import Locale
 from mindee.fields.orientation import Orientation
 from mindee.fields.payment_details import PaymentDetails
 from mindee.fields.tax import Tax
-from mindee.http import request
-import os
+from mindee.http import make_api_request, make_api_url
 
 
 class Invoice(Document):
+
+    ENDPOINT = "invoices"
+    VERSION = "2"
+
     def __init__(
         self,
         api_prediction=None,
@@ -42,7 +45,6 @@ class Invoice(Document):
         :param supplier: supplier value for creating Invoice object from scratch
         :param payment_details: payment_details value for creating Invoice object from scratch
         :param company_number: company_number value for creating Invoice object from scratch
-        :param vat_number: vat_number value for creating Invoice object from scratch
         :param orientation: orientation value for creating Invoice object from scratch
         :param total_tax: total_tax value for creating Invoice object from scratch
         :param page_n: Page number for multi pages pdf input
@@ -199,19 +201,15 @@ class Invoice(Document):
         return metrics
 
     @staticmethod
-    def request(
-        input_file, base_url, invoice_token=None, version="2", include_words=False
-    ):
+    def request(input_file, token=None, include_words=False):
         """
         Make request to invoices endpoint
         :param input_file: Input object
-        :param base_url: API base URL
-        :param invoice_token: Invoices API token
+        :param token: API token
         :param include_words: Include Mindee vision words in http_response
-        :param version: API version
         """
-        url = os.path.join(base_url, "invoices", "v" + version, "predict")
-        return request(url, input_file, invoice_token, include_words)
+        url = make_api_url(Invoice.ENDPOINT, Invoice.VERSION)
+        return make_api_request(url, input_file, token, include_words)
 
     def _reconstruct(self):
         """
