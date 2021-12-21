@@ -24,8 +24,8 @@ def make_requirements_list(file="requirements.txt", only_regular=True):
         lines = f.read().splitlines()
     if only_regular:
         regex = (
-            "\/$|^#|^$$|^git\+"
-        )  # remove line with /, starting by # or space or empty
+            "\/$|^#|^$$|^git\+"  # remove line with /, starting by # or space or empty
+        )
         return [line for line in lines if not re.findall(regex, line)]
     else:
         return lines
@@ -43,5 +43,5 @@ setup(
     author="Mindee",
     author_email="devrel@mindee.com",
     install_requires=make_requirements_list(),
-    include_package_data=True
+    include_package_data=True,
 )

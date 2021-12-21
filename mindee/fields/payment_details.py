@@ -3,15 +3,15 @@ from mindee.fields import Field
 
 class PaymentDetails(Field):
     def __init__(
-            self,
-            payment_details_prediction,
-            value_key="iban",
-            account_number_key="account_number",
-            iban_key="iban",
-            routing_number_key="routing_number",
-            swift_key="swift",
-            reconstructed=False,
-            page_n=None
+        self,
+        payment_details_prediction,
+        value_key="iban",
+        account_number_key="account_number",
+        iban_key="iban",
+        routing_number_key="routing_number",
+        swift_key="swift",
+        reconstructed=False,
+        page_n=None,
     ):
         """
         :param payment_details_prediction: Payment detail prediction object from HTTP response
@@ -27,7 +27,7 @@ class PaymentDetails(Field):
             payment_details_prediction,
             value_key=value_key,
             reconstructed=reconstructed,
-            page_n=page_n
+            page_n=page_n,
         )
 
         self.account_number_key = None
@@ -70,17 +70,15 @@ class PaymentDetails(Field):
     def __str__(self):
         payment_str = ""
         if self.account_number is not None:
-            payment_str += str(self.account_number)+"; "
+            payment_str += str(self.account_number) + "; "
 
         if self.iban is not None:
-            payment_str += str(self.iban)+"; "
+            payment_str += str(self.iban) + "; "
 
         if self.routing_number is not None:
-            payment_str += str(self.routing_number)+"; "
+            payment_str += str(self.routing_number) + "; "
 
         if self.swift is not None:
-            payment_str += str(self.swift)+"; "
+            payment_str += str(self.swift) + "; "
 
         return payment_str
-
-

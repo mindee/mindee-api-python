@@ -3,11 +3,7 @@ from mindee.fields import Field
 
 class Amount(Field):
     def __init__(
-            self,
-            amount_prediction,
-            value_key="amount",
-            reconstructed=False,
-            page_n=None
+        self, amount_prediction, value_key="amount", reconstructed=False, page_n=None
     ):
         """
         :param amount_prediction: Amount prediction object from HTTP response
@@ -19,11 +15,11 @@ class Amount(Field):
             amount_prediction,
             value_key=value_key,
             reconstructed=reconstructed,
-            page_n=page_n
+            page_n=page_n,
         )
 
         try:
             self.value = round(float(amount_prediction[value_key]), 3)
         except:
             self.value = None
-            self.probability = 0.
+            self.probability = 0.0

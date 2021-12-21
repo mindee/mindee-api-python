@@ -13,9 +13,7 @@ def car_plate_object():
 
 @pytest.fixture
 def car_plate_object_from_scratch():
-    return CarPlate(
-        license_plates=["abcdef", "klimopo"]
-    )
+    return CarPlate(license_plates=["abcdef", "klimopo"])
 
 
 @pytest.fixture
@@ -53,8 +51,7 @@ def test_compare_2(car_plate_object, car_plate_object_all_na):
 def test_compare_3(car_plate_object_from_scratch):
     # Compare car plates from class
     benchmark = CarPlate.compare(
-        car_plate_object_from_scratch,
-        car_plate_object_from_scratch
+        car_plate_object_from_scratch, car_plate_object_from_scratch
     )
     for key in benchmark.keys():
         if "__acc__" in key:
@@ -65,8 +62,7 @@ def test_compare_4(car_plate_object_from_scratch):
     # Compare car plates from class with empty taxes
     car_plate_object_from_scratch.license_plates = []
     benchmark = CarPlate.compare(
-        car_plate_object_from_scratch,
-        car_plate_object_from_scratch
+        car_plate_object_from_scratch, car_plate_object_from_scratch
     )
     for key in benchmark.keys():
         if "__acc__" in key:

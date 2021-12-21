@@ -3,13 +3,13 @@ from mindee.fields import Field
 
 class Tax(Field):
     def __init__(
-            self,
-            tax_prediction,
-            value_key="amount",
-            rate_key="rate",
-            code_key="code",
-            reconstructed=False,
-            page_n=None
+        self,
+        tax_prediction,
+        value_key="amount",
+        rate_key="rate",
+        code_key="code",
+        reconstructed=False,
+        page_n=None,
     ):
         """
         :param tax_prediction: Tax prediction object from HTTP response
@@ -23,7 +23,7 @@ class Tax(Field):
             tax_prediction,
             value_key=value_key,
             reconstructed=reconstructed,
-            page_n=page_n
+            page_n=page_n,
         )
 
         try:
@@ -42,7 +42,7 @@ class Tax(Field):
             self.value = float(tax_prediction[value_key])
         except:
             self.value = None
-            self.probability = 0.
+            self.probability = 0.0
 
     def __str__(self):
         tax_str = ""
@@ -52,15 +52,13 @@ class Tax(Field):
             tax_str += "_"
 
         if self.rate is not None:
-            tax_str += "; "+str(self.rate)+"%"
+            tax_str += "; " + str(self.rate) + "%"
         else:
             tax_str += "; _"
 
         if self.code is not None:
-            tax_str += "; "+str(self.code)
+            tax_str += "; " + str(self.code)
         else:
             tax_str += "; _"
 
         return tax_str
-
-

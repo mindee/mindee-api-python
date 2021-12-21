@@ -7,12 +7,7 @@ from mimetypes import guess_type
 
 class Inputs(object):
     def __init__(
-            self,
-            file,
-            input_type="path",
-            filename=None,
-            cut_pdf=True,
-            n_pdf_pages=3
+        self, file, input_type="path", filename=None, cut_pdf=True, n_pdf_pages=3
     ):
         """
         :param file: Either path or base64 string, or stream
@@ -20,7 +15,13 @@ class Inputs(object):
         :param filename: File name of the input
         :param cut_pdf: Automatically reconstruct pdf with more than 4 pages
         """
-        self.allowed_extensions = ["image/png", "image/jpg", "image/jpeg", "image/webp", "application/pdf"]
+        self.allowed_extensions = [
+            "image/png",
+            "image/jpg",
+            "image/jpeg",
+            "image/webp",
+            "application/pdf",
+        ]
         assert input_type in ["base64", "path", "stream", "dummy"]
         assert 0 < n_pdf_pages <= 3
 
@@ -30,7 +31,7 @@ class Inputs(object):
             self.input_type = input_type
             self.filename = filename
             self.filepath = None
-            self.file_extension = 'image/jpg'
+            self.file_extension = "image/jpg"
         elif input_type == "stream":
             # Case input is a file object
             self.file_object = file
@@ -53,17 +54,21 @@ class Inputs(object):
             self.filepath = ""
             self.file_extension = ""
         elif self.file_extension not in self.allowed_extensions:
-            raise Exception("File type not allowed, must be in {%s}" % ", ".join(self.allowed_extensions))
+            raise Exception(
+                "File type not allowed, must be in {%s}"
+                % ", ".join(self.allowed_extensions)
+            )
 
         if self.file_extension == "application/pdf":
             count_pages = self.count_pdf_pages()
 
             if cut_pdf is True:
                 if count_pages > 3:
-                    self.merge_pdf_pages([0, count_pages - 2, count_pages - 1][:n_pdf_pages])
+                    self.merge_pdf_pages(
+                        [0, count_pages - 2, count_pages - 1][:n_pdf_pages]
+                    )
 
             self.check_if_document_is_empty(count_pages)
-
 
     @staticmethod
     def load(input_type, filename, filepath, file_extension):
@@ -97,7 +102,7 @@ class Inputs(object):
         src = fitz.open(
             stream=self.file_object.read(),
             filetype=self.file_extension,
-            filename=self.filename
+            filename=self.filename,
         )
         return len(src)
 
@@ -107,10 +112,7 @@ class Inputs(object):
         :return: (void) Set the Input.file with the reconstructed pdf stream
         """
         self.file_object.seek(0)
-        src = fitz.open(
-            stream=self.file_object.read(),
-            filetype="pdf"
-        )
+        src = fitz.open(stream=self.file_object.read(), filetype="pdf")
         doc = fitz.open()
         pdf_pages = [src[n] for n in pages_number]
         for spage in pdf_pages:
@@ -125,7 +127,6 @@ class Inputs(object):
         self.file_object.close()
         self.file_object = io.BytesIO(doc.write())
 
-
     def check_if_document_is_empty(self, pages_number):
         """
         :param pages_number: List of pages number to use for merging in the original pdf
@@ -133,10 +134,7 @@ class Inputs(object):
         """
 
         self.file_object.seek(0)
-        src = fitz.open(
-            stream=self.file_object.read(),
-            filetype="pdf"
-        )
+        src = fitz.open(stream=self.file_object.read(), filetype="pdf")
         fitz.open()
         for page in src:
             if len(page.getImageList()) > 0 or page.getText():
