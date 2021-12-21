@@ -62,7 +62,7 @@ class Inputs(object):
                 if count_pages > 3:
                     self.merge_pdf_pages([0, count_pages - 2, count_pages - 1][:n_pdf_pages])
 
-            self.check_if_document_is_empty(count_pages)
+            self.check_if_document_is_empty()
 
 
     @staticmethod
@@ -126,9 +126,8 @@ class Inputs(object):
         self.file_object = io.BytesIO(doc.write())
 
 
-    def check_if_document_is_empty(self, pages_number):
+    def check_if_document_is_empty(self):
         """
-        :param pages_number: List of pages number to use for merging in the original pdf
         :return: (void) Check if the document contain only empty pages
         """
 
@@ -139,6 +138,10 @@ class Inputs(object):
         )
         fitz.open()
         for page in src:
-            if len(page.getImageList()) > 0 or page.getText():
+            if (
+                len(page.get_images()) > 0
+                or len(page.get_cdrawings()) > 0
+                or len(page.get_text()) > 0
+            ):
                 return
         raise Exception("PDF pages are empty")
