@@ -140,7 +140,7 @@ class Inputs(object):
         for page in src:
             if (
                 len(page.get_images()) > 0
-                or len(page.get_cdrawings()) > 0
+                or len(page.get_cdrawings()) > 1
                 or len(page.get_text()) > 0
             ):
                 return
