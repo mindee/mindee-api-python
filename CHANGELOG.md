@@ -1,5 +1,16 @@
 # Mindee python SDK
 
+## v1.2.3 (2021-12-22)
+
+### Fix
+
+* :arrow_up: upgrade pymupdf to 1.18.17
+
+### Bug
+
+* :bug: handle few PDF files considered blank
+* :white_check_mark: re-initialize file cursor in test
+
 ## v1.2.2 (2021-10-11)
 
 ### Fix
