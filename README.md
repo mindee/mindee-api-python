@@ -1,4 +1,4 @@
-# Receipt, passport and invoice OCR python helper for Mindee API
+# Receipt, passport and invoice OCR Python helper for Mindee API
 
 The full documentation is available [here](https://developers.mindee.com/docs/getting-started)
 
@@ -83,4 +83,3 @@ From a base64
 ```python
 receipt_data = mindee_client.parse_receipt(base64_string, input_type="base64")
 ```
- 
