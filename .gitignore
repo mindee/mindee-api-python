@@ -131,3 +131,7 @@ dmypy.json
 
 # Mac OS
 .DS_Store
+
+# Temp files
+*.swp
+*-swp

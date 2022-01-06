@@ -15,24 +15,24 @@ import os
 
 class FinancialDocument(Document):
     def __init__(
-            self,
-            api_prediction=None,
-            input_file=None,
-            locale=None,
-            total_incl=None,
-            total_excl=None,
-            date=None,
-            invoice_number=None,
-            due_date=None,
-            taxes=None,
-            merchant_name=None,
-            payment_details=None,
-            company_number=None,
-            vat_number=None,
-            orientation=None,
-            total_tax=None,
-            time=None,
-            page_n=0
+        self,
+        api_prediction=None,
+        input_file=None,
+        locale=None,
+        total_incl=None,
+        total_excl=None,
+        date=None,
+        invoice_number=None,
+        due_date=None,
+        taxes=None,
+        merchant_name=None,
+        payment_details=None,
+        company_number=None,
+        vat_number=None,
+        orientation=None,
+        total_tax=None,
+        time=None,
+        page_n=0,
     ):
         """
         :param api_prediction: Raw prediction from HTTP response
@@ -72,23 +72,47 @@ class FinancialDocument(Document):
         if api_prediction is not None:
             self.build_from_api_prediction(api_prediction, input_file, page_n=page_n)
         else:
-            self.orientation = Orientation({"value": orientation}, value_key="value", page_n=page_n)
+            self.orientation = Orientation(
+                {"value": orientation}, value_key="value", page_n=page_n
+            )
             self.locale = Locale({"value": locale}, value_key="value", page_n=page_n)
             self.date = Date({"value": date}, value_key="value", page_n=page_n)
             self.due_date = Date({"value": due_date}, value_key="value", page_n=page_n)
             if taxes is not None:
                 self.taxes = [
-                    Tax({"value": t[0], "rate": t[1]}, page_n=page_n, value_key="value", rate_key="rate")
-                    for t in taxes]
-            self.total_incl = Amount({"value": total_incl}, value_key="value", page_n=page_n)
-            self.total_excl = Amount({"value": total_excl}, value_key="value", page_n=page_n)
-            self.merchant_name = Field({"value": merchant_name}, value_key="value", page_n=page_n)
+                    Tax(
+                        {"value": t[0], "rate": t[1]},
+                        page_n=page_n,
+                        value_key="value",
+                        rate_key="rate",
+                    )
+                    for t in taxes
+                ]
+            self.total_incl = Amount(
+                {"value": total_incl}, value_key="value", page_n=page_n
+            )
+            self.total_excl = Amount(
+                {"value": total_excl}, value_key="value", page_n=page_n
+            )
+            self.merchant_name = Field(
+                {"value": merchant_name}, value_key="value", page_n=page_n
+            )
             self.time = Field({"value": time}, value_key="value", page_n=page_n)
-            self.total_tax = Amount({"value": total_tax}, value_key="value", page_n=page_n)
-            self.vat_number = Field({"value": vat_number}, value_key="value", page_n=page_n)
-            self.invoice_number = Field({"value": invoice_number}, value_key="value", page_n=page_n)
-            self.payment_details = Field({"value": payment_details}, value_key="value", page_n=page_n)
-            self.company_number = Field({"value": company_number}, value_key="value", page_n=page_n)
+            self.total_tax = Amount(
+                {"value": total_tax}, value_key="value", page_n=page_n
+            )
+            self.vat_number = Field(
+                {"value": vat_number}, value_key="value", page_n=page_n
+            )
+            self.invoice_number = Field(
+                {"value": invoice_number}, value_key="value", page_n=page_n
+            )
+            self.payment_details = Field(
+                {"value": payment_details}, value_key="value", page_n=page_n
+            )
+            self.company_number = Field(
+                {"value": company_number}, value_key="value", page_n=page_n
+            )
 
         # Invoke Document constructor
         super(FinancialDocument, self).__init__(input_file)
@@ -120,7 +144,7 @@ class FinancialDocument(Document):
             self.company_number = invoice.company_number
             self.orientation = invoice.orientation
             self.total_tax = invoice.total_tax
-            self.time = Field({"value": None, "probability": 0.})
+            self.time = Field({"value": None, "probability": 0.0})
         else:
             receipt = Receipt(api_prediction, input_file, page_n=page_n)
             self.orientation = receipt.orientation
@@ -133,33 +157,35 @@ class FinancialDocument(Document):
             self.merchant_name = receipt.merchant_name
             self.time = receipt.time
             self.total_tax = receipt.total_tax
-            self.invoice_number = Field({"value": None, "probability": 0.})
+            self.invoice_number = Field({"value": None, "probability": 0.0})
             self.payment_details = []
             self.company_number = []
 
     def __str__(self):
-        return "-----Financial Document data-----\n" \
-               "Filename: %s \n" \
-               "Invoice number: %s \n" \
-               "Total amount including taxes: %s \n" \
-               "Total amount excluding taxes: %s \n" \
-               "Date: %s\n" \
-               "Invoice due date: %s\n" \
-               "Supplier name: %s\n" \
-               "Taxes: %s\n" \
-               "Total taxes: %s\n" \
-               "----------------------" % \
-               (
-                   self.filename,
-                   self.invoice_number.value,
-                   self.total_incl.value,
-                   self.total_excl.value,
-                   self.date.value,
-                   self.due_date.value,
-                   self.merchant_name.value,
-                   ",".join([str(t.value) + " " + str(t.rate) + "%" for t in self.taxes]),
-                   self.total_tax.value
-               )
+        return (
+            "-----Financial Document data-----\n"
+            "Filename: %s \n"
+            "Invoice number: %s \n"
+            "Total amount including taxes: %s \n"
+            "Total amount excluding taxes: %s \n"
+            "Date: %s\n"
+            "Invoice due date: %s\n"
+            "Supplier name: %s\n"
+            "Taxes: %s\n"
+            "Total taxes: %s\n"
+            "----------------------"
+            % (
+                self.filename,
+                self.invoice_number.value,
+                self.total_incl.value,
+                self.total_excl.value,
+                self.date.value,
+                self.due_date.value,
+                self.merchant_name.value,
+                ",".join([str(t.value) + " " + str(t.rate) + "%" for t in self.taxes]),
+                self.total_tax.value,
+            )
+        )
 
     @staticmethod
     def compare(financial_document=None, ground_truth=None):
@@ -176,20 +202,24 @@ class FinancialDocument(Document):
         metrics = {}
 
         # Compute Accuracy metrics
-        metrics.update(FinancialDocument.compute_accuracy(financial_document, ground_truth))
+        metrics.update(
+            FinancialDocument.compute_accuracy(financial_document, ground_truth)
+        )
 
         # Compute precision metrics
-        metrics.update(FinancialDocument.compute_precision(financial_document, ground_truth))
+        metrics.update(
+            FinancialDocument.compute_precision(financial_document, ground_truth)
+        )
 
         return metrics
 
     @staticmethod
     def request(
-            input_file,
-            base_url,
-            expense_receipt_token=None,
-            invoice_token=None,
-            include_words=False
+        input_file,
+        base_url,
+        expense_receipt_token=None,
+        invoice_token=None,
+        include_words=False,
     ):
         """
         Make request to invoices endpoint if .pdf, expense_receipts otherwise
@@ -237,12 +267,15 @@ class FinancialDocument(Document):
         # Crate epsilon
         eps = 1 / (100 * total_vat)
 
-        if self.total_incl.value * (1 - eps) - 0.02 <= reconstructed_total <= self.total_incl.value * (
-                1 + eps) + 0.02:
+        if (
+            self.total_incl.value * (1 - eps) - 0.02
+            <= reconstructed_total
+            <= self.total_incl.value * (1 + eps) + 0.02
+        ):
             for tax in self.taxes:
                 tax.probability = 1
-            self.total_tax.probability = 1.
-            self.total_incl.probability = 1.
+            self.total_tax.probability = 1.0
+            self.total_incl.probability = 1.0
             return True
         else:
             return False
@@ -255,13 +288,18 @@ class FinancialDocument(Document):
         :return: Accuracy metrics
         """
         return {
-            "__acc__total_incl": ground_truth.total_incl == financial_document.total_incl,
-            "__acc__total_excl": ground_truth.total_excl == financial_document.total_excl,
+            "__acc__total_incl": ground_truth.total_incl
+            == financial_document.total_incl,
+            "__acc__total_excl": ground_truth.total_excl
+            == financial_document.total_excl,
             "__acc__invoice_date": ground_truth.date == financial_document.date,
-            "__acc__invoice_number": ground_truth.invoice_number == financial_document.invoice_number,
+            "__acc__invoice_number": ground_truth.invoice_number
+            == financial_document.invoice_number,
             "__acc__due_date": ground_truth.due_date == financial_document.due_date,
             "__acc__total_tax": ground_truth.total_tax == financial_document.total_tax,
-            "__acc__taxes": Tax.compare_arrays(financial_document.taxes, ground_truth.taxes),
+            "__acc__taxes": Tax.compare_arrays(
+                financial_document.taxes, ground_truth.taxes
+            ),
         }
 
     @staticmethod
@@ -273,21 +311,30 @@ class FinancialDocument(Document):
         """
         precisions = {
             "__pre__total_incl": Benchmark.scalar_precision_score(
-                financial_document.total_incl, ground_truth.total_incl),
+                financial_document.total_incl, ground_truth.total_incl
+            ),
             "__pre__total_excl": Benchmark.scalar_precision_score(
-                financial_document.total_excl, ground_truth.total_excl),
+                financial_document.total_excl, ground_truth.total_excl
+            ),
             "__pre__invoice_date": Benchmark.scalar_precision_score(
-                financial_document.date, ground_truth.date),
+                financial_document.date, ground_truth.date
+            ),
             "__pre__invoice_number": Benchmark.scalar_precision_score(
-                financial_document.invoice_number, ground_truth.invoice_number),
+                financial_document.invoice_number, ground_truth.invoice_number
+            ),
             "__pre__due_date": Benchmark.scalar_precision_score(
-                financial_document.due_date, ground_truth.due_date),
+                financial_document.due_date, ground_truth.due_date
+            ),
             "__pre__total_tax": Benchmark.scalar_precision_score(
-                financial_document.total_tax, ground_truth.total_tax)}
+                financial_document.total_tax, ground_truth.total_tax
+            ),
+        }
 
         if len(financial_document.taxes) == 0:
             precisions["__pre__taxes"] = None
         else:
-            precisions["__pre__taxes"] = Tax.compare_arrays(financial_document.taxes, ground_truth.taxes)
+            precisions["__pre__taxes"] = Tax.compare_arrays(
+                financial_document.taxes, ground_truth.taxes
+            )
 
         return precisions

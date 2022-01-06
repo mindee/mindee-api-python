@@ -18,12 +18,7 @@ def request(url, input_file, token, include_words=False):
     if include_words:
         params["include_mvision"] = "true"
 
-    response = requests.post(
-        url,
-        files=files,
-        headers=headers,
-        data=params
-    )
+    response = requests.post(url, files=files, headers=headers, data=params)
 
     input_file.file_object.close()
 

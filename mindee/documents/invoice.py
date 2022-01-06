@@ -13,22 +13,22 @@ import os
 
 class Invoice(Document):
     def __init__(
-            self,
-            api_prediction=None,
-            input_file=None,
-            locale=None,
-            total_incl=None,
-            total_excl=None,
-            invoice_date=None,
-            invoice_number=None,
-            due_date=None,
-            taxes=None,
-            supplier=None,
-            payment_details=None,
-            company_number=None,
-            orientation=None,
-            total_tax=None,
-            page_n=0
+        self,
+        api_prediction=None,
+        input_file=None,
+        locale=None,
+        total_incl=None,
+        total_excl=None,
+        invoice_date=None,
+        invoice_number=None,
+        due_date=None,
+        taxes=None,
+        supplier=None,
+        payment_details=None,
+        company_number=None,
+        orientation=None,
+        total_tax=None,
+        page_n=0,
     ):
         """
         :param api_prediction: Raw prediction from HTTP response
@@ -66,21 +66,43 @@ class Invoice(Document):
             self.build_from_api_prediction(api_prediction, page_n=page_n)
         else:
             self.locale = Locale({"value": locale}, value_key="value", page_n=page_n)
-            self.total_incl = Amount({"value": total_incl}, value_key="value", page_n=page_n)
+            self.total_incl = Amount(
+                {"value": total_incl}, value_key="value", page_n=page_n
+            )
             self.date = Date({"value": invoice_date}, value_key="value", page_n=page_n)
-            self.invoice_date = Date({"value": invoice_date}, value_key="value", page_n=page_n)
+            self.invoice_date = Date(
+                {"value": invoice_date}, value_key="value", page_n=page_n
+            )
             self.due_date = Date({"value": due_date}, value_key="value", page_n=page_n)
             self.supplier = Field({"value": supplier}, value_key="value", page_n=page_n)
             if taxes is not None:
                 self.taxes = [
-                    Tax({"value": t[0], "rate": t[1]}, page_n=page_n, value_key="value", rate_key="rate")
-                    for t in taxes]
-            self.orientation = Orientation({"value": orientation}, value_key="value", page_n=page_n)
-            self.total_tax = Amount({"value": total_tax}, value_key="value", page_n=page_n)
-            self.total_excl = Amount({"value": total_excl}, value_key="value", page_n=page_n)
-            self.invoice_number = Field({"value": invoice_number}, value_key="value", page_n=page_n)
-            self.payment_details = Field({"value": payment_details}, value_key="value", page_n=page_n)
-            self.company_number = Field({"value": company_number}, value_key="value", page_n=page_n)
+                    Tax(
+                        {"value": t[0], "rate": t[1]},
+                        page_n=page_n,
+                        value_key="value",
+                        rate_key="rate",
+                    )
+                    for t in taxes
+                ]
+            self.orientation = Orientation(
+                {"value": orientation}, value_key="value", page_n=page_n
+            )
+            self.total_tax = Amount(
+                {"value": total_tax}, value_key="value", page_n=page_n
+            )
+            self.total_excl = Amount(
+                {"value": total_excl}, value_key="value", page_n=page_n
+            )
+            self.invoice_number = Field(
+                {"value": invoice_number}, value_key="value", page_n=page_n
+            )
+            self.payment_details = Field(
+                {"value": payment_details}, value_key="value", page_n=page_n
+            )
+            self.company_number = Field(
+                {"value": company_number}, value_key="value", page_n=page_n
+            )
 
         # Invoke Document constructor
         super(Invoice, self).__init__(input_file)
@@ -98,52 +120,65 @@ class Invoice(Document):
         :return: (void) set the object attributes with api prediction values
         """
         self.company_number = [
-            Field(company_reg, extra_fields={"type"}, page_n=page_n) for company_reg in
-            api_prediction["company_registration"]
+            Field(company_reg, extra_fields={"type"}, page_n=page_n)
+            for company_reg in api_prediction["company_registration"]
         ]
-        self.invoice_date = Date(api_prediction["date"], value_key="value", page_n=page_n)
-        self.due_date = Date(api_prediction["due_date"], value_key="value", page_n=page_n)
+        self.invoice_date = Date(
+            api_prediction["date"], value_key="value", page_n=page_n
+        )
+        self.due_date = Date(
+            api_prediction["due_date"], value_key="value", page_n=page_n
+        )
         self.invoice_number = Field(api_prediction["invoice_number"], page_n=page_n)
-        self.locale = Locale(api_prediction["locale"], value_key="language", page_n=page_n)
+        self.locale = Locale(
+            api_prediction["locale"], value_key="language", page_n=page_n
+        )
         if str(page_n) != "-1":
             self.orientation = Orientation(api_prediction["orientation"], page_n=page_n)
         self.supplier = Field(api_prediction["supplier"], page_n=page_n)
         self.taxes = [
-            Tax(tax_prediction, page_n=page_n, value_key="value") for tax_prediction in api_prediction["taxes"]
+            Tax(tax_prediction, page_n=page_n, value_key="value")
+            for tax_prediction in api_prediction["taxes"]
         ]
         self.payment_details = [
-            PaymentDetails(
-                payment_detail,
-                page_n=page_n
-            ) for payment_detail in api_prediction["payment_details"]
+            PaymentDetails(payment_detail, page_n=page_n)
+            for payment_detail in api_prediction["payment_details"]
         ]
-        self.total_incl = Amount(api_prediction["total_incl"], value_key="value", page_n=page_n)
-        self.total_excl = Amount(api_prediction["total_excl"], value_key="value", page_n=page_n)
-        self.total_tax = Amount({"value": None, "probability": 0.}, value_key="value", page_n=page_n)
+        self.total_incl = Amount(
+            api_prediction["total_incl"], value_key="value", page_n=page_n
+        )
+        self.total_excl = Amount(
+            api_prediction["total_excl"], value_key="value", page_n=page_n
+        )
+        self.total_tax = Amount(
+            {"value": None, "probability": 0.0}, value_key="value", page_n=page_n
+        )
 
     def __str__(self):
-        return "-----Invoice data-----\n" \
-               "Filename: %s \n" \
-               "Invoice number: %s \n" \
-               "Total amount including taxes: %s \n" \
-               "Total amount excluding taxes: %s \n" \
-               "Invoice date: %s\n" \
-               "Invoice due date: %s\n" \
-               "Supplier name: %s\n" \
-               "Taxes: %s\n" \
-               "Total taxes: %s\n" \
-               "----------------------" % \
-               (
-                   self.filename,
-                   self.invoice_number.value,
-                   self.total_incl.value,
-                   self.total_excl.value,
-                   self.invoice_date.value,
-                   self.due_date.value,
-                   self.supplier.value,
-                   ",".join([str(t.value) + " " + str(t.rate) + "%" for t in self.taxes]),
-                   self.total_tax.value
-               )
+        return (
+            "-----Invoice data-----\n"
+            "Filename: %s \n"
+            "Invoice number: %s \n"
+            "Total amount including taxes: %s \n"
+            "Total amount excluding taxes: %s \n"
+            "Invoice date: %s\n"
+            "Invoice due date: %s\n"
+            "Supplier name: %s\n"
+            "Taxes: %s\n"
+            "Total taxes: %s\n"
+            "----------------------"
+            % (
+                self.filename,
+                self.invoice_number.value,
+                self.total_incl.value,
+                self.total_excl.value,
+                self.invoice_date.value,
+                self.due_date.value,
+                self.supplier.value,
+                ",".join([str(t.value) + " " + str(t.rate) + "%" for t in self.taxes]),
+                self.total_tax.value,
+            )
+        )
 
     @staticmethod
     def compare(invoice=None, ground_truth=None):
@@ -169,11 +204,7 @@ class Invoice(Document):
 
     @staticmethod
     def request(
-            input_file,
-            base_url,
-            invoice_token=None,
-            version="2",
-            include_words=False
+        input_file, base_url, invoice_token=None, version="2", include_words=False
     ):
         """
         Make request to invoices endpoint
@@ -202,7 +233,7 @@ class Invoice(Document):
         self.checklist = {
             "taxes_match_total_incl": self.__taxes_match_total_incl(),
             "taxes_match_total_excl": self.__taxes_match_total_excl(),
-            "taxes_plus_total_excl_match_total_incl": self.__taxes_plus_total_excl_match_total_incl()
+            "taxes_plus_total_excl_match_total_incl": self.__taxes_plus_total_excl_match_total_incl(),
         }
 
     # Checks
@@ -231,12 +262,15 @@ class Invoice(Document):
         # Crate epsilon
         eps = 1 / (100 * total_vat)
 
-        if self.total_incl.value * (1 - eps) - 0.02 <= reconstructed_total <= self.total_incl.value * (
-                1 + eps) + 0.02:
+        if (
+            self.total_incl.value * (1 - eps) - 0.02
+            <= reconstructed_total
+            <= self.total_incl.value * (1 + eps) + 0.02
+        ):
             for tax in self.taxes:
                 tax.probability = 1
-            self.total_tax.probability = 1.
-            self.total_incl.probability = 1.
+            self.total_tax.probability = 1.0
+            self.total_incl.probability = 1.0
             return True
         else:
             return False
@@ -267,12 +301,15 @@ class Invoice(Document):
         eps = 1 / (100 * total_vat)
 
         # Check that reconstructed total excl matches total excl
-        if self.total_excl.value * (1 - eps) - 0.02 <= reconstructed_total <= self.total_excl.value * (
-                1 + eps) + 0.02:
+        if (
+            self.total_excl.value * (1 - eps) - 0.02
+            <= reconstructed_total
+            <= self.total_excl.value * (1 + eps) + 0.02
+        ):
             for tax in self.taxes:
                 tax.probability = 1
-            self.total_tax.probability = 1.
-            self.total_excl.probability = 1.
+            self.total_tax.probability = 1.0
+            self.total_excl.probability = 1.0
             return True
         else:
             return False
@@ -283,7 +320,11 @@ class Invoice(Document):
         :return: True if rule matches, False otherwise
         """
         # Check total_tax, total excl and total incl exist
-        if self.total_excl.value is None or len(self.taxes) == 0 or self.total_incl.value is None:
+        if (
+            self.total_excl.value is None
+            or len(self.taxes) == 0
+            or self.total_incl.value is None
+        ):
             return False
 
         # Reconstruct total_incl
@@ -297,12 +338,16 @@ class Invoice(Document):
             return False
 
         # Check that reconstructed total incl matches total excl + taxes sum
-        if self.total_incl.value - 0.01 <= reconstructed_total <= self.total_incl.value + 0.01:
+        if (
+            self.total_incl.value - 0.01
+            <= reconstructed_total
+            <= self.total_incl.value + 0.01
+        ):
             for tax in self.taxes:
                 tax.probability = 1
-            self.total_tax.probability = 1.
-            self.total_excl.probability = 1.
-            self.total_incl.probability = 1.
+            self.total_tax.probability = 1.0
+            self.total_excl.probability = 1.0
+            self.total_incl.probability = 1.0
             return True
         else:
             return False
@@ -315,12 +360,20 @@ class Invoice(Document):
         The total_incl Amount probability is the product of self.taxes probabilities multiplied by total_excl probability
         """
         # Check total_tax, total excl exist and total incl is not set
-        if self.total_excl.value is None or len(self.taxes) == 0 or self.total_incl.value is not None:
+        if (
+            self.total_excl.value is None
+            or len(self.taxes) == 0
+            or self.total_incl.value is not None
+        ):
             pass
         else:
             total_incl = {
-                "value": sum([tax.value if tax.value is not None else 0 for tax in self.taxes]) + self.total_excl.value,
-                "probability": Field.array_probability(self.taxes) * self.total_excl.probability
+                "value": sum(
+                    [tax.value if tax.value is not None else 0 for tax in self.taxes]
+                )
+                + self.total_excl.value,
+                "probability": Field.array_probability(self.taxes)
+                * self.total_excl.probability,
             }
             self.total_incl = Amount(total_incl, value_key="value", reconstructed=True)
 
@@ -331,12 +384,20 @@ class Invoice(Document):
         The total_excl Amount probability is the product of self.taxes probabilities multiplied by total_incl probability
         """
         # Check total_tax, total excl and total incl exist
-        if self.total_incl.value is None or len(self.taxes) == 0 or self.total_excl.value is not None:
+        if (
+            self.total_incl.value is None
+            or len(self.taxes) == 0
+            or self.total_excl.value is not None
+        ):
             pass
         else:
             total_excl = {
-                "value": self.total_incl.value - sum([tax.value if tax.value is not None else 0 for tax in self.taxes]),
-                "probability": Field.array_probability(self.taxes) * self.total_incl.probability
+                "value": self.total_incl.value
+                - sum(
+                    [tax.value if tax.value is not None else 0 for tax in self.taxes]
+                ),
+                "probability": Field.array_probability(self.taxes)
+                * self.total_incl.probability,
             }
             self.total_excl = Amount(total_excl, value_key="value", reconstructed=True)
 
@@ -348,11 +409,15 @@ class Invoice(Document):
         """
         if len(self.taxes):
             total_tax = {
-                "value": sum([tax.value if tax.value is not None else 0 for tax in self.taxes]),
-                "probability": Field.array_probability(self.taxes)
+                "value": sum(
+                    [tax.value if tax.value is not None else 0 for tax in self.taxes]
+                ),
+                "probability": Field.array_probability(self.taxes),
             }
             if total_tax["value"] > 0:
-                self.total_tax = Amount(total_tax, value_key="value", reconstructed=True)
+                self.total_tax = Amount(
+                    total_tax, value_key="value", reconstructed=True
+                )
 
     def __reconstruct_total_tax_from_incl_and_excl(self):
         """
@@ -360,18 +425,23 @@ class Invoice(Document):
         Check if the total tax was already set
         If not, set thta total tax amount to the diff of incl and excl
         """
-        if self.total_tax.value is not None or\
-                self.total_excl.value is None or\
-                self.total_incl.value is None:
-                pass
+        if (
+            self.total_tax.value is not None
+            or self.total_excl.value is None
+            or self.total_incl.value is None
+        ):
+            pass
         else:
 
             total_tax = {
                 "value": self.total_incl.value - self.total_excl.value,
-                "probability": self.total_incl.probability * self.total_excl.probability
+                "probability": self.total_incl.probability
+                * self.total_excl.probability,
             }
             if total_tax["value"] >= 0:
-                self.total_tax = Amount(total_tax, value_key="value", reconstructed=True)
+                self.total_tax = Amount(
+                    total_tax, value_key="value", reconstructed=True
+                )
 
     @staticmethod
     def compute_accuracy(invoice, ground_truth):
@@ -384,7 +454,8 @@ class Invoice(Document):
             "__acc__total_incl": ground_truth.total_incl == invoice.total_incl,
             "__acc__total_excl": ground_truth.total_excl == invoice.total_excl,
             "__acc__invoice_date": ground_truth.invoice_date == invoice.invoice_date,
-            "__acc__invoice_number": ground_truth.invoice_number == invoice.invoice_number,
+            "__acc__invoice_number": ground_truth.invoice_number
+            == invoice.invoice_number,
             "__acc__due_date": ground_truth.due_date == invoice.due_date,
             "__acc__total_tax": ground_truth.total_tax == invoice.total_tax,
             "__acc__taxes": Tax.compare_arrays(invoice.taxes, ground_truth.taxes),
@@ -399,21 +470,30 @@ class Invoice(Document):
         """
         precisions = {
             "__pre__total_incl": Benchmark.scalar_precision_score(
-                invoice.total_incl, ground_truth.total_incl),
+                invoice.total_incl, ground_truth.total_incl
+            ),
             "__pre__total_excl": Benchmark.scalar_precision_score(
-                invoice.total_excl, ground_truth.total_excl),
+                invoice.total_excl, ground_truth.total_excl
+            ),
             "__pre__invoice_date": Benchmark.scalar_precision_score(
-                invoice.invoice_date, ground_truth.invoice_date),
+                invoice.invoice_date, ground_truth.invoice_date
+            ),
             "__pre__invoice_number": Benchmark.scalar_precision_score(
-                invoice.invoice_number, ground_truth.invoice_number),
+                invoice.invoice_number, ground_truth.invoice_number
+            ),
             "__pre__due_date": Benchmark.scalar_precision_score(
-                invoice.due_date, ground_truth.due_date),
+                invoice.due_date, ground_truth.due_date
+            ),
             "__pre__total_tax": Benchmark.scalar_precision_score(
-                invoice.total_tax, ground_truth.total_tax)}
+                invoice.total_tax, ground_truth.total_tax
+            ),
+        }
 
         if len(invoice.taxes) == 0:
             precisions["__pre__taxes"] = None
         else:
-            precisions["__pre__taxes"] = Tax.compare_arrays(invoice.taxes, ground_truth.taxes)
+            precisions["__pre__taxes"] = Tax.compare_arrays(
+                invoice.taxes, ground_truth.taxes
+            )
 
         return precisions

@@ -9,23 +9,23 @@ import os
 
 class Passport(Document):
     def __init__(
-            self,
-            api_prediction=None,
-            input_file=None,
-            country=None,
-            id_number=None,
-            birth_date=None,
-            expiry_date=None,
-            issuance_date=None,
-            birth_place=None,
-            gender=None,
-            surname=None,
-            mrz1=None,
-            mrz2=None,
-            given_names=None,
-            mrz=None,
-            full_name=None,
-            page_n=0
+        self,
+        api_prediction=None,
+        input_file=None,
+        country=None,
+        id_number=None,
+        birth_date=None,
+        expiry_date=None,
+        issuance_date=None,
+        birth_place=None,
+        gender=None,
+        surname=None,
+        mrz1=None,
+        mrz2=None,
+        given_names=None,
+        mrz=None,
+        full_name=None,
+        page_n=0,
     ):
         """
         :param api_prediction: Raw prediction from HTTP response
@@ -65,19 +65,34 @@ class Passport(Document):
             self.build_from_api_prediction(api_prediction)
         else:
             self.country = Field({"value": country}, value_key="value", page_n=page_n)
-            self.id_number = Field({"value": id_number}, value_key="value", page_n=page_n)
-            self.birth_date = Date({"value": birth_date}, value_key="value", page_n=page_n)
-            self.expiry_date = Date({"value": expiry_date}, value_key="value", page_n=page_n)
-            self.issuance_date = Date({"value": issuance_date}, value_key="value", page_n=page_n)
-            self.birth_place = Field({"value": birth_place}, value_key="value", page_n=page_n)
+            self.id_number = Field(
+                {"value": id_number}, value_key="value", page_n=page_n
+            )
+            self.birth_date = Date(
+                {"value": birth_date}, value_key="value", page_n=page_n
+            )
+            self.expiry_date = Date(
+                {"value": expiry_date}, value_key="value", page_n=page_n
+            )
+            self.issuance_date = Date(
+                {"value": issuance_date}, value_key="value", page_n=page_n
+            )
+            self.birth_place = Field(
+                {"value": birth_place}, value_key="value", page_n=page_n
+            )
             self.gender = Field({"value": gender}, value_key="value", page_n=page_n)
             self.surname = Field({"value": surname}, value_key="value", page_n=page_n)
             self.mrz1 = Field({"value": mrz1}, value_key="value", page_n=page_n)
             self.mrz2 = Field({"value": mrz2}, value_key="value", page_n=page_n)
             if given_names is not None:
-                self.given_names = [Field({"value": g}, value_key="value", page_n=page_n) for g in given_names]
+                self.given_names = [
+                    Field({"value": g}, value_key="value", page_n=page_n)
+                    for g in given_names
+                ]
             self.mrz = Field({"value": mrz}, value_key="value", page_n=page_n)
-            self.full_name = Field({"value": full_name}, value_key="value", page_n=page_n)
+            self.full_name = Field(
+                {"value": full_name}, value_key="value", page_n=page_n
+            )
 
         # Invoke Document constructor
         super(Passport, self).__init__(input_file)
@@ -98,46 +113,57 @@ class Passport(Document):
         self.id_number = Field(api_prediction["id_number"], page_n=page_n)
         self.birth_date = Date(api_prediction["birth_date"], "value", page_n=page_n)
         self.expiry_date = Date(api_prediction["expiry_date"], "value", page_n=page_n)
-        self.issuance_date = Date(api_prediction["issuance_date"], "value", page_n=page_n)
+        self.issuance_date = Date(
+            api_prediction["issuance_date"], "value", page_n=page_n
+        )
         self.birth_place = Field(api_prediction["birth_place"], page_n=page_n)
         self.gender = Field(api_prediction["gender"], page_n=page_n)
         self.surname = Field(api_prediction["surname"], page_n=page_n)
         self.mrz1 = Field(api_prediction["mrz1"], page_n=page_n)
         self.mrz2 = Field(api_prediction["mrz2"], page_n=page_n)
-        self.given_names = [Field(given_name, page_n=page_n) for given_name in api_prediction["given_names"]]
-        self.mrz = Field({"value": None, "probability": 0.}, page_n=page_n)
-        self.full_name = Field({"value": None, "probability": 0.}, page_n=page_n)
+        self.given_names = [
+            Field(given_name, page_n=page_n)
+            for given_name in api_prediction["given_names"]
+        ]
+        self.mrz = Field({"value": None, "probability": 0.0}, page_n=page_n)
+        self.full_name = Field({"value": None, "probability": 0.0}, page_n=page_n)
 
     def __str__(self):
-        return "-----Passport data-----\n" \
-               "Filename: %s \n" \
-               "Full name: %s \n" \
-               "Given names: %s \n" \
-               "Surname: %s\n" \
-               "Country: %s\n" \
-               "ID Number: %s\n" \
-               "Issuance date: %s\n" \
-               "Birth date: %s\n" \
-               "Expiry date: %s\n" \
-               "MRZ 1: %s\n" \
-               "MRZ 2: %s\n" \
-               "MRZ: %s\n" \
-               "----------------------" % \
-               (
-                   self.filename,
-                   self.full_name.value,
-                   " ".join(
-                       [given_name.value if given_name.value is not None else "" for given_name in self.given_names]),
-                   self.surname.value,
-                   self.country.value,
-                   self.id_number.value,
-                   self.issuance_date.value,
-                   self.birth_date.value,
-                   self.expiry_date.value,
-                   self.mrz1.value,
-                   self.mrz2.value,
-                   self.mrz.value
-               )
+        return (
+            "-----Passport data-----\n"
+            "Filename: %s \n"
+            "Full name: %s \n"
+            "Given names: %s \n"
+            "Surname: %s\n"
+            "Country: %s\n"
+            "ID Number: %s\n"
+            "Issuance date: %s\n"
+            "Birth date: %s\n"
+            "Expiry date: %s\n"
+            "MRZ 1: %s\n"
+            "MRZ 2: %s\n"
+            "MRZ: %s\n"
+            "----------------------"
+            % (
+                self.filename,
+                self.full_name.value,
+                " ".join(
+                    [
+                        given_name.value if given_name.value is not None else ""
+                        for given_name in self.given_names
+                    ]
+                ),
+                self.surname.value,
+                self.country.value,
+                self.id_number.value,
+                self.issuance_date.value,
+                self.birth_date.value,
+                self.expiry_date.value,
+                self.mrz1.value,
+                self.mrz2.value,
+                self.mrz.value,
+            )
+        )
 
     @staticmethod
     def compare(passport=None, ground_truth=None):
@@ -192,7 +218,7 @@ class Passport(Document):
             "mrz_expiration_date_checksum": self.__mrz_expiration_date_checksum(),
             "mrz_personal_number_checksum": self.__mrz_personal_number_checksum(),
             "mrz_last_name_checksum": self.__mrz_last_name_checksum(),
-            "mrz_checksum": self.__mrz__checksum()
+            "mrz_checksum": self.__mrz__checksum(),
         }
 
     # Checks
@@ -200,11 +226,13 @@ class Passport(Document):
         """
         :return: True if the all MRZ checksums are validated, False otherwise
         """
-        return self.__mrz_id_number_checksum() and \
-               self.__mrz_date_of_birth_checksum() and \
-               self.__mrz_expiration_date_checksum() and \
-               self.__mrz_personal_number_checksum() and \
-               self.__mrz_last_name_checksum()
+        return (
+            self.__mrz_id_number_checksum()
+            and self.__mrz_date_of_birth_checksum()
+            and self.__mrz_expiration_date_checksum()
+            and self.__mrz_personal_number_checksum()
+            and self.__mrz_last_name_checksum()
+        )
 
     def __mrz_id_number_checksum(self):
         """
@@ -213,7 +241,7 @@ class Passport(Document):
         if self.mrz2.value is None:
             return False
         if Passport.check_sum(self.mrz2.value[:9]) == self.mrz2.value[9]:
-            self.id_number.probability = 1.
+            self.id_number.probability = 1.0
             return True
 
     def __mrz_date_of_birth_checksum(self):
@@ -223,7 +251,7 @@ class Passport(Document):
         if self.mrz2.value is None:
             return False
         if Passport.check_sum(self.mrz2.value[13:19]) == self.mrz2.value[19]:
-            self.birth_date.probability = 1.
+            self.birth_date.probability = 1.0
             return True
 
     def __mrz_expiration_date_checksum(self):
@@ -233,7 +261,7 @@ class Passport(Document):
         if self.mrz2.value is None:
             return False
         if Passport.check_sum(self.mrz2.value[21:27]) == self.mrz2.value[27]:
-            self.expiry_date.probability = 1.
+            self.expiry_date.probability = 1.0
             return True
 
     def __mrz_personal_number_checksum(self):
@@ -250,9 +278,13 @@ class Passport(Document):
         """
         if self.mrz2.value is None:
             return False
-        if Passport.check_sum(self.mrz2.value[0:10] + self.mrz2.value[13:20] + self.mrz2.value[21:43]) == \
-                self.mrz2.value[43]:
-            self.surname.probability = 1.
+        if (
+            Passport.check_sum(
+                self.mrz2.value[0:10] + self.mrz2.value[13:20] + self.mrz2.value[21:43]
+            )
+            == self.mrz2.value[43]
+        ):
+            self.surname.probability = 1.0
             return True
 
     @staticmethod
@@ -263,7 +295,7 @@ class Passport(Document):
         :return: checksum value for string s
         """
         checker = 0
-        alpha_to_num = {c: 10 + i for i, c in enumerate('ABCDEFGHIJKLMNOPQRSTUVWXYZ')}
+        alpha_to_num = {c: 10 + i for i, c in enumerate("ABCDEFGHIJKLMNOPQRSTUVWXYZ")}
         for i, c in enumerate(s):
             if i % 3 == 0:
                 weight = 7
@@ -272,7 +304,7 @@ class Passport(Document):
             else:
                 weight = 1
 
-            if c == '<':
+            if c == "<":
                 val = 0
             elif c.isalpha():
                 val = alpha_to_num[c]
@@ -288,12 +320,16 @@ class Passport(Document):
         The mrz Field value is the concatenation of mrz1 and mr2
         The mrz Field probability is the product of mrz1 and mrz2 probabilities
         """
-        if self.mrz1.value is not None \
-                and self.mrz2.value is not None \
-                and self.mrz.value is None:
+        if (
+            self.mrz1.value is not None
+            and self.mrz2.value is not None
+            and self.mrz.value is None
+        ):
             mrz = {
                 "value": self.mrz1.value + self.mrz2.value,
-                "probability": Field.array_probability([self.mrz1.probability, self.mrz2.probability])
+                "probability": Field.array_probability(
+                    [self.mrz1.probability, self.mrz2.probability]
+                ),
             }
             self.mrz = Field(mrz, reconstructed=True)
 
@@ -303,13 +339,17 @@ class Passport(Document):
         The full_name Field value is the concatenation of first given name and last name
         The full_name Field probability is the product of first given name and last name probabilities
         """
-        if self.surname.value is not None \
-                and len(self.given_names) != 0 \
-                and self.given_names[0].value is not None \
-                and self.full_name.value is None:
+        if (
+            self.surname.value is not None
+            and len(self.given_names) != 0
+            and self.given_names[0].value is not None
+            and self.full_name.value is None
+        ):
             full_name = {
                 "value": self.given_names[0].value + " " + self.surname.value,
-                "probability": Field.array_probability([self.surname.probability, self.given_names[0].probability])
+                "probability": Field.array_probability(
+                    [self.surname.probability, self.given_names[0].probability]
+                ),
             }
             self.full_name = Field(full_name, reconstructed=True)
 
@@ -325,12 +365,15 @@ class Passport(Document):
             "__acc__id_number": ground_truth.id_number == passport.id_number,
             "__acc__birth_date": ground_truth.birth_date == passport.birth_date,
             "__acc__expiry_date": ground_truth.expiry_date == passport.expiry_date,
-            "__acc__issuance_date": ground_truth.issuance_date == passport.issuance_date,
+            "__acc__issuance_date": ground_truth.issuance_date
+            == passport.issuance_date,
             "__acc__gender": ground_truth.gender == passport.gender,
             "__acc__surname": ground_truth.surname == passport.surname,
             "__acc__mrz1": ground_truth.mrz1 == passport.mrz1,
             "__acc__mrz2": ground_truth.mrz2 == passport.mrz2,
-            "__acc__given_names": Field.compare_arrays(passport.given_names, ground_truth.given_names),
+            "__acc__given_names": Field.compare_arrays(
+                passport.given_names, ground_truth.given_names
+            ),
             "__acc__mrz": ground_truth.mrz == passport.mrz,
             "__acc__full_name": ground_truth.full_name == passport.full_name,
         }
@@ -343,23 +386,46 @@ class Passport(Document):
         :return: Precision metrics
         """
         precisions = {
-            "__pre__country": Benchmark.scalar_precision_score(passport.country, ground_truth.country),
-            "__pre__id_number": Benchmark.scalar_precision_score(passport.id_number, ground_truth.id_number),
-            "__pre__birth_date": Benchmark.scalar_precision_score(passport.birth_date, ground_truth.birth_date),
-            "__pre__expiry_date": Benchmark.scalar_precision_score(passport.expiry_date, ground_truth.expiry_date),
-            "__pre__issuance_date": Benchmark.scalar_precision_score(passport.issuance_date,
-                                                                     ground_truth.issuance_date),
-            "__pre__gender": Benchmark.scalar_precision_score(passport.gender, ground_truth.gender),
-            "__pre__surname": Benchmark.scalar_precision_score(passport.surname, ground_truth.surname),
-            "__pre__mrz1": Benchmark.scalar_precision_score(passport.mrz1, ground_truth.mrz1),
-            "__pre__mrz2": Benchmark.scalar_precision_score(passport.mrz2, ground_truth.mrz2),
-            "__pre__mrz": Benchmark.scalar_precision_score(passport.mrz, ground_truth.mrz),
-            "__pre__full_name": Benchmark.scalar_precision_score(passport.full_name, ground_truth.full_name),
+            "__pre__country": Benchmark.scalar_precision_score(
+                passport.country, ground_truth.country
+            ),
+            "__pre__id_number": Benchmark.scalar_precision_score(
+                passport.id_number, ground_truth.id_number
+            ),
+            "__pre__birth_date": Benchmark.scalar_precision_score(
+                passport.birth_date, ground_truth.birth_date
+            ),
+            "__pre__expiry_date": Benchmark.scalar_precision_score(
+                passport.expiry_date, ground_truth.expiry_date
+            ),
+            "__pre__issuance_date": Benchmark.scalar_precision_score(
+                passport.issuance_date, ground_truth.issuance_date
+            ),
+            "__pre__gender": Benchmark.scalar_precision_score(
+                passport.gender, ground_truth.gender
+            ),
+            "__pre__surname": Benchmark.scalar_precision_score(
+                passport.surname, ground_truth.surname
+            ),
+            "__pre__mrz1": Benchmark.scalar_precision_score(
+                passport.mrz1, ground_truth.mrz1
+            ),
+            "__pre__mrz2": Benchmark.scalar_precision_score(
+                passport.mrz2, ground_truth.mrz2
+            ),
+            "__pre__mrz": Benchmark.scalar_precision_score(
+                passport.mrz, ground_truth.mrz
+            ),
+            "__pre__full_name": Benchmark.scalar_precision_score(
+                passport.full_name, ground_truth.full_name
+            ),
         }
 
         if len(passport.given_names) == 0:
             precisions["__pre__given_names"] = None
         else:
-            precisions["__pre__given_names"] = Field.compare_arrays(passport.given_names, ground_truth.given_names)
+            precisions["__pre__given_names"] = Field.compare_arrays(
+                passport.given_names, ground_truth.given_names
+            )
 
         return precisions

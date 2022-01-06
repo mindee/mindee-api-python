@@ -9,11 +9,17 @@ def autolabel(ax, rects):
     """
     for rect in rects:
         height = rect.get_height()
-        ax.annotate('{}'.format(height),
-                    xy=(rect.get_x() + rect.get_width() / 2, height-height/10),
-                    xytext=(0, 3), fontSize=5, color="#ffffff",
-                    textcoords="offset points",
-                    ha='center', va='bottom', rotation=90)
+        ax.annotate(
+            "{}".format(height),
+            xy=(rect.get_x() + rect.get_width() / 2, height - height / 10),
+            xytext=(0, 3),
+            fontSize=5,
+            color="#ffffff",
+            textcoords="offset points",
+            ha="center",
+            va="bottom",
+            rotation=90,
+        )
 
 
 def plot_metrics(metrics, accuracies, precisions, save_path, savefig=True):
@@ -30,19 +36,31 @@ def plot_metrics(metrics, accuracies, precisions, save_path, savefig=True):
 
     fig, ax = plt.subplots()
     fig.subplots_adjust(bottom=0.15)
-    rects1 = ax.bar([x - width / 2 for x in x_range], accuracies, width, color='#fd3246', label='Accuracy')
-    rects2 = ax.bar([x + width / 2 for x in x_range], precisions, width, color='#007af9', label='Precision')
+    rects1 = ax.bar(
+        [x - width / 2 for x in x_range],
+        accuracies,
+        width,
+        color="#fd3246",
+        label="Accuracy",
+    )
+    rects2 = ax.bar(
+        [x + width / 2 for x in x_range],
+        precisions,
+        width,
+        color="#007af9",
+        label="Precision",
+    )
 
     autolabel(ax, rects1)
     autolabel(ax, rects2)
 
     # Add some text for labels, title and custom x-axis tick labels, etc.
-    ax.set_ylabel('%')
-    ax.set_title('Metrics')
+    ax.set_ylabel("%")
+    ax.set_title("Metrics")
     ax.set_xticks(x_range)
     ax.set_xticklabels(metrics, rotation=45, fontsize=6)
-    ax.legend(loc='lower left')
-    plt.grid(True, linestyle='--', color='#e1e1e1', alpha=0.4)
+    ax.legend(loc="lower left")
+    plt.grid(True, linestyle="--", color="#e1e1e1", alpha=0.4)
 
     if savefig:
         plt.savefig(save_path, dpi=300)

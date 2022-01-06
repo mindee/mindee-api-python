@@ -12,20 +12,20 @@ import os
 
 class Receipt(Document):
     def __init__(
-            self,
-            api_prediction=None,
-            input_file=None,
-            locale=None,
-            total_incl=None,
-            date=None,
-            category=None,
-            merchant_name=None,
-            time=None,
-            taxes=None,
-            orientation=None,
-            total_tax=None,
-            total_excl=None,
-            page_n=0
+        self,
+        api_prediction=None,
+        input_file=None,
+        locale=None,
+        total_incl=None,
+        date=None,
+        category=None,
+        merchant_name=None,
+        time=None,
+        taxes=None,
+        orientation=None,
+        total_tax=None,
+        total_excl=None,
+        page_n=0,
     ):
         """
         :param api_prediction: Raw prediction from HTTP response
@@ -58,18 +58,34 @@ class Receipt(Document):
             self.build_from_api_prediction(api_prediction, page_n=page_n)
         else:
             self.locale = Locale({"value": locale}, value_key="value", page_n=page_n)
-            self.total_incl = Amount({"value": total_incl}, value_key="value", page_n=page_n)
+            self.total_incl = Amount(
+                {"value": total_incl}, value_key="value", page_n=page_n
+            )
             self.date = Date({"value": date}, value_key="value", page_n=page_n)
             self.category = Field({"value": category}, value_key="value", page_n=page_n)
-            self.merchant_name = Field({"value": merchant_name}, value_key="value", page_n=page_n)
+            self.merchant_name = Field(
+                {"value": merchant_name}, value_key="value", page_n=page_n
+            )
             self.time = Field({"value": time}, value_key="value", page_n=page_n)
             if taxes is not None:
                 self.taxes = [
-                    Tax({"value": t[0], "rate": t[1]}, page_n=page_n, value_key="value", rate_key="rate")
-                    for t in taxes]
-            self.orientation = Orientation({"value": orientation}, value_key="value", page_n=page_n)
-            self.total_tax = Amount({"value": total_tax}, value_key="value", page_n=page_n)
-            self.total_excl = Amount({"value": total_excl}, value_key="value", page_n=page_n)
+                    Tax(
+                        {"value": t[0], "rate": t[1]},
+                        page_n=page_n,
+                        value_key="value",
+                        rate_key="rate",
+                    )
+                    for t in taxes
+                ]
+            self.orientation = Orientation(
+                {"value": orientation}, value_key="value", page_n=page_n
+            )
+            self.total_tax = Amount(
+                {"value": total_tax}, value_key="value", page_n=page_n
+            )
+            self.total_excl = Amount(
+                {"value": total_excl}, value_key="value", page_n=page_n
+            )
 
         # Invoke Document constructor
         super(Receipt, self).__init__(input_file)
@@ -81,26 +97,28 @@ class Receipt(Document):
         self._reconstruct()
 
     def __str__(self):
-        return "-----Receipt data-----\n" \
-               "Filename: %s\n" \
-               "Total amount: %s \n" \
-               "Date: %s\n" \
-               "Category: %s\n" \
-               "Time: %s\n" \
-               "Merchant name: %s\n" \
-               "Taxes: %s\n" \
-               "Total taxes: %s\n" \
-               "----------------------" % \
-               (
-                   self.filename,
-                   self.total_incl.value,
-                   self.date.value,
-                   self.category.value,
-                   self.time.value,
-                   self.merchant_name.value,
-                   " - ".join([str(t) for t in self.taxes]),
-                   self.total_tax.value
-               )
+        return (
+            "-----Receipt data-----\n"
+            "Filename: %s\n"
+            "Total amount: %s \n"
+            "Date: %s\n"
+            "Category: %s\n"
+            "Time: %s\n"
+            "Merchant name: %s\n"
+            "Taxes: %s\n"
+            "Total taxes: %s\n"
+            "----------------------"
+            % (
+                self.filename,
+                self.total_incl.value,
+                self.date.value,
+                self.category.value,
+                self.time.value,
+                self.merchant_name.value,
+                " - ".join([str(t) for t in self.taxes]),
+                self.total_tax.value,
+            )
+        )
 
     def build_from_api_prediction(self, api_prediction, page_n=0):
         """
@@ -109,18 +127,33 @@ class Receipt(Document):
         :return: (void) set the object attributes with api prediction values
         """
         self.locale = Locale(api_prediction["locale"], page_n=page_n)
-        self.total_incl = Amount(api_prediction["total_incl"], value_key="value", page_n=page_n)
+        self.total_incl = Amount(
+            api_prediction["total_incl"], value_key="value", page_n=page_n
+        )
         self.date = Date(api_prediction["date"], value_key="value", page_n=page_n)
         self.category = Field(api_prediction["category"], page_n=page_n)
-        self.merchant_name = Field(api_prediction["supplier"], value_key="value", page_n=page_n)
+        self.merchant_name = Field(
+            api_prediction["supplier"], value_key="value", page_n=page_n
+        )
         self.time = Field(api_prediction["time"], value_key="value", page_n=page_n)
         self.taxes = [
-            Tax(tax_prediction, page_n=page_n, value_key="value", rate_key="rate", code_key="code")
-            for tax_prediction in api_prediction["taxes"]]
+            Tax(
+                tax_prediction,
+                page_n=page_n,
+                value_key="value",
+                rate_key="rate",
+                code_key="code",
+            )
+            for tax_prediction in api_prediction["taxes"]
+        ]
         if str(page_n) != "-1":
             self.orientation = Orientation(api_prediction["orientation"], page_n=page_n)
-        self.total_tax = Amount({"value": None, "probability": 0.}, value_key="value", page_n=page_n)
-        self.total_excl = Amount({"value": None, "probability": 0.}, value_key="value", page_n=page_n)
+        self.total_tax = Amount(
+            {"value": None, "probability": 0.0}, value_key="value", page_n=page_n
+        )
+        self.total_excl = Amount(
+            {"value": None, "probability": 0.0}, value_key="value", page_n=page_n
+        )
 
     @staticmethod
     def compare(receipt=None, ground_truth=None):
@@ -146,11 +179,11 @@ class Receipt(Document):
 
     @staticmethod
     def request(
-            input_file,
-            base_url,
-            expense_receipt_token=None,
-            version="3",
-            include_words=False
+        input_file,
+        base_url,
+        expense_receipt_token=None,
+        version="3",
+        include_words=False,
     ):
         """
         Make request to expense_receipts endpoint
@@ -202,12 +235,15 @@ class Receipt(Document):
         # Crate epsilon
         eps = 1 / (100 * total_vat)
 
-        if self.total_incl.value * (1 - eps) - 0.02 <= reconstructed_total <= self.total_incl.value * (
-                1 + eps) + 0.02:
+        if (
+            self.total_incl.value * (1 - eps) - 0.02
+            <= reconstructed_total
+            <= self.total_incl.value * (1 + eps) + 0.02
+        ):
             for tax in self.taxes:
                 tax.probability = 1
-            self.total_tax.probability = 1.
-            self.total_incl.probability = 1.
+            self.total_tax.probability = 1.0
+            self.total_incl.probability = 1.0
             return True
         else:
             return False
@@ -222,7 +258,8 @@ class Receipt(Document):
         if len(self.taxes) and self.total_incl.value is not None:
             total_excl = {
                 "value": self.total_incl.value - Field.array_sum(self.taxes),
-                "probability": Field.array_probability(self.taxes) * self.total_incl.probability
+                "probability": Field.array_probability(self.taxes)
+                * self.total_incl.probability,
             }
             self.total_excl = Amount(total_excl, value_key="value", reconstructed=True)
 
@@ -234,11 +271,15 @@ class Receipt(Document):
         """
         if len(self.taxes) and self.total_tax.value is None:
             total_tax = {
-                "value": sum([tax.value if tax.value is not None else 0 for tax in self.taxes]),
-                "probability": Field.array_probability(self.taxes)
+                "value": sum(
+                    [tax.value if tax.value is not None else 0 for tax in self.taxes]
+                ),
+                "probability": Field.array_probability(self.taxes),
             }
             if total_tax["value"] > 0:
-                self.total_tax = Amount(total_tax, value_key="value", reconstructed=True)
+                self.total_tax = Amount(
+                    total_tax, value_key="value", reconstructed=True
+                )
 
     @staticmethod
     def compute_accuracy(receipt, ground_truth):
@@ -264,17 +305,24 @@ class Receipt(Document):
         """
         precisions = {
             "__pre__total_incl": Benchmark.scalar_precision_score(
-                receipt.total_incl, ground_truth.total_incl),
+                receipt.total_incl, ground_truth.total_incl
+            ),
             "__pre__total_excl": Benchmark.scalar_precision_score(
-                receipt.total_excl, ground_truth.total_excl),
+                receipt.total_excl, ground_truth.total_excl
+            ),
             "__pre__receipt_date": Benchmark.scalar_precision_score(
-                receipt.date, ground_truth.date),
+                receipt.date, ground_truth.date
+            ),
             "__pre__total_tax": Benchmark.scalar_precision_score(
-                receipt.total_tax, ground_truth.total_tax)}
+                receipt.total_tax, ground_truth.total_tax
+            ),
+        }
 
         if len(receipt.taxes) == 0:
             precisions["__pre__taxes"] = None
         else:
-            precisions["__pre__taxes"] = Tax.compare_arrays(receipt.taxes, ground_truth.taxes)
+            precisions["__pre__taxes"] = Tax.compare_arrays(
+                receipt.taxes, ground_truth.taxes
+            )
 
         return precisions

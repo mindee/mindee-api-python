@@ -8,18 +8,16 @@ from mindee.plots import plot_metrics
 
 
 class Benchmark(object):
-    def __init__(
-            self,
-            output_dir,
-            benchmark_name=None
-    ):
+    def __init__(self, output_dir, benchmark_name=None):
         """
         :param output_dir: Directory path for saving benchmark results
         :param benchmark_name: Optional name of the benchmark folder inside output_dir
         """
         if not path.exists(output_dir):
             raise Exception(
-                'Output directory %s does not exist. Please create it before running benchmark.' % output_dir)
+                "Output directory %s does not exist. Please create it before running benchmark."
+                % output_dir
+            )
         self.output_dir = output_dir
         self.results = None
 
@@ -52,21 +50,21 @@ class Benchmark(object):
 
         assert set(result.keys()) == set(self.results.keys()) - {"file_ids"}
         for key in result.keys():
-            if '__pre__' in key and result[key] is not None:
+            if "__pre__" in key and result[key] is not None:
                 self.results[key].append(result[key])
-            if '__acc__' in key:
+            if "__acc__" in key:
                 self.results[key].append(result[key])
 
         self.results["file_ids"].append(file_id)
 
-        with open(os.path.join(self.results_dir, '%s.json' % file_id), "w") as fp:
+        with open(os.path.join(self.results_dir, "%s.json" % file_id), "w") as fp:
             json.dump(result, fp)
 
     def save(self):
         """
         :return: (void) plot precision and accuracy bar chart into output_dir folder
         """
-        with open(os.path.join(self.benchmark_dir, 'results.json'), "w") as fp:
+        with open(os.path.join(self.benchmark_dir, "results.json"), "w") as fp:
             json.dump(self.results, fp)
 
         metrics = []
@@ -76,9 +74,16 @@ class Benchmark(object):
             if "__acc__" in key:
                 metrics.append(key[7:])
                 accuracies.append(round(statistics.mean(self.results[key]) * 100, 2))
-                precisions.append(round(statistics.mean(self.results['__pre__'+key[7:]]) * 100, 2))
+                precisions.append(
+                    round(statistics.mean(self.results["__pre__" + key[7:]]) * 100, 2)
+                )
 
-        plot_metrics(metrics, accuracies, precisions, os.path.join(self.benchmark_dir, 'metrics.png'))
+        plot_metrics(
+            metrics,
+            accuracies,
+            precisions,
+            os.path.join(self.benchmark_dir, "metrics.png"),
+        )
 
     @staticmethod
     def scalar_precision_score(field, ground_truth):
