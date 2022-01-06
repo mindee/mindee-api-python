@@ -15,18 +15,18 @@ DOCUMENT_CLASSES = {
     "invoice": Invoice,
     "financial_document": FinancialDocument,
     "passport": Passport,
-    "license_plate": CarPlate
+    "license_plate": CarPlate,
 }
 
 
 class Client(object):
     def __init__(
-            self,
-            expense_receipt_token=None,
-            invoice_token=None,
-            passport_token=None,
-            license_plate_token=None,
-            raise_on_error=True
+        self,
+        expense_receipt_token=None,
+        invoice_token=None,
+        passport_token=None,
+        license_plate_token=None,
+        raise_on_error=True,
     ):
         """
         :param expense_receipt_token: expense_receipt Mindee API token, see https://mindee.com
@@ -44,13 +44,13 @@ class Client(object):
         self.license_plate_token = license_plate_token
 
     def parse_receipt(
-            self,
-            file,
-            input_type="path",
-            version="3",
-            cut_pdf=True,
-            include_words=False,
-            cut_pdf_mode=3,
+        self,
+        file,
+        input_type="path",
+        version="3",
+        cut_pdf=True,
+        include_words=False,
+        cut_pdf_mode=3,
     ):
         """
         :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a pdf with.
@@ -65,7 +65,9 @@ class Client(object):
         :return: Wrapped response with Receipts objects parsed
         """
         if not self.expense_receipt_token:
-            raise Exception("Missing 'expense_receipt_token' arg in parse_receipt() function.")
+            raise Exception(
+                "Missing 'expense_receipt_token' arg in parse_receipt() function."
+            )
 
         input_file = Inputs(file, input_type, cut_pdf=cut_pdf, n_pdf_pages=cut_pdf_mode)
 
@@ -74,17 +76,12 @@ class Client(object):
             self.base_url,
             self.expense_receipt_token,
             version,
-            include_words
+            include_words,
         )
 
         return self._wrap_response(input_file, response, "receipt")
 
-    def _wrap_response(
-            self,
-            input_file,
-            response,
-            document_type
-    ):
+    def _wrap_response(self, input_file, response, document_type):
         """
         :param input_file: Input object
         :param response: HTTP response
@@ -95,24 +92,26 @@ class Client(object):
 
         if response.status_code > 201 and self.raise_on_error:
             raise HTTPException(
-                "Receipt API %s HTTP error: %s" % (response.status_code, json.dumps(dict_response)))
+                "Receipt API %s HTTP error: %s"
+                % (response.status_code, json.dumps(dict_response))
+            )
         elif response.status_code > 201:
             return Response(
                 http_response=dict_response,
                 pages=[],
                 document=None,
-                document_type=document_type
+                document_type=document_type,
             )
 
         return Response.format_response(dict_response, document_type, input_file)
 
     def parse_passport(
-            self,
-            file,
-            input_type="path",
-            version="1",
-            cut_pdf=True,
-            cut_pdf_mode=3,
+        self,
+        file,
+        input_type="path",
+        version="1",
+        cut_pdf=True,
+        cut_pdf_mode=3,
     ):
         """
         :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a pdf with.
@@ -126,26 +125,25 @@ class Client(object):
         :return: Wrapped response with passports objects parsed
         """
         if not self.passport_token:
-            raise Exception("Missing 'passport_token' arg in parse_passport() function.")
+            raise Exception(
+                "Missing 'passport_token' arg in parse_passport() function."
+            )
 
         input_file = Inputs(file, input_type, cut_pdf=cut_pdf, n_pdf_pages=cut_pdf_mode)
 
         response = Passport.request(
-            input_file,
-            self.base_url,
-            self.passport_token,
-            version
+            input_file, self.base_url, self.passport_token, version
         )
 
         return self._wrap_response(input_file, response, "passport")
 
     def parse_license_plate(
-            self,
-            file,
-            input_type="path",
-            version="1",
-            cut_pdf=True,
-            cut_pdf_mode=3,
+        self,
+        file,
+        input_type="path",
+        version="1",
+        cut_pdf=True,
+        cut_pdf_mode=3,
     ):
         """
         :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a pdf with.
@@ -159,27 +157,26 @@ class Client(object):
         :return: Wrapped response with CarPlates objects parsed
         """
         if not self.license_plate_token:
-            raise Exception("Missing 'license_plate_token' arg in license_plate_token() function.")
+            raise Exception(
+                "Missing 'license_plate_token' arg in license_plate_token() function."
+            )
 
         input_file = Inputs(file, input_type, cut_pdf=cut_pdf, n_pdf_pages=cut_pdf_mode)
 
         response = CarPlate.request(
-            input_file,
-            self.base_url,
-            self.license_plate_token,
-            version
+            input_file, self.base_url, self.license_plate_token, version
         )
 
         return self._wrap_response(input_file, response, "license_plate")
 
     def parse_invoice(
-            self,
-            file,
-            input_type="path",
-            version="2",
-            cut_pdf=True,
-            include_words=False,
-            cut_pdf_mode=3,
+        self,
+        file,
+        input_type="path",
+        version="2",
+        cut_pdf=True,
+        include_words=False,
+        cut_pdf_mode=3,
     ):
         """
         :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a pdf with.
@@ -199,22 +196,18 @@ class Client(object):
         input_file = Inputs(file, input_type, cut_pdf=cut_pdf, n_pdf_pages=cut_pdf_mode)
 
         response = Invoice.request(
-            input_file,
-            self.base_url,
-            self.invoice_token,
-            version,
-            include_words
+            input_file, self.base_url, self.invoice_token, version, include_words
         )
 
         return self._wrap_response(input_file, response, "invoice")
 
     def parse_financial_document(
-            self,
-            file,
-            input_type="path",
-            cut_pdf=True,
-            include_words=False,
-            cut_pdf_mode=3,
+        self,
+        file,
+        input_type="path",
+        cut_pdf=True,
+        include_words=False,
+        cut_pdf_mode=3,
     ):
         """
         :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a pdf with.
@@ -228,7 +221,9 @@ class Client(object):
         :return: Wrapped response with FinancialDocument objects parsed
         """
         if not self.invoice_token or not self.expense_receipt_token:
-            raise Exception("parse_invoice() function must include 'invoice_token' and 'expense_receipt_token' args.")
+            raise Exception(
+                "parse_invoice() function must include 'invoice_token' and 'expense_receipt_token' args."
+            )
 
         input_file = Inputs(file, input_type, cut_pdf=cut_pdf, n_pdf_pages=cut_pdf_mode)
 
@@ -237,7 +232,7 @@ class Client(object):
             self.base_url,
             self.expense_receipt_token,
             self.invoice_token,
-            include_words
+            include_words,
         )
 
         return self._wrap_response(input_file, response, "financial_document")
@@ -245,11 +240,7 @@ class Client(object):
 
 class Response(object):
     def __init__(
-            self,
-            http_response=None,
-            pages=None,
-            document=None,
-            document_type=None
+        self, http_response=None, pages=None, document=None, document_type=None
     ):
         """
         :param http_response: HTTP response object
@@ -297,12 +288,12 @@ class Response(object):
                 json_response["input_type"],
                 json_response["filename"],
                 json_response["filepath"],
-                json_response["file_extension"]
+                json_response["file_extension"],
             )
             response = Response.format_response(
                 json_response,
                 document_type=json_response["document_type"],
-                input_file=file_input
+                input_file=file_input,
             )
             return response
         except:
@@ -327,12 +318,14 @@ class Response(object):
             raise Exception("Document type not supported.")
 
         # Create page level objects
-        for page_n, page_prediction in enumerate(json_response["document"]["inference"]["pages"]):
+        for page_n, page_prediction in enumerate(
+            json_response["document"]["inference"]["pages"]
+        ):
             pages.append(
                 DOCUMENT_CLASSES[document_type](
                     api_prediction=page_prediction["prediction"],
                     input_file=input_file,
-                    page_n=page_prediction["id"]
+                    page_n=page_prediction["id"],
                 )
             )
 
@@ -340,12 +333,12 @@ class Response(object):
         document_level = DOCUMENT_CLASSES[document_type](
             api_prediction=json_response["document"]["inference"]["prediction"],
             input_file=input_file,
-            page_n="-1"
+            page_n="-1",
         )
 
         return Response(
             http_response=json_response,
             pages=pages,
             document=document_level,
-            document_type=document_type
+            document_type=document_type,
         )

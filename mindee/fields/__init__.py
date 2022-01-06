@@ -1,11 +1,11 @@
 class Field(object):
     def __init__(
-            self,
-            abstract_prediction,
-            value_key="value",
-            reconstructed=False,
-            extra_fields=None,
-            page_n=None
+        self,
+        abstract_prediction,
+        value_key="value",
+        reconstructed=False,
+        extra_fields=None,
+        page_n=None,
     ):
         """
         :param abstract_prediction: Prediction object from HTTP response
@@ -15,9 +15,12 @@ class Field(object):
         :param extra_fields: extra field to get from the abstract_prediction and to set as attribute of the Field
         """
         self.page_n = page_n
-        if value_key not in abstract_prediction or abstract_prediction[value_key] == "N/A":
+        if (
+            value_key not in abstract_prediction
+            or abstract_prediction[value_key] == "N/A"
+        ):
             self.value = None
-            self.probability = 0.
+            self.probability = 0.0
             self.bbox = []
         else:
             self.value = abstract_prediction[value_key]
@@ -25,7 +28,7 @@ class Field(object):
             if "probability" in abstract_prediction:
                 self.probability = abstract_prediction["probability"]
             else:
-                self.probability = 0.
+                self.probability = 0.0
 
             if "polygon" in abstract_prediction:
                 self.bbox = abstract_prediction["polygon"]
@@ -72,7 +75,7 @@ class Field(object):
             try:
                 product *= field.probability
             except:
-                return 0.
+                return 0.0
         return product
 
     @staticmethod
@@ -86,6 +89,5 @@ class Field(object):
             try:
                 array_sum += field.value
             except:
-                return 0.
+                return 0.0
         return array_sum
-

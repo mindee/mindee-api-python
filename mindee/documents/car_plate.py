@@ -6,11 +6,7 @@ import os
 
 class CarPlate(Document):
     def __init__(
-            self,
-            api_prediction=None,
-            input_file=None,
-            license_plates=None,
-            page_n=0
+        self, api_prediction=None, input_file=None, license_plates=None, page_n=0
     ):
         """
         :param api_prediction: Raw prediction from HTTP response
@@ -26,7 +22,8 @@ class CarPlate(Document):
         else:
             if license_plates is not None:
                 self.license_plates = [
-                    Field({"value": l}, value_key="value", page_n=page_n) for l in license_plates
+                    Field({"value": l}, value_key="value", page_n=page_n)
+                    for l in license_plates
                 ]
 
         # Invoke Document constructor
@@ -45,15 +42,18 @@ class CarPlate(Document):
         :return: (void) set the object attributes with api prediction values
         """
         self.license_plates = [
-            Field(license_plate, page_n=page_n) for license_plate in api_prediction["license_plates"]
+            Field(license_plate, page_n=page_n)
+            for license_plate in api_prediction["license_plates"]
         ]
 
     def __str__(self):
-        return "-----Car plate data-----\n" \
-               "Filename: %s\n" \
-               "Plate: %s\n" \
-               "----------------------" % \
-               (self.filename, " ".join([l.value for l in self.license_plates]))
+        return (
+            "-----Car plate data-----\n"
+            "Filename: %s\n"
+            "Plate: %s\n"
+            "----------------------"
+            % (self.filename, " ".join([l.value for l in self.license_plates]))
+        )
 
     @staticmethod
     def compare(license_plate=None, ground_truth=None):
@@ -110,7 +110,8 @@ class CarPlate(Document):
         """
         return {
             "__acc__license_plates": Field.compare_arrays(
-                license_plate.license_plates, ground_truth.license_plates)
+                license_plate.license_plates, ground_truth.license_plates
+            )
         }
 
     @staticmethod
@@ -126,6 +127,7 @@ class CarPlate(Document):
             precisions["__pre__license_plates"] = None
         else:
             precisions["__pre__license_plates"] = Field.compare_arrays(
-                license_plate.license_plates, ground_truth.license_plates)
+                license_plate.license_plates, ground_truth.license_plates
+            )
 
         return precisions
