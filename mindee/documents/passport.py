@@ -1,4 +1,3 @@
-from mindee.benchmark import Benchmark
 from mindee.documents import Document
 from mindee.fields import Field
 from mindee.fields.date import Date
@@ -181,9 +180,6 @@ class Passport(Document):
 
         # Compute Accuracy metrics
         metrics.update(Passport.compute_accuracy(passport, ground_truth))
-
-        # Compute precision metrics
-        metrics.update(Passport.compute_precision(passport, ground_truth))
 
         return metrics
 
@@ -377,55 +373,3 @@ class Passport(Document):
             "__acc__mrz": ground_truth.mrz == passport.mrz,
             "__acc__full_name": ground_truth.full_name == passport.full_name,
         }
-
-    @staticmethod
-    def compute_precision(passport, ground_truth):
-        """
-        :param passport: Passport object to compare
-        :param ground_truth: Ground truth Passport object
-        :return: Precision metrics
-        """
-        precisions = {
-            "__pre__country": Benchmark.scalar_precision_score(
-                passport.country, ground_truth.country
-            ),
-            "__pre__id_number": Benchmark.scalar_precision_score(
-                passport.id_number, ground_truth.id_number
-            ),
-            "__pre__birth_date": Benchmark.scalar_precision_score(
-                passport.birth_date, ground_truth.birth_date
-            ),
-            "__pre__expiry_date": Benchmark.scalar_precision_score(
-                passport.expiry_date, ground_truth.expiry_date
-            ),
-            "__pre__issuance_date": Benchmark.scalar_precision_score(
-                passport.issuance_date, ground_truth.issuance_date
-            ),
-            "__pre__gender": Benchmark.scalar_precision_score(
-                passport.gender, ground_truth.gender
-            ),
-            "__pre__surname": Benchmark.scalar_precision_score(
-                passport.surname, ground_truth.surname
-            ),
-            "__pre__mrz1": Benchmark.scalar_precision_score(
-                passport.mrz1, ground_truth.mrz1
-            ),
-            "__pre__mrz2": Benchmark.scalar_precision_score(
-                passport.mrz2, ground_truth.mrz2
-            ),
-            "__pre__mrz": Benchmark.scalar_precision_score(
-                passport.mrz, ground_truth.mrz
-            ),
-            "__pre__full_name": Benchmark.scalar_precision_score(
-                passport.full_name, ground_truth.full_name
-            ),
-        }
-
-        if len(passport.given_names) == 0:
-            precisions["__pre__given_names"] = None
-        else:
-            precisions["__pre__given_names"] = Field.compare_arrays(
-                passport.given_names, ground_truth.given_names
-            )
-
-        return precisions

@@ -1,4 +1,3 @@
-from mindee.benchmark import Benchmark
 from mindee.documents import Document
 from mindee.fields import Field
 from mindee.fields.date import Date
@@ -172,9 +171,6 @@ class Receipt(Document):
         # Compute Accuracy metrics
         metrics.update(Receipt.compute_accuracy(receipt, ground_truth))
 
-        # Compute precision metrics
-        metrics.update(Receipt.compute_precision(receipt, ground_truth))
-
         return metrics
 
     @staticmethod
@@ -295,34 +291,3 @@ class Receipt(Document):
             "__acc__total_tax": ground_truth.total_tax == receipt.total_tax,
             "__acc__taxes": Tax.compare_arrays(receipt.taxes, ground_truth.taxes),
         }
-
-    @staticmethod
-    def compute_precision(receipt, ground_truth):
-        """
-        :param receipt: Receipt object to compare
-        :param ground_truth: Ground truth Receipt object
-        :return: Precision metrics
-        """
-        precisions = {
-            "__pre__total_incl": Benchmark.scalar_precision_score(
-                receipt.total_incl, ground_truth.total_incl
-            ),
-            "__pre__total_excl": Benchmark.scalar_precision_score(
-                receipt.total_excl, ground_truth.total_excl
-            ),
-            "__pre__receipt_date": Benchmark.scalar_precision_score(
-                receipt.date, ground_truth.date
-            ),
-            "__pre__total_tax": Benchmark.scalar_precision_score(
-                receipt.total_tax, ground_truth.total_tax
-            ),
-        }
-
-        if len(receipt.taxes) == 0:
-            precisions["__pre__taxes"] = None
-        else:
-            precisions["__pre__taxes"] = Tax.compare_arrays(
-                receipt.taxes, ground_truth.taxes
-            )
-
-        return precisions

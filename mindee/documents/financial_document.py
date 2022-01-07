@@ -1,5 +1,3 @@
-from mindee.benchmark import Benchmark
-
 from mindee.fields.amount import Amount
 from mindee.fields.date import Date
 from mindee.fields.locale import Locale
@@ -206,11 +204,6 @@ class FinancialDocument(Document):
             FinancialDocument.compute_accuracy(financial_document, ground_truth)
         )
 
-        # Compute precision metrics
-        metrics.update(
-            FinancialDocument.compute_precision(financial_document, ground_truth)
-        )
-
         return metrics
 
     @staticmethod
@@ -301,40 +294,3 @@ class FinancialDocument(Document):
                 financial_document.taxes, ground_truth.taxes
             ),
         }
-
-    @staticmethod
-    def compute_precision(financial_document, ground_truth):
-        """
-        :param financial_document: FinancialDocument object to compare
-        :param ground_truth: Ground truth FinancialDocument object
-        :return: Precision metrics
-        """
-        precisions = {
-            "__pre__total_incl": Benchmark.scalar_precision_score(
-                financial_document.total_incl, ground_truth.total_incl
-            ),
-            "__pre__total_excl": Benchmark.scalar_precision_score(
-                financial_document.total_excl, ground_truth.total_excl
-            ),
-            "__pre__invoice_date": Benchmark.scalar_precision_score(
-                financial_document.date, ground_truth.date
-            ),
-            "__pre__invoice_number": Benchmark.scalar_precision_score(
-                financial_document.invoice_number, ground_truth.invoice_number
-            ),
-            "__pre__due_date": Benchmark.scalar_precision_score(
-                financial_document.due_date, ground_truth.due_date
-            ),
-            "__pre__total_tax": Benchmark.scalar_precision_score(
-                financial_document.total_tax, ground_truth.total_tax
-            ),
-        }
-
-        if len(financial_document.taxes) == 0:
-            precisions["__pre__taxes"] = None
-        else:
-            precisions["__pre__taxes"] = Tax.compare_arrays(
-                financial_document.taxes, ground_truth.taxes
-            )
-
-        return precisions
