@@ -2,6 +2,10 @@
 
 The full documentation is available [here](https://developers.mindee.com/docs/getting-started)
 
+## Requirements
+
+This library is compatible with Python 3.5 and above.
+
 ## Install
 
 Install from PyPi using pip, a package manager for Python.

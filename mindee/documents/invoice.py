@@ -7,7 +7,6 @@ from mindee.fields.orientation import Orientation
 from mindee.fields.payment_details import PaymentDetails
 from mindee.fields.tax import Tax
 from mindee.http import request
-from mindee.benchmark import Benchmark
 import os
 
 
@@ -196,9 +195,6 @@ class Invoice(Document):
 
         # Compute Accuracy metrics
         metrics.update(Invoice.compute_accuracy(invoice, ground_truth))
-
-        # Compute precision metrics
-        metrics.update(Invoice.compute_precision(invoice, ground_truth))
 
         return metrics
 
@@ -460,40 +456,3 @@ class Invoice(Document):
             "__acc__total_tax": ground_truth.total_tax == invoice.total_tax,
             "__acc__taxes": Tax.compare_arrays(invoice.taxes, ground_truth.taxes),
         }
-
-    @staticmethod
-    def compute_precision(invoice, ground_truth):
-        """
-        :param invoice: Invoice object to compare
-        :param ground_truth: Ground truth Invoice object
-        :return: Precision metrics
-        """
-        precisions = {
-            "__pre__total_incl": Benchmark.scalar_precision_score(
-                invoice.total_incl, ground_truth.total_incl
-            ),
-            "__pre__total_excl": Benchmark.scalar_precision_score(
-                invoice.total_excl, ground_truth.total_excl
-            ),
-            "__pre__invoice_date": Benchmark.scalar_precision_score(
-                invoice.invoice_date, ground_truth.invoice_date
-            ),
-            "__pre__invoice_number": Benchmark.scalar_precision_score(
-                invoice.invoice_number, ground_truth.invoice_number
-            ),
-            "__pre__due_date": Benchmark.scalar_precision_score(
-                invoice.due_date, ground_truth.due_date
-            ),
-            "__pre__total_tax": Benchmark.scalar_precision_score(
-                invoice.total_tax, ground_truth.total_tax
-            ),
-        }
-
-        if len(invoice.taxes) == 0:
-            precisions["__pre__taxes"] = None
-        else:
-            precisions["__pre__taxes"] = Tax.compare_arrays(
-                invoice.taxes, ground_truth.taxes
-            )
-
-        return precisions
