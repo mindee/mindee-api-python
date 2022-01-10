@@ -9,19 +9,23 @@ def empty_client():
 
 @pytest.fixture
 def dummy_client():
-    return Client(expense_receipt_token="dummy",
-                  invoice_token="dummy",
-                  passport_token="dummy",
-                  license_plate_token="dummy")
+    return Client(
+        expense_receipt_token="dummy",
+        invoice_token="dummy",
+        passport_token="dummy",
+        license_plate_token="dummy",
+    )
 
 
 @pytest.fixture
 def dummy_client_dont_raise():
-    return Client(expense_receipt_token="dummy",
-                  invoice_token="dummy",
-                  passport_token="dummy",
-                  license_plate_token="dummy",
-                  raise_on_error=False)
+    return Client(
+        expense_receipt_token="dummy",
+        invoice_token="dummy",
+        passport_token="dummy",
+        license_plate_token="dummy",
+        raise_on_error=False,
+    )
 
 
 @pytest.fixture
@@ -31,87 +35,95 @@ def response():
 
 def test_parse_receipt_without_token(empty_client):
     with pytest.raises(Exception):
-        empty_client.parse_receipt('./tests/data/expense_receipts/receipt.jpg')
+        empty_client.parse_receipt("./tests/data/expense_receipts/receipt.jpg")
 
 
 def test_parse_invoice_without_token(empty_client):
     with pytest.raises(Exception):
-        empty_client.parse_invoice('./tests/data/expense_receipts/receipt.jpg')
+        empty_client.parse_invoice("./tests/data/expense_receipts/receipt.jpg")
 
 
 def test_parse_financial_doc_without_token(empty_client):
     with pytest.raises(Exception):
-        empty_client.parse_financial_document('./tests/data/expense_receipts/receipt.jpg')
+        empty_client.parse_financial_document(
+            "./tests/data/expense_receipts/receipt.jpg"
+        )
 
 
 def test_parse_passport_without_token(empty_client):
     with pytest.raises(Exception):
-        empty_client.parse_passport('./tests/data/expense_receipts/receipt.jpg')
+        empty_client.parse_passport("./tests/data/expense_receipts/receipt.jpg")
 
 
 def test_parse_license_plate_without_token(empty_client):
     with pytest.raises(Exception):
-        empty_client.parse_license_plate('./tests/data/license_plates/plate.png')
+        empty_client.parse_license_plate("./tests/data/license_plates/plate.png")
 
 
 def test_parse_receipt_with_wrong_filetype(dummy_client):
     with pytest.raises(Exception):
-        dummy_client.parse_receipt('./tests/data/expense_receipts/receipt.jpga')
+        dummy_client.parse_receipt("./tests/data/expense_receipts/receipt.jpga")
 
 
 def test_parse_invoice_with_wrong_filetype(dummy_client):
     with pytest.raises(Exception):
-        dummy_client.parse_invoice('./tests/data/expense_receipts/receipt.jpga')
+        dummy_client.parse_invoice("./tests/data/expense_receipts/receipt.jpga")
 
 
 def test_parse_financial_doc_with_wrong_filetype(dummy_client):
     with pytest.raises(Exception):
-        dummy_client.parse_financial_document('./tests/data/expense_receipts/receipt.jpga')
+        dummy_client.parse_financial_document(
+            "./tests/data/expense_receipts/receipt.jpga"
+        )
 
 
 def test_parse_passport_with_wrong_filetype(dummy_client):
     with pytest.raises(Exception):
-        dummy_client.parse_passport('./tests/data/expense_receipts/receipt.jpga')
+        dummy_client.parse_passport("./tests/data/expense_receipts/receipt.jpga")
 
 
 def test_parse_plate_with_wrong_filetype(dummy_client):
     with pytest.raises(Exception):
-        dummy_client.parse_license_plate('./tests/data/expense_receipts/receipt.jpga')
+        dummy_client.parse_license_plate("./tests/data/expense_receipts/receipt.jpga")
 
 
 def test_parse_receipt_with_wrong_token(dummy_client):
     with pytest.raises(Exception):
-        dummy_client.parse_receipt('./tests/data/expense_receipts/receipt.jpg')
+        dummy_client.parse_receipt("./tests/data/expense_receipts/receipt.jpg")
 
 
 def test_parse_receipt_with_wrong_version(dummy_client):
     with pytest.raises(Exception):
-        dummy_client.parse_receipt('./tests/data/expense_receipts/receipt.jpg', version="4000")
+        dummy_client.parse_receipt(
+            "./tests/data/expense_receipts/receipt.jpg", version="4000"
+        )
 
 
 def test_parse_invoice_with_wrong_token(dummy_client):
     with pytest.raises(Exception):
-        dummy_client.parse_invoice('./tests/data/expense_receipts/receipt.jpg')
+        dummy_client.parse_invoice("./tests/data/expense_receipts/receipt.jpg")
 
 
 def test_parse_financial_doc_with_wrong_token_jpg(dummy_client):
     with pytest.raises(Exception):
-        dummy_client.parse_financial_document('./tests/data/expense_receipts/receipt.jpg')
+        dummy_client.parse_financial_document(
+            "./tests/data/expense_receipts/receipt.jpg"
+        )
 
 
 def test_parse_financial_doc_with_wrong_token_pdf(dummy_client):
     with pytest.raises(Exception):
-        dummy_client.parse_financial_document('./tests/data/invoices/invoice.pdf')
+        dummy_client.parse_financial_document("./tests/data/invoices/invoice.pdf")
 
 
 def test_parse_passport_with_wrong_token(dummy_client):
     with pytest.raises(Exception):
-        dummy_client.parse_passport('./tests/data/expense_receipts/receipt.jpg')
+        dummy_client.parse_passport("./tests/data/expense_receipts/receipt.jpg")
 
 
 def test_parse_license_plate_with_wrong_token(dummy_client):
     with pytest.raises(Exception):
-        dummy_client.parse_license_plate('./tests/data/license_plates/plate.png')
+        dummy_client.parse_license_plate("./tests/data/license_plates/plate.png")
 
 
 def test_response_dump(response):
@@ -136,12 +148,16 @@ def test_response_with_passport_type():
 
 def test_request_with_filepath(dummy_client):
     with pytest.raises(Exception):
-        dummy_client.parse_receipt('./tests/data/expense_receipts/receipt.jpg', input_type="path")
+        dummy_client.parse_receipt(
+            "./tests/data/expense_receipts/receipt.jpg", input_type="path"
+        )
 
 
 def test_request_with_file(dummy_client):
     with pytest.raises(Exception):
-        dummy_client.parse_receipt(open('./tests/data/expense_receipts/receipt.jpg'), input_type="file")
+        dummy_client.parse_receipt(
+            open("./tests/data/expense_receipts/receipt.jpg"), input_type="file"
+        )
 
 
 def test_request_with_base64(dummy_client):
@@ -151,25 +167,31 @@ def test_request_with_base64(dummy_client):
 
 
 def test_request_without_raise_on_error(dummy_client_dont_raise):
-    result = dummy_client_dont_raise.parse_receipt('./tests/data/expense_receipts/receipt.jpg', input_type="path")
+    result = dummy_client_dont_raise.parse_receipt(
+        "./tests/data/expense_receipts/receipt.jpg", input_type="path"
+    )
     assert result.receipt is None
     assert len(result.receipts) == 0
 
 
 def test_request_without_raise_on_error_include_words(dummy_client_dont_raise):
-    result = dummy_client_dont_raise.parse_receipt('./tests/data/expense_receipts/receipt.jpg', input_type="path", include_words=True)
+    result = dummy_client_dont_raise.parse_receipt(
+        "./tests/data/expense_receipts/receipt.jpg",
+        input_type="path",
+        include_words=True,
+    )
     assert result.receipt is None
     assert len(result.receipts) == 0
 
 
 def test_request_with_file_wrong_type(dummy_client):
     with pytest.raises(Exception):
-        dummy_client.parse_receipt(open('./tests/data/test.txt'), input_type="file")
+        dummy_client.parse_receipt(open("./tests/data/test.txt"), input_type="file")
 
     with pytest.raises(Exception):
-        dummy_client.parse_receipt('./tests/data/test.txt', input_type="path")
+        dummy_client.parse_receipt("./tests/data/test.txt", input_type="path")
 
 
 def test_mpdf_reconstruct(dummy_client):
     with pytest.raises(Exception):
-        dummy_client.parse_invoice('./tests/data/invoices/invoice_6p.pdf')
+        dummy_client.parse_invoice("./tests/data/invoices/invoice_6p.pdf")

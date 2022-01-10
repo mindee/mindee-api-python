@@ -9,9 +9,15 @@ def test_mpdf_reconstruct():
 
 
 def test_mpdf_reconstruct_check_n_pages():
-    input_obj_3 = Inputs('./tests/data/invoices/invoice_6p.pdf', cut_pdf=True, n_pdf_pages=3)
-    input_obj_2 = Inputs('./tests/data/invoices/invoice_6p.pdf', cut_pdf=True, n_pdf_pages=2)
-    input_obj_1 = Inputs('./tests/data/invoices/invoice_6p.pdf', cut_pdf=True, n_pdf_pages=1)
+    input_obj_3 = Inputs(
+        "./tests/data/invoices/invoice_6p.pdf", cut_pdf=True, n_pdf_pages=3
+    )
+    input_obj_2 = Inputs(
+        "./tests/data/invoices/invoice_6p.pdf", cut_pdf=True, n_pdf_pages=2
+    )
+    input_obj_1 = Inputs(
+        "./tests/data/invoices/invoice_6p.pdf", cut_pdf=True, n_pdf_pages=1
+    )
 
     # re-initialize file pointer
     input_obj_3.file_object.seek(0)
