@@ -24,7 +24,7 @@ def passport_object_from_scratch():
         mrz2="7077979792GBR9505209M1704224<<<<<<<<<<<<<<00",
         given_names=["John", "Jane"],
         mrz="P<GBRPUDARSAN<<HENERT<<<<<<<<<<<<<<<<<<<<<<<7077979792GBR9505209M1704224<<<<<<<<<<<<<<00",
-        full_name="John Doe"
+        full_name="John Doe",
     )
 
 
@@ -103,7 +103,9 @@ def test_compare_3(passport_object, passport_object_all_na):
 
 def test_compare_5(passport_object_from_scratch):
     # Compare passport from class
-    benchmark = Passport.compare(passport_object_from_scratch, passport_object_from_scratch)
+    benchmark = Passport.compare(
+        passport_object_from_scratch, passport_object_from_scratch
+    )
     for key in benchmark.keys():
         if "__acc__" in key:
             assert benchmark[key] is True
@@ -112,7 +114,9 @@ def test_compare_5(passport_object_from_scratch):
 def test_compare_6(passport_object_from_scratch):
     # Compare passport from class with empty given_names
     passport_object_from_scratch.given_names = []
-    benchmark = Passport.compare(passport_object_from_scratch, passport_object_from_scratch)
+    benchmark = Passport.compare(
+        passport_object_from_scratch, passport_object_from_scratch
+    )
     for key in benchmark.keys():
         if "__acc__" in key:
             assert benchmark[key] is True
@@ -123,4 +127,3 @@ def test_compare_6(passport_object_from_scratch):
 def test_empty_object_works():
     passport = Passport()
     assert passport.full_name.value is None
-

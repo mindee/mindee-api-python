@@ -22,4 +22,4 @@ jobs:
         pip install --requirement ./requirements.dev.txt
     - name: Analysing the code with Black
       run: |
-        black --check ./mindee
+        black --check .
