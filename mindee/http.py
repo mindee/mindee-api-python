@@ -1,4 +1,7 @@
 import requests
+from mindee.versions import __version__, python_version, get_platform
+
+platform = get_platform()
 
 
 def request(url, input_file, token, include_words=False):
@@ -12,7 +15,10 @@ def request(url, input_file, token, include_words=False):
     input_file.file_object.seek(0)
 
     files = {"document": (input_file.filename, input_file.file_object.read())}
-    headers = {"Authorization": f"Token {token}"}
+    headers = {
+        "Authorization": f"Token {token}",
+        "User-Agent": f"mindee-api-python@v{__version__} python-v{python_version} {platform}",
+    }
 
     params = {}
     if include_words:
