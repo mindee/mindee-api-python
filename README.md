@@ -4,7 +4,7 @@ The full documentation is available [here](https://developers.mindee.com/docs/ge
 
 ## Requirements
 
-This library is compatible with Python 3.5 and above.
+This library is officially supported on Python 3.6 to 3.9.
 
 ## Install
 

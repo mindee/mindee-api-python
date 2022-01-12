@@ -41,5 +41,4 @@
 - [ ] I have updated the documentation accordingly.
 - [ ] I have read the **CONTRIBUTING** document.
 - [ ] I have added tests to cover my changes.
-- [ ] I have added type hints (flow) to cover my changes.
 - [ ] All new and existing tests passed.
