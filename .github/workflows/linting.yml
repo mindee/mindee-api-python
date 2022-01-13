@@ -19,7 +19,7 @@ jobs:
       # We install the full dev requirements to make sure everything installs OK
       run: |
         python -m pip install pip
-        pip install --requirement ./requirements.dev.txt
+        pip install -e .[dev]
     - name: Analysing the code with Black
       run: |
         black --check .

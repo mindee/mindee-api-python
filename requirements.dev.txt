@@ -1,8 +1,0 @@
-black==21.12b0
-requests~=2.23.0
-pytest~=6.1.2
-python-magic~=0.4.18
-pytz~=2020.1
-setuptools~=49.2.0
-PyMuPDF~=1.18.19
-pytest-cov~=2.11.1
