@@ -13,7 +13,7 @@ Install from PyPi using pip, a package manager for Python.
 ```shell script
 pip install mindee
 ```
- 
+
 Don't have pip installed? Try installing it, by running this from the command line:
 
 ```shell script
@@ -29,7 +29,6 @@ Create a Client and you're ready to go.
 The mindee.Client needs your API credentials.
 You can either pass these directly to the constructor (see the code below) or via environment variables.
 
- 
 Depending on what type of document you want to parse, you need to add specifics auth token for each endpoint.
 
 ```python
@@ -73,11 +72,10 @@ parsed_data = mindee_client.parse_license_plate("/path/to/file")
 
 You can pass your input file in three ways:
 
- 
 From file path
 ```python
 receipt_data = mindee_client.parse_receipt('/path/to/file', input_type="path")
-``` 
+```
 
 From a file object
 ```python
