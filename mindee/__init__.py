@@ -9,6 +9,7 @@ from mindee.documents.financial_document import FinancialDocument
 from mindee.documents.invoice import Invoice
 from mindee.documents.passport import Passport
 
+
 DOCUMENT_CLASSES = {
     "receipt": Receipt,
     "invoice": Invoice,

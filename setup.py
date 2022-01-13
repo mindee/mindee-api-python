@@ -1,7 +1,6 @@
 import re
 from setuptools import find_packages, setup
-
-__version__ = None
+from mindee.versions import __version__
 
 
 with open("README.md", "r", newline="", encoding="utf-8") as fh:
@@ -32,10 +31,10 @@ def make_requirements_list(file="requirements.txt", only_regular=True):
 
 
 setup(
-    python_requires=">=3.0",
+    python_requires=">=3.6",
     name=f"{PACKAGE_NAME}",
     description="Mindee API helper library for python",
-    version="v1.2.3",
+    version=__version__,
     long_description=long_description,
     long_description_content_type="text/markdown",
     url=GIT_URL,
