@@ -16,5 +16,5 @@ pytz==2021.3
     # via mindee (setup.py)
 requests==2.23.0
     # via mindee (setup.py)
-urllib3==1.25.11
+urllib3==1.26.5
     # via requests
