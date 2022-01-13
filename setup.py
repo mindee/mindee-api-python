@@ -13,28 +13,27 @@ PACKAGE_NAME = "mindee"
 GIT_URL = "https://github.com/publicMindee/mindee-api-python"
 
 
-def make_requirements_list(file="requirements.txt", only_regular=True):
-    """
-    Make a list of package requirements from a requirements.txt file
-    :param file: path to txt file
-    :param only_regular: remove rows with /, #, space or empty
-    :return:
-    """
-    with open(file) as f:
-        lines = f.read().splitlines()
-    if only_regular:
-        regex = (
-            "\/$|^#|^$$|^git\+"  # remove line with /, starting by # or space or empty
-        )
-        return [line for line in lines if not re.findall(regex, line)]
-    else:
-        return lines
+requirements = [
+    "requests==2.23.0",
+    "pytz==2021.3",
+    "PyMuPDF==1.18.17",
+]
 
+test_requirements = [
+    "pytest==6.1.2",
+    "pytest-cov==2.11.1",
+]
+
+dev_requirements = [
+    "black==21.12b0",
+    "setuptools==49.2.0",
+    "pip-tools==6.4.0",
+]
 
 setup(
     python_requires=">=3.0",
     name=f"{PACKAGE_NAME}",
-    description="Mindee API helper library for python",
+    description="Mindee API helper library for Python",
     version="v1.2.3",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -42,6 +41,18 @@ setup(
     packages=find_packages(),
     author="Mindee",
     author_email="devrel@mindee.com",
-    install_requires=make_requirements_list(),
+    install_requires=requirements,
+    test_requirements=test_requirements,
+    extras_require={
+        "dev": dev_requirements,
+        "test": test_requirements,
+    },
     include_package_data=True,
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "Operating System :: OS Independent",
+        "Development Status :: 5 - Production/Stable",
+        "Intended Audience :: Developers",
+        "Topic :: Software Development :: Libraries",
+    ],
 )
