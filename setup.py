@@ -1,7 +1,10 @@
+import os
 import re
 from setuptools import find_packages, setup
-from mindee.versions import __version__
 
+dir_path = os.path.dirname(os.path.realpath(__file__))
+with open(os.path.join(dir_path, "mindee", "version"), "r") as version_file:
+    __version__ = version_file.read().strip()
 
 with open("README.md", "r", newline="", encoding="utf-8") as fh:
     long_description = fh.read()
@@ -12,28 +15,27 @@ PACKAGE_NAME = "mindee"
 GIT_URL = "https://github.com/publicMindee/mindee-api-python"
 
 
-def make_requirements_list(file="requirements.txt", only_regular=True):
-    """
-    Make a list of package requirements from a requirements.txt file
-    :param file: path to txt file
-    :param only_regular: remove rows with /, #, space or empty
-    :return:
-    """
-    with open(file) as f:
-        lines = f.read().splitlines()
-    if only_regular:
-        regex = (
-            "\/$|^#|^$$|^git\+"  # remove line with /, starting by # or space or empty
-        )
-        return [line for line in lines if not re.findall(regex, line)]
-    else:
-        return lines
+requirements = [
+    "requests==2.25.1",
+    "pytz==2021.3",
+    "PyMuPDF==1.18.17",
+]
 
+test_requirements = [
+    "pytest==6.1.2",
+    "pytest-cov==2.11.1",
+]
+
+dev_requirements = [
+    "black==21.12b0",
+    "setuptools==49.2.0",
+    "pip-tools==6.4.0",
+]
 
 setup(
     python_requires=">=3.6",
-    name=f"{PACKAGE_NAME}",
-    description="Mindee API helper library for python",
+    name=PACKAGE_NAME,
+    description="Mindee API helper library for Python",
     version=__version__,
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -41,6 +43,18 @@ setup(
     packages=find_packages(),
     author="Mindee",
     author_email="devrel@mindee.com",
-    install_requires=make_requirements_list(),
+    install_requires=requirements,
+    extras_require={
+        "dev": dev_requirements,
+        "test": test_requirements,
+    },
     include_package_data=True,
+    package_data={"mindee": ["version"]},
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "Operating System :: OS Independent",
+        "Development Status :: 5 - Production/Stable",
+        "Intended Audience :: Developers",
+        "Topic :: Software Development :: Libraries",
+    ],
 )

@@ -1,4 +1,4 @@
-# Receipt, passport and invoice OCR python helper for Mindee API
+# Mindee API helper library for Python
 
 The full documentation is available [here](https://developers.mindee.com/docs/getting-started)
 
@@ -20,15 +20,16 @@ Don't have pip installed? Try installing it, by running this from the command li
 $ curl https://bootstrap.pypa.io/get-pip.py | python
 ```
 
-Getting started with the Mindee API couldn't be easier. Create a Client and you're ready to go.
+Getting started with the Mindee API couldn't be easier.
+Create a Client and you're ready to go.
 
 
 ## Create your Client
 
-The mindee.Client needs your API credentials. You can either pass these directly to the constructor (see the code below) or via environment variables.
+The mindee.Client needs your API credentials.
+You can either pass these directly to the constructor (see the code below) or via environment variables.
 
  
-
 Depending on what type of document you want to parse, you need to add specifics auth token for each endpoint.
 
 ```python
@@ -43,7 +44,8 @@ mindee_client = Client(
 )
 ```
 
-We suggest storing your credentials as environment variables. Why? You'll never have to worry about committing your credentials and accidentally posting them somewhere public.
+We suggest storing your credentials as environment variables.
+Why? You'll never have to worry about committing your credentials and accidentally posting them somewhere public.
 
 
 ## Parsing methods
@@ -87,4 +89,3 @@ From a base64
 ```python
 receipt_data = mindee_client.parse_receipt(base64_string, input_type="base64")
 ```
- 
