@@ -23,10 +23,9 @@ $ curl https://bootstrap.pypa.io/get-pip.py | python
 Getting started with the Mindee API couldn't be easier.
 Create a Client and you're ready to go.
 
-
 ## Create your Client
 
-The mindee.Client needs your API credentials.
+The mindee.Client needs your [API credentials](https://developers.mindee.com/docs/make-your-first-request#create-an-api-key).
 You can either pass these directly to the constructor (see the code below) or via environment variables.
 
 Depending on what type of document you want to parse, you need to add specifics auth token for each endpoint.
