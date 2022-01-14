@@ -1,3 +1,4 @@
+import pikepdf
 import io
 import os
 from base64 import decodebytes
@@ -48,7 +49,7 @@ class Inputs:
             self.file_extension = guess_type(file)[0]
 
         if input_type == "dummy":
-            self.file_object = ""
+            self.file_object = None
             self.input_type = ""
             self.filename = ""
             self.filepath = ""
@@ -60,6 +61,8 @@ class Inputs:
             )
 
         if self.file_extension == "application/pdf":
+            self.check_pdf_open()
+
             count_pages = self.count_pdf_pages()
 
             if cut_pdf is True:
@@ -99,12 +102,8 @@ class Inputs:
         :return: Number of pages in the Input file for pdfs
         """
         self.file_object.seek(0)
-        src = fitz.open(
-            stream=self.file_object.read(),
-            filetype=self.file_extension,
-            filename=self.filename,
-        )
-        return len(src)
+        with pikepdf.open(self.file_object) as pdf:
+            return len(pdf.pages)
 
     def merge_pdf_pages(self, pages_number):
         """
@@ -112,34 +111,35 @@ class Inputs:
         :return: (void) Set the Input.file with the reconstructed pdf stream
         """
         self.file_object.seek(0)
-        src = fitz.open(stream=self.file_object.read(), filetype="pdf")
-        doc = fitz.open()
-        pdf_pages = [src[n] for n in pages_number]
-        for spage in pdf_pages:
-            width = spage.MediaBoxSize[0]
-            height = spage.MediaBoxSize[1]
-            r = fitz.Rect(0, 0, width, height)
-            page = doc.new_page(-1, width=width, height=height)
-            try:
-                page.showPDFpage(r, src, spage.number)
-            except:
-                pass
+        new_pdf = pikepdf.Pdf.new()
+        with pikepdf.open(self.file_object) as pdf:
+            for page_n in pages_number:
+                new_pdf.pages.append(pdf.pages[page_n])
         self.file_object.close()
-        self.file_object = io.BytesIO(doc.write())
+        self.file_object = io.BytesIO()
+        new_pdf.save(self.file_object)
 
     def check_if_document_is_empty(self):
         """
         :return: (void) Check if the document contain only empty pages
         """
-
         self.file_object.seek(0)
-        src = fitz.open(stream=self.file_object.read(), filetype="pdf")
-        fitz.open()
-        for page in src:
-            if (
-                len(page.get_images()) > 0
-                or len(page.get_cdrawings()) > 1
-                or len(page.get_text()) > 0
-            ):
-                return
-        raise Exception("PDF pages are empty")
+        with pikepdf.open(self.file_object) as pdf:
+            for n, page in enumerate(pdf.pages):
+                if (
+                    "/Font" in page["/Resources"].keys()
+                    or "/XObject" in page["/Resources"].keys()
+                    or page["/Contents"]["/Length"] > 1000
+                ):
+                    return
+            raise Exception("PDF pages are empty")
+
+    def check_pdf_open(self):
+        """
+        :return: (void) Check if the document can be opened using pikepdf
+        """
+        self.file_object.seek(0)
+        try:
+            pikepdf.open(self.file_object)
+        except Exception as e:
+            raise Exception("Couldn't open PDF file. %s" % e)
