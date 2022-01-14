@@ -1,10 +1,23 @@
 import requests
 from mindee.versions import __version__, python_version, get_platform
 
+MINDEE_API_URL = "https://api.mindee.net/v1"
+
 platform = get_platform()
 
 
-def request(url, input_file, token, include_words=False):
+def make_predict_url(product: str, version: str, owner: str = "mindee") -> str:
+    """
+    Returns full HTTP URL for a prediction request at specific version
+    :param product: product API name
+    :param version: product model version
+    :param owner: product owner (mindee for off-the-shelf APIs)
+    :return: The full URL, i.e. https://api.mindee.net/v1/products/mindee/invoices/2/predict
+    """
+    return f"{MINDEE_API_URL}/products/{owner}/{product}/v{version}/predict"
+
+
+def make_api_request(url: str, input_file, token: str, include_words: bool = False):
     """
     :param input_file: Input object
     :param url: Endpoint url

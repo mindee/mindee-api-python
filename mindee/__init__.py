@@ -37,7 +37,6 @@ class Client(object):
         """
         assert type(raise_on_error) == bool
         self.raise_on_error = raise_on_error
-        self.base_url = "https://api.mindee.net/v1/products/mindee/"
         self.expense_receipt_token = expense_receipt_token
         self.invoice_token = invoice_token
         self.passport_token = passport_token
@@ -73,7 +72,6 @@ class Client(object):
 
         response = Receipt.request(
             input_file,
-            self.base_url,
             self.expense_receipt_token,
             version,
             include_words,
@@ -131,9 +129,7 @@ class Client(object):
 
         input_file = Inputs(file, input_type, cut_pdf=cut_pdf, n_pdf_pages=cut_pdf_mode)
 
-        response = Passport.request(
-            input_file, self.base_url, self.passport_token, version
-        )
+        response = Passport.request(input_file, self.passport_token, version)
 
         return self._wrap_response(input_file, response, "passport")
 
@@ -163,9 +159,7 @@ class Client(object):
 
         input_file = Inputs(file, input_type, cut_pdf=cut_pdf, n_pdf_pages=cut_pdf_mode)
 
-        response = CarPlate.request(
-            input_file, self.base_url, self.license_plate_token, version
-        )
+        response = CarPlate.request(input_file, self.license_plate_token, version)
 
         return self._wrap_response(input_file, response, "license_plate")
 
@@ -196,7 +190,7 @@ class Client(object):
         input_file = Inputs(file, input_type, cut_pdf=cut_pdf, n_pdf_pages=cut_pdf_mode)
 
         response = Invoice.request(
-            input_file, self.base_url, self.invoice_token, version, include_words
+            input_file, self.invoice_token, version, include_words
         )
 
         return self._wrap_response(input_file, response, "invoice")
@@ -229,7 +223,6 @@ class Client(object):
 
         response = FinancialDocument.request(
             input_file,
-            self.base_url,
             self.expense_receipt_token,
             self.invoice_token,
             include_words,
