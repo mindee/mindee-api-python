@@ -8,7 +8,6 @@ from mindee.fields import Field
 from mindee.http import make_api_request, make_predict_url
 from mindee.documents.invoice import Invoice
 from mindee.documents.receipt import Receipt
-import os
 
 
 class FinancialDocument(Document):
@@ -159,7 +158,7 @@ class FinancialDocument(Document):
             self.payment_details = []
             self.company_number = []
 
-    def __str__(self):
+    def __str__(self) -> str:
         return (
             "-----Financial Document data-----\n"
             "Filename: %s \n"

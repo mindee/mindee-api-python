@@ -23,3 +23,9 @@ jobs:
     - name: Analysing the code with Black
       run: |
         black --check .
+    - name: Analysing the code with mypy
+      run: |
+        mypy --install-types --non-interactive ./mindee
+    - name: Analysing the code with pylint
+      run: |
+        pylint ./mindee

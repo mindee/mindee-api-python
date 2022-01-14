@@ -3,5 +3,34 @@ line-length = 88
 target-version = ['py35', 'py36', 'py37']
 include = '\.pyi?$'
 
-[tool.mypy]
+[[tool.mypy.overrides]]
+module = ['fitz',]
 ignore_missing_imports = true
+
+[tool.pylint.'MESSAGES CONTROL']
+disable=[
+  'line-too-long',
+  'bare-except',
+  'consider-using-set-comprehension',
+  'missing-class-docstring',
+  'missing-module-docstring',
+  'super-with-arguments',
+  'no-else-return',
+  'too-many-instance-attributes',
+  'too-many-locals',
+  'too-many-arguments',
+  'duplicate-code',
+  'unidiomatic-typecheck',
+  'arguments-differ',
+  'inconsistent-return-statements',
+  'invalid-name',
+  'super-init-not-called',
+  'no-else-raise',
+  'raise-missing-from',
+  'consider-iterating-dictionary',
+  'unspecified-encoding',
+  'use-implicit-booleaness-not-len',
+  'unnecessary-pass',
+  'consider-using-f-string',
+  'consider-using-with',
+]

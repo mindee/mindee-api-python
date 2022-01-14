@@ -7,7 +7,6 @@ from mindee.fields.orientation import Orientation
 from mindee.fields.payment_details import PaymentDetails
 from mindee.fields.tax import Tax
 from mindee.http import make_api_request, make_predict_url
-import os
 
 
 class Invoice(Document):
@@ -153,7 +152,7 @@ class Invoice(Document):
             {"value": None, "probability": 0.0}, value_key="value", page_n=page_n
         )
 
-    def __str__(self):
+    def __str__(self) -> str:
         return (
             "-----Invoice data-----\n"
             "Filename: %s \n"
