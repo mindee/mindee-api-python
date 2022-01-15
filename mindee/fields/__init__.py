@@ -1,4 +1,4 @@
-class Field(object):
+class Field:
     def __init__(
         self,
         abstract_prediction,

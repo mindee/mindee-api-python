@@ -3,7 +3,7 @@ from mindee.versions import __version__, python_version, get_platform
 
 MINDEE_API_URL = "https://api.mindee.net/v1"
 
-platform = get_platform()
+PLATFORM = get_platform()
 
 
 def make_predict_url(product: str, version: str, owner: str = "mindee") -> str:
@@ -30,7 +30,7 @@ def make_api_request(url: str, input_file, token: str, include_words: bool = Fal
     files = {"document": (input_file.filename, input_file.file_object.read())}
     headers = {
         "Authorization": f"Token {token}",
-        "User-Agent": f"mindee-api-python@v{__version__} python-v{python_version} {platform}",
+        "User-Agent": f"mindee-api-python@v{__version__} python-v{python_version} {PLATFORM}",
     }
 
     params = {}

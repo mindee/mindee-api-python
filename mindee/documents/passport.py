@@ -1,9 +1,8 @@
+from datetime import datetime
 from mindee.documents import Document
 from mindee.fields import Field
 from mindee.fields.date import Date
-from datetime import datetime
 from mindee.http import make_api_request, make_predict_url
-import os
 
 
 class Passport(Document):
@@ -127,7 +126,7 @@ class Passport(Document):
         self.mrz = Field({"value": None, "probability": 0.0}, page_n=page_n)
         self.full_name = Field({"value": None, "probability": 0.0}, page_n=page_n)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return (
             "-----Passport data-----\n"
             "Filename: %s \n"

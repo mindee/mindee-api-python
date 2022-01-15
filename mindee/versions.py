@@ -10,6 +10,7 @@ python_version = "%s.%s" % (sys.version_info[0], sys.version_info[1])
 
 
 def get_platform() -> str:
+    """Get the current OS platform."""
     platforms = {
         "linux": "linux",
         "win32": "windows",

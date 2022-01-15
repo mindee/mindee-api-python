@@ -1,11 +1,11 @@
-import fitz
 import io
 import os
 from base64 import decodebytes
 from mimetypes import guess_type
+import fitz
 
 
-class Inputs(object):
+class Inputs:
     def __init__(
         self, file, input_type="path", filename=None, cut_pdf=True, n_pdf_pages=3
     ):
@@ -119,7 +119,7 @@ class Inputs(object):
             width = spage.MediaBoxSize[0]
             height = spage.MediaBoxSize[1]
             r = fitz.Rect(0, 0, width, height)
-            page = doc.newPage(-1, width=width, height=height)
+            page = doc.new_page(-1, width=width, height=height)
             try:
                 page.showPDFpage(r, src, spage.number)
             except:

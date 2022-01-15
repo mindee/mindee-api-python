@@ -6,7 +6,6 @@ from mindee.fields.locale import Locale
 from mindee.fields.orientation import Orientation
 from mindee.fields.tax import Tax
 from mindee.http import make_api_request, make_predict_url
-import os
 
 
 class Receipt(Document):
@@ -95,7 +94,7 @@ class Receipt(Document):
         # Reconstruct extra fields
         self._reconstruct()
 
-    def __str__(self):
+    def __str__(self) -> str:
         return (
             "-----Receipt data-----\n"
             "Filename: %s\n"

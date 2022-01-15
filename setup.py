@@ -16,9 +16,9 @@ GIT_URL = "https://github.com/publicMindee/mindee-api-python"
 
 
 requirements = [
-    "requests==2.25.1",
     "pytz==2021.3",
     "PyMuPDF==1.18.17",
+    "requests==2.25.1",
 ]
 
 test_requirements = [
@@ -28,8 +28,10 @@ test_requirements = [
 
 dev_requirements = [
     "black==21.12b0",
-    "setuptools==49.2.0",
+    "mypy==0.931",
     "pip-tools==6.4.0",
+    "pylint==2.12.2",
+    "setuptools==49.2.0",
 ]
 
 setup(

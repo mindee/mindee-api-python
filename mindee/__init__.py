@@ -19,7 +19,7 @@ DOCUMENT_CLASSES = {
 }
 
 
-class Client(object):
+class Client:
     def __init__(
         self,
         expense_receipt_token=None,
@@ -231,7 +231,7 @@ class Client(object):
         return self._wrap_response(input_file, response, "financial_document")
 
 
-class Response(object):
+class Response:
     def __init__(
         self, http_response=None, pages=None, document=None, document_type=None
     ):
@@ -311,7 +311,7 @@ class Response(object):
             raise Exception("Document type not supported.")
 
         # Create page level objects
-        for page_n, page_prediction in enumerate(
+        for _, page_prediction in enumerate(
             json_response["document"]["inference"]["pages"]
         ):
             pages.append(

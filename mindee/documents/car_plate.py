@@ -1,7 +1,6 @@
 from mindee.documents import Document
 from mindee.fields import Field
 from mindee.http import make_api_request, make_predict_url
-import os
 
 
 class CarPlate(Document):
@@ -46,7 +45,7 @@ class CarPlate(Document):
             for license_plate in api_prediction["license_plates"]
         ]
 
-    def __str__(self):
+    def __str__(self) -> str:
         return (
             "-----Car plate data-----\n"
             "Filename: %s\n"
