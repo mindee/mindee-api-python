@@ -2,3 +2,6 @@
 line-length = 88
 target-version = ['py35', 'py36', 'py37']
 include = '\.pyi?$'
+
+[tool.mypy]
+ignore_missing_imports = true

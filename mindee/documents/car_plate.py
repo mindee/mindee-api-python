@@ -1,6 +1,6 @@
 from mindee.documents import Document
 from mindee.fields import Field
-from mindee.http import request
+from mindee.http import make_api_request, make_predict_url
 import os
 
 
@@ -78,16 +78,15 @@ class CarPlate(Document):
         return metrics
 
     @staticmethod
-    def request(input_file, base_url, license_plates_token=None, version="1"):
+    def request(input_file, license_plates_token, version="1"):
         """
         Make request to license_plates endpoint
         :param input_file: Input object
-        :param base_url: API base URL
         :param license_plates_token: License plate API token
         :param version: API version
         """
-        url = os.path.join(base_url, "license_plates", "v" + version, "predict")
-        return request(url, input_file, license_plates_token)
+        url = make_predict_url("license_plates", version)
+        return make_api_request(url, input_file, license_plates_token)
 
     def _checklist(self):
         """

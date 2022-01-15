@@ -2,7 +2,7 @@ from mindee.documents import Document
 from mindee.fields import Field
 from mindee.fields.date import Date
 from datetime import datetime
-from mindee.http import request
+from mindee.http import make_api_request, make_predict_url
 import os
 
 
@@ -190,12 +190,12 @@ class Passport(Document):
         return self.expiry_date.date_object < datetime.date(datetime.now())
 
     @staticmethod
-    def request(input_file, base_url, passport_token=None, version="1"):
+    def request(input_file, passport_token, version="1"):
         """
         Make request to passport endpoint
         """
-        url = os.path.join(base_url, "passport", "v" + version, "predict")
-        return request(url, input_file, passport_token)
+        url = make_predict_url("passport", version)
+        return make_api_request(url, input_file, passport_token)
 
     def _reconstruct(self):
         """
