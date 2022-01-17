@@ -7,6 +7,7 @@ from mindee.fields.orientation import Orientation
 from mindee.fields.payment_details import PaymentDetails
 from mindee.fields.tax import Tax
 from mindee.http import make_api_request, make_predict_url
+from mindee.document_config import DocumentConfig
 
 
 class Invoice(Document):
@@ -27,6 +28,7 @@ class Invoice(Document):
         orientation=None,
         total_tax=None,
         page_n=0,
+        document_type="invoice",
     ):
         """
         :param api_prediction: Raw prediction from HTTP response
@@ -46,7 +48,7 @@ class Invoice(Document):
         :param total_tax: total_tax value for creating Invoice object from scratch
         :param page_n: Page number for multi pages pdf input
         """
-        self.type = "Invoice"
+        self.type = document_type
         self.locale = None
         self.total_incl = None
         self.total_excl = None
@@ -110,6 +112,20 @@ class Invoice(Document):
 
         # Reconstruct extra fields
         self._reconstruct()
+
+    @staticmethod
+    def get_document_config():
+        return DocumentConfig(
+            {
+                "constructor": Invoice,
+                "api_key_kwargs": ["invoice_api_key"],
+                "document_type": "invoice",
+                "singular_name": "invoice",
+                "plural_name": "invoices",
+                "type": "off-the-shelf",
+            },
+            type="off_the_shelf",
+        )
 
     def build_from_api_prediction(self, api_prediction, page_n=0):
         """
@@ -198,16 +214,16 @@ class Invoice(Document):
         return metrics
 
     @staticmethod
-    def request(input_file, invoice_token, version="2", include_words=False):
+    def request(client, input_file, version="2", include_words=False):
         """
         Make request to invoices endpoint
         :param input_file: Input object
-        :param invoice_token: Invoices API token
+        :param client: Mindee Client
         :param include_words: Include Mindee vision words in http_response
         :param version: API version
         """
         url = make_predict_url("invoices", version)
-        return make_api_request(url, input_file, invoice_token, include_words)
+        return make_api_request(url, input_file, client.invoice_api_key, include_words)
 
     def _reconstruct(self):
         """
@@ -434,21 +450,3 @@ class Invoice(Document):
                 self.total_tax = Amount(
                     total_tax, value_key="value", reconstructed=True
                 )
-
-    @staticmethod
-    def compute_accuracy(invoice, ground_truth):
-        """
-        :param invoice: Invoice object to compare
-        :param ground_truth: Ground truth Invoice object
-        :return: Accuracy metrics
-        """
-        return {
-            "__acc__total_incl": ground_truth.total_incl == invoice.total_incl,
-            "__acc__total_excl": ground_truth.total_excl == invoice.total_excl,
-            "__acc__invoice_date": ground_truth.invoice_date == invoice.invoice_date,
-            "__acc__invoice_number": ground_truth.invoice_number
-            == invoice.invoice_number,
-            "__acc__due_date": ground_truth.due_date == invoice.due_date,
-            "__acc__total_tax": ground_truth.total_tax == invoice.total_tax,
-            "__acc__taxes": Tax.compare_arrays(invoice.taxes, ground_truth.taxes),
-        }
