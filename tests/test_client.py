@@ -141,7 +141,7 @@ def test_request_with_filepath(dummy_client):
 
 
 def test_request_with_file(dummy_client):
-    with pytest.raises(HTTPException):
+    with pytest.raises(AssertionError):
         dummy_client.parse(
             open("./tests/data/expense_receipts/receipt.jpg"),
             input_type="file",
@@ -153,14 +153,16 @@ def test_request_with_base64_no_filename(dummy_client):
     with open("./tests/data/expense_receipts/receipt.txt", "r") as fh:
         b64 = fh.read()
     with pytest.raises(AssertionError):
-        dummy_client.parse(b64, input_type="base64", document_type="receipt", filename="receipt.txt")
+        dummy_client.parse(b64, input_type="base64", document_type="receipt")
 
 
 def test_request_with_base64(dummy_client):
     with open("./tests/data/expense_receipts/receipt.txt", "r") as fh:
         b64 = fh.read()
     with pytest.raises(HTTPException):
-        dummy_client.parse(b64, input_type="base64", document_type="receipt", filename="receipt.txt")
+        dummy_client.parse(
+            b64, input_type="base64", document_type="receipt", filename="receipt.txt"
+        )
 
 
 def test_request_without_raise_on_error(dummy_client_dont_raise):
@@ -195,8 +197,8 @@ def test_request_with_file_wrong_type(dummy_client):
         )
 
 
-def test_mpdf_reconstruct(dummy_client):
-    with pytest.raises(AssertionError):
+def test_pdf_reconstruct(dummy_client):
+    with pytest.raises(HTTPException):
         dummy_client.parse(
             "./tests/data/invoices/invoice_6p.pdf", document_type="invoice"
         )

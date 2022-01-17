@@ -3,6 +3,7 @@ from mindee.documents import Document
 from mindee.fields import Field
 from mindee.fields.date import Date
 from mindee.http import make_api_request, make_predict_url
+from mindee.document_config import DocumentConfig
 
 
 class Passport(Document):
@@ -24,6 +25,7 @@ class Passport(Document):
         mrz=None,
         full_name=None,
         page_n=0,
+        document_type="passport",
     ):
         """
         :param api_prediction: Raw prediction from HTTP response
@@ -44,7 +46,7 @@ class Passport(Document):
         :param page_n: Page number for multi pages pdf input
         """
         # Raw data
-        self.type = "Passport"
+        self.type = document_type
         self.country = None
         self.id_number = None
         self.birth_date = None
@@ -100,6 +102,20 @@ class Passport(Document):
 
         # Reconstruct extra fields
         self._reconstruct()
+
+    @staticmethod
+    def get_document_config() -> DocumentConfig:
+        """:return: the configuration for passport"""
+        return DocumentConfig(
+            {
+                "constructor": Passport,
+                "api_key_kwargs": ["passport_api_key"],
+                "document_type": "passport",
+                "singular_name": "passport",
+                "plural_name": "passports",
+            },
+            doc_type="off_the_shelf",
+        )
 
     def build_from_api_prediction(self, api_prediction, page_n=0):
         """
@@ -163,25 +179,6 @@ class Passport(Document):
             )
         )
 
-    @staticmethod
-    def compare(passport=None, ground_truth=None):
-        """
-        :param passport: Passport object to compare
-        :param ground_truth: Ground truth Passport object
-        :return: Accuracy and precisions metrics
-        """
-        assert passport is not None
-        assert ground_truth is not None
-        assert isinstance(passport, Passport)
-        assert isinstance(ground_truth, Passport)
-
-        metrics = {}
-
-        # Compute Accuracy metrics
-        metrics.update(Passport.compute_accuracy(passport, ground_truth))
-
-        return metrics
-
     def is_expired(self):
         """
         :return: True if the passport is expired, False otherwise
@@ -189,12 +186,17 @@ class Passport(Document):
         return self.expiry_date.date_object < datetime.date(datetime.now())
 
     @staticmethod
-    def request(input_file, passport_token, version="1"):
+    def request(client, input_file, version="1", include_words=False):
         """
         Make request to passport endpoint
         """
+        if include_words:
+            raise Exception(
+                "invlude_words parameter cannot be set to True for passport API"
+            )
+
         url = make_predict_url("passport", version)
-        return make_api_request(url, input_file, passport_token)
+        return make_api_request(url, input_file, client.passport_api_key)
 
     def _reconstruct(self):
         """
@@ -347,28 +349,3 @@ class Passport(Document):
                 ),
             }
             self.full_name = Field(full_name, reconstructed=True)
-
-    @staticmethod
-    def compute_accuracy(passport, ground_truth):
-        """
-        :param passport: Passport object to compare
-        :param ground_truth: Ground truth Passport object
-        :return: Accuracy metrics
-        """
-        return {
-            "__acc__country": ground_truth.country == passport.country,
-            "__acc__id_number": ground_truth.id_number == passport.id_number,
-            "__acc__birth_date": ground_truth.birth_date == passport.birth_date,
-            "__acc__expiry_date": ground_truth.expiry_date == passport.expiry_date,
-            "__acc__issuance_date": ground_truth.issuance_date
-            == passport.issuance_date,
-            "__acc__gender": ground_truth.gender == passport.gender,
-            "__acc__surname": ground_truth.surname == passport.surname,
-            "__acc__mrz1": ground_truth.mrz1 == passport.mrz1,
-            "__acc__mrz2": ground_truth.mrz2 == passport.mrz2,
-            "__acc__given_names": Field.compare_arrays(
-                passport.given_names, ground_truth.given_names
-            ),
-            "__acc__mrz": ground_truth.mrz == passport.mrz,
-            "__acc__full_name": ground_truth.full_name == passport.full_name,
-        }

@@ -55,7 +55,7 @@ class Field:
                 return self.value == other.value
 
     @staticmethod
-    def compare_arrays(array1, array2, attr="value"):
+    def compare_arrays(array1: list, array2: list, attr="value"):
         """
         :param array1: Array of Fields
         :param array2: Array of Fields
@@ -67,7 +67,7 @@ class Field:
         return set1 == set2
 
     @staticmethod
-    def array_probability(array):
+    def array_probability(array: list):
         """
         :param array: Array of fields
         :return: Product of all the Fields probability in the array
@@ -76,12 +76,12 @@ class Field:
         for field in array:
             try:
                 product *= field.probability
-            except:
+            except (AttributeError, TypeError):
                 return 0.0
         return product
 
     @staticmethod
-    def array_sum(array):
+    def array_sum(array: list):
         """
         :param array: Array of fields
         :return: Sum of all the Fields values in the array
@@ -90,6 +90,6 @@ class Field:
         for field in array:
             try:
                 array_sum += field.value
-            except:
+            except (AttributeError, TypeError):
                 return 0.0
         return array_sum

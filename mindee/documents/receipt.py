@@ -6,6 +6,7 @@ from mindee.fields.locale import Locale
 from mindee.fields.orientation import Orientation
 from mindee.fields.tax import Tax
 from mindee.http import make_api_request, make_predict_url
+from mindee.document_config import DocumentConfig
 
 
 class Receipt(Document):
@@ -24,6 +25,7 @@ class Receipt(Document):
         total_tax=None,
         total_excl=None,
         page_n=0,
+        document_type="receipt",
     ):
         """
         :param api_prediction: Raw prediction from HTTP response
@@ -40,7 +42,7 @@ class Receipt(Document):
         :param total_excl: total_excl value for creating Receipt object from scratch
         :param page_n: Page number for multi pages pdf input
         """
-        self.type = "Receipt"
+        self.type = document_type
         self.locale = None
         self.total_incl = None
         self.date = None
@@ -93,6 +95,21 @@ class Receipt(Document):
 
         # Reconstruct extra fields
         self._reconstruct()
+
+    @staticmethod
+    def get_document_config() -> DocumentConfig:
+        """:return: the configuration for receipt"""
+        return DocumentConfig(
+            {
+                "constructor": Receipt,
+                "api_key_kwargs": ["receipt_api_key"],
+                "document_type": "receipt",
+                "singular_name": "receipt",
+                "plural_name": "receipts",
+                "type": "off-the-shelf",
+            },
+            doc_type="off_the_shelf",
+        )
 
     def __str__(self) -> str:
         return (
@@ -154,40 +171,21 @@ class Receipt(Document):
         )
 
     @staticmethod
-    def compare(receipt=None, ground_truth=None):
-        """
-        :param receipt: Receipt object to compare
-        :param ground_truth: Ground truth Receipt object
-        :return: Accuracy and precisions metrics
-        """
-        assert receipt is not None
-        assert ground_truth is not None
-        assert isinstance(receipt, Receipt)
-        assert isinstance(ground_truth, Receipt)
-
-        metrics = {}
-
-        # Compute Accuracy metrics
-        metrics.update(Receipt.compute_accuracy(receipt, ground_truth))
-
-        return metrics
-
-    @staticmethod
     def request(
+        client,
         input_file,
-        expense_receipt_token,
         version="3",
         include_words=False,
     ):
         """
         Make request to expense_receipts endpoint
         :param input_file: Input object
-        :param expense_receipt_token: Expense_receipts API token
+        :param client: Mindee Client object
         :param include_words: Include Mindee vision words in http_response
         :param version: API version
         """
         url = make_predict_url("expense_receipts", version)
-        return make_api_request(url, input_file, expense_receipt_token, include_words)
+        return make_api_request(url, input_file, client.receipt_api_key, include_words)
 
     def _checklist(self):
         """
@@ -273,18 +271,3 @@ class Receipt(Document):
                 self.total_tax = Amount(
                     total_tax, value_key="value", reconstructed=True
                 )
-
-    @staticmethod
-    def compute_accuracy(receipt, ground_truth):
-        """
-        :param receipt: Receipt object to compare
-        :param ground_truth: Ground truth Receipt object
-        :return: Accuracy metrics
-        """
-        return {
-            "__acc__total_incl": ground_truth.total_incl == receipt.total_incl,
-            "__acc__total_excl": ground_truth.total_excl == receipt.total_excl,
-            "__acc__receipt_date": ground_truth.date == receipt.date,
-            "__acc__total_tax": ground_truth.total_tax == receipt.total_tax,
-            "__acc__taxes": Tax.compare_arrays(receipt.taxes, ground_truth.taxes),
-        }

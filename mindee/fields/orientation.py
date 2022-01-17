@@ -26,6 +26,6 @@ class Orientation(Field):
             self.value = int(orientation_prediction[value_key])
             if self.value not in [0, 90, 180, 270]:
                 self.value = 0
-        except:
+        except (TypeError, ValueError, KeyError):
             self.value = 0
             self.probability = 0.0

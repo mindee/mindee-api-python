@@ -9,8 +9,8 @@ ignore_missing_imports = true
 
 [tool.pylint.'MESSAGES CONTROL']
 disable=[
+  'too-few-public-methods',
   'line-too-long',
-  'bare-except',
   'consider-using-set-comprehension',
   'missing-class-docstring',
   'missing-module-docstring',

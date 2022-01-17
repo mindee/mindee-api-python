@@ -8,6 +8,7 @@ from mindee.fields import Field
 from mindee.http import make_api_request, make_predict_url
 from mindee.documents.invoice import Invoice
 from mindee.documents.receipt import Receipt
+from mindee.document_config import DocumentConfig
 
 
 class FinancialDocument(Document):
@@ -30,6 +31,7 @@ class FinancialDocument(Document):
         total_tax=None,
         time=None,
         page_n=0,
+        document_type="financial_document",
     ):
         """
         :param api_prediction: Raw prediction from HTTP response
@@ -50,7 +52,7 @@ class FinancialDocument(Document):
         :param time: time value for creating FinancialDocument object from scratch
         :param page_n: Page number for multi pages pdf input
         """
-        self.type = "FinancialDocument"
+        self.type = document_type
         self.locale = None
         self.total_incl = None
         self.total_excl = None
@@ -120,6 +122,20 @@ class FinancialDocument(Document):
         # Reconstruct extra fields
         self._reconstruct()
 
+    @staticmethod
+    def get_document_config():
+        """:return: the configuration for financial document"""
+        return DocumentConfig(
+            {
+                "constructor": FinancialDocument,
+                "api_key_kwargs": ["invoice_api_key", "receipt_api_key"],
+                "document_type": "financial_document",
+                "singular_name": "financial_document",
+                "plural_name": "financial_documents",
+            },
+            doc_type="off_the_shelf",
+        )
+
     def build_from_api_prediction(self, api_prediction, input_file, page_n=0):
         """
         :param api_prediction: Raw prediction from HTTP response
@@ -185,47 +201,26 @@ class FinancialDocument(Document):
         )
 
     @staticmethod
-    def compare(financial_document=None, ground_truth=None):
-        """
-        :param financial_document: FinancialDocument object to compare
-        :param ground_truth: Ground truth FinancialDocument object
-        :return: Accuracy and precisions metrics
-        """
-        assert financial_document is not None
-        assert ground_truth is not None
-        assert isinstance(financial_document, FinancialDocument)
-        assert isinstance(ground_truth, FinancialDocument)
-
-        metrics = {}
-
-        # Compute Accuracy metrics
-        metrics.update(
-            FinancialDocument.compute_accuracy(financial_document, ground_truth)
-        )
-
-        return metrics
-
-    @staticmethod
     def request(
+        client,
         input_file,
-        expense_receipt_token,
-        invoice_token,
         include_words=False,
     ):
         """
         Make request to invoices endpoint if .pdf, expense_receipts otherwise
         :param include_words: Bool, extract all words into http_response
         :param input_file: Input object
-        :param expense_receipt_token: Expense receipts API token
-        :param invoice_token: Invoices API token
+        :param client: Mindee Client Object
         """
         if "pdf" in input_file.file_extension:
             url = make_predict_url("invoices", "2")
-            return make_api_request(url, input_file, invoice_token, include_words)
+            return make_api_request(
+                url, input_file, client.invoice_api_key, include_words
+            )
         else:
             url = make_predict_url("expense_receipts", "3")
             return make_api_request(
-                url, input_file, expense_receipt_token, include_words
+                url, input_file, client.receipt_api_key, include_words
             )
 
     def _checklist(self):
@@ -271,25 +266,3 @@ class FinancialDocument(Document):
             return True
         else:
             return False
-
-    @staticmethod
-    def compute_accuracy(financial_document, ground_truth):
-        """
-        :param financial_document: FinancialDocument object to compare
-        :param ground_truth: Ground truth FinancialDocument object
-        :return: Accuracy metrics
-        """
-        return {
-            "__acc__total_incl": ground_truth.total_incl
-            == financial_document.total_incl,
-            "__acc__total_excl": ground_truth.total_excl
-            == financial_document.total_excl,
-            "__acc__invoice_date": ground_truth.date == financial_document.date,
-            "__acc__invoice_number": ground_truth.invoice_number
-            == financial_document.invoice_number,
-            "__acc__due_date": ground_truth.due_date == financial_document.due_date,
-            "__acc__total_tax": ground_truth.total_tax == financial_document.total_tax,
-            "__acc__taxes": Tax.compare_arrays(
-                financial_document.taxes, ground_truth.taxes
-            ),
-        }

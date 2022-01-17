@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 import pytz
 from mindee.fields import Field
 
@@ -25,11 +25,11 @@ class Date(Field):
 
         try:
             self.date_object = (
-                datetime.datetime.strptime(self.value, ISO8601_DATE_FORMAT)
+                datetime.strptime(self.value, ISO8601_DATE_FORMAT)
                 .replace(tzinfo=pytz.utc)
                 .date()
             )
-        except:
+        except (TypeError, ValueError):
             self.date_object = None
             self.probability = 0.0
             self.value = None

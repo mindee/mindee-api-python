@@ -20,6 +20,6 @@ class Amount(Field):
 
         try:
             self.value = round(float(amount_prediction[value_key]), 3)
-        except:
+        except (ValueError, TypeError, KeyError):
             self.value = None
             self.probability = 0.0
