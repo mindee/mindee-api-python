@@ -11,20 +11,18 @@ def empty_client():
 @pytest.fixture
 def dummy_client():
     return Client(
-        expense_receipt_token="dummy",
-        invoice_token="dummy",
-        passport_token="dummy",
-        license_plate_token="dummy",
+        receipt_api_key="dummy",
+        invoice_api_key="dummy",
+        passport_api_key="dummy",
     )
 
 
 @pytest.fixture
 def dummy_client_dont_raise():
     return Client(
-        expense_receipt_token="dummy",
-        invoice_token="dummy",
-        passport_token="dummy",
-        license_plate_token="dummy",
+        receipt_api_key="dummy",
+        invoice_api_key="dummy",
+        passport_api_key="dummy",
         raise_on_error=False,
     )
 
@@ -36,105 +34,96 @@ def response():
 
 def test_parse_receipt_without_token(empty_client):
     with pytest.raises(Exception):
-        empty_client.parse_receipt("./tests/data/expense_receipts/receipt.jpg")
+        empty_client.parse(
+            "./tests/data/expense_receipts/receipt.jpg", document_type="receipt"
+        )
 
 
 def test_parse_invoice_without_token(empty_client):
     with pytest.raises(Exception):
-        empty_client.parse_invoice("./tests/data/expense_receipts/receipt.jpg")
+        empty_client.parse(
+            "./tests/data/expense_receipts/receipt.jpg", document_type="invoice"
+        )
 
 
 def test_parse_financial_doc_without_token(empty_client):
     with pytest.raises(Exception):
-        empty_client.parse_financial_document(
-            "./tests/data/expense_receipts/receipt.jpg"
+        empty_client.parse(
+            "./tests/data/expense_receipts/receipt.jpg",
+            document_type="financial_document",
         )
 
 
 def test_parse_passport_without_token(empty_client):
     with pytest.raises(Exception):
-        empty_client.parse_passport("./tests/data/expense_receipts/receipt.jpg")
-
-
-def test_parse_license_plate_without_token(empty_client):
-    with pytest.raises(Exception):
-        empty_client.parse_license_plate("./tests/data/license_plates/plate.png")
+        empty_client.parse(
+            "./tests/data/expense_receipts/receipt.jpg", document_type="passport"
+        )
 
 
 def test_parse_receipt_with_wrong_filetype(dummy_client):
     with pytest.raises(AssertionError):
-        dummy_client.parse_receipt("./tests/data/expense_receipts/receipt.jpga")
+        dummy_client.parse(
+            "./tests/data/expense_receipts/receipt.jpga", document_type="receipt"
+        )
 
 
 def test_parse_invoice_with_wrong_filetype(dummy_client):
     with pytest.raises(AssertionError):
-        dummy_client.parse_invoice("./tests/data/expense_receipts/receipt.jpga")
+        dummy_client.parse(
+            "./tests/data/expense_receipts/receipt.jpga", document_type="invoice"
+        )
 
 
 def test_parse_financial_doc_with_wrong_filetype(dummy_client):
     with pytest.raises(AssertionError):
-        dummy_client.parse_financial_document(
-            "./tests/data/expense_receipts/receipt.jpga"
+        dummy_client.parse(
+            "./tests/data/expense_receipts/receipt.jpga",
+            document_type="financial_document",
         )
 
 
 def test_parse_passport_with_wrong_filetype(dummy_client):
     with pytest.raises(AssertionError):
-        dummy_client.parse_passport("./tests/data/expense_receipts/receipt.jpga")
-
-
-def test_parse_plate_with_wrong_filetype(dummy_client):
-    with pytest.raises(AssertionError):
-        dummy_client.parse_license_plate("./tests/data/expense_receipts/receipt.jpga")
+        dummy_client.parse(
+            "./tests/data/expense_receipts/receipt.jpga", document_type="passport"
+        )
 
 
 def test_parse_receipt_with_wrong_token(dummy_client):
     with pytest.raises(HTTPException):
-        dummy_client.parse_receipt("./tests/data/expense_receipts/receipt.jpg")
-
-
-def test_parse_receipt_with_wrong_version(dummy_client):
-    with pytest.raises(HTTPException):
-        dummy_client.parse_receipt(
-            "./tests/data/expense_receipts/receipt.jpg", version="4000"
+        dummy_client.parse(
+            "./tests/data/expense_receipts/receipt.jpg", document_type="receipt"
         )
 
 
 def test_parse_invoice_with_wrong_token(dummy_client):
     with pytest.raises(HTTPException):
-        dummy_client.parse_invoice("./tests/data/expense_receipts/receipt.jpg")
+        dummy_client.parse(
+            "./tests/data/expense_receipts/receipt.jpg", document_type="invoice"
+        )
 
 
 def test_parse_financial_doc_with_wrong_token_jpg(dummy_client):
     with pytest.raises(HTTPException):
-        dummy_client.parse_financial_document(
-            "./tests/data/expense_receipts/receipt.jpg"
+        dummy_client.parse(
+            "./tests/data/expense_receipts/receipt.jpg",
+            document_type="financial_document",
         )
 
 
 def test_parse_financial_doc_with_wrong_token_pdf(dummy_client):
     with pytest.raises(HTTPException):
-        dummy_client.parse_financial_document("./tests/data/invoices/invoice.pdf")
+        dummy_client.parse(
+            "./tests/data/invoices/invoice.pdf", document_type="financial_document"
+        )
 
 
 def test_parse_passport_with_wrong_token(dummy_client):
     with pytest.raises(HTTPException):
-        dummy_client.parse_passport("./tests/data/expense_receipts/receipt.jpg")
-
-
-def test_parse_license_plate_with_wrong_token(dummy_client):
-    with pytest.raises(HTTPException):
-        dummy_client.parse_license_plate("./tests/data/license_plates/plate.png")
-
-
-def test_response_dump(response):
-    assert isinstance(response.receipt, Receipt)
-    response.dump("./tests/data/response_dump.json")
-
-
-def test_response_dump_failure(response):
-    with pytest.raises(Exception):
-        response.dump(open("./tests/pathDoesNotExist/aaa"))
+        dummy_client.parse(
+            "./tests/data/expense_receipts/receipt.jpg", document_type="passport"
+        )
 
 
 def test_response_load_failure():
@@ -142,22 +131,21 @@ def test_response_load_failure():
         Response.load("notAFile")
 
 
-def test_response_with_passport_type():
-    response = Response.load("./tests/data/passport/v1/passport.json")
-    assert isinstance(response.passport, Passport)
-
-
 def test_request_with_filepath(dummy_client):
     with pytest.raises(HTTPException):
-        dummy_client.parse_receipt(
-            "./tests/data/expense_receipts/receipt.jpg", input_type="path"
+        dummy_client.parse(
+            "./tests/data/expense_receipts/receipt.jpg",
+            input_type="path",
+            document_type="receipt",
         )
 
 
 def test_request_with_file(dummy_client):
     with pytest.raises(HTTPException):
-        dummy_client.parse_receipt(
-            open("./tests/data/expense_receipts/receipt.jpg", "rb"), input_type="stream"
+        dummy_client.parse(
+            open("./tests/data/expense_receipts/receipt.jpg"),
+            input_type="file",
+            document_type="receipt",
         )
 
 
@@ -165,29 +153,32 @@ def test_request_with_base64_no_filename(dummy_client):
     with open("./tests/data/expense_receipts/receipt.txt", "r") as fh:
         b64 = fh.read()
     with pytest.raises(AssertionError):
-        dummy_client.parse_receipt(b64, input_type="base64")
+        dummy_client.parse(b64, input_type="base64", document_type="receipt", filename="receipt.txt")
 
 
 def test_request_with_base64(dummy_client):
     with open("./tests/data/expense_receipts/receipt.txt", "r") as fh:
         b64 = fh.read()
     with pytest.raises(HTTPException):
-        dummy_client.parse_receipt(b64, input_type="base64", filename="receipt.txt")
+        dummy_client.parse(b64, input_type="base64", document_type="receipt", filename="receipt.txt")
 
 
 def test_request_without_raise_on_error(dummy_client_dont_raise):
-    result = dummy_client_dont_raise.parse_receipt(
-        "./tests/data/expense_receipts/receipt.jpg", input_type="path"
+    result = dummy_client_dont_raise.parse(
+        "./tests/data/expense_receipts/receipt.jpg",
+        input_type="path",
+        document_type="receipt",
     )
     assert result.receipt is None
     assert len(result.receipts) == 0
 
 
 def test_request_without_raise_on_error_include_words(dummy_client_dont_raise):
-    result = dummy_client_dont_raise.parse_receipt(
+    result = dummy_client_dont_raise.parse(
         "./tests/data/expense_receipts/receipt.jpg",
         input_type="path",
         include_words=True,
+        document_type="receipt",
     )
     assert result.receipt is None
     assert len(result.receipts) == 0
@@ -195,12 +186,17 @@ def test_request_without_raise_on_error_include_words(dummy_client_dont_raise):
 
 def test_request_with_file_wrong_type(dummy_client):
     with pytest.raises(AssertionError):
-        dummy_client.parse_receipt(open("./tests/data/test.txt"), input_type="file")
-
+        dummy_client.parse(
+            open("./tests/data/test.txt"), input_type="file", document_type="receipt"
+        )
     with pytest.raises(AssertionError):
-        dummy_client.parse_receipt("./tests/data/test.txt", input_type="path")
+        dummy_client.parse(
+            "./tests/data/test.txt", input_type="path", document_type="receipt"
+        )
 
 
-def test_pdf_reconstruct(dummy_client):
-    with pytest.raises(HTTPException):
-        dummy_client.parse_invoice("./tests/data/invoices/invoice_6p.pdf")
+def test_mpdf_reconstruct(dummy_client):
+    with pytest.raises(AssertionError):
+        dummy_client.parse(
+            "./tests/data/invoices/invoice_6p.pdf", document_type="invoice"
+        )

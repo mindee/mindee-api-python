@@ -155,43 +155,6 @@ def test__taxes_match_total_incl_4(receipt_pred):
     assert type(str(receipt.taxes[0])) is str
 
 
-def test_compare_1(receipt_object):
-    # Compare same object must return all True
-    benchmark = Receipt.compare(receipt_object, receipt_object)
-    for value in benchmark.values():
-        assert value is True
-
-
-def test_compare_2(receipt_object, receipt_object_all_na):
-    # Compare full object and empty object
-    benchmark = Receipt.compare(receipt_object, receipt_object_all_na)
-    for key in benchmark.keys():
-        assert benchmark[key] is False
-
-
-def test_compare_3(receipt_object_from_scratch):
-    # Compare receipt from class
-    benchmark = Receipt.compare(
-        receipt_object_from_scratch, receipt_object_from_scratch
-    )
-    for key in benchmark.keys():
-        if "__acc__" in key:
-            assert benchmark[key] is True
-
-
-def test_compare_4(receipt_object_from_scratch):
-    # Compare receipt from class with empty taxes
-    receipt_object_from_scratch.taxes = []
-    benchmark = Receipt.compare(
-        receipt_object_from_scratch, receipt_object_from_scratch
-    )
-    for key in benchmark.keys():
-        if "__acc__" in key:
-            assert benchmark[key] is True
-        elif "__pre__" in key:
-            assert benchmark[key] in [True, None]
-
-
 def test_empty_object_works():
     receipt = Receipt()
     assert receipt.total_tax.value is None
