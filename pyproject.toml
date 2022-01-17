@@ -42,4 +42,3 @@ safe_licenses = [
   "BSD License",
   "Historical Permission Notice and Disclaimer (HPND)",
 ]
-unsafe_packages = ["mindee"]
