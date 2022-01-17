@@ -283,43 +283,6 @@ def test__shouldnt_raise_when_tax_rate_none(invoice_pred):
     assert invoice.checklist["taxes_match_total_incl"] is False
 
 
-def test_compare_1(invoice_object):
-    # Compare same object must return all True
-    benchmark = Invoice.compare(invoice_object, invoice_object)
-    for value in benchmark.values():
-        assert value is True
-
-
-def test_compare_2(invoice_object, invoice_object_all_na):
-    # Compare full object and empty object
-    benchmark = Invoice.compare(invoice_object, invoice_object_all_na)
-    for key in benchmark.keys():
-        assert benchmark[key] is False
-
-
-def test_compare_3(invoice_object_from_scratch):
-    # Compare invoice from class
-    benchmark = Invoice.compare(
-        invoice_object_from_scratch, invoice_object_from_scratch
-    )
-    for key in benchmark.keys():
-        if "__acc__" in key:
-            assert benchmark[key] is True
-
-
-def test_compare_4(invoice_object_from_scratch):
-    # Compare invoice from class with empty taxes
-    invoice_object_from_scratch.taxes = []
-    benchmark = Invoice.compare(
-        invoice_object_from_scratch, invoice_object_from_scratch
-    )
-    for key in benchmark.keys():
-        if "__acc__" in key:
-            assert benchmark[key] is True
-        elif "__pre__" in key:
-            assert benchmark[key] in [True, None]
-
-
 def test_empty_object_works():
     invoice = Invoice()
     assert invoice.total_tax.value is None
