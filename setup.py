@@ -16,13 +16,13 @@ GIT_URL = "https://github.com/publicMindee/mindee-api-python"
 
 
 requirements = [
+    "pikepdf==4.3.1",
     "pytz==2021.3",
-    "PyMuPDF==1.18.17",
     "requests==2.25.1",
 ]
 
 test_requirements = [
-    "pytest==6.1.2",
+    "pytest==6.2.5",
     "pytest-cov==2.11.1",
 ]
 
