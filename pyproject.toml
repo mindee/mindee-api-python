@@ -1,10 +1,10 @@
 [tool.black]
 line-length = 88
-target-version = ['py35', 'py36', 'py37']
+target-version = ['py36', 'py37', 'py38']
 include = '\.pyi?$'
 
 [[tool.mypy.overrides]]
-module = ['fitz',]
+module = ['pikepdf',]
 ignore_missing_imports = true
 
 [tool.pylint.'MESSAGES CONTROL']
@@ -23,9 +23,7 @@ disable=[
   'unidiomatic-typecheck',
   'arguments-differ',
   'inconsistent-return-statements',
-  'invalid-name',
   'super-init-not-called',
-  'no-else-raise',
   'raise-missing-from',
   'consider-iterating-dictionary',
   'unspecified-encoding',

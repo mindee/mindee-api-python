@@ -283,15 +283,15 @@ class Passport(Document):
             return True
 
     @staticmethod
-    def check_sum(s):
+    def check_sum(to_check: str) -> str:
         """
         https://en.wikipedia.org/wiki/Machine-readable_passport
-        :param s: string
+        :param to_check: string
         :return: checksum value for string s
         """
         checker = 0
         alpha_to_num = {c: 10 + i for i, c in enumerate("ABCDEFGHIJKLMNOPQRSTUVWXYZ")}
-        for i, c in enumerate(s):
+        for i, chk in enumerate(to_check):
             if i % 3 == 0:
                 weight = 7
             elif i % 3 == 1:
@@ -299,12 +299,12 @@ class Passport(Document):
             else:
                 weight = 1
 
-            if c == "<":
+            if chk == "<":
                 val = 0
-            elif c.isalpha():
-                val = alpha_to_num[c]
+            elif chk.isalpha():
+                val = alpha_to_num[chk]
             else:
-                val = int(c)
+                val = int(chk)
             checker += val * weight
         return str(checker % 10)
 

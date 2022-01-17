@@ -1,9 +1,8 @@
-import pikepdf
 import io
 import os
 from base64 import decodebytes
 from mimetypes import guess_type
-import fitz
+import pikepdf
 
 
 class Inputs:
@@ -125,7 +124,7 @@ class Inputs:
         """
         self.file_object.seek(0)
         with pikepdf.open(self.file_object) as pdf:
-            for n, page in enumerate(pdf.pages):
+            for _, page in enumerate(pdf.pages):
                 if (
                     "/Font" in page["/Resources"].keys()
                     or "/XObject" in page["/Resources"].keys()
@@ -141,5 +140,5 @@ class Inputs:
         self.file_object.seek(0)
         try:
             pikepdf.open(self.file_object)
-        except Exception as e:
-            raise Exception("Couldn't open PDF file. %s" % e)
+        except Exception as err:
+            raise Exception("Couldn't open PDF file. %s" % err)

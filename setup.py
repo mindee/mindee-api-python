@@ -22,7 +22,7 @@ requirements = [
 ]
 
 test_requirements = [
-    "pytest==6.1.2",
+    "pytest==6.2.5",
     "pytest-cov==2.11.1",
 ]
 

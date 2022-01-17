@@ -93,14 +93,13 @@ class Client:
                 "Receipt API %s HTTP error: %s"
                 % (response.status_code, json.dumps(dict_response))
             )
-        elif response.status_code > 201:
+        if response.status_code > 201:
             return Response(
                 http_response=dict_response,
                 pages=[],
                 document=None,
                 document_type=document_type,
             )
-
         return Response.format_response(dict_response, document_type, input_file)
 
     def parse_passport(
@@ -264,8 +263,8 @@ class Response:
         :param path: file path for storing the response object
         :return: (void) save the json response
         """
-        with open(path, "w") as fp:
-            json.dump(self.http_response, fp)
+        with open(path, "w") as handle:
+            json.dump(self.http_response, handle)
 
     @staticmethod
     def load(json_path):
@@ -274,8 +273,8 @@ class Response:
         :return: Full response object loaded from json file
         """
         try:
-            with open(json_path) as fp:
-                json_response = json.load(fp)
+            with open(json_path) as handle:
+                json_response = json.load(handle)
 
             file_input = Inputs.load(
                 json_response["input_type"],
