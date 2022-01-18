@@ -28,19 +28,19 @@ class Tax(Field):
 
         try:
             self.rate = float(tax_prediction[rate_key])
-        except:
+        except (ValueError, TypeError, KeyError):
             self.rate = None
 
         try:
             self.code = str(tax_prediction[code_key])
             if self.code == "N/A":
                 self.code = None
-        except:
+        except (TypeError, KeyError):
             self.code = None
 
         try:
             self.value = float(tax_prediction[value_key])
-        except:
+        except (ValueError, TypeError, KeyError):
             self.value = None
             self.probability = 0.0
 

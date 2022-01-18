@@ -40,7 +40,7 @@ class PaymentDetails(Field):
             self.account_number = str(payment_details_prediction[account_number_key])
             if self.account_number == "N/A":
                 self.account_number = None
-        except:
+        except (KeyError, AssertionError):
             self.account_number = None
 
         try:
@@ -48,7 +48,7 @@ class PaymentDetails(Field):
             self.iban = str(payment_details_prediction[iban_key])
             if self.iban == "N/A":
                 self.iban = None
-        except:
+        except (KeyError, AssertionError):
             self.iban = None
 
         try:
@@ -56,7 +56,7 @@ class PaymentDetails(Field):
             self.routing_number = str(payment_details_prediction[routing_number_key])
             if self.routing_number == "N/A":
                 self.routing_number = None
-        except:
+        except (KeyError, AssertionError):
             self.routing_number = None
 
         try:
@@ -64,7 +64,7 @@ class PaymentDetails(Field):
             self.swift = str(payment_details_prediction[swift_key])
             if self.swift == "N/A":
                 self.swift = None
-        except:
+        except (KeyError, AssertionError):
             self.swift = None
 
     def __str__(self):
