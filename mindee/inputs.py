@@ -1,8 +1,16 @@
 import io
 import os
-from base64 import decodebytes
+import base64
 from mimetypes import guess_type
 import pikepdf
+
+ALLOWED_EXTENSIONS = [
+    "image/png",
+    "image/jpg",
+    "image/jpeg",
+    "image/webp",
+    "application/pdf",
+]
 
 
 class Inputs:
@@ -15,17 +23,11 @@ class Inputs:
         :param filename: File name of the input
         :param cut_pdf: Automatically reconstruct pdf with more than 4 pages
         """
-        self.allowed_extensions = [
-            "image/png",
-            "image/jpg",
-            "image/jpeg",
-            "image/webp",
-            "application/pdf",
-        ]
         assert input_type in ["base64", "path", "stream", "dummy"]
         assert 0 < n_pdf_pages <= 3
 
         if input_type == "base64":
+            assert filename, "filename must be set"
             # Only for images
             self.file_object = Inputs.b64_to_stream(file)
             self.input_type = input_type
@@ -53,10 +55,9 @@ class Inputs:
             self.filename = ""
             self.filepath = ""
             self.file_extension = ""
-        elif self.file_extension not in self.allowed_extensions:
-            raise Exception(
-                "File type not allowed, must be in {%s}"
-                % ", ".join(self.allowed_extensions)
+        elif self.file_extension not in ALLOWED_EXTENSIONS:
+            raise AssertionError(
+                "File type not allowed, must be in {%s}" % ", ".join(ALLOWED_EXTENSIONS)
             )
 
         if self.file_extension == "application/pdf":
@@ -88,12 +89,12 @@ class Inputs:
         return file_input
 
     @staticmethod
-    def b64_to_stream(b64_string):
+    def b64_to_stream(b64_string: str):
         """
         :param b64_string: image base 64 string
         :return: stream from base64
         """
-        bytes_object = decodebytes(b64_string.encode("utf-8"))
+        bytes_object = base64.standard_b64decode(b64_string)
         return io.BytesIO(bytes_object)
 
     def count_pdf_pages(self):

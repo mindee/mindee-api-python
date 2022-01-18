@@ -50,6 +50,7 @@ class Client:
         cut_pdf=True,
         include_words=False,
         cut_pdf_mode=3,
+        filename=None,
     ):
         """
         :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a pdf with.
@@ -60,6 +61,7 @@ class Client:
         :param cut_pdf: Automatically reconstruct pdf with more than 4 pages
         :param input_type: String in {'path', 'stream', 'base64'}
         :param file: Receipt filepath (allowed jpg, png, tiff, pdf)
+        :param filename: the name of the file (without the path)
         :param version: expense_receipt api version
         :return: Wrapped response with Receipts objects parsed
         """
@@ -68,7 +70,13 @@ class Client:
                 "Missing 'expense_receipt_token' arg in parse_receipt() function."
             )
 
-        input_file = Inputs(file, input_type, cut_pdf=cut_pdf, n_pdf_pages=cut_pdf_mode)
+        input_file = Inputs(
+            file,
+            input_type,
+            filename=filename,
+            cut_pdf=cut_pdf,
+            n_pdf_pages=cut_pdf_mode,
+        )
 
         response = Receipt.request(
             input_file,
@@ -109,6 +117,7 @@ class Client:
         version="1",
         cut_pdf=True,
         cut_pdf_mode=3,
+        filename=None,
     ):
         """
         :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a pdf with.
@@ -118,6 +127,7 @@ class Client:
         :param cut_pdf: Automatically reconstruct pdf with more than 4 pages
         :param input_type: String in {'path', 'stream', 'base64'}
         :param file: Passport filepath (allowed jpg, png, pdf)
+        :param filename: the name of the file (without the path)
         :param version: passport api version
         :return: Wrapped response with passports objects parsed
         """
@@ -126,7 +136,13 @@ class Client:
                 "Missing 'passport_token' arg in parse_passport() function."
             )
 
-        input_file = Inputs(file, input_type, cut_pdf=cut_pdf, n_pdf_pages=cut_pdf_mode)
+        input_file = Inputs(
+            file,
+            input_type,
+            filename=filename,
+            cut_pdf=cut_pdf,
+            n_pdf_pages=cut_pdf_mode,
+        )
 
         response = Passport.request(input_file, self.passport_token, version)
 
@@ -139,6 +155,7 @@ class Client:
         version="1",
         cut_pdf=True,
         cut_pdf_mode=3,
+        filename=None,
     ):
         """
         :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a pdf with.
@@ -148,6 +165,7 @@ class Client:
         :param cut_pdf: Automatically reconstruct pdf with more than 4 pages
         :param input_type: String in {'path', 'stream', 'base64'}
         :param file: CarPlate filepath (allowed jpg, png, pdf)
+        :param filename: the name of the file (without the path)
         :param version: license_plates api version
         :return: Wrapped response with CarPlates objects parsed
         """
@@ -156,7 +174,13 @@ class Client:
                 "Missing 'license_plate_token' arg in license_plate_token() function."
             )
 
-        input_file = Inputs(file, input_type, cut_pdf=cut_pdf, n_pdf_pages=cut_pdf_mode)
+        input_file = Inputs(
+            file,
+            input_type,
+            filename=filename,
+            cut_pdf=cut_pdf,
+            n_pdf_pages=cut_pdf_mode,
+        )
 
         response = CarPlate.request(input_file, self.license_plate_token, version)
 
@@ -170,6 +194,7 @@ class Client:
         cut_pdf=True,
         include_words=False,
         cut_pdf_mode=3,
+        filename=None,
     ):
         """
         :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a pdf with.
@@ -179,14 +204,21 @@ class Client:
         :param include_words: Bool, extract all words into http_response
         :param cut_pdf: Automatically reconstruct pdf with more than 4 pages
         :param input_type: String in {'path', 'stream', 'base64'}
-        :param file: Invoice filepath (allowed jpg, png, pdf)
+        :param file: Invoice full path (allowed jpg, png, pdf)
+        :param filename: the name of the file (without the path)
         :param version: invoices api version
         :return: Wrapped response with Invoices objects parsed
         """
         if not self.invoice_token:
             raise Exception("Missing 'invoice_token' arg in parse_invoice() function.")
 
-        input_file = Inputs(file, input_type, cut_pdf=cut_pdf, n_pdf_pages=cut_pdf_mode)
+        input_file = Inputs(
+            file,
+            input_type,
+            filename=filename,
+            cut_pdf=cut_pdf,
+            n_pdf_pages=cut_pdf_mode,
+        )
 
         response = Invoice.request(
             input_file, self.invoice_token, version, include_words
@@ -201,6 +233,7 @@ class Client:
         cut_pdf=True,
         include_words=False,
         cut_pdf_mode=3,
+        filename=None,
     ):
         """
         :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a pdf with.
@@ -211,6 +244,7 @@ class Client:
         :param cut_pdf: Automatically reconstruct pdf with more than 4 pages
         :param input_type: String in {'path', 'stream', 'base64'}
         :param file: Invoice or Receipt filepath (allowed jpg, png, pdf)
+        :param filename: the name of the file (without the path)
         :return: Wrapped response with FinancialDocument objects parsed
         """
         if not self.invoice_token or not self.expense_receipt_token:
@@ -218,7 +252,13 @@ class Client:
                 "parse_invoice() function must include 'invoice_token' and 'expense_receipt_token' args."
             )
 
-        input_file = Inputs(file, input_type, cut_pdf=cut_pdf, n_pdf_pages=cut_pdf_mode)
+        input_file = Inputs(
+            file,
+            input_type,
+            filename=filename,
+            cut_pdf=cut_pdf,
+            n_pdf_pages=cut_pdf_mode,
+        )
 
         response = FinancialDocument.request(
             input_file,
