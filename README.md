@@ -84,5 +84,5 @@ with open('/path/to/file', 'rb') as fp:
 
 From a base64
 ```python
-receipt_data = mindee_client.parse_receipt(base64_string, input_type="base64")
+receipt_data = mindee_client.parse_receipt(base64_string, input_type="base64", filename="receipt.jpg")
 ```
