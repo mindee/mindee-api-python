@@ -97,7 +97,8 @@ class Receipt(Document):
         self._reconstruct()
 
     @staticmethod
-    def get_document_config():
+    def get_document_config() -> DocumentConfig:
+        """:return: the configuration for receipt"""
         return DocumentConfig(
             {
                 "constructor": Receipt,
@@ -107,7 +108,7 @@ class Receipt(Document):
                 "plural_name": "receipts",
                 "type": "off-the-shelf",
             },
-            type="off_the_shelf",
+            doc_type="off_the_shelf",
         )
 
     def __str__(self) -> str:

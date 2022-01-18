@@ -114,7 +114,8 @@ class Invoice(Document):
         self._reconstruct()
 
     @staticmethod
-    def get_document_config():
+    def get_document_config() -> DocumentConfig:
+        """:return: the configuration for invoice"""
         return DocumentConfig(
             {
                 "constructor": Invoice,
@@ -122,9 +123,8 @@ class Invoice(Document):
                 "document_type": "invoice",
                 "singular_name": "invoice",
                 "plural_name": "invoices",
-                "type": "off-the-shelf",
             },
-            type="off_the_shelf",
+            doc_type="off_the_shelf",
         )
 
     def build_from_api_prediction(self, api_prediction, page_n=0):
@@ -193,25 +193,6 @@ class Invoice(Document):
                 self.total_tax.value,
             )
         )
-
-    @staticmethod
-    def compare(invoice=None, ground_truth=None):
-        """
-        :param invoice: Invoice object to compare
-        :param ground_truth: Ground truth Invoice object
-        :return: Accuracy and precisions metrics
-        """
-        assert invoice is not None
-        assert ground_truth is not None
-        assert isinstance(invoice, Invoice)
-        assert isinstance(ground_truth, Invoice)
-
-        metrics = {}
-
-        # Compute Accuracy metrics
-        metrics.update(Invoice.compute_accuracy(invoice, ground_truth))
-
-        return metrics
 
     @staticmethod
     def request(client, input_file, version="2", include_words=False):

@@ -1,5 +1,5 @@
 from mindee.documents import Document
-from mindee.http import make_api_request, make_predict_url
+from mindee.http import make_api_request
 
 
 class CustomDocument(Document):

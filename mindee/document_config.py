@@ -1,13 +1,13 @@
 from mindee.documents.custom_document import CustomDocument
 
 
-class DocumentConfig(object):
-    def __init__(self, config, type="custom_document"):
+class DocumentConfig:
+    def __init__(self, config, doc_type="custom_document"):
         """
         :param config: (dict) Object containing config
-        :param type: (string) off_the_shelf or custom_document
+        :param doc_type: (string) off_the_shelf or custom_document
         """
-        self.type = type
+        self.type = doc_type
 
         # Check for document_type, singular_name and plural_name in config
         for mandatory_field in ["document_type", "singular_name", "plural_name"]:
@@ -37,6 +37,7 @@ class DocumentConfig(object):
 
     @staticmethod
     def validate_list(config_list):
+        """Validate the configuration list definitions."""
         if len(set([v.singular_name for k, v in config_list.items()])) != len(
             [v.singular_name for k, v in config_list.items()]
         ):

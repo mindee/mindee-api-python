@@ -17,7 +17,7 @@ DOCUMENTS = {
 }
 
 
-class Client(object):
+class Client:
     def __init__(
         self,
         receipt_api_key=None,
@@ -121,7 +121,7 @@ class Client(object):
                 "API %s HTTP error: %s"
                 % (response.status_code, json.dumps(dict_response))
             )
-        elif response.status_code > 201:
+        if response.status_code > 201:
             return Response(
                 self,
                 http_response=dict_response,
@@ -133,7 +133,7 @@ class Client(object):
         return Response.format_response(self, dict_response, document_type, input_file)
 
 
-class Response(object):
+class Response:
     def __init__(
         self, client, http_response=None, pages=None, document=None, document_type=None
     ):
@@ -168,7 +168,7 @@ class Response(object):
             raise Exception("Document type not supported.")
 
         # Create page level objects
-        for page_n, page_prediction in enumerate(
+        for _, page_prediction in enumerate(
             http_response["document"]["inference"]["pages"]
         ):
             pages.append(
