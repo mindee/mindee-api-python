@@ -190,6 +190,11 @@ class Passport(Document):
         """
         Make request to passport endpoint
         """
+        if include_words:
+            raise Exception(
+                "invlude_words parameter cannot be set to True for passport API"
+            )
+
         url = make_predict_url("passport", version)
         return make_api_request(url, input_file, client.passport_api_key)
 
