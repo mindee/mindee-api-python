@@ -124,6 +124,7 @@ class FinancialDocument(Document):
 
     @staticmethod
     def get_document_config():
+        """:return: the configuration for financial document"""
         return DocumentConfig(
             {
                 "constructor": FinancialDocument,
@@ -131,9 +132,8 @@ class FinancialDocument(Document):
                 "document_type": "financial_document",
                 "singular_name": "financial_document",
                 "plural_name": "financial_documents",
-                "type": "off-the-shelf",
             },
-            type="off_the_shelf",
+            doc_type="off_the_shelf",
         )
 
     def build_from_api_prediction(self, api_prediction, input_file, page_n=0):

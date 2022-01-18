@@ -104,7 +104,8 @@ class Passport(Document):
         self._reconstruct()
 
     @staticmethod
-    def get_document_config():
+    def get_document_config() -> DocumentConfig:
+        """:return: the configuration for passport"""
         return DocumentConfig(
             {
                 "constructor": Passport,
@@ -112,9 +113,8 @@ class Passport(Document):
                 "document_type": "passport",
                 "singular_name": "passport",
                 "plural_name": "passports",
-                "type": "off-the-shelf",
             },
-            type="off_the_shelf",
+            doc_type="off_the_shelf",
         )
 
     def build_from_api_prediction(self, api_prediction, page_n=0):
