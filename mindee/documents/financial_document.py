@@ -201,13 +201,9 @@ class FinancialDocument(Document):
         )
 
     @staticmethod
-    def request(
-        client,
-        input_file,
-        include_words=False,
-    ):
+    def request(client, input_file, include_words=False):
         """
-        Make request to invoices endpoint if .pdf, expense_receipts otherwise
+        Make request to invoice endpoint if .pdf, expense_receipts otherwise
         :param include_words: Bool, extract all words into http_response
         :param input_file: Input object
         :param client: Mindee Client Object
@@ -217,11 +213,8 @@ class FinancialDocument(Document):
             return make_api_request(
                 url, input_file, client.invoice_api_key, include_words
             )
-        else:
-            url = make_predict_url("expense_receipts", "3")
-            return make_api_request(
-                url, input_file, client.receipt_api_key, include_words
-            )
+        url = make_predict_url("expense_receipts", "3")
+        return make_api_request(url, input_file, client.receipt_api_key, include_words)
 
     def _checklist(self):
         """
@@ -253,7 +246,6 @@ class FinancialDocument(Document):
 
         # Crate epsilon
         eps = 1 / (100 * total_vat)
-
         if (
             self.total_incl.value * (1 - eps) - 0.02
             <= reconstructed_total
@@ -264,5 +256,4 @@ class FinancialDocument(Document):
             self.total_tax.probability = 1.0
             self.total_incl.probability = 1.0
             return True
-        else:
-            return False
+        return False

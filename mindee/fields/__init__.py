@@ -46,13 +46,11 @@ class Field:
     def __eq__(self, other):
         if self.value is None and other.value is None:
             return True
-        elif self.value is None or other.value is None:
+        if self.value is None or other.value is None:
             return False
-        else:
-            if type(self.value) == str:
-                return self.value.lower() == other.value.lower()
-            else:
-                return self.value == other.value
+        if isinstance(self.value, str):
+            return self.value.lower() == other.value.lower()
+        return self.value == other.value
 
     @staticmethod
     def compare_arrays(array1: list, array2: list, attr="value") -> bool:

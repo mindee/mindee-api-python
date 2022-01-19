@@ -231,7 +231,7 @@ class Passport(Document):
             and self.__mrz_last_name_checksum()
         )
 
-    def __mrz_id_number_checksum(self):
+    def __mrz_id_number_checksum(self) -> bool:
         """
         :return: True if id number MRZ checksum is validated, False otherwise
         """
@@ -240,8 +240,9 @@ class Passport(Document):
         if Passport.check_sum(self.mrz2.value[:9]) == self.mrz2.value[9]:
             self.id_number.probability = 1.0
             return True
+        return False
 
-    def __mrz_date_of_birth_checksum(self):
+    def __mrz_date_of_birth_checksum(self) -> bool:
         """
         :return: True if date of birth MRZ checksum is validated, False otherwise
         """
@@ -250,8 +251,9 @@ class Passport(Document):
         if Passport.check_sum(self.mrz2.value[13:19]) == self.mrz2.value[19]:
             self.birth_date.probability = 1.0
             return True
+        return False
 
-    def __mrz_expiration_date_checksum(self):
+    def __mrz_expiration_date_checksum(self) -> bool:
         """
         :return: True if expiry date MRZ checksum is validated, False otherwise
         """
@@ -260,8 +262,9 @@ class Passport(Document):
         if Passport.check_sum(self.mrz2.value[21:27]) == self.mrz2.value[27]:
             self.expiry_date.probability = 1.0
             return True
+        return False
 
-    def __mrz_personal_number_checksum(self):
+    def __mrz_personal_number_checksum(self) -> bool:
         """
         :return: True if personal number MRZ checksum is validated, False otherwise
         """
@@ -283,6 +286,7 @@ class Passport(Document):
         ):
             self.surname.probability = 1.0
             return True
+        return False
 
     @staticmethod
     def check_sum(to_check: str) -> str:

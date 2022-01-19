@@ -38,7 +38,7 @@ def call_endpoint(args):
     client = Client(**kwargs)
     if args.input_type == "stream":
         with open(args.path, "rb", buffering=30) as file_handle:
-            parsed_data = client.parse_from_stream(
+            parsed_data = client.parse_from_file(
                 file_handle, product_info["doc_type"], cut_pdf=args.cut_pdf
             )
     elif args.input_type == "base64":

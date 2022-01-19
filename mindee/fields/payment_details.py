@@ -36,7 +36,7 @@ class PaymentDetails(Field):
         self.swift_key = None
 
         try:
-            assert type(payment_details_prediction[account_number_key]) == str
+            assert isinstance(payment_details_prediction[account_number_key], str)
             self.account_number = str(payment_details_prediction[account_number_key])
             if self.account_number == "N/A":
                 self.account_number = None
@@ -44,7 +44,7 @@ class PaymentDetails(Field):
             self.account_number = None
 
         try:
-            assert type(payment_details_prediction[iban_key]) == str
+            assert isinstance(payment_details_prediction[iban_key], str)
             self.iban = str(payment_details_prediction[iban_key])
             if self.iban == "N/A":
                 self.iban = None
@@ -52,7 +52,7 @@ class PaymentDetails(Field):
             self.iban = None
 
         try:
-            assert type(payment_details_prediction[routing_number_key]) == str
+            assert isinstance(payment_details_prediction[routing_number_key], str)
             self.routing_number = str(payment_details_prediction[routing_number_key])
             if self.routing_number == "N/A":
                 self.routing_number = None
@@ -60,7 +60,7 @@ class PaymentDetails(Field):
             self.routing_number = None
 
         try:
-            assert type(payment_details_prediction[swift_key]) == str
+            assert isinstance(payment_details_prediction[swift_key], str)
             self.swift = str(payment_details_prediction[swift_key])
             if self.swift == "N/A":
                 self.swift = None

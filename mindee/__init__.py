@@ -24,7 +24,7 @@ class Client:
         custom_documents=None,
         invoice_api_key=None,
         passport_api_key=None,
-        raise_on_error=True,
+        raise_on_error: bool = True,
     ):
         """
         :param receipt_api_key: expense_receipt Mindee API token, see https://mindee.com
@@ -33,7 +33,6 @@ class Client:
         :param passport_api_key: passport Mindee API token, see https://mindee.com
         :param raise_on_error: (bool, default True) raise an Exception on HTTP errors
         """
-        assert type(raise_on_error) == bool
         self.raise_on_error = raise_on_error
         self.base_url = "https://api.mindee.net/v1/products/mindee/"
         self.receipt_api_key = receipt_api_key
@@ -51,22 +50,94 @@ class Client:
                 )
         DocumentConfig.validate_list(self.documents)
 
-    def parse_from_string(self, input_string: str, filename: str, document_type, **kwargs):
-        input_args, req_args = self._get_arguments(document_type, kwargs)
-        input_file = Inputs(input_string, "base64", filename=filename, **input_args)
-        return self._make_request(input_file, document_type, **req_args)
+    def parse_from_string(
+        self,
+        input_string: str,
+        filename: str,
+        document_type: str,
+        cut_pdf: bool = True,
+        cut_pdf_mode: int = 3,
+        include_words=False,
+    ):
+        """
+        :param input_string: Input to parse as base64 string
+        :param filename: The name of the file (without the path)
+        :param document_type: Document type to parse
+        :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a pdf with.
+                        if 1: pages [0]
+                        if 2: pages [0, n-2]
+                        if 3: pages [0, n-2, n-1]
+        :param include_words: Bool, extract all words into http_response
+        :param cut_pdf: Automatically reconstruct pdf with more than 4 pages
+        :return: Wrapped response with Receipts objects parsed
+        """
+        self._validate_arguments(document_type)
+        input_file = Inputs(
+            input_string,
+            "base64",
+            filename=filename,
+            cut_pdf=cut_pdf,
+            n_pdf_pages=cut_pdf_mode,
+        )
+        return self._make_request(
+            input_file, document_type, include_words=include_words
+        )
 
-    def parse_from_path(self, input_path: str, document_type, **kwargs):
-        input_args, req_args = self._get_arguments(document_type, kwargs)
-        input_file = Inputs(input_path, "path", **input_args)
-        return self._make_request(input_file, document_type, **req_args)
+    def parse_from_path(
+        self,
+        input_path: str,
+        document_type: str,
+        cut_pdf: bool = True,
+        cut_pdf_mode: int = 3,
+        include_words=False,
+    ):
+        """
+        :param input_path: Path of file to open
+        :param document_type: Document type to parse
+        :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a pdf with.
+                        if 1: pages [0]
+                        if 2: pages [0, n-2]
+                        if 3: pages [0, n-2, n-1]
+        :param include_words: Bool, extract all words into http_response
+        :param cut_pdf: Automatically reconstruct pdf with more than 4 pages
+        :return: Wrapped response with Receipts objects parsed
+        """
+        self._validate_arguments(document_type)
+        input_file = Inputs(
+            input_path, "path", cut_pdf=cut_pdf, n_pdf_pages=cut_pdf_mode
+        )
+        return self._make_request(
+            input_file, document_type, include_words=include_words
+        )
 
-    def parse_from_stream(self, input_stream, document_type, **kwargs):
-        input_args, req_args = self._get_arguments(document_type, kwargs)
-        input_file = Inputs(input_stream, "stream", **input_args)
-        return self._make_request(input_file, document_type, **req_args)
+    def parse_from_file(
+        self,
+        input_file,
+        document_type: str,
+        cut_pdf: bool = True,
+        cut_pdf_mode: int = 3,
+        include_words=False,
+    ):
+        """
+        :param input_file: Input file handle
+        :param document_type: Document type to parse
+        :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a pdf with.
+                        if 1: pages [0]
+                        if 2: pages [0, n-2]
+                        if 3: pages [0, n-2, n-1]
+        :param include_words: Bool, extract all words into http_response
+        :param cut_pdf: Automatically reconstruct pdf with more than 4 pages
+        :return: Wrapped response with Receipts objects parsed
+        """
+        self._validate_arguments(document_type)
+        input_file = Inputs(
+            input_file, "stream", cut_pdf=cut_pdf, n_pdf_pages=cut_pdf_mode
+        )
+        return self._make_request(
+            input_file, document_type, include_words=include_words
+        )
 
-    def _get_arguments(self, document_type: str, args: dict):
+    def _validate_arguments(self, document_type: str):
         # first let's validate the document type
         if document_type not in self.documents.keys():
             raise AssertionError(
@@ -75,22 +146,10 @@ class Client:
             )
         if self.documents[document_type].type == "off_the_shelf":
             for kwarg in self.documents[document_type].api_key_kwargs:
-                print(kwarg)
                 if not getattr(self, kwarg):
                     raise AssertionError(
                         "Missing '%s', check your Client configuration." % kwarg
                     )
-        # get arguments for calling functions
-        input_args = {}
-        req_args = {}
-        for k, val in args.items():
-            if k in ("cut_pdf", "n_pdf_pages"):
-                input_args[k] = val
-            elif k in ("include_words",):
-                req_args[k] = val
-            else:
-                raise AttributeError("invalid argument: %s" % k)
-        return input_args, req_args
 
     def _make_request(self, input_file, document_type, include_words=False):
         if self.documents[document_type].type == "off_the_shelf":
@@ -109,7 +168,7 @@ class Client:
         """
         :param input_file: Input object
         :param response: HTTP response
-        :param document_type: Document class in {"receipt", "invoice", "financial_document", "passport", "license_plate"}
+        :param document_type: Document class
         :return: Full response object
         """
         dict_response = response.json()
@@ -138,7 +197,7 @@ class Response:
         :param http_response: HTTP response object
         :param pages: List of document objects
         :param document: reconstructed object from all pages
-        :param document_type: Document class in {"receipt", "invoice", "financial_document", "passport", "license_plate"}
+        :param document_type: Document class
         """
         self.http_response = http_response
         self.document_type = document_type
@@ -151,7 +210,7 @@ class Response:
         :param client: Client object
         :param input_file: Input object
         :param http_response: json response from HTTP call
-        :param document_type: Document class in {"receipt", "invoice", "financial_document", "passport", "license_plate"}
+        :param document_type: Document class
         :return: Full Response object
         """
         http_response["document_type"] = document_type
