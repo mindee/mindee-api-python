@@ -50,7 +50,7 @@ class Client:
                 )
         DocumentConfig.validate_list(self.documents)
 
-    def parse_from_string(
+    def parse_from_b64string(
         self,
         input_string: str,
         filename: str,
