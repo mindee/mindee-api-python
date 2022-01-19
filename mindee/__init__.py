@@ -49,51 +49,50 @@ class Client:
                 self.documents[custom_document_cfg["document_type"]] = DocumentConfig(
                     custom_document_cfg
                 )
-
         DocumentConfig.validate_list(self.documents)
 
-    def parse(
-        self,
-        file,
-        document_type,
-        input_type="path",
-        cut_pdf=True,
-        include_words=False,
-        cut_pdf_mode=3,
-        filename=None,
-    ):
-        """
-        :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a pdf with.
-                        if 1: pages [0]
-                        if 2: pages [0, n-2]
-                        if 3: pages [0, n-2, n-1]
-        :param include_words: Bool, extract all words into http_response
-        :param cut_pdf: Automatically reconstruct pdf with more than 4 pages
-        :param input_type: String in {'path', 'stream', 'base64'}
-        :param file: Receipt filepath (allowed jpg, png, tiff, pdf)
-        :param filename: the name of the file (without the path)
-        :param document_type: Document type to parse
-        :return: Wrapped response with Receipts objects parsed
-        """
+    def parse_from_string(self, input_string: str, filename: str, document_type, **kwargs):
+        input_args, req_args = self._get_arguments(document_type, kwargs)
+        input_file = Inputs(input_string, "base64", filename=filename, **input_args)
+        return self._make_request(input_file, document_type, **req_args)
+
+    def parse_from_path(self, input_path: str, document_type, **kwargs):
+        input_args, req_args = self._get_arguments(document_type, kwargs)
+        input_file = Inputs(input_path, "path", **input_args)
+        return self._make_request(input_file, document_type, **req_args)
+
+    def parse_from_stream(self, input_stream, document_type, **kwargs):
+        input_args, req_args = self._get_arguments(document_type, kwargs)
+        input_file = Inputs(input_stream, "stream", **input_args)
+        return self._make_request(input_file, document_type, **req_args)
+
+    def _get_arguments(self, document_type: str, args: dict):
+        # first let's validate the document type
         if document_type not in self.documents.keys():
-            raise Exception(
+            raise AssertionError(
                 "%s document type was not found in document configurations"
                 % document_type
             )
-
-        if self.documents[document_type].type == "off-the-shelf":
+        if self.documents[document_type].type == "off_the_shelf":
             for kwarg in self.documents[document_type].api_key_kwargs:
+                print(kwarg)
                 if not getattr(self, kwarg):
-                    raise Exception("Missing '%s' argument in parse() method." % kwarg)
+                    raise AssertionError(
+                        "Missing '%s', check your Client configuration." % kwarg
+                    )
+        # get arguments for calling functions
+        input_args = {}
+        req_args = {}
+        for k, val in args.items():
+            if k in ("cut_pdf", "n_pdf_pages"):
+                input_args[k] = val
+            elif k in ("include_words",):
+                req_args[k] = val
+            else:
+                raise AttributeError("invalid argument: %s" % k)
+        return input_args, req_args
 
-        input_file = Inputs(
-            file,
-            input_type,
-            filename=filename,
-            cut_pdf=cut_pdf,
-            n_pdf_pages=cut_pdf_mode,
-        )
-
+    def _make_request(self, input_file, document_type, include_words=False):
         if self.documents[document_type].type == "off_the_shelf":
             response = self.documents[document_type].constructor.request(
                 self, input_file, include_words=include_words
@@ -104,7 +103,6 @@ class Client:
                 self.documents[document_type].endpoint,
                 self.documents[document_type].api_key,
             )
-
         return self._wrap_response(input_file, response, document_type)
 
     def _wrap_response(self, input_file, response, document_type):
@@ -129,7 +127,6 @@ class Client:
                 document=None,
                 document_type=document_type,
             )
-
         return Response.format_response(self, dict_response, document_type, input_file)
 
 

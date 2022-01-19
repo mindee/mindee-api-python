@@ -12,7 +12,7 @@ class DocumentConfig:
         # Check for document_type, singular_name and plural_name in config
         for mandatory_field in ["document_type", "singular_name", "plural_name"]:
             if mandatory_field not in config.keys():
-                raise Exception(
+                raise AssertionError(
                     "%s key is required in custom_document configuration"
                     % mandatory_field
                 )
@@ -23,7 +23,7 @@ class DocumentConfig:
             # Check for endpoint URL and API Key in config
             for mandatory_field in ["endpoint", "api_key"]:
                 if mandatory_field not in config.keys():
-                    raise Exception(
+                    raise AssertionError(
                         "%s key is required in custom_document configuration"
                         % mandatory_field
                     )
@@ -41,12 +41,12 @@ class DocumentConfig:
         if len(set([v.singular_name for k, v in config_list.items()])) != len(
             [v.singular_name for k, v in config_list.items()]
         ):
-            raise Exception(
+            raise AssertionError(
                 "singular_name values must be uniques among custom_documents list objects"
             )
         if len(set([v.plural_name for k, v in config_list.items()])) != len(
             [v.plural_name for k, v in config_list.items()]
         ):
-            raise Exception(
+            raise AssertionError(
                 "plural_name values must be uniques among custom_documents list objects"
             )
