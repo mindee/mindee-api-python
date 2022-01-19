@@ -1,6 +1,6 @@
 import json
 import pytest
-from mindee import Passport
+from mindee.documents.passport import Passport
 
 
 @pytest.fixture

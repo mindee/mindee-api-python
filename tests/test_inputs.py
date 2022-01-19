@@ -1,5 +1,5 @@
 import pytest
-from mindee import Inputs
+from mindee.inputs import Inputs
 
 
 def test_pdf_reconstruct():

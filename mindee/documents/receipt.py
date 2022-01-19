@@ -1,4 +1,4 @@
-from mindee.documents import Document
+from mindee.documents.base import Document, OFF_THE_SHELF
 from mindee.fields import Field
 from mindee.fields.date import Date
 from mindee.fields.amount import Amount
@@ -6,7 +6,7 @@ from mindee.fields.locale import Locale
 from mindee.fields.orientation import Orientation
 from mindee.fields.tax import Tax
 from mindee.http import make_api_request, make_predict_url
-from mindee.document_config import DocumentConfig
+from mindee.documents.document_config import DocumentConfig
 
 
 class Receipt(Document):
@@ -88,7 +88,7 @@ class Receipt(Document):
             )
 
         # Invoke Document constructor
-        super(Receipt, self).__init__(input_file)
+        super().__init__(input_file)
 
         # Run checks
         self._checklist()
@@ -106,9 +106,8 @@ class Receipt(Document):
                 "document_type": "receipt",
                 "singular_name": "receipt",
                 "plural_name": "receipts",
-                "type": "off-the-shelf",
             },
-            doc_type="off_the_shelf",
+            doc_type=OFF_THE_SHELF,
         )
 
     def __str__(self) -> str:
@@ -201,7 +200,7 @@ class Receipt(Document):
         self.__reconstruct_total_tax()
 
     # Checks
-    def __taxes_match_total(self):
+    def __taxes_match_total(self) -> bool:
         """
         Check receipt rule of matching between taxes and total_incl
         :return: True if rule matches, False otherwise
@@ -225,7 +224,6 @@ class Receipt(Document):
 
         # Crate epsilon
         eps = 1 / (100 * total_vat)
-
         if (
             self.total_incl.value * (1 - eps) - 0.02
             <= reconstructed_total
@@ -236,8 +234,7 @@ class Receipt(Document):
             self.total_tax.probability = 1.0
             self.total_incl.probability = 1.0
             return True
-        else:
-            return False
+        return False
 
     # Reconstruct
     def __reconstruct_total_excl_from_tcc_and_taxes(self):
@@ -246,7 +243,7 @@ class Receipt(Document):
         The total_excl Amount value is the difference between total_incl and sum of taxes
         The total_excl Amount probability is the product of self.taxes probabilities multiplied by total_incl probability
         """
-        if len(self.taxes) and self.total_incl.value is not None:
+        if self.taxes and self.total_incl.value is not None:
             total_excl = {
                 "value": self.total_incl.value - Field.array_sum(self.taxes),
                 "confidence": Field.array_probability(self.taxes)
@@ -260,7 +257,7 @@ class Receipt(Document):
         The total_tax Amount value is the sum of all self.taxes value
         The total_tax Amount probability is the product of self.taxes probabilities
         """
-        if len(self.taxes) and self.total_tax.value is None:
+        if self.taxes and self.total_tax.value is None:
             total_tax = {
                 "value": sum(
                     [tax.value if tax.value is not None else 0 for tax in self.taxes]

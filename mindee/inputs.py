@@ -43,7 +43,7 @@ class Inputs:
             self.file_extension = guess_type(file.name)[0]
         elif input_type == "path":
             # Case input is a path
-            self.file_object = open(file, "rb")
+            self.file_object = open(file, "rb")  # pylint: disable=consider-using-with
             self.input_type = input_type
             self.filename = os.path.basename(file)
             self.filepath = file
@@ -142,4 +142,4 @@ class Inputs:
         try:
             pikepdf.open(self.file_object)
         except Exception as err:
-            raise Exception("Couldn't open PDF file. %s" % err)
+            raise RuntimeError("Couldn't open PDF file") from err

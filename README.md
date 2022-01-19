@@ -34,10 +34,9 @@ Depending on what type of document you want to parse, you need to add specifics 
 from mindee import Client
 
 mindee_client = Client(
-    expense_receipt_token="your_expense_receipt_api_token_here",
-    invoice_token="your_invoice_api_token_here",
-    passport_token="your_passport_api_token_here",
-    license_plate_token="your_license_plate_api_token_here",
+    receipt_api_key="your_expense_receipt_api_token_here",
+    invoice_api_key="your_invoice_api_token_here",
+    passport_api_key="your_passport_api_token_here",
     raise_on_error=True
 )
 ```
@@ -50,21 +49,18 @@ Why? You'll never have to worry about committing your credentials and accidental
 
 ```python
 # Call the receipt parsing API and create a receipt object under parsed_data.receipt
-parsed_data = mindee_client.parse_receipt("/path/to/file")
+parsed_data = mindee_client.parse_from_path("/path/to/receipt.jpg", "receipt")
 
 # Call the invoice parsing API and create an invoice object under parsed_data.invoice
-parsed_data = mindee_client.parse_invoice("/path/to/file")
+parsed_data = mindee_client.parse_from_path("/path/to/invoice.pdf", "invoice")
 
 # If you have a mixed data flow of invoice and receipt, use financial_document class
 # Call the invoice or receipt parsing API according to your input data type
 # and create a FinancialDocument object under parsed_data.financial_document
-parsed_data = mindee_client.parse_financial_document("/path/to/file")
+parsed_data = mindee_client.parse_from_path("/path/to/financial_doc.pdf", "financial_document")
 
 # Call the passport parsing API and create a Passport object under parsed_data.passport
-parsed_data = mindee_client.parse_passport("/path/to/file")
-
-# Call the license_plates parsing API and create a CarPlate object under parsed_data.license_plate
-parsed_data = mindee_client.parse_license_plate("/path/to/file")
+parsed_data = mindee_client.parse_from_path("/path/to/passport.jpg", "passport")
 ```
 
 ## Input data
@@ -73,16 +69,16 @@ You can pass your input file in three ways:
 
 From file path
 ```python
-receipt_data = mindee_client.parse_receipt('/path/to/file', input_type="path")
+receipt_data = mindee_client.parse_from_path('/path/to/file', "invoice")
 ```
 
 From a file object
 ```python
 with open('/path/to/file', 'rb') as fp:
-     receipt_data = mindee_client.parse_receipt(fp, input_type="file")
+     receipt_data = mindee_client.parse_from_file(fp, "invoice")
 ```
 
 From a base64
 ```python
-receipt_data = mindee_client.parse_receipt(base64_string, input_type="base64", filename="receipt.jpg")
+receipt_data = mindee_client.parse_from_b64string(base64_string, "receipt")
 ```
