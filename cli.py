@@ -43,7 +43,7 @@ def call_endpoint(args):
             )
     elif args.input_type == "base64":
         with open(args.path, "rt") as file_handle:
-            parsed_data = client.parse_from_string(
+            parsed_data = client.parse_from_b64string(
                 file_handle.read(),
                 "test.jpg",
                 product_info["doc_type"],

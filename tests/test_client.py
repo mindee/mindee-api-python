@@ -143,14 +143,14 @@ def test_request_with_base64_no_filename(dummy_client):
     with open("./tests/data/expense_receipts/receipt.txt", "r") as fh:
         b64 = fh.read()
     with pytest.raises(TypeError):
-        dummy_client.parse_from_string(b64, document_type="receipt")
+        dummy_client.parse_from_b64string(b64, document_type="receipt")
 
 
 def test_request_with_base64(dummy_client):
     with open("./tests/data/expense_receipts/receipt.txt", "r") as fh:
         b64 = fh.read()
     with pytest.raises(HTTPException):
-        dummy_client.parse_from_string(
+        dummy_client.parse_from_b64string(
             b64, document_type="receipt", filename="receipt.txt"
         )
 
@@ -193,7 +193,7 @@ def test_request_with_wrong_type(dummy_client):
     with pytest.raises(AttributeError):
         dummy_client.parse_from_file("./tests/data/test.txt", document_type="receipt")
     with pytest.raises(TypeError):
-        dummy_client.parse_from_string(
+        dummy_client.parse_from_b64string(
             open("./tests/data/test.txt"), "test.jpg", document_type="receipt"
         )
 
