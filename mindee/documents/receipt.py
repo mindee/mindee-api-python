@@ -201,7 +201,7 @@ class Receipt(Document):
         self.__reconstruct_total_tax()
 
     # Checks
-    def __taxes_match_total(self):
+    def __taxes_match_total(self) -> bool:
         """
         Check receipt rule of matching between taxes and total_incl
         :return: True if rule matches, False otherwise
@@ -225,7 +225,6 @@ class Receipt(Document):
 
         # Crate epsilon
         eps = 1 / (100 * total_vat)
-
         if (
             self.total_incl.value * (1 - eps) - 0.02
             <= reconstructed_total
@@ -236,8 +235,7 @@ class Receipt(Document):
             self.total_tax.probability = 1.0
             self.total_incl.probability = 1.0
             return True
-        else:
-            return False
+        return False
 
     # Reconstruct
     def __reconstruct_total_excl_from_tcc_and_taxes(self):
@@ -246,7 +244,7 @@ class Receipt(Document):
         The total_excl Amount value is the difference between total_incl and sum of taxes
         The total_excl Amount probability is the product of self.taxes probabilities multiplied by total_incl probability
         """
-        if len(self.taxes) and self.total_incl.value is not None:
+        if self.taxes and self.total_incl.value is not None:
             total_excl = {
                 "value": self.total_incl.value - Field.array_sum(self.taxes),
                 "probability": Field.array_probability(self.taxes)
@@ -260,7 +258,7 @@ class Receipt(Document):
         The total_tax Amount value is the sum of all self.taxes value
         The total_tax Amount probability is the product of self.taxes probabilities
         """
-        if len(self.taxes) and self.total_tax.value is None:
+        if self.taxes and self.total_tax.value is None:
             total_tax = {
                 "value": sum(
                     [tax.value if tax.value is not None else 0 for tax in self.taxes]

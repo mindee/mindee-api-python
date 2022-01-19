@@ -43,7 +43,6 @@ class Invoice(Document):
         :param supplier: supplier value for creating Invoice object from scratch
         :param payment_details: payment_details value for creating Invoice object from scratch
         :param company_number: company_number value for creating Invoice object from scratch
-        :param vat_number: vat_number value for creating Invoice object from scratch
         :param orientation: orientation value for creating Invoice object from scratch
         :param total_tax: total_tax value for creating Invoice object from scratch
         :param page_n: Page number for multi pages pdf input
@@ -231,7 +230,7 @@ class Invoice(Document):
         Check invoice rule of matching between taxes and total_incl
         :return: True if rule matches, False otherwise
         """
-        # Check taxes and total_incl exist
+        # Check taxes and total amount exist
         if len(self.taxes) == 0 or self.total_incl.value is None:
             return False
 
@@ -250,7 +249,6 @@ class Invoice(Document):
 
         # Crate epsilon
         eps = 1 / (100 * total_vat)
-
         if (
             self.total_incl.value * (1 - eps) - 0.02
             <= reconstructed_total
@@ -261,8 +259,7 @@ class Invoice(Document):
             self.total_tax.probability = 1.0
             self.total_incl.probability = 1.0
             return True
-        else:
-            return False
+        return False
 
     def __taxes_match_total_excl(self):
         """
@@ -288,7 +285,6 @@ class Invoice(Document):
 
         # Crate epsilon
         eps = 1 / (100 * total_vat)
-
         # Check that reconstructed total excl matches total excl
         if (
             self.total_excl.value * (1 - eps) - 0.02
@@ -300,8 +296,7 @@ class Invoice(Document):
             self.total_tax.probability = 1.0
             self.total_excl.probability = 1.0
             return True
-        else:
-            return False
+        return False
 
     def __taxes_plus_total_excl_match_total_incl(self):
         """
@@ -338,8 +333,7 @@ class Invoice(Document):
             self.total_excl.probability = 1.0
             self.total_incl.probability = 1.0
             return True
-        else:
-            return False
+        return False
 
     # Reconstruct
     def __reconstruct_total_incl_from_taxes_plus_excl(self):
@@ -396,7 +390,7 @@ class Invoice(Document):
         The total_tax Amount value is the sum of all self.taxes value
         The total_tax Amount probability is the product of self.taxes probabilities
         """
-        if len(self.taxes):
+        if self.taxes:
             total_tax = {
                 "value": sum(
                     [tax.value if tax.value is not None else 0 for tax in self.taxes]

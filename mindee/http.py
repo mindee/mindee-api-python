@@ -17,7 +17,9 @@ def make_predict_url(product: str, version: str, owner: str = "mindee") -> str:
     return f"{MINDEE_API_URL}/products/{owner}/{product}/v{version}/predict"
 
 
-def make_api_request(url: str, input_file, token: str, include_words: bool = False) -> requests.Response:
+def make_api_request(
+    url: str, input_file, token: str, include_words: bool = False
+) -> requests.Response:
     """
     :param input_file: Input object
     :param url: Endpoint url

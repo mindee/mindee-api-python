@@ -1,5 +1,6 @@
+import io
 import pytest
-from mindee import Client, Response, Receipt, Passport
+from mindee import Client, Response
 from mindee.http import HTTPException
 
 
@@ -18,7 +19,7 @@ def dummy_client():
 
 
 @pytest.fixture
-def dummy_client_dont_raise():
+def dummy_client_no_raise():
     return Client(
         receipt_api_key="dummy",
         invoice_api_key="dummy",
@@ -134,18 +135,8 @@ def test_response_load_failure():
 def test_request_with_filepath(dummy_client):
     with pytest.raises(HTTPException):
         dummy_client.parse_from_path(
-            "./tests/data/expense_receipts/receipt.jpg",
-            document_type="receipt",
+            "./tests/data/expense_receipts/receipt.jpg", document_type="receipt"
         )
-
-
-# def test_request_with_file(dummy_client):
-#     with pytest.raises(AssertionError):
-#         dummy_client.parse(
-#             open("./tests/data/expense_receipts/receipt.jpg"),
-#             input_type="file",
-#             document_type="receipt",
-#         )
 
 
 def test_request_with_base64_no_filename(dummy_client):
@@ -164,17 +155,28 @@ def test_request_with_base64(dummy_client):
         )
 
 
-def test_request_without_raise_on_error(dummy_client_dont_raise):
-    result = dummy_client_dont_raise.parse_from_path(
-        "./tests/data/expense_receipts/receipt.jpg",
-        "receipt",
+def test_request_with_file(dummy_client):
+    with pytest.raises(HTTPException):
+        with open("./tests/data/expense_receipts/receipt.jpg", "rb") as fh:
+            dummy_client.parse_from_file(fh, document_type="receipt")
+
+
+def test_request_with_bytes(dummy_client):
+    with pytest.raises(AttributeError):
+        data = io.BytesIO(b"some initial binary data: \x00\x01")
+        dummy_client.parse_from_file(data, document_type="receipt")
+
+
+def test_request_without_raise_on_error(dummy_client_no_raise):
+    result = dummy_client_no_raise.parse_from_path(
+        "./tests/data/expense_receipts/receipt.jpg", "receipt"
     )
     assert result.receipt is None
     assert len(result.receipts) == 0
 
 
-def test_request_without_raise_on_error_include_words(dummy_client_dont_raise):
-    result = dummy_client_dont_raise.parse_from_path(
+def test_request_without_raise_on_error_include_words(dummy_client_no_raise):
+    result = dummy_client_no_raise.parse_from_path(
         "./tests/data/expense_receipts/receipt.jpg",
         include_words=True,
         document_type="receipt",
@@ -183,15 +185,13 @@ def test_request_without_raise_on_error_include_words(dummy_client_dont_raise):
     assert len(result.receipts) == 0
 
 
-def test_request_with_file_wrong_type(dummy_client):
+def test_request_with_wrong_type(dummy_client):
     with pytest.raises(TypeError):
         dummy_client.parse_from_path(
             open("./tests/data/test.txt"), document_type="receipt"
         )
     with pytest.raises(AttributeError):
-        dummy_client.parse_from_stream(
-            "./tests/data/test.txt", document_type="receipt"
-        )
+        dummy_client.parse_from_file("./tests/data/test.txt", document_type="receipt")
     with pytest.raises(TypeError):
         dummy_client.parse_from_string(
             open("./tests/data/test.txt"), "test.jpg", document_type="receipt"
