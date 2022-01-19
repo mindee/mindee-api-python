@@ -17,7 +17,7 @@ def make_predict_url(product: str, version: str, owner: str = "mindee") -> str:
     return f"{MINDEE_API_URL}/products/{owner}/{product}/v{version}/predict"
 
 
-def make_api_request(url: str, input_file, token: str, include_words: bool = False):
+def make_api_request(url: str, input_file, token: str, include_words: bool = False) -> requests.Response:
     """
     :param input_file: Input object
     :param url: Endpoint url
@@ -26,8 +26,11 @@ def make_api_request(url: str, input_file, token: str, include_words: bool = Fal
     :return: requests response
     """
     input_file.file_object.seek(0)
+    files = {
+        "document": (input_file.filename, input_file.file_object.read()),
+    }
+    input_file.file_object.close()
 
-    files = {"document": (input_file.filename, input_file.file_object.read())}
     headers = {
         "Authorization": f"Token {token}",
         "User-Agent": f"mindee-api-python@v{__version__} python-v{python_version} {PLATFORM}",
@@ -38,9 +41,6 @@ def make_api_request(url: str, input_file, token: str, include_words: bool = Fal
         params["include_mvision"] = "true"
 
     response = requests.post(url, files=files, headers=headers, data=params)
-
-    input_file.file_object.close()
-
     return response
 
 
