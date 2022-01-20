@@ -1,4 +1,4 @@
-from mindee.documents import Document
+from mindee.documents.base import Document, OFF_THE_SHELF
 from mindee.fields import Field
 from mindee.fields.date import Date
 from mindee.fields.amount import Amount
@@ -7,7 +7,7 @@ from mindee.fields.orientation import Orientation
 from mindee.fields.payment_details import PaymentDetails
 from mindee.fields.tax import Tax
 from mindee.http import make_api_request, make_predict_url
-from mindee.document_config import DocumentConfig
+from mindee.documents.document_config import DocumentConfig
 
 
 class Invoice(Document):
@@ -104,7 +104,7 @@ class Invoice(Document):
             )
 
         # Invoke Document constructor
-        super(Invoice, self).__init__(input_file)
+        super().__init__(input_file)
 
         # Run checks
         self._checklist()
@@ -123,7 +123,7 @@ class Invoice(Document):
                 "singular_name": "invoice",
                 "plural_name": "invoices",
             },
-            doc_type="off_the_shelf",
+            doc_type=OFF_THE_SHELF,
         )
 
     def build_from_api_prediction(self, api_prediction, page_n=0):

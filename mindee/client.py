@@ -1,27 +1,22 @@
 import json
+from typing import Optional
+
 from mindee.http import HTTPException
 from mindee.inputs import Inputs
+from mindee.documents import DOCUMENT_CONFIGS
+from mindee.documents.base import OFF_THE_SHELF
 from mindee.documents.custom_document import CustomDocument
-from mindee.documents.receipt import Receipt
-from mindee.documents.financial_document import FinancialDocument
-from mindee.documents.invoice import Invoice
-from mindee.documents.passport import Passport
-from mindee.document_config import DocumentConfig
 
-
-DOCUMENTS = {
-    "receipt": Receipt.get_document_config(),
-    "invoice": Invoice.get_document_config(),
-    "financial_document": FinancialDocument.get_document_config(),
-    "passport": Passport.get_document_config(),
-}
+from mindee.documents.document_config import DocumentConfig, validate_list
 
 
 class Client:
+    documents = DOCUMENT_CONFIGS
+
     def __init__(
         self,
         receipt_api_key=None,
-        custom_documents=None,
+        custom_documents: Optional[dict] = None,
         invoice_api_key=None,
         passport_api_key=None,
         raise_on_error: bool = True,
@@ -38,7 +33,6 @@ class Client:
         self.receipt_api_key = receipt_api_key
         self.invoice_api_key = invoice_api_key
         self.passport_api_key = passport_api_key
-        self.documents = DOCUMENTS
 
         # Build custom document configs from Client custom_document kwarg
         if custom_documents is not None:
@@ -48,7 +42,7 @@ class Client:
                 self.documents[custom_document_cfg["document_type"]] = DocumentConfig(
                     custom_document_cfg
                 )
-        DocumentConfig.validate_list(self.documents)
+        validate_list(self.documents)
 
     def parse_from_b64string(
         self,
@@ -144,7 +138,7 @@ class Client:
                 "%s document type was not found in document configurations"
                 % document_type
             )
-        if self.documents[document_type].type == "off_the_shelf":
+        if self.documents[document_type].type == OFF_THE_SHELF:
             for api_key_name in self.documents[document_type].api_key_kwargs:
                 print(api_key_name)
                 if not getattr(self, api_key_name):
@@ -153,7 +147,7 @@ class Client:
                     )
 
     def _make_request(self, input_file, document_type, include_words=False):
-        if self.documents[document_type].type == "off_the_shelf":
+        if self.documents[document_type].type == OFF_THE_SHELF:
             response = self.documents[document_type].constructor.request(
                 self, input_file, include_words=include_words
             )

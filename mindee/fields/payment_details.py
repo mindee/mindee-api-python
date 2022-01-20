@@ -23,7 +23,7 @@ class PaymentDetails(Field):
         :param reconstructed: Bool for reconstructed object (not extracted in the API)
         :param page_n: Page number for multi pages pdf
         """
-        super(PaymentDetails, self).__init__(
+        super().__init__(
             payment_details_prediction,
             value_key=value_key,
             reconstructed=reconstructed,

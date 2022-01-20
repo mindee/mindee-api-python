@@ -11,7 +11,7 @@ class Amount(Field):
         :param reconstructed: Bool for reconstructed object (not extracted in the API)
         :param page_n: Page number for multi pages pdf
         """
-        super(Amount, self).__init__(
+        super().__init__(
             amount_prediction,
             value_key=value_key,
             reconstructed=reconstructed,
