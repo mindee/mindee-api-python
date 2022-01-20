@@ -30,12 +30,12 @@ class DocumentConfig:
                         % mandatory_field
                     )
             self.constructor = CustomDocument
-            self.api_key_kwargs = []
+            self.required_ots_keys = []
             self.api_key = config["api_key"]
             self.endpoint = config["endpoint"]
         elif self.type == OFF_THE_SHELF:
             self.constructor = config["constructor"]
-            self.api_key_kwargs = config["api_key_kwargs"]
+            self.required_ots_keys = config["required_ots_keys"]
 
 
 DocumentConfigDict = Dict[str, DocumentConfig]
