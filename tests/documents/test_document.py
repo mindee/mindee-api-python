@@ -1,6 +1,7 @@
 import pytest
 import json
-from mindee import Response, Inputs, Client
+from mindee import Response, Client
+from mindee.inputs import Inputs
 from mindee.documents import Document
 
 
