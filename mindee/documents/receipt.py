@@ -1,4 +1,4 @@
-from mindee.documents import Document
+from mindee.documents.base import Document, OFF_THE_SHELF
 from mindee.fields import Field
 from mindee.fields.date import Date
 from mindee.fields.amount import Amount
@@ -6,7 +6,7 @@ from mindee.fields.locale import Locale
 from mindee.fields.orientation import Orientation
 from mindee.fields.tax import Tax
 from mindee.http import make_api_request, make_predict_url
-from mindee.document_config import DocumentConfig
+from mindee.documents.document_config import DocumentConfig
 
 
 class Receipt(Document):
@@ -88,7 +88,7 @@ class Receipt(Document):
             )
 
         # Invoke Document constructor
-        super(Receipt, self).__init__(input_file)
+        super().__init__(input_file)
 
         # Run checks
         self._checklist()
@@ -106,9 +106,8 @@ class Receipt(Document):
                 "document_type": "receipt",
                 "singular_name": "receipt",
                 "plural_name": "receipts",
-                "type": "off-the-shelf",
             },
-            doc_type="off_the_shelf",
+            doc_type=OFF_THE_SHELF,
         )
 
     def __str__(self) -> str:

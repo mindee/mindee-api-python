@@ -14,7 +14,6 @@ disable=[
   'consider-using-set-comprehension',
   'missing-class-docstring',
   'missing-module-docstring',
-  'super-with-arguments',
   'too-many-instance-attributes',
   'too-many-locals',
   'too-many-arguments',

@@ -1,25 +1,12 @@
-class Document:
-    def __init__(self, input_file=None):
-        self.filepath = None
-        self.filename = None
-        self.file_extension = None
+from mindee.documents.document_config import DocumentConfigDict
+from mindee.documents.receipt import Receipt
+from mindee.documents.financial_document import FinancialDocument
+from mindee.documents.invoice import Invoice
+from mindee.documents.passport import Passport
 
-        if input_file is not None:
-            self.filepath = input_file.filepath
-            self.filename = input_file.filename
-            self.file_extension = input_file.file_extension
-        self.checklist = {}
-
-    def request(self, *args):
-        """Make request to the product endpoint"""
-        raise NotImplementedError()
-
-    def _checklist(self, *args):
-        raise NotImplementedError()
-
-    def _reconstruct(self, *args):
-        pass
-
-    def all_checks(self):
-        """Return all checks"""
-        return all(self.checklist)
+DOCUMENT_CONFIGS: DocumentConfigDict = {
+    "receipt": Receipt.get_document_config(),
+    "invoice": Invoice.get_document_config(),
+    "financial_document": FinancialDocument.get_document_config(),
+    "passport": Passport.get_document_config(),
+}

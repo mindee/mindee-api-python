@@ -1,4 +1,4 @@
-from mindee.documents import Document
+from mindee.documents.base import Document
 from mindee.http import make_api_request
 
 
@@ -20,7 +20,7 @@ class CustomDocument(Document):
         self.type = document_type
         self.build_from_api_prediction(api_prediction, page_n=page_n)
         # Invoke Document constructor
-        super(CustomDocument, self).__init__(input_file)
+        super().__init__(input_file)
 
     def build_from_api_prediction(self, api_prediction, page_n=0):
         """

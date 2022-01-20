@@ -1,9 +1,10 @@
 from datetime import datetime
-from mindee.documents import Document
+
+from mindee.documents.base import Document, OFF_THE_SHELF
 from mindee.fields import Field
 from mindee.fields.date import Date
 from mindee.http import make_api_request, make_predict_url
-from mindee.document_config import DocumentConfig
+from mindee.documents.document_config import DocumentConfig
 
 
 class Passport(Document):
@@ -95,7 +96,7 @@ class Passport(Document):
             )
 
         # Invoke Document constructor
-        super(Passport, self).__init__(input_file)
+        super().__init__(input_file)
 
         # Run checks
         self._checklist()
@@ -114,7 +115,7 @@ class Passport(Document):
                 "singular_name": "passport",
                 "plural_name": "passports",
             },
-            doc_type="off_the_shelf",
+            doc_type=OFF_THE_SHELF,
         )
 
     def build_from_api_prediction(self, api_prediction, page_n=0):

@@ -3,12 +3,12 @@ from mindee.fields.date import Date
 from mindee.fields.locale import Locale
 from mindee.fields.orientation import Orientation
 from mindee.fields.tax import Tax
-from mindee.documents import Document
 from mindee.fields import Field
 from mindee.http import make_api_request, make_predict_url
+from mindee.documents.base import Document, OFF_THE_SHELF
 from mindee.documents.invoice import Invoice
 from mindee.documents.receipt import Receipt
-from mindee.document_config import DocumentConfig
+from mindee.documents.document_config import DocumentConfig
 
 
 class FinancialDocument(Document):
@@ -114,7 +114,7 @@ class FinancialDocument(Document):
             )
 
         # Invoke Document constructor
-        super(FinancialDocument, self).__init__(input_file)
+        super().__init__(input_file)
 
         # Run checks
         self._checklist()
@@ -133,7 +133,7 @@ class FinancialDocument(Document):
                 "singular_name": "financial_document",
                 "plural_name": "financial_documents",
             },
-            doc_type="off_the_shelf",
+            doc_type=OFF_THE_SHELF,
         )
 
     def build_from_api_prediction(self, api_prediction, input_file, page_n=0):
