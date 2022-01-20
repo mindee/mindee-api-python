@@ -1,5 +1,6 @@
+import os
 import json
-from typing import Optional
+from typing import Optional, List
 
 from mindee.http import HTTPException
 from mindee.inputs import Inputs
@@ -15,10 +16,10 @@ class Client:
 
     def __init__(
         self,
-        receipt_api_key=None,
-        custom_documents: Optional[dict] = None,
-        invoice_api_key=None,
-        passport_api_key=None,
+        receipt_api_key: Optional[str] = None,
+        invoice_api_key: Optional[str] = None,
+        passport_api_key: Optional[str] = None,
+        custom_documents: Optional[List[dict]] = None,
         raise_on_error: bool = True,
     ):
         """
@@ -29,10 +30,11 @@ class Client:
         :param raise_on_error: (bool, default True) raise an Exception on HTTP errors
         """
         self.raise_on_error = raise_on_error
-        self.base_url = "https://api.mindee.net/v1/products/mindee/"
+
         self.receipt_api_key = receipt_api_key
         self.invoice_api_key = invoice_api_key
         self.passport_api_key = passport_api_key
+        self._set_api_keys_from_env()
 
         # Build custom document configs from Client custom_document kwarg
         if custom_documents is not None:
@@ -43,6 +45,19 @@ class Client:
                     custom_document_cfg
                 )
         validate_list(self.documents)
+
+    def _get_api_key(self, key_name) -> Optional[str]:
+        return getattr(self, f"{key_name}_api_key", None)
+
+    def _set_api_key_from_env(self, key_name) -> None:
+        val = os.getenv(f"MINDEE_{key_name.upper()}_API_KEY", None)
+        setattr(self, f"{key_name}_api_key", val)
+
+    def _set_api_keys_from_env(self) -> None:
+        for doc_config in self.documents.values():
+            for key_name in doc_config.required_ots_keys:
+                if not self._get_api_key(key_name):
+                    self._set_api_key_from_env(key_name)
 
     def parse_from_b64string(
         self,
@@ -135,15 +150,13 @@ class Client:
         # first let's validate the document type
         if document_type not in self.documents.keys():
             raise AssertionError(
-                "%s document type was not found in document configurations"
-                % document_type
+                f"{document_type} document type was not found in document configurations"
             )
         if self.documents[document_type].type == OFF_THE_SHELF:
-            for api_key_name in self.documents[document_type].api_key_kwargs:
-                print(api_key_name)
-                if not getattr(self, api_key_name):
+            for api_key_name in self.documents[document_type].required_ots_keys:
+                if not self._get_api_key(api_key_name):
                     raise AssertionError(
-                        "Missing '%s', check your Client configuration." % api_key_name
+                        f"Missing API key for '{api_key_name}', check your Client configuration."
                     )
 
     def _make_request(self, input_file, document_type, include_words=False):

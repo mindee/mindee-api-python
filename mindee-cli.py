@@ -1,40 +1,41 @@
 #! /usr/bin/env python3
 
 import argparse
-import os
 import sys
 
 from mindee import Client
 
-PRODUCTS = {
+OTS_DOCUMENTS = {
     "invoice": {
-        "help": "invoices api",
-        "token_name": "invoice_api_key",
+        "help": "Invoice",
+        "required_keys": ["invoice"],
         "doc_type": "invoice",
     },
     "receipt": {
-        "help": "expense receipt api",
-        "token_name": "receipt_api_key",
+        "help": "Expense Receipt",
+        "required_keys": ["receipt"],
         "doc_type": "receipt",
     },
     "passport": {
-        "help": "passport api",
-        "token_name": "passport_token",
+        "help": "Passport",
+        "required_keys": ["passport"],
         "doc_type": "passport",
+    },
+    "financial-document": {
+        "help": "Financial Document",
+        "required_keys": ["invoice", "receipt"],
+        "doc_type": "financial_document",
     },
 }
 
 
-def get_env_token(name: str) -> str:
-    return os.getenv(f"MINDEE_{name.upper()}_TOKEN", "")
-
-
 def call_endpoint(args):
-    info = PRODUCTS[args.product_name]
+    info = OTS_DOCUMENTS[args.product_name]
     kwargs = {
-        info["token_name"]: getattr(args, info["token_name"]),
         "raise_on_error": args.raise_on_error,
     }
+    for key in info["required_keys"]:
+        kwargs["%s_api_key" % key] = getattr(args, "%s_api_key" % key)
     client = Client(**kwargs)
     if args.input_type == "stream":
         with open(args.path, "rb", buffering=30) as file_handle:
@@ -68,18 +69,18 @@ def parse_args():
     subparsers = parser.add_subparsers(
         dest="product_name",
         help="sub-command help",
+        required=True,
     )
-    for name, info in PRODUCTS.items():
+    for name, info in OTS_DOCUMENTS.items():
         subp = subparsers.add_parser(name, help=info["help"])
+        for key_name in info["required_keys"]:
+            subp.add_argument(
+                "--%s-key" % key_name,
+                dest="%s_api_key" % key_name,
+                help="API key for %s document endpoint" % key_name,
+            )
         subp.add_argument(
             "-t",
-            "--token",
-            dest=info["token_name"],
-            default=get_env_token(name),
-            help="Token for product",
-        )
-        subp.add_argument(
-            "-i",
             "--input-type",
             dest="input_type",
             choices=["path", "stream", "base64"],
