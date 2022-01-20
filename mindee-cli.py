@@ -30,28 +30,28 @@ def get_env_token(name: str) -> str:
 
 
 def call_endpoint(args):
-    product_info = PRODUCTS[args.product_name]
+    info = PRODUCTS[args.product_name]
     kwargs = {
-        product_info["token_name"]: args.token,
+        info["token_name"]: getattr(args, info["token_name"]),
         "raise_on_error": args.raise_on_error,
     }
     client = Client(**kwargs)
     if args.input_type == "stream":
         with open(args.path, "rb", buffering=30) as file_handle:
             parsed_data = client.parse_from_file(
-                file_handle, product_info["doc_type"], cut_pdf=args.cut_pdf
+                file_handle, info["doc_type"], cut_pdf=args.cut_pdf
             )
     elif args.input_type == "base64":
         with open(args.path, "rt") as file_handle:
             parsed_data = client.parse_from_b64string(
                 file_handle.read(),
                 "test.jpg",
-                product_info["doc_type"],
+                info["doc_type"],
                 cut_pdf=args.cut_pdf,
             )
     else:
         parsed_data = client.parse_from_path(
-            args.path, product_info["doc_type"], cut_pdf=args.cut_pdf
+            args.path, info["doc_type"], cut_pdf=args.cut_pdf
         )
     print(getattr(parsed_data, args.product_name))
 
@@ -74,7 +74,7 @@ def parse_args():
         subp.add_argument(
             "-t",
             "--token",
-            dest="token",
+            dest=info["token_name"],
             default=get_env_token(name),
             help="Token for product",
         )

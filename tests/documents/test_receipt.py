@@ -1,6 +1,6 @@
 import json
 import pytest
-from mindee import Receipt
+from mindee.documents.receipt import Receipt
 
 
 @pytest.fixture

@@ -1,6 +1,6 @@
 import json
 import pytest
-from mindee import FinancialDocument
+from mindee.documents.financial_document import FinancialDocument
 
 
 @pytest.fixture

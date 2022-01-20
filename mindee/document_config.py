@@ -2,7 +2,7 @@ from mindee.documents.custom_document import CustomDocument
 
 
 class DocumentConfig:
-    def __init__(self, config, doc_type="custom_document"):
+    def __init__(self, config: dict, doc_type: str = "custom_document"):
         """
         :param config: (dict) Object containing config
         :param doc_type: (string) off_the_shelf or custom_document
