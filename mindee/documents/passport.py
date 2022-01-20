@@ -110,7 +110,7 @@ class Passport(Document):
         return DocumentConfig(
             {
                 "constructor": Passport,
-                "api_key_kwargs": ["passport_api_key"],
+                "required_ots_keys": ["passport"],
                 "document_type": "passport",
                 "singular_name": "passport",
                 "plural_name": "passports",

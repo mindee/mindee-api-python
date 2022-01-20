@@ -102,7 +102,7 @@ class Receipt(Document):
         return DocumentConfig(
             {
                 "constructor": Receipt,
-                "api_key_kwargs": ["receipt_api_key"],
+                "required_ots_keys": ["receipt"],
                 "document_type": "receipt",
                 "singular_name": "receipt",
                 "plural_name": "receipts",

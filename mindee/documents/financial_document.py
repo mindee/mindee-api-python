@@ -128,7 +128,7 @@ class FinancialDocument(Document):
         return DocumentConfig(
             {
                 "constructor": FinancialDocument,
-                "api_key_kwargs": ["invoice_api_key", "receipt_api_key"],
+                "required_ots_keys": ["invoice", "receipt"],
                 "document_type": "financial_document",
                 "singular_name": "financial_document",
                 "plural_name": "financial_documents",

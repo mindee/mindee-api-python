@@ -118,7 +118,7 @@ class Invoice(Document):
         return DocumentConfig(
             {
                 "constructor": Invoice,
-                "api_key_kwargs": ["invoice_api_key"],
+                "required_ots_keys": ["invoice"],
                 "document_type": "invoice",
                 "singular_name": "invoice",
                 "plural_name": "invoices",
