@@ -1,6 +1,6 @@
 import os
 import json
-from typing import Optional
+from typing import Optional, List
 
 from mindee.http import HTTPException
 from mindee.inputs import Inputs
@@ -19,7 +19,7 @@ class Client:
         receipt_api_key: Optional[str] = None,
         invoice_api_key: Optional[str] = None,
         passport_api_key: Optional[str] = None,
-        custom_documents: Optional[dict] = None,
+        custom_documents: Optional[List[dict]] = None,
         raise_on_error: bool = True,
     ):
         """
