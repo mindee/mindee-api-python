@@ -4,6 +4,12 @@ from mindee.documents.custom_document import CustomDocument
 
 
 class DocumentConfig:
+    constructor: Any  # workaround for dynamic class assignment
+    type: str
+    required_ots_keys: list
+    singular_name: str
+    plural_name: str
+
     def __init__(self, config: Dict[str, Any], doc_type: str = CUSTOM_DOCUMENT):
         """
         :param config: (dict) Object containing config
