@@ -1,12 +1,11 @@
 #! /usr/bin/env python3
 
 import argparse
-import os
 import sys
 
 from mindee import Client
 
-DOCUMENTS = {
+OTS_DOCUMENTS = {
     "invoice": {
         "help": "Invoice",
         "required_keys": ["invoice"],
@@ -31,7 +30,7 @@ DOCUMENTS = {
 
 
 def call_endpoint(args):
-    info = DOCUMENTS[args.product_name]
+    info = OTS_DOCUMENTS[args.product_name]
     kwargs = {
         "raise_on_error": args.raise_on_error,
     }
@@ -70,8 +69,9 @@ def parse_args():
     subparsers = parser.add_subparsers(
         dest="product_name",
         help="sub-command help",
+        required=True,
     )
-    for name, info in DOCUMENTS.items():
+    for name, info in OTS_DOCUMENTS.items():
         subp = subparsers.add_parser(name, help=info["help"])
         for key_name in info["required_keys"]:
             subp.add_argument(

@@ -2,83 +2,192 @@
 
 The full documentation is available [here](https://developers.mindee.com/docs/getting-started)
 
-## Requirements
+## Install
+
+### Requirements
 
 This library is officially supported on Python 3.7 to 3.10.
 
-## Install
+### Normal Install
 
-Install from PyPi using pip, a package manager for Python.
-
+The preferred installation method is via `pip`:
 ```shell script
 pip install mindee
 ```
 
-Don't have pip installed? Try installing it, by running this from the command line:
+### Development Install
 
+If you'll be modifying the source code, you'll want to have the development requirements
+as well.
+
+First clone this repo:
 ```shell script
-$ curl https://bootstrap.pypa.io/get-pip.py | python
+git clone git@github.com:mindee/mindee-api-python.git
 ```
 
-Getting started with the Mindee API couldn't be easier.
+Then navigate to the directory and install all development requirements:
+```shell script
+pip install .[dev] .[test]
+```
+
+## Basic Usage
+
+Getting started with the Mindee's Off-the-Shelf documents couldn't be easier.
 Create a Client and you're ready to go.
 
-## Create your Client
+### Create your Client
 
-The mindee.Client needs your [API credentials](https://developers.mindee.com/docs/make-your-first-request#create-an-api-key).
-You can either pass these directly to the constructor (see the code below) or via environment variables.
+The `mindee.Client` needs your [API credentials](https://developers.mindee.com/docs/make-your-first-request#create-an-api-key).
+You can either pass these directly to the constructor or via environment variables.
 
-Depending on what type of document you want to parse, you need to add specifics auth token for each endpoint.
+You only need to specify the API keys for the document endpoints you'll be using.
 
 ```python
 from mindee import Client
 
 mindee_client = Client(
-    receipt_api_key="your_expense_receipt_api_token_here",
-    invoice_api_key="your_invoice_api_token_here",
-    passport_api_key="your_passport_api_token_here",
+    receipt_api_key="your_expense_receipt_api_key_here",
+    invoice_api_key="your_invoice_api_key_here",
+    passport_api_key="your_passport_api_key_here",
     raise_on_error=True
 )
 ```
 
-We suggest storing your credentials as environment variables.
-Why? You'll never have to worry about committing your credentials and accidentally posting them somewhere public.
+#### Environment variables
+You can also set the API keys as environment variables.
+This is highly recommended for any production deployment.
 
+* `MINDEE_RECEIPT_API_KEY`
+* `MINDEE_INVOICE_API_KEY`
+* `MINDEE_PASSPORT_API_KEY`
 
-## Parsing methods
+### Parsing Documents
 
+#### Document types
+The document type must be specified when calling the `Client.parse` method.
+
+The object containing the parsed data will be an attribute of the response object.
+The name of this attribute will be the same as the `document_type`
+specified when calling the `Client.parse` method.
+
+Receipts
 ```python
-# Call the receipt parsing API and create a receipt object under parsed_data.receipt
-parsed_data = mindee_client.parse_from_path("/path/to/receipt.jpg", "receipt")
-
-# Call the invoice parsing API and create an invoice object under parsed_data.invoice
-parsed_data = mindee_client.parse_from_path("/path/to/invoice.pdf", "invoice")
-
-# If you have a mixed data flow of invoice and receipt, use financial_document class
-# Call the invoice or receipt parsing API according to your input data type
-# and create a FinancialDocument object under parsed_data.financial_document
-parsed_data = mindee_client.parse_from_path("/path/to/financial_doc.pdf", "financial_document")
-
-# Call the passport parsing API and create a Passport object under parsed_data.passport
-parsed_data = mindee_client.parse_from_path("/path/to/passport.jpg", "passport")
+api_response = mindee_client.parse_from_path("/path/to/receipt.jpg", "receipt")
+print(api_response.receipt)
+```
+Invoices
+```python
+api_response = mindee_client.parse_from_path("/path/to/invoice.pdf", "invoice")
+print(api_response.invoice)
+```
+Passports
+```python
+api_response = mindee_client.parse_from_path("/path/to/passport.jpg", "passport")
+print(api_response.passport)
 ```
 
-## Input data
-
-You can pass your input file in three ways:
-
-From file path
+Mixed data flow of invoices and receipts.\
+**Note:** You'll need an API key for _both_ invoice and receipts endpoints.
 ```python
-receipt_data = mindee_client.parse_from_path('/path/to/file', "invoice")
+api_response = mindee_client.parse_from_path("/path/to/receipt.jpg", "financial_document")
+print(api_response.financial_document)
+api_response = mindee_client.parse_from_path("/path/to/invoice.pdf", "financial_document")
+print(api_response.financial_document)
 ```
 
-From a file object
+### Document Sources
+
+You can pass your document in three ways.
+
+As a file path:
 ```python
-with open('/path/to/file', 'rb') as fp:
-     receipt_data = mindee_client.parse_from_file(fp, "invoice")
+receipt_data = mindee_client.parse_from_path('/path/to/invoice.pdf', "invoice")
 ```
 
-From a base64
+As a file object:
 ```python
-receipt_data = mindee_client.parse_from_b64string(base64_string, "receipt")
+with open('/path/to/receipt.jpg', 'rb') as fp:
+     receipt_data = mindee_client.parse_from_file(fp, "receipt")
+```
+
+As a base64 encoded string:
+```python
+b64_string = "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLD...."
+receipt_data = mindee_client.parse_from_b64string(b64_string, "receipt")
+```
+
+## Usage with the API Builder
+
+If your document isn't covered by one of Mindee's Off-the-Shelf document endpoints,
+you can create your own with the
+[API Builder](https://developers.mindee.com/docs/build-your-first-document-parsing-api).
+
+### Configuring the Client
+
+Configuring custom documents is done with a list of dictionaries.
+Each element in the list specifies a single custom endpoint.
+
+There is no limit on the number of custom documents.
+
+Specification for a custom endpoint configuration:
+
+`document_type`\
+The "document type" field in the "Settings" page of the API Builder.
+
+`singular_name`\
+The name of the attribute used to retrieve a _single_ document from the API response.
+
+`plural_name`\
+The name of the attribute used to retrieve _multiple_ documents from the API response.
+
+`endpoint`\
+The HTTPS endpoint, you can find it in the "API Documentation"
+page of the API Builder.
+
+`api_key`\
+Your API key for the endpoint.
+
+```pycon
+from mindee import Client
+
+mindee_client = Client(
+    custom_documents=[
+        {
+            "document_type": "my_custom_doc",
+            "singular_name": "my_custom_doc",
+            "plural_name": "my_custom_docs",
+            "endpoint": "https://api.mindee.net/v1/products/my_username/my_custom_doc/v1/predict",
+            "api_key": "xxxxxxx",
+        },
+    ],
+    raise_on_error=True
+)
+```
+
+### Parsing Documents
+
+The call to the `Client.parse` method is the same as with Off-the-Shelf documents.
+
+```python
+api_response = mindee_client.parse_from_path("/path/to/custom-doc.jpg", "my_custom_doc")
+print(api_response.my_custom_doc)
+```
+
+## Command Line Usage
+
+A CLI tool is provided mainly for quick tests and debugging.
+
+```shell
+# General help
+./mindee-cli.py -h
+
+# Example command help
+./mindee-cli.py invoice -h
+
+# Example parse command
+./mindee-cli.py invoice --invoice-key xxxxxxx /path/to/invoice.pdf
+
+# Works with environment variables
+export MINDEE_INVOICE_API_KEY=xxxxxx
+./mindee-cli.py invoice /path/to/invoice.pdf
 ```
