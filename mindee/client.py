@@ -159,16 +159,19 @@ class Client:
                         f"Missing API key for '{api_key_name}', check your Client configuration."
                     )
 
-    def _make_request(self, input_file, document_type, include_words=False):
-        if self.documents[document_type].type == OFF_THE_SHELF:
-            response = self.documents[document_type].constructor.request(
+    def _make_request(self, input_file, document_type: str, include_words=False):
+        doc_config = self.documents[document_type]
+        if doc_config.type == OFF_THE_SHELF:
+            response = doc_config.constructor.request(
                 self, input_file, include_words=include_words
             )
         else:
             response = CustomDocument.request(
                 input_file,
-                self.documents[document_type].endpoint,
-                self.documents[document_type].api_key,
+                document_type,
+                doc_config.api_username,
+                doc_config.api_key,
+                doc_config.interface_version,
             )
         return self._wrap_response(input_file, response, document_type)
 
