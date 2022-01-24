@@ -1,5 +1,5 @@
 from mindee.documents.base import Document
-from mindee.http import make_api_request
+from mindee.http import make_predict_url, make_api_request
 
 
 class CustomDocument(Document):
@@ -37,7 +37,7 @@ class CustomDocument(Document):
         """
         :return: (str) String representation of the document
         """
-        custom_doc_str = "----- " + self.type + " -----\n"
+        custom_doc_str = f"----- {self.type} -----\n"
         for field in self.fields:
             custom_doc_str += "%s: %s\n" % (
                 field,
@@ -52,13 +52,18 @@ class CustomDocument(Document):
         return custom_doc_str
 
     @staticmethod
-    def request(input_file, url, api_key):
+    def request(
+        input_file, document_type: str, username: str, api_key: str, version: str
+    ):
         """
         Make request to invoices endpoint
-        :param url: Endpoint URL
         :param input_file: Input object
+        :param document_type: Document type
+        :param username: API username
         :param api_key: Endpoint API Key
+        :param version: Interface version
         """
+        url = make_predict_url(document_type, version, username)
         return make_api_request(url, input_file, api_key)
 
     def _checklist(self):
