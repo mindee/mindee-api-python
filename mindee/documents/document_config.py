@@ -22,8 +22,8 @@ class DocumentConfig:
         self.plural_name = config["plural_name"]
 
         if self.type == CUSTOM_DOCUMENT:
-            # Check for endpoint URL and API Key in config
-            for mandatory_field in ("endpoint", "api_key"):
+            # Check for API username and Key in config
+            for mandatory_field in ("api_username", "api_key"):
                 if mandatory_field not in config.keys():
                     raise AssertionError(
                         "%s key is required in custom_document configuration"
@@ -32,7 +32,11 @@ class DocumentConfig:
             self.constructor = CustomDocument
             self.required_ots_keys = []
             self.api_key = config["api_key"]
-            self.endpoint = config["endpoint"]
+            self.api_username = config["api_username"]
+            try:
+                self.interface_version = config["interface_version"]
+            except KeyError:
+                self.interface_version = "1"
         elif self.type == OFF_THE_SHELF:
             self.constructor = config["constructor"]
             self.required_ots_keys = config["required_ots_keys"]
