@@ -16,7 +16,8 @@ class Document:
             self.file_extension = input_file.file_extension
         self.checklist: dict = {}
 
-    def request(self, *args):
+    @staticmethod
+    def request(*args):
         """Make request to the product endpoint"""
         raise NotImplementedError()
 

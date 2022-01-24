@@ -49,15 +49,12 @@ class Client:
     def _get_api_key(self, key_name) -> Optional[str]:
         return getattr(self, f"{key_name}_api_key", None)
 
-    def _set_api_key_from_env(self, key_name) -> None:
-        val = os.getenv(f"MINDEE_{key_name.upper()}_API_KEY", None)
-        setattr(self, f"{key_name}_api_key", val)
-
     def _set_api_keys_from_env(self) -> None:
         for doc_config in self.documents.values():
             for key_name in doc_config.required_ots_keys:
                 if not self._get_api_key(key_name):
-                    self._set_api_key_from_env(key_name)
+                    val = os.getenv(f"MINDEE_{key_name.upper()}_API_KEY", None)
+                    setattr(self, f"{key_name}_api_key", val)
 
     def parse_from_b64string(
         self,

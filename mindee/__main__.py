@@ -56,6 +56,7 @@ def _custom_client(args):
 
 
 def call_endpoint(args):
+    """Call the endpoint given passed arguments."""
     if args.product_name == "custom":
         client = _custom_client(args)
         doc_type = args.doc_type
@@ -80,6 +81,7 @@ def call_endpoint(args):
 
 
 def parse_args():
+    """Parse command line arguments"""
     parser = argparse.ArgumentParser(description="Mindee API")
     parser.add_argument(
         "-e",
