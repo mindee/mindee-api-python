@@ -140,14 +140,13 @@ The name of the attribute used to retrieve a _single_ document from the API resp
 `plural_name`\
 The name of the attribute used to retrieve _multiple_ documents from the API response.
 
-`endpoint`\
-The HTTPS endpoint, you can find it in the "API Documentation"
-page of the API Builder.
+`api_username`\
+Your organization's username on the API Builder.
 
 `api_key`\
 Your API key for the endpoint.
 
-```pycon
+```python
 from mindee import Client
 
 mindee_client = Client(
@@ -156,7 +155,7 @@ mindee_client = Client(
             "document_type": "my_custom_doc",
             "singular_name": "my_custom_doc",
             "plural_name": "my_custom_docs",
-            "endpoint": "https://api.mindee.net/v1/products/my_username/my_custom_doc/v1/predict",
+            "api_username": "JohnDoe",
             "api_key": "xxxxxxx",
         },
     ],
@@ -175,19 +174,25 @@ print(api_response.my_custom_doc)
 
 ## Command Line Usage
 
-A CLI tool is provided mainly for quick tests and debugging.
+The CLI tool is provided mainly for quick tests and debugging.
 
 ```shell
 # General help
-./mindee-cli.py -h
+python3 -m mindee -h
 
 # Example command help
-./mindee-cli.py invoice -h
+python3 -m mindee invoice -h
 
-# Example parse command
-./mindee-cli.py invoice --invoice-key xxxxxxx /path/to/invoice.pdf
+# Example parse command for Off-the-Shelf document
+python3 -m mindee invoice --invoice-key xxxxxxx /path/to/invoice.pdf
 
 # Works with environment variables
 export MINDEE_INVOICE_API_KEY=xxxxxx
-./mindee-cli.py invoice /path/to/invoice.pdf
+python3 -m mindee invoice /path/to/invoice.pdf
+
+# Example parse command for a custom document
+python3 -m mindee custom -u JohnDoe -k xxxxxxx my_custom_doc /path/to/invoice.pdf
+
+# In the Git repo, there's a helper script for it
+./mindee-cli.sh -h
 ```

@@ -49,15 +49,12 @@ class Client:
     def _get_api_key(self, key_name) -> Optional[str]:
         return getattr(self, f"{key_name}_api_key", None)
 
-    def _set_api_key_from_env(self, key_name) -> None:
-        val = os.getenv(f"MINDEE_{key_name.upper()}_API_KEY", None)
-        setattr(self, f"{key_name}_api_key", val)
-
     def _set_api_keys_from_env(self) -> None:
         for doc_config in self.documents.values():
             for key_name in doc_config.required_ots_keys:
                 if not self._get_api_key(key_name):
-                    self._set_api_key_from_env(key_name)
+                    val = os.getenv(f"MINDEE_{key_name.upper()}_API_KEY", None)
+                    setattr(self, f"{key_name}_api_key", val)
 
     def parse_from_b64string(
         self,
@@ -140,7 +137,43 @@ class Client:
         """
         self._validate_arguments(document_type)
         input_file = Inputs(
-            input_file, "stream", cut_pdf=cut_pdf, n_pdf_pages=cut_pdf_mode
+            input_file,
+            "file",
+            cut_pdf=cut_pdf,
+            n_pdf_pages=cut_pdf_mode,
+        )
+        return self._make_request(
+            input_file, document_type, include_words=include_words
+        )
+
+    def parse_from_bytes(
+        self,
+        input_file,
+        document_type: str,
+        filename: str,
+        cut_pdf: bool = True,
+        cut_pdf_mode: int = 3,
+        include_words=False,
+    ):
+        """
+        :param input_file: Input file handle
+        :param document_type: Document type to parse
+        :param filename: The name of the file (without the path)
+        :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a pdf with.
+                        if 1: pages [0]
+                        if 2: pages [0, n-2]
+                        if 3: pages [0, n-2, n-1]
+        :param include_words: Bool, extract all words into http_response
+        :param cut_pdf: Automatically reconstruct pdf with more than 4 pages
+        :return: Wrapped response with Receipts objects parsed
+        """
+        self._validate_arguments(document_type)
+        input_file = Inputs(
+            input_file,
+            "bytes",
+            filename=filename,
+            cut_pdf=cut_pdf,
+            n_pdf_pages=cut_pdf_mode,
         )
         return self._make_request(
             input_file, document_type, include_words=include_words

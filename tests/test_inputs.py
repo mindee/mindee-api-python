@@ -28,9 +28,43 @@ def test_pdf_reconstruct_check_n_pages():
     assert input_obj_1.count_pdf_pages() == 1
 
 
-def test_input_from_stream():
+def test_input_from_path():
+    input_obj_1 = Inputs(
+        "./tests/data/invoices/invoice_6p.pdf",
+        input_type="path",
+        cut_pdf=True,
+        n_pdf_pages=1,
+    )
+    assert input_obj_1.count_pdf_pages() == 1
+
+
+def test_input_from_file():
     with open("./tests/data/invoices/invoice_6p.pdf", "rb") as fp:
-        input_obj_1 = Inputs(fp, input_type="stream", cut_pdf=True, n_pdf_pages=1)
+        input_obj_1 = Inputs(fp, input_type="file", cut_pdf=True, n_pdf_pages=1)
+    assert input_obj_1.count_pdf_pages() == 1
+
+
+def test_input_from_base64():
+    with open("./tests/data/invoices/invoice_6p.txt", "rt") as fp:
+        input_obj_1 = Inputs(
+            fp.read(),
+            input_type="base64",
+            filename="invoice_6p.pdf",
+            cut_pdf=True,
+            n_pdf_pages=1,
+        )
+    assert input_obj_1.count_pdf_pages() == 1
+
+
+def test_input_from_bytes():
+    with open("./tests/data/invoices/invoice_6p.pdf", "rb") as fp:
+        input_obj_1 = Inputs(
+            fp.read(),
+            input_type="bytes",
+            filename="invoice_6p.pdf",
+            cut_pdf=True,
+            n_pdf_pages=1,
+        )
     assert input_obj_1.count_pdf_pages() == 1
 
 

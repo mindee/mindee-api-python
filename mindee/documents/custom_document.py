@@ -52,9 +52,7 @@ class CustomDocument(Document):
         return custom_doc_str
 
     @staticmethod
-    def request(
-        input_file, document_type: str, username: str, api_key: str, version: str
-    ):
+    def request(input_file, document_type, username, api_key, version):
         """
         Make request to invoices endpoint
         :param input_file: Input object

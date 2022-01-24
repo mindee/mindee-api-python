@@ -1,13 +1,14 @@
 #
-# Run lint check and static code analysis.
+# Run static code analysis.
 #
-name: Lint
+name: Static Analysis
 
 on:
   - push
 
 jobs:
-  build:
+  static-check:
+    name: Run Static Analysis
     runs-on: ubuntu-latest
     strategy:
       matrix:

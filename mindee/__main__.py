@@ -1,7 +1,4 @@
-#! /usr/bin/env python3
-
 import argparse
-import os
 import sys
 from typing import Dict
 
@@ -11,58 +8,76 @@ DOCUMENTS: Dict[str, dict] = {
     "invoice": {
         "help": "Invoice",
         "required_keys": ["invoice"],
-        "parse_func": "parse_invoice",
         "doc_type": "invoice",
     },
     "receipt": {
         "help": "Expense Receipt",
-        "required_keys": ["expense_receipt"],
-        "parse_func": "parse_receipt",
+        "required_keys": ["receipt"],
         "doc_type": "receipt",
     },
     "passport": {
         "help": "Passport",
         "required_keys": ["passport"],
-        "parse_func": "parse_passport",
         "doc_type": "passport",
     },
     "financial": {
         "help": "Financial Document (receipt or invoice)",
-        "required_keys": ["invoice", "expense_receipt"],
-        "parse_func": "parse_financial_document",
+        "required_keys": ["invoice", "receipt"],
         "doc_type": "financial_document",
+    },
+    "custom": {
+        "help": "Custom document type from API builder",
     },
 }
 
 
-def _get_env_token(name: str) -> str:
-    return os.getenv(f"MINDEE_{name.upper()}_TOKEN", "")
-
-
-def call_endpoint(args):
-    """Call the endpoint given passed arguments."""
-    info = DOCUMENTS[args.product_name]
+def _ots_client(args, info: dict):
     kwargs = {
         "raise_on_error": args.raise_on_error,
     }
     for key in info["required_keys"]:
-        kwargs["%s_token" % key] = getattr(args, "%s_api_key" % key)
+        kwargs["%s_api_key" % key] = getattr(args, "%s_api_key" % key)
     client = Client(**kwargs)
-    parse_func = getattr(client, info["parse_func"])
+    return client
+
+
+def _custom_client(args):
+    docs_conf = [
+        {
+            "document_type": args.doc_type,
+            "singular_name": args.doc_type,
+            "plural_name": args.doc_type + "s",
+            "api_username": args.api_username,
+            "api_key": args.api_key,
+        },
+    ]
+    client = Client(custom_documents=docs_conf, raise_on_error=args.raise_on_error)
+    return client
+
+
+def call_endpoint(args):
+    """Call the endpoint given passed arguments."""
+    if args.product_name == "custom":
+        client = _custom_client(args)
+        doc_type = args.doc_type
+    else:
+        info = DOCUMENTS[args.product_name]
+        client = _ots_client(args, info)
+        doc_type = info["doc_type"]
+
     if args.input_type == "stream":
         with open(args.path, "rb", buffering=30) as file_handle:
-            parsed_data = parse_func(file_handle, args.input_type, cut_pdf=args.cut_pdf)
+            parsed_data = client.parse_from_file(
+                file_handle, doc_type, cut_pdf=args.cut_pdf
+            )
     elif args.input_type == "base64":
         with open(args.path, "rt") as file_handle:
-            parsed_data = parse_func(
-                file_handle.read(),
-                args.input_type,
-                filename=args.filename,
-                cut_pdf=args.cut_pdf,
+            parsed_data = client.parse_from_b64string(
+                file_handle.read(), "test.jpg", doc_type, cut_pdf=args.cut_pdf
             )
     else:
-        parsed_data = parse_func(args.path, args.input_type, cut_pdf=args.cut_pdf)
-    print(getattr(parsed_data, info["doc_type"]))
+        parsed_data = client.parse_from_path(args.path, doc_type, cut_pdf=args.cut_pdf)
+    print(getattr(parsed_data, doc_type))
 
 
 def parse_args():
@@ -77,33 +92,41 @@ def parse_args():
     )
     subparsers = parser.add_subparsers(
         dest="product_name",
-        help="sub-command help",
+        required=True,
     )
     for name, info in DOCUMENTS.items():
         subp = subparsers.add_parser(name, help=info["help"])
-        for key_name in info["required_keys"]:
+        if name == "custom":
             subp.add_argument(
-                "--%s-key" % key_name,
-                dest="%s_api_key" % key_name,
-                help="API key for %s document endpoint" % key_name,
-                default=_get_env_token(key_name),
+                "-u",
+                "--user",
+                dest="api_username",
+                help="API username for the endpoint",
             )
+            subp.add_argument(
+                "-k",
+                "--key",
+                dest="api_key",
+                help="API key for the endpoint",
+            )
+            subp.add_argument(dest="doc_type", help="Document type")
+        else:
+            for key_name in info["required_keys"]:
+                subp.add_argument(
+                    "--%s-key" % key_name,
+                    dest="%s_api_key" % key_name,
+                    help="API key for %s document endpoint" % key_name,
+                )
         subp.add_argument(
             "-i",
             "--input-type",
             dest="input_type",
-            choices=["path", "stream", "base64"],
+            choices=["path", "file", "base64"],
             default="path",
             help="Specify how to handle the input,\n"
             "path: open the file.\n"
             "stream: open the file in a buffer.\n"
             "base64: load the contents as a string.",
-        )
-        subp.add_argument(
-            "-f",
-            "--filename",
-            dest="filename",
-            help="filename (required for base64 inputs)",
         )
         subp.add_argument(
             "-C",

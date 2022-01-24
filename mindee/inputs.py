@@ -1,3 +1,4 @@
+from typing import Optional, BinaryIO
 import io
 import os
 import base64
@@ -14,40 +15,41 @@ ALLOWED_EXTENSIONS = [
 
 
 class Inputs:
+    file_object: Optional[BinaryIO]
+
     def __init__(
         self, file, input_type="path", filename=None, cut_pdf=True, n_pdf_pages=3
     ):
         """
-        :param file: Either path or base64 string, or stream
+        :param file: One of: path, file handle, base64 string, raw bytes
         :param input_type: Specify the type of input fed into the Input
         :param filename: File name of the input
         :param cut_pdf: Automatically reconstruct pdf with more than 4 pages
         """
-        assert input_type in ["base64", "path", "stream", "dummy"]
+        assert input_type in ["base64", "path", "bytes", "file", "dummy"]
         assert 0 < n_pdf_pages <= 3
 
         if input_type == "base64":
             assert filename, "filename must be set"
-            # Only for images
             self.file_object = Inputs.b64_to_stream(file)
-            self.input_type = input_type
             self.filename = filename
             self.filepath = None
-            self.file_extension = "image/jpg"
-        elif input_type == "stream":
-            # Case input is a file object
+        elif input_type == "bytes":
+            assert filename, "filename must be set"
+            self.file_object = io.BytesIO(file)
+            self.filename = filename
+            self.filepath = None
+        elif input_type == "file":
             self.file_object = file
-            self.input_type = input_type
             self.filename = os.path.basename(file.name)
-            self.filepath = file.name
-            self.file_extension = guess_type(file.name)[0]
+            self.filepath = self.filename
         elif input_type == "path":
-            # Case input is a path
             self.file_object = open(file, "rb")  # pylint: disable=consider-using-with
-            self.input_type = input_type
             self.filename = os.path.basename(file)
             self.filepath = file
-            self.file_extension = guess_type(file)[0]
+
+        self.input_type = input_type
+        self.file_extension = guess_type(self.filename)[0]
 
         if input_type == "dummy":
             self.file_object = None
@@ -70,7 +72,6 @@ class Inputs:
                     self.merge_pdf_pages(
                         [0, count_pages - 2, count_pages - 1][:n_pdf_pages]
                     )
-
             self.check_if_document_is_empty()
 
     @staticmethod
@@ -89,7 +90,7 @@ class Inputs:
         return file_input
 
     @staticmethod
-    def b64_to_stream(b64_string: str):
+    def b64_to_stream(b64_string: str) -> io.BytesIO:
         """
         :param b64_string: image base 64 string
         :return: stream from base64
