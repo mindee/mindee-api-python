@@ -2,7 +2,7 @@
 
 The full documentation is available [here](https://developers.mindee.com/docs/getting-started)
 
-## Install
+## Installation
 
 ### Requirements
 
@@ -17,7 +17,7 @@ pip install mindee
 
 ### Development Install
 
-If you'll be modifying the source code, you'll want to have the development requirements
+If you'll be modifying the source code, you'll need to install the development requirements
 as well.
 
 First clone this repo:
@@ -29,6 +29,7 @@ Then navigate to the directory and install all development requirements:
 ```shell script
 pip install .[dev] .[test]
 ```
+[Comment]:<what directory are users suppose to navigate to>
 
 ## Basic Usage
 
@@ -130,6 +131,8 @@ Each element in the list specifies a single custom endpoint.
 There is no limit on the number of custom documents.
 
 Specification for a custom endpoint configuration:
+
+[Comment]:<it will be nice if this is in a table format, do you agree>
 
 `document_type`\
 The "document type" field in the "Settings" page of the API Builder.
