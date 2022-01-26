@@ -7,7 +7,7 @@ def test_constructor():
         "language": "en",
         "country": "uk",
         "currency": "GBP",
-        "probability": 0.1,
+        "confidence": 0.1,
     }
     locale = Locale(field_dict)
     assert locale.value == "en-EN"
@@ -17,7 +17,7 @@ def test_constructor():
 
 
 def test_constructor_almost_empty_field():
-    field_dict = {"value": "en-EN", "probability": 0.1}
+    field_dict = {"value": "en-EN", "confidence": 0.1}
     locale = Locale(field_dict)
     assert locale.language is None
     assert locale.country is None
