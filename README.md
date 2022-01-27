@@ -29,8 +29,6 @@ Then navigate to the directory and install all development requirements:
 ```shell script
 pip install .[dev] .[test]
 ```
-[Comment]:<what directory are users suppose to navigate to>
-
 ## Basic Usage
 
 Getting started with the Mindee's Off-the-Shelf documents couldn't be easier.
@@ -126,28 +124,21 @@ you can create your own with the
 ### Configuring the Client
 
 Configuring custom documents is done with a list of dictionaries.
-Each element in the list specifies a single custom endpoint.
+Each element in the table specifies a single custom endpoint.
 
 There is no limit on the number of custom documents.
 
-Specification for a custom endpoint configuration:
+#### Specification for Custom Endpoint Configuration
 
-[Comment]:<it will be nice if this is in a table format, do you agree>
 
-`document_type`\
-The "document type" field in the "Settings" page of the API Builder.
+| Custom Endpoint     | Description |
+| ----------- | ----------- |
+| `document_type`| The _document type_ field in the _Settings_ page of the API Builder.|     
+| `singular_name`| The name of the attribute used to retrieve a _single_ document from the API response.|
+| `plural_name`| The name of the attribute used to retrieve _multiple_ documents from the API response.|
+| `api_username`| Your organization's username on the API Builder.|
+| `api_key`| Your API key for the endpoint.|
 
-`singular_name`\
-The name of the attribute used to retrieve a _single_ document from the API response.
-
-`plural_name`\
-The name of the attribute used to retrieve _multiple_ documents from the API response.
-
-`api_username`\
-Your organization's username on the API Builder.
-
-`api_key`\
-Your API key for the endpoint.
 
 ```python
 from mindee import Client
