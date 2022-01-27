@@ -5,7 +5,7 @@ from mindee.fields.date import Date
 def test_constructor():
     field_dict = {
         "iso": "2018-04-01",
-        "probability": 0.1,
+        "confidence": 0.1,
         "segmentation": {
             "bounding_box": [
                 [0.016, 0.707],
@@ -20,6 +20,6 @@ def test_constructor():
 
 
 def test_constructor_no_date():
-    field_dict = {"iso": "N/A", "probability": 0.1}
+    field_dict = {"iso": "N/A", "confidence": 0.1}
     date = Date(field_dict)
     assert date.value is None

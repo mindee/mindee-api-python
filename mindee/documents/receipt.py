@@ -163,10 +163,10 @@ class Receipt(Document):
         if str(page_n) != "-1":
             self.orientation = Orientation(api_prediction["orientation"], page_n=page_n)
         self.total_tax = Amount(
-            {"value": None, "probability": 0.0}, value_key="value", page_n=page_n
+            {"value": None, "confidence": 0.0}, value_key="value", page_n=page_n
         )
         self.total_excl = Amount(
-            {"value": None, "probability": 0.0}, value_key="value", page_n=page_n
+            {"value": None, "confidence": 0.0}, value_key="value", page_n=page_n
         )
 
     @staticmethod
@@ -246,7 +246,7 @@ class Receipt(Document):
         if self.taxes and self.total_incl.value is not None:
             total_excl = {
                 "value": self.total_incl.value - Field.array_sum(self.taxes),
-                "probability": Field.array_probability(self.taxes)
+                "confidence": Field.array_probability(self.taxes)
                 * self.total_incl.probability,
             }
             self.total_excl = Amount(total_excl, value_key="value", reconstructed=True)
@@ -262,7 +262,7 @@ class Receipt(Document):
                 "value": sum(
                     [tax.value if tax.value is not None else 0 for tax in self.taxes]
                 ),
-                "probability": Field.array_probability(self.taxes),
+                "confidence": Field.array_probability(self.taxes),
             }
             if total_tax["value"] > 0:
                 self.total_tax = Amount(

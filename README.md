@@ -2,6 +2,7 @@
 
 The full documentation is available [here](https://developers.mindee.com/docs/getting-started)
 
+
 ## Installation
 
 ### Requirements
@@ -29,6 +30,7 @@ Then navigate to the directory and install all development requirements:
 ```shell script
 pip install .[dev] .[test]
 ```
+
 ## Basic Usage
 
 Getting started with the Mindee's Off-the-Shelf documents couldn't be easier.
@@ -68,6 +70,11 @@ The document type must be specified when calling the `Client.parse` method.
 The object containing the parsed data will be an attribute of the response object.
 The name of this attribute will be the same as the `document_type`
 specified when calling the `Client.parse` method.
+
+Receipts
+```python
+api_response = mindee_client.parse_from_path("/path/to/receipt.jpg", "receipt")
+print(api_response.receipt)
 
 Receipts
 ```python
@@ -129,7 +136,6 @@ Each element in the table specifies a single custom endpoint.
 There is no limit on the number of custom documents.
 
 #### Specification for Custom Endpoint Configuration
-
 
 | Custom Endpoint     | Description |
 | ----------- | ----------- |

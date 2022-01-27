@@ -157,7 +157,7 @@ class FinancialDocument(Document):
             self.company_number = invoice.company_number
             self.orientation = invoice.orientation
             self.total_tax = invoice.total_tax
-            self.time = Field({"value": None, "probability": 0.0})
+            self.time = Field({"value": None, "confidence": 0.0})
         else:
             receipt = Receipt(api_prediction, input_file, page_n=page_n)
             self.orientation = receipt.orientation
@@ -170,7 +170,7 @@ class FinancialDocument(Document):
             self.merchant_name = receipt.merchant_name
             self.time = receipt.time
             self.total_tax = receipt.total_tax
-            self.invoice_number = Field({"value": None, "probability": 0.0})
+            self.invoice_number = Field({"value": None, "confidence": 0.0})
             self.payment_details = []
             self.company_number = []
 
