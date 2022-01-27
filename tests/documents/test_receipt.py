@@ -69,15 +69,15 @@ def test_checklist_on_empty(receipt_object_all_na):
 # Business tests
 def test__reconstruct_total_excl_from_total_and_taxes_1(receipt_pred):
     # no incl implies no reconstruct for total excl
-    receipt_pred["total_incl"] = {"value": "N/A", "probability": 0.0}
-    receipt_pred["taxes"] = [{"rate": 20, "value": 9.5, "probability": 0.9}]
+    receipt_pred["total_incl"] = {"value": "N/A", "confidence": 0.0}
+    receipt_pred["taxes"] = [{"rate": 20, "value": 9.5, "confidence": 0.9}]
     receipt = Receipt(receipt_pred)
     assert receipt.total_excl.value is None
 
 
 def test__reconstruct_total_excl_from_total_and_taxes_2(receipt_pred):
     # no taxes implies no reconstruct for total excl
-    receipt_pred["total_incl"] = {"value": 12.54, "probability": 0.0}
+    receipt_pred["total_incl"] = {"value": 12.54, "confidence": 0.0}
     receipt_pred["taxes"] = []
     receipt = Receipt(receipt_pred)
     assert receipt.total_excl.value is None
@@ -85,10 +85,10 @@ def test__reconstruct_total_excl_from_total_and_taxes_2(receipt_pred):
 
 def test__reconstruct_total_excl_from_total_and_taxes_3(receipt_pred):
     # working example
-    receipt_pred["total_incl"] = {"value": 12.54, "probability": 0.5}
+    receipt_pred["total_incl"] = {"value": 12.54, "confidence": 0.5}
     receipt_pred["taxes"] = [
-        {"rate": 20, "value": 0.5, "probability": 0.1},
-        {"rate": 10, "value": 4.25, "probability": 0.6},
+        {"rate": 20, "value": 0.5, "confidence": 0.1},
+        {"rate": 10, "value": 4.25, "confidence": 0.6},
     ]
     receipt = Receipt(receipt_pred)
     assert receipt.total_excl.probability == 0.03
@@ -105,8 +105,8 @@ def test__reconstruct_total_tax_1(receipt_pred):
 def test__reconstruct_total_tax_2(receipt_pred):
     # working example
     receipt_pred["taxes"] = [
-        {"rate": 20, "value": 10.2, "probability": 0.5},
-        {"rate": 10, "value": 40.0, "probability": 0.1},
+        {"rate": 20, "value": 10.2, "confidence": 0.5},
+        {"rate": 10, "value": 40.0, "confidence": 0.1},
     ]
     receipt = Receipt(receipt_pred)
     assert receipt.total_tax.value == 50.2
@@ -115,10 +115,10 @@ def test__reconstruct_total_tax_2(receipt_pred):
 
 def test__taxes_match_total_incl_1(receipt_pred):
     # matching example
-    receipt_pred["total_incl"] = {"value": 507.25, "probability": 0.6}
+    receipt_pred["total_incl"] = {"value": 507.25, "confidence": 0.6}
     receipt_pred["taxes"] = [
-        {"rate": 20, "value": 10.99, "probability": 0.5},
-        {"rate": 10, "value": 40.12, "probability": 0.1},
+        {"rate": 20, "value": 10.99, "confidence": 0.5},
+        {"rate": 10, "value": 40.12, "confidence": 0.1},
     ]
     receipt = Receipt(receipt_pred)
     assert receipt.checklist["taxes_match_total_incl"] is True
@@ -129,10 +129,10 @@ def test__taxes_match_total_incl_1(receipt_pred):
 
 def test__taxes_match_total_incl_2(receipt_pred):
     # not matching example with close error
-    receipt_pred["total_incl"] = {"value": 507.25, "probability": 0.6}
+    receipt_pred["total_incl"] = {"value": 507.25, "confidence": 0.6}
     receipt_pred["taxes"] = [
-        {"rate": 20, "value": 10.9, "probability": 0.5},
-        {"rate": 10, "value": 40.12, "probability": 0.1},
+        {"rate": 20, "value": 10.9, "confidence": 0.5},
+        {"rate": 10, "value": 40.12, "confidence": 0.1},
     ]
     receipt = Receipt(receipt_pred)
     assert receipt.checklist["taxes_match_total_incl"] is False
@@ -140,16 +140,16 @@ def test__taxes_match_total_incl_2(receipt_pred):
 
 def test__taxes_match_total_incl_3(receipt_pred):
     # sanity check with null tax
-    receipt_pred["total_incl"] = {"value": 507.25, "probability": 0.6}
-    receipt_pred["taxes"] = [{"rate": 20, "value": 0.0, "probability": 0.5}]
+    receipt_pred["total_incl"] = {"value": 507.25, "confidence": 0.6}
+    receipt_pred["taxes"] = [{"rate": 20, "value": 0.0, "confidence": 0.5}]
     receipt = Receipt(receipt_pred)
     assert receipt.checklist["taxes_match_total_incl"] is False
 
 
 def test__taxes_match_total_incl_4(receipt_pred):
     # sanity check with None tax rate
-    receipt_pred["total_incl"] = {"value": 507.25, "probability": 0.6}
-    receipt_pred["taxes"] = [{"rate": "N/A", "value": 0.0, "probability": 0.5}]
+    receipt_pred["total_incl"] = {"value": 507.25, "confidence": 0.6}
+    receipt_pred["taxes"] = [{"rate": "N/A", "value": 0.0, "confidence": 0.5}]
     receipt = Receipt(receipt_pred)
     assert receipt.checklist["taxes_match_total_incl"] is False
     assert type(str(receipt.taxes[0])) is str

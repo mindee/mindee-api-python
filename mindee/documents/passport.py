@@ -123,8 +123,8 @@ class Passport(Document):
             Field(given_name, page_n=page_n)
             for given_name in api_prediction["given_names"]
         ]
-        self.mrz = Field({"value": None, "probability": 0.0}, page_n=page_n)
-        self.full_name = Field({"value": None, "probability": 0.0}, page_n=page_n)
+        self.mrz = Field({"value": None, "confidence": 0.0}, page_n=page_n)
+        self.full_name = Field({"value": None, "confidence": 0.0}, page_n=page_n)
 
     def __str__(self) -> str:
         return (
@@ -322,7 +322,7 @@ class Passport(Document):
         ):
             mrz = {
                 "value": self.mrz1.value + self.mrz2.value,
-                "probability": Field.array_probability(
+                "confidence": Field.array_probability(
                     [self.mrz1.probability, self.mrz2.probability]
                 ),
             }
@@ -342,7 +342,7 @@ class Passport(Document):
         ):
             full_name = {
                 "value": self.given_names[0].value + " " + self.surname.value,
-                "probability": Field.array_probability(
+                "confidence": Field.array_probability(
                     [self.surname.probability, self.given_names[0].probability]
                 ),
             }

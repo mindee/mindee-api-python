@@ -67,7 +67,6 @@ class Invoice(Document):
             self.total_incl = Amount(
                 {"value": total_incl}, value_key="value", page_n=page_n
             )
-            self.date = Date({"value": invoice_date}, value_key="value", page_n=page_n)
             self.invoice_date = Date(
                 {"value": invoice_date}, value_key="value", page_n=page_n
             )
@@ -111,7 +110,7 @@ class Invoice(Document):
         # Reconstruct extra fields
         self._reconstruct()
 
-    def build_from_api_prediction(self, api_prediction, page_n=0):
+    def build_from_api_prediction(self, api_prediction: dict, page_n=0):
         """
         :param api_prediction: Raw prediction from HTTP response
         :param page_n: Page number for multi pages pdf input
@@ -149,7 +148,7 @@ class Invoice(Document):
             api_prediction["total_excl"], value_key="value", page_n=page_n
         )
         self.total_tax = Amount(
-            {"value": None, "probability": 0.0}, value_key="value", page_n=page_n
+            {"value": None, "confidence": 0.0}, value_key="value", page_n=page_n
         )
 
     def __str__(self) -> str:
@@ -364,7 +363,7 @@ class Invoice(Document):
                     [tax.value if tax.value is not None else 0 for tax in self.taxes]
                 )
                 + self.total_excl.value,
-                "probability": Field.array_probability(self.taxes)
+                "confidence": Field.array_probability(self.taxes)
                 * self.total_excl.probability,
             }
             self.total_incl = Amount(total_incl, value_key="value", reconstructed=True)
@@ -388,7 +387,7 @@ class Invoice(Document):
                 - sum(
                     [tax.value if tax.value is not None else 0 for tax in self.taxes]
                 ),
-                "probability": Field.array_probability(self.taxes)
+                "confidence": Field.array_probability(self.taxes)
                 * self.total_incl.probability,
             }
             self.total_excl = Amount(total_excl, value_key="value", reconstructed=True)
@@ -404,7 +403,7 @@ class Invoice(Document):
                 "value": sum(
                     [tax.value if tax.value is not None else 0 for tax in self.taxes]
                 ),
-                "probability": Field.array_probability(self.taxes),
+                "confidence": Field.array_probability(self.taxes),
             }
             if total_tax["value"] > 0:
                 self.total_tax = Amount(
@@ -427,8 +426,7 @@ class Invoice(Document):
 
             total_tax = {
                 "value": self.total_incl.value - self.total_excl.value,
-                "probability": self.total_incl.probability
-                * self.total_excl.probability,
+                "confidence": self.total_incl.probability * self.total_excl.probability,
             }
             if total_tax["value"] >= 0:
                 self.total_tax = Amount(

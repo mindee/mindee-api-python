@@ -47,7 +47,11 @@ def test_constructor(invoice_object):
     assert invoice_object.checklist["taxes_match_total_excl"] is True
     assert invoice_object.checklist["taxes_plus_total_excl_match_total_incl"] is True
     assert invoice_object.total_tax.value == 97.98
-    assert type(invoice_object.__str__()) == str
+    assert invoice_object.invoice_date.value == "2020-02-17"
+    assert invoice_object.invoice_date.probability == 0.97
+    assert invoice_object.invoice_number.value == "0042004801351"
+    assert invoice_object.invoice_number.probability == 0.95
+    assert isinstance(invoice_object.__str__(), str)
 
 
 def test_all_na(invoice_object_all_na):
@@ -72,8 +76,8 @@ def test_checklist_on_empty(invoice_object_all_na):
 # Business tests
 def test__reconstruct_total_incl_from_taxes_plus_excl_1(invoice_pred):
     # no taxes implies no reconstruct for total incl
-    invoice_pred["total_incl"] = {"value": "N/A", "probability": 0.0}
-    invoice_pred["total_excl"] = {"value": 240.5, "probability": 0.9}
+    invoice_pred["total_incl"] = {"value": "N/A", "confidence": 0.0}
+    invoice_pred["total_excl"] = {"value": 240.5, "confidence": 0.9}
     invoice_pred["taxes"] = []
     invoice = Invoice(invoice_pred)
     assert invoice.total_incl.value is None
@@ -81,18 +85,18 @@ def test__reconstruct_total_incl_from_taxes_plus_excl_1(invoice_pred):
 
 def test__reconstruct_total_incl_from_taxes_plus_excl_2(invoice_pred):
     # no excl implies no reconstruct for total incl
-    invoice_pred["total_incl"] = {"value": "N/A", "probability": 0.0}
-    invoice_pred["total_excl"] = {"value": "N/A", "probability": 0.0}
-    invoice_pred["taxes"] = [{"rate": 20, "value": 9.5, "probability": 0.9}]
+    invoice_pred["total_incl"] = {"value": "N/A", "confidence": 0.0}
+    invoice_pred["total_excl"] = {"value": "N/A", "confidence": 0.0}
+    invoice_pred["taxes"] = [{"rate": 20, "value": 9.5, "confidence": 0.9}]
     invoice = Invoice(invoice_pred)
     assert invoice.total_incl.value is None
 
 
 def test__reconstruct_total_incl_from_taxes_plus_excl_3(invoice_pred):
     # incl already exists implies no reconstruct
-    invoice_pred["total_incl"] = {"value": 260, "probability": 0.4}
-    invoice_pred["total_excl"] = {"value": 240.5, "probability": 0.9}
-    invoice_pred["taxes"] = [{"rate": 20, "value": 9.5, "probability": 0.9}]
+    invoice_pred["total_incl"] = {"value": 260, "confidence": 0.4}
+    invoice_pred["total_excl"] = {"value": 240.5, "confidence": 0.9}
+    invoice_pred["taxes"] = [{"rate": 20, "value": 9.5, "confidence": 0.9}]
     invoice = Invoice(invoice_pred)
     assert invoice.total_incl.value == 260
     assert invoice.total_incl.probability == 0.4
@@ -100,9 +104,9 @@ def test__reconstruct_total_incl_from_taxes_plus_excl_3(invoice_pred):
 
 def test__reconstruct_total_incl_from_taxes_plus_excl_4(invoice_pred):
     # working example
-    invoice_pred["total_incl"] = {"value": "N/A", "probability": 0.0}
-    invoice_pred["total_excl"] = {"value": 240.5, "probability": 0.9}
-    invoice_pred["taxes"] = [{"rate": 20, "value": 9.5, "probability": 0.9}]
+    invoice_pred["total_incl"] = {"value": "N/A", "confidence": 0.0}
+    invoice_pred["total_excl"] = {"value": 240.5, "confidence": 0.9}
+    invoice_pred["taxes"] = [{"rate": 20, "value": 9.5, "confidence": 0.9}]
     invoice = Invoice(invoice_pred)
     assert invoice.total_incl.value == 250
     assert invoice.total_incl.probability == 0.81
@@ -110,17 +114,17 @@ def test__reconstruct_total_incl_from_taxes_plus_excl_4(invoice_pred):
 
 def test__reconstruct_total_excl_from_tcc_and_taxes_1(invoice_pred):
     # no incl implies no reconstruct for total excl
-    invoice_pred["total_incl"] = {"value": "N/A", "probability": 0.0}
-    invoice_pred["total_excl"] = {"value": "N/A", "probability": 0.0}
-    invoice_pred["taxes"] = [{"rate": 20, "value": 9.5, "probability": 0.9}]
+    invoice_pred["total_incl"] = {"value": "N/A", "confidence": 0.0}
+    invoice_pred["total_excl"] = {"value": "N/A", "confidence": 0.0}
+    invoice_pred["taxes"] = [{"rate": 20, "value": 9.5, "confidence": 0.9}]
     invoice = Invoice(invoice_pred)
     assert invoice.total_excl.value is None
 
 
 def test__reconstruct_total_excl_from_tcc_and_taxes_2(invoice_pred):
     # no taxes implies no reconstruct for total excl
-    invoice_pred["total_incl"] = {"value": 1150.20, "probability": 0.7}
-    invoice_pred["total_excl"] = {"value": "N/A", "probability": 0.0}
+    invoice_pred["total_incl"] = {"value": 1150.20, "confidence": 0.7}
+    invoice_pred["total_excl"] = {"value": "N/A", "confidence": 0.0}
     invoice_pred["taxes"] = []
     invoice = Invoice(invoice_pred)
     assert invoice.total_excl.value is None
@@ -128,8 +132,8 @@ def test__reconstruct_total_excl_from_tcc_and_taxes_2(invoice_pred):
 
 def test__reconstruct_total_excl_from_tcc_and_taxes_3(invoice_pred):
     # excl already exists implies no reconstruct
-    invoice_pred["total_incl"] = {"value": 1150.20, "probability": 0.7}
-    invoice_pred["total_excl"] = {"value": 1050.0, "probability": 0.4}
+    invoice_pred["total_incl"] = {"value": 1150.20, "confidence": 0.7}
+    invoice_pred["total_excl"] = {"value": 1050.0, "confidence": 0.4}
     invoice_pred["taxes"] = []
     invoice = Invoice(invoice_pred)
     assert invoice.total_excl.value == 1050.0
@@ -138,11 +142,11 @@ def test__reconstruct_total_excl_from_tcc_and_taxes_3(invoice_pred):
 
 def test__reconstruct_total_excl_from_tcc_and_taxes_4(invoice_pred):
     # working example
-    invoice_pred["total_incl"] = {"value": 1150.20, "probability": 0.6}
-    invoice_pred["total_excl"] = {"value": "N/A", "probability": 0.0}
+    invoice_pred["total_incl"] = {"value": 1150.20, "confidence": 0.6}
+    invoice_pred["total_excl"] = {"value": "N/A", "confidence": 0.0}
     invoice_pred["taxes"] = [
-        {"rate": 20, "value": 10.2, "probability": 0.5},
-        {"rate": 10, "value": 40.0, "probability": 0.1},
+        {"rate": 20, "value": 10.2, "confidence": 0.5},
+        {"rate": 10, "value": 40.0, "confidence": 0.1},
     ]
     invoice = Invoice(invoice_pred)
     assert invoice.total_excl.value == 1100
@@ -159,8 +163,8 @@ def test__reconstruct_total_tax_1(invoice_pred):
 def test__reconstruct_total_tax_2(invoice_pred):
     # working example
     invoice_pred["taxes"] = [
-        {"rate": 20, "value": 10.2, "probability": 0.5},
-        {"rate": 10, "value": 40.0, "probability": 0.1},
+        {"rate": 20, "value": 10.2, "confidence": 0.5},
+        {"rate": 10, "value": 40.0, "confidence": 0.1},
     ]
     invoice = Invoice(invoice_pred)
     assert invoice.total_tax.value == 50.2
@@ -169,10 +173,10 @@ def test__reconstruct_total_tax_2(invoice_pred):
 
 def test__taxes_match_total_incl_1(invoice_pred):
     # matching example
-    invoice_pred["total_incl"] = {"value": 507.25, "probability": 0.6}
+    invoice_pred["total_incl"] = {"value": 507.25, "confidence": 0.6}
     invoice_pred["taxes"] = [
-        {"rate": 20, "value": 10.99, "probability": 0.5},
-        {"rate": 10, "value": 40.12, "probability": 0.1},
+        {"rate": 20, "value": 10.99, "confidence": 0.5},
+        {"rate": 10, "value": 40.12, "confidence": 0.1},
     ]
     invoice = Invoice(invoice_pred)
     assert invoice.checklist["taxes_match_total_incl"] is True
@@ -183,10 +187,10 @@ def test__taxes_match_total_incl_1(invoice_pred):
 
 def test__taxes_match_total_incl_2(invoice_pred):
     # not matching example with close error
-    invoice_pred["total_incl"] = {"value": 507.25, "probability": 0.6}
+    invoice_pred["total_incl"] = {"value": 507.25, "confidence": 0.6}
     invoice_pred["taxes"] = [
-        {"rate": 20, "value": 10.9, "probability": 0.5},
-        {"rate": 10, "value": 40.12, "probability": 0.1},
+        {"rate": 20, "value": 10.9, "confidence": 0.5},
+        {"rate": 10, "value": 40.12, "confidence": 0.1},
     ]
     invoice = Invoice(invoice_pred)
     assert invoice.checklist["taxes_match_total_incl"] is False
@@ -194,18 +198,18 @@ def test__taxes_match_total_incl_2(invoice_pred):
 
 def test__taxes_match_total_incl_3(invoice_pred):
     # sanity check with null tax
-    invoice_pred["total_incl"] = {"value": 507.25, "probability": 0.6}
-    invoice_pred["taxes"] = [{"rate": 20, "value": 0.0, "probability": 0.5}]
+    invoice_pred["total_incl"] = {"value": 507.25, "confidence": 0.6}
+    invoice_pred["taxes"] = [{"rate": 20, "value": 0.0, "confidence": 0.5}]
     invoice = Invoice(invoice_pred)
     assert invoice.checklist["taxes_match_total_incl"] is False
 
 
 def test__taxes_match_total_excl_1(invoice_pred):
     # matching example
-    invoice_pred["total_excl"] = {"value": 456.15, "probability": 0.6}
+    invoice_pred["total_excl"] = {"value": 456.15, "confidence": 0.6}
     invoice_pred["taxes"] = [
-        {"rate": 20, "value": 10.99, "probability": 0.5},
-        {"rate": 10, "value": 40.12, "probability": 0.1},
+        {"rate": 20, "value": 10.99, "confidence": 0.5},
+        {"rate": 10, "value": 40.12, "confidence": 0.1},
     ]
     invoice = Invoice(invoice_pred)
     assert invoice.checklist["taxes_match_total_excl"] is True
@@ -216,10 +220,10 @@ def test__taxes_match_total_excl_1(invoice_pred):
 
 def test__taxes_match_total_excl_2(invoice_pred):
     # not matching example  with close error
-    invoice_pred["total_excl"] = {"value": 456.15, "probability": 0.6}
+    invoice_pred["total_excl"] = {"value": 456.15, "confidence": 0.6}
     invoice_pred["taxes"] = [
-        {"rate": 20, "value": 10.9, "probability": 0.5},
-        {"rate": 10, "value": 40.12, "probability": 0.1},
+        {"rate": 20, "value": 10.9, "confidence": 0.5},
+        {"rate": 10, "value": 40.12, "confidence": 0.1},
     ]
     invoice = Invoice(invoice_pred)
     assert invoice.checklist["taxes_match_total_excl"] is False
@@ -227,19 +231,19 @@ def test__taxes_match_total_excl_2(invoice_pred):
 
 def test__taxes_match_total_excl_3(invoice_pred):
     # sanity check with null tax
-    invoice_pred["total_excl"] = {"value": 507.25, "probability": 0.6}
-    invoice_pred["taxes"] = [{"rate": 20, "value": 0.0, "probability": 0.5}]
+    invoice_pred["total_excl"] = {"value": 507.25, "confidence": 0.6}
+    invoice_pred["taxes"] = [{"rate": 20, "value": 0.0, "confidence": 0.5}]
     invoice = Invoice(invoice_pred)
     assert invoice.checklist["taxes_match_total_incl"] is False
 
 
 def test__taxes_plus_total_excl_match_total_incl_1(invoice_pred):
     # matching example
-    invoice_pred["total_incl"] = {"value": 507.25, "probability": 0.6}
-    invoice_pred["total_excl"] = {"value": 456.15, "probability": 0.6}
+    invoice_pred["total_incl"] = {"value": 507.25, "confidence": 0.6}
+    invoice_pred["total_excl"] = {"value": 456.15, "confidence": 0.6}
     invoice_pred["taxes"] = [
-        {"rate": 20, "value": 10.99, "probability": 0.5},
-        {"rate": 10, "value": 40.12, "probability": 0.1},
+        {"rate": 20, "value": 10.99, "confidence": 0.5},
+        {"rate": 10, "value": 40.12, "confidence": 0.1},
     ]
     invoice = Invoice(invoice_pred)
     assert invoice.checklist["taxes_plus_total_excl_match_total_incl"] is True
@@ -251,11 +255,11 @@ def test__taxes_plus_total_excl_match_total_incl_1(invoice_pred):
 
 def test__taxes_plus_total_excl_match_total_incl_2(invoice_pred):
     # not matching example
-    invoice_pred["total_incl"] = {"value": 507.2, "probability": 0.6}
-    invoice_pred["total_excl"] = {"value": 456.15, "probability": 0.6}
+    invoice_pred["total_incl"] = {"value": 507.2, "confidence": 0.6}
+    invoice_pred["total_excl"] = {"value": 456.15, "confidence": 0.6}
     invoice_pred["taxes"] = [
-        {"rate": 20, "value": 10.99, "probability": 0.5},
-        {"rate": 10, "value": 40.12, "probability": 0.1},
+        {"rate": 20, "value": 10.99, "confidence": 0.5},
+        {"rate": 10, "value": 40.12, "confidence": 0.1},
     ]
     invoice = Invoice(invoice_pred)
     assert invoice.checklist["taxes_plus_total_excl_match_total_incl"] is False
@@ -263,18 +267,18 @@ def test__taxes_plus_total_excl_match_total_incl_2(invoice_pred):
 
 def test__taxes_plus_total_excl_match_total_incl_3(invoice_pred):
     # sanity check with null tax
-    invoice_pred["total_excl"] = {"value": 456.15, "probability": 0.6}
-    invoice_pred["total_incl"] = {"value": 507.25, "probability": 0.6}
-    invoice_pred["taxes"] = [{"rate": 20, "value": 0.0, "probability": 0.5}]
+    invoice_pred["total_excl"] = {"value": 456.15, "confidence": 0.6}
+    invoice_pred["total_incl"] = {"value": 507.25, "confidence": 0.6}
+    invoice_pred["taxes"] = [{"rate": 20, "value": 0.0, "confidence": 0.5}]
     invoice = Invoice(invoice_pred)
     assert invoice.checklist["taxes_match_total_incl"] is False
 
 
 def test__shouldnt_raise_when_tax_rate_none(invoice_pred):
     # sanity check with null tax
-    invoice_pred["total_excl"] = {"value": 456.15, "probability": 0.6}
-    invoice_pred["total_incl"] = {"value": 507.25, "probability": 0.6}
-    invoice_pred["taxes"] = [{"rate": "N/A", "value": 0.0, "probability": 0.5}]
+    invoice_pred["total_excl"] = {"value": 456.15, "confidence": 0.6}
+    invoice_pred["total_incl"] = {"value": 507.25, "confidence": 0.6}
+    invoice_pred["taxes"] = [{"rate": "N/A", "value": 0.0, "confidence": 0.5}]
     invoice = Invoice(invoice_pred)
     assert invoice.checklist["taxes_match_total_incl"] is False
 

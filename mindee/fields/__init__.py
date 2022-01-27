@@ -1,4 +1,6 @@
 class Field:
+    probability: float
+
     def __init__(
         self,
         abstract_prediction,
@@ -25,9 +27,9 @@ class Field:
         else:
             self.value = abstract_prediction[value_key]
 
-            if "probability" in abstract_prediction:
-                self.probability = abstract_prediction["probability"]
-            else:
+            try:
+                self.probability = float(abstract_prediction["confidence"])
+            except (KeyError, TypeError):
                 self.probability = 0.0
 
             if "polygon" in abstract_prediction:
