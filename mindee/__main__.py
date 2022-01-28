@@ -1,4 +1,5 @@
 import argparse
+from argparse import Namespace
 import sys
 from typing import Dict
 
@@ -31,7 +32,7 @@ DOCUMENTS: Dict[str, dict] = {
 }
 
 
-def _ots_client(args, info: dict):
+def _ots_client(args: Namespace, info: dict):
     kwargs = {
         "raise_on_error": args.raise_on_error,
     }
@@ -41,7 +42,7 @@ def _ots_client(args, info: dict):
     return client
 
 
-def _custom_client(args):
+def _custom_client(args: Namespace):
     docs_conf = [
         {
             "document_type": args.doc_type,
@@ -65,7 +66,7 @@ def call_endpoint(args):
         client = _ots_client(args, info)
         doc_type = info["doc_type"]
 
-    if args.input_type == "stream":
+    if args.input_type == "file":
         with open(args.path, "rb", buffering=30) as file_handle:
             parsed_data = client.parse_from_file(
                 file_handle, doc_type, cut_pdf=args.cut_pdf
@@ -74,6 +75,11 @@ def call_endpoint(args):
         with open(args.path, "rt") as file_handle:
             parsed_data = client.parse_from_b64string(
                 file_handle.read(), "test.jpg", doc_type, cut_pdf=args.cut_pdf
+            )
+    elif args.input_type == "bytes":
+        with open(args.path, "rb") as file_handle:
+            parsed_data = client.parse_from_bytes(
+                file_handle.read(), file_handle.name, doc_type, cut_pdf=args.cut_pdf
             )
     else:
         parsed_data = client.parse_from_path(args.path, doc_type, cut_pdf=args.cut_pdf)
@@ -121,12 +127,13 @@ def parse_args():
             "-i",
             "--input-type",
             dest="input_type",
-            choices=["path", "file", "base64"],
+            choices=["path", "file", "base64", "bytes"],
             default="path",
             help="Specify how to handle the input,\n"
-            "path: open the file.\n"
-            "stream: open the file in a buffer.\n"
-            "base64: load the contents as a string.",
+            "path: open a path (default).\n"
+            "file: open as a file handle.\n"
+            "base64: load the from a base64 encoded text file.\n"
+            "bytes: load the contents as raw bytes.",
         )
         subp.add_argument(
             "-C",

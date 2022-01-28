@@ -1,6 +1,8 @@
 import os
 import json
-from typing import Optional, List
+from typing import Optional, List, Dict, Any
+
+import requests
 
 from mindee.http import HTTPException
 from mindee.inputs import Inputs
@@ -55,39 +57,6 @@ class Client:
                 if not self._get_api_key(key_name):
                     val = os.getenv(f"MINDEE_{key_name.upper()}_API_KEY", None)
                     setattr(self, f"{key_name}_api_key", val)
-
-    def parse_from_b64string(
-        self,
-        input_string: str,
-        filename: str,
-        document_type: str,
-        cut_pdf: bool = True,
-        cut_pdf_mode: int = 3,
-        include_words=False,
-    ):
-        """
-        :param input_string: Input to parse as base64 string
-        :param filename: The name of the file (without the path)
-        :param document_type: Document type to parse
-        :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a pdf with.
-                        if 1: pages [0]
-                        if 2: pages [0, n-2]
-                        if 3: pages [0, n-2, n-1]
-        :param include_words: Bool, extract all words into http_response
-        :param cut_pdf: Automatically reconstruct pdf with more than 4 pages
-        :return: Wrapped response with Receipts objects parsed
-        """
-        self._validate_arguments(document_type)
-        input_file = Inputs(
-            input_string,
-            "base64",
-            filename=filename,
-            cut_pdf=cut_pdf,
-            n_pdf_pages=cut_pdf_mode,
-        )
-        return self._make_request(
-            input_file, document_type, include_words=include_words
-        )
 
     def parse_from_path(
         self,
@@ -146,17 +115,50 @@ class Client:
             input_file, document_type, include_words=include_words
         )
 
-    def parse_from_bytes(
+    def parse_from_b64string(
         self,
-        input_file,
-        document_type: str,
+        input_string: str,
         filename: str,
+        document_type: str,
         cut_pdf: bool = True,
         cut_pdf_mode: int = 3,
         include_words=False,
     ):
         """
-        :param input_file: Input file handle
+        :param input_string: Input to parse as base64 string
+        :param filename: The name of the file (without the path)
+        :param document_type: Document type to parse
+        :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a pdf with.
+                        if 1: pages [0]
+                        if 2: pages [0, n-2]
+                        if 3: pages [0, n-2, n-1]
+        :param include_words: Bool, extract all words into http_response
+        :param cut_pdf: Automatically reconstruct pdf with more than 4 pages
+        :return: Wrapped response with Receipts objects parsed
+        """
+        self._validate_arguments(document_type)
+        input_file = Inputs(
+            input_string,
+            "base64",
+            filename=filename,
+            cut_pdf=cut_pdf,
+            n_pdf_pages=cut_pdf_mode,
+        )
+        return self._make_request(
+            input_file, document_type, include_words=include_words
+        )
+
+    def parse_from_bytes(
+        self,
+        input_bytes,
+        filename: str,
+        document_type: str,
+        cut_pdf: bool = True,
+        cut_pdf_mode: int = 3,
+        include_words=False,
+    ):
+        """
+        :param input_bytes: Raw byte input
         :param document_type: Document type to parse
         :param filename: The name of the file (without the path)
         :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a pdf with.
@@ -169,7 +171,7 @@ class Client:
         """
         self._validate_arguments(document_type)
         input_file = Inputs(
-            input_file,
+            input_bytes,
             "bytes",
             filename=filename,
             cut_pdf=cut_pdf,
@@ -208,7 +210,9 @@ class Client:
             )
         return self._wrap_response(input_file, response, document_type)
 
-    def _wrap_response(self, input_file, response, document_type):
+    def _wrap_response(
+        self, input_file, response: requests.Response, document_type: str
+    ):
         """
         :param input_file: Input object
         :param response: HTTP response
@@ -227,15 +231,23 @@ class Client:
                 self,
                 http_response=dict_response,
                 pages=[],
-                document=None,
                 document_type=document_type,
+                document=None,
             )
         return Response.format_response(self, dict_response, document_type, input_file)
 
 
 class Response:
+    http_response: Dict[str, Any]
+    document_type: str
+
     def __init__(
-        self, client, http_response=None, pages=None, document=None, document_type=None
+        self,
+        client,
+        http_response: dict,
+        pages: list,
+        document_type: str,
+        document=None,
     ):
         """
         :param http_response: HTTP response object
@@ -292,6 +304,6 @@ class Response:
             client,
             http_response=http_response,
             pages=pages,
-            document=document_level,
             document_type=document_type,
+            document=document_level,
         )

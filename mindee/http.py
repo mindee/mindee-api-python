@@ -8,11 +8,11 @@ PLATFORM = get_platform()
 
 def make_predict_url(product: str, version: str, owner: str = "mindee") -> str:
     """
-    Returns full HTTP URL for a prediction request at specific version
+    Returns full HTTPS URL for a prediction request at a specific version
     :param product: product API name
     :param version: product model version
     :param owner: product owner (mindee for off-the-shelf APIs)
-    :return: The full URL, i.e. https://api.mindee.net/v1/products/mindee/invoices/2/predict
+    :return: The full URL, i.e. https://api.mindee.net/v1/products/mindee/invoices/v2/predict
     """
     return f"{MINDEE_API_URL}/products/{owner}/{product}/v{version}/predict"
 

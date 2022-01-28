@@ -1,4 +1,3 @@
-import io
 import pytest
 from mindee import Client, Response
 from mindee.http import HTTPException

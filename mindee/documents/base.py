@@ -5,6 +5,8 @@ OFF_THE_SHELF = "off_the_shelf"
 
 
 class Document:
+    type: str
+
     def __init__(self, input_file: Inputs = None):
         self.filepath = None
         self.filename = None
