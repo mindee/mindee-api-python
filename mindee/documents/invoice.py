@@ -1,4 +1,6 @@
-from mindee.documents.base import Document, OFF_THE_SHELF
+from typing import List
+
+from mindee.documents.base import Document, Endpoint, OFF_THE_SHELF
 from mindee.fields import Field
 from mindee.fields.date import Date
 from mindee.fields.amount import Amount
@@ -117,7 +119,14 @@ class Invoice(Document):
         return DocumentConfig(
             {
                 "constructor": Invoice,
-                "required_ots_keys": ["invoice"],
+                "endpoints": [
+                    Endpoint(
+                        owner="mindee",
+                        url_name="invoices",
+                        version="2",
+                        key_name="invoice",
+                    )
+                ],
                 "document_type": "invoice",
                 "singular_name": "invoice",
                 "plural_name": "invoices",
@@ -175,7 +184,7 @@ class Invoice(Document):
             "Total amount excluding taxes: %s \n"
             "Invoice date: %s\n"
             "Invoice due date: %s\n"
-            "Supplier name: %s\n"
+            "Supplier url_name: %s\n"
             "Taxes: %s\n"
             "Total taxes: %s\n"
             "----------------------"
@@ -193,16 +202,17 @@ class Invoice(Document):
         )
 
     @staticmethod
-    def request(client, input_file, version="2", include_words=False):
+    def request(endpoints: List[Endpoint], input_file, include_words=False):
         """
-        Make request to invoices endpoint
+        Make request to expense_receipts endpoint
         :param input_file: Input object
-        :param client: Mindee Client
+        :param endpoints: Endpoints config
         :param include_words: Include Mindee vision words in http_response
-        :param version: API version
         """
-        url = make_predict_url("invoices", version)
-        return make_api_request(url, input_file, client.invoice_api_key, include_words)
+        url = make_predict_url(
+            endpoints[0].url_name, endpoints[0].version, endpoints[0].owner
+        )
+        return make_api_request(url, input_file, endpoints[0].api_key, include_words)
 
     def _reconstruct(self):
         """

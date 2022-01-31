@@ -163,6 +163,13 @@ mindee_client = Client(
 )
 ```
 
+#### Environment variables
+You can also set the API keys as environment variables,
+it's the name of the `document_type` in uppercase:
+
+* `MINDEE_MY_CUSTOM_DOC_API_KEY`
+
+
 ### Parsing Documents
 
 The call to the `Client.parse` method is the same as with Off-the-Shelf documents.

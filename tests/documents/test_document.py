@@ -24,7 +24,7 @@ def test_constructor():
     document = Document()
     assert document.checklist == {}
     with pytest.raises(NotImplementedError):
-        document.request()
+        document.request([], "")
     with pytest.raises(NotImplementedError):
         document._checklist()
 
@@ -32,7 +32,7 @@ def test_constructor():
 # Invoice tests
 
 
-def test_responseWrapper_invoice(dummy_file_input, dummy_client):
+def test_response_wrapper_invoice(dummy_file_input, dummy_client):
     response = json.load(open("./tests/data/invoices/v2/invoice.json"))
     parsed_invoice = Response.format_response(
         dummy_client, response, "invoice", dummy_file_input

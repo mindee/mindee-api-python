@@ -1,6 +1,7 @@
+from typing import List
 from datetime import datetime
 
-from mindee.documents.base import Document, OFF_THE_SHELF
+from mindee.documents.base import Document, Endpoint, OFF_THE_SHELF
 from mindee.fields import Field
 from mindee.fields.date import Date
 from mindee.http import make_api_request, make_predict_url
@@ -110,7 +111,9 @@ class Passport(Document):
         return DocumentConfig(
             {
                 "constructor": Passport,
-                "required_ots_keys": ["passport"],
+                "endpoints": [
+                    Endpoint(owner="mindee", url_name="passport", version="1")
+                ],
                 "document_type": "passport",
                 "singular_name": "passport",
                 "plural_name": "passports",
@@ -147,7 +150,7 @@ class Passport(Document):
         return (
             "-----Passport data-----\n"
             "Filename: %s \n"
-            "Full name: %s \n"
+            "Full url_name: %s \n"
             "Given names: %s \n"
             "Surname: %s\n"
             "Country: %s\n"
@@ -187,17 +190,21 @@ class Passport(Document):
         return self.expiry_date.date_object < datetime.date(datetime.now())
 
     @staticmethod
-    def request(client, input_file, version="1", include_words=False):
+    def request(endpoints: List[Endpoint], input_file, include_words=False):
         """
-        Make request to passport endpoint
+        Make request to expense_receipts endpoint
+        :param input_file: Input object
+        :param endpoints: Endpoints config
+        :param include_words: Include Mindee vision words in http_response
         """
         if include_words:
             raise Exception(
                 "invlude_words parameter cannot be set to True for passport API"
             )
-
-        url = make_predict_url("passport", version)
-        return make_api_request(url, input_file, client.passport_api_key)
+        url = make_predict_url(
+            endpoints[0].url_name, endpoints[0].version, endpoints[0].owner
+        )
+        return make_api_request(url, input_file, endpoints[0].api_key, include_words)
 
     def _reconstruct(self):
         """
@@ -275,7 +282,7 @@ class Passport(Document):
 
     def __mrz_last_name_checksum(self):
         """
-        :return: True if last name MRZ checksum is validated, False otherwise
+        :return: True if last url_name MRZ checksum is validated, False otherwise
         """
         if self.mrz2.value is None:
             return False
@@ -338,8 +345,8 @@ class Passport(Document):
     def __reconstruct_full_name(self):
         """
         Set self.full_name with Field object
-        The full_name Field value is the concatenation of first given name and last name
-        The full_name Field probability is the product of first given name and last name probabilities
+        The full_name Field value is the concatenation of first given url_name and last url_name
+        The full_name Field probability is the product of first given url_name and last url_name probabilities
         """
         if (
             self.surname.value is not None

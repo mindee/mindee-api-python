@@ -1,12 +1,14 @@
-from typing import Dict, Any
-from mindee.documents.base import OFF_THE_SHELF, CUSTOM_DOCUMENT
+from typing import Dict, List, Any
+from mindee.documents.base import Endpoint, OFF_THE_SHELF, CUSTOM_DOCUMENT
 from mindee.documents.custom_document import CustomDocument
 
 
 class DocumentConfig:
-    constructor: Any  # workaround for dynamic class assignment
+    # Workaround for dynamic class assignment and circular import...
+    # Will need a refactor at some point.
+    constructor: Any
     type: str
-    required_ots_keys: list
+    endpoints: List[Endpoint]
     singular_name: str
     plural_name: str
 
@@ -28,24 +30,25 @@ class DocumentConfig:
         self.plural_name = config["plural_name"]
 
         if self.type == CUSTOM_DOCUMENT:
-            # Check for API username and Key in config
-            for mandatory_field in ("api_username", "api_key"):
-                if mandatory_field not in config.keys():
-                    raise AssertionError(
-                        "%s key is required in custom_document configuration"
-                        % mandatory_field
-                    )
             self.constructor = CustomDocument
-            self.required_ots_keys = []
-            self.api_key = config["api_key"]
-            self.api_username = config["api_username"]
             try:
-                self.interface_version = config["interface_version"]
+                version = config["interface_version"]
             except KeyError:
-                self.interface_version = "1"
+                version = "1"
+
+            endpoint = Endpoint(
+                owner=config["api_username"],
+                url_name=config["document_type"],
+                version=version,
+            )
+            endpoint.api_key = config["api_key"]
+            self.endpoints = [endpoint]
+
         elif self.type == OFF_THE_SHELF:
             self.constructor = config["constructor"]
-            self.required_ots_keys = config["required_ots_keys"]
+            self.endpoints = config["endpoints"]
+        else:
+            raise RuntimeError("Unknown document type")
 
 
 DocumentConfigDict = Dict[str, DocumentConfig]
@@ -53,14 +56,14 @@ DocumentConfigDict = Dict[str, DocumentConfig]
 
 def validate_list(config_list: DocumentConfigDict):
     """Validate the configuration list definitions."""
-    if len(set([v.singular_name for k, v in config_list.items()])) != len(
-        [v.singular_name for k, v in config_list.items()]
+    if len(set([v.singular_name for v in config_list.values()])) != len(
+        [v.singular_name for v in config_list.values()]
     ):
         raise AssertionError(
             "singular_name values must be unique among custom_documents list objects"
         )
-    if len(set([v.plural_name for k, v in config_list.items()])) != len(
-        [v.plural_name for k, v in config_list.items()]
+    if len(set([v.plural_name for v in config_list.values()])) != len(
+        [v.plural_name for v in config_list.values()]
     ):
         raise AssertionError(
             "plural_name values must be unique among custom_documents list objects"

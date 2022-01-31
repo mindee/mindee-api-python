@@ -1,3 +1,5 @@
+from typing import List
+
 from mindee.fields.amount import Amount
 from mindee.fields.date import Date
 from mindee.fields.locale import Locale
@@ -5,7 +7,7 @@ from mindee.fields.orientation import Orientation
 from mindee.fields.tax import Tax
 from mindee.fields import Field
 from mindee.http import make_api_request, make_predict_url
-from mindee.documents.base import Document, OFF_THE_SHELF
+from mindee.documents.base import Document, Endpoint, OFF_THE_SHELF
 from mindee.documents.invoice import Invoice
 from mindee.documents.receipt import Receipt
 from mindee.documents.document_config import DocumentConfig
@@ -128,7 +130,21 @@ class FinancialDocument(Document):
         return DocumentConfig(
             {
                 "constructor": FinancialDocument,
-                "required_ots_keys": ["invoice", "receipt"],
+                "api_username": "mindee",
+                "endpoints": [
+                    Endpoint(
+                        owner="mindee",
+                        url_name="invoices",
+                        version="2",
+                        key_name="invoice",
+                    ),
+                    Endpoint(
+                        owner="mindee",
+                        url_name="expense_receipts",
+                        version="3",
+                        key_name="receipt",
+                    ),
+                ],
                 "document_type": "financial_document",
                 "singular_name": "financial_document",
                 "plural_name": "financial_documents",
@@ -183,7 +199,7 @@ class FinancialDocument(Document):
             "Total amount excluding taxes: %s \n"
             "Date: %s\n"
             "Invoice due date: %s\n"
-            "Supplier name: %s\n"
+            "Supplier url_name: %s\n"
             "Taxes: %s\n"
             "Total taxes: %s\n"
             "----------------------"
@@ -201,20 +217,24 @@ class FinancialDocument(Document):
         )
 
     @staticmethod
-    def request(client, input_file, include_words=False):
+    def request(endpoints: List[Endpoint], input_file, include_words=False):
         """
-        Make request to invoice endpoint if .pdf, expense_receipts otherwise
-        :param include_words: Bool, extract all words into http_response
+        Make request to expense_receipts endpoint
         :param input_file: Input object
-        :param client: Mindee Client Object
+        :param endpoints: Endpoints config
+        :param include_words: Include Mindee vision words in http_response
         """
         if "pdf" in input_file.file_extension:
-            url = make_predict_url("invoices", "2")
-            return make_api_request(
-                url, input_file, client.invoice_api_key, include_words
-            )
-        url = make_predict_url("expense_receipts", "3")
-        return make_api_request(url, input_file, client.receipt_api_key, include_words)
+            # invoices is index 0, receipts 1 (this should be cleaned up)
+            index = 0
+        else:
+            index = 1
+        url = make_predict_url(
+            endpoints[index].url_name, endpoints[index].version, endpoints[index].owner
+        )
+        return make_api_request(
+            url, input_file, endpoints[index].api_key, include_words
+        )
 
     def _checklist(self):
         """

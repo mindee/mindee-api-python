@@ -4,7 +4,12 @@ from mindee.http import HTTPException
 
 
 @pytest.fixture
-def empty_client():
+def empty_client(monkeypatch):
+    # If we have envvars set, the test will pick them up and fail,
+    # so let's make sure they're empty
+    monkeypatch.setenv("MINDEE_RECEIPT_API_KEY", "")
+    monkeypatch.setenv("MINDEE_INVOICE_API_KEY", "")
+    monkeypatch.setenv("MINDEE_PASSPORT_API_KEY", "")
     return Client()
 
 

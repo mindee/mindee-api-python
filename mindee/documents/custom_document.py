@@ -1,5 +1,5 @@
-from typing import Dict
-from mindee.documents.base import Document
+from typing import Dict, List
+from mindee.documents.base import Document, Endpoint
 from mindee.http import make_predict_url, make_api_request
 
 
@@ -50,17 +50,16 @@ class CustomDocument(Document):
         return custom_doc_str
 
     @staticmethod
-    def request(input_file, document_type, username, api_key, version):
+    def request(endpoints: List[Endpoint], input_file):
         """
-        Make request to invoices endpoint
+        Make request to expense_receipts endpoint
         :param input_file: Input object
-        :param document_type: Document type
-        :param username: API username
-        :param api_key: Endpoint API Key
-        :param version: Interface version
+        :param endpoints: Endpoints config
         """
-        url = make_predict_url(document_type, version, username)
-        return make_api_request(url, input_file, api_key)
+        url = make_predict_url(
+            endpoints[0].url_name, endpoints[0].version, endpoints[0].owner
+        )
+        return make_api_request(url, input_file, endpoints[0].api_key)
 
     def _checklist(self):
         return {}

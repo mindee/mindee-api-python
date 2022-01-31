@@ -14,7 +14,7 @@ from mindee.documents.document_config import DocumentConfig, validate_list
 
 
 class Client:
-    documents = DOCUMENT_CONFIGS
+    doc_configs = DOCUMENT_CONFIGS
 
     def __init__(
         self,
@@ -36,27 +36,19 @@ class Client:
         self.receipt_api_key = receipt_api_key
         self.invoice_api_key = invoice_api_key
         self.passport_api_key = passport_api_key
-        self._set_api_keys_from_env()
 
         # Build custom document configs from Client custom_document kwarg
         if custom_documents is not None:
             for custom_document_cfg in custom_documents:
                 assert "document_type" in custom_document_cfg.keys()
-                assert custom_document_cfg["document_type"] not in self.documents.keys()
-                self.documents[custom_document_cfg["document_type"]] = DocumentConfig(
+                assert (
+                    custom_document_cfg["document_type"] not in self.doc_configs.keys()
+                )
+                self.doc_configs[custom_document_cfg["document_type"]] = DocumentConfig(
                     custom_document_cfg
                 )
-        validate_list(self.documents)
-
-    def _get_api_key(self, key_name) -> Optional[str]:
-        return getattr(self, f"{key_name}_api_key", None)
-
-    def _set_api_keys_from_env(self) -> None:
-        for doc_config in self.documents.values():
-            for key_name in doc_config.required_ots_keys:
-                if not self._get_api_key(key_name):
-                    val = os.getenv(f"MINDEE_{key_name.upper()}_API_KEY", None)
-                    setattr(self, f"{key_name}_api_key", val)
+        self._set_api_keys()
+        validate_list(self.doc_configs)
 
     def parse_from_path(
         self,
@@ -126,7 +118,7 @@ class Client:
     ):
         """
         :param input_string: Input to parse as base64 string
-        :param filename: The name of the file (without the path)
+        :param filename: The url_name of the file (without the path)
         :param document_type: Document type to parse
         :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a pdf with.
                         if 1: pages [0]
@@ -160,7 +152,7 @@ class Client:
         """
         :param input_bytes: Raw byte input
         :param document_type: Document type to parse
-        :param filename: The name of the file (without the path)
+        :param filename: The url_name of the file (without the path)
         :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a pdf with.
                         if 1: pages [0]
                         if 2: pages [0, n-2]
@@ -181,33 +173,38 @@ class Client:
             input_file, document_type, include_words=include_words
         )
 
-    def _validate_arguments(self, document_type: str):
-        # first let's validate the document type
-        if document_type not in self.documents.keys():
-            raise AssertionError(
-                f"{document_type} document type was not found in document configurations"
-            )
-        if self.documents[document_type].type == OFF_THE_SHELF:
-            for api_key_name in self.documents[document_type].required_ots_keys:
-                if not self._get_api_key(api_key_name):
-                    raise AssertionError(
-                        f"Missing API key for '{api_key_name}', check your Client configuration."
+    def _set_api_keys(self) -> None:
+        # os.getenv(f"MINDEE_{key_name.upper()}_API_KEY", None)
+
+        for doc_config in self.doc_configs.values():
+            for endpoint in doc_config.endpoints:
+                if doc_config.type == OFF_THE_SHELF:
+                    endpoint.api_key = getattr(self, f"{endpoint.key_name}_api_key")
+                if not endpoint.api_key:
+                    endpoint.api_key = os.getenv(
+                        f"MINDEE_{endpoint.key_name.upper()}_API_KEY", ""
                     )
 
+    def _validate_arguments(self, document_type: str):
+        # first let's validate the document type
+        if document_type not in self.doc_configs.keys():
+            raise AssertionError(
+                f"{document_type} document was not found in document configurations"
+            )
+        for endpoints in self.doc_configs[document_type].endpoints:
+            if not endpoints.api_key:
+                raise AssertionError(
+                    f"Missing API key for '{endpoints.key_name}', check your Client configuration."
+                )
+
     def _make_request(self, input_file, document_type: str, include_words=False):
-        doc_config = self.documents[document_type]
+        doc_config = self.doc_configs[document_type]
         if doc_config.type == OFF_THE_SHELF:
             response = doc_config.constructor.request(
-                self, input_file, include_words=include_words
+                doc_config.endpoints, input_file, include_words=include_words
             )
         else:
-            response = CustomDocument.request(
-                input_file,
-                document_type,
-                doc_config.api_username,
-                doc_config.api_key,
-                doc_config.interface_version,
-            )
+            response = CustomDocument.request(doc_config.endpoints, input_file)
         return self._wrap_response(input_file, response, document_type)
 
     def _wrap_response(
@@ -257,8 +254,8 @@ class Response:
         """
         self.http_response = http_response
         self.document_type = document_type
-        setattr(self, client.documents[document_type].singular_name, document)
-        setattr(self, client.documents[document_type].plural_name, pages)
+        setattr(self, client.doc_configs[document_type].singular_name, document)
+        setattr(self, client.doc_configs[document_type].plural_name, pages)
 
     @staticmethod
     def format_response(client, http_response, document_type, input_file):
@@ -276,7 +273,7 @@ class Response:
         http_response["file_extension"] = input_file.file_extension
         pages = []
 
-        if document_type not in client.documents.keys():
+        if document_type not in client.doc_configs.keys():
             raise Exception("Document type not supported.")
 
         # Create page level objects
@@ -284,7 +281,7 @@ class Response:
             http_response["document"]["inference"]["pages"]
         ):
             pages.append(
-                client.documents[document_type].constructor(
+                client.doc_configs[document_type].constructor(
                     api_prediction=page_prediction["prediction"],
                     input_file=input_file,
                     page_n=page_prediction["id"],
@@ -293,7 +290,7 @@ class Response:
             )
 
         # Create the document level object
-        document_level = client.documents[document_type].constructor(
+        document_level = client.doc_configs[document_type].constructor(
             api_prediction=http_response["document"]["inference"]["prediction"],
             input_file=input_file,
             document_type=document_type,

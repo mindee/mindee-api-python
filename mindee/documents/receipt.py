@@ -1,4 +1,6 @@
-from mindee.documents.base import Document, OFF_THE_SHELF
+from typing import List
+
+from mindee.documents.base import Document, Endpoint, OFF_THE_SHELF
 from mindee.fields import Field
 from mindee.fields.date import Date
 from mindee.fields.amount import Amount
@@ -102,7 +104,14 @@ class Receipt(Document):
         return DocumentConfig(
             {
                 "constructor": Receipt,
-                "required_ots_keys": ["receipt"],
+                "endpoints": [
+                    Endpoint(
+                        owner="mindee",
+                        url_name="expense_receipts",
+                        version="3",
+                        key_name="receipt",
+                    )
+                ],
                 "document_type": "receipt",
                 "singular_name": "receipt",
                 "plural_name": "receipts",
@@ -118,7 +127,7 @@ class Receipt(Document):
             "Date: %s\n"
             "Category: %s\n"
             "Time: %s\n"
-            "Merchant name: %s\n"
+            "Merchant url_name: %s\n"
             "Taxes: %s\n"
             "Total taxes: %s\n"
             "----------------------"
@@ -170,21 +179,17 @@ class Receipt(Document):
         )
 
     @staticmethod
-    def request(
-        client,
-        input_file,
-        version="3",
-        include_words=False,
-    ):
+    def request(endpoints: List[Endpoint], input_file, include_words=False):
         """
         Make request to expense_receipts endpoint
         :param input_file: Input object
-        :param client: Mindee Client object
+        :param endpoints: Endpoints config
         :param include_words: Include Mindee vision words in http_response
-        :param version: API version
         """
-        url = make_predict_url("expense_receipts", version)
-        return make_api_request(url, input_file, client.receipt_api_key, include_words)
+        url = make_predict_url(
+            endpoints[0].url_name, endpoints[0].version, endpoints[0].owner
+        )
+        return make_api_request(url, input_file, endpoints[0].api_key, include_words)
 
     def _checklist(self):
         """

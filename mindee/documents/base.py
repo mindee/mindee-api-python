@@ -1,7 +1,33 @@
+from typing import Optional, List
 from mindee.inputs import Inputs
 
 CUSTOM_DOCUMENT = "custom_document"
 OFF_THE_SHELF = "off_the_shelf"
+
+
+class Endpoint:
+    owner: str
+    url_name: str
+    version: str
+    key_name: str
+    api_key: str = ""
+
+    def __init__(
+        self, owner: str, url_name: str, version: str, key_name: Optional[str] = None
+    ):
+        """
+        :param owner: owner of the product
+        :param url_name: name of the product as it appears in the URL
+        :param version: interface version
+        :param key_name: where to find the key in envvars
+        """
+        self.owner = owner
+        self.url_name = url_name
+        self.version = version
+        if key_name:
+            self.key_name = key_name
+        else:
+            self.key_name = url_name
 
 
 class Document:
@@ -19,7 +45,7 @@ class Document:
         self.checklist: dict = {}
 
     @staticmethod
-    def request(*args):
+    def request(endpoints: List[Endpoint], input_file):
         """Make request to the product endpoint"""
         raise NotImplementedError()
 
