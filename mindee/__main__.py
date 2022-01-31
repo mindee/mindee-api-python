@@ -12,21 +12,25 @@ DOCUMENTS: Dict[str, dict] = {
         "help": "Invoice",
         "required_keys": ["invoice"],
         "parse_func": "parse_invoice",
+        "doc_type": "invoice",
     },
     "receipt": {
         "help": "Expense Receipt",
         "required_keys": ["expense_receipt"],
         "parse_func": "parse_receipt",
+        "doc_type": "receipt",
     },
     "passport": {
         "help": "Passport",
         "required_keys": ["passport"],
         "parse_func": "parse_passport",
+        "doc_type": "passport",
     },
     "financial": {
         "help": "Financial Document (receipt or invoice)",
         "required_keys": ["invoice", "expense_receipt"],
         "parse_func": "parse_financial_document",
+        "doc_type": "financial_document",
     },
 }
 
@@ -58,7 +62,7 @@ def call_endpoint(args):
             )
     else:
         parsed_data = parse_func(args.path, args.input_type, cut_pdf=args.cut_pdf)
-    print(getattr(parsed_data, args.product_name))
+    print(getattr(parsed_data, info["doc_type"]))
 
 
 def parse_args():
