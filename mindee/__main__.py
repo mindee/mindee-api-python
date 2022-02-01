@@ -1,5 +1,6 @@
 import argparse
 from argparse import Namespace
+import json
 import sys
 from typing import Dict
 
@@ -83,14 +84,20 @@ def call_endpoint(args):
             )
     else:
         parsed_data = client.parse_from_path(args.path, doc_type, cut_pdf=args.cut_pdf)
-    print(getattr(parsed_data, doc_type))
+
+    if args.output_type == "raw":
+        print(json.dumps(parsed_data.http_response, indent=2))
+    elif args.output_type == "parsed":
+        print(json.dumps(getattr(parsed_data, doc_type).__dict__, indent=2))
+    else:
+        print(getattr(parsed_data, doc_type))
 
 
 def parse_args():
     """Parse command line arguments"""
     parser = argparse.ArgumentParser(description="Mindee API")
     parser.add_argument(
-        "-e",
+        "-E",
         "--no-raise-errors",
         action="store_false",
         dest="raise_on_error",
@@ -134,6 +141,17 @@ def parse_args():
             "file: open as a file handle.\n"
             "base64: load the from a base64 encoded text file.\n"
             "bytes: load the contents as raw bytes.",
+        )
+        subp.add_argument(
+            "-o",
+            "--output-type",
+            dest="output_type",
+            choices=["summary", "raw", "parsed"],
+            default="summary",
+            help="Specify how to output the data,\n"
+            "summary: a basic summary (default)\n"
+            "raw: the raw HTTP response\n"
+            "parsed: the validated and parsed data fields\n",
         )
         subp.add_argument(
             "-C",

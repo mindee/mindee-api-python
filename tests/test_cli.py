@@ -14,6 +14,7 @@ def custom_doc():
         raise_on_error=True,
         cut_pdf=True,
         input_type="path",
+        output_type="summary",
         path="./tests/data/license_plates/plate.png",
     )
 
@@ -26,6 +27,7 @@ def invoice_doc():
         raise_on_error=True,
         cut_pdf=True,
         input_type="path",
+        output_type="summary",
         path="./tests/data/invoices/invoice.pdf",
     )
 
