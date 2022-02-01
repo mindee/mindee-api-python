@@ -133,7 +133,7 @@ def test__receipt_reconstruct_total_excl_from_total_and_taxes_3(receipt_pred):
         {"rate": 10, "value": 4.25, "confidence": 0.6},
     ]
     financial_doc = FinancialDocument(receipt_pred)
-    assert financial_doc.total_excl.probability == 0.03
+    assert financial_doc.total_excl.confidence == 0.03
     assert financial_doc.total_excl.value == 7.79
 
 
@@ -152,7 +152,7 @@ def test__receipt_reconstruct_total_tax_2(receipt_pred):
     ]
     financial_doc = FinancialDocument(receipt_pred)
     assert financial_doc.total_tax.value == 50.2
-    assert financial_doc.total_tax.probability == 0.05
+    assert financial_doc.total_tax.confidence == 0.05
 
 
 def test__receipt_taxes_match_total_incl_1(receipt_pred):
@@ -164,9 +164,9 @@ def test__receipt_taxes_match_total_incl_1(receipt_pred):
     ]
     financial_doc = FinancialDocument(receipt_pred)
     assert financial_doc.checklist["taxes_match_total_incl"] is True
-    assert financial_doc.total_incl.probability == 1.0
+    assert financial_doc.total_incl.confidence == 1.0
     for tax in financial_doc.taxes:
-        assert tax.probability == 1.0
+        assert tax.confidence == 1.0
 
 
 def test__receipt_taxes_match_total_incl_2(receipt_pred):
@@ -213,7 +213,7 @@ def test__invoice_reconstruct_total_excl_from_total_and_taxes_3(invoice_pred):
         {"rate": 10, "value": 4.25, "confidence": 0.6},
     ]
     financial_doc = FinancialDocument(invoice_pred)
-    assert financial_doc.total_excl.probability == 0.03
+    assert financial_doc.total_excl.confidence == 0.03
     assert financial_doc.total_excl.value == 7.79
 
 
@@ -232,7 +232,7 @@ def test__invoice_reconstruct_total_tax_2(invoice_pred):
     ]
     financial_doc = FinancialDocument(invoice_pred)
     assert financial_doc.total_tax.value == 50.2
-    assert financial_doc.total_tax.probability == 0.05
+    assert financial_doc.total_tax.confidence == 0.05
 
 
 def test__invoice_taxes_match_total_incl_1(invoice_pred):
@@ -244,9 +244,9 @@ def test__invoice_taxes_match_total_incl_1(invoice_pred):
     ]
     financial_doc = FinancialDocument(invoice_pred)
     assert financial_doc.checklist["taxes_match_total_incl"] is True
-    assert financial_doc.total_incl.probability == 1.0
+    assert financial_doc.total_incl.confidence == 1.0
     for tax in financial_doc.taxes:
-        assert tax.probability == 1.0
+        assert tax.confidence == 1.0
 
 
 def test__invoice_taxes_match_total_incl_2(invoice_pred):

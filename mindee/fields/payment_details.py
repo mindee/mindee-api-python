@@ -1,7 +1,13 @@
-from mindee.fields import Field
+from typing import Optional
+from mindee.fields.base import Field
 
 
 class PaymentDetails(Field):
+    account_number: Optional[str] = None
+    iban: Optional[str] = None
+    routing_number: Optional[str] = None
+    swift: Optional[str] = None
+
     def __init__(
         self,
         payment_details_prediction,
@@ -29,11 +35,6 @@ class PaymentDetails(Field):
             reconstructed=reconstructed,
             page_n=page_n,
         )
-
-        self.account_number_key = None
-        self.iban_key = None
-        self.routing_number_key = None
-        self.swift_key = None
 
         try:
             assert isinstance(payment_details_prediction[account_number_key], str)

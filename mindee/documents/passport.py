@@ -9,6 +9,20 @@ from mindee.documents.document_config import DocumentConfig
 
 
 class Passport(Document):
+    country: Field
+    id_number: Field
+    birth_date: Date
+    expiry_date: Date
+    issuance_date: Date
+    birth_place: Field
+    gender: Field
+    surname: Field
+    mrz1: Field
+    mrz2: Field
+    given_names: List[Field] = []
+    mrz: Field
+    full_name: Field
+
     def __init__(
         self,
         api_prediction=None,
@@ -49,19 +63,6 @@ class Passport(Document):
         """
         # Raw data
         self.type = document_type
-        self.country = None
-        self.id_number = None
-        self.birth_date = None
-        self.expiry_date = None
-        self.issuance_date = None
-        self.birth_place = None
-        self.gender = None
-        self.surname = None
-        self.mrz1 = None
-        self.mrz2 = None
-        self.given_names = []
-        self.mrz = None
-        self.full_name = None
 
         if api_prediction is not None:
             self.build_from_api_prediction(api_prediction)
@@ -246,7 +247,7 @@ class Passport(Document):
         if self.mrz2.value is None:
             return False
         if Passport.check_sum(self.mrz2.value[:9]) == self.mrz2.value[9]:
-            self.id_number.probability = 1.0
+            self.id_number.confidence = 1.0
             return True
         return False
 
@@ -257,7 +258,7 @@ class Passport(Document):
         if self.mrz2.value is None:
             return False
         if Passport.check_sum(self.mrz2.value[13:19]) == self.mrz2.value[19]:
-            self.birth_date.probability = 1.0
+            self.birth_date.confidence = 1.0
             return True
         return False
 
@@ -268,7 +269,7 @@ class Passport(Document):
         if self.mrz2.value is None:
             return False
         if Passport.check_sum(self.mrz2.value[21:27]) == self.mrz2.value[27]:
-            self.expiry_date.probability = 1.0
+            self.expiry_date.confidence = 1.0
             return True
         return False
 
@@ -292,7 +293,7 @@ class Passport(Document):
             )
             == self.mrz2.value[43]
         ):
-            self.surname.probability = 1.0
+            self.surname.confidence = 1.0
             return True
         return False
 
@@ -327,7 +328,7 @@ class Passport(Document):
         """
         Set self.mrz with Field object
         The mrz Field value is the concatenation of mrz1 and mr2
-        The mrz Field probability is the product of mrz1 and mrz2 probabilities
+        The mrz Field confidence is the product of mrz1 and mrz2 probabilities
         """
         if (
             self.mrz1.value is not None
@@ -336,8 +337,8 @@ class Passport(Document):
         ):
             mrz = {
                 "value": self.mrz1.value + self.mrz2.value,
-                "confidence": Field.array_probability(
-                    [self.mrz1.probability, self.mrz2.probability]
+                "confidence": Field.array_confidence(
+                    [self.mrz1.confidence, self.mrz2.confidence]
                 ),
             }
             self.mrz = Field(mrz, reconstructed=True)
@@ -346,7 +347,7 @@ class Passport(Document):
         """
         Set self.full_name with Field object
         The full_name Field value is the concatenation of first given url_name and last url_name
-        The full_name Field probability is the product of first given url_name and last url_name probabilities
+        The full_name Field confidence is the product of first given url_name and last url_name probabilities
         """
         if (
             self.surname.value is not None
@@ -356,8 +357,8 @@ class Passport(Document):
         ):
             full_name = {
                 "value": self.given_names[0].value + " " + self.surname.value,
-                "confidence": Field.array_probability(
-                    [self.surname.probability, self.given_names[0].probability]
+                "confidence": Field.array_confidence(
+                    [self.surname.confidence, self.given_names[0].confidence]
                 ),
             }
             self.full_name = Field(full_name, reconstructed=True)

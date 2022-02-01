@@ -1,12 +1,15 @@
-from datetime import datetime
+from typing import Optional
+from datetime import datetime, date
 import pytz
-from mindee.fields import Field
+from mindee.fields.base import Field
 
 ISO8601_DATE_FORMAT = "%Y-%m-%d"
 ISO8601_DATETIME_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
 
 
 class Date(Field):
+    date_object: Optional[date]
+
     def __init__(
         self, date_prediction, value_key="iso", reconstructed=False, page_n=None
     ):

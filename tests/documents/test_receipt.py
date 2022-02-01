@@ -91,7 +91,7 @@ def test__reconstruct_total_excl_from_total_and_taxes_3(receipt_pred):
         {"rate": 10, "value": 4.25, "confidence": 0.6},
     ]
     receipt = Receipt(receipt_pred)
-    assert receipt.total_excl.probability == 0.03
+    assert receipt.total_excl.confidence == 0.03
     assert receipt.total_excl.value == 7.79
 
 
@@ -110,7 +110,7 @@ def test__reconstruct_total_tax_2(receipt_pred):
     ]
     receipt = Receipt(receipt_pred)
     assert receipt.total_tax.value == 50.2
-    assert receipt.total_tax.probability == 0.05
+    assert receipt.total_tax.confidence == 0.05
 
 
 def test__taxes_match_total_incl_1(receipt_pred):
@@ -122,9 +122,9 @@ def test__taxes_match_total_incl_1(receipt_pred):
     ]
     receipt = Receipt(receipt_pred)
     assert receipt.checklist["taxes_match_total_incl"] is True
-    assert receipt.total_incl.probability == 1.0
+    assert receipt.total_incl.confidence == 1.0
     for tax in receipt.taxes:
-        assert tax.probability == 1.0
+        assert tax.confidence == 1.0
 
 
 def test__taxes_match_total_incl_2(receipt_pred):

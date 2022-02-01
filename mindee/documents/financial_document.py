@@ -272,8 +272,8 @@ class FinancialDocument(Document):
             <= self.total_incl.value * (1 + eps) + 0.02
         ):
             for tax in self.taxes:
-                tax.probability = 1
-            self.total_tax.probability = 1.0
-            self.total_incl.probability = 1.0
+                tax.confidence = 1
+            self.total_tax.confidence = 1.0
+            self.total_incl.confidence = 1.0
             return True
         return False

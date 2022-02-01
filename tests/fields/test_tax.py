@@ -11,7 +11,7 @@ def test_constructor():
     }
     tax = Tax(field_dict, value_key="value")
     assert tax.value == 2
-    assert tax.probability == 0.1
+    assert tax.confidence == 0.1
     assert tax.rate == 0.2
     assert len(tax.bbox) > 0
     assert type(str(tax)) == str

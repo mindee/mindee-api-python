@@ -1,4 +1,4 @@
-from mindee.fields import Field
+from mindee.fields.base import Field
 
 
 class Amount(Field):

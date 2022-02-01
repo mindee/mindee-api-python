@@ -1,7 +1,9 @@
-from mindee.fields import Field
+from mindee.fields.base import Field
 
 
 class Orientation(Field):
+    value: int
+
     def __init__(
         self,
         orientation_prediction,

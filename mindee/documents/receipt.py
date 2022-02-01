@@ -1,4 +1,4 @@
-from typing import List
+from typing import Optional, List
 
 from mindee.documents.base import Document, Endpoint, OFF_THE_SHELF
 from mindee.fields import Field
@@ -12,6 +12,18 @@ from mindee.documents.document_config import DocumentConfig
 
 
 class Receipt(Document):
+    locale: Locale
+    total_incl: Amount
+    date: Date
+    category: Field
+    merchant_name: Field
+    time: Field
+    taxes: List[Tax] = []
+    total_tax: Amount
+    total_excl: Amount
+    # orientation is only present on page-level, not document-level
+    orientation: Optional[Orientation] = None
+
     def __init__(
         self,
         api_prediction=None,
@@ -45,16 +57,6 @@ class Receipt(Document):
         :param page_n: Page number for multi pages pdf input
         """
         self.type = document_type
-        self.locale = None
-        self.total_incl = None
-        self.date = None
-        self.category = None
-        self.merchant_name = None
-        self.time = None
-        self.taxes = []
-        self.orientation = None
-        self.total_tax = None
-        self.total_excl = None
 
         if api_prediction is not None:
             self.build_from_api_prediction(api_prediction, page_n=page_n)
@@ -123,7 +125,8 @@ class Receipt(Document):
         return (
             "-----Receipt data-----\n"
             "Filename: %s\n"
-            "Total amount: %s \n"
+            "Total amount including taxes: %s \n"
+            "Total amount excluding taxes: %s \n"
             "Date: %s\n"
             "Category: %s\n"
             "Time: %s\n"
@@ -134,6 +137,7 @@ class Receipt(Document):
             % (
                 self.filename,
                 self.total_incl.value,
+                self.total_excl.value,
                 self.date.value,
                 self.category.value,
                 self.time.value,
@@ -235,9 +239,9 @@ class Receipt(Document):
             <= self.total_incl.value * (1 + eps) + 0.02
         ):
             for tax in self.taxes:
-                tax.probability = 1
-            self.total_tax.probability = 1.0
-            self.total_incl.probability = 1.0
+                tax.confidence = 1
+            self.total_tax.confidence = 1.0
+            self.total_incl.confidence = 1.0
             return True
         return False
 
@@ -246,13 +250,13 @@ class Receipt(Document):
         """
         Set self.total_excl with Amount object
         The total_excl Amount value is the difference between total_incl and sum of taxes
-        The total_excl Amount probability is the product of self.taxes probabilities multiplied by total_incl probability
+        The total_excl Amount confidence is the product of self.taxes probabilities multiplied by total_incl confidence
         """
         if self.taxes and self.total_incl.value is not None:
             total_excl = {
                 "value": self.total_incl.value - Field.array_sum(self.taxes),
-                "confidence": Field.array_probability(self.taxes)
-                * self.total_incl.probability,
+                "confidence": Field.array_confidence(self.taxes)
+                * self.total_incl.confidence,
             }
             self.total_excl = Amount(total_excl, value_key="value", reconstructed=True)
 
@@ -260,14 +264,14 @@ class Receipt(Document):
         """
         Set self.total_tax with Amount object
         The total_tax Amount value is the sum of all self.taxes value
-        The total_tax Amount probability is the product of self.taxes probabilities
+        The total_tax Amount confidence is the product of self.taxes probabilities
         """
         if self.taxes and self.total_tax.value is None:
             total_tax = {
                 "value": sum(
                     [tax.value if tax.value is not None else 0 for tax in self.taxes]
                 ),
-                "confidence": Field.array_probability(self.taxes),
+                "confidence": Field.array_confidence(self.taxes),
             }
             if total_tax["value"] > 0:
                 self.total_tax = Amount(

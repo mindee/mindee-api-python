@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 from mindee.documents.base import Document, Endpoint, OFF_THE_SHELF
 from mindee.fields import Field
@@ -13,6 +13,20 @@ from mindee.documents.document_config import DocumentConfig
 
 
 class Invoice(Document):
+    locale: Locale
+    total_incl: Amount
+    total_excl: Amount
+    invoice_date: Date
+    invoice_number: Field
+    due_date: Date
+    taxes: List[Tax] = []
+    supplier: Field
+    payment_details: List[PaymentDetails] = []
+    company_number: List[Field] = []
+    total_tax: Amount
+    # orientation is only present on page-level, not document-level
+    orientation: Optional[Orientation] = None
+
     def __init__(
         self,
         api_prediction=None,
@@ -50,18 +64,6 @@ class Invoice(Document):
         :param page_n: Page number for multi pages pdf input
         """
         self.type = document_type
-        self.locale = None
-        self.total_incl = None
-        self.total_excl = None
-        self.invoice_date = None
-        self.invoice_number = None
-        self.due_date = None
-        self.taxes = []
-        self.supplier = None
-        self.payment_details = None
-        self.company_number = None
-        self.orientation = None
-        self.total_tax = None
 
         if api_prediction is not None:
             self.build_from_api_prediction(api_prediction, page_n=page_n)
@@ -97,12 +99,14 @@ class Invoice(Document):
             self.invoice_number = Field(
                 {"value": invoice_number}, value_key="value", page_n=page_n
             )
-            self.payment_details = Field(
-                {"value": payment_details}, value_key="value", page_n=page_n
-            )
-            self.company_number = Field(
-                {"value": company_number}, value_key="value", page_n=page_n
-            )
+            self.payment_details = [
+                PaymentDetails(
+                    {"value": payment_details}, value_key="value", page_n=page_n
+                )
+            ]
+            self.company_number = [
+                Field({"value": company_number}, value_key="value", page_n=page_n)
+            ]
 
         # Invoke Document constructor
         super().__init__(input_file)
@@ -184,7 +188,8 @@ class Invoice(Document):
             "Total amount excluding taxes: %s \n"
             "Invoice date: %s\n"
             "Invoice due date: %s\n"
-            "Supplier url_name: %s\n"
+            "Supplier name: %s\n"
+            "Payment details: %s\n"
             "Taxes: %s\n"
             "Total taxes: %s\n"
             "----------------------"
@@ -196,6 +201,7 @@ class Invoice(Document):
                 self.invoice_date.value,
                 self.due_date.value,
                 self.supplier.value,
+                self.payment_details,
                 ",".join([str(t.value) + " " + str(t.rate) + "%" for t in self.taxes]),
                 self.total_tax.value,
             )
@@ -234,7 +240,7 @@ class Invoice(Document):
         }
 
     # Checks
-    def __taxes_match_total_incl(self):
+    def __taxes_match_total_incl(self) -> bool:
         """
         Check invoice rule of matching between taxes and total_incl
         :return: True if rule matches, False otherwise
@@ -264,9 +270,9 @@ class Invoice(Document):
             <= self.total_incl.value * (1 + eps) + 0.02
         ):
             for tax in self.taxes:
-                tax.probability = 1
-            self.total_tax.probability = 1.0
-            self.total_incl.probability = 1.0
+                tax.confidence = 1
+            self.total_tax.confidence = 1.0
+            self.total_incl.confidence = 1.0
             return True
         return False
 
@@ -301,9 +307,9 @@ class Invoice(Document):
             <= self.total_excl.value * (1 + eps) + 0.02
         ):
             for tax in self.taxes:
-                tax.probability = 1
-            self.total_tax.probability = 1.0
-            self.total_excl.probability = 1.0
+                tax.confidence = 1
+            self.total_tax.confidence = 1.0
+            self.total_excl.confidence = 1.0
             return True
         return False
 
@@ -337,10 +343,10 @@ class Invoice(Document):
             <= self.total_incl.value + 0.01
         ):
             for tax in self.taxes:
-                tax.probability = 1
-            self.total_tax.probability = 1.0
-            self.total_excl.probability = 1.0
-            self.total_incl.probability = 1.0
+                tax.confidence = 1
+            self.total_tax.confidence = 1.0
+            self.total_excl.confidence = 1.0
+            self.total_incl.confidence = 1.0
             return True
         return False
 
@@ -349,7 +355,7 @@ class Invoice(Document):
         """
         Set self.total_incl with Amount object
         The total_incl Amount value is the sum of total_excl and sum of taxes
-        The total_incl Amount probability is the product of self.taxes probabilities multiplied by total_excl probability
+        The total_incl Amount confidence is the product of self.taxes probabilities multiplied by total_excl confidence
         """
         # Check total_tax, total excl exist and total incl is not set
         if (
@@ -364,8 +370,8 @@ class Invoice(Document):
                     [tax.value if tax.value is not None else 0 for tax in self.taxes]
                 )
                 + self.total_excl.value,
-                "confidence": Field.array_probability(self.taxes)
-                * self.total_excl.probability,
+                "confidence": Field.array_confidence(self.taxes)
+                * self.total_excl.confidence,
             }
             self.total_incl = Amount(total_incl, value_key="value", reconstructed=True)
 
@@ -373,7 +379,7 @@ class Invoice(Document):
         """
         Set self.total_excl with Amount object
         The total_excl Amount value is the difference between total_incl and sum of taxes
-        The total_excl Amount probability is the product of self.taxes probabilities multiplied by total_incl probability
+        The total_excl Amount confidence is the product of self.taxes probabilities multiplied by total_incl confidence
         """
         # Check total_tax, total excl and total incl exist
         if (
@@ -388,8 +394,8 @@ class Invoice(Document):
                 - sum(
                     [tax.value if tax.value is not None else 0 for tax in self.taxes]
                 ),
-                "confidence": Field.array_probability(self.taxes)
-                * self.total_incl.probability,
+                "confidence": Field.array_confidence(self.taxes)
+                * self.total_incl.confidence,
             }
             self.total_excl = Amount(total_excl, value_key="value", reconstructed=True)
 
@@ -397,14 +403,14 @@ class Invoice(Document):
         """
         Set self.total_tax with Amount object
         The total_tax Amount value is the sum of all self.taxes value
-        The total_tax Amount probability is the product of self.taxes probabilities
+        The total_tax Amount confidence is the product of self.taxes probabilities
         """
         if self.taxes:
             total_tax = {
                 "value": sum(
                     [tax.value if tax.value is not None else 0 for tax in self.taxes]
                 ),
-                "confidence": Field.array_probability(self.taxes),
+                "confidence": Field.array_confidence(self.taxes),
             }
             if total_tax["value"] > 0:
                 self.total_tax = Amount(
@@ -427,7 +433,7 @@ class Invoice(Document):
 
             total_tax = {
                 "value": self.total_incl.value - self.total_excl.value,
-                "confidence": self.total_incl.probability * self.total_excl.probability,
+                "confidence": self.total_incl.confidence * self.total_excl.confidence,
             }
             if total_tax["value"] >= 0:
                 self.total_tax = Amount(
