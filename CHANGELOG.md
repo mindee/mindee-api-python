@@ -1,14 +1,23 @@
 # Mindee python SDK
 
+## v1.3.1 (2022-02-03)
+
+### Fixes
+* :bug: fix probabilities not loaded from API
+  [#49](https://github.com/mindee/mindee-api-python/issues/49)
+
+### Changes
+* :sparkles: add CLI tool for testing
+
 ## v1.3.0 (2022-01-17)
 
-### Fix
+### Fixes
 * :bug: Fixed URLs not built properly on Windows OS
   [#33](https://github.com/mindee/mindee-api-python/issues/33)
 * :bug: fixed API error when using base64
   [#45](https://github.com/mindee/mindee-api-python/issues/45)
 
-### Chg
+### Changes
 * :sparkles: Add user-agent header with SDK and Python versions
 * :sparkles: Use pikepdf to replace pyMuPDF
 * :construction_worker: Pass all code through Black
