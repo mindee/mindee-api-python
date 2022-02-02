@@ -2,32 +2,33 @@
 
 The full documentation is available [here](https://developers.mindee.com/docs/getting-started)
 
-## Install
+## Installation
 
 ### Requirements
 
 This library is officially supported on Python 3.7 to 3.10.
 
-### Normal Install
+### Normal Installation
 
 The preferred installation method is via `pip`:
 ```shell script
 pip install mindee
 ```
 
-### Development Install
+### Development Installation
 
-If you'll be modifying the source code, you'll want to have the development requirements
-as well.
+If you'll be modifying the source code, you'll need to install the development
+requirements as well.
 
 First clone this repo:
 ```shell script
 git clone git@github.com:mindee/mindee-api-python.git
 ```
 
-Then navigate to the directory and install all development requirements:
+Then navigate to the clone directory and install all development requirements:
 ```shell script
-pip install .[dev] .[test]
+cd mindee-api-python
+pip install .[dev,test]
 ```
 
 ## Basic Usage
@@ -97,23 +98,44 @@ print(api_response.financial_document)
 
 ### Document Sources
 
-You can pass your document in three ways.
+You can pass your document in various ways.
 
-As a file path:
+#### Path
+An absolute path, as a string.
 ```python
-receipt_data = mindee_client.parse_from_path('/path/to/invoice.pdf', "invoice")
+invoice_data = mindee_client.parse_from_path('/path/to/invoice.pdf', "invoice")
 ```
 
-As a file object:
+#### File Object
+A normal Python file object/handle.
 ```python
-with open('/path/to/receipt.jpg', 'rb') as fp:
-     receipt_data = mindee_client.parse_from_file(fp, "receipt")
+with open('/path/to/receipt.jpg', 'rb') as fo:
+     receipt_data = mindee_client.parse_from_file(fo, "receipt")
 ```
 
-As a base64 encoded string:
+#### Base64
+A base64 encoded string.\
+Note that the original filename of the encoded file is required when calling the method.
 ```python
 b64_string = "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLD...."
-receipt_data = mindee_client.parse_from_b64string(b64_string, "receipt")
+receipt_data = mindee_client.parse_from_b64string(b64_string, "receipt.jpg", "receipt")
+```
+
+#### Bytes
+Raw bytes.\
+Note that the original filename is required when calling the method.
+```python
+raw_bytes = b"%PDF-1.3\n%\xbf\xf7\xa2\xfe\n1 0 ob..."
+invoice_data = mindee_client.parse_from_bytes(raw_bytes, "invoice.pdf", "invoice")
+```
+
+This is useful, for example, when using FastAPI `UploadFile` objects:
+```python
+@app.post("/invoice")
+async def upload(upload: UploadFile):
+    invoice_data = mindee_client.parse_from_bytes(
+        upload.file.read(), "invoice", filename=upload.filename
+    )
 ```
 
 ## Usage with the API Builder
