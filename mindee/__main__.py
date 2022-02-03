@@ -49,7 +49,7 @@ def _custom_client(args: Namespace):
             "document_type": args.doc_type,
             "singular_name": args.doc_type,
             "plural_name": args.doc_type + "s",
-            "api_username": args.api_username,
+            "username": args.username,
             "api_key": args.api_key,
         },
     ]
@@ -113,7 +113,7 @@ def parse_args():
             subp.add_argument(
                 "-u",
                 "--user",
-                dest="api_username",
+                dest="username",
                 help="API username for the endpoint",
             )
             subp.add_argument(

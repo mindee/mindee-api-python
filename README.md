@@ -162,7 +162,7 @@ The name of the attribute used to retrieve a _single_ document from the API resp
 `plural_name`\
 The name of the attribute used to retrieve _multiple_ documents from the API response.
 
-`api_username`\
+`username`\
 Your organization's username on the API Builder.
 
 `api_key`\
@@ -177,7 +177,7 @@ mindee_client = Client(
             "document_type": "my_custom_doc",
             "singular_name": "my_custom_doc",
             "plural_name": "my_custom_docs",
-            "api_username": "JohnDoe",
+            "username": "JohnDoe",
             "api_key": "xxxxxxx",
         },
     ],

@@ -130,7 +130,7 @@ class FinancialDocument(Document):
         return DocumentConfig(
             {
                 "constructor": FinancialDocument,
-                "api_username": "mindee",
+                "username": "mindee",
                 "endpoints": [
                     Endpoint(
                         owner="mindee",

@@ -9,7 +9,7 @@ def custom_doc():
     return Namespace(
         product_name="custom",
         doc_type="license_plate",
-        api_username="mindee",
+        username="mindee",
         api_key="",
         raise_on_error=True,
         cut_pdf=True,

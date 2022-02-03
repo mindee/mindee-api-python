@@ -37,7 +37,7 @@ class DocumentConfig:
                 version = "1"
 
             endpoint = Endpoint(
-                owner=config["api_username"],
+                owner=config["username"],
                 url_name=config["document_type"],
                 version=version,
             )
