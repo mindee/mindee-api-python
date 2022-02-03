@@ -1,9 +1,11 @@
-from typing import Optional, BinaryIO
 import io
 import os
 import base64
+from typing import Optional, BinaryIO
 from mimetypes import guess_type
+
 import pikepdf
+
 
 ALLOWED_EXTENSIONS = [
     "image/png",
@@ -14,89 +16,38 @@ ALLOWED_EXTENSIONS = [
 ]
 
 
-class Inputs:
-    file_object: Optional[BinaryIO]
+class InputDocument:
+    file_object: BinaryIO
+    filename: str
+    input_type: str
+    filepath: Optional[str] = None
+    cut_pdf: bool
+    n_pdf_pages: int
 
     def __init__(
-        self, file, input_type="path", filename=None, cut_pdf=True, n_pdf_pages=3
+        self,
+        input_type: str,
+        cut_pdf=True,
+        n_pdf_pages=3,
     ):
-        """
-        :param file: One of: path, file handle, base64 string, raw bytes
-        :param input_type: Specify the type of input fed into the Input
-        :param filename: File name of the input
-        :param cut_pdf: Automatically reconstruct pdf with more than 4 pages
-        """
-        assert input_type in ["base64", "path", "bytes", "file", "dummy"]
         assert 0 < n_pdf_pages <= 3
-
-        if input_type == "base64":
-            assert filename, "filename must be set"
-            self.file_object = Inputs.b64_to_stream(file)
-            self.filename = filename
-            self.filepath = None
-        elif input_type == "bytes":
-            assert filename, "filename must be set"
-            self.file_object = io.BytesIO(file)
-            self.filename = filename
-            self.filepath = None
-        elif input_type == "file":
-            self.file_object = file
-            self.filename = os.path.basename(file.name)
-            self.filepath = self.filename
-        elif input_type == "path":
-            self.file_object = open(file, "rb")  # pylint: disable=consider-using-with
-            self.filename = os.path.basename(file)
-            self.filepath = file
-
         self.input_type = input_type
         self.file_extension = guess_type(self.filename)[0]
 
-        if input_type == "dummy":
-            self.file_object = None
-            self.input_type = ""
-            self.filename = ""
-            self.filepath = ""
-            self.file_extension = ""
-        elif self.file_extension not in ALLOWED_EXTENSIONS:
+        if self.file_extension not in ALLOWED_EXTENSIONS and self.input_type != "dummy":
             raise AssertionError(
                 "File type not allowed, must be in {%s}" % ", ".join(ALLOWED_EXTENSIONS)
             )
 
         if self.file_extension == "application/pdf":
             self.check_pdf_open()
-
             count_pages = self.count_pdf_pages()
-
             if cut_pdf is True:
                 if count_pages > 3:
                     self.merge_pdf_pages(
                         [0, count_pages - 2, count_pages - 1][:n_pdf_pages]
                     )
             self.check_if_document_is_empty()
-
-    @staticmethod
-    def load(input_type, filename, filepath, file_extension):
-        """
-        :param input_type: Specify the type of input fed into the Input
-        :param filename: File name of the input
-        :param filepath: Original file path of the Input file
-        :param file_extension: Extension of the file
-        :return: Dummy Input object to use when restoring Response from json file
-        """
-        file_input = Inputs(filename, input_type="dummy")
-        file_input.input_type = input_type
-        file_input.filepath = filepath
-        file_input.file_extension = file_extension
-        return file_input
-
-    @staticmethod
-    def b64_to_stream(b64_string: str) -> io.BytesIO:
-        """
-        :param b64_string: image base 64 string
-        :return: stream from base64
-        """
-        bytes_object = base64.standard_b64decode(b64_string)
-        return io.BytesIO(bytes_object)
 
     def count_pdf_pages(self):
         """
@@ -144,3 +95,98 @@ class Inputs:
             pikepdf.open(self.file_object)
         except Exception as err:
             raise RuntimeError("Couldn't open PDF file") from err
+
+
+class FileDocument(InputDocument):
+    def __init__(
+        self,
+        file: BinaryIO,
+        cut_pdf=True,
+        n_pdf_pages=3,
+    ):
+        """
+        :param file: FileIO object
+        :param cut_pdf: Automatically reconstruct pdf with more than 4 pages
+        """
+        assert file.name, "File name must be set"
+
+        self.file_object = file
+        self.filename = os.path.basename(file.name)
+        self.filepath = self.filename
+
+        super().__init__(
+            input_type="file",
+            cut_pdf=cut_pdf,
+            n_pdf_pages=n_pdf_pages,
+        )
+
+
+class PathDocument(InputDocument):
+    def __init__(
+        self,
+        filepath: str,
+        cut_pdf=True,
+        n_pdf_pages=3,
+    ):
+        """
+        :param filepath: Path to open
+        :param cut_pdf: Automatically reconstruct pdf with more than 4 pages
+        """
+        self.file_object = open(filepath, "rb")  # pylint: disable=consider-using-with
+        self.filename = os.path.basename(filepath)
+        self.filepath = filepath
+
+        super().__init__(
+            input_type="path",
+            cut_pdf=cut_pdf,
+            n_pdf_pages=n_pdf_pages,
+        )
+
+
+class BytesDocument(InputDocument):
+    def __init__(
+        self,
+        raw_bytes: bytes,
+        filename: str,
+        cut_pdf=True,
+        n_pdf_pages=3,
+    ):
+        """
+        :param raw_bytes: Raw data as bytes
+        :param filename: File name of the input
+        :param cut_pdf: Automatically reconstruct pdf with more than 4 pages
+        """
+        self.file_object = io.BytesIO(raw_bytes)
+
+        self.filename = filename
+        self.filepath = None
+
+        super().__init__(
+            input_type="bytes",
+            cut_pdf=cut_pdf,
+            n_pdf_pages=n_pdf_pages,
+        )
+
+
+class Base64Document(InputDocument):
+    def __init__(
+        self,
+        base64_string: str,
+        filename: str,
+        cut_pdf=True,
+        n_pdf_pages=3,
+    ):
+        """
+        :param base64_string: Raw data as a base64 encoded string
+        :param filename: File name of the input
+        :param cut_pdf: Automatically reconstruct pdf with more than N pages
+        """
+        self.file_object = io.BytesIO(base64.standard_b64decode(base64_string))
+        self.filename = filename
+        self.filepath = None
+
+        super().__init__(
+            input_type="base64",
+            cut_pdf=cut_pdf,
+            n_pdf_pages=n_pdf_pages,
+        )

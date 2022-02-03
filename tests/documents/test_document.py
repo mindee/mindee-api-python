@@ -1,27 +1,36 @@
 import pytest
 import json
-from mindee import Response, Client
-from mindee.inputs import Inputs
+from mindee import Client
+from mindee.response import format_response
+from mindee.inputs import PathDocument
 from mindee.documents.base import Document
 
 
 @pytest.fixture
 def dummy_file_input():
-    file_input = Inputs("./tests/data/expense_receipts/receipt.jpg")
+    file_input = PathDocument("./tests/data/expense_receipts/receipt.jpg")
     return file_input
 
 
 @pytest.fixture
 def dummy_client():
-    return Client(
-        receipt_api_key="dummy",
-        invoice_api_key="dummy",
-        passport_api_key="dummy",
+    return (
+        Client()
+        .config_receipt("dummy")
+        .config_invoice("dummy")
+        .config_passport("dummy")
+        .config_financial_doc("dummy", "dummy")
+        .config_custom_doc(
+            document_type="dummy",
+            singular_name="dummy",
+            plural_name="dummies",
+            username="dummy",
+        )
     )
 
 
-def test_constructor():
-    document = Document()
+def test_constructor(dummy_file_input):
+    document = Document(dummy_file_input)
     assert document.checklist == {}
     with pytest.raises(NotImplementedError):
         document.request([], "")
@@ -34,8 +43,8 @@ def test_constructor():
 
 def test_response_wrapper_invoice(dummy_file_input, dummy_client):
     response = json.load(open("./tests/data/invoices/v2/invoice.json"))
-    parsed_invoice = Response.format_response(
-        dummy_client, response, "invoice", dummy_file_input
+    parsed_invoice = format_response(
+        dummy_client.doc_configs["invoice"], response, "invoice", dummy_file_input
     )
     assert parsed_invoice.invoice.invoice_date.value == "2018-09-25"
 
@@ -43,10 +52,10 @@ def test_response_wrapper_invoice(dummy_file_input, dummy_client):
 # Receipt tests
 
 
-def test_responseWrapper_receipt(dummy_file_input, dummy_client):
+def test_response_wrapper_receipt(dummy_file_input, dummy_client):
     response = json.load(open("./tests/data/expense_receipts/v3/receipt.json"))
-    parsed_receipt = Response.format_response(
-        dummy_client, response, "receipt", dummy_file_input
+    parsed_receipt = format_response(
+        dummy_client.doc_configs["receipt"], response, "receipt", dummy_file_input
     )
     assert parsed_receipt.receipt.date.value == "2016-02-26"
 
@@ -54,21 +63,27 @@ def test_responseWrapper_receipt(dummy_file_input, dummy_client):
 # Financial document tests
 
 
-def test_responseWrapper_financial_document_with_receipt(
+def test_response_wrapper_financial_document_with_receipt(
     dummy_file_input, dummy_client
 ):
     response = json.load(open("./tests/data/expense_receipts/v3/receipt.json"))
-    parsed_financial_doc = Response.format_response(
-        dummy_client, response, "financial_document", dummy_file_input
+    parsed_financial_doc = format_response(
+        dummy_client.doc_configs["financial_doc"],
+        response,
+        "financial",
+        dummy_file_input,
     )
     assert parsed_financial_doc.financial_document.date.value == "2016-02-26"
 
 
-def test_responseWrapper_financial_document_with_invoice(
+def test_response_wrapper_financial_document_with_invoice(
     dummy_file_input, dummy_client
 ):
     response = json.load(open("./tests/data/invoices/v2/invoice.json"))
-    parsed_financial_doc = Response.format_response(
-        dummy_client, response, "financial_document", dummy_file_input
+    parsed_financial_doc = format_response(
+        dummy_client.doc_configs["financial_doc"],
+        response,
+        "financial",
+        dummy_file_input,
     )
     assert parsed_financial_doc.financial_document.date.value == "2018-09-25"

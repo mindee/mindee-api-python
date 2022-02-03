@@ -1,192 +1,41 @@
-import os
 import json
-from typing import Optional, List, Dict, Any
 
-import requests
+from mindee.inputs import (
+    InputDocument,
+    Base64Document,
+    BytesDocument,
+    FileDocument,
+    PathDocument,
+)
+from mindee.response import format_response, Response
+from mindee.http import API_TYPE_OFF_THE_SHELF, HTTPException
+from mindee.document_config import DocumentConfig, DocumentConfigDict, validate_list
+from mindee.documents.receipt import Receipt
+from mindee.documents.financial_document import FinancialDocument
+from mindee.documents.invoice import Invoice
+from mindee.documents.passport import Passport
 
-from mindee.http import HTTPException
-from mindee.inputs import Inputs
-from mindee.documents import DOCUMENT_CONFIGS
-from mindee.documents.base import OFF_THE_SHELF
-from mindee.documents.custom_document import CustomDocument
 
-from mindee.documents.document_config import DocumentConfig, validate_list
-
-
-class Client:
-    doc_configs = DOCUMENT_CONFIGS
+class DocumentClient:
+    input_doc: InputDocument
+    doc_configs: DocumentConfigDict
+    raise_on_error: bool = True
 
     def __init__(
         self,
-        receipt_api_key: Optional[str] = None,
-        invoice_api_key: Optional[str] = None,
-        passport_api_key: Optional[str] = None,
-        custom_documents: Optional[List[dict]] = None,
-        raise_on_error: bool = True,
+        input_doc: InputDocument,
+        doc_configs: DocumentConfigDict,
+        raise_on_error: bool,
     ):
-        """
-        :param receipt_api_key: expense_receipt Mindee API token, see https://mindee.com
-        :param custom_documents: (list<dict>), List of custom endpoint configuration dictionnaries
-        :param invoice_api_key: invoice Mindee API token, see https://mindee.com
-        :param passport_api_key: passport Mindee API token, see https://mindee.com
-        :param raise_on_error: (bool, default True) raise an Exception on HTTP errors
-        """
         self.raise_on_error = raise_on_error
+        self.doc_configs = doc_configs
+        self.input_doc = input_doc
 
-        self.receipt_api_key = receipt_api_key
-        self.invoice_api_key = invoice_api_key
-        self.passport_api_key = passport_api_key
-
-        # Build custom document configs from Client custom_document kwarg
-        if custom_documents is not None:
-            for custom_document_cfg in custom_documents:
-                assert "document_type" in custom_document_cfg.keys()
-                assert (
-                    custom_document_cfg["document_type"] not in self.doc_configs.keys()
-                )
-                self.doc_configs[custom_document_cfg["document_type"]] = DocumentConfig(
-                    custom_document_cfg
-                )
-        self._set_api_keys()
-        validate_list(self.doc_configs)
-
-    def parse_from_path(
-        self,
-        input_path: str,
-        document_type: str,
-        cut_pdf: bool = True,
-        cut_pdf_mode: int = 3,
-        include_words=False,
-    ):
+    def parse(self, document_type: str, include_words=False):
         """
-        :param input_path: Path of file to open
         :param document_type: Document type to parse
-        :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a pdf with.
-                        if 1: pages [0]
-                        if 2: pages [0, n-2]
-                        if 3: pages [0, n-2, n-1]
         :param include_words: Bool, extract all words into http_response
-        :param cut_pdf: Automatically reconstruct pdf with more than 4 pages
-        :return: Wrapped response with Receipts objects parsed
         """
-        self._validate_arguments(document_type)
-        input_file = Inputs(
-            input_path, "path", cut_pdf=cut_pdf, n_pdf_pages=cut_pdf_mode
-        )
-        return self._make_request(
-            input_file, document_type, include_words=include_words
-        )
-
-    def parse_from_file(
-        self,
-        input_file,
-        document_type: str,
-        cut_pdf: bool = True,
-        cut_pdf_mode: int = 3,
-        include_words=False,
-    ):
-        """
-        :param input_file: Input file handle
-        :param document_type: Document type to parse
-        :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a pdf with.
-                        if 1: pages [0]
-                        if 2: pages [0, n-2]
-                        if 3: pages [0, n-2, n-1]
-        :param include_words: Bool, extract all words into http_response
-        :param cut_pdf: Automatically reconstruct pdf with more than 4 pages
-        :return: Wrapped response with Receipts objects parsed
-        """
-        self._validate_arguments(document_type)
-        input_file = Inputs(
-            input_file,
-            "file",
-            cut_pdf=cut_pdf,
-            n_pdf_pages=cut_pdf_mode,
-        )
-        return self._make_request(
-            input_file, document_type, include_words=include_words
-        )
-
-    def parse_from_b64string(
-        self,
-        input_string: str,
-        filename: str,
-        document_type: str,
-        cut_pdf: bool = True,
-        cut_pdf_mode: int = 3,
-        include_words=False,
-    ):
-        """
-        :param input_string: Input to parse as base64 string
-        :param filename: The url_name of the file (without the path)
-        :param document_type: Document type to parse
-        :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a pdf with.
-                        if 1: pages [0]
-                        if 2: pages [0, n-2]
-                        if 3: pages [0, n-2, n-1]
-        :param include_words: Bool, extract all words into http_response
-        :param cut_pdf: Automatically reconstruct pdf with more than 4 pages
-        :return: Wrapped response with Receipts objects parsed
-        """
-        self._validate_arguments(document_type)
-        input_file = Inputs(
-            input_string,
-            "base64",
-            filename=filename,
-            cut_pdf=cut_pdf,
-            n_pdf_pages=cut_pdf_mode,
-        )
-        return self._make_request(
-            input_file, document_type, include_words=include_words
-        )
-
-    def parse_from_bytes(
-        self,
-        input_bytes,
-        filename: str,
-        document_type: str,
-        cut_pdf: bool = True,
-        cut_pdf_mode: int = 3,
-        include_words=False,
-    ):
-        """
-        :param input_bytes: Raw byte input
-        :param document_type: Document type to parse
-        :param filename: The url_name of the file (without the path)
-        :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a pdf with.
-                        if 1: pages [0]
-                        if 2: pages [0, n-2]
-                        if 3: pages [0, n-2, n-1]
-        :param include_words: Bool, extract all words into http_response
-        :param cut_pdf: Automatically reconstruct pdf with more than 4 pages
-        :return: Wrapped response with Receipts objects parsed
-        """
-        self._validate_arguments(document_type)
-        input_file = Inputs(
-            input_bytes,
-            "bytes",
-            filename=filename,
-            cut_pdf=cut_pdf,
-            n_pdf_pages=cut_pdf_mode,
-        )
-        return self._make_request(
-            input_file, document_type, include_words=include_words
-        )
-
-    def _set_api_keys(self) -> None:
-        # os.getenv(f"MINDEE_{key_name.upper()}_API_KEY", None)
-
-        for doc_config in self.doc_configs.values():
-            for endpoint in doc_config.endpoints:
-                if doc_config.type == OFF_THE_SHELF:
-                    endpoint.api_key = getattr(self, f"{endpoint.key_name}_api_key")
-                if not endpoint.api_key:
-                    endpoint.api_key = os.getenv(
-                        f"MINDEE_{endpoint.key_name.upper()}_API_KEY", ""
-                    )
-
-    def _validate_arguments(self, document_type: str):
-        # first let's validate the document type
         if document_type not in self.doc_configs.keys():
             raise AssertionError(
                 f"{document_type} document was not found in document configurations"
@@ -197,25 +46,16 @@ class Client:
                     f"Missing API key for '{endpoints.key_name}', check your Client configuration."
                 )
 
-    def _make_request(self, input_file, document_type: str, include_words=False):
         doc_config = self.doc_configs[document_type]
-        if doc_config.type == OFF_THE_SHELF:
+        if doc_config.api_type == API_TYPE_OFF_THE_SHELF:
             response = doc_config.constructor.request(
-                doc_config.endpoints, input_file, include_words=include_words
+                doc_config.endpoints, self.input_doc, include_words=include_words
             )
         else:
-            response = CustomDocument.request(doc_config.endpoints, input_file)
-        return self._wrap_response(input_file, response, document_type)
+            response = doc_config.constructor.request(
+                doc_config.endpoints, self.input_doc
+            )
 
-    def _wrap_response(
-        self, input_file, response: requests.Response, document_type: str
-    ):
-        """
-        :param input_file: Input object
-        :param response: HTTP response
-        :param document_type: Document class
-        :return: Full response object
-        """
         dict_response = response.json()
 
         if response.status_code > 201 and self.raise_on_error:
@@ -225,82 +65,225 @@ class Client:
             )
         if response.status_code > 201:
             return Response(
-                self,
+                doc_config,
                 http_response=dict_response,
                 pages=[],
                 document_type=document_type,
                 document=None,
             )
-        return Response.format_response(self, dict_response, document_type, input_file)
+        return format_response(doc_config, dict_response, document_type, self.input_doc)
 
 
-class Response:
-    http_response: Dict[str, Any]
-    document_type: str
+class Client:
+    doc_configs: DocumentConfigDict
+    raise_on_error: bool = True
 
-    def __init__(
+    def __init__(self, raise_on_error: bool = True):
+        """
+        :param raise_on_error: Raise an Exception on HTTP errors
+        """
+        self.doc_configs = {
+            "receipt": Receipt.get_document_config(),
+            "invoice": Invoice.get_document_config(),
+            "financial_doc": FinancialDocument.get_document_config(),
+            "passport": Passport.get_document_config(),
+        }
+        self.raise_on_error = raise_on_error
+
+    def config_custom_doc(
         self,
-        client,
-        http_response: dict,
-        pages: list,
         document_type: str,
-        document=None,
+        singular_name: str,
+        plural_name: str,
+        username: str,
+        api_key: str = "",
     ):
         """
-        :param http_response: HTTP response object
-        :param pages: List of document objects
-        :param document: reconstructed object from all pages
-        :param document_type: Document class
+        Configure a custom document using the Mindee API Builder.
+
+        See: https://developers.mindee.com/docs/
+
+        :param document_type: The "document type" field in the "Settings" page of the API Builder
+        :param singular_name: The name of the attribute used to retrieve a *single* document from the API response
+        :param plural_name: The name of the attribute used to retrieve *multiple* documents from the API response
+        :param username: Your organization's username on the API Builder
+        :param api_key: Your API key for the endpoint
         """
-        self.http_response = http_response
-        self.document_type = document_type
-        setattr(self, client.doc_configs[document_type].singular_name, document)
-        setattr(self, client.doc_configs[document_type].plural_name, pages)
+        self.doc_configs[document_type] = DocumentConfig(
+            {
+                "document_type": document_type,
+                "singular_name": singular_name,
+                "plural_name": plural_name,
+                "username": username,
+                "api_key": api_key,
+            }
+        )
+        validate_list(self.doc_configs)
+        return self
 
-    @staticmethod
-    def format_response(client, http_response, document_type, input_file):
+    def config_invoice(self, api_key: str = None):
         """
-        :param client: Client object
-        :param input_file: Input object
-        :param http_response: json response from HTTP call
-        :param document_type: Document class
-        :return: Full Response object
+        Configure a Mindee Invoice document.
+
+        See: https://developers.mindee.com/docs/
+
+        :param api_key: Invoice API key
         """
-        http_response["document_type"] = document_type
-        http_response["input_type"] = input_file.input_type
-        http_response["filename"] = input_file.filename
-        http_response["filepath"] = input_file.filepath
-        http_response["file_extension"] = input_file.file_extension
-        pages = []
+        if api_key:
+            self.doc_configs["invoice"].endpoints[0].api_key = api_key
+        return self
 
-        if document_type not in client.doc_configs.keys():
-            raise Exception("Document type not supported.")
+    def config_receipt(self, api_key: str = None):
+        """
+        Configure a Mindee Expense Receipts document.
 
-        # Create page level objects
-        for _, page_prediction in enumerate(
-            http_response["document"]["inference"]["pages"]
-        ):
-            pages.append(
-                client.doc_configs[document_type].constructor(
-                    api_prediction=page_prediction["prediction"],
-                    input_file=input_file,
-                    page_n=page_prediction["id"],
-                    document_type=document_type,
-                )
-            )
+        See: https://developers.mindee.com/docs/
 
-        # Create the document level object
-        document_level = client.doc_configs[document_type].constructor(
-            api_prediction=http_response["document"]["inference"]["prediction"],
-            input_file=input_file,
-            document_type=document_type,
-            page_n="-1",
+        :param api_key: Expense Receipt API key
+        """
+        if api_key:
+            self.doc_configs["receipt"].endpoints[0].api_key = api_key
+        return self
+
+    def config_financial_doc(
+        self, invoice_api_key: str = None, receipt_api_key: str = None
+    ):
+        """
+        Configure a Mindee Financial document. Uses Invoice and Expense Receipt internally.
+
+        See: https://developers.mindee.com/docs/
+
+        :param receipt_api_key: Expense Receipt API key
+        :param invoice_api_key: Invoice API key
+        """
+        if invoice_api_key:
+            self.doc_configs["financial_doc"].endpoints[0].api_key = invoice_api_key
+        if receipt_api_key:
+            self.doc_configs["financial_doc"].endpoints[1].api_key = receipt_api_key
+        return self
+
+    def config_passport(self, api_key: str = None):
+        """
+        Configure a Mindee Passport document.
+
+        See: https://developers.mindee.com/docs/
+
+        :param api_key: Passport API key
+        """
+        if api_key:
+            self.doc_configs["passport"].endpoints[0].api_key = api_key
+        return self
+
+    def doc_from_path(
+        self,
+        input_path: str,
+        cut_pdf: bool = True,
+        cut_pdf_mode: int = 3,
+    ) -> DocumentClient:
+        """
+        Load a document from an absolute path, as a string.
+
+        :param input_path: Path of file to open
+        :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a pdf with.
+                        if 1: pages [0]
+                        if 2: pages [0, n-2]
+                        if 3: pages [0, n-2, n-1]
+        :param cut_pdf: Automatically reconstruct pdf with more than 4 pages
+        :return: Wrapped response with Receipts objects parsed
+        """
+        input_doc = PathDocument(input_path, cut_pdf=cut_pdf, n_pdf_pages=cut_pdf_mode)
+        return DocumentClient(
+            input_doc=input_doc,
+            doc_configs=self.doc_configs,
+            raise_on_error=self.raise_on_error,
         )
 
-        return Response(
-            client,
-            http_response=http_response,
-            pages=pages,
-            document_type=document_type,
-            document=document_level,
+    def doc_from_file(
+        self,
+        input_file,
+        cut_pdf: bool = True,
+        cut_pdf_mode: int = 3,
+    ) -> DocumentClient:
+        """
+        Load a document from a normal Python file object/handle.
+
+        :param input_file: Input file handle
+        :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a pdf with.
+                        if 1: pages [0]
+                        if 2: pages [0, n-2]
+                        if 3: pages [0, n-2, n-1]
+        :param cut_pdf: Automatically reconstruct pdf with more than 4 pages
+        :return: Wrapped response with Receipts objects parsed
+        """
+        input_doc = FileDocument(
+            input_file,
+            cut_pdf=cut_pdf,
+            n_pdf_pages=cut_pdf_mode,
+        )
+        return DocumentClient(
+            input_doc=input_doc,
+            doc_configs=self.doc_configs,
+            raise_on_error=self.raise_on_error,
+        )
+
+    def doc_from_b64string(
+        self,
+        input_string: str,
+        filename: str,
+        cut_pdf: bool = True,
+        cut_pdf_mode: int = 3,
+    ) -> DocumentClient:
+        """
+        Load a document from a base64 encoded string.
+
+        :param input_string: Input to parse as base64 string
+        :param filename: The url_name of the file (without the path)
+        :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a pdf with.
+                        if 1: pages [0]
+                        if 2: pages [0, n-2]
+                        if 3: pages [0, n-2, n-1]
+        :param cut_pdf: Automatically reconstruct pdf with more than 4 pages
+        :return: Wrapped response with Receipts objects parsed
+        """
+        input_doc = Base64Document(
+            input_string,
+            filename,
+            cut_pdf=cut_pdf,
+            n_pdf_pages=cut_pdf_mode,
+        )
+        return DocumentClient(
+            input_doc=input_doc,
+            doc_configs=self.doc_configs,
+            raise_on_error=self.raise_on_error,
+        )
+
+    def doc_from_bytes(
+        self,
+        input_bytes: bytes,
+        filename: str,
+        cut_pdf: bool = True,
+        cut_pdf_mode: int = 3,
+    ) -> DocumentClient:
+        """
+        Load a document from raw bytes.
+
+        :param input_bytes: Raw byte input
+        :param filename: The url_name of the file (without the path)
+        :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a pdf with.
+                        if 1: pages [0]
+                        if 2: pages [0, n-2]
+                        if 3: pages [0, n-2, n-1]
+        :param cut_pdf: Automatically reconstruct pdf with more than 4 pages
+        :return: Wrapped response with Receipts objects parsed
+        """
+        input_doc = BytesDocument(
+            input_bytes,
+            filename,
+            cut_pdf=cut_pdf,
+            n_pdf_pages=cut_pdf_mode,
+        )
+        return DocumentClient(
+            input_doc=input_doc,
+            doc_configs=self.doc_configs,
+            raise_on_error=self.raise_on_error,
         )

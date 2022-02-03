@@ -1,6 +1,6 @@
 from typing import Dict, List
-from mindee.documents.base import Document, Endpoint
-from mindee.http import make_predict_url, make_api_request
+from mindee.documents.base import Document
+from mindee.http import make_api_request, Endpoint
 
 
 class CustomDocument(Document):
@@ -56,10 +56,9 @@ class CustomDocument(Document):
         :param input_file: Input object
         :param endpoints: Endpoints config
         """
-        url = make_predict_url(
-            endpoints[0].url_name, endpoints[0].version, endpoints[0].owner
+        return make_api_request(
+            endpoints[0].predict_url, input_file, endpoints[0].api_key
         )
-        return make_api_request(url, input_file, endpoints[0].api_key)
 
     def _checklist(self):
         return {}

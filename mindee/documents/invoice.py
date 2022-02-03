@@ -1,6 +1,6 @@
 from typing import List, Optional
 
-from mindee.documents.base import Document, Endpoint, OFF_THE_SHELF
+from mindee.documents.base import Document
 from mindee.fields import Field
 from mindee.fields.date import Date
 from mindee.fields.amount import Amount
@@ -8,8 +8,8 @@ from mindee.fields.locale import Locale
 from mindee.fields.orientation import Orientation
 from mindee.fields.payment_details import PaymentDetails
 from mindee.fields.tax import Tax
-from mindee.http import make_api_request, make_predict_url
-from mindee.documents.document_config import DocumentConfig
+from mindee.http import make_api_request, API_TYPE_OFF_THE_SHELF, Endpoint
+from mindee.document_config import DocumentConfig
 
 
 class Invoice(Document):
@@ -135,7 +135,7 @@ class Invoice(Document):
                 "singular_name": "invoice",
                 "plural_name": "invoices",
             },
-            doc_type=OFF_THE_SHELF,
+            api_type=API_TYPE_OFF_THE_SHELF,
         )
 
     def build_from_api_prediction(self, api_prediction: dict, page_n=0):
@@ -215,10 +215,9 @@ class Invoice(Document):
         :param endpoints: Endpoints config
         :param include_words: Include Mindee vision words in http_response
         """
-        url = make_predict_url(
-            endpoints[0].url_name, endpoints[0].version, endpoints[0].owner
+        return make_api_request(
+            endpoints[0].predict_url, input_file, endpoints[0].api_key, include_words
         )
-        return make_api_request(url, input_file, endpoints[0].api_key, include_words)
 
     def _reconstruct(self):
         """

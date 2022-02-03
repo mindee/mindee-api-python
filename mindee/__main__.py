@@ -25,7 +25,7 @@ DOCUMENTS: Dict[str, dict] = {
     "financial": {
         "help": "Financial Document (receipt or invoice)",
         "required_keys": ["invoice", "receipt"],
-        "doc_type": "financial_document",
+        "doc_type": "financial",
     },
     "custom": {
         "help": "Custom document type from API builder",
@@ -34,26 +34,27 @@ DOCUMENTS: Dict[str, dict] = {
 
 
 def _ots_client(args: Namespace, info: dict):
-    kwargs = {
-        "raise_on_error": args.raise_on_error,
-    }
-    for key in info["required_keys"]:
-        kwargs["%s_api_key" % key] = getattr(args, "%s_api_key" % key)
-    client = Client(**kwargs)
+    client = Client(raise_on_error=args.raise_on_error)
+    kwargs = {}
+    if len(info["required_keys"]) > 1:
+        for key in info["required_keys"]:
+            kwargs["%s_api_key" % key] = getattr(args, "%s_api_key" % key)
+    else:
+        kwargs["api_key"] = getattr(args, "%s_api_key" % args.product_name)
+    func = getattr(client, f"config_{args.product_name}")
+    func(**kwargs)
     return client
 
 
 def _custom_client(args: Namespace):
-    docs_conf = [
-        {
-            "document_type": args.doc_type,
-            "singular_name": args.doc_type,
-            "plural_name": args.doc_type + "s",
-            "username": args.username,
-            "api_key": args.api_key,
-        },
-    ]
-    client = Client(custom_documents=docs_conf, raise_on_error=args.raise_on_error)
+    client = Client(raise_on_error=args.raise_on_error)
+    client.config_custom_doc(
+        document_type=args.doc_type,
+        singular_name=args.doc_type,
+        plural_name=args.doc_type + "s",
+        username=args.username,
+        api_key=args.api_key,
+    )
     return client
 
 
@@ -69,26 +70,26 @@ def call_endpoint(args):
 
     if args.input_type == "file":
         with open(args.path, "rb", buffering=30) as file_handle:
-            parsed_data = client.parse_from_file(
-                file_handle, doc_type, cut_pdf=args.cut_pdf
-            )
+            doc_to_parse = client.doc_from_file(file_handle, cut_pdf=args.cut_pdf)
     elif args.input_type == "base64":
         with open(args.path, "rt") as file_handle:
-            parsed_data = client.parse_from_b64string(
-                file_handle.read(), "test.jpg", doc_type, cut_pdf=args.cut_pdf
+            doc_to_parse = client.doc_from_b64string(
+                file_handle.read(), "test.jpg", cut_pdf=args.cut_pdf
             )
     elif args.input_type == "bytes":
         with open(args.path, "rb") as file_handle:
-            parsed_data = client.parse_from_bytes(
-                file_handle.read(), file_handle.name, doc_type, cut_pdf=args.cut_pdf
+            doc_to_parse = client.doc_from_bytes(
+                file_handle.read(), file_handle.name, cut_pdf=args.cut_pdf
             )
     else:
-        parsed_data = client.parse_from_path(args.path, doc_type, cut_pdf=args.cut_pdf)
+        doc_to_parse = client.doc_from_path(args.path, cut_pdf=args.cut_pdf)
+
+    parsed_data = doc_to_parse.parse(doc_type)
 
     if args.output_type == "raw":
         print(json.dumps(parsed_data.http_response, indent=2))
     elif args.output_type == "parsed":
-        print(json.dumps(getattr(parsed_data, doc_type).__dict__, indent=2))
+        print(json.dumps(getattr(parsed_data, doc_type), indent=2, default=vars))
     else:
         print(getattr(parsed_data, doc_type))
 

@@ -6,11 +6,11 @@ from mindee.fields.locale import Locale
 from mindee.fields.orientation import Orientation
 from mindee.fields.tax import Tax
 from mindee.fields import Field
-from mindee.http import make_api_request, make_predict_url
-from mindee.documents.base import Document, Endpoint, OFF_THE_SHELF
+from mindee.http import make_api_request, API_TYPE_OFF_THE_SHELF, Endpoint
+from mindee.documents.base import Document
 from mindee.documents.invoice import Invoice
 from mindee.documents.receipt import Receipt
-from mindee.documents.document_config import DocumentConfig
+from mindee.document_config import DocumentConfig
 
 
 class FinancialDocument(Document):
@@ -33,7 +33,7 @@ class FinancialDocument(Document):
         total_tax=None,
         time=None,
         page_n=0,
-        document_type="financial_document",
+        document_type="financial_doc",
     ):
         """
         :param api_prediction: Raw prediction from HTTP response
@@ -130,7 +130,6 @@ class FinancialDocument(Document):
         return DocumentConfig(
             {
                 "constructor": FinancialDocument,
-                "username": "mindee",
                 "endpoints": [
                     Endpoint(
                         owner="mindee",
@@ -149,7 +148,7 @@ class FinancialDocument(Document):
                 "singular_name": "financial_document",
                 "plural_name": "financial_documents",
             },
-            doc_type=OFF_THE_SHELF,
+            api_type=API_TYPE_OFF_THE_SHELF,
         )
 
     def build_from_api_prediction(self, api_prediction, input_file, page_n=0):
@@ -229,11 +228,11 @@ class FinancialDocument(Document):
             index = 0
         else:
             index = 1
-        url = make_predict_url(
-            endpoints[index].url_name, endpoints[index].version, endpoints[index].owner
-        )
         return make_api_request(
-            url, input_file, endpoints[index].api_key, include_words
+            endpoints[index].predict_url,
+            input_file,
+            endpoints[index].api_key,
+            include_words,
         )
 
     def _checklist(self):

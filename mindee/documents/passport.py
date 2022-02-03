@@ -1,11 +1,11 @@
 from typing import List
 from datetime import datetime
 
-from mindee.documents.base import Document, Endpoint, OFF_THE_SHELF
+from mindee.documents.base import Document
 from mindee.fields import Field
 from mindee.fields.date import Date
-from mindee.http import make_api_request, make_predict_url
-from mindee.documents.document_config import DocumentConfig
+from mindee.http import make_api_request, API_TYPE_OFF_THE_SHELF, Endpoint
+from mindee.document_config import DocumentConfig
 
 
 class Passport(Document):
@@ -119,7 +119,7 @@ class Passport(Document):
                 "singular_name": "passport",
                 "plural_name": "passports",
             },
-            doc_type=OFF_THE_SHELF,
+            api_type=API_TYPE_OFF_THE_SHELF,
         )
 
     def build_from_api_prediction(self, api_prediction, page_n=0):
@@ -202,10 +202,9 @@ class Passport(Document):
             raise Exception(
                 "invlude_words parameter cannot be set to True for passport API"
             )
-        url = make_predict_url(
-            endpoints[0].url_name, endpoints[0].version, endpoints[0].owner
+        return make_api_request(
+            endpoints[0].predict_url, input_file, endpoints[0].api_key, include_words
         )
-        return make_api_request(url, input_file, endpoints[0].api_key, include_words)
 
     def _reconstruct(self):
         """

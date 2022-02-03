@@ -1,20 +1,55 @@
+import os
+from typing import Optional
+
 import requests
+
 from mindee.versions import __version__, python_version, get_platform
 
 MINDEE_API_URL = "https://api.mindee.net/v1"
 
+API_TYPE_CUSTOM = "api_builder"
+API_TYPE_OFF_THE_SHELF = "off_the_shelf"
+
 PLATFORM = get_platform()
 
 
-def make_predict_url(product: str, version: str, owner: str = "mindee") -> str:
-    """
-    Returns full HTTPS URL for a prediction request at a specific version
-    :param product: product API name
-    :param version: product model version
-    :param owner: product owner (mindee for off-the-shelf APIs)
-    :return: The full URL, i.e. https://api.mindee.net/v1/products/mindee/invoices/v2/predict
-    """
-    return f"{MINDEE_API_URL}/products/{owner}/{product}/v{version}/predict"
+class Endpoint:
+    owner: str
+    url_name: str
+    version: str
+    key_name: str
+    api_key: str = ""
+
+    def __init__(
+        self, owner: str, url_name: str, version: str, key_name: Optional[str] = None
+    ):
+        """
+        :param owner: owner of the product
+        :param url_name: name of the product as it appears in the URL
+        :param version: interface version
+        :param key_name: where to find the key in envvars
+        """
+        self.owner = owner
+        self.url_name = url_name
+        self.version = version
+        if key_name:
+            self.key_name = key_name
+        else:
+            self.key_name = url_name
+
+    @property
+    def predict_url(self) -> str:
+        """
+        Returns full HTTPS URL for a prediction request at a specific version
+        :return: The full URL, i.e. https://api.mindee.net/v1/products/mindee/invoices/v2/predict
+        """
+        return f"{MINDEE_API_URL}/products/{self.owner}/{self.url_name}/v{self.version}/predict"
+
+    def set_api_key_from_env(self):
+        """
+        Set the endpoint's API key from an environment variable, if present.
+        """
+        self.api_key = os.getenv(f"MINDEE_{self.key_name.upper()}_API_KEY", "")
 
 
 def make_api_request(
