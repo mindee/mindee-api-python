@@ -18,7 +18,7 @@ from mindee import Client
 mindee_client = Client().config_invoice("my-invoice-api-key")
 
 # Load a file from disk and parse it
-api_response = mindee_client.doc_from_file("/path/to/the/invoice.pdf").parse("invoice")
+api_response = mindee_client.doc_from_path("/path/to/the/invoice.pdf").parse("invoice")
 
 # Print a brief summary of the parsed data
 print(api_response.invoice)
