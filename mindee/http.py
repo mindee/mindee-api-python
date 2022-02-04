@@ -40,16 +40,30 @@ class Endpoint:
     @property
     def predict_url(self) -> str:
         """
-        Returns full HTTPS URL for a prediction request at a specific version
+        Return full HTTPS URL for a prediction request at a specific version
         :return: The full URL, i.e. https://api.mindee.net/v1/products/mindee/invoices/v2/predict
         """
         return f"{MINDEE_API_URL}/products/{self.owner}/{self.url_name}/v{self.version}/predict"
+
+    @property
+    def envvar_key_name(self) -> str:
+        """
+        The API key name as stored in the environment.
+        """
+
+        def to_envvar(name):
+            return name.replace("-", "_").upper()
+
+        key_name = to_envvar(self.key_name)
+        if self.owner != "mindee":
+            key_name = f"{to_envvar(self.owner)}_{key_name}"
+        return f"MINDEE_{key_name}_API_KEY"
 
     def set_api_key_from_env(self):
         """
         Set the endpoint's API key from an environment variable, if present.
         """
-        self.api_key = os.getenv(f"MINDEE_{self.key_name.upper()}_API_KEY", "")
+        self.api_key = os.getenv(self.envvar_key_name, "")
 
 
 def make_api_request(

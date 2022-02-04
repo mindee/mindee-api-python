@@ -33,10 +33,10 @@ def invoice_doc():
 
 
 def test_cli_custom_doc(custom_doc):
-    with pytest.raises(AssertionError):
+    with pytest.raises(RuntimeError):
         call_endpoint(custom_doc)
 
 
 def test_cli_invoice_doc(invoice_doc):
-    with pytest.raises(AssertionError):
+    with pytest.raises(RuntimeError):
         call_endpoint(invoice_doc)

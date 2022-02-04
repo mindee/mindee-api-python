@@ -9,7 +9,7 @@ from mindee.inputs import (
 )
 from mindee.response import format_response, Response
 from mindee.http import API_TYPE_OFF_THE_SHELF, HTTPException
-from mindee.document_config import DocumentConfig, DocumentConfigDict, validate_list
+from mindee.document_config import DocumentConfig, DocumentConfigDict
 from mindee.documents.receipt import Receipt
 from mindee.documents.financial_document import FinancialDocument
 from mindee.documents.invoice import Invoice
@@ -31,22 +31,40 @@ class DocumentClient:
         self.doc_configs = doc_configs
         self.input_doc = input_doc
 
-    def parse(self, document_type: str, include_words=False):
+    def parse(
+        self, document_type: str, username: str = None, include_words: bool = False
+    ):
         """
         :param document_type: Document type to parse
+        :param username:
         :param include_words: Bool, extract all words into http_response
         """
-        if document_type not in self.doc_configs.keys():
-            raise AssertionError(
-                f"{document_type} document was not found in document configurations"
-            )
-        for endpoints in self.doc_configs[document_type].endpoints:
-            if not endpoints.api_key:
-                raise AssertionError(
-                    f"Missing API key for '{endpoints.key_name}', check your Client configuration."
+        if not username:
+            found = []
+            for k in self.doc_configs.keys():
+                if k[1] == document_type:
+                    found.append(k)
+            if len(found) == 1:
+                config_key = found[0]
+            else:
+                raise RuntimeError(
+                    "Duplicate configuration detected: call this method with the username argument set."
                 )
+        else:
+            config_key = (username, document_type)
 
-        doc_config = self.doc_configs[document_type]
+        doc_config = self.doc_configs[config_key]
+        for endpoint in doc_config.endpoints:
+            if not endpoint.api_key:
+                raise RuntimeError(
+                    (
+                        f"Missing API key for '{endpoint.key_name}', check your Client configuration.\n"
+                        f"You can set this using the '{endpoint.envvar_key_name}' environment variable."
+                    )
+                )
+        return self._make_request(doc_config, include_words)
+
+    def _make_request(self, doc_config: DocumentConfig, include_words: bool):
         if doc_config.api_type == API_TYPE_OFF_THE_SHELF:
             response = doc_config.constructor.request(
                 doc_config.endpoints, self.input_doc, include_words=include_words
@@ -68,25 +86,27 @@ class DocumentClient:
                 doc_config,
                 http_response=dict_response,
                 pages=[],
-                document_type=document_type,
+                document_type=doc_config.document_type,
                 document=None,
             )
-        return format_response(doc_config, dict_response, document_type, self.input_doc)
+        return format_response(
+            doc_config, dict_response, doc_config.document_type, self.input_doc
+        )
 
 
 class Client:
-    doc_configs: DocumentConfigDict
+    _doc_configs: DocumentConfigDict
     raise_on_error: bool = True
 
     def __init__(self, raise_on_error: bool = True):
         """
         :param raise_on_error: Raise an Exception on HTTP errors
         """
-        self.doc_configs = {
-            "receipt": Receipt.get_document_config(),
-            "invoice": Invoice.get_document_config(),
-            "financial_doc": FinancialDocument.get_document_config(),
-            "passport": Passport.get_document_config(),
+        self._doc_configs = {
+            ("mindee", "receipt"): Receipt.get_document_config(),
+            ("mindee", "invoice"): Invoice.get_document_config(),
+            ("mindee", "financial_doc"): FinancialDocument.get_document_config(),
+            ("mindee", "passport"): Passport.get_document_config(),
         }
         self.raise_on_error = raise_on_error
 
@@ -109,7 +129,7 @@ class Client:
         :param username: Your organization's username on the API Builder
         :param api_key: Your API key for the endpoint
         """
-        self.doc_configs[document_type] = DocumentConfig(
+        self._doc_configs[(username, document_type)] = DocumentConfig(
             {
                 "document_type": document_type,
                 "singular_name": singular_name,
@@ -118,7 +138,6 @@ class Client:
                 "api_key": api_key,
             }
         )
-        validate_list(self.doc_configs)
         return self
 
     def config_invoice(self, api_key: str = None):
@@ -130,7 +149,7 @@ class Client:
         :param api_key: Invoice API key
         """
         if api_key:
-            self.doc_configs["invoice"].endpoints[0].api_key = api_key
+            self._doc_configs[("mindee", "invoice")].endpoints[0].api_key = api_key
         return self
 
     def config_receipt(self, api_key: str = None):
@@ -142,7 +161,7 @@ class Client:
         :param api_key: Expense Receipt API key
         """
         if api_key:
-            self.doc_configs["receipt"].endpoints[0].api_key = api_key
+            self._doc_configs[("mindee", "receipt")].endpoints[0].api_key = api_key
         return self
 
     def config_financial_doc(
@@ -157,9 +176,13 @@ class Client:
         :param invoice_api_key: Invoice API key
         """
         if invoice_api_key:
-            self.doc_configs["financial_doc"].endpoints[0].api_key = invoice_api_key
+            self._doc_configs[("mindee", "financial_doc")].endpoints[
+                0
+            ].api_key = invoice_api_key
         if receipt_api_key:
-            self.doc_configs["financial_doc"].endpoints[1].api_key = receipt_api_key
+            self._doc_configs[("mindee", "financial_doc")].endpoints[
+                1
+            ].api_key = receipt_api_key
         return self
 
     def config_passport(self, api_key: str = None):
@@ -171,7 +194,7 @@ class Client:
         :param api_key: Passport API key
         """
         if api_key:
-            self.doc_configs["passport"].endpoints[0].api_key = api_key
+            self._doc_configs[("mindee", "passport")].endpoints[0].api_key = api_key
         return self
 
     def doc_from_path(
@@ -194,7 +217,7 @@ class Client:
         input_doc = PathDocument(input_path, cut_pdf=cut_pdf, n_pdf_pages=cut_pdf_mode)
         return DocumentClient(
             input_doc=input_doc,
-            doc_configs=self.doc_configs,
+            doc_configs=self._doc_configs,
             raise_on_error=self.raise_on_error,
         )
 
@@ -222,7 +245,7 @@ class Client:
         )
         return DocumentClient(
             input_doc=input_doc,
-            doc_configs=self.doc_configs,
+            doc_configs=self._doc_configs,
             raise_on_error=self.raise_on_error,
         )
 
@@ -253,7 +276,7 @@ class Client:
         )
         return DocumentClient(
             input_doc=input_doc,
-            doc_configs=self.doc_configs,
+            doc_configs=self._doc_configs,
             raise_on_error=self.raise_on_error,
         )
 
@@ -284,6 +307,6 @@ class Client:
         )
         return DocumentClient(
             input_doc=input_doc,
-            doc_configs=self.doc_configs,
+            doc_configs=self._doc_configs,
             raise_on_error=self.raise_on_error,
         )

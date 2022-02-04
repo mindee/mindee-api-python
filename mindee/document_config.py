@@ -4,6 +4,7 @@ from mindee.documents.custom_document import CustomDocument
 
 
 class DocumentConfig:
+    document_type: str
     api_type: str
     endpoints: List[Endpoint]
     singular_name: str
@@ -29,6 +30,7 @@ class DocumentConfig:
                     "%s key is required in custom_document configuration"
                     % mandatory_field
                 )
+        self.document_type = config["document_type"]
         self.singular_name = config["singular_name"]
         self.plural_name = config["plural_name"]
 
@@ -59,20 +61,4 @@ class DocumentConfig:
             raise RuntimeError("Unknown API type")
 
 
-DocumentConfigDict = Dict[str, DocumentConfig]
-
-
-def validate_list(doc_configs: DocumentConfigDict):
-    """Validate the configuration list definitions."""
-    if len(set([v.singular_name for v in doc_configs.values()])) != len(
-        [v.singular_name for v in doc_configs.values()]
-    ):
-        raise AssertionError(
-            "singular_name values must be unique among custom_documents list objects"
-        )
-    if len(set([v.plural_name for v in doc_configs.values()])) != len(
-        [v.plural_name for v in doc_configs.values()]
-    ):
-        raise AssertionError(
-            "plural_name values must be unique among custom_documents list objects"
-        )
+DocumentConfigDict = Dict[tuple, DocumentConfig]

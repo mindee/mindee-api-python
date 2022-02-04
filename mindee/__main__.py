@@ -84,7 +84,10 @@ def call_endpoint(args):
     else:
         doc_to_parse = client.doc_from_path(args.path, cut_pdf=args.cut_pdf)
 
-    parsed_data = doc_to_parse.parse(doc_type)
+    if args.product_name == "custom":
+        parsed_data = doc_to_parse.parse(doc_type, username=args.username)
+    else:
+        parsed_data = doc_to_parse.parse(doc_type)
 
     if args.output_type == "raw":
         print(json.dumps(parsed_data.http_response, indent=2))

@@ -10,7 +10,7 @@ def empty_client(monkeypatch):
     monkeypatch.setenv("MINDEE_RECEIPT_API_KEY", "")
     monkeypatch.setenv("MINDEE_INVOICE_API_KEY", "")
     monkeypatch.setenv("MINDEE_PASSPORT_API_KEY", "")
-    monkeypatch.setenv("MINDEE_DUMMY_API_KEY", "")
+    monkeypatch.setenv("MINDEE_DUMMY_DUMMY_API_KEY", "")
     return Client().config_custom_doc(
         document_type="dummy",
         singular_name="dummy",
@@ -24,7 +24,7 @@ def env_client(monkeypatch):
     monkeypatch.setenv("MINDEE_RECEIPT_API_KEY", "dummy")
     monkeypatch.setenv("MINDEE_INVOICE_API_KEY", "dummy")
     monkeypatch.setenv("MINDEE_PASSPORT_API_KEY", "dummy")
-    monkeypatch.setenv("MINDEE_DUMMY_API_KEY", "dummy")
+    monkeypatch.setenv("MINDEE_DUMMY_DUMMY_API_KEY", "dummy")
     return Client().config_custom_doc(
         document_type="dummy",
         singular_name="dummy",
@@ -67,17 +67,17 @@ def response():
 
 
 def test_parse_path_without_token(empty_client):
-    with pytest.raises(AssertionError):
+    with pytest.raises(RuntimeError):
         empty_client.doc_from_path("./tests/data/expense_receipts/receipt.jpg").parse(
             "receipt"
         )
-    with pytest.raises(AssertionError):
+    with pytest.raises(RuntimeError):
         empty_client.doc_from_path("./tests/data/invoices/invoice.pdf").parse("invoice")
-    with pytest.raises(AssertionError):
+    with pytest.raises(RuntimeError):
         empty_client.doc_from_path("./tests/data/expense_receipts/receipt.jpg").parse(
             "financial_doc"
         )
-    with pytest.raises(AssertionError):
+    with pytest.raises(RuntimeError):
         empty_client.doc_from_path("./tests/data/passport/passport.jpeg").parse(
             "passport"
         )
@@ -97,6 +97,22 @@ def test_parse_path_with_env_token(env_client):
     with pytest.raises(HTTPException):
         env_client.doc_from_path("./tests/data/passport/passport.jpeg").parse(
             "passport"
+        )
+    with pytest.raises(HTTPException):
+        env_client.doc_from_path("./tests/data/passport/passport.jpeg").parse("dummy")
+
+
+def test_duplicate_configs(dummy_client):
+    client = dummy_client.config_custom_doc(
+        document_type="receipt",
+        singular_name="dummy",
+        plural_name="dummies",
+        username="dummy",
+    )
+    assert isinstance(client, Client)
+    with pytest.raises(RuntimeError):
+        client.doc_from_path("./tests/data/expense_receipts/receipt.jpg").parse(
+            "receipt"
         )
 
 
@@ -177,20 +193,3 @@ def test_request_with_wrong_type(dummy_client):
         dummy_client.doc_from_file("./tests/data/test.txt")
     with pytest.raises(TypeError):
         dummy_client.doc_from_b64string(open("./tests/data/test.txt"), "test.jpg")
-
-
-def test_duplicate_configs(dummy_client):
-    with pytest.raises(AssertionError):
-        dummy_client.config_custom_doc(
-            document_type="dummy2",
-            singular_name="dummy",
-            plural_name="dummies2",
-            username="dummy",
-        )
-    with pytest.raises(AssertionError):
-        dummy_client.config_custom_doc(
-            document_type="dummy3",
-            singular_name="dummy3",
-            plural_name="dummies",
-            username="dummy",
-        )

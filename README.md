@@ -79,7 +79,7 @@ financial_client = Client().config_financial_doc("receipt-api-key", "invoice-api
 passport_client = Client().config_passport("passport-api-key")
 
 pokemon_client = Client().config_custom_doc(
-        document_type="pokemon_card",
+        document_type="pokemon-card",
         singular_name="card",
         plural_name="cards",
         username="pikachu",
@@ -105,7 +105,7 @@ mindee_client = (
     .config_financial_doc("receipt-api-key", "invoice-api-key")
     .config_passport("passport-api-key")
     .config_custom_doc(
-        document_type="pokemon_card",
+        document_type="pokemon-card",
         singular_name="card",
         plural_name="cards",
         username="pikachu",
@@ -131,7 +131,7 @@ permissive_client = (
     Client(raise_on_error=False)
     .config_passport("passport-api-key")
     .config_custom_doc(
-        document_type="pokemon_card",
+        document_type="pokemon-card",
         singular_name="card",
         plural_name="cards",
         username="pikachu",
@@ -149,9 +149,8 @@ You **are** using environment variables in production, right?
 * `MINDEE_PASSPORT_API_KEY`
 
 Custom documents can be set as well,
-it's the name of the `document_type` in uppercase.\
-In keeping with the example above:
-* `MINDEE_POKEMON_CARD_API_KEY`
+in keeping with the example above:
+* `MINDEE_PIKACHU_POKEMON_CARD_API_KEY`
 
 ### Loading Documents
 You can load your document in several ways.
@@ -257,7 +256,7 @@ Your API key for the endpoint.
 from mindee import Client
 
 mindee_client = Client().config_custom_doc(
-        document_type="pokemon_card",
+        document_type="pokemon-card",
         singular_name="card",
         plural_name="cards",
         username="pikachu",
@@ -266,10 +265,13 @@ mindee_client = Client().config_custom_doc(
 ```
 
 #### Environment Variables
-You can also set the API keys as environment variables,
-it's the name of the `document_type` in uppercase:
+You can also set the API keys as environment variables.
 
-* `MINDEE_POKEMON_CARD_API_KEY`
+The format is `MINDEE_<username>_<document_type>_API_KEY`\
+Where `<username>` and `<document_type>` are uppercase, any `-` replaced with `_`.
+
+The example above would look for:
+* `MINDEE_PIKACHU_POKEMON_CARD_API_KEY`
 
 
 ### Parsing Documents
@@ -277,7 +279,25 @@ The call to the `parse` method is the same as with Off-the-Shelf documents.
 
 ```python
 loaded_doc = mindee_client.doc_from_path("/my/cards/pikachu.jpg")
-parsed_data = loaded_doc.parse("pokemon_card")
+parsed_data = loaded_doc.parse("pokemon-card")
+```
+
+**NOTE:** If your custom document has the same name as an Off-The-Shelf document,
+you must specify your username when calling the `parse` method.
+
+```python
+from mindee import Client
+
+mindee_client = Client().config_custom_doc(
+        document_type="receipt",
+        singular_name="receipt",
+        plural_name="receipts",
+        username="JohnDoe",
+        api_key="johndoe-receipt-api-key"
+)
+
+loaded_doc = mindee_client.doc_from_path("/path/to/receipt.jpg")
+parsed_data = loaded_doc.parse("receipt", "JohnDoe")
 ```
 
 ## Command Line Usage
