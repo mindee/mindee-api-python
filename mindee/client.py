@@ -47,8 +47,14 @@ class DocumentClient:
             if len(found) == 1:
                 config_key = found[0]
             else:
+                usernames = [k[0] for k in found]
                 raise RuntimeError(
-                    "Duplicate configuration detected: call this method with the username argument set."
+                    (
+                        "Duplicate configuration detected.\n"
+                        f"You specified a document_type '{document_type}' in your custom config.\n"
+                        "To avoid confusion, please add the 'username' attribute to the parse method, "
+                        f"one of {usernames}."
+                    )
                 )
         else:
             config_key = (username, document_type)
