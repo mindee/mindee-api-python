@@ -37,7 +37,7 @@ def format_response(
         api_prediction=http_response["document"]["inference"]["prediction"],
         input_file=input_file,
         document_type=document_type,
-        page_n="-1",
+        page_n=-1,
     )
     return DocumentResponse(
         doc_config,

@@ -9,10 +9,10 @@ class CustomDocument(Document):
 
     def __init__(
         self,
-        document_type="",
+        document_type: str = "",
         api_prediction=None,
         input_file=None,
-        page_n=0,
+        page_n: int = 0,
     ):
         """
         :param document_type: Document type
