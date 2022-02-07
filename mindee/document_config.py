@@ -1,5 +1,7 @@
 from typing import Dict, List, Any
+
 from mindee.http import Endpoint, API_TYPE_OFF_THE_SHELF, API_TYPE_CUSTOM
+from mindee.documents.base import Document
 from mindee.documents.custom_document import CustomDocument
 
 

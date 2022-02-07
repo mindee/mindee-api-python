@@ -1,11 +1,15 @@
 import pytest
 from argparse import Namespace
-from mindee.http import HTTPException
+
+from tests.utils import clear_envvars
+
 from mindee.__main__ import call_endpoint
 
 
 @pytest.fixture
-def custom_doc():
+def custom_doc(monkeypatch):
+    clear_envvars(monkeypatch)
+
     return Namespace(
         product_name="custom",
         doc_type="license_plate",
@@ -20,7 +24,9 @@ def custom_doc():
 
 
 @pytest.fixture
-def invoice_doc():
+def invoice_doc(monkeypatch):
+    clear_envvars(monkeypatch)
+
     return Namespace(
         product_name="invoice",
         invoice_api_key="",

@@ -71,23 +71,18 @@ class DocumentClient:
         return self._make_request(doc_config, include_words)
 
     def _make_request(self, doc_config: DocumentConfig, include_words: bool):
-        if doc_config.api_type == API_TYPE_OFF_THE_SHELF:
-            response = doc_config.constructor.request(
-                doc_config.endpoints, self.input_doc, include_words=include_words
-            )
-        else:
-            response = doc_config.constructor.request(
-                doc_config.endpoints, self.input_doc
-            )
+        response = doc_config.constructor.request(
+            doc_config.endpoints, self.input_doc, include_words=include_words
+        )
 
         dict_response = response.json()
 
-        if response.status_code > 201 and self.raise_on_error:
+        if not response.status_code.ok and self.raise_on_error:
             raise HTTPException(
                 "API %s HTTP error: %s"
                 % (response.status_code, json.dumps(dict_response))
             )
-        if response.status_code > 201:
+        if not response.ok:
             return Response(
                 doc_config,
                 http_response=dict_response,

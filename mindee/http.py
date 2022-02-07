@@ -63,7 +63,9 @@ class Endpoint:
         """
         Set the endpoint's API key from an environment variable, if present.
         """
-        self.api_key = os.getenv(self.envvar_key_name, "")
+        env_key = os.getenv(self.envvar_key_name, "")
+        if env_key:
+            self.api_key = env_key
 
 
 def make_api_request(

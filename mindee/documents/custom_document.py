@@ -1,4 +1,5 @@
 from typing import Dict, List
+
 from mindee.documents.base import Document
 from mindee.http import make_api_request, Endpoint
 
@@ -50,9 +51,10 @@ class CustomDocument(Document):
         return custom_doc_str
 
     @staticmethod
-    def request(endpoints: List[Endpoint], input_file):
+    def request(endpoints: List[Endpoint], input_file, include_words: bool = False):
         """
         Make request to expense_receipts endpoint
+        :param include_words: Not yet used for custom documents
         :param input_file: Input object
         :param endpoints: Endpoints config
         """

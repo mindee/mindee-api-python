@@ -19,7 +19,7 @@ class Document:
         self.checklist: dict = {}
 
     @staticmethod
-    def request(endpoints: List[Endpoint], input_file):
+    def request(endpoints: List[Endpoint], input_file, include_words: bool = False):
         """Make request to the product endpoint"""
         raise NotImplementedError()
 
