@@ -63,7 +63,13 @@ class Invoice(Document):
         :param total_tax: total_tax value for creating Invoice object from scratch
         :param page_n: Page number for multi pages pdf input
         """
-        self.type = document_type
+        # Invoke Document constructor
+        super().__init__(
+            input_file=input_file,
+            document_type=document_type,
+            api_prediction=api_prediction,
+            page_n=page_n,
+        )
 
         if api_prediction is not None:
             self.build_from_api_prediction(api_prediction, page_n=page_n)
@@ -107,9 +113,6 @@ class Invoice(Document):
             self.company_number = [
                 Field({"value": company_number}, value_key="value", page_n=page_n)
             ]
-
-        # Invoke Document constructor
-        super().__init__(input_file)
 
         # Run checks
         self._checklist()

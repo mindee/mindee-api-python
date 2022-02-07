@@ -7,7 +7,9 @@ from mindee.http import Endpoint
 class Document:
     type: str
 
-    def __init__(self, input_file):
+    def __init__(
+        self, input_file, document_type: str, api_prediction, page_n=0
+    ):  # pylint: disable=unused-argument
         self.filepath = None
         self.filename = None
         self.file_extension = None
@@ -16,6 +18,8 @@ class Document:
             self.filepath = input_file.filepath
             self.filename = input_file.filename
             self.file_extension = input_file.file_extension
+
+        self.type = document_type
         self.checklist: dict = {}
 
     @staticmethod

@@ -20,10 +20,14 @@ class CustomDocument(Document):
         :param input_file: Input object
         :param page_n: Page number for multi pages pdf input
         """
-        self.type = document_type
-        self.build_from_api_prediction(api_prediction, page_n=page_n)
         # Invoke Document constructor
-        super().__init__(input_file)
+        super().__init__(
+            input_file=input_file,
+            document_type=document_type,
+            api_prediction=api_prediction,
+            page_n=page_n,
+        )
+        self.build_from_api_prediction(api_prediction, page_n=page_n)
 
     def build_from_api_prediction(self, api_prediction, page_n: int = 0):
         """

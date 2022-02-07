@@ -1,4 +1,4 @@
-from typing import Dict, List, Any
+from typing import Dict, List, Any, Type
 
 from mindee.http import Endpoint, API_TYPE_OFF_THE_SHELF, API_TYPE_CUSTOM
 from mindee.documents.base import Document
@@ -12,9 +12,7 @@ class DocumentConfig:
     singular_name: str
     plural_name: str
 
-    # Workaround for dynamic class assignment and circular import...
-    # Will need a refactor at some point.
-    constructor: Any
+    constructor: Type[Document]
 
     def __init__(self, config: Dict[str, Any], api_type: str = API_TYPE_CUSTOM):
         """

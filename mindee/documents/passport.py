@@ -61,11 +61,16 @@ class Passport(Document):
         :param full_name: full_name value for creating Passport object from scratch
         :param page_n: Page number for multi pages pdf input
         """
-        # Raw data
-        self.type = document_type
+        # Invoke Document constructor
+        super().__init__(
+            input_file=input_file,
+            document_type=document_type,
+            api_prediction=api_prediction,
+            page_n=page_n,
+        )
 
         if api_prediction is not None:
-            self.build_from_api_prediction(api_prediction)
+            self.build_from_api_prediction(api_prediction, page_n=page_n)
         else:
             self.country = Field({"value": country}, value_key="value", page_n=page_n)
             self.id_number = Field(
@@ -96,9 +101,6 @@ class Passport(Document):
             self.full_name = Field(
                 {"value": full_name}, value_key="value", page_n=page_n
             )
-
-        # Invoke Document constructor
-        super().__init__(input_file)
 
         # Run checks
         self._checklist()

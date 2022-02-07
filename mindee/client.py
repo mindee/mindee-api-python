@@ -8,7 +8,7 @@ from mindee.inputs import (
     PathDocument,
 )
 from mindee.response import format_response, Response
-from mindee.http import API_TYPE_OFF_THE_SHELF, HTTPException
+from mindee.http import HTTPException
 from mindee.document_config import DocumentConfig, DocumentConfigDict
 from mindee.documents.receipt import Receipt
 from mindee.documents.financial_document import FinancialDocument
@@ -77,7 +77,7 @@ class DocumentClient:
 
         dict_response = response.json()
 
-        if not response.status_code.ok and self.raise_on_error:
+        if not response.ok and self.raise_on_error:
             raise HTTPException(
                 "API %s HTTP error: %s"
                 % (response.status_code, json.dumps(dict_response))

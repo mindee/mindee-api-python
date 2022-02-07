@@ -54,7 +54,14 @@ class FinancialDocument(Document):
         :param time: time value for creating FinancialDocument object from scratch
         :param page_n: Page number for multi pages pdf input
         """
-        self.type = document_type
+        # Invoke Document constructor
+        super().__init__(
+            input_file=input_file,
+            document_type=document_type,
+            api_prediction=api_prediction,
+            page_n=page_n,
+        )
+
         self.locale = None
         self.total_incl = None
         self.total_excl = None
@@ -114,9 +121,6 @@ class FinancialDocument(Document):
             self.company_number = Field(
                 {"value": company_number}, value_key="value", page_n=page_n
             )
-
-        # Invoke Document constructor
-        super().__init__(input_file)
 
         # Run checks
         self._checklist()
