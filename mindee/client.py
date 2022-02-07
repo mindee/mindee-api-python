@@ -7,7 +7,7 @@ from mindee.inputs import (
     FileDocument,
     PathDocument,
 )
-from mindee.response import format_response, Response
+from mindee.response import format_response, DocumentResponse
 from mindee.http import HTTPException
 from mindee.document_config import DocumentConfig, DocumentConfigDict
 from mindee.documents.receipt import Receipt
@@ -52,7 +52,7 @@ class DocumentClient:
                     (
                         "Duplicate configuration detected.\n"
                         f"You specified a document_type '{document_type}' in your custom config.\n"
-                        "To avoid confusion, please add the 'username' attribute to the parse method, "
+                        "To avoid confusion, please add the 'account_name' attribute to the parse method, "
                         f"one of {usernames}."
                     )
                 )
@@ -83,7 +83,7 @@ class DocumentClient:
                 % (response.status_code, json.dumps(dict_response))
             )
         if not response.ok:
-            return Response(
+            return DocumentResponse(
                 doc_config,
                 http_response=dict_response,
                 pages=[],
@@ -116,7 +116,7 @@ class Client:
         document_type: str,
         singular_name: str,
         plural_name: str,
-        username: str,
+        account_name: str,
         api_key: str = "",
     ):
         """
@@ -127,15 +127,15 @@ class Client:
         :param document_type: The "document type" field in the "Settings" page of the API Builder
         :param singular_name: The name of the attribute used to retrieve a *single* document from the API response
         :param plural_name: The name of the attribute used to retrieve *multiple* documents from the API response
-        :param username: Your organization's username on the API Builder
+        :param account_name: Your organization's username on the API Builder
         :param api_key: Your API key for the endpoint
         """
-        self._doc_configs[(username, document_type)] = DocumentConfig(
+        self._doc_configs[(account_name, document_type)] = DocumentConfig(
             {
                 "document_type": document_type,
                 "singular_name": singular_name,
                 "plural_name": plural_name,
-                "username": username,
+                "account_name": account_name,
                 "api_key": api_key,
             }
         )

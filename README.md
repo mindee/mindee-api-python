@@ -67,6 +67,7 @@ You can have a separate client for each document.
 
 If you have only a single document type you're working with,
 this is the easiest way to get started.
+
 ```python
 from mindee import Client
 
@@ -79,11 +80,11 @@ financial_client = Client().config_financial_doc("receipt-api-key", "invoice-api
 passport_client = Client().config_passport("passport-api-key")
 
 pokemon_client = Client().config_custom_doc(
-        document_type="pokemon-card",
-        singular_name="card",
-        plural_name="cards",
-        username="pikachu",
-        api_key="pokemon-card-api-key"
+    document_type="pokemon-card",
+    singular_name="card",
+    plural_name="cards",
+    account_name="pikachu",
+    api_key="pokemon-card-api-key"
 )
 ```
 You can always add more document types to the client later, see the section below.
@@ -95,20 +96,21 @@ If you're working with multiple document types this is the easiest way to get st
 
 Since each *config_xxx* method returns the current `Client` object,
 you can simply chain all the calls together:
+
 ```python
 from mindee import Client
 
 mindee_client = (
     Client()
-    .config_receipt("receipt-api-key")
-    .config_invoice("invoice-api-key")
-    .config_financial_doc("receipt-api-key", "invoice-api-key")
-    .config_passport("passport-api-key")
-    .config_custom_doc(
+        .config_receipt("receipt-api-key")
+        .config_invoice("invoice-api-key")
+        .config_financial_doc("receipt-api-key", "invoice-api-key")
+        .config_passport("passport-api-key")
+        .config_custom_doc(
         document_type="pokemon-card",
         singular_name="card",
         plural_name="cards",
-        username="pikachu",
+        account_name="pikachu",
         api_key="pokemon-card-api-key"
     )
 )
@@ -117,24 +119,25 @@ mindee_client = (
 #### Mix and Match
 You can also mix and match. This approach is useful to have groups of documents
 handled in different ways.
+
 ```python
 from mindee import Client
 
 strict_client = (
     Client(raise_on_error=True)
-    .config_receipt("receipt-api-key")
-    .config_invoice("invoice-api-key")
-    .config_financial_doc("receipt-api-key", "invoice-api-key")
+        .config_receipt("receipt-api-key")
+        .config_invoice("invoice-api-key")
+        .config_financial_doc("receipt-api-key", "invoice-api-key")
 )
 
 permissive_client = (
     Client(raise_on_error=False)
-    .config_passport("passport-api-key")
-    .config_custom_doc(
+        .config_passport("passport-api-key")
+        .config_custom_doc(
         document_type="pokemon-card",
         singular_name="card",
         plural_name="cards",
-        username="pikachu",
+        account_name="pikachu",
         api_key="pokemon-card-api-key"
     )
 )
@@ -246,8 +249,8 @@ The name of the attribute used to retrieve a _single_ document from the API resp
 `plural_name`\
 The name of the attribute used to retrieve _multiple_ documents from the API response.
 
-`username`\
-Your organization's username on the API Builder.
+`account_name`\
+Your organization's username in the API Builder.
 
 `api_key`\
 Your API key for the endpoint.
@@ -256,11 +259,11 @@ Your API key for the endpoint.
 from mindee import Client
 
 mindee_client = Client().config_custom_doc(
-        document_type="pokemon-card",
-        singular_name="card",
-        plural_name="cards",
-        username="pikachu",
-        api_key="pokemon-card-api-key"
+    document_type="pokemon-card",
+    singular_name="card",
+    plural_name="cards",
+    account_name="pikachu",
+    api_key="pokemon-card-api-key"
 )
 ```
 
@@ -289,11 +292,11 @@ you must specify your username when calling the `parse` method.
 from mindee import Client
 
 mindee_client = Client().config_custom_doc(
-        document_type="receipt",
-        singular_name="receipt",
-        plural_name="receipts",
-        username="JohnDoe",
-        api_key="johndoe-receipt-api-key"
+    document_type="receipt",
+    singular_name="receipt",
+    plural_name="receipts",
+    account_name="JohnDoe",
+    api_key="johndoe-receipt-api-key"
 )
 
 loaded_doc = mindee_client.doc_from_path("/path/to/receipt.jpg")

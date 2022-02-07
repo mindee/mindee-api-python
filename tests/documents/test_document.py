@@ -24,7 +24,7 @@ def dummy_config():
             document_type="dummy",
             singular_name="dummy",
             plural_name="dummies",
-            username="dummy",
+            account_name="dummy",
         )
     )
     return client._doc_configs

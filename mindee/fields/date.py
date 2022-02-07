@@ -34,5 +34,6 @@ class Date(Field):
             )
         except (TypeError, ValueError):
             self.date_object = None
-            self.probability = 0.0
+            self.confidence = 0.0
             self.value = None
+            self.bbox = []

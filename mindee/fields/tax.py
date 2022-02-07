@@ -42,7 +42,8 @@ class Tax(Field):
             self.value = float(tax_prediction[value_key])
         except (ValueError, TypeError, KeyError):
             self.value = None
-            self.probability = 0.0
+            self.confidence = 0.0
+            self.bbox = []
 
     def __str__(self):
         tax_str = ""

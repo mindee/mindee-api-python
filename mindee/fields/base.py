@@ -1,10 +1,10 @@
-from typing import Optional, Any
+from typing import Optional, Any, List
 
 
 class Field:
     value: Optional[Any] = None
-    confidence: float
-    bbox: list
+    confidence: float = 0.0
+    bbox: List[List[float]] = []
 
     def __init__(
         self,
@@ -22,6 +22,7 @@ class Field:
         :param extra_fields: extra field to get from the abstract_prediction and to set as attribute of the Field
         """
         self.page_n = page_n
+
         if (
             value_key not in abstract_prediction
             or abstract_prediction[value_key] == "N/A"

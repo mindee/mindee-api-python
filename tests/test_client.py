@@ -2,7 +2,7 @@ import pytest
 
 from tests.utils import clear_envvars, dummy_envvars
 
-from mindee import Client, Response
+from mindee import Client, DocumentResponse
 from mindee.http import HTTPException
 
 
@@ -13,7 +13,7 @@ def empty_client(monkeypatch):
         document_type="dummy",
         singular_name="dummy",
         plural_name="dummies",
-        username="dummy",
+        account_name="dummy",
     )
 
 
@@ -24,7 +24,7 @@ def env_client(monkeypatch):
         document_type="dummy",
         singular_name="dummy",
         plural_name="dummies",
-        username="dummy",
+        account_name="dummy",
     )
 
 
@@ -40,7 +40,7 @@ def dummy_client():
             document_type="dummy",
             singular_name="dummy",
             plural_name="dummies",
-            username="dummy",
+            account_name="dummy",
         )
     )
 
@@ -58,7 +58,7 @@ def dummy_client_no_raise():
 
 @pytest.fixture
 def response():
-    return Response.load("./tests/data/expense_receipts/v3/receipt.json")
+    return DocumentResponse.load("./tests/data/expense_receipts/v3/receipt.json")
 
 
 def test_parse_path_without_token(empty_client):
@@ -102,7 +102,7 @@ def test_duplicate_configs(dummy_client):
         document_type="receipt",
         singular_name="dummy",
         plural_name="dummies",
-        username="dummy",
+        account_name="dummy",
     )
     assert isinstance(client, Client)
     with pytest.raises(RuntimeError):
@@ -155,7 +155,7 @@ def test_parse_path_with_wrong_token(dummy_client):
 
 def test_response_load_failure():
     with pytest.raises(Exception):
-        Response.load("notAFile")
+        DocumentResponse.load("notAFile")
 
 
 def test_request_with_filepath(dummy_client):

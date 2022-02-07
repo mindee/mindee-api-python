@@ -30,4 +30,5 @@ class Orientation(Field):
                 self.value = 0
         except (TypeError, ValueError, KeyError):
             self.value = 0
-            self.probability = 0.0
+            self.confidence = 0.0
+            self.bbox = []

@@ -11,7 +11,7 @@ def format_response(
     :param input_file: Input object
     :param http_response: json response from HTTP call
     :param document_type: Document class
-    :return: Full Response object
+    :return: Full DocumentResponse object
     """
     http_response["document_type"] = document_type
     http_response["input_type"] = input_file.input_type
@@ -39,7 +39,7 @@ def format_response(
         document_type=document_type,
         page_n="-1",
     )
-    return Response(
+    return DocumentResponse(
         doc_config,
         http_response=http_response,
         pages=pages,
@@ -48,7 +48,7 @@ def format_response(
     )
 
 
-class Response:
+class DocumentResponse:
     http_response: Dict[str, Any]
     document_type: str
 

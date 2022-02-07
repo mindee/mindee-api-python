@@ -41,7 +41,7 @@ class DocumentConfig:
             except KeyError:
                 version = "1"
             endpoint = Endpoint(
-                owner=config["username"],
+                owner=config["account_name"],
                 url_name=config["document_type"],
                 version=version,
             )

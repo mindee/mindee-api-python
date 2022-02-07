@@ -1,4 +1,3 @@
-
 def clear_envvars(monkeypatch):
     """
     If we have envvars set, the test will pick them up and fail,
