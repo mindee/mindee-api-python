@@ -1,7 +1,12 @@
+from typing import Optional
+
 from mindee.fields import Field
 
 
 class Tax(Field):
+    rate: Optional[float]
+    code: Optional[str]
+
     def __init__(
         self,
         tax_prediction,

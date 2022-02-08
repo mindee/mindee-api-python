@@ -247,8 +247,8 @@ class Invoice(Document):
         Check invoice rule of matching between taxes and total_incl
         :return: True if rule matches, False otherwise
         """
-        # Check taxes and total amount exist
-        if len(self.taxes) == 0 or self.total_incl.value is None:
+        # Ensure taxes and total_incl exist
+        if not self.taxes or not self.total_incl.value:
             return False
 
         # Reconstruct total_incl from taxes

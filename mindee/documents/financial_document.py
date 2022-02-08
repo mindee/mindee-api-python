@@ -202,7 +202,7 @@ class FinancialDocument(Document):
             "Total amount excluding taxes: %s \n"
             "Date: %s\n"
             "Invoice due date: %s\n"
-            "Supplier url_name: %s\n"
+            "Supplier name: %s\n"
             "Taxes: %s\n"
             "Total taxes: %s\n"
             "----------------------"
@@ -275,7 +275,7 @@ class FinancialDocument(Document):
             <= self.total_incl.value * (1 + eps) + 0.02
         ):
             for tax in self.taxes:
-                tax.confidence = 1
+                tax.confidence = 1.0
             self.total_tax.confidence = 1.0
             self.total_incl.confidence = 1.0
             return True

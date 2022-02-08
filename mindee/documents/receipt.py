@@ -77,7 +77,7 @@ class Receipt(Document):
                 {"value": merchant_name}, value_key="value", page_n=page_n
             )
             self.time = Field({"value": time}, value_key="value", page_n=page_n)
-            if taxes is not None:
+            if taxes:
                 self.taxes = [
                     Tax(
                         {"value": t[0], "rate": t[1]},
@@ -133,7 +133,7 @@ class Receipt(Document):
             "Date: %s\n"
             "Category: %s\n"
             "Time: %s\n"
-            "Merchant url_name: %s\n"
+            "Merchant name: %s\n"
             "Taxes: %s\n"
             "Total taxes: %s\n"
             "----------------------"
@@ -241,7 +241,7 @@ class Receipt(Document):
             <= self.total_incl.value * (1 + eps) + 0.02
         ):
             for tax in self.taxes:
-                tax.confidence = 1
+                tax.confidence = 1.0
             self.total_tax.confidence = 1.0
             self.total_incl.confidence = 1.0
             return True

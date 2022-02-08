@@ -153,7 +153,7 @@ class Passport(Document):
         return (
             "-----Passport data-----\n"
             "Filename: %s \n"
-            "Full url_name: %s \n"
+            "Full name: %s \n"
             "Given names: %s \n"
             "Surname: %s\n"
             "Country: %s\n"
