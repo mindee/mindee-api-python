@@ -188,3 +188,18 @@ def test_request_with_wrong_type(dummy_client):
         dummy_client.doc_from_file("./tests/data/test.txt")
     with pytest.raises(TypeError):
         dummy_client.doc_from_b64string(open("./tests/data/test.txt"), "test.jpg")
+
+
+def test_interface_version():
+    fixed_client = Client().config_custom_doc(
+        document_type="dummy",
+        singular_name="dummy",
+        plural_name="dummies",
+        account_name="dummy",
+        api_key="dummy",
+        version="1.1",
+    )
+    with pytest.raises(HTTPException):
+        fixed_client.doc_from_path("./tests/data/expense_receipts/receipt.jpg").parse(
+            "dummy"
+        )

@@ -36,14 +36,10 @@ class DocumentConfig:
 
         if self.api_type == API_TYPE_CUSTOM:
             self.constructor = CustomDocument
-            try:
-                version = config["interface_version"]
-            except KeyError:
-                version = "1"
             endpoint = Endpoint(
                 owner=config["account_name"],
                 url_name=config["document_type"],
-                version=version,
+                version=config["interface_version"],
             )
             if config["api_key"]:
                 endpoint.api_key = config["api_key"]

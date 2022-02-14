@@ -118,6 +118,7 @@ class Client:
         plural_name: str,
         account_name: str,
         api_key: str = "",
+        version: str = "1",
     ):
         """
         Configure a custom document using the Mindee API Builder.
@@ -129,6 +130,7 @@ class Client:
         :param plural_name: The name of the attribute used to retrieve *multiple* documents from the API response
         :param account_name: Your organization's username on the API Builder
         :param api_key: Your API key for the endpoint
+        :param version: Version of the interface to use. Default: 1
         """
         self._doc_configs[(account_name, document_type)] = DocumentConfig(
             {
@@ -137,6 +139,7 @@ class Client:
                 "plural_name": plural_name,
                 "account_name": account_name,
                 "api_key": api_key,
+                "interface_version": version,
             }
         )
         return self
