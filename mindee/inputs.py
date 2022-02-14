@@ -47,7 +47,8 @@ class InputDocument:
                     self.merge_pdf_pages(
                         [0, count_pages - 2, count_pages - 1][:n_pdf_pages]
                     )
-            self.check_if_document_is_empty()
+            if self.is_pdf_empty():
+                raise AssertionError(f"PDF pages are empty in: {self.filename}")
 
     def count_pdf_pages(self):
         """
@@ -71,20 +72,30 @@ class InputDocument:
         self.file_object = io.BytesIO()
         new_pdf.save(self.file_object)
 
-    def check_if_document_is_empty(self):
+    def is_pdf_empty(self) -> bool:
         """
         :return: (void) Check if the document contain only empty pages
         """
         self.file_object.seek(0)
         with pikepdf.open(self.file_object) as pdf:
-            for _, page in enumerate(pdf.pages):
-                if (
-                    "/Font" in page["/Resources"].keys()
-                    or "/XObject" in page["/Resources"].keys()
-                    or page["/Contents"]["/Length"] > 1000
-                ):
-                    return
-            raise Exception("PDF pages are empty")
+            for page in pdf.pages:
+
+                # mypy incorrectly identifies the "/Length" key's value as
+                # an object rather than an int.
+                try:
+                    total_size = page["/Contents"]["/Length"]
+                except ValueError:
+                    total_size = 0  # type: ignore
+                    for content in page["/Contents"]:  # type: ignore
+                        total_size += content["/Length"]
+                has_data = total_size > 1000  # type: ignore
+
+                has_font = "/Font" in page["/Resources"].keys()
+                has_xobj = "/XObject" in page["/Resources"].keys()
+
+                if has_font or has_xobj or has_data:
+                    return False
+            return True
 
     def check_pdf_open(self):
         """
