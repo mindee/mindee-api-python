@@ -204,8 +204,8 @@ class Invoice(Document):
                 self.invoice_date.value,
                 self.due_date.value,
                 self.supplier.value,
-                self.payment_details,
-                ",".join([str(t.value) + " " + str(t.rate) + "%" for t in self.taxes]),
+                ", ".join([str(p) for p in self.payment_details]),
+                ", ".join([str(t.value) + " " + str(t.rate) + "%" for t in self.taxes]),
                 self.total_tax.value,
             )
         )
