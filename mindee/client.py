@@ -130,7 +130,8 @@ class Client:
         :param plural_name: The name of the attribute used to retrieve *multiple* documents from the API response
         :param account_name: Your organization's username on the API Builder
         :param api_key: Your API key for the endpoint
-        :param version: Version of the interface to use. Default: 1
+        :param version: If set, locks the version of the model to use.
+                        If not set, use the latest version of the model.
         """
         self._doc_configs[(account_name, document_type)] = DocumentConfig(
             {
