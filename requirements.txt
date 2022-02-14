@@ -14,9 +14,9 @@ lxml==4.7.1
     # via pikepdf
 packaging==21.3
     # via pikepdf
-pikepdf==4.4.1
+pikepdf==4.5.0
     # via mindee (setup.py)
-pillow==9.0.0
+pillow==9.0.1
     # via pikepdf
 pyparsing==3.0.6
     # via packaging
