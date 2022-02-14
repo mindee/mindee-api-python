@@ -1,5 +1,19 @@
 # Mindee python SDK
 
+## v2.0.0 (2022-02-14)
+
+### New Features
+* :sparkles: Allow using custom documents (API builder)
+
+### :boom: Breaking Changes
+* :recycle: `confidence` renamed to `probability` in the return fields to match API return
+* :recycle: `Client` initialization reworked to be more extensible
+* :recycle: Document loading and parsing reworked to separate arguments
+
+### Changes
+* :arrow_up: Upgrade pikepdf to 4.4.1
+* :memo: Documentation migrated mainly to https://developers.mindee.com/docs
+
 ## v1.3.1 (2022-02-03)
 
 ### Fixes
@@ -39,12 +53,12 @@
 
 ### Fix
 
-*  🐛 Fixed [#15](https://github.com/mindee/mindee-api-python/issues/15)
+*  :bug: Fixed [#15](https://github.com/mindee/mindee-api-python/issues/15)
 
 ### Chg
 
-* ✨ Added pdf page number parameter for multi-pages pdfs
-* ✨ Added a blank pages only PDF detection & error raising
+* :sparkles: Added pdf page number parameter for multi-pages pdfs
+* :sparkles: Added a blank pages only PDF detection & error raising
 
 
 ## v1.2.1 (2021-09-23)
