@@ -1,6 +1,6 @@
 import json
 import pytest
-from mindee import Passport
+from mindee.documents.passport import Passport
 
 
 @pytest.fixture
@@ -85,43 +85,6 @@ def test_wrong_checksum():
 def test_checksum_with_personal_number_alpha():
     mrz = "XDB0661884ESP9502138F1808122RE20050024133894"
     assert Passport.check_sum(mrz[28:42]) == mrz[42]
-
-
-def test_compare_1(passport_object):
-    # Compare same object must return all True
-    benchmark = Passport.compare(passport_object, passport_object)
-    for value in benchmark.values():
-        assert value is True
-
-
-def test_compare_3(passport_object, passport_object_all_na):
-    # Compare full object and empty object
-    benchmark = Passport.compare(passport_object, passport_object_all_na)
-    for value in benchmark.values():
-        assert value is False
-
-
-def test_compare_5(passport_object_from_scratch):
-    # Compare passport from class
-    benchmark = Passport.compare(
-        passport_object_from_scratch, passport_object_from_scratch
-    )
-    for key in benchmark.keys():
-        if "__acc__" in key:
-            assert benchmark[key] is True
-
-
-def test_compare_6(passport_object_from_scratch):
-    # Compare passport from class with empty given_names
-    passport_object_from_scratch.given_names = []
-    benchmark = Passport.compare(
-        passport_object_from_scratch, passport_object_from_scratch
-    )
-    for key in benchmark.keys():
-        if "__acc__" in key:
-            assert benchmark[key] is True
-        elif "__pre__" in key:
-            assert benchmark[key] in [True, None]
 
 
 def test_empty_object_works():

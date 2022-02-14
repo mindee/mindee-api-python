@@ -1,6 +1,6 @@
 import json
 import pytest
-from mindee import Receipt
+from mindee.documents.receipt import Receipt
 
 
 @pytest.fixture
@@ -91,7 +91,7 @@ def test__reconstruct_total_excl_from_total_and_taxes_3(receipt_pred):
         {"rate": 10, "value": 4.25, "confidence": 0.6},
     ]
     receipt = Receipt(receipt_pred)
-    assert receipt.total_excl.probability == 0.03
+    assert receipt.total_excl.confidence == 0.03
     assert receipt.total_excl.value == 7.79
 
 
@@ -110,7 +110,7 @@ def test__reconstruct_total_tax_2(receipt_pred):
     ]
     receipt = Receipt(receipt_pred)
     assert receipt.total_tax.value == 50.2
-    assert receipt.total_tax.probability == 0.05
+    assert receipt.total_tax.confidence == 0.05
 
 
 def test__taxes_match_total_incl_1(receipt_pred):
@@ -122,9 +122,9 @@ def test__taxes_match_total_incl_1(receipt_pred):
     ]
     receipt = Receipt(receipt_pred)
     assert receipt.checklist["taxes_match_total_incl"] is True
-    assert receipt.total_incl.probability == 1.0
+    assert receipt.total_incl.confidence == 1.0
     for tax in receipt.taxes:
-        assert tax.probability == 1.0
+        assert tax.confidence == 1.0
 
 
 def test__taxes_match_total_incl_2(receipt_pred):
@@ -153,43 +153,6 @@ def test__taxes_match_total_incl_4(receipt_pred):
     receipt = Receipt(receipt_pred)
     assert receipt.checklist["taxes_match_total_incl"] is False
     assert type(str(receipt.taxes[0])) is str
-
-
-def test_compare_1(receipt_object):
-    # Compare same object must return all True
-    benchmark = Receipt.compare(receipt_object, receipt_object)
-    for value in benchmark.values():
-        assert value is True
-
-
-def test_compare_2(receipt_object, receipt_object_all_na):
-    # Compare full object and empty object
-    benchmark = Receipt.compare(receipt_object, receipt_object_all_na)
-    for key in benchmark.keys():
-        assert benchmark[key] is False
-
-
-def test_compare_3(receipt_object_from_scratch):
-    # Compare receipt from class
-    benchmark = Receipt.compare(
-        receipt_object_from_scratch, receipt_object_from_scratch
-    )
-    for key in benchmark.keys():
-        if "__acc__" in key:
-            assert benchmark[key] is True
-
-
-def test_compare_4(receipt_object_from_scratch):
-    # Compare receipt from class with empty taxes
-    receipt_object_from_scratch.taxes = []
-    benchmark = Receipt.compare(
-        receipt_object_from_scratch, receipt_object_from_scratch
-    )
-    for key in benchmark.keys():
-        if "__acc__" in key:
-            assert benchmark[key] is True
-        elif "__pre__" in key:
-            assert benchmark[key] in [True, None]
 
 
 def test_empty_object_works():

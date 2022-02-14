@@ -1,11 +1,28 @@
+from typing import List
 from datetime import datetime
-from mindee.documents import Document
+
+from mindee.documents.base import Document
 from mindee.fields import Field
 from mindee.fields.date import Date
-from mindee.http import make_api_request, make_predict_url
+from mindee.http import make_api_request, API_TYPE_OFF_THE_SHELF, Endpoint
+from mindee.document_config import DocumentConfig
 
 
 class Passport(Document):
+    country: Field
+    id_number: Field
+    birth_date: Date
+    expiry_date: Date
+    issuance_date: Date
+    birth_place: Field
+    gender: Field
+    surname: Field
+    mrz1: Field
+    mrz2: Field
+    given_names: List[Field] = []
+    mrz: Field
+    full_name: Field
+
     def __init__(
         self,
         api_prediction=None,
@@ -24,6 +41,7 @@ class Passport(Document):
         mrz=None,
         full_name=None,
         page_n=0,
+        document_type="passport",
     ):
         """
         :param api_prediction: Raw prediction from HTTP response
@@ -43,24 +61,16 @@ class Passport(Document):
         :param full_name: full_name value for creating Passport object from scratch
         :param page_n: Page number for multi pages pdf input
         """
-        # Raw data
-        self.type = "Passport"
-        self.country = None
-        self.id_number = None
-        self.birth_date = None
-        self.expiry_date = None
-        self.issuance_date = None
-        self.birth_place = None
-        self.gender = None
-        self.surname = None
-        self.mrz1 = None
-        self.mrz2 = None
-        self.given_names = []
-        self.mrz = None
-        self.full_name = None
+        # Invoke Document constructor
+        super().__init__(
+            input_file=input_file,
+            document_type=document_type,
+            api_prediction=api_prediction,
+            page_n=page_n,
+        )
 
         if api_prediction is not None:
-            self.build_from_api_prediction(api_prediction)
+            self.build_from_api_prediction(api_prediction, page_n=page_n)
         else:
             self.country = Field({"value": country}, value_key="value", page_n=page_n)
             self.id_number = Field(
@@ -92,14 +102,27 @@ class Passport(Document):
                 {"value": full_name}, value_key="value", page_n=page_n
             )
 
-        # Invoke Document constructor
-        super(Passport, self).__init__(input_file)
-
         # Run checks
         self._checklist()
 
         # Reconstruct extra fields
         self._reconstruct()
+
+    @staticmethod
+    def get_document_config() -> DocumentConfig:
+        """:return: the configuration for passport"""
+        return DocumentConfig(
+            {
+                "constructor": Passport,
+                "endpoints": [
+                    Endpoint(owner="mindee", url_name="passport", version="1")
+                ],
+                "document_type": "passport",
+                "singular_name": "passport",
+                "plural_name": "passports",
+            },
+            api_type=API_TYPE_OFF_THE_SHELF,
+        )
 
     def build_from_api_prediction(self, api_prediction, page_n=0):
         """
@@ -163,25 +186,6 @@ class Passport(Document):
             )
         )
 
-    @staticmethod
-    def compare(passport=None, ground_truth=None):
-        """
-        :param passport: Passport object to compare
-        :param ground_truth: Ground truth Passport object
-        :return: Accuracy and precisions metrics
-        """
-        assert passport is not None
-        assert ground_truth is not None
-        assert isinstance(passport, Passport)
-        assert isinstance(ground_truth, Passport)
-
-        metrics = {}
-
-        # Compute Accuracy metrics
-        metrics.update(Passport.compute_accuracy(passport, ground_truth))
-
-        return metrics
-
     def is_expired(self):
         """
         :return: True if the passport is expired, False otherwise
@@ -189,12 +193,20 @@ class Passport(Document):
         return self.expiry_date.date_object < datetime.date(datetime.now())
 
     @staticmethod
-    def request(input_file, passport_token, version="1"):
+    def request(endpoints: List[Endpoint], input_file, include_words=False):
         """
-        Make request to passport endpoint
+        Make request to expense_receipts endpoint
+        :param input_file: Input object
+        :param endpoints: Endpoints config
+        :param include_words: Include Mindee vision words in http_response
         """
-        url = make_predict_url("passport", version)
-        return make_api_request(url, input_file, passport_token)
+        if include_words:
+            raise Exception(
+                "invlude_words parameter cannot be set to True for passport API"
+            )
+        return make_api_request(
+            endpoints[0].predict_url, input_file, endpoints[0].api_key, include_words
+        )
 
     def _reconstruct(self):
         """
@@ -229,37 +241,40 @@ class Passport(Document):
             and self.__mrz_last_name_checksum()
         )
 
-    def __mrz_id_number_checksum(self):
+    def __mrz_id_number_checksum(self) -> bool:
         """
         :return: True if id number MRZ checksum is validated, False otherwise
         """
         if self.mrz2.value is None:
             return False
         if Passport.check_sum(self.mrz2.value[:9]) == self.mrz2.value[9]:
-            self.id_number.probability = 1.0
+            self.id_number.confidence = 1.0
             return True
+        return False
 
-    def __mrz_date_of_birth_checksum(self):
+    def __mrz_date_of_birth_checksum(self) -> bool:
         """
         :return: True if date of birth MRZ checksum is validated, False otherwise
         """
         if self.mrz2.value is None:
             return False
         if Passport.check_sum(self.mrz2.value[13:19]) == self.mrz2.value[19]:
-            self.birth_date.probability = 1.0
+            self.birth_date.confidence = 1.0
             return True
+        return False
 
-    def __mrz_expiration_date_checksum(self):
+    def __mrz_expiration_date_checksum(self) -> bool:
         """
         :return: True if expiry date MRZ checksum is validated, False otherwise
         """
         if self.mrz2.value is None:
             return False
         if Passport.check_sum(self.mrz2.value[21:27]) == self.mrz2.value[27]:
-            self.expiry_date.probability = 1.0
+            self.expiry_date.confidence = 1.0
             return True
+        return False
 
-    def __mrz_personal_number_checksum(self):
+    def __mrz_personal_number_checksum(self) -> bool:
         """
         :return: True if personal number MRZ checksum is validated, False otherwise
         """
@@ -269,7 +284,7 @@ class Passport(Document):
 
     def __mrz_last_name_checksum(self):
         """
-        :return: True if last name MRZ checksum is validated, False otherwise
+        :return: True if last url_name MRZ checksum is validated, False otherwise
         """
         if self.mrz2.value is None:
             return False
@@ -279,8 +294,9 @@ class Passport(Document):
             )
             == self.mrz2.value[43]
         ):
-            self.surname.probability = 1.0
+            self.surname.confidence = 1.0
             return True
+        return False
 
     @staticmethod
     def check_sum(to_check: str) -> str:
@@ -313,7 +329,7 @@ class Passport(Document):
         """
         Set self.mrz with Field object
         The mrz Field value is the concatenation of mrz1 and mr2
-        The mrz Field probability is the product of mrz1 and mrz2 probabilities
+        The mrz Field confidence is the product of mrz1 and mrz2 probabilities
         """
         if (
             self.mrz1.value is not None
@@ -322,8 +338,8 @@ class Passport(Document):
         ):
             mrz = {
                 "value": self.mrz1.value + self.mrz2.value,
-                "confidence": Field.array_probability(
-                    [self.mrz1.probability, self.mrz2.probability]
+                "confidence": Field.array_confidence(
+                    [self.mrz1.confidence, self.mrz2.confidence]
                 ),
             }
             self.mrz = Field(mrz, reconstructed=True)
@@ -331,8 +347,8 @@ class Passport(Document):
     def __reconstruct_full_name(self):
         """
         Set self.full_name with Field object
-        The full_name Field value is the concatenation of first given name and last name
-        The full_name Field probability is the product of first given name and last name probabilities
+        The full_name Field value is the concatenation of first given url_name and last url_name
+        The full_name Field confidence is the product of first given url_name and last url_name probabilities
         """
         if (
             self.surname.value is not None
@@ -342,33 +358,8 @@ class Passport(Document):
         ):
             full_name = {
                 "value": self.given_names[0].value + " " + self.surname.value,
-                "confidence": Field.array_probability(
-                    [self.surname.probability, self.given_names[0].probability]
+                "confidence": Field.array_confidence(
+                    [self.surname.confidence, self.given_names[0].confidence]
                 ),
             }
             self.full_name = Field(full_name, reconstructed=True)
-
-    @staticmethod
-    def compute_accuracy(passport, ground_truth):
-        """
-        :param passport: Passport object to compare
-        :param ground_truth: Ground truth Passport object
-        :return: Accuracy metrics
-        """
-        return {
-            "__acc__country": ground_truth.country == passport.country,
-            "__acc__id_number": ground_truth.id_number == passport.id_number,
-            "__acc__birth_date": ground_truth.birth_date == passport.birth_date,
-            "__acc__expiry_date": ground_truth.expiry_date == passport.expiry_date,
-            "__acc__issuance_date": ground_truth.issuance_date
-            == passport.issuance_date,
-            "__acc__gender": ground_truth.gender == passport.gender,
-            "__acc__surname": ground_truth.surname == passport.surname,
-            "__acc__mrz1": ground_truth.mrz1 == passport.mrz1,
-            "__acc__mrz2": ground_truth.mrz2 == passport.mrz2,
-            "__acc__given_names": Field.compare_arrays(
-                passport.given_names, ground_truth.given_names
-            ),
-            "__acc__mrz": ground_truth.mrz == passport.mrz,
-            "__acc__full_name": ground_truth.full_name == passport.full_name,
-        }

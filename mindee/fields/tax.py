@@ -1,7 +1,12 @@
+from typing import Optional
+
 from mindee.fields import Field
 
 
 class Tax(Field):
+    rate: Optional[float]
+    code: Optional[str]
+
     def __init__(
         self,
         tax_prediction,
@@ -19,7 +24,7 @@ class Tax(Field):
         :param reconstructed: Bool for reconstructed object (not extracted in the API)
         :param page_n: Page number for multi pages pdf
         """
-        super(Tax, self).__init__(
+        super().__init__(
             tax_prediction,
             value_key=value_key,
             reconstructed=reconstructed,
@@ -28,21 +33,22 @@ class Tax(Field):
 
         try:
             self.rate = float(tax_prediction[rate_key])
-        except:
+        except (ValueError, TypeError, KeyError):
             self.rate = None
 
         try:
             self.code = str(tax_prediction[code_key])
             if self.code == "N/A":
                 self.code = None
-        except:
+        except (TypeError, KeyError):
             self.code = None
 
         try:
             self.value = float(tax_prediction[value_key])
-        except:
+        except (ValueError, TypeError, KeyError):
             self.value = None
-            self.probability = 0.0
+            self.confidence = 0.0
+            self.bbox = []
 
     def __str__(self):
         tax_str = ""

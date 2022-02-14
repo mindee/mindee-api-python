@@ -1,7 +1,9 @@
-from mindee.fields import Field
+from mindee.fields.base import Field
 
 
 class Orientation(Field):
+    value: int
+
     def __init__(
         self,
         orientation_prediction,
@@ -15,7 +17,7 @@ class Orientation(Field):
         :param reconstructed: Bool for reconstructed object (not extracted in the API)
         :param page_n: Page number for multi pages pdf
         """
-        super(Orientation, self).__init__(
+        super().__init__(
             orientation_prediction,
             value_key=value_key,
             reconstructed=reconstructed,
@@ -26,6 +28,7 @@ class Orientation(Field):
             self.value = int(orientation_prediction[value_key])
             if self.value not in [0, 90, 180, 270]:
                 self.value = 0
-        except:
+        except (TypeError, ValueError, KeyError):
             self.value = 0
-            self.probability = 0.0
+            self.confidence = 0.0
+            self.bbox = []

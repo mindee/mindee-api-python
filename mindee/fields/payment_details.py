@@ -1,7 +1,13 @@
-from mindee.fields import Field
+from typing import Optional
+from mindee.fields.base import Field
 
 
 class PaymentDetails(Field):
+    account_number: Optional[str] = None
+    iban: Optional[str] = None
+    routing_number: Optional[str] = None
+    swift: Optional[str] = None
+
     def __init__(
         self,
         payment_details_prediction,
@@ -23,48 +29,43 @@ class PaymentDetails(Field):
         :param reconstructed: Bool for reconstructed object (not extracted in the API)
         :param page_n: Page number for multi pages pdf
         """
-        super(PaymentDetails, self).__init__(
+        super().__init__(
             payment_details_prediction,
             value_key=value_key,
             reconstructed=reconstructed,
             page_n=page_n,
         )
 
-        self.account_number_key = None
-        self.iban_key = None
-        self.routing_number_key = None
-        self.swift_key = None
-
         try:
-            assert type(payment_details_prediction[account_number_key]) == str
+            assert isinstance(payment_details_prediction[account_number_key], str)
             self.account_number = str(payment_details_prediction[account_number_key])
             if self.account_number == "N/A":
                 self.account_number = None
-        except:
+        except (KeyError, AssertionError):
             self.account_number = None
 
         try:
-            assert type(payment_details_prediction[iban_key]) == str
+            assert isinstance(payment_details_prediction[iban_key], str)
             self.iban = str(payment_details_prediction[iban_key])
             if self.iban == "N/A":
                 self.iban = None
-        except:
+        except (KeyError, AssertionError):
             self.iban = None
 
         try:
-            assert type(payment_details_prediction[routing_number_key]) == str
+            assert isinstance(payment_details_prediction[routing_number_key], str)
             self.routing_number = str(payment_details_prediction[routing_number_key])
             if self.routing_number == "N/A":
                 self.routing_number = None
-        except:
+        except (KeyError, AssertionError):
             self.routing_number = None
 
         try:
-            assert type(payment_details_prediction[swift_key]) == str
+            assert isinstance(payment_details_prediction[swift_key], str)
             self.swift = str(payment_details_prediction[swift_key])
             if self.swift == "N/A":
                 self.swift = None
-        except:
+        except (KeyError, AssertionError):
             self.swift = None
 
     def __str__(self):

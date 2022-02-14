@@ -9,28 +9,20 @@ ignore_missing_imports = true
 
 [tool.pylint.'MESSAGES CONTROL']
 disable=[
+  'too-few-public-methods',
   'line-too-long',
-  'bare-except',
   'consider-using-set-comprehension',
   'missing-class-docstring',
   'missing-module-docstring',
-  'super-with-arguments',
-  'no-else-return',
   'too-many-instance-attributes',
   'too-many-locals',
   'too-many-arguments',
   'duplicate-code',
-  'unidiomatic-typecheck',
   'arguments-differ',
-  'inconsistent-return-statements',
   'super-init-not-called',
-  'raise-missing-from',
   'consider-iterating-dictionary',
   'unspecified-encoding',
-  'use-implicit-booleaness-not-len',
-  'unnecessary-pass',
   'consider-using-f-string',
-  'consider-using-with',
 ]
 
 [tool.pylic]

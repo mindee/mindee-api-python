@@ -1,13 +1,14 @@
 #
-# Run lint check and static code analysis.
+# Run static code analysis.
 #
-name: Lint
+name: Static Analysis
 
 on:
   - push
 
 jobs:
-  build:
+  static-check:
+    name: Run Static Analysis
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -24,7 +25,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: ~/.cache/pip
-        key: ${{ runner.os }}-dev-${{ hashFiles('**/requirements.txt') }}
+        key: ${{ runner.os }}-dev-${{ hashFiles('**/setup.py') }}
         restore-keys: |
           ${{ runner.os }}-dev-
 

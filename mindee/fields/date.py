@@ -1,12 +1,15 @@
-import datetime
+from typing import Optional
+from datetime import datetime, date
 import pytz
-from mindee.fields import Field
+from mindee.fields.base import Field
 
 ISO8601_DATE_FORMAT = "%Y-%m-%d"
 ISO8601_DATETIME_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
 
 
 class Date(Field):
+    date_object: Optional[date]
+
     def __init__(
         self, date_prediction, value_key="iso", reconstructed=False, page_n=None
     ):
@@ -16,7 +19,7 @@ class Date(Field):
         :param reconstructed: Bool for reconstructed object (not extracted in the API)
         :param page_n: Page number for multi pages pdf
         """
-        super(Date, self).__init__(
+        super().__init__(
             date_prediction,
             value_key=value_key,
             reconstructed=reconstructed,
@@ -25,11 +28,12 @@ class Date(Field):
 
         try:
             self.date_object = (
-                datetime.datetime.strptime(self.value, ISO8601_DATE_FORMAT)
+                datetime.strptime(self.value, ISO8601_DATE_FORMAT)
                 .replace(tzinfo=pytz.utc)
                 .date()
             )
-        except:
+        except (TypeError, ValueError):
             self.date_object = None
-            self.probability = 0.0
+            self.confidence = 0.0
             self.value = None
+            self.bbox = []

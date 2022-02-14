@@ -16,26 +16,26 @@ GIT_URL = "https://github.com/publicMindee/mindee-api-python"
 
 
 requirements = [
-    "pikepdf==4.3.1",
+    "pikepdf==4.4.1",
     "pytz==2021.3",
     "requests==2.25.1",
 ]
 
 test_requirements = [
     "pytest==6.2.5",
-    "pytest-cov==2.11.1",
+    "pytest-cov==2.12.1",
 ]
 
 dev_requirements = [
-    "black==21.12b0",
+    "black==22.1.0",
     "mypy==0.931",
     "pip-tools==6.4.0",
     "pylint==2.12.2",
-    "setuptools==49.2.0",
+    "setuptools==49.6.0",
 ]
 
 setup(
-    python_requires=">=3.6",
+    python_requires=">=3.7",
     name=PACKAGE_NAME,
     description="Mindee API helper library for Python",
     version=__version__,
@@ -54,6 +54,10 @@ setup(
     package_data={"mindee": ["version"]},
     classifiers=[
         "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
         "Operating System :: OS Independent",
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",

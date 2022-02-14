@@ -1,4 +1,4 @@
-from mindee.fields import Field
+from mindee.fields.base import Field
 
 
 class Amount(Field):
@@ -11,7 +11,7 @@ class Amount(Field):
         :param reconstructed: Bool for reconstructed object (not extracted in the API)
         :param page_n: Page number for multi pages pdf
         """
-        super(Amount, self).__init__(
+        super().__init__(
             amount_prediction,
             value_key=value_key,
             reconstructed=reconstructed,
@@ -20,6 +20,6 @@ class Amount(Field):
 
         try:
             self.value = round(float(amount_prediction[value_key]), 3)
-        except:
+        except (ValueError, TypeError, KeyError):
             self.value = None
-            self.probability = 0.0
+            self.confidence = 0.0

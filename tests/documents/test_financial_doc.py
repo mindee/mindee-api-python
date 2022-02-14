@@ -1,6 +1,6 @@
 import json
 import pytest
-from mindee import FinancialDocument
+from mindee.documents.financial_document import FinancialDocument
 
 
 @pytest.fixture
@@ -133,7 +133,7 @@ def test__receipt_reconstruct_total_excl_from_total_and_taxes_3(receipt_pred):
         {"rate": 10, "value": 4.25, "confidence": 0.6},
     ]
     financial_doc = FinancialDocument(receipt_pred)
-    assert financial_doc.total_excl.probability == 0.03
+    assert financial_doc.total_excl.confidence == 0.03
     assert financial_doc.total_excl.value == 7.79
 
 
@@ -152,7 +152,7 @@ def test__receipt_reconstruct_total_tax_2(receipt_pred):
     ]
     financial_doc = FinancialDocument(receipt_pred)
     assert financial_doc.total_tax.value == 50.2
-    assert financial_doc.total_tax.probability == 0.05
+    assert financial_doc.total_tax.confidence == 0.05
 
 
 def test__receipt_taxes_match_total_incl_1(receipt_pred):
@@ -164,9 +164,9 @@ def test__receipt_taxes_match_total_incl_1(receipt_pred):
     ]
     financial_doc = FinancialDocument(receipt_pred)
     assert financial_doc.checklist["taxes_match_total_incl"] is True
-    assert financial_doc.total_incl.probability == 1.0
+    assert financial_doc.total_incl.confidence == 1.0
     for tax in financial_doc.taxes:
-        assert tax.probability == 1.0
+        assert tax.confidence == 1.0
 
 
 def test__receipt_taxes_match_total_incl_2(receipt_pred):
@@ -213,7 +213,7 @@ def test__invoice_reconstruct_total_excl_from_total_and_taxes_3(invoice_pred):
         {"rate": 10, "value": 4.25, "confidence": 0.6},
     ]
     financial_doc = FinancialDocument(invoice_pred)
-    assert financial_doc.total_excl.probability == 0.03
+    assert financial_doc.total_excl.confidence == 0.03
     assert financial_doc.total_excl.value == 7.79
 
 
@@ -232,7 +232,7 @@ def test__invoice_reconstruct_total_tax_2(invoice_pred):
     ]
     financial_doc = FinancialDocument(invoice_pred)
     assert financial_doc.total_tax.value == 50.2
-    assert financial_doc.total_tax.probability == 0.05
+    assert financial_doc.total_tax.confidence == 0.05
 
 
 def test__invoice_taxes_match_total_incl_1(invoice_pred):
@@ -244,9 +244,9 @@ def test__invoice_taxes_match_total_incl_1(invoice_pred):
     ]
     financial_doc = FinancialDocument(invoice_pred)
     assert financial_doc.checklist["taxes_match_total_incl"] is True
-    assert financial_doc.total_incl.probability == 1.0
+    assert financial_doc.total_incl.confidence == 1.0
     for tax in financial_doc.taxes:
-        assert tax.probability == 1.0
+        assert tax.confidence == 1.0
 
 
 def test__invoice_taxes_match_total_incl_2(invoice_pred):
@@ -274,49 +274,6 @@ def test__shouldnt_raise_when_tax_rate_none(invoice_pred):
     invoice_pred["taxes"] = [{"rate": "N/A", "value": 0.0, "confidence": 0.5}]
     financial_doc = FinancialDocument(invoice_pred)
     assert financial_doc.checklist["taxes_match_total_incl"] is False
-
-
-def test_compare_1(financial_doc_from_invoice_object):
-    # Compare same object must return all True
-    benchmark = FinancialDocument.compare(
-        financial_doc_from_invoice_object, financial_doc_from_invoice_object
-    )
-    for value in benchmark.values():
-        assert value is True
-
-
-def test_compare_2(
-    financial_doc_from_invoice_object, financial_doc_from_invoice_object_all_na
-):
-    # Compare full object and empty object
-    benchmark = FinancialDocument.compare(
-        financial_doc_from_invoice_object, financial_doc_from_invoice_object_all_na
-    )
-    for key in set(benchmark.keys()) - {"time"}:
-        assert benchmark[key] is False
-
-
-def test_compare_3(financial_doc_object_from_scratch):
-    # Compare financial doc from class
-    benchmark = FinancialDocument.compare(
-        financial_doc_object_from_scratch, financial_doc_object_from_scratch
-    )
-    for key in benchmark.keys():
-        if "__acc__" in key:
-            assert benchmark[key] is True
-
-
-def test_compare_4(financial_doc_object_from_scratch):
-    # Compare financial doc from class with empty taxes
-    financial_doc_object_from_scratch.taxes = []
-    benchmark = FinancialDocument.compare(
-        financial_doc_object_from_scratch, financial_doc_object_from_scratch
-    )
-    for key in benchmark.keys():
-        if "__acc__" in key:
-            assert benchmark[key] is True
-        elif "__pre__" in key:
-            assert benchmark[key] in [True, None]
 
 
 def test_empty_object_works():

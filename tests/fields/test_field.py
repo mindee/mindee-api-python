@@ -9,7 +9,7 @@ def test_constructor():
     }
     field = Field(field_dict)
     assert field.value == "test"
-    assert field.probability == 0.1
+    assert field.confidence == 0.1
     assert len(field.bbox) > 0
 
 
@@ -39,7 +39,7 @@ def test_no_probability():
         "value": "N/A",
     }
     field = Field(field_dict)
-    assert field.probability == 0.0
+    assert field.confidence == 0.0
 
 
 def test_array_probability():
@@ -47,12 +47,12 @@ def test_array_probability():
         Field({"value": None, "confidence": 0.1}),
         Field({"value": None, "confidence": 0.8}),
     ]
-    assert Field.array_probability(fields) == 0.8 * 0.1
+    assert Field.array_confidence(fields) == 0.8 * 0.1
     fields = [
         Field({"value": None, "confidence": 0.1}),
         Field({"value": None, "confidence": None}),
     ]
-    assert Field.array_probability(fields) == 0.0
+    assert Field.array_confidence(fields) == 0.0
 
 
 def test_array_sum():

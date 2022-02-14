@@ -1,4 +1,4 @@
-from mindee.fields import Field
+from mindee.fields.base import Field
 
 
 class Locale(Field):
@@ -11,7 +11,7 @@ class Locale(Field):
         :param reconstructed: Bool for reconstructed object (not extracted in the API)
         :param page_n: Page number for multi pages pdf
         """
-        super(Locale, self).__init__(
+        super().__init__(
             locale_prediction,
             value_key=value_key,
             reconstructed=reconstructed,

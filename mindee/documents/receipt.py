@@ -1,14 +1,29 @@
-from mindee.documents import Document
+from typing import Optional, List
+
+from mindee.documents.base import Document
 from mindee.fields import Field
 from mindee.fields.date import Date
 from mindee.fields.amount import Amount
 from mindee.fields.locale import Locale
 from mindee.fields.orientation import Orientation
 from mindee.fields.tax import Tax
-from mindee.http import make_api_request, make_predict_url
+from mindee.http import make_api_request, API_TYPE_OFF_THE_SHELF, Endpoint
+from mindee.document_config import DocumentConfig
 
 
 class Receipt(Document):
+    locale: Locale
+    total_incl: Amount
+    date: Date
+    category: Field
+    merchant_name: Field
+    time: Field
+    taxes: List[Tax] = []
+    total_tax: Amount
+    total_excl: Amount
+    # orientation is only present on page-level, not document-level
+    orientation: Optional[Orientation] = None
+
     def __init__(
         self,
         api_prediction=None,
@@ -24,6 +39,7 @@ class Receipt(Document):
         total_tax=None,
         total_excl=None,
         page_n=0,
+        document_type="receipt",
     ):
         """
         :param api_prediction: Raw prediction from HTTP response
@@ -40,17 +56,13 @@ class Receipt(Document):
         :param total_excl: total_excl value for creating Receipt object from scratch
         :param page_n: Page number for multi pages pdf input
         """
-        self.type = "Receipt"
-        self.locale = None
-        self.total_incl = None
-        self.date = None
-        self.category = None
-        self.merchant_name = None
-        self.time = None
-        self.taxes = []
-        self.orientation = None
-        self.total_tax = None
-        self.total_excl = None
+        # Invoke Document constructor
+        super().__init__(
+            input_file=input_file,
+            document_type=document_type,
+            api_prediction=api_prediction,
+            page_n=page_n,
+        )
 
         if api_prediction is not None:
             self.build_from_api_prediction(api_prediction, page_n=page_n)
@@ -65,7 +77,7 @@ class Receipt(Document):
                 {"value": merchant_name}, value_key="value", page_n=page_n
             )
             self.time = Field({"value": time}, value_key="value", page_n=page_n)
-            if taxes is not None:
+            if taxes:
                 self.taxes = [
                     Tax(
                         {"value": t[0], "rate": t[1]},
@@ -85,20 +97,39 @@ class Receipt(Document):
                 {"value": total_excl}, value_key="value", page_n=page_n
             )
 
-        # Invoke Document constructor
-        super(Receipt, self).__init__(input_file)
-
         # Run checks
         self._checklist()
 
         # Reconstruct extra fields
         self._reconstruct()
 
+    @staticmethod
+    def get_document_config() -> DocumentConfig:
+        """:return: the configuration for receipt"""
+        return DocumentConfig(
+            {
+                "constructor": Receipt,
+                "endpoints": [
+                    Endpoint(
+                        owner="mindee",
+                        url_name="expense_receipts",
+                        version="3",
+                        key_name="receipt",
+                    )
+                ],
+                "document_type": "receipt",
+                "singular_name": "receipt",
+                "plural_name": "receipts",
+            },
+            api_type=API_TYPE_OFF_THE_SHELF,
+        )
+
     def __str__(self) -> str:
         return (
             "-----Receipt data-----\n"
             "Filename: %s\n"
-            "Total amount: %s \n"
+            "Total amount including taxes: %s \n"
+            "Total amount excluding taxes: %s \n"
             "Date: %s\n"
             "Category: %s\n"
             "Time: %s\n"
@@ -109,6 +140,7 @@ class Receipt(Document):
             % (
                 self.filename,
                 self.total_incl.value,
+                self.total_excl.value,
                 self.date.value,
                 self.category.value,
                 self.time.value,
@@ -154,40 +186,16 @@ class Receipt(Document):
         )
 
     @staticmethod
-    def compare(receipt=None, ground_truth=None):
-        """
-        :param receipt: Receipt object to compare
-        :param ground_truth: Ground truth Receipt object
-        :return: Accuracy and precisions metrics
-        """
-        assert receipt is not None
-        assert ground_truth is not None
-        assert isinstance(receipt, Receipt)
-        assert isinstance(ground_truth, Receipt)
-
-        metrics = {}
-
-        # Compute Accuracy metrics
-        metrics.update(Receipt.compute_accuracy(receipt, ground_truth))
-
-        return metrics
-
-    @staticmethod
-    def request(
-        input_file,
-        expense_receipt_token,
-        version="3",
-        include_words=False,
-    ):
+    def request(endpoints: List[Endpoint], input_file, include_words=False):
         """
         Make request to expense_receipts endpoint
         :param input_file: Input object
-        :param expense_receipt_token: Expense_receipts API token
+        :param endpoints: Endpoints config
         :param include_words: Include Mindee vision words in http_response
-        :param version: API version
         """
-        url = make_predict_url("expense_receipts", version)
-        return make_api_request(url, input_file, expense_receipt_token, include_words)
+        return make_api_request(
+            endpoints[0].predict_url, input_file, endpoints[0].api_key, include_words
+        )
 
     def _checklist(self):
         """
@@ -203,7 +211,7 @@ class Receipt(Document):
         self.__reconstruct_total_tax()
 
     # Checks
-    def __taxes_match_total(self):
+    def __taxes_match_total(self) -> bool:
         """
         Check receipt rule of matching between taxes and total_incl
         :return: True if rule matches, False otherwise
@@ -227,32 +235,30 @@ class Receipt(Document):
 
         # Crate epsilon
         eps = 1 / (100 * total_vat)
-
         if (
             self.total_incl.value * (1 - eps) - 0.02
             <= reconstructed_total
             <= self.total_incl.value * (1 + eps) + 0.02
         ):
             for tax in self.taxes:
-                tax.probability = 1
-            self.total_tax.probability = 1.0
-            self.total_incl.probability = 1.0
+                tax.confidence = 1.0
+            self.total_tax.confidence = 1.0
+            self.total_incl.confidence = 1.0
             return True
-        else:
-            return False
+        return False
 
     # Reconstruct
     def __reconstruct_total_excl_from_tcc_and_taxes(self):
         """
         Set self.total_excl with Amount object
         The total_excl Amount value is the difference between total_incl and sum of taxes
-        The total_excl Amount probability is the product of self.taxes probabilities multiplied by total_incl probability
+        The total_excl Amount confidence is the product of self.taxes probabilities multiplied by total_incl confidence
         """
-        if len(self.taxes) and self.total_incl.value is not None:
+        if self.taxes and self.total_incl.value is not None:
             total_excl = {
                 "value": self.total_incl.value - Field.array_sum(self.taxes),
-                "confidence": Field.array_probability(self.taxes)
-                * self.total_incl.probability,
+                "confidence": Field.array_confidence(self.taxes)
+                * self.total_incl.confidence,
             }
             self.total_excl = Amount(total_excl, value_key="value", reconstructed=True)
 
@@ -260,31 +266,16 @@ class Receipt(Document):
         """
         Set self.total_tax with Amount object
         The total_tax Amount value is the sum of all self.taxes value
-        The total_tax Amount probability is the product of self.taxes probabilities
+        The total_tax Amount confidence is the product of self.taxes probabilities
         """
-        if len(self.taxes) and self.total_tax.value is None:
+        if self.taxes and self.total_tax.value is None:
             total_tax = {
                 "value": sum(
                     [tax.value if tax.value is not None else 0 for tax in self.taxes]
                 ),
-                "confidence": Field.array_probability(self.taxes),
+                "confidence": Field.array_confidence(self.taxes),
             }
             if total_tax["value"] > 0:
                 self.total_tax = Amount(
                     total_tax, value_key="value", reconstructed=True
                 )
-
-    @staticmethod
-    def compute_accuracy(receipt, ground_truth):
-        """
-        :param receipt: Receipt object to compare
-        :param ground_truth: Ground truth Receipt object
-        :return: Accuracy metrics
-        """
-        return {
-            "__acc__total_incl": ground_truth.total_incl == receipt.total_incl,
-            "__acc__total_excl": ground_truth.total_excl == receipt.total_excl,
-            "__acc__receipt_date": ground_truth.date == receipt.date,
-            "__acc__total_tax": ground_truth.total_tax == receipt.total_tax,
-            "__acc__taxes": Tax.compare_arrays(receipt.taxes, ground_truth.taxes),
-        }
