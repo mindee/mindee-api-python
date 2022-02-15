@@ -1,5 +1,4 @@
 import os
-import re
 from setuptools import find_packages, setup
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -8,11 +7,6 @@ with open(os.path.join(dir_path, "mindee", "version"), "r") as version_file:
 
 with open("README.md", "r", newline="", encoding="utf-8") as fh:
     long_description = fh.read()
-
-
-APP_NAME = "mindee"
-PACKAGE_NAME = "mindee"
-GIT_URL = "https://github.com/publicMindee/mindee-api-python"
 
 
 requirements = [
@@ -36,12 +30,12 @@ dev_requirements = [
 
 setup(
     python_requires=">=3.7",
-    name=PACKAGE_NAME,
+    name="mindee",
     description="Mindee API helper library for Python",
     version=__version__,
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url=GIT_URL,
+    url="https://github.com/publicMindee/mindee-api-python",
     packages=find_packages(),
     author="Mindee",
     author_email="devrel@mindee.com",
