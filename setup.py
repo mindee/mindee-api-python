@@ -35,7 +35,7 @@ setup(
     version=__version__,
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/publicMindee/mindee-api-python",
+    url="https://mindee.com/",
     packages=find_packages(),
     author="Mindee",
     author_email="devrel@mindee.com",
@@ -58,4 +58,8 @@ setup(
         "Topic :: Software Development :: Libraries",
         "License :: OSI Approved :: MIT License",
     ],
+    project_urls={
+        "Documentation": "https://developers.mindee.com/docs/python-sdk",
+        "Source": "https://github.com/publicMindee/mindee-api-python",
+    },
 )
