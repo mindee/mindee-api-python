@@ -1,5 +1,15 @@
 # Mindee Python API Helper Changelog
 
+## v2.0.1 (2022-02-15)
+
+### Fixes
+* :bug: fix for invoice to string
+* :bug: fix for counting empty PDF pages
+
+### Changes
+* :arrow_up: Update PikePDF to 4.5.0
+* :arrow_up: Update Pillow to 9.0.1 (security fix)
+
 ## v2.0.0 (2022-02-14)
 
 ### New Features
