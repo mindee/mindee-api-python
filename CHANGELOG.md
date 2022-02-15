@@ -1,4 +1,4 @@
-# Mindee python SDK
+# Mindee Python API Helper Changelog
 
 ## v2.0.0 (2022-02-14)
 
@@ -6,7 +6,8 @@
 * :sparkles: Allow using custom documents (API builder)
 
 ### :boom: Breaking Changes
-* :recycle: `confidence` renamed to `probability` in the return fields to match API return
+* :recycle: `probability` renamed to `confidence` in the return fields to match
+  API return
 * :recycle: `Client` initialization reworked to be more extensible
 * :recycle: Document loading and parsing reworked to separate arguments
 
