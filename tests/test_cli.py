@@ -19,6 +19,7 @@ def custom_doc(monkeypatch):
         cut_pdf=True,
         input_type="path",
         output_type="summary",
+        include_words=False,
         path="./tests/data/license_plates/plate.png",
     )
 
@@ -34,6 +35,7 @@ def invoice_doc(monkeypatch):
         cut_pdf=True,
         input_type="path",
         output_type="summary",
+        include_words=False,
         path="./tests/data/invoices/invoice.pdf",
     )
 
