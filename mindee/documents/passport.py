@@ -150,40 +150,27 @@ class Passport(Document):
         self.full_name = Field({"value": None, "confidence": 0.0}, page_n=page_n)
 
     def __str__(self) -> str:
+        given_names = " ".join(
+            [
+                given_name.value if given_name.value is not None else ""
+                for given_name in self.given_names
+            ]
+        )
         return (
             "-----Passport data-----\n"
-            "Filename: %s \n"
-            "Full name: %s \n"
-            "Given names: %s \n"
-            "Surname: %s\n"
-            "Country: %s\n"
-            "ID Number: %s\n"
-            "Issuance date: %s\n"
-            "Birth date: %s\n"
-            "Expiry date: %s\n"
-            "MRZ 1: %s\n"
-            "MRZ 2: %s\n"
-            "MRZ: %s\n"
+            f"Filename: {self.filename}\n"
+            f"Full name: {self.full_name.value}\n"
+            f"Given names: {given_names}\n"
+            f"Surname: {self.surname.value}\n"
+            f"Country: {self.country.value}\n"
+            f"ID Number: {self.id_number.value}\n"
+            f"Issuance date: {self.issuance_date.value}\n"
+            f"Birth date: {self.birth_date.value}\n"
+            f"Expiry date: {self.expiry_date.value}\n"
+            f"MRZ 1: {self.mrz1.value}\n"
+            f"MRZ 2: {self.mrz2.value}\n"
+            f"MRZ: {self.mrz.value}\n"
             "----------------------"
-            % (
-                self.filename,
-                self.full_name.value,
-                " ".join(
-                    [
-                        given_name.value if given_name.value is not None else ""
-                        for given_name in self.given_names
-                    ]
-                ),
-                self.surname.value,
-                self.country.value,
-                self.id_number.value,
-                self.issuance_date.value,
-                self.birth_date.value,
-                self.expiry_date.value,
-                self.mrz1.value,
-                self.mrz2.value,
-                self.mrz.value,
-            )
         )
 
     def is_expired(self):

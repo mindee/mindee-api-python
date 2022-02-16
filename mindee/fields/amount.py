@@ -1,7 +1,10 @@
+from typing import Optional
 from mindee.fields.base import Field
 
 
 class Amount(Field):
+    value: Optional[float] = None
+
     def __init__(
         self, amount_prediction, value_key="amount", reconstructed=False, page_n=None
     ):

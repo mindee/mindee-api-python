@@ -1,4 +1,4 @@
-from typing import Optional, Any, List
+from typing import Optional, Any, List, Dict
 
 
 class Field:
@@ -8,8 +8,8 @@ class Field:
 
     def __init__(
         self,
-        abstract_prediction,
-        value_key="value",
+        abstract_prediction: Dict[str, Any],
+        value_key: str = "value",
         reconstructed=False,
         extra_fields=None,
         page_n=None,
