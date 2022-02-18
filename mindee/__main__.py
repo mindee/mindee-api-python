@@ -24,7 +24,7 @@ DOCUMENTS: Dict[str, dict] = {
     "financial": {
         "help": "Financial Document (receipt or invoice)",
         "required_keys": ["invoice", "receipt"],
-        "doc_type": "financial",
+        "doc_type": "financial_doc",
     },
     "custom": {
         "help": "Custom document type from API builder",
@@ -40,7 +40,7 @@ def _ots_client(args: Namespace, info: dict):
             kwargs["%s_api_key" % key] = getattr(args, "%s_api_key" % key)
     else:
         kwargs["api_key"] = getattr(args, "%s_api_key" % args.product_name)
-    func = getattr(client, f"config_{args.product_name}")
+    func = getattr(client, f"config_{info['doc_type']}")
     func(**kwargs)
     return client
 

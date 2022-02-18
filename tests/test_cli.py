@@ -9,7 +9,6 @@ from mindee.__main__ import call_endpoint
 @pytest.fixture
 def custom_doc(monkeypatch):
     clear_envvars(monkeypatch)
-
     return Namespace(
         product_name="custom",
         doc_type="license_plate",
@@ -25,12 +24,9 @@ def custom_doc(monkeypatch):
 
 
 @pytest.fixture
-def invoice_doc(monkeypatch):
+def ots_doc(monkeypatch):
     clear_envvars(monkeypatch)
-
     return Namespace(
-        product_name="invoice",
-        invoice_api_key="",
         raise_on_error=True,
         cut_pdf=True,
         input_type="path",
@@ -45,6 +41,30 @@ def test_cli_custom_doc(custom_doc):
         call_endpoint(custom_doc)
 
 
-def test_cli_invoice_doc(invoice_doc):
+def test_cli_invoice(ots_doc):
+    ots_doc.product_name = "invoice"
+    ots_doc.invoice_api_key = ""
     with pytest.raises(RuntimeError):
-        call_endpoint(invoice_doc)
+        call_endpoint(ots_doc)
+
+
+def test_cli_receipt(ots_doc):
+    ots_doc.product_name = "receipt"
+    ots_doc.receipt_api_key = ""
+    with pytest.raises(RuntimeError):
+        call_endpoint(ots_doc)
+
+
+def test_cli_financial_doc(ots_doc):
+    ots_doc.product_name = "financial"
+    ots_doc.invoice_api_key = ""
+    ots_doc.receipt_api_key = ""
+    with pytest.raises(RuntimeError):
+        call_endpoint(ots_doc)
+
+
+def test_cli_passport(ots_doc):
+    ots_doc.product_name = "passport"
+    ots_doc.passport_api_key = ""
+    with pytest.raises(RuntimeError):
+        call_endpoint(ots_doc)
