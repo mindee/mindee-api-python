@@ -22,7 +22,7 @@ def test_constructor():
     assert payment_detail.iban == "iban"
     assert payment_detail.routing_number == "routing_number"
     assert payment_detail.swift == "swift"
-    assert type(str(payment_detail)) == str
+    assert str(payment_detail) == "account_number; iban; routing_number; swift;"
 
 
 def test_constructor_all_na():

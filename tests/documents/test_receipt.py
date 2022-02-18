@@ -47,7 +47,21 @@ def test_constructor(receipt_object):
     assert receipt_object.date.value == "2016-02-26"
     assert receipt_object.total_tax.value == 1.7
     assert receipt_object.checklist["taxes_match_total_incl"] is True
-    assert type(receipt_object.__str__()) == str
+    assert (
+        str(receipt_object)
+        == """-----Receipt data-----
+Filename: None
+Total amount including taxes: 10.2
+Total amount excluding taxes: 8.5
+Date: 2016-02-26
+Category: food
+Time: 15:20
+Merchant name: CLACHAN
+Taxes: 1.7 20.0%
+Total taxes: 1.7
+Locale: en-GB; en; GB; GBP;
+----------------------"""
+    )
 
 
 def test_all_na(receipt_object_all_na):

@@ -1,7 +1,12 @@
+from typing import Optional
 from mindee.fields.base import Field
 
 
 class Locale(Field):
+    language: Optional[str] = None
+    country: Optional[str] = None
+    currency: Optional[str] = None
+
     def __init__(
         self, locale_prediction, value_key="value", reconstructed=False, page_n=None
     ):
@@ -17,27 +22,25 @@ class Locale(Field):
             reconstructed=reconstructed,
             page_n=page_n,
         )
+        self.language = self._get_value(locale_prediction, "language")
+        self.country = self._get_value(locale_prediction, "country")
+        self.currency = self._get_value(locale_prediction, "currency")
 
+    @staticmethod
+    def _get_value(locale_prediction, key: str):
         if (
-            "language" not in locale_prediction.keys()
+            key not in locale_prediction.keys()
             or locale_prediction["language"] == "N/A"
         ):
-            self.language = None
-        else:
-            self.language = locale_prediction["language"]
+            return None
+        return locale_prediction[key]
 
-        if (
-            "country" not in locale_prediction.keys()
-            or locale_prediction["country"] == "N/A"
-        ):
-            self.country = None
-        else:
-            self.country = locale_prediction["country"]
-
-        if (
-            "currency" not in locale_prediction.keys()
-            or locale_prediction["currency"] == "N/A"
-        ):
-            self.currency = None
-        else:
-            self.currency = locale_prediction["currency"]
+    def __str__(self) -> str:
+        output_str = f"{self.value}; "
+        if self.language is not None:
+            output_str += self.language + "; "
+        if self.country is not None:
+            output_str += self.country + "; "
+        if self.currency is not None:
+            output_str += self.currency + "; "
+        return output_str.strip()

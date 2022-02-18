@@ -14,6 +14,7 @@ def test_constructor():
     assert locale.language == "en"
     assert locale.country == "uk"
     assert locale.currency == "GBP"
+    assert str(locale) == "en-EN; en; uk; GBP;"
 
 
 def test_constructor_almost_empty_field():

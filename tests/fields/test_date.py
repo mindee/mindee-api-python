@@ -17,6 +17,7 @@ def test_constructor():
     }
     date = Date(field_dict)
     assert date.value == "2018-04-01"
+    assert isinstance(date.date_object, datetime.date)
 
 
 def test_constructor_no_date():

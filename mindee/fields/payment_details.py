@@ -68,18 +68,14 @@ class PaymentDetails(Field):
         except (KeyError, AssertionError):
             self.swift = None
 
-    def __str__(self):
-        payment_str = ""
+    def __str__(self) -> str:
+        output_str = ""
         if self.account_number is not None:
-            payment_str += str(self.account_number) + "; "
-
+            output_str += str(self.account_number) + "; "
         if self.iban is not None:
-            payment_str += str(self.iban) + "; "
-
+            output_str += str(self.iban) + "; "
         if self.routing_number is not None:
-            payment_str += str(self.routing_number) + "; "
-
+            output_str += str(self.routing_number) + "; "
         if self.swift is not None:
-            payment_str += str(self.swift) + "; "
-
-        return payment_str
+            output_str += str(self.swift) + "; "
+        return output_str.strip()

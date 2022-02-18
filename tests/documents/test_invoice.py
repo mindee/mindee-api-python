@@ -51,7 +51,23 @@ def test_constructor(invoice_object):
     assert invoice_object.invoice_date.confidence == 0.97
     assert invoice_object.invoice_number.value == "0042004801351"
     assert invoice_object.invoice_number.confidence == 0.95
-    assert isinstance(invoice_object.__str__(), str)
+    assert (
+        str(invoice_object)
+        == """-----Invoice data-----
+Filename: None
+Invoice number: 0042004801351
+Total amount including taxes: 587.95
+Total amount excluding taxes: 489.97
+Invoice date: 2020-02-17
+Invoice due date: 2020-02-17
+Supplier name: 1
+Payment details: 
+Company numbers: 501124705; FR33501124705
+Taxes: 97.98 20.0%
+Total taxes: 97.98
+Locale: fr; fr; EUR;
+----------------------"""
+    )
 
 
 def test_all_na(invoice_object_all_na):

@@ -125,29 +125,20 @@ class Receipt(Document):
         )
 
     def __str__(self) -> str:
+        taxes = ", ".join([f"{t.value} {t.rate}%" for t in self.taxes])
         return (
             "-----Receipt data-----\n"
-            "Filename: %s\n"
-            "Total amount including taxes: %s \n"
-            "Total amount excluding taxes: %s \n"
-            "Date: %s\n"
-            "Category: %s\n"
-            "Time: %s\n"
-            "Merchant name: %s\n"
-            "Taxes: %s\n"
-            "Total taxes: %s\n"
+            f"Filename: {self.filename}\n"
+            f"Total amount including taxes: {self.total_incl.value}\n"
+            f"Total amount excluding taxes: {self.total_excl.value}\n"
+            f"Date: {self.date.value}\n"
+            f"Category: {self.category.value}\n"
+            f"Time: {self.time.value}\n"
+            f"Merchant name: {self.merchant_name.value}\n"
+            f"Taxes: {taxes}\n"
+            f"Total taxes: {self.total_tax.value}\n"
+            f"Locale: {self.locale}\n"
             "----------------------"
-            % (
-                self.filename,
-                self.total_incl.value,
-                self.total_excl.value,
-                self.date.value,
-                self.category.value,
-                self.time.value,
-                self.merchant_name.value,
-                " - ".join([str(t) for t in self.taxes]),
-                self.total_tax.value,
-            )
         )
 
     def build_from_api_prediction(self, api_prediction, page_n=0):

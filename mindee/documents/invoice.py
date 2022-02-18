@@ -183,31 +183,24 @@ class Invoice(Document):
         )
 
     def __str__(self) -> str:
+        company_numbers = "; ".join([str(n.value) for n in self.company_number])
+        payments = ", ".join([str(p) for p in self.payment_details])
+        taxes = ", ".join([f"{t.value} {t.rate}%" for t in self.taxes])
         return (
             "-----Invoice data-----\n"
-            "Filename: %s \n"
-            "Invoice number: %s \n"
-            "Total amount including taxes: %s \n"
-            "Total amount excluding taxes: %s \n"
-            "Invoice date: %s\n"
-            "Invoice due date: %s\n"
-            "Supplier name: %s\n"
-            "Payment details: %s\n"
-            "Taxes: %s\n"
-            "Total taxes: %s\n"
+            f"Filename: {self.filename}\n"
+            f"Invoice number: {self.invoice_number.value}\n"
+            f"Total amount including taxes: {self.total_incl.value}\n"
+            f"Total amount excluding taxes: {self.total_excl.value}\n"
+            f"Invoice date: {self.invoice_date.value}\n"
+            f"Invoice due date: {self.due_date.value}\n"
+            f"Supplier name: {self.supplier.value}\n"
+            f"Payment details: {payments}\n"
+            f"Company numbers: {company_numbers}\n"
+            f"Taxes: {taxes}\n"
+            f"Total taxes: {self.total_tax.value}\n"
+            f"Locale: {self.locale}\n"
             "----------------------"
-            % (
-                self.filename,
-                self.invoice_number.value,
-                self.total_incl.value,
-                self.total_excl.value,
-                self.invoice_date.value,
-                self.due_date.value,
-                self.supplier.value,
-                ", ".join([str(p) for p in self.payment_details]),
-                ", ".join([str(t.value) + " " + str(t.rate) + "%" for t in self.taxes]),
-                self.total_tax.value,
-            )
         )
 
     @staticmethod
