@@ -1,11 +1,11 @@
 import argparse
 from argparse import Namespace
 import json
-from typing import Dict
+from typing import Dict, Any
 
 from mindee import Client
 
-DOCUMENTS: Dict[str, dict] = {
+DOCUMENTS: Dict[str, Dict[str, Any]] = {
     "invoice": {
         "help": "Invoice",
         "required_keys": ["invoice"],

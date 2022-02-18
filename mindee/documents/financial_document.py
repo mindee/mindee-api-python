@@ -148,9 +148,9 @@ class FinancialDocument(Document):
                         key_name="receipt",
                     ),
                 ],
-                "document_type": "financial_document",
-                "singular_name": "financial_document",
-                "plural_name": "financial_documents",
+                "document_type": "financial_doc",
+                "singular_name": "financial_doc",
+                "plural_name": "financial_docs",
             },
             api_type=API_TYPE_OFF_THE_SHELF,
         )
