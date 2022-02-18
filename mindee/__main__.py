@@ -1,7 +1,6 @@
 import argparse
 from argparse import Namespace
 import json
-import sys
 from typing import Dict
 
 from mindee import Client
@@ -87,7 +86,7 @@ def call_endpoint(args):
     if args.product_name == "custom":
         parsed_data = doc_to_parse.parse(doc_type, username=args.username)
     else:
-        parsed_data = doc_to_parse.parse(doc_type)
+        parsed_data = doc_to_parse.parse(doc_type, include_words=args.include_words)
 
     if args.output_type == "raw":
         print(json.dumps(parsed_data.http_response, indent=2))
@@ -134,17 +133,24 @@ def parse_args():
                     dest="%s_api_key" % key_name,
                     help="API key for %s document endpoint" % key_name,
                 )
+            subp.add_argument(
+                "-w",
+                "--with-words",
+                dest="include_words",
+                action="store_true",
+                help="Include words in response",
+            )
         subp.add_argument(
             "-i",
             "--input-type",
             dest="input_type",
             choices=["path", "file", "base64", "bytes"],
             default="path",
-            help="Specify how to handle the input,\n"
-            "path: open a path (default).\n"
-            "file: open as a file handle.\n"
-            "base64: load the from a base64 encoded text file.\n"
-            "bytes: load the contents as raw bytes.",
+            help="Specify how to handle the input.\n"
+            "- path: open a path (default).\n"
+            "- file: open as a file handle.\n"
+            "- base64: load the from a base64 encoded text file.\n"
+            "- bytes: load the contents as raw bytes.",
         )
         subp.add_argument(
             "-o",
@@ -152,10 +158,10 @@ def parse_args():
             dest="output_type",
             choices=["summary", "raw", "parsed"],
             default="summary",
-            help="Specify how to output the data,\n"
-            "summary: a basic summary (default)\n"
-            "raw: the raw HTTP response\n"
-            "parsed: the validated and parsed data fields\n",
+            help="Specify how to output the data.\n"
+            "- summary: a basic summary (default)\n"
+            "- raw: the raw HTTP response\n"
+            "- parsed: the validated and parsed data fields\n",
         )
         subp.add_argument(
             "-C",
@@ -175,9 +181,6 @@ def parse_args():
         subp.add_argument(dest="path", help="Full path to the file")
 
     parsed_args = parser.parse_args()
-    if not parsed_args.product_name:
-        parser.print_help()
-        sys.exit(1)
     return parsed_args
 
 
