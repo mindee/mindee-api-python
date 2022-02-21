@@ -1,5 +1,14 @@
 # Mindee Python API Helper Changelog
 
+## v2.0.2 (2022-02-21)
+
+### Fixes
+* :bug: fix sending financial document via the CLI
+
+### Changes
+* :sparkles: allow getting OCR return in CLI
+* :sparkles: Make sure all document information is printed
+
 ## v2.0.1 (2022-02-15)
 
 ### Fixes
