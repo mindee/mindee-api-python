@@ -79,7 +79,7 @@ def test_response_wrapper_financial_document_with_receipt(
         "financial",
         dummy_file_input,
     )
-    assert parsed_financial_doc.financial_document.date.value == "2016-02-26"
+    assert parsed_financial_doc.financial_doc.date.value == "2016-02-26"
 
 
 def test_response_wrapper_financial_document_with_invoice(
@@ -92,4 +92,4 @@ def test_response_wrapper_financial_document_with_invoice(
         "financial",
         dummy_file_input,
     )
-    assert parsed_financial_doc.financial_document.date.value == "2018-09-25"
+    assert parsed_financial_doc.financial_doc.date.value == "2018-09-25"

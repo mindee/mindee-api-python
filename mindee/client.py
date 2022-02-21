@@ -39,11 +39,15 @@ class DocumentClient:
         :param username:
         :param include_words: Bool, extract all words into http_response
         """
+        found = []
+        for k in self.doc_configs.keys():
+            if k[1] == document_type:
+                found.append(k)
+
+        if len(found) == 0:
+            raise RuntimeError(f"Unknown document type: {document_type}")
+
         if not username:
-            found = []
-            for k in self.doc_configs.keys():
-                if k[1] == document_type:
-                    found.append(k)
             if len(found) == 1:
                 config_key = found[0]
             else:
