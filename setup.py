@@ -23,7 +23,7 @@ test_requirements = [
 dev_requirements = [
     "black==22.1.0",
     "mypy==0.931",
-    "pip-tools==6.4.0",
+    "pip-tools==6.5.1",
     "pylint==2.12.2",
     "setuptools==49.6.0",
 ]
