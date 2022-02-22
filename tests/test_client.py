@@ -20,11 +20,18 @@ def empty_client(monkeypatch):
 @pytest.fixture
 def env_client(monkeypatch):
     dummy_envvars(monkeypatch)
-    return Client().config_custom_doc(
-        document_type="dummy",
-        singular_name="dummy",
-        plural_name="dummies",
-        account_name="dummy",
+    return (
+        Client()
+        .config_receipt()
+        .config_invoice()
+        .config_passport()
+        .config_financial_doc()
+        .config_custom_doc(
+            document_type="dummy",
+            singular_name="dummy",
+            plural_name="dummies",
+            account_name="dummy",
+        )
     )
 
 

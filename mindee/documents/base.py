@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Type
 
 # from mindee.inputs import InputDocument
 from mindee.http import Endpoint
@@ -36,3 +36,6 @@ class Document:
     def all_checks(self):
         """Return all checks"""
         return all(self.checklist)
+
+
+TypeDocument = Type[Document]

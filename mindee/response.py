@@ -1,5 +1,6 @@
 from typing import Dict, Any
 
+from mindee.logger import logger
 from mindee.document_config import DocumentConfig
 
 
@@ -19,6 +20,8 @@ def format_response(
     http_response["filepath"] = input_file.filepath
     http_response["file_extension"] = input_file.file_extension
     pages = []
+
+    logger.debug("Handling API response")
 
     # Create page level objects
     for _, page_prediction in enumerate(

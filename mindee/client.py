@@ -1,4 +1,5 @@
 import json
+from typing import Dict
 
 from mindee.inputs import (
     InputDocument,
@@ -7,13 +8,21 @@ from mindee.inputs import (
     FileDocument,
     PathDocument,
 )
+from mindee.logger import logger
 from mindee.response import format_response, DocumentResponse
-from mindee.http import HTTPException
+from mindee.http import (
+    HTTPException,
+    Endpoint,
+    InvoiceEndpoint,
+    ReceiptEndpoint,
+    PassportEndpoint,
+)
 from mindee.document_config import DocumentConfig, DocumentConfigDict
 from mindee.documents.receipt import Receipt
 from mindee.documents.financial_document import FinancialDocument
 from mindee.documents.invoice import Invoice
 from mindee.documents.passport import Passport
+from mindee.documents.custom_document import CustomDocument
 
 
 class DocumentClient:
@@ -39,6 +48,8 @@ class DocumentClient:
         :param username:
         :param include_words: Bool, extract all words into http_response
         """
+        logger.debug("Parsing document as '%s'", document_type)
+
         found = []
         for k in self.doc_configs.keys():
             if k[1] == document_type:
@@ -107,12 +118,7 @@ class Client:
         """
         :param raise_on_error: Raise an Exception on HTTP errors
         """
-        self._doc_configs = {
-            ("mindee", "receipt"): Receipt.get_document_config(),
-            ("mindee", "invoice"): Invoice.get_document_config(),
-            ("mindee", "financial_doc"): FinancialDocument.get_document_config(),
-            ("mindee", "passport"): Passport.get_document_config(),
-        }
+        self._doc_configs: Dict[tuple, DocumentConfig] = {}
         self.raise_on_error = raise_on_error
 
     def config_custom_doc(
@@ -138,14 +144,18 @@ class Client:
                         If not set, use the latest version of the model.
         """
         self._doc_configs[(account_name, document_type)] = DocumentConfig(
-            {
-                "document_type": document_type,
-                "singular_name": singular_name,
-                "plural_name": plural_name,
-                "account_name": account_name,
-                "api_key": api_key,
-                "interface_version": version,
-            }
+            document_type=document_type,
+            singular_name=singular_name,
+            plural_name=plural_name,
+            constructor=CustomDocument,
+            endpoints=[
+                Endpoint(
+                    owner=account_name,
+                    url_name=document_type,
+                    version=version,
+                    api_key=api_key,
+                ),
+            ],
         )
         return self
 
@@ -157,8 +167,14 @@ class Client:
 
         :param api_key: Invoice API key
         """
-        if api_key:
-            self._doc_configs[("mindee", "invoice")].endpoints[0].api_key = api_key
+        config = DocumentConfig(
+            document_type="invoice",
+            singular_name="invoice",
+            plural_name="invoices",
+            constructor=Invoice,
+            endpoints=[InvoiceEndpoint(api_key=api_key)],
+        )
+        self._doc_configs[("mindee", "invoice")] = config
         return self
 
     def config_receipt(self, api_key: str = None):
@@ -169,8 +185,14 @@ class Client:
 
         :param api_key: Expense Receipt API key
         """
-        if api_key:
-            self._doc_configs[("mindee", "receipt")].endpoints[0].api_key = api_key
+        config = DocumentConfig(
+            document_type="receipt",
+            singular_name="receipt",
+            plural_name="receipts",
+            constructor=Receipt,
+            endpoints=[ReceiptEndpoint(api_key=api_key)],
+        )
+        self._doc_configs[("mindee", "receipt")] = config
         return self
 
     def config_financial_doc(
@@ -184,14 +206,17 @@ class Client:
         :param receipt_api_key: Expense Receipt API key
         :param invoice_api_key: Invoice API key
         """
-        if invoice_api_key:
-            self._doc_configs[("mindee", "financial_doc")].endpoints[
-                0
-            ].api_key = invoice_api_key
-        if receipt_api_key:
-            self._doc_configs[("mindee", "financial_doc")].endpoints[
-                1
-            ].api_key = receipt_api_key
+        config = DocumentConfig(
+            document_type="financial_doc",
+            singular_name="financial_doc",
+            plural_name="financial_docs",
+            constructor=FinancialDocument,
+            endpoints=[
+                InvoiceEndpoint(api_key=invoice_api_key),
+                ReceiptEndpoint(api_key=receipt_api_key),
+            ],
+        )
+        self._doc_configs[("mindee", "financial_doc")] = config
         return self
 
     def config_passport(self, api_key: str = None):
@@ -202,8 +227,14 @@ class Client:
 
         :param api_key: Passport API key
         """
-        if api_key:
-            self._doc_configs[("mindee", "passport")].endpoints[0].api_key = api_key
+        config = DocumentConfig(
+            document_type="passport",
+            singular_name="passport",
+            plural_name="passports",
+            constructor=Passport,
+            endpoints=[PassportEndpoint(api_key=api_key)],
+        )
+        self._doc_configs[("mindee", "passport")] = config
         return self
 
     def doc_from_path(

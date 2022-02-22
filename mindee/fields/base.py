@@ -47,15 +47,6 @@ class Field:
 
         self.reconstructed = reconstructed
 
-    def __eq__(self, other):
-        if self.value is None and other.value is None:
-            return True
-        if self.value is None or other.value is None:
-            return False
-        if isinstance(self.value, str):
-            return self.value.lower() == other.value.lower()
-        return self.value == other.value
-
     @staticmethod
     def compare_arrays(array1: list, array2: list, attr="value") -> bool:
         """
@@ -95,3 +86,17 @@ class Field:
             except (AttributeError, TypeError):
                 return 0.0
         return float(array_sum)
+
+    def __eq__(self, other):
+        if self.value is None and other.value is None:
+            return True
+        if self.value is None or other.value is None:
+            return False
+        if isinstance(self.value, str):
+            return self.value.lower() == other.value.lower()
+        return self.value == other.value
+
+    def __str__(self) -> str:
+        if self.value:
+            return f"{self.value}"
+        return ""
