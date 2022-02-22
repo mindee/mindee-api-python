@@ -6,11 +6,10 @@ from mindee.fields.locale import Locale
 from mindee.fields.orientation import Orientation
 from mindee.fields.tax import Tax
 from mindee.fields import Field
-from mindee.http import make_api_request, API_TYPE_OFF_THE_SHELF, Endpoint
+from mindee.http import make_api_request, Endpoint
 from mindee.documents.base import Document
 from mindee.documents.invoice import Invoice
 from mindee.documents.receipt import Receipt
-from mindee.document_config import DocumentConfig
 
 
 class FinancialDocument(Document):
@@ -127,33 +126,6 @@ class FinancialDocument(Document):
 
         # Reconstruct extra fields
         self._reconstruct()
-
-    @staticmethod
-    def get_document_config():
-        """:return: the configuration for financial document"""
-        return DocumentConfig(
-            {
-                "constructor": FinancialDocument,
-                "endpoints": [
-                    Endpoint(
-                        owner="mindee",
-                        url_name="invoices",
-                        version="2",
-                        key_name="invoice",
-                    ),
-                    Endpoint(
-                        owner="mindee",
-                        url_name="expense_receipts",
-                        version="3",
-                        key_name="receipt",
-                    ),
-                ],
-                "document_type": "financial_doc",
-                "singular_name": "financial_doc",
-                "plural_name": "financial_docs",
-            },
-            api_type=API_TYPE_OFF_THE_SHELF,
-        )
 
     def build_from_api_prediction(self, api_prediction, input_file, page_n=0):
         """

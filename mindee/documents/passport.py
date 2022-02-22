@@ -4,8 +4,7 @@ from datetime import datetime
 from mindee.documents.base import Document
 from mindee.fields import Field
 from mindee.fields.date import Date
-from mindee.http import make_api_request, API_TYPE_OFF_THE_SHELF, Endpoint
-from mindee.document_config import DocumentConfig
+from mindee.http import make_api_request, Endpoint
 
 
 class Passport(Document):
@@ -108,22 +107,6 @@ class Passport(Document):
         # Reconstruct extra fields
         self._reconstruct()
 
-    @staticmethod
-    def get_document_config() -> DocumentConfig:
-        """:return: the configuration for passport"""
-        return DocumentConfig(
-            {
-                "constructor": Passport,
-                "endpoints": [
-                    Endpoint(owner="mindee", url_name="passport", version="1")
-                ],
-                "document_type": "passport",
-                "singular_name": "passport",
-                "plural_name": "passports",
-            },
-            api_type=API_TYPE_OFF_THE_SHELF,
-        )
-
     def build_from_api_prediction(self, api_prediction, page_n=0):
         """
         :param api_prediction: Raw prediction from HTTP response
@@ -159,17 +142,17 @@ class Passport(Document):
         return (
             "-----Passport data-----\n"
             f"Filename: {self.filename}\n"
-            f"Full name: {self.full_name.value}\n"
+            f"Full name: {self.full_name}\n"
             f"Given names: {given_names}\n"
-            f"Surname: {self.surname.value}\n"
-            f"Country: {self.country.value}\n"
-            f"ID Number: {self.id_number.value}\n"
-            f"Issuance date: {self.issuance_date.value}\n"
-            f"Birth date: {self.birth_date.value}\n"
-            f"Expiry date: {self.expiry_date.value}\n"
-            f"MRZ 1: {self.mrz1.value}\n"
-            f"MRZ 2: {self.mrz2.value}\n"
-            f"MRZ: {self.mrz.value}\n"
+            f"Surname: {self.surname}\n"
+            f"Country: {self.country}\n"
+            f"ID Number: {self.id_number}\n"
+            f"Issuance date: {self.issuance_date}\n"
+            f"Birth date: {self.birth_date}\n"
+            f"Expiry date: {self.expiry_date}\n"
+            f"MRZ 1: {self.mrz1}\n"
+            f"MRZ 2: {self.mrz2}\n"
+            f"MRZ: {self.mrz}\n"
             "----------------------"
         )
 

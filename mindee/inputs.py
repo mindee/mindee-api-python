@@ -6,6 +6,7 @@ from mimetypes import guess_type
 
 import pikepdf
 
+from mindee.logger import logger
 
 ALLOWED_EXTENSIONS = [
     "image/png",
@@ -49,6 +50,7 @@ class InputDocument:
                     )
             if self.is_pdf_empty():
                 raise AssertionError(f"PDF pages are empty in: {self.filename}")
+        logger.debug("Loaded new document '%s' from %s", self.filename, self.input_type)
 
     def count_pdf_pages(self):
         """

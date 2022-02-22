@@ -7,8 +7,7 @@ from mindee.fields.amount import Amount
 from mindee.fields.locale import Locale
 from mindee.fields.orientation import Orientation
 from mindee.fields.tax import Tax
-from mindee.http import make_api_request, API_TYPE_OFF_THE_SHELF, Endpoint
-from mindee.document_config import DocumentConfig
+from mindee.http import make_api_request, Endpoint
 
 
 class Receipt(Document):
@@ -103,40 +102,19 @@ class Receipt(Document):
         # Reconstruct extra fields
         self._reconstruct()
 
-    @staticmethod
-    def get_document_config() -> DocumentConfig:
-        """:return: the configuration for receipt"""
-        return DocumentConfig(
-            {
-                "constructor": Receipt,
-                "endpoints": [
-                    Endpoint(
-                        owner="mindee",
-                        url_name="expense_receipts",
-                        version="3",
-                        key_name="receipt",
-                    )
-                ],
-                "document_type": "receipt",
-                "singular_name": "receipt",
-                "plural_name": "receipts",
-            },
-            api_type=API_TYPE_OFF_THE_SHELF,
-        )
-
     def __str__(self) -> str:
         taxes = ", ".join([f"{t.value} {t.rate}%" for t in self.taxes])
         return (
             "-----Receipt data-----\n"
             f"Filename: {self.filename}\n"
-            f"Total amount including taxes: {self.total_incl.value}\n"
-            f"Total amount excluding taxes: {self.total_excl.value}\n"
-            f"Date: {self.date.value}\n"
-            f"Category: {self.category.value}\n"
-            f"Time: {self.time.value}\n"
-            f"Merchant name: {self.merchant_name.value}\n"
+            f"Total amount including taxes: {self.total_incl}\n"
+            f"Total amount excluding taxes: {self.total_excl}\n"
+            f"Date: {self.date}\n"
+            f"Category: {self.category}\n"
+            f"Time: {self.time}\n"
+            f"Merchant name: {self.merchant_name}\n"
             f"Taxes: {taxes}\n"
-            f"Total taxes: {self.total_tax.value}\n"
+            f"Total taxes: {self.total_tax}\n"
             f"Locale: {self.locale}\n"
             "----------------------"
         )

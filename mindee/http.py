@@ -4,16 +4,25 @@ from typing import Optional
 import requests
 
 from mindee.versions import __version__, python_version, get_platform
+from mindee.logger import logger
 
 MINDEE_API_URL = "https://api.mindee.net/v1"
 
-API_TYPE_CUSTOM = "api_builder"
-API_TYPE_OFF_THE_SHELF = "off_the_shelf"
+INVOICE_VERSION = "2"
+INVOICE_URL_NAME = "invoices"
+
+RECEIPT_VERSION = "3"
+RECEIPT_URL_NAME = "expense_receipts"
+
+PASSPORT_VERSION = "1"
+PASSPORT_URL_NAME = "passport"
 
 PLATFORM = get_platform()
 
 
 class Endpoint:
+    """Generic Endpoint class"""
+
     owner: str
     url_name: str
     version: str
@@ -21,7 +30,12 @@ class Endpoint:
     api_key: str = ""
 
     def __init__(
-        self, owner: str, url_name: str, version: str, key_name: Optional[str] = None
+        self,
+        owner: str,
+        url_name: str,
+        version: str,
+        key_name: Optional[str] = None,
+        api_key: Optional[str] = None,
     ):
         """
         :param owner: owner of the product
@@ -36,6 +50,10 @@ class Endpoint:
             self.key_name = key_name
         else:
             self.key_name = url_name
+        if api_key:
+            self.api_key = api_key
+        else:
+            self.set_api_key_from_env()
 
     @property
     def predict_url(self) -> str:
@@ -66,6 +84,50 @@ class Endpoint:
         env_key = os.getenv(self.envvar_key_name, "")
         if env_key:
             self.api_key = env_key
+            logger.debug("Set from environment: %s", self.envvar_key_name)
+
+
+class InvoiceEndpoint(Endpoint):
+    def __init__(self, api_key: Optional[str] = None):
+        owner = "mindee"
+        url_name = os.getenv("MINDEE_INVOICE_URL_NAME", INVOICE_URL_NAME)
+        version = os.getenv("MINDEE_INVOICE_VERSION", INVOICE_VERSION)
+        key_name = "invoice"
+        super().__init__(
+            owner=owner,
+            url_name=url_name,
+            version=version,
+            key_name=key_name,
+            api_key=api_key,
+        )
+
+
+class ReceiptEndpoint(Endpoint):
+    def __init__(self, api_key: Optional[str] = None):
+        owner = "mindee"
+        url_name = os.getenv("MINDEE_RECEIPT_URL_NAME", RECEIPT_URL_NAME)
+        version = os.getenv("MINDEE_RECEIPT_VERSION", RECEIPT_VERSION)
+        key_name = "receipt"
+        super().__init__(
+            owner=owner,
+            url_name=url_name,
+            version=version,
+            key_name=key_name,
+            api_key=api_key,
+        )
+
+
+class PassportEndpoint(Endpoint):
+    def __init__(self, api_key: Optional[str] = None):
+        owner = "mindee"
+        url_name = os.getenv("MINDEE_PASSPORT_URL_NAME", PASSPORT_URL_NAME)
+        version = os.getenv("MINDEE_PASSPORT_VERSION", PASSPORT_VERSION)
+        super().__init__(
+            owner=owner,
+            url_name=url_name,
+            version=version,
+            api_key=api_key,
+        )
 
 
 def make_api_request(
