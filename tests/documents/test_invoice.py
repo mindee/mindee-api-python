@@ -10,24 +10,6 @@ def invoice_object():
 
 
 @pytest.fixture
-def invoice_object_from_scratch():
-    return Invoice(
-        locale="fr",
-        total_incl=12,
-        total_excl=15,
-        invoice_date="2018-12-21",
-        invoice_number="001",
-        due_date="2019-01-01",
-        taxes={(1, 10), (2, 20)},
-        supplier="Amazon",
-        payment_details="1231456498799765",
-        company_number="asdqsdae",
-        orientation=0,
-        total_tax=3,
-    )
-
-
-@pytest.fixture
 def invoice_object_all_na():
     json_repsonse = json.load(open("./tests/data/invoices/v2/invoice_all_na.json"))
     return Invoice(json_repsonse["document"]["inference"]["pages"][0]["prediction"])
@@ -35,9 +17,8 @@ def invoice_object_all_na():
 
 @pytest.fixture
 def invoice_pred():
-    return json.load(open("./tests/data/invoices/v2/invoice_all_na.json"))["document"][
-        "inference"
-    ]["pages"][0]["prediction"]
+    invoice_json = json.load(open("./tests/data/invoices/v2/invoice_all_na.json"))
+    return invoice_json["document"]["inference"]["pages"][0]["prediction"]
 
 
 # Technical tests

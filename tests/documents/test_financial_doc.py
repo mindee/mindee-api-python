@@ -22,25 +22,6 @@ def financial_doc_from_receipt_object():
 
 
 @pytest.fixture
-def financial_doc_object_from_scratch():
-    return FinancialDocument(
-        locale="fr",
-        total_incl=12,
-        total_excl=15,
-        date="2018-12-21",
-        invoice_number="001",
-        due_date="2019-01-01",
-        taxes={(1, 10), (2, 20)},
-        merchant_name="Amazon",
-        payment_details="1231456498799765",
-        company_number="asdqsdae",
-        orientation=0,
-        total_tax=3,
-        time="12:15",
-    )
-
-
-@pytest.fixture
 def financial_doc_from_receipt_object_all_na():
     json_repsonse = json.load(
         open("./tests/data/expense_receipts/v3/receipt_all_na.json")
