@@ -4,7 +4,7 @@ from datetime import datetime
 from mindee.documents.base import Document
 from mindee.fields import Field
 from mindee.fields.date import Date
-from mindee.http import make_api_request, Endpoint
+from mindee.http import Endpoint
 
 
 class Passport(Document):
@@ -26,86 +26,20 @@ class Passport(Document):
         self,
         api_prediction=None,
         input_file=None,
-        country=None,
-        id_number=None,
-        birth_date=None,
-        expiry_date=None,
-        issuance_date=None,
-        birth_place=None,
-        gender=None,
-        surname=None,
-        mrz1=None,
-        mrz2=None,
-        given_names=None,
-        mrz=None,
-        full_name=None,
         page_n=0,
         document_type="passport",
     ):
         """
         :param api_prediction: Raw prediction from HTTP response
         :param input_file: Input object
-        :param country: country value for creating Passport object from scratch
-        :param id_number: id_number value for creating Passport object from scratch
-        :param birth_date: birth_date value for creating Passport object from scratch
-        :param expiry_date: expiry_date value for creating Passport object from scratch
-        :param issuance_date: issuance_date value for creating Passport object from scratch
-        :param birth_place: birth_place value for creating Passport object from scratch
-        :param gender: gender value for creating Passport object from scratch
-        :param surname: surname value for creating Passport object from scratch
-        :param mrz1: mrz1 value for creating Passport object from scratch
-        :param mrz2: mrz2 value for creating Passport object from scratch
-        :param given_names: given_names value for creating Passport object from scratch
-        :param mrz: mrz value for creating Passport object from scratch
-        :param full_name: full_name value for creating Passport object from scratch
         :param page_n: Page number for multi pages pdf input
         """
-        # Invoke Document constructor
         super().__init__(
             input_file=input_file,
             document_type=document_type,
             api_prediction=api_prediction,
             page_n=page_n,
         )
-
-        if api_prediction is not None:
-            self.build_from_api_prediction(api_prediction, page_n=page_n)
-        else:
-            self.country = Field({"value": country}, value_key="value", page_n=page_n)
-            self.id_number = Field(
-                {"value": id_number}, value_key="value", page_n=page_n
-            )
-            self.birth_date = Date(
-                {"value": birth_date}, value_key="value", page_n=page_n
-            )
-            self.expiry_date = Date(
-                {"value": expiry_date}, value_key="value", page_n=page_n
-            )
-            self.issuance_date = Date(
-                {"value": issuance_date}, value_key="value", page_n=page_n
-            )
-            self.birth_place = Field(
-                {"value": birth_place}, value_key="value", page_n=page_n
-            )
-            self.gender = Field({"value": gender}, value_key="value", page_n=page_n)
-            self.surname = Field({"value": surname}, value_key="value", page_n=page_n)
-            self.mrz1 = Field({"value": mrz1}, value_key="value", page_n=page_n)
-            self.mrz2 = Field({"value": mrz2}, value_key="value", page_n=page_n)
-            if given_names is not None:
-                self.given_names = [
-                    Field({"value": g}, value_key="value", page_n=page_n)
-                    for g in given_names
-                ]
-            self.mrz = Field({"value": mrz}, value_key="value", page_n=page_n)
-            self.full_name = Field(
-                {"value": full_name}, value_key="value", page_n=page_n
-            )
-
-        # Run checks
-        self._checklist()
-
-        # Reconstruct extra fields
-        self._reconstruct()
 
     def build_from_api_prediction(self, api_prediction, page_n=0):
         """
@@ -174,9 +108,7 @@ class Passport(Document):
             raise Exception(
                 "invlude_words parameter cannot be set to True for passport API"
             )
-        return make_api_request(
-            endpoints[0].predict_url, input_file, endpoints[0].api_key, include_words
-        )
+        return endpoints[0].predict_request(input_file, include_words)
 
     def _reconstruct(self):
         """

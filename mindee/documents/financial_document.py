@@ -1,12 +1,7 @@
 from typing import List
 
-from mindee.fields.amount import Amount
-from mindee.fields.date import Date
-from mindee.fields.locale import Locale
-from mindee.fields.orientation import Orientation
-from mindee.fields.tax import Tax
 from mindee.fields import Field
-from mindee.http import make_api_request, Endpoint
+from mindee.http import Endpoint
 from mindee.documents.base import Document
 from mindee.documents.invoice import Invoice
 from mindee.documents.receipt import Receipt
@@ -17,50 +12,14 @@ class FinancialDocument(Document):
         self,
         api_prediction=None,
         input_file=None,
-        locale=None,
-        total_incl=None,
-        total_excl=None,
-        date=None,
-        invoice_number=None,
-        due_date=None,
-        taxes=None,
-        merchant_name=None,
-        payment_details=None,
-        company_number=None,
-        vat_number=None,
-        orientation=None,
-        total_tax=None,
-        time=None,
         page_n=0,
         document_type="financial_doc",
     ):
         """
         :param api_prediction: Raw prediction from HTTP response
         :param input_file: Input object
-        :param locale: locale value for creating FinancialDocument object from scratch
-        :param total_incl: total_incl value for creating FinancialDocument object from scratch
-        :param total_excl: total_excl value for creating FinancialDocument object from scratch
-        :param date: date value for creating FinancialDocument object from scratch
-        :param invoice_number: invoice_number value for creating FinancialDocument object from scratch
-        :param due_date: due_date value for creating FinancialDocument object from scratch
-        :param taxes: taxes value for creating FinancialDocument object from scratch
-        :param merchant_name: merchant_name value for creating FinancialDocument object from scratch
-        :param payment_details: payment_details value for creating FinancialDocument object from scratch
-        :param company_number: company_number value for creating FinancialDocument object from scratch
-        :param vat_number: vat_number value for creating FinancialDocument object from scratch
-        :param orientation: orientation value for creating FinancialDocument object from scratch
-        :param total_tax: total_tax value for creating FinancialDocument object from scratch
-        :param time: time value for creating FinancialDocument object from scratch
         :param page_n: Page number for multi pages pdf input
         """
-        # Invoke Document constructor
-        super().__init__(
-            input_file=input_file,
-            document_type=document_type,
-            api_prediction=api_prediction,
-            page_n=page_n,
-        )
-
         self.locale = None
         self.total_incl = None
         self.total_excl = None
@@ -76,66 +35,24 @@ class FinancialDocument(Document):
         self.total_tax = None
         self.time = None
 
-        if api_prediction is not None:
-            self.build_from_api_prediction(api_prediction, input_file, page_n=page_n)
-        else:
-            self.orientation = Orientation(
-                {"value": orientation}, value_key="value", page_n=page_n
-            )
-            self.locale = Locale({"value": locale}, value_key="value", page_n=page_n)
-            self.date = Date({"value": date}, value_key="value", page_n=page_n)
-            self.due_date = Date({"value": due_date}, value_key="value", page_n=page_n)
-            if taxes is not None:
-                self.taxes = [
-                    Tax(
-                        {"value": t[0], "rate": t[1]},
-                        page_n=page_n,
-                        value_key="value",
-                        rate_key="rate",
-                    )
-                    for t in taxes
-                ]
-            self.total_incl = Amount(
-                {"value": total_incl}, value_key="value", page_n=page_n
-            )
-            self.total_excl = Amount(
-                {"value": total_excl}, value_key="value", page_n=page_n
-            )
-            self.merchant_name = Field(
-                {"value": merchant_name}, value_key="value", page_n=page_n
-            )
-            self.time = Field({"value": time}, value_key="value", page_n=page_n)
-            self.total_tax = Amount(
-                {"value": total_tax}, value_key="value", page_n=page_n
-            )
-            self.vat_number = Field(
-                {"value": vat_number}, value_key="value", page_n=page_n
-            )
-            self.invoice_number = Field(
-                {"value": invoice_number}, value_key="value", page_n=page_n
-            )
-            self.payment_details = Field(
-                {"value": payment_details}, value_key="value", page_n=page_n
-            )
-            self.company_number = Field(
-                {"value": company_number}, value_key="value", page_n=page_n
-            )
+        # need this for building from prediction
+        self.input_file = input_file
 
-        # Run checks
-        self._checklist()
+        super().__init__(
+            input_file=input_file,
+            document_type=document_type,
+            api_prediction=api_prediction,
+            page_n=page_n,
+        )
 
-        # Reconstruct extra fields
-        self._reconstruct()
-
-    def build_from_api_prediction(self, api_prediction, input_file, page_n=0):
+    def build_from_api_prediction(self, api_prediction, page_n=0):
         """
         :param api_prediction: Raw prediction from HTTP response
-        :param input_file: Input object
         :param page_n: Page number for multi pages pdf input
         :return: (void) set the object attributes with api prediction values
         """
         if "invoice_number" in api_prediction.keys():
-            invoice = Invoice(api_prediction, input_file, page_n=page_n)
+            invoice = Invoice(api_prediction, self.input_file, page_n=page_n)
             self.locale = invoice.locale
             self.total_incl = invoice.total_incl
             self.total_excl = invoice.total_excl
@@ -150,7 +67,7 @@ class FinancialDocument(Document):
             self.total_tax = invoice.total_tax
             self.time = Field({"value": None, "confidence": 0.0})
         else:
-            receipt = Receipt(api_prediction, input_file, page_n=page_n)
+            receipt = Receipt(api_prediction, self.input_file, page_n=page_n)
             self.orientation = receipt.orientation
             self.date = receipt.date
             self.due_date = receipt.date
@@ -204,12 +121,7 @@ class FinancialDocument(Document):
             index = 0
         else:
             index = 1
-        return make_api_request(
-            endpoints[index].predict_url,
-            input_file,
-            endpoints[index].api_key,
-            include_words,
-        )
+        return endpoints[index].predict_request(input_file, include_words)
 
     def _checklist(self):
         """

@@ -1,7 +1,7 @@
 from typing import Dict, List
 
 from mindee.documents.base import Document
-from mindee.http import make_api_request, Endpoint
+from mindee.http import Endpoint
 
 
 class CustomDocument(Document):
@@ -9,7 +9,7 @@ class CustomDocument(Document):
 
     def __init__(
         self,
-        document_type: str = "",
+        document_type: str,
         api_prediction=None,
         input_file=None,
         page_n: int = 0,
@@ -20,14 +20,12 @@ class CustomDocument(Document):
         :param input_file: Input object
         :param page_n: Page number for multi pages pdf input
         """
-        # Invoke Document constructor
         super().__init__(
             input_file=input_file,
             document_type=document_type,
             api_prediction=api_prediction,
             page_n=page_n,
         )
-        self.build_from_api_prediction(api_prediction, page_n=page_n)
 
     def build_from_api_prediction(self, api_prediction, page_n: int = 0):
         """
@@ -62,9 +60,7 @@ class CustomDocument(Document):
         :param input_file: Input object
         :param endpoints: Endpoints config
         """
-        return make_api_request(
-            endpoints[0].predict_url, input_file, endpoints[0].api_key
-        )
+        return endpoints[0].predict_request(input_file, include_words)
 
     def _checklist(self):
         return {}

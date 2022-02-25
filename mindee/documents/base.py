@@ -1,4 +1,4 @@
-from typing import List, Type
+from typing import List, Type, Optional
 
 # from mindee.inputs import InputDocument
 from mindee.http import Endpoint
@@ -6,25 +6,36 @@ from mindee.http import Endpoint
 
 class Document:
     type: str
+    checklist: dict = {}
+    filepath: Optional[str] = None
+    filename: Optional[str] = None
+    file_extension: Optional[str] = None
 
     def __init__(
-        self, input_file, document_type: str, api_prediction, page_n=0
-    ):  # pylint: disable=unused-argument
-        self.filepath = None
-        self.filename = None
-        self.file_extension = None
-
-        if input_file is not None:
+        self,
+        input_file,
+        document_type: str,
+        api_prediction,
+        page_n: Optional[int] = None,
+    ):
+        if input_file:
             self.filepath = input_file.filepath
             self.filename = input_file.filename
             self.file_extension = input_file.file_extension
 
         self.type = document_type
-        self.checklist: dict = {}
+
+        self.build_from_api_prediction(api_prediction, page_n=page_n)
+        self._checklist()
+        self._reconstruct()
 
     @staticmethod
     def request(endpoints: List[Endpoint], input_file, include_words: bool = False):
         """Make request to the product endpoint"""
+        raise NotImplementedError()
+
+    def build_from_api_prediction(self, api_prediction: dict, page_n):
+        """Build the document from an API response JSON"""
         raise NotImplementedError()
 
     def _checklist(self, *args):

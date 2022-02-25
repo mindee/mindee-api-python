@@ -8,7 +8,7 @@ from mindee.fields.locale import Locale
 from mindee.fields.orientation import Orientation
 from mindee.fields.payment_details import PaymentDetails
 from mindee.fields.tax import Tax
-from mindee.http import make_api_request, Endpoint
+from mindee.http import Endpoint
 
 
 class Invoice(Document):
@@ -30,94 +30,20 @@ class Invoice(Document):
         self,
         api_prediction=None,
         input_file=None,
-        locale=None,
-        total_incl=None,
-        total_excl=None,
-        invoice_date=None,
-        invoice_number=None,
-        due_date=None,
-        taxes=None,
-        supplier=None,
-        payment_details=None,
-        company_number=None,
-        orientation=None,
-        total_tax=None,
         page_n=0,
         document_type="invoice",
     ):
         """
         :param api_prediction: Raw prediction from HTTP response
         :param input_file: Input object
-        :param locale: locale value for creating Invoice object from scratch
-        :param total_incl: total_incl value for creating Invoice object from scratch
-        :param total_excl: total_excl value for creating Invoice object from scratch
-        :param invoice_date: invoice_date value for creating Invoice object from scratch
-        :param invoice_number: invoice_number value for creating Invoice object from scratch
-        :param due_date: due_date value for creating Invoice object from scratch
-        :param taxes: taxes value for creating Invoice object from scratch
-        :param supplier: supplier value for creating Invoice object from scratch
-        :param payment_details: payment_details value for creating Invoice object from scratch
-        :param company_number: company_number value for creating Invoice object from scratch
-        :param orientation: orientation value for creating Invoice object from scratch
-        :param total_tax: total_tax value for creating Invoice object from scratch
         :param page_n: Page number for multi pages pdf input
         """
-        # Invoke Document constructor
         super().__init__(
             input_file=input_file,
             document_type=document_type,
             api_prediction=api_prediction,
             page_n=page_n,
         )
-
-        if api_prediction is not None:
-            self.build_from_api_prediction(api_prediction, page_n=page_n)
-        else:
-            self.locale = Locale({"value": locale}, value_key="value", page_n=page_n)
-            self.total_incl = Amount(
-                {"value": total_incl}, value_key="value", page_n=page_n
-            )
-            self.invoice_date = Date(
-                {"value": invoice_date}, value_key="value", page_n=page_n
-            )
-            self.due_date = Date({"value": due_date}, value_key="value", page_n=page_n)
-            self.supplier = Field({"value": supplier}, value_key="value", page_n=page_n)
-            if taxes is not None:
-                self.taxes = [
-                    Tax(
-                        {"value": t[0], "rate": t[1]},
-                        page_n=page_n,
-                        value_key="value",
-                        rate_key="rate",
-                    )
-                    for t in taxes
-                ]
-            self.orientation = Orientation(
-                {"value": orientation}, value_key="value", page_n=page_n
-            )
-            self.total_tax = Amount(
-                {"value": total_tax}, value_key="value", page_n=page_n
-            )
-            self.total_excl = Amount(
-                {"value": total_excl}, value_key="value", page_n=page_n
-            )
-            self.invoice_number = Field(
-                {"value": invoice_number}, value_key="value", page_n=page_n
-            )
-            self.payment_details = [
-                PaymentDetails(
-                    {"value": payment_details}, value_key="value", page_n=page_n
-                )
-            ]
-            self.company_number = [
-                Field({"value": company_number}, value_key="value", page_n=page_n)
-            ]
-
-        # Run checks
-        self._checklist()
-
-        # Reconstruct extra fields
-        self._reconstruct()
 
     def build_from_api_prediction(self, api_prediction: dict, page_n=0):
         """
@@ -139,7 +65,7 @@ class Invoice(Document):
         self.locale = Locale(
             api_prediction["locale"], value_key="language", page_n=page_n
         )
-        if str(page_n) != "-1":
+        if page_n is not None:
             self.orientation = Orientation(api_prediction["orientation"], page_n=page_n)
         self.supplier = Field(api_prediction["supplier"], page_n=page_n)
         self.taxes = [
@@ -189,9 +115,7 @@ class Invoice(Document):
         :param endpoints: Endpoints config
         :param include_words: Include Mindee vision words in http_response
         """
-        return make_api_request(
-            endpoints[0].predict_url, input_file, endpoints[0].api_key, include_words
-        )
+        return endpoints[0].predict_request(input_file, include_words)
 
     def _reconstruct(self):
         """

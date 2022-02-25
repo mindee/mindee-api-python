@@ -7,7 +7,7 @@ from mindee.fields.amount import Amount
 from mindee.fields.locale import Locale
 from mindee.fields.orientation import Orientation
 from mindee.fields.tax import Tax
-from mindee.http import make_api_request, Endpoint
+from mindee.http import Endpoint
 
 
 class Receipt(Document):
@@ -27,80 +27,20 @@ class Receipt(Document):
         self,
         api_prediction=None,
         input_file=None,
-        locale=None,
-        total_incl=None,
-        date=None,
-        category=None,
-        merchant_name=None,
-        time=None,
-        taxes=None,
-        orientation=None,
-        total_tax=None,
-        total_excl=None,
         page_n=0,
         document_type="receipt",
     ):
         """
         :param api_prediction: Raw prediction from HTTP response
         :param input_file: Input object
-        :param locale: locale value for creating Receipt object from scratch
-        :param total_incl: total_incl value for creating Receipt object from scratch
-        :param date: date value for creating Receipt object from scratch
-        :param category: category value for creating Receipt object from scratch
-        :param merchant_name: merchant_name value for creating Receipt object from scratch
-        :param time: time value for creating Receipt object from scratch
-        :param taxes: taxes value for creating Receipt object from scratch
-        :param orientation: orientation value for creating Receipt object from scratch
-        :param total_tax: total_tax value for creating Receipt object from scratch
-        :param total_excl: total_excl value for creating Receipt object from scratch
         :param page_n: Page number for multi pages pdf input
         """
-        # Invoke Document constructor
         super().__init__(
             input_file=input_file,
             document_type=document_type,
             api_prediction=api_prediction,
             page_n=page_n,
         )
-
-        if api_prediction is not None:
-            self.build_from_api_prediction(api_prediction, page_n=page_n)
-        else:
-            self.locale = Locale({"value": locale}, value_key="value", page_n=page_n)
-            self.total_incl = Amount(
-                {"value": total_incl}, value_key="value", page_n=page_n
-            )
-            self.date = Date({"value": date}, value_key="value", page_n=page_n)
-            self.category = Field({"value": category}, value_key="value", page_n=page_n)
-            self.merchant_name = Field(
-                {"value": merchant_name}, value_key="value", page_n=page_n
-            )
-            self.time = Field({"value": time}, value_key="value", page_n=page_n)
-            if taxes:
-                self.taxes = [
-                    Tax(
-                        {"value": t[0], "rate": t[1]},
-                        page_n=page_n,
-                        value_key="value",
-                        rate_key="rate",
-                    )
-                    for t in taxes
-                ]
-            self.orientation = Orientation(
-                {"value": orientation}, value_key="value", page_n=page_n
-            )
-            self.total_tax = Amount(
-                {"value": total_tax}, value_key="value", page_n=page_n
-            )
-            self.total_excl = Amount(
-                {"value": total_excl}, value_key="value", page_n=page_n
-            )
-
-        # Run checks
-        self._checklist()
-
-        # Reconstruct extra fields
-        self._reconstruct()
 
     def __str__(self) -> str:
         taxes = ", ".join([f"{t.value} {t.rate}%" for t in self.taxes])
@@ -145,7 +85,7 @@ class Receipt(Document):
             )
             for tax_prediction in api_prediction["taxes"]
         ]
-        if str(page_n) != "-1":
+        if page_n is not None:
             self.orientation = Orientation(api_prediction["orientation"], page_n=page_n)
         self.total_tax = Amount(
             {"value": None, "confidence": 0.0}, value_key="value", page_n=page_n
@@ -162,9 +102,7 @@ class Receipt(Document):
         :param endpoints: Endpoints config
         :param include_words: Include Mindee vision words in http_response
         """
-        return make_api_request(
-            endpoints[0].predict_url, input_file, endpoints[0].api_key, include_words
-        )
+        return endpoints[0].predict_request(input_file, include_words)
 
     def _checklist(self):
         """

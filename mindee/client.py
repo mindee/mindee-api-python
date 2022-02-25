@@ -12,7 +12,7 @@ from mindee.logger import logger
 from mindee.response import format_response, DocumentResponse
 from mindee.http import (
     HTTPException,
-    Endpoint,
+    CustomEndpoint,
     InvoiceEndpoint,
     ReceiptEndpoint,
     PassportEndpoint,
@@ -149,7 +149,7 @@ class Client:
             plural_name=plural_name,
             constructor=CustomDocument,
             endpoints=[
-                Endpoint(
+                CustomEndpoint(
                     owner=account_name,
                     url_name=document_type,
                     version=version,

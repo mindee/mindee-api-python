@@ -31,14 +31,8 @@ def dummy_config():
 
 
 def test_constructor(dummy_file_input):
-    document = Document(
-        dummy_file_input, document_type="receipt", api_prediction={}, page_n=0
-    )
-    assert document.checklist == {}
     with pytest.raises(NotImplementedError):
-        document.request([], "")
-    with pytest.raises(NotImplementedError):
-        document._checklist()
+        Document(dummy_file_input, document_type="receipt", api_prediction={}, page_n=0)
 
 
 # Invoice tests
