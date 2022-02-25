@@ -257,11 +257,6 @@ def test__shouldnt_raise_when_tax_rate_none(invoice_pred):
     assert financial_doc.checklist["taxes_match_total_incl"] is False
 
 
-def test_empty_object_works():
-    financial_doc = FinancialDocument()
-    assert financial_doc.total_tax.value is None
-
-
 def test_invoice_or_receipt_get_same_field_types(receipt_pred, invoice_pred):
     financial_doc_from_receipt = FinancialDocument(receipt_pred)
     financial_doc_from_invoice = FinancialDocument(invoice_pred)

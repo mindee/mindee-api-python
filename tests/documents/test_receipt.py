@@ -151,18 +151,12 @@ def test__taxes_match_total_incl_4(receipt_pred):
     assert type(str(receipt.taxes[0])) is str
 
 
-def test_empty_object_works():
-    receipt = Receipt()
-    assert receipt.total_tax.value is None
-
-
-def test_null_tax_rates_dont_raise():
-    invoice = Receipt(
-        locale="fr",
-        total_incl=12,
-        total_excl=15,
-        taxes={(1, 0), (2, 20)},
-        orientation=0,
-        total_tax=3,
-    )
-    assert invoice.checklist["taxes_match_total_incl"] is False
+def test_null_tax_rates_dont_raise(receipt_pred):
+    receipt_pred["total_excl"] = {"value": 12, "confidence": 0.6}
+    receipt_pred["total_incl"] = {"value": 15, "confidence": 0.6}
+    receipt_pred["taxes"] = [
+        {"rate": 1, "value": 0.0, "confidence": 0.5},
+        {"rate": 2, "value": 20.0, "confidence": 0.5},
+    ]
+    receipt = Receipt(receipt_pred)
+    assert receipt.checklist["taxes_match_total_incl"] is False

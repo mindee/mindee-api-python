@@ -66,8 +66,3 @@ def test_wrong_checksum():
 def test_checksum_with_personal_number_alpha():
     mrz = "XDB0661884ESP9502138F1808122RE20050024133894"
     assert Passport.check_sum(mrz[28:42]) == mrz[42]
-
-
-def test_empty_object_works():
-    passport = Passport()
-    assert passport.full_name.value is None

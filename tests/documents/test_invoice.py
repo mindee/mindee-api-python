@@ -10,9 +10,8 @@ def invoice_object():
 
 
 @pytest.fixture
-def invoice_object_all_na():
-    json_repsonse = json.load(open("./tests/data/invoices/v2/invoice_all_na.json"))
-    return Invoice(json_repsonse["document"]["inference"]["pages"][0]["prediction"])
+def invoice_object_all_na(invoice_pred):
+    return Invoice(invoice_pred)
 
 
 @pytest.fixture
@@ -280,25 +279,13 @@ def test__shouldnt_raise_when_tax_rate_none(invoice_pred):
     assert invoice.checklist["taxes_match_total_incl"] is False
 
 
-def test_empty_object_works():
-    invoice = Invoice()
-    assert invoice.total_tax.value is None
-
-
-def test_null_tax_rates_dont_raise():
-    invoice = Invoice(
-        locale="fr",
-        total_incl=12,
-        total_excl=15,
-        invoice_date="2018-12-21",
-        invoice_number="001",
-        due_date="2019-01-01",
-        taxes={(1, 0), (2, 20)},
-        supplier="Amazon",
-        payment_details="1231456498799765",
-        company_number="asdqsdae",
-        orientation=0,
-        total_tax=3,
-    )
+def test_null_tax_rates_dont_raise(invoice_pred):
+    invoice_pred["total_excl"] = {"value": 12, "confidence": 0.6}
+    invoice_pred["total_incl"] = {"value": 15, "confidence": 0.6}
+    invoice_pred["taxes"] = [
+        {"rate": 1, "value": 0.0, "confidence": 0.5},
+        {"rate": 2, "value": 20.0, "confidence": 0.5},
+    ]
+    invoice = Invoice(invoice_pred)
     assert invoice.checklist["taxes_match_total_incl"] is False
     assert invoice.checklist["taxes_match_total_excl"] is False
