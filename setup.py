@@ -10,7 +10,7 @@ with open("README.md", "r", newline="", encoding="utf-8") as fh:
 
 
 requirements = [
-    "pikepdf==4.5.0",
+    "pikepdf==5.0.1",
     "pytz==2021.3",
     "requests==2.25.1",
 ]

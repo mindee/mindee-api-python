@@ -14,7 +14,7 @@ lxml==4.7.1
     # via pikepdf
 packaging==21.3
     # via pikepdf
-pikepdf==4.5.0
+pikepdf==5.0.1
     # via mindee (setup.py)
 pillow==9.0.1
     # via pikepdf

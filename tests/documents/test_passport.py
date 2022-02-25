@@ -10,25 +10,6 @@ def passport_object():
 
 
 @pytest.fixture
-def passport_object_from_scratch():
-    return Passport(
-        country="FR",
-        id_number="sqd12354",
-        birth_date="1989-10-19",
-        expiry_date="2027-12-01",
-        issuance_date="2017-11-31",
-        birth_place="Paris",
-        gender="M",
-        surname="Doe",
-        mrz1="P<GBRPUDARSAN<<HENERT<<<<<<<<<<<<<<<<<<<<<<<",
-        mrz2="7077979792GBR9505209M1704224<<<<<<<<<<<<<<00",
-        given_names=["John", "Jane"],
-        mrz="P<GBRPUDARSAN<<HENERT<<<<<<<<<<<<<<<<<<<<<<<7077979792GBR9505209M1704224<<<<<<<<<<<<<<00",
-        full_name="John Doe",
-    )
-
-
-@pytest.fixture
 def passport_object_all_na():
     json_repsonse = json.load(open("./tests/data/passport/v1/passport_all_na.json"))
     return Passport(json_repsonse["document"]["inference"]["pages"][0]["prediction"])
