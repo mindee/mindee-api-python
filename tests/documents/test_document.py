@@ -5,6 +5,9 @@ from mindee.response import format_response
 from mindee.inputs import PathDocument
 from mindee.documents.base import Document
 
+from tests.documents.test_invoice import INVOICE_FILE_PATH
+from tests.documents.test_receipt import RECEIPT_FILE_PATH
+
 
 @pytest.fixture
 def dummy_file_input():
@@ -39,21 +42,21 @@ def test_constructor(dummy_file_input):
 
 
 def test_response_wrapper_invoice(dummy_file_input, dummy_config):
-    response = json.load(open("./tests/data/invoices/v2/invoice.json"))
+    response = json.load(open(INVOICE_FILE_PATH))
     parsed_invoice = format_response(
         dummy_config[("mindee", "invoice")],
         response,
         "invoice",
         dummy_file_input,
     )
-    assert parsed_invoice.invoice.invoice_date.value == "2018-09-25"
+    assert parsed_invoice.invoice.invoice_date.value == "2020-02-17"
 
 
 # Receipt tests
 
 
 def test_response_wrapper_receipt(dummy_file_input, dummy_config):
-    response = json.load(open("./tests/data/expense_receipts/v3/receipt.json"))
+    response = json.load(open(RECEIPT_FILE_PATH))
     parsed_receipt = format_response(
         dummy_config[("mindee", "receipt")], response, "receipt", dummy_file_input
     )
@@ -64,7 +67,7 @@ def test_response_wrapper_receipt(dummy_file_input, dummy_config):
 
 
 def test_response_wrapper_financial_doc_with_receipt(dummy_file_input, dummy_config):
-    response = json.load(open("./tests/data/expense_receipts/v3/receipt.json"))
+    response = json.load(open(RECEIPT_FILE_PATH))
     parsed_financial_doc = format_response(
         dummy_config[("mindee", "financial_doc")],
         response,
@@ -75,11 +78,11 @@ def test_response_wrapper_financial_doc_with_receipt(dummy_file_input, dummy_con
 
 
 def test_response_wrapper_financial_doc_with_invoice(dummy_file_input, dummy_config):
-    response = json.load(open("./tests/data/invoices/v2/invoice.json"))
+    response = json.load(open(INVOICE_FILE_PATH))
     parsed_financial_doc = format_response(
         dummy_config[("mindee", "financial_doc")],
         response,
         "financial",
         dummy_file_input,
     )
-    assert parsed_financial_doc.financial_doc.date.value == "2018-09-25"
+    assert parsed_financial_doc.financial_doc.date.value == "2020-02-17"

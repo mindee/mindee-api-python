@@ -10,7 +10,7 @@ MINDEE_API_URL = "https://api.mindee.net/v1"
 PLATFORM = get_platform()
 USER_AGENT = f"mindee-api-python@v{__version__} python-v{python_version} {PLATFORM}"
 
-INVOICE_VERSION = "2"
+INVOICE_VERSION = "3"
 INVOICE_URL_NAME = "invoices"
 
 RECEIPT_VERSION = "3"
@@ -146,8 +146,8 @@ class CustomEndpoint(Endpoint):
 class InvoiceEndpoint(Endpoint):
     def __init__(self, api_key: Optional[str] = None):
         owner = "mindee"
-        url_name = os.getenv("MINDEE_INVOICE_URL_NAME", INVOICE_URL_NAME)
-        version = os.getenv("MINDEE_INVOICE_VERSION", INVOICE_VERSION)
+        url_name = INVOICE_URL_NAME
+        version = INVOICE_VERSION
         key_name = "invoice"
         super().__init__(
             owner=owner,
@@ -161,8 +161,8 @@ class InvoiceEndpoint(Endpoint):
 class ReceiptEndpoint(Endpoint):
     def __init__(self, api_key: Optional[str] = None):
         owner = "mindee"
-        url_name = os.getenv("MINDEE_RECEIPT_URL_NAME", RECEIPT_URL_NAME)
-        version = os.getenv("MINDEE_RECEIPT_VERSION", RECEIPT_VERSION)
+        url_name = RECEIPT_URL_NAME
+        version = RECEIPT_VERSION
         key_name = "receipt"
         super().__init__(
             owner=owner,
@@ -176,8 +176,8 @@ class ReceiptEndpoint(Endpoint):
 class PassportEndpoint(Endpoint):
     def __init__(self, api_key: Optional[str] = None):
         owner = "mindee"
-        url_name = os.getenv("MINDEE_PASSPORT_URL_NAME", PASSPORT_URL_NAME)
-        version = os.getenv("MINDEE_PASSPORT_VERSION", PASSPORT_VERSION)
+        url_name = PASSPORT_URL_NAME
+        version = PASSPORT_VERSION
         super().__init__(
             owner=owner,
             url_name=url_name,

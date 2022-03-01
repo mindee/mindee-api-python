@@ -2,30 +2,29 @@ import json
 import pytest
 from mindee.documents.financial_document import FinancialDocument
 
+from tests.documents.test_invoice import INVOICE_FILE_PATH, INVOICE_NA_FILE_PATH
+from tests.documents.test_receipt import RECEIPT_FILE_PATH, RECEIPT_NA_FILE_PATH
+
 
 @pytest.fixture
 def financial_doc_from_invoice_object():
-    invoice_json_repsonse = json.load(open("./tests/data/invoices/v2/invoice.json"))
+    invoice_json_repsonse = json.load(open(INVOICE_FILE_PATH))
     return FinancialDocument(
-        invoice_json_repsonse["document"]["inference"]["pages"][0]["prediction"]
+        invoice_json_repsonse["document"]["inference"]["prediction"], page_n=None
     )
 
 
 @pytest.fixture
 def financial_doc_from_receipt_object():
-    receipt_json_repsonse = json.load(
-        open("./tests/data/expense_receipts/v3/receipt.json")
-    )
+    receipt_json_repsonse = json.load(open(RECEIPT_FILE_PATH))
     return FinancialDocument(
-        receipt_json_repsonse["document"]["inference"]["pages"][0]["prediction"]
+        receipt_json_repsonse["document"]["inference"]["prediction"], page_n=None
     )
 
 
 @pytest.fixture
 def financial_doc_from_receipt_object_all_na():
-    json_repsonse = json.load(
-        open("./tests/data/expense_receipts/v3/receipt_all_na.json")
-    )
+    json_repsonse = json.load(open(RECEIPT_NA_FILE_PATH))
     return FinancialDocument(
         json_repsonse["document"]["inference"]["pages"][0]["prediction"]
     )
@@ -33,7 +32,7 @@ def financial_doc_from_receipt_object_all_na():
 
 @pytest.fixture
 def financial_doc_from_invoice_object_all_na():
-    json_repsonse = json.load(open("./tests/data/invoices/v2/invoice_all_na.json"))
+    json_repsonse = json.load(open(INVOICE_NA_FILE_PATH))
     return FinancialDocument(
         json_repsonse["document"]["inference"]["pages"][0]["prediction"]
     )
@@ -41,16 +40,16 @@ def financial_doc_from_invoice_object_all_na():
 
 @pytest.fixture
 def receipt_pred():
-    return json.load(open("./tests/data/expense_receipts/v3/receipt_all_na.json"))[
-        "document"
-    ]["inference"]["pages"][0]["prediction"]
+    return json.load(open(RECEIPT_NA_FILE_PATH))["document"]["inference"]["pages"][0][
+        "prediction"
+    ]
 
 
 @pytest.fixture
 def invoice_pred():
-    return json.load(open("./tests/data/invoices/v2/invoice_all_na.json"))["document"][
-        "inference"
-    ]["pages"][0]["prediction"]
+    return json.load(open(INVOICE_NA_FILE_PATH))["document"]["inference"]["pages"][0][
+        "prediction"
+    ]
 
 
 def test_constructor_1(financial_doc_from_invoice_object):
@@ -262,6 +261,11 @@ def test_invoice_or_receipt_get_same_field_types(receipt_pred, invoice_pred):
     financial_doc_from_invoice = FinancialDocument(invoice_pred)
     assert set(dir(financial_doc_from_invoice)) == set(dir(financial_doc_from_receipt))
     for key in dir(financial_doc_from_receipt):
-        assert type(getattr(financial_doc_from_receipt, key)) == type(
-            getattr(financial_doc_from_invoice, key)
-        )
+        if key.startswith("_"):
+            continue
+        receipt_attr = getattr(financial_doc_from_receipt, key)
+        invoice_attr = getattr(financial_doc_from_invoice, key)
+        print(key)
+        assert isinstance(
+            receipt_attr, type(invoice_attr)
+        ), f"Types do not match for: {key}"

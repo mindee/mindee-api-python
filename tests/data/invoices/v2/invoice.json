@@ -6,17 +6,19 @@
     ],
     "status": "success",
     "status_code": 201,
-    "url": "http://api.mindee.net/v1/products/mindee/invoices/v2/predict?include_mvision=True"
+    "url": "http://api.mindee.net/v1/products/mindee/invoices/v3/predict"
   },
   "document": {
     "annotations": {
-      "labels": []
+      "labels": {}
     },
-    "id": "4e948ed6-a99f-47f4-9f34-29dc3e80f25f",
+    "id": "d262d169-c1ce-40c2-aeb8-28d05f597dc4",
     "inference": {
-      "finished_at": "2021-08-24T08:01:39+00:00",
+      "extras": {},
+      "finished_at": "2022-03-01T15:33:41+00:00",
       "pages": [
         {
+          "extras": {},
           "id": 0,
           "prediction": {
             "company_registration": [
@@ -66,25 +68,36 @@
                 "type": "VAT NUMBER",
                 "value": "FR33501124705"
               }
-            ],
+              ],
+            "customer": {
+              "confidence": 0.0,
+              "polygon": [],
+              "value": null
+            },
+            "customer_address": {
+              "confidence": 0.0,
+              "polygon": [],
+              "value": null
+            },
+            "customer_company_registration": [],
             "date": {
-              "confidence": 0.97,
+              "confidence": 0.99,
               "polygon": [
                 [
-                  0.288,
+                  0.382,
                   0.306
                 ],
                 [
-                  0.348,
+                  0.44,
                   0.306
                 ],
                 [
-                  0.348,
-                  0.319
+                  0.44,
+                  0.318
                 ],
                 [
-                  0.288,
-                  0.319
+                  0.382,
+                  0.318
                 ]
               ],
               "value": "2020-02-17"
@@ -93,26 +106,26 @@
               "value": "INVOICE"
             },
             "due_date": {
-              "confidence": 0.45,
+              "confidence": 0.99,
               "polygon": [
                 [
-                  0.399,
-                  0.801
+                  0.382,
+                  0.306
                 ],
                 [
-                  0.461,
-                  0.801
+                  0.44,
+                  0.306
                 ],
                 [
-                  0.461,
-                  0.812
+                  0.44,
+                  0.318
                 ],
                 [
-                  0.399,
-                  0.812
+                  0.382,
+                  0.318
                 ]
               ],
-              "raw": "à réception et",
+              "raw": "2020-02-17",
               "value": "2020-02-17"
             },
             "invoice_number": {
@@ -123,11 +136,11 @@
                   0.307
                 ],
                 [
-                  0.264,
+                  0.265,
                   0.307
                 ],
                 [
-                  0.264,
+                  0.265,
                   0.32
                 ],
                 [
@@ -146,35 +159,49 @@
               "confidence": 0.99,
               "degrees": 0
             },
-            "payment_details": [],
+            "payment_details": [
+              {
+                "account_number": null,
+                "confidence": 0.94,
+                "iban": "FR7640254025476501124705368",
+                "polygon": [
+                  [
+                    0.666,
+                    0.123
+                  ],
+                  [
+                    0.861,
+                    0.123
+                  ],
+                  [
+                    0.861,
+                    0.14
+                  ],
+                  [
+                    0.666,
+                    0.14
+                  ]
+                ],
+                "routing_number": null,
+                "swift": null
+              }
+            ],
             "supplier": {
-              "confidence": 0.54,
-              "polygon": [
-                [
-                  0.207,
-                  0.078
-                ],
-                [
-                  0.281,
-                  0.078
-                ],
-                [
-                  0.281,
-                  0.107
-                ],
-                [
-                  0.207,
-                  0.107
-                ]
-              ],
-              "value": "1"
+              "confidence": 0.0,
+              "polygon": [],
+              "value": null
+            },
+            "supplier_address": {
+              "confidence": 0.0,
+              "polygon": [],
+              "value": null
             },
             "taxes": [
               {
                 "confidence": 0.85,
                 "polygon": [
                   [
-                    0.291,
+                    0.295,
                     0.749
                   ],
                   [
@@ -183,11 +210,11 @@
                   ],
                   [
                     0.543,
-                    0.766
+                    0.762
                   ],
                   [
-                    0.291,
-                    0.766
+                    0.295,
+                    0.762
                   ]
                 ],
                 "rate": 20.0,
@@ -198,19 +225,19 @@
               "confidence": 0.99,
               "polygon": [
                 [
-                  0.66,
-                  0.762
+                  0.661,
+                  0.764
                 ],
                 [
-                  0.712,
-                  0.762
+                  0.709,
+                  0.764
                 ],
                 [
-                  0.712,
+                  0.709,
                   0.78
                 ],
                 [
-                  0.66,
+                  0.661,
                   0.78
                 ]
               ],
@@ -220,20 +247,20 @@
               "confidence": 0.99,
               "polygon": [
                 [
-                  0.887,
-                  0.762
+                  0.889,
+                  0.783
                 ],
                 [
-                  0.938,
-                  0.762
+                  0.94,
+                  0.783
                 ],
                 [
-                  0.938,
-                  0.779
+                  0.94,
+                  0.797
                 ],
                 [
-                  0.887,
-                  0.779
+                  0.889,
+                  0.797
                 ]
               ],
               "value": 587.95
@@ -241,78 +268,90 @@
           }
         },
         {
+          "extras": {},
           "id": 1,
           "prediction": {
             "company_registration": [],
-            "date": {
-              "confidence": 0.99,
+            "customer": {
+              "confidence": 0.87,
               "polygon": [
                 [
-                  0.838,
-                  0.304
+                  0.037,
+                  0.284
                 ],
                 [
-                  0.933,
-                  0.304
+                  0.099,
+                  0.284
                 ],
                 [
-                  0.933,
-                  0.318
+                  0.099,
+                  0.297
                 ],
                 [
-                  0.838,
-                  0.318
+                  0.037,
+                  0.297
                 ]
               ],
-              "value": "2018-09-25"
+              "value": "JIRO DOI"
+            },
+            "customer_address": {
+              "confidence": 0.26,
+              "polygon": [
+                [
+                  0.035,
+                  0.303
+                ],
+                [
+                  0.212,
+                  0.303
+                ],
+                [
+                  0.212,
+                  0.354
+                ],
+                [
+                  0.035,
+                  0.354
+                ]
+              ],
+              "value": "1954 Bloon Street West Toronto, ON, M6P 3K9 Canada"
+            },
+            "customer_company_registration": [],
+            "date": {
+              "confidence": 0.0,
+              "polygon": [],
+              "value": null
             },
             "document_type": {
               "value": "INVOICE"
             },
             "due_date": {
-              "confidence": 0.86,
+              "confidence": 0.93,
               "polygon": [
                 [
-                  0.841,
-                  0.323
+                  0.84,
+                  0.326
                 ],
                 [
-                  0.94,
-                  0.323
+                  0.941,
+                  0.326
                 ],
                 [
-                  0.94,
-                  0.339
+                  0.941,
+                  0.34
                 ],
                 [
-                  0.841,
-                  0.339
+                  0.84,
+                  0.34
                 ]
               ],
-              "raw": "Upon receipt",
-              "value": "2018-09-25"
+              "raw": "receipt Upon",
+              "value": "2020-02-17"
             },
             "invoice_number": {
-              "confidence": 0.99,
-              "polygon": [
-                [
-                  0.841,
-                  0.265
-                ],
-                [
-                  0.862,
-                  0.265
-                ],
-                [
-                  0.862,
-                  0.279
-                ],
-                [
-                  0.841,
-                  0.279
-                ]
-              ],
-              "value": "14"
+              "confidence": 0.0,
+              "polygon": [],
+              "value": null
             },
             "locale": {
               "confidence": 0.94,
@@ -325,26 +364,48 @@
             },
             "payment_details": [],
             "supplier": {
-              "confidence": 0.75,
+              "confidence": 0.7,
               "polygon": [
                 [
-                  0.162,
-                  0.087
+                  0.164,
+                  0.088
                 ],
                 [
-                  0.388,
-                  0.087
+                  0.399,
+                  0.088
                 ],
                 [
-                  0.388,
+                  0.399,
                   0.147
                 ],
                 [
-                  0.162,
+                  0.164,
                   0.147
                 ]
               ],
-              "value": "TURNPIKE DESIGNS CO"
+              "value": "TURNPIKE DESIGNS CO."
+            },
+            "supplier_address": {
+              "confidence": 0.52,
+              "polygon": [
+                [
+                  0.757,
+                  0.129
+                ],
+                [
+                  0.963,
+                  0.129
+                ],
+                [
+                  0.963,
+                  0.162
+                ],
+                [
+                  0.757,
+                  0.162
+                ]
+              ],
+              "value": "156 University Ave, Toronto ON, Canada M5H 2H7"
             },
             "taxes": [
               {
@@ -352,11 +413,11 @@
                 "polygon": [
                   [
                     0.785,
-                    0.743
+                    0.744
                   ],
                   [
                     0.963,
-                    0.743
+                    0.744
                   ],
                   [
                     0.963,
@@ -374,7 +435,7 @@
             "total_excl": {
               "confidence": 0.0,
               "polygon": [],
-              "value": "None"
+              "value": null
             },
             "total_incl": {
               "confidence": 0.99,
@@ -452,107 +513,204 @@
             "value": "FR33501124705"
           }
         ],
-        "date": {
-          "confidence": 0.99,
+        "customer": {
+          "confidence": 0.87,
           "page_id": 1,
           "polygon": [
             [
-              0.838,
-              0.304
+              0.037,
+              0.284
             ],
             [
-              0.933,
-              0.304
+              0.099,
+              0.284
             ],
             [
-              0.933,
+              0.099,
+              0.297
+            ],
+            [
+              0.037,
+              0.297
+            ]
+          ],
+          "value": "JIRO DOI"
+        },
+        "customer_address": {
+          "confidence": 0.26,
+          "page_id": 1,
+          "polygon": [
+            [
+              0.035,
+              0.303
+            ],
+            [
+              0.212,
+              0.303
+            ],
+            [
+              0.212,
+              0.354
+            ],
+            [
+              0.035,
+              0.354
+            ]
+          ],
+          "value": "1954 Bloon Street West Toronto, ON, M6P 3K9 Canada"
+        },
+        "customer_company_registration": [],
+        "date": {
+          "confidence": 0.99,
+          "page_id": 0,
+          "polygon": [
+            [
+              0.382,
+              0.306
+            ],
+            [
+              0.44,
+              0.306
+            ],
+            [
+              0.44,
               0.318
             ],
             [
-              0.838,
+              0.382,
               0.318
             ]
           ],
-          "value": "2018-09-25"
+          "value": "2020-02-17"
         },
         "document_type": {
           "value": "INVOICE"
         },
         "due_date": {
-          "confidence": 0.86,
-          "page_id": 1,
+          "confidence": 0.99,
+          "page_id": 0,
           "polygon": [
             [
-              0.841,
-              0.323
+              0.382,
+              0.306
             ],
             [
-              0.94,
-              0.323
+              0.44,
+              0.306
             ],
             [
-              0.94,
-              0.339
+              0.44,
+              0.318
             ],
             [
-              0.841,
-              0.339
+              0.382,
+              0.318
             ]
           ],
-          "raw": "Upon receipt",
-          "value": "2018-09-25"
+          "raw": "2020-02-17",
+          "value": "2020-02-17"
         },
         "invoice_number": {
-          "confidence": 0.99,
-          "page_id": 1,
+          "confidence": 0.95,
+          "page_id": 0,
           "polygon": [
             [
-              0.841,
-              0.265
+              0.177,
+              0.307
             ],
             [
-              0.862,
-              0.265
+              0.265,
+              0.307
             ],
             [
-              0.862,
-              0.279
+              0.265,
+              0.32
             ],
             [
-              0.841,
-              0.279
+              0.177,
+              0.32
             ]
           ],
-          "value": "14"
+          "value": "0042004801351"
         },
         "locale": {
           "confidence": 0.94,
           "currency": "EUR",
           "language": "fr"
         },
-        "payment_details": [],
+        "payment_details": [
+          {
+            "account_number": null,
+            "confidence": 0.94,
+            "iban": "FR7640254025476501124705368",
+            "page_id": 0,
+            "polygon": [
+              [
+                0.666,
+                0.123
+              ],
+              [
+                0.861,
+                0.123
+              ],
+              [
+                0.861,
+                0.14
+              ],
+              [
+                0.666,
+                0.14
+              ]
+            ],
+            "routing_number": null,
+            "swift": null
+          }
+        ],
         "supplier": {
-          "confidence": 0.54,
-          "page_id": 0,
+          "confidence": 0.7,
+          "page_id": 1,
           "polygon": [
             [
-              0.207,
-              0.078
+              0.164,
+              0.088
             ],
             [
-              0.281,
-              0.078
+              0.399,
+              0.088
             ],
             [
-              0.281,
-              0.107
+              0.399,
+              0.147
             ],
             [
-              0.207,
-              0.107
+              0.164,
+              0.147
             ]
           ],
-          "value": "1"
+          "value": "TURNPIKE DESIGNS CO."
+        },
+        "supplier_address": {
+          "confidence": 0.52,
+          "page_id": 1,
+          "polygon": [
+            [
+              0.757,
+              0.129
+            ],
+            [
+              0.963,
+              0.129
+            ],
+            [
+              0.963,
+              0.162
+            ],
+            [
+              0.757,
+              0.162
+            ]
+          ],
+          "value": "156 University Ave, Toronto ON, Canada M5H 2H7"
         },
         "taxes": [
           {
@@ -560,7 +718,7 @@
             "page_id": 0,
             "polygon": [
               [
-                0.291,
+                0.295,
                 0.749
               ],
               [
@@ -569,11 +727,11 @@
               ],
               [
                 0.543,
-                0.766
+                0.762
               ],
               [
-                0.291,
-                0.766
+                0.295,
+                0.762
               ]
             ],
             "rate": 20.0,
@@ -585,19 +743,19 @@
           "page_id": 0,
           "polygon": [
             [
-              0.66,
-              0.762
+              0.661,
+              0.764
             ],
             [
-              0.712,
-              0.762
+              0.709,
+              0.764
             ],
             [
-              0.712,
+              0.709,
               0.78
             ],
             [
-              0.66,
+              0.661,
               0.78
             ]
           ],
@@ -608,54 +766,52 @@
           "page_id": 0,
           "polygon": [
             [
-              0.887,
-              0.762
+              0.889,
+              0.783
             ],
             [
-              0.938,
-              0.762
+              0.94,
+              0.783
             ],
             [
-              0.938,
-              0.779
+              0.94,
+              0.797
             ],
             [
-              0.887,
-              0.779
+              0.889,
+              0.797
             ]
           ],
           "value": 587.95
         }
       },
-      "processing_time": 3.678,
+      "processing_time": 4.634,
       "product": {
         "features": [
           "locale",
           "invoice_number",
           "date",
           "due_date",
-          "total_incl",
           "total_excl",
+          "total_incl",
           "taxes",
-          "document_type",
           "payment_details",
-          "company_registration",
           "supplier",
+          "company_registration",
+          "supplier_address",
+          "customer",
+          "customer_company_registration",
+          "customer_address",
+          "document_type",
           "orientation"
         ],
         "name": "mindee/invoices",
         "type": "standard",
-        "version": "2.1"
+        "version": "3.0"
       },
-      "started_at": "2021-08-24T08:01:35+00:00"
+      "started_at": "2022-03-01T15:33:37+00:00"
     },
     "n_pages": 2,
-    "name": "document",
-    "ocr": {}
-  },
-  "document_type": "invoice",
-  "input_type": "path",
-  "filename": "invoice.pdf",
-  "filepath": "./tests/data/invoices/invoice.pdf",
-  "file_extension": "application/pdf"
+    "name": "invoice.pdf"
+  }
 }

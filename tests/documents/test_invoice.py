@@ -2,11 +2,14 @@ import json
 import pytest
 from mindee.documents.invoice import Invoice
 
+INVOICE_FILE_PATH = "./tests/data/invoices/v2/invoice.json"
+INVOICE_NA_FILE_PATH = "./tests/data/invoices/v2/invoice_all_na.json"
+
 
 @pytest.fixture
 def invoice_object():
-    json_repsonse = json.load(open("./tests/data/invoices/v2/invoice.json"))
-    return Invoice(json_repsonse["document"]["inference"]["pages"][0]["prediction"])
+    json_repsonse = json.load(open(INVOICE_FILE_PATH))
+    return Invoice(json_repsonse["document"]["inference"]["prediction"], page_n=None)
 
 
 @pytest.fixture
@@ -16,7 +19,7 @@ def invoice_object_all_na(invoice_pred):
 
 @pytest.fixture
 def invoice_pred():
-    invoice_json = json.load(open("./tests/data/invoices/v2/invoice_all_na.json"))
+    invoice_json = json.load(open(INVOICE_NA_FILE_PATH))
     return invoice_json["document"]["inference"]["pages"][0]["prediction"]
 
 
@@ -28,7 +31,7 @@ def test_constructor(invoice_object):
     assert invoice_object.checklist["taxes_plus_total_excl_match_total_incl"] is True
     assert invoice_object.total_tax.value == 97.98
     assert invoice_object.invoice_date.value == "2020-02-17"
-    assert invoice_object.invoice_date.confidence == 0.97
+    assert invoice_object.invoice_date.confidence == 0.99
     assert invoice_object.invoice_number.value == "0042004801351"
     assert invoice_object.invoice_number.confidence == 0.95
     assert (
@@ -40,8 +43,12 @@ Total amount including taxes: 587.95
 Total amount excluding taxes: 489.97
 Invoice date: 2020-02-17
 Invoice due date: 2020-02-17
-Supplier name: 1
-Payment details: 
+Supplier name: TURNPIKE DESIGNS CO.
+Supplier address: 156 University Ave, Toronto ON, Canada M5H 2H7
+Customer name: JIRO DOI
+Customer company registration: 
+Customer address: 1954 Bloon Street West Toronto, ON, M6P 3K9 Canada
+Payment details: FR7640254025476501124705368;
 Company numbers: 501124705; FR33501124705
 Taxes: 97.98 20.0%
 Total taxes: 97.98

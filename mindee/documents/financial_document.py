@@ -1,6 +1,8 @@
-from typing import List
+from typing import List, Optional
 
 from mindee.fields import Field
+from mindee.fields.orientation import Orientation
+from mindee.fields.locale import Locale
 from mindee.http import Endpoint
 from mindee.documents.base import Document
 from mindee.documents.invoice import Invoice
@@ -8,6 +10,10 @@ from mindee.documents.receipt import Receipt
 
 
 class FinancialDocument(Document):
+    locale: Locale
+    # orientation is only present on page-level, not document-level
+    orientation: Optional[Orientation] = None
+
     def __init__(
         self,
         api_prediction=None,
@@ -20,7 +26,6 @@ class FinancialDocument(Document):
         :param input_file: Input object
         :param page_n: Page number for multi pages pdf input
         """
-        self.locale = None
         self.total_incl = None
         self.total_excl = None
         self.date = None
@@ -31,7 +36,6 @@ class FinancialDocument(Document):
         self.payment_details = None
         self.company_number = None
         self.vat_number = None
-        self.orientation = None
         self.total_tax = None
         self.time = None
 

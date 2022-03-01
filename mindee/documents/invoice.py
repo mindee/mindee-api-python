@@ -20,6 +20,10 @@ class Invoice(Document):
     due_date: Date
     taxes: List[Tax] = []
     supplier: Field
+    supplier_address: Field
+    customer_name: Field
+    customer_company_registration: Field
+    customer_address: Field
     payment_details: List[PaymentDetails] = []
     company_number: List[Field] = []
     total_tax: Amount
@@ -51,6 +55,9 @@ class Invoice(Document):
         :param page_n: Page number for multi pages pdf input
         :return: (void) set the object attributes with api prediction values
         """
+        if page_n is not None:
+            self.orientation = Orientation(api_prediction["orientation"], page_n=page_n)
+
         self.company_number = [
             Field(company_reg, extra_fields={"type"}, page_n=page_n)
             for company_reg in api_prediction["company_registration"]
@@ -65,9 +72,14 @@ class Invoice(Document):
         self.locale = Locale(
             api_prediction["locale"], value_key="language", page_n=page_n
         )
-        if page_n is not None:
-            self.orientation = Orientation(api_prediction["orientation"], page_n=page_n)
         self.supplier = Field(api_prediction["supplier"], page_n=page_n)
+        self.supplier_address = Field(api_prediction["supplier_address"], page_n=page_n)
+        self.customer_name = Field(api_prediction["customer"], page_n=page_n)
+        self.customer_company_registration = Field(
+            api_prediction["customer_company_registration"], page_n=page_n
+        )
+        self.customer_address = Field(api_prediction["customer_address"], page_n=page_n)
+
         self.taxes = [
             Tax(tax_prediction, page_n=page_n, value_key="value")
             for tax_prediction in api_prediction["taxes"]
@@ -93,16 +105,20 @@ class Invoice(Document):
         return (
             "-----Invoice data-----\n"
             f"Filename: {self.filename}\n"
-            f"Invoice number: {self.invoice_number.value}\n"
-            f"Total amount including taxes: {self.total_incl.value}\n"
-            f"Total amount excluding taxes: {self.total_excl.value}\n"
-            f"Invoice date: {self.invoice_date.value}\n"
-            f"Invoice due date: {self.due_date.value}\n"
-            f"Supplier name: {self.supplier.value}\n"
+            f"Invoice number: {self.invoice_number}\n"
+            f"Total amount including taxes: {self.total_incl}\n"
+            f"Total amount excluding taxes: {self.total_excl}\n"
+            f"Invoice date: {self.invoice_date}\n"
+            f"Invoice due date: {self.due_date}\n"
+            f"Supplier name: {self.supplier}\n"
+            f"Supplier address: {self.supplier_address}\n"
+            f"Customer name: {self.customer_name}\n"
+            f"Customer company registration: {self.customer_company_registration}\n"
+            f"Customer address: {self.customer_address}\n"
             f"Payment details: {payments}\n"
             f"Company numbers: {company_numbers}\n"
             f"Taxes: {taxes}\n"
-            f"Total taxes: {self.total_tax.value}\n"
+            f"Total taxes: {self.total_tax}\n"
             f"Locale: {self.locale}\n"
             "----------------------"
         )

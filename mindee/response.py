@@ -1,7 +1,8 @@
-from typing import Dict, Any
+from typing import Dict, Any, List
 
 from mindee.logger import logger
 from mindee.document_config import DocumentConfig
+from mindee.documents.base import TypeDocument, Document
 
 
 def format_response(
@@ -57,9 +58,9 @@ class DocumentResponse:
         self,
         doc_config: DocumentConfig,
         http_response: dict,
-        pages: list,
+        pages: List[Document],
         document_type: str,
-        document=None,
+        document=TypeDocument,
     ):
         """
         :param http_response: HTTP response object
