@@ -2,26 +2,26 @@ import json
 import pytest
 from mindee.documents.receipt import Receipt
 
+RECEIPT_FILE_PATH = "./tests/data/expense_receipts/v3/receipt.json"
+RECEIPT_NA_FILE_PATH = "./tests/data/expense_receipts/v3/receipt_all_na.json"
+
 
 @pytest.fixture
 def receipt_object():
-    json_repsonse = json.load(open("./tests/data/expense_receipts/v3/receipt.json"))
-    return Receipt(json_repsonse["document"]["inference"]["pages"][0]["prediction"])
+    json_response = json.load(open(RECEIPT_FILE_PATH))
+    return Receipt(json_response["document"]["inference"]["prediction"], page_n=None)
 
 
 @pytest.fixture
 def receipt_object_all_na():
-    json_repsonse = json.load(
-        open("./tests/data/expense_receipts/v3/receipt_all_na.json")
-    )
-    return Receipt(json_repsonse["document"]["inference"]["pages"][0]["prediction"])
+    json_response = json.load(open(RECEIPT_NA_FILE_PATH))
+    return Receipt(json_response["document"]["inference"]["prediction"], page_n=None)
 
 
 @pytest.fixture
 def receipt_pred():
-    return json.load(open("./tests/data/expense_receipts/v3/receipt_all_na.json"))[
-        "document"
-    ]["inference"]["pages"][0]["prediction"]
+    json_response = json.load(open(RECEIPT_NA_FILE_PATH))
+    return json_response["document"]["inference"]["pages"][0]["prediction"]
 
 
 # Technical tests
@@ -52,7 +52,7 @@ def test_all_na(receipt_object_all_na):
     assert receipt_object_all_na.date.value is None
     assert receipt_object_all_na.merchant_name.value is None
     assert receipt_object_all_na.time.value is None
-    assert receipt_object_all_na.orientation.value == 0
+    assert receipt_object_all_na.orientation is None
     assert receipt_object_all_na.total_tax.value is None
     assert len(receipt_object_all_na.taxes) == 0
 

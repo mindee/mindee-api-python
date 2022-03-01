@@ -18,7 +18,7 @@ class Field:
         :param abstract_prediction: Prediction object from HTTP response
         :param value_key: Key to use in the abstract_prediction dict
         :param reconstructed: Bool for reconstructed object (not extracted in the API)
-        :param page_n: Page number for multi pages pdf
+        :param page_n: Page number for multi pages PDF
         :param extra_fields: extra field to get from the abstract_prediction and to set as attribute of the Field
         """
         self.page_n = page_n

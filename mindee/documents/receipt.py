@@ -65,6 +65,9 @@ class Receipt(Document):
         :param page_n: Page number for multi pages pdf input
         :return: (void) set the object attributes with api prediction values
         """
+        if page_n is not None:
+            self.orientation = Orientation(api_prediction["orientation"], page_n=page_n)
+
         self.locale = Locale(api_prediction["locale"], page_n=page_n)
         self.total_incl = Amount(
             api_prediction["total_incl"], value_key="value", page_n=page_n
@@ -85,8 +88,6 @@ class Receipt(Document):
             )
             for tax_prediction in api_prediction["taxes"]
         ]
-        if page_n is not None:
-            self.orientation = Orientation(api_prediction["orientation"], page_n=page_n)
         self.total_tax = Amount(
             {"value": None, "confidence": 0.0}, value_key="value", page_n=page_n
         )

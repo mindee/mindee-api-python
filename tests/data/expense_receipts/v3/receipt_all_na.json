@@ -74,10 +74,10 @@
         },
         "locale": {
           "confidence": 0.15,
-          "country": "FR",
-          "currency": "EUR",
-          "language": "fr",
-          "value": "fr-FR"
+          "country": null,
+          "currency": null,
+          "language": null,
+          "value": null
         },
         "supplier": {
           "confidence": 0.0,

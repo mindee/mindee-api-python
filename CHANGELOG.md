@@ -1,5 +1,14 @@
 # Mindee Python API Helper Changelog
 
+## v2.1.0 (2022-03-02)
+
+### Changes
+
+* :sparkles: update to Invoices v3
+* :recycle: refactor `Endpoint` classes and document building
+* :arrow_up: Update PikePDF to 5.0.1
+* :sparkles: add a basic logger
+
 ## v2.0.2 (2022-02-21)
 
 ### Fixes
