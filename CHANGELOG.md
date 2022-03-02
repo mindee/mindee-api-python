@@ -4,7 +4,7 @@
 
 ### Changes
 
-* :sparkles: update to Invoices v3
+* :sparkles: update to Invoices API v3
 * :recycle: refactor `Endpoint` classes and document building
 * :arrow_up: Update PikePDF to 5.0.1
 * :sparkles: add a basic logger
