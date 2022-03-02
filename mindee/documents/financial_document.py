@@ -38,6 +38,10 @@ class FinancialDocument(Document):
         self.vat_number = None
         self.total_tax = None
         self.time = None
+        self.supplier_address = None
+        self.customer_name = None
+        self.customer_company_registration = None
+        self.customer_address = None
 
         # need this for building from prediction
         self.input_file = input_file
@@ -70,6 +74,10 @@ class FinancialDocument(Document):
             self.orientation = invoice.orientation
             self.total_tax = invoice.total_tax
             self.time = Field({"value": None, "confidence": 0.0})
+            self.supplier_address = invoice.supplier_address
+            self.customer_name = invoice.customer_name
+            self.customer_company_registration = invoice.customer_company_registration
+            self.customer_address = invoice.customer_address
         else:
             receipt = Receipt(api_prediction, self.input_file, page_n=page_n)
             self.orientation = receipt.orientation
@@ -85,6 +93,12 @@ class FinancialDocument(Document):
             self.invoice_number = Field({"value": None, "confidence": 0.0})
             self.payment_details = []
             self.company_number = []
+            self.supplier_address = Field({"value": None, "confidence": 0.0})
+            self.customer_name = Field({"value": None, "confidence": 0.0})
+            self.customer_company_registration = Field(
+                {"value": None, "confidence": 0.0}
+            )
+            self.customer_address = Field({"value": None, "confidence": 0.0})
 
     def __str__(self) -> str:
         return (
@@ -96,6 +110,10 @@ class FinancialDocument(Document):
             "Date: %s\n"
             "Invoice due date: %s\n"
             "Supplier name: %s\n"
+            f"Supplier address: {self.supplier_address}\n"
+            f"Customer name: {self.customer_name}\n"
+            f"Customer company registration: {self.customer_company_registration}\n"
+            f"Customer address: {self.customer_address}\n"
             "Taxes: %s\n"
             "Total taxes: %s\n"
             "----------------------"

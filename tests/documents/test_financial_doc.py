@@ -54,10 +54,15 @@ def invoice_pred():
 
 def test_constructor_1(financial_doc_from_invoice_object):
     assert financial_doc_from_invoice_object.date.value == "2020-02-17"
+    assert (
+        financial_doc_from_invoice_object.supplier_address.value
+        == "156 University Ave, Toronto ON, Canada M5H 2H7"
+    )
 
 
 def test_constructor_2(financial_doc_from_receipt_object):
     assert financial_doc_from_receipt_object.date.value == "2016-02-26"
+    assert financial_doc_from_receipt_object.supplier_address.value is None
 
 
 def test_all_na_receipt(financial_doc_from_receipt_object_all_na):
