@@ -9,11 +9,11 @@ class Tax(Field):
 
     def __init__(
         self,
-        tax_prediction,
-        value_key="amount",
-        rate_key="rate",
-        code_key="code",
-        reconstructed=False,
+        tax_prediction: dict,
+        value_key: str = "amount",
+        rate_key: str = "rate",
+        code_key: str = "code",
+        reconstructed: bool = False,
         page_n=None,
     ):
         """

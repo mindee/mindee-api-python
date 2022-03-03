@@ -6,7 +6,11 @@ class Amount(Field):
     value: Optional[float] = None
 
     def __init__(
-        self, amount_prediction, value_key="amount", reconstructed=False, page_n=None
+        self,
+        amount_prediction: dict,
+        value_key: str = "amount",
+        reconstructed: bool = False,
+        page_n=None,
     ):
         """
         :param amount_prediction: Amount prediction object from HTTP response

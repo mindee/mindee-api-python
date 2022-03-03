@@ -145,14 +145,14 @@ class FinancialDocument(Document):
             index = 1
         return endpoints[index].predict_request(input_file, include_words)
 
-    def _checklist(self):
+    def _checklist(self) -> None:
         """
         :return: Set of validation rules
         """
         self.checklist = {"taxes_match_total_incl": self.__taxes_match_total_incl()}
 
     # Checks
-    def __taxes_match_total_incl(self):
+    def __taxes_match_total_incl(self) -> bool:
         """
         Check invoice rule of matching between taxes and total_incl
         :return: True if rule matches, False otherwise

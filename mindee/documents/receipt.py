@@ -105,13 +105,13 @@ class Receipt(Document):
         """
         return endpoints[0].predict_request(input_file, include_words)
 
-    def _checklist(self):
+    def _checklist(self) -> None:
         """
         Call check methods
         """
         self.checklist = {"taxes_match_total_incl": self.__taxes_match_total()}
 
-    def _reconstruct(self):
+    def _reconstruct(self) -> None:
         """
         Call fields reconstruction methods
         """
@@ -156,11 +156,12 @@ class Receipt(Document):
         return False
 
     # Reconstruct
-    def __reconstruct_total_excl_from_tcc_and_taxes(self):
+    def __reconstruct_total_excl_from_tcc_and_taxes(self) -> None:
         """
         Set self.total_excl with Amount object
         The total_excl Amount value is the difference between total_incl and sum of taxes
-        The total_excl Amount confidence is the product of self.taxes probabilities multiplied by total_incl confidence
+        The total_excl Amount confidence is the product of self.taxes probabilities
+            multiplied by total_incl confidence
         """
         if self.taxes and self.total_incl.value is not None:
             total_excl = {
@@ -170,7 +171,7 @@ class Receipt(Document):
             }
             self.total_excl = Amount(total_excl, value_key="value", reconstructed=True)
 
-    def __reconstruct_total_tax(self):
+    def __reconstruct_total_tax(self) -> None:
         """
         Set self.total_tax with Amount object
         The total_tax Amount value is the sum of all self.taxes value

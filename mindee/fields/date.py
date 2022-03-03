@@ -8,10 +8,15 @@ ISO8601_DATETIME_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
 
 
 class Date(Field):
-    date_object: Optional[date]
+    date_object: Optional[date] = None
+    value: Optional[str]
 
     def __init__(
-        self, date_prediction, value_key="iso", reconstructed=False, page_n=None
+        self,
+        date_prediction: dict,
+        value_key: str = "iso",
+        reconstructed: bool = False,
+        page_n=None,
     ):
         """
         :param date_prediction: Date prediction object from HTTP response
@@ -26,14 +31,15 @@ class Date(Field):
             page_n=page_n,
         )
 
-        try:
-            self.date_object = (
-                datetime.strptime(self.value, ISO8601_DATE_FORMAT)
-                .replace(tzinfo=pytz.utc)
-                .date()
-            )
-        except (TypeError, ValueError):
-            self.date_object = None
-            self.confidence = 0.0
-            self.value = None
-            self.bbox = []
+        if self.value:
+            try:
+                self.date_object = (
+                    datetime.strptime(self.value, ISO8601_DATE_FORMAT)
+                    .replace(tzinfo=pytz.utc)
+                    .date()
+                )
+            except (TypeError, ValueError):
+                self.date_object = None
+                self.confidence = 0.0
+                self.value = None
+                self.bbox = []

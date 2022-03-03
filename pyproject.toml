@@ -3,6 +3,12 @@ line-length = 88
 target-version = ['py36', 'py37', 'py38']
 include = '\.pyi?$'
 
+[tool.mypy]
+warn_unused_ignores = true
+strict_equality = true
+disallow_any_unimported = true
+disallow_untyped_calls = true
+
 [[tool.mypy.overrides]]
 module = ['pikepdf',]
 ignore_missing_imports = true
@@ -10,18 +16,12 @@ ignore_missing_imports = true
 [tool.pylint.'MESSAGES CONTROL']
 disable=[
   'too-few-public-methods',
-  'line-too-long',
-  'consider-using-set-comprehension',
   'missing-class-docstring',
   'missing-module-docstring',
   'too-many-instance-attributes',
-  'too-many-locals',
   'too-many-arguments',
   'duplicate-code',
   'arguments-differ',
-  'super-init-not-called',
-  'consider-iterating-dictionary',
-  'unspecified-encoding',
   'consider-using-f-string',
 ]
 

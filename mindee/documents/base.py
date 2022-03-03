@@ -38,13 +38,13 @@ class Document:
         """Build the document from an API response JSON"""
         raise NotImplementedError()
 
-    def _checklist(self, *args):
+    def _checklist(self) -> None:
         raise NotImplementedError()
 
-    def _reconstruct(self, *args):
+    def _reconstruct(self) -> None:
         pass
 
-    def all_checks(self):
+    def all_checks(self) -> bool:
         """Return all checks"""
         return all(self.checklist)
 

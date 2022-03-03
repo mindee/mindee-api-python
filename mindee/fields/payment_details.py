@@ -10,21 +10,23 @@ class PaymentDetails(Field):
 
     def __init__(
         self,
-        payment_details_prediction,
-        value_key="iban",
-        account_number_key="account_number",
-        iban_key="iban",
-        routing_number_key="routing_number",
-        swift_key="swift",
-        reconstructed=False,
+        payment_details_prediction: dict,
+        value_key: str = "iban",
+        account_number_key: str = "account_number",
+        iban_key: str = "iban",
+        routing_number_key: str = "routing_number",
+        swift_key: str = "swift",
+        reconstructed: bool = False,
         page_n=None,
     ):
         """
         :param payment_details_prediction: Payment detail prediction object from HTTP response
         :param value_key: Corresponds to iban
-        :param account_number_key: Key to use for getting the account number in the payment_details_prediction dict
+        :param account_number_key: Key to use for getting the account number in the
+            payment_details_prediction dict
         :param iban_key: Key to use for getting the IBAN in the payment_details_prediction dict
-        :param routing_number_key: Key to use for getting the Routing number  in the payment_details_prediction dict
+        :param routing_number_key: Key to use for getting the Routing number in the
+            payment_details_prediction dict
         :param swift_key: Key to use for getting the SWIFT  in the payment_details_prediction dict
         :param reconstructed: Bool for reconstructed object (not extracted in the API)
         :param page_n: Page number for multi pages pdf
