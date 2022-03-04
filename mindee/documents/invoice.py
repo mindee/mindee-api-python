@@ -133,7 +133,7 @@ class Invoice(Document):
         """
         return endpoints[0].predict_request(input_file, include_words)
 
-    def _reconstruct(self):
+    def _reconstruct(self) -> None:
         """
         Call fields reconstruction methods
         """
@@ -142,14 +142,14 @@ class Invoice(Document):
         self.__reconstruct_total_incl_from_taxes_plus_excl()
         self.__reconstruct_total_tax_from_incl_and_excl()
 
-    def _checklist(self):
+    def _checklist(self) -> None:
         """
         Call check methods
         """
         self.checklist = {
             "taxes_match_total_incl": self.__taxes_match_total_incl(),
             "taxes_match_total_excl": self.__taxes_match_total_excl(),
-            "taxes_plus_total_excl_match_total_incl": self.__taxes_plus_total_excl_match_total_incl(),
+            "taxes_plus_total_excl_match_total_incl": self.__taxes_plus_total_excl_match_total_incl(),  # pylint: disable=line-too-long
         }
 
     # Checks
@@ -189,7 +189,7 @@ class Invoice(Document):
             return True
         return False
 
-    def __taxes_match_total_excl(self):
+    def __taxes_match_total_excl(self) -> bool:
         """
         Check invoice rule of matching between taxes and total_excl
         :return: True if rule matches, False otherwise
@@ -226,7 +226,7 @@ class Invoice(Document):
             return True
         return False
 
-    def __taxes_plus_total_excl_match_total_incl(self):
+    def __taxes_plus_total_excl_match_total_incl(self) -> bool:
         """
         Check invoice rule of matching : sum(taxes) + total_excluding_taxes = total_including_taxes
         :return: True if rule matches, False otherwise
@@ -242,7 +242,8 @@ class Invoice(Document):
         # Reconstruct total_incl
         total_vat = 0
         for tax in self.taxes:
-            total_vat += tax.value
+            if tax.value is not None:
+                total_vat += tax.value
         reconstructed_total = total_vat + self.total_excl.value
 
         # Sanity check
@@ -264,11 +265,12 @@ class Invoice(Document):
         return False
 
     # Reconstruct
-    def __reconstruct_total_incl_from_taxes_plus_excl(self):
+    def __reconstruct_total_incl_from_taxes_plus_excl(self) -> None:
         """
         Set self.total_incl with Amount object
         The total_incl Amount value is the sum of total_excl and sum of taxes
-        The total_incl Amount confidence is the product of self.taxes probabilities multiplied by total_excl confidence
+        The total_incl Amount confidence is the product of self.taxes probabilities
+            multiplied by total_excl confidence
         """
         # Check total_tax, total excl exist and total incl is not set
         if (
@@ -288,11 +290,12 @@ class Invoice(Document):
             }
             self.total_incl = Amount(total_incl, value_key="value", reconstructed=True)
 
-    def __reconstruct_total_excl_from_tcc_and_taxes(self):
+    def __reconstruct_total_excl_from_tcc_and_taxes(self) -> None:
         """
         Set self.total_excl with Amount object
         The total_excl Amount value is the difference between total_incl and sum of taxes
-        The total_excl Amount confidence is the product of self.taxes probabilities multiplied by total_incl confidence
+        The total_excl Amount confidence is the product of self.taxes probabilities
+            multiplied by total_incl confidence
         """
         # Check total_tax, total excl and total incl exist
         if (
@@ -312,7 +315,7 @@ class Invoice(Document):
             }
             self.total_excl = Amount(total_excl, value_key="value", reconstructed=True)
 
-    def __reconstruct_total_tax_from_tax_lines(self):
+    def __reconstruct_total_tax_from_tax_lines(self) -> None:
         """
         Set self.total_tax with Amount object
         The total_tax Amount value is the sum of all self.taxes value
@@ -330,7 +333,7 @@ class Invoice(Document):
                     total_tax, value_key="value", reconstructed=True
                 )
 
-    def __reconstruct_total_tax_from_incl_and_excl(self):
+    def __reconstruct_total_tax_from_incl_and_excl(self) -> None:
         """
         Set self.total_tax with Amount object
         Check if the total tax was already set

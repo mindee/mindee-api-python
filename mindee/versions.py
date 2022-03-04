@@ -3,7 +3,7 @@ import sys
 
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
-with open(os.path.join(dir_path, "version"), "r") as version_file:
+with open(os.path.join(dir_path, "version"), "r", encoding="utf-8") as version_file:
     __version__ = version_file.read().strip()
 
 python_version = "%s.%s" % (sys.version_info[0], sys.version_info[1])

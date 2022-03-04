@@ -57,7 +57,7 @@ def _custom_client(args: Namespace):
     return client
 
 
-def call_endpoint(args):
+def call_endpoint(args: Namespace):
     """Call the endpoint given passed arguments."""
     if args.product_name == "custom":
         client = _custom_client(args)
@@ -71,14 +71,14 @@ def call_endpoint(args):
         with open(args.path, "rb", buffering=30) as file_handle:
             doc_to_parse = client.doc_from_file(file_handle, cut_pdf=args.cut_pdf)
     elif args.input_type == "base64":
-        with open(args.path, "rt") as file_handle:
+        with open(args.path, "rt", encoding="ascii") as base64_handle:
             doc_to_parse = client.doc_from_b64string(
-                file_handle.read(), "test.jpg", cut_pdf=args.cut_pdf
+                base64_handle.read(), "test.jpg", cut_pdf=args.cut_pdf
             )
     elif args.input_type == "bytes":
-        with open(args.path, "rb") as file_handle:
+        with open(args.path, "rb") as bytes_handle:
             doc_to_parse = client.doc_from_bytes(
-                file_handle.read(), file_handle.name, cut_pdf=args.cut_pdf
+                bytes_handle.read(), bytes_handle.name, cut_pdf=args.cut_pdf
             )
     else:
         doc_to_parse = client.doc_from_path(args.path, cut_pdf=args.cut_pdf)
@@ -96,7 +96,7 @@ def call_endpoint(args):
         print(getattr(parsed_data, doc_type))
 
 
-def parse_args():
+def _parse_args() -> Namespace:
     """Parse command line arguments"""
     parser = argparse.ArgumentParser(description="Mindee API")
     parser.add_argument(
@@ -184,5 +184,10 @@ def parse_args():
     return parsed_args
 
 
+def main() -> None:
+    """Run the Command Line Interface."""
+    call_endpoint(_parse_args())
+
+
 if __name__ == "__main__":
-    call_endpoint(parse_args())
+    main()

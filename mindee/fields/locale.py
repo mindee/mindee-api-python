@@ -8,7 +8,11 @@ class Locale(Field):
     currency: Optional[str] = None
 
     def __init__(
-        self, locale_prediction, value_key="value", reconstructed=False, page_n=None
+        self,
+        locale_prediction: dict,
+        value_key: str = "value",
+        reconstructed: bool = False,
+        page_n=None,
     ):
         """
         :param locale_prediction: Locale prediction object from HTTP response

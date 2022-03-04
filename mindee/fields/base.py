@@ -19,7 +19,8 @@ class Field:
         :param value_key: Key to use in the abstract_prediction dict
         :param reconstructed: Bool for reconstructed object (not extracted in the API)
         :param page_n: Page number for multi pages PDF
-        :param extra_fields: extra field to get from the abstract_prediction and to set as attribute of the Field
+        :param extra_fields: extra field to get from the abstract_prediction and
+            to set as attribute of the Field
         """
         self.page_n = page_n
 
@@ -55,8 +56,8 @@ class Field:
         :param attr: Attribute to compare
         :return: True if all elements in array1 exist in array2, False otherwise
         """
-        set1 = set([getattr(f1, attr) for f1 in array1])
-        set2 = set([getattr(f2, attr) for f2 in array2])
+        set1 = {getattr(f1, attr) for f1 in array1}
+        set2 = {getattr(f2, attr) for f2 in array2}
         return set1 == set2
 
     @staticmethod
@@ -87,7 +88,7 @@ class Field:
                 return 0.0
         return float(array_sum)
 
-    def __eq__(self, other):
+    def __eq__(self, other) -> bool:
         if self.value is None and other.value is None:
             return True
         if self.value is None or other.value is None:

@@ -67,8 +67,8 @@ class DocumentClient:
                     (
                         "Duplicate configuration detected.\n"
                         f"You specified a document_type '{document_type}' in your custom config.\n"
-                        "To avoid confusion, please add the 'account_name' attribute to the parse method, "
-                        f"one of {usernames}."
+                        "To avoid confusion, please add the 'account_name' attribute to "
+                        f"the parse method, one of {usernames}."
                     )
                 )
         else:
@@ -79,8 +79,10 @@ class DocumentClient:
             if not endpoint.api_key:
                 raise RuntimeError(
                     (
-                        f"Missing API key for '{endpoint.key_name}', check your Client configuration.\n"
-                        f"You can set this using the '{endpoint.envvar_key_name}' environment variable."
+                        f"Missing API key for '{endpoint.key_name}',"
+                        "check your Client configuration.\n"
+                        "You can set this using the "
+                        f"'{endpoint.envvar_key_name}' environment variable."
                     )
                 )
         return self._make_request(doc_config, include_words)
@@ -136,8 +138,10 @@ class Client:
         See: https://developers.mindee.com/docs/
 
         :param document_type: The "document type" field in the "Settings" page of the API Builder
-        :param singular_name: The name of the attribute used to retrieve a *single* document from the API response
-        :param plural_name: The name of the attribute used to retrieve *multiple* documents from the API response
+        :param singular_name: The name of the attribute used to retrieve
+            a *single* document from the API response
+        :param plural_name: The name of the attribute used to retrieve
+            *multiple* documents from the API response
         :param account_name: Your organization's username on the API Builder
         :param api_key: Your API key for the endpoint
         :param version: If set, locks the version of the model to use.

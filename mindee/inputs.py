@@ -52,7 +52,7 @@ class InputDocument:
                 raise AssertionError(f"PDF pages are empty in: {self.filename}")
         logger.debug("Loaded new document '%s' from %s", self.filename, self.input_type)
 
-    def count_pdf_pages(self):
+    def count_pdf_pages(self) -> int:
         """
         :return: Number of pages in the Input file for pdfs
         """
@@ -60,15 +60,15 @@ class InputDocument:
         with pikepdf.open(self.file_object) as pdf:
             return len(pdf.pages)
 
-    def merge_pdf_pages(self, pages_number):
+    def merge_pdf_pages(self, page_numbers: list) -> None:
         """
-        :param pages_number: List of pages number to use for merging in the original pdf
+        :param page_numbers: List of pages number to use for merging in the original pdf
         :return: (void) Set the Input.file with the reconstructed pdf stream
         """
         self.file_object.seek(0)
         new_pdf = pikepdf.Pdf.new()
         with pikepdf.open(self.file_object) as pdf:
-            for page_n in pages_number:
+            for page_n in page_numbers:
                 new_pdf.pages.append(pdf.pages[page_n])
         self.file_object.close()
         self.file_object = io.BytesIO()
@@ -99,9 +99,10 @@ class InputDocument:
                     return False
             return True
 
-    def check_pdf_open(self):
+    def check_pdf_open(self) -> None:
         """
-        :return: (void) Check if the document can be opened using pikepdf
+        Check if the document can be opened using pikepdf
+        :return: None
         """
         self.file_object.seek(0)
         try:

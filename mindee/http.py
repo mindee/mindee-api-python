@@ -66,7 +66,7 @@ class Endpoint:
         The API key name as stored in the environment.
         """
 
-        def to_envvar(name):
+        def to_envvar(name) -> str:
             return name.replace("-", "_").upper()
 
         key_name = to_envvar(self.key_name)
@@ -74,7 +74,7 @@ class Endpoint:
             key_name = f"{to_envvar(self.owner)}_{key_name}"
         return f"MINDEE_{key_name}_API_KEY"
 
-    def set_api_key_from_env(self):
+    def set_api_key_from_env(self) -> None:
         """
         Set the endpoint's API key from an environment variable, if present.
         """
@@ -186,6 +186,5 @@ class PassportEndpoint(Endpoint):
         )
 
 
-class HTTPException(Exception):
-    def __init__(self, message):
-        self.message = message
+class HTTPException(RuntimeError):
+    """An exception relating to HTTP calls."""

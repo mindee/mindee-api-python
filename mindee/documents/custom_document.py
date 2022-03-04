@@ -62,5 +62,5 @@ class CustomDocument(Document):
         """
         return endpoints[0].predict_request(input_file, include_words)
 
-    def _checklist(self):
-        return {}
+    def _checklist(self) -> None:
+        pass

@@ -6,9 +6,9 @@ class Orientation(Field):
 
     def __init__(
         self,
-        orientation_prediction,
-        value_key="degrees",
-        reconstructed=False,
+        orientation_prediction: dict,
+        value_key: str = "degrees",
+        reconstructed: bool = False,
         page_n=None,
     ):
         """

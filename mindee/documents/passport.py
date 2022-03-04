@@ -110,14 +110,14 @@ class Passport(Document):
             )
         return endpoints[0].predict_request(input_file, include_words)
 
-    def _reconstruct(self):
+    def _reconstruct(self) -> None:
         """
         Call fields reconstruction methods
         """
         self.__reconstruct_mrz()
         self.__reconstruct_full_name()
 
-    def _checklist(self, *args):
+    def _checklist(self) -> None:
         """
         Call check methods
         """
@@ -131,7 +131,7 @@ class Passport(Document):
         }
 
     # Checks
-    def __mrz__checksum(self):
+    def __mrz__checksum(self) -> bool:
         """
         :return: True if the all MRZ checksums are validated, False otherwise
         """
@@ -184,7 +184,7 @@ class Passport(Document):
             return False
         return Passport.check_sum(self.mrz2.value[28:42]) == self.mrz2.value[42]
 
-    def __mrz_last_name_checksum(self):
+    def __mrz_last_name_checksum(self) -> bool:
         """
         :return: True if last url_name MRZ checksum is validated, False otherwise
         """
@@ -227,7 +227,7 @@ class Passport(Document):
         return str(checker % 10)
 
     # Reconstruct
-    def __reconstruct_mrz(self):
+    def __reconstruct_mrz(self) -> None:
         """
         Set self.mrz with Field object
         The mrz Field value is the concatenation of mrz1 and mr2
@@ -246,11 +246,13 @@ class Passport(Document):
             }
             self.mrz = Field(mrz, reconstructed=True)
 
-    def __reconstruct_full_name(self):
+    def __reconstruct_full_name(self) -> None:
         """
         Set self.full_name with Field object
-        The full_name Field value is the concatenation of first given url_name and last url_name
-        The full_name Field confidence is the product of first given url_name and last url_name probabilities
+        The full_name Field value is the concatenation of:
+            first given url_name and last url_name
+        The full_name Field confidence is the product of:
+            first given url_name and last url_name probabilities
         """
         if (
             self.surname.value is not None
