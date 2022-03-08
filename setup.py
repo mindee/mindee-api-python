@@ -45,7 +45,7 @@ setup(
         "test": test_requirements,
     },
     include_package_data=True,
-    package_data={"mindee": ["version"]},
+    package_data={"mindee": ["version", "py.typed"]},
     classifiers=[
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.7",
@@ -62,4 +62,5 @@ setup(
         "Documentation": "https://developers.mindee.com/docs/python-sdk",
         "Source": "https://github.com/publicMindee/mindee-api-python",
     },
+    zip_safe=False,
 )
