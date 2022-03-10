@@ -9,14 +9,26 @@ repos:
     hooks:
       - id: isort
         args: [ "--profile", "black" ]
+        additional_dependencies: [toml]
 
   - repo: https://github.com/pycqa/pydocstyle
     rev: 6.1.1
     hooks:
       - id: pydocstyle
+        additional_dependencies: [toml]
         exclude: .*(test|__init__|version).*\.py
+        args: [
+            --ignore=D10
+        ]
 
   - repo: https://github.com/PyCQA/pylint
     rev: v2.12.2
     hooks:
       - id: pylint
+        name: pylint
+        entry: pylint ./mindee
+        language: system
+        types: [python]
+        args: [
+          -j2
+        ]
