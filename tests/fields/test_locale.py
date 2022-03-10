@@ -23,3 +23,18 @@ def test_constructor_almost_empty_field():
     assert locale.language is None
     assert locale.country is None
     assert locale.currency is None
+
+
+def test_constructor_empty_language():
+    field_dict = {
+        "value": "en-EN",
+        "country": "uk",
+        "currency": "GBP",
+        "language": "N/A",
+        "confidence": 0.1,
+    }
+    locale = Locale(field_dict)
+    assert locale.language is None
+    assert locale.country == "uk"
+    assert locale.currency == "GBP"
+    assert str(locale) == "en-EN; uk; GBP;"
