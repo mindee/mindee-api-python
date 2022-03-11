@@ -32,7 +32,7 @@ class Locale(Field):
 
     @staticmethod
     def _get_value(locale_prediction, key: str):
-        if key not in locale_prediction.keys() or locale_prediction[key] == "N/A":
+        if key not in locale_prediction or locale_prediction[key] == "N/A":
             return None
         return locale_prediction[key]
 
