@@ -13,18 +13,6 @@ disallow_untyped_calls = true
 module = ['pikepdf',]
 ignore_missing_imports = true
 
-[tool.pylint.'MESSAGES CONTROL']
-disable=[
-  'too-few-public-methods',
-  'missing-class-docstring',
-  'missing-module-docstring',
-  'too-many-instance-attributes',
-  'too-many-arguments',
-  'duplicate-code',
-  'arguments-differ',
-  'consider-using-f-string',
-]
-
 [tool.pylic]
 safe_licenses = [
   "Apache Software License",
