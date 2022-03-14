@@ -1,12 +1,12 @@
 from typing import List, Optional
 
-from mindee.fields import Field
-from mindee.fields.orientation import Orientation
-from mindee.fields.locale import Locale
-from mindee.http import Endpoint
 from mindee.documents.base import Document
 from mindee.documents.invoice import Invoice
 from mindee.documents.receipt import Receipt
+from mindee.fields import Field
+from mindee.fields.locale import Locale
+from mindee.fields.orientation import Orientation
+from mindee.http import Endpoint
 
 
 class FinancialDocument(Document):
@@ -22,6 +22,8 @@ class FinancialDocument(Document):
         document_type="financial_doc",
     ):
         """
+        Union of `Invoice` and `Receipt`.
+
         :param api_prediction: Raw prediction from HTTP response
         :param input_file: Input object
         :param page_n: Page number for multi pages pdf input
@@ -55,6 +57,8 @@ class FinancialDocument(Document):
 
     def build_from_api_prediction(self, api_prediction, page_n=0):
         """
+        Build the document from an API response JSON.
+
         :param api_prediction: Raw prediction from HTTP response
         :param page_n: Page number for multi pages pdf input
         :return: (void) set the object attributes with api prediction values
@@ -133,7 +137,8 @@ class FinancialDocument(Document):
     @staticmethod
     def request(endpoints: List[Endpoint], input_file, include_words=False):
         """
-        Make request to expense_receipts endpoint
+        Make request to prediction endpoint.
+
         :param input_file: Input object
         :param endpoints: Endpoints config
         :param include_words: Include Mindee vision words in http_response
@@ -146,15 +151,14 @@ class FinancialDocument(Document):
         return endpoints[index].predict_request(input_file, include_words)
 
     def _checklist(self) -> None:
-        """
-        :return: Set of validation rules
-        """
+        """Set the validation rules."""
         self.checklist = {"taxes_match_total_incl": self.__taxes_match_total_incl()}
 
     # Checks
     def __taxes_match_total_incl(self) -> bool:
         """
-        Check invoice rule of matching between taxes and total_incl
+        Check invoice rule of matching between taxes and total_incl.
+
         :return: True if rule matches, False otherwise
         """
         # Check taxes and total_incl exist

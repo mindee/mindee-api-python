@@ -3,8 +3,8 @@ from typing import Optional, Tuple
 
 import requests
 
-from mindee.versions import __version__, python_version, get_platform
 from mindee.logger import logger
+from mindee.versions import __version__, get_platform, python_version
 
 MINDEE_API_URL = "https://api.mindee.net/v1"
 PLATFORM = get_platform()
@@ -21,7 +21,7 @@ PASSPORT_URL_NAME = "passport"
 
 
 class Endpoint:
-    """Generic Endpoint class"""
+    """Generic API endpoint for a product."""
 
     owner: str
     url_name: str
@@ -39,6 +39,8 @@ class Endpoint:
         api_key: Optional[str] = None,
     ):
         """
+        Generic API endpoint for a product.
+
         :param owner: owner of the product
         :param url_name: name of the product as it appears in the URL
         :param version: interface version
@@ -62,9 +64,7 @@ class Endpoint:
 
     @property
     def envvar_key_name(self) -> str:
-        """
-        The API key name as stored in the environment.
-        """
+        """The API key name as stored in the environment."""
 
         def to_envvar(name) -> str:
             return name.replace("-", "_").upper()
@@ -75,9 +75,7 @@ class Endpoint:
         return f"MINDEE_{key_name}_API_KEY"
 
     def set_api_key_from_env(self) -> None:
-        """
-        Set the endpoint's API key from an environment variable, if present.
-        """
+        """Set the endpoint's API key from an environment variable, if present."""
         env_key = os.getenv(self.envvar_key_name, "")
         if env_key:
             self.api_key = env_key
@@ -94,6 +92,8 @@ class Endpoint:
         self, input_file, include_words: bool = False
     ) -> requests.Response:
         """
+        Make a prediction request.
+
         :param input_file: Input object
         :param include_words: Include Mindee vision words in http_response
         :return: requests response
@@ -113,6 +113,8 @@ class Endpoint:
 class CustomEndpoint(Endpoint):
     def training_request(self, input_file) -> requests.Response:
         """
+        Make a training request.
+
         :param input_file: Input object
         :return: requests response
         """
@@ -129,6 +131,8 @@ class CustomEndpoint(Endpoint):
         self, document_id: str, annotations: dict
     ) -> requests.Response:
         """
+        Make an annotation request.
+
         :param document_id: ID of the document to annotate
         :param annotations: Annotations object
         :return: requests response

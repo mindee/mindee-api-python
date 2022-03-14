@@ -1,10 +1,10 @@
-import pytest
 from argparse import Namespace
 
-from tests.utils import clear_envvars
+import pytest
 
 from mindee.__main__ import call_endpoint
 from mindee.http import HTTPException
+from tests.utils import clear_envvars
 
 
 @pytest.fixture

@@ -1,4 +1,5 @@
 from typing import Optional
+
 from mindee.fields.base import Field
 
 
@@ -13,6 +14,8 @@ class Amount(Field):
         page_n=None,
     ):
         """
+        Amount field object.
+
         :param amount_prediction: Amount prediction object from HTTP response
         :param value_key: Key to use in the amount_prediction dict
         :param reconstructed: Bool for reconstructed object (not extracted in the API)

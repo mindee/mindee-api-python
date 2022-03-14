@@ -1,5 +1,7 @@
 import json
+
 import pytest
+
 from mindee.documents.invoice import Invoice
 
 INVOICE_FILE_PATH = "./tests/data/invoices/v2/invoice.json"

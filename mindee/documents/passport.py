@@ -1,5 +1,5 @@
-from typing import List
 from datetime import datetime
+from typing import List
 
 from mindee.documents.base import Document
 from mindee.fields import Field
@@ -30,6 +30,8 @@ class Passport(Document):
         document_type="passport",
     ):
         """
+        Passport document.
+
         :param api_prediction: Raw prediction from HTTP response
         :param input_file: Input object
         :param page_n: Page number for multi pages pdf input
@@ -43,6 +45,8 @@ class Passport(Document):
 
     def build_from_api_prediction(self, api_prediction, page_n=0):
         """
+        Build the document from an API response JSON.
+
         :param api_prediction: Raw prediction from HTTP response
         :param page_n: Page number for multi pages pdf input
         :return: (void) set the object attributes with api prediction values
@@ -90,16 +94,21 @@ class Passport(Document):
             "----------------------"
         )
 
-    def is_expired(self):
+    def is_expired(self) -> bool:
         """
+        Check the passport's validity.
+
         :return: True if the passport is expired, False otherwise
         """
+        if not self.expiry_date.date_object:
+            return False
         return self.expiry_date.date_object < datetime.date(datetime.now())
 
     @staticmethod
     def request(endpoints: List[Endpoint], input_file, include_words=False):
         """
-        Make request to expense_receipts endpoint
+        Make request to prediction endpoint.
+
         :param input_file: Input object
         :param endpoints: Endpoints config
         :param include_words: Include Mindee vision words in http_response
@@ -111,16 +120,12 @@ class Passport(Document):
         return endpoints[0].predict_request(input_file, include_words)
 
     def _reconstruct(self) -> None:
-        """
-        Call fields reconstruction methods
-        """
+        """Call fields reconstruction methods."""
         self.__reconstruct_mrz()
         self.__reconstruct_full_name()
 
     def _checklist(self) -> None:
-        """
-        Call check methods
-        """
+        """Call check methods."""
         self.checklist = {
             "mrz_id_number_checksum": self.__mrz_id_number_checksum(),
             "mrz_date_of_birth_checksum": self.__mrz_date_of_birth_checksum(),
@@ -133,7 +138,9 @@ class Passport(Document):
     # Checks
     def __mrz__checksum(self) -> bool:
         """
-        :return: True if the all MRZ checksums are validated, False otherwise
+        Validate all MRZ checksums.
+
+        :return: True if all are valid, False otherwise
         """
         return (
             self.__mrz_id_number_checksum()
@@ -145,7 +152,9 @@ class Passport(Document):
 
     def __mrz_id_number_checksum(self) -> bool:
         """
-        :return: True if id number MRZ checksum is validated, False otherwise
+        Validate the ID number's MRZ checksum.
+
+        :return: True if valid, False otherwise
         """
         if self.mrz2.value is None:
             return False
@@ -156,7 +165,9 @@ class Passport(Document):
 
     def __mrz_date_of_birth_checksum(self) -> bool:
         """
-        :return: True if date of birth MRZ checksum is validated, False otherwise
+        Validate the date of birth's MRZ checksum.
+
+        :return: True if valid, False otherwise
         """
         if self.mrz2.value is None:
             return False
@@ -167,7 +178,9 @@ class Passport(Document):
 
     def __mrz_expiration_date_checksum(self) -> bool:
         """
-        :return: True if expiry date MRZ checksum is validated, False otherwise
+        Validate the expiry date's MRZ checksum.
+
+        :return: True if valid, False otherwise
         """
         if self.mrz2.value is None:
             return False
@@ -178,7 +191,9 @@ class Passport(Document):
 
     def __mrz_personal_number_checksum(self) -> bool:
         """
-        :return: True if personal number MRZ checksum is validated, False otherwise
+        Validate the personal number's MRZ checksum.
+
+        :return: True if valid, False otherwise
         """
         if self.mrz2.value is None:
             return False
@@ -186,7 +201,9 @@ class Passport(Document):
 
     def __mrz_last_name_checksum(self) -> bool:
         """
-        :return: True if last url_name MRZ checksum is validated, False otherwise
+        Validate the last name's MRZ checksum.
+
+        :return: True if valid, False otherwise
         """
         if self.mrz2.value is None:
             return False
@@ -203,6 +220,8 @@ class Passport(Document):
     @staticmethod
     def check_sum(to_check: str) -> str:
         """
+        Validate the checksum.
+
         https://en.wikipedia.org/wiki/Machine-readable_passport
         :param to_check: string
         :return: checksum value for string s
@@ -229,7 +248,8 @@ class Passport(Document):
     # Reconstruct
     def __reconstruct_mrz(self) -> None:
         """
-        Set self.mrz with Field object
+        Set self.mrz with Field object.
+
         The mrz Field value is the concatenation of mrz1 and mr2
         The mrz Field confidence is the product of mrz1 and mrz2 probabilities
         """
@@ -248,7 +268,8 @@ class Passport(Document):
 
     def __reconstruct_full_name(self) -> None:
         """
-        Set self.full_name with Field object
+        Set self.full_name with Field object.
+
         The full_name Field value is the concatenation of:
             first given url_name and last url_name
         The full_name Field confidence is the product of:

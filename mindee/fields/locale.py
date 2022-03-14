@@ -1,4 +1,5 @@
 from typing import Optional
+
 from mindee.fields.base import Field
 
 
@@ -15,6 +16,8 @@ class Locale(Field):
         page_n=None,
     ):
         """
+        Locale field object.
+
         :param locale_prediction: Locale prediction object from HTTP response
         :param value_key: Key to use in the locale_prediction dict
         :param reconstructed: Bool for reconstructed object (not extracted in the API)

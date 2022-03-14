@@ -1,7 +1,8 @@
 import io
 
 import pytest
-from mindee.inputs import PathDocument, FileDocument, BytesDocument, Base64Document
+
+from mindee.inputs import Base64Document, BytesDocument, FileDocument, PathDocument
 
 
 def test_pdf_reconstruct_fail():

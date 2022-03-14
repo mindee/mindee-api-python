@@ -1,28 +1,28 @@
 import json
 from typing import Dict
 
-from mindee.inputs import (
-    InputDocument,
-    Base64Document,
-    BytesDocument,
-    FileDocument,
-    PathDocument,
-)
-from mindee.logger import logger
-from mindee.response import format_response, DocumentResponse
-from mindee.http import (
-    HTTPException,
-    CustomEndpoint,
-    InvoiceEndpoint,
-    ReceiptEndpoint,
-    PassportEndpoint,
-)
 from mindee.document_config import DocumentConfig, DocumentConfigDict
-from mindee.documents.receipt import Receipt
+from mindee.documents.custom_document import CustomDocument
 from mindee.documents.financial_document import FinancialDocument
 from mindee.documents.invoice import Invoice
 from mindee.documents.passport import Passport
-from mindee.documents.custom_document import CustomDocument
+from mindee.documents.receipt import Receipt
+from mindee.http import (
+    CustomEndpoint,
+    HTTPException,
+    InvoiceEndpoint,
+    PassportEndpoint,
+    ReceiptEndpoint,
+)
+from mindee.inputs import (
+    Base64Document,
+    BytesDocument,
+    FileDocument,
+    InputDocument,
+    PathDocument,
+)
+from mindee.logger import logger
+from mindee.response import DocumentResponse, format_response
 
 
 class DocumentClient:
@@ -44,6 +44,8 @@ class DocumentClient:
         self, document_type: str, username: str = None, include_words: bool = False
     ):
         """
+        Call prediction API on the document and parse the results.
+
         :param document_type: Document type to parse
         :param username:
         :param include_words: Bool, extract all words into http_response
@@ -118,6 +120,8 @@ class Client:
 
     def __init__(self, raise_on_error: bool = True):
         """
+        Mindee API Client.
+
         :param raise_on_error: Raise an Exception on HTTP errors
         """
         self._doc_configs: Dict[tuple, DocumentConfig] = {}

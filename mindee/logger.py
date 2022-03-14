@@ -1,9 +1,7 @@
-"""
-Set up a logger.
-"""
+"""Set up a logger."""
 
-import os
 import logging
+import os
 
 LOGLEVEL = os.environ.get("MINDEE_LOGLEVEL", "INFO").upper()
 logging.basicConfig(level=LOGLEVEL)

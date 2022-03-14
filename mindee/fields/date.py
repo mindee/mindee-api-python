@@ -1,6 +1,8 @@
+from datetime import date, datetime
 from typing import Optional
-from datetime import datetime, date
+
 import pytz
+
 from mindee.fields.base import Field
 
 ISO8601_DATE_FORMAT = "%Y-%m-%d"
@@ -19,6 +21,8 @@ class Date(Field):
         page_n=None,
     ):
         """
+        Date field object.
+
         :param date_prediction: Date prediction object from HTTP response
         :param value_key: Key to use in the date_prediction dict
         :param reconstructed: Bool for reconstructed object (not extracted in the API)

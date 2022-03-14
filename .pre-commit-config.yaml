@@ -18,7 +18,7 @@ repos:
         additional_dependencies: [toml]
         exclude: .*(test|__init__|version).*\.py
         args: [
-            --ignore=D10
+            "--ignore=D10,D212,D203,D401"
         ]
 
   - repo: https://github.com/PyCQA/pylint

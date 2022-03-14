@@ -1,9 +1,9 @@
-from typing import Optional, List
+from typing import List, Optional
 
 from mindee.documents.base import Document
 from mindee.fields import Field
-from mindee.fields.date import Date
 from mindee.fields.amount import Amount
+from mindee.fields.date import Date
 from mindee.fields.locale import Locale
 from mindee.fields.orientation import Orientation
 from mindee.fields.tax import Tax
@@ -31,6 +31,8 @@ class Receipt(Document):
         document_type="receipt",
     ):
         """
+        Receipt document.
+
         :param api_prediction: Raw prediction from HTTP response
         :param input_file: Input object
         :param page_n: Page number for multi pages pdf input
@@ -61,6 +63,8 @@ class Receipt(Document):
 
     def build_from_api_prediction(self, api_prediction, page_n=0):
         """
+        Build the document from an API response JSON.
+
         :param api_prediction: Raw prediction from HTTP response
         :param page_n: Page number for multi pages pdf input
         :return: (void) set the object attributes with api prediction values
@@ -98,7 +102,8 @@ class Receipt(Document):
     @staticmethod
     def request(endpoints: List[Endpoint], input_file, include_words=False):
         """
-        Make request to expense_receipts endpoint
+        Make request to prediction endpoint.
+
         :param input_file: Input object
         :param endpoints: Endpoints config
         :param include_words: Include Mindee vision words in http_response
@@ -106,22 +111,19 @@ class Receipt(Document):
         return endpoints[0].predict_request(input_file, include_words)
 
     def _checklist(self) -> None:
-        """
-        Call check methods
-        """
+        """Call check methods."""
         self.checklist = {"taxes_match_total_incl": self.__taxes_match_total()}
 
     def _reconstruct(self) -> None:
-        """
-        Call fields reconstruction methods
-        """
+        """Call fields reconstruction methods."""
         self.__reconstruct_total_excl_from_tcc_and_taxes()
         self.__reconstruct_total_tax()
 
     # Checks
     def __taxes_match_total(self) -> bool:
         """
-        Check receipt rule of matching between taxes and total_incl
+        Check receipt rule of matching between taxes and total_incl.
+
         :return: True if rule matches, False otherwise
         """
         # Check taxes and total amount exist
@@ -158,7 +160,8 @@ class Receipt(Document):
     # Reconstruct
     def __reconstruct_total_excl_from_tcc_and_taxes(self) -> None:
         """
-        Set self.total_excl with Amount object
+        Set self.total_excl with Amount object.
+
         The total_excl Amount value is the difference between total_incl and sum of taxes
         The total_excl Amount confidence is the product of self.taxes probabilities
             multiplied by total_incl confidence
@@ -173,7 +176,8 @@ class Receipt(Document):
 
     def __reconstruct_total_tax(self) -> None:
         """
-        Set self.total_tax with Amount object
+        Set self.total_tax with Amount object.
+
         The total_tax Amount value is the sum of all self.taxes value
         The total_tax Amount confidence is the product of self.taxes probabilities
         """

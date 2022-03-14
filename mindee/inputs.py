@@ -1,8 +1,8 @@
+import base64
 import io
 import os
-import base64
-from typing import Optional, BinaryIO
 from mimetypes import guess_type
+from typing import BinaryIO, Optional
 
 import pikepdf
 
@@ -54,7 +54,9 @@ class InputDocument:
 
     def count_pdf_pages(self) -> int:
         """
-        :return: Number of pages in the Input file for pdfs
+        Count the pages in the PDF.
+
+        :return: the number of pages.
         """
         self.file_object.seek(0)
         with pikepdf.open(self.file_object) as pdf:
@@ -62,7 +64,9 @@ class InputDocument:
 
     def merge_pdf_pages(self, page_numbers: list) -> None:
         """
-        :param page_numbers: List of pages number to use for merging in the original pdf
+        Create a new PDF from pages.
+
+        :param page_numbers: List of pages number to use for merging in the original PDF.
         :return: (void) Set the Input.file with the reconstructed pdf stream
         """
         self.file_object.seek(0)
@@ -76,6 +80,8 @@ class InputDocument:
 
     def is_pdf_empty(self) -> bool:
         """
+        Check if the PDF is empty.
+
         :return: (void) Check if the document contain only empty pages
         """
         self.file_object.seek(0)
@@ -101,7 +107,8 @@ class InputDocument:
 
     def check_pdf_open(self) -> None:
         """
-        Check if the document can be opened using pikepdf
+        Check if the document can be opened using pikepdf.
+
         :return: None
         """
         self.file_object.seek(0)
@@ -119,6 +126,8 @@ class FileDocument(InputDocument):
         n_pdf_pages=3,
     ):
         """
+        Input document from a Python binary file object.
+
         :param file: FileIO object
         :param cut_pdf: Automatically reconstruct pdf with more than 4 pages
         """
@@ -143,6 +152,8 @@ class PathDocument(InputDocument):
         n_pdf_pages=3,
     ):
         """
+        Input document from a path.
+
         :param filepath: Path to open
         :param cut_pdf: Automatically reconstruct pdf with more than 4 pages
         """
@@ -166,6 +177,8 @@ class BytesDocument(InputDocument):
         n_pdf_pages=3,
     ):
         """
+        Input document from raw bytes (no buffer).
+
         :param raw_bytes: Raw data as bytes
         :param filename: File name of the input
         :param cut_pdf: Automatically reconstruct pdf with more than 4 pages
@@ -191,6 +204,8 @@ class Base64Document(InputDocument):
         n_pdf_pages=3,
     ):
         """
+        Input document from a base64 encoded string.
+
         :param base64_string: Raw data as a base64 encoded string
         :param filename: File name of the input
         :param cut_pdf: Automatically reconstruct pdf with more than N pages
