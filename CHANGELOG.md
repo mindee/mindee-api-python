@@ -1,9 +1,20 @@
-# Mindee Python API Helper Changelog
+# Mindee Python API Library Changelog
+
+## v2.1.1 (2022-03-15)
+
+### Fixes
+* :bug: fix for locale constructor
+* :bug: fix custom document in CLI
+* :label: declare type info to mypy
+
+### Changes
+* :label: set stricter pylint and mypy settings
+* :technologist: add pre-commit to ensure proper code formatting
+* :art: fixes to import order (isort) and documentation (pydocstyle)
 
 ## v2.1.0 (2022-03-02)
 
 ### Changes
-
 * :sparkles: update to Invoices API v3
 * :recycle: refactor `Endpoint` classes and document building
 * :arrow_up: Update PikePDF to 5.0.1
@@ -70,22 +81,18 @@
 ## v1.2.3 (2021-12-22)
 
 ### Fix
-
 * :arrow_up: upgrade pymupdf to 1.18.17
 
 ### Bug
-
 * :bug: handle few PDF files considered blank
 * :white_check_mark: re-initialize file cursor in test
 
 ## v1.2.2 (2021-10-11)
 
 ### Fix
-
 *  :bug: Fixed [#15](https://github.com/mindee/mindee-api-python/issues/15)
 
-### Chg
-
+### Changes
 * :sparkles: Added pdf page number parameter for multi-pages pdfs
 * :sparkles: Added a blank pages only PDF detection & error raising
 
@@ -93,14 +100,12 @@
 ## v1.2.1 (2021-09-23)
 
 ### Fix
-
 * :bug: Forward uploaded file name for file verification rules
 * :bug: Change token management for new header format
 
 ## v1.2.0 (2021-08-25)
 
-### Chg
-
+### Changes
 * :sparkles: Adapted SDK to the new Mindee API endpoint
 * :zap: Single page object reconstruction is now server-side
 * :heavy_minus_sign: Removed Numpy dependency
@@ -109,31 +114,26 @@
 ## v1.1.3 (2021-02-21)
 
 ### Fix
-
 * :zap: FinancialDoc attributes have same type from invoice or receipt
 
 ## v1.1.2 (2021-02-19)
 
 ### Fix
-
 * :bug: Fixed FinancialDoc invoice version and reconstruction
 
 ## v1.1.1 (2021-01-31)
 
-### Chg
-
+### Changes
 * Updated total tax reconstruction for invoice
 
 ## v1.1.0 (2020-12-02)
 
-### Chg
-
+### Changes
 * Updated invoice API endpoint to V2
 
 ## v1.0.2 (2020-12-01)
 
 ### Fix
-
 * Fixed null tax rate issue
 
 ## v1.0.0 (2020-10-28)
