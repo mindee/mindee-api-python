@@ -1,14 +1,16 @@
-from typing import Dict, Any, List
+from typing import Any, Dict, List
 
-from mindee.logger import logger
 from mindee.document_config import DocumentConfig
-from mindee.documents.base import TypeDocument, Document
+from mindee.documents.base import Document, TypeDocument
+from mindee.logger import logger
 
 
 def format_response(
     doc_config: DocumentConfig, http_response: dict, document_type: str, input_file
 ):
     """
+    Create a `DocumentResponse`.
+
     :param doc_config: DocumentConfig
     :param input_file: Input object
     :param http_response: json response from HTTP call
@@ -63,8 +65,10 @@ class DocumentResponse:
         document=TypeDocument,
     ):
         """
-        :param http_response: HTTP response object
-        :param pages: List of document objects
+        Container for the raw API response and the parsed document.
+
+        :param http_response: Raw HTTP response object
+        :param pages: List of document objects, page level
         :param document: reconstructed object from all pages
         :param document_type: Document class
         """

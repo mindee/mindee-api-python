@@ -1,7 +1,8 @@
 import json
-import pytest
-from mindee.documents.financial_document import FinancialDocument
 
+import pytest
+
+from mindee.documents.financial_document import FinancialDocument
 from tests.documents.test_invoice import INVOICE_FILE_PATH, INVOICE_NA_FILE_PATH
 from tests.documents.test_receipt import RECEIPT_FILE_PATH, RECEIPT_NA_FILE_PATH
 

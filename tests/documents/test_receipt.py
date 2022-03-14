@@ -1,5 +1,7 @@
 import json
+
 import pytest
+
 from mindee.documents.receipt import Receipt
 
 RECEIPT_FILE_PATH = "./tests/data/expense_receipts/v3/receipt.json"

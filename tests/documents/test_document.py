@@ -1,10 +1,11 @@
-import pytest
 import json
-from mindee import Client
-from mindee.response import format_response
-from mindee.inputs import PathDocument
-from mindee.documents.base import Document
 
+import pytest
+
+from mindee import Client
+from mindee.documents.base import Document
+from mindee.inputs import PathDocument
+from mindee.response import format_response
 from tests.documents.test_invoice import INVOICE_FILE_PATH
 from tests.documents.test_receipt import RECEIPT_FILE_PATH
 

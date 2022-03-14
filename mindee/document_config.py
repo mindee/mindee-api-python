@@ -1,7 +1,7 @@
 from typing import Dict, List
 
-from mindee.http import Endpoint
 from mindee.documents.base import TypeDocument
+from mindee.http import Endpoint
 
 
 class DocumentConfig:

@@ -1,9 +1,8 @@
 import pytest
 
-from tests.utils import clear_envvars, dummy_envvars
-
 from mindee import Client, DocumentResponse
 from mindee.http import HTTPException
+from tests.utils import clear_envvars, dummy_envvars
 
 
 @pytest.fixture

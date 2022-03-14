@@ -1,7 +1,7 @@
 import argparse
-from argparse import Namespace
 import json
-from typing import Dict, Any
+from argparse import Namespace
+from typing import Any, Dict
 
 from mindee import Client
 
@@ -97,7 +97,7 @@ def call_endpoint(args: Namespace):
 
 
 def _parse_args() -> Namespace:
-    """Parse command line arguments"""
+    """Parse command line arguments."""
     parser = argparse.ArgumentParser(description="Mindee API")
     parser.add_argument(
         "-E",

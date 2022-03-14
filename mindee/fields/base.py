@@ -1,4 +1,4 @@
-from typing import Optional, Any, List, Dict
+from typing import Any, Dict, List, Optional
 
 
 class Field:
@@ -15,6 +15,8 @@ class Field:
         page_n=None,
     ):
         """
+        Base field object.
+
         :param abstract_prediction: Prediction object from HTTP response
         :param value_key: Key to use in the abstract_prediction dict
         :param reconstructed: Bool for reconstructed object (not extracted in the API)
@@ -51,6 +53,8 @@ class Field:
     @staticmethod
     def compare_arrays(array1: list, array2: list, attr="value") -> bool:
         """
+        Check that all elements are present in both arrays.
+
         :param array1: Array of Fields
         :param array2: Array of Fields
         :param attr: Attribute to compare
@@ -63,8 +67,10 @@ class Field:
     @staticmethod
     def array_confidence(array: list) -> float:
         """
+        Multiply all Field's confidence in the array.
+
         :param array: Array of fields
-        :return: Product of all the Fields confidence in the array
+        :return: Product as float
         """
         product = 1
         for field in array:
@@ -77,8 +83,10 @@ class Field:
     @staticmethod
     def array_sum(array: list) -> float:
         """
+        Add all the Field values in the array.
+
         :param array: Array of fields
-        :return: Sum of all the Fields values in the array
+        :return: Sum as float.
         """
         array_sum = 0
         for field in array:

@@ -2,8 +2,8 @@ from typing import List, Optional
 
 from mindee.documents.base import Document
 from mindee.fields import Field
-from mindee.fields.date import Date
 from mindee.fields.amount import Amount
+from mindee.fields.date import Date
 from mindee.fields.locale import Locale
 from mindee.fields.orientation import Orientation
 from mindee.fields.payment_details import PaymentDetails
@@ -38,6 +38,8 @@ class Invoice(Document):
         document_type="invoice",
     ):
         """
+        Invoice document.
+
         :param api_prediction: Raw prediction from HTTP response
         :param input_file: Input object
         :param page_n: Page number for multi pages pdf input
@@ -51,6 +53,8 @@ class Invoice(Document):
 
     def build_from_api_prediction(self, api_prediction: dict, page_n=0):
         """
+        Build the object from the prediction API JSON.
+
         :param api_prediction: Raw prediction from HTTP response
         :param page_n: Page number for multi pages pdf input
         :return: (void) set the object attributes with api prediction values
@@ -126,7 +130,8 @@ class Invoice(Document):
     @staticmethod
     def request(endpoints: List[Endpoint], input_file, include_words=False):
         """
-        Make request to expense_receipts endpoint
+        Make request to prediction endpoint.
+
         :param input_file: Input object
         :param endpoints: Endpoints config
         :param include_words: Include Mindee vision words in http_response
@@ -134,18 +139,14 @@ class Invoice(Document):
         return endpoints[0].predict_request(input_file, include_words)
 
     def _reconstruct(self) -> None:
-        """
-        Call fields reconstruction methods
-        """
+        """Call fields reconstruction methods."""
         self.__reconstruct_total_tax_from_tax_lines()
         self.__reconstruct_total_excl_from_tcc_and_taxes()
         self.__reconstruct_total_incl_from_taxes_plus_excl()
         self.__reconstruct_total_tax_from_incl_and_excl()
 
     def _checklist(self) -> None:
-        """
-        Call check methods
-        """
+        """Call check methods."""
         self.checklist = {
             "taxes_match_total_incl": self.__taxes_match_total_incl(),
             "taxes_match_total_excl": self.__taxes_match_total_excl(),
@@ -155,7 +156,8 @@ class Invoice(Document):
     # Checks
     def __taxes_match_total_incl(self) -> bool:
         """
-        Check invoice rule of matching between taxes and total_incl
+        Check invoice matching rule between taxes and total_incl.
+
         :return: True if rule matches, False otherwise
         """
         # Ensure taxes and total_incl exist
@@ -191,7 +193,8 @@ class Invoice(Document):
 
     def __taxes_match_total_excl(self) -> bool:
         """
-        Check invoice rule of matching between taxes and total_excl
+        Check invoice matching rule between taxes and total_excl.
+
         :return: True if rule matches, False otherwise
         """
         # Check taxes and total excl exist
@@ -228,7 +231,9 @@ class Invoice(Document):
 
     def __taxes_plus_total_excl_match_total_incl(self) -> bool:
         """
-        Check invoice rule of matching : sum(taxes) + total_excluding_taxes = total_including_taxes
+        Check invoice matching rule.
+
+        Rule is: sum(taxes) + total_excluding_taxes = total_including_taxes
         :return: True if rule matches, False otherwise
         """
         # Check total_tax, total excl and total incl exist
@@ -267,7 +272,8 @@ class Invoice(Document):
     # Reconstruct
     def __reconstruct_total_incl_from_taxes_plus_excl(self) -> None:
         """
-        Set self.total_incl with Amount object
+        Set self.total_incl with Amount object.
+
         The total_incl Amount value is the sum of total_excl and sum of taxes
         The total_incl Amount confidence is the product of self.taxes probabilities
             multiplied by total_excl confidence
@@ -292,7 +298,8 @@ class Invoice(Document):
 
     def __reconstruct_total_excl_from_tcc_and_taxes(self) -> None:
         """
-        Set self.total_excl with Amount object
+        Set self.total_excl with Amount object.
+
         The total_excl Amount value is the difference between total_incl and sum of taxes
         The total_excl Amount confidence is the product of self.taxes probabilities
             multiplied by total_incl confidence
@@ -317,7 +324,8 @@ class Invoice(Document):
 
     def __reconstruct_total_tax_from_tax_lines(self) -> None:
         """
-        Set self.total_tax with Amount object
+        Set self.total_tax with Amount object.
+
         The total_tax Amount value is the sum of all self.taxes value
         The total_tax Amount confidence is the product of self.taxes probabilities
         """
@@ -335,7 +343,8 @@ class Invoice(Document):
 
     def __reconstruct_total_tax_from_incl_and_excl(self) -> None:
         """
-        Set self.total_tax with Amount object
+        Set self.total_tax with Amount object.
+
         Check if the total tax was already set
         If not, set thta total tax amount to the diff of incl and excl
         """

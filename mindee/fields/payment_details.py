@@ -1,4 +1,5 @@
 from typing import Optional
+
 from mindee.fields.base import Field
 
 
@@ -20,6 +21,8 @@ class PaymentDetails(Field):
         page_n=None,
     ):
         """
+        Payment details field object.
+
         :param payment_details_prediction: Payment detail prediction object from HTTP response
         :param value_key: Corresponds to iban
         :param account_number_key: Key to use for getting the account number in the

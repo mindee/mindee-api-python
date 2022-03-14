@@ -1,5 +1,7 @@
 import json
+
 import pytest
+
 from mindee.documents.passport import Passport
 
 

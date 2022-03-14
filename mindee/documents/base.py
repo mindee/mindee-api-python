@@ -1,4 +1,4 @@
-from typing import List, Type, Optional
+from typing import List, Optional, Type
 
 # from mindee.inputs import InputDocument
 from mindee.http import Endpoint
@@ -31,11 +31,11 @@ class Document:
 
     @staticmethod
     def request(endpoints: List[Endpoint], input_file, include_words: bool = False):
-        """Make request to the product endpoint"""
+        """Make request to the product endpoint."""
         raise NotImplementedError()
 
     def build_from_api_prediction(self, api_prediction: dict, page_n):
-        """Build the document from an API response JSON"""
+        """Build the document from an API response JSON."""
         raise NotImplementedError()
 
     def _checklist(self) -> None:
@@ -45,7 +45,7 @@ class Document:
         pass
 
     def all_checks(self) -> bool:
-        """Return all checks"""
+        """Return all checks."""
         return all(self.checklist)
 
 
