@@ -4,7 +4,6 @@ from typing import List
 from mindee.documents.base import Document
 from mindee.fields import Field
 from mindee.fields.date import Date
-from mindee.http import Endpoint
 
 
 class Passport(Document):
@@ -103,21 +102,6 @@ class Passport(Document):
         if not self.expiry_date.date_object:
             return False
         return self.expiry_date.date_object < datetime.date(datetime.now())
-
-    @staticmethod
-    def request(endpoints: List[Endpoint], input_file, include_words=False):
-        """
-        Make request to prediction endpoint.
-
-        :param input_file: Input object
-        :param endpoints: Endpoints config
-        :param include_words: Include Mindee vision words in http_response
-        """
-        if include_words:
-            raise ValueError(
-                "include_words parameter cannot be set to True for passport API"
-            )
-        return endpoints[0].predict_request(input_file, include_words)
 
     def _reconstruct(self) -> None:
         """Call fields reconstruction methods."""

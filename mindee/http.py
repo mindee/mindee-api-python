@@ -3,6 +3,7 @@ from typing import Optional, Tuple
 
 import requests
 
+from mindee.inputs import InputDocument
 from mindee.logger import logger
 from mindee.versions import __version__, get_platform, python_version
 
@@ -82,23 +83,33 @@ class Endpoint:
             logger.debug("Set from environment: %s", self.envvar_key_name)
 
     @staticmethod
-    def _read_document(input_file) -> Tuple[str, bytes]:
+    def _read_document(
+        input_file: InputDocument, close_file: bool
+    ) -> Tuple[str, bytes]:
+        logger.debug("Reading data from: %s", input_file.filename)
         input_file.file_object.seek(0)
         data = input_file.file_object.read()
-        input_file.file_object.close()
+        if close_file:
+            input_file.file_object.close()
+        else:
+            input_file.file_object.seek(0)
         return input_file.filename, data
 
     def predict_request(
-        self, input_file, include_words: bool = False
+        self,
+        input_file: InputDocument,
+        include_words: bool = False,
+        close_file: bool = True,
     ) -> requests.Response:
         """
         Make a prediction request.
 
         :param input_file: Input object
-        :param include_words: Include Mindee vision words in http_response
+        :param include_words: Include raw OCR words in the response
+        :param close_file: Whether to `close()` the file after parsing it.
         :return: requests response
         """
-        files = {"document": self._read_document(input_file)}
+        files = {"document": self._read_document(input_file, close_file)}
         headers = {"Authorization": self.api_key, "User-Agent": USER_AGENT}
         data = {}
         if include_words:
@@ -111,14 +122,17 @@ class Endpoint:
 
 
 class CustomEndpoint(Endpoint):
-    def training_request(self, input_file) -> requests.Response:
+    def training_request(
+        self, input_file: InputDocument, close_file: bool = True
+    ) -> requests.Response:
         """
         Make a training request.
 
         :param input_file: Input object
         :return: requests response
+        :param close_file: Whether to `close()` the file after parsing it.
         """
-        files = {"document": self._read_document(input_file)}
+        files = {"document": self._read_document(input_file, close_file)}
         headers = {"Authorization": self.api_key, "User-Agent": USER_AGENT}
         params = {"training": True, "with_candidates": True}
 

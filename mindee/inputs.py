@@ -16,6 +16,12 @@ ALLOWED_EXTENSIONS = [
     "application/pdf",
 ]
 
+INPUT_TYPE_FILE = "file"
+INPUT_TYPE_BASE64 = "base64"
+INPUT_TYPE_BYTES = "bytes"
+INPUT_TYPE_PATH = "path"
+INPUT_TYPE_DUMMY = "dummy"
+
 
 class InputDocument:
     file_object: BinaryIO
@@ -35,7 +41,10 @@ class InputDocument:
         self.input_type = input_type
         self.file_extension = guess_type(self.filename)[0]
 
-        if self.file_extension not in ALLOWED_EXTENSIONS and self.input_type != "dummy":
+        if (
+            self.file_extension not in ALLOWED_EXTENSIONS
+            and self.input_type != INPUT_TYPE_DUMMY
+        ):
             raise AssertionError(
                 "File type not allowed, must be in {%s}" % ", ".join(ALLOWED_EXTENSIONS)
             )
@@ -128,6 +137,8 @@ class FileDocument(InputDocument):
         """
         Input document from a Python binary file object.
 
+        Note: the calling function is responsible for closing the file.
+
         :param file: FileIO object
         :param cut_pdf: Automatically reconstruct pdf with more than 4 pages
         """
@@ -135,10 +146,10 @@ class FileDocument(InputDocument):
 
         self.file_object = file
         self.filename = os.path.basename(file.name)
-        self.filepath = self.filename
+        self.filepath = file.name
 
         super().__init__(
-            input_type="file",
+            input_type=INPUT_TYPE_FILE,
             cut_pdf=cut_pdf,
             n_pdf_pages=n_pdf_pages,
         )
@@ -162,7 +173,7 @@ class PathDocument(InputDocument):
         self.filepath = filepath
 
         super().__init__(
-            input_type="path",
+            input_type=INPUT_TYPE_PATH,
             cut_pdf=cut_pdf,
             n_pdf_pages=n_pdf_pages,
         )
@@ -189,7 +200,7 @@ class BytesDocument(InputDocument):
         self.filepath = None
 
         super().__init__(
-            input_type="bytes",
+            input_type=INPUT_TYPE_BYTES,
             cut_pdf=cut_pdf,
             n_pdf_pages=n_pdf_pages,
         )
@@ -215,7 +226,7 @@ class Base64Document(InputDocument):
         self.filepath = None
 
         super().__init__(
-            input_type="base64",
+            input_type=INPUT_TYPE_BASE64,
             cut_pdf=cut_pdf,
             n_pdf_pages=n_pdf_pages,
         )

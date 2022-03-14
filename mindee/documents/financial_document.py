@@ -135,20 +135,26 @@ class FinancialDocument(Document):
         )
 
     @staticmethod
-    def request(endpoints: List[Endpoint], input_file, include_words=False):
+    def request(
+        endpoints: List[Endpoint],
+        input_file,
+        include_words: bool = False,
+        close_file: bool = True,
+    ):
         """
         Make request to prediction endpoint.
 
         :param input_file: Input object
         :param endpoints: Endpoints config
         :param include_words: Include Mindee vision words in http_response
+        :param close_file: Whether to `close()` the file after parsing it.
         """
         if "pdf" in input_file.file_extension:
             # invoices is index 0, receipts 1 (this should be cleaned up)
             index = 0
         else:
             index = 1
-        return endpoints[index].predict_request(input_file, include_words)
+        return endpoints[index].predict_request(input_file, include_words, close_file)
 
     def _checklist(self) -> None:
         """Set the validation rules."""

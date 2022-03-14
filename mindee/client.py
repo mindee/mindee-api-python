@@ -41,14 +41,20 @@ class DocumentClient:
         self.input_doc = input_doc
 
     def parse(
-        self, document_type: str, username: str = None, include_words: bool = False
+        self,
+        document_type: str,
+        username: str = None,
+        include_words: bool = False,
+        close_file: bool = True,
     ):
         """
         Call prediction API on the document and parse the results.
 
         :param document_type: Document type to parse
-        :param username:
-        :param include_words: Bool, extract all words into http_response
+        :param username: API username, the endpoint owner
+        :param include_words: Extract all words into http_response
+        :param close_file: Whether to `close()` the file after parsing it.
+            Set to `False` if you need to access the file after this operation.
         """
         logger.debug("Parsing document as '%s'", document_type)
 
@@ -87,11 +93,16 @@ class DocumentClient:
                         f"'{endpoint.envvar_key_name}' environment variable."
                     )
                 )
-        return self._make_request(doc_config, include_words)
+        return self._make_request(doc_config, include_words, close_file)
 
-    def _make_request(self, doc_config: DocumentConfig, include_words: bool):
+    def _make_request(
+        self, doc_config: DocumentConfig, include_words: bool, close_file: bool
+    ):
         response = doc_config.constructor.request(
-            doc_config.endpoints, self.input_doc, include_words=include_words
+            doc_config.endpoints,
+            self.input_doc,
+            include_words=include_words,
+            close_file=close_file,
         )
 
         dict_response = response.json()
@@ -112,6 +123,10 @@ class DocumentClient:
         return format_response(
             doc_config, dict_response, doc_config.document_type, self.input_doc
         )
+
+    def close(self) -> None:
+        """Close the file object."""
+        self.input_doc.file_object.close()
 
 
 class Client:
