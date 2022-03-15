@@ -45,7 +45,7 @@ class Receipt(Document):
         )
 
     def __str__(self) -> str:
-        taxes = ", ".join([f"{t.value} {t.rate}%" for t in self.taxes])
+        taxes = ", ".join(f"{t}" for t in self.taxes)
         return (
             "-----Receipt data-----\n"
             f"Filename: {self.filename}\n"
