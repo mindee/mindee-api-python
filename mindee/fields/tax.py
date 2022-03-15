@@ -10,13 +10,15 @@ class Tax(Field):
     def __init__(
         self,
         tax_prediction: dict,
-        value_key: str = "amount",
+        value_key: str = "value",
         rate_key: str = "rate",
         code_key: str = "code",
         reconstructed: bool = False,
         page_n=None,
     ):
         """
+        Tax field object.
+
         :param tax_prediction: Tax prediction object from HTTP response
         :param value_key: Key to use in the tax_prediction dict
         :param rate_key: Key to use for getting the Tax rate in the tax_prediction dict
@@ -38,9 +40,9 @@ class Tax(Field):
 
         try:
             self.code = str(tax_prediction[code_key])
-            if self.code == "N/A":
-                self.code = None
         except (TypeError, KeyError):
+            self.code = None
+        if self.code in ("N/A", "None"):
             self.code = None
 
         try:
@@ -54,17 +56,8 @@ class Tax(Field):
         tax_str = ""
         if self.value is not None:
             tax_str += str(self.value)
-        else:
-            tax_str += "_"
-
         if self.rate is not None:
-            tax_str += "; " + str(self.rate) + "%"
-        else:
-            tax_str += "; _"
-
+            tax_str += f" {self.rate}%"
         if self.code is not None:
-            tax_str += "; " + str(self.code)
-        else:
-            tax_str += "; _"
-
-        return tax_str
+            tax_str += f" {self.code}"
+        return tax_str.strip()
