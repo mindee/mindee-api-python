@@ -114,8 +114,8 @@ class Passport(Document):
         :param include_words: Include Mindee vision words in http_response
         """
         if include_words:
-            raise Exception(
-                "invlude_words parameter cannot be set to True for passport API"
+            raise ValueError(
+                "include_words parameter cannot be set to True for passport API"
             )
         return endpoints[0].predict_request(input_file, include_words)
 
