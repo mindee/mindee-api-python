@@ -1,7 +1,19 @@
+import datetime
 from typing import List, Optional, Type
 
 # from mindee.inputs import InputDocument
 from mindee.http import Endpoint
+
+
+def serialize_for_json(obj):
+    """
+    Custom serializer for Document objects.
+
+    Use as the `default` argument of the `json.dump` functions.
+    """
+    if isinstance(obj, datetime.date):
+        return obj.__str__()
+    return vars(obj)
 
 
 class Document:

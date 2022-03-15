@@ -6,6 +6,7 @@
 * :bug: fix for locale constructor
 * :bug: fix custom document in CLI
 * :label: declare type info to mypy
+* :bug: fix for dumping JSON in CLI
 
 ### Changes
 * :label: set stricter pylint and mypy settings

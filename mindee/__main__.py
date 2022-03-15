@@ -4,6 +4,7 @@ from argparse import Namespace
 from typing import Any, Dict
 
 from mindee import Client
+from mindee.documents.base import serialize_for_json
 
 DOCUMENTS: Dict[str, Dict[str, Any]] = {
     "invoice": {
@@ -91,7 +92,8 @@ def call_endpoint(args: Namespace):
     if args.output_type == "raw":
         print(json.dumps(parsed_data.http_response, indent=2))
     elif args.output_type == "parsed":
-        print(json.dumps(getattr(parsed_data, doc_type), indent=2, default=vars))
+        doc = getattr(parsed_data, doc_type)
+        print(json.dumps(doc, indent=2, default=serialize_for_json))
     else:
         print(getattr(parsed_data, doc_type))
 
