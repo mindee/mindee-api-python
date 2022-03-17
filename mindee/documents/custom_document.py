@@ -1,7 +1,6 @@
-from typing import Dict, List
+from typing import Dict
 
 from mindee.documents.base import Document
-from mindee.http import Endpoint
 
 
 class CustomDocument(Document):
@@ -15,6 +14,8 @@ class CustomDocument(Document):
         page_n: int = 0,
     ):
         """
+        Custom document object.
+
         :param document_type: Document type
         :param api_prediction: Raw prediction from HTTP response
         :param input_file: Input object
@@ -29,6 +30,8 @@ class CustomDocument(Document):
 
     def build_from_api_prediction(self, api_prediction, page_n: int = 0):
         """
+        Build the document from an API response JSON.
+
         :param api_prediction: Raw prediction from HTTP response
         :param page_n: Page number for multi pages pdf input
         :return: (void) set the object attributes with api prediction values
@@ -40,9 +43,6 @@ class CustomDocument(Document):
             setattr(self, field_name, field)
 
     def __str__(self) -> str:
-        """
-        :return: (str) String representation of the document
-        """
         custom_doc_str = f"----- {self.type} -----\n"
         for name, info in self.fields.items():
             custom_doc_str += "%s: %s\n" % (
@@ -51,16 +51,6 @@ class CustomDocument(Document):
             )
         custom_doc_str += "-----------------\n"
         return custom_doc_str
-
-    @staticmethod
-    def request(endpoints: List[Endpoint], input_file, include_words: bool = False):
-        """
-        Make request to expense_receipts endpoint
-        :param include_words: Not yet used for custom documents
-        :param input_file: Input object
-        :param endpoints: Endpoints config
-        """
-        return endpoints[0].predict_request(input_file, include_words)
 
     def _checklist(self) -> None:
         pass

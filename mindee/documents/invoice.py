@@ -8,7 +8,6 @@ from mindee.fields.locale import Locale
 from mindee.fields.orientation import Orientation
 from mindee.fields.payment_details import PaymentDetails
 from mindee.fields.tax import Tax
-from mindee.http import Endpoint
 
 
 class Invoice(Document):
@@ -126,17 +125,6 @@ class Invoice(Document):
             f"Locale: {self.locale}\n"
             "----------------------"
         )
-
-    @staticmethod
-    def request(endpoints: List[Endpoint], input_file, include_words=False):
-        """
-        Make request to prediction endpoint.
-
-        :param input_file: Input object
-        :param endpoints: Endpoints config
-        :param include_words: Include Mindee vision words in http_response
-        """
-        return endpoints[0].predict_request(input_file, include_words)
 
     def _reconstruct(self) -> None:
         """Call fields reconstruction methods."""

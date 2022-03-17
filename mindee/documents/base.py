@@ -42,9 +42,21 @@ class Document:
         self._reconstruct()
 
     @staticmethod
-    def request(endpoints: List[Endpoint], input_file, include_words: bool = False):
-        """Make request to the product endpoint."""
-        raise NotImplementedError()
+    def request(
+        endpoints: List[Endpoint],
+        input_file,
+        include_words: bool = False,
+        close_file: bool = True,
+    ):
+        """
+        Make request to prediction endpoint.
+
+        :param input_file: Input object
+        :param endpoints: Endpoints config
+        :param include_words: Include Mindee vision words in http_response
+        :param close_file: Whether to `close()` the file after parsing it.
+        """
+        return endpoints[0].predict_request(input_file, include_words, close_file)
 
     def build_from_api_prediction(self, api_prediction: dict, page_n):
         """Build the document from an API response JSON."""

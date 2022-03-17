@@ -209,3 +209,14 @@ def test_interface_version():
         fixed_client.doc_from_path("./tests/data/expense_receipts/receipt.jpg").parse(
             "dummy"
         )
+
+
+def test_keep_file_open(dummy_client):
+    doc = dummy_client.doc_from_path("./tests/data/expense_receipts/receipt.jpg")
+    try:
+        doc.parse("receipt", close_file=False)
+    except HTTPException:
+        pass
+    assert not doc.input_doc.file_object.closed
+    doc.close()
+    assert doc.input_doc.file_object.closed
