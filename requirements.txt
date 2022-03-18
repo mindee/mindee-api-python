@@ -6,11 +6,11 @@
 #
 certifi==2021.10.8
     # via requests
-chardet==4.0.0
+charset-normalizer==2.0.12
     # via requests
-idna==2.10
+idna==3.3
     # via requests
-lxml==4.7.1
+lxml==4.8.0
     # via pikepdf
 packaging==21.3
     # via pikepdf
@@ -18,11 +18,11 @@ pikepdf==5.0.1
     # via mindee (setup.py)
 pillow==9.0.1
     # via pikepdf
-pyparsing==3.0.6
+pyparsing==3.0.7
     # via packaging
 pytz==2021.3
     # via mindee (setup.py)
-requests==2.25.1
+requests==2.27.1
     # via mindee (setup.py)
-urllib3==1.26.8
+urllib3==1.26.9
     # via requests
