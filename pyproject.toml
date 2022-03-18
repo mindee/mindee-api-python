@@ -17,7 +17,7 @@ ignore_missing_imports = true
 safe_licenses = [
   "Apache Software License",
   "MIT License",
-  "GNU Library or Lesser General Public License (LGPL)",
+#  "GNU Library or Lesser General Public License (LGPL)",
   "Mozilla Public License 2.0 (MPL 2.0)",
   "BSD License",
   "Historical Permission Notice and Disclaimer (HPND)",
