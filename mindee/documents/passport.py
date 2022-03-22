@@ -2,7 +2,7 @@ from datetime import datetime
 from typing import List
 
 from mindee.documents.base import Document
-from mindee.fields import Field
+from mindee.fields.base import Field
 from mindee.fields.date import Date
 
 

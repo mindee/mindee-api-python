@@ -68,7 +68,7 @@
                 "type": "VAT NUMBER",
                 "value": "FR33501124705"
               }
-              ],
+            ],
             "customer": {
               "confidence": 0.0,
               "polygon": [],
@@ -559,7 +559,54 @@
           ],
           "value": "1954 Bloon Street West Toronto, ON, M6P 3K9 Canada"
         },
-        "customer_company_registration": [],
+        "customer_company_registration": [
+          {
+            "confidence": 1.0,
+            "polygon": [
+              [
+                0.346,
+                0.199
+              ],
+              [
+                0.484,
+                0.199
+              ],
+              [
+                0.484,
+                0.217
+              ],
+              [
+                0.346,
+                0.217
+              ]
+            ],
+            "type": "VAT NUMBER",
+            "value": "FR00000000000"
+          },
+          {
+            "confidence": 1.0,
+            "polygon": [
+              [
+                0.346,
+                0.199
+              ],
+              [
+                0.484,
+                0.199
+              ],
+              [
+                0.484,
+                0.217
+              ],
+              [
+                0.346,
+                0.217
+              ]
+            ],
+            "type": "SIREN",
+            "value": "111222333"
+          }
+        ],
         "date": {
           "confidence": 0.99,
           "page_id": 0,

@@ -1,4 +1,4 @@
-from mindee.fields import Field
+from mindee.fields.base import Field, TypedField
 
 
 def test_constructor():
@@ -9,6 +9,20 @@ def test_constructor():
     }
     field = Field(field_dict)
     assert field.value == "test"
+    assert field.confidence == 0.1
+    assert len(field.bbox) > 0
+
+
+def test_type_constructor():
+    field_dict = {
+        "value": "test",
+        "type": "IBAN",
+        "confidence": 0.1,
+        "polygon": [[0.016, 0.707], [0.414, 0.707], [0.414, 0.831], [0.016, 0.831]],
+    }
+    field = TypedField(field_dict)
+    assert field.value == "test"
+    assert field.type == "IBAN"
     assert field.confidence == 0.1
     assert len(field.bbox) > 0
 

@@ -11,8 +11,7 @@ class Field:
         abstract_prediction: Dict[str, Any],
         value_key: str = "value",
         reconstructed=False,
-        extra_fields=None,
-        page_n=None,
+        page_n: Optional[int] = None,
     ):
         """
         Base field object.
@@ -20,9 +19,7 @@ class Field:
         :param abstract_prediction: Prediction object from HTTP response
         :param value_key: Key to use in the abstract_prediction dict
         :param reconstructed: Bool for reconstructed object (not extracted in the API)
-        :param page_n: Page number for multi pages PDF
-        :param extra_fields: extra field to get from the abstract_prediction and
-            to set as attribute of the Field
+        :param page_n: Page number for multi-page PDF
         """
         self.page_n = page_n
 
@@ -43,10 +40,6 @@ class Field:
                 self.bbox = abstract_prediction["polygon"]
             except KeyError:
                 self.bbox = []
-
-        if extra_fields:
-            for field_name in extra_fields:
-                setattr(self, field_name, abstract_prediction[field_name])
 
         self.reconstructed = reconstructed
 
@@ -108,4 +101,23 @@ class Field:
     def __str__(self) -> str:
         if self.value:
             return f"{self.value}"
+        return ""
+
+
+class TypedField(Field):
+    type: str
+
+    def __init__(
+        self,
+        abstract_prediction: Dict[str, Any],
+        value_key: str = "value",
+        reconstructed=False,
+        page_n: Optional[int] = None,
+    ):
+        super().__init__(abstract_prediction, value_key, reconstructed, page_n)
+        self.type = abstract_prediction["type"]
+
+    def __str__(self) -> str:
+        if self.value:
+            return f"{self.type}: {self.value}"
         return ""

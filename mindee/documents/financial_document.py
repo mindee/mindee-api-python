@@ -3,7 +3,7 @@ from typing import List, Optional
 from mindee.documents.base import Document
 from mindee.documents.invoice import Invoice
 from mindee.documents.receipt import Receipt
-from mindee.fields import Field
+from mindee.fields.base import Field
 from mindee.fields.locale import Locale
 from mindee.fields.orientation import Orientation
 from mindee.http import Endpoint
@@ -26,7 +26,7 @@ class FinancialDocument(Document):
 
         :param api_prediction: Raw prediction from HTTP response
         :param input_file: Input object
-        :param page_n: Page number for multi pages pdf input
+        :param page_n: Page number for multi-page PDF input
         """
         self.total_incl = None
         self.total_excl = None
@@ -35,14 +35,14 @@ class FinancialDocument(Document):
         self.due_date = None
         self.taxes = []
         self.merchant_name = None
-        self.payment_details = None
-        self.company_number = None
+        self.payment_details = []
+        self.company_number = []
         self.vat_number = None
         self.total_tax = None
         self.time = None
         self.supplier_address = None
         self.customer_name = None
-        self.customer_company_registration = None
+        self.customer_company_registration = []
         self.customer_address = None
 
         # need this for building from prediction
@@ -95,13 +95,8 @@ class FinancialDocument(Document):
             self.time = receipt.time
             self.total_tax = receipt.total_tax
             self.invoice_number = Field({"value": None, "confidence": 0.0})
-            self.payment_details = []
-            self.company_number = []
             self.supplier_address = Field({"value": None, "confidence": 0.0})
             self.customer_name = Field({"value": None, "confidence": 0.0})
-            self.customer_company_registration = Field(
-                {"value": None, "confidence": 0.0}
-            )
             self.customer_address = Field({"value": None, "confidence": 0.0})
 
     def __str__(self) -> str:

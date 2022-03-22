@@ -1,6 +1,6 @@
 from typing import Optional
 
-from mindee.fields import Field
+from mindee.fields.base import Field
 
 
 class Tax(Field):

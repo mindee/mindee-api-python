@@ -1,8 +1,8 @@
 from typing import List, Optional
 
 from mindee.documents.base import Document
-from mindee.fields import Field
 from mindee.fields.amount import Amount
+from mindee.fields.base import Field
 from mindee.fields.date import Date
 from mindee.fields.locale import Locale
 from mindee.fields.orientation import Orientation
