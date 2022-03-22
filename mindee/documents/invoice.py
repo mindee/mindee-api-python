@@ -1,8 +1,8 @@
 from typing import List, Optional
 
 from mindee.documents.base import Document
-from mindee.fields import Field
 from mindee.fields.amount import Amount
+from mindee.fields.base import Field, TypedField
 from mindee.fields.date import Date
 from mindee.fields.locale import Locale
 from mindee.fields.orientation import Orientation
@@ -21,10 +21,10 @@ class Invoice(Document):
     supplier: Field
     supplier_address: Field
     customer_name: Field
-    customer_company_registration: Field
+    customer_company_registration: List[TypedField] = []
     customer_address: Field
     payment_details: List[PaymentDetails] = []
-    company_number: List[Field] = []
+    company_number: List[TypedField] = []
     total_tax: Amount
     # orientation is only present on page-level, not document-level
     orientation: Optional[Orientation] = None
@@ -62,8 +62,8 @@ class Invoice(Document):
             self.orientation = Orientation(api_prediction["orientation"], page_n=page_n)
 
         self.company_number = [
-            Field(company_reg, extra_fields={"type"}, page_n=page_n)
-            for company_reg in api_prediction["company_registration"]
+            TypedField(field_dict, page_n=page_n)
+            for field_dict in api_prediction["company_registration"]
         ]
         self.invoice_date = Date(
             api_prediction["date"], value_key="value", page_n=page_n
@@ -78,9 +78,10 @@ class Invoice(Document):
         self.supplier = Field(api_prediction["supplier"], page_n=page_n)
         self.supplier_address = Field(api_prediction["supplier_address"], page_n=page_n)
         self.customer_name = Field(api_prediction["customer"], page_n=page_n)
-        self.customer_company_registration = Field(
-            api_prediction["customer_company_registration"], page_n=page_n
-        )
+        self.customer_company_registration = [
+            TypedField(field_dict, page_n=page_n)
+            for field_dict in api_prediction["customer_company_registration"]
+        ]
         self.customer_address = Field(api_prediction["customer_address"], page_n=page_n)
 
         self.taxes = [
@@ -103,6 +104,9 @@ class Invoice(Document):
 
     def __str__(self) -> str:
         company_numbers = "; ".join([str(n.value) for n in self.company_number])
+        customer_company_registration = "; ".join(
+            [str(n.value) for n in self.customer_company_registration]
+        )
         payments = ", ".join([str(p) for p in self.payment_details])
         taxes = ", ".join(f"{t}" for t in self.taxes)
         return (
@@ -116,7 +120,7 @@ class Invoice(Document):
             f"Supplier name: {self.supplier}\n"
             f"Supplier address: {self.supplier_address}\n"
             f"Customer name: {self.customer_name}\n"
-            f"Customer company registration: {self.customer_company_registration}\n"
+            f"Customer company registration: {customer_company_registration}\n"
             f"Customer address: {self.customer_address}\n"
             f"Payment details: {payments}\n"
             f"Company numbers: {company_numbers}\n"

@@ -4,8 +4,8 @@ import pytest
 
 from mindee.documents.invoice import Invoice
 
-INVOICE_FILE_PATH = "./tests/data/invoices/v2/invoice.json"
-INVOICE_NA_FILE_PATH = "./tests/data/invoices/v2/invoice_all_na.json"
+INVOICE_FILE_PATH = "./tests/data/invoices/v3/invoice.json"
+INVOICE_NA_FILE_PATH = "./tests/data/invoices/v3/invoice_all_na.json"
 
 
 @pytest.fixture
@@ -48,7 +48,7 @@ Invoice due date: 2020-02-17
 Supplier name: TURNPIKE DESIGNS CO.
 Supplier address: 156 University Ave, Toronto ON, Canada M5H 2H7
 Customer name: JIRO DOI
-Customer company registration: 
+Customer company registration: FR00000000000; 111222333
 Customer address: 1954 Bloon Street West Toronto, ON, M6P 3K9 Canada
 Payment details: FR7640254025476501124705368;
 Company numbers: 501124705; FR33501124705
