@@ -1,5 +1,15 @@
 # Mindee Python API Library Changelog
 
+## v2.2.0 (2022-03-24)
+
+### Fixes
+* 🐛 💥 fix for customer_company_registration being a list of values
+
+### Changes
+* ✨ allow specifying file closing behavior
+* ⬆️ loosen setup.py requirements; update pinned dependencies
+* ✅ better testing of PDF pages
+
 ## v2.1.1 (2022-03-15)
 
 ### Fixes
