@@ -11,7 +11,9 @@ ISO8601_DATETIME_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
 
 class Date(Field):
     date_object: Optional[date] = None
+    """Date as a standard Python ``datetime.date`` object"""
     value: Optional[str]
+    """Raw field value"""
 
     def __init__(
         self,

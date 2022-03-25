@@ -67,7 +67,7 @@ def test_constructor_2(financial_doc_from_receipt_object):
 
 
 def test_all_na_receipt(financial_doc_from_receipt_object_all_na):
-    assert financial_doc_from_receipt_object_all_na.orientation.value == 0
+    assert financial_doc_from_receipt_object_all_na.orientation is None
     assert financial_doc_from_receipt_object_all_na.locale.value is None
     assert financial_doc_from_receipt_object_all_na.total_incl.value is None
     assert financial_doc_from_receipt_object_all_na.date.value is None
@@ -77,7 +77,7 @@ def test_all_na_receipt(financial_doc_from_receipt_object_all_na):
 
 
 def test_all_na_invoice(financial_doc_from_invoice_object_all_na):
-    assert financial_doc_from_invoice_object_all_na.orientation.value == 0
+    assert financial_doc_from_invoice_object_all_na.orientation is None
     assert financial_doc_from_invoice_object_all_na.locale.value is None
     assert financial_doc_from_invoice_object_all_na.total_incl.value is None
     assert financial_doc_from_invoice_object_all_na.date.value is None

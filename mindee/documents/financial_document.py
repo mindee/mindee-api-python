@@ -3,22 +3,59 @@ from typing import List, Optional
 from mindee.documents.base import Document
 from mindee.documents.invoice import Invoice
 from mindee.documents.receipt import Receipt
-from mindee.fields.base import Field
+from mindee.fields.amount import Amount
+from mindee.fields.base import Field, TypedField
+from mindee.fields.date import Date
 from mindee.fields.locale import Locale
 from mindee.fields.orientation import Orientation
+from mindee.fields.payment_details import PaymentDetails
+from mindee.fields.tax import Tax
 from mindee.http import Endpoint
 
 
 class FinancialDocument(Document):
     locale: Locale
+    """locale information"""
+    total_incl: Amount
+    """Total including taxes"""
+    total_excl: Amount
+    """Total excluding taxes"""
+    date: Date
+    """Date the document was issued"""
+    time: Field
+    """Time the document was issued"""
+    invoice_number: Field
+    """Invoice number"""
+    due_date: Date
+    """Date the invoice is due"""
+    taxes: List[Tax] = []
+    """List of all taxes"""
+    merchant_name: Field
+    """Merchant/Supplier's name"""
+    supplier_address: Field
+    """Merchant/Supplier's address"""
+    customer_name: Field
+    """Customer's name"""
+    customer_address: Field
+    """Customer's address"""
+    customer_company_registration: List[TypedField] = []
+    """Customer company registration numbers"""
+    payment_details: List[PaymentDetails] = []
+    """Payment details"""
+    company_number: List[TypedField] = []
+    """Company numbers"""
+    total_tax: Amount
+    """Sum total of all taxes"""
+
     # orientation is only present on page-level, not document-level
     orientation: Optional[Orientation] = None
+    """Page orientation"""
 
     def __init__(
         self,
         api_prediction=None,
         input_file=None,
-        page_n=0,
+        page_n: Optional[int] = None,
         document_type="financial_doc",
     ):
         """
@@ -28,23 +65,6 @@ class FinancialDocument(Document):
         :param input_file: Input object
         :param page_n: Page number for multi-page PDF input
         """
-        self.total_incl = None
-        self.total_excl = None
-        self.date = None
-        self.invoice_number = None
-        self.due_date = None
-        self.taxes = []
-        self.merchant_name = None
-        self.payment_details = []
-        self.company_number = []
-        self.vat_number = None
-        self.total_tax = None
-        self.time = None
-        self.supplier_address = None
-        self.customer_name = None
-        self.customer_company_registration = []
-        self.customer_address = None
-
         # need this for building from prediction
         self.input_file = input_file
 
@@ -55,13 +75,14 @@ class FinancialDocument(Document):
             page_n=page_n,
         )
 
-    def build_from_api_prediction(self, api_prediction, page_n=0):
+    def _build_from_api_prediction(
+        self, api_prediction: dict, page_n: Optional[int] = None
+    ):
         """
         Build the document from an API response JSON.
 
         :param api_prediction: Raw prediction from HTTP response
         :param page_n: Page number for multi pages pdf input
-        :return: (void) set the object attributes with api prediction values
         """
         if "invoice_number" in api_prediction.keys():
             invoice = Invoice(api_prediction, self.input_file, page_n=page_n)

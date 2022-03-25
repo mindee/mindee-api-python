@@ -1,4 +1,9 @@
-from mindee.fields.base import Field, TypedField
+from mindee.fields.base import (
+    Field,
+    TypedField,
+    field_array_confidence,
+    field_array_sum,
+)
 
 
 def test_constructor():
@@ -61,12 +66,12 @@ def test_array_probability():
         Field({"value": None, "confidence": 0.1}),
         Field({"value": None, "confidence": 0.8}),
     ]
-    assert Field.array_confidence(fields) == 0.8 * 0.1
+    assert field_array_confidence(fields) == 0.8 * 0.1
     fields = [
         Field({"value": None, "confidence": 0.1}),
         Field({"value": None, "confidence": None}),
     ]
-    assert Field.array_confidence(fields) == 0.0
+    assert field_array_confidence(fields) == 0.0
 
 
 def test_array_sum():
@@ -74,9 +79,9 @@ def test_array_sum():
         Field({"value": 1, "confidence": 0.1}),
         Field({"value": 2, "confidence": 0.8}),
     ]
-    assert Field.array_sum(fields) == 3
+    assert field_array_sum(fields) == 3
     fields = [
         Field({"value": None, "confidence": 0.1}),
         Field({"value": 4, "confidence": 0.8}),
     ]
-    assert Field.array_sum(fields) == 0.0
+    assert field_array_sum(fields) == 0.0

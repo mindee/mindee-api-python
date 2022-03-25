@@ -1,5 +1,6 @@
-Clients
-=======
+----------------
+Document Parsing
+----------------
 
 .. currentmodule:: mindee.client
 
@@ -11,4 +12,9 @@ Client
 DocumentClient
 --------------
 .. autoclass:: mindee.client.DocumentClient
+    :members:
+
+DocumentResponse
+----------------
+.. autoclass:: mindee.response.DocumentResponse
     :members:

@@ -1,5 +1,6 @@
+---------
 Documents
-=========
+---------
 
 .. currentmodule:: mindee.documents
 
@@ -21,6 +22,20 @@ Receipt
 Passport
 --------
 .. autoclass:: mindee.documents.passport.Passport
+    :members:
+    :inherited-members:
+    :undoc-members:
+
+Financial Document
+------------------
+.. autoclass:: mindee.documents.financial_document.FinancialDocument
+    :members:
+    :inherited-members:
+    :undoc-members:
+
+Custom Document
+----------------
+.. autoclass:: mindee.documents.custom_document.CustomDocument
     :members:
     :inherited-members:
     :undoc-members:

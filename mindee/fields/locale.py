@@ -5,8 +5,11 @@ from mindee.fields.base import Field
 
 class Locale(Field):
     language: Optional[str] = None
+    """Language ISO code"""
     country: Optional[str] = None
+    """Country ISO code"""
     currency: Optional[str] = None
+    """3 letter currency code"""
 
     def __init__(
         self,

@@ -2,7 +2,7 @@ from typing import List, Optional
 
 from mindee.documents.base import Document
 from mindee.fields.amount import Amount
-from mindee.fields.base import Field
+from mindee.fields.base import Field, field_array_confidence, field_array_sum
 from mindee.fields.date import Date
 from mindee.fields.locale import Locale
 from mindee.fields.orientation import Orientation
@@ -11,22 +11,32 @@ from mindee.fields.tax import Tax
 
 class Receipt(Document):
     locale: Locale
+    """locale information"""
     total_incl: Amount
+    """Total including taxes"""
     date: Date
-    category: Field
-    merchant_name: Field
+    """Date the receipt was issued"""
     time: Field
+    """Time the receipt was issued"""
+    category: Field
+    """Service category"""
+    merchant_name: Field
+    """Merchant's name"""
     taxes: List[Tax] = []
+    """List of all taxes"""
     total_tax: Amount
+    """Sum total of all taxes"""
     total_excl: Amount
+    """Total excluding taxes"""
     # orientation is only present on page-level, not document-level
     orientation: Optional[Orientation] = None
+    """Page orientation"""
 
     def __init__(
         self,
         api_prediction=None,
         input_file=None,
-        page_n=0,
+        page_n: Optional[int] = None,
         document_type="receipt",
     ):
         """
@@ -60,13 +70,14 @@ class Receipt(Document):
             "----------------------"
         )
 
-    def build_from_api_prediction(self, api_prediction, page_n=0):
+    def _build_from_api_prediction(
+        self, api_prediction: dict, page_n: Optional[int] = None
+    ):
         """
         Build the document from an API response JSON.
 
         :param api_prediction: Raw prediction from HTTP response
         :param page_n: Page number for multi pages pdf input
-        :return: (void) set the object attributes with api prediction values
         """
         if page_n is not None:
             self.orientation = Orientation(api_prediction["orientation"], page_n=page_n)
@@ -156,8 +167,8 @@ class Receipt(Document):
         """
         if self.taxes and self.total_incl.value is not None:
             total_excl = {
-                "value": self.total_incl.value - Field.array_sum(self.taxes),
-                "confidence": Field.array_confidence(self.taxes)
+                "value": self.total_incl.value - field_array_sum(self.taxes),
+                "confidence": field_array_confidence(self.taxes)
                 * self.total_incl.confidence,
             }
             self.total_excl = Amount(total_excl, value_key="value", reconstructed=True)
@@ -174,7 +185,7 @@ class Receipt(Document):
                 "value": sum(
                     [tax.value if tax.value is not None else 0 for tax in self.taxes]
                 ),
-                "confidence": Field.array_confidence(self.taxes),
+                "confidence": field_array_confidence(self.taxes),
             }
             if total_tax["value"] > 0:
                 self.total_tax = Amount(

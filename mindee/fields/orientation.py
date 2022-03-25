@@ -3,6 +3,7 @@ from mindee.fields.base import Field
 
 class Orientation(Field):
     value: int
+    """Orientation degrees. One of 0, 90, 180, 270"""
 
     def __init__(
         self,
@@ -12,6 +13,8 @@ class Orientation(Field):
         page_n=None,
     ):
         """
+        Page orientation.
+
         :param orientation_prediction: Orientation prediction object from HTTP response
         :param value_key: Key to use in the orientation_prediction dict
         :param reconstructed: Bool for reconstructed object (not extracted in the API)

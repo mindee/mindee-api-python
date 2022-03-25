@@ -1,31 +1,47 @@
 from datetime import datetime
-from typing import List
+from typing import List, Optional
 
 from mindee.documents.base import Document
-from mindee.fields.base import Field
+from mindee.fields.base import Field, field_array_confidence
 from mindee.fields.date import Date
 
 
 class Passport(Document):
     country: Field
+    """Country of issue"""
     id_number: Field
-    birth_date: Date
+    """Passport number"""
     expiry_date: Date
+    """Date the passport expires"""
     issuance_date: Date
-    birth_place: Field
-    gender: Field
+    """Date the passport was issued"""
     surname: Field
-    mrz1: Field
-    mrz2: Field
+    """Holder's last name (surname)"""
     given_names: List[Field] = []
-    mrz: Field
+    """Holder's list of first (given) names"""
     full_name: Field
+    """
+    Holder's full name.
+    The combination of `given_names` and `surname` fields.
+    """
+    birth_date: Date
+    """Holder's date of birth"""
+    birth_place: Field
+    """Holder's place of birth"""
+    gender: Field
+    """Holder's gender or sex"""
+    mrz1: Field
+    """First line of the Machine-Readable Zone"""
+    mrz2: Field
+    """Second line of the Machine-Readable Zone"""
+    mrz: Field
+    """Combination of both MRZ fields."""
 
     def __init__(
         self,
         api_prediction=None,
         input_file=None,
-        page_n=0,
+        page_n: Optional[int] = None,
         document_type="passport",
     ):
         """
@@ -42,13 +58,14 @@ class Passport(Document):
             page_n=page_n,
         )
 
-    def build_from_api_prediction(self, api_prediction, page_n=0):
+    def _build_from_api_prediction(
+        self, api_prediction: dict, page_n: Optional[int] = None
+    ):
         """
         Build the document from an API response JSON.
 
         :param api_prediction: Raw prediction from HTTP response
         :param page_n: Page number for multi pages pdf input
-        :return: (void) set the object attributes with api prediction values
         """
         self.country = Field(api_prediction["country"], page_n=page_n)
         self.id_number = Field(api_prediction["id_number"], page_n=page_n)
@@ -244,9 +261,7 @@ class Passport(Document):
         ):
             mrz = {
                 "value": self.mrz1.value + self.mrz2.value,
-                "confidence": Field.array_confidence(
-                    [self.mrz1.confidence, self.mrz2.confidence]
-                ),
+                "confidence": field_array_confidence([self.mrz1, self.mrz2]),
             }
             self.mrz = Field(mrz, reconstructed=True)
 
@@ -267,8 +282,8 @@ class Passport(Document):
         ):
             full_name = {
                 "value": self.given_names[0].value + " " + self.surname.value,
-                "confidence": Field.array_confidence(
-                    [self.surname.confidence, self.given_names[0].confidence]
+                "confidence": field_array_confidence(
+                    [self.surname, self.given_names[0]]
                 ),
             }
             self.full_name = Field(full_name, reconstructed=True)
