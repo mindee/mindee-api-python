@@ -2,7 +2,7 @@ from typing import List, Optional
 
 from mindee.documents.base import Document
 from mindee.fields.amount import Amount
-from mindee.fields.base import Field, TypedField
+from mindee.fields.base import Field, TypedField, field_array_confidence
 from mindee.fields.date import Date
 from mindee.fields.locale import Locale
 from mindee.fields.orientation import Orientation
@@ -12,28 +12,44 @@ from mindee.fields.tax import Tax
 
 class Invoice(Document):
     locale: Locale
+    """locale information"""
     total_incl: Amount
+    """Total including taxes"""
     total_excl: Amount
+    """Total excluding taxes"""
     invoice_date: Date
+    """Date the invoice was issued"""
     invoice_number: Field
+    """Invoice number"""
     due_date: Date
+    """Date the invoice is due"""
     taxes: List[Tax] = []
-    supplier: Field
-    supplier_address: Field
-    customer_name: Field
-    customer_company_registration: List[TypedField] = []
-    customer_address: Field
-    payment_details: List[PaymentDetails] = []
-    company_number: List[TypedField] = []
+    """List of all taxes"""
     total_tax: Amount
+    """Sum total of all taxes"""
+    supplier: Field
+    """Supplier 's name"""
+    supplier_address: Field
+    """Supplier's address"""
+    customer_name: Field
+    """Customer's name"""
+    customer_address: Field
+    """Customer's address"""
+    customer_company_registration: List[TypedField] = []
+    """Customer company registration numbers"""
+    payment_details: List[PaymentDetails] = []
+    """Payment details"""
+    company_number: List[TypedField] = []
+    """Company numbers"""
     # orientation is only present on page-level, not document-level
     orientation: Optional[Orientation] = None
+    """Page orientation"""
 
     def __init__(
         self,
         api_prediction=None,
         input_file=None,
-        page_n=0,
+        page_n: Optional[int] = None,
         document_type="invoice",
     ):
         """
@@ -50,13 +66,14 @@ class Invoice(Document):
             page_n=page_n,
         )
 
-    def build_from_api_prediction(self, api_prediction: dict, page_n=0):
+    def _build_from_api_prediction(
+        self, api_prediction: dict, page_n: Optional[int] = None
+    ):
         """
         Build the object from the prediction API JSON.
 
         :param api_prediction: Raw prediction from HTTP response
         :param page_n: Page number for multi pages pdf input
-        :return: (void) set the object attributes with api prediction values
         """
         if page_n is not None:
             self.orientation = Orientation(api_prediction["orientation"], page_n=page_n)
@@ -283,7 +300,7 @@ class Invoice(Document):
                     [tax.value if tax.value is not None else 0 for tax in self.taxes]
                 )
                 + self.total_excl.value,
-                "confidence": Field.array_confidence(self.taxes)
+                "confidence": field_array_confidence(self.taxes)
                 * self.total_excl.confidence,
             }
             self.total_incl = Amount(total_incl, value_key="value", reconstructed=True)
@@ -309,7 +326,7 @@ class Invoice(Document):
                 - sum(
                     [tax.value if tax.value is not None else 0 for tax in self.taxes]
                 ),
-                "confidence": Field.array_confidence(self.taxes)
+                "confidence": field_array_confidence(self.taxes)
                 * self.total_incl.confidence,
             }
             self.total_excl = Amount(total_excl, value_key="value", reconstructed=True)
@@ -326,7 +343,7 @@ class Invoice(Document):
                 "value": sum(
                     [tax.value if tax.value is not None else 0 for tax in self.taxes]
                 ),
-                "confidence": Field.array_confidence(self.taxes),
+                "confidence": field_array_confidence(self.taxes),
             }
             if total_tax["value"] > 0:
                 self.total_tax = Amount(

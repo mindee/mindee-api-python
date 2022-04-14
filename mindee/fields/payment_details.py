@@ -5,9 +5,13 @@ from mindee.fields.base import Field
 
 class PaymentDetails(Field):
     account_number: Optional[str] = None
+    """Account number"""
     iban: Optional[str] = None
+    """Account IBAN"""
     routing_number: Optional[str] = None
+    """Account routing number"""
     swift: Optional[str] = None
+    """Bank's SWIFT code"""
 
     def __init__(
         self,

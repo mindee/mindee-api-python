@@ -46,7 +46,7 @@ class DocumentClient:
         username: str = None,
         include_words: bool = False,
         close_file: bool = True,
-    ):
+    ) -> DocumentResponse:
         """
         Call prediction API on the document and parse the results.
 
@@ -97,7 +97,7 @@ class DocumentClient:
 
     def _make_request(
         self, doc_config: DocumentConfig, include_words: bool, close_file: bool
-    ):
+    ) -> DocumentResponse:
         response = doc_config.constructor.request(
             doc_config.endpoints,
             self.input_doc,
@@ -130,6 +130,12 @@ class DocumentClient:
 
 
 class Client:
+    """
+    Mindee API Client.
+
+    See: https://developers.mindee.com/docs/
+    """
+
     _doc_configs: DocumentConfigDict
     raise_on_error: bool = True
 
@@ -153,8 +159,6 @@ class Client:
     ):
         """
         Configure a custom document using the Mindee API Builder.
-
-        See: https://developers.mindee.com/docs/
 
         :param document_type: The "document type" field in the "Settings" page of the API Builder
         :param singular_name: The name of the attribute used to retrieve
@@ -186,8 +190,6 @@ class Client:
         """
         Configure a Mindee Invoice document.
 
-        See: https://developers.mindee.com/docs/
-
         :param api_key: Invoice API key
         """
         config = DocumentConfig(
@@ -203,8 +205,6 @@ class Client:
     def config_receipt(self, api_key: str = None):
         """
         Configure a Mindee Expense Receipts document.
-
-        See: https://developers.mindee.com/docs/
 
         :param api_key: Expense Receipt API key
         """
@@ -223,8 +223,6 @@ class Client:
     ):
         """
         Configure a Mindee Financial document. Uses Invoice and Expense Receipt internally.
-
-        See: https://developers.mindee.com/docs/
 
         :param receipt_api_key: Expense Receipt API key
         :param invoice_api_key: Invoice API key
@@ -245,8 +243,6 @@ class Client:
     def config_passport(self, api_key: str = None):
         """
         Configure a Mindee Passport document.
-
-        See: https://developers.mindee.com/docs/
 
         :param api_key: Passport API key
         """
@@ -271,11 +267,11 @@ class Client:
 
         :param input_path: Path of file to open
         :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a pdf with.
-                        if 1: pages [0]
-                        if 2: pages [0, n-2]
-                        if 3: pages [0, n-2, n-1]
+
+            * if 1: pages [0]
+            * if 2: pages [0, n-2]
+            * if 3: pages [0, n-2, n-1]
         :param cut_pdf: Automatically reconstruct pdf with more than 4 pages
-        :return: Wrapped response with Receipts objects parsed
         """
         input_doc = PathDocument(input_path, cut_pdf=cut_pdf, n_pdf_pages=cut_pdf_mode)
         return DocumentClient(
@@ -295,11 +291,11 @@ class Client:
 
         :param input_file: Input file handle
         :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a pdf with.
-                        if 1: pages [0]
-                        if 2: pages [0, n-2]
-                        if 3: pages [0, n-2, n-1]
+
+            * if 1: pages [0]
+            * if 2: pages [0, n-2]
+            * if 3: pages [0, n-2, n-1]
         :param cut_pdf: Automatically reconstruct pdf with more than 4 pages
-        :return: Wrapped response with Receipts objects parsed
         """
         input_doc = FileDocument(
             input_file,
@@ -325,11 +321,11 @@ class Client:
         :param input_string: Input to parse as base64 string
         :param filename: The url_name of the file (without the path)
         :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a pdf with.
-                        if 1: pages [0]
-                        if 2: pages [0, n-2]
-                        if 3: pages [0, n-2, n-1]
+
+            * if 1: pages [0]
+            * if 2: pages [0, n-2]
+            * if 3: pages [0, n-2, n-1]
         :param cut_pdf: Automatically reconstruct pdf with more than 4 pages
-        :return: Wrapped response with Receipts objects parsed
         """
         input_doc = Base64Document(
             input_string,
@@ -355,12 +351,12 @@ class Client:
 
         :param input_bytes: Raw byte input
         :param filename: The url_name of the file (without the path)
-        :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a pdf with.
-                        if 1: pages [0]
-                        if 2: pages [0, n-2]
-                        if 3: pages [0, n-2, n-1]
+        :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a PDF with.
+
+            * if 1: pages [0]
+            * if 2: pages [0, n-2]
+            * if 3: pages [0, n-2, n-1]
         :param cut_pdf: Automatically reconstruct pdf with more than 4 pages
-        :return: Wrapped response with Receipts objects parsed
         """
         input_doc = BytesDocument(
             input_bytes,

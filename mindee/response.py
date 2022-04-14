@@ -54,7 +54,9 @@ def format_response(
 
 class DocumentResponse:
     http_response: Dict[str, Any]
+    """Raw HTTP response JSON"""
     document_type: str
+    """Document type"""
 
     def __init__(
         self,

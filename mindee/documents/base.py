@@ -18,16 +18,21 @@ def serialize_for_json(obj):
 
 class Document:
     type: str
+    """Document type"""
     checklist: dict = {}
+    """Validation checks for the document"""
     filepath: Optional[str] = None
+    """Path of the input document"""
     filename: Optional[str] = None
+    """Name of the input document"""
     file_extension: Optional[str] = None
+    """File extension of the input document"""
 
     def __init__(
         self,
         input_file,
         document_type: str,
-        api_prediction,
+        api_prediction: dict,
         page_n: Optional[int] = None,
     ):
         if input_file:
@@ -37,7 +42,7 @@ class Document:
 
         self.type = document_type
 
-        self.build_from_api_prediction(api_prediction, page_n=page_n)
+        self._build_from_api_prediction(api_prediction, page_n=page_n)
         self._checklist()
         self._reconstruct()
 
@@ -58,7 +63,9 @@ class Document:
         """
         return endpoints[0].predict_request(input_file, include_words, close_file)
 
-    def build_from_api_prediction(self, api_prediction: dict, page_n):
+    def _build_from_api_prediction(
+        self, api_prediction: dict, page_n: Optional[int] = None
+    ):
         """Build the document from an API response JSON."""
         raise NotImplementedError()
 
@@ -69,7 +76,7 @@ class Document:
         pass
 
     def all_checks(self) -> bool:
-        """Return all checks."""
+        """Return status of all checks."""
         return all(self.checklist)
 
 

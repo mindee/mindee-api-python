@@ -70,7 +70,7 @@ def test_all_na(invoice_object_all_na):
     assert invoice_object_all_na.supplier.value is None
     assert len(invoice_object_all_na.payment_details) == 0
     assert len(invoice_object_all_na.company_number) == 0
-    assert invoice_object_all_na.orientation.value == 0
+    assert invoice_object_all_na.orientation is None
 
 
 def test_checklist_on_empty(invoice_object_all_na):
