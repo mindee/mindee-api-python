@@ -25,9 +25,9 @@ jobs:
       uses: actions/cache@v2
       with:
         path: ~/.cache/pip
-        key: ${{ runner.os }}-dev-${{ hashFiles('**/setup.py') }}
+        key: ${{ runner.os }}-pip-${{ hashFiles('setup.cfg') }}
         restore-keys: |
-          ${{ runner.os }}-dev-
+          ${{ runner.os }}-pip-
 
     - name: Install dependencies
       # We install the full dev requirements to make sure everything installs OK
@@ -35,14 +35,14 @@ jobs:
         python -m pip install pip
         pip install -e .[dev]
 
-    - name: Analysing the code with Black
-      run: |
-        black --check .
+    - name: Cache pre-commit
+      uses: actions/cache@v2
+      with:
+        path: ~/.cache/pre-commit
+        key: ${{ runner.os }}-prec-${{ hashFiles('.pre-commit-config.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-prec-
 
-    - name: Analysing the code with mypy
+    - name: Run all static analysis
       run: |
-        mypy --install-types --non-interactive ./mindee
-
-    - name: Analysing the code with pylint
-      run: |
-        pylint ./mindee
+        pre-commit run --all-files

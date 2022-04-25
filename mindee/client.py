@@ -319,7 +319,7 @@ class Client:
         Load a document from a base64 encoded string.
 
         :param input_string: Input to parse as base64 string
-        :param filename: The url_name of the file (without the path)
+        :param filename: The name of the file (without the path)
         :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a pdf with.
 
             * if 1: pages [0]
@@ -350,7 +350,7 @@ class Client:
         Load a document from raw bytes.
 
         :param input_bytes: Raw byte input
-        :param filename: The url_name of the file (without the path)
+        :param filename: The name of the file (without the path)
         :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a PDF with.
 
             * if 1: pages [0]

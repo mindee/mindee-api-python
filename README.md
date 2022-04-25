@@ -6,7 +6,7 @@ Here's the TL;DR of getting started.
 First, get an [API Key](https://developers.mindee.com/docs/make-your-first-request#create-an-api-key)
 
 Then, install this library:
-```shell script
+```shell
 pip install mindee
 ```
 

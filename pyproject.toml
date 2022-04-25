@@ -9,10 +9,6 @@ strict_equality = true
 disallow_any_unimported = true
 disallow_untyped_calls = true
 
-[[tool.mypy.overrides]]
-module = ['pikepdf',]
-ignore_missing_imports = true
-
 [tool.pylic]
 safe_licenses = [
   "Apache Software License",
