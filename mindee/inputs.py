@@ -2,7 +2,7 @@ import base64
 import io
 import os
 from mimetypes import guess_type
-from typing import BinaryIO, Optional
+from typing import BinaryIO, Optional, Tuple
 
 import pikepdf
 
@@ -96,7 +96,7 @@ class InputDocument:
         """
         Check if the PDF is empty.
 
-        :return: (void) Check if the document contain only empty pages
+        :return: ``True`` if the PDF is empty
         """
         self.file_object.seek(0)
         with pikepdf.open(self.file_object) as pdf:
@@ -130,6 +130,22 @@ class InputDocument:
             pikepdf.open(self.file_object)
         except Exception as err:
             raise RuntimeError("Couldn't open PDF file") from err
+
+    def read_contents(self, close_file: bool) -> Tuple[str, bytes]:
+        """
+        Read the contents of the input file.
+
+        :param close_file: whether to close the file after reading
+        :return: a Tuple with the file name and binary data
+        """
+        logger.debug("Reading data from: %s", self.filename)
+        self.file_object.seek(0)
+        data = self.file_object.read()
+        if close_file:
+            self.file_object.close()
+        else:
+            self.file_object.seek(0)
+        return self.filename, data
 
 
 class FileDocument(InputDocument):

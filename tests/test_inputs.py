@@ -19,6 +19,17 @@ def test_pdf_reconstruct_ok():
     assert isinstance(input_file.file_object, io.BytesIO)
 
 
+def test_read_contents():
+    input_doc = PathDocument("./tests/data/invoices/invoice.pdf")
+    contents = input_doc.read_contents(close_file=False)
+    assert contents[0] == "invoice.pdf"
+    assert isinstance(contents[1], bytes)
+    assert not input_doc.file_object.closed
+
+    input_doc.read_contents(close_file=True)
+    assert input_doc.file_object.closed
+
+
 def test_pdf_reconstruct_no_cut():
     input_file = PathDocument("./tests/data/invoices/invoice_10p.pdf", cut_pdf=False)
     assert input_file.count_pdf_pages() == 10
