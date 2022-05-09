@@ -165,7 +165,7 @@ class FinancialDocument(Document):
         :param include_words: Include Mindee vision words in http_response
         :param close_file: Whether to `close()` the file after parsing it.
         """
-        if "pdf" in input_file.file_extension:
+        if "pdf" in input_file.file_mimetype:
             # invoices is index 0, receipts 1 (this should be cleaned up)
             index = 0
         else:

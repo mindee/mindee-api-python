@@ -38,7 +38,7 @@ class Document:
         if input_file:
             self.filepath = input_file.filepath
             self.filename = input_file.filename
-            self.file_extension = input_file.file_extension
+            self.file_extension = input_file.file_mimetype
 
         self.type = document_type
 

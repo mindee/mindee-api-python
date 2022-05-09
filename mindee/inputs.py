@@ -8,7 +8,7 @@ import pikepdf
 
 from mindee.logger import logger
 
-ALLOWED_EXTENSIONS = [
+ALLOWED_MIME_TYPES = [
     "image/png",
     "image/jpg",
     "image/jpeg",
@@ -20,12 +20,12 @@ INPUT_TYPE_FILE = "file"
 INPUT_TYPE_BASE64 = "base64"
 INPUT_TYPE_BYTES = "bytes"
 INPUT_TYPE_PATH = "path"
-INPUT_TYPE_DUMMY = "dummy"
 
 
 class InputDocument:
     file_object: BinaryIO
     filename: str
+    file_mimetype: str
     input_type: str
     filepath: Optional[str] = None
     cut_pdf: bool
@@ -39,17 +39,9 @@ class InputDocument:
     ):
         assert 0 < n_pdf_pages <= 3
         self.input_type = input_type
-        self.file_extension = guess_type(self.filename)[0]
+        self._check_mimetype()
 
-        if (
-            self.file_extension not in ALLOWED_EXTENSIONS
-            and self.input_type != INPUT_TYPE_DUMMY
-        ):
-            raise AssertionError(
-                "File type not allowed, must be in {%s}" % ", ".join(ALLOWED_EXTENSIONS)
-            )
-
-        if self.file_extension == "application/pdf":
+        if self.file_mimetype == "application/pdf":
             self.check_pdf_open()
             count_pages = self.count_pdf_pages()
             if cut_pdf is True:
@@ -60,6 +52,19 @@ class InputDocument:
             if self.is_pdf_empty():
                 raise AssertionError(f"PDF pages are empty in: {self.filename}")
         logger.debug("Loaded new document '%s' from %s", self.filename, self.input_type)
+
+    def _check_mimetype(self) -> None:
+        file_mimetype = guess_type(self.filename)[0]
+        if file_mimetype:
+            self.file_mimetype = file_mimetype
+        else:
+            raise AssertionError(f"Could not determine MIME type of '{self.filename}'")
+
+        if self.file_mimetype not in ALLOWED_MIME_TYPES:
+            raise AssertionError(
+                "File type not allowed, must be one of {%s}"
+                % ", ".join(ALLOWED_MIME_TYPES)
+            )
 
     def count_pdf_pages(self) -> int:
         """
@@ -73,10 +78,10 @@ class InputDocument:
 
     def merge_pdf_pages(self, page_numbers: list) -> None:
         """
-        Create a new PDF from pages.
+        Create a new PDF from pages and set it to ``file_object``.
 
         :param page_numbers: List of pages number to use for merging in the original PDF.
-        :return: (void) Set the Input.file with the reconstructed pdf stream
+        :return: None
         """
         self.file_object.seek(0)
         new_pdf = pikepdf.Pdf.new()
