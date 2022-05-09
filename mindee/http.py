@@ -1,5 +1,5 @@
 import os
-from typing import Optional, Tuple
+from typing import Optional
 
 import requests
 
@@ -82,19 +82,6 @@ class Endpoint:
             self.api_key = env_key
             logger.debug("Set from environment: %s", self.envvar_key_name)
 
-    @staticmethod
-    def _read_document(
-        input_file: InputDocument, close_file: bool
-    ) -> Tuple[str, bytes]:
-        logger.debug("Reading data from: %s", input_file.filename)
-        input_file.file_object.seek(0)
-        data = input_file.file_object.read()
-        if close_file:
-            input_file.file_object.close()
-        else:
-            input_file.file_object.seek(0)
-        return input_file.filename, data
-
     def predict_request(
         self,
         input_file: InputDocument,
@@ -109,7 +96,7 @@ class Endpoint:
         :param close_file: Whether to `close()` the file after parsing it.
         :return: requests response
         """
-        files = {"document": self._read_document(input_file, close_file)}
+        files = {"document": input_file.read_contents(close_file)}
         headers = {"Authorization": self.api_key, "User-Agent": USER_AGENT}
         data = {}
         if include_words:
@@ -132,7 +119,7 @@ class CustomEndpoint(Endpoint):
         :return: requests response
         :param close_file: Whether to `close()` the file after parsing it.
         """
-        files = {"document": self._read_document(input_file, close_file)}
+        files = {"document": input_file.read_contents(close_file)}
         headers = {"Authorization": self.api_key, "User-Agent": USER_AGENT}
         params = {"training": True, "with_candidates": True}
 
