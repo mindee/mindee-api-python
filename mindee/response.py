@@ -5,9 +5,37 @@ from mindee.documents.base import Document, TypeDocument
 from mindee.logger import logger
 
 
+class DocumentResponse:
+    http_response: Dict[str, Any]
+    """Raw HTTP response JSON"""
+    document_type: str
+    """Document type"""
+
+    def __init__(
+        self,
+        doc_config: DocumentConfig,
+        http_response: dict,
+        pages: List[Document],
+        document_type: str,
+        document=TypeDocument,
+    ):
+        """
+        Container for the raw API response and the parsed document.
+
+        :param http_response: Raw HTTP response object
+        :param pages: List of document objects, page level
+        :param document: reconstructed object from all pages
+        :param document_type: Document class
+        """
+        self.http_response = http_response
+        self.document_type = document_type
+        setattr(self, doc_config.singular_name, document)
+        setattr(self, doc_config.plural_name, pages)
+
+
 def format_response(
     doc_config: DocumentConfig, http_response: dict, document_type: str, input_file
-):
+) -> DocumentResponse:
     """
     Create a `DocumentResponse`.
 
@@ -21,7 +49,7 @@ def format_response(
     http_response["input_type"] = input_file.input_type
     http_response["filename"] = input_file.filename
     http_response["filepath"] = input_file.filepath
-    http_response["file_extension"] = input_file.file_extension
+    http_response["file_extension"] = input_file.file_mimetype
     pages = []
 
     logger.debug("Handling API response")
@@ -50,31 +78,3 @@ def format_response(
         document_type=document_type,
         document=document_level,
     )
-
-
-class DocumentResponse:
-    http_response: Dict[str, Any]
-    """Raw HTTP response JSON"""
-    document_type: str
-    """Document type"""
-
-    def __init__(
-        self,
-        doc_config: DocumentConfig,
-        http_response: dict,
-        pages: List[Document],
-        document_type: str,
-        document=TypeDocument,
-    ):
-        """
-        Container for the raw API response and the parsed document.
-
-        :param http_response: Raw HTTP response object
-        :param pages: List of document objects, page level
-        :param document: reconstructed object from all pages
-        :param document_type: Document class
-        """
-        self.http_response = http_response
-        self.document_type = document_type
-        setattr(self, doc_config.singular_name, document)
-        setattr(self, doc_config.plural_name, pages)
