@@ -18,12 +18,25 @@ def passport_object_all_na():
 
 
 def test_constructor(passport_object):
-    assert passport_object.mrz1.value == "P<GBRPUDARSAN<<HENERT<<<<<<<<<<<<<<<<<<<<<<<"
-    assert passport_object.mrz2.value == "7077979792GBR9505209M1704224<<<<<<<<<<<<<<00"
-    assert passport_object.id_number.value == "707797979"
-    assert type(passport_object.__str__()) == str
     assert passport_object.is_expired()
     assert passport_object.all_checks()
+    assert (
+        str(passport_object)
+        == """-----Passport data-----
+Filename: None
+Full name: HENERT PUDARSAN
+Given names: HENERT
+Surname: PUDARSAN
+Country: GBR
+ID Number: 707797979
+Issuance date: 2012-04-22
+Birth date: 1995-05-20
+Expiry date: 2017-04-22
+MRZ 1: P<GBRPUDARSAN<<HENERT<<<<<<<<<<<<<<<<<<<<<<<
+MRZ 2: 7077979792GBR9505209M1704224<<<<<<<<<<<<<<00
+MRZ: P<GBRPUDARSAN<<HENERT<<<<<<<<<<<<<<<<<<<<<<<7077979792GBR9505209M1704224<<<<<<<<<<<<<<00
+----------------------"""
+    )
 
 
 def test_all_na(passport_object_all_na):
