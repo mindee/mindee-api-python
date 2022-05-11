@@ -64,7 +64,7 @@ class DocumentClient:
                 found.append(k)
 
         if len(found) == 0:
-            raise RuntimeError(f"Unknown document type: {document_type}")
+            raise RuntimeError(f"Document type not configured: {document_type}")
 
         if not username:
             if len(found) == 1:
@@ -120,9 +120,7 @@ class DocumentClient:
                 document_type=doc_config.document_type,
                 document=None,
             )
-        return format_response(
-            doc_config, dict_response, doc_config.document_type, self.input_doc
-        )
+        return format_response(doc_config, dict_response, self.input_doc)
 
     def close(self) -> None:
         """Close the file object."""

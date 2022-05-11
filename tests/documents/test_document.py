@@ -47,7 +47,6 @@ def test_response_wrapper_invoice(dummy_file_input, dummy_config):
     parsed_invoice = format_response(
         dummy_config[("mindee", "invoice")],
         response,
-        "invoice",
         dummy_file_input,
     )
     assert parsed_invoice.invoice.invoice_date.value == "2020-02-17"
@@ -59,7 +58,7 @@ def test_response_wrapper_invoice(dummy_file_input, dummy_config):
 def test_response_wrapper_receipt(dummy_file_input, dummy_config):
     response = json.load(open(RECEIPT_FILE_PATH))
     parsed_receipt = format_response(
-        dummy_config[("mindee", "receipt")], response, "receipt", dummy_file_input
+        dummy_config[("mindee", "receipt")], response, dummy_file_input
     )
     assert parsed_receipt.receipt.date.value == "2016-02-26"
 
@@ -72,7 +71,6 @@ def test_response_wrapper_financial_doc_with_receipt(dummy_file_input, dummy_con
     parsed_financial_doc = format_response(
         dummy_config[("mindee", "financial_doc")],
         response,
-        "financial",
         dummy_file_input,
     )
     assert parsed_financial_doc.financial_doc.date.value == "2016-02-26"
@@ -83,7 +81,6 @@ def test_response_wrapper_financial_doc_with_invoice(dummy_file_input, dummy_con
     parsed_financial_doc = format_response(
         dummy_config[("mindee", "financial_doc")],
         response,
-        "financial",
         dummy_file_input,
     )
     assert parsed_financial_doc.financial_doc.date.value == "2020-02-17"
