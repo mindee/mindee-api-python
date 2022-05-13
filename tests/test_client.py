@@ -109,11 +109,16 @@ def test_duplicate_configs(dummy_client):
         singular_name="dummy",
         plural_name="dummies",
         account_name="dummy",
+        api_key="invalid",
     )
     assert isinstance(client, Client)
     with pytest.raises(RuntimeError):
         client.doc_from_path("./tests/data/expense_receipts/receipt.jpg").parse(
             "receipt"
+        )
+    with pytest.raises(HTTPException):
+        client.doc_from_path("./tests/data/expense_receipts/receipt.jpg").parse(
+            "receipt", "dummy"
         )
 
 

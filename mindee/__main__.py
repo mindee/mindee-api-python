@@ -38,7 +38,7 @@ def _ots_client(args: Namespace, info: dict):
     kwargs = {}
     if len(info["required_keys"]) > 1:
         for key in info["required_keys"]:
-            kwargs["%s_api_key" % key] = getattr(args, "%s_api_key" % key)
+            kwargs["%s_api_key" % key] = getattr(args, f"{key}_api_key")
     else:
         kwargs["api_key"] = getattr(args, "%s_api_key" % args.product_name)
     func = getattr(client, f"config_{info['doc_type']}")
@@ -119,7 +119,7 @@ def _parse_args() -> Namespace:
                 "-u",
                 "--user",
                 dest="username",
-                help="API account_name for the endpoint",
+                help="API account name for the endpoint",
             )
             subp.add_argument(
                 "-k",
@@ -131,9 +131,9 @@ def _parse_args() -> Namespace:
         else:
             for key_name in info["required_keys"]:
                 subp.add_argument(
-                    "--%s-key" % key_name,
-                    dest="%s_api_key" % key_name,
-                    help="API key for %s document endpoint" % key_name,
+                    f"--{key_name}-key",
+                    dest=f"{key_name}_api_key",
+                    help=f"API key for {key_name} document endpoint",
                 )
             subp.add_argument(
                 "-w",

@@ -50,10 +50,7 @@ class Endpoint:
         self.owner = owner
         self.url_name = url_name
         self.version = version
-        if key_name:
-            self.key_name = key_name
-        else:
-            self.key_name = url_name
+        self.key_name = key_name or url_name
         if api_key:
             self.api_key = api_key
         else:

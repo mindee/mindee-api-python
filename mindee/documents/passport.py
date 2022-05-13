@@ -133,23 +133,9 @@ class Passport(Document):
             "mrz_expiration_date_checksum": self.__mrz_expiration_date_checksum(),
             "mrz_personal_number_checksum": self.__mrz_personal_number_checksum(),
             "mrz_last_name_checksum": self.__mrz_last_name_checksum(),
-            "mrz_checksum": self.__mrz__checksum(),
         }
 
     # Checks
-    def __mrz__checksum(self) -> bool:
-        """
-        Validate all MRZ checksums.
-
-        :return: True if all are valid, False otherwise
-        """
-        return (
-            self.__mrz_id_number_checksum()
-            and self.__mrz_date_of_birth_checksum()
-            and self.__mrz_expiration_date_checksum()
-            and self.__mrz_personal_number_checksum()
-            and self.__mrz_last_name_checksum()
-        )
 
     def __mrz_id_number_checksum(self) -> bool:
         """

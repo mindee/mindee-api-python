@@ -78,13 +78,13 @@ class PaymentDetails(Field):
             self.swift = None
 
     def __str__(self) -> str:
-        output_str = ""
+        out_str = ""
         if self.account_number is not None:
-            output_str += str(self.account_number) + "; "
+            out_str += str(self.account_number) + "; "
         if self.iban is not None:
-            output_str += str(self.iban) + "; "
+            out_str += str(self.iban) + "; "
         if self.routing_number is not None:
-            output_str += str(self.routing_number) + "; "
+            out_str += str(self.routing_number) + "; "
         if self.swift is not None:
-            output_str += str(self.swift) + "; "
-        return output_str.strip()
+            out_str += str(self.swift) + "; "
+        return out_str.strip()

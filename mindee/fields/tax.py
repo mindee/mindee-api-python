@@ -53,11 +53,11 @@ class Tax(Field):
             self.bbox = []
 
     def __str__(self) -> str:
-        tax_str = ""
+        out_str = ""
         if self.value is not None:
-            tax_str += str(self.value)
+            out_str += str(self.value)
         if self.rate is not None:
-            tax_str += f" {self.rate}%"
+            out_str += f" {self.rate}%"
         if self.code is not None:
-            tax_str += f" {self.code}"
-        return tax_str.strip()
+            out_str += f" {self.code}"
+        return out_str.strip()

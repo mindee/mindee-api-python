@@ -43,11 +43,13 @@ class Locale(Field):
         return locale_prediction[key]
 
     def __str__(self) -> str:
-        output_str = f"{self.value}; "
+        out_str = ""
+        if self.value is not None:
+            out_str += self.value + "; "
         if self.language is not None:
-            output_str += self.language + "; "
+            out_str += self.language + "; "
         if self.country is not None:
-            output_str += self.country + "; "
+            out_str += self.country + "; "
         if self.currency is not None:
-            output_str += self.currency + "; "
-        return output_str.strip()
+            out_str += self.currency + "; "
+        return out_str.strip()
