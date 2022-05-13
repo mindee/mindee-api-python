@@ -49,7 +49,7 @@ class CustomDocument(Document):
         for name, info in self.fields.items():
             custom_doc_str += "%s: %s\n" % (
                 name,
-                "".join([value["content"] for value in info["values"]]),
+                " ".join([value["content"] for value in info["values"]]),
             )
         custom_doc_str += "-----------------\n"
         return custom_doc_str
