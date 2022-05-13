@@ -117,7 +117,7 @@ class Passport(Document):
         :return: True if the passport is expired, False otherwise
         """
         if not self.expiry_date.date_object:
-            return False
+            return True
         return self.expiry_date.date_object < datetime.date(datetime.now())
 
     def _reconstruct(self) -> None:
