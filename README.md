@@ -1,4 +1,5 @@
 # Mindee API Helper Library for Python
+Quickly and easily connect to Mindee's API services using Python.
 
 ## Quick Start
 Here's the TL;DR of getting started.
@@ -56,4 +57,4 @@ All the juicy details are described in the
 ## License
 Copyright © Mindee
 
-Distributed under the MIT License.
+Available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).

@@ -11,7 +11,7 @@ Do you want to ask a question? Are you looking for enterprise support? Get in to
 Put an X between the brackets on this line if you have done all of the following:
 
 * [ ] Reproduced the problem or exposed a new need
-* [ ] Checked the github existing issues
+* [ ] Checked the GitHub existing issues
 
 ### Description
 
@@ -38,7 +38,7 @@ Put an X between the brackets on this line if you have done all of the following
 ### Versions
 
 <!-- You can get this information with `pip freeze | grep mindee`.
-Also, please include the browser, OS and what version you're running. -->
+Also, please include the OS and which Python version you're running. -->
 
 ### Additional Information
 

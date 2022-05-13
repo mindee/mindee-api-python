@@ -1,4 +1,4 @@
-from typing import Dict, List
+from typing import Dict, List, Tuple
 
 from mindee.documents.base import TypeDocument
 from mindee.http import Endpoint
@@ -25,5 +25,18 @@ class DocumentConfig:
         self.constructor = constructor
         self.endpoints = endpoints
 
+    def check_api_keys(self) -> None:
+        """Raise an exception unless all API keys are present."""
+        for endpoint in self.endpoints:
+            if not endpoint.api_key:
+                raise RuntimeError(
+                    (
+                        f"Missing API key for '{endpoint.key_name}',"
+                        "check your Client configuration.\n"
+                        "You can set this using the "
+                        f"'{endpoint.envvar_key_name}' environment variable."
+                    )
+                )
 
-DocumentConfigDict = Dict[tuple, DocumentConfig]
+
+DocumentConfigDict = Dict[Tuple[str, str], DocumentConfig]

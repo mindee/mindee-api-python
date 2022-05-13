@@ -66,33 +66,23 @@ class DocumentClient:
         if len(found) == 0:
             raise RuntimeError(f"Document type not configured: {document_type}")
 
-        if not username:
-            if len(found) == 1:
-                config_key = found[0]
-            else:
-                usernames = [k[0] for k in found]
-                raise RuntimeError(
-                    (
-                        "Duplicate configuration detected.\n"
-                        f"You specified a document_type '{document_type}' in your custom config.\n"
-                        "To avoid confusion, please add the 'account_name' attribute to "
-                        f"the parse method, one of {usernames}."
-                    )
-                )
-        else:
+        if username:
             config_key = (username, document_type)
+        elif len(found) == 1:
+            config_key = found[0]
+        else:
+            usernames = [k[0] for k in found]
+            raise RuntimeError(
+                (
+                    "Duplicate configuration detected.\n"
+                    f"You specified a document_type '{document_type}' in your custom config.\n"
+                    "To avoid confusion, please add the 'account_name' attribute to "
+                    f"the parse method, one of {usernames}."
+                )
+            )
 
         doc_config = self.doc_configs[config_key]
-        for endpoint in doc_config.endpoints:
-            if not endpoint.api_key:
-                raise RuntimeError(
-                    (
-                        f"Missing API key for '{endpoint.key_name}',"
-                        "check your Client configuration.\n"
-                        "You can set this using the "
-                        f"'{endpoint.envvar_key_name}' environment variable."
-                    )
-                )
+        doc_config.check_api_keys()
         return self._make_request(doc_config, include_words, close_file)
 
     def _make_request(
