@@ -1,6 +1,6 @@
 <!--
 
-Have you read react-mindee-js's Code of Conduct? By filing an Issue, you are expected to comply with it, including treating everyone with respect: [Code of Conduct](CODE_OF_CONDUCT.md)
+Have you read mindee-api-python's Code of Conduct? By filing an Issue, you are expected to comply with it, including treating everyone with respect: [Code of Conduct](CODE_OF_CONDUCT.md)
 
 Do you want to ask a question? Are you looking for enterprise support? Get in touch via [email](contact@mindee.com)
 
@@ -37,7 +37,7 @@ Put an X between the brackets on this line if you have done all of the following
 
 ### Versions
 
-<!-- You can get this information with `npm list | grep react-mindee-js`.
+<!-- You can get this information with `pip freeze | grep mindee`.
 Also, please include the browser, OS and what version you're running. -->
 
 ### Additional Information
