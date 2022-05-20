@@ -64,6 +64,14 @@ class Endpoint:
         )
 
     @property
+    def base_headers(self):
+        """Base headers to send with all API requests."""
+        return {
+            "Authorization": f"Token {self.api_key}",
+            "User-Agent": USER_AGENT,
+        }
+
+    @property
     def envvar_key_name(self) -> str:
         """The API key name as stored in the environment."""
 
@@ -97,13 +105,15 @@ class Endpoint:
         :return: requests response
         """
         files = {"document": input_file.read_contents(close_file)}
-        headers = {"Authorization": self.api_key, "User-Agent": USER_AGENT}
         data = {}
         if include_words:
             data["include_mvision"] = "true"
 
         response = requests.post(
-            f"{self._url_root}/predict", files=files, headers=headers, data=data
+            f"{self._url_root}/predict",
+            files=files,
+            headers=self.base_headers,
+            data=data,
         )
         return response
 
@@ -120,11 +130,13 @@ class CustomEndpoint(Endpoint):
         :param close_file: Whether to `close()` the file after parsing it.
         """
         files = {"document": input_file.read_contents(close_file)}
-        headers = {"Authorization": self.api_key, "User-Agent": USER_AGENT}
         params = {"training": True, "with_candidates": True}
 
         response = requests.post(
-            f"{self._url_root}/predict", files=files, headers=headers, params=params
+            f"{self._url_root}/predict",
+            files=files,
+            headers=self.base_headers,
+            params=params,
         )
         return response
 
@@ -138,11 +150,9 @@ class CustomEndpoint(Endpoint):
         :param annotations: Annotations object
         :return: requests response
         """
-        headers = {"Authorization": self.api_key, "User-Agent": USER_AGENT}
-
         response = requests.post(
             f"{self._url_root}/documents/{document_id}/annotations",
-            headers=headers,
+            headers=self.base_headers,
             json=annotations,
         )
         return response
