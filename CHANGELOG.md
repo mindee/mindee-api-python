@@ -1,14 +1,26 @@
 # Mindee Python API Library Changelog
 
+## v2.3.0 (2022-05-23)
+
+### Fixes
+* :bug: make sure the 'Token' keyword is sent in the auth headers
+
+### Changes
+* :sparkles: now possible to read file contents at any time
+* :hammer: run mypy in pre-commit
+* :arrow_up: upgrade pikepdf
+* :recycle: minor cleanup / refactor
+* :memo: Add basic automated class documentation
+
 ## v2.2.0 (2022-03-24)
 
 ### Fixes
-* 🐛 💥 fix for customer_company_registration being a list of values
+* :bug: :boom: fix for customer_company_registration being a list of values
 
 ### Changes
-* ✨ allow specifying file closing behavior
-* ⬆️ loosen setup.py requirements; update pinned dependencies
-* ✅ better testing of PDF pages
+* :sparkles: allow specifying file closing behavior
+* :arrow_up: loosen setup.py requirements; update pinned dependencies
+* :white_check_mark: better testing of PDF pages
 
 ## v2.1.1 (2022-03-15)
 
