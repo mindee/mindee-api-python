@@ -1,5 +1,5 @@
 import json
-from typing import BinaryIO, Dict
+from typing import BinaryIO, Dict, Optional
 
 from mindee.document_config import DocumentConfig, DocumentConfigDict
 from mindee.documents.custom_document import CustomDocument
@@ -43,7 +43,7 @@ class DocumentClient:
     def parse(
         self,
         document_type: str,
-        username: str = None,
+        username: Optional[str] = None,
         include_words: bool = False,
         close_file: bool = True,
     ) -> DocumentResponse:
@@ -186,7 +186,7 @@ class Client:
         )
         return self
 
-    def config_invoice(self, api_key: str = None) -> "Client":
+    def config_invoice(self, api_key: Optional[str] = None) -> "Client":
         """
         Configure a Mindee Invoice document.
 
@@ -202,7 +202,7 @@ class Client:
         self._doc_configs[("mindee", "invoice")] = config
         return self
 
-    def config_receipt(self, api_key: str = None) -> "Client":
+    def config_receipt(self, api_key: Optional[str] = None) -> "Client":
         """
         Configure a Mindee Expense Receipts document.
 
@@ -219,7 +219,9 @@ class Client:
         return self
 
     def config_financial_doc(
-        self, invoice_api_key: str = None, receipt_api_key: str = None
+        self,
+        invoice_api_key: Optional[str] = None,
+        receipt_api_key: Optional[str] = None,
     ) -> "Client":
         """
         Configure a Mindee Financial document. Uses Invoice and Expense Receipt internally.
@@ -240,7 +242,7 @@ class Client:
         self._doc_configs[("mindee", "financial_doc")] = config
         return self
 
-    def config_passport(self, api_key: str = None) -> "Client":
+    def config_passport(self, api_key: Optional[str] = None) -> "Client":
         """
         Configure a Mindee Passport document.
 
