@@ -11,7 +11,7 @@ class Amount(Field):
         amount_prediction: dict,
         value_key: str = "amount",
         reconstructed: bool = False,
-        page_n=None,
+        page_n: Optional[int] = None,
     ):
         """
         Amount field object.

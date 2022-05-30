@@ -34,8 +34,8 @@ class InputDocument:
     def __init__(
         self,
         input_type: str,
-        cut_pdf=True,
-        n_pdf_pages=3,
+        cut_pdf: bool = True,
+        n_pdf_pages: int = 3,
     ):
         assert 0 < n_pdf_pages <= 3
         self.input_type = input_type
@@ -152,8 +152,8 @@ class FileDocument(InputDocument):
     def __init__(
         self,
         file: BinaryIO,
-        cut_pdf=True,
-        n_pdf_pages=3,
+        cut_pdf: bool = True,
+        n_pdf_pages: int = 3,
     ):
         """
         Input document from a Python binary file object.
@@ -180,8 +180,8 @@ class PathDocument(InputDocument):
     def __init__(
         self,
         filepath: str,
-        cut_pdf=True,
-        n_pdf_pages=3,
+        cut_pdf: bool = True,
+        n_pdf_pages: int = 3,
     ):
         """
         Input document from a path.
@@ -205,8 +205,8 @@ class BytesDocument(InputDocument):
         self,
         raw_bytes: bytes,
         filename: str,
-        cut_pdf=True,
-        n_pdf_pages=3,
+        cut_pdf: bool = True,
+        n_pdf_pages: int = 3,
     ):
         """
         Input document from raw bytes (no buffer).
@@ -232,8 +232,8 @@ class Base64Document(InputDocument):
         self,
         base64_string: str,
         filename: str,
-        cut_pdf=True,
-        n_pdf_pages=3,
+        cut_pdf: bool = True,
+        n_pdf_pages: int = 3,
     ):
         """
         Input document from a base64 encoded string.

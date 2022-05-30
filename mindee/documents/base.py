@@ -1,11 +1,11 @@
 import datetime
-from typing import List, Optional, Type
+from typing import Any, List, Optional, Type
 
-# from mindee.inputs import InputDocument
 from mindee.http import Endpoint
+from mindee.inputs import InputDocument
 
 
-def serialize_for_json(obj):
+def serialize_for_json(obj: Any) -> Any:
     """
     Custom serializer for Document objects.
 
@@ -30,7 +30,7 @@ class Document:
 
     def __init__(
         self,
-        input_file,
+        input_file: InputDocument,
         document_type: str,
         api_prediction: dict,
         page_n: Optional[int] = None,
@@ -49,7 +49,7 @@ class Document:
     @staticmethod
     def request(
         endpoints: List[Endpoint],
-        input_file,
+        input_file: InputDocument,
         include_words: bool = False,
         close_file: bool = True,
     ):
@@ -65,7 +65,7 @@ class Document:
 
     def _build_from_api_prediction(
         self, api_prediction: dict, page_n: Optional[int] = None
-    ):
+    ) -> None:
         """Build the document from an API response JSON."""
         raise NotImplementedError()
 

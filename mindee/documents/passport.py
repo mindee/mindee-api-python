@@ -60,7 +60,7 @@ class Passport(Document):
 
     def _build_from_api_prediction(
         self, api_prediction: dict, page_n: Optional[int] = None
-    ):
+    ) -> None:
         """
         Build the document from an API response JSON.
 

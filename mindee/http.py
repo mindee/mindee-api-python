@@ -1,5 +1,5 @@
 import os
-from typing import Optional
+from typing import Dict, Optional
 
 import requests
 
@@ -64,7 +64,7 @@ class Endpoint:
         )
 
     @property
-    def base_headers(self):
+    def base_headers(self) -> Dict[str, str]:
         """Base headers to send with all API requests."""
         return {
             "Authorization": f"Token {self.api_key}",
@@ -75,7 +75,7 @@ class Endpoint:
     def envvar_key_name(self) -> str:
         """The API key name as stored in the environment."""
 
-        def to_envvar(name) -> str:
+        def to_envvar(name: str) -> str:
             return name.replace("-", "_").upper()
 
         key_name = to_envvar(self.key_name)
