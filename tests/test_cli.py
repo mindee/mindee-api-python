@@ -3,7 +3,7 @@ from argparse import Namespace
 import pytest
 
 from mindee.__main__ import call_endpoint
-from mindee.http import HTTPException
+from mindee.endpoints import HTTPException
 from tests.utils import clear_envvars
 
 

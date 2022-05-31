@@ -7,7 +7,7 @@ from mindee.documents.financial_document import FinancialDocument
 from mindee.documents.invoice import Invoice
 from mindee.documents.passport import Passport
 from mindee.documents.receipt import Receipt
-from mindee.http import (
+from mindee.endpoints import (
     CustomEndpoint,
     HTTPException,
     InvoiceEndpoint,
