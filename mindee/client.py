@@ -1,5 +1,5 @@
 import json
-from typing import Dict
+from typing import BinaryIO, Dict, Optional
 
 from mindee.document_config import DocumentConfig, DocumentConfigDict
 from mindee.documents.custom_document import CustomDocument
@@ -43,7 +43,7 @@ class DocumentClient:
     def parse(
         self,
         document_type: str,
-        username: str = None,
+        username: Optional[str] = None,
         include_words: bool = False,
         close_file: bool = True,
     ) -> DocumentResponse:
@@ -52,7 +52,7 @@ class DocumentClient:
 
         :param document_type: Document type to parse
         :param username: API username, the endpoint owner
-        :param include_words: Extract all words into http_response
+        :param include_words: Include all the words of the document in the response
         :param close_file: Whether to `close()` the file after parsing it.
             Set to `False` if you need to access the file after this operation.
         """
@@ -156,7 +156,7 @@ class Client:
         account_name: str,
         api_key: str = "",
         version: str = "1",
-    ):
+    ) -> "Client":
         """
         Configure a custom document using the Mindee API Builder.
 
@@ -186,7 +186,7 @@ class Client:
         )
         return self
 
-    def config_invoice(self, api_key: str = None):
+    def config_invoice(self, api_key: Optional[str] = None) -> "Client":
         """
         Configure a Mindee Invoice document.
 
@@ -202,7 +202,7 @@ class Client:
         self._doc_configs[("mindee", "invoice")] = config
         return self
 
-    def config_receipt(self, api_key: str = None):
+    def config_receipt(self, api_key: Optional[str] = None) -> "Client":
         """
         Configure a Mindee Expense Receipts document.
 
@@ -219,8 +219,10 @@ class Client:
         return self
 
     def config_financial_doc(
-        self, invoice_api_key: str = None, receipt_api_key: str = None
-    ):
+        self,
+        invoice_api_key: Optional[str] = None,
+        receipt_api_key: Optional[str] = None,
+    ) -> "Client":
         """
         Configure a Mindee Financial document. Uses Invoice and Expense Receipt internally.
 
@@ -240,7 +242,7 @@ class Client:
         self._doc_configs[("mindee", "financial_doc")] = config
         return self
 
-    def config_passport(self, api_key: str = None):
+    def config_passport(self, api_key: Optional[str] = None) -> "Client":
         """
         Configure a Mindee Passport document.
 
@@ -271,7 +273,7 @@ class Client:
             * if 1: pages [0]
             * if 2: pages [0, n-2]
             * if 3: pages [0, n-2, n-1]
-        :param cut_pdf: Automatically reconstruct pdf with more than 4 pages
+        :param cut_pdf: Automatically reconstruct a PDF with more than 4 pages
         """
         input_doc = PathDocument(input_path, cut_pdf=cut_pdf, n_pdf_pages=cut_pdf_mode)
         return DocumentClient(
@@ -282,7 +284,7 @@ class Client:
 
     def doc_from_file(
         self,
-        input_file,
+        input_file: BinaryIO,
         cut_pdf: bool = True,
         cut_pdf_mode: int = 3,
     ) -> DocumentClient:
@@ -295,7 +297,7 @@ class Client:
             * if 1: pages [0]
             * if 2: pages [0, n-2]
             * if 3: pages [0, n-2, n-1]
-        :param cut_pdf: Automatically reconstruct pdf with more than 4 pages
+        :param cut_pdf: Automatically reconstruct a PDF with more than 4 pages
         """
         input_doc = FileDocument(
             input_file,
@@ -325,7 +327,7 @@ class Client:
             * if 1: pages [0]
             * if 2: pages [0, n-2]
             * if 3: pages [0, n-2, n-1]
-        :param cut_pdf: Automatically reconstruct pdf with more than 4 pages
+        :param cut_pdf: Automatically reconstruct a PDF with more than 4 pages
         """
         input_doc = Base64Document(
             input_string,
@@ -356,7 +358,7 @@ class Client:
             * if 1: pages [0]
             * if 2: pages [0, n-2]
             * if 3: pages [0, n-2, n-1]
-        :param cut_pdf: Automatically reconstruct pdf with more than 4 pages
+        :param cut_pdf: Automatically reconstruct a PDF with more than 4 pages
         """
         input_doc = BytesDocument(
             input_bytes,

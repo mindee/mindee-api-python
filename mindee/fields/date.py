@@ -20,7 +20,7 @@ class Date(Field):
         date_prediction: dict,
         value_key: str = "iso",
         reconstructed: bool = False,
-        page_n=None,
+        page_n: Optional[int] = None,
     ):
         """
         Date field object.

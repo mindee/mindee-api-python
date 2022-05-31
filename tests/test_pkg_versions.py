@@ -24,9 +24,9 @@ def test_style_pkg_versions():
         lines = file_p.readlines()
         for idx, line in enumerate(lines):
             if "repo:" in line:
-                pkg_name = line.strip().split("/")[-1].strip()
+                pkg_name = line.strip().split("/")[-1].strip().replace("mirrors-", "")
                 pkg_version = lines[idx + 1].strip().split(":")[-1].strip()
                 pre_commit_versions[pkg_name] = pkg_version
 
-    for req in ("black", "pylint", "isort", "pydocstyle"):
+    for req in ("black", "pylint", "isort", "pydocstyle", "mypy"):
         _test_version(requirements_versions, pre_commit_versions, req)

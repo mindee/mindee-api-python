@@ -22,7 +22,7 @@ class PaymentDetails(Field):
         routing_number_key: str = "routing_number",
         swift_key: str = "swift",
         reconstructed: bool = False,
-        page_n=None,
+        page_n: Optional[int] = None,
     ):
         """
         Payment details field object.

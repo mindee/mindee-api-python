@@ -1,4 +1,4 @@
-from mindee.fields.base import Field
+from mindee.fields.base import Field, Optional
 
 
 class Orientation(Field):
@@ -10,7 +10,7 @@ class Orientation(Field):
         orientation_prediction: dict,
         value_key: str = "degrees",
         reconstructed: bool = False,
-        page_n=None,
+        page_n: Optional[int] = None,
     ):
         """
         Page orientation.

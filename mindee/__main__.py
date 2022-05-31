@@ -1,12 +1,12 @@
 import argparse
 import json
 from argparse import Namespace
-from typing import Any, Dict
+from typing import Dict, Union
 
 from mindee import Client
 from mindee.documents.base import serialize_for_json
 
-DOCUMENTS: Dict[str, Dict[str, Any]] = {
+DOCUMENTS: Dict[str, Dict[str, Union[list, str]]] = {
     "invoice": {
         "help": "Invoice",
         "required_keys": ["invoice"],

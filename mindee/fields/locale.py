@@ -16,7 +16,7 @@ class Locale(Field):
         locale_prediction: dict,
         value_key: str = "value",
         reconstructed: bool = False,
-        page_n=None,
+        page_n: Optional[int] = None,
     ):
         """
         Locale field object.
@@ -37,7 +37,7 @@ class Locale(Field):
         self.currency = self._get_value(locale_prediction, "currency")
 
     @staticmethod
-    def _get_value(locale_prediction, key: str):
+    def _get_value(locale_prediction: dict, key: str) -> Optional[str]:
         if key not in locale_prediction or locale_prediction[key] == "N/A":
             return None
         return locale_prediction[key]

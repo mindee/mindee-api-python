@@ -13,7 +13,7 @@ class Field:
         self,
         abstract_prediction: Dict[str, Any],
         value_key: str = "value",
-        reconstructed=False,
+        reconstructed: bool = False,
         page_n: Optional[int] = None,
     ):
         """
@@ -46,7 +46,9 @@ class Field:
 
         self.reconstructed = reconstructed
 
-    def __eq__(self, other) -> bool:
+    def __eq__(self, other: Any) -> bool:
+        if not isinstance(other, Field):
+            return NotImplemented
         if self.value is None and other.value is None:
             return True
         if self.value is None or other.value is None:
@@ -72,7 +74,7 @@ class TypedField(Field):
         self,
         abstract_prediction: Dict[str, Any],
         value_key: str = "value",
-        reconstructed=False,
+        reconstructed: bool = False,
         page_n: Optional[int] = None,
     ):
         super().__init__(abstract_prediction, value_key, reconstructed, page_n)
@@ -89,7 +91,7 @@ TypeFieldList = List[TypeField]
 
 
 def compare_field_arrays(
-    array1: TypeFieldList, array2: TypeFieldList, attr="value"
+    array1: TypeFieldList, array2: TypeFieldList, attr: str = "value"
 ) -> bool:
     """
     Check that all elements are present in both arrays.

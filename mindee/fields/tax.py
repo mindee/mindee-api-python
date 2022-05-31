@@ -14,7 +14,7 @@ class Tax(Field):
         rate_key: str = "rate",
         code_key: str = "code",
         reconstructed: bool = False,
-        page_n=None,
+        page_n: Optional[int] = None,
     ):
         """
         Tax field object.
@@ -52,7 +52,7 @@ class Tax(Field):
             self.confidence = 0.0
             self.bbox = []
 
-    def __str__(self):
+    def __str__(self) -> str:
         tax_str = ""
         if self.value is not None:
             tax_str += str(self.value)
