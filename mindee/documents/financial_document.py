@@ -3,6 +3,7 @@ from typing import List, Optional
 from mindee.documents.base import Document
 from mindee.documents.invoice import Invoice
 from mindee.documents.receipt import Receipt
+from mindee.endpoints import Endpoint
 from mindee.fields.amount import Amount
 from mindee.fields.base import Field, TypedField
 from mindee.fields.date import Date
@@ -10,7 +11,6 @@ from mindee.fields.locale import Locale
 from mindee.fields.orientation import Orientation
 from mindee.fields.payment_details import PaymentDetails
 from mindee.fields.tax import Tax
-from mindee.http import Endpoint
 
 
 class FinancialDocument(Document):

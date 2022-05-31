@@ -1,7 +1,7 @@
 import datetime
 from typing import Any, List, Optional, Type
 
-from mindee.http import Endpoint
+from mindee.endpoints import Endpoint
 from mindee.inputs import InputDocument
 
 

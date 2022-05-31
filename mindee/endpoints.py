@@ -11,6 +11,8 @@ MINDEE_API_URL = "https://api.mindee.net/v1"
 PLATFORM = get_platform()
 USER_AGENT = f"mindee-api-python@v{__version__} python-v{python_version} {PLATFORM}"
 
+OTS_OWNER = "mindee"
+
 INVOICE_VERSION = "3"
 INVOICE_URL_NAME = "invoices"
 
@@ -157,43 +159,32 @@ class CustomEndpoint(Endpoint):
 
 class InvoiceEndpoint(Endpoint):
     def __init__(self, api_key: Optional[str] = None):
-        owner = "mindee"
-        url_name = INVOICE_URL_NAME
-        version = INVOICE_VERSION
-        key_name = "invoice"
         super().__init__(
-            owner=owner,
-            url_name=url_name,
-            version=version,
-            key_name=key_name,
+            owner=OTS_OWNER,
+            url_name=INVOICE_URL_NAME,
+            version=INVOICE_VERSION,
+            key_name="invoice",
             api_key=api_key,
         )
 
 
 class ReceiptEndpoint(Endpoint):
     def __init__(self, api_key: Optional[str] = None):
-        owner = "mindee"
-        url_name = RECEIPT_URL_NAME
-        version = RECEIPT_VERSION
-        key_name = "receipt"
         super().__init__(
-            owner=owner,
-            url_name=url_name,
-            version=version,
-            key_name=key_name,
+            owner=OTS_OWNER,
+            url_name=RECEIPT_URL_NAME,
+            version=RECEIPT_VERSION,
+            key_name="receipt",
             api_key=api_key,
         )
 
 
 class PassportEndpoint(Endpoint):
     def __init__(self, api_key: Optional[str] = None):
-        owner = "mindee"
-        url_name = PASSPORT_URL_NAME
-        version = PASSPORT_VERSION
         super().__init__(
-            owner=owner,
-            url_name=url_name,
-            version=version,
+            owner=OTS_OWNER,
+            url_name=PASSPORT_URL_NAME,
+            version=PASSPORT_VERSION,
             api_key=api_key,
         )
 

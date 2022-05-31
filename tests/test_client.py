@@ -1,7 +1,7 @@
 import pytest
 
 from mindee import Client, DocumentResponse
-from mindee.http import HTTPException
+from mindee.endpoints import HTTPException
 from tests.utils import clear_envvars, dummy_envvars
 
 
