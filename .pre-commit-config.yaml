@@ -37,6 +37,8 @@ repos:
     rev: v0.960
     hooks:
       - id: mypy
+        args: []
+        exclude: "tests/"
         additional_dependencies:
           - toml
           - pikepdf
