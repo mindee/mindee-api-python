@@ -1,6 +1,6 @@
 from typing import List, Optional
 
-from mindee.documents.base import Document
+from mindee.documents.base import Document, TypeApiPrediction
 from mindee.fields.amount import Amount
 from mindee.fields.base import Field, TypedField, field_array_confidence
 from mindee.fields.date import Date
@@ -67,7 +67,7 @@ class Invoice(Document):
         )
 
     def _build_from_api_prediction(
-        self, api_prediction: dict, page_n: Optional[int] = None
+        self, api_prediction: TypeApiPrediction, page_n: Optional[int] = None
     ) -> None:
         """
         Build the object from the prediction API JSON.

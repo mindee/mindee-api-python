@@ -139,7 +139,7 @@ class Client:
 
     def config_custom_doc(
         self,
-        api_name: str,
+        document_type: str,
         singular_name: str,
         plural_name: str,
         account_name: str,
@@ -149,7 +149,7 @@ class Client:
         """
         Configure a custom document using the Mindee API Builder.
 
-        :param api_name: The "API name" field in the "Settings" page of the API Builder
+        :param document_type: The "API name" field in the "Settings" page of the API Builder
         :param singular_name: The name of the attribute used to retrieve
             a *single* document from the API response
         :param plural_name: The name of the attribute used to retrieve
@@ -159,15 +159,15 @@ class Client:
         :param version: If set, locks the version of the model to use.
                         If not set, use the latest version of the model.
         """
-        self._doc_configs[(account_name, api_name)] = DocumentConfig(
-            document_type=api_name,
+        self._doc_configs[(account_name, document_type)] = DocumentConfig(
+            document_type=document_type,
             singular_name=singular_name,
             plural_name=plural_name,
             constructor=CustomDocument,
             endpoints=[
                 CustomEndpoint(
                     owner=account_name,
-                    url_name=api_name,
+                    url_name=document_type,
                     version=version,
                     api_key=api_key,
                 ),
