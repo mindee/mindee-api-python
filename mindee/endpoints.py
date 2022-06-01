@@ -78,7 +78,7 @@ class Endpoint:
             return name.replace("-", "_").upper()
 
         key_name = to_envvar(self.key_name)
-        if self.owner != "mindee":
+        if self.owner != OTS_OWNER:
             key_name = f"{to_envvar(self.owner)}_{key_name}"
         return f"MINDEE_{key_name}_API_KEY"
 
