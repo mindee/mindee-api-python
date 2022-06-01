@@ -8,6 +8,7 @@ from mindee.documents.invoice import Invoice
 from mindee.documents.passport import Passport
 from mindee.documents.receipt import Receipt
 from mindee.endpoints import (
+    OTS_OWNER,
     CustomEndpoint,
     HTTPException,
     InvoiceEndpoint,
@@ -138,7 +139,7 @@ class Client:
 
     def config_custom_doc(
         self,
-        document_type: str,
+        api_name: str,
         singular_name: str,
         plural_name: str,
         account_name: str,
@@ -148,7 +149,7 @@ class Client:
         """
         Configure a custom document using the Mindee API Builder.
 
-        :param document_type: The "document type" field in the "Settings" page of the API Builder
+        :param api_name: The "API name" field in the "Settings" page of the API Builder
         :param singular_name: The name of the attribute used to retrieve
             a *single* document from the API response
         :param plural_name: The name of the attribute used to retrieve
@@ -158,15 +159,15 @@ class Client:
         :param version: If set, locks the version of the model to use.
                         If not set, use the latest version of the model.
         """
-        self._doc_configs[(account_name, document_type)] = DocumentConfig(
-            document_type=document_type,
+        self._doc_configs[(account_name, api_name)] = DocumentConfig(
+            document_type=api_name,
             singular_name=singular_name,
             plural_name=plural_name,
             constructor=CustomDocument,
             endpoints=[
                 CustomEndpoint(
                     owner=account_name,
-                    url_name=document_type,
+                    url_name=api_name,
                     version=version,
                     api_key=api_key,
                 ),
@@ -187,7 +188,7 @@ class Client:
             constructor=Invoice,
             endpoints=[InvoiceEndpoint(api_key=api_key)],
         )
-        self._doc_configs[("mindee", "invoice")] = config
+        self._doc_configs[(OTS_OWNER, "invoice")] = config
         return self
 
     def config_receipt(self, api_key: Optional[str] = None) -> "Client":
@@ -203,7 +204,7 @@ class Client:
             constructor=Receipt,
             endpoints=[ReceiptEndpoint(api_key=api_key)],
         )
-        self._doc_configs[("mindee", "receipt")] = config
+        self._doc_configs[(OTS_OWNER, "receipt")] = config
         return self
 
     def config_financial_doc(
@@ -227,7 +228,7 @@ class Client:
                 ReceiptEndpoint(api_key=receipt_api_key),
             ],
         )
-        self._doc_configs[("mindee", "financial_doc")] = config
+        self._doc_configs[(OTS_OWNER, "financial_doc")] = config
         return self
 
     def config_passport(self, api_key: Optional[str] = None) -> "Client":
@@ -243,7 +244,7 @@ class Client:
             constructor=Passport,
             endpoints=[PassportEndpoint(api_key=api_key)],
         )
-        self._doc_configs[("mindee", "passport")] = config
+        self._doc_configs[(OTS_OWNER, "passport")] = config
         return self
 
     def doc_from_path(

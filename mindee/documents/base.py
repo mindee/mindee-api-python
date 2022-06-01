@@ -1,8 +1,10 @@
 import datetime
-from typing import Any, List, Optional, Type
+from typing import Any, Dict, List, Optional, Type, Union
 
 from mindee.endpoints import Endpoint
 from mindee.inputs import InputDocument
+
+TypeApiPrediction = Dict[str, Union[list, dict]]
 
 
 def serialize_for_json(obj: Any) -> Any:
@@ -64,7 +66,7 @@ class Document:
         return endpoints[0].predict_request(input_file, include_words, close_file)
 
     def _build_from_api_prediction(
-        self, api_prediction: dict, page_n: Optional[int] = None
+        self, api_prediction: TypeApiPrediction, page_n: Optional[int] = None
     ) -> None:
         """Build the document from an API response JSON."""
         raise NotImplementedError()
