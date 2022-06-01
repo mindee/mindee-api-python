@@ -1,6 +1,6 @@
 from typing import Dict, Optional
 
-from mindee.documents.base import Document
+from mindee.documents.base import Document, TypeApiPrediction
 
 
 class CustomDocument(Document):
@@ -30,7 +30,7 @@ class CustomDocument(Document):
         )
 
     def _build_from_api_prediction(
-        self, api_prediction: dict, page_n: Optional[int] = None
+        self, api_prediction: TypeApiPrediction, page_n: Optional[int] = None
     ) -> None:
         """
         Build the document from an API response JSON.

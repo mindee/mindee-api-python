@@ -1,10 +1,10 @@
 import datetime
-from typing import Any, Dict, List, Optional, Type, Union
+from typing import Any, Dict, List, Optional, Type
 
 from mindee.endpoints import Endpoint
 from mindee.inputs import InputDocument
 
-TypeApiPrediction = Dict[str, Union[list, dict]]
+TypeApiPrediction = Dict[str, Any]
 
 
 def serialize_for_json(obj: Any) -> Any:
