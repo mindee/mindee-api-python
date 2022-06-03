@@ -17,7 +17,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = "Python Client"
+project = "Mindee Python Client"
 copyright = "2022, Mindee"
 author = "Mindee"
 

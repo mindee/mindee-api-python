@@ -25,9 +25,9 @@ jobs:
       uses: actions/cache@v2
       with:
         path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('setup.cfg') }}
+        key: ${{ runner.os }}-dev-${{ hashFiles('setup.cfg') }}
         restore-keys: |
-          ${{ runner.os }}-pip-
+          ${{ runner.os }}-dev-
 
     - name: Install dependencies
       # We install the full dev requirements to make sure everything installs OK
