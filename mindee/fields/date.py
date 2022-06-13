@@ -28,7 +28,7 @@ class Date(Field):
         :param date_prediction: Date prediction object from HTTP response
         :param value_key: Key to use in the date_prediction dict
         :param reconstructed: Bool for reconstructed object (not extracted in the API)
-        :param page_n: Page number for multi pages pdf
+        :param page_n: Page number for multi-page PDF
         """
         super().__init__(
             date_prediction,

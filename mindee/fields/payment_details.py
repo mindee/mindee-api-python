@@ -36,7 +36,7 @@ class PaymentDetails(Field):
             payment_details_prediction dict
         :param swift_key: Key to use for getting the SWIFT  in the payment_details_prediction dict
         :param reconstructed: Bool for reconstructed object (not extracted in the API)
-        :param page_n: Page number for multi pages pdf
+        :param page_n: Page number for multi-page PDF
         """
         super().__init__(
             payment_details_prediction,
