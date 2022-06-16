@@ -1,0 +1,921 @@
+{
+  "api_request": {
+    "error": {},
+    "resources": [
+      "document"
+    ],
+    "status": "success",
+    "status_code": 201,
+    "url": "http://api.mindee.net/v1/products/ianare/field_test/v1/predict?global_orientation=true"
+  },
+  "document": {
+    "id": "72021a9a-bfa0-49ce-b24a-ce9a3584ac53",
+    "inference": {
+      "extras": {},
+      "finished_at": "2022-05-19T08:55:35+00:00",
+      "is_rotation_applied": true,
+      "pages": [
+        {
+          "extras": {},
+          "id": 0,
+          "orientation": {
+            "value": 0
+          },
+          "prediction": {
+            "date_normal": {
+              "confidence": 0.99,
+              "values": [
+                {
+                  "confidence": 0.99,
+                  "content": "2020-12-17",
+                  "polygon": [
+                    [
+                      0.834,
+                      0.177
+                    ],
+                    [
+                      0.927,
+                      0.177
+                    ],
+                    [
+                      0.927,
+                      0.186
+                    ],
+                    [
+                      0.835,
+                      0.187
+                    ]
+                  ]
+                }
+              ]
+            },
+            "date_us": {
+              "confidence": 0.97,
+              "values": [
+                {
+                  "confidence": 0.97,
+                  "content": "2020-12-17",
+                  "polygon": [
+                    [
+                      0.834,
+                      0.177
+                    ],
+                    [
+                      0.927,
+                      0.177
+                    ],
+                    [
+                      0.927,
+                      0.186
+                    ],
+                    [
+                      0.835,
+                      0.187
+                    ]
+                  ]
+                }
+              ]
+            },
+            "email": {
+              "confidence": 1.0,
+              "values": [
+                {
+                  "confidence": 0.9,
+                  "content": "jenny@example.com",
+                  "polygon": [
+                    [
+                      0.522,
+                      0.917
+                    ],
+                    [
+                      0.623,
+                      0.916
+                    ],
+                    [
+                      0.623,
+                      0.923
+                    ],
+                    [
+                      0.523,
+                      0.924
+                    ]
+                  ]
+                }
+              ]
+            },
+            "integer": {
+              "confidence": 0.76,
+              "values": [
+                {
+                  "confidence": 0.76,
+                  "content": "2100505343",
+                  "polygon": [
+                    [
+                      0.559,
+                      0.179
+                    ],
+                    [
+                      0.652,
+                      0.178
+                    ],
+                    [
+                      0.652,
+                      0.187
+                    ],
+                    [
+                      0.56,
+                      0.188
+                    ]
+                  ]
+                }
+              ]
+            },
+            "number": {
+              "confidence": 0.9,
+              "values": [
+                {
+                  "confidence": 0.9,
+                  "content": "2100505343",
+                  "polygon": [
+                    [
+                      0.559,
+                      0.179
+                    ],
+                    [
+                      0.652,
+                      0.178
+                    ],
+                    [
+                      0.652,
+                      0.187
+                    ],
+                    [
+                      0.56,
+                      0.188
+                    ]
+                  ]
+                }
+              ]
+            },
+            "phone": {
+              "confidence": 0.69,
+              "values": [
+                {
+                  "confidence": 0.69,
+                  "content": "8675309",
+                  "polygon": [
+                    [
+                      0.66,
+                      0.253
+                    ],
+                    [
+                      0.764,
+                      0.253
+                    ],
+                    [
+                      0.764,
+                      0.262
+                    ],
+                    [
+                      0.66,
+                      0.263
+                    ]
+                  ]
+                }
+              ]
+            },
+            "string_09": {
+              "confidence": 0.98,
+              "values": [
+                {
+                  "confidence": 0.98,
+                  "content": "10119",
+                  "polygon": [
+                    [
+                      0.084,
+                      0.202
+                    ],
+                    [
+                      0.129,
+                      0.202
+                    ],
+                    [
+                      0.129,
+                      0.21
+                    ],
+                    [
+                      0.085,
+                      0.211
+                    ]
+                  ]
+                }
+              ]
+            },
+            "string_all": {
+              "confidence": 1.0,
+              "values": [
+                {
+                  "confidence": 1.0,
+                  "content": "Jenny",
+                  "polygon": [
+                    [
+                      0.713,
+                      0.013
+                    ],
+                    [
+                      0.956,
+                      0.013
+                    ],
+                    [
+                      0.956,
+                      0.054
+                    ],
+                    [
+                      0.713,
+                      0.055
+                    ]
+                  ]
+                },
+                {
+                  "confidence": 1.0,
+                  "content": "is",
+                  "polygon": [
+                    [
+                      0.713,
+                      0.013
+                    ],
+                    [
+                      0.956,
+                      0.013
+                    ],
+                    [
+                      0.956,
+                      0.054
+                    ],
+                    [
+                      0.713,
+                      0.055
+                    ]
+                  ]
+                },
+                {
+                  "confidence": 1.0,
+                  "content": "great",
+                  "polygon": [
+                    [
+                      0.713,
+                      0.013
+                    ],
+                    [
+                      0.956,
+                      0.013
+                    ],
+                    [
+                      0.956,
+                      0.054
+                    ],
+                    [
+                      0.713,
+                      0.055
+                    ]
+                  ]
+                }
+              ]
+            },
+            "string_az": {
+              "confidence": 0.61,
+              "values": [
+                {
+                  "confidence": 0.61,
+                  "content": "Jenny",
+                  "polygon": [
+                    [
+                      0.713,
+                      0.013
+                    ],
+                    [
+                      0.956,
+                      0.013
+                    ],
+                    [
+                      0.956,
+                      0.054
+                    ],
+                    [
+                      0.713,
+                      0.055
+                    ]
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "confidence": 0.0,
+              "values": []
+            }
+          }
+        },
+        {
+          "extras": {},
+          "id": 1,
+          "orientation": {
+            "value": 0
+          },
+          "prediction": {
+            "date_normal": {
+              "confidence": 0.0,
+              "values": []
+            },
+            "date_us": {
+              "confidence": 0.0,
+              "values": []
+            },
+            "email": {
+              "confidence": 0.0,
+              "values": []
+            },
+            "integer": {
+              "confidence": 0.67,
+              "values": [
+                {
+                  "confidence": 0.67,
+                  "content": "2100505343",
+                  "polygon": [
+                    [
+                      0.56,
+                      0.181
+                    ],
+                    [
+                      0.652,
+                      0.181
+                    ],
+                    [
+                      0.652,
+                      0.191
+                    ],
+                    [
+                      0.56,
+                      0.191
+                    ]
+                  ]
+                }
+              ]
+            },
+            "number": {
+              "confidence": 0.86,
+              "values": [
+                {
+                  "confidence": 0.86,
+                  "content": "2100505343",
+                  "polygon": [
+                    [
+                      0.56,
+                      0.181
+                    ],
+                    [
+                      0.652,
+                      0.181
+                    ],
+                    [
+                      0.652,
+                      0.191
+                    ],
+                    [
+                      0.56,
+                      0.191
+                    ]
+                  ]
+                }
+              ]
+            },
+            "phone": {
+              "confidence": 0.64,
+              "values": [
+                {
+                  "confidence": 0.64,
+                  "content": "1231234",
+                  "polygon": [
+                    [
+                      0.701,
+                      0.181
+                    ],
+                    [
+                      0.774,
+                      0.181
+                    ],
+                    [
+                      0.774,
+                      0.189
+                    ],
+                    [
+                      0.702,
+                      0.191
+                    ]
+                  ]
+                }
+              ]
+            },
+            "string_09": {
+              "confidence": 0.98,
+              "values": [
+                {
+                  "confidence": 0.98,
+                  "content": "10119",
+                  "polygon": [
+                    [
+                      0.113,
+                      0.149
+                    ],
+                    [
+                      0.158,
+                      0.149
+                    ],
+                    [
+                      0.158,
+                      0.158
+                    ],
+                    [
+                      0.113,
+                      0.159
+                    ]
+                  ]
+                }
+              ]
+            },
+            "string_all": {
+              "confidence": 0.99,
+              "values": [
+                {
+                  "confidence": 0.99,
+                  "content": "Mindee",
+                  "polygon": [
+                    [
+                      0.715,
+                      0.018
+                    ],
+                    [
+                      0.956,
+                      0.015
+                    ],
+                    [
+                      0.956,
+                      0.053
+                    ],
+                    [
+                      0.716,
+                      0.057
+                    ]
+                  ]
+                },
+                {
+                  "confidence": 0.94,
+                  "content": "is",
+                  "polygon": [
+                    [
+                      0.715,
+                      0.018
+                    ],
+                    [
+                      0.956,
+                      0.015
+                    ],
+                    [
+                      0.956,
+                      0.053
+                    ],
+                    [
+                      0.716,
+                      0.057
+                    ]
+                  ]
+                },
+                {
+                  "confidence": 0.91,
+                  "content": "awesome",
+                  "polygon": [
+                    [
+                      0.715,
+                      0.018
+                    ],
+                    [
+                      0.956,
+                      0.015
+                    ],
+                    [
+                      0.956,
+                      0.053
+                    ],
+                    [
+                      0.716,
+                      0.057
+                    ]
+                  ]
+                }
+              ]
+            },
+            "string_az": {
+              "confidence": 0.67,
+              "values": [
+                {
+                  "confidence": 0.67,
+                  "content": "Mindee",
+                  "polygon": [
+                    [
+                      0.112,
+                      0.125
+                    ],
+                    [
+                      0.186,
+                      0.124
+                    ],
+                    [
+                      0.186,
+                      0.133
+                    ],
+                    [
+                      0.113,
+                      0.134
+                    ]
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "confidence": 1.0,
+              "values": [
+                {
+                  "confidence": 1.0,
+                  "content": "developers.mindee.com/docs",
+                  "polygon": [
+                    [
+                      0.576,
+                      0.366
+                    ],
+                    [
+                      0.831,
+                      0.366
+                    ],
+                    [
+                      0.831,
+                      0.383
+                    ],
+                    [
+                      0.576,
+                      0.383
+                    ]
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "prediction": {
+        "date_normal": {
+          "confidence": 0.99,
+          "page_id": 0,
+          "values": [
+            {
+              "confidence": 0.99,
+              "content": "2020-12-17",
+              "polygon": [
+                [
+                  0.834,
+                  0.177
+                ],
+                [
+                  0.927,
+                  0.177
+                ],
+                [
+                  0.927,
+                  0.186
+                ],
+                [
+                  0.835,
+                  0.187
+                ]
+              ]
+            }
+          ]
+        },
+        "date_us": {
+          "confidence": 0.97,
+          "page_id": 0,
+          "values": [
+            {
+              "confidence": 0.97,
+              "content": "2020-12-17",
+              "polygon": [
+                [
+                  0.834,
+                  0.177
+                ],
+                [
+                  0.927,
+                  0.177
+                ],
+                [
+                  0.927,
+                  0.186
+                ],
+                [
+                  0.835,
+                  0.187
+                ]
+              ]
+            }
+          ]
+        },
+        "email": {
+          "confidence": 1.0,
+          "page_id": 0,
+          "values": [
+            {
+              "confidence": 1.0,
+              "content": "contact@mindee.com",
+              "polygon": [
+                [
+                  0.522,
+                  0.917
+                ],
+                [
+                  0.623,
+                  0.916
+                ],
+                [
+                  0.623,
+                  0.923
+                ],
+                [
+                  0.523,
+                  0.924
+                ]
+              ]
+            }
+          ]
+        },
+        "integer": {
+          "confidence": 0.76,
+          "page_id": 0,
+          "values": [
+            {
+              "confidence": 0.76,
+              "content": "2100505343",
+              "polygon": [
+                [
+                  0.559,
+                  0.179
+                ],
+                [
+                  0.652,
+                  0.178
+                ],
+                [
+                  0.652,
+                  0.187
+                ],
+                [
+                  0.56,
+                  0.188
+                ]
+              ]
+            }
+          ]
+        },
+        "number": {
+          "confidence": 0.9,
+          "page_id": 0,
+          "values": [
+            {
+              "confidence": 0.9,
+              "content": "2100505343",
+              "polygon": [
+                [
+                  0.559,
+                  0.179
+                ],
+                [
+                  0.652,
+                  0.178
+                ],
+                [
+                  0.652,
+                  0.187
+                ],
+                [
+                  0.56,
+                  0.188
+                ]
+              ]
+            }
+          ]
+        },
+        "phone": {
+          "confidence": 0.69,
+          "page_id": 0,
+          "values": [
+            {
+              "confidence": 0.69,
+              "content": "8675309",
+              "polygon": [
+                [
+                  0.66,
+                  0.253
+                ],
+                [
+                  0.764,
+                  0.253
+                ],
+                [
+                  0.764,
+                  0.262
+                ],
+                [
+                  0.66,
+                  0.263
+                ]
+              ]
+            }
+          ]
+        },
+        "string_09": {
+          "confidence": 0.98,
+          "page_id": 1,
+          "values": [
+            {
+              "confidence": 0.98,
+              "content": "10119",
+              "polygon": [
+                [
+                  0.113,
+                  0.149
+                ],
+                [
+                  0.158,
+                  0.149
+                ],
+                [
+                  0.158,
+                  0.158
+                ],
+                [
+                  0.113,
+                  0.159
+                ]
+              ]
+            }
+          ]
+        },
+        "string_all": {
+          "confidence": 0.99,
+          "values": [
+            {
+              "confidence": 0.99,
+              "content": "Mindee",
+              "polygon": [
+                [
+                  0.715,
+                  0.018
+                ],
+                [
+                  0.956,
+                  0.015
+                ],
+                [
+                  0.956,
+                  0.053
+                ],
+                [
+                  0.716,
+                  0.057
+                ]
+              ]
+            },
+            {
+              "confidence": 0.94,
+              "content": "is",
+              "polygon": [
+                [
+                  0.715,
+                  0.018
+                ],
+                [
+                  0.956,
+                  0.015
+                ],
+                [
+                  0.956,
+                  0.053
+                ],
+                [
+                  0.716,
+                  0.057
+                ]
+              ]
+            },
+            {
+              "confidence": 0.91,
+              "content": "awesome",
+              "polygon": [
+                [
+                  0.715,
+                  0.018
+                ],
+                [
+                  0.956,
+                  0.015
+                ],
+                [
+                  0.956,
+                  0.053
+                ],
+                [
+                  0.716,
+                  0.057
+                ]
+              ]
+            }
+          ]
+        },
+        "string_az": {
+          "confidence": 0.67,
+          "page_id": 1,
+          "values": [
+            {
+              "confidence": 0.67,
+              "content": "Mindee",
+              "polygon": [
+                [
+                  0.112,
+                  0.125
+                ],
+                [
+                  0.186,
+                  0.124
+                ],
+                [
+                  0.186,
+                  0.133
+                ],
+                [
+                  0.113,
+                  0.134
+                ]
+              ]
+            }
+          ]
+        },
+        "url": {
+          "confidence": 1.0,
+          "page_id": 1,
+          "values": [
+            {
+              "confidence": 1.0,
+              "content": "developers.mindee.com/docs",
+              "polygon": [
+                [
+                  0.576,
+                  0.366
+                ],
+                [
+                  0.831,
+                  0.366
+                ],
+                [
+                  0.831,
+                  0.383
+                ],
+                [
+                  0.576,
+                  0.383
+                ]
+              ]
+            }
+          ]
+        }
+      },
+      "processing_time": 8.079,
+      "product": {
+        "features": [
+          "string_all",
+          "string_az",
+          "string_09",
+          "number",
+          "integer",
+          "date_normal",
+          "date_us",
+          "phone",
+          "email",
+          "url"
+        ],
+        "name": "ianare/field_test",
+        "type": "constructed",
+        "version": "1.1"
+      },
+      "started_at": "2022-05-19T08:55:26+00:00"
+    },
+    "n_pages": 2,
+    "name": "0a8c49a9-b40a-4c62-98fa-d9412d9a3795.pdf"
+  }
+}

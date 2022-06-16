@@ -2,6 +2,7 @@ import pytest
 
 from mindee import Client, DocumentResponse
 from mindee.endpoints import HTTPException
+from tests import INVOICE_DATA_DIR, PASSPORT_DATA_DIR, RECEIPT_DATA_DIR
 from tests.utils import clear_envvars, dummy_envvars
 
 
@@ -62,45 +63,34 @@ def dummy_client_no_raise():
     )
 
 
-@pytest.fixture
-def response():
-    return DocumentResponse.load("./tests/data/expense_receipts/v3/receipt.json")
-
-
 def test_parse_path_without_token(empty_client):
     with pytest.raises(RuntimeError):
-        empty_client.doc_from_path("./tests/data/expense_receipts/receipt.jpg").parse(
-            "receipt"
-        )
+        empty_client.doc_from_path(f"{RECEIPT_DATA_DIR}/receipt.jpg").parse("receipt")
     with pytest.raises(RuntimeError):
-        empty_client.doc_from_path("./tests/data/invoices/invoice.pdf").parse("invoice")
+        empty_client.doc_from_path(f"{INVOICE_DATA_DIR}/invoice.pdf").parse("invoice")
     with pytest.raises(RuntimeError):
-        empty_client.doc_from_path("./tests/data/expense_receipts/receipt.jpg").parse(
+        empty_client.doc_from_path(f"{RECEIPT_DATA_DIR}/receipt.jpg").parse(
             "financial_doc"
         )
     with pytest.raises(RuntimeError):
-        empty_client.doc_from_path("./tests/data/passport/passport.jpeg").parse(
+        empty_client.doc_from_path(f"{PASSPORT_DATA_DIR}/passport.jpeg").parse(
             "passport"
         )
 
 
 def test_parse_path_with_env_token(env_client):
     with pytest.raises(HTTPException):
-        env_client.doc_from_path("./tests/data/expense_receipts/receipt.jpg").parse(
-            "receipt"
-        )
+        env_client.doc_from_path(f"{RECEIPT_DATA_DIR}/receipt.jpg").parse("receipt")
     with pytest.raises(HTTPException):
-        env_client.doc_from_path("./tests/data/invoices/invoice.pdf").parse("invoice")
+        env_client.doc_from_path(f"{INVOICE_DATA_DIR}/invoice.pdf").parse("invoice")
     with pytest.raises(HTTPException):
         env_client.doc_from_path(
-            "./tests/data/expense_receipts/receipt.jpg",
+            f"{RECEIPT_DATA_DIR}/receipt.jpg",
         ).parse("financial_doc")
     with pytest.raises(HTTPException):
-        env_client.doc_from_path("./tests/data/passport/passport.jpeg").parse(
-            "passport"
-        )
+        env_client.doc_from_path(f"{PASSPORT_DATA_DIR}/passport.jpeg").parse("passport")
     with pytest.raises(HTTPException):
-        env_client.doc_from_path("./tests/data/passport/passport.jpeg").parse("dummy")
+        env_client.doc_from_path(f"{PASSPORT_DATA_DIR}/passport.jpeg").parse("dummy")
 
 
 def test_duplicate_configs(dummy_client):
@@ -113,55 +103,41 @@ def test_duplicate_configs(dummy_client):
     )
     assert isinstance(client, Client)
     with pytest.raises(RuntimeError):
-        client.doc_from_path("./tests/data/expense_receipts/receipt.jpg").parse(
-            "receipt"
-        )
+        client.doc_from_path(f"{RECEIPT_DATA_DIR}/receipt.jpg").parse("receipt")
     with pytest.raises(HTTPException):
-        client.doc_from_path("./tests/data/expense_receipts/receipt.jpg").parse(
+        client.doc_from_path(f"{RECEIPT_DATA_DIR}/receipt.jpg").parse(
             "receipt", "dummy"
         )
 
 
 def test_parse_path_with_wrong_filetype(dummy_client):
     with pytest.raises(AssertionError):
-        dummy_client.doc_from_path("./tests/data/expense_receipts/receipt.jpga").parse(
-            "receipt"
-        )
+        dummy_client.doc_from_path(f"{RECEIPT_DATA_DIR}/receipt.jpga").parse("receipt")
     with pytest.raises(AssertionError):
-        dummy_client.doc_from_path("./tests/data/expense_receipts/receipt.jpga").parse(
-            "invoice"
-        )
+        dummy_client.doc_from_path(f"{RECEIPT_DATA_DIR}/receipt.jpga").parse("invoice")
     with pytest.raises(AssertionError):
         dummy_client.doc_from_path(
-            "./tests/data/expense_receipts/receipt.jpga",
+            f"{RECEIPT_DATA_DIR}/receipt.jpga",
         ).parse("financial_doc")
     with pytest.raises(AssertionError):
-        dummy_client.doc_from_path("./tests/data/expense_receipts/receipt.jpga").parse(
-            "passport"
-        )
+        dummy_client.doc_from_path(f"{RECEIPT_DATA_DIR}/receipt.jpga").parse("passport")
 
 
 def test_parse_path_with_wrong_token(dummy_client):
     with pytest.raises(HTTPException):
-        dummy_client.doc_from_path("./tests/data/expense_receipts/receipt.jpg").parse(
-            "receipt"
-        )
+        dummy_client.doc_from_path(f"{RECEIPT_DATA_DIR}/receipt.jpg").parse("receipt")
     with pytest.raises(HTTPException):
-        dummy_client.doc_from_path("./tests/data/expense_receipts/receipt.jpg").parse(
-            "invoice"
-        )
+        dummy_client.doc_from_path(f"{RECEIPT_DATA_DIR}/receipt.jpg").parse("invoice")
     with pytest.raises(HTTPException):
         dummy_client.doc_from_path(
-            "./tests/data/expense_receipts/receipt.jpg",
+            f"{RECEIPT_DATA_DIR}/receipt.jpg",
         ).parse("financial_doc")
     with pytest.raises(HTTPException):
-        dummy_client.doc_from_path("./tests/data/invoices/invoice.pdf").parse(
+        dummy_client.doc_from_path(f"{INVOICE_DATA_DIR}/invoice.pdf").parse(
             "financial_doc"
         )
     with pytest.raises(HTTPException):
-        dummy_client.doc_from_path("./tests/data/expense_receipts/receipt.jpg").parse(
-            "passport"
-        )
+        dummy_client.doc_from_path(f"{RECEIPT_DATA_DIR}/receipt.jpg").parse("passport")
 
 
 def test_response_load_failure():
@@ -171,14 +147,12 @@ def test_response_load_failure():
 
 def test_request_with_filepath(dummy_client):
     with pytest.raises(HTTPException):
-        dummy_client.doc_from_path("./tests/data/expense_receipts/receipt.jpg").parse(
-            "receipt"
-        )
+        dummy_client.doc_from_path(f"{RECEIPT_DATA_DIR}/receipt.jpg").parse("receipt")
 
 
 def test_request_without_raise_on_error(dummy_client_no_raise):
     result = dummy_client_no_raise.doc_from_path(
-        "./tests/data/expense_receipts/receipt.jpg"
+        f"{RECEIPT_DATA_DIR}/receipt.jpg"
     ).parse("receipt")
     assert result.receipt is None
     assert len(result.receipts) == 0
@@ -186,7 +160,7 @@ def test_request_without_raise_on_error(dummy_client_no_raise):
 
 def test_request_without_raise_on_error_include_words(dummy_client_no_raise):
     result = dummy_client_no_raise.doc_from_path(
-        "./tests/data/expense_receipts/receipt.jpg"
+        f"{RECEIPT_DATA_DIR}/receipt.jpg"
     ).parse("receipt", include_words=True)
     assert result.receipt is None
     assert len(result.receipts) == 0
@@ -211,13 +185,11 @@ def test_interface_version():
         version="1.1",
     )
     with pytest.raises(HTTPException):
-        fixed_client.doc_from_path("./tests/data/expense_receipts/receipt.jpg").parse(
-            "dummy"
-        )
+        fixed_client.doc_from_path(f"{RECEIPT_DATA_DIR}/receipt.jpg").parse("dummy")
 
 
 def test_keep_file_open(dummy_client):
-    doc = dummy_client.doc_from_path("./tests/data/expense_receipts/receipt.jpg")
+    doc = dummy_client.doc_from_path(f"{RECEIPT_DATA_DIR}/receipt.jpg")
     try:
         doc.parse("receipt", close_file=False)
     except HTTPException:

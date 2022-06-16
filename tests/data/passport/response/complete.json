@@ -20,7 +20,7 @@
           "id": 0,
           "prediction": {
             "birth_date": {
-              "confidence": 1.0,
+              "confidence": 0.98,
               "polygon": [
                 [
                   0.341,
@@ -86,7 +86,7 @@
               "value": "GBR"
             },
             "expiry_date": {
-              "confidence": 1.0,
+              "confidence": 0.98,
               "polygon": [
                 [
                   0.34,
@@ -105,7 +105,7 @@
                   0.82
                 ]
               ],
-              "value": "2017-04-22"
+              "value": "2057-04-22"
             },
             "gender": {
               "confidence": 1.0,
@@ -154,7 +154,7 @@
               }
             ],
             "id_number": {
-              "confidence": 1.0,
+              "confidence": 0.98,
               "polygon": [
                 [
                   0.723,
@@ -272,7 +272,7 @@
       ],
       "prediction": {
         "birth_date": {
-          "confidence": 1.0,
+          "confidence": 0.98,
           "page_id": 0,
           "polygon": [
             [
@@ -341,7 +341,7 @@
           "value": "GBR"
         },
         "expiry_date": {
-          "confidence": 1.0,
+          "confidence": 0.98,
           "page_id": 0,
           "polygon": [
             [
@@ -361,7 +361,7 @@
               0.82
             ]
           ],
-          "value": "2017-04-22"
+          "value": "2057-04-22"
         },
         "gender": {
           "confidence": 1.0,
@@ -412,7 +412,7 @@
           }
         ],
         "id_number": {
-          "confidence": 1.0,
+          "confidence": 0.98,
           "page_id": 0,
           "polygon": [
             [

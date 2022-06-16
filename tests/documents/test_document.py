@@ -12,7 +12,7 @@ from tests.documents.test_receipt import RECEIPT_FILE_PATH
 
 @pytest.fixture
 def dummy_file_input():
-    file_input = PathDocument("./tests/data/expense_receipts/receipt.jpg")
+    file_input = PathDocument("./tests/data/receipt/receipt.jpg")
     return file_input
 
 

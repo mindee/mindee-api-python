@@ -1,0 +1,12 @@
+-----Receipt data-----
+Filename: None
+Total amount including taxes: 10.2
+Total amount excluding taxes: 8.5
+Date: 2016-02-26
+Category: food
+Time: 15:20
+Merchant name: CLACHAN
+Taxes: 1.7 20.0%
+Total taxes: 1.7
+Locale: en-GB; en; GB; GBP;
+----------------------

@@ -1,0 +1,143 @@
+{
+  "api_request": {
+    "error": {},
+    "resources": [
+      "document"
+    ],
+    "status": "success",
+    "status_code": 201,
+    "url": "http://api.mindee.net/v1/products/ianare/field_test/v1/predict?global_orientation=true"
+  },
+  "document": {
+    "id": "37067c22-4cea-40d3-9809-b9ca1bfedd33",
+    "inference": {
+      "extras": {},
+      "finished_at": "2022-05-19T08:57:40+00:00",
+      "is_rotation_applied": true,
+      "pages": [
+        {
+          "extras": {},
+          "id": 0,
+          "orientation": {
+            "value": 0
+          },
+          "prediction": {
+            "date_normal": {
+              "confidence": 0.0,
+              "values": []
+            },
+            "date_us": {
+              "confidence": 0.0,
+              "values": []
+            },
+            "email": {
+              "confidence": 0.0,
+              "values": []
+            },
+            "integer": {
+              "confidence": 0.0,
+              "values": []
+            },
+            "number": {
+              "confidence": 0.0,
+              "values": []
+            },
+            "phone": {
+              "confidence": 0.0,
+              "values": []
+            },
+            "string_09": {
+              "confidence": 0.0,
+              "values": []
+            },
+            "string_all": {
+              "confidence": 0.0,
+              "values": []
+            },
+            "string_az": {
+              "confidence": 0.0,
+              "values": []
+            },
+            "url": {
+              "confidence": 0.0,
+              "values": []
+            }
+          }
+        }
+      ],
+      "prediction": {
+        "date_normal": {
+          "confidence": 0.0,
+          "page_id": 0,
+          "values": []
+        },
+        "date_us": {
+          "confidence": 0.0,
+          "page_id": 0,
+          "values": []
+        },
+        "email": {
+          "confidence": 0.0,
+          "page_id": 0,
+          "values": []
+        },
+        "integer": {
+          "confidence": 0.0,
+          "page_id": 0,
+          "values": []
+        },
+        "number": {
+          "confidence": 0.0,
+          "page_id": 0,
+          "values": []
+        },
+        "phone": {
+          "confidence": 0.0,
+          "page_id": 0,
+          "values": []
+        },
+        "string_09": {
+          "confidence": 0.0,
+          "page_id": 0,
+          "values": []
+        },
+        "string_all": {
+          "confidence": 0.0,
+          "page_id": 0,
+          "values": []
+        },
+        "string_az": {
+          "confidence": 0.0,
+          "page_id": 0,
+          "values": []
+        },
+        "url": {
+          "confidence": 0.0,
+          "page_id": 0,
+          "values": []
+        }
+      },
+      "processing_time": 0.593,
+      "product": {
+        "features": [
+          "string_all",
+          "string_az",
+          "string_09",
+          "number",
+          "integer",
+          "date_normal",
+          "date_us",
+          "phone",
+          "email",
+          "url"
+        ],
+        "name": "ianare/field_test",
+        "type": "constructed",
+        "version": "1.1"
+      },
+      "started_at": "2022-05-19T08:57:40+00:00"
+    },
+    "n_pages": 1,
+    "name": "hello.pdf"
+  }
+}

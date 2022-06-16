@@ -33,7 +33,7 @@ def ots_doc(monkeypatch):
         input_type="path",
         output_type="summary",
         include_words=False,
-        path="./tests/data/invoices/invoice.pdf",
+        path="./tests/data/invoice/invoice.pdf",
     )
 
 

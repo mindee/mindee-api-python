@@ -1,0 +1,12 @@
+----- field_test -----
+date_normal: 2020-12-17
+date_us: 2020-12-17
+email: contact@mindee.com
+integer: 2100505343
+number: 2100505343
+phone: 8675309
+string_09: 10119
+string_all: Mindee is awesome
+string_az: Mindee
+url: developers.mindee.com/docs
+----------------------
