@@ -24,7 +24,7 @@ class Locale(Field):
         :param locale_prediction: Locale prediction object from HTTP response
         :param value_key: Key to use in the locale_prediction dict
         :param reconstructed: Bool for reconstructed object (not extracted in the API)
-        :param page_n: Page number for multi pages pdf
+        :param page_n: Page number for multi-page PDF
         """
         super().__init__(
             locale_prediction,

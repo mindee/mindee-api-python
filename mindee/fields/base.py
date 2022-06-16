@@ -1,17 +1,23 @@
 from typing import Any, Dict, List, Optional, TypeVar
 
+from mindee.geometry import Polygon, get_bbox_as_polygon
+
+TypePrediction = Dict[str, Any]
+
 
 class Field:
     value: Optional[Any] = None
     """Raw field value"""
     confidence: float = 0.0
     """Confidence score"""
-    bbox: List[List[float]] = []
+    bbox: Polygon = []
     """Bounding box coordinates containing the field"""
+    polygon: Polygon = []
+    """coordinates of the field"""
 
     def __init__(
         self,
-        abstract_prediction: Dict[str, Any],
+        abstract_prediction: TypePrediction,
         value_key: str = "value",
         reconstructed: bool = False,
         page_n: Optional[int] = None,
@@ -25,26 +31,28 @@ class Field:
         :param page_n: Page number for multi-page PDF
         """
         self.page_n = page_n
+        self.reconstructed = reconstructed
 
         if (
             value_key not in abstract_prediction
             or abstract_prediction[value_key] == "N/A"
         ):
-            self.value = None
-            self.confidence = 0.0
-            self.bbox = []
-        else:
-            self.value = abstract_prediction[value_key]
-            try:
-                self.confidence = float(abstract_prediction["confidence"])
-            except (KeyError, TypeError):
-                self.confidence = 0.0
-            try:
-                self.bbox = abstract_prediction["polygon"]
-            except KeyError:
-                self.bbox = []
+            return
 
-        self.reconstructed = reconstructed
+        self.value = abstract_prediction[value_key]
+        try:
+            self.confidence = float(abstract_prediction["confidence"])
+        except (KeyError, TypeError):
+            pass
+        self._set_bbox(abstract_prediction)
+
+    def _set_bbox(self, abstract_prediction: TypePrediction) -> None:
+        try:
+            self.polygon = abstract_prediction["polygon"]
+        except KeyError:
+            pass
+        if self.polygon:
+            self.bbox = get_bbox_as_polygon(self.polygon)
 
     def __eq__(self, other: Any) -> bool:
         if not isinstance(other, Field):
