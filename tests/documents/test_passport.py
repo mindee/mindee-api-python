@@ -3,40 +3,26 @@ import json
 import pytest
 
 from mindee.documents.passport import Passport
+from tests import PASSPORT_DATA_DIR
 
 
 @pytest.fixture
 def passport_object():
-    json_repsonse = json.load(open("./tests/data/passport/v1/passport.json"))
-    return Passport(json_repsonse["document"]["inference"]["pages"][0]["prediction"])
+    json_data = json.load(open(f"{PASSPORT_DATA_DIR}/response/complete.json"))
+    return Passport(json_data["document"]["inference"]["pages"][0]["prediction"])
 
 
 @pytest.fixture
 def passport_object_all_na():
-    json_repsonse = json.load(open("./tests/data/passport/v1/passport_all_na.json"))
-    return Passport(json_repsonse["document"]["inference"]["pages"][0]["prediction"])
+    json_data = json.load(open(f"{PASSPORT_DATA_DIR}/response/empty.json"))
+    return Passport(json_data["document"]["inference"]["pages"][0]["prediction"])
 
 
 def test_constructor(passport_object):
-    assert passport_object.is_expired()
+    assert not passport_object.is_expired()
     assert passport_object.all_checks()
-    assert (
-        str(passport_object)
-        == """-----Passport data-----
-Filename: None
-Full name: HENERT PUDARSAN
-Given names: HENERT
-Surname: PUDARSAN
-Country: GBR
-ID Number: 707797979
-Issuance date: 2012-04-22
-Birth date: 1995-05-20
-Expiry date: 2017-04-22
-MRZ 1: P<GBRPUDARSAN<<HENERT<<<<<<<<<<<<<<<<<<<<<<<
-MRZ 2: 7077979792GBR9505209M1704224<<<<<<<<<<<<<<00
-MRZ: P<GBRPUDARSAN<<HENERT<<<<<<<<<<<<<<<<<<<<<<<7077979792GBR9505209M1704224<<<<<<<<<<<<<<00
-----------------------"""
-    )
+    doc_str = open(f"{PASSPORT_DATA_DIR}/response/page0_to_string.txt").read().strip()
+    assert str(passport_object) == doc_str
 
 
 def test_all_na(passport_object_all_na):

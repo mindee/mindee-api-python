@@ -3,15 +3,16 @@ import json
 import pytest
 
 from mindee.documents.invoice import Invoice
+from tests import INVOICE_DATA_DIR
 
-INVOICE_FILE_PATH = "./tests/data/invoices/v3/invoice.json"
-INVOICE_NA_FILE_PATH = "./tests/data/invoices/v3/invoice_all_na.json"
+INVOICE_FILE_PATH = f"{INVOICE_DATA_DIR}/response/complete.json"
+INVOICE_NA_FILE_PATH = f"{INVOICE_DATA_DIR}/response/empty.json"
 
 
 @pytest.fixture
 def invoice_object():
-    json_repsonse = json.load(open(INVOICE_FILE_PATH))
-    return Invoice(json_repsonse["document"]["inference"]["prediction"], page_n=None)
+    json_data = json.load(open(INVOICE_FILE_PATH))
+    return Invoice(json_data["document"]["inference"]["prediction"], page_n=None)
 
 
 @pytest.fixture
@@ -21,8 +22,8 @@ def invoice_object_all_na(invoice_pred):
 
 @pytest.fixture
 def invoice_pred():
-    invoice_json = json.load(open(INVOICE_NA_FILE_PATH))
-    return invoice_json["document"]["inference"]["pages"][0]["prediction"]
+    json_data = json.load(open(INVOICE_NA_FILE_PATH))
+    return json_data["document"]["inference"]["pages"][0]["prediction"]
 
 
 # Technical tests
@@ -36,27 +37,8 @@ def test_constructor(invoice_object):
     assert invoice_object.invoice_date.confidence == 0.99
     assert invoice_object.invoice_number.value == "0042004801351"
     assert invoice_object.invoice_number.confidence == 0.95
-    assert (
-        str(invoice_object)
-        == """-----Invoice data-----
-Filename: None
-Invoice number: 0042004801351
-Total amount including taxes: 587.95
-Total amount excluding taxes: 489.97
-Invoice date: 2020-02-17
-Invoice due date: 2020-02-17
-Supplier name: TURNPIKE DESIGNS CO.
-Supplier address: 156 University Ave, Toronto ON, Canada M5H 2H7
-Customer name: JIRO DOI
-Customer company registration: FR00000000000; 111222333
-Customer address: 1954 Bloon Street West Toronto, ON, M6P 3K9 Canada
-Payment details: FR7640254025476501124705368;
-Company numbers: 501124705; FR33501124705
-Taxes: 97.98 20.0%
-Total taxes: 97.98
-Locale: fr; fr; EUR;
-----------------------"""
-    )
+    doc_str = open(f"{INVOICE_DATA_DIR}/response/doc_to_string.txt").read().strip()
+    assert str(invoice_object) == doc_str
 
 
 def test_all_na(invoice_object_all_na):

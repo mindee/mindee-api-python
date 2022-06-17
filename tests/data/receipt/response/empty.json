@@ -20,8 +20,8 @@
           "id": 0,
           "prediction": {
             "category": {
-              "confidence": 0.46,
-              "value": "food"
+              "confidence": 0.0,
+              "value": null
             },
             "date": {
               "confidence": 0.0,
@@ -30,7 +30,7 @@
               "value": null
             },
             "locale": {
-              "confidence": 0.15,
+              "confidence": 0.0,
               "country": null,
               "currency": null,
               "language": null,
@@ -62,8 +62,8 @@
       ],
       "prediction": {
         "category": {
-          "confidence": 0.46,
-          "value": "food"
+          "confidence": 0.0,
+          "value": null
         },
         "date": {
           "confidence": 0.0,

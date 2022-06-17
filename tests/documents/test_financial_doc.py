@@ -9,33 +9,33 @@ from tests.documents.test_receipt import RECEIPT_FILE_PATH, RECEIPT_NA_FILE_PATH
 
 @pytest.fixture
 def financial_doc_from_invoice_object():
-    invoice_json_repsonse = json.load(open(INVOICE_FILE_PATH))
+    json_data = json.load(open(INVOICE_FILE_PATH))
     return FinancialDocument(
-        invoice_json_repsonse["document"]["inference"]["prediction"], page_n=None
+        json_data["document"]["inference"]["prediction"], page_n=None
     )
 
 
 @pytest.fixture
 def financial_doc_from_receipt_object():
-    receipt_json_repsonse = json.load(open(RECEIPT_FILE_PATH))
+    json_data = json.load(open(RECEIPT_FILE_PATH))
     return FinancialDocument(
-        receipt_json_repsonse["document"]["inference"]["prediction"], page_n=None
+        json_data["document"]["inference"]["prediction"], page_n=None
     )
 
 
 @pytest.fixture
 def financial_doc_from_receipt_object_all_na():
-    json_repsonse = json.load(open(RECEIPT_NA_FILE_PATH))
+    json_data = json.load(open(RECEIPT_NA_FILE_PATH))
     return FinancialDocument(
-        json_repsonse["document"]["inference"]["pages"][0]["prediction"]
+        json_data["document"]["inference"]["pages"][0]["prediction"]
     )
 
 
 @pytest.fixture
 def financial_doc_from_invoice_object_all_na():
-    json_repsonse = json.load(open(INVOICE_NA_FILE_PATH))
+    json_data = json.load(open(INVOICE_NA_FILE_PATH))
     return FinancialDocument(
-        json_repsonse["document"]["inference"]["pages"][0]["prediction"]
+        json_data["document"]["inference"]["pages"][0]["prediction"]
     )
 
 

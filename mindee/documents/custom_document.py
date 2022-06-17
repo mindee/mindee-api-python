@@ -10,7 +10,7 @@ class CustomDocument(Document):
     def __init__(
         self,
         document_type: str,
-        api_prediction=None,
+        api_prediction: TypeApiPrediction,
         input_file=None,
         page_n: Optional[int] = None,
     ):
@@ -51,7 +51,7 @@ class CustomDocument(Document):
                 name,
                 " ".join([value["content"] for value in info["values"]]),
             )
-        custom_doc_str += "-----------------\n"
+        custom_doc_str += "----------------------"
         return custom_doc_str
 
     def _checklist(self) -> None:

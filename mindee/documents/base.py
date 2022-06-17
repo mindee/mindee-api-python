@@ -34,7 +34,7 @@ class Document:
         self,
         input_file: InputDocument,
         document_type: str,
-        api_prediction: dict,
+        api_prediction: TypeApiPrediction,
         page_n: Optional[int] = None,
     ):
         if input_file:

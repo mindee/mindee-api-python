@@ -3,49 +3,37 @@ import json
 import pytest
 
 from mindee.documents.receipt import Receipt
+from tests import RECEIPT_DATA_DIR
 
-RECEIPT_FILE_PATH = "./tests/data/expense_receipts/v3/receipt.json"
-RECEIPT_NA_FILE_PATH = "./tests/data/expense_receipts/v3/receipt_all_na.json"
+RECEIPT_FILE_PATH = f"{RECEIPT_DATA_DIR}/response/complete.json"
+RECEIPT_NA_FILE_PATH = f"{RECEIPT_DATA_DIR}/response/empty.json"
 
 
 @pytest.fixture
-def receipt_object():
-    json_response = json.load(open(RECEIPT_FILE_PATH))
-    return Receipt(json_response["document"]["inference"]["prediction"], page_n=None)
+def doc_object():
+    json_data = json.load(open(RECEIPT_FILE_PATH))
+    return Receipt(json_data["document"]["inference"]["prediction"], page_n=None)
 
 
 @pytest.fixture
 def receipt_object_all_na():
-    json_response = json.load(open(RECEIPT_NA_FILE_PATH))
-    return Receipt(json_response["document"]["inference"]["prediction"], page_n=None)
+    json_data = json.load(open(RECEIPT_NA_FILE_PATH))
+    return Receipt(json_data["document"]["inference"]["prediction"], page_n=None)
 
 
 @pytest.fixture
 def receipt_pred():
-    json_response = json.load(open(RECEIPT_NA_FILE_PATH))
-    return json_response["document"]["inference"]["pages"][0]["prediction"]
+    json_data = json.load(open(RECEIPT_NA_FILE_PATH))
+    return json_data["document"]["inference"]["pages"][0]["prediction"]
 
 
 # Technical tests
-def test_constructor(receipt_object):
-    assert receipt_object.date.value == "2016-02-26"
-    assert receipt_object.total_tax.value == 1.7
-    assert receipt_object.checklist["taxes_match_total_incl"] is True
-    assert (
-        str(receipt_object)
-        == """-----Receipt data-----
-Filename: None
-Total amount including taxes: 10.2
-Total amount excluding taxes: 8.5
-Date: 2016-02-26
-Category: food
-Time: 15:20
-Merchant name: CLACHAN
-Taxes: 1.7 20.0%
-Total taxes: 1.7
-Locale: en-GB; en; GB; GBP;
-----------------------"""
-    )
+def test_constructor(doc_object):
+    assert doc_object.date.value == "2016-02-26"
+    assert doc_object.total_tax.value == 1.7
+    assert doc_object.checklist["taxes_match_total_incl"] is True
+    doc_str = open(f"{RECEIPT_DATA_DIR}/response/doc_to_string.txt").read().strip()
+    assert str(doc_object) == doc_str
 
 
 def test_all_na(receipt_object_all_na):
