@@ -1,19 +1,24 @@
 import base64
 import io
+import mimetypes
 import os
-from mimetypes import guess_type
 from typing import BinaryIO, Optional, Tuple
 
 import pikepdf
 
 from mindee.logger import logger
 
+mimetypes.add_type("image/heic", ".heic")
+mimetypes.add_type("image/heic", ".heif")
+
 ALLOWED_MIME_TYPES = [
+    "application/pdf",
+    "image/heic",
     "image/png",
     "image/jpg",
     "image/jpeg",
+    "image/tiff",
     "image/webp",
-    "application/pdf",
 ]
 
 INPUT_TYPE_FILE = "file"
@@ -54,7 +59,7 @@ class InputDocument:
         logger.debug("Loaded new document '%s' from %s", self.filename, self.input_type)
 
     def _check_mimetype(self) -> None:
-        file_mimetype = guess_type(self.filename)[0]
+        file_mimetype = mimetypes.guess_type(self.filename)[0]
         if file_mimetype:
             self.file_mimetype = file_mimetype
         else:
