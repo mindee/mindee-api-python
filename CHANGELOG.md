@@ -1,5 +1,16 @@
 # Mindee Python API Library Changelog
 
+## v2.4.0 (2022-06-20)
+### Fixes
+* :bug: :memo: custom docs names refer to the API, not the type.
+* :bug: words should be separated when printing custom documents
+* :bug: empty date should return passport not in validity
+
+### Changes
+* :sparkles: Add TIFF and HEIC support
+* :sparkles: Add real bounding boxes
+* :memo: publish documentation to pages
+
 ## v2.3.0 (2022-05-23)
 
 ### Fixes
