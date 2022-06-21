@@ -26,6 +26,8 @@ INPUT_TYPE_BASE64 = "base64"
 INPUT_TYPE_BYTES = "bytes"
 INPUT_TYPE_PATH = "path"
 
+MAX_DOC_PAGES = 3
+
 
 class InputDocument:
     file_object: BinaryIO
@@ -40,20 +42,17 @@ class InputDocument:
         self,
         input_type: str,
         cut_pdf: bool = True,
-        n_pdf_pages: int = 3,
+        n_pdf_pages: int = MAX_DOC_PAGES,
     ):
-        assert 0 < n_pdf_pages <= 3
+        assert 0 < n_pdf_pages <= MAX_DOC_PAGES
         self.input_type = input_type
         self._check_mimetype()
 
         if self.file_mimetype == "application/pdf":
             self.check_pdf_open()
             count_pages = self.count_pdf_pages()
-            if cut_pdf is True:
-                if count_pages > 3:
-                    self.merge_pdf_pages(
-                        [0, count_pages - 2, count_pages - 1][:n_pdf_pages]
-                    )
+            if cut_pdf is True and count_pages > 3:
+                self.merge_pdf_pages([0, -2, -1][:n_pdf_pages])
             if self.is_pdf_empty():
                 raise AssertionError(f"PDF pages are empty in: {self.filename}")
         logger.debug("Loaded new document '%s' from %s", self.filename, self.input_type)

@@ -257,11 +257,11 @@ class Client:
         Load a document from an absolute path, as a string.
 
         :param input_path: Path of file to open
-        :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a pdf with.
+        :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a PDF with.
 
-            * if 1: pages [0]
-            * if 2: pages [0, n-2]
-            * if 3: pages [0, n-2, n-1]
+            * if 1: first page
+            * if 2: first page, penultimate page
+            * if 3: first page, penultimate page, last page
         :param cut_pdf: Automatically reconstruct a PDF with more than 4 pages
         """
         input_doc = PathDocument(input_path, cut_pdf=cut_pdf, n_pdf_pages=cut_pdf_mode)
@@ -281,11 +281,11 @@ class Client:
         Load a document from a normal Python file object/handle.
 
         :param input_file: Input file handle
-        :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a pdf with.
+        :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a PDF with.
 
-            * if 1: pages [0]
-            * if 2: pages [0, n-2]
-            * if 3: pages [0, n-2, n-1]
+            * if 1: first page
+            * if 2: first page, penultimate page
+            * if 3: first page, penultimate page, last page
         :param cut_pdf: Automatically reconstruct a PDF with more than 4 pages
         """
         input_doc = FileDocument(
@@ -311,11 +311,11 @@ class Client:
 
         :param input_string: Input to parse as base64 string
         :param filename: The name of the file (without the path)
-        :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a pdf with.
+        :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a PDF with.
 
-            * if 1: pages [0]
-            * if 2: pages [0, n-2]
-            * if 3: pages [0, n-2, n-1]
+            * if 1: first page
+            * if 2: first page, penultimate page
+            * if 3: first page, penultimate page, last page
         :param cut_pdf: Automatically reconstruct a PDF with more than 4 pages
         """
         input_doc = Base64Document(
@@ -344,9 +344,9 @@ class Client:
         :param filename: The name of the file (without the path)
         :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a PDF with.
 
-            * if 1: pages [0]
-            * if 2: pages [0, n-2]
-            * if 3: pages [0, n-2, n-1]
+            * if 1: first page
+            * if 2: first page, penultimate page
+            * if 3: first page, penultimate page, last page
         :param cut_pdf: Automatically reconstruct a PDF with more than 4 pages
         """
         input_doc = BytesDocument(
