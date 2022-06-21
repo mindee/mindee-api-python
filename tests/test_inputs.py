@@ -1,5 +1,6 @@
 import io
 
+import pikepdf
 import pytest
 
 from mindee.inputs import Base64Document, BytesDocument, FileDocument, PathDocument
@@ -41,32 +42,26 @@ def test_pdf_reconstruct_no_cut():
     assert isinstance(input_file.file_object, io.BufferedReader)
 
 
-def test_pdf_reconstruct_check_n_pages():
-    input_obj_3 = PathDocument(
-        f"{INVOICE_DATA_DIR}/invoice_10p.pdf",
-        cut_pdf=True,
-        n_pdf_pages=3,
-    )
-    input_obj_2 = PathDocument(
-        f"{INVOICE_DATA_DIR}/invoice_10p.pdf",
-        cut_pdf=True,
-        n_pdf_pages=2,
-    )
+@pytest.mark.parametrize("numb_pages", [1, 2, 3])
+def test_pdf_check_n_pages(numb_pages: int):
     input_obj_1 = PathDocument(
-        f"{INVOICE_DATA_DIR}/invoice_10p.pdf",
+        "./tests/data/pdfs/multipage.pdf",
         cut_pdf=True,
-        n_pdf_pages=1,
+        n_pdf_pages=numb_pages,
     )
     assert input_obj_1.file_mimetype == "application/pdf"
+    assert input_obj_1.count_pdf_pages() == numb_pages
 
-    # re-initialize file pointer
-    input_obj_3.file_object.seek(0)
-    input_obj_2.file_object.seek(0)
-    input_obj_1.file_object.seek(0)
-
-    assert input_obj_3.count_pdf_pages() == 3
-    assert input_obj_2.count_pdf_pages() == 2
-    assert input_obj_1.count_pdf_pages() == 1
+    # Each page in the PDF has a unique (and increasing) /Content /Length.
+    # We use this to make sure we have the correct pages
+    cut_pdf = pikepdf.open(input_obj_1.file_object)
+    with pikepdf.open(f"./tests/data/pdfs/multipage_cut-{numb_pages}.pdf") as pdf:
+        for idx, page in enumerate(pdf.pages):
+            assert (
+                page["/Contents"]["/Length"]
+                == cut_pdf.pages[idx]["/Contents"]["/Length"]
+            )
+    cut_pdf.close()
 
 
 def test_pdf_input_from_path():
