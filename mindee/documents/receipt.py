@@ -54,7 +54,7 @@ class Receipt(Document):
         )
 
     def __str__(self) -> str:
-        taxes = ", ".join(f"{t}" for t in self.taxes)
+        taxes = "\n       ".join(f"{t}" for t in self.taxes)
         return (
             "-----Receipt data-----\n"
             f"Filename: {self.filename}\n"
@@ -130,8 +130,8 @@ class Receipt(Document):
             return False
 
         # Reconstruct total_incl from taxes
-        total_vat = 0
-        reconstructed_total = 0
+        total_vat = 0.0
+        reconstructed_total = 0.0
         for tax in self.taxes:
             if tax.value is None or tax.rate is None or tax.rate == 0:
                 return False

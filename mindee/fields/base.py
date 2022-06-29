@@ -66,7 +66,7 @@ class Field:
         return self.value == other.value
 
     def __str__(self) -> str:
-        if self.value:
+        if self.value is not None:
             return f"{self.value}"
         return ""
 

@@ -124,8 +124,10 @@ class Invoice(Document):
         customer_company_registration = "; ".join(
             [str(n.value) for n in self.customer_company_registration]
         )
-        payments = ", ".join([str(p) for p in self.payment_details])
-        taxes = ", ".join(f"{t}" for t in self.taxes)
+        payment_details = "\n                 ".join(
+            [str(p) for p in self.payment_details]
+        )
+        taxes = "\n       ".join(f"{t}" for t in self.taxes)
         return (
             "-----Invoice data-----\n"
             f"Filename: {self.filename}\n"
@@ -139,7 +141,7 @@ class Invoice(Document):
             f"Customer name: {self.customer_name}\n"
             f"Customer company registration: {customer_company_registration}\n"
             f"Customer address: {self.customer_address}\n"
-            f"Payment details: {payments}\n"
+            f"Payment details: {payment_details}\n"
             f"Company numbers: {company_numbers}\n"
             f"Taxes: {taxes}\n"
             f"Total taxes: {self.total_tax}\n"
@@ -174,8 +176,8 @@ class Invoice(Document):
             return False
 
         # Reconstruct total_incl from taxes
-        total_vat = 0
-        reconstructed_total = 0
+        total_vat = 0.0
+        reconstructed_total = 0.0
         for tax in self.taxes:
             if tax.value is None or tax.rate is None or tax.rate == 0:
                 return False
@@ -211,8 +213,8 @@ class Invoice(Document):
             return False
 
         # Reconstruct total excl from taxes
-        total_vat = 0
-        reconstructed_total = 0
+        total_vat = 0.0
+        reconstructed_total = 0.0
         for tax in self.taxes:
             if tax.value is None or tax.rate is None or tax.rate == 0:
                 return False
@@ -254,7 +256,7 @@ class Invoice(Document):
             return False
 
         # Reconstruct total_incl
-        total_vat = 0
+        total_vat = 0.0
         for tax in self.taxes:
             if tax.value is not None:
                 total_vat += tax.value
@@ -288,13 +290,11 @@ class Invoice(Document):
             multiplied by total_excl confidence
         """
         # Check total_tax, total excl exist and total incl is not set
-        if (
+        if not (
             self.total_excl.value is None
             or len(self.taxes) == 0
             or self.total_incl.value is not None
         ):
-            pass
-        else:
             total_incl = {
                 "value": sum(
                     [tax.value if tax.value is not None else 0 for tax in self.taxes]
@@ -319,17 +319,15 @@ class Invoice(Document):
             or len(self.taxes) == 0
             or self.total_excl.value is not None
         ):
-            pass
-        else:
-            total_excl = {
-                "value": self.total_incl.value
-                - sum(
-                    [tax.value if tax.value is not None else 0 for tax in self.taxes]
-                ),
-                "confidence": field_array_confidence(self.taxes)
-                * self.total_incl.confidence,
-            }
-            self.total_excl = Amount(total_excl, value_key="value", reconstructed=True)
+            return
+
+        total_excl = {
+            "value": self.total_incl.value
+            - sum([tax.value if tax.value is not None else 0 for tax in self.taxes]),
+            "confidence": field_array_confidence(self.taxes)
+            * self.total_incl.confidence,
+        }
+        self.total_excl = Amount(total_excl, value_key="value", reconstructed=True)
 
     def __reconstruct_total_tax_from_tax_lines(self) -> None:
         """
@@ -362,14 +360,11 @@ class Invoice(Document):
             or self.total_excl.value is None
             or self.total_incl.value is None
         ):
-            pass
-        else:
+            return
 
-            total_tax = {
-                "value": self.total_incl.value - self.total_excl.value,
-                "confidence": self.total_incl.confidence * self.total_excl.confidence,
-            }
-            if total_tax["value"] >= 0:
-                self.total_tax = Amount(
-                    total_tax, value_key="value", reconstructed=True
-                )
+        total_tax = {
+            "value": self.total_incl.value - self.total_excl.value,
+            "confidence": self.total_incl.confidence * self.total_excl.confidence,
+        }
+        if total_tax["value"] >= 0:
+            self.total_tax = Amount(total_tax, value_key="value", reconstructed=True)
