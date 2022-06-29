@@ -170,7 +170,7 @@ def _parse_args() -> Namespace:
             "--no-cut-pdf",
             dest="cut_pdf",
             action="store_false",
-            help="Don't cut the PDF",
+            help="Don't cut document pages",
         )
         subp.add_argument(
             "-p",
@@ -178,7 +178,8 @@ def _parse_args() -> Namespace:
             dest="pdf_pages",
             type=int,
             default=3,
-            help="Number of PDF pages to cut by, default: 3",
+            choices=[1, 2, 3],
+            help="Number of document pages to cut by, default: 3",
         )
         subp.add_argument(dest="path", help="Full path to the file")
 

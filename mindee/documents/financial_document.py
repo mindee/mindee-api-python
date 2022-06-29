@@ -188,8 +188,8 @@ class FinancialDocument(Document):
             return False
 
         # Reconstruct total_incl from taxes
-        total_vat = 0
-        reconstructed_total = 0
+        total_vat = 0.0
+        reconstructed_total = 0.0
         for tax in self.taxes:
             if tax.rate is not None and tax.rate != 0 and tax.value is not None:
                 total_vat += tax.value

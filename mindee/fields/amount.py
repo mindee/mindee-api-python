@@ -27,7 +27,6 @@ class Amount(Field):
             reconstructed=reconstructed,
             page_n=page_n,
         )
-
         try:
             self.value = round(float(amount_prediction[value_key]), 3)
         except (ValueError, TypeError, KeyError):

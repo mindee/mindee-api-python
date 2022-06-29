@@ -4,6 +4,7 @@ from mindee.fields.base import Field
 
 
 class Tax(Field):
+    value: Optional[float]
     rate: Optional[float]
     code: Optional[str]
 

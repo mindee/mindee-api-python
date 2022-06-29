@@ -45,6 +45,7 @@ def test_all_na(invoice_object_all_na):
     assert invoice_object_all_na.locale.value is None
     assert invoice_object_all_na.total_incl.value is None
     assert invoice_object_all_na.total_excl.value is None
+    assert invoice_object_all_na.total_tax.value is None
     assert invoice_object_all_na.invoice_date.value is None
     assert invoice_object_all_na.invoice_number.value is None
     assert invoice_object_all_na.due_date.value is None

@@ -54,12 +54,12 @@ def format_response(
     logger.debug("Handling API response")
 
     # Create page level objects
-    for page_prediction in http_response["document"]["inference"]["pages"]:
+    for api_page in http_response["document"]["inference"]["pages"]:
         pages.append(
             doc_config.constructor(
-                api_prediction=page_prediction["prediction"],
+                api_prediction=api_page["prediction"],
                 input_file=input_file,
-                page_n=page_prediction["id"],
+                page_n=api_page["id"],
                 document_type=doc_config.document_type,
             )
         )
