@@ -10,7 +10,7 @@ charset-normalizer==2.0.12
     # via requests
 idna==3.3
     # via requests
-lxml==4.8.0
+lxml==4.9.1
     # via pikepdf
 packaging==21.3
     # via pikepdf
