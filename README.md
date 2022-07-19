@@ -4,7 +4,7 @@ Quickly and easily connect to Mindee's API services using Python.
 ## Quick Start
 Here's the TL;DR of getting started.
 
-First, get an [API Key](https://developers.mindee.com/docs/make-your-first-request#create-an-api-key)
+First, get an [API Key](https://developers.mindee.com/docs/create-api-key)
 
 Then, install this library:
 ```shell
