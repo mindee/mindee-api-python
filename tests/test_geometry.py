@@ -46,3 +46,22 @@ def test_bbox_polygon(polygon_a, polygon_b, polygon_c):
         (0.381, 0.43),
         (0.205, 0.43),
     )
+
+
+def test_is_point_in_polygon_y(polygon_a, polygon_b, polygon_c):
+    # Should be in polygon A & B, since polygons overlap
+    point_a = (0.125, 0.535)
+    # Should only be in polygon C
+    point_b = (0.300, 0.420)
+
+    assert geometry.is_point_in_polygon_y(point_a, polygon_a)
+    assert geometry.is_point_in_polygon_y(point_a, polygon_b)
+    assert geometry.is_point_in_polygon_y(point_a, polygon_c) is False
+
+    assert geometry.is_point_in_polygon_y(point_b, polygon_a) is False
+    assert geometry.is_point_in_polygon_y(point_b, polygon_b) is False
+    assert geometry.is_point_in_polygon_y(point_b, polygon_c)
+
+
+def test_get_centroid(polygon_a):
+    assert geometry.get_centroid(polygon_a) == (0.149, 0.538)
