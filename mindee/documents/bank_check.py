@@ -67,12 +67,9 @@ class BankCheck(Document):
         self.account_number = Field(api_prediction["account_number"], page_n=page_n)
         self.check_number = Field(api_prediction["check_number"], page_n=page_n)
         self.date = Date(api_prediction["date"], "value", page_n=page_n)
-        self.amount = Amount(
-            api_prediction["amount"], value_key="value", page_n=page_n
-        )
+        self.amount = Amount(api_prediction["amount"], value_key="value", page_n=page_n)
         self.payees = [
-            Field(payee, page_n=page_n)
-            for payee in api_prediction["payees"]
+            Field(payee, page_n=page_n) for payee in api_prediction["payees"]
         ]
         self.check_position = Position(api_prediction["check_position"], page_n=page_n)
         self.signatures_positions = [
@@ -82,10 +79,7 @@ class BankCheck(Document):
 
     def __str__(self) -> str:
         payees = ", ".join(
-            [
-                payee.value if payee.value is not None else ""
-                for payee in self.payees
-            ]
+            [payee.value if payee.value is not None else "" for payee in self.payees]
         )
         return (
             "-----Bank check data-----\n"

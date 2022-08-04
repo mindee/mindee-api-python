@@ -7,11 +7,11 @@ class Position(Field):
     value: Optional[List] = None
 
     def __init__(
-            self,
-            position_prediction: dict,
-            value_key: str = "polygon",
-            reconstructed: bool = False,
-            page_n: Optional[int] = None,
+        self,
+        position_prediction: dict,
+        value_key: str = "polygon",
+        reconstructed: bool = False,
+        page_n: Optional[int] = None,
     ):
         """
         Amount field object.
@@ -29,14 +29,26 @@ class Position(Field):
         )
         try:
             self.value = position_prediction[value_key]
-            self.bounding_box = position_prediction["bounding_box"] \
-                if "bounding_box" in position_prediction.keys() else None
-            self.quadrangle = position_prediction["quadrangle"] \
-                if "quadrangle" in position_prediction.keys() else None
-            self.polygon = position_prediction["polygon"] \
-                if "quadrangle" in position_prediction.keys() else None
-            self.rectangle = position_prediction["rectangle"] \
-                if "rectangle" in position_prediction.keys() else None
+            self.bounding_box = (
+                position_prediction["bounding_box"]
+                if "bounding_box" in position_prediction.keys()
+                else None
+            )
+            self.quadrangle = (
+                position_prediction["quadrangle"]
+                if "quadrangle" in position_prediction.keys()
+                else None
+            )
+            self.polygon = (
+                position_prediction["polygon"]
+                if "quadrangle" in position_prediction.keys()
+                else None
+            )
+            self.rectangle = (
+                position_prediction["rectangle"]
+                if "rectangle" in position_prediction.keys()
+                else None
+            )
         except (ValueError, TypeError, KeyError):
             self.value = []
             self.confidence = 0.0
