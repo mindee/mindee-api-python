@@ -22,6 +22,9 @@ RECEIPT_URL_NAME = "expense_receipts"
 PASSPORT_VERSION = "1"
 PASSPORT_URL_NAME = "passport"
 
+BANK_CHECK_VERSION = "1"
+BANK_CHECK_URL_NAME = "bank_check"
+
 
 class Endpoint:
     """Generic API endpoint for a product."""
@@ -185,6 +188,16 @@ class PassportEndpoint(Endpoint):
             owner=OTS_OWNER,
             url_name=PASSPORT_URL_NAME,
             version=PASSPORT_VERSION,
+            api_key=api_key,
+        )
+
+
+class BankCheckEndpoint(Endpoint):
+    def __init__(self, api_key: Optional[str] = None):
+        super().__init__(
+            owner=OTS_OWNER,
+            url_name=BANK_CHECK_URL_NAME,
+            version=BANK_CHECK_VERSION,
             api_key=api_key,
         )
 
