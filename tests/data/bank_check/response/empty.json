@@ -1,0 +1,142 @@
+{
+  "api_request": {
+    "error": {},
+    "resources": [
+      "document"
+    ],
+    "status": "success",
+    "status_code": 201,
+    "url": "https://api.mindee.net/v1/products/mindee/bank_check/v1/predict"
+  },
+  "document": {
+    "id": "0626bc33-2b9f-4645-b455-6af111c551cf",
+    "inference": {
+      "extras": {},
+      "finished_at": "2022-08-04T21:36:09+00:00",
+      "is_rotation_applied": "True",
+      "pages": [
+        {
+          "extras": {},
+          "id": 0,
+          "orientation": {
+            "value": 0
+          },
+          "prediction":  {
+        "account_number": {
+          "confidence": 0.0,
+          "page_id": null,
+          "polygon": [],
+          "value": null
+        },
+        "amount": {
+          "confidence": 0.0,
+          "page_id": null,
+          "polygon": [],
+          "value": null
+        },
+        "check_number": {
+          "confidence": 0.0,
+          "page_id": null,
+          "polygon": [],
+          "value": null
+        },
+        "check_position": {
+          "bounding_box": [],
+          "polygon": [],
+          "quadrangle": [],
+          "rectangle": []
+        },
+        "date": {
+          "confidence": 0.0,
+          "polygon": [],
+          "raw": null,
+          "value": null
+        },
+        "orientation": {
+          "confidence": 0.99,
+          "degrees": 0
+        },
+        "payees": [],
+        "routing_number": {
+          "confidence": 0.0,
+          "page_id": null,
+          "polygon": [],
+          "value": null
+        },
+        "signatures_positions": []
+      }
+        }
+      ],
+      "prediction":  {
+        "account_number": {
+          "confidence": 0.0,
+          "page_id": null,
+          "polygon": [],
+          "value": null
+        },
+        "amount": {
+          "confidence": 0.0,
+          "page_id": null,
+          "polygon": [],
+          "value": null
+        },
+        "check_number": {
+          "confidence": 0.0,
+          "page_id": null,
+          "polygon": [],
+          "value": null
+        },
+        "check_position": {
+          "bounding_box": [],
+          "polygon": [],
+          "quadrangle": [],
+          "rectangle": []
+        },
+        "date": {
+          "confidence": 0.0,
+          "polygon": [],
+          "raw": null,
+          "value": null
+        },
+        "orientation": {
+          "confidence": 0.99,
+          "degrees": 0
+        },
+        "payees": [],
+        "routing_number": {
+          "confidence": 0.0,
+          "page_id": null,
+          "polygon": [],
+          "value": null
+        },
+        "signatures_positions": []
+      },
+      "processing_time": 1.154,
+      "product": {
+        "features": [
+          "check_position",
+          "signatures_positions",
+          "date",
+          "amount",
+          "payees",
+          "routing_number",
+          "account_number",
+          "check_number",
+          "orientation"
+        ],
+        "name": "mindee/bank_check",
+        "type": "standard",
+        "version": "1.0"
+      },
+      "started_at": "2022-08-04T21:36:08+00:00"
+    },
+    "n_pages": 1,
+    "name": "check.jpg"
+  },
+  "document_type": "bank_check",
+  "input_type": "path",
+  "filename": "check.jpg",
+  "filepath": "check.jpg",
+  "file_extension": "image/jpeg"
+}
+
