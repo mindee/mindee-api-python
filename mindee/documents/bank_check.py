@@ -1,9 +1,8 @@
-from datetime import datetime
 from typing import List, Optional
 
 from mindee.documents.base import Document, TypeApiPrediction
 from mindee.fields.amount import Amount
-from mindee.fields.base import Field, field_array_confidence
+from mindee.fields.base import Field
 from mindee.fields.date import Date
 from mindee.fields.orientation import Orientation
 from mindee.fields.position import Position
