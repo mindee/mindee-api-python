@@ -33,6 +33,13 @@ Financial Document
     :inherited-members:
     :undoc-members:
 
+Bank Check
+----------
+.. autoclass:: mindee.documents.bank_check.BankCheck
+    :members:
+    :inherited-members:
+    :undoc-members:
+
 Custom Document
 ----------------
 .. autoclass:: mindee.documents.custom_document.CustomDocument

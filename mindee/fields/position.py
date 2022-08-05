@@ -1,14 +1,18 @@
-from typing import Optional, List
+from typing import Optional
 
-from mindee.fields.base import Field
+from mindee.fields.base import Field, TypePrediction
+from mindee.geometry import Polygon, Quadrilateral
 
 
 class Position(Field):
-    value: Optional[List] = None
+    value: Polygon = []
+    quadrangle: Optional[Quadrilateral]
+    rectangle: Optional[Quadrilateral]
+    bounding_box: Optional[Quadrilateral]
 
     def __init__(
         self,
-        position_prediction: dict,
+        position_prediction: TypePrediction,
         value_key: str = "polygon",
         reconstructed: bool = False,
         page_n: Optional[int] = None,
@@ -41,7 +45,7 @@ class Position(Field):
             )
             self.polygon = (
                 position_prediction["polygon"]
-                if "quadrangle" in position_prediction.keys()
+                if "polygon" in position_prediction.keys()
                 else None
             )
             self.rectangle = (
