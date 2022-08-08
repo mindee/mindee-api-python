@@ -1,4 +1,5 @@
 RECEIPT_DATA_DIR = "./tests/data/receipt"
 INVOICE_DATA_DIR = "./tests/data/invoice"
 PASSPORT_DATA_DIR = "./tests/data/passport"
+BANK_CHECK_DATA_DIR = "./tests/data/bank_check"
 CUSTOM_DATA_DIR = "./tests/data/custom"

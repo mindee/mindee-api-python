@@ -2,6 +2,7 @@ import json
 from typing import BinaryIO, Dict, Optional
 
 from mindee.document_config import DocumentConfig, DocumentConfigDict
+from mindee.documents.bank_check import BankCheck
 from mindee.documents.custom_document import CustomDocument
 from mindee.documents.financial_document import FinancialDocument
 from mindee.documents.invoice import Invoice
@@ -9,6 +10,7 @@ from mindee.documents.passport import Passport
 from mindee.documents.receipt import Receipt
 from mindee.endpoints import (
     OTS_OWNER,
+    BankCheckEndpoint,
     CustomEndpoint,
     HTTPException,
     InvoiceEndpoint,
@@ -245,6 +247,22 @@ class Client:
             endpoints=[PassportEndpoint(api_key=api_key)],
         )
         self._doc_configs[(OTS_OWNER, "passport")] = config
+        return self
+
+    def config_bank_check(self, api_key: Optional[str] = None) -> "Client":
+        """
+        Configure a Mindee Bank check document.
+
+        :param api_key: Bank check API key
+        """
+        config = DocumentConfig(
+            document_type="bank_check",
+            singular_name="bank_check",
+            plural_name="bank_checks",
+            constructor=BankCheck,
+            endpoints=[BankCheckEndpoint(api_key=api_key)],
+        )
+        self._doc_configs[(OTS_OWNER, "bank_check")] = config
         return self
 
     def doc_from_path(
