@@ -1,6 +1,7 @@
 """Test to check if style packages are in same versions as pre-commit config."""
 
 import configparser
+import re
 from pathlib import Path
 
 
@@ -12,10 +13,11 @@ def test_style_pkg_versions():
     """Check black, flake8, isort and pydocstyle versions consistency."""
     config = configparser.ConfigParser()
     config.read(Path(__file__).parent.parent.joinpath("setup.cfg"))
-    requirements_versions = {
-        line.strip().split("==")[0]: line.strip().split("==")[1]
-        for line in config["options.extras_require"]["dev"].split()
-    }
+    line_sep = re.compile(r"(==|~=)")
+    requirements_versions = {}
+    for line in config["options.extras_require"]["dev"].split():
+        split_line = line_sep.split(line.strip())
+        requirements_versions[split_line[0]] = split_line[2]
 
     # Get pre-commit versions
     pre_commit_versions = {}
