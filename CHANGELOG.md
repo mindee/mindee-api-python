@@ -1,6 +1,6 @@
 # Mindee Python API Library Changelog
 
-## v2.4.0 (2022-08-09)
+## v2.5.0 (2022-08-11)
 ### Changes
 * :lipstick: improve string output of documents
 * :arrow_up: general dependencies upgrade (#92)
