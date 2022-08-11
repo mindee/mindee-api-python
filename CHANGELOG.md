@@ -1,5 +1,12 @@
 # Mindee Python API Library Changelog
 
+## v2.5.0 (2022-08-11)
+### Changes
+* :lipstick: improve string output of documents
+* :arrow_up: general dependencies upgrade (#92)
+* :sparkles: add functions for working with centroids (#93)
+* :sparkles: Add bank checks documents (beta, US only) (#94)
+
 ## v2.4.0 (2022-06-20)
 ### Fixes
 * :bug: :memo: custom docs names refer to the API, not the type.
