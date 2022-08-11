@@ -45,6 +45,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#receipt">Receipt</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#passport">Passport</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#financial-document">Financial Document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bank-check">Bank Check</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#custom-document">Custom Document</a></li>
 </ul>
 </li>
@@ -667,6 +668,120 @@ The combination of <cite>given_names</cite> and <cite>surname</cite> fields.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.documents.financial_document.FinancialDocument.type">
 <span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#mindee.documents.financial_document.FinancialDocument.type" title="Permalink to this definition"></a></dt>
+<dd><p>Document type</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="bank-check">
+<h2>Bank Check<a class="headerlink" href="#bank-check" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.documents.bank_check.BankCheck">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mindee.documents.bank_check.</span></span><span class="sig-name descname"><span class="pre">BankCheck</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_prediction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">document_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'bank_check'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.documents.bank_check.BankCheck" title="Permalink to this definition"></a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="mindee.documents.bank_check.BankCheck.all_checks">
+<span class="sig-name descname"><span class="pre">all_checks</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#mindee.documents.bank_check.BankCheck.all_checks" title="Permalink to this definition"></a></dt>
+<dd><p>Return status of all checks.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.documents.bank_check.BankCheck.request">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">request</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">endpoints</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">mindee.endpoints.Endpoint</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">mindee.inputs.InputDocument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_words</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">close_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.documents.bank_check.BankCheck.request" title="Permalink to this definition"></a></dt>
+<dd><p>Make request to prediction endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_file</strong> – Input object</p></li>
+<li><p><strong>endpoints</strong> – Endpoints config</p></li>
+<li><p><strong>include_words</strong> – Include Mindee vision words in http_response</p></li>
+<li><p><strong>close_file</strong> – Whether to <cite>close()</cite> the file after parsing it.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.bank_check.BankCheck.account_number">
+<span class="sig-name descname"><span class="pre">account_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.base.Field" title="mindee.fields.base.Field"><span class="pre">mindee.fields.base.Field</span></a></em><a class="headerlink" href="#mindee.documents.bank_check.BankCheck.account_number" title="Permalink to this definition"></a></dt>
+<dd><p>Payer’s bank account number</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.bank_check.BankCheck.amount">
+<span class="sig-name descname"><span class="pre">amount</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.amount.Amount" title="mindee.fields.amount.Amount"><span class="pre">mindee.fields.amount.Amount</span></a></em><a class="headerlink" href="#mindee.documents.bank_check.BankCheck.amount" title="Permalink to this definition"></a></dt>
+<dd><p>Total including taxes</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.bank_check.BankCheck.check_number">
+<span class="sig-name descname"><span class="pre">check_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.base.Field" title="mindee.fields.base.Field"><span class="pre">mindee.fields.base.Field</span></a></em><a class="headerlink" href="#mindee.documents.bank_check.BankCheck.check_number" title="Permalink to this definition"></a></dt>
+<dd><p>Check number</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.bank_check.BankCheck.check_position">
+<span class="sig-name descname"><span class="pre">check_position</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.base.Field" title="mindee.fields.base.Field"><span class="pre">mindee.fields.base.Field</span></a></em><a class="headerlink" href="#mindee.documents.bank_check.BankCheck.check_position" title="Permalink to this definition"></a></dt>
+<dd><p>Check’s position in the image</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.bank_check.BankCheck.checklist">
+<span class="sig-name descname"><span class="pre">checklist</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#mindee.documents.bank_check.BankCheck.checklist" title="Permalink to this definition"></a></dt>
+<dd><p>Validation checks for the document</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.bank_check.BankCheck.date">
+<span class="sig-name descname"><span class="pre">date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.date.Date" title="mindee.fields.date.Date"><span class="pre">mindee.fields.date.Date</span></a></em><a class="headerlink" href="#mindee.documents.bank_check.BankCheck.date" title="Permalink to this definition"></a></dt>
+<dd><p>Date the check was issued</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.bank_check.BankCheck.file_extension">
+<span class="sig-name descname"><span class="pre">file_extension</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.documents.bank_check.BankCheck.file_extension" title="Permalink to this definition"></a></dt>
+<dd><p>File extension of the input document</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.bank_check.BankCheck.filename">
+<span class="sig-name descname"><span class="pre">filename</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.documents.bank_check.BankCheck.filename" title="Permalink to this definition"></a></dt>
+<dd><p>Name of the input document</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.bank_check.BankCheck.filepath">
+<span class="sig-name descname"><span class="pre">filepath</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.documents.bank_check.BankCheck.filepath" title="Permalink to this definition"></a></dt>
+<dd><p>Path of the input document</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.bank_check.BankCheck.orientation">
+<span class="sig-name descname"><span class="pre">orientation</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="field_types.html#mindee.fields.orientation.Orientation" title="mindee.fields.orientation.Orientation"><span class="pre">mindee.fields.orientation.Orientation</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.documents.bank_check.BankCheck.orientation" title="Permalink to this definition"></a></dt>
+<dd><p>Page orientation</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.bank_check.BankCheck.payees">
+<span class="sig-name descname"><span class="pre">payees</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="field_types.html#mindee.fields.base.Field" title="mindee.fields.base.Field"><span class="pre">mindee.fields.base.Field</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#mindee.documents.bank_check.BankCheck.payees" title="Permalink to this definition"></a></dt>
+<dd><p>List of payees (full name or company name)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.bank_check.BankCheck.routing_number">
+<span class="sig-name descname"><span class="pre">routing_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.base.Field" title="mindee.fields.base.Field"><span class="pre">mindee.fields.base.Field</span></a></em><a class="headerlink" href="#mindee.documents.bank_check.BankCheck.routing_number" title="Permalink to this definition"></a></dt>
+<dd><p>Payer’s bank account routing number</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.bank_check.BankCheck.signatures_positions">
+<span class="sig-name descname"><span class="pre">signatures_positions</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="field_types.html#mindee.fields.base.Field" title="mindee.fields.base.Field"><span class="pre">mindee.fields.base.Field</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#mindee.documents.bank_check.BankCheck.signatures_positions" title="Permalink to this definition"></a></dt>
+<dd><p>Signatures’ positions in the image</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.bank_check.BankCheck.type">
+<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#mindee.documents.bank_check.BankCheck.type" title="Permalink to this definition"></a></dt>
 <dd><p>Document type</p>
 </dd></dl>
 
