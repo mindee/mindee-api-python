@@ -35,11 +35,11 @@ class Invoice(Document):
     """Customer's name"""
     customer_address: Field
     """Customer's address"""
-    customer_company_registration: List[TypedField] = []
+    customer_company_registration: List[TypedField]
     """Customer company registration numbers"""
-    payment_details: List[PaymentDetails] = []
+    payment_details: List[PaymentDetails]
     """Payment details"""
-    company_number: List[TypedField] = []
+    company_number: List[TypedField]
     """Company numbers"""
     # orientation is only present on page-level, not document-level
     orientation: Optional[Orientation] = None

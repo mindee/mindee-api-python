@@ -28,7 +28,7 @@ class FinancialDocument(Document):
     """Invoice number"""
     due_date: Date
     """Date the invoice is due"""
-    taxes: List[Tax] = []
+    taxes: List[Tax]
     """List of all taxes"""
     merchant_name: Field
     """Merchant/Supplier's name"""
@@ -38,11 +38,11 @@ class FinancialDocument(Document):
     """Customer's name"""
     customer_address: Field
     """Customer's address"""
-    customer_company_registration: List[TypedField] = []
+    customer_company_registration: List[TypedField]
     """Customer company registration numbers"""
-    payment_details: List[PaymentDetails] = []
+    payment_details: List[PaymentDetails]
     """Payment details"""
-    company_number: List[TypedField] = []
+    company_number: List[TypedField]
     """Company numbers"""
     total_tax: Amount
     """Sum total of all taxes"""
@@ -115,6 +115,9 @@ class FinancialDocument(Document):
             self.merchant_name = receipt.merchant_name
             self.time = receipt.time
             self.total_tax = receipt.total_tax
+            self.customer_company_registration = []
+            self.company_number = []
+            self.payment_details = []
             self.invoice_number = Field({"value": None, "confidence": 0.0})
             self.supplier_address = Field({"value": None, "confidence": 0.0})
             self.customer_name = Field({"value": None, "confidence": 0.0})

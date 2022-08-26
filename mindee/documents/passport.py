@@ -17,7 +17,7 @@ class Passport(Document):
     """Date the passport was issued"""
     surname: Field
     """Holder's last name (surname)"""
-    given_names: List[Field] = []
+    given_names: List[Field]
     """Holder's list of first (given) names"""
     full_name: Field
     """
