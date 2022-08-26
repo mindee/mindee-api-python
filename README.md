@@ -18,13 +18,13 @@ Finally, Python away!
 from mindee import Client
 
 # Init a new client and configure the Invoice API
-mindee_client = Client().config_invoice("my-invoice-api-key")
+mindee_client = Client().config_invoice("my-api-key")
 
 # Load a file from disk and parse it
 api_response = mindee_client.doc_from_path("/path/to/the/invoice.pdf").parse("invoice")
 
 # Print a brief summary of the parsed data
-print(api_response.invoice)
+print(api_response.document)
 ```
 
 ### Custom Document (API Builder)
@@ -33,18 +33,16 @@ from mindee import Client
 
 # Init a new client and configure your custom document
 mindee_client = Client().config_custom_doc(
-      document_type="pokemon-card",
-      singular_name="card",
-      plural_name="cards",
-      account_name="pikachu",
-      api_key="pokemon-card-api-key"
+    account_name="john",
+    document_type="wnine",
+    api_key="my-api-key"
 )
 
 # Load a file from disk and parse it
-api_response = mindee_client.doc_from_path("/path/to/the/card.jpg").parse("pokemon-card")
+api_response = mindee_client.doc_from_path("/path/to/the/card.jpg").parse("wnine")
 
 # Print a brief summary of the parsed data
-print(api_response.card)
+print(api_response.document)
 ```
 
 ## Further Reading

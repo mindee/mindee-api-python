@@ -141,10 +141,10 @@ class Client:
 
     def config_custom_doc(
         self,
-        document_type: str,
-        singular_name: str,
-        plural_name: str,
         account_name: str,
+        document_type: str,
+        singular_name: str = "",
+        plural_name: str = "",
         api_key: str = "",
         version: str = "1",
     ) -> "Client":
