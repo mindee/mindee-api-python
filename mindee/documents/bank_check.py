@@ -13,7 +13,7 @@ class BankCheck(Document):
     """Date the check was issued"""
     amount: Amount
     """Total including taxes"""
-    payees: List[Field] = []
+    payees: List[Field]
     """List of payees (full name or company name)"""
     check_number: Field
     """Check number"""
@@ -23,7 +23,7 @@ class BankCheck(Document):
     """Payer's bank account number"""
     check_position: Field
     """Check's position in the image"""
-    signatures_positions: List[Field] = []
+    signatures_positions: List[Field]
     """Signatures' positions in the image"""
     # orientation is only present on page-level, not document-level
     orientation: Optional[Orientation] = None

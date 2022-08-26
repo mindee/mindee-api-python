@@ -4,7 +4,7 @@ from mindee.documents.base import Document, TypeApiPrediction
 
 
 class CustomDocument(Document):
-    fields: Dict[str, dict] = {}
+    fields: Dict[str, dict]
     """Dictionary of all fields in the document"""
 
     def __init__(
@@ -38,6 +38,7 @@ class CustomDocument(Document):
         :param api_prediction: Raw prediction from HTTP response
         :param page_n: Page number for multi pages pdf input
         """
+        self.fields = {}
         for field_name in api_prediction:
             field = api_prediction[field_name]
             field["page_n"] = page_n

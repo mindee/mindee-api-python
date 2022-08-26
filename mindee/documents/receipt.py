@@ -22,7 +22,7 @@ class Receipt(Document):
     """Service category"""
     merchant_name: Field
     """Merchant's name"""
-    taxes: List[Tax] = []
+    taxes: List[Tax]
     """List of all taxes"""
     total_tax: Amount
     """Sum total of all taxes"""
