@@ -1,0 +1,56 @@
+#
+# Publish releases to PyPi
+#
+name: Publish
+
+on:
+  release:
+    types: [ published ]
+
+jobs:
+  publish:
+    name: Publish release to PyPi
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ "3.8" ]
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-build-${{ hashFiles('setup.cfg') }}
+          restore-keys: |
+            ${{ runner.os }}-build-
+
+      - name: Install dependencies
+        run: python -m pip install -e .[build]
+
+      - name: Build
+        run: |
+          rm -fr ./dist
+          python -m build
+
+      - name: Check
+        run: twine check --strict ./dist/*
+
+      - name: Test Upload
+        env:
+          TWINE_NON_INTERACTIVE: "1"
+          TWINE_USERNAME: ${{ secrets.PYPI_TEST_USERNAME }}
+          TWINE_PASSWORD: ${{ secrets.PYPI_TEST_PASSWORD }}
+        run: twine upload --disable-progress-bar --repository testpypi ./dist/*
+
+#      - name: Upload
+#        env:
+#          TWINE_NON_INTERACTIVE: "1"
+#          TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
+#          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+#        run: twine upload --disable-progress-bar ./dist/*
