@@ -4,12 +4,11 @@
 name: Documentation
 
 on:
-  push:
-      tags:
-        - v**
+  release:
+    types: [ published ]
 
 jobs:
-  static-check:
+  documentation:
     name: Publish Documentation
     runs-on: ubuntu-latest
     strategy:
