@@ -1,5 +1,9 @@
 # Mindee Python API Library Changelog
 
+## v2.5.1 (2022-08-30)
+### Fixes
+* :bug: never use mutable defaults in class definitions (#96)
+
 ## v2.5.0 (2022-08-11)
 ### Changes
 * :lipstick: improve string output of documents
