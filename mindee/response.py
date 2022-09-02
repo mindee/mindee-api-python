@@ -10,6 +10,8 @@ class DocumentResponse:
     """Raw HTTP response JSON"""
     document_type: str
     """Document type"""
+    document: Document
+    pages: List[Document]
 
     def __init__(
         self,
@@ -29,8 +31,14 @@ class DocumentResponse:
         """
         self.http_response = http_response
         self.document_type = document_type
-        setattr(self, doc_config.singular_name, document)
-        setattr(self, doc_config.plural_name, pages)
+        self.document = document
+        self.pages = pages
+
+        # Remove all this magic black box stuff in a future version
+        if doc_config.singular_name:
+            setattr(self, doc_config.singular_name, document)
+        if doc_config.plural_name:
+            setattr(self, doc_config.plural_name, pages)
 
 
 def format_response(
