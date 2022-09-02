@@ -56,6 +56,8 @@ def test_response_wrapper_invoice(dummy_file_input, dummy_config):
     for page in parsed_response.pages:
         assert isinstance(page, Invoice)
     assert isinstance(parsed_response.invoice, Invoice)
+    for page in parsed_response.invoices:
+        assert isinstance(page, Invoice)
 
 
 # Receipt tests
@@ -70,6 +72,8 @@ def test_response_wrapper_receipt(dummy_file_input, dummy_config):
     for page in parsed_response.pages:
         assert isinstance(page, Receipt)
     assert isinstance(parsed_response.receipt, Receipt)
+    for page in parsed_response.receipts:
+        assert isinstance(page, Receipt)
 
 
 # Financial document tests
@@ -86,3 +90,5 @@ def test_response_wrapper_financial_doc_with_receipt(dummy_file_input, dummy_con
     for page in parsed_response.pages:
         assert isinstance(page, FinancialDocument)
     assert isinstance(parsed_response.financial_doc, FinancialDocument)
+    for page in parsed_response.financial_docs:
+        assert isinstance(page, FinancialDocument)
