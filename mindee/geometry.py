@@ -8,6 +8,31 @@ BoundingBox = Tuple[float, float, float, float]
 Quadrilateral = Tuple[Point, Point, Point, Point]
 
 
+def get_bbox_as_polygon(polygon: Polygon) -> Quadrilateral:
+    """
+    Given a sequence of points, calculate a polygon that encompasses all points.
+
+    :param polygon: Sequence of ``Point``
+    :return: Quadrilateral
+    """
+    x_min, y_min, x_max, y_max = get_bbox(polygon)
+    return (x_min, y_min), (x_max, y_min), (x_max, y_max), (x_min, y_max)
+
+
+def get_bbox(polygon: Polygon) -> BoundingBox:
+    """
+    Given a list of points, calculate a bounding box that encompasses all points.
+
+    :param polygon: Sequence of ``Point``
+    :return: BoundingBox
+    """
+    y_min = min(v[1] for v in polygon)
+    y_max = max(v[1] for v in polygon)
+    x_min = min(v[0] for v in polygon)
+    x_max = max(v[0] for v in polygon)
+    return x_min, y_min, x_max, y_max
+
+
 def get_centroid(polygon: Polygon) -> Point:
     """
     Get the central point (centroid) given a list of points.
@@ -53,26 +78,33 @@ def is_point_in_y(point: Point, min_y: float, max_y: float) -> bool:
     return min_y <= point[1] <= max_y
 
 
-def get_bbox_as_polygon(polygon: Polygon) -> Quadrilateral:
+def get_min_max_x(vertices: Polygon) -> Point:
     """
-    Given a sequence of points, calculate a polygon that encompasses all points.
+    Get the maximum and minimum Y value given a list of points.
 
-    :param polygon: Sequence of ``Point``
-    :return: Quadrilateral
+    :param vertices: List of points
     """
-    x_min, y_min, x_max, y_max = get_bbox(polygon)
-    return (x_min, y_min), (x_max, y_min), (x_max, y_max), (x_min, y_max)
+    points = [x for x, _ in vertices]
+    return min(points), max(points)
 
 
-def get_bbox(polygon: Polygon) -> BoundingBox:
+def is_point_in_polygon_x(point: Point, polygon: Polygon) -> bool:
     """
-    Given a list of points, calculate a bounding box that encompasses all points.
+    Determine if the Point is in the Polygon's Y-axis.
 
-    :param polygon: Sequence of ``Point``
-    :return: BoundingBox
+    :param point: Point to compare
+    :param polygon: Polygon to look into
     """
-    y_min = min(v[1] for v in polygon)
-    y_max = max(v[1] for v in polygon)
-    x_min = min(v[0] for v in polygon)
-    x_max = max(v[0] for v in polygon)
-    return x_min, y_min, x_max, y_max
+    min_x, max_x = get_min_max_x(polygon)
+    return is_point_in_x(point, min_x, max_x)
+
+
+def is_point_in_x(point: Point, min_x: float, max_x: float) -> bool:
+    """
+    Determine if the Point is in the Polygon's Y-axis.
+
+    :param point: Point to compare
+    :param min_x: Minimum X-axis value
+    :param max_x: Maximum X-axis value
+    """
+    return min_x <= point[0] <= max_x
