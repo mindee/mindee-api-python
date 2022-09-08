@@ -169,7 +169,7 @@ class FinancialDocument(Document):
             index = 0
         else:
             index = 1
-        return endpoints[index].predict_request(input_file, include_words, close_file)
+        return endpoints[index].predict_req_post(input_file, include_words, close_file)
 
     def _checklist(self) -> None:
         """Set the validation rules."""

@@ -94,14 +94,14 @@ class Endpoint:
             self.api_key = env_key
             logger.debug("Set API key from environment")
 
-    def predict_request(
+    def predict_req_post(
         self,
         input_file: InputDocument,
         include_words: bool = False,
         close_file: bool = True,
     ) -> requests.Response:
         """
-        Make a prediction request.
+        Make a request to POST a document for prediction.
 
         :param input_file: Input object
         :param include_words: Include raw OCR words in the response
@@ -123,11 +123,11 @@ class Endpoint:
 
 
 class CustomEndpoint(Endpoint):
-    def training_request(
+    def training_req_post(
         self, input_file: InputDocument, close_file: bool = True
     ) -> requests.Response:
         """
-        Make a training request.
+        Make a request to POST a document for training.
 
         :param input_file: Input object
         :return: requests response
@@ -144,17 +144,89 @@ class CustomEndpoint(Endpoint):
         )
         return response
 
-    def annotation_request(
+    def training_async_req_post(
+        self, input_file: InputDocument, close_file: bool = True
+    ) -> requests.Response:
+        """
+        Make a request to POST a document for training without processing.
+
+        :param input_file: Input object
+        :return: requests response
+        :param close_file: Whether to `close()` the file after parsing it.
+        """
+        files = {"document": input_file.read_contents(close_file)}
+        params = {"training": True, "async": True}
+
+        response = requests.post(
+            f"{self._url_root}/predict",
+            files=files,
+            headers=self.base_headers,
+            params=params,
+        )
+        return response
+
+    def document_req_get(self, document_id: str) -> requests.Response:
+        """
+        Make a request to GET annotations for a document.
+
+        :param document_id: ID of the document
+        """
+        params = {
+            "include_annotations": True,
+            "include_candidates": True,
+            "global_orientation": True,
+        }
+        response = requests.get(
+            f"{self._url_root}/documents/{document_id}",
+            headers=self.base_headers,
+            params=params,
+        )
+        return response
+
+    def documents_req_post(self, page_n: int = 1) -> requests.Response:
+        """
+        Make a request to GET info on all documents.
+
+        :param page_n: Page number
+        """
+        params = {
+            "page": page_n,
+        }
+        response = requests.get(
+            f"{self._url_root}/documents",
+            headers=self.base_headers,
+            params=params,
+        )
+        return response
+
+    def annotations_req_post(
         self, document_id: str, annotations: dict
     ) -> requests.Response:
         """
-        Make an annotation request.
+        Make a request to POST annotations for a document.
 
         :param document_id: ID of the document to annotate
         :param annotations: Annotations object
         :return: requests response
         """
         response = requests.post(
+            f"{self._url_root}/documents/{document_id}/annotations",
+            headers=self.base_headers,
+            json=annotations,
+        )
+        return response
+
+    def annotations_req_put(
+        self, document_id: str, annotations: dict
+    ) -> requests.Response:
+        """
+        Make a request to PUT annotations for a document.
+
+        :param document_id: ID of the document to annotate
+        :param annotations: Annotations object
+        :return: requests response
+        """
+        response = requests.put(
             f"{self._url_root}/documents/{document_id}/annotations",
             headers=self.base_headers,
             json=annotations,

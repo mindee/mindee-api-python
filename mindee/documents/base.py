@@ -63,7 +63,7 @@ class Document:
         :param include_words: Include Mindee vision words in http_response
         :param close_file: Whether to `close()` the file after parsing it.
         """
-        return endpoints[0].predict_request(input_file, include_words, close_file)
+        return endpoints[0].predict_req_post(input_file, include_words, close_file)
 
     def _build_from_api_prediction(
         self, api_prediction: TypeApiPrediction, page_n: Optional[int] = None
