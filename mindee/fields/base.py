@@ -1,6 +1,6 @@
 from typing import Any, Dict, List, Optional, TypeVar
 
-from mindee.geometry import Polygon, get_bbox_as_polygon
+from mindee.geometry import Polygon, get_bounding_box
 
 TypePrediction = Dict[str, Any]
 
@@ -52,7 +52,7 @@ class Field:
         except KeyError:
             pass
         if self.polygon:
-            self.bbox = get_bbox_as_polygon(self.polygon)
+            self.bbox = get_bounding_box(self.polygon)
 
     def __eq__(self, other: Any) -> bool:
         if not isinstance(other, Field):
