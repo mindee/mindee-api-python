@@ -4,11 +4,11 @@ from typing import Sequence, Tuple
 
 Point = Tuple[float, float]
 Polygon = Sequence[Point]
-BoundingBox = Tuple[float, float, float, float]
+BBox = Tuple[float, float, float, float]
 Quadrilateral = Tuple[Point, Point, Point, Point]
 
 
-def get_bbox_as_polygon(polygon: Polygon) -> Quadrilateral:
+def get_bounding_box(polygon: Polygon) -> Quadrilateral:
     """
     Given a sequence of points, calculate a polygon that encompasses all points.
 
@@ -19,7 +19,7 @@ def get_bbox_as_polygon(polygon: Polygon) -> Quadrilateral:
     return (x_min, y_min), (x_max, y_min), (x_max, y_max), (x_min, y_max)
 
 
-def get_bbox(polygon: Polygon) -> BoundingBox:
+def get_bbox(polygon: Polygon) -> BBox:
     """
     Given a list of points, calculate a bounding box that encompasses all points.
 
@@ -31,6 +31,20 @@ def get_bbox(polygon: Polygon) -> BoundingBox:
     x_min = min(v[0] for v in polygon)
     x_max = max(v[0] for v in polygon)
     return x_min, y_min, x_max, y_max
+
+
+def get_bounding_box_for_polygons(vertices: Sequence[Polygon]) -> Quadrilateral:
+    """
+    Given a list of polygons, calculate a polygon that encompasses all polygons.
+
+    :param vertices: List of polygons
+    :return: Quadrilateral
+    """
+    y_min = min(y for v in vertices for _, y in v)
+    y_max = max(y for v in vertices for _, y in v)
+    x_min = min(x for v in vertices for x, _ in v)
+    x_max = max(x for v in vertices for x, _ in v)
+    return (x_min, y_min), (x_max, y_min), (x_max, y_max), (x_min, y_max)
 
 
 def get_centroid(polygon: Polygon) -> Point:

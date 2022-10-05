@@ -27,20 +27,20 @@ def test_bbox(rectangle_a, rectangle_b, quadrangle_a):
     assert geometry.get_bbox(quadrangle_a) == (0.205, 0.407, 0.381, 0.43)
 
 
-def test_bbox_polygon(rectangle_a, rectangle_b, quadrangle_a):
-    assert geometry.get_bbox_as_polygon(rectangle_a) == (
+def test_bounding_box_single_polygon(rectangle_a, rectangle_b, quadrangle_a):
+    assert geometry.get_bounding_box(rectangle_a) == (
         (0.123, 0.53),
         (0.175, 0.53),
         (0.175, 0.546),
         (0.123, 0.546),
     )
-    assert geometry.get_bbox_as_polygon(rectangle_b) == (
+    assert geometry.get_bounding_box(rectangle_b) == (
         (0.124, 0.535),
         (0.19, 0.535),
         (0.19, 0.546),
         (0.124, 0.546),
     )
-    assert geometry.get_bbox_as_polygon(quadrangle_a) == (
+    assert geometry.get_bounding_box(quadrangle_a) == (
         (0.205, 0.407),
         (0.381, 0.407),
         (0.381, 0.43),
@@ -80,3 +80,12 @@ def test_is_point_in_polygon_x(rectangle_a, rectangle_b, quadrangle_a):
 
 def test_get_centroid(rectangle_a):
     assert geometry.get_centroid(rectangle_a) == (0.149, 0.538)
+
+
+def test_bounding_box_several_polygons(rectangle_b, quadrangle_a):
+    assert geometry.get_bounding_box_for_polygons((rectangle_b, quadrangle_a)) == (
+        (0.124, 0.407),
+        (0.381, 0.407),
+        (0.381, 0.546),
+        (0.124, 0.546),
+    )
