@@ -4,7 +4,7 @@ import pikepdf
 import pytest
 
 from mindee.inputs import Base64Document, BytesDocument, FileDocument, PathDocument
-from tests import INVOICE_DATA_DIR, RECEIPT_DATA_DIR
+from tests import INVOICE_DATA_DIR, PDF_DATA_DIR, RECEIPT_DATA_DIR
 
 #
 # PDF
@@ -45,7 +45,7 @@ def test_pdf_reconstruct_no_cut():
 @pytest.mark.parametrize("numb_pages", [1, 2, 3])
 def test_pdf_check_n_pages(numb_pages: int):
     input_obj_1 = PathDocument(
-        "./tests/data/pdfs/multipage.pdf",
+        f"{PDF_DATA_DIR}/multipage.pdf",
         cut_pdf=True,
         n_pdf_pages=numb_pages,
     )
@@ -55,7 +55,7 @@ def test_pdf_check_n_pages(numb_pages: int):
     # Each page in the PDF has a unique (and increasing) /Content /Length.
     # We use this to make sure we have the correct pages
     cut_pdf = pikepdf.open(input_obj_1.file_object)
-    with pikepdf.open(f"./tests/data/pdfs/multipage_cut-{numb_pages}.pdf") as pdf:
+    with pikepdf.open(f"{PDF_DATA_DIR}/multipage_cut-{numb_pages}.pdf") as pdf:
         for idx, page in enumerate(pdf.pages):
             assert (
                 page["/Contents"]["/Length"]
@@ -107,12 +107,12 @@ def test_pdf_input_from_bytes():
 
 def test_pdf_blank_check():
     with pytest.raises(AssertionError):
-        PathDocument("./tests/data/pdfs/blank.pdf")
+        PathDocument(f"{PDF_DATA_DIR}/blank.pdf")
 
     with pytest.raises(AssertionError):
-        PathDocument("./tests/data/pdfs/blank_1.pdf")
+        PathDocument(f"{PDF_DATA_DIR}/blank_1.pdf")
 
-    input_not_blank = PathDocument("./tests/data/pdfs/not_blank_image_only.pdf")
+    input_not_blank = PathDocument(f"{PDF_DATA_DIR}/not_blank_image_only.pdf")
     assert input_not_blank.count_pdf_pages() == 1
 
 
