@@ -126,10 +126,10 @@ class FinancialDocument(Document):
     def __str__(self) -> str:
         return (
             "-----Financial Document data-----\n"
-            "Filename: %s \n"
-            "Invoice number: %s \n"
-            "Total amount including taxes: %s \n"
-            "Total amount excluding taxes: %s \n"
+            f"Filename: {self.filename or ''}".rstrip() + "\n"
+            f"Invoice number: {self.invoice_number.value}\n"
+            f"Total amount including taxes: {self.total_incl.value}\n"
+            f"Total amount excluding taxes: {self.total_excl.value}\n"
             "Date: %s\n"
             "Invoice due date: %s\n"
             "Supplier name: %s\n"
@@ -141,10 +141,6 @@ class FinancialDocument(Document):
             "Total taxes: %s\n"
             "----------------------"
             % (
-                self.filename,
-                self.invoice_number.value,
-                self.total_incl.value,
-                self.total_excl.value,
                 self.date.value,
                 self.due_date.value,
                 self.merchant_name.value,

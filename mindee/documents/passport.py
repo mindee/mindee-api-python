@@ -95,7 +95,7 @@ class Passport(Document):
         )
         return (
             "-----Passport data-----\n"
-            f"Filename: {self.filename}\n"
+            f"Filename: {self.filename or ''}".rstrip() + "\n"
             f"Full name: {self.full_name}\n"
             f"Given names: {given_names}\n"
             f"Surname: {self.surname}\n"

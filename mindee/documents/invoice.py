@@ -130,7 +130,7 @@ class Invoice(Document):
         taxes = "\n       ".join(f"{t}" for t in self.taxes)
         return (
             "-----Invoice data-----\n"
-            f"Filename: {self.filename}\n"
+            f"Filename: {self.filename or ''}".rstrip() + "\n"
             f"Invoice number: {self.invoice_number}\n"
             f"Total amount including taxes: {self.total_incl}\n"
             f"Total amount excluding taxes: {self.total_excl}\n"
