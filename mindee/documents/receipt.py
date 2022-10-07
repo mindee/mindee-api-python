@@ -57,7 +57,7 @@ class Receipt(Document):
         taxes = "\n       ".join(f"{t}" for t in self.taxes)
         return (
             "-----Receipt data-----\n"
-            f"Filename: {self.filename}\n"
+            f"Filename: {self.filename or ''}".rstrip() + "\n"
             f"Total amount including taxes: {self.total_incl}\n"
             f"Total amount excluding taxes: {self.total_excl}\n"
             f"Date: {self.date}\n"

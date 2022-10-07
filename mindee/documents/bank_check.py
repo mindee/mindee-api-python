@@ -82,7 +82,7 @@ class BankCheck(Document):
         )
         return (
             "-----Bank check data-----\n"
-            f"Filename: {self.filename}\n"
+            f"Filename: {self.filename or ''}".rstrip() + "\n"
             f"Routing number: {self.routing_number}\n"
             f"Account number: {self.account_number}\n"
             f"Check number: {self.check_number}\n"
