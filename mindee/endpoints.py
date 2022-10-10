@@ -88,9 +88,11 @@ class Endpoint:
     def set_api_key_from_env(self) -> None:
         """Set the endpoint's API key from an environment variable, if present."""
         env_key = os.getenv(self.envvar_key_name, "")
+        if not env_key:
+            env_key = os.getenv("MINDEE_API_KEY", "")
         if env_key:
             self.api_key = env_key
-            logger.debug("Set from environment: %s", self.envvar_key_name)
+            logger.debug("Set API key from environment")
 
     def predict_request(
         self,
