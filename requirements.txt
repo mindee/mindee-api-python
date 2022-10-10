@@ -4,25 +4,29 @@
 #
 #    pip-compile
 #
-certifi==2022.6.15
+certifi==2022.9.24
     # via requests
-charset-normalizer==2.1.0
+charset-normalizer==2.1.1
     # via requests
-idna==3.3
+deprecation==2.1.0
+    # via pikepdf
+idna==3.4
     # via requests
 lxml==4.9.1
     # via pikepdf
 packaging==21.3
-    # via pikepdf
-pikepdf==5.1.2
+    # via
+    #   deprecation
+    #   pikepdf
+pikepdf==5.6.1
     # via mindee (setup.py)
 pillow==9.2.0
     # via pikepdf
 pyparsing==3.0.9
     # via packaging
-pytz==2022.1
+pytz==2022.4
     # via mindee (setup.py)
 requests==2.28.1
     # via mindee (setup.py)
-urllib3==1.26.11
+urllib3==1.26.12
     # via requests
