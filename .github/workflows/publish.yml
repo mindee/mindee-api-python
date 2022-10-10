@@ -48,9 +48,9 @@ jobs:
           TWINE_PASSWORD: ${{ secrets.PYPI_TEST_PASSWORD }}
         run: twine upload --disable-progress-bar --repository testpypi ./dist/*
 
-#      - name: Upload
-#        env:
-#          TWINE_NON_INTERACTIVE: "1"
-#          TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-#          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-#        run: twine upload --disable-progress-bar ./dist/*
+      - name: Upload
+        env:
+          TWINE_NON_INTERACTIVE: "1"
+          TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
+          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+        run: twine upload --disable-progress-bar ./dist/*
