@@ -4,6 +4,7 @@ from argparse import Namespace
 from typing import Dict, Union
 
 from mindee import Client
+from mindee.client import DocumentClient
 from mindee.documents.base import serialize_for_json
 
 DOCUMENTS: Dict[str, Dict[str, Union[list, str]]] = {
@@ -58,6 +59,19 @@ def _custom_client(args: Namespace):
     return client
 
 
+def _get_input_doc(client, args) -> DocumentClient:
+    if args.input_type == "file":
+        with open(args.path, "rb", buffering=30) as file_handle:
+            return client.doc_from_file(file_handle)
+    elif args.input_type == "base64":
+        with open(args.path, "rt", encoding="ascii") as base64_handle:
+            return client.doc_from_b64string(base64_handle.read(), "test.jpg")
+    elif args.input_type == "bytes":
+        with open(args.path, "rb") as bytes_handle:
+            return client.doc_from_bytes(bytes_handle.read(), bytes_handle.name)
+    return client.doc_from_path(args.path)
+
+
 def call_endpoint(args: Namespace):
     """Call the endpoint given passed arguments."""
     if args.product_name == "custom":
@@ -68,26 +82,20 @@ def call_endpoint(args: Namespace):
         client = _ots_client(args, info)
         doc_type = info["doc_type"]
 
-    if args.input_type == "file":
-        with open(args.path, "rb", buffering=30) as file_handle:
-            doc_to_parse = client.doc_from_file(file_handle, cut_pdf=args.cut_pdf)
-    elif args.input_type == "base64":
-        with open(args.path, "rt", encoding="ascii") as base64_handle:
-            doc_to_parse = client.doc_from_b64string(
-                base64_handle.read(), "test.jpg", cut_pdf=args.cut_pdf
-            )
-    elif args.input_type == "bytes":
-        with open(args.path, "rb") as bytes_handle:
-            doc_to_parse = client.doc_from_bytes(
-                bytes_handle.read(), bytes_handle.name, cut_pdf=args.cut_pdf
-            )
-    else:
-        doc_to_parse = client.doc_from_path(args.path, cut_pdf=args.cut_pdf)
+    input_doc = _get_input_doc(client, args)
 
-    if args.product_name == "custom":
-        parsed_data = doc_to_parse.parse(doc_type, username=args.username)
+    if args.cut_pdf and args.pdf_pages:
+        num_pdf_pages = args.pdf_pages
     else:
-        parsed_data = doc_to_parse.parse(doc_type, include_words=args.include_words)
+        num_pdf_pages = None
+    if args.product_name == "custom":
+        parsed_data = input_doc.parse(
+            doc_type, username=args.username, num_pdf_pages=num_pdf_pages
+        )
+    else:
+        parsed_data = input_doc.parse(
+            doc_type, include_words=args.include_words, num_pdf_pages=num_pdf_pages
+        )
 
     if args.output_type == "raw":
         print(json.dumps(parsed_data.http_response, indent=2))

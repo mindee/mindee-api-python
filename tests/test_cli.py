@@ -17,6 +17,7 @@ def custom_doc(monkeypatch):
         api_key="dummy",
         raise_on_error=True,
         cut_pdf=True,
+        pdf_pages=3,
         input_type="path",
         output_type="summary",
         include_words=False,
@@ -30,6 +31,7 @@ def ots_doc(monkeypatch):
     return Namespace(
         raise_on_error=True,
         cut_pdf=True,
+        pdf_pages=3,
         input_type="path",
         output_type="summary",
         include_words=False,
