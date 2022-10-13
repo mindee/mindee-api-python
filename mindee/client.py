@@ -49,6 +49,8 @@ class DocumentClient:
         username: Optional[str] = None,
         include_words: bool = False,
         close_file: bool = True,
+        num_pdf_pages: Optional[int] = 3,
+        pdf_pages_list: Optional[list] = None,
     ) -> DocumentResponse:
         """
         Call prediction API on the document and parse the results.
@@ -58,6 +60,12 @@ class DocumentClient:
         :param include_words: Include all the words of the document in the response
         :param close_file: Whether to `close()` the file after parsing it.
             Set to `False` if you need to access the file after this operation.
+        :param num_pdf_pages: Number (between 1 and 3 incl.) of pages to reconstruct a PDF with.
+
+            * if 1: first page
+            * if 2: first page, penultimate page
+            * if 3: first page, penultimate page, last page
+        :param pdf_pages_list: List of specific pages in the PDF to keep
         """
         logger.debug("Parsing document as '%s'", document_type)
 
@@ -86,6 +94,8 @@ class DocumentClient:
 
         doc_config = self.doc_configs[config_key]
         doc_config.check_api_keys()
+        if self.input_doc.is_pdf():
+            self.input_doc.process_pdf(num_pdf_pages, pdf_pages_list)
         return self._make_request(doc_config, include_words, close_file)
 
     def _make_request(
@@ -268,21 +278,13 @@ class Client:
     def doc_from_path(
         self,
         input_path: str,
-        cut_pdf: bool = True,
-        cut_pdf_mode: int = 3,
     ) -> DocumentClient:
         """
         Load a document from an absolute path, as a string.
 
         :param input_path: Path of file to open
-        :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a PDF with.
-
-            * if 1: first page
-            * if 2: first page, penultimate page
-            * if 3: first page, penultimate page, last page
-        :param cut_pdf: Automatically reconstruct a PDF with more than 4 pages
         """
-        input_doc = PathDocument(input_path, cut_pdf=cut_pdf, n_pdf_pages=cut_pdf_mode)
+        input_doc = PathDocument(input_path)
         return DocumentClient(
             input_doc=input_doc,
             doc_configs=self._doc_configs,
@@ -292,24 +294,14 @@ class Client:
     def doc_from_file(
         self,
         input_file: BinaryIO,
-        cut_pdf: bool = True,
-        cut_pdf_mode: int = 3,
     ) -> DocumentClient:
         """
         Load a document from a normal Python file object/handle.
 
         :param input_file: Input file handle
-        :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a PDF with.
-
-            * if 1: first page
-            * if 2: first page, penultimate page
-            * if 3: first page, penultimate page, last page
-        :param cut_pdf: Automatically reconstruct a PDF with more than 4 pages
         """
         input_doc = FileDocument(
             input_file,
-            cut_pdf=cut_pdf,
-            n_pdf_pages=cut_pdf_mode,
         )
         return DocumentClient(
             input_doc=input_doc,
@@ -321,26 +313,16 @@ class Client:
         self,
         input_string: str,
         filename: str,
-        cut_pdf: bool = True,
-        cut_pdf_mode: int = 3,
     ) -> DocumentClient:
         """
         Load a document from a base64 encoded string.
 
         :param input_string: Input to parse as base64 string
         :param filename: The name of the file (without the path)
-        :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a PDF with.
-
-            * if 1: first page
-            * if 2: first page, penultimate page
-            * if 3: first page, penultimate page, last page
-        :param cut_pdf: Automatically reconstruct a PDF with more than 4 pages
         """
         input_doc = Base64Document(
             input_string,
             filename,
-            cut_pdf=cut_pdf,
-            n_pdf_pages=cut_pdf_mode,
         )
         return DocumentClient(
             input_doc=input_doc,
@@ -352,26 +334,16 @@ class Client:
         self,
         input_bytes: bytes,
         filename: str,
-        cut_pdf: bool = True,
-        cut_pdf_mode: int = 3,
     ) -> DocumentClient:
         """
         Load a document from raw bytes.
 
         :param input_bytes: Raw byte input
         :param filename: The name of the file (without the path)
-        :param cut_pdf_mode: Number (between 1 and 3 incl.) of pages to reconstruct a PDF with.
-
-            * if 1: first page
-            * if 2: first page, penultimate page
-            * if 3: first page, penultimate page, last page
-        :param cut_pdf: Automatically reconstruct a PDF with more than 4 pages
         """
         input_doc = BytesDocument(
             input_bytes,
             filename,
-            cut_pdf=cut_pdf,
-            n_pdf_pages=cut_pdf_mode,
         )
         return DocumentClient(
             input_doc=input_doc,

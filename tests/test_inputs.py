@@ -13,16 +13,14 @@ from tests import INVOICE_DATA_DIR, PDF_DATA_DIR, RECEIPT_DATA_DIR
 
 def test_pdf_reconstruct_fail():
     with pytest.raises(AssertionError):
-        PathDocument(
-            f"{INVOICE_DATA_DIR}/invoice_10p.pdf",
-            cut_pdf=True,
-            n_pdf_pages=4,
-        )
+        input_obj = PathDocument(f"{INVOICE_DATA_DIR}/invoice_10p.pdf")
+        input_obj.process_pdf(num_pdf_pages=4)
 
 
 def test_pdf_reconstruct_ok():
-    input_file = PathDocument(f"{INVOICE_DATA_DIR}/invoice_10p.pdf")
-    assert isinstance(input_file.file_object, io.BytesIO)
+    input_obj = PathDocument(f"{INVOICE_DATA_DIR}/invoice_10p.pdf")
+    input_obj.process_pdf(num_pdf_pages=2)
+    assert isinstance(input_obj.file_object, io.BytesIO)
 
 
 def test_pdf_read_contents():
@@ -37,24 +35,21 @@ def test_pdf_read_contents():
 
 
 def test_pdf_reconstruct_no_cut():
-    input_file = PathDocument(f"{INVOICE_DATA_DIR}/invoice_10p.pdf", cut_pdf=False)
+    input_file = PathDocument(f"{INVOICE_DATA_DIR}/invoice_10p.pdf")
     assert input_file.count_pdf_pages() == 10
     assert isinstance(input_file.file_object, io.BufferedReader)
 
 
 @pytest.mark.parametrize("numb_pages", [1, 2, 3])
-def test_pdf_check_n_pages(numb_pages: int):
-    input_obj_1 = PathDocument(
-        f"{PDF_DATA_DIR}/multipage.pdf",
-        cut_pdf=True,
-        n_pdf_pages=numb_pages,
-    )
-    assert input_obj_1.file_mimetype == "application/pdf"
-    assert input_obj_1.count_pdf_pages() == numb_pages
+def test_pdf_cut_n_pages(numb_pages: int):
+    input_obj = PathDocument(f"{PDF_DATA_DIR}/multipage.pdf")
+    assert input_obj.is_pdf() is True
+    input_obj.process_pdf(num_pdf_pages=numb_pages)
+    assert input_obj.count_pdf_pages() == numb_pages
 
     # Each page in the PDF has a unique (and increasing) /Content /Length.
     # We use this to make sure we have the correct pages
-    cut_pdf = pikepdf.open(input_obj_1.file_object)
+    cut_pdf = pikepdf.open(input_obj.file_object)
     with pikepdf.open(f"{PDF_DATA_DIR}/multipage_cut-{numb_pages}.pdf") as pdf:
         for idx, page in enumerate(pdf.pages):
             assert (
@@ -64,53 +59,52 @@ def test_pdf_check_n_pages(numb_pages: int):
     cut_pdf.close()
 
 
+def test_pdf_specify_pages():
+    input_obj = PathDocument(f"{PDF_DATA_DIR}/multipage.pdf")
+    assert input_obj.is_pdf() is True
+    input_obj.process_pdf(pdf_pages_list=[0, 1, 2, 3, 4])
+    assert input_obj.count_pdf_pages() == 5
+
+
 def test_pdf_input_from_path():
-    input_obj_1 = PathDocument(
-        f"{INVOICE_DATA_DIR}/invoice_10p.pdf",
-        cut_pdf=True,
-        n_pdf_pages=1,
-    )
-    assert input_obj_1.file_mimetype == "application/pdf"
-    assert input_obj_1.count_pdf_pages() == 1
+    input_obj = PathDocument(f"{INVOICE_DATA_DIR}/invoice_10p.pdf")
+    assert input_obj.is_pdf() is True
+    input_obj.process_pdf(num_pdf_pages=1)
+    assert input_obj.count_pdf_pages() == 1
 
 
 def test_pdf_input_from_file():
     with open(f"{INVOICE_DATA_DIR}/invoice_10p.pdf", "rb") as fp:
-        input_obj_1 = FileDocument(fp, cut_pdf=True, n_pdf_pages=1)
-    assert input_obj_1.file_mimetype == "application/pdf"
-    assert input_obj_1.count_pdf_pages() == 1
+        input_obj = FileDocument(fp)
+        assert input_obj.is_pdf() is True
+        input_obj.process_pdf(num_pdf_pages=1)
+    assert input_obj.count_pdf_pages() == 1
 
 
 def test_pdf_input_from_base64():
     with open(f"{INVOICE_DATA_DIR}/invoice_10p.txt", "rt") as fp:
-        input_obj_1 = Base64Document(
-            fp.read(),
-            filename="invoice_10p.pdf",
-            cut_pdf=True,
-            n_pdf_pages=1,
-        )
-    assert input_obj_1.file_mimetype == "application/pdf"
-    assert input_obj_1.count_pdf_pages() == 1
+        input_obj = Base64Document(fp.read(), filename="invoice_10p.pdf")
+    assert input_obj.is_pdf() is True
+    input_obj.process_pdf(num_pdf_pages=1)
+    assert input_obj.count_pdf_pages() == 1
 
 
 def test_pdf_input_from_bytes():
     with open(f"{INVOICE_DATA_DIR}/invoice_10p.pdf", "rb") as fp:
-        input_obj_1 = BytesDocument(
-            fp.read(),
-            filename="invoice_10p.pdf",
-            cut_pdf=True,
-            n_pdf_pages=1,
-        )
-    assert input_obj_1.file_mimetype == "application/pdf"
-    assert input_obj_1.count_pdf_pages() == 1
+        input_obj = BytesDocument(fp.read(), filename="invoice_10p.pdf")
+    assert input_obj.is_pdf() is True
+    input_obj.process_pdf(num_pdf_pages=1)
+    assert input_obj.count_pdf_pages() == 1
 
 
 def test_pdf_blank_check():
     with pytest.raises(AssertionError):
-        PathDocument(f"{PDF_DATA_DIR}/blank.pdf")
+        input_obj = PathDocument(f"{PDF_DATA_DIR}/blank.pdf")
+        input_obj.process_pdf(num_pdf_pages=3)
 
     with pytest.raises(AssertionError):
-        PathDocument(f"{PDF_DATA_DIR}/blank_1.pdf")
+        input_obj = PathDocument(f"{PDF_DATA_DIR}/blank_1.pdf")
+        input_obj.process_pdf(num_pdf_pages=3)
 
     input_not_blank = PathDocument(f"{PDF_DATA_DIR}/not_blank_image_only.pdf")
     assert input_not_blank.count_pdf_pages() == 1
@@ -122,25 +116,13 @@ def test_pdf_blank_check():
 
 
 def test_tif_input_from_path():
-    input_obj_1 = PathDocument(
-        f"{RECEIPT_DATA_DIR}/receipt.tif",
-        cut_pdf=True,
-        n_pdf_pages=1,
-    )
+    input_obj_1 = PathDocument(f"{RECEIPT_DATA_DIR}/receipt.tif")
     assert input_obj_1.file_mimetype == "image/tiff"
 
-    input_obj_2 = PathDocument(
-        f"{RECEIPT_DATA_DIR}/receipt.tiff",
-        cut_pdf=True,
-        n_pdf_pages=1,
-    )
+    input_obj_2 = PathDocument(f"{RECEIPT_DATA_DIR}/receipt.tiff")
     assert input_obj_2.file_mimetype == "image/tiff"
 
 
 def test_heic_input_from_path():
-    input_obj_1 = PathDocument(
-        f"{RECEIPT_DATA_DIR}/receipt.heic",
-        cut_pdf=True,
-        n_pdf_pages=1,
-    )
+    input_obj_1 = PathDocument(f"{RECEIPT_DATA_DIR}/receipt.heic")
     assert input_obj_1.file_mimetype == "image/heic"
