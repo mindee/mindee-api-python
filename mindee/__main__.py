@@ -119,6 +119,7 @@ def _parse_args() -> Namespace:
                 "-u",
                 "--user",
                 dest="username",
+                required=True,
                 help="API account name for the endpoint",
             )
             subp.add_argument(
