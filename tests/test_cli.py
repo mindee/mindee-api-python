@@ -16,8 +16,8 @@ def custom_doc(monkeypatch):
         username="mindee",
         api_key="dummy",
         raise_on_error=True,
-        cut_pdf=True,
-        pdf_pages=3,
+        cut_doc=True,
+        doc_pages=3,
         input_type="path",
         output_type="summary",
         include_words=False,
@@ -30,8 +30,8 @@ def ots_doc(monkeypatch):
     clear_envvars(monkeypatch)
     return Namespace(
         raise_on_error=True,
-        cut_pdf=True,
-        pdf_pages=3,
+        cut_doc=True,
+        doc_pages=3,
         input_type="path",
         output_type="summary",
         include_words=False,

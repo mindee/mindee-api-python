@@ -1,6 +1,6 @@
 import pytest
 
-from mindee import Client, DocumentResponse
+from mindee import Client, CutOptions, DocumentResponse
 from mindee.endpoints import HTTPException
 from tests import INVOICE_DATA_DIR, PASSPORT_DATA_DIR, RECEIPT_DATA_DIR
 from tests.utils import clear_envvars, dummy_envvars
@@ -197,3 +197,16 @@ def test_keep_file_open(dummy_client):
     assert not doc.input_doc.file_object.closed
     doc.close()
     assert doc.input_doc.file_object.closed
+
+
+def test_cut_options(dummy_client):
+    doc = dummy_client.doc_from_path(f"{INVOICE_DATA_DIR}/invoice_10p.pdf")
+    try:
+        # need to keep file open to count the pages after parsing
+        doc.parse(
+            "invoice", close_file=False, cut_options=CutOptions(page_numbers=range(5))
+        )
+    except HTTPException:
+        pass
+    assert doc.input_doc.count_pdf_pages() == 5
+    doc.close()

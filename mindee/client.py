@@ -1,5 +1,5 @@
 import json
-from typing import BinaryIO, Dict, Optional
+from typing import BinaryIO, Dict, NamedTuple, Optional, Sequence
 
 from mindee.document_config import DocumentConfig, DocumentConfigDict
 from mindee.documents.bank_check import BankCheck
@@ -28,6 +28,15 @@ from mindee.logger import logger
 from mindee.response import DocumentResponse, format_response
 
 
+class CutOptions(NamedTuple):
+    page_numbers: Sequence
+    """page numbers (indexes), 0 is the first page"""
+    behavior: str = "keep"
+    """`keep` or `remove`"""
+    on_min_pages: int = 5
+    """Apply cut operation if document has at least this many pages."""
+
+
 class DocumentClient:
     input_doc: InputDocument
     doc_configs: DocumentConfigDict
@@ -49,8 +58,7 @@ class DocumentClient:
         username: Optional[str] = None,
         include_words: bool = False,
         close_file: bool = True,
-        num_pdf_pages: Optional[int] = 3,
-        pdf_pages_list: Optional[list] = None,
+        cut_options: Optional[CutOptions] = None,
     ) -> DocumentResponse:
         """
         Call prediction API on the document and parse the results.
@@ -60,12 +68,7 @@ class DocumentClient:
         :param include_words: Include all the words of the document in the response
         :param close_file: Whether to `close()` the file after parsing it.
             Set to `False` if you need to access the file after this operation.
-        :param num_pdf_pages: Number (between 1 and 3 incl.) of pages to reconstruct a PDF with.
-
-            * if 1: first page
-            * if 2: first page, penultimate page
-            * if 3: first page, penultimate page, last page
-        :param pdf_pages_list: List of specific pages in the PDF to keep
+        :param cut_options: CutOptions object for cutting multipage documents.
         """
         logger.debug("Parsing document as '%s'", document_type)
 
@@ -94,8 +97,10 @@ class DocumentClient:
 
         doc_config = self.doc_configs[config_key]
         doc_config.check_api_keys()
-        if self.input_doc.is_pdf():
-            self.input_doc.process_pdf(num_pdf_pages, pdf_pages_list)
+        if cut_options and self.input_doc.is_pdf():
+            self.input_doc.process_pdf(
+                cut_options.behavior, cut_options.on_min_pages, cut_options.page_numbers
+            )
         return self._make_request(doc_config, include_words, close_file)
 
     def _make_request(
