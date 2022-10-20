@@ -2,7 +2,7 @@ import datetime
 from typing import Any, Dict, List, Optional, Type
 
 from mindee.endpoints import Endpoint
-from mindee.inputs import InputDocument
+from mindee.input.sources import InputSource
 
 TypeApiPrediction = Dict[str, Any]
 
@@ -14,7 +14,7 @@ def serialize_for_json(obj: Any) -> Any:
     Use as the `default` argument of the `json.dump` functions.
     """
     if isinstance(obj, datetime.date):
-        return obj.__str__()
+        return str(obj)
     return vars(obj)
 
 
@@ -32,15 +32,15 @@ class Document:
 
     def __init__(
         self,
-        input_file: InputDocument,
+        input_source: InputSource,
         document_type: str,
         api_prediction: TypeApiPrediction,
         page_n: Optional[int] = None,
     ):
-        if input_file:
-            self.filepath = input_file.filepath
-            self.filename = input_file.filename
-            self.file_extension = input_file.file_mimetype
+        if input_source:
+            self.filepath = input_source.filepath
+            self.filename = input_source.filename
+            self.file_extension = input_source.file_mimetype
 
         self.type = document_type
 
@@ -51,19 +51,19 @@ class Document:
     @staticmethod
     def request(
         endpoints: List[Endpoint],
-        input_file: InputDocument,
+        input_source: InputSource,
         include_words: bool = False,
         close_file: bool = True,
     ):
         """
         Make request to prediction endpoint.
 
-        :param input_file: Input object
+        :param input_source: Input object
         :param endpoints: Endpoints config
         :param include_words: Include Mindee vision words in http_response
         :param close_file: Whether to `close()` the file after parsing it.
         """
-        return endpoints[0].predict_req_post(input_file, include_words, close_file)
+        return endpoints[0].predict_req_post(input_source, include_words, close_file)
 
     def _build_from_api_prediction(
         self, api_prediction: TypeApiPrediction, page_n: Optional[int] = None

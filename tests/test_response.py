@@ -6,31 +6,31 @@ from mindee import Client
 from mindee.documents.base import Document
 from mindee.documents.financial_document import FinancialDocument
 from mindee.documents.invoice import Invoice
+from mindee.documents.passport import Passport
 from mindee.documents.receipt import Receipt
-from mindee.inputs import PathDocument
-from mindee.response import format_response
+from mindee.input.sources import PathInput
+from mindee.response import PredictResponse
 from tests.documents.test_invoice import INVOICE_FILE_PATH
+from tests.documents.test_passport import PASSPORT_FILE_PATH
 from tests.documents.test_receipt import RECEIPT_FILE_PATH
 
 
 @pytest.fixture
 def dummy_file_input():
-    file_input = PathDocument("./tests/data/receipt/receipt.jpg")
+    file_input = PathInput("./tests/data/receipt/receipt.jpg")
     return file_input
 
 
 @pytest.fixture
 def dummy_config():
     client = (
-        Client()
-        .config_receipt("dummy")
-        .config_invoice("dummy")
-        .config_passport("dummy")
-        .config_financial_doc("dummy", "dummy")
+        Client(api_key="dummy")
+        .config_receipt()
+        .config_invoice()
+        .config_passport()
+        .config_financial_doc()
         .config_custom_doc(
-            document_type="dummy",
-            singular_name="dummy",
-            plural_name="dummies",
+            endpoint_name="dummy",
             account_name="dummy",
         )
     )
@@ -42,53 +42,53 @@ def test_constructor(dummy_file_input):
         Document(dummy_file_input, document_type="receipt", api_prediction={}, page_n=0)
 
 
-# Invoice tests
-
-
-def test_response_wrapper_invoice(dummy_file_input, dummy_config):
+def test_response_invoice(dummy_file_input, dummy_config):
     response = json.load(open(INVOICE_FILE_PATH))
-    parsed_response = format_response(
-        dummy_config[("mindee", "invoice")],
-        response,
-        dummy_file_input,
+    parsed_response = PredictResponse[Invoice](
+        doc_config=dummy_config[("mindee", "invoice")],
+        http_response=response,
+        input_source=dummy_file_input,
+        response_ok=True,
     )
     assert isinstance(parsed_response.document, Invoice)
     for page in parsed_response.pages:
         assert isinstance(page, Invoice)
-    assert isinstance(parsed_response.invoice, Invoice)
-    for page in parsed_response.invoices:
-        assert isinstance(page, Invoice)
 
 
-# Receipt tests
-
-
-def test_response_wrapper_receipt(dummy_file_input, dummy_config):
+def test_response_receipt(dummy_file_input, dummy_config):
     response = json.load(open(RECEIPT_FILE_PATH))
-    parsed_response = format_response(
-        dummy_config[("mindee", "receipt")], response, dummy_file_input
+    parsed_response = PredictResponse[Receipt](
+        doc_config=dummy_config[("mindee", "receipt")],
+        http_response=response,
+        input_source=dummy_file_input,
+        response_ok=True,
     )
     assert isinstance(parsed_response.document, Receipt)
     for page in parsed_response.pages:
         assert isinstance(page, Receipt)
-    assert isinstance(parsed_response.receipt, Receipt)
-    for page in parsed_response.receipts:
-        assert isinstance(page, Receipt)
 
 
-# Financial document tests
-
-
-def test_response_wrapper_financial_doc_with_receipt(dummy_file_input, dummy_config):
+def test_response_financial_doc_with_receipt(dummy_file_input, dummy_config):
     response = json.load(open(RECEIPT_FILE_PATH))
-    parsed_response = format_response(
-        dummy_config[("mindee", "financial_doc")],
-        response,
-        dummy_file_input,
+    parsed_response = PredictResponse[FinancialDocument](
+        doc_config=dummy_config[("mindee", "financial_doc")],
+        http_response=response,
+        input_source=dummy_file_input,
+        response_ok=True,
     )
     assert isinstance(parsed_response.document, FinancialDocument)
     for page in parsed_response.pages:
         assert isinstance(page, FinancialDocument)
-    assert isinstance(parsed_response.financial_doc, FinancialDocument)
-    for page in parsed_response.financial_docs:
-        assert isinstance(page, FinancialDocument)
+
+
+def test_response_passport(dummy_file_input, dummy_config):
+    response = json.load(open(PASSPORT_FILE_PATH))
+    parsed_response = PredictResponse[Passport](
+        doc_config=dummy_config[("mindee", "passport")],
+        http_response=response,
+        input_source=dummy_file_input,
+        response_ok=True,
+    )
+    assert isinstance(parsed_response.document, Passport)
+    for page in parsed_response.pages:
+        assert isinstance(page, Passport)

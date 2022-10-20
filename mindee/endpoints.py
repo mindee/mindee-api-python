@@ -3,11 +3,13 @@ from typing import Dict, Optional
 
 import requests
 
-from mindee.inputs import InputDocument
+from mindee.input.sources import InputSource
 from mindee.logger import logger
 from mindee.versions import __version__, get_platform, python_version
 
 MINDEE_API_URL = "https://api.mindee.net/v1"
+MINDEE_API_KEY_NAME = "MINDEE_API_KEY"
+
 PLATFORM = get_platform()
 USER_AGENT = f"mindee-api-python@v{__version__} python-v{python_version} {PLATFORM}"
 
@@ -73,42 +75,28 @@ class Endpoint:
             "User-Agent": USER_AGENT,
         }
 
-    @property
-    def envvar_key_name(self) -> str:
-        """The API key name as stored in the environment."""
-
-        def to_envvar(name: str) -> str:
-            return name.replace("-", "_").upper()
-
-        key_name = to_envvar(self.key_name)
-        if self.owner != OTS_OWNER:
-            key_name = f"{to_envvar(self.owner)}_{key_name}"
-        return f"MINDEE_{key_name}_API_KEY"
-
     def set_api_key_from_env(self) -> None:
         """Set the endpoint's API key from an environment variable, if present."""
-        env_key = os.getenv(self.envvar_key_name, "")
-        if not env_key:
-            env_key = os.getenv("MINDEE_API_KEY", "")
+        env_key = os.getenv(MINDEE_API_KEY_NAME, "")
         if env_key:
             self.api_key = env_key
             logger.debug("Set API key from environment")
 
     def predict_req_post(
         self,
-        input_file: InputDocument,
+        input_source: InputSource,
         include_words: bool = False,
         close_file: bool = True,
     ) -> requests.Response:
         """
         Make a request to POST a document for prediction.
 
-        :param input_file: Input object
+        :param input_source: Input object
         :param include_words: Include raw OCR words in the response
         :param close_file: Whether to `close()` the file after parsing it.
         :return: requests response
         """
-        files = {"document": input_file.read_contents(close_file)}
+        files = {"document": input_source.read_contents(close_file)}
         data = {}
         if include_words:
             data["include_mvision"] = "true"
@@ -124,16 +112,16 @@ class Endpoint:
 
 class CustomEndpoint(Endpoint):
     def training_req_post(
-        self, input_file: InputDocument, close_file: bool = True
+        self, input_source: InputSource, close_file: bool = True
     ) -> requests.Response:
         """
         Make a request to POST a document for training.
 
-        :param input_file: Input object
+        :param input_source: Input object
         :return: requests response
         :param close_file: Whether to `close()` the file after parsing it.
         """
-        files = {"document": input_file.read_contents(close_file)}
+        files = {"document": input_source.read_contents(close_file)}
         params = {"training": True, "with_candidates": True}
 
         response = requests.post(
@@ -145,16 +133,16 @@ class CustomEndpoint(Endpoint):
         return response
 
     def training_async_req_post(
-        self, input_file: InputDocument, close_file: bool = True
+        self, input_source: InputSource, close_file: bool = True
     ) -> requests.Response:
         """
         Make a request to POST a document for training without processing.
 
-        :param input_file: Input object
+        :param input_source: Input object
         :return: requests response
         :param close_file: Whether to `close()` the file after parsing it.
         """
-        files = {"document": input_file.read_contents(close_file)}
+        files = {"document": input_source.read_contents(close_file)}
         params = {"training": True, "async": True}
 
         response = requests.post(

@@ -3,29 +3,25 @@ import json
 from argparse import Namespace
 from typing import Dict, Union
 
-from mindee import Client, CutOptions
+from mindee import Client, PageOptions
 from mindee.client import DocumentClient
 from mindee.documents.base import serialize_for_json
 
 DOCUMENTS: Dict[str, Dict[str, Union[list, str]]] = {
     "invoice": {
         "help": "Invoice",
-        "required_keys": ["invoice"],
         "doc_type": "invoice",
     },
     "receipt": {
         "help": "Expense Receipt",
-        "required_keys": ["receipt"],
         "doc_type": "receipt",
     },
     "passport": {
         "help": "Passport",
-        "required_keys": ["passport"],
         "doc_type": "passport",
     },
     "financial": {
         "help": "Financial Document (receipt or invoice)",
-        "required_keys": ["invoice", "receipt"],
         "doc_type": "financial_doc",
     },
     "custom": {
@@ -35,26 +31,17 @@ DOCUMENTS: Dict[str, Dict[str, Union[list, str]]] = {
 
 
 def _ots_client(args: Namespace, info: dict):
-    client = Client(raise_on_error=args.raise_on_error)
-    kwargs = {}
-    if len(info["required_keys"]) > 1:
-        for key in info["required_keys"]:
-            kwargs["%s_api_key" % key] = getattr(args, f"{key}_api_key")
-    else:
-        kwargs["api_key"] = getattr(args, "%s_api_key" % args.product_name)
+    client = Client(api_key=args.api_key, raise_on_error=args.raise_on_error)
     func = getattr(client, f"config_{info['doc_type']}")
-    func(**kwargs)
+    func()
     return client
 
 
 def _custom_client(args: Namespace):
-    client = Client(raise_on_error=args.raise_on_error)
+    client = Client(api_key=args.api_key, raise_on_error=args.raise_on_error)
     client.config_custom_doc(
-        document_type=args.doc_type,
-        singular_name=args.doc_type,
-        plural_name=args.doc_type + "s",
+        endpoint_name=args.doc_type,
         account_name=args.username,
-        api_key=args.api_key,
     )
     return client
 
@@ -85,16 +72,16 @@ def call_endpoint(args: Namespace):
     input_doc = _get_input_doc(client, args)
 
     if args.cut_doc and args.doc_pages:
-        cut_options = CutOptions(range(args.doc_pages), behavior="keep", on_min_pages=0)
+        page_options = PageOptions(range(args.doc_pages), on_min_pages=0)
     else:
-        cut_options = None
+        page_options = None
     if args.product_name == "custom":
         parsed_data = input_doc.parse(
-            doc_type, username=args.username, cut_options=cut_options
+            doc_type, username=args.username, page_options=page_options
         )
     else:
         parsed_data = input_doc.parse(
-            doc_type, include_words=args.include_words, cut_options=cut_options
+            doc_type, include_words=args.include_words, page_options=page_options
         )
 
     if args.output_type == "raw":
@@ -138,12 +125,12 @@ def _parse_args() -> Namespace:
             )
             subp.add_argument(dest="doc_type", help="Document type")
         else:
-            for key_name in info["required_keys"]:
-                subp.add_argument(
-                    f"--{key_name}-key",
-                    dest=f"{key_name}_api_key",
-                    help=f"API key for {key_name} document endpoint",
-                )
+            subp.add_argument(
+                "-k",
+                "--key",
+                dest="api_key",
+                help="API key for the endpoint",
+            )
             subp.add_argument(
                 "-w",
                 "--with-words",

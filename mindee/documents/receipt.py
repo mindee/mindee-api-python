@@ -35,7 +35,7 @@ class Receipt(Document):
     def __init__(
         self,
         api_prediction=None,
-        input_file=None,
+        input_source=None,
         page_n: Optional[int] = None,
         document_type="receipt",
     ):
@@ -43,11 +43,11 @@ class Receipt(Document):
         Receipt document.
 
         :param api_prediction: Raw prediction from HTTP response
-        :param input_file: Input object
+        :param input_source: Input object
         :param page_n: Page number for multi pages pdf input
         """
         super().__init__(
-            input_file=input_file,
+            input_source=input_source,
             document_type=document_type,
             api_prediction=api_prediction,
             page_n=page_n,
@@ -183,7 +183,7 @@ class Receipt(Document):
         if self.taxes and self.total_tax.value is None:
             total_tax = {
                 "value": sum(
-                    [tax.value if tax.value is not None else 0 for tax in self.taxes]
+                    tax.value if tax.value is not None else 0 for tax in self.taxes
                 ),
                 "confidence": field_array_confidence(self.taxes),
             }
