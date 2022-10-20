@@ -1,27 +1,21 @@
 from typing import Dict, List, Tuple
 
 from mindee.documents.base import TypeDocument
-from mindee.endpoints import Endpoint
+from mindee.endpoints import MINDEE_API_KEY_NAME, Endpoint
 
 
 class DocumentConfig:
     document_type: str
     endpoints: List[Endpoint]
-    singular_name: str
-    plural_name: str
     constructor: TypeDocument
 
     def __init__(
         self,
         document_type: str,
-        singular_name: str,
-        plural_name: str,
         constructor: TypeDocument,
         endpoints: List[Endpoint],
     ):
         self.document_type = document_type
-        self.singular_name = singular_name
-        self.plural_name = plural_name
         self.constructor = constructor
         self.endpoints = endpoints
 
@@ -34,7 +28,7 @@ class DocumentConfig:
                         f"Missing API key for '{endpoint.key_name}',"
                         "check your Client configuration.\n"
                         "You can set this using the "
-                        f"'{endpoint.envvar_key_name}' environment variable."
+                        f"'{MINDEE_API_KEY_NAME}' environment variable."
                     )
                 )
 

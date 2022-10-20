@@ -6,6 +6,7 @@ from typing import BinaryIO, Optional, Sequence, Tuple
 
 import pikepdf
 
+from mindee.input.page_options import KEEP_ONLY, REMOVE
 from mindee.logger import logger
 
 mimetypes.add_type("image/heic", ".heic")
@@ -26,17 +27,13 @@ INPUT_TYPE_BASE64 = "base64"
 INPUT_TYPE_BYTES = "bytes"
 INPUT_TYPE_PATH = "path"
 
-MAX_DOC_PAGES = 3
 
-
-class InputDocument:
+class InputSource:
     file_object: BinaryIO
     filename: str
     file_mimetype: str
     input_type: str
     filepath: Optional[str] = None
-    cut_pdf: bool
-    n_pdf_pages: int
 
     def __init__(
         self,
@@ -45,7 +42,7 @@ class InputDocument:
         self.input_type = input_type
         self._check_mimetype()
 
-        logger.debug("Loaded new document '%s' from %s", self.filename, self.input_type)
+        logger.debug("Loaded new input '%s' from %s", self.filename, self.input_type)
 
     def _check_mimetype(self) -> None:
         file_mimetype = mimetypes.guess_type(self.filename)[0]
@@ -64,7 +61,7 @@ class InputDocument:
         """:return: True if the file is a PDF."""
         return self.file_mimetype == "application/pdf"
 
-    def count_pdf_pages(self) -> int:
+    def count_doc_pages(self) -> int:
         """
         Count the pages in the PDF.
 
@@ -83,12 +80,12 @@ class InputDocument:
         """Run any required processing on a PDF file."""
         if self.is_pdf_empty():
             raise AssertionError(f"PDF pages are empty in: {self.filename}")
-        pages_count = self.count_pdf_pages()
+        pages_count = self.count_doc_pages()
         if on_min_pages > pages_count:
             return
-        if behavior == "keep":
+        if behavior == KEEP_ONLY:
             page_numbers = set(pages)
-        elif behavior == "remove":
+        elif behavior == REMOVE:
             page_numbers = set(range(pages_count))
             for page in pages:
                 page_numbers.remove(page)
@@ -110,7 +107,8 @@ class InputDocument:
                 try:
                     page = pdf.pages[page_n]
                 except IndexError:
-                    pass
+                    logger.debug("page index not in source document: %s", page_n)
+                    continue
                 new_pdf.pages.append(page)
         self.file_object.close()
         self.file_object = io.BytesIO()
@@ -159,7 +157,7 @@ class InputDocument:
         return self.filename, data
 
 
-class FileDocument(InputDocument):
+class FileInput(InputSource):
     def __init__(self, file: BinaryIO):
         """
         Input document from a Python binary file object.
@@ -176,7 +174,7 @@ class FileDocument(InputDocument):
         super().__init__(input_type=INPUT_TYPE_FILE)
 
 
-class PathDocument(InputDocument):
+class PathInput(InputSource):
     def __init__(self, filepath: str):
         """
         Input document from a path.
@@ -189,7 +187,7 @@ class PathDocument(InputDocument):
         super().__init__(input_type=INPUT_TYPE_PATH)
 
 
-class BytesDocument(InputDocument):
+class BytesInput(InputSource):
     def __init__(self, raw_bytes: bytes, filename: str):
         """
         Input document from raw bytes (no buffer).
@@ -203,7 +201,7 @@ class BytesDocument(InputDocument):
         super().__init__(input_type=INPUT_TYPE_BYTES)
 
 
-class Base64Document(InputDocument):
+class Base64Input(InputSource):
     def __init__(self, base64_string: str, filename: str):
         """
         Input document from a base64 encoded string.

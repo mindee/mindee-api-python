@@ -5,10 +5,12 @@ import pytest
 from mindee.documents.passport import Passport
 from tests import PASSPORT_DATA_DIR
 
+PASSPORT_FILE_PATH = f"{PASSPORT_DATA_DIR}/response/complete.json"
+
 
 @pytest.fixture
 def passport_object():
-    json_data = json.load(open(f"{PASSPORT_DATA_DIR}/response/complete.json"))
+    json_data = json.load(open(PASSPORT_FILE_PATH))
     return Passport(json_data["document"]["inference"]["pages"][0]["prediction"])
 
 

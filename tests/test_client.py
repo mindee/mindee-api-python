@@ -1,6 +1,6 @@
 import pytest
 
-from mindee import Client, CutOptions, DocumentResponse
+from mindee import Client, PageOptions, PredictResponse
 from mindee.endpoints import HTTPException
 from tests import INVOICE_DATA_DIR, PASSPORT_DATA_DIR, RECEIPT_DATA_DIR
 from tests.utils import clear_envvars, dummy_envvars
@@ -10,9 +10,7 @@ from tests.utils import clear_envvars, dummy_envvars
 def empty_client(monkeypatch):
     clear_envvars(monkeypatch)
     return Client().config_custom_doc(
-        document_type="dummy",
-        singular_name="dummy",
-        plural_name="dummies",
+        endpoint_name="dummy",
         account_name="dummy",
     )
 
@@ -21,15 +19,13 @@ def empty_client(monkeypatch):
 def env_client(monkeypatch):
     dummy_envvars(monkeypatch)
     return (
-        Client()
+        Client("dummy")
         .config_receipt()
         .config_invoice()
         .config_passport()
         .config_financial_doc()
         .config_custom_doc(
-            document_type="dummy",
-            singular_name="dummy",
-            plural_name="dummies",
+            endpoint_name="dummy",
             account_name="dummy",
         )
     )
@@ -38,15 +34,13 @@ def env_client(monkeypatch):
 @pytest.fixture
 def dummy_client():
     return (
-        Client()
-        .config_receipt("dummy")
-        .config_invoice("dummy")
-        .config_passport("dummy")
-        .config_financial_doc("dummy", "dummy")
+        Client("dummy")
+        .config_receipt()
+        .config_invoice()
+        .config_passport()
+        .config_financial_doc()
         .config_custom_doc(
-            document_type="dummy",
-            singular_name="dummy",
-            plural_name="dummies",
+            endpoint_name="dummy",
             account_name="dummy",
         )
     )
@@ -55,11 +49,11 @@ def dummy_client():
 @pytest.fixture
 def dummy_client_no_raise():
     return (
-        Client(raise_on_error=False)
-        .config_receipt("dummy")
-        .config_invoice("dummy")
-        .config_passport("dummy")
-        .config_financial_doc("dummy", "dummy")
+        Client(api_key="dummy", raise_on_error=False)
+        .config_receipt()
+        .config_invoice()
+        .config_passport()
+        .config_financial_doc()
     )
 
 
@@ -95,11 +89,8 @@ def test_parse_path_with_env_token(env_client):
 
 def test_duplicate_configs(dummy_client):
     client = dummy_client.config_custom_doc(
-        document_type="receipt",
-        singular_name="dummy",
-        plural_name="dummies",
+        endpoint_name="receipt",
         account_name="dummy",
-        api_key="invalid",
     )
     assert isinstance(client, Client)
     with pytest.raises(RuntimeError):
@@ -142,7 +133,7 @@ def test_parse_path_with_wrong_token(dummy_client):
 
 def test_response_load_failure():
     with pytest.raises(Exception):
-        DocumentResponse.load("notAFile")
+        PredictResponse.load("notAFile")
 
 
 def test_request_with_filepath(dummy_client):
@@ -154,16 +145,16 @@ def test_request_without_raise_on_error(dummy_client_no_raise):
     result = dummy_client_no_raise.doc_from_path(
         f"{RECEIPT_DATA_DIR}/receipt.jpg"
     ).parse("receipt")
-    assert result.receipt is None
-    assert len(result.receipts) == 0
+    assert result.document is None
+    assert len(result.pages) == 0
 
 
 def test_request_without_raise_on_error_include_words(dummy_client_no_raise):
     result = dummy_client_no_raise.doc_from_path(
         f"{RECEIPT_DATA_DIR}/receipt.jpg"
     ).parse("receipt", include_words=True)
-    assert result.receipt is None
-    assert len(result.receipts) == 0
+    assert result.document is None
+    assert len(result.pages) == 0
 
 
 def test_request_with_wrong_type(dummy_client):
@@ -176,12 +167,9 @@ def test_request_with_wrong_type(dummy_client):
 
 
 def test_interface_version():
-    fixed_client = Client().config_custom_doc(
-        document_type="dummy",
-        singular_name="dummy",
-        plural_name="dummies",
+    fixed_client = Client("dummy").config_custom_doc(
+        endpoint_name="dummy",
         account_name="dummy",
-        api_key="dummy",
         version="1.1",
     )
     with pytest.raises(HTTPException):
@@ -204,9 +192,9 @@ def test_cut_options(dummy_client):
     try:
         # need to keep file open to count the pages after parsing
         doc.parse(
-            "invoice", close_file=False, cut_options=CutOptions(page_numbers=range(5))
+            "invoice", close_file=False, page_options=PageOptions(page_indexes=range(5))
         )
     except HTTPException:
         pass
-    assert doc.input_doc.count_pdf_pages() == 5
+    assert doc.input_doc.count_doc_pages() == 5
     doc.close()

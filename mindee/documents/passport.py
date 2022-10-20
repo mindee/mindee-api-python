@@ -40,7 +40,7 @@ class Passport(Document):
     def __init__(
         self,
         api_prediction=None,
-        input_file=None,
+        input_source=None,
         page_n: Optional[int] = None,
         document_type="passport",
     ):
@@ -48,11 +48,11 @@ class Passport(Document):
         Passport document.
 
         :param api_prediction: Raw prediction from HTTP response
-        :param input_file: Input object
+        :param input_source: Input object
         :param page_n: Page number for multi pages pdf input
         """
         super().__init__(
-            input_file=input_file,
+            input_source=input_source,
             document_type=document_type,
             api_prediction=api_prediction,
             page_n=page_n,

@@ -1,87 +1,65 @@
-from typing import Any, Dict, List
+from typing import Any, Dict, Generic, List, Optional, TypeVar
 
 from mindee.document_config import DocumentConfig
-from mindee.documents.base import Document, TypeDocument
+from mindee.documents.base import Document
+from mindee.input.sources import InputSource
 from mindee.logger import logger
 
+DocT = TypeVar("DocT", bound=Document)
 
-class DocumentResponse:
+
+class PredictResponse(Generic[DocT]):
     http_response: Dict[str, Any]
     """Raw HTTP response JSON"""
     document_type: str
     """Document type"""
-    document: Document
-    pages: List[Document]
+    document: Optional[DocT]
+    pages: List[DocT]
 
     def __init__(
         self,
         doc_config: DocumentConfig,
         http_response: dict,
-        pages: List[Document],
-        document_type: str,
-        document=TypeDocument,
-    ):
+        input_source: InputSource,
+        response_ok: bool,
+    ) -> None:
         """
         Container for the raw API response and the parsed document.
 
-        :param http_response: Raw HTTP response object
-        :param pages: List of document objects, page level
-        :param document: reconstructed object from all pages
-        :param document_type: Document class
+        :param doc_config: DocumentConfig
+        :param input_source: Input object
+        :param http_response: json response from HTTP call
         """
+        logger.debug("Handling API response")
+
         self.http_response = http_response
-        self.document_type = document_type
-        self.document = document
-        self.pages = pages
+        self.document_type = doc_config.document_type
+        self.pages = []
 
-        # Remove all this magic black box stuff in a future version
-        if doc_config.singular_name:
-            setattr(self, doc_config.singular_name, document)
-        if doc_config.plural_name:
-            setattr(self, doc_config.plural_name, pages)
+        if not response_ok:
+            self.document = None
+        else:
+            self._load_response(doc_config, input_source)
 
-
-def format_response(
-    doc_config: DocumentConfig, http_response: dict, input_file
-) -> DocumentResponse:
-    """
-    Create a `DocumentResponse`.
-
-    :param doc_config: DocumentConfig
-    :param input_file: Input object
-    :param http_response: json response from HTTP call
-    :return: Full DocumentResponse object
-    """
-    http_response["document_type"] = doc_config.document_type
-    http_response["input_type"] = input_file.input_type
-    http_response["filename"] = input_file.filename
-    http_response["filepath"] = input_file.filepath
-    http_response["file_extension"] = input_file.file_mimetype
-    pages = []
-
-    logger.debug("Handling API response")
-
-    # Create page level objects
-    for api_page in http_response["document"]["inference"]["pages"]:
-        pages.append(
-            doc_config.constructor(
-                api_prediction=api_page["prediction"],
-                input_file=input_file,
-                page_n=api_page["id"],
-                document_type=doc_config.document_type,
+    def _load_response(
+        self,
+        doc_config: DocumentConfig,
+        input_source: InputSource,
+    ) -> None:
+        for api_page in self.http_response["document"]["inference"]["pages"]:
+            self.pages.append(
+                # https://github.com/python/mypy/issues/13596
+                doc_config.constructor(  # type: ignore
+                    api_prediction=api_page["prediction"],
+                    input_source=input_source,
+                    page_n=api_page["id"],
+                    document_type=doc_config.document_type,
+                )
             )
+        # https://github.com/python/mypy/issues/13596
+        self.document = doc_config.constructor(  # type: ignore
+            api_prediction=self.http_response["document"]["inference"]["prediction"],
+            input_source=input_source,
+            document_type=doc_config.document_type,
+            page_n=None,
         )
-    # Create the document level object
-    document_level = doc_config.constructor(
-        api_prediction=http_response["document"]["inference"]["prediction"],
-        input_file=input_file,
-        document_type=doc_config.document_type,
-        page_n=None,
-    )
-    return DocumentResponse(
-        doc_config,
-        http_response=http_response,
-        pages=pages,
-        document_type=doc_config.document_type,
-        document=document_level,
-    )

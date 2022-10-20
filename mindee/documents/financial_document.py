@@ -54,7 +54,7 @@ class FinancialDocument(Document):
     def __init__(
         self,
         api_prediction=None,
-        input_file=None,
+        input_source=None,
         page_n: Optional[int] = None,
         document_type="financial_doc",
     ):
@@ -62,14 +62,14 @@ class FinancialDocument(Document):
         Union of `Invoice` and `Receipt`.
 
         :param api_prediction: Raw prediction from HTTP response
-        :param input_file: Input object
+        :param input_source: Input object
         :param page_n: Page number for multi-page PDF input
         """
         # need this for building from prediction
-        self.input_file = input_file
+        self.input_file = input_source
 
         super().__init__(
-            input_file=input_file,
+            input_source=input_source,
             document_type=document_type,
             api_prediction=api_prediction,
             page_n=page_n,
@@ -152,24 +152,26 @@ class FinancialDocument(Document):
     @staticmethod
     def request(
         endpoints: List[Endpoint],
-        input_file,
+        input_source,
         include_words: bool = False,
         close_file: bool = True,
     ):
         """
         Make request to prediction endpoint.
 
-        :param input_file: Input object
+        :param input_source: Input object
         :param endpoints: Endpoints config
         :param include_words: Include Mindee vision words in http_response
         :param close_file: Whether to `close()` the file after parsing it.
         """
-        if "pdf" in input_file.file_mimetype:
+        if "pdf" in input_source.file_mimetype:
             # invoices is index 0, receipts 1 (this should be cleaned up)
             index = 0
         else:
             index = 1
-        return endpoints[index].predict_req_post(input_file, include_words, close_file)
+        return endpoints[index].predict_req_post(
+            input_source, include_words, close_file
+        )
 
     def _checklist(self) -> None:
         """Set the validation rules."""
