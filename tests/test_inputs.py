@@ -11,22 +11,16 @@ from tests import INVOICE_DATA_DIR, PDF_DATA_DIR, RECEIPT_DATA_DIR
 #
 
 
-def test_pdf_reconstruct_fail():
-    with pytest.raises(AssertionError):
-        input_obj = PathDocument(f"{INVOICE_DATA_DIR}/invoice_10p.pdf")
-        input_obj.process_pdf(num_pdf_pages=4)
-
-
 def test_pdf_reconstruct_ok():
-    input_obj = PathDocument(f"{INVOICE_DATA_DIR}/invoice_10p.pdf")
-    input_obj.process_pdf(num_pdf_pages=2)
+    input_obj = PathDocument(f"{PDF_DATA_DIR}/multipage.pdf")
+    input_obj.process_pdf(behavior="keep", on_min_pages=2, pages=range(5))
     assert isinstance(input_obj.file_object, io.BytesIO)
 
 
 def test_pdf_read_contents():
-    input_doc = PathDocument(f"{INVOICE_DATA_DIR}/invoice.pdf")
+    input_doc = PathDocument(f"{PDF_DATA_DIR}/multipage.pdf")
     contents = input_doc.read_contents(close_file=False)
-    assert contents[0] == "invoice.pdf"
+    assert contents[0] == "multipage.pdf"
     assert isinstance(contents[1], bytes)
     assert not input_doc.file_object.closed
 
@@ -35,8 +29,8 @@ def test_pdf_read_contents():
 
 
 def test_pdf_reconstruct_no_cut():
-    input_file = PathDocument(f"{INVOICE_DATA_DIR}/invoice_10p.pdf")
-    assert input_file.count_pdf_pages() == 10
+    input_file = PathDocument(f"{PDF_DATA_DIR}/multipage.pdf")
+    assert input_file.count_pdf_pages() == 12
     assert isinstance(input_file.file_object, io.BufferedReader)
 
 
@@ -44,7 +38,9 @@ def test_pdf_reconstruct_no_cut():
 def test_pdf_cut_n_pages(numb_pages: int):
     input_obj = PathDocument(f"{PDF_DATA_DIR}/multipage.pdf")
     assert input_obj.is_pdf() is True
-    input_obj.process_pdf(num_pdf_pages=numb_pages)
+    input_obj.process_pdf(
+        behavior="keep", on_min_pages=2, pages=[0, -2, -1][:numb_pages]
+    )
     assert input_obj.count_pdf_pages() == numb_pages
 
     # Each page in the PDF has a unique (and increasing) /Content /Length.
@@ -62,14 +58,14 @@ def test_pdf_cut_n_pages(numb_pages: int):
 def test_pdf_specify_pages():
     input_obj = PathDocument(f"{PDF_DATA_DIR}/multipage.pdf")
     assert input_obj.is_pdf() is True
-    input_obj.process_pdf(pdf_pages_list=[0, 1, 2, 3, 4])
+    input_obj.process_pdf(behavior="keep", on_min_pages=2, pages=[0, 1, 2, 3, 4])
     assert input_obj.count_pdf_pages() == 5
 
 
 def test_pdf_input_from_path():
     input_obj = PathDocument(f"{INVOICE_DATA_DIR}/invoice_10p.pdf")
     assert input_obj.is_pdf() is True
-    input_obj.process_pdf(num_pdf_pages=1)
+    input_obj.process_pdf(behavior="keep", on_min_pages=2, pages=[0])
     assert input_obj.count_pdf_pages() == 1
 
 
@@ -77,7 +73,7 @@ def test_pdf_input_from_file():
     with open(f"{INVOICE_DATA_DIR}/invoice_10p.pdf", "rb") as fp:
         input_obj = FileDocument(fp)
         assert input_obj.is_pdf() is True
-        input_obj.process_pdf(num_pdf_pages=1)
+        input_obj.process_pdf(behavior="keep", on_min_pages=2, pages=[0])
     assert input_obj.count_pdf_pages() == 1
 
 
@@ -85,7 +81,7 @@ def test_pdf_input_from_base64():
     with open(f"{INVOICE_DATA_DIR}/invoice_10p.txt", "rt") as fp:
         input_obj = Base64Document(fp.read(), filename="invoice_10p.pdf")
     assert input_obj.is_pdf() is True
-    input_obj.process_pdf(num_pdf_pages=1)
+    input_obj.process_pdf(behavior="keep", on_min_pages=2, pages=[0])
     assert input_obj.count_pdf_pages() == 1
 
 
@@ -93,18 +89,18 @@ def test_pdf_input_from_bytes():
     with open(f"{INVOICE_DATA_DIR}/invoice_10p.pdf", "rb") as fp:
         input_obj = BytesDocument(fp.read(), filename="invoice_10p.pdf")
     assert input_obj.is_pdf() is True
-    input_obj.process_pdf(num_pdf_pages=1)
+    input_obj.process_pdf(behavior="keep", on_min_pages=2, pages=[0])
     assert input_obj.count_pdf_pages() == 1
 
 
 def test_pdf_blank_check():
     with pytest.raises(AssertionError):
         input_obj = PathDocument(f"{PDF_DATA_DIR}/blank.pdf")
-        input_obj.process_pdf(num_pdf_pages=3)
+        input_obj.process_pdf(behavior="keep", on_min_pages=2, pages=[0])
 
     with pytest.raises(AssertionError):
         input_obj = PathDocument(f"{PDF_DATA_DIR}/blank_1.pdf")
-        input_obj.process_pdf(num_pdf_pages=3)
+        input_obj.process_pdf(behavior="keep", on_min_pages=2, pages=[0])
 
     input_not_blank = PathDocument(f"{PDF_DATA_DIR}/not_blank_image_only.pdf")
     assert input_not_blank.count_pdf_pages() == 1

@@ -2,7 +2,7 @@ import base64
 import io
 import mimetypes
 import os
-from typing import BinaryIO, Optional, Tuple
+from typing import BinaryIO, Optional, Sequence, Tuple
 
 import pikepdf
 
@@ -76,21 +76,27 @@ class InputDocument:
 
     def process_pdf(
         self,
-        num_pdf_pages: Optional[int] = None,
-        pdf_pages_list: Optional[list] = None,
+        behavior: str,
+        on_min_pages: int,
+        pages: Sequence,
     ) -> None:
         """Run any required processing on a PDF file."""
         if self.is_pdf_empty():
             raise AssertionError(f"PDF pages are empty in: {self.filename}")
-        if num_pdf_pages is not None or pdf_pages_list is not None:
-            count_pages = self.count_pdf_pages()
-            if pdf_pages_list is not None:
-                self.merge_pdf_pages(pdf_pages_list)
-            if num_pdf_pages is not None and count_pages > 3:
-                assert 0 < num_pdf_pages <= MAX_DOC_PAGES
-                self.merge_pdf_pages([0, -2, -1][:num_pdf_pages])
+        pages_count = self.count_pdf_pages()
+        if on_min_pages > pages_count:
+            return
+        if behavior == "keep":
+            page_numbers = set(pages)
+        elif behavior == "remove":
+            page_numbers = set(range(pages_count))
+            for page in pages:
+                page_numbers.remove(page)
+        else:
+            raise RuntimeError(f"Invalid cut behavior specified: {behavior}")
+        self.merge_pdf_pages(page_numbers)
 
-    def merge_pdf_pages(self, page_numbers: list) -> None:
+    def merge_pdf_pages(self, page_numbers: set) -> None:
         """
         Create a new PDF from pages and set it to ``file_object``.
 

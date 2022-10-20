@@ -3,7 +3,7 @@ import json
 from argparse import Namespace
 from typing import Dict, Union
 
-from mindee import Client
+from mindee import Client, CutOptions
 from mindee.client import DocumentClient
 from mindee.documents.base import serialize_for_json
 
@@ -84,17 +84,17 @@ def call_endpoint(args: Namespace):
 
     input_doc = _get_input_doc(client, args)
 
-    if args.cut_pdf and args.pdf_pages:
-        num_pdf_pages = args.pdf_pages
+    if args.cut_doc and args.doc_pages:
+        cut_options = CutOptions(range(args.doc_pages), behavior="keep", on_min_pages=0)
     else:
-        num_pdf_pages = None
+        cut_options = None
     if args.product_name == "custom":
         parsed_data = input_doc.parse(
-            doc_type, username=args.username, num_pdf_pages=num_pdf_pages
+            doc_type, username=args.username, cut_options=cut_options
         )
     else:
         parsed_data = input_doc.parse(
-            doc_type, include_words=args.include_words, num_pdf_pages=num_pdf_pages
+            doc_type, include_words=args.include_words, cut_options=cut_options
         )
 
     if args.output_type == "raw":
@@ -175,20 +175,19 @@ def _parse_args() -> Namespace:
             "- parsed: the validated and parsed data fields\n",
         )
         subp.add_argument(
-            "-C",
-            "--no-cut-pdf",
-            dest="cut_pdf",
-            action="store_false",
-            help="Don't cut document pages",
+            "-c",
+            "--cut",
+            dest="cut_doc",
+            action="store_true",
+            help="Cut document pages",
         )
         subp.add_argument(
             "-p",
-            "--pdf-pages",
-            dest="pdf_pages",
+            "--pages-keep",
+            dest="doc_pages",
             type=int,
-            default=3,
-            choices=[1, 2, 3],
-            help="Number of document pages to cut by, default: 3",
+            default=5,
+            help="Number of document pages to keep, default: 5",
         )
         subp.add_argument(dest="path", help="Full path to the file")
 
