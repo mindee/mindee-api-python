@@ -1,4 +1,4 @@
-from mindee.fields.locale import Locale
+from mindee.fields.locale import LocaleField
 
 
 def test_constructor():
@@ -9,7 +9,7 @@ def test_constructor():
         "currency": "GBP",
         "confidence": 0.1,
     }
-    locale = Locale(field_dict)
+    locale = LocaleField(field_dict)
     assert locale.value == "en-EN"
     assert locale.language == "en"
     assert locale.country == "uk"
@@ -19,7 +19,7 @@ def test_constructor():
 
 def test_constructor_almost_empty_field():
     field_dict = {"value": "en-EN", "confidence": 0.1}
-    locale = Locale(field_dict)
+    locale = LocaleField(field_dict)
     assert locale.language is None
     assert locale.country is None
     assert locale.currency is None
@@ -33,7 +33,7 @@ def test_constructor_empty_language():
         "language": "N/A",
         "confidence": 0.1,
     }
-    locale = Locale(field_dict)
+    locale = LocaleField(field_dict)
     assert locale.language is None
     assert locale.country == "uk"
     assert locale.currency == "GBP"

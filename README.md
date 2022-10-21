@@ -17,10 +17,10 @@ Finally, Python away!
 ```python
 from mindee import Client
 
-# Init a new client and configure the Invoice API
-mindee_client = Client(api_key="my-api-key").config_invoice()
+# Init a new client
+mindee_client = Client(api_key="my-api-key")
 
-# Load a file from disk and parse it
+# Load a file from disk and parse it as an invoice
 api_response = mindee_client.doc_from_path("/path/to/the/invoice.pdf").parse("invoice")
 
 # Print a brief summary of the parsed data
@@ -32,8 +32,8 @@ print(api_response.document)
 ```python
 from mindee import Client
 
-# Init a new client and configure your custom document
-mindee_client = Client(api_key="my-api-key").config_custom_doc(
+# Init a new client and add your custom endpoint (document)
+mindee_client = Client(api_key="my-api-key").add_endpoint(
     account_name="john",
     endpoint_name="wnine",
 )

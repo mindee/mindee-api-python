@@ -7,7 +7,7 @@ from mindee.endpoints import MINDEE_API_KEY_NAME, Endpoint
 class DocumentConfig:
     document_type: str
     endpoints: List[Endpoint]
-    constructor: TypeDocument
+    document_class: TypeDocument
 
     def __init__(
         self,
@@ -16,7 +16,7 @@ class DocumentConfig:
         endpoints: List[Endpoint],
     ):
         self.document_type = document_type
-        self.constructor = constructor
+        self.document_class = constructor
         self.endpoints = endpoints
 
     def check_api_keys(self) -> None:
@@ -25,7 +25,7 @@ class DocumentConfig:
             if not endpoint.api_key:
                 raise RuntimeError(
                     (
-                        f"Missing API key for '{endpoint.key_name}',"
+                        f"Missing API key for '{self.document_type}',"
                         "check your Client configuration.\n"
                         "You can set this using the "
                         f"'{MINDEE_API_KEY_NAME}' environment variable."

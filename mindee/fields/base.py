@@ -1,23 +1,44 @@
 from typing import Any, Dict, List, Optional, TypeVar
 
-from mindee.geometry import Polygon, get_bounding_box
+from mindee.geometry import Point, Polygon, Quadrilateral, get_bounding_box
 
 TypePrediction = Dict[str, Any]
 
 
-class Field:
+class FieldPositionMixin:
+    bounding_box: Optional[Quadrilateral]
+    """Contains exactly 4 relative vertices coordinates (Points) of a right rectangle
+    containing the word in the document."""
+    polygon: Polygon
+    """Contains the relative vertices coordinates (Points) of a polygon containing
+    the word in the document."""
+
+    def _set_position(self, prediction: TypePrediction):
+        self.bounding_box = None
+        self.polygon = []
+        try:
+            self.polygon = [
+                Point(point[0], point[1]) for point in prediction["polygon"]
+            ]
+        except KeyError:
+            pass
+        if self.polygon:
+            self.bounding_box = get_bounding_box(self.polygon)
+
+
+class BaseField:
     value: Optional[Any] = None
     """Raw field value"""
     confidence: float = 0.0
     """Confidence score"""
-    bbox: Polygon = []
-    """Bounding box coordinates containing the field"""
-    polygon: Polygon = []
-    """coordinates of the field"""
+    reconstructed: bool
+    """Whether the field was reconstructed from other fields."""
+    page_n: Optional[int] = None
+    """The document page on which the information was found."""
 
     def __init__(
         self,
-        abstract_prediction: TypePrediction,
+        prediction: TypePrediction,
         value_key: str = "value",
         reconstructed: bool = False,
         page_n: Optional[int] = None,
@@ -25,7 +46,7 @@ class Field:
         """
         Base field object.
 
-        :param abstract_prediction: Prediction object from HTTP response
+        :param prediction: Prediction object from HTTP response
         :param value_key: Key to use in the abstract_prediction dict
         :param reconstructed: Bool for reconstructed object (not extracted in the API)
         :param page_n: Page number for multi-page PDF
@@ -33,29 +54,17 @@ class Field:
         self.page_n = page_n
         self.reconstructed = reconstructed
 
-        if (
-            value_key not in abstract_prediction
-            or abstract_prediction[value_key] == "N/A"
-        ):
+        if value_key not in prediction or prediction[value_key] == "N/A":
             return
 
-        self.value = abstract_prediction[value_key]
+        self.value = prediction[value_key]
         try:
-            self.confidence = float(abstract_prediction["confidence"])
+            self.confidence = float(prediction["confidence"])
         except (KeyError, TypeError):
             pass
-        self._set_bbox(abstract_prediction)
-
-    def _set_bbox(self, abstract_prediction: TypePrediction) -> None:
-        try:
-            self.polygon = abstract_prediction["polygon"]
-        except KeyError:
-            pass
-        if self.polygon:
-            self.bbox = get_bounding_box(self.polygon)
 
     def __eq__(self, other: Any) -> bool:
-        if not isinstance(other, Field):
+        if not isinstance(other, BaseField):
             return NotImplemented
         if self.value is None and other.value is None:
             return True
@@ -71,31 +80,8 @@ class Field:
         return ""
 
 
-class TypedField(Field):
-    type: str
-    """
-    The field type as defined by the API.
-    This is not a Python base type.
-    """
-
-    def __init__(
-        self,
-        abstract_prediction: Dict[str, Any],
-        value_key: str = "value",
-        reconstructed: bool = False,
-        page_n: Optional[int] = None,
-    ):
-        super().__init__(abstract_prediction, value_key, reconstructed, page_n)
-        self.type = abstract_prediction["type"]
-
-    def __str__(self) -> str:
-        if self.value:
-            return f"{self.type}: {self.value}"
-        return ""
-
-
-TypeField = TypeVar("TypeField", bound=Field)
-TypeFieldList = List[TypeField]
+TypeBaseField = TypeVar("TypeBaseField", bound=BaseField)
+TypeFieldList = List[TypeBaseField]
 
 
 def compare_field_arrays(

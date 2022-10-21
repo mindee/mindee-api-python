@@ -45,9 +45,9 @@ def test_all_na(bank_check_object_all_na):
     assert bank_check_object_all_na.routing_number.value is None
     assert bank_check_object_all_na.account_number.value is None
     assert len(bank_check_object_all_na.signatures_positions) == 0
-    assert len(bank_check_object_all_na.check_position.bounding_box) == 0
     assert len(bank_check_object_all_na.check_position.polygon) == 0
     assert len(bank_check_object_all_na.check_position.value) == 0
-    assert len(bank_check_object_all_na.check_position.rectangle) == 0
-    assert len(bank_check_object_all_na.check_position.quadrangle) == 0
+    assert bank_check_object_all_na.check_position.bounding_box is None
+    assert bank_check_object_all_na.check_position.rectangle is None
+    assert bank_check_object_all_na.check_position.quadrangle is None
     assert len(bank_check_object_all_na.payees) == 0

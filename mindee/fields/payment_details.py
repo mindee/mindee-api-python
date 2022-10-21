@@ -1,9 +1,9 @@
 from typing import Optional
 
-from mindee.fields.base import Field
+from mindee.fields.base import BaseField, FieldPositionMixin, TypePrediction
 
 
-class PaymentDetails(Field):
+class PaymentDetails(FieldPositionMixin, BaseField):
     account_number: Optional[str] = None
     """Account number"""
     iban: Optional[str] = None
@@ -15,7 +15,7 @@ class PaymentDetails(Field):
 
     def __init__(
         self,
-        payment_details_prediction: dict,
+        prediction: TypePrediction,
         value_key: str = "iban",
         account_number_key: str = "account_number",
         iban_key: str = "iban",
@@ -27,7 +27,7 @@ class PaymentDetails(Field):
         """
         Payment details field object.
 
-        :param payment_details_prediction: Payment detail prediction object from HTTP response
+        :param prediction: Payment detail prediction object from HTTP response
         :param value_key: Corresponds to iban
         :param account_number_key: Key to use for getting the account number in the
             payment_details_prediction dict
@@ -36,42 +36,44 @@ class PaymentDetails(Field):
             payment_details_prediction dict
         :param swift_key: Key to use for getting the SWIFT  in the payment_details_prediction dict
         :param reconstructed: Bool for reconstructed object (not extracted in the API)
-        :param page_n: Page number for multi-page PDF
+        :param page_n: Page number for multi-page document
         """
         super().__init__(
-            payment_details_prediction,
+            prediction,
             value_key=value_key,
             reconstructed=reconstructed,
             page_n=page_n,
         )
 
+        self._set_position(prediction)
+
         try:
-            assert isinstance(payment_details_prediction[account_number_key], str)
-            self.account_number = str(payment_details_prediction[account_number_key])
+            assert isinstance(prediction[account_number_key], str)
+            self.account_number = str(prediction[account_number_key])
             if self.account_number == "N/A":
                 self.account_number = None
         except (KeyError, AssertionError):
             self.account_number = None
 
         try:
-            assert isinstance(payment_details_prediction[iban_key], str)
-            self.iban = str(payment_details_prediction[iban_key])
+            assert isinstance(prediction[iban_key], str)
+            self.iban = str(prediction[iban_key])
             if self.iban == "N/A":
                 self.iban = None
         except (KeyError, AssertionError):
             self.iban = None
 
         try:
-            assert isinstance(payment_details_prediction[routing_number_key], str)
-            self.routing_number = str(payment_details_prediction[routing_number_key])
+            assert isinstance(prediction[routing_number_key], str)
+            self.routing_number = str(prediction[routing_number_key])
             if self.routing_number == "N/A":
                 self.routing_number = None
         except (KeyError, AssertionError):
             self.routing_number = None
 
         try:
-            assert isinstance(payment_details_prediction[swift_key], str)
-            self.swift = str(payment_details_prediction[swift_key])
+            assert isinstance(prediction[swift_key], str)
+            self.swift = str(prediction[swift_key])
             if self.swift == "N/A":
                 self.swift = None
         except (KeyError, AssertionError):

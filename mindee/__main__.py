@@ -30,22 +30,6 @@ DOCUMENTS: Dict[str, Dict[str, Union[list, str]]] = {
 }
 
 
-def _ots_client(args: Namespace, info: dict):
-    client = Client(api_key=args.api_key, raise_on_error=args.raise_on_error)
-    func = getattr(client, f"config_{info['doc_type']}")
-    func()
-    return client
-
-
-def _custom_client(args: Namespace):
-    client = Client(api_key=args.api_key, raise_on_error=args.raise_on_error)
-    client.config_custom_doc(
-        endpoint_name=args.doc_type,
-        account_name=args.username,
-    )
-    return client
-
-
 def _get_input_doc(client, args) -> DocumentClient:
     if args.input_type == "file":
         with open(args.path, "rb", buffering=30) as file_handle:
@@ -61,12 +45,15 @@ def _get_input_doc(client, args) -> DocumentClient:
 
 def call_endpoint(args: Namespace):
     """Call the endpoint given passed arguments."""
+    client = Client(api_key=args.api_key, raise_on_error=args.raise_on_error)
     if args.product_name == "custom":
-        client = _custom_client(args)
+        client.add_endpoint(
+            endpoint_name=args.doc_type,
+            account_name=args.username,
+        )
         doc_type = args.doc_type
     else:
         info = DOCUMENTS[args.product_name]
-        client = _ots_client(args, info)
         doc_type = info["doc_type"]
 
     input_doc = _get_input_doc(client, args)

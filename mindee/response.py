@@ -49,7 +49,7 @@ class PredictResponse(Generic[DocT]):
         for api_page in self.http_response["document"]["inference"]["pages"]:
             self.pages.append(
                 # https://github.com/python/mypy/issues/13596
-                doc_config.constructor(  # type: ignore
+                doc_config.document_class(  # type: ignore
                     api_prediction=api_page["prediction"],
                     input_source=input_source,
                     page_n=api_page["id"],
@@ -57,7 +57,7 @@ class PredictResponse(Generic[DocT]):
                 )
             )
         # https://github.com/python/mypy/issues/13596
-        self.document = doc_config.constructor(  # type: ignore
+        self.document = doc_config.document_class(  # type: ignore
             api_prediction=self.http_response["document"]["inference"]["prediction"],
             input_source=input_source,
             document_type=doc_config.document_type,

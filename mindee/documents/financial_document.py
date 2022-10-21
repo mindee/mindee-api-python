@@ -4,39 +4,40 @@ from mindee.documents.base import Document, TypeApiPrediction
 from mindee.documents.invoice import Invoice
 from mindee.documents.receipt import Receipt
 from mindee.endpoints import Endpoint
-from mindee.fields.amount import Amount
-from mindee.fields.base import Field, TypedField
-from mindee.fields.date import Date
-from mindee.fields.locale import Locale
+from mindee.fields.amount import AmountField
+from mindee.fields.date import DateField
+from mindee.fields.locale import LocaleField
 from mindee.fields.orientation import Orientation
 from mindee.fields.payment_details import PaymentDetails
-from mindee.fields.tax import Tax
+from mindee.fields.tax import TaxField
+from mindee.fields.text import TextField
+from mindee.fields.typed import TypedField
 
 
 class FinancialDocument(Document):
-    locale: Locale
+    locale: LocaleField
     """locale information"""
-    total_incl: Amount
+    total_incl: AmountField
     """Total including taxes"""
-    total_excl: Amount
+    total_excl: AmountField
     """Total excluding taxes"""
-    date: Date
+    date: DateField
     """Date the document was issued"""
-    time: Field
+    time: TextField
     """Time the document was issued"""
-    invoice_number: Field
+    invoice_number: TextField
     """Invoice number"""
-    due_date: Date
+    due_date: DateField
     """Date the invoice is due"""
-    taxes: List[Tax]
+    taxes: List[TaxField]
     """List of all taxes"""
-    merchant_name: Field
+    merchant_name: TextField
     """Merchant/Supplier's name"""
-    supplier_address: Field
+    supplier_address: TextField
     """Merchant/Supplier's address"""
-    customer_name: Field
+    customer_name: TextField
     """Customer's name"""
-    customer_address: Field
+    customer_address: TextField
     """Customer's address"""
     customer_company_registration: List[TypedField]
     """Customer company registration numbers"""
@@ -44,7 +45,7 @@ class FinancialDocument(Document):
     """Payment details"""
     company_number: List[TypedField]
     """Company numbers"""
-    total_tax: Amount
+    total_tax: AmountField
     """Sum total of all taxes"""
 
     # orientation is only present on page-level, not document-level
@@ -98,7 +99,7 @@ class FinancialDocument(Document):
             self.company_number = invoice.company_number
             self.orientation = invoice.orientation
             self.total_tax = invoice.total_tax
-            self.time = Field({"value": None, "confidence": 0.0})
+            self.time = TextField({"value": None, "confidence": 0.0})
             self.supplier_address = invoice.supplier_address
             self.customer_name = invoice.customer_name
             self.customer_company_registration = invoice.customer_company_registration
@@ -118,10 +119,10 @@ class FinancialDocument(Document):
             self.customer_company_registration = []
             self.company_number = []
             self.payment_details = []
-            self.invoice_number = Field({"value": None, "confidence": 0.0})
-            self.supplier_address = Field({"value": None, "confidence": 0.0})
-            self.customer_name = Field({"value": None, "confidence": 0.0})
-            self.customer_address = Field({"value": None, "confidence": 0.0})
+            self.invoice_number = TextField({"value": None, "confidence": 0.0})
+            self.supplier_address = TextField({"value": None, "confidence": 0.0})
+            self.customer_name = TextField({"value": None, "confidence": 0.0})
+            self.customer_address = TextField({"value": None, "confidence": 0.0})
 
     def __str__(self) -> str:
         return (

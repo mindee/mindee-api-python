@@ -1,5 +1,3 @@
-import pytest
-
 from mindee.fields.position import Position
 
 
@@ -18,6 +16,8 @@ def test_constructor():
     }
     field = Position(field_dict)
     assert len(field.value) == 4
+    assert field.confidence == 0.1
+    assert field.polygon[0].x == 0.016
 
 
 def test_fail_constructor():
@@ -33,4 +33,4 @@ def test_fail_constructor():
         "rectangle": [[0.016, 0.707], [0.414, 0.707], [0.414, 0.831], [0.016, 0.831]],
     }
     field = Position(field_dict)
-    assert len(field.value) == 0
+    assert field.value is None
