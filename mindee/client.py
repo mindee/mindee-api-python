@@ -8,15 +8,7 @@ from mindee.documents.financial_document import FinancialDocument
 from mindee.documents.invoice import Invoice
 from mindee.documents.passport import Passport
 from mindee.documents.receipt import Receipt
-from mindee.endpoints import (
-    OTS_OWNER,
-    BankCheckEndpoint,
-    CustomEndpoint,
-    HTTPException,
-    InvoiceEndpoint,
-    PassportEndpoint,
-    ReceiptEndpoint,
-)
+from mindee.endpoints import OTS_OWNER, CustomEndpoint, HTTPException, StandardEndpoint
 from mindee.input.page_options import PageOptions
 from mindee.input.sources import (
     Base64Input,
@@ -91,7 +83,7 @@ class DocumentClient:
         doc_config.check_api_keys()
         if page_options and self.input_doc.is_pdf():
             self.input_doc.process_pdf(
-                page_options.behavior,
+                page_options.operation,
                 page_options.on_min_pages,
                 page_options.page_indexes,
             )
@@ -100,7 +92,7 @@ class DocumentClient:
     def _make_request(
         self, doc_config: DocumentConfig, include_words: bool, close_file: bool
     ) -> PredictResponse:
-        response = doc_config.constructor.request(
+        response = doc_config.document_class.request(
             doc_config.endpoints,
             self.input_doc,
             include_words=include_words,
@@ -147,15 +139,68 @@ class Client:
         self._doc_configs: Dict[tuple, DocumentConfig] = {}
         self.raise_on_error = raise_on_error
         self.api_key = api_key
+        self._init_default_endpoints()
 
-    def config_custom_doc(
+    def _init_default_endpoints(self) -> None:
+        self._doc_configs = {
+            (OTS_OWNER, "invoice"): DocumentConfig(
+                document_type="invoice",
+                constructor=Invoice,
+                endpoints=[
+                    StandardEndpoint(
+                        url_name="invoices", version="3", api_key=self.api_key
+                    )
+                ],
+            ),
+            (OTS_OWNER, "receipt"): DocumentConfig(
+                document_type="receipt",
+                constructor=Receipt,
+                endpoints=[
+                    StandardEndpoint(
+                        url_name="expense_receipts", version="3", api_key=self.api_key
+                    )
+                ],
+            ),
+            (OTS_OWNER, "financial_doc"): DocumentConfig(
+                document_type="financial_doc",
+                constructor=FinancialDocument,
+                endpoints=[
+                    StandardEndpoint(
+                        url_name="invoices", version="3", api_key=self.api_key
+                    ),
+                    StandardEndpoint(
+                        url_name="expense_receipts", version="3", api_key=self.api_key
+                    ),
+                ],
+            ),
+            (OTS_OWNER, "passport"): DocumentConfig(
+                document_type="passport",
+                constructor=Passport,
+                endpoints=[
+                    StandardEndpoint(
+                        url_name="passport", version="1", api_key=self.api_key
+                    )
+                ],
+            ),
+            (OTS_OWNER, "bank_check"): DocumentConfig(
+                document_type="bank_check",
+                constructor=BankCheck,
+                endpoints=[
+                    StandardEndpoint(
+                        url_name="bank_check", version="1", api_key=self.api_key
+                    )
+                ],
+            ),
+        }
+
+    def add_endpoint(
         self,
         account_name: str,
         endpoint_name: str,
         version: str = "1",
     ) -> "Client":
         """
-        Configure a custom document using the Mindee API Builder.
+        Add a custom endpoint, created using the Mindee API Builder.
 
         :param endpoint_name: The "API name" field in the "Settings" page of the API Builder
         :param account_name: Your organization's username on the API Builder
@@ -174,61 +219,6 @@ class Client:
                 ),
             ],
         )
-        return self
-
-    def config_invoice(self) -> "Client":
-        """Configure a Mindee Invoice document."""
-        config = DocumentConfig(
-            document_type="invoice",
-            constructor=Invoice,
-            endpoints=[InvoiceEndpoint(api_key=self.api_key)],
-        )
-        self._doc_configs[(OTS_OWNER, "invoice")] = config
-        return self
-
-    def config_receipt(self) -> "Client":
-        """Configure a Mindee Expense Receipts document."""
-        config = DocumentConfig(
-            document_type="receipt",
-            constructor=Receipt,
-            endpoints=[ReceiptEndpoint(api_key=self.api_key)],
-        )
-        self._doc_configs[(OTS_OWNER, "receipt")] = config
-        return self
-
-    def config_financial_doc(
-        self,
-    ) -> "Client":
-        """Configure a Mindee Financial document. Uses Invoice and Expense Receipt internally."""
-        config = DocumentConfig(
-            document_type="financial_doc",
-            constructor=FinancialDocument,
-            endpoints=[
-                InvoiceEndpoint(api_key=self.api_key),
-                ReceiptEndpoint(api_key=self.api_key),
-            ],
-        )
-        self._doc_configs[(OTS_OWNER, "financial_doc")] = config
-        return self
-
-    def config_passport(self) -> "Client":
-        """Configure a Mindee Passport document."""
-        config = DocumentConfig(
-            document_type="passport",
-            constructor=Passport,
-            endpoints=[PassportEndpoint(api_key=self.api_key)],
-        )
-        self._doc_configs[(OTS_OWNER, "passport")] = config
-        return self
-
-    def config_bank_check(self) -> "Client":
-        """Configure a Mindee Bank check document."""
-        config = DocumentConfig(
-            document_type="bank_check",
-            constructor=BankCheck,
-            endpoints=[BankCheckEndpoint(api_key=self.api_key)],
-        )
-        self._doc_configs[(OTS_OWNER, "bank_check")] = config
         return self
 
     def doc_from_path(

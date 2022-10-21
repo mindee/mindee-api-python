@@ -1,16 +1,16 @@
 from typing import Optional
 
-from mindee.fields.base import Field
+from mindee.fields.base import BaseField, FieldPositionMixin, TypePrediction
 
 
-class Tax(Field):
+class TaxField(FieldPositionMixin, BaseField):
     value: Optional[float]
     rate: Optional[float]
     code: Optional[str]
 
     def __init__(
         self,
-        tax_prediction: dict,
+        prediction: TypePrediction,
         value_key: str = "value",
         rate_key: str = "rate",
         code_key: str = "code",
@@ -20,38 +20,39 @@ class Tax(Field):
         """
         Tax field object.
 
-        :param tax_prediction: Tax prediction object from HTTP response
+        :param prediction: Tax prediction object from HTTP response
         :param value_key: Key to use in the tax_prediction dict
         :param rate_key: Key to use for getting the Tax rate in the tax_prediction dict
         :param code_key: Key to use for getting the Tax code in the tax_prediction dict
         :param reconstructed: Bool for reconstructed object (not extracted in the API)
-        :param page_n: Page number for multi pages pdf
+        :param page_n: Page number for multi pages document
         """
         super().__init__(
-            tax_prediction,
+            prediction,
             value_key=value_key,
             reconstructed=reconstructed,
             page_n=page_n,
         )
 
+        self._set_position(prediction)
+
         try:
-            self.rate = float(tax_prediction[rate_key])
+            self.rate = float(prediction[rate_key])
         except (ValueError, TypeError, KeyError):
             self.rate = None
 
         try:
-            self.code = str(tax_prediction[code_key])
+            self.code = str(prediction[code_key])
         except (TypeError, KeyError):
             self.code = None
         if self.code in ("N/A", "None"):
             self.code = None
 
         try:
-            self.value = float(tax_prediction[value_key])
+            self.value = float(prediction[value_key])
         except (ValueError, TypeError, KeyError):
             self.value = None
             self.confidence = 0.0
-            self.bbox = []
 
     def __str__(self) -> str:
         out_str = ""

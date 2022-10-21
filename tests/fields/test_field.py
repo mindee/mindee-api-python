@@ -1,9 +1,6 @@
-from mindee.fields.base import (
-    Field,
-    TypedField,
-    field_array_confidence,
-    field_array_sum,
-)
+from mindee.fields.base import BaseField, field_array_confidence, field_array_sum
+from mindee.fields.text import TextField
+from mindee.fields.typed import TypedField
 
 
 def test_constructor():
@@ -12,10 +9,10 @@ def test_constructor():
         "confidence": 0.1,
         "polygon": [[0.016, 0.707], [0.414, 0.707], [0.414, 0.831], [0.016, 0.831]],
     }
-    field = Field(field_dict)
+    field = TextField(field_dict)
     assert field.value == "test"
     assert field.confidence == 0.1
-    assert len(field.bbox) > 0
+    assert len(field.bounding_box) > 0
 
 
 def test_type_constructor():
@@ -29,27 +26,27 @@ def test_type_constructor():
     assert field.value == "test"
     assert field.type == "IBAN"
     assert field.confidence == 0.1
-    assert len(field.bbox) > 0
+    assert len(field.bounding_box) == 4
 
 
-def test_constructor_no_segmentation():
+def test_constructor_no_position():
     field_dict = {"value": "test", "confidence": 0.1}
-    field = Field(field_dict)
-    assert len(field.bbox) == 0
+    field = TextField(field_dict)
+    assert field.bounding_box is None
 
 
 def test_equality():
     field_dict_1 = {"value": "test", "confidence": 0.1}
     field_dict_2 = {"value": "other", "confidence": 0.1}
-    field_1 = Field(field_dict_1)
-    field_2 = Field(field_dict_2)
+    field_1 = BaseField(field_dict_1)
+    field_2 = BaseField(field_dict_2)
     assert field_1 == field_1
     assert field_1 != field_2
 
 
 def test_constructor_na():
     field_dict = {"value": "N/A", "confidence": 0.1}
-    field = Field(field_dict)
+    field = BaseField(field_dict)
     assert field.value is None
 
 
@@ -57,31 +54,31 @@ def test_no_probability():
     field_dict = {
         "value": "N/A",
     }
-    field = Field(field_dict)
+    field = BaseField(field_dict)
     assert field.confidence == 0.0
 
 
 def test_array_probability():
     fields = [
-        Field({"value": None, "confidence": 0.1}),
-        Field({"value": None, "confidence": 0.8}),
+        BaseField({"value": None, "confidence": 0.1}),
+        BaseField({"value": None, "confidence": 0.8}),
     ]
     assert field_array_confidence(fields) == 0.8 * 0.1
     fields = [
-        Field({"value": None, "confidence": 0.1}),
-        Field({"value": None, "confidence": None}),
+        BaseField({"value": None, "confidence": 0.1}),
+        BaseField({"value": None, "confidence": None}),
     ]
     assert field_array_confidence(fields) == 0.0
 
 
 def test_array_sum():
     fields = [
-        Field({"value": 1, "confidence": 0.1}),
-        Field({"value": 2, "confidence": 0.8}),
+        BaseField({"value": 1, "confidence": 0.1}),
+        BaseField({"value": 2, "confidence": 0.8}),
     ]
     assert field_array_sum(fields) == 3
     fields = [
-        Field({"value": None, "confidence": 0.1}),
-        Field({"value": 4, "confidence": 0.8}),
+        BaseField({"value": None, "confidence": 0.1}),
+        BaseField({"value": 4, "confidence": 0.8}),
     ]
     assert field_array_sum(fields) == 0.0

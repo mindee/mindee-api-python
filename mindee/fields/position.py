@@ -1,58 +1,59 @@
 from typing import Optional
 
-from mindee.fields.base import Field, TypePrediction
-from mindee.geometry import Polygon, Quadrilateral
+from mindee.fields.base import BaseField, TypePrediction
+from mindee.geometry import (
+    GeomeTryError,
+    Polygon,
+    Quadrilateral,
+    polygon_from_prediction,
+    quadrilateral_from_prediction,
+)
 
 
-class Position(Field):
-    value: Polygon = []
-    quadrangle: Optional[Quadrilateral]
-    rectangle: Optional[Quadrilateral]
-    bounding_box: Optional[Quadrilateral]
+class Position(BaseField):
+    value: Optional[Polygon] = None
+    polygon: Optional[Polygon] = None
+    quadrangle: Optional[Quadrilateral] = None
+    rectangle: Optional[Quadrilateral] = None
+    bounding_box: Optional[Quadrilateral] = None
 
     def __init__(
         self,
-        position_prediction: TypePrediction,
+        prediction: TypePrediction,
         value_key: str = "polygon",
         reconstructed: bool = False,
         page_n: Optional[int] = None,
     ):
         """
-        Amount field object.
+        Position field object.
 
-        :param position_prediction: Position prediction object from HTTP response
+        :param prediction: Position prediction object from HTTP response
         :param value_key: Key to use in the position_prediction dict
         :param reconstructed: Bool for reconstructed object (not extracted in the API)
-        :param page_n: Page number for multi-page PDF
+        :param page_n: Page number for multi-page document
         """
         super().__init__(
-            position_prediction,
+            prediction,
             value_key=value_key,
             reconstructed=reconstructed,
             page_n=page_n,
         )
-        try:
-            self.value = position_prediction[value_key]
-            self.bounding_box = (
-                position_prediction["bounding_box"]
-                if "bounding_box" in position_prediction.keys()
-                else None
-            )
-            self.quadrangle = (
-                position_prediction["quadrangle"]
-                if "quadrangle" in position_prediction.keys()
-                else None
-            )
-            self.polygon = (
-                position_prediction["polygon"]
-                if "polygon" in position_prediction.keys()
-                else None
-            )
-            self.rectangle = (
-                position_prediction["rectangle"]
-                if "rectangle" in position_prediction.keys()
-                else None
-            )
-        except (ValueError, TypeError, KeyError):
-            self.value = []
-            self.confidence = 0.0
+
+        def get_quadrilateral(key: str) -> Optional[Quadrilateral]:
+            try:
+                return quadrilateral_from_prediction(prediction[key])
+            except (KeyError, GeomeTryError):
+                return None
+
+        def get_polygon(key: str) -> Optional[Polygon]:
+            try:
+                return polygon_from_prediction(prediction[key])
+            except (KeyError, GeomeTryError):
+                return None
+
+        self.bounding_box = get_quadrilateral("bounding_box")
+        self.quadrangle = get_quadrilateral("quadrangle")
+        self.rectangle = get_quadrilateral("rectangle")
+        self.polygon = get_polygon("polygon")
+
+        self.value = self.polygon

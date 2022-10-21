@@ -50,9 +50,9 @@ def test_bounding_box_single_polygon(rectangle_a, rectangle_b, quadrangle_a):
 
 def test_is_point_in_polygon_y(rectangle_a, rectangle_b, quadrangle_a):
     # Should be in polygon A & B, since polygons overlap
-    point_a = (0.125, 0.535)
+    point_a = geometry.Point(0.125, 0.535)
     # Should only be in polygon C
-    point_b = (0.300, 0.420)
+    point_b = geometry.Point(0.300, 0.420)
 
     assert geometry.is_point_in_polygon_y(point_a, rectangle_a)
     assert geometry.is_point_in_polygon_y(point_a, rectangle_b)
@@ -65,9 +65,9 @@ def test_is_point_in_polygon_y(rectangle_a, rectangle_b, quadrangle_a):
 
 def test_is_point_in_polygon_x(rectangle_a, rectangle_b, quadrangle_a):
     # Should be in polygon A & B, since polygons overlap
-    point_a = (0.125, 0.535)
+    point_a = geometry.Point(0.125, 0.535)
     # Should only be in polygon C
-    point_b = (0.300, 0.420)
+    point_b = geometry.Point(0.300, 0.420)
 
     assert geometry.is_point_in_polygon_x(point_a, rectangle_a)
     assert geometry.is_point_in_polygon_x(point_a, rectangle_b)

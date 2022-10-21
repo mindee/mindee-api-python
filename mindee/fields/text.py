@@ -3,18 +3,18 @@ from typing import Optional
 from mindee.fields.base import BaseField, FieldPositionMixin, TypePrediction
 
 
-class AmountField(FieldPositionMixin, BaseField):
-    value: Optional[float] = None
+class TextField(FieldPositionMixin, BaseField):
+    value: Optional[str] = None
 
     def __init__(
         self,
         prediction: TypePrediction,
-        value_key: str = "amount",
+        value_key: str = "value",
         reconstructed: bool = False,
         page_n: Optional[int] = None,
     ):
         """
-        Amount field object.
+        Text field object.
 
         :param prediction: Amount prediction object from HTTP response
         :param value_key: Key to use in the amount_prediction dict
@@ -27,10 +27,4 @@ class AmountField(FieldPositionMixin, BaseField):
             reconstructed=reconstructed,
             page_n=page_n,
         )
-        try:
-            self.value = round(float(prediction[value_key]), 3)
-        except (ValueError, TypeError, KeyError):
-            self.value = None
-            self.confidence = 0.0
-
         self._set_position(prediction)

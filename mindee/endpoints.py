@@ -15,18 +15,6 @@ USER_AGENT = f"mindee-api-python@v{__version__} python-v{python_version} {PLATFO
 
 OTS_OWNER = "mindee"
 
-INVOICE_VERSION = "3"
-INVOICE_URL_NAME = "invoices"
-
-RECEIPT_VERSION = "3"
-RECEIPT_URL_NAME = "expense_receipts"
-
-PASSPORT_VERSION = "1"
-PASSPORT_URL_NAME = "passport"
-
-BANK_CHECK_VERSION = "1"
-BANK_CHECK_URL_NAME = "bank_check"
-
 DEFAULT_TIMEOUT = 120
 
 
@@ -36,7 +24,6 @@ class Endpoint:
     owner: str
     url_name: str
     version: str
-    key_name: str
     api_key: str = ""
     timeout: int = DEFAULT_TIMEOUT
     _url_root: str
@@ -46,7 +33,6 @@ class Endpoint:
         owner: str,
         url_name: str,
         version: str,
-        key_name: Optional[str] = None,
         api_key: Optional[str] = None,
     ):
         """
@@ -55,12 +41,10 @@ class Endpoint:
         :param owner: owner of the product
         :param url_name: name of the product as it appears in the URL
         :param version: interface version
-        :param key_name: where to find the key in envvars
         """
         self.owner = owner
         self.url_name = url_name
         self.version = version
-        self.key_name = key_name or url_name
         if api_key:
             self.api_key = api_key
         else:
@@ -232,44 +216,12 @@ class CustomEndpoint(Endpoint):
         return response
 
 
-class InvoiceEndpoint(Endpoint):
-    def __init__(self, api_key: Optional[str] = None):
+class StandardEndpoint(Endpoint):
+    def __init__(self, url_name: str, version: str, api_key: Optional[str] = None):
         super().__init__(
             owner=OTS_OWNER,
-            url_name=INVOICE_URL_NAME,
-            version=INVOICE_VERSION,
-            key_name="invoice",
-            api_key=api_key,
-        )
-
-
-class ReceiptEndpoint(Endpoint):
-    def __init__(self, api_key: Optional[str] = None):
-        super().__init__(
-            owner=OTS_OWNER,
-            url_name=RECEIPT_URL_NAME,
-            version=RECEIPT_VERSION,
-            key_name="receipt",
-            api_key=api_key,
-        )
-
-
-class PassportEndpoint(Endpoint):
-    def __init__(self, api_key: Optional[str] = None):
-        super().__init__(
-            owner=OTS_OWNER,
-            url_name=PASSPORT_URL_NAME,
-            version=PASSPORT_VERSION,
-            api_key=api_key,
-        )
-
-
-class BankCheckEndpoint(Endpoint):
-    def __init__(self, api_key: Optional[str] = None):
-        super().__init__(
-            owner=OTS_OWNER,
-            url_name=BANK_CHECK_URL_NAME,
-            version=BANK_CHECK_VERSION,
+            url_name=url_name,
+            version=version,
             api_key=api_key,
         )
 

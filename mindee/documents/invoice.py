@@ -1,39 +1,41 @@
 from typing import List, Optional
 
 from mindee.documents.base import Document, TypeApiPrediction
-from mindee.fields.amount import Amount
-from mindee.fields.base import Field, TypedField, field_array_confidence
-from mindee.fields.date import Date
-from mindee.fields.locale import Locale
+from mindee.fields.amount import AmountField
+from mindee.fields.base import field_array_confidence
+from mindee.fields.date import DateField
+from mindee.fields.locale import LocaleField
 from mindee.fields.orientation import Orientation
 from mindee.fields.payment_details import PaymentDetails
-from mindee.fields.tax import Tax
+from mindee.fields.tax import TaxField
+from mindee.fields.text import TextField
+from mindee.fields.typed import TypedField
 
 
 class Invoice(Document):
-    locale: Locale
+    locale: LocaleField
     """locale information"""
-    total_incl: Amount
+    total_incl: AmountField
     """Total including taxes"""
-    total_excl: Amount
+    total_excl: AmountField
     """Total excluding taxes"""
-    invoice_date: Date
+    invoice_date: DateField
     """Date the invoice was issued"""
-    invoice_number: Field
+    invoice_number: TextField
     """Invoice number"""
-    due_date: Date
+    due_date: DateField
     """Date the invoice is due"""
-    taxes: List[Tax] = []
+    taxes: List[TaxField] = []
     """List of all taxes"""
-    total_tax: Amount
+    total_tax: AmountField
     """Sum total of all taxes"""
-    supplier: Field
+    supplier: TextField
     """Supplier 's name"""
-    supplier_address: Field
+    supplier_address: TextField
     """Supplier's address"""
-    customer_name: Field
+    customer_name: TextField
     """Customer's name"""
-    customer_address: Field
+    customer_address: TextField
     """Customer's address"""
     customer_company_registration: List[TypedField]
     """Customer company registration numbers"""
@@ -82,40 +84,44 @@ class Invoice(Document):
             TypedField(field_dict, page_n=page_n)
             for field_dict in api_prediction["company_registration"]
         ]
-        self.invoice_date = Date(
+        self.invoice_date = DateField(
             api_prediction["date"], value_key="value", page_n=page_n
         )
-        self.due_date = Date(
+        self.due_date = DateField(
             api_prediction["due_date"], value_key="value", page_n=page_n
         )
-        self.invoice_number = Field(api_prediction["invoice_number"], page_n=page_n)
-        self.locale = Locale(
+        self.invoice_number = TextField(api_prediction["invoice_number"], page_n=page_n)
+        self.locale = LocaleField(
             api_prediction["locale"], value_key="language", page_n=page_n
         )
-        self.supplier = Field(api_prediction["supplier"], page_n=page_n)
-        self.supplier_address = Field(api_prediction["supplier_address"], page_n=page_n)
-        self.customer_name = Field(api_prediction["customer"], page_n=page_n)
+        self.supplier = TextField(api_prediction["supplier"], page_n=page_n)
+        self.supplier_address = TextField(
+            api_prediction["supplier_address"], page_n=page_n
+        )
+        self.customer_name = TextField(api_prediction["customer"], page_n=page_n)
         self.customer_company_registration = [
             TypedField(field_dict, page_n=page_n)
             for field_dict in api_prediction["customer_company_registration"]
         ]
-        self.customer_address = Field(api_prediction["customer_address"], page_n=page_n)
+        self.customer_address = TextField(
+            api_prediction["customer_address"], page_n=page_n
+        )
 
         self.taxes = [
-            Tax(tax_prediction, page_n=page_n, value_key="value")
+            TaxField(tax_prediction, page_n=page_n, value_key="value")
             for tax_prediction in api_prediction["taxes"]
         ]
         self.payment_details = [
             PaymentDetails(payment_detail, page_n=page_n)
             for payment_detail in api_prediction["payment_details"]
         ]
-        self.total_incl = Amount(
+        self.total_incl = AmountField(
             api_prediction["total_incl"], value_key="value", page_n=page_n
         )
-        self.total_excl = Amount(
+        self.total_excl = AmountField(
             api_prediction["total_excl"], value_key="value", page_n=page_n
         )
-        self.total_tax = Amount(
+        self.total_tax = AmountField(
             {"value": None, "confidence": 0.0}, value_key="value", page_n=page_n
         )
 
@@ -303,7 +309,9 @@ class Invoice(Document):
                 "confidence": field_array_confidence(self.taxes)
                 * self.total_excl.confidence,
             }
-            self.total_incl = Amount(total_incl, value_key="value", reconstructed=True)
+            self.total_incl = AmountField(
+                total_incl, value_key="value", reconstructed=True
+            )
 
     def __reconstruct_total_excl_from_tcc_and_taxes(self) -> None:
         """
@@ -327,7 +335,7 @@ class Invoice(Document):
             "confidence": field_array_confidence(self.taxes)
             * self.total_incl.confidence,
         }
-        self.total_excl = Amount(total_excl, value_key="value", reconstructed=True)
+        self.total_excl = AmountField(total_excl, value_key="value", reconstructed=True)
 
     def __reconstruct_total_tax_from_tax_lines(self) -> None:
         """
@@ -344,7 +352,7 @@ class Invoice(Document):
                 "confidence": field_array_confidence(self.taxes),
             }
             if total_tax["value"] > 0:
-                self.total_tax = Amount(
+                self.total_tax = AmountField(
                     total_tax, value_key="value", reconstructed=True
                 )
 
@@ -367,4 +375,6 @@ class Invoice(Document):
             "confidence": self.total_incl.confidence * self.total_excl.confidence,
         }
         if total_tax["value"] >= 0:
-            self.total_tax = Amount(total_tax, value_key="value", reconstructed=True)
+            self.total_tax = AmountField(
+                total_tax, value_key="value", reconstructed=True
+            )

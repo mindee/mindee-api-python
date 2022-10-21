@@ -1,32 +1,33 @@
 from typing import List, Optional
 
 from mindee.documents.base import Document, TypeApiPrediction
-from mindee.fields.amount import Amount
-from mindee.fields.base import Field, field_array_confidence, field_array_sum
-from mindee.fields.date import Date
-from mindee.fields.locale import Locale
+from mindee.fields.amount import AmountField
+from mindee.fields.base import field_array_confidence, field_array_sum
+from mindee.fields.date import DateField
+from mindee.fields.locale import LocaleField
 from mindee.fields.orientation import Orientation
-from mindee.fields.tax import Tax
+from mindee.fields.tax import TaxField
+from mindee.fields.text import TextField
 
 
 class Receipt(Document):
-    locale: Locale
+    locale: LocaleField
     """locale information"""
-    total_incl: Amount
+    total_incl: AmountField
     """Total including taxes"""
-    date: Date
+    date: DateField
     """Date the receipt was issued"""
-    time: Field
+    time: TextField
     """Time the receipt was issued"""
-    category: Field
+    category: TextField
     """Service category"""
-    merchant_name: Field
+    merchant_name: TextField
     """Merchant's name"""
-    taxes: List[Tax]
+    taxes: List[TaxField]
     """List of all taxes"""
-    total_tax: Amount
+    total_tax: AmountField
     """Sum total of all taxes"""
-    total_excl: Amount
+    total_excl: AmountField
     """Total excluding taxes"""
     # orientation is only present on page-level, not document-level
     orientation: Optional[Orientation] = None
@@ -82,18 +83,18 @@ class Receipt(Document):
         if page_n is not None:
             self.orientation = Orientation(api_prediction["orientation"], page_n=page_n)
 
-        self.locale = Locale(api_prediction["locale"], page_n=page_n)
-        self.total_incl = Amount(
+        self.locale = LocaleField(api_prediction["locale"], page_n=page_n)
+        self.total_incl = AmountField(
             api_prediction["total_incl"], value_key="value", page_n=page_n
         )
-        self.date = Date(api_prediction["date"], value_key="value", page_n=page_n)
-        self.category = Field(api_prediction["category"], page_n=page_n)
-        self.merchant_name = Field(
+        self.date = DateField(api_prediction["date"], value_key="value", page_n=page_n)
+        self.category = TextField(api_prediction["category"], page_n=page_n)
+        self.merchant_name = TextField(
             api_prediction["supplier"], value_key="value", page_n=page_n
         )
-        self.time = Field(api_prediction["time"], value_key="value", page_n=page_n)
+        self.time = TextField(api_prediction["time"], value_key="value", page_n=page_n)
         self.taxes = [
-            Tax(
+            TaxField(
                 tax_prediction,
                 page_n=page_n,
                 value_key="value",
@@ -102,10 +103,10 @@ class Receipt(Document):
             )
             for tax_prediction in api_prediction["taxes"]
         ]
-        self.total_tax = Amount(
+        self.total_tax = AmountField(
             {"value": None, "confidence": 0.0}, value_key="value", page_n=page_n
         )
-        self.total_excl = Amount(
+        self.total_excl = AmountField(
             {"value": None, "confidence": 0.0}, value_key="value", page_n=page_n
         )
 
@@ -171,7 +172,9 @@ class Receipt(Document):
                 "confidence": field_array_confidence(self.taxes)
                 * self.total_incl.confidence,
             }
-            self.total_excl = Amount(total_excl, value_key="value", reconstructed=True)
+            self.total_excl = AmountField(
+                total_excl, value_key="value", reconstructed=True
+            )
 
     def __reconstruct_total_tax(self) -> None:
         """
@@ -188,6 +191,6 @@ class Receipt(Document):
                 "confidence": field_array_confidence(self.taxes),
             }
             if total_tax["value"] > 0:
-                self.total_tax = Amount(
+                self.total_tax = AmountField(
                     total_tax, value_key="value", reconstructed=True
                 )

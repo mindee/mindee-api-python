@@ -1,9 +1,9 @@
 from typing import Optional
 
-from mindee.fields.base import Field
+from mindee.fields.base import BaseField, TypePrediction
 
 
-class Locale(Field):
+class LocaleField(BaseField):
     language: Optional[str] = None
     """Language ISO code"""
     country: Optional[str] = None
@@ -13,7 +13,7 @@ class Locale(Field):
 
     def __init__(
         self,
-        locale_prediction: dict,
+        prediction: TypePrediction,
         value_key: str = "value",
         reconstructed: bool = False,
         page_n: Optional[int] = None,
@@ -21,20 +21,20 @@ class Locale(Field):
         """
         Locale field object.
 
-        :param locale_prediction: Locale prediction object from HTTP response
+        :param prediction: Locale prediction object from HTTP response
         :param value_key: Key to use in the locale_prediction dict
         :param reconstructed: Bool for reconstructed object (not extracted in the API)
-        :param page_n: Page number for multi-page PDF
+        :param page_n: Page number for multi-page document
         """
         super().__init__(
-            locale_prediction,
+            prediction,
             value_key=value_key,
             reconstructed=reconstructed,
             page_n=page_n,
         )
-        self.language = self._get_value(locale_prediction, "language")
-        self.country = self._get_value(locale_prediction, "country")
-        self.currency = self._get_value(locale_prediction, "currency")
+        self.language = self._get_value(prediction, "language")
+        self.country = self._get_value(prediction, "country")
+        self.currency = self._get_value(prediction, "currency")
 
     @staticmethod
     def _get_value(locale_prediction: dict, key: str) -> Optional[str]:

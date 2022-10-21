@@ -1,13 +1,15 @@
-from mindee.fields.base import Field, Optional
+from typing import Optional
+
+from mindee.fields.base import BaseField, TypePrediction
 
 
-class Orientation(Field):
+class Orientation(BaseField):
     value: int
     """Orientation degrees. One of 0, 90, 180, 270"""
 
     def __init__(
         self,
-        orientation_prediction: dict,
+        prediction: TypePrediction,
         value_key: str = "degrees",
         reconstructed: bool = False,
         page_n: Optional[int] = None,
@@ -15,23 +17,22 @@ class Orientation(Field):
         """
         Page orientation.
 
-        :param orientation_prediction: Orientation prediction object from HTTP response
+        :param prediction: Orientation prediction object from HTTP response
         :param value_key: Key to use in the orientation_prediction dict
         :param reconstructed: Bool for reconstructed object (not extracted in the API)
-        :param page_n: Page number for multi-page PDF
+        :param page_n: Page number for multi-page document
         """
         super().__init__(
-            orientation_prediction,
+            prediction,
             value_key=value_key,
             reconstructed=reconstructed,
             page_n=page_n,
         )
 
         try:
-            self.value = int(orientation_prediction[value_key])
+            self.value = int(prediction[value_key])
             if self.value not in [0, 90, 180, 270]:
                 self.value = 0
         except (TypeError, ValueError, KeyError):
             self.value = 0
             self.confidence = 0.0
-            self.bbox = []

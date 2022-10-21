@@ -9,7 +9,7 @@ from tests.utils import clear_envvars, dummy_envvars
 @pytest.fixture
 def empty_client(monkeypatch):
     clear_envvars(monkeypatch)
-    return Client().config_custom_doc(
+    return Client().add_endpoint(
         endpoint_name="dummy",
         account_name="dummy",
     )
@@ -18,43 +18,23 @@ def empty_client(monkeypatch):
 @pytest.fixture
 def env_client(monkeypatch):
     dummy_envvars(monkeypatch)
-    return (
-        Client("dummy")
-        .config_receipt()
-        .config_invoice()
-        .config_passport()
-        .config_financial_doc()
-        .config_custom_doc(
-            endpoint_name="dummy",
-            account_name="dummy",
-        )
+    return Client("dummy").add_endpoint(
+        endpoint_name="dummy",
+        account_name="dummy",
     )
 
 
 @pytest.fixture
 def dummy_client():
-    return (
-        Client("dummy")
-        .config_receipt()
-        .config_invoice()
-        .config_passport()
-        .config_financial_doc()
-        .config_custom_doc(
-            endpoint_name="dummy",
-            account_name="dummy",
-        )
+    return Client("dummy").add_endpoint(
+        endpoint_name="dummy",
+        account_name="dummy",
     )
 
 
 @pytest.fixture
 def dummy_client_no_raise():
-    return (
-        Client(api_key="dummy", raise_on_error=False)
-        .config_receipt()
-        .config_invoice()
-        .config_passport()
-        .config_financial_doc()
-    )
+    return Client(api_key="dummy", raise_on_error=False)
 
 
 def test_parse_path_without_token(empty_client):
@@ -88,7 +68,7 @@ def test_parse_path_with_env_token(env_client):
 
 
 def test_duplicate_configs(dummy_client):
-    client = dummy_client.config_custom_doc(
+    client = dummy_client.add_endpoint(
         endpoint_name="receipt",
         account_name="dummy",
     )
@@ -167,7 +147,7 @@ def test_request_with_wrong_type(dummy_client):
 
 
 def test_interface_version():
-    fixed_client = Client("dummy").config_custom_doc(
+    fixed_client = Client("dummy").add_endpoint(
         endpoint_name="dummy",
         account_name="dummy",
         version="1.1",

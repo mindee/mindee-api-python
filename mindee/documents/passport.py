@@ -2,39 +2,40 @@ from datetime import datetime
 from typing import List, Optional
 
 from mindee.documents.base import Document, TypeApiPrediction
-from mindee.fields.base import Field, field_array_confidence
-from mindee.fields.date import Date
+from mindee.fields.base import field_array_confidence
+from mindee.fields.date import DateField
+from mindee.fields.text import TextField
 
 
 class Passport(Document):
-    country: Field
+    country: TextField
     """Country of issue"""
-    id_number: Field
+    id_number: TextField
     """Passport number"""
-    expiry_date: Date
+    expiry_date: DateField
     """Date the passport expires"""
-    issuance_date: Date
+    issuance_date: DateField
     """Date the passport was issued"""
-    surname: Field
+    surname: TextField
     """Holder's last name (surname)"""
-    given_names: List[Field]
+    given_names: List[TextField]
     """Holder's list of first (given) names"""
-    full_name: Field
+    full_name: TextField
     """
     Holder's full name.
     The combination of `given_names` and `surname` fields.
     """
-    birth_date: Date
+    birth_date: DateField
     """Holder's date of birth"""
-    birth_place: Field
+    birth_place: TextField
     """Holder's place of birth"""
-    gender: Field
+    gender: TextField
     """Holder's gender or sex"""
-    mrz1: Field
+    mrz1: TextField
     """First line of the Machine-Readable Zone"""
-    mrz2: Field
+    mrz2: TextField
     """Second line of the Machine-Readable Zone"""
-    mrz: Field
+    mrz: TextField
     """Combination of both MRZ fields."""
 
     def __init__(
@@ -67,24 +68,28 @@ class Passport(Document):
         :param api_prediction: Raw prediction from HTTP response
         :param page_n: Page number for multi pages pdf input
         """
-        self.country = Field(api_prediction["country"], page_n=page_n)
-        self.id_number = Field(api_prediction["id_number"], page_n=page_n)
-        self.birth_date = Date(api_prediction["birth_date"], "value", page_n=page_n)
-        self.expiry_date = Date(api_prediction["expiry_date"], "value", page_n=page_n)
-        self.issuance_date = Date(
+        self.country = TextField(api_prediction["country"], page_n=page_n)
+        self.id_number = TextField(api_prediction["id_number"], page_n=page_n)
+        self.birth_date = DateField(
+            api_prediction["birth_date"], "value", page_n=page_n
+        )
+        self.expiry_date = DateField(
+            api_prediction["expiry_date"], "value", page_n=page_n
+        )
+        self.issuance_date = DateField(
             api_prediction["issuance_date"], "value", page_n=page_n
         )
-        self.birth_place = Field(api_prediction["birth_place"], page_n=page_n)
-        self.gender = Field(api_prediction["gender"], page_n=page_n)
-        self.surname = Field(api_prediction["surname"], page_n=page_n)
-        self.mrz1 = Field(api_prediction["mrz1"], page_n=page_n)
-        self.mrz2 = Field(api_prediction["mrz2"], page_n=page_n)
+        self.birth_place = TextField(api_prediction["birth_place"], page_n=page_n)
+        self.gender = TextField(api_prediction["gender"], page_n=page_n)
+        self.surname = TextField(api_prediction["surname"], page_n=page_n)
+        self.mrz1 = TextField(api_prediction["mrz1"], page_n=page_n)
+        self.mrz2 = TextField(api_prediction["mrz2"], page_n=page_n)
         self.given_names = [
-            Field(given_name, page_n=page_n)
+            TextField(given_name, page_n=page_n)
             for given_name in api_prediction["given_names"]
         ]
-        self.mrz = Field({"value": None, "confidence": 0.0}, page_n=page_n)
-        self.full_name = Field({"value": None, "confidence": 0.0}, page_n=page_n)
+        self.mrz = TextField({"value": None, "confidence": 0.0}, page_n=page_n)
+        self.full_name = TextField({"value": None, "confidence": 0.0}, page_n=page_n)
 
     def __str__(self) -> str:
         given_names = " ".join(
@@ -249,7 +254,7 @@ class Passport(Document):
                 "value": self.mrz1.value + self.mrz2.value,
                 "confidence": field_array_confidence([self.mrz1, self.mrz2]),
             }
-            self.mrz = Field(mrz, reconstructed=True)
+            self.mrz = TextField(mrz, reconstructed=True)
 
     def __reconstruct_full_name(self) -> None:
         """
@@ -272,4 +277,4 @@ class Passport(Document):
                     [self.surname, self.given_names[0]]
                 ),
             }
-            self.full_name = Field(full_name, reconstructed=True)
+            self.full_name = TextField(full_name, reconstructed=True)

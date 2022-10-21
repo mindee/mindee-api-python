@@ -23,16 +23,9 @@ def dummy_file_input():
 
 @pytest.fixture
 def dummy_config():
-    client = (
-        Client(api_key="dummy")
-        .config_receipt()
-        .config_invoice()
-        .config_passport()
-        .config_financial_doc()
-        .config_custom_doc(
-            endpoint_name="dummy",
-            account_name="dummy",
-        )
+    client = Client(api_key="dummy").add_endpoint(
+        endpoint_name="dummy",
+        account_name="dummy",
     )
     return client._doc_configs
 

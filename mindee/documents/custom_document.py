@@ -1,12 +1,13 @@
 from typing import Dict, Optional
 
 from mindee.documents.base import Document, TypeApiPrediction
+from mindee.fields.api_builder import ClassificationField, ListField
 
 
 class CustomDocument(Document):
-    fields: Dict[str, dict]
+    fields: Dict[str, ListField]
     """Dictionary of all fields in the document"""
-    classifications: Dict[str, dict]
+    classifications: Dict[str, ClassificationField]
     """Dictionary of all classifications in the document"""
 
     def __init__(
@@ -46,24 +47,20 @@ class CustomDocument(Document):
             field = api_prediction[field_name]
             # Only classifications have the 'value' attribute.
             if "value" in field:
-                self.classifications[field_name] = field
+                self.classifications[field_name] = ClassificationField(prediction=field)
             # Only value lists have the 'values' attribute.
             elif "values" in field:
                 field["page_n"] = page_n
-                self.fields[field_name] = field
-            setattr(self, field_name, field)
+                self.fields[field_name] = ListField(prediction=field, page_n=page_n)
 
     def __str__(self) -> str:
         custom_doc_str = (
             f"----- {self.type} -----\nFilename: {self.filename or ''}".rstrip() + "\n"
         )
-        for name, info in self.classifications.items():
-            custom_doc_str += f"{name}: {info['value']}\n"
-        for name, info in self.fields.items():
-            custom_doc_str += "%s: %s\n" % (
-                name,
-                " ".join([value["content"] for value in info["values"]]),
-            )
+        for class_name, class_info in self.classifications.items():
+            custom_doc_str += f"{class_name}: {class_info}\n"
+        for field_name, field_info in self.fields.items():
+            custom_doc_str += f"{field_name}: {field_info}\n"
         custom_doc_str += "----------------------"
         return custom_doc_str
 
