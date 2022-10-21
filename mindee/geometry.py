@@ -55,8 +55,8 @@ def get_centroid(polygon: Polygon) -> Point:
     :return: Point
     """
     numb_vertices = len(polygon)
-    x_sum = sum([x for x, _ in polygon])
-    y_sum = sum([y for _, y in polygon])
+    x_sum = sum(x for x, _ in polygon)
+    y_sum = sum(y for _, y in polygon)
     return x_sum / numb_vertices, y_sum / numb_vertices
 
 

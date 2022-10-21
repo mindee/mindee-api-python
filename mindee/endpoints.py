@@ -27,6 +27,8 @@ PASSPORT_URL_NAME = "passport"
 BANK_CHECK_VERSION = "1"
 BANK_CHECK_URL_NAME = "bank_check"
 
+DEFAULT_TIMEOUT = 120
+
 
 class Endpoint:
     """Generic API endpoint for a product."""
@@ -36,6 +38,7 @@ class Endpoint:
     version: str
     key_name: str
     api_key: str = ""
+    timeout: int = DEFAULT_TIMEOUT
     _url_root: str
 
     def __init__(
@@ -106,6 +109,7 @@ class Endpoint:
             files=files,
             headers=self.base_headers,
             data=data,
+            timeout=self.timeout,
         )
         return response
 
@@ -129,6 +133,7 @@ class CustomEndpoint(Endpoint):
             files=files,
             headers=self.base_headers,
             params=params,
+            timeout=self.timeout,
         )
         return response
 
@@ -150,6 +155,7 @@ class CustomEndpoint(Endpoint):
             files=files,
             headers=self.base_headers,
             params=params,
+            timeout=self.timeout,
         )
         return response
 
@@ -168,6 +174,7 @@ class CustomEndpoint(Endpoint):
             f"{self._url_root}/documents/{document_id}",
             headers=self.base_headers,
             params=params,
+            timeout=self.timeout,
         )
         return response
 
@@ -184,6 +191,7 @@ class CustomEndpoint(Endpoint):
             f"{self._url_root}/documents",
             headers=self.base_headers,
             params=params,
+            timeout=self.timeout,
         )
         return response
 
@@ -201,6 +209,7 @@ class CustomEndpoint(Endpoint):
             f"{self._url_root}/documents/{document_id}/annotations",
             headers=self.base_headers,
             json=annotations,
+            timeout=self.timeout,
         )
         return response
 
@@ -218,6 +227,7 @@ class CustomEndpoint(Endpoint):
             f"{self._url_root}/documents/{document_id}/annotations",
             headers=self.base_headers,
             json=annotations,
+            timeout=self.timeout,
         )
         return response
 
