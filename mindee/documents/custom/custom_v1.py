@@ -1,10 +1,10 @@
-from typing import Dict, Optional
+from typing import Dict, Optional, TypeVar
 
 from mindee.documents.base import Document, TypeApiPrediction
 from mindee.fields.api_builder import ClassificationField, ListField
 
 
-class CustomDocument(Document):
+class CustomV1(Document):
     fields: Dict[str, ListField]
     """Dictionary of all fields in the document"""
     classifications: Dict[str, ClassificationField]
@@ -66,3 +66,6 @@ class CustomDocument(Document):
 
     def _checklist(self) -> None:
         pass
+
+
+TypeCustomV1 = TypeVar("TypeCustomV1", bound=CustomV1)

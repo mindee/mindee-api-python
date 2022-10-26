@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import List, Optional
+from typing import List, Optional, TypeVar
 
 from mindee.documents.base import Document, TypeApiPrediction
 from mindee.fields.base import field_array_confidence
@@ -7,7 +7,7 @@ from mindee.fields.date import DateField
 from mindee.fields.text import TextField
 
 
-class Passport(Document):
+class PassportV1(Document):
     country: TextField
     """Country of issue"""
     id_number: TextField
@@ -150,7 +150,7 @@ class Passport(Document):
         """
         if self.mrz2.value is None:
             return False
-        if Passport.check_sum(self.mrz2.value[:9]) == self.mrz2.value[9]:
+        if PassportV1.check_sum(self.mrz2.value[:9]) == self.mrz2.value[9]:
             self.id_number.confidence = 1.0
             return True
         return False
@@ -163,7 +163,7 @@ class Passport(Document):
         """
         if self.mrz2.value is None:
             return False
-        if Passport.check_sum(self.mrz2.value[13:19]) == self.mrz2.value[19]:
+        if PassportV1.check_sum(self.mrz2.value[13:19]) == self.mrz2.value[19]:
             self.birth_date.confidence = 1.0
             return True
         return False
@@ -176,7 +176,7 @@ class Passport(Document):
         """
         if self.mrz2.value is None:
             return False
-        if Passport.check_sum(self.mrz2.value[21:27]) == self.mrz2.value[27]:
+        if PassportV1.check_sum(self.mrz2.value[21:27]) == self.mrz2.value[27]:
             self.expiry_date.confidence = 1.0
             return True
         return False
@@ -189,7 +189,7 @@ class Passport(Document):
         """
         if self.mrz2.value is None:
             return False
-        return Passport.check_sum(self.mrz2.value[28:42]) == self.mrz2.value[42]
+        return PassportV1.check_sum(self.mrz2.value[28:42]) == self.mrz2.value[42]
 
     def __mrz_last_name_checksum(self) -> bool:
         """
@@ -200,7 +200,7 @@ class Passport(Document):
         if self.mrz2.value is None:
             return False
         if (
-            Passport.check_sum(
+            PassportV1.check_sum(
                 self.mrz2.value[0:10] + self.mrz2.value[13:20] + self.mrz2.value[21:43]
             )
             == self.mrz2.value[43]
@@ -278,3 +278,6 @@ class Passport(Document):
                 ),
             }
             self.full_name = TextField(full_name, reconstructed=True)
+
+
+TypePassportV1 = TypeVar("TypePassportV1", bound=PassportV1)

@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from mindee.documents.custom_document import CustomDocument
+from mindee.documents.custom.custom_v1 import CustomV1
 from mindee.fields.api_builder import ClassificationField, ListField, ListFieldValue
 from tests import CUSTOM_DATA_DIR
 
@@ -13,7 +13,7 @@ CUSTOM_NA_FILE_PATH = f"{CUSTOM_DATA_DIR}/response/empty.json"
 @pytest.fixture
 def custom_doc_object_complete():
     json_data = json.load(open(CUSTOM_FILE_PATH))
-    return CustomDocument(
+    return CustomV1(
         "field_test", json_data["document"]["inference"]["prediction"], page_n=None
     )
 
@@ -21,7 +21,7 @@ def custom_doc_object_complete():
 @pytest.fixture
 def custom_doc_object_empty():
     json_data = json.load(open(CUSTOM_NA_FILE_PATH))
-    return CustomDocument(
+    return CustomV1(
         "field_test", json_data["document"]["inference"]["prediction"], page_n=None
     )
 

@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from mindee.documents.bank_check import BankCheck
+from mindee.documents.us.bank_check.bank_check_v1 import BankCheckV1
 from tests import BANK_CHECK_DATA_DIR
 
 BANK_CHECK_FILE_PATH = f"{BANK_CHECK_DATA_DIR}/response/complete.json"
@@ -12,13 +12,13 @@ BANK_CHECK_NA_FILE_PATH = f"{BANK_CHECK_DATA_DIR}/response/empty.json"
 @pytest.fixture
 def doc_object():
     json_data = json.load(open(BANK_CHECK_FILE_PATH))
-    return BankCheck(json_data["document"]["inference"]["prediction"], page_n=None)
+    return BankCheckV1(json_data["document"]["inference"]["prediction"], page_n=None)
 
 
 @pytest.fixture
 def bank_check_object_all_na():
     json_data = json.load(open(BANK_CHECK_NA_FILE_PATH))
-    return BankCheck(json_data["document"]["inference"]["prediction"], page_n=None)
+    return BankCheckV1(json_data["document"]["inference"]["prediction"], page_n=None)
 
 
 @pytest.fixture

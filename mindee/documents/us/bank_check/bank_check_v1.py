@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List, Optional, TypeVar
 
 from mindee.documents.base import Document, TypeApiPrediction
 from mindee.fields.amount import AmountField
@@ -8,7 +8,7 @@ from mindee.fields.position import Position
 from mindee.fields.text import TextField
 
 
-class BankCheck(Document):
+class BankCheckV1(Document):
     date: DateField
     """Date the check was issued"""
     amount: AmountField
@@ -97,3 +97,6 @@ class BankCheck(Document):
     def _checklist(self) -> None:
         """Call check methods."""
         self.checklist = {}
+
+
+TypeBankCheckV1 = TypeVar("TypeBankCheckV1", bound=BankCheckV1)

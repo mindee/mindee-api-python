@@ -1,32 +1,43 @@
 import argparse
 import json
 from argparse import Namespace
-from typing import Dict, Union
+from dataclasses import dataclass
+from typing import Dict, Generic, TypeVar
 
-from mindee import Client, PageOptions
+from mindee import Client, PageOptions, documents
 from mindee.client import DocumentClient
-from mindee.documents.base import serialize_for_json
+from mindee.documents.base import Document, serialize_for_json
 
-DOCUMENTS: Dict[str, Dict[str, Union[list, str]]] = {
-    "invoice": {
-        "help": "Invoice",
-        "doc_type": "invoice",
-    },
-    "receipt": {
-        "help": "Expense Receipt",
-        "doc_type": "receipt",
-    },
-    "passport": {
-        "help": "Passport",
-        "doc_type": "passport",
-    },
-    "financial": {
-        "help": "Financial Document (receipt or invoice)",
-        "doc_type": "financial_doc",
-    },
-    "custom": {
-        "help": "Custom document type from API builder",
-    },
+TypeDoc = TypeVar("TypeDoc", bound=Document)
+
+
+@dataclass
+class CommandConfig(Generic[TypeDoc]):
+    help: str
+    doc_class: TypeDoc
+
+
+DOCUMENTS: Dict[str, CommandConfig] = {
+    "invoice": CommandConfig(
+        help="Invoice",
+        doc_class=documents.TypeInvoiceV3,
+    ),
+    "receipt": CommandConfig(
+        help="Expense Receipt",
+        doc_class=documents.TypeReceiptV3,
+    ),
+    "passport": CommandConfig(
+        help="Passport",
+        doc_class=documents.TypePassportV1,
+    ),
+    "financial": CommandConfig(
+        help="Financial Document (receipt or invoice)",
+        doc_class=documents.TypeFinancialDocument,
+    ),
+    "custom": CommandConfig(
+        help="Custom document type from API builder",
+        doc_class=documents.TypeCustomV1,
+    ),
 }
 
 
@@ -51,10 +62,8 @@ def call_endpoint(args: Namespace):
             endpoint_name=args.doc_type,
             account_name=args.username,
         )
-        doc_type = args.doc_type
-    else:
-        info = DOCUMENTS[args.product_name]
-        doc_type = info["doc_type"]
+    info = DOCUMENTS[args.product_name]
+    doc_class = info.doc_class
 
     input_doc = _get_input_doc(client, args)
 
@@ -64,20 +73,23 @@ def call_endpoint(args: Namespace):
         page_options = None
     if args.product_name == "custom":
         parsed_data = input_doc.parse(
-            doc_type, username=args.username, page_options=page_options
+            doc_class,
+            endpoint_name=args.doc_type,
+            account_name=args.username,
+            page_options=page_options,
         )
     else:
         parsed_data = input_doc.parse(
-            doc_type, include_words=args.include_words, page_options=page_options
+            doc_class, include_words=args.include_words, page_options=page_options
         )
 
     if args.output_type == "raw":
         print(json.dumps(parsed_data.http_response, indent=2))
     elif args.output_type == "parsed":
-        doc = getattr(parsed_data, doc_type)
+        doc = parsed_data.document
         print(json.dumps(doc, indent=2, default=serialize_for_json))
     else:
-        print(getattr(parsed_data, doc_type))
+        print(parsed_data.document)
 
 
 def _parse_args() -> Namespace:
@@ -95,7 +107,7 @@ def _parse_args() -> Namespace:
         required=True,
     )
     for name, info in DOCUMENTS.items():
-        subp = subparsers.add_parser(name, help=info["help"])
+        subp = subparsers.add_parser(name, help=info.help)
         if name == "custom":
             subp.add_argument(
                 "-u",

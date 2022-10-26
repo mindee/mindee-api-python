@@ -1,5 +1,5 @@
 import datetime
-from typing import Any, Dict, List, Optional, Type
+from typing import Any, Dict, List, Optional, TypeVar
 
 from mindee.endpoints import Endpoint
 from mindee.input.sources import InputSource
@@ -82,4 +82,4 @@ class Document:
         return all(self.checklist)
 
 
-TypeDocument = Type[Document]
+TypeDocument = TypeVar("TypeDocument", bound=Document)

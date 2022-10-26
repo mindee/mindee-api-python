@@ -1,22 +1,24 @@
-from typing import Dict, List, Tuple
+from typing import Dict, List, Tuple, Type
 
-from mindee.documents.base import TypeDocument
+from mindee.documents.base import Document
 from mindee.endpoints import MINDEE_API_KEY_NAME, Endpoint
+
+_docT = Type[Document]
 
 
 class DocumentConfig:
     document_type: str
     endpoints: List[Endpoint]
-    document_class: TypeDocument
+    document_class: _docT
 
     def __init__(
         self,
         document_type: str,
-        constructor: TypeDocument,
+        document_class: _docT,
         endpoints: List[Endpoint],
     ):
         self.document_type = document_type
-        self.document_class = constructor
+        self.document_class = document_class
         self.endpoints = endpoints
 
     def check_api_keys(self) -> None:

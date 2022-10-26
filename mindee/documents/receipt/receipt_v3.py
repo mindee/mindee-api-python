@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List, Optional, TypeVar
 
 from mindee.documents.base import Document, TypeApiPrediction
 from mindee.fields.amount import AmountField
@@ -10,7 +10,7 @@ from mindee.fields.tax import TaxField
 from mindee.fields.text import TextField
 
 
-class Receipt(Document):
+class ReceiptV3(Document):
     locale: LocaleField
     """locale information"""
     total_incl: AmountField
@@ -194,3 +194,6 @@ class Receipt(Document):
                 self.total_tax = AmountField(
                     total_tax, value_key="value", reconstructed=True
                 )
+
+
+TypeReceiptV3 = TypeVar("TypeReceiptV3", bound=ReceiptV3)
