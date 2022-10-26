@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from mindee.documents.passport import Passport
+from mindee.documents.passport.passport_v1 import PassportV1
 from tests import PASSPORT_DATA_DIR
 
 PASSPORT_FILE_PATH = f"{PASSPORT_DATA_DIR}/response/complete.json"
@@ -11,13 +11,13 @@ PASSPORT_FILE_PATH = f"{PASSPORT_DATA_DIR}/response/complete.json"
 @pytest.fixture
 def passport_object():
     json_data = json.load(open(PASSPORT_FILE_PATH))
-    return Passport(json_data["document"]["inference"]["pages"][0]["prediction"])
+    return PassportV1(json_data["document"]["inference"]["pages"][0]["prediction"])
 
 
 @pytest.fixture
 def passport_object_all_na():
     json_data = json.load(open(f"{PASSPORT_DATA_DIR}/response/empty.json"))
-    return Passport(json_data["document"]["inference"]["pages"][0]["prediction"])
+    return PassportV1(json_data["document"]["inference"]["pages"][0]["prediction"])
 
 
 def test_constructor(passport_object):
@@ -54,18 +54,18 @@ def test_checklist_all_na(passport_object_all_na):
 
 def test_checksum():
     mrz = "7077979792GBR9505209M1704224<<<<<<<<<<<<<<00"
-    assert Passport.check_sum(mrz[0:10] + mrz[13:20] + mrz[21:43]) == mrz[43]
+    assert PassportV1.check_sum(mrz[0:10] + mrz[13:20] + mrz[21:43]) == mrz[43]
 
 
 def test_wrong_checksum():
     mrz = "7077974792GBR9505209M1704224<<<<<<<<<<<<<<00"
-    assert Passport.check_sum(mrz[0:10] + mrz[13:20] + mrz[21:43]) != mrz[43]
+    assert PassportV1.check_sum(mrz[0:10] + mrz[13:20] + mrz[21:43]) != mrz[43]
     mrz = "7077974792GBR9505209M1404224<<<<<<<<<<<<<<00"
-    assert Passport.check_sum(mrz[0:10] + mrz[13:20] + mrz[21:43]) != mrz[43]
+    assert PassportV1.check_sum(mrz[0:10] + mrz[13:20] + mrz[21:43]) != mrz[43]
     mrz = "7077974792GBR9505209M1404224<<<<<<<<<<<<<<08"
-    assert Passport.check_sum(mrz[0:10] + mrz[13:20] + mrz[21:43]) != mrz[43]
+    assert PassportV1.check_sum(mrz[0:10] + mrz[13:20] + mrz[21:43]) != mrz[43]
 
 
 def test_checksum_with_personal_number_alpha():
     mrz = "XDB0661884ESP9502138F1808122RE20050024133894"
-    assert Passport.check_sum(mrz[28:42]) == mrz[42]
+    assert PassportV1.check_sum(mrz[28:42]) == mrz[42]

@@ -1,13 +1,14 @@
 import json
-from typing import BinaryIO, Dict, Optional
+from typing import BinaryIO, Dict, Optional, Type
 
-from mindee.document_config import DocumentConfig, DocumentConfigDict
-from mindee.documents.bank_check import BankCheck
-from mindee.documents.custom_document import CustomDocument
+from mindee.documents.base import Document, TypeDocument
+from mindee.documents.config import DocumentConfig, DocumentConfigDict
+from mindee.documents.custom.custom_v1 import CustomV1
 from mindee.documents.financial_document import FinancialDocument
-from mindee.documents.invoice import Invoice
-from mindee.documents.passport import Passport
-from mindee.documents.receipt import Receipt
+from mindee.documents.invoice.invoice_v3 import InvoiceV3
+from mindee.documents.passport.passport_v1 import PassportV1
+from mindee.documents.receipt.receipt_v3 import ReceiptV3
+from mindee.documents.us.bank_check.bank_check_v1 import BankCheckV1
 from mindee.endpoints import OTS_OWNER, CustomEndpoint, HTTPException, StandardEndpoint
 from mindee.input.page_options import PageOptions
 from mindee.input.sources import (
@@ -19,6 +20,11 @@ from mindee.input.sources import (
 )
 from mindee.logger import logger
 from mindee.response import PredictResponse
+
+
+def get_type_var_name(type_var) -> str:
+    """Get the name of the bound class."""
+    return type_var.__bound__.__name__
 
 
 class DocumentClient:
@@ -38,34 +44,41 @@ class DocumentClient:
 
     def parse(
         self,
-        document_type: str,
-        username: Optional[str] = None,
+        document_class: TypeDocument,
+        endpoint_name: Optional[str] = None,
+        account_name: Optional[str] = None,
         include_words: bool = False,
         close_file: bool = True,
         page_options: Optional[PageOptions] = None,
-    ) -> PredictResponse:
+    ) -> PredictResponse[TypeDocument]:
         """
         Call prediction API on the document and parse the results.
 
-        :param document_type: Document type to parse
-        :param username: API username, the endpoint owner
+        :type document_class: DocT
+        :param endpoint_name: Document type to parse
+        :param account_name: API username, the endpoint owner
         :param include_words: Include all the words of the document in the response
         :param close_file: Whether to `close()` the file after parsing it.
             Set to `False` if you need to access the file after this operation.
         :param page_options: PageOptions object for cutting multipage documents.
         """
-        logger.debug("Parsing document as '%s'", document_type)
+        if get_type_var_name(document_class) != CustomV1.__name__:
+            endpoint_name = get_type_var_name(document_class)
+        elif endpoint_name is None:
+            raise RuntimeError("document_type is required for CustomDocument")
+
+        logger.debug("Parsing document as '%s'", endpoint_name)
 
         found = []
         for k in self.doc_configs.keys():
-            if k[1] == document_type:
+            if k[1] == endpoint_name:
                 found.append(k)
 
         if len(found) == 0:
-            raise RuntimeError(f"Document type not configured: {document_type}")
+            raise RuntimeError(f"Document type not configured: {endpoint_name}")
 
-        if username:
-            config_key = (username, document_type)
+        if account_name:
+            config_key = (account_name, endpoint_name)
         elif len(found) == 1:
             config_key = found[0]
         else:
@@ -73,7 +86,7 @@ class DocumentClient:
             raise RuntimeError(
                 (
                     "Duplicate configuration detected.\n"
-                    f"You specified a document_type '{document_type}' in your custom config.\n"
+                    f"You specified a document_type '{endpoint_name}' in your custom config.\n"
                     "To avoid confusion, please add the 'account_name' attribute to "
                     f"the parse method, one of {usernames}."
                 )
@@ -87,11 +100,18 @@ class DocumentClient:
                 page_options.on_min_pages,
                 page_options.page_indexes,
             )
-        return self._make_request(doc_config, include_words, close_file)
+        return self._make_request(document_class, doc_config, include_words, close_file)
 
     def _make_request(
-        self, doc_config: DocumentConfig, include_words: bool, close_file: bool
-    ) -> PredictResponse:
+        self,
+        document_class: TypeDocument,
+        doc_config: DocumentConfig,
+        include_words: bool,
+        close_file: bool,
+    ) -> PredictResponse[TypeDocument]:
+        if get_type_var_name(document_class) != doc_config.document_class.__name__:
+            raise RuntimeError("Document class mismatch!")
+
         response = doc_config.document_class.request(
             doc_config.endpoints,
             self.input_doc,
@@ -106,7 +126,7 @@ class DocumentClient:
                 "API %s HTTP error: %s"
                 % (response.status_code, json.dumps(dict_response))
             )
-        return PredictResponse(
+        return PredictResponse[TypeDocument](
             http_response=dict_response,
             doc_config=doc_config,
             input_source=self.input_doc,
@@ -143,27 +163,27 @@ class Client:
 
     def _init_default_endpoints(self) -> None:
         self._doc_configs = {
-            (OTS_OWNER, "invoice"): DocumentConfig(
-                document_type="invoice",
-                constructor=Invoice,
+            (OTS_OWNER, InvoiceV3.__name__): DocumentConfig(
+                document_type="invoice_v3",
+                document_class=InvoiceV3,
                 endpoints=[
                     StandardEndpoint(
                         url_name="invoices", version="3", api_key=self.api_key
                     )
                 ],
             ),
-            (OTS_OWNER, "receipt"): DocumentConfig(
-                document_type="receipt",
-                constructor=Receipt,
+            (OTS_OWNER, ReceiptV3.__name__): DocumentConfig(
+                document_type="receipt_v3",
+                document_class=ReceiptV3,
                 endpoints=[
                     StandardEndpoint(
                         url_name="expense_receipts", version="3", api_key=self.api_key
                     )
                 ],
             ),
-            (OTS_OWNER, "financial_doc"): DocumentConfig(
+            (OTS_OWNER, FinancialDocument.__name__): DocumentConfig(
                 document_type="financial_doc",
-                constructor=FinancialDocument,
+                document_class=FinancialDocument,
                 endpoints=[
                     StandardEndpoint(
                         url_name="invoices", version="3", api_key=self.api_key
@@ -173,18 +193,18 @@ class Client:
                     ),
                 ],
             ),
-            (OTS_OWNER, "passport"): DocumentConfig(
-                document_type="passport",
-                constructor=Passport,
+            (OTS_OWNER, PassportV1.__name__): DocumentConfig(
+                document_type="passport_v1",
+                document_class=PassportV1,
                 endpoints=[
                     StandardEndpoint(
                         url_name="passport", version="1", api_key=self.api_key
                     )
                 ],
             ),
-            (OTS_OWNER, "bank_check"): DocumentConfig(
-                document_type="bank_check",
-                constructor=BankCheck,
+            (OTS_OWNER, BankCheckV1.__name__): DocumentConfig(
+                document_type="bank_check_v1",
+                document_class=BankCheckV1,
                 endpoints=[
                     StandardEndpoint(
                         url_name="bank_check", version="1", api_key=self.api_key
@@ -198,6 +218,7 @@ class Client:
         account_name: str,
         endpoint_name: str,
         version: str = "1",
+        document_class: Type[Document] = CustomV1,
     ) -> "Client":
         """
         Add a custom endpoint, created using the Mindee API Builder.
@@ -205,11 +226,13 @@ class Client:
         :param endpoint_name: The "API name" field in the "Settings" page of the API Builder
         :param account_name: Your organization's username on the API Builder
         :param version: If set, locks the version of the model to use.
-                        If not set, use the latest version of the model.
+            If not set, use the latest version of the model.
+        :param document_class: A document class in which the response will be extracted.
+            Must inherit from ``mindee.documents.base.Document``.
         """
         self._doc_configs[(account_name, endpoint_name)] = DocumentConfig(
             document_type=endpoint_name,
-            constructor=CustomDocument,
+            document_class=document_class,
             endpoints=[
                 CustomEndpoint(
                     owner=account_name,

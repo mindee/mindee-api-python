@@ -1,8 +1,8 @@
-from typing import List, Optional
+from typing import List, Optional, TypeVar
 
 from mindee.documents.base import Document, TypeApiPrediction
-from mindee.documents.invoice import Invoice
-from mindee.documents.receipt import Receipt
+from mindee.documents.invoice.invoice_v3 import InvoiceV3
+from mindee.documents.receipt.receipt_v3 import ReceiptV3
 from mindee.endpoints import Endpoint
 from mindee.fields.amount import AmountField
 from mindee.fields.date import DateField
@@ -86,7 +86,7 @@ class FinancialDocument(Document):
         :param page_n: Page number for multi pages pdf input
         """
         if "invoice_number" in api_prediction.keys():
-            invoice = Invoice(api_prediction, self.input_file, page_n=page_n)
+            invoice = InvoiceV3(api_prediction, self.input_file, page_n=page_n)
             self.locale = invoice.locale
             self.total_incl = invoice.total_incl
             self.total_excl = invoice.total_excl
@@ -105,7 +105,7 @@ class FinancialDocument(Document):
             self.customer_company_registration = invoice.customer_company_registration
             self.customer_address = invoice.customer_address
         else:
-            receipt = Receipt(api_prediction, self.input_file, page_n=page_n)
+            receipt = ReceiptV3(api_prediction, self.input_file, page_n=page_n)
             self.orientation = receipt.orientation
             self.date = receipt.date
             self.due_date = receipt.date
@@ -214,3 +214,6 @@ class FinancialDocument(Document):
             self.total_incl.confidence = 1.0
             return True
         return False
+
+
+TypeFinancialDocument = TypeVar("TypeFinancialDocument", bound=FinancialDocument)

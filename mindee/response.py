@@ -1,20 +1,18 @@
-from typing import Any, Dict, Generic, List, Optional, TypeVar
+from typing import Any, Dict, Generic, List, Optional
 
-from mindee.document_config import DocumentConfig
-from mindee.documents.base import Document
+from mindee.documents.base import TypeDocument
+from mindee.documents.config import DocumentConfig
 from mindee.input.sources import InputSource
 from mindee.logger import logger
 
-DocT = TypeVar("DocT", bound=Document)
 
-
-class PredictResponse(Generic[DocT]):
+class PredictResponse(Generic[TypeDocument]):
     http_response: Dict[str, Any]
     """Raw HTTP response JSON"""
     document_type: str
     """Document type"""
-    document: Optional[DocT]
-    pages: List[DocT]
+    document: Optional[TypeDocument]
+    pages: List[TypeDocument]
 
     def __init__(
         self,

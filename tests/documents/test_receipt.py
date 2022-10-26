@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from mindee.documents.receipt import Receipt
+from mindee.documents.receipt.receipt_v3 import ReceiptV3
 from tests import RECEIPT_DATA_DIR
 
 RECEIPT_FILE_PATH = f"{RECEIPT_DATA_DIR}/response/complete.json"
@@ -12,13 +12,13 @@ RECEIPT_NA_FILE_PATH = f"{RECEIPT_DATA_DIR}/response/empty.json"
 @pytest.fixture
 def doc_object():
     json_data = json.load(open(RECEIPT_FILE_PATH))
-    return Receipt(json_data["document"]["inference"]["prediction"], page_n=None)
+    return ReceiptV3(json_data["document"]["inference"]["prediction"], page_n=None)
 
 
 @pytest.fixture
 def receipt_object_all_na():
     json_data = json.load(open(RECEIPT_NA_FILE_PATH))
-    return Receipt(json_data["document"]["inference"]["prediction"], page_n=None)
+    return ReceiptV3(json_data["document"]["inference"]["prediction"], page_n=None)
 
 
 @pytest.fixture
@@ -57,7 +57,7 @@ def test__reconstruct_total_excl_from_total_and_taxes_1(receipt_pred):
     # no incl implies no reconstruct for total excl
     receipt_pred["total_incl"] = {"value": "N/A", "confidence": 0.0}
     receipt_pred["taxes"] = [{"rate": 20, "value": 9.5, "confidence": 0.9}]
-    receipt = Receipt(receipt_pred)
+    receipt = ReceiptV3(receipt_pred)
     assert receipt.total_excl.value is None
 
 
@@ -65,7 +65,7 @@ def test__reconstruct_total_excl_from_total_and_taxes_2(receipt_pred):
     # no taxes implies no reconstruct for total excl
     receipt_pred["total_incl"] = {"value": 12.54, "confidence": 0.0}
     receipt_pred["taxes"] = []
-    receipt = Receipt(receipt_pred)
+    receipt = ReceiptV3(receipt_pred)
     assert receipt.total_excl.value is None
 
 
@@ -76,7 +76,7 @@ def test__reconstruct_total_excl_from_total_and_taxes_3(receipt_pred):
         {"rate": 20, "value": 0.5, "confidence": 0.1},
         {"rate": 10, "value": 4.25, "confidence": 0.6},
     ]
-    receipt = Receipt(receipt_pred)
+    receipt = ReceiptV3(receipt_pred)
     assert receipt.total_excl.confidence == 0.03
     assert receipt.total_excl.value == 7.79
 
@@ -84,7 +84,7 @@ def test__reconstruct_total_excl_from_total_and_taxes_3(receipt_pred):
 def test__reconstruct_total_tax_1(receipt_pred):
     # no taxes implies no reconstruct for total tax
     receipt_pred["taxes"] = []
-    receipt = Receipt(receipt_pred)
+    receipt = ReceiptV3(receipt_pred)
     assert receipt.total_tax.value is None
 
 
@@ -94,7 +94,7 @@ def test__reconstruct_total_tax_2(receipt_pred):
         {"rate": 20, "value": 10.2, "confidence": 0.5},
         {"rate": 10, "value": 40.0, "confidence": 0.1},
     ]
-    receipt = Receipt(receipt_pred)
+    receipt = ReceiptV3(receipt_pred)
     assert receipt.total_tax.value == 50.2
     assert receipt.total_tax.confidence == 0.05
 
@@ -106,7 +106,7 @@ def test__taxes_match_total_incl_1(receipt_pred):
         {"rate": 20, "value": 10.99, "confidence": 0.5},
         {"rate": 10, "value": 40.12, "confidence": 0.1},
     ]
-    receipt = Receipt(receipt_pred)
+    receipt = ReceiptV3(receipt_pred)
     assert receipt.checklist["taxes_match_total_incl"] is True
     assert receipt.total_incl.confidence == 1.0
     for tax in receipt.taxes:
@@ -120,7 +120,7 @@ def test__taxes_match_total_incl_2(receipt_pred):
         {"rate": 20, "value": 10.9, "confidence": 0.5},
         {"rate": 10, "value": 40.12, "confidence": 0.1},
     ]
-    receipt = Receipt(receipt_pred)
+    receipt = ReceiptV3(receipt_pred)
     assert receipt.checklist["taxes_match_total_incl"] is False
 
 
@@ -128,7 +128,7 @@ def test__taxes_match_total_incl_3(receipt_pred):
     # sanity check with null tax
     receipt_pred["total_incl"] = {"value": 507.25, "confidence": 0.6}
     receipt_pred["taxes"] = [{"rate": 20, "value": 0.0, "confidence": 0.5}]
-    receipt = Receipt(receipt_pred)
+    receipt = ReceiptV3(receipt_pred)
     assert receipt.checklist["taxes_match_total_incl"] is False
 
 
@@ -136,7 +136,7 @@ def test__taxes_match_total_incl_4(receipt_pred):
     # sanity check with None tax rate
     receipt_pred["total_incl"] = {"value": 507.25, "confidence": 0.6}
     receipt_pred["taxes"] = [{"rate": "N/A", "value": 0.0, "confidence": 0.5}]
-    receipt = Receipt(receipt_pred)
+    receipt = ReceiptV3(receipt_pred)
     assert receipt.checklist["taxes_match_total_incl"] is False
     assert type(str(receipt.taxes[0])) is str
 
@@ -148,5 +148,5 @@ def test_null_tax_rates_dont_raise(receipt_pred):
         {"rate": 1, "value": 0.0, "confidence": 0.5},
         {"rate": 2, "value": 20.0, "confidence": 0.5},
     ]
-    receipt = Receipt(receipt_pred)
+    receipt = ReceiptV3(receipt_pred)
     assert receipt.checklist["taxes_match_total_incl"] is False

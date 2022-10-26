@@ -13,15 +13,34 @@ pip install mindee
 
 Finally, Python away!
 
-### Off-the-Shelf Document
+### Off-the-Shelf Documents
+World-wide documents:
 ```python
-from mindee import Client
+from mindee import Client, documents
 
 # Init a new client
 mindee_client = Client(api_key="my-api-key")
 
-# Load a file from disk and parse it as an invoice
-api_response = mindee_client.doc_from_path("/path/to/the/invoice.pdf").parse("invoice")
+# Load a file from disk
+input_doc = mindee_client.doc_from_path("/path/to/the/invoice.pdf")
+# Parse the document as an invoice by passing the documents.Invoice type
+api_response = input_doc.parse(documents.TypeInvoiceV3)
+
+# Print a brief summary of the parsed data
+print(api_response.document)
+```
+
+Region-specific documents:
+```python
+from mindee import Client, documents
+
+# Init a new client
+mindee_client = Client(api_key="my-api-key")
+
+# Load a file from disk
+input_doc = mindee_client.doc_from_path("/path/to/the/check.jpg")
+# Parse the document as an invoice by passing the documents.us.TypeBankCheckV1 type
+api_response = input_doc.parse(documents.us.TypeBankCheckV1)
 
 # Print a brief summary of the parsed data
 print(api_response.document)
@@ -30,7 +49,7 @@ print(api_response.document)
 ### Custom Document (API Builder)
 
 ```python
-from mindee import Client
+from mindee import Client, documents
 
 # Init a new client and add your custom endpoint (document)
 mindee_client = Client(api_key="my-api-key").add_endpoint(
@@ -39,7 +58,9 @@ mindee_client = Client(api_key="my-api-key").add_endpoint(
 )
 
 # Load a file from disk and parse it
-api_response = mindee_client.doc_from_path("/path/to/the/card.jpg").parse("wnine")
+api_response = mindee_client.doc_from_path(
+    "/path/to/the/w9.jpg"
+).parse(documents.TypeCustomV1, "wnine")
 
 # Print a brief summary of the parsed data
 print(api_response.document)
