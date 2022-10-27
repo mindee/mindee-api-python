@@ -83,7 +83,7 @@ class BankCheckV1(Document):
             [payee.value if payee.value is not None else "" for payee in self.payees]
         )
         return (
-            "-----Bank check data-----\n"
+            "----- US Bank Check -----\n"
             f"Filename: {self.filename or ''}".rstrip() + "\n"
             f"Routing number: {self.routing_number}\n"
             f"Account number: {self.account_number}\n"
@@ -95,8 +95,7 @@ class BankCheckV1(Document):
         )
 
     def _checklist(self) -> None:
-        """Call check methods."""
-        self.checklist = {}
+        pass
 
 
 TypeBankCheckV1 = TypeVar("TypeBankCheckV1", bound=BankCheckV1)

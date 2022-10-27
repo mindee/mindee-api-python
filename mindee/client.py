@@ -4,10 +4,11 @@ from typing import BinaryIO, Dict, Optional, Type
 from mindee.documents.base import Document, TypeDocument
 from mindee.documents.config import DocumentConfig, DocumentConfigDict
 from mindee.documents.custom.custom_v1 import CustomV1
-from mindee.documents.financial_document import FinancialDocument
+from mindee.documents.financial.financial_v1 import FinancialV1
 from mindee.documents.invoice.invoice_v3 import InvoiceV3
 from mindee.documents.passport.passport_v1 import PassportV1
 from mindee.documents.receipt.receipt_v3 import ReceiptV3
+from mindee.documents.receipt.receipt_v4 import ReceiptV4
 from mindee.documents.us.bank_check.bank_check_v1 import BankCheckV1
 from mindee.endpoints import OTS_OWNER, CustomEndpoint, HTTPException, StandardEndpoint
 from mindee.input.page_options import PageOptions
@@ -22,7 +23,7 @@ from mindee.logger import logger
 from mindee.response import PredictResponse
 
 
-def get_type_var_name(type_var) -> str:
+def get_bound_classname(type_var) -> str:
     """Get the name of the bound class."""
     return type_var.__bound__.__name__
 
@@ -62,8 +63,8 @@ class DocumentClient:
             Set to `False` if you need to access the file after this operation.
         :param page_options: PageOptions object for cutting multipage documents.
         """
-        if get_type_var_name(document_class) != CustomV1.__name__:
-            endpoint_name = get_type_var_name(document_class)
+        if get_bound_classname(document_class) != CustomV1.__name__:
+            endpoint_name = get_bound_classname(document_class)
         elif endpoint_name is None:
             raise RuntimeError("document_type is required for CustomDocument")
 
@@ -109,7 +110,7 @@ class DocumentClient:
         include_words: bool,
         close_file: bool,
     ) -> PredictResponse[TypeDocument]:
-        if get_type_var_name(document_class) != doc_config.document_class.__name__:
+        if get_bound_classname(document_class) != doc_config.document_class.__name__:
             raise RuntimeError("Document class mismatch!")
 
         response = doc_config.document_class.request(
@@ -181,9 +182,18 @@ class Client:
                     )
                 ],
             ),
-            (OTS_OWNER, FinancialDocument.__name__): DocumentConfig(
+            (OTS_OWNER, ReceiptV4.__name__): DocumentConfig(
+                document_type="receipt_v3",
+                document_class=ReceiptV4,
+                endpoints=[
+                    StandardEndpoint(
+                        url_name="expense_receipts", version="4", api_key=self.api_key
+                    )
+                ],
+            ),
+            (OTS_OWNER, FinancialV1.__name__): DocumentConfig(
                 document_type="financial_doc",
-                document_class=FinancialDocument,
+                document_class=FinancialV1,
                 endpoints=[
                     StandardEndpoint(
                         url_name="invoices", version="3", api_key=self.api_key

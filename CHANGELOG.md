@@ -1,5 +1,22 @@
 # Mindee Python API Library Changelog
 
+## v3.0.0 (2022-10-31)
+### ¡Breaking Changes!
+* :sparkles: New PDF cut/merge system, allowing specifying exactly which pages to use.
+* :recycle: PDF documents are no longer cut by default, use the `page_options` parameter in the `parse` method.
+* :sparkles: Document (endpoints) are now versioned, providing better backward-compatible support.
+* :sparkles: Pass the document class instead of a string to specify how to `parse` input sources.
+* :recycle: Some methods and parameters renamed for better clarity.
+* :sparkles: Results from Custom documents are now deserialized into objects, rather than `dict`.
+
+### Changes
+* :sparkles: Add support for expense receipts V4.
+* :recycle: minor improvements to geometry functions.
+
+### Fixes
+* :bug: Make sure the user is specified when calling custom docs on CLI
+* :bug: Add default timeout of 120 seconds for endpoints.
+
 ## v2.6.0 (2022-10-10)
 ### Fixes
 * :bug: don't print "None" when filename is empty

@@ -134,9 +134,9 @@ class InvoiceV3(Document):
             [str(p) for p in self.payment_details]
         )
         taxes = "\n       ".join(f"{t}" for t in self.taxes)
-        return (
+        return self.clean_out_string(
             "-----Invoice data-----\n"
-            f"Filename: {self.filename or ''}".rstrip() + "\n"
+            f"Filename: {self.filename or ''}\n"
             f"Invoice number: {self.invoice_number}\n"
             f"Total amount including taxes: {self.total_incl}\n"
             f"Total amount excluding taxes: {self.total_excl}\n"

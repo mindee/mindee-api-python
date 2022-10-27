@@ -14,7 +14,7 @@ from mindee.fields.text import TextField
 from mindee.fields.typed import TypedField
 
 
-class FinancialDocument(Document):
+class FinancialV1(Document):
     locale: LocaleField
     """locale information"""
     total_incl: AmountField
@@ -125,9 +125,9 @@ class FinancialDocument(Document):
             self.customer_address = TextField({"value": None, "confidence": 0.0})
 
     def __str__(self) -> str:
-        return (
+        return self.clean_out_string(
             "-----Financial Document data-----\n"
-            f"Filename: {self.filename or ''}".rstrip() + "\n"
+            f"Filename: {self.filename or ''}\n"
             f"Invoice number: {self.invoice_number.value}\n"
             f"Total amount including taxes: {self.total_incl.value}\n"
             f"Total amount excluding taxes: {self.total_excl.value}\n"
@@ -216,4 +216,4 @@ class FinancialDocument(Document):
         return False
 
 
-TypeFinancialDocument = TypeVar("TypeFinancialDocument", bound=FinancialDocument)
+TypeFinancialV1 = TypeVar("TypeFinancialV1", bound=FinancialV1)

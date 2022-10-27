@@ -98,9 +98,9 @@ class PassportV1(Document):
                 for given_name in self.given_names
             ]
         )
-        return (
+        return self.clean_out_string(
             "-----Passport data-----\n"
-            f"Filename: {self.filename or ''}".rstrip() + "\n"
+            f"Filename: {self.filename or ''}\n"
             f"Full name: {self.full_name}\n"
             f"Given names: {given_names}\n"
             f"Surname: {self.surname}\n"

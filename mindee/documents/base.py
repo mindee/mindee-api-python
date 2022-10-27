@@ -1,4 +1,5 @@
 import datetime
+import re
 from typing import Any, Dict, List, Optional, TypeVar
 
 from mindee.endpoints import Endpoint
@@ -21,7 +22,7 @@ def serialize_for_json(obj: Any) -> Any:
 class Document:
     type: str
     """Document type"""
-    checklist: dict = {}
+    checklist: dict
     """Validation checks for the document"""
     filepath: Optional[str] = None
     """Path of the input document"""
@@ -45,6 +46,7 @@ class Document:
         self.type = document_type
 
         self._build_from_api_prediction(api_prediction, page_n=page_n)
+        self.checklist = {}
         self._checklist()
         self._reconstruct()
 
@@ -80,6 +82,12 @@ class Document:
     def all_checks(self) -> bool:
         """Return status of all checks."""
         return all(self.checklist)
+
+    @staticmethod
+    def clean_out_string(out_string: str) -> str:
+        """Clean up the string representation."""
+        regexp = re.compile(r" \n")
+        return regexp.sub("\n", out_string)
 
 
 TypeDocument = TypeVar("TypeDocument", bound=Document)

@@ -5,7 +5,7 @@ import pytest
 from mindee.documents.passport.passport_v1 import PassportV1
 from tests import PASSPORT_DATA_DIR
 
-PASSPORT_FILE_PATH = f"{PASSPORT_DATA_DIR}/response/complete.json"
+PASSPORT_FILE_PATH = f"{PASSPORT_DATA_DIR}/response_v1/complete.json"
 
 
 @pytest.fixture
@@ -16,14 +16,16 @@ def passport_object():
 
 @pytest.fixture
 def passport_object_all_na():
-    json_data = json.load(open(f"{PASSPORT_DATA_DIR}/response/empty.json"))
+    json_data = json.load(open(f"{PASSPORT_DATA_DIR}/response_v1/empty.json"))
     return PassportV1(json_data["document"]["inference"]["pages"][0]["prediction"])
 
 
 def test_constructor(passport_object):
     assert not passport_object.is_expired()
     assert passport_object.all_checks()
-    doc_str = open(f"{PASSPORT_DATA_DIR}/response/page0_to_string.txt").read().strip()
+    doc_str = (
+        open(f"{PASSPORT_DATA_DIR}/response_v1/page0_to_string.txt").read().strip()
+    )
     assert str(passport_object) == doc_str
 
 

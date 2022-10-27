@@ -6,8 +6,8 @@ from mindee.documents.custom.custom_v1 import CustomV1
 from mindee.fields.api_builder import ClassificationField, ListField, ListFieldValue
 from tests import CUSTOM_DATA_DIR
 
-CUSTOM_FILE_PATH = f"{CUSTOM_DATA_DIR}/response/complete.json"
-CUSTOM_NA_FILE_PATH = f"{CUSTOM_DATA_DIR}/response/empty.json"
+CUSTOM_FILE_PATH = f"{CUSTOM_DATA_DIR}/response_v1/complete.json"
+CUSTOM_NA_FILE_PATH = f"{CUSTOM_DATA_DIR}/response_v1/empty.json"
 
 
 @pytest.fixture
@@ -38,7 +38,7 @@ def test_empty(custom_doc_object_empty):
 
 
 def test_complete(custom_doc_object_complete):
-    doc_str = open(f"{CUSTOM_DATA_DIR}/response/doc_to_string.txt").read().strip()
+    doc_str = open(f"{CUSTOM_DATA_DIR}/response_v1/doc_to_string.txt").read().strip()
     for field_name, field in custom_doc_object_complete.fields.items():
         assert len(field_name) > 0
         assert isinstance(field, ListField)
