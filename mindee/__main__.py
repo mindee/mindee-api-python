@@ -18,13 +18,17 @@ class CommandConfig(Generic[TypeDoc]):
 
 
 DOCUMENTS: Dict[str, CommandConfig] = {
+    "custom": CommandConfig(
+        help="Custom document type from API builder",
+        doc_class=documents.TypeCustomV1,
+    ),
     "invoice": CommandConfig(
         help="Invoice",
         doc_class=documents.TypeInvoiceV3,
     ),
     "receipt": CommandConfig(
         help="Expense Receipt",
-        doc_class=documents.TypeReceiptV3,
+        doc_class=documents.TypeReceiptV4,
     ),
     "passport": CommandConfig(
         help="Passport",
@@ -32,11 +36,11 @@ DOCUMENTS: Dict[str, CommandConfig] = {
     ),
     "financial": CommandConfig(
         help="Financial Document (receipt or invoice)",
-        doc_class=documents.TypeFinancialDocument,
+        doc_class=documents.TypeFinancialV1,
     ),
-    "custom": CommandConfig(
-        help="Custom document type from API builder",
-        doc_class=documents.TypeCustomV1,
+    "us-check": CommandConfig(
+        help="US Bank Check",
+        doc_class=documents.us.TypeBankCheckV1,
     ),
 }
 

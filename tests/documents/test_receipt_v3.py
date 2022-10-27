@@ -5,25 +5,25 @@ import pytest
 from mindee.documents.receipt.receipt_v3 import ReceiptV3
 from tests import RECEIPT_DATA_DIR
 
-RECEIPT_FILE_PATH = f"{RECEIPT_DATA_DIR}/response/complete.json"
-RECEIPT_NA_FILE_PATH = f"{RECEIPT_DATA_DIR}/response/empty.json"
+RECEIPT_V3_FILE_PATH = f"{RECEIPT_DATA_DIR}/response_v3/complete.json"
+RECEIPT_V3_NA_FILE_PATH = f"{RECEIPT_DATA_DIR}/response_v3/empty.json"
 
 
 @pytest.fixture
 def doc_object():
-    json_data = json.load(open(RECEIPT_FILE_PATH))
+    json_data = json.load(open(RECEIPT_V3_FILE_PATH))
     return ReceiptV3(json_data["document"]["inference"]["prediction"], page_n=None)
 
 
 @pytest.fixture
-def receipt_object_all_na():
-    json_data = json.load(open(RECEIPT_NA_FILE_PATH))
+def doc_object_all_na():
+    json_data = json.load(open(RECEIPT_V3_NA_FILE_PATH))
     return ReceiptV3(json_data["document"]["inference"]["prediction"], page_n=None)
 
 
 @pytest.fixture
 def receipt_pred():
-    json_data = json.load(open(RECEIPT_NA_FILE_PATH))
+    json_data = json.load(open(RECEIPT_V3_NA_FILE_PATH))
     return json_data["document"]["inference"]["pages"][0]["prediction"]
 
 
@@ -32,23 +32,23 @@ def test_constructor(doc_object):
     assert doc_object.date.value == "2016-02-26"
     assert doc_object.total_tax.value == 1.7
     assert doc_object.checklist["taxes_match_total_incl"] is True
-    doc_str = open(f"{RECEIPT_DATA_DIR}/response/doc_to_string.txt").read().strip()
+    doc_str = open(f"{RECEIPT_DATA_DIR}/response_v3/doc_to_string.txt").read().strip()
     assert str(doc_object) == doc_str
 
 
-def test_all_na(receipt_object_all_na):
-    assert receipt_object_all_na.locale.value is None
-    assert receipt_object_all_na.total_incl.value is None
-    assert receipt_object_all_na.date.value is None
-    assert receipt_object_all_na.merchant_name.value is None
-    assert receipt_object_all_na.time.value is None
-    assert receipt_object_all_na.orientation is None
-    assert receipt_object_all_na.total_tax.value is None
-    assert len(receipt_object_all_na.taxes) == 0
+def test_all_na(doc_object_all_na):
+    assert doc_object_all_na.locale.value is None
+    assert doc_object_all_na.total_incl.value is None
+    assert doc_object_all_na.date.value is None
+    assert doc_object_all_na.merchant_name.value is None
+    assert doc_object_all_na.time.value is None
+    assert doc_object_all_na.orientation is None
+    assert doc_object_all_na.total_tax.value is None
+    assert len(doc_object_all_na.taxes) == 0
 
 
-def test_checklist_on_empty(receipt_object_all_na):
-    for check in receipt_object_all_na.checklist.values():
+def test_checklist_on_empty(doc_object_all_na):
+    for check in doc_object_all_na.checklist.values():
         assert check is False
 
 

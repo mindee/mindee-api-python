@@ -5,8 +5,8 @@ import pytest
 from mindee.documents.us.bank_check.bank_check_v1 import BankCheckV1
 from tests import BANK_CHECK_DATA_DIR
 
-BANK_CHECK_FILE_PATH = f"{BANK_CHECK_DATA_DIR}/response/complete.json"
-BANK_CHECK_NA_FILE_PATH = f"{BANK_CHECK_DATA_DIR}/response/empty.json"
+BANK_CHECK_FILE_PATH = f"{BANK_CHECK_DATA_DIR}/response_v1/complete.json"
+BANK_CHECK_NA_FILE_PATH = f"{BANK_CHECK_DATA_DIR}/response_v1/empty.json"
 
 
 @pytest.fixture
@@ -34,7 +34,9 @@ def test_constructor(doc_object):
     assert doc_object.routing_number.value == "012345678"
     assert doc_object.account_number.value == "12345678910"
     assert doc_object.check_number.value == "8620001342"
-    doc_str = open(f"{BANK_CHECK_DATA_DIR}/response/doc_to_string.txt").read().strip()
+    doc_str = (
+        open(f"{BANK_CHECK_DATA_DIR}/response_v1/doc_to_string.txt").read().strip()
+    )
     assert str(doc_object) == doc_str
 
 

@@ -3,8 +3,14 @@ import io
 import pikepdf
 import pytest
 
-from mindee.input.page_options import KEEP_ONLY
-from mindee.input.sources import Base64Input, BytesInput, FileInput, PathInput
+from mindee.input.page_options import KEEP_ONLY, REMOVE
+from mindee.input.sources import (
+    Base64Input,
+    BytesInput,
+    FileInput,
+    MimeTypeError,
+    PathInput,
+)
 from tests import INVOICE_DATA_DIR, PDF_DATA_DIR, RECEIPT_DATA_DIR
 
 #
@@ -14,7 +20,7 @@ from tests import INVOICE_DATA_DIR, PDF_DATA_DIR, RECEIPT_DATA_DIR
 
 def test_pdf_reconstruct_ok():
     input_obj = PathInput(f"{PDF_DATA_DIR}/multipage.pdf")
-    input_obj.process_pdf(behavior=KEEP_ONLY, on_min_pages=2, pages=range(5))
+    input_obj.process_pdf(behavior=KEEP_ONLY, on_min_pages=2, page_indexes=range(5))
     assert isinstance(input_obj.file_object, io.BytesIO)
 
 
@@ -40,7 +46,7 @@ def test_pdf_cut_n_pages(numb_pages: int):
     input_obj = PathInput(f"{PDF_DATA_DIR}/multipage.pdf")
     assert input_obj.is_pdf() is True
     input_obj.process_pdf(
-        behavior=KEEP_ONLY, on_min_pages=2, pages=[0, -2, -1][:numb_pages]
+        behavior=KEEP_ONLY, on_min_pages=2, page_indexes=[0, -2, -1][:numb_pages]
     )
     assert input_obj.count_doc_pages() == numb_pages
 
@@ -56,25 +62,66 @@ def test_pdf_cut_n_pages(numb_pages: int):
     cut_pdf.close()
 
 
-def test_pdf_specify_pages():
+def test_pdf_keep_5_first_pages():
     input_obj = PathInput(f"{PDF_DATA_DIR}/multipage.pdf")
     assert input_obj.is_pdf() is True
-    input_obj.process_pdf(behavior=KEEP_ONLY, on_min_pages=2, pages=[0, 1, 2, 3, 4])
+    input_obj.process_pdf(
+        behavior=KEEP_ONLY, on_min_pages=2, page_indexes=[0, 1, 2, 3, 4]
+    )
     assert input_obj.count_doc_pages() == 5
 
 
-def test_pdf_input_from_path():
-    input_obj = PathInput(f"{INVOICE_DATA_DIR}/invoice_10p.pdf")
+def test_pdf_keep_invalid_pages():
+    input_obj = PathInput(f"{PDF_DATA_DIR}/multipage.pdf")
     assert input_obj.is_pdf() is True
-    input_obj.process_pdf(behavior=KEEP_ONLY, on_min_pages=2, pages=[0])
-    assert input_obj.count_doc_pages() == 1
+    input_obj.process_pdf(behavior=KEEP_ONLY, on_min_pages=2, page_indexes=[16, 17])
+    assert input_obj.count_doc_pages() == 12
+
+
+def test_pdf_remove_5_last_pages():
+    input_obj = PathInput(f"{PDF_DATA_DIR}/multipage.pdf")
+    assert input_obj.is_pdf() is True
+    input_obj.process_pdf(
+        behavior=REMOVE, on_min_pages=2, page_indexes=[-5, -4, -3, -2, -1]
+    )
+    assert input_obj.count_doc_pages() == 7
+
+
+def test_pdf_remove_5_first_pages():
+    input_obj = PathInput(f"{PDF_DATA_DIR}/multipage.pdf")
+    assert input_obj.is_pdf() is True
+    input_obj.process_pdf(behavior=REMOVE, on_min_pages=2, page_indexes=list(range(5)))
+    assert input_obj.count_doc_pages() == 7
+
+
+def test_pdf_remove_invalid_pages():
+    input_obj = PathInput(f"{PDF_DATA_DIR}/multipage.pdf")
+    assert input_obj.is_pdf() is True
+    input_obj.process_pdf(behavior=REMOVE, on_min_pages=2, page_indexes=[16])
+    assert input_obj.count_doc_pages() == 12
+
+
+def test_pdf_keep_no_pages():
+    input_obj = PathInput(f"{PDF_DATA_DIR}/multipage.pdf")
+    assert input_obj.is_pdf() is True
+    with pytest.raises(RuntimeError):
+        input_obj.process_pdf(behavior=KEEP_ONLY, on_min_pages=2, page_indexes=[])
+
+
+def test_pdf_remove_all_pages():
+    input_obj = PathInput(f"{PDF_DATA_DIR}/multipage.pdf")
+    assert input_obj.is_pdf() is True
+    with pytest.raises(RuntimeError):
+        input_obj.process_pdf(
+            behavior=REMOVE, on_min_pages=2, page_indexes=list(range(15))
+        )
 
 
 def test_pdf_input_from_file():
     with open(f"{INVOICE_DATA_DIR}/invoice_10p.pdf", "rb") as fp:
         input_obj = FileInput(fp)
         assert input_obj.is_pdf() is True
-        input_obj.process_pdf(behavior=KEEP_ONLY, on_min_pages=2, pages=[0])
+        input_obj.process_pdf(behavior=KEEP_ONLY, on_min_pages=2, page_indexes=[0])
     assert input_obj.count_doc_pages() == 1
 
 
@@ -82,7 +129,7 @@ def test_pdf_input_from_base64():
     with open(f"{INVOICE_DATA_DIR}/invoice_10p.txt", "rt") as fp:
         input_obj = Base64Input(fp.read(), filename="invoice_10p.pdf")
     assert input_obj.is_pdf() is True
-    input_obj.process_pdf(behavior=KEEP_ONLY, on_min_pages=2, pages=[0])
+    input_obj.process_pdf(behavior=KEEP_ONLY, on_min_pages=2, page_indexes=[0])
     assert input_obj.count_doc_pages() == 1
 
 
@@ -90,18 +137,18 @@ def test_pdf_input_from_bytes():
     with open(f"{INVOICE_DATA_DIR}/invoice_10p.pdf", "rb") as fp:
         input_obj = BytesInput(fp.read(), filename="invoice_10p.pdf")
     assert input_obj.is_pdf() is True
-    input_obj.process_pdf(behavior=KEEP_ONLY, on_min_pages=2, pages=[0])
+    input_obj.process_pdf(behavior=KEEP_ONLY, on_min_pages=2, page_indexes=[0])
     assert input_obj.count_doc_pages() == 1
 
 
 def test_pdf_blank_check():
     with pytest.raises(AssertionError):
         input_obj = PathInput(f"{PDF_DATA_DIR}/blank.pdf")
-        input_obj.process_pdf(behavior=KEEP_ONLY, on_min_pages=2, pages=[0])
+        input_obj.process_pdf(behavior=KEEP_ONLY, on_min_pages=2, page_indexes=[0])
 
     with pytest.raises(AssertionError):
         input_obj = PathInput(f"{PDF_DATA_DIR}/blank_1.pdf")
-        input_obj.process_pdf(behavior=KEEP_ONLY, on_min_pages=2, pages=[0])
+        input_obj.process_pdf(behavior=KEEP_ONLY, on_min_pages=2, page_indexes=[0])
 
     input_not_blank = PathInput(f"{PDF_DATA_DIR}/not_blank_image_only.pdf")
     assert input_not_blank.count_doc_pages() == 1
@@ -123,3 +170,8 @@ def test_tif_input_from_path():
 def test_heic_input_from_path():
     input_obj_1 = PathInput(f"{RECEIPT_DATA_DIR}/receipt.heic")
     assert input_obj_1.file_mimetype == "image/heic"
+
+
+def test_txt_input_from_path():
+    with pytest.raises(MimeTypeError):
+        PathInput(f"{RECEIPT_DATA_DIR}/receipt.txt")

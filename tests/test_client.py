@@ -48,7 +48,7 @@ def test_parse_path_without_token(empty_client):
         )
     with pytest.raises(RuntimeError):
         empty_client.doc_from_path(f"{RECEIPT_DATA_DIR}/receipt.jpg").parse(
-            documents.TypeFinancialDocument
+            documents.TypeFinancialV1
         )
     with pytest.raises(RuntimeError):
         empty_client.doc_from_path(f"{PASSPORT_DATA_DIR}/passport.jpeg").parse(
@@ -68,7 +68,7 @@ def test_parse_path_with_env_token(env_client):
     with pytest.raises(HTTPException):
         env_client.doc_from_path(
             f"{RECEIPT_DATA_DIR}/receipt.jpg",
-        ).parse(documents.TypeFinancialDocument)
+        ).parse(documents.TypeFinancialV1)
     with pytest.raises(HTTPException):
         env_client.doc_from_path(f"{PASSPORT_DATA_DIR}/passport.jpeg").parse(
             documents.TypePassportV1
@@ -107,7 +107,7 @@ def test_parse_path_with_wrong_filetype(dummy_client):
     with pytest.raises(AssertionError):
         dummy_client.doc_from_path(
             f"{RECEIPT_DATA_DIR}/receipt.jpga",
-        ).parse(documents.TypeFinancialDocument)
+        ).parse(documents.TypeFinancialV1)
     with pytest.raises(AssertionError):
         dummy_client.doc_from_path(f"{RECEIPT_DATA_DIR}/receipt.jpga").parse(
             documents.TypePassportV1
@@ -126,10 +126,10 @@ def test_parse_path_with_wrong_token(dummy_client):
     with pytest.raises(HTTPException):
         dummy_client.doc_from_path(
             f"{RECEIPT_DATA_DIR}/receipt.jpg",
-        ).parse(documents.TypeFinancialDocument)
+        ).parse(documents.TypeFinancialV1)
     with pytest.raises(HTTPException):
         dummy_client.doc_from_path(f"{INVOICE_DATA_DIR}/invoice.pdf").parse(
-            documents.TypeFinancialDocument
+            documents.TypeFinancialV1
         )
     with pytest.raises(HTTPException):
         dummy_client.doc_from_path(f"{RECEIPT_DATA_DIR}/receipt.jpg").parse(

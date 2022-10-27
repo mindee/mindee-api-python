@@ -16,7 +16,7 @@ def custom_doc(monkeypatch):
         username="mindee",
         api_key="dummy",
         raise_on_error=True,
-        cut_doc=True,
+        cut_doc=False,
         doc_pages=3,
         input_type="path",
         output_type="summary",
@@ -31,7 +31,7 @@ def ots_doc(monkeypatch):
     return Namespace(
         api_key="dummy",
         raise_on_error=True,
-        cut_doc=True,
+        cut_doc=False,
         doc_pages=3,
         input_type="path",
         output_type="summary",
@@ -77,6 +77,16 @@ def test_cli_financial_doc(ots_doc):
 
 def test_cli_passport(ots_doc):
     ots_doc.product_name = "passport"
+    ots_doc.api_key = ""
+    with pytest.raises(RuntimeError):
+        call_endpoint(ots_doc)
+    ots_doc.api_key = "dummy"
+    with pytest.raises(HTTPException):
+        call_endpoint(ots_doc)
+
+
+def test_cli_us_bank_check(ots_doc):
+    ots_doc.product_name = "us-check"
     ots_doc.api_key = ""
     with pytest.raises(RuntimeError):
         call_endpoint(ots_doc)

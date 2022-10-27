@@ -56,9 +56,9 @@ class ReceiptV3(Document):
 
     def __str__(self) -> str:
         taxes = "\n       ".join(f"{t}" for t in self.taxes)
-        return (
+        return self.clean_out_string(
             "-----Receipt data-----\n"
-            f"Filename: {self.filename or ''}".rstrip() + "\n"
+            f"Filename: {self.filename or ''}\n"
             f"Total amount including taxes: {self.total_incl}\n"
             f"Total amount excluding taxes: {self.total_excl}\n"
             f"Date: {self.date}\n"

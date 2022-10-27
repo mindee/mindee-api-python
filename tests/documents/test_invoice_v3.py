@@ -5,8 +5,8 @@ import pytest
 from mindee.documents.invoice.invoice_v3 import InvoiceV3
 from tests import INVOICE_DATA_DIR
 
-INVOICE_FILE_PATH = f"{INVOICE_DATA_DIR}/response/complete.json"
-INVOICE_NA_FILE_PATH = f"{INVOICE_DATA_DIR}/response/empty.json"
+INVOICE_FILE_PATH = f"{INVOICE_DATA_DIR}/response_v3/complete.json"
+INVOICE_NA_FILE_PATH = f"{INVOICE_DATA_DIR}/response_v3/empty.json"
 
 
 @pytest.fixture
@@ -37,7 +37,7 @@ def test_constructor(invoice_object):
     assert invoice_object.invoice_date.confidence == 0.99
     assert invoice_object.invoice_number.value == "0042004801351"
     assert invoice_object.invoice_number.confidence == 0.95
-    doc_str = open(f"{INVOICE_DATA_DIR}/response/doc_to_string.txt").read().strip()
+    doc_str = open(f"{INVOICE_DATA_DIR}/response_v3/doc_to_string.txt").read().strip()
     assert str(invoice_object) == doc_str
 
 

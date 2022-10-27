@@ -28,6 +28,10 @@ INPUT_TYPE_BYTES = "bytes"
 INPUT_TYPE_PATH = "path"
 
 
+class MimeTypeError(AssertionError):
+    pass
+
+
 class InputSource:
     file_object: BinaryIO
     filename: str
@@ -49,10 +53,10 @@ class InputSource:
         if file_mimetype:
             self.file_mimetype = file_mimetype
         else:
-            raise AssertionError(f"Could not determine MIME type of '{self.filename}'")
+            raise MimeTypeError(f"Could not determine MIME type of '{self.filename}'")
 
         if self.file_mimetype not in ALLOWED_MIME_TYPES:
-            raise AssertionError(
+            raise MimeTypeError(
                 "File type not allowed, must be one of {%s}"
                 % ", ".join(ALLOWED_MIME_TYPES)
             )
@@ -75,7 +79,7 @@ class InputSource:
         self,
         behavior: str,
         on_min_pages: int,
-        pages: Sequence,
+        page_indexes: Sequence,
     ) -> None:
         """Run any required processing on a PDF file."""
         if self.is_pdf_empty():
@@ -84,14 +88,22 @@ class InputSource:
         if on_min_pages > pages_count:
             return
         if behavior == KEEP_ONLY:
-            page_numbers = set(pages)
+            pages_to_keep = set(page_indexes)
         elif behavior == REMOVE:
-            page_numbers = set(range(pages_count))
-            for page in pages:
-                page_numbers.remove(page)
+            all_pages = list(range(pages_count))
+            pages_to_remove = set()
+            for page_n in page_indexes:
+                try:
+                    pages_to_remove.add(all_pages[page_n])
+                except IndexError:
+                    logger.warning("Page index not in source document: %s", page_n)
+            pages_to_keep = pages_to_remove.symmetric_difference(set(all_pages))
         else:
-            raise RuntimeError(f"Invalid cut behavior specified: {behavior}")
-        self.merge_pdf_pages(page_numbers)
+            raise AssertionError(f"Invalid cut behavior specified: {behavior}")
+
+        if len(pages_to_keep) < 1:
+            raise RuntimeError("Resulting PDF would have no pages left.")
+        self.merge_pdf_pages(pages_to_keep)
 
     def merge_pdf_pages(self, page_numbers: set) -> None:
         """
@@ -104,11 +116,7 @@ class InputSource:
         new_pdf = pikepdf.Pdf.new()
         with pikepdf.open(self.file_object) as pdf:
             for page_n in page_numbers:
-                try:
-                    page = pdf.pages[page_n]
-                except IndexError:
-                    logger.debug("page index not in source document: %s", page_n)
-                    continue
+                page = pdf.pages[page_n]
                 new_pdf.pages.append(page)
         self.file_object.close()
         self.file_object = io.BytesIO()

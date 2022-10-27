@@ -35,10 +35,10 @@ def test_bounding_box_single_polygon(rectangle_a, rectangle_b, quadrangle_a):
         (0.123, 0.546),
     )
     assert geometry.get_bounding_box(rectangle_b) == (
-        (0.124, 0.535),
-        (0.19, 0.535),
-        (0.19, 0.546),
-        (0.124, 0.546),
+        geometry.Point(0.124, 0.535),
+        geometry.Point(0.19, 0.535),
+        geometry.Point(0.19, 0.546),
+        geometry.Point(0.124, 0.546),
     )
     assert geometry.get_bounding_box(quadrangle_a) == (
         (0.205, 0.407),
