@@ -2,7 +2,7 @@ from typing import Optional
 
 from mindee.fields.base import BaseField, TypePrediction
 from mindee.geometry import (
-    GeomeTryError,
+    GeometryError,
     Polygon,
     Quadrilateral,
     polygon_from_prediction,
@@ -42,13 +42,13 @@ class Position(BaseField):
         def get_quadrilateral(key: str) -> Optional[Quadrilateral]:
             try:
                 return quadrilateral_from_prediction(prediction[key])
-            except (KeyError, GeomeTryError):
+            except (KeyError, GeometryError):
                 return None
 
         def get_polygon(key: str) -> Optional[Polygon]:
             try:
                 return polygon_from_prediction(prediction[key])
-            except (KeyError, GeomeTryError):
+            except (KeyError, GeometryError):
                 return None
 
         self.bounding_box = get_quadrilateral("bounding_box")

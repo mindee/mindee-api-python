@@ -5,8 +5,13 @@ from mindee.fields.base import BaseField, FieldPositionMixin, TypePrediction
 
 class TaxField(FieldPositionMixin, BaseField):
     value: Optional[float]
+    """The amount of the tax line."""
     rate: Optional[float]
+    """The tax rate, represented as a float between 0 and 1."""
     code: Optional[str]
+    "The tax code."
+    basis: Optional[float]
+    "The amount used to calculate the tax."
 
     def __init__(
         self,
@@ -47,6 +52,11 @@ class TaxField(FieldPositionMixin, BaseField):
             self.code = None
         if self.code in ("N/A", "None"):
             self.code = None
+
+        try:
+            self.basis = float(prediction["basis"])
+        except (ValueError, TypeError, KeyError):
+            self.basis = None
 
         try:
             self.value = float(prediction[value_key])

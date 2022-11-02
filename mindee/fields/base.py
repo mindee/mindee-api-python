@@ -7,19 +7,17 @@ TypePrediction = Dict[str, Any]
 
 class FieldPositionMixin:
     bounding_box: Optional[Quadrilateral]
-    """Contains exactly 4 relative vertices coordinates (Points) of a right rectangle
-    containing the word in the document."""
+    """A right rectangle containing the word in the document."""
     polygon: Polygon
-    """Contains the relative vertices coordinates (Points) of a polygon containing
-    the word in the document."""
+    """A polygon containing the word in the document."""
 
     def _set_position(self, prediction: TypePrediction):
         self.bounding_box = None
-        self.polygon = []
+        self.polygon = Polygon()
         try:
-            self.polygon = [
+            self.polygon = Polygon(
                 Point(point[0], point[1]) for point in prediction["polygon"]
-            ]
+            )
         except KeyError:
             pass
         if self.polygon:

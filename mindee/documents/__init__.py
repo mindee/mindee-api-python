@@ -1,7 +1,6 @@
 from mindee.documents import us
-from mindee.documents.custom.custom_v1 import TypeCustomV1
-from mindee.documents.financial.financial_v1 import TypeFinancialV1
-from mindee.documents.invoice.invoice_v3 import TypeInvoiceV3
-from mindee.documents.passport.passport_v1 import TypePassportV1
-from mindee.documents.receipt.receipt_v3 import TypeReceiptV3
-from mindee.documents.receipt.receipt_v4 import TypeReceiptV4
+from mindee.documents.custom import CustomV1, TypeCustomV1
+from mindee.documents.financial import FinancialV1, TypeFinancialV1
+from mindee.documents.invoice import InvoiceV3, TypeInvoiceV3
+from mindee.documents.passport import PassportV1, TypePassportV1
+from mindee.documents.receipt import ReceiptV3, ReceiptV4, TypeReceiptV3, TypeReceiptV4
