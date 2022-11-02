@@ -74,8 +74,8 @@ def test_pdf_keep_5_first_pages():
 def test_pdf_keep_invalid_pages():
     input_obj = PathInput(f"{PDF_DATA_DIR}/multipage.pdf")
     assert input_obj.is_pdf() is True
-    input_obj.process_pdf(behavior=KEEP_ONLY, on_min_pages=2, page_indexes=[16, 17])
-    assert input_obj.count_doc_pages() == 12
+    input_obj.process_pdf(behavior=KEEP_ONLY, on_min_pages=2, page_indexes=[0, 1, 17])
+    assert input_obj.count_doc_pages() == 2
 
 
 def test_pdf_remove_5_last_pages():
@@ -104,8 +104,12 @@ def test_pdf_remove_invalid_pages():
 def test_pdf_keep_no_pages():
     input_obj = PathInput(f"{PDF_DATA_DIR}/multipage.pdf")
     assert input_obj.is_pdf() is True
+    # empty page indexes
     with pytest.raises(RuntimeError):
         input_obj.process_pdf(behavior=KEEP_ONLY, on_min_pages=2, page_indexes=[])
+    # all invalid pages
+    with pytest.raises(RuntimeError):
+        input_obj.process_pdf(behavior=KEEP_ONLY, on_min_pages=2, page_indexes=[16, 17])
 
 
 def test_pdf_remove_all_pages():

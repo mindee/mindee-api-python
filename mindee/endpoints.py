@@ -7,7 +7,8 @@ from mindee.input.sources import InputSource
 from mindee.logger import logger
 from mindee.versions import __version__, get_platform, python_version
 
-MINDEE_API_URL = "https://api.mindee.net/v1"
+MINDEE_BASE_URL = "https://api.mindee.net/v1"
+MINDEE_BASE_URL_NAME = "MINDEE_BASE_URL"
 MINDEE_API_KEY_NAME = "MINDEE_API_KEY"
 
 PLATFORM = get_platform()
@@ -26,6 +27,7 @@ class Endpoint:
     version: str
     api_key: str = ""
     timeout: int = DEFAULT_TIMEOUT
+    _mindee_url: str = MINDEE_BASE_URL
     _url_root: str
 
     def __init__(
@@ -49,9 +51,10 @@ class Endpoint:
             self.api_key = api_key
         else:
             self.set_api_key_from_env()
+        self.set_base_url_from_env()
 
         self._url_root = (
-            f"{MINDEE_API_URL}/products/{self.owner}/{self.url_name}/v{self.version}"
+            f"{self._mindee_url}/products/{self.owner}/{self.url_name}/v{self.version}"
         )
 
     @property
@@ -62,12 +65,19 @@ class Endpoint:
             "User-Agent": USER_AGENT,
         }
 
+    def set_base_url_from_env(self) -> None:
+        """Set the base URL from an environment variable, if present."""
+        env_val = os.getenv(MINDEE_BASE_URL_NAME, "")
+        if env_val:
+            self._mindee_url = env_val
+            logger.debug("Base URL set from environment")
+
     def set_api_key_from_env(self) -> None:
         """Set the endpoint's API key from an environment variable, if present."""
-        env_key = os.getenv(MINDEE_API_KEY_NAME, "")
-        if env_key:
-            self.api_key = env_key
-            logger.debug("Set API key from environment")
+        env_val = os.getenv(MINDEE_API_KEY_NAME, "")
+        if env_val:
+            self.api_key = env_val
+            logger.debug("API key set from environment")
 
     def predict_req_post(
         self,
