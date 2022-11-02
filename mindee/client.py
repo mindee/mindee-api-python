@@ -1,15 +1,17 @@
 import json
 from typing import BinaryIO, Dict, Optional, Type
 
+from mindee.documents import (
+    CustomV1,
+    FinancialV1,
+    InvoiceV3,
+    PassportV1,
+    ReceiptV3,
+    ReceiptV4,
+)
 from mindee.documents.base import Document, TypeDocument
 from mindee.documents.config import DocumentConfig, DocumentConfigDict
-from mindee.documents.custom.custom_v1 import CustomV1
-from mindee.documents.financial.financial_v1 import FinancialV1
-from mindee.documents.invoice.invoice_v3 import InvoiceV3
-from mindee.documents.passport.passport_v1 import PassportV1
-from mindee.documents.receipt.receipt_v3 import ReceiptV3
-from mindee.documents.receipt.receipt_v4 import ReceiptV4
-from mindee.documents.us.bank_check.bank_check_v1 import BankCheckV1
+from mindee.documents.us import BankCheckV1
 from mindee.endpoints import OTS_OWNER, CustomEndpoint, HTTPException, StandardEndpoint
 from mindee.input.page_options import PageOptions
 from mindee.input.sources import (
@@ -55,13 +57,15 @@ class DocumentClient:
         """
         Call prediction API on the document and parse the results.
 
-        :type document_class: DocT
-        :param endpoint_name: Document type to parse
+        :param document_class: The document class to use.
+          The response object will be instanced based on this parameter.
+        :param endpoint_name: For custom documents, the "API name" field
+          in the "Settings" page of the API Builder.
         :param account_name: API username, the endpoint owner
         :param include_words: Include all the words of the document in the response
-        :param close_file: Whether to `close()` the file after parsing it.
-            Set to `False` if you need to access the file after this operation.
-        :param page_options: PageOptions object for cutting multipage documents.
+        :param close_file: Whether to ``close()`` the file after parsing it.
+          Set to ``False`` if you need to access the file after this operation.
+        :param page_options: Options for preparing multipage documents.
         """
         if get_bound_classname(document_class) != CustomV1.__name__:
             endpoint_name = get_bound_classname(document_class)

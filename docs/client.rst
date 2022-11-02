@@ -11,10 +11,13 @@ Client
 
 DocumentClient
 --------------
+.. autoclass:: mindee.input.page_options.PageOptions
+    :members:
+
 .. autoclass:: mindee.client.DocumentClient
     :members:
 
-DocumentResponse
-----------------
-.. autoclass:: mindee.response.DocumentResponse
+PredictResponse
+---------------
+.. autoclass:: mindee.response.PredictResponse
     :members:

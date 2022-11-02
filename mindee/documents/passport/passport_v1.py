@@ -125,6 +125,35 @@ class PassportV1(Document):
             return True
         return self.expiry_date.date_object < datetime.date(datetime.now())
 
+    @staticmethod
+    def check_sum(to_check: str) -> str:
+        """
+        Validate the checksum.
+
+        https://en.wikipedia.org/wiki/Machine-readable_passport
+
+        :param to_check: MRZ value to check
+        :return: checksum of the value
+        """
+        checker = 0
+        alpha_to_num = {c: 10 + i for i, c in enumerate("ABCDEFGHIJKLMNOPQRSTUVWXYZ")}
+        for i, chk in enumerate(to_check):
+            if i % 3 == 0:
+                weight = 7
+            elif i % 3 == 1:
+                weight = 3
+            else:
+                weight = 1
+
+            if chk == "<":
+                val = 0
+            elif chk.isalpha():
+                val = alpha_to_num[chk]
+            else:
+                val = int(chk)
+            checker += val * weight
+        return str(checker % 10)
+
     def _reconstruct(self) -> None:
         """Call fields reconstruction methods."""
         self.__reconstruct_mrz()
@@ -208,34 +237,6 @@ class PassportV1(Document):
             self.surname.confidence = 1.0
             return True
         return False
-
-    @staticmethod
-    def check_sum(to_check: str) -> str:
-        """
-        Validate the checksum.
-
-        https://en.wikipedia.org/wiki/Machine-readable_passport
-        :param to_check: string
-        :return: checksum value for string s
-        """
-        checker = 0
-        alpha_to_num = {c: 10 + i for i, c in enumerate("ABCDEFGHIJKLMNOPQRSTUVWXYZ")}
-        for i, chk in enumerate(to_check):
-            if i % 3 == 0:
-                weight = 7
-            elif i % 3 == 1:
-                weight = 3
-            else:
-                weight = 1
-
-            if chk == "<":
-                val = 0
-            elif chk.isalpha():
-                val = alpha_to_num[chk]
-            else:
-                val = int(chk)
-            checker += val * weight
-        return str(checker % 10)
 
     # Reconstruct
     def __reconstruct_mrz(self) -> None:

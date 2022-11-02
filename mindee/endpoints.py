@@ -172,7 +172,20 @@ class CustomEndpoint(Endpoint):
         )
         return response
 
-    def documents_req_post(self, page_n: int = 1) -> requests.Response:
+    def document_req_del(self, document_id: str) -> requests.Response:
+        """
+        Make a request to DELETE a document.
+
+        :param document_id: ID of the document
+        """
+        response = requests.delete(
+            f"{self._url_root}/documents/{document_id}",
+            headers=self.base_headers,
+            timeout=self.timeout,
+        )
+        return response
+
+    def documents_req_get(self, page_n: int = 1) -> requests.Response:
         """
         Make a request to GET info on all documents.
 
@@ -221,6 +234,20 @@ class CustomEndpoint(Endpoint):
             f"{self._url_root}/documents/{document_id}/annotations",
             headers=self.base_headers,
             json=annotations,
+            timeout=self.timeout,
+        )
+        return response
+
+    def annotations_req_del(self, document_id: str) -> requests.Response:
+        """
+        Make a request to DELETE annotations for a document.
+
+        :param document_id: ID of the document to annotate
+        :return: requests response
+        """
+        response = requests.delete(
+            f"{self._url_root}/documents/{document_id}/annotations",
+            headers=self.base_headers,
             timeout=self.timeout,
         )
         return response

@@ -17,18 +17,19 @@ class ReceiptV4(Document):
     date: DateField
     """Date the receipt was issued"""
     time: TextField
-    """Time the receipt was issued"""
+    """Time the receipt was issued, in HH: MM format."""
     category: TextField
-    """Service category"""
+    """The type, or service category, of the purchase."""
     supplier: TextField
-    """Supplier's name"""
+    """The merchant, or supplier, as found on the receipt."""
     taxes: List[TaxField]
-    """List of all taxes"""
+    """List of all taxes."""
     total_tax: AmountField
-    """Sum total of all taxes"""
+    """Total tax amount of the purchase."""
     total_net: AmountField
+    "Total amount of the purchase excluding taxes."
     tip: AmountField
-    """Total excluding taxes"""
+    """Total amount of tip and gratuity."""
     # orientation is only present on page-level, not document-level
     orientation: Optional[Orientation] = None
     """Page orientation"""

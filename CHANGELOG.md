@@ -1,6 +1,6 @@
 # Mindee Python API Library Changelog
 
-## v3.0.0 (2022-10-31)
+## v3.0.0 (2022-11-07)
 ### ¡Breaking Changes!
 * :sparkles: New PDF cut/merge system, allowing specifying exactly which pages to use.
 * :recycle: PDF documents are no longer cut by default, use the `page_options` parameter in the `parse` method.

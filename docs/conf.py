@@ -29,6 +29,7 @@ author = "Mindee"
 # ones.
 extensions = [
     "sphinx.ext.autodoc",
+    "sphinx_autodoc_typehints",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -56,4 +57,13 @@ html_theme_options = {
 html_static_path = ["_static"]
 
 
+# -- autodoc -----------------------------------------------------------------
+
 autodoc_member_order = "groupwise"
+autodoc_class_signature = "separated"
+autodoc_typehints = "description"
+autodoc_default_options = {"undoc-members": True, "exclude-members": "__init__"}
+
+# -- autodoc-typehints -------------------------------------------------------
+
+typehints_defaults = "comma"

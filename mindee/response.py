@@ -7,12 +7,20 @@ from mindee.logger import logger
 
 
 class PredictResponse(Generic[TypeDocument]):
+    """
+    Response of a prediction request.
+
+    This is a generic class, so certain class properties depend on the document type.
+    """
+
     http_response: Dict[str, Any]
     """Raw HTTP response JSON"""
     document_type: str
     """Document type"""
     document: Optional[TypeDocument]
+    """An instance of the ``Document`` class, according to the type given."""
     pages: List[TypeDocument]
+    """A list of instances of the ``Document`` class, according to the type given."""
 
     def __init__(
         self,

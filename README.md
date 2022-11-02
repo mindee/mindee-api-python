@@ -23,7 +23,7 @@ mindee_client = Client(api_key="my-api-key")
 
 # Load a file from disk
 input_doc = mindee_client.doc_from_path("/path/to/the/invoice.pdf")
-# Parse the document as an invoice by passing the documents.Invoice type
+# Parse the document as an invoice by passing the appropriate type
 api_response = input_doc.parse(documents.TypeInvoiceV3)
 
 # Print a brief summary of the parsed data
@@ -39,7 +39,7 @@ mindee_client = Client(api_key="my-api-key")
 
 # Load a file from disk
 input_doc = mindee_client.doc_from_path("/path/to/the/check.jpg")
-# Parse the document as a USA bank check by passing the documents.us.TypeBankCheckV1 type
+# Parse the document as a USA bank check by passing the appropriate type
 api_response = input_doc.parse(documents.us.TypeBankCheckV1)
 
 # Print a brief summary of the parsed data
@@ -72,7 +72,10 @@ There's more to it than that for those that need more features, or want to
 customize the experience.
 
 All the juicy details are described in the
-**[Official Documentation](https://developers.mindee.com/docs/python-sdk)**.
+**[Official Guide](https://developers.mindee.com/docs/python-sdk)**.
+
+You can also take a look at the
+**[Reference Documentation](https://mindee.github.io/mindee-api-python/)**.
 
 ## License
 Copyright © Mindee

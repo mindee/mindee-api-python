@@ -5,7 +5,9 @@ from mindee.fields.base import FieldPositionMixin, TypePrediction
 
 class ClassificationField:
     value: str
+    """The classification value."""
     confidence: float
+    """The confidence score"""
 
     def __init__(self, prediction: TypePrediction) -> None:
         self.value = prediction["value"]
@@ -17,6 +19,7 @@ class ClassificationField:
 
 class ListFieldValue(FieldPositionMixin):
     content: str
+    """The content text"""
     confidence: float = 0.0
     """Confidence score"""
 
