@@ -87,10 +87,15 @@ class InputSource:
         pages_count = self.count_doc_pages()
         if on_min_pages > pages_count:
             return
+        all_pages = list(range(pages_count))
         if behavior == KEEP_ONLY:
-            pages_to_keep = set(page_indexes)
+            pages_to_keep = set()
+            for page_n in page_indexes:
+                try:
+                    pages_to_keep.add(all_pages[page_n])
+                except IndexError:
+                    logger.warning("Page index not in source document: %s", page_n)
         elif behavior == REMOVE:
-            all_pages = list(range(pages_count))
             pages_to_remove = set()
             for page_n in page_indexes:
                 try:
