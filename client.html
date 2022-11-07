@@ -14,11 +14,13 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Fields" href="field_types.html" />
+    <link rel="next" title="Documents" href="products/index.html" />
     <link rel="prev" title="Python Client Reference" href="index.html" /> 
 </head>
 
@@ -40,13 +42,50 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Document Parsing</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#client">Client</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#documentclient">DocumentClient</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#documentresponse">DocumentResponse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#client">Client</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.client.Client"><code class="docutils literal notranslate"><span class="pre">Client</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.client.Client.add_endpoint"><code class="docutils literal notranslate"><span class="pre">Client.add_endpoint()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.client.Client.doc_from_b64string"><code class="docutils literal notranslate"><span class="pre">Client.doc_from_b64string()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.client.Client.doc_from_bytes"><code class="docutils literal notranslate"><span class="pre">Client.doc_from_bytes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.client.Client.doc_from_file"><code class="docutils literal notranslate"><span class="pre">Client.doc_from_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.client.Client.doc_from_path"><code class="docutils literal notranslate"><span class="pre">Client.doc_from_path()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.client.Client.api_key"><code class="docutils literal notranslate"><span class="pre">Client.api_key</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.client.Client.raise_on_error"><code class="docutils literal notranslate"><span class="pre">Client.raise_on_error</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="field_types.html">Fields</a></li>
-<li class="toctree-l1"><a class="reference internal" href="documents.html">Documents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#documentclient">DocumentClient</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.input.page_options.PageOptions"><code class="docutils literal notranslate"><span class="pre">PageOptions</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.page_options.PageOptions.on_min_pages"><code class="docutils literal notranslate"><span class="pre">PageOptions.on_min_pages</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.page_options.PageOptions.operation"><code class="docutils literal notranslate"><span class="pre">PageOptions.operation</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.page_options.PageOptions.page_indexes"><code class="docutils literal notranslate"><span class="pre">PageOptions.page_indexes</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.client.DocumentClient"><code class="docutils literal notranslate"><span class="pre">DocumentClient</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.client.DocumentClient.close"><code class="docutils literal notranslate"><span class="pre">DocumentClient.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.client.DocumentClient.parse"><code class="docutils literal notranslate"><span class="pre">DocumentClient.parse()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.client.DocumentClient.doc_configs"><code class="docutils literal notranslate"><span class="pre">DocumentClient.doc_configs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.client.DocumentClient.input_doc"><code class="docutils literal notranslate"><span class="pre">DocumentClient.input_doc</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.client.DocumentClient.raise_on_error"><code class="docutils literal notranslate"><span class="pre">DocumentClient.raise_on_error</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#predictresponse">PredictResponse</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.response.PredictResponse"><code class="docutils literal notranslate"><span class="pre">PredictResponse</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.response.PredictResponse.document"><code class="docutils literal notranslate"><span class="pre">PredictResponse.document</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.response.PredictResponse.document_type"><code class="docutils literal notranslate"><span class="pre">PredictResponse.document_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.response.PredictResponse.http_response"><code class="docutils literal notranslate"><span class="pre">PredictResponse.http_response</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.response.PredictResponse.pages"><code class="docutils literal notranslate"><span class="pre">PredictResponse.pages</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="products/index.html">Documents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geometry.html">Geometry Helpers</a></li>
 </ul>
 
         </div>
@@ -62,8 +101,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Document Parsing</li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Document Parsing</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/client.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -74,228 +113,228 @@
            <div itemprop="articleBody">
              
   <section id="document-parsing">
-<h1>Document Parsing<a class="headerlink" href="#document-parsing" title="Permalink to this headline"></a></h1>
+<h1>Document Parsing<a class="headerlink" href="#document-parsing" title="Permalink to this heading"></a></h1>
 <section id="client">
-<h2>Client<a class="headerlink" href="#client" title="Permalink to this headline"></a></h2>
+<h2>Client<a class="headerlink" href="#client" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.client.Client">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mindee.client.</span></span><span class="sig-name descname"><span class="pre">Client</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raise_on_error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.client.Client" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mindee.client.</span></span><span class="sig-name descname"><span class="pre">Client</span></span><a class="headerlink" href="#mindee.client.Client" title="Permalink to this definition"></a></dt>
 <dd><p>Mindee API Client.</p>
 <p>See: <a class="reference external" href="https://developers.mindee.com/docs/">https://developers.mindee.com/docs/</a></p>
 <dl class="py method">
-<dt class="sig sig-object py" id="mindee.client.Client.config_bank_check">
-<span class="sig-name descname"><span class="pre">config_bank_check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#mindee.client.Client" title="mindee.client.Client"><span class="pre">mindee.client.Client</span></a></span></span><a class="headerlink" href="#mindee.client.Client.config_bank_check" title="Permalink to this definition"></a></dt>
-<dd><p>Configure a Mindee Bank check document.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>api_key</strong> – Bank check API key</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="mindee.client.Client.config_custom_doc">
-<span class="sig-name descname"><span class="pre">config_custom_doc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">account_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">document_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">singular_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plural_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">api_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'1'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#mindee.client.Client" title="mindee.client.Client"><span class="pre">mindee.client.Client</span></a></span></span><a class="headerlink" href="#mindee.client.Client.config_custom_doc" title="Permalink to this definition"></a></dt>
-<dd><p>Configure a custom document using the Mindee API Builder.</p>
+<dt class="sig sig-object py" id="mindee.client.Client.add_endpoint">
+<span class="sig-name descname"><span class="pre">add_endpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">account_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version='1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">document_class=&lt;class</span> <span class="pre">'mindee.documents.custom.custom_v1.CustomV1'&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.client.Client.add_endpoint" title="Permalink to this definition"></a></dt>
+<dd><p>Add a custom endpoint, created using the Mindee API Builder.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>document_type</strong> – The “API name” field in the “Settings” page of the API Builder</p></li>
-<li><p><strong>singular_name</strong> – The name of the attribute used to retrieve
-a <em>single</em> document from the API response</p></li>
-<li><p><strong>plural_name</strong> – The name of the attribute used to retrieve
-<em>multiple</em> documents from the API response</p></li>
-<li><p><strong>account_name</strong> – Your organization’s username on the API Builder</p></li>
-<li><p><strong>api_key</strong> – Your API key for the endpoint</p></li>
-<li><p><strong>version</strong> – If set, locks the version of the model to use.
+<li><p><strong>endpoint_name</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The “API name” field in the “Settings” page of the API Builder</p></li>
+<li><p><strong>account_name</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Your organization’s username on the API Builder</p></li>
+<li><p><strong>version</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, default: <code class="docutils literal notranslate"><span class="pre">'1'</span></code>) – If set, locks the version of the model to use.
 If not set, use the latest version of the model.</p></li>
+<li><p><strong>document_class</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Document</span></code>], default: <code class="docutils literal notranslate"><span class="pre">&lt;class</span> <span class="pre">'mindee.documents.custom.custom_v1.CustomV1'&gt;</span></code>) – A document class in which the response will be extracted.
+Must inherit from <code class="docutils literal notranslate"><span class="pre">mindee.documents.base.Document</span></code>.</p></li>
 </ul>
 </dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="mindee.client.Client.config_financial_doc">
-<span class="sig-name descname"><span class="pre">config_financial_doc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">invoice_api_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">receipt_api_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#mindee.client.Client" title="mindee.client.Client"><span class="pre">mindee.client.Client</span></a></span></span><a class="headerlink" href="#mindee.client.Client.config_financial_doc" title="Permalink to this definition"></a></dt>
-<dd><p>Configure a Mindee Financial document. Uses Invoice and Expense Receipt internally.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>receipt_api_key</strong> – Expense Receipt API key</p></li>
-<li><p><strong>invoice_api_key</strong> – Invoice API key</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="mindee.client.Client.config_invoice">
-<span class="sig-name descname"><span class="pre">config_invoice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#mindee.client.Client" title="mindee.client.Client"><span class="pre">mindee.client.Client</span></a></span></span><a class="headerlink" href="#mindee.client.Client.config_invoice" title="Permalink to this definition"></a></dt>
-<dd><p>Configure a Mindee Invoice document.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>api_key</strong> – Invoice API key</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="mindee.client.Client.config_passport">
-<span class="sig-name descname"><span class="pre">config_passport</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#mindee.client.Client" title="mindee.client.Client"><span class="pre">mindee.client.Client</span></a></span></span><a class="headerlink" href="#mindee.client.Client.config_passport" title="Permalink to this definition"></a></dt>
-<dd><p>Configure a Mindee Passport document.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>api_key</strong> – Passport API key</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="mindee.client.Client.config_receipt">
-<span class="sig-name descname"><span class="pre">config_receipt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#mindee.client.Client" title="mindee.client.Client"><span class="pre">mindee.client.Client</span></a></span></span><a class="headerlink" href="#mindee.client.Client.config_receipt" title="Permalink to this definition"></a></dt>
-<dd><p>Configure a Mindee Expense Receipts document.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>api_key</strong> – Expense Receipt API key</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#mindee.client.Client" title="mindee.client.Client"><code class="xref py py-class docutils literal notranslate"><span class="pre">Client</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.client.Client.doc_from_b64string">
-<span class="sig-name descname"><span class="pre">doc_from_b64string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cut_pdf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cut_pdf_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#mindee.client.DocumentClient" title="mindee.client.DocumentClient"><span class="pre">mindee.client.DocumentClient</span></a></span></span><a class="headerlink" href="#mindee.client.Client.doc_from_b64string" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">doc_from_b64string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_string</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.client.Client.doc_from_b64string" title="Permalink to this definition"></a></dt>
 <dd><p>Load a document from a base64 encoded string.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>input_string</strong> – Input to parse as base64 string</p></li>
-<li><p><strong>filename</strong> – The name of the file (without the path)</p></li>
-<li><p><strong>cut_pdf_mode</strong> – <p>Number (between 1 and 3 incl.) of pages to reconstruct a PDF with.</p>
-<ul>
-<li><p>if 1: first page</p></li>
-<li><p>if 2: first page, penultimate page</p></li>
-<li><p>if 3: first page, penultimate page, last page</p></li>
+<li><p><strong>input_string</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Input to parse as base64 string</p></li>
+<li><p><strong>filename</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The name of the file (without the path)</p></li>
 </ul>
-</p></li>
-<li><p><strong>cut_pdf</strong> – Automatically reconstruct a PDF with more than 4 pages</p></li>
-</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#mindee.client.DocumentClient" title="mindee.client.DocumentClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">DocumentClient</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.client.Client.doc_from_bytes">
-<span class="sig-name descname"><span class="pre">doc_from_bytes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_bytes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cut_pdf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cut_pdf_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#mindee.client.DocumentClient" title="mindee.client.DocumentClient"><span class="pre">mindee.client.DocumentClient</span></a></span></span><a class="headerlink" href="#mindee.client.Client.doc_from_bytes" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">doc_from_bytes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.client.Client.doc_from_bytes" title="Permalink to this definition"></a></dt>
 <dd><p>Load a document from raw bytes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>input_bytes</strong> – Raw byte input</p></li>
-<li><p><strong>filename</strong> – The name of the file (without the path)</p></li>
-<li><p><strong>cut_pdf_mode</strong> – <p>Number (between 1 and 3 incl.) of pages to reconstruct a PDF with.</p>
-<ul>
-<li><p>if 1: first page</p></li>
-<li><p>if 2: first page, penultimate page</p></li>
-<li><p>if 3: first page, penultimate page, last page</p></li>
+<li><p><strong>input_bytes</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>) – Raw byte input</p></li>
+<li><p><strong>filename</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The name of the file (without the path)</p></li>
 </ul>
-</p></li>
-<li><p><strong>cut_pdf</strong> – Automatically reconstruct a PDF with more than 4 pages</p></li>
-</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#mindee.client.DocumentClient" title="mindee.client.DocumentClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">DocumentClient</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.client.Client.doc_from_file">
-<span class="sig-name descname"><span class="pre">doc_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">BinaryIO</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cut_pdf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cut_pdf_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#mindee.client.DocumentClient" title="mindee.client.DocumentClient"><span class="pre">mindee.client.DocumentClient</span></a></span></span><a class="headerlink" href="#mindee.client.Client.doc_from_file" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">doc_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.client.Client.doc_from_file" title="Permalink to this definition"></a></dt>
 <dd><p>Load a document from a normal Python file object/handle.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>input_file</strong> – Input file handle</p></li>
-<li><p><strong>cut_pdf_mode</strong> – <p>Number (between 1 and 3 incl.) of pages to reconstruct a PDF with.</p>
-<ul>
-<li><p>if 1: first page</p></li>
-<li><p>if 2: first page, penultimate page</p></li>
-<li><p>if 3: first page, penultimate page, last page</p></li>
-</ul>
-</p></li>
-<li><p><strong>cut_pdf</strong> – Automatically reconstruct a PDF with more than 4 pages</p></li>
-</ul>
+<dd class="field-odd"><p><strong>input_file</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">BinaryIO</span></code>) – Input file handle</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#mindee.client.DocumentClient" title="mindee.client.DocumentClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">DocumentClient</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.client.Client.doc_from_path">
-<span class="sig-name descname"><span class="pre">doc_from_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cut_pdf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cut_pdf_mode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#mindee.client.DocumentClient" title="mindee.client.DocumentClient"><span class="pre">mindee.client.DocumentClient</span></a></span></span><a class="headerlink" href="#mindee.client.Client.doc_from_path" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">doc_from_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.client.Client.doc_from_path" title="Permalink to this definition"></a></dt>
 <dd><p>Load a document from an absolute path, as a string.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>input_path</strong> – Path of file to open</p></li>
-<li><p><strong>cut_pdf_mode</strong> – <p>Number (between 1 and 3 incl.) of pages to reconstruct a PDF with.</p>
-<ul>
-<li><p>if 1: first page</p></li>
-<li><p>if 2: first page, penultimate page</p></li>
-<li><p>if 3: first page, penultimate page, last page</p></li>
-</ul>
-</p></li>
-<li><p><strong>cut_pdf</strong> – Automatically reconstruct a PDF with more than 4 pages</p></li>
-</ul>
+<dd class="field-odd"><p><strong>input_path</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Path of file to open</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#mindee.client.DocumentClient" title="mindee.client.DocumentClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">DocumentClient</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.client.Client.api_key">
+<span class="sig-name descname"><span class="pre">api_key</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#mindee.client.Client.api_key" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.client.Client.raise_on_error">
+<span class="sig-name descname"><span class="pre">raise_on_error</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#mindee.client.Client.raise_on_error" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
 </section>
 <section id="documentclient">
-<h2>DocumentClient<a class="headerlink" href="#documentclient" title="Permalink to this headline"></a></h2>
+<h2>DocumentClient<a class="headerlink" href="#documentclient" title="Permalink to this heading"></a></h2>
 <dl class="py class">
-<dt class="sig sig-object py" id="mindee.client.DocumentClient">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mindee.client.</span></span><span class="sig-name descname"><span class="pre">DocumentClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_doc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">mindee.inputs.InputDocument</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doc_configs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">mindee.document_config.DocumentConfig</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raise_on_error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.client.DocumentClient" title="Permalink to this definition"></a></dt>
-<dd><dl class="py method">
-<dt class="sig sig-object py" id="mindee.client.DocumentClient.close">
-<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#mindee.client.DocumentClient.close" title="Permalink to this definition"></a></dt>
-<dd><p>Close the file object.</p>
+<dt class="sig sig-object py" id="mindee.input.page_options.PageOptions">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mindee.input.page_options.</span></span><span class="sig-name descname"><span class="pre">PageOptions</span></span><a class="headerlink" href="#mindee.input.page_options.PageOptions" title="Permalink to this definition"></a></dt>
+<dd><p>PageOptions(page_indexes, operation, on_min_pages)</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.page_options.PageOptions.on_min_pages">
+<span class="sig-name descname"><span class="pre">on_min_pages</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#mindee.input.page_options.PageOptions.on_min_pages" title="Permalink to this definition"></a></dt>
+<dd><p>Apply the operation only if document has at least this many pages.</p>
+<p>Default: <cite>0</cite> (apply on all documents)</p>
 </dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="mindee.client.DocumentClient.parse">
-<span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">document_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_words</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">close_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#mindee.response.DocumentResponse" title="mindee.response.DocumentResponse"><span class="pre">mindee.response.DocumentResponse</span></a></span></span><a class="headerlink" href="#mindee.client.DocumentClient.parse" title="Permalink to this definition"></a></dt>
-<dd><p>Call prediction API on the document and parse the results.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>document_type</strong> – Document type to parse</p></li>
-<li><p><strong>username</strong> – API username, the endpoint owner</p></li>
-<li><p><strong>include_words</strong> – Include all the words of the document in the response</p></li>
-<li><p><strong>close_file</strong> – Whether to <cite>close()</cite> the file after parsing it.
-Set to <cite>False</cite> if you need to access the file after this operation.</p></li>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.page_options.PageOptions.operation">
+<span class="sig-name descname"><span class="pre">operation</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#mindee.input.page_options.PageOptions.operation" title="Permalink to this definition"></a></dt>
+<dd><p>Operation to apply on the document, given the <code class="docutils literal notranslate"><span class="pre">page_indexes</span></code> specified:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">KEEP_ONLY</span></code> - keep only the specified pages, and remove all others.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">REMOVE</span></code> - remove the specified pages, and keep all others.</p></li>
 </ul>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.page_options.PageOptions.page_indexes">
+<span class="sig-name descname"><span class="pre">page_indexes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mindee.input.page_options.PageOptions.page_indexes" title="Permalink to this definition"></a></dt>
+<dd><p>Zero-based list of page indexes.
+A negative index can be used, indicating an offset from the end of the document.</p>
+<p><cite>[0, -1]</cite> represents the fist and last pages of the document.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.client.DocumentClient">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mindee.client.</span></span><span class="sig-name descname"><span class="pre">DocumentClient</span></span><a class="headerlink" href="#mindee.client.DocumentClient" title="Permalink to this definition"></a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="mindee.client.DocumentClient.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.client.DocumentClient.close" title="Permalink to this definition"></a></dt>
+<dd><p>Close the file object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
 </dd>
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.client.DocumentClient.parse">
+<span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">document_class</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">account_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_words</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">close_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.client.DocumentClient.parse" title="Permalink to this definition"></a></dt>
+<dd><p>Call prediction API on the document and parse the results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>document_class</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">TypeDocument</span></code>, bound= <code class="xref py py-class docutils literal notranslate"><span class="pre">Document</span></code>)) – The document class to use.
+The response object will be instanced based on this parameter.</p></li>
+<li><p><strong>endpoint_name</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>], default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – For custom documents, the “API name” field
+in the “Settings” page of the API Builder.</p></li>
+<li><p><strong>account_name</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>], default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – API username, the endpoint owner</p></li>
+<li><p><strong>include_words</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Include all the words of the document in the response</p></li>
+<li><p><strong>close_file</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">True</span></code>) – Whether to <code class="docutils literal notranslate"><span class="pre">close()</span></code> the file after parsing it.
+Set to <code class="docutils literal notranslate"><span class="pre">False</span></code> if you need to access the file after this operation.</p></li>
+<li><p><strong>page_options</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="#mindee.input.page_options.PageOptions" title="mindee.input.page_options.PageOptions"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageOptions</span></code></a>], default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Options for preparing multipage documents.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#mindee.response.PredictResponse" title="mindee.response.PredictResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">PredictResponse</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">TypeDocument</span></code>, bound= <code class="xref py py-class docutils literal notranslate"><span class="pre">Document</span></code>)]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.client.DocumentClient.doc_configs">
+<span class="sig-name descname"><span class="pre">doc_configs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">DocumentConfig</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mindee.client.DocumentClient.doc_configs" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.client.DocumentClient.input_doc">
+<span class="sig-name descname"><span class="pre">input_doc</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">InputSource</span></em><a class="headerlink" href="#mindee.client.DocumentClient.input_doc" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.client.DocumentClient.raise_on_error">
+<span class="sig-name descname"><span class="pre">raise_on_error</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#mindee.client.DocumentClient.raise_on_error" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </section>
-<section id="documentresponse">
-<h2>DocumentResponse<a class="headerlink" href="#documentresponse" title="Permalink to this headline"></a></h2>
+<section id="predictresponse">
+<h2>PredictResponse<a class="headerlink" href="#predictresponse" title="Permalink to this heading"></a></h2>
 <dl class="py class">
-<dt class="sig sig-object py" id="mindee.response.DocumentResponse">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mindee.response.</span></span><span class="sig-name descname"><span class="pre">DocumentResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc_config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">mindee.document_config.DocumentConfig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">http_response</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pages</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">mindee.documents.base.Document</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">document_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">document</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">typing.Type[mindee.documents.base.Document]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.response.DocumentResponse" title="Permalink to this definition"></a></dt>
-<dd><dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.response.DocumentResponse.document_type">
-<span class="sig-name descname"><span class="pre">document_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#mindee.response.DocumentResponse.document_type" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="mindee.response.PredictResponse">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mindee.response.</span></span><span class="sig-name descname"><span class="pre">PredictResponse</span></span><a class="headerlink" href="#mindee.response.PredictResponse" title="Permalink to this definition"></a></dt>
+<dd><p>Response of a prediction request.</p>
+<p>This is a generic class, so certain class properties depend on the document type.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.response.PredictResponse.document">
+<span class="sig-name descname"><span class="pre">document</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">TypeDocument</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mindee.response.PredictResponse.document" title="Permalink to this definition"></a></dt>
+<dd><p>An instance of the <code class="docutils literal notranslate"><span class="pre">Document</span></code> class, according to the type given.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.response.PredictResponse.document_type">
+<span class="sig-name descname"><span class="pre">document_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#mindee.response.PredictResponse.document_type" title="Permalink to this definition"></a></dt>
 <dd><p>Document type</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.response.DocumentResponse.http_response">
-<span class="sig-name descname"><span class="pre">http_response</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mindee.response.DocumentResponse.http_response" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="mindee.response.PredictResponse.http_response">
+<span class="sig-name descname"><span class="pre">http_response</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mindee.response.PredictResponse.http_response" title="Permalink to this definition"></a></dt>
 <dd><p>Raw HTTP response JSON</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.response.PredictResponse.pages">
+<span class="sig-name descname"><span class="pre">pages</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">TypeDocument</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mindee.response.PredictResponse.pages" title="Permalink to this definition"></a></dt>
+<dd><p>A list of instances of the <code class="docutils literal notranslate"><span class="pre">Document</span></code> class, according to the type given.</p>
 </dd></dl>
 
 </dd></dl>
@@ -308,7 +347,7 @@ Set to <cite>False</cite> if you need to access the file after this operation.</
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="index.html" class="btn btn-neutral float-left" title="Python Client Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="field_types.html" class="btn btn-neutral float-right" title="Fields" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="products/index.html" class="btn btn-neutral float-right" title="Documents" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

@@ -14,5 +14,5 @@ https://developers.mindee.com/docs/python-sdk
    :caption: Contents:
 
    client
-   field_types
-   documents
+   products/index
+   geometry

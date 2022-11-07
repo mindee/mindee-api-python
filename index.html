@@ -14,7 +14,9 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -39,8 +41,8 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="client.html">Document Parsing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="field_types.html">Fields</a></li>
-<li class="toctree-l1"><a class="reference internal" href="documents.html">Documents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="products/index.html">Documents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geometry.html">Geometry Helpers</a></li>
 </ul>
 
         </div>
@@ -56,8 +58,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
-      <li>Python Client Reference</li>
+      <li><a href="#" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Python Client Reference</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -68,7 +70,7 @@
            <div itemprop="articleBody">
              
   <section id="python-client-reference">
-<h1>Python Client Reference<a class="headerlink" href="#python-client-reference" title="Permalink to this headline"></a></h1>
+<h1>Python Client Reference<a class="headerlink" href="#python-client-reference" title="Permalink to this heading"></a></h1>
 <p>This is purely a reference manual.</p>
 <p>Please refer to the documentation to learn how to actually use
 the client.</p>
@@ -79,27 +81,35 @@ the client.</p>
 <li class="toctree-l1"><a class="reference internal" href="client.html">Document Parsing</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="client.html#client">Client</a></li>
 <li class="toctree-l2"><a class="reference internal" href="client.html#documentclient">DocumentClient</a></li>
-<li class="toctree-l2"><a class="reference internal" href="client.html#documentresponse">DocumentResponse</a></li>
+<li class="toctree-l2"><a class="reference internal" href="client.html#predictresponse">PredictResponse</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="field_types.html">Fields</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="field_types.html#base-field">Base Field</a></li>
-<li class="toctree-l2"><a class="reference internal" href="field_types.html#typed-field">Typed Field</a></li>
-<li class="toctree-l2"><a class="reference internal" href="field_types.html#amount-field">Amount Field</a></li>
-<li class="toctree-l2"><a class="reference internal" href="field_types.html#date-field">Date Field</a></li>
-<li class="toctree-l2"><a class="reference internal" href="field_types.html#tax-field">Tax Field</a></li>
-<li class="toctree-l2"><a class="reference internal" href="field_types.html#locale">Locale</a></li>
-<li class="toctree-l2"><a class="reference internal" href="field_types.html#orientation">Orientation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="field_types.html#payment-details">Payment Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="products/index.html">Documents</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="products/international.html">International</a></li>
+<li class="toctree-l2"><a class="reference internal" href="products/us.html">United States of America</a></li>
+<li class="toctree-l2"><a class="reference internal" href="products/custom.html">Custom Documents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="products/field_types.html">Fields</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="documents.html">Documents</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="documents.html#invoice">Invoice</a></li>
-<li class="toctree-l2"><a class="reference internal" href="documents.html#receipt">Receipt</a></li>
-<li class="toctree-l2"><a class="reference internal" href="documents.html#passport">Passport</a></li>
-<li class="toctree-l2"><a class="reference internal" href="documents.html#financial-document">Financial Document</a></li>
-<li class="toctree-l2"><a class="reference internal" href="documents.html#bank-check">Bank Check</a></li>
-<li class="toctree-l2"><a class="reference internal" href="documents.html#custom-document">Custom Document</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geometry.html">Geometry Helpers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html#mindee.geometry.GeometryError"><code class="docutils literal notranslate"><span class="pre">GeometryError</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html#mindee.geometry.BBox"><code class="docutils literal notranslate"><span class="pre">BBox</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html#mindee.geometry.MinMax"><code class="docutils literal notranslate"><span class="pre">MinMax</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html#mindee.geometry.Point"><code class="docutils literal notranslate"><span class="pre">Point</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html#mindee.geometry.Polygon"><code class="docutils literal notranslate"><span class="pre">Polygon</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html#mindee.geometry.Quadrilateral"><code class="docutils literal notranslate"><span class="pre">Quadrilateral</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html#mindee.geometry.get_bbox"><code class="docutils literal notranslate"><span class="pre">get_bbox()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html#mindee.geometry.get_bounding_box"><code class="docutils literal notranslate"><span class="pre">get_bounding_box()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html#mindee.geometry.get_bounding_box_for_polygons"><code class="docutils literal notranslate"><span class="pre">get_bounding_box_for_polygons()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html#mindee.geometry.get_centroid"><code class="docutils literal notranslate"><span class="pre">get_centroid()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html#mindee.geometry.get_min_max_x"><code class="docutils literal notranslate"><span class="pre">get_min_max_x()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html#mindee.geometry.get_min_max_y"><code class="docutils literal notranslate"><span class="pre">get_min_max_y()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html#mindee.geometry.is_point_in_polygon_x"><code class="docutils literal notranslate"><span class="pre">is_point_in_polygon_x()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html#mindee.geometry.is_point_in_polygon_y"><code class="docutils literal notranslate"><span class="pre">is_point_in_polygon_y()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html#mindee.geometry.is_point_in_x"><code class="docutils literal notranslate"><span class="pre">is_point_in_x()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html#mindee.geometry.is_point_in_y"><code class="docutils literal notranslate"><span class="pre">is_point_in_y()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html#mindee.geometry.polygon_from_prediction"><code class="docutils literal notranslate"><span class="pre">polygon_from_prediction()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html#mindee.geometry.quadrilateral_from_prediction"><code class="docutils literal notranslate"><span class="pre">quadrilateral_from_prediction()</span></code></a></li>
 </ul>
 </li>
 </ul>
