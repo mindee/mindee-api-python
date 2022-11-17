@@ -22,7 +22,11 @@ def quadrangle_a():
 
 
 def test_bbox(rectangle_a, rectangle_b, quadrangle_a):
-    assert geometry.get_bbox(rectangle_a) == (0.123, 0.53, 0.175, 0.546)
+    bbox_a = geometry.get_bbox(rectangle_a)
+    assert bbox_a == (0.123, 0.53, 0.175, 0.546)
+    assert round(bbox_a.width, 3) == 0.052
+    assert round(bbox_a.height, 3) == 0.016
+    assert round(bbox_a.area, 6) == 0.000832
     assert geometry.get_bbox(rectangle_b) == (0.124, 0.535, 0.19, 0.546)
     assert geometry.get_bbox(quadrangle_a) == (0.205, 0.407, 0.381, 0.43)
 
