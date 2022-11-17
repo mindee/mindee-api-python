@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import List, Optional, TypeVar
 
-from mindee.documents.base import Document, TypeApiPrediction
+from mindee.documents.base import Document, TypeApiPrediction, clean_out_string
 from mindee.fields.base import field_array_confidence
 from mindee.fields.date import DateField
 from mindee.fields.text import TextField
@@ -92,7 +92,7 @@ class PassportV1(Document):
                 for given_name in self.given_names
             ]
         )
-        return self.clean_out_string(
+        return clean_out_string(
             "-----Passport data-----\n"
             f"Filename: {self.filename or ''}\n"
             f"Full name: {self.full_name}\n"

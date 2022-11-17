@@ -1,6 +1,6 @@
 from typing import List, Optional, TypeVar
 
-from mindee.documents.base import Document, TypeApiPrediction
+from mindee.documents.base import Document, TypeApiPrediction, clean_out_string
 from mindee.fields.amount import AmountField
 from mindee.fields.date import DateField
 from mindee.fields.orientation import OrientationField
@@ -82,7 +82,7 @@ class BankCheckV1(Document):
         payees = ", ".join(
             [payee.value if payee.value is not None else "" for payee in self.payees]
         )
-        return (
+        return clean_out_string(
             "----- US Bank Check -----\n"
             f"Filename: {self.filename or ''}".rstrip() + "\n"
             f"Routing number: {self.routing_number}\n"

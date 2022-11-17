@@ -19,6 +19,12 @@ def serialize_for_json(obj: Any) -> Any:
     return vars(obj)
 
 
+def clean_out_string(out_string: str) -> str:
+    """Clean up the string representation."""
+    regexp = re.compile(r" \n")
+    return regexp.sub("\n", out_string)
+
+
 class Document:
     type: str
     """Document type"""
@@ -82,12 +88,6 @@ class Document:
     def all_checks(self) -> bool:
         """Return status of all checks."""
         return all(self.checklist)
-
-    @staticmethod
-    def clean_out_string(out_string: str) -> str:
-        """Clean up the string representation."""
-        regexp = re.compile(r" \n")
-        return regexp.sub("\n", out_string)
 
 
 TypeDocument = TypeVar("TypeDocument", bound=Document)

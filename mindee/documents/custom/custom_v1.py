@@ -1,6 +1,6 @@
 from typing import Dict, Optional, TypeVar
 
-from mindee.documents.base import Document, TypeApiPrediction
+from mindee.documents.base import Document, TypeApiPrediction, clean_out_string
 from mindee.fields.api_builder import ClassificationField, ListField
 
 
@@ -60,7 +60,7 @@ class CustomV1(Document):
         for field_name, field_info in self.fields.items():
             custom_doc_str += f"{field_name}: {field_info}\n"
         custom_doc_str += "----------------------"
-        return self.clean_out_string(custom_doc_str)
+        return clean_out_string(custom_doc_str)
 
     def _checklist(self) -> None:
         pass
