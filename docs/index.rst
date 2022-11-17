@@ -15,4 +15,4 @@ https://developers.mindee.com/docs/python-sdk
 
    client
    products/index
-   geometry
+   utilities/index

@@ -5,13 +5,13 @@ from mindee.documents.invoice.invoice_v3 import InvoiceV3
 from mindee.documents.receipt.receipt_v3 import ReceiptV3
 from mindee.endpoints import Endpoint
 from mindee.fields.amount import AmountField
+from mindee.fields.company_registration import CompanyRegistrationField
 from mindee.fields.date import DateField
 from mindee.fields.locale import LocaleField
-from mindee.fields.orientation import Orientation
+from mindee.fields.orientation import OrientationField
 from mindee.fields.payment_details import PaymentDetails
 from mindee.fields.tax import TaxField
 from mindee.fields.text import TextField
-from mindee.fields.typed import TypedField
 
 
 class FinancialV1(Document):
@@ -39,17 +39,17 @@ class FinancialV1(Document):
     """Customer's name"""
     customer_address: TextField
     """Customer's address"""
-    customer_company_registration: List[TypedField]
+    customer_company_registration: List[CompanyRegistrationField]
     """Customer company registration numbers"""
     payment_details: List[PaymentDetails]
     """Payment details"""
-    company_number: List[TypedField]
+    company_number: List[CompanyRegistrationField]
     """Company numbers"""
     total_tax: AmountField
     """Sum total of all taxes"""
 
     # orientation is only present on page-level, not document-level
-    orientation: Optional[Orientation] = None
+    orientation: Optional[OrientationField] = None
     """Page orientation"""
 
     def __init__(

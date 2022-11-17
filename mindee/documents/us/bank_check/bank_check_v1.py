@@ -3,7 +3,7 @@ from typing import List, Optional, TypeVar
 from mindee.documents.base import Document, TypeApiPrediction
 from mindee.fields.amount import AmountField
 from mindee.fields.date import DateField
-from mindee.fields.orientation import Orientation
+from mindee.fields.orientation import OrientationField
 from mindee.fields.position import Position
 from mindee.fields.text import TextField
 
@@ -26,7 +26,7 @@ class BankCheckV1(Document):
     signatures_positions: List[Position]
     """Signatures' positions in the image"""
     # orientation is only present on page-level, not document-level
-    orientation: Optional[Orientation] = None
+    orientation: Optional[OrientationField] = None
     """Page orientation"""
 
     def __init__(
@@ -60,15 +60,15 @@ class BankCheckV1(Document):
         :param page_n: Page number for multi pages pdf input
         """
         if page_n is not None:
-            self.orientation = Orientation(api_prediction["orientation"], page_n=page_n)
+            self.orientation = OrientationField(
+                api_prediction["orientation"], page_n=page_n
+            )
 
         self.routing_number = TextField(api_prediction["routing_number"], page_n=page_n)
         self.account_number = TextField(api_prediction["account_number"], page_n=page_n)
         self.check_number = TextField(api_prediction["check_number"], page_n=page_n)
-        self.date = DateField(api_prediction["date"], "value", page_n=page_n)
-        self.amount = AmountField(
-            api_prediction["amount"], value_key="value", page_n=page_n
-        )
+        self.date = DateField(api_prediction["date"], page_n=page_n)
+        self.amount = AmountField(api_prediction["amount"], page_n=page_n)
         self.payees = [
             TextField(payee, page_n=page_n) for payee in api_prediction["payees"]
         ]

@@ -9,7 +9,6 @@ class AmountField(FieldPositionMixin, BaseField):
     def __init__(
         self,
         prediction: TypePrediction,
-        value_key: str = "amount",
         reconstructed: bool = False,
         page_n: Optional[int] = None,
     ):
@@ -17,18 +16,17 @@ class AmountField(FieldPositionMixin, BaseField):
         Amount field object.
 
         :param prediction: Amount prediction object from HTTP response
-        :param value_key: Key to use in the amount_prediction dict
         :param reconstructed: Bool for reconstructed object (not extracted in the API)
         :param page_n: Page number for multi-page document
         """
         super().__init__(
             prediction,
-            value_key=value_key,
+            value_key="value",
             reconstructed=reconstructed,
             page_n=page_n,
         )
         try:
-            self.value = round(float(prediction[value_key]), 3)
+            self.value = round(float(prediction["value"]), 3)
         except (ValueError, TypeError, KeyError):
             self.value = None
             self.confidence = 0.0

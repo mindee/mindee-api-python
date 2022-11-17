@@ -3,13 +3,13 @@ from typing import List, Optional, TypeVar
 from mindee.documents.base import Document, TypeApiPrediction
 from mindee.fields.amount import AmountField
 from mindee.fields.base import field_array_confidence
+from mindee.fields.company_registration import CompanyRegistrationField
 from mindee.fields.date import DateField
 from mindee.fields.locale import LocaleField
-from mindee.fields.orientation import Orientation
+from mindee.fields.orientation import OrientationField
 from mindee.fields.payment_details import PaymentDetails
 from mindee.fields.tax import TaxField
 from mindee.fields.text import TextField
-from mindee.fields.typed import TypedField
 
 
 class InvoiceV3(Document):
@@ -37,14 +37,14 @@ class InvoiceV3(Document):
     """Customer's name"""
     customer_address: TextField
     """Customer's address"""
-    customer_company_registration: List[TypedField]
+    customer_company_registration: List[CompanyRegistrationField]
     """Customer company registration numbers"""
     payment_details: List[PaymentDetails]
     """Payment details"""
-    company_number: List[TypedField]
+    company_number: List[CompanyRegistrationField]
     """Company numbers"""
     # orientation is only present on page-level, not document-level
-    orientation: Optional[Orientation] = None
+    orientation: Optional[OrientationField] = None
     """Page orientation"""
 
     def __init__(
@@ -78,18 +78,16 @@ class InvoiceV3(Document):
         :param page_n: Page number for multi pages pdf input
         """
         if page_n is not None:
-            self.orientation = Orientation(api_prediction["orientation"], page_n=page_n)
+            self.orientation = OrientationField(
+                api_prediction["orientation"], page_n=page_n
+            )
 
         self.company_number = [
-            TypedField(field_dict, page_n=page_n)
+            CompanyRegistrationField(field_dict, page_n=page_n)
             for field_dict in api_prediction["company_registration"]
         ]
-        self.invoice_date = DateField(
-            api_prediction["date"], value_key="value", page_n=page_n
-        )
-        self.due_date = DateField(
-            api_prediction["due_date"], value_key="value", page_n=page_n
-        )
+        self.invoice_date = DateField(api_prediction["date"], page_n=page_n)
+        self.due_date = DateField(api_prediction["due_date"], page_n=page_n)
         self.invoice_number = TextField(api_prediction["invoice_number"], page_n=page_n)
         self.locale = LocaleField(
             api_prediction["locale"], value_key="language", page_n=page_n
@@ -100,7 +98,7 @@ class InvoiceV3(Document):
         )
         self.customer_name = TextField(api_prediction["customer"], page_n=page_n)
         self.customer_company_registration = [
-            TypedField(field_dict, page_n=page_n)
+            CompanyRegistrationField(field_dict, page_n=page_n)
             for field_dict in api_prediction["customer_company_registration"]
         ]
         self.customer_address = TextField(
@@ -115,15 +113,9 @@ class InvoiceV3(Document):
             PaymentDetails(payment_detail, page_n=page_n)
             for payment_detail in api_prediction["payment_details"]
         ]
-        self.total_incl = AmountField(
-            api_prediction["total_incl"], value_key="value", page_n=page_n
-        )
-        self.total_excl = AmountField(
-            api_prediction["total_excl"], value_key="value", page_n=page_n
-        )
-        self.total_tax = AmountField(
-            {"value": None, "confidence": 0.0}, value_key="value", page_n=page_n
-        )
+        self.total_incl = AmountField(api_prediction["total_incl"], page_n=page_n)
+        self.total_excl = AmountField(api_prediction["total_excl"], page_n=page_n)
+        self.total_tax = AmountField({"value": None, "confidence": 0.0}, page_n=page_n)
 
     def __str__(self) -> str:
         company_numbers = "; ".join([str(n.value) for n in self.company_number])
@@ -309,9 +301,7 @@ class InvoiceV3(Document):
                 "confidence": field_array_confidence(self.taxes)
                 * self.total_excl.confidence,
             }
-            self.total_incl = AmountField(
-                total_incl, value_key="value", reconstructed=True
-            )
+            self.total_incl = AmountField(total_incl, reconstructed=True)
 
     def __reconstruct_total_excl_from_tcc_and_taxes(self) -> None:
         """
@@ -335,7 +325,7 @@ class InvoiceV3(Document):
             "confidence": field_array_confidence(self.taxes)
             * self.total_incl.confidence,
         }
-        self.total_excl = AmountField(total_excl, value_key="value", reconstructed=True)
+        self.total_excl = AmountField(total_excl, reconstructed=True)
 
     def __reconstruct_total_tax_from_tax_lines(self) -> None:
         """
@@ -352,9 +342,7 @@ class InvoiceV3(Document):
                 "confidence": field_array_confidence(self.taxes),
             }
             if total_tax["value"] > 0:
-                self.total_tax = AmountField(
-                    total_tax, value_key="value", reconstructed=True
-                )
+                self.total_tax = AmountField(total_tax, reconstructed=True)
 
     def __reconstruct_total_tax_from_incl_and_excl(self) -> None:
         """
@@ -375,9 +363,7 @@ class InvoiceV3(Document):
             "confidence": self.total_incl.confidence * self.total_excl.confidence,
         }
         if total_tax["value"] >= 0:
-            self.total_tax = AmountField(
-                total_tax, value_key="value", reconstructed=True
-            )
+            self.total_tax = AmountField(total_tax, reconstructed=True)
 
 
 TypeInvoiceV3 = TypeVar("TypeInvoiceV3", bound=InvoiceV3)
