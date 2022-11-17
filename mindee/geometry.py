@@ -41,12 +41,29 @@ class BBox(NamedTuple):
     y_max: float
     """Maximum Y coordinate."""
 
+    @property
+    def width(self) -> float:
+        """The width of the BBox."""
+        return self.x_max - self.x_min
+
+    @property
+    def height(self) -> float:
+        """The height of the BBox."""
+        return self.y_max - self.y_min
+
+    @property
+    def area(self) -> float:
+        """The area of the BBox."""
+        return self.width * self.height
+
 
 class MinMax(NamedTuple):
-    """A set of minimum and maximum points."""
+    """A set of minimum and maximum values."""
 
     min: float
+    """Minimum"""
     max: float
+    """Maximum"""
 
 
 class Polygon(list):
