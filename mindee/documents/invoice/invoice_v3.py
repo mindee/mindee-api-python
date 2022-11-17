@@ -1,6 +1,6 @@
 from typing import List, Optional, TypeVar
 
-from mindee.documents.base import Document, TypeApiPrediction
+from mindee.documents.base import Document, TypeApiPrediction, clean_out_string
 from mindee.fields.amount import AmountField
 from mindee.fields.base import field_array_confidence
 from mindee.fields.company_registration import CompanyRegistrationField
@@ -126,7 +126,7 @@ class InvoiceV3(Document):
             [str(p) for p in self.payment_details]
         )
         taxes = "\n       ".join(f"{t}" for t in self.taxes)
-        return self.clean_out_string(
+        return clean_out_string(
             "-----Invoice data-----\n"
             f"Filename: {self.filename or ''}\n"
             f"Invoice number: {self.invoice_number}\n"

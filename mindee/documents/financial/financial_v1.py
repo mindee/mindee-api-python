@@ -1,6 +1,6 @@
 from typing import List, Optional, TypeVar
 
-from mindee.documents.base import Document, TypeApiPrediction
+from mindee.documents.base import Document, TypeApiPrediction, clean_out_string
 from mindee.documents.invoice.invoice_v3 import InvoiceV3
 from mindee.documents.receipt.receipt_v3 import ReceiptV3
 from mindee.endpoints import Endpoint
@@ -125,7 +125,7 @@ class FinancialV1(Document):
             self.customer_address = TextField({"value": None, "confidence": 0.0})
 
     def __str__(self) -> str:
-        return self.clean_out_string(
+        return clean_out_string(
             "-----Financial Document data-----\n"
             f"Filename: {self.filename or ''}\n"
             f"Invoice number: {self.invoice_number.value}\n"

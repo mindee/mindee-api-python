@@ -17,6 +17,12 @@ class PredictResponse(Generic[TypeDocument]):
     """Raw HTTP response JSON"""
     document_type: str
     """Document type"""
+    input_path: Optional[str] = None
+    """Path of the input file"""
+    input_filename: Optional[str] = None
+    """Name of the input file"""
+    input_mimetype: Optional[str] = None
+    """MIME type of the input file"""
     document: Optional[TypeDocument]
     """An instance of the ``Document`` class, according to the type given."""
     pages: List[TypeDocument]
@@ -41,6 +47,11 @@ class PredictResponse(Generic[TypeDocument]):
         self.http_response = http_response
         self.document_type = doc_config.document_type
         self.pages = []
+
+        if input_source:
+            self.input_path = input_source.filepath
+            self.input_filename = input_source.filename
+            self.input_mimetype = input_source.file_mimetype
 
         if not response_ok:
             self.document = None

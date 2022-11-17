@@ -1,6 +1,6 @@
 from typing import List, Optional, TypeVar
 
-from mindee.documents.base import Document, TypeApiPrediction
+from mindee.documents.base import Document, TypeApiPrediction, clean_out_string
 from mindee.fields.amount import AmountField
 from mindee.fields.base import field_array_confidence, field_array_sum
 from mindee.fields.date import DateField
@@ -56,7 +56,7 @@ class ReceiptV3(Document):
 
     def __str__(self) -> str:
         taxes = "\n       ".join(f"{t}" for t in self.taxes)
-        return self.clean_out_string(
+        return clean_out_string(
             "-----Receipt data-----\n"
             f"Filename: {self.filename or ''}\n"
             f"Total amount including taxes: {self.total_incl}\n"
