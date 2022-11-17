@@ -70,15 +70,9 @@ class PassportV1(Document):
         """
         self.country = TextField(api_prediction["country"], page_n=page_n)
         self.id_number = TextField(api_prediction["id_number"], page_n=page_n)
-        self.birth_date = DateField(
-            api_prediction["birth_date"], "value", page_n=page_n
-        )
-        self.expiry_date = DateField(
-            api_prediction["expiry_date"], "value", page_n=page_n
-        )
-        self.issuance_date = DateField(
-            api_prediction["issuance_date"], "value", page_n=page_n
-        )
+        self.birth_date = DateField(api_prediction["birth_date"], page_n=page_n)
+        self.expiry_date = DateField(api_prediction["expiry_date"], page_n=page_n)
+        self.issuance_date = DateField(api_prediction["issuance_date"], page_n=page_n)
         self.birth_place = TextField(api_prediction["birth_place"], page_n=page_n)
         self.gender = TextField(api_prediction["gender"], page_n=page_n)
         self.surname = TextField(api_prediction["surname"], page_n=page_n)

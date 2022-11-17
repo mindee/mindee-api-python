@@ -1,6 +1,6 @@
 from mindee.fields.base import BaseField, field_array_confidence, field_array_sum
+from mindee.fields.company_registration import CompanyRegistrationField
 from mindee.fields.text import TextField
-from mindee.fields.typed import TypedField
 
 
 def test_constructor():
@@ -22,7 +22,7 @@ def test_type_constructor():
         "confidence": 0.1,
         "polygon": [[0.016, 0.707], [0.414, 0.707], [0.414, 0.831], [0.016, 0.831]],
     }
-    field = TypedField(field_dict)
+    field = CompanyRegistrationField(field_dict)
     assert field.value == "test"
     assert field.type == "IBAN"
     assert field.confidence == 0.1

@@ -3,7 +3,7 @@ from mindee.fields.amount import AmountField
 
 def test_constructor():
     field_dict = {
-        "amount": "2",
+        "value": "2",
         "confidence": 0.1,
         "polygon": [
             [0.016, 0.707],
@@ -18,6 +18,6 @@ def test_constructor():
 
 
 def test_constructor_no_amount():
-    field_dict = {"amount": "N/A", "confidence": 0.1}
+    field_dict = {"value": "N/A", "confidence": 0.1}
     amount = AmountField(field_dict)
     assert amount.value is None

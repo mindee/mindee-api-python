@@ -5,7 +5,7 @@ from mindee.fields.date import DateField
 
 def test_constructor():
     field_dict = {
-        "iso": "2018-04-01",
+        "value": "2018-04-01",
         "confidence": 0.1,
         "polygon": [
             [0.016, 0.707],

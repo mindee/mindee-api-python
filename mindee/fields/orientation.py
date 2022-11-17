@@ -3,7 +3,7 @@ from typing import Optional
 from mindee.fields.base import BaseField, TypePrediction
 
 
-class Orientation(BaseField):
+class OrientationField(BaseField):
     value: int
     """Orientation degrees. One of 0, 90, 180, 270"""
 

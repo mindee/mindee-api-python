@@ -4,7 +4,7 @@ from mindee.documents.base import Document, TypeApiPrediction
 from mindee.fields.amount import AmountField
 from mindee.fields.date import DateField
 from mindee.fields.locale import LocaleField
-from mindee.fields.orientation import Orientation
+from mindee.fields.orientation import OrientationField
 from mindee.fields.tax import TaxField
 from mindee.fields.text import TextField
 
@@ -31,7 +31,7 @@ class ReceiptV4(Document):
     tip: AmountField
     """Total amount of tip and gratuity."""
     # orientation is only present on page-level, not document-level
-    orientation: Optional[Orientation] = None
+    orientation: Optional[OrientationField] = None
     """Page orientation"""
 
     def __init__(
@@ -65,20 +65,16 @@ class ReceiptV4(Document):
         :param page_n: Page number for multi pages pdf input
         """
         if page_n is not None:
-            self.orientation = Orientation(api_prediction["orientation"], page_n=page_n)
+            self.orientation = OrientationField(
+                api_prediction["orientation"], page_n=page_n
+            )
 
         self.locale = LocaleField(api_prediction["locale"], page_n=page_n)
-        self.total_amount = AmountField(
-            api_prediction["total_amount"], value_key="value", page_n=page_n
-        )
-        self.total_net = AmountField(
-            api_prediction["total_net"], value_key="value", page_n=page_n
-        )
-        self.total_tax = AmountField(
-            api_prediction["total_tax"], value_key="value", page_n=page_n
-        )
-        self.tip = AmountField(api_prediction["tip"], value_key="value", page_n=page_n)
-        self.date = DateField(api_prediction["date"], value_key="value", page_n=page_n)
+        self.total_amount = AmountField(api_prediction["total_amount"], page_n=page_n)
+        self.total_net = AmountField(api_prediction["total_net"], page_n=page_n)
+        self.total_tax = AmountField(api_prediction["total_tax"], page_n=page_n)
+        self.tip = AmountField(api_prediction["tip"], page_n=page_n)
+        self.date = DateField(api_prediction["date"], page_n=page_n)
         self.category = TextField(api_prediction["category"], page_n=page_n)
         self.supplier = TextField(
             api_prediction["supplier"], value_key="value", page_n=page_n

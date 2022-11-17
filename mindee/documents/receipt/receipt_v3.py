@@ -5,7 +5,7 @@ from mindee.fields.amount import AmountField
 from mindee.fields.base import field_array_confidence, field_array_sum
 from mindee.fields.date import DateField
 from mindee.fields.locale import LocaleField
-from mindee.fields.orientation import Orientation
+from mindee.fields.orientation import OrientationField
 from mindee.fields.tax import TaxField
 from mindee.fields.text import TextField
 
@@ -30,7 +30,7 @@ class ReceiptV3(Document):
     total_excl: AmountField
     """Total excluding taxes"""
     # orientation is only present on page-level, not document-level
-    orientation: Optional[Orientation] = None
+    orientation: Optional[OrientationField] = None
     """Page orientation"""
 
     def __init__(
@@ -81,13 +81,13 @@ class ReceiptV3(Document):
         :param page_n: Page number for multi pages pdf input
         """
         if page_n is not None:
-            self.orientation = Orientation(api_prediction["orientation"], page_n=page_n)
+            self.orientation = OrientationField(
+                api_prediction["orientation"], page_n=page_n
+            )
 
         self.locale = LocaleField(api_prediction["locale"], page_n=page_n)
-        self.total_incl = AmountField(
-            api_prediction["total_incl"], value_key="value", page_n=page_n
-        )
-        self.date = DateField(api_prediction["date"], value_key="value", page_n=page_n)
+        self.total_incl = AmountField(api_prediction["total_incl"], page_n=page_n)
+        self.date = DateField(api_prediction["date"], page_n=page_n)
         self.category = TextField(api_prediction["category"], page_n=page_n)
         self.merchant_name = TextField(
             api_prediction["supplier"], value_key="value", page_n=page_n
@@ -103,12 +103,8 @@ class ReceiptV3(Document):
             )
             for tax_prediction in api_prediction["taxes"]
         ]
-        self.total_tax = AmountField(
-            {"value": None, "confidence": 0.0}, value_key="value", page_n=page_n
-        )
-        self.total_excl = AmountField(
-            {"value": None, "confidence": 0.0}, value_key="value", page_n=page_n
-        )
+        self.total_tax = AmountField({"value": None, "confidence": 0.0}, page_n=page_n)
+        self.total_excl = AmountField({"value": None, "confidence": 0.0}, page_n=page_n)
 
     def _checklist(self) -> None:
         """Call check methods."""
@@ -172,9 +168,7 @@ class ReceiptV3(Document):
                 "confidence": field_array_confidence(self.taxes)
                 * self.total_incl.confidence,
             }
-            self.total_excl = AmountField(
-                total_excl, value_key="value", reconstructed=True
-            )
+            self.total_excl = AmountField(total_excl, reconstructed=True)
 
     def __reconstruct_total_tax(self) -> None:
         """
@@ -191,9 +185,7 @@ class ReceiptV3(Document):
                 "confidence": field_array_confidence(self.taxes),
             }
             if total_tax["value"] > 0:
-                self.total_tax = AmountField(
-                    total_tax, value_key="value", reconstructed=True
-                )
+                self.total_tax = AmountField(total_tax, reconstructed=True)
 
 
 TypeReceiptV3 = TypeVar("TypeReceiptV3", bound=ReceiptV3)

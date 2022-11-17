@@ -3,12 +3,9 @@ from typing import Optional
 from mindee.fields.base import BaseField, FieldPositionMixin, TypePrediction
 
 
-class TypedField(FieldPositionMixin, BaseField):
+class CompanyRegistrationField(FieldPositionMixin, BaseField):
     type: str
-    """
-    A field with a type, as defined by the API.
-    This is not a Python base type.
-    """
+    """The type of registration."""
 
     def __init__(
         self,

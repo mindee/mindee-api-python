@@ -18,7 +18,6 @@ class DateField(FieldPositionMixin, BaseField):
     def __init__(
         self,
         prediction: TypePrediction,
-        value_key: str = "iso",
         reconstructed: bool = False,
         page_n: Optional[int] = None,
     ):
@@ -26,13 +25,12 @@ class DateField(FieldPositionMixin, BaseField):
         Date field object.
 
         :param prediction: Date prediction object from HTTP response
-        :param value_key: Key to use in the date_prediction dict
         :param reconstructed: Bool for reconstructed object (not extracted in the API)
         :param page_n: Page number for multi-page document
         """
         super().__init__(
             prediction,
-            value_key=value_key,
+            value_key="value",
             reconstructed=reconstructed,
             page_n=page_n,
         )

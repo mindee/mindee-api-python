@@ -1,4 +1,4 @@
-from mindee.fields.orientation import Orientation
+from mindee.fields.orientation import OrientationField
 
 
 def test_constructor():
@@ -6,7 +6,7 @@ def test_constructor():
         "degrees": 90,
         "confidence": 0.1,
     }
-    orientation = Orientation(field_dict)
+    orientation = OrientationField(field_dict)
     assert orientation.value == 90
 
 
@@ -15,7 +15,7 @@ def test_not_number():
         "degrees": "aze",
         "confidence": 0.1,
     }
-    orientation = Orientation(field_dict)
+    orientation = OrientationField(field_dict)
     assert orientation.value == 0
 
 
@@ -24,5 +24,5 @@ def test_not_90():
         "degrees": 255,
         "confidence": 0.1,
     }
-    orientation = Orientation(field_dict)
+    orientation = OrientationField(field_dict)
     assert orientation.value == 0
