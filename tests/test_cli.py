@@ -21,7 +21,7 @@ def custom_doc(monkeypatch):
         input_type="path",
         output_type="summary",
         include_words=False,
-        path="./tests/data/license_plate/plate.png",
+        path="./tests/data/pdf/blank.pdf",
     )
 
 

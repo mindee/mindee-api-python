@@ -10,7 +10,7 @@ class OrientationField(BaseField):
     def __init__(
         self,
         prediction: TypePrediction,
-        value_key: str = "degrees",
+        value_key: str = "value",
         reconstructed: bool = False,
         page_n: Optional[int] = None,
     ):
@@ -35,4 +35,3 @@ class OrientationField(BaseField):
                 self.value = 0
         except (TypeError, ValueError, KeyError):
             self.value = 0
-            self.confidence = 0.0

@@ -10,7 +10,7 @@ from mindee.geometry import (
 )
 
 
-class Position(BaseField):
+class PositionField(BaseField):
     value: Optional[Polygon] = None
     polygon: Optional[Polygon] = None
     quadrangle: Optional[Quadrilateral] = None

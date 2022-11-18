@@ -1,4 +1,4 @@
-from mindee.fields.position import Position
+from mindee.fields.position import PositionField
 
 
 def test_constructor():
@@ -14,7 +14,7 @@ def test_constructor():
         "polygon": [[0.016, 0.707], [0.414, 0.707], [0.414, 0.831], [0.016, 0.831]],
         "rectangle": [[0.016, 0.707], [0.414, 0.707], [0.414, 0.831], [0.016, 0.831]],
     }
-    field = Position(field_dict)
+    field = PositionField(field_dict)
     assert len(field.value) == 4
     assert field.confidence == 0.1
     assert field.polygon[0].x == 0.016
@@ -32,5 +32,5 @@ def test_fail_constructor():
         "quadrangle": [[0.016, 0.707], [0.414, 0.707], [0.414, 0.831], [0.016, 0.831]],
         "rectangle": [[0.016, 0.707], [0.414, 0.707], [0.414, 0.831], [0.016, 0.831]],
     }
-    field = Position(field_dict)
+    field = PositionField(field_dict)
     assert field.value is None

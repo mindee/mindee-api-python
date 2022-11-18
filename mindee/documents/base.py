@@ -3,6 +3,7 @@ import re
 from typing import Any, Dict, List, Optional, TypeVar
 
 from mindee.endpoints import Endpoint
+from mindee.fields.orientation import OrientationField
 from mindee.input.sources import InputSource
 
 TypeApiPrediction = Dict[str, Any]
@@ -36,6 +37,9 @@ class Document:
     """Name of the input document"""
     file_extension: Optional[str] = None
     """File extension of the input document"""
+    # orientation is only present on page-level, not document-level
+    orientation: Optional[OrientationField] = None
+    """Page orientation"""
 
     def __init__(
         self,
@@ -48,13 +52,13 @@ class Document:
             self.filepath = input_source.filepath
             self.filename = input_source.filename
             self.file_extension = input_source.file_mimetype
-
+        self.checklist = {}
         self.type = document_type
 
-        self._build_from_api_prediction(api_prediction, page_n=page_n)
-        self.checklist = {}
-        self._checklist()
-        self._reconstruct()
+        if page_n is not None:
+            self.orientation = OrientationField(
+                api_prediction["orientation"], page_n=page_n
+            )
 
     @staticmethod
     def request(
