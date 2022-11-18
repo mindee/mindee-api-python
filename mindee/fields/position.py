@@ -12,10 +12,15 @@ from mindee.geometry import (
 
 class PositionField(BaseField):
     value: Optional[Polygon] = None
+    """Polygon of cropped area, identical to the ``polygon`` property."""
     polygon: Optional[Polygon] = None
+    """Polygon of cropped area"""
     quadrangle: Optional[Quadrilateral] = None
+    """Quadrangle of cropped area (does not exceed the canvas)"""
     rectangle: Optional[Quadrilateral] = None
+    """Oriented rectangle of cropped area (may exceed the canvas)"""
     bounding_box: Optional[Quadrilateral] = None
+    """Straight rectangle of cropped area (does not exceed the canvas)"""
 
     def __init__(
         self,
@@ -57,3 +62,8 @@ class PositionField(BaseField):
         self.polygon = get_polygon("polygon")
 
         self.value = self.polygon
+
+    def __str__(self) -> str:
+        if self.polygon is None:
+            return ""
+        return f"Polygon with {len(self.polygon)} points."

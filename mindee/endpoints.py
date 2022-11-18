@@ -84,6 +84,7 @@ class Endpoint:
         input_source: InputSource,
         include_words: bool = False,
         close_file: bool = True,
+        cropper: bool = False,
     ) -> requests.Response:
         """
         Make a request to POST a document for prediction.
@@ -91,6 +92,7 @@ class Endpoint:
         :param input_source: Input object
         :param include_words: Include raw OCR words in the response
         :param close_file: Whether to `close()` the file after parsing it.
+        :param cropper: Including Mindee cropping results.
         :return: requests response
         """
         files = {"document": input_source.read_contents(close_file)}
@@ -98,11 +100,16 @@ class Endpoint:
         if include_words:
             data["include_mvision"] = "true"
 
+        params = {}
+        if cropper:
+            params["cropper"] = "true"
+
         response = requests.post(
             f"{self._url_root}/predict",
             files=files,
             headers=self.base_headers,
             data=data,
+            params=params,
             timeout=self.timeout,
         )
         return response

@@ -2,6 +2,7 @@ import json
 from typing import BinaryIO, Dict, Optional, Type
 
 from mindee.documents import (
+    CropperV1,
     CustomV1,
     FinancialV1,
     InvoiceV3,
@@ -53,19 +54,33 @@ class DocumentClient:
         include_words: bool = False,
         close_file: bool = True,
         page_options: Optional[PageOptions] = None,
+        cropper: bool = False,
     ) -> PredictResponse[TypeDocument]:
         """
         Call prediction API on the document and parse the results.
 
         :param document_class: The document class to use.
-          The response object will be instanced based on this parameter.
-        :param endpoint_name: For custom documents, the "API name" field
-          in the "Settings" page of the API Builder.
-        :param account_name: API username, the endpoint owner
-        :param include_words: Include all the words of the document in the response
+            The response object will be instantiated based on this parameter.
+
+        :param endpoint_name: For custom endpoints, the "API name" field in the "Settings" page of the API Builder.
+            Do not set for standard (off the shelf) endpoints.
+
+        :param account_name: For custom endpoints, your account or organization username on the API Builder.
+            This is normally not required unless you have a custom endpoint which has the
+            same name as standard (off the shelf) endpoint.
+            Do not set for standard (off the shelf) endpoints.
+
+        :param include_words: Whether to include the full text for each page.
+            This performs a full OCR operation on the server and will increase response time.
+
         :param close_file: Whether to ``close()`` the file after parsing it.
           Set to ``False`` if you need to access the file after this operation.
-        :param page_options: Options for preparing multipage documents.
+
+        :param page_options: If set, remove pages from the document as specified.
+            This is done before sending the file to the server and is useful to avoid page limitations.
+
+        :param cropper: Whether to include cropper results for each page.
+            This performs a cropping operation on the server and will increase response time.
         """
         bound_classname = get_bound_classname(document_class)
         if bound_classname != CustomV1.__name__:
@@ -108,7 +123,9 @@ class DocumentClient:
                 page_options.on_min_pages,
                 page_options.page_indexes,
             )
-        return self._make_request(document_class, doc_config, include_words, close_file)
+        return self._make_request(
+            document_class, doc_config, include_words, close_file, cropper
+        )
 
     def _make_request(
         self,
@@ -116,6 +133,7 @@ class DocumentClient:
         doc_config: DocumentConfig,
         include_words: bool,
         close_file: bool,
+        cropper: bool,
     ) -> PredictResponse[TypeDocument]:
         if get_bound_classname(document_class) != doc_config.document_class.__name__:
             raise RuntimeError("Document class mismatch!")
@@ -125,6 +143,7 @@ class DocumentClient:
             self.input_doc,
             include_words=include_words,
             close_file=close_file,
+            cropper=cropper,
         )
 
         dict_response = response.json()
@@ -225,6 +244,15 @@ class Client:
                 endpoints=[
                     StandardEndpoint(
                         url_name="bank_check", version="1", api_key=self.api_key
+                    )
+                ],
+            ),
+            (OTS_OWNER, CropperV1.__name__): DocumentConfig(
+                document_type="cropper_v1",
+                document_class=CropperV1,
+                endpoints=[
+                    StandardEndpoint(
+                        url_name="cropper", version="1", api_key=self.api_key
                     )
                 ],
             ),
