@@ -4,6 +4,7 @@ from typing import Any, Dict, List, Optional, TypeVar
 
 from mindee.endpoints import Endpoint
 from mindee.fields.orientation import OrientationField
+from mindee.fields.position import PositionField
 from mindee.input.sources import InputSource
 
 TypeApiPrediction = Dict[str, Any]
@@ -40,6 +41,8 @@ class Document:
     # orientation is only present on page-level, not document-level
     orientation: Optional[OrientationField] = None
     """Page orientation"""
+    cropper: List[PositionField]
+    """Cropper results"""
 
     def __init__(
         self,
@@ -56,6 +59,7 @@ class Document:
         self.type = document_type
 
         if page_n is not None:
+            self._set_extras(api_prediction["extras"])
             self.orientation = OrientationField(
                 api_prediction["orientation"], page_n=page_n
             )
@@ -66,6 +70,7 @@ class Document:
         input_source: InputSource,
         include_words: bool = False,
         close_file: bool = True,
+        cropper: bool = False,
     ):
         """
         Make request to prediction endpoint.
@@ -74,8 +79,19 @@ class Document:
         :param endpoints: Endpoints config
         :param include_words: Include Mindee vision words in http_response
         :param close_file: Whether to `close()` the file after parsing it.
+        :param cropper: Including Mindee cropper results.
         """
-        return endpoints[0].predict_req_post(input_source, include_words, close_file)
+        return endpoints[0].predict_req_post(
+            input_source, include_words, close_file, cropper=cropper
+        )
+
+    def _set_extras(self, extras: TypeApiPrediction):
+        self.cropper = []
+        try:
+            for crop in extras["cropper"]["cropping"]:
+                self.cropper.append(PositionField(crop))
+        except KeyError:
+            pass
 
     def _build_from_api_prediction(
         self, api_prediction: TypeApiPrediction, page_n: Optional[int] = None

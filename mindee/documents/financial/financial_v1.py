@@ -11,6 +11,7 @@ from mindee.fields.locale import LocaleField
 from mindee.fields.payment_details import PaymentDetails
 from mindee.fields.tax import TaxField
 from mindee.fields.text import TextField
+from mindee.input.sources import InputSource
 
 
 class FinancialV1(Document):
@@ -150,9 +151,10 @@ class FinancialV1(Document):
     @staticmethod
     def request(
         endpoints: List[Endpoint],
-        input_source,
+        input_source: InputSource,
         include_words: bool = False,
         close_file: bool = True,
+        cropper: bool = False,
     ):
         """
         Make request to prediction endpoint.
@@ -161,6 +163,7 @@ class FinancialV1(Document):
         :param endpoints: Endpoints config
         :param include_words: Include Mindee vision words in http_response
         :param close_file: Whether to `close()` the file after parsing it.
+        :param cropper: Including Mindee cropper results.
         """
         if "pdf" in input_source.file_mimetype:
             # invoices is index 0, receipts 1 (this should be cleaned up)
@@ -168,7 +171,7 @@ class FinancialV1(Document):
         else:
             index = 1
         return endpoints[index].predict_req_post(
-            input_source, include_words, close_file
+            input_source, include_words, close_file, cropper=cropper
         )
 
     def _checklist(self) -> None:

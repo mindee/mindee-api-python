@@ -73,9 +73,7 @@ class BankCheckV1(Document):
         ]
 
     def __str__(self) -> str:
-        payees = ", ".join(
-            [payee.value if payee.value is not None else "" for payee in self.payees]
-        )
+        payees = ", ".join([str(payee) for payee in self.payees])
         return clean_out_string(
             "----- US Bank Check V1 -----\n"
             f"Filename: {self.filename or ''}\n"
