@@ -67,15 +67,15 @@ class PredictResponse(Generic[TypeDocument]):
             self.pages.append(
                 # https://github.com/python/mypy/issues/13596
                 doc_config.document_class(  # type: ignore
-                    api_prediction=api_page["prediction"],
+                    api_prediction=api_page,
                     input_source=input_source,
-                    page_n=api_page["id"],
                     document_type=doc_config.document_type,
+                    page_n=api_page["id"],
                 )
             )
         # https://github.com/python/mypy/issues/13596
         self.document = doc_config.document_class(  # type: ignore
-            api_prediction=self.http_response["document"]["inference"]["prediction"],
+            api_prediction=self.http_response["document"]["inference"],
             input_source=input_source,
             document_type=doc_config.document_type,
             page_n=None,

@@ -4,7 +4,6 @@ from mindee.documents.base import Document, TypeApiPrediction, clean_out_string
 from mindee.fields.amount import AmountField
 from mindee.fields.date import DateField
 from mindee.fields.locale import LocaleField
-from mindee.fields.orientation import OrientationField
 from mindee.fields.tax import TaxField
 from mindee.fields.text import TextField
 
@@ -30,9 +29,6 @@ class ReceiptV4(Document):
     "Total amount of the purchase excluding taxes."
     tip: AmountField
     """Total amount of tip and gratuity."""
-    # orientation is only present on page-level, not document-level
-    orientation: Optional[OrientationField] = None
-    """Page orientation"""
 
     def __init__(
         self,
@@ -54,6 +50,7 @@ class ReceiptV4(Document):
             api_prediction=api_prediction,
             page_n=page_n,
         )
+        self._build_from_api_prediction(api_prediction["prediction"], page_n=page_n)
 
     def _build_from_api_prediction(
         self, api_prediction: TypeApiPrediction, page_n: Optional[int] = None
@@ -64,11 +61,6 @@ class ReceiptV4(Document):
         :param api_prediction: Raw prediction from HTTP response
         :param page_n: Page number for multi pages pdf input
         """
-        if page_n is not None:
-            self.orientation = OrientationField(
-                api_prediction["orientation"], page_n=page_n
-            )
-
         self.locale = LocaleField(api_prediction["locale"], page_n=page_n)
         self.total_amount = AmountField(api_prediction["total_amount"], page_n=page_n)
         self.total_net = AmountField(api_prediction["total_net"], page_n=page_n)

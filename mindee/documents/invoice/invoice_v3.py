@@ -6,7 +6,6 @@ from mindee.fields.base import field_array_confidence
 from mindee.fields.company_registration import CompanyRegistrationField
 from mindee.fields.date import DateField
 from mindee.fields.locale import LocaleField
-from mindee.fields.orientation import OrientationField
 from mindee.fields.payment_details import PaymentDetails
 from mindee.fields.tax import TaxField
 from mindee.fields.text import TextField
@@ -43,9 +42,6 @@ class InvoiceV3(Document):
     """Payment details"""
     company_number: List[CompanyRegistrationField]
     """Company numbers"""
-    # orientation is only present on page-level, not document-level
-    orientation: Optional[OrientationField] = None
-    """Page orientation"""
 
     def __init__(
         self,
@@ -67,6 +63,9 @@ class InvoiceV3(Document):
             api_prediction=api_prediction,
             page_n=page_n,
         )
+        self._build_from_api_prediction(api_prediction["prediction"], page_n=page_n)
+        self._checklist()
+        self._reconstruct()
 
     def _build_from_api_prediction(
         self, api_prediction: TypeApiPrediction, page_n: Optional[int] = None
@@ -77,11 +76,6 @@ class InvoiceV3(Document):
         :param api_prediction: Raw prediction from HTTP response
         :param page_n: Page number for multi pages pdf input
         """
-        if page_n is not None:
-            self.orientation = OrientationField(
-                api_prediction["orientation"], page_n=page_n
-            )
-
         self.company_number = [
             CompanyRegistrationField(field_dict, page_n=page_n)
             for field_dict in api_prediction["company_registration"]

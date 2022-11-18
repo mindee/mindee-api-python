@@ -3,49 +3,52 @@ import json
 import pytest
 
 from mindee.documents.financial.financial_v1 import FinancialV1
-from tests.documents.test_invoice_v3 import INVOICE_FILE_PATH, INVOICE_NA_FILE_PATH
+from tests.documents.test_invoice_v3 import (
+    FILE_PATH_INVOICE_V3_COMPLETE,
+    FILE_PATH_INVOICE_V3_EMPTY,
+)
 from tests.documents.test_receipt_v3 import (
-    RECEIPT_V3_FILE_PATH,
-    RECEIPT_V3_NA_FILE_PATH,
+    FILE_PATH_RECEIPT_V3_COMPLETE,
+    FILE_PATH_RECEIPT_V3_EMPTY,
 )
 
 
 @pytest.fixture
 def financial_doc_from_invoice_object():
-    json_data = json.load(open(INVOICE_FILE_PATH))
-    return FinancialV1(json_data["document"]["inference"]["prediction"], page_n=None)
+    json_data = json.load(open(FILE_PATH_INVOICE_V3_COMPLETE))
+    return FinancialV1(api_prediction=json_data["document"]["inference"], page_n=None)
 
 
 @pytest.fixture
 def financial_doc_from_receipt_object():
-    json_data = json.load(open(RECEIPT_V3_FILE_PATH))
-    return FinancialV1(json_data["document"]["inference"]["prediction"], page_n=None)
+    json_data = json.load(open(FILE_PATH_RECEIPT_V3_COMPLETE))
+    return FinancialV1(api_prediction=json_data["document"]["inference"], page_n=None)
 
 
 @pytest.fixture
 def financial_doc_from_receipt_object_all_na():
-    json_data = json.load(open(RECEIPT_V3_NA_FILE_PATH))
-    return FinancialV1(json_data["document"]["inference"]["pages"][0]["prediction"])
+    json_data = json.load(open(FILE_PATH_RECEIPT_V3_EMPTY))
+    return FinancialV1(api_prediction=json_data["document"]["inference"]["pages"][0])
 
 
 @pytest.fixture
 def financial_doc_from_invoice_object_all_na():
-    json_data = json.load(open(INVOICE_NA_FILE_PATH))
-    return FinancialV1(json_data["document"]["inference"]["pages"][0]["prediction"])
+    json_data = json.load(open(FILE_PATH_INVOICE_V3_EMPTY))
+    return FinancialV1(api_prediction=json_data["document"]["inference"]["pages"][0])
 
 
 @pytest.fixture
 def receipt_pred():
-    return json.load(open(RECEIPT_V3_NA_FILE_PATH))["document"]["inference"]["pages"][
-        0
-    ]["prediction"]
+    return json.load(open(FILE_PATH_RECEIPT_V3_EMPTY))["document"]["inference"][
+        "pages"
+    ][0]
 
 
 @pytest.fixture
 def invoice_pred():
-    return json.load(open(INVOICE_NA_FILE_PATH))["document"]["inference"]["pages"][0][
-        "prediction"
-    ]
+    return json.load(open(FILE_PATH_INVOICE_V3_EMPTY))["document"]["inference"][
+        "pages"
+    ][0]
 
 
 def test_constructor_1(financial_doc_from_invoice_object):
@@ -92,24 +95,26 @@ def test__str__receipt(financial_doc_from_receipt_object):
 # Business tests from receipt
 def test__receipt_reconstruct_total_excl_from_total_and_taxes_1(receipt_pred):
     # no incl implies no reconstruct for total excl
-    receipt_pred["total_incl"] = {"value": "N/A", "confidence": 0.0}
-    receipt_pred["taxes"] = [{"rate": 20, "value": 9.5, "confidence": 0.9}]
+    receipt_pred["prediction"]["total_incl"] = {"value": "N/A", "confidence": 0.0}
+    receipt_pred["prediction"]["taxes"] = [
+        {"rate": 20, "value": 9.5, "confidence": 0.9}
+    ]
     financial_doc = FinancialV1(receipt_pred)
     assert financial_doc.total_excl.value is None
 
 
 def test__receipt_reconstruct_total_excl_from_total_and_taxes_2(receipt_pred):
     # no taxes implies no reconstruct for total excl
-    receipt_pred["total_incl"] = {"value": 12.54, "confidence": 0.0}
-    receipt_pred["taxes"] = []
+    receipt_pred["prediction"]["total_incl"] = {"value": 12.54, "confidence": 0.0}
+    receipt_pred["prediction"]["taxes"] = []
     financial_doc = FinancialV1(receipt_pred)
     assert financial_doc.total_excl.value is None
 
 
 def test__receipt_reconstruct_total_excl_from_total_and_taxes_3(receipt_pred):
     # working example
-    receipt_pred["total_incl"] = {"value": 12.54, "confidence": 0.5}
-    receipt_pred["taxes"] = [
+    receipt_pred["prediction"]["total_incl"] = {"value": 12.54, "confidence": 0.5}
+    receipt_pred["prediction"]["taxes"] = [
         {"rate": 20, "value": 0.5, "confidence": 0.1},
         {"rate": 10, "value": 4.25, "confidence": 0.6},
     ]
@@ -120,14 +125,14 @@ def test__receipt_reconstruct_total_excl_from_total_and_taxes_3(receipt_pred):
 
 def test__receipt_reconstruct_total_tax_1(receipt_pred):
     # no taxes implies no reconstruct for total tax
-    receipt_pred["taxes"] = []
+    receipt_pred["prediction"]["taxes"] = []
     financial_doc = FinancialV1(receipt_pred)
     assert financial_doc.total_tax.value is None
 
 
 def test__receipt_reconstruct_total_tax_2(receipt_pred):
     # working example
-    receipt_pred["taxes"] = [
+    receipt_pred["prediction"]["taxes"] = [
         {"rate": 20, "value": 10.2, "confidence": 0.5},
         {"rate": 10, "value": 40.0, "confidence": 0.1},
     ]
@@ -138,8 +143,8 @@ def test__receipt_reconstruct_total_tax_2(receipt_pred):
 
 def test__receipt_taxes_match_total_incl_1(receipt_pred):
     # matching example
-    receipt_pred["total_incl"] = {"value": 507.25, "confidence": 0.6}
-    receipt_pred["taxes"] = [
+    receipt_pred["prediction"]["total_incl"] = {"value": 507.25, "confidence": 0.6}
+    receipt_pred["prediction"]["taxes"] = [
         {"rate": 20, "value": 10.99, "confidence": 0.5},
         {"rate": 10, "value": 40.12, "confidence": 0.1},
     ]
@@ -152,8 +157,8 @@ def test__receipt_taxes_match_total_incl_1(receipt_pred):
 
 def test__receipt_taxes_match_total_incl_2(receipt_pred):
     # not matching example with close error
-    receipt_pred["total_incl"] = {"value": 507.25, "confidence": 0.6}
-    receipt_pred["taxes"] = [
+    receipt_pred["prediction"]["total_incl"] = {"value": 507.25, "confidence": 0.6}
+    receipt_pred["prediction"]["taxes"] = [
         {"rate": 20, "value": 10.9, "confidence": 0.5},
         {"rate": 10, "value": 40.12, "confidence": 0.1},
     ]
@@ -163,8 +168,10 @@ def test__receipt_taxes_match_total_incl_2(receipt_pred):
 
 def test__receipt_taxes_match_total_incl_3(receipt_pred):
     # sanity check with null tax
-    receipt_pred["total_incl"] = {"value": 507.25, "confidence": 0.6}
-    receipt_pred["taxes"] = [{"rate": 20, "value": 0.0, "confidence": 0.5}]
+    receipt_pred["prediction"]["total_incl"] = {"value": 507.25, "confidence": 0.6}
+    receipt_pred["prediction"]["taxes"] = [
+        {"rate": 20, "value": 0.0, "confidence": 0.5}
+    ]
     financial_doc = FinancialV1(receipt_pred)
     assert financial_doc.checklist["taxes_match_total_incl"] is False
 
@@ -172,24 +179,26 @@ def test__receipt_taxes_match_total_incl_3(receipt_pred):
 # Business tests from invoice
 def test__invoice_reconstruct_total_excl_from_total_and_taxes_1(invoice_pred):
     # no incl implies no reconstruct for total excl
-    invoice_pred["total_incl"] = {"amount": "N/A", "confidence": 0.0}
-    invoice_pred["taxes"] = [{"rate": 20, "amount": 9.5, "confidence": 0.9}]
+    invoice_pred["prediction"]["total_incl"] = {"amount": "N/A", "confidence": 0.0}
+    invoice_pred["prediction"]["taxes"] = [
+        {"rate": 20, "amount": 9.5, "confidence": 0.9}
+    ]
     financial_doc = FinancialV1(invoice_pred)
     assert financial_doc.total_excl.value is None
 
 
 def test__invoice_reconstruct_total_excl_from_total_and_taxes_2(invoice_pred):
     # no taxes implies no reconstruct for total excl
-    invoice_pred["total_incl"] = {"amount": 12.54, "confidence": 0.0}
-    invoice_pred["taxes"] = []
+    invoice_pred["prediction"]["total_incl"] = {"amount": 12.54, "confidence": 0.0}
+    invoice_pred["prediction"]["taxes"] = []
     financial_doc = FinancialV1(invoice_pred)
     assert financial_doc.total_excl.value is None
 
 
 def test__invoice_reconstruct_total_excl_from_total_and_taxes_3(invoice_pred):
     # working example
-    invoice_pred["total_incl"] = {"value": 12.54, "confidence": 0.5}
-    invoice_pred["taxes"] = [
+    invoice_pred["prediction"]["total_incl"] = {"value": 12.54, "confidence": 0.5}
+    invoice_pred["prediction"]["taxes"] = [
         {"rate": 20, "value": 0.5, "confidence": 0.1},
         {"rate": 10, "value": 4.25, "confidence": 0.6},
     ]
@@ -200,14 +209,14 @@ def test__invoice_reconstruct_total_excl_from_total_and_taxes_3(invoice_pred):
 
 def test__invoice_reconstruct_total_tax_1(invoice_pred):
     # no taxes implies no reconstruct for total tax
-    invoice_pred["taxes"] = []
+    invoice_pred["prediction"]["taxes"] = []
     financial_doc = FinancialV1(invoice_pred)
     assert financial_doc.total_tax.value is None
 
 
 def test__invoice_reconstruct_total_tax_2(invoice_pred):
     # working example
-    invoice_pred["taxes"] = [
+    invoice_pred["prediction"]["taxes"] = [
         {"rate": 20, "value": 10.2, "confidence": 0.5},
         {"rate": 10, "value": 40.0, "confidence": 0.1},
     ]
@@ -218,8 +227,8 @@ def test__invoice_reconstruct_total_tax_2(invoice_pred):
 
 def test__invoice_taxes_match_total_incl_1(invoice_pred):
     # matching example
-    invoice_pred["total_incl"] = {"value": 507.25, "confidence": 0.6}
-    invoice_pred["taxes"] = [
+    invoice_pred["prediction"]["total_incl"] = {"value": 507.25, "confidence": 0.6}
+    invoice_pred["prediction"]["taxes"] = [
         {"rate": 20, "value": 10.99, "confidence": 0.5},
         {"rate": 10, "value": 40.12, "confidence": 0.1},
     ]
@@ -232,8 +241,8 @@ def test__invoice_taxes_match_total_incl_1(invoice_pred):
 
 def test__invoice_taxes_match_total_incl_2(invoice_pred):
     # not matching example with close error
-    invoice_pred["total_incl"] = {"value": 507.25, "confidence": 0.6}
-    invoice_pred["taxes"] = [
+    invoice_pred["prediction"]["total_incl"] = {"value": 507.25, "confidence": 0.6}
+    invoice_pred["prediction"]["taxes"] = [
         {"rate": 20, "value": 10.9, "confidence": 0.5},
         {"rate": 10, "value": 40.12, "confidence": 0.1},
     ]
@@ -243,16 +252,20 @@ def test__invoice_taxes_match_total_incl_2(invoice_pred):
 
 def test__invoice_taxes_match_total_incl_3(invoice_pred):
     # sanity check with null tax
-    invoice_pred["total_incl"] = {"value": 507.25, "confidence": 0.6}
-    invoice_pred["taxes"] = [{"rate": 20, "value": 0.0, "confidence": 0.5}]
+    invoice_pred["prediction"]["total_incl"] = {"value": 507.25, "confidence": 0.6}
+    invoice_pred["prediction"]["taxes"] = [
+        {"rate": 20, "value": 0.0, "confidence": 0.5}
+    ]
     financial_doc = FinancialV1(invoice_pred)
     assert financial_doc.checklist["taxes_match_total_incl"] is False
 
 
 def test__shouldnt_raise_when_tax_rate_none(invoice_pred):
     # sanity check with null tax
-    invoice_pred["total_incl"] = {"value": 507.25, "confidence": 0.6}
-    invoice_pred["taxes"] = [{"rate": "N/A", "value": 0.0, "confidence": 0.5}]
+    invoice_pred["prediction"]["total_incl"] = {"value": 507.25, "confidence": 0.6}
+    invoice_pred["prediction"]["taxes"] = [
+        {"rate": "N/A", "value": 0.0, "confidence": 0.5}
+    ]
     financial_doc = FinancialV1(invoice_pred)
     assert financial_doc.checklist["taxes_match_total_incl"] is False
 

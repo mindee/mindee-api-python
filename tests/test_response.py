@@ -12,10 +12,10 @@ from mindee.documents.receipt.receipt_v4 import ReceiptV4
 from mindee.endpoints import OTS_OWNER
 from mindee.input.sources import PathInput
 from mindee.response import PredictResponse
-from tests.documents.test_invoice_v3 import INVOICE_FILE_PATH
-from tests.documents.test_passport_v1 import PASSPORT_FILE_PATH
-from tests.documents.test_receipt_v3 import RECEIPT_V3_FILE_PATH
-from tests.documents.test_receipt_v4 import RECEIPT_V4_FILE_PATH
+from tests.documents.test_invoice_v3 import FILE_PATH_INVOICE_V3_COMPLETE
+from tests.documents.test_passport_v1 import FILE_PATH_PASSPORT_V1_COMPLETE
+from tests.documents.test_receipt_v3 import FILE_PATH_RECEIPT_V3_COMPLETE
+from tests.documents.test_receipt_v4 import FILE_PATH_RECEIPT_V4_COMPLETE
 
 
 @pytest.fixture
@@ -34,12 +34,12 @@ def dummy_config():
 
 
 def test_constructor(dummy_file_input):
-    with pytest.raises(NotImplementedError):
+    with pytest.raises(KeyError):
         Document(dummy_file_input, document_type="receipt", api_prediction={}, page_n=0)
 
 
 def test_response_invoice_v3(dummy_file_input, dummy_config):
-    response = json.load(open(INVOICE_FILE_PATH))
+    response = json.load(open(FILE_PATH_INVOICE_V3_COMPLETE))
     parsed_response = PredictResponse[InvoiceV3](
         doc_config=dummy_config[(OTS_OWNER, InvoiceV3.__name__)],
         http_response=response,
@@ -52,7 +52,7 @@ def test_response_invoice_v3(dummy_file_input, dummy_config):
 
 
 def test_response_receipt_v3(dummy_file_input, dummy_config):
-    response = json.load(open(RECEIPT_V3_FILE_PATH))
+    response = json.load(open(FILE_PATH_RECEIPT_V3_COMPLETE))
     parsed_response = PredictResponse[ReceiptV3](
         doc_config=dummy_config[(OTS_OWNER, ReceiptV3.__name__)],
         http_response=response,
@@ -65,7 +65,7 @@ def test_response_receipt_v3(dummy_file_input, dummy_config):
 
 
 def test_response_receipt_v4(dummy_file_input, dummy_config):
-    response = json.load(open(RECEIPT_V4_FILE_PATH))
+    response = json.load(open(FILE_PATH_RECEIPT_V4_COMPLETE))
     parsed_response = PredictResponse[ReceiptV4](
         doc_config=dummy_config[(OTS_OWNER, ReceiptV4.__name__)],
         http_response=response,
@@ -78,7 +78,7 @@ def test_response_receipt_v4(dummy_file_input, dummy_config):
 
 
 def test_response_financial_doc_with_receipt(dummy_file_input, dummy_config):
-    response = json.load(open(RECEIPT_V3_FILE_PATH))
+    response = json.load(open(FILE_PATH_RECEIPT_V3_COMPLETE))
     parsed_response = PredictResponse[FinancialV1](
         doc_config=dummy_config[(OTS_OWNER, FinancialV1.__name__)],
         http_response=response,
@@ -91,7 +91,7 @@ def test_response_financial_doc_with_receipt(dummy_file_input, dummy_config):
 
 
 def test_response_passport_v1(dummy_file_input, dummy_config):
-    response = json.load(open(PASSPORT_FILE_PATH))
+    response = json.load(open(FILE_PATH_PASSPORT_V1_COMPLETE))
     parsed_response = PredictResponse[PassportV1](
         doc_config=dummy_config[(OTS_OWNER, PassportV1.__name__)],
         http_response=response,

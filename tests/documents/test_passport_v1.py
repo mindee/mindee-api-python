@@ -5,52 +5,52 @@ import pytest
 from mindee.documents.passport.passport_v1 import PassportV1
 from tests import PASSPORT_DATA_DIR
 
-PASSPORT_FILE_PATH = f"{PASSPORT_DATA_DIR}/response_v1/complete.json"
+FILE_PATH_PASSPORT_V1_COMPLETE = f"{PASSPORT_DATA_DIR}/response_v1/complete.json"
 
 
 @pytest.fixture
-def passport_object():
-    json_data = json.load(open(PASSPORT_FILE_PATH))
-    return PassportV1(json_data["document"]["inference"]["pages"][0]["prediction"])
+def passport_v1_doc_object():
+    json_data = json.load(open(FILE_PATH_PASSPORT_V1_COMPLETE))
+    return PassportV1(api_prediction=json_data["document"]["inference"]["pages"][0])
 
 
 @pytest.fixture
-def passport_object_all_na():
+def passport_v1_doc_object_empty():
     json_data = json.load(open(f"{PASSPORT_DATA_DIR}/response_v1/empty.json"))
-    return PassportV1(json_data["document"]["inference"]["pages"][0]["prediction"])
+    return PassportV1(api_prediction=json_data["document"]["inference"]["pages"][0])
 
 
-def test_constructor(passport_object):
-    assert not passport_object.is_expired()
-    assert passport_object.all_checks()
+def test_constructor(passport_v1_doc_object):
+    assert not passport_v1_doc_object.is_expired()
+    assert passport_v1_doc_object.all_checks()
     doc_str = (
         open(f"{PASSPORT_DATA_DIR}/response_v1/page0_to_string.txt").read().strip()
     )
-    assert str(passport_object) == doc_str
+    assert str(passport_v1_doc_object) == doc_str
 
 
-def test_all_na(passport_object_all_na):
-    assert passport_object_all_na.mrz.value is None
-    assert passport_object_all_na.country.value is None
-    assert passport_object_all_na.id_number.value is None
-    assert passport_object_all_na.birth_date.value is None
-    assert passport_object_all_na.expiry_date.value is None
-    assert passport_object_all_na.issuance_date.value is None
-    assert passport_object_all_na.birth_place.value is None
-    assert passport_object_all_na.gender.value is None
-    assert passport_object_all_na.surname.value is None
-    assert passport_object_all_na.mrz1.value is None
-    assert passport_object_all_na.mrz2.value is None
-    assert len(passport_object_all_na.given_names) == 0
+def test_all_na(passport_v1_doc_object_empty):
+    assert passport_v1_doc_object_empty.mrz.value is None
+    assert passport_v1_doc_object_empty.country.value is None
+    assert passport_v1_doc_object_empty.id_number.value is None
+    assert passport_v1_doc_object_empty.birth_date.value is None
+    assert passport_v1_doc_object_empty.expiry_date.value is None
+    assert passport_v1_doc_object_empty.issuance_date.value is None
+    assert passport_v1_doc_object_empty.birth_place.value is None
+    assert passport_v1_doc_object_empty.gender.value is None
+    assert passport_v1_doc_object_empty.surname.value is None
+    assert passport_v1_doc_object_empty.mrz1.value is None
+    assert passport_v1_doc_object_empty.mrz2.value is None
+    assert len(passport_v1_doc_object_empty.given_names) == 0
 
 
-def test_checklist(passport_object):
-    for check in passport_object.checklist.values():
+def test_checklist(passport_v1_doc_object):
+    for check in passport_v1_doc_object.checklist.values():
         assert check is True
 
 
-def test_checklist_all_na(passport_object_all_na):
-    for check in passport_object_all_na.checklist.values():
+def test_checklist_all_na(passport_v1_doc_object_empty):
+    for check in passport_v1_doc_object_empty.checklist.values():
         assert check is False
 
 

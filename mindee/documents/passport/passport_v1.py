@@ -58,6 +58,9 @@ class PassportV1(Document):
             api_prediction=api_prediction,
             page_n=page_n,
         )
+        self._build_from_api_prediction(api_prediction["prediction"], page_n=page_n)
+        self._checklist()
+        self._reconstruct()
 
     def _build_from_api_prediction(
         self, api_prediction: TypeApiPrediction, page_n: Optional[int] = None
