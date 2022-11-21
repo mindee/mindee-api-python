@@ -13,8 +13,9 @@ pip install mindee
 
 Finally, Python away!
 
-### Off-the-Shelf Documents
-World-wide documents:
+### Loading a File and Parsing It
+
+#### Global Documents
 ```python
 from mindee import Client, documents
 
@@ -23,14 +24,15 @@ mindee_client = Client(api_key="my-api-key")
 
 # Load a file from disk
 input_doc = mindee_client.doc_from_path("/path/to/the/invoice.pdf")
+
 # Parse the document as an invoice by passing the appropriate type
 api_response = input_doc.parse(documents.TypeInvoiceV3)
 
 # Print a brief summary of the parsed data
-print(api_response.document)
+print(str(api_response.document))
 ```
 
-Region-specific documents:
+#### Region-Specific Documents
 ```python
 from mindee import Client, documents
 
@@ -39,14 +41,15 @@ mindee_client = Client(api_key="my-api-key")
 
 # Load a file from disk
 input_doc = mindee_client.doc_from_path("/path/to/the/check.jpg")
+
 # Parse the document as a USA bank check by passing the appropriate type
 api_response = input_doc.parse(documents.us.TypeBankCheckV1)
 
 # Print a brief summary of the parsed data
-print(api_response.document)
+print(str(api_response.document))
 ```
 
-### Custom Document (API Builder)
+#### Custom Document (API Builder)
 
 ```python
 from mindee import Client, documents
@@ -64,7 +67,11 @@ api_response = mindee_client.doc_from_path(
 ).parse(documents.TypeCustomV1, endpoint_name="wnine")
 
 # Print a brief summary of the parsed data
-print(api_response.document)
+print(str(api_response.document))
+
+# Iterate over all the fields in the document
+for field_name, field_values in api_response.document.fields.items():
+    print(field_name, "=", field_values)
 ```
 
 ## Further Reading

@@ -67,10 +67,13 @@ class DocumentClient:
           Set to ``False`` if you need to access the file after this operation.
         :param page_options: Options for preparing multipage documents.
         """
-        if get_bound_classname(document_class) != CustomV1.__name__:
+        bound_classname = get_bound_classname(document_class)
+        if bound_classname != CustomV1.__name__:
             endpoint_name = get_bound_classname(document_class)
         elif endpoint_name is None:
-            raise RuntimeError("document_type is required for CustomDocument")
+            raise RuntimeError(
+                f"endpoint_name is required when using {bound_classname} class"
+            )
 
         logger.debug("Parsing document as '%s'", endpoint_name)
 
