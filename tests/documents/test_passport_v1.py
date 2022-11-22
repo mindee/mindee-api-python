@@ -11,13 +11,21 @@ FILE_PATH_PASSPORT_V1_COMPLETE = f"{PASSPORT_DATA_DIR}/response_v1/complete.json
 @pytest.fixture
 def passport_v1_doc_object():
     json_data = json.load(open(FILE_PATH_PASSPORT_V1_COMPLETE))
-    return PassportV1(api_prediction=json_data["document"]["inference"]["pages"][0])
+    return PassportV1(api_prediction=json_data["document"]["inference"], page_n=None)
 
 
 @pytest.fixture
 def passport_v1_doc_object_empty():
     json_data = json.load(open(f"{PASSPORT_DATA_DIR}/response_v1/empty.json"))
-    return PassportV1(api_prediction=json_data["document"]["inference"]["pages"][0])
+    return PassportV1(api_prediction=json_data["document"]["inference"], page_n=None)
+
+
+@pytest.fixture
+def passport_v1_page_object():
+    json_data = json.load(open(FILE_PATH_PASSPORT_V1_COMPLETE))
+    return PassportV1(
+        api_prediction=json_data["document"]["inference"]["pages"][0], page_n=0
+    )
 
 
 def test_constructor(passport_v1_doc_object):
@@ -26,7 +34,18 @@ def test_constructor(passport_v1_doc_object):
     doc_str = (
         open(f"{PASSPORT_DATA_DIR}/response_v1/page0_to_string.txt").read().strip()
     )
+    assert passport_v1_doc_object.birth_date.page_n == 0
     assert str(passport_v1_doc_object) == doc_str
+
+
+def test_page_constructor(passport_v1_page_object):
+    doc_str = (
+        open(f"{PASSPORT_DATA_DIR}/response_v1/page0_to_string.txt").read().strip()
+    )
+    assert passport_v1_page_object.orientation.value == 0
+    assert passport_v1_page_object.birth_date.page_n == 0
+    assert str(passport_v1_page_object) == doc_str
+    assert len(passport_v1_page_object.cropper) == 0
 
 
 def test_all_na(passport_v1_doc_object_empty):

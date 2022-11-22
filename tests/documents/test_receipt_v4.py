@@ -34,6 +34,7 @@ def test_doc_constructor(receipt_v4_doc_object):
     assert receipt_v4_doc_object.total_tax.value == 3.34
     doc_str = open(f"{RECEIPT_DATA_DIR}/response_v4/doc_to_string.txt").read().strip()
     assert receipt_v4_doc_object.orientation is None
+    assert receipt_v4_doc_object.date.page_n == 0
     assert str(receipt_v4_doc_object) == doc_str
 
 
@@ -42,6 +43,7 @@ def test_page_constructor(receipt_v4_page_object):
     assert receipt_v4_page_object.total_tax.value == 3.34
     doc_str = open(f"{RECEIPT_DATA_DIR}/response_v4/page0_to_string.txt").read().strip()
     assert receipt_v4_page_object.orientation.value == 0
+    assert receipt_v4_page_object.date.page_n == 0
     assert str(receipt_v4_page_object) == doc_str
     assert len(receipt_v4_page_object.cropper) == 0
 
