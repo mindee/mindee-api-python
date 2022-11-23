@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from mindee.documents.invoice.invoice_v3 import InvoiceV3
+from mindee.documents import InvoiceV3
 from tests import INVOICE_DATA_DIR
 
 FILE_PATH_INVOICE_V3_COMPLETE = f"{INVOICE_DATA_DIR}/response_v3/complete.json"
@@ -21,13 +21,20 @@ def invoice_v3_doc_object_empty(invoice_pred):
 
 
 @pytest.fixture
+def invoice_v3_page_object():
+    json_data = json.load(open(FILE_PATH_INVOICE_V3_COMPLETE))
+    return InvoiceV3(
+        api_prediction=json_data["document"]["inference"]["pages"][0], page_n=0
+    )
+
+
+@pytest.fixture
 def invoice_pred():
     json_data = json.load(open(FILE_PATH_INVOICE_V3_EMPTY))
     return json_data["document"]["inference"]["pages"][0]
 
 
-# Technical tests
-def test_constructor(invoice_v3_doc_object):
+def test_doc_constructor(invoice_v3_doc_object):
     assert invoice_v3_doc_object.invoice_date.value == "2020-02-17"
     assert invoice_v3_doc_object.checklist["taxes_match_total_incl"] is True
     assert invoice_v3_doc_object.checklist["taxes_match_total_excl"] is True
@@ -42,6 +49,14 @@ def test_constructor(invoice_v3_doc_object):
     assert invoice_v3_doc_object.invoice_number.confidence == 0.95
     doc_str = open(f"{INVOICE_DATA_DIR}/response_v3/doc_to_string.txt").read().strip()
     assert str(invoice_v3_doc_object) == doc_str
+
+
+def test_page_constructor(invoice_v3_page_object):
+    doc_str = open(f"{INVOICE_DATA_DIR}/response_v3/page0_to_string.txt").read().strip()
+    assert invoice_v3_page_object.orientation.value == 0
+    assert invoice_v3_page_object.invoice_number.page_n == 0
+    assert str(invoice_v3_page_object) == doc_str
+    assert len(invoice_v3_page_object.cropper) == 0
 
 
 def test_all_na(invoice_v3_doc_object_empty):

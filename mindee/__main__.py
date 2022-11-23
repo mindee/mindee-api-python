@@ -24,7 +24,7 @@ DOCUMENTS: Dict[str, CommandConfig] = {
     ),
     "invoice": CommandConfig(
         help="Invoice",
-        doc_class=documents.TypeInvoiceV3,
+        doc_class=documents.TypeInvoiceV4,
     ),
     "receipt": CommandConfig(
         help="Expense Receipt",
