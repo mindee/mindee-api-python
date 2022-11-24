@@ -29,7 +29,7 @@ input_doc = mindee_client.doc_from_path("/path/to/the/invoice.pdf")
 api_response = input_doc.parse(documents.TypeInvoiceV3)
 
 # Print a brief summary of the parsed data
-print(str(api_response.document))
+print(api_response.document)
 ```
 
 #### Region-Specific Documents
@@ -46,7 +46,7 @@ input_doc = mindee_client.doc_from_path("/path/to/the/check.jpg")
 api_response = input_doc.parse(documents.us.TypeBankCheckV1)
 
 # Print a brief summary of the parsed data
-print(str(api_response.document))
+print(api_response.document)
 ```
 
 #### Custom Document (API Builder)
@@ -67,7 +67,7 @@ api_response = mindee_client.doc_from_path(
 ).parse(documents.TypeCustomV1, endpoint_name="wnine")
 
 # Print a brief summary of the parsed data
-print(str(api_response.document))
+print(api_response.document)
 
 # Iterate over all the fields in the document
 for field_name, field_values in api_response.document.fields.items():
