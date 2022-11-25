@@ -7,13 +7,13 @@ from mindee.input.sources import InputSource
 from mindee.logger import logger
 from mindee.versions import __version__, get_platform, python_version
 
-API_KEY_ENVVAR = "MINDEE_API_KEY"
+API_KEY_ENV_NAME = "MINDEE_API_KEY"
 API_KEY_DEFAULT = ""
 
-BASE_URL_ENVVAR = "MINDEE_BASE_URL"
+BASE_URL_ENV_NAME = "MINDEE_BASE_URL"
 BASE_URL_DEFAULT = "https://api.mindee.net/v1"
 
-REQUEST_TIMEOUT_ENVVAR = "MINDEE_REQUEST_TIMEOUT"
+REQUEST_TIMEOUT_ENV_NAME = "MINDEE_REQUEST_TIMEOUT"
 TIMEOUT_DEFAULT = 120
 
 PLATFORM = get_platform()
@@ -71,8 +71,8 @@ class Endpoint:
     def set_from_env(self) -> None:
         """Set various parameters from environment variables, if present."""
         env_vars = {
-            BASE_URL_ENVVAR: self.set_base_url,
-            REQUEST_TIMEOUT_ENVVAR: self.set_timeout,
+            BASE_URL_ENV_NAME: self.set_base_url,
+            REQUEST_TIMEOUT_ENV_NAME: self.set_timeout,
         }
         for name, func in env_vars.items():
             env_val = os.getenv(name, "")
@@ -90,7 +90,7 @@ class Endpoint:
 
     def set_api_key_from_env(self) -> None:
         """Set the endpoint's API key from an environment variable, if present."""
-        env_val = os.getenv(API_KEY_ENVVAR, "")
+        env_val = os.getenv(API_KEY_ENV_NAME, "")
         if env_val:
             self.api_key = env_val
             logger.debug("API key set from environment")

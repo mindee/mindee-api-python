@@ -1,7 +1,7 @@
 from typing import Dict, List, Tuple, Type
 
 from mindee.documents.base import Document
-from mindee.endpoints import API_KEY_ENVVAR, Endpoint
+from mindee.endpoints import API_KEY_ENV_NAME, Endpoint
 
 _docT = Type[Document]
 
@@ -30,7 +30,7 @@ class DocumentConfig:
                         f"Missing API key for '{self.document_type}',"
                         "check your Client configuration.\n"
                         "You can set this using the "
-                        f"'{API_KEY_ENVVAR}' environment variable."
+                        f"'{API_KEY_ENV_NAME}' environment variable."
                     )
                 )
 
