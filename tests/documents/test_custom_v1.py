@@ -57,6 +57,7 @@ def test_complete(custom_v1_doc_object):
             assert value.content != ""
             assert len(value.bounding_box) == 4
             assert value.confidence != 0.0
+            assert field.page_n == 0 or field.page_n == 1
     for field_name, field in custom_v1_doc_object.classifications.items():
         assert len(field_name) > 0
         assert isinstance(field, ClassificationField)
@@ -66,3 +67,7 @@ def test_complete(custom_v1_doc_object):
 
 def test_page_complete(custom_v1_page_object):
     assert custom_v1_page_object.orientation.value == 0
+    for field_name, field in custom_v1_page_object.fields.items():
+        assert isinstance(field, ListField)
+        assert len(field.contents_list) == len(field.values)
+        assert field.page_n == 0

@@ -49,7 +49,14 @@ class BaseField:
         :param reconstructed: Bool for reconstructed object (not extracted in the API)
         :param page_n: Page number for multi-page PDF
         """
-        self.page_n = page_n
+        if page_n is None:
+            try:
+                self.page_n = prediction["page_id"]
+            except KeyError:
+                pass
+        else:
+            self.page_n = page_n
+
         self.reconstructed = reconstructed
 
         if value_key not in prediction or prediction[value_key] == "N/A":

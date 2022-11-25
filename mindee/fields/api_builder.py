@@ -37,7 +37,7 @@ class ListField:
     """Confidence score"""
     reconstructed: bool
     """Whether the field was reconstructed from other fields."""
-    page_n: Optional[int] = None
+    page_n: int
     """The document page on which the information was found."""
     values: List[ListFieldValue]
     """List of word values"""
@@ -50,7 +50,10 @@ class ListField:
     ):
         self.values = []
         self.reconstructed = reconstructed
-        self.page_n = page_n
+        if page_n is None:
+            self.page_n = prediction["page_id"]
+        else:
+            self.page_n = page_n
         self.confidence = prediction["confidence"]
 
         for value in prediction["values"]:
