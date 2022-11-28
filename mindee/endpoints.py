@@ -1,5 +1,5 @@
 import os
-from typing import Dict, Optional
+from typing import Dict, Optional, Union
 
 import requests
 
@@ -7,16 +7,19 @@ from mindee.input.sources import InputSource
 from mindee.logger import logger
 from mindee.versions import __version__, get_platform, python_version
 
-MINDEE_BASE_URL = "https://api.mindee.net/v1"
-MINDEE_BASE_URL_NAME = "MINDEE_BASE_URL"
-MINDEE_API_KEY_NAME = "MINDEE_API_KEY"
+API_KEY_ENV_NAME = "MINDEE_API_KEY"
+API_KEY_DEFAULT = ""
+
+BASE_URL_ENV_NAME = "MINDEE_BASE_URL"
+BASE_URL_DEFAULT = "https://api.mindee.net/v1"
+
+REQUEST_TIMEOUT_ENV_NAME = "MINDEE_REQUEST_TIMEOUT"
+TIMEOUT_DEFAULT = 120
 
 PLATFORM = get_platform()
 USER_AGENT = f"mindee-api-python@v{__version__} python-v{python_version} {PLATFORM}"
 
 OTS_OWNER = "mindee"
-
-DEFAULT_TIMEOUT = 120
 
 
 class Endpoint:
@@ -25,9 +28,9 @@ class Endpoint:
     owner: str
     url_name: str
     version: str
-    api_key: str = ""
-    timeout: int = DEFAULT_TIMEOUT
-    _mindee_url: str = MINDEE_BASE_URL
+    api_key: str = API_KEY_DEFAULT
+    _request_timeout: int = TIMEOUT_DEFAULT
+    _base_url: str = BASE_URL_DEFAULT
     _url_root: str
 
     def __init__(
@@ -51,10 +54,10 @@ class Endpoint:
             self.api_key = api_key
         else:
             self.set_api_key_from_env()
-        self.set_base_url_from_env()
+        self.set_from_env()
 
         self._url_root = (
-            f"{self._mindee_url}/products/{self.owner}/{self.url_name}/v{self.version}"
+            f"{self._base_url}/products/{self.owner}/{self.url_name}/v{self.version}"
         )
 
     @property
@@ -65,16 +68,29 @@ class Endpoint:
             "User-Agent": USER_AGENT,
         }
 
-    def set_base_url_from_env(self) -> None:
-        """Set the base URL from an environment variable, if present."""
-        env_val = os.getenv(MINDEE_BASE_URL_NAME, "")
-        if env_val:
-            self._mindee_url = env_val
-            logger.debug("Base URL set from environment")
+    def set_from_env(self) -> None:
+        """Set various parameters from environment variables, if present."""
+        env_vars = {
+            BASE_URL_ENV_NAME: self.set_base_url,
+            REQUEST_TIMEOUT_ENV_NAME: self.set_timeout,
+        }
+        for name, func in env_vars.items():
+            env_val = os.getenv(name, "")
+            if env_val:
+                func(env_val)
+                logger.debug("Value was set from env: %s", name)
+
+    def set_timeout(self, value: Union[str, int]) -> None:
+        """Set the timeout for all requests."""
+        self._request_timeout = int(value)
+
+    def set_base_url(self, value: str) -> None:
+        """Set the base URL for all requests."""
+        self._base_url = value
 
     def set_api_key_from_env(self) -> None:
         """Set the endpoint's API key from an environment variable, if present."""
-        env_val = os.getenv(MINDEE_API_KEY_NAME, "")
+        env_val = os.getenv(API_KEY_ENV_NAME, "")
         if env_val:
             self.api_key = env_val
             logger.debug("API key set from environment")
@@ -110,7 +126,7 @@ class Endpoint:
             headers=self.base_headers,
             data=data,
             params=params,
-            timeout=self.timeout,
+            timeout=self._request_timeout,
         )
         return response
 
@@ -134,7 +150,7 @@ class CustomEndpoint(Endpoint):
             files=files,
             headers=self.base_headers,
             params=params,
-            timeout=self.timeout,
+            timeout=self._request_timeout,
         )
         return response
 
@@ -156,7 +172,7 @@ class CustomEndpoint(Endpoint):
             files=files,
             headers=self.base_headers,
             params=params,
-            timeout=self.timeout,
+            timeout=self._request_timeout,
         )
         return response
 
@@ -175,7 +191,7 @@ class CustomEndpoint(Endpoint):
             f"{self._url_root}/documents/{document_id}",
             headers=self.base_headers,
             params=params,
-            timeout=self.timeout,
+            timeout=self._request_timeout,
         )
         return response
 
@@ -188,7 +204,7 @@ class CustomEndpoint(Endpoint):
         response = requests.delete(
             f"{self._url_root}/documents/{document_id}",
             headers=self.base_headers,
-            timeout=self.timeout,
+            timeout=self._request_timeout,
         )
         return response
 
@@ -205,7 +221,7 @@ class CustomEndpoint(Endpoint):
             f"{self._url_root}/documents",
             headers=self.base_headers,
             params=params,
-            timeout=self.timeout,
+            timeout=self._request_timeout,
         )
         return response
 
@@ -223,7 +239,7 @@ class CustomEndpoint(Endpoint):
             f"{self._url_root}/documents/{document_id}/annotations",
             headers=self.base_headers,
             json=annotations,
-            timeout=self.timeout,
+            timeout=self._request_timeout,
         )
         return response
 
@@ -241,7 +257,7 @@ class CustomEndpoint(Endpoint):
             f"{self._url_root}/documents/{document_id}/annotations",
             headers=self.base_headers,
             json=annotations,
-            timeout=self.timeout,
+            timeout=self._request_timeout,
         )
         return response
 
@@ -255,7 +271,7 @@ class CustomEndpoint(Endpoint):
         response = requests.delete(
             f"{self._url_root}/documents/{document_id}/annotations",
             headers=self.base_headers,
-            timeout=self.timeout,
+            timeout=self._request_timeout,
         )
         return response
 
