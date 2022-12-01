@@ -1,5 +1,17 @@
 # Mindee Python API Library Changelog
 
+## v3.1.0 (2022-12-01)
+### Changes
+* :sparkles: allow setting base URL from env
+* :sparkles: add some helper functions for BBox
+* :sparkles: Add orientation info on all pages
+* :sparkles: add Cropper support
+* :sparkles: allow setting timeout value from env
+* :sparkles: Add Invoice V4 (clearer field names, line items) (#107)
+
+### Fixes
+* :bug: page_n should always be set when available (#106)
+
 ## v3.0.0 (2022-11-07)
 ### ¡Breaking Changes!
 * :sparkles: New PDF cut/merge system, allowing specifying exactly which pages to use.
