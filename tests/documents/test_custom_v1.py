@@ -42,7 +42,7 @@ def test_empty(custom_v1_doc_object_empty):
     for field_name, field in custom_v1_doc_object_empty.classifications.items():
         assert len(field_name) > 0
         assert isinstance(field, ClassificationField)
-        assert field.value == ""
+        assert field.value is None
 
 
 def test_complete(custom_v1_doc_object):

@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from mindee.documents.invoice.invoice_v3 import InvoiceV3
+from mindee.documents import InvoiceV3
 from tests import INVOICE_DATA_DIR
 
 FILE_PATH_INVOICE_V3_COMPLETE = f"{INVOICE_DATA_DIR}/response_v3/complete.json"

@@ -6,6 +6,7 @@ from mindee.documents import (
     CustomV1,
     FinancialV1,
     InvoiceV3,
+    InvoiceV4,
     PassportV1,
     ReceiptV3,
     ReceiptV4,
@@ -199,6 +200,15 @@ class Client:
                     )
                 ],
             ),
+            (OTS_OWNER, InvoiceV4.__name__): DocumentConfig(
+                document_type="invoice_v4",
+                document_class=InvoiceV4,
+                endpoints=[
+                    StandardEndpoint(
+                        url_name="invoices_beta", version="4", api_key=self.api_key
+                    )
+                ],
+            ),
             (OTS_OWNER, ReceiptV3.__name__): DocumentConfig(
                 document_type="receipt_v3",
                 document_class=ReceiptV3,
@@ -209,7 +219,7 @@ class Client:
                 ],
             ),
             (OTS_OWNER, ReceiptV4.__name__): DocumentConfig(
-                document_type="receipt_v3",
+                document_type="receipt_v4",
                 document_class=ReceiptV4,
                 endpoints=[
                     StandardEndpoint(
