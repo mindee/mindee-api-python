@@ -55,7 +55,7 @@
 <li class="toctree-l2"><a class="reference internal" href="field_types.html">Fields</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../geometry.html">Geometry Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utilities/index.html">Utilities</a></li>
 </ul>
 
         </div>
@@ -110,7 +110,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.documents.us.BankCheckV1.check_position">
-<span class="sig-name descname"><span class="pre">check_position</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.position.Position" title="mindee.fields.position.Position"><span class="pre">Position</span></a></em><a class="headerlink" href="#mindee.documents.us.BankCheckV1.check_position" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">check_position</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">PositionField</span></em><a class="headerlink" href="#mindee.documents.us.BankCheckV1.check_position" title="Permalink to this definition"></a></dt>
 <dd><p>Check’s position in the image</p>
 </dd></dl>
 
@@ -118,12 +118,6 @@
 <dt class="sig sig-object py" id="mindee.documents.us.BankCheckV1.date">
 <span class="sig-name descname"><span class="pre">date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.date.DateField" title="mindee.fields.date.DateField"><span class="pre">DateField</span></a></em><a class="headerlink" href="#mindee.documents.us.BankCheckV1.date" title="Permalink to this definition"></a></dt>
 <dd><p>Date the check was issued</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.documents.us.BankCheckV1.orientation">
-<span class="sig-name descname"><span class="pre">orientation</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="field_types.html#mindee.fields.orientation.Orientation" title="mindee.fields.orientation.Orientation"><span class="pre">Orientation</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.documents.us.BankCheckV1.orientation" title="Permalink to this definition"></a></dt>
-<dd><p>Page orientation</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -140,7 +134,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.documents.us.BankCheckV1.signatures_positions">
-<span class="sig-name descname"><span class="pre">signatures_positions</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="field_types.html#mindee.fields.position.Position" title="mindee.fields.position.Position"><span class="pre">Position</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mindee.documents.us.BankCheckV1.signatures_positions" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">signatures_positions</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">PositionField</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mindee.documents.us.BankCheckV1.signatures_positions" title="Permalink to this definition"></a></dt>
 <dd><p>Signatures’ positions in the image</p>
 </dd></dl>
 

@@ -68,7 +68,7 @@
 <li class="toctree-l2"><a class="reference internal" href="field_types.html">Fields</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../geometry.html">Geometry Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../utilities/index.html">Utilities</a></li>
 </ul>
 
         </div>
@@ -105,7 +105,7 @@
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mindee.documents.</span></span><span class="sig-name descname"><span class="pre">InvoiceV3</span></span><a class="headerlink" href="#mindee.documents.InvoiceV3" title="Permalink to this definition"></a></dt>
 <dd><dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.documents.InvoiceV3.company_number">
-<span class="sig-name descname"><span class="pre">company_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="field_types.html#mindee.fields.typed.TypedField" title="mindee.fields.typed.TypedField"><span class="pre">TypedField</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mindee.documents.InvoiceV3.company_number" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">company_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="field_types.html#mindee.fields.company_registration.CompanyRegistrationField" title="mindee.fields.company_registration.CompanyRegistrationField"><span class="pre">CompanyRegistrationField</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mindee.documents.InvoiceV3.company_number" title="Permalink to this definition"></a></dt>
 <dd><p>Company numbers</p>
 </dd></dl>
 
@@ -117,7 +117,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.documents.InvoiceV3.customer_company_registration">
-<span class="sig-name descname"><span class="pre">customer_company_registration</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="field_types.html#mindee.fields.typed.TypedField" title="mindee.fields.typed.TypedField"><span class="pre">TypedField</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mindee.documents.InvoiceV3.customer_company_registration" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">customer_company_registration</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="field_types.html#mindee.fields.company_registration.CompanyRegistrationField" title="mindee.fields.company_registration.CompanyRegistrationField"><span class="pre">CompanyRegistrationField</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mindee.documents.InvoiceV3.customer_company_registration" title="Permalink to this definition"></a></dt>
 <dd><p>Customer company registration numbers</p>
 </dd></dl>
 
@@ -152,12 +152,6 @@
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.documents.InvoiceV3.orientation">
-<span class="sig-name descname"><span class="pre">orientation</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="field_types.html#mindee.fields.orientation.Orientation" title="mindee.fields.orientation.Orientation"><span class="pre">Orientation</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.documents.InvoiceV3.orientation" title="Permalink to this definition"></a></dt>
-<dd><p>Page orientation</p>
-</dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.documents.InvoiceV3.payment_details">
 <span class="sig-name descname"><span class="pre">payment_details</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="field_types.html#mindee.fields.payment_details.PaymentDetails" title="mindee.fields.payment_details.PaymentDetails"><span class="pre">PaymentDetails</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mindee.documents.InvoiceV3.payment_details" title="Permalink to this definition"></a></dt>
 <dd><p>Payment details</p>
@@ -182,15 +176,32 @@
 </dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.InvoiceV3.total_amount">
+<span class="sig-name descname"><span class="pre">total_amount</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.amount.AmountField" title="mindee.fields.amount.AmountField"><span class="pre">AmountField</span></a></em><a class="headerlink" href="#mindee.documents.InvoiceV3.total_amount" title="Permalink to this definition"></a></dt>
+<dd><p>Total including taxes. Same as <code class="docutils literal notranslate"><span class="pre">total_incl</span></code>.</p>
+</dd></dl>
+
+<dl class="py property">
 <dt class="sig sig-object py" id="mindee.documents.InvoiceV3.total_excl">
-<span class="sig-name descname"><span class="pre">total_excl</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.amount.AmountField" title="mindee.fields.amount.AmountField"><span class="pre">AmountField</span></a></em><a class="headerlink" href="#mindee.documents.InvoiceV3.total_excl" title="Permalink to this definition"></a></dt>
-<dd><p>Total excluding taxes</p>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">total_excl</span></span><a class="headerlink" href="#mindee.documents.InvoiceV3.total_excl" title="Permalink to this definition"></a></dt>
+<dd><p>Total including taxes.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mindee.documents.InvoiceV3.total_incl">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">total_incl</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.amount.AmountField" title="mindee.fields.amount.AmountField"><span class="pre">AmountField</span></a></em><a class="headerlink" href="#mindee.documents.InvoiceV3.total_incl" title="Permalink to this definition"></a></dt>
+<dd><p>Total including taxes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="field_types.html#mindee.fields.amount.AmountField" title="mindee.fields.amount.AmountField"><code class="xref py py-class docutils literal notranslate"><span class="pre">AmountField</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.documents.InvoiceV3.total_incl">
-<span class="sig-name descname"><span class="pre">total_incl</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.amount.AmountField" title="mindee.fields.amount.AmountField"><span class="pre">AmountField</span></a></em><a class="headerlink" href="#mindee.documents.InvoiceV3.total_incl" title="Permalink to this definition"></a></dt>
-<dd><p>Total including taxes</p>
+<dt class="sig sig-object py" id="mindee.documents.InvoiceV3.total_net">
+<span class="sig-name descname"><span class="pre">total_net</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.amount.AmountField" title="mindee.fields.amount.AmountField"><span class="pre">AmountField</span></a></em><a class="headerlink" href="#mindee.documents.InvoiceV3.total_net" title="Permalink to this definition"></a></dt>
+<dd><p>Total excluding taxes. Same as <code class="docutils literal notranslate"><span class="pre">total_excl</span></code>.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -229,12 +240,6 @@
 <dt class="sig sig-object py" id="mindee.documents.ReceiptV3.merchant_name">
 <span class="sig-name descname"><span class="pre">merchant_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><span class="pre">TextField</span></a></em><a class="headerlink" href="#mindee.documents.ReceiptV3.merchant_name" title="Permalink to this definition"></a></dt>
 <dd><p>Merchant’s name</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.documents.ReceiptV3.orientation">
-<span class="sig-name descname"><span class="pre">orientation</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="field_types.html#mindee.fields.orientation.Orientation" title="mindee.fields.orientation.Orientation"><span class="pre">Orientation</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.documents.ReceiptV3.orientation" title="Permalink to this definition"></a></dt>
-<dd><p>Page orientation</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -288,12 +293,6 @@
 <dt class="sig sig-object py" id="mindee.documents.ReceiptV4.locale">
 <span class="sig-name descname"><span class="pre">locale</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.locale.LocaleField" title="mindee.fields.locale.LocaleField"><span class="pre">LocaleField</span></a></em><a class="headerlink" href="#mindee.documents.ReceiptV4.locale" title="Permalink to this definition"></a></dt>
 <dd><p>locale information</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.documents.ReceiptV4.orientation">
-<span class="sig-name descname"><span class="pre">orientation</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="field_types.html#mindee.fields.orientation.Orientation" title="mindee.fields.orientation.Orientation"><span class="pre">Orientation</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.documents.ReceiptV4.orientation" title="Permalink to this definition"></a></dt>
-<dd><p>Page orientation</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -467,7 +466,7 @@ The combination of <cite>given_names</cite> and <cite>surname</cite> fields.</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mindee.documents.</span></span><span class="sig-name descname"><span class="pre">FinancialV1</span></span><a class="headerlink" href="#mindee.documents.FinancialV1" title="Permalink to this definition"></a></dt>
 <dd><dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.documents.FinancialV1.company_number">
-<span class="sig-name descname"><span class="pre">company_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="field_types.html#mindee.fields.typed.TypedField" title="mindee.fields.typed.TypedField"><span class="pre">TypedField</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mindee.documents.FinancialV1.company_number" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">company_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="field_types.html#mindee.fields.company_registration.CompanyRegistrationField" title="mindee.fields.company_registration.CompanyRegistrationField"><span class="pre">CompanyRegistrationField</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mindee.documents.FinancialV1.company_number" title="Permalink to this definition"></a></dt>
 <dd><p>Company numbers</p>
 </dd></dl>
 
@@ -479,7 +478,7 @@ The combination of <cite>given_names</cite> and <cite>surname</cite> fields.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.documents.FinancialV1.customer_company_registration">
-<span class="sig-name descname"><span class="pre">customer_company_registration</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="field_types.html#mindee.fields.typed.TypedField" title="mindee.fields.typed.TypedField"><span class="pre">TypedField</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mindee.documents.FinancialV1.customer_company_registration" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">customer_company_registration</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="field_types.html#mindee.fields.company_registration.CompanyRegistrationField" title="mindee.fields.company_registration.CompanyRegistrationField"><span class="pre">CompanyRegistrationField</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mindee.documents.FinancialV1.customer_company_registration" title="Permalink to this definition"></a></dt>
 <dd><p>Customer company registration numbers</p>
 </dd></dl>
 
@@ -517,12 +516,6 @@ The combination of <cite>given_names</cite> and <cite>surname</cite> fields.</p>
 <dt class="sig sig-object py" id="mindee.documents.FinancialV1.merchant_name">
 <span class="sig-name descname"><span class="pre">merchant_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><span class="pre">TextField</span></a></em><a class="headerlink" href="#mindee.documents.FinancialV1.merchant_name" title="Permalink to this definition"></a></dt>
 <dd><p>Merchant/Supplier’s name</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.documents.FinancialV1.orientation">
-<span class="sig-name descname"><span class="pre">orientation</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="field_types.html#mindee.fields.orientation.Orientation" title="mindee.fields.orientation.Orientation"><span class="pre">Orientation</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.documents.FinancialV1.orientation" title="Permalink to this definition"></a></dt>
-<dd><p>Page orientation</p>
 </dd></dl>
 
 <dl class="py attribute">

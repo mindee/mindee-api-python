@@ -40,7 +40,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="client.html">Document Parsing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="products/index.html">Documents</a></li>
-<li class="toctree-l1"><a class="reference internal" href="geometry.html">Geometry Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utilities/index.html">Utilities</a></li>
 </ul>
 
         </div>
@@ -88,6 +88,7 @@
  | <a href="#S"><strong>S</strong></a>
  | <a href="#T"><strong>T</strong></a>
  | <a href="#V"><strong>V</strong></a>
+ | <a href="#W"><strong>W</strong></a>
  | <a href="#X"><strong>X</strong></a>
  | <a href="#Y"><strong>Y</strong></a>
  
@@ -111,6 +112,8 @@
 </li>
       <li><a href="client.html#mindee.client.Client.api_key">api_key (mindee.client.Client attribute)</a>
 </li>
+      <li><a href="utilities/geometry.html#mindee.geometry.BBox.area">area (mindee.geometry.BBox property)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -123,34 +126,32 @@
 </li>
       <li><a href="products/field_types.html#mindee.fields.tax.TaxField.basis">basis (mindee.fields.tax.TaxField attribute)</a>
 </li>
-      <li><a href="geometry.html#mindee.geometry.BBox">BBox (class in mindee.geometry)</a>
+      <li><a href="utilities/geometry.html#mindee.geometry.BBox">BBox (class in mindee.geometry)</a>
 </li>
       <li><a href="products/international.html#mindee.documents.PassportV1.birth_date">birth_date (mindee.documents.PassportV1 attribute)</a>
 </li>
       <li><a href="products/international.html#mindee.documents.PassportV1.birth_place">birth_place (mindee.documents.PassportV1 attribute)</a>
 </li>
-      <li><a href="geometry.html#mindee.geometry.Quadrilateral.bottom_left">bottom_left (mindee.geometry.Quadrilateral attribute)</a>
-</li>
-      <li><a href="geometry.html#mindee.geometry.Quadrilateral.bottom_right">bottom_right (mindee.geometry.Quadrilateral attribute)</a>
+      <li><a href="utilities/geometry.html#mindee.geometry.Quadrilateral.bottom_left">bottom_left (mindee.geometry.Quadrilateral attribute)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="utilities/geometry.html#mindee.geometry.Quadrilateral.bottom_right">bottom_right (mindee.geometry.Quadrilateral attribute)</a>
+</li>
       <li><a href="products/field_types.html#mindee.fields.amount.AmountField.bounding_box">bounding_box (mindee.fields.amount.AmountField attribute)</a>
 
       <ul>
         <li><a href="products/field_types.html#mindee.fields.api_builder.ListFieldValue.bounding_box">(mindee.fields.api_builder.ListFieldValue attribute)</a>
 </li>
+        <li><a href="products/field_types.html#mindee.fields.company_registration.CompanyRegistrationField.bounding_box">(mindee.fields.company_registration.CompanyRegistrationField attribute)</a>
+</li>
         <li><a href="products/field_types.html#mindee.fields.date.DateField.bounding_box">(mindee.fields.date.DateField attribute)</a>
 </li>
         <li><a href="products/field_types.html#mindee.fields.payment_details.PaymentDetails.bounding_box">(mindee.fields.payment_details.PaymentDetails attribute)</a>
 </li>
-        <li><a href="products/field_types.html#mindee.fields.position.Position.bounding_box">(mindee.fields.position.Position attribute)</a>
-</li>
         <li><a href="products/field_types.html#mindee.fields.tax.TaxField.bounding_box">(mindee.fields.tax.TaxField attribute)</a>
 </li>
         <li><a href="products/field_types.html#mindee.fields.text.TextField.bounding_box">(mindee.fields.text.TextField attribute)</a>
-</li>
-        <li><a href="products/field_types.html#mindee.fields.typed.TypedField.bounding_box">(mindee.fields.typed.TypedField attribute)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -187,6 +188,8 @@
         <li><a href="products/international.html#mindee.documents.InvoiceV3.company_number">(mindee.documents.InvoiceV3 attribute)</a>
 </li>
       </ul></li>
+      <li><a href="products/field_types.html#mindee.fields.company_registration.CompanyRegistrationField">CompanyRegistrationField (class in mindee.fields.company_registration)</a>
+</li>
       <li><a href="products/field_types.html#mindee.fields.amount.AmountField.confidence">confidence (mindee.fields.amount.AmountField attribute)</a>
 
       <ul>
@@ -198,21 +201,19 @@
 </li>
         <li><a href="products/field_types.html#mindee.fields.base.BaseField.confidence">(mindee.fields.base.BaseField attribute)</a>
 </li>
+        <li><a href="products/field_types.html#mindee.fields.company_registration.CompanyRegistrationField.confidence">(mindee.fields.company_registration.CompanyRegistrationField attribute)</a>
+</li>
         <li><a href="products/field_types.html#mindee.fields.date.DateField.confidence">(mindee.fields.date.DateField attribute)</a>
 </li>
         <li><a href="products/field_types.html#mindee.fields.locale.LocaleField.confidence">(mindee.fields.locale.LocaleField attribute)</a>
 </li>
-        <li><a href="products/field_types.html#mindee.fields.orientation.Orientation.confidence">(mindee.fields.orientation.Orientation attribute)</a>
+        <li><a href="products/field_types.html#mindee.fields.orientation.OrientationField.confidence">(mindee.fields.orientation.OrientationField attribute)</a>
 </li>
         <li><a href="products/field_types.html#mindee.fields.payment_details.PaymentDetails.confidence">(mindee.fields.payment_details.PaymentDetails attribute)</a>
-</li>
-        <li><a href="products/field_types.html#mindee.fields.position.Position.confidence">(mindee.fields.position.Position attribute)</a>
 </li>
         <li><a href="products/field_types.html#mindee.fields.tax.TaxField.confidence">(mindee.fields.tax.TaxField attribute)</a>
 </li>
         <li><a href="products/field_types.html#mindee.fields.text.TextField.confidence">(mindee.fields.text.TextField attribute)</a>
-</li>
-        <li><a href="products/field_types.html#mindee.fields.typed.TypedField.confidence">(mindee.fields.typed.TypedField attribute)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -325,21 +326,21 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="products/international.html#mindee.documents.PassportV1.gender">gender (mindee.documents.PassportV1 attribute)</a>
 </li>
-      <li><a href="geometry.html#mindee.geometry.GeometryError">GeometryError</a>
+      <li><a href="utilities/geometry.html#mindee.geometry.GeometryError">GeometryError</a>
 </li>
-      <li><a href="geometry.html#mindee.geometry.get_bbox">get_bbox() (in module mindee.geometry)</a>
+      <li><a href="utilities/geometry.html#mindee.geometry.get_bbox">get_bbox() (in module mindee.geometry)</a>
 </li>
-      <li><a href="geometry.html#mindee.geometry.get_bounding_box">get_bounding_box() (in module mindee.geometry)</a>
+      <li><a href="utilities/geometry.html#mindee.geometry.get_bounding_box">get_bounding_box() (in module mindee.geometry)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="geometry.html#mindee.geometry.get_bounding_box_for_polygons">get_bounding_box_for_polygons() (in module mindee.geometry)</a>
+      <li><a href="utilities/geometry.html#mindee.geometry.get_bounding_box_for_polygons">get_bounding_box_for_polygons() (in module mindee.geometry)</a>
 </li>
-      <li><a href="geometry.html#mindee.geometry.get_centroid">get_centroid() (in module mindee.geometry)</a>
+      <li><a href="utilities/geometry.html#mindee.geometry.get_centroid">get_centroid() (in module mindee.geometry)</a>
 </li>
-      <li><a href="geometry.html#mindee.geometry.get_min_max_x">get_min_max_x() (in module mindee.geometry)</a>
+      <li><a href="utilities/geometry.html#mindee.geometry.get_min_max_x">get_min_max_x() (in module mindee.geometry)</a>
 </li>
-      <li><a href="geometry.html#mindee.geometry.get_min_max_y">get_min_max_y() (in module mindee.geometry)</a>
+      <li><a href="utilities/geometry.html#mindee.geometry.get_min_max_y">get_min_max_y() (in module mindee.geometry)</a>
 </li>
       <li><a href="products/international.html#mindee.documents.PassportV1.given_names">given_names (mindee.documents.PassportV1 attribute)</a>
 </li>
@@ -348,6 +349,10 @@
 
 <h2 id="H">H</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="utilities/geometry.html#mindee.geometry.BBox.height">height (mindee.geometry.BBox property)</a>
+</li>
+  </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="client.html#mindee.response.PredictResponse.http_response">http_response (mindee.response.PredictResponse attribute)</a>
 </li>
@@ -363,6 +368,12 @@
 </li>
       <li><a href="client.html#mindee.client.DocumentClient.input_doc">input_doc (mindee.client.DocumentClient attribute)</a>
 </li>
+      <li><a href="client.html#mindee.response.PredictResponse.input_filename">input_filename (mindee.response.PredictResponse attribute)</a>
+</li>
+      <li><a href="client.html#mindee.response.PredictResponse.input_mimetype">input_mimetype (mindee.response.PredictResponse attribute)</a>
+</li>
+      <li><a href="client.html#mindee.response.PredictResponse.input_path">input_path (mindee.response.PredictResponse attribute)</a>
+</li>
       <li><a href="products/international.html#mindee.documents.InvoiceV3.invoice_date">invoice_date (mindee.documents.InvoiceV3 attribute)</a>
 </li>
       <li><a href="products/international.html#mindee.documents.FinancialV1.invoice_number">invoice_number (mindee.documents.FinancialV1 attribute)</a>
@@ -377,13 +388,13 @@
 </li>
       <li><a href="products/international.html#mindee.documents.PassportV1.is_expired">is_expired() (mindee.documents.PassportV1 method)</a>
 </li>
-      <li><a href="geometry.html#mindee.geometry.is_point_in_polygon_x">is_point_in_polygon_x() (in module mindee.geometry)</a>
+      <li><a href="utilities/geometry.html#mindee.geometry.is_point_in_polygon_x">is_point_in_polygon_x() (in module mindee.geometry)</a>
 </li>
-      <li><a href="geometry.html#mindee.geometry.is_point_in_polygon_y">is_point_in_polygon_y() (in module mindee.geometry)</a>
+      <li><a href="utilities/geometry.html#mindee.geometry.is_point_in_polygon_y">is_point_in_polygon_y() (in module mindee.geometry)</a>
 </li>
-      <li><a href="geometry.html#mindee.geometry.is_point_in_x">is_point_in_x() (in module mindee.geometry)</a>
+      <li><a href="utilities/geometry.html#mindee.geometry.is_point_in_x">is_point_in_x() (in module mindee.geometry)</a>
 </li>
-      <li><a href="geometry.html#mindee.geometry.is_point_in_y">is_point_in_y() (in module mindee.geometry)</a>
+      <li><a href="utilities/geometry.html#mindee.geometry.is_point_in_y">is_point_in_y() (in module mindee.geometry)</a>
 </li>
       <li><a href="products/international.html#mindee.documents.PassportV1.issuance_date">issuance_date (mindee.documents.PassportV1 attribute)</a>
 </li>
@@ -419,7 +430,7 @@
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="geometry.html#mindee.geometry.MinMax.max">max (mindee.geometry.MinMax attribute)</a>
+      <li><a href="utilities/geometry.html#mindee.geometry.MinMax.max">max (mindee.geometry.MinMax attribute)</a>
 </li>
       <li><a href="products/international.html#mindee.documents.FinancialV1.merchant_name">merchant_name (mindee.documents.FinancialV1 attribute)</a>
 
@@ -427,24 +438,24 @@
         <li><a href="products/international.html#mindee.documents.ReceiptV3.merchant_name">(mindee.documents.ReceiptV3 attribute)</a>
 </li>
       </ul></li>
-      <li><a href="geometry.html#mindee.geometry.MinMax.min">min (mindee.geometry.MinMax attribute)</a>
+      <li><a href="utilities/geometry.html#mindee.geometry.MinMax.min">min (mindee.geometry.MinMax attribute)</a>
 </li>
       <li>
     mindee.geometry
 
       <ul>
-        <li><a href="geometry.html#module-mindee.geometry">module</a>
+        <li><a href="utilities/geometry.html#module-mindee.geometry">module</a>
 </li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="geometry.html#mindee.geometry.MinMax">MinMax (class in mindee.geometry)</a>
+      <li><a href="utilities/geometry.html#mindee.geometry.MinMax">MinMax (class in mindee.geometry)</a>
 </li>
       <li>
     module
 
       <ul>
-        <li><a href="geometry.html#module-mindee.geometry">mindee.geometry</a>
+        <li><a href="utilities/geometry.html#module-mindee.geometry">mindee.geometry</a>
 </li>
       </ul></li>
       <li><a href="products/international.html#mindee.documents.PassportV1.mrz">mrz (mindee.documents.PassportV1 attribute)</a>
@@ -461,22 +472,12 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="client.html#mindee.input.page_options.PageOptions.on_min_pages">on_min_pages (mindee.input.page_options.PageOptions attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="client.html#mindee.input.page_options.PageOptions.operation">operation (mindee.input.page_options.PageOptions attribute)</a>
 </li>
-      <li><a href="products/field_types.html#mindee.fields.orientation.Orientation">Orientation (class in mindee.fields.orientation)</a>
+      <li><a href="products/field_types.html#mindee.fields.orientation.OrientationField">OrientationField (class in mindee.fields.orientation)</a>
 </li>
-      <li><a href="products/international.html#mindee.documents.FinancialV1.orientation">orientation (mindee.documents.FinancialV1 attribute)</a>
-
-      <ul>
-        <li><a href="products/international.html#mindee.documents.InvoiceV3.orientation">(mindee.documents.InvoiceV3 attribute)</a>
-</li>
-        <li><a href="products/international.html#mindee.documents.ReceiptV3.orientation">(mindee.documents.ReceiptV3 attribute)</a>
-</li>
-        <li><a href="products/international.html#mindee.documents.ReceiptV4.orientation">(mindee.documents.ReceiptV4 attribute)</a>
-</li>
-        <li><a href="products/us.html#mindee.documents.us.BankCheckV1.orientation">(mindee.documents.us.BankCheckV1 attribute)</a>
-</li>
-      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -492,21 +493,19 @@
 </li>
         <li><a href="products/field_types.html#mindee.fields.base.BaseField.page_n">(mindee.fields.base.BaseField attribute)</a>
 </li>
+        <li><a href="products/field_types.html#mindee.fields.company_registration.CompanyRegistrationField.page_n">(mindee.fields.company_registration.CompanyRegistrationField attribute)</a>
+</li>
         <li><a href="products/field_types.html#mindee.fields.date.DateField.page_n">(mindee.fields.date.DateField attribute)</a>
 </li>
         <li><a href="products/field_types.html#mindee.fields.locale.LocaleField.page_n">(mindee.fields.locale.LocaleField attribute)</a>
 </li>
-        <li><a href="products/field_types.html#mindee.fields.orientation.Orientation.page_n">(mindee.fields.orientation.Orientation attribute)</a>
+        <li><a href="products/field_types.html#mindee.fields.orientation.OrientationField.page_n">(mindee.fields.orientation.OrientationField attribute)</a>
 </li>
         <li><a href="products/field_types.html#mindee.fields.payment_details.PaymentDetails.page_n">(mindee.fields.payment_details.PaymentDetails attribute)</a>
-</li>
-        <li><a href="products/field_types.html#mindee.fields.position.Position.page_n">(mindee.fields.position.Position attribute)</a>
 </li>
         <li><a href="products/field_types.html#mindee.fields.tax.TaxField.page_n">(mindee.fields.tax.TaxField attribute)</a>
 </li>
         <li><a href="products/field_types.html#mindee.fields.text.TextField.page_n">(mindee.fields.text.TextField attribute)</a>
-</li>
-        <li><a href="products/field_types.html#mindee.fields.typed.TypedField.page_n">(mindee.fields.typed.TypedField attribute)</a>
 </li>
       </ul></li>
       <li><a href="client.html#mindee.input.page_options.PageOptions">PageOptions (class in mindee.input.page_options)</a>
@@ -529,31 +528,27 @@
       </ul></li>
       <li><a href="products/field_types.html#mindee.fields.payment_details.PaymentDetails">PaymentDetails (class in mindee.fields.payment_details)</a>
 </li>
-      <li><a href="geometry.html#mindee.geometry.Point">Point (class in mindee.geometry)</a>
+      <li><a href="utilities/geometry.html#mindee.geometry.Point">Point (class in mindee.geometry)</a>
 </li>
-      <li><a href="geometry.html#mindee.geometry.Polygon">Polygon (class in mindee.geometry)</a>
+      <li><a href="utilities/geometry.html#mindee.geometry.Polygon">Polygon (class in mindee.geometry)</a>
 </li>
       <li><a href="products/field_types.html#mindee.fields.amount.AmountField.polygon">polygon (mindee.fields.amount.AmountField attribute)</a>
 
       <ul>
         <li><a href="products/field_types.html#mindee.fields.api_builder.ListFieldValue.polygon">(mindee.fields.api_builder.ListFieldValue attribute)</a>
 </li>
+        <li><a href="products/field_types.html#mindee.fields.company_registration.CompanyRegistrationField.polygon">(mindee.fields.company_registration.CompanyRegistrationField attribute)</a>
+</li>
         <li><a href="products/field_types.html#mindee.fields.date.DateField.polygon">(mindee.fields.date.DateField attribute)</a>
 </li>
         <li><a href="products/field_types.html#mindee.fields.payment_details.PaymentDetails.polygon">(mindee.fields.payment_details.PaymentDetails attribute)</a>
-</li>
-        <li><a href="products/field_types.html#mindee.fields.position.Position.polygon">(mindee.fields.position.Position attribute)</a>
 </li>
         <li><a href="products/field_types.html#mindee.fields.tax.TaxField.polygon">(mindee.fields.tax.TaxField attribute)</a>
 </li>
         <li><a href="products/field_types.html#mindee.fields.text.TextField.polygon">(mindee.fields.text.TextField attribute)</a>
 </li>
-        <li><a href="products/field_types.html#mindee.fields.typed.TypedField.polygon">(mindee.fields.typed.TypedField attribute)</a>
-</li>
       </ul></li>
-      <li><a href="geometry.html#mindee.geometry.polygon_from_prediction">polygon_from_prediction() (in module mindee.geometry)</a>
-</li>
-      <li><a href="products/field_types.html#mindee.fields.position.Position">Position (class in mindee.fields.position)</a>
+      <li><a href="utilities/geometry.html#mindee.geometry.polygon_from_prediction">polygon_from_prediction() (in module mindee.geometry)</a>
 </li>
       <li><a href="client.html#mindee.response.PredictResponse">PredictResponse (class in mindee.response)</a>
 </li>
@@ -563,13 +558,11 @@
 <h2 id="Q">Q</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="products/field_types.html#mindee.fields.position.Position.quadrangle">quadrangle (mindee.fields.position.Position attribute)</a>
+      <li><a href="utilities/geometry.html#mindee.geometry.Quadrilateral">Quadrilateral (class in mindee.geometry)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="geometry.html#mindee.geometry.Quadrilateral">Quadrilateral (class in mindee.geometry)</a>
-</li>
-      <li><a href="geometry.html#mindee.geometry.quadrilateral_from_prediction">quadrilateral_from_prediction() (in module mindee.geometry)</a>
+      <li><a href="utilities/geometry.html#mindee.geometry.quadrilateral_from_prediction">quadrilateral_from_prediction() (in module mindee.geometry)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -596,27 +589,23 @@
 </li>
         <li><a href="products/field_types.html#mindee.fields.base.BaseField.reconstructed">(mindee.fields.base.BaseField attribute)</a>
 </li>
+        <li><a href="products/field_types.html#mindee.fields.company_registration.CompanyRegistrationField.reconstructed">(mindee.fields.company_registration.CompanyRegistrationField attribute)</a>
+</li>
         <li><a href="products/field_types.html#mindee.fields.date.DateField.reconstructed">(mindee.fields.date.DateField attribute)</a>
 </li>
         <li><a href="products/field_types.html#mindee.fields.locale.LocaleField.reconstructed">(mindee.fields.locale.LocaleField attribute)</a>
 </li>
-        <li><a href="products/field_types.html#mindee.fields.orientation.Orientation.reconstructed">(mindee.fields.orientation.Orientation attribute)</a>
+        <li><a href="products/field_types.html#mindee.fields.orientation.OrientationField.reconstructed">(mindee.fields.orientation.OrientationField attribute)</a>
 </li>
         <li><a href="products/field_types.html#mindee.fields.payment_details.PaymentDetails.reconstructed">(mindee.fields.payment_details.PaymentDetails attribute)</a>
-</li>
-        <li><a href="products/field_types.html#mindee.fields.position.Position.reconstructed">(mindee.fields.position.Position attribute)</a>
 </li>
         <li><a href="products/field_types.html#mindee.fields.tax.TaxField.reconstructed">(mindee.fields.tax.TaxField attribute)</a>
 </li>
         <li><a href="products/field_types.html#mindee.fields.text.TextField.reconstructed">(mindee.fields.text.TextField attribute)</a>
 </li>
-        <li><a href="products/field_types.html#mindee.fields.typed.TypedField.reconstructed">(mindee.fields.typed.TypedField attribute)</a>
-</li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="products/field_types.html#mindee.fields.position.Position.rectangle">rectangle (mindee.fields.position.Position attribute)</a>
-</li>
       <li><a href="products/us.html#mindee.documents.us.BankCheckV1.routing_number">routing_number (mindee.documents.us.BankCheckV1 attribute)</a>
 
       <ul>
@@ -679,18 +668,22 @@
       </ul></li>
       <li><a href="products/international.html#mindee.documents.ReceiptV4.tip">tip (mindee.documents.ReceiptV4 attribute)</a>
 </li>
-      <li><a href="geometry.html#mindee.geometry.Quadrilateral.top_left">top_left (mindee.geometry.Quadrilateral attribute)</a>
+      <li><a href="utilities/geometry.html#mindee.geometry.Quadrilateral.top_left">top_left (mindee.geometry.Quadrilateral attribute)</a>
 </li>
-      <li><a href="geometry.html#mindee.geometry.Quadrilateral.top_right">top_right (mindee.geometry.Quadrilateral attribute)</a>
+      <li><a href="utilities/geometry.html#mindee.geometry.Quadrilateral.top_right">top_right (mindee.geometry.Quadrilateral attribute)</a>
 </li>
-      <li><a href="products/international.html#mindee.documents.ReceiptV4.total_amount">total_amount (mindee.documents.ReceiptV4 attribute)</a>
+      <li><a href="products/international.html#mindee.documents.InvoiceV3.total_amount">total_amount (mindee.documents.InvoiceV3 attribute)</a>
+
+      <ul>
+        <li><a href="products/international.html#mindee.documents.ReceiptV4.total_amount">(mindee.documents.ReceiptV4 attribute)</a>
 </li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="products/international.html#mindee.documents.FinancialV1.total_excl">total_excl (mindee.documents.FinancialV1 attribute)</a>
 
       <ul>
-        <li><a href="products/international.html#mindee.documents.InvoiceV3.total_excl">(mindee.documents.InvoiceV3 attribute)</a>
+        <li><a href="products/international.html#mindee.documents.InvoiceV3.total_excl">(mindee.documents.InvoiceV3 property)</a>
 </li>
         <li><a href="products/international.html#mindee.documents.ReceiptV3.total_excl">(mindee.documents.ReceiptV3 attribute)</a>
 </li>
@@ -698,13 +691,17 @@
       <li><a href="products/international.html#mindee.documents.FinancialV1.total_incl">total_incl (mindee.documents.FinancialV1 attribute)</a>
 
       <ul>
-        <li><a href="products/international.html#mindee.documents.InvoiceV3.total_incl">(mindee.documents.InvoiceV3 attribute)</a>
+        <li><a href="products/international.html#mindee.documents.InvoiceV3.total_incl">(mindee.documents.InvoiceV3 property)</a>
 </li>
         <li><a href="products/international.html#mindee.documents.ReceiptV3.total_incl">(mindee.documents.ReceiptV3 attribute)</a>
 </li>
       </ul></li>
-      <li><a href="products/international.html#mindee.documents.ReceiptV4.total_net">total_net (mindee.documents.ReceiptV4 attribute)</a>
+      <li><a href="products/international.html#mindee.documents.InvoiceV3.total_net">total_net (mindee.documents.InvoiceV3 attribute)</a>
+
+      <ul>
+        <li><a href="products/international.html#mindee.documents.ReceiptV4.total_net">(mindee.documents.ReceiptV4 attribute)</a>
 </li>
+      </ul></li>
       <li><a href="products/international.html#mindee.documents.FinancialV1.total_tax">total_tax (mindee.documents.FinancialV1 attribute)</a>
 
       <ul>
@@ -715,9 +712,7 @@
         <li><a href="products/international.html#mindee.documents.ReceiptV4.total_tax">(mindee.documents.ReceiptV4 attribute)</a>
 </li>
       </ul></li>
-      <li><a href="products/field_types.html#mindee.fields.typed.TypedField.type">type (mindee.fields.typed.TypedField attribute)</a>
-</li>
-      <li><a href="products/field_types.html#mindee.fields.typed.TypedField">TypedField (class in mindee.fields.typed)</a>
+      <li><a href="products/field_types.html#mindee.fields.company_registration.CompanyRegistrationField.type">type (mindee.fields.company_registration.CompanyRegistrationField attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -732,21 +727,19 @@
 </li>
         <li><a href="products/field_types.html#mindee.fields.base.BaseField.value">(mindee.fields.base.BaseField attribute)</a>
 </li>
+        <li><a href="products/field_types.html#mindee.fields.company_registration.CompanyRegistrationField.value">(mindee.fields.company_registration.CompanyRegistrationField attribute)</a>
+</li>
         <li><a href="products/field_types.html#mindee.fields.date.DateField.value">(mindee.fields.date.DateField attribute)</a>
 </li>
         <li><a href="products/field_types.html#mindee.fields.locale.LocaleField.value">(mindee.fields.locale.LocaleField attribute)</a>
 </li>
-        <li><a href="products/field_types.html#mindee.fields.orientation.Orientation.value">(mindee.fields.orientation.Orientation attribute)</a>
+        <li><a href="products/field_types.html#mindee.fields.orientation.OrientationField.value">(mindee.fields.orientation.OrientationField attribute)</a>
 </li>
         <li><a href="products/field_types.html#mindee.fields.payment_details.PaymentDetails.value">(mindee.fields.payment_details.PaymentDetails attribute)</a>
-</li>
-        <li><a href="products/field_types.html#mindee.fields.position.Position.value">(mindee.fields.position.Position attribute)</a>
 </li>
         <li><a href="products/field_types.html#mindee.fields.tax.TaxField.value">(mindee.fields.tax.TaxField attribute)</a>
 </li>
         <li><a href="products/field_types.html#mindee.fields.text.TextField.value">(mindee.fields.text.TextField attribute)</a>
-</li>
-        <li><a href="products/field_types.html#mindee.fields.typed.TypedField.value">(mindee.fields.typed.TypedField attribute)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -756,16 +749,24 @@
   </ul></td>
 </tr></table>
 
+<h2 id="W">W</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="utilities/geometry.html#mindee.geometry.BBox.width">width (mindee.geometry.BBox property)</a>
+</li>
+  </ul></td>
+</tr></table>
+
 <h2 id="X">X</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="geometry.html#mindee.geometry.Point.x">x (mindee.geometry.Point attribute)</a>
+      <li><a href="utilities/geometry.html#mindee.geometry.Point.x">x (mindee.geometry.Point attribute)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="geometry.html#mindee.geometry.BBox.x_max">x_max (mindee.geometry.BBox attribute)</a>
+      <li><a href="utilities/geometry.html#mindee.geometry.BBox.x_max">x_max (mindee.geometry.BBox attribute)</a>
 </li>
-      <li><a href="geometry.html#mindee.geometry.BBox.x_min">x_min (mindee.geometry.BBox attribute)</a>
+      <li><a href="utilities/geometry.html#mindee.geometry.BBox.x_min">x_min (mindee.geometry.BBox attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -773,13 +774,13 @@
 <h2 id="Y">Y</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="geometry.html#mindee.geometry.Point.y">y (mindee.geometry.Point attribute)</a>
+      <li><a href="utilities/geometry.html#mindee.geometry.Point.y">y (mindee.geometry.Point attribute)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="geometry.html#mindee.geometry.BBox.y_max">y_max (mindee.geometry.BBox attribute)</a>
+      <li><a href="utilities/geometry.html#mindee.geometry.BBox.y_max">y_max (mindee.geometry.BBox attribute)</a>
 </li>
-      <li><a href="geometry.html#mindee.geometry.BBox.y_min">y_min (mindee.geometry.BBox attribute)</a>
+      <li><a href="utilities/geometry.html#mindee.geometry.BBox.y_min">y_min (mindee.geometry.BBox attribute)</a>
 </li>
   </ul></td>
 </tr></table>

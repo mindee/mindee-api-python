@@ -77,6 +77,9 @@
 <li class="toctree-l4"><a class="reference internal" href="#mindee.response.PredictResponse.document"><code class="docutils literal notranslate"><span class="pre">PredictResponse.document</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.response.PredictResponse.document_type"><code class="docutils literal notranslate"><span class="pre">PredictResponse.document_type</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.response.PredictResponse.http_response"><code class="docutils literal notranslate"><span class="pre">PredictResponse.http_response</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.response.PredictResponse.input_filename"><code class="docutils literal notranslate"><span class="pre">PredictResponse.input_filename</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.response.PredictResponse.input_mimetype"><code class="docutils literal notranslate"><span class="pre">PredictResponse.input_mimetype</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.response.PredictResponse.input_path"><code class="docutils literal notranslate"><span class="pre">PredictResponse.input_path</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.response.PredictResponse.pages"><code class="docutils literal notranslate"><span class="pre">PredictResponse.pages</span></code></a></li>
 </ul>
 </li>
@@ -85,7 +88,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="products/index.html">Documents</a></li>
-<li class="toctree-l1"><a class="reference internal" href="geometry.html">Geometry Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utilities/index.html">Utilities</a></li>
 </ul>
 
         </div>
@@ -266,20 +269,27 @@ A negative index can be used, indicating an offset from the end of the document.
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.client.DocumentClient.parse">
-<span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">document_class</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">account_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_words</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">close_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.client.DocumentClient.parse" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">document_class</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">account_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_words</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">close_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cropper</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.client.DocumentClient.parse" title="Permalink to this definition"></a></dt>
 <dd><p>Call prediction API on the document and parse the results.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>document_class</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">TypeDocument</span></code>, bound= <code class="xref py py-class docutils literal notranslate"><span class="pre">Document</span></code>)) – The document class to use.
-The response object will be instanced based on this parameter.</p></li>
-<li><p><strong>endpoint_name</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>], default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – For custom documents, the “API name” field
-in the “Settings” page of the API Builder.</p></li>
-<li><p><strong>account_name</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>], default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – API username, the endpoint owner</p></li>
-<li><p><strong>include_words</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Include all the words of the document in the response</p></li>
+The response object will be instantiated based on this parameter.</p></li>
+<li><p><strong>endpoint_name</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>], default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – For custom endpoints, the “API name” field in the “Settings” page of the API Builder.
+Do not set for standard (off the shelf) endpoints.</p></li>
+<li><p><strong>account_name</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>], default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – For custom endpoints, your account or organization username on the API Builder.
+This is normally not required unless you have a custom endpoint which has the
+same name as standard (off the shelf) endpoint.
+Do not set for standard (off the shelf) endpoints.</p></li>
+<li><p><strong>include_words</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Whether to include the full text for each page.
+This performs a full OCR operation on the server and will increase response time.</p></li>
 <li><p><strong>close_file</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">True</span></code>) – Whether to <code class="docutils literal notranslate"><span class="pre">close()</span></code> the file after parsing it.
 Set to <code class="docutils literal notranslate"><span class="pre">False</span></code> if you need to access the file after this operation.</p></li>
-<li><p><strong>page_options</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="#mindee.input.page_options.PageOptions" title="mindee.input.page_options.PageOptions"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageOptions</span></code></a>], default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Options for preparing multipage documents.</p></li>
+<li><p><strong>page_options</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="#mindee.input.page_options.PageOptions" title="mindee.input.page_options.PageOptions"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageOptions</span></code></a>], default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – If set, remove pages from the document as specified.
+This is done before sending the file to the server and is useful to avoid page limitations.</p></li>
+<li><p><strong>cropper</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Whether to include cropper results for each page.
+This performs a cropping operation on the server and will increase response time.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
@@ -329,6 +339,24 @@ Set to <code class="docutils literal notranslate"><span class="pre">False</span>
 <dt class="sig sig-object py" id="mindee.response.PredictResponse.http_response">
 <span class="sig-name descname"><span class="pre">http_response</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mindee.response.PredictResponse.http_response" title="Permalink to this definition"></a></dt>
 <dd><p>Raw HTTP response JSON</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.response.PredictResponse.input_filename">
+<span class="sig-name descname"><span class="pre">input_filename</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.response.PredictResponse.input_filename" title="Permalink to this definition"></a></dt>
+<dd><p>Name of the input file</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.response.PredictResponse.input_mimetype">
+<span class="sig-name descname"><span class="pre">input_mimetype</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.response.PredictResponse.input_mimetype" title="Permalink to this definition"></a></dt>
+<dd><p>MIME type of the input file</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.response.PredictResponse.input_path">
+<span class="sig-name descname"><span class="pre">input_path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.response.PredictResponse.input_path" title="Permalink to this definition"></a></dt>
+<dd><p>Path of the input file</p>
 </dd></dl>
 
 <dl class="py attribute">

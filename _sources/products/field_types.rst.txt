@@ -17,9 +17,9 @@ Text Field
     :members:
     :inherited-members:
 
-Typed Field
------------
-.. autoclass:: mindee.fields.typed.TypedField
+Company Registration Field
+--------------------------
+.. autoclass:: mindee.fields.company_registration.CompanyRegistrationField
     :members:
     :inherited-members:
 
@@ -47,9 +47,9 @@ Locale Field
     :members:
     :inherited-members:
 
-Orientation
------------
-.. autoclass:: mindee.fields.orientation.Orientation
+Orientation Field
+-----------------
+.. autoclass:: mindee.fields.orientation.OrientationField
     :members:
     :inherited-members:
 
