@@ -1,5 +1,9 @@
 # Mindee Python API Library Changelog
 
+## v3.1.1 (2022-12-02)
+### Fixes
+* :bug: fix for invoice v4 URL
+
 ## v3.1.0 (2022-12-01)
 ### Changes
 * :sparkles: allow setting base URL from env
