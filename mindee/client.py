@@ -205,7 +205,7 @@ class Client:
                 document_class=InvoiceV4,
                 endpoints=[
                     StandardEndpoint(
-                        url_name="invoices_beta", version="4", api_key=self.api_key
+                        url_name="invoices", version="4", api_key=self.api_key
                     )
                 ],
             ),
