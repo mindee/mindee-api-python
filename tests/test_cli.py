@@ -2,7 +2,7 @@ from argparse import Namespace
 
 import pytest
 
-from mindee.__main__ import call_endpoint
+from mindee.cli import call_endpoint
 from mindee.endpoints import HTTPException
 from tests.utils import clear_envvars
 
@@ -12,9 +12,10 @@ def custom_doc(monkeypatch):
     clear_envvars(monkeypatch)
     return Namespace(
         product_name="custom",
-        doc_type="license_plate",
+        api_name="license_plate",
         username="mindee",
         api_key="dummy",
+        api_version="1",
         raise_on_error=True,
         cut_doc=False,
         doc_pages=3,
