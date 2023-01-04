@@ -5,11 +5,11 @@ from mindee.fields.base import BaseField, TypePrediction
 
 class LocaleField(BaseField):
     language: Optional[str] = None
-    """Language ISO code"""
+    """ISO 639-1 language code"""
     country: Optional[str] = None
-    """Country ISO code"""
+    """ISO 3166-1 alpha-2 country code"""
     currency: Optional[str] = None
-    """3 letter currency code"""
+    """ISO 4217 currency code"""
 
     def __init__(
         self,

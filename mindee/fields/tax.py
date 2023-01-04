@@ -1,6 +1,11 @@
 from typing import Optional
 
-from mindee.fields.base import BaseField, FieldPositionMixin, TypePrediction
+from mindee.fields.base import (
+    BaseField,
+    FieldPositionMixin,
+    TypePrediction,
+    float_to_string,
+)
 
 
 class TaxField(FieldPositionMixin, BaseField):
@@ -65,11 +70,9 @@ class TaxField(FieldPositionMixin, BaseField):
             self.confidence = 0.0
 
     def __str__(self) -> str:
-        out_str = ""
-        if self.value is not None:
-            out_str += str(self.value)
+        out_str = float_to_string(self.value)
         if self.rate is not None:
-            out_str += f" {self.rate}%"
+            out_str += f" {float_to_string(self.rate)}%"
         if self.code is not None:
             out_str += f" {self.code}"
         return out_str.strip()

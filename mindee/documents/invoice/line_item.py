@@ -1,6 +1,6 @@
 from typing import Optional
 
-from mindee.fields.base import FieldPositionMixin, TypePrediction
+from mindee.fields.base import FieldPositionMixin, TypePrediction, float_to_string
 
 
 class InvoiceLineItem(FieldPositionMixin):
@@ -55,24 +55,19 @@ class InvoiceLineItem(FieldPositionMixin):
         self.tax_amount = to_opt_float("tax_amount")
 
     def __str__(self) -> str:
-        def opt_float_to_str(value: Optional[float]) -> str:
-            if value is None:
-                return ""
-            return str(value)
-
-        tax = f"{opt_float_to_str(self.tax_amount)}"
+        tax = float_to_string(self.tax_amount)
         if self.tax_rate is not None:
-            tax += f" ({self.tax_rate} %)"
+            tax += f" ({float_to_string(self.tax_rate)}%)"
 
         description = self.description or ""
         if len(description) > 32:
             description = description[:32] + "..."
         row = [
             self.product_code or "",
-            opt_float_to_str(self.quantity),
-            opt_float_to_str(self.unit_price),
-            opt_float_to_str(self.total_amount),
+            float_to_string(self.quantity),
+            float_to_string(self.unit_price),
+            float_to_string(self.total_amount),
             tax,
             description,
         ]
-        return "{:<14} | {:<6} | {:<7} | {:<8} | {:<14} | {} ".format(*row)
+        return "{:<14} | {:<6} | {:<7} | {:<8} | {:<16} | {} ".format(*row)

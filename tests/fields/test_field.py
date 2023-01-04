@@ -1,4 +1,11 @@
-from mindee.fields.base import BaseField, field_array_confidence, field_array_sum
+import pytest
+
+from mindee.fields.base import (
+    BaseField,
+    field_array_confidence,
+    field_array_sum,
+    float_to_string,
+)
 from mindee.fields.company_registration import CompanyRegistrationField
 from mindee.fields.text import TextField
 
@@ -82,3 +89,13 @@ def test_array_sum():
         BaseField({"value": 4, "confidence": 0.8}),
     ]
     assert field_array_sum(fields) == 0.0
+
+
+def test_float_to_string():
+    assert float_to_string(1.0) == "1.00"
+    assert float_to_string(1.001, min_precision=1) == "1.001"
+    assert float_to_string(1.0, min_precision=4) == "1.0000"
+
+    # should not work on integer values
+    with pytest.raises(IndexError):
+        float_to_string(1)

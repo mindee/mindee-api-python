@@ -131,7 +131,7 @@ class InvoiceV4(Document):
         taxes = "\n       ".join(f"{t}" for t in self.taxes)
         line_items = "\n"
         if self.line_items:
-            line_items = "\n  Code           | QTY    | Price   | Amount   | Tax (Rate)     | Description\n"
+            line_items = "\n  Code           | QTY    | Price   | Amount   | Tax (Rate)       | Description\n"
             for item in self.line_items:
                 line_items += f"  {item}\n"
 

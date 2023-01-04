@@ -96,7 +96,7 @@ class PassportV1(Document):
             ]
         )
         return clean_out_string(
-            "-----Passport data-----\n"
+            "----- Passport V1 -----\n"
             f"Filename: {self.filename or ''}\n"
             f"Full name: {self.full_name}\n"
             f"Given names: {given_names}\n"

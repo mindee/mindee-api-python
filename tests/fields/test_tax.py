@@ -14,7 +14,7 @@ def test_constructor():
     assert tax.confidence == 0.1
     assert tax.rate == 0.2
     assert len(tax.bounding_box) > 0
-    assert str(tax) == "2.0 0.2% QST"
+    assert str(tax) == "2.00 0.20% QST"
 
 
 def test_constructor_no_rate():
@@ -22,7 +22,7 @@ def test_constructor_no_rate():
     tax = TaxField(field_dict)
     assert tax.rate is None
     assert tax.bounding_box is None
-    assert str(tax) == "2.0"
+    assert str(tax) == "2.00"
 
 
 def test_constructor_no_amount():
