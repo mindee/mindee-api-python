@@ -135,3 +135,12 @@ def field_array_sum(array: TypeFieldList) -> float:
         except (AttributeError, TypeError):
             return 0.0
     return float(arr_sum)
+
+
+def float_to_string(value: Optional[float], min_precision=2) -> str:
+    """Print a float with a specified minimum precision, but allowing greater precision."""
+    if value is not None:
+        precision = len(str(value).split(".")[1])
+        precision = max(precision, min_precision)
+        return f"{value:.{precision}f}"
+    return ""

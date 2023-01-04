@@ -1,6 +1,11 @@
 from typing import Optional
 
-from mindee.fields.base import BaseField, FieldPositionMixin, TypePrediction
+from mindee.fields.base import (
+    BaseField,
+    FieldPositionMixin,
+    TypePrediction,
+    float_to_string,
+)
 
 
 class AmountField(FieldPositionMixin, BaseField):
@@ -32,3 +37,6 @@ class AmountField(FieldPositionMixin, BaseField):
             self.confidence = 0.0
 
         self._set_position(prediction)
+
+    def __str__(self) -> str:
+        return float_to_string(self.value)
