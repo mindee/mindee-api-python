@@ -19,6 +19,10 @@ class ReceiptV4(Document):
     """Time the receipt was issued, in HH: MM format."""
     category: TextField
     """The type, or service category, of the purchase."""
+    subcategory: TextField
+    """The receipt sub category among predefined classes."""
+    document_type: TextField
+    """Whether the document is an expense receipt or a credit card receipt."""
     supplier: TextField
     """The merchant, or supplier, as found on the receipt."""
     taxes: List[TaxField]
@@ -68,6 +72,8 @@ class ReceiptV4(Document):
         self.tip = AmountField(api_prediction["tip"], page_n=page_n)
         self.date = DateField(api_prediction["date"], page_n=page_n)
         self.category = TextField(api_prediction["category"], page_n=page_n)
+        self.subcategory = TextField(api_prediction["subcategory"], page_n=page_n)
+        self.document_type = TextField(api_prediction["document_type"], page_n=page_n)
         self.supplier = TextField(
             api_prediction["supplier"], value_key="value", page_n=page_n
         )
@@ -93,6 +99,8 @@ class ReceiptV4(Document):
             f"Tip: {self.tip}\n"
             f"Date: {self.date}\n"
             f"Category: {self.category}\n"
+            f"Subcategory: {self.subcategory}\n"
+            f"Document type: {self.document_type}\n"
             f"Time: {self.time}\n"
             f"Supplier name: {self.supplier}\n"
             f"Taxes: {taxes}\n"
