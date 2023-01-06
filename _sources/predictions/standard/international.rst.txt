@@ -6,6 +6,9 @@ Invoices
 .. autoclass:: mindee.documents.InvoiceV3
     :members:
 
+.. autoclass:: mindee.documents.InvoiceV4
+    :members:
+
 Expense Receipts
 ----------------
 .. autoclass:: mindee.documents.ReceiptV3
