@@ -1,10 +1,20 @@
 # Mindee Python API Library Changelog
 
-## v3.1.1 (2022-12-02)
+## v3.2.0 - 2023-01-06
+### Changes
+* :sparkles: add version option in CLI
+* :recycle: harmonize printing of float values
+* :sparkles: add support for Invoice 4.1
+* :sparkles: add support for Receipt v4.1
+* :memo: reorganize docs a bit
+* :arrow_up: update dependencies
+
+
+## v3.1.1 - 2022-12-02
 ### Fixes
 * :bug: fix for invoice v4 URL
 
-## v3.1.0 (2022-12-01)
+## v3.1.0 - 2022-12-01
 ### Changes
 * :sparkles: allow setting base URL from env
 * :sparkles: add some helper functions for BBox
@@ -16,7 +26,7 @@
 ### Fixes
 * :bug: page_n should always be set when available (#106)
 
-## v3.0.0 (2022-11-07)
+## v3.0.0 - 2022-11-07
 ### ¡Breaking Changes!
 * :sparkles: New PDF cut/merge system, allowing specifying exactly which pages to use.
 * :recycle: PDF documents are no longer cut by default, use the `page_options` parameter in the `parse` method.
@@ -33,7 +43,7 @@
 * :bug: Make sure the user is specified when calling custom docs on CLI
 * :bug: Add default timeout of 120 seconds for endpoints.
 
-## v2.6.0 (2022-10-10)
+## v2.6.0 - 2022-10-10
 ### Fixes
 * :bug: don't print "None" when filename is empty
 
@@ -46,12 +56,12 @@
 * :arrow_up: update pikepdf
 
 
-## v2.5.1 (2022-08-30)
+## v2.5.1 - 2022-08-30
 ### Fixes
 * :bug: never use mutable defaults in class definitions (#96)
 
 
-## v2.5.0 (2022-08-11)
+## v2.5.0 - 2022-08-11
 ### Changes
 * :lipstick: improve string output of documents
 * :arrow_up: general dependencies upgrade (#92)
@@ -59,7 +69,7 @@
 * :sparkles: Add bank checks documents (beta, US only) (#94)
 
 
-## v2.4.0 (2022-06-20)
+## v2.4.0 - 2022-06-20
 ### Fixes
 * :bug: :memo: custom docs names refer to the API, not the type.
 * :bug: words should be separated when printing custom documents
@@ -71,7 +81,7 @@
 * :memo: publish documentation to pages
 
 
-## v2.3.0 (2022-05-23)
+## v2.3.0 - 2022-05-23
 ### Fixes
 * :bug: make sure the 'Token' keyword is sent in the auth headers
 
@@ -83,7 +93,7 @@
 * :memo: Add basic automated class documentation
 
 
-## v2.2.0 (2022-03-24)
+## v2.2.0 - 2022-03-24
 ### Fixes
 * :bug: :boom: fix for customer_company_registration being a list of values
 
@@ -93,7 +103,7 @@
 * :white_check_mark: better testing of PDF pages
 
 
-## v2.1.1 (2022-03-15)
+## v2.1.1 - 2022-03-15
 ### Fixes
 * :bug: fix for locale constructor
 * :bug: fix custom document in CLI
@@ -106,7 +116,7 @@
 * :art: fixes to import order (isort) and documentation (pydocstyle)
 
 
-## v2.1.0 (2022-03-02)
+## v2.1.0 - 2022-03-02
 ### Changes
 * :sparkles: update to Invoices API v3
 * :recycle: refactor `Endpoint` classes and document building
@@ -114,7 +124,7 @@
 * :sparkles: add a basic logger
 
 
-## v2.0.2 (2022-02-21)
+## v2.0.2 - 2022-02-21
 ### Fixes
 * :bug: fix sending financial document via the CLI
 
@@ -123,7 +133,7 @@
 * :sparkles: Make sure all document information is printed
 
 
-## v2.0.1 (2022-02-15)
+## v2.0.1 - 2022-02-15
 ### Fixes
 * :bug: fix for invoice to string
 * :bug: fix for counting empty PDF pages
@@ -133,7 +143,7 @@
 * :arrow_up: Update Pillow to 9.0.1 (security fix)
 
 
-## v2.0.0 (2022-02-14)
+## v2.0.0 - 2022-02-14
 ### New Features
 * :sparkles: Allow using custom documents (API builder)
 
@@ -148,7 +158,7 @@
 * :memo: Documentation migrated mainly to https://developers.mindee.com/docs
 
 
-## v1.3.1 (2022-02-03)
+## v1.3.1 - 2022-02-03
 ### Fixes
 * :bug: fix probabilities not loaded from API
   [#49](https://github.com/mindee/mindee-api-python/issues/49)
@@ -157,7 +167,7 @@
 * :sparkles: add CLI tool for testing
 
 
-## v1.3.0 (2022-01-17)
+## v1.3.0 - 2022-01-17
 ### Fixes
 * :bug: Fixed URLs not built properly on Windows OS
   [#33](https://github.com/mindee/mindee-api-python/issues/33)
@@ -172,14 +182,14 @@
 * :page_facing_up: change to MIT license
 
 
-## v1.2.3 (2021-12-22)
+## v1.2.3 - 2021-12-22
 ### Fixes
 * :arrow_up: upgrade pymupdf to 1.18.17
 * :bug: handle few PDF files considered blank
 * :white_check_mark: re-initialize file cursor in test
 
 
-## v1.2.2 (2021-10-11)
+## v1.2.2 - 2021-10-11
 ### Fixes
 *  :bug: Fixed [#15](https://github.com/mindee/mindee-api-python/issues/15)
 
@@ -188,13 +198,13 @@
 * :sparkles: Added a blank pages only PDF detection & error raising
 
 
-## v1.2.1 (2021-09-23)
+## v1.2.1 - 2021-09-23
 ### Fixes
 * :bug: Forward uploaded file name for file verification rules
 * :bug: Change token management for new header format
 
 
-## v1.2.0 (2021-08-25)
+## v1.2.0 - 2021-08-25
 ### Changes
 * :sparkles: Adapted SDK to the new Mindee API endpoint
 * :zap: Single page object reconstruction is now server-side
@@ -202,30 +212,30 @@
 * :white_check_mark: Updated tests with new data
 
 
-## v1.1.3 (2021-02-21)
+## v1.1.3 - 2021-02-21
 ### Fixes
 * :zap: FinancialDoc attributes have same type from invoice or receipt
 
 
-## v1.1.2 (2021-02-19)
+## v1.1.2 - 2021-02-19
 ### Fix
 * :bug: Fixed FinancialDoc invoice version and reconstruction
 
 
-## v1.1.1 (2021-01-31)
+## v1.1.1 - 2021-01-31
 ### Changes
 * Updated total tax reconstruction for invoice
 
 
-## v1.1.0 (2020-12-02)
+## v1.1.0 - 2020-12-02
 ### Changes
 * Updated invoice API endpoint to V2
 
 
-## v1.0.2 (2020-12-01)
+## v1.0.2 - 2020-12-01
 ### Fix
 * Fixed null tax rate issue
 
 
-## v1.0.0 (2020-10-28)
+## v1.0.0 - 2020-10-28
 * :tada: First release!
