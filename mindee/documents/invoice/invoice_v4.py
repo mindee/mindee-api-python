@@ -23,6 +23,8 @@ class InvoiceV4(Document):
     """Date the invoice was issued"""
     invoice_number: TextField
     """Invoice number"""
+    reference_numbers: List[TextField]
+    """List of Reference numbers including PO number."""
     due_date: DateField
     """Date the invoice is due"""
     taxes: List[TaxField] = []
@@ -86,6 +88,10 @@ class InvoiceV4(Document):
         self.invoice_date = DateField(api_prediction["date"], page_n=page_n)
         self.due_date = DateField(api_prediction["due_date"], page_n=page_n)
         self.invoice_number = TextField(api_prediction["invoice_number"], page_n=page_n)
+        self.reference_numbers = [
+            TextField(reference_number, page_n=page_n)
+            for reference_number in api_prediction["reference_numbers"]
+        ]
         self.locale = LocaleField(
             api_prediction["locale"], value_key="language", page_n=page_n
         )
@@ -125,6 +131,7 @@ class InvoiceV4(Document):
         customer_company_registrations = "; ".join(
             [str(n.value) for n in self.customer_company_registrations]
         )
+        reference_numbers = ", ".join([str(n.value) for n in self.reference_numbers])
         payment_details = "\n                          ".join(
             [str(p) for p in self.supplier_payment_details]
         )
@@ -140,6 +147,7 @@ class InvoiceV4(Document):
             f"Filename: {self.filename or ''}\n"
             f"Locale: {self.locale}\n"
             f"Invoice number: {self.invoice_number}\n"
+            f"Reference numbers: {reference_numbers}\n"
             f"Invoice date: {self.invoice_date}\n"
             f"Invoice due date: {self.due_date}\n"
             f"Supplier name: {self.supplier_name}\n"
