@@ -24,7 +24,7 @@ pillow==9.3.0
     # via pikepdf
 pyparsing==3.0.9
     # via packaging
-pytz==2022.6
+pytz==2022.7
     # via mindee (setup.py)
 requests==2.28.1
     # via mindee (setup.py)
