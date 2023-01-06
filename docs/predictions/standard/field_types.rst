@@ -1,6 +1,6 @@
-------
-Fields
-------
+-------------
+Common Fields
+-------------
 
 Off the Shelf Documents
 =======================
@@ -61,27 +61,6 @@ Payment Details
 
 Position
 --------
-.. autoclass:: mindee.fields.position.Position
-    :members:
-    :inherited-members:
-
-Custom Documents
-================
-
-Value List
-----------
-.. autoclass:: mindee.fields.api_builder.ListField
-    :members:
-    :inherited-members:
-
-Word Value
-----------
-.. autoclass:: mindee.fields.api_builder.ListFieldValue
-    :members:
-    :inherited-members:
-
-Classification
---------------
-.. autoclass:: mindee.fields.api_builder.ClassificationField
+.. autoclass:: mindee.fields.position.PositionField
     :members:
     :inherited-members:

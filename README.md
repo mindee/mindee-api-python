@@ -28,7 +28,7 @@ from mindee import Client, documents
 mindee_client = Client(api_key="my-api-key")
 
 # Load a file from disk
-input_doc = mindee_client.doc_from_path("/path/to/the/invoice.pdf")
+input_doc = mindee_client.doc_from_path("/path/to/the/file.ext")
 
 # Parse the document as an invoice by passing the appropriate type
 api_response = input_doc.parse(documents.TypeInvoiceV4)
@@ -45,7 +45,7 @@ from mindee import Client, documents
 mindee_client = Client(api_key="my-api-key")
 
 # Load a file from disk
-input_doc = mindee_client.doc_from_path("/path/to/the/check.jpg")
+input_doc = mindee_client.doc_from_path("/path/to/the/file.ext")
 
 # Parse the document as a USA bank check by passing the appropriate type
 api_response = input_doc.parse(documents.us.TypeBankCheckV1)
@@ -68,7 +68,7 @@ mindee_client = Client(api_key="my-api-key").add_endpoint(
 # Load a file from disk and parse it.
 # The endpoint name must be specified since it can't be determined from the class.
 api_response = mindee_client.doc_from_path(
-    "/path/to/the/w9.jpg"
+    "/path/to/the/file.ext"
 ).parse(documents.TypeCustomV1, endpoint_name="wnine")
 
 # Print a brief summary of the parsed data
