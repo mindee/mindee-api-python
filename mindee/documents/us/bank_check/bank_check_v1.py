@@ -11,7 +11,7 @@ class BankCheckV1(Document):
     date: DateField
     """Date the check was issued"""
     amount: AmountField
-    """Total including taxes"""
+    """Amount to be paid"""
     payees: List[TextField]
     """List of payees (full name or company name)"""
     check_number: TextField
@@ -23,7 +23,7 @@ class BankCheckV1(Document):
     check_position: PositionField
     """Check's position in the image"""
     signatures_positions: List[PositionField]
-    """Signatures' positions in the image"""
+    """The positions of the signatures on the image."""
 
     def __init__(
         self,
