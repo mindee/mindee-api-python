@@ -1,5 +1,13 @@
 # Mindee Python API Library Changelog
 
+## v3.2.1 - 2023-01-18
+### Changes
+* :arrow_up: Update pikepdf
+* :sparkles: Add support for Python 3.11
+
+### Fixes
+* :bug: Fix misleading docstrings
+
 ## v3.2.0 - 2023-01-06
 ### Changes
 * :sparkles: add version option in CLI
