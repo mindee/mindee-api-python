@@ -209,12 +209,12 @@ Must inherit from <code class="docutils literal notranslate"><span class="pre">m
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.client.Client.api_key">
-<span class="sig-name descname"><span class="pre">api_key</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#mindee.client.Client.api_key" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">api_key</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#mindee.client.Client.api_key" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.client.Client.raise_on_error">
-<span class="sig-name descname"><span class="pre">raise_on_error</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#mindee.client.Client.raise_on_error" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">raise_on_error</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><a class="headerlink" href="#mindee.client.Client.raise_on_error" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -228,14 +228,14 @@ Must inherit from <code class="docutils literal notranslate"><span class="pre">m
 <dd><p>PageOptions(page_indexes, operation, on_min_pages)</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.input.page_options.PageOptions.on_min_pages">
-<span class="sig-name descname"><span class="pre">on_min_pages</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#mindee.input.page_options.PageOptions.on_min_pages" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">on_min_pages</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.input.page_options.PageOptions.on_min_pages" title="Permalink to this definition"></a></dt>
 <dd><p>Apply the operation only if document has at least this many pages.</p>
 <p>Default: <cite>0</cite> (apply on all documents)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.input.page_options.PageOptions.operation">
-<span class="sig-name descname"><span class="pre">operation</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#mindee.input.page_options.PageOptions.operation" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">operation</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#mindee.input.page_options.PageOptions.operation" title="Permalink to this definition"></a></dt>
 <dd><p>Operation to apply on the document, given the <code class="docutils literal notranslate"><span class="pre">page_indexes</span></code> specified:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">KEEP_ONLY</span></code> - keep only the specified pages, and remove all others.</p></li>
@@ -245,7 +245,7 @@ Must inherit from <code class="docutils literal notranslate"><span class="pre">m
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.input.page_options.PageOptions.page_indexes">
-<span class="sig-name descname"><span class="pre">page_indexes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mindee.input.page_options.PageOptions.page_indexes" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">page_indexes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.input.page_options.PageOptions.page_indexes" title="Permalink to this definition"></a></dt>
 <dd><p>Zero-based list of page indexes.
 A negative index can be used, indicating an offset from the end of the document.</p>
 <p><cite>[0, -1]</cite> represents the fist and last pages of the document.</p>
@@ -300,17 +300,17 @@ This performs a cropping operation on the server and will increase response time
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.client.DocumentClient.doc_configs">
-<span class="sig-name descname"><span class="pre">doc_configs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">DocumentConfig</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mindee.client.DocumentClient.doc_configs" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">doc_configs</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code><span class="pre">[</span><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">,</span> <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">],</span> <code class="xref py py-class docutils literal notranslate"><span class="pre">DocumentConfig</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.client.DocumentClient.doc_configs" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.client.DocumentClient.input_doc">
-<span class="sig-name descname"><span class="pre">input_doc</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">InputSource</span></em><a class="headerlink" href="#mindee.client.DocumentClient.input_doc" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">input_doc</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">InputSource</span></code></em><a class="headerlink" href="#mindee.client.DocumentClient.input_doc" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.client.DocumentClient.raise_on_error">
-<span class="sig-name descname"><span class="pre">raise_on_error</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#mindee.client.DocumentClient.raise_on_error" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">raise_on_error</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#mindee.client.DocumentClient.raise_on_error" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -325,43 +325,43 @@ This performs a cropping operation on the server and will increase response time
 <p>This is a generic class, so certain class properties depend on the document type.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.response.PredictResponse.document">
-<span class="sig-name descname"><span class="pre">document</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">TypeDocument</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mindee.response.PredictResponse.document" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">document</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code><span class="pre">(</span><code class="docutils literal notranslate"><span class="pre">TypeDocument</span></code><span class="pre">,</span> <span class="pre">bound=</span> <a class="reference internal" href="predictions/base.html#mindee.documents.base.Document" title="mindee.documents.base.Document"><code class="xref py py-class docutils literal notranslate"><span class="pre">Document</span></code></a><span class="pre">)]</span></em><a class="headerlink" href="#mindee.response.PredictResponse.document" title="Permalink to this definition"></a></dt>
 <dd><p>An instance of the <code class="docutils literal notranslate"><span class="pre">Document</span></code> class, according to the type given.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.response.PredictResponse.document_type">
-<span class="sig-name descname"><span class="pre">document_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#mindee.response.PredictResponse.document_type" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">document_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#mindee.response.PredictResponse.document_type" title="Permalink to this definition"></a></dt>
 <dd><p>Document type</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.response.PredictResponse.http_response">
-<span class="sig-name descname"><span class="pre">http_response</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mindee.response.PredictResponse.http_response" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">http_response</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">,</span> <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.response.PredictResponse.http_response" title="Permalink to this definition"></a></dt>
 <dd><p>Raw HTTP response JSON</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.response.PredictResponse.input_filename">
-<span class="sig-name descname"><span class="pre">input_filename</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.response.PredictResponse.input_filename" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">input_filename</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.response.PredictResponse.input_filename" title="Permalink to this definition"></a></dt>
 <dd><p>Name of the input file</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.response.PredictResponse.input_mimetype">
-<span class="sig-name descname"><span class="pre">input_mimetype</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.response.PredictResponse.input_mimetype" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">input_mimetype</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.response.PredictResponse.input_mimetype" title="Permalink to this definition"></a></dt>
 <dd><p>MIME type of the input file</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.response.PredictResponse.input_path">
-<span class="sig-name descname"><span class="pre">input_path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.response.PredictResponse.input_path" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">input_path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.response.PredictResponse.input_path" title="Permalink to this definition"></a></dt>
 <dd><p>Path of the input file</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.response.PredictResponse.pages">
-<span class="sig-name descname"><span class="pre">pages</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">TypeDocument</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mindee.response.PredictResponse.pages" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">pages</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code><span class="pre">(</span><code class="docutils literal notranslate"><span class="pre">TypeDocument</span></code><span class="pre">,</span> <span class="pre">bound=</span> <a class="reference internal" href="predictions/base.html#mindee.documents.base.Document" title="mindee.documents.base.Document"><code class="xref py py-class docutils literal notranslate"><span class="pre">Document</span></code></a><span class="pre">)]</span></em><a class="headerlink" href="#mindee.response.PredictResponse.pages" title="Permalink to this definition"></a></dt>
 <dd><p>A list of instances of the <code class="docutils literal notranslate"><span class="pre">Document</span></code> class, according to the type given.</p>
 </dd></dl>
 
