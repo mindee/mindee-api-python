@@ -1,5 +1,9 @@
 # Mindee Python API Library Changelog
 
+## v3.3.0 - 2023-01-27
+### Changes
+* sparkles: Add French carte grise v1 support
+
 ## v3.2.1 - 2023-01-18
 ### Changes
 * :arrow_up: Update pikepdf
