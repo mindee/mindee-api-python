@@ -1,4 +1,5 @@
 from mindee.documents import us
+from mindee.documents import fr
 from mindee.documents.cropper import CropperV1, TypeCropperV1
 from mindee.documents.custom import CustomV1, TypeCustomV1
 from mindee.documents.financial import FinancialV1, TypeFinancialV1

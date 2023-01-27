@@ -42,6 +42,10 @@ DOCUMENTS: Dict[str, CommandConfig] = {
         help="US Bank Check",
         doc_class=documents.us.TypeBankCheckV1,
     ),
+    "fr-carte-grise": CommandConfig(
+        help="French Carte Grise",
+        doc_class=documents.fr.TypeCarteGriseV1,
+    ),
 }
 
 
