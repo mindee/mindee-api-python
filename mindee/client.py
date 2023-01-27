@@ -13,8 +13,8 @@ from mindee.documents import (
 )
 from mindee.documents.base import Document, TypeDocument
 from mindee.documents.config import DocumentConfig, DocumentConfigDict
-from mindee.documents.us import BankCheckV1
 from mindee.documents.fr import CarteGriseV1
+from mindee.documents.us import BankCheckV1
 from mindee.endpoints import OTS_OWNER, CustomEndpoint, HTTPException, StandardEndpoint
 from mindee.input.page_options import PageOptions
 from mindee.input.sources import (

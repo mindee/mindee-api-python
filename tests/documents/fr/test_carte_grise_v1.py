@@ -32,8 +32,14 @@ def bank_check_pred():
 # Technical tests
 def test_constructor(carte_grise_v1_doc_object):
     assert carte_grise_v1_doc_object.formula_number.value == "2016AE00000"
-    assert carte_grise_v1_doc_object.mrz1.value == "CRFRADFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXVP<<<<"
-    assert carte_grise_v1_doc_object.mrz2.value == "CRFRADFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXVP<<<<"
+    assert (
+        carte_grise_v1_doc_object.mrz1.value
+        == "CRFRADFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXVP<<<<"
+    )
+    assert (
+        carte_grise_v1_doc_object.mrz2.value
+        == "CRFRADFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXVP<<<<"
+    )
     assert carte_grise_v1_doc_object.owner_first_name.value == "JOHN"
     assert carte_grise_v1_doc_object.owner_surname.value == "DOE"
     assert carte_grise_v1_doc_object.a.value == "DY-757-ZH"

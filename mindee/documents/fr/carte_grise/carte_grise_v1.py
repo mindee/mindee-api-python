@@ -89,7 +89,6 @@ class CarteGriseV1(Document):
     y6: TextField
     """Total amount of registration fee to be paid in euros."""
 
-
     def __init__(
         self,
         api_prediction=None,
@@ -121,10 +120,13 @@ class CarteGriseV1(Document):
         :param api_prediction: Raw prediction from HTTP response
         :param page_n: Page number for multi pages pdf input
         """
+        # pylint: disable=invalid-name
         self.formula_number = TextField(api_prediction["formula_number"], page_n=page_n)
         self.mrz1 = TextField(api_prediction["mrz1"], page_n=page_n)
         self.mrz2 = TextField(api_prediction["mrz2"], page_n=page_n)
-        self.owner_first_name = TextField(api_prediction["owner_first_name"], page_n=page_n)
+        self.owner_first_name = TextField(
+            api_prediction["owner_first_name"], page_n=page_n
+        )
         self.owner_surname = TextField(api_prediction["owner_surname"], page_n=page_n)
         self.a = TextField(api_prediction["a"], page_n=page_n)
         self.b = DateField(api_prediction["b"], page_n=page_n)
