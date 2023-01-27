@@ -13,6 +13,7 @@ from mindee.documents import (
 )
 from mindee.documents.base import Document, TypeDocument
 from mindee.documents.config import DocumentConfig, DocumentConfigDict
+from mindee.documents.fr import CarteGriseV1
 from mindee.documents.us import BankCheckV1
 from mindee.endpoints import OTS_OWNER, CustomEndpoint, HTTPException, StandardEndpoint
 from mindee.input.page_options import PageOptions
@@ -254,6 +255,15 @@ class Client:
                 endpoints=[
                     StandardEndpoint(
                         url_name="bank_check", version="1", api_key=self.api_key
+                    )
+                ],
+            ),
+            (OTS_OWNER, CarteGriseV1.__name__): DocumentConfig(
+                document_type="carte_grise_v1",
+                document_class=CarteGriseV1,
+                endpoints=[
+                    StandardEndpoint(
+                        url_name="carte_grise", version="1", api_key=self.api_key
                     )
                 ],
             ),
