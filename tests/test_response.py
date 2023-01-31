@@ -12,6 +12,7 @@ from mindee.documents.receipt.receipt_v4 import ReceiptV4
 from mindee.endpoints import OTS_OWNER
 from mindee.input.sources import PathInput
 from mindee.response import PredictResponse
+from tests.documents.test_financial_v1 import FILE_PATH_FINANCIAL_DOC_V1_RECEIPT
 from tests.documents.test_invoice_v3 import FILE_PATH_INVOICE_V3_COMPLETE
 from tests.documents.test_passport_v1 import FILE_PATH_PASSPORT_V1_COMPLETE
 from tests.documents.test_receipt_v3 import FILE_PATH_RECEIPT_V3_COMPLETE
@@ -78,7 +79,7 @@ def test_response_receipt_v4(dummy_file_input, dummy_config):
 
 
 def test_response_financial_doc_with_receipt(dummy_file_input, dummy_config):
-    response = json.load(open(FILE_PATH_RECEIPT_V3_COMPLETE))
+    response = json.load(open(FILE_PATH_FINANCIAL_DOC_V1_RECEIPT))
     parsed_response = PredictResponse[FinancialV1](
         doc_config=dummy_config[(OTS_OWNER, FinancialV1.__name__)],
         http_response=response,
