@@ -8,13 +8,14 @@ from mindee.documents import (
     InvoiceV3,
     InvoiceV4,
     PassportV1,
+    ProofOfAddressV1,
     ReceiptV3,
     ReceiptV4,
+    fr,
+    us,
 )
 from mindee.documents.base import Document, TypeDocument
 from mindee.documents.config import DocumentConfig, DocumentConfigDict
-from mindee.documents.fr import CarteGriseV1
-from mindee.documents.us import BankCheckV1
 from mindee.endpoints import OTS_OWNER, CustomEndpoint, HTTPException, StandardEndpoint
 from mindee.input.page_options import PageOptions
 from mindee.input.sources import (
@@ -249,21 +250,30 @@ class Client:
                     )
                 ],
             ),
-            (OTS_OWNER, BankCheckV1.__name__): DocumentConfig(
+            (OTS_OWNER, us.BankCheckV1.__name__): DocumentConfig(
                 document_type="bank_check_v1",
-                document_class=BankCheckV1,
+                document_class=us.BankCheckV1,
                 endpoints=[
                     StandardEndpoint(
                         url_name="bank_check", version="1", api_key=self.api_key
                     )
                 ],
             ),
-            (OTS_OWNER, CarteGriseV1.__name__): DocumentConfig(
+            (OTS_OWNER, fr.CarteGriseV1.__name__): DocumentConfig(
                 document_type="carte_grise_v1",
-                document_class=CarteGriseV1,
+                document_class=fr.CarteGriseV1,
                 endpoints=[
                     StandardEndpoint(
                         url_name="carte_grise", version="1", api_key=self.api_key
+                    )
+                ],
+            ),
+            (OTS_OWNER, ProofOfAddressV1.__name__): DocumentConfig(
+                document_type="proof_of_address_v1",
+                document_class=ProofOfAddressV1,
+                endpoints=[
+                    StandardEndpoint(
+                        url_name="proof_of_address", version="1", api_key=self.api_key
                     )
                 ],
             ),
