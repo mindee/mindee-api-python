@@ -1,5 +1,18 @@
 # Mindee Python API Library Changelog
 
+## v3.4.0 - 2023-02-01
+### Changes
+* :sparkles: add support for: financial document v1
+* :sparkles: add support for: proof of address v1
+
+### Deprecations
+The `FinancialV1` class is now *deprecated*.
+
+It's still usable with no code modifications but will be **removed** in a future release.
+
+All users are encouraged to move to `FinancialDocumentV1` which has much better performance.
+Also field names in `FinancialDocumentV1` now match those of `Invoice` and `Receipt`.
+
 ## v3.3.0 - 2023-01-27
 ### Changes
 * sparkles: Add French carte grise v1 support
