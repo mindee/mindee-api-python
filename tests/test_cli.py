@@ -67,7 +67,7 @@ def test_cli_receipt(ots_doc):
 
 
 def test_cli_financial_doc(ots_doc):
-    ots_doc.product_name = "financial"
+    ots_doc.product_name = "financial-document"
     ots_doc.api_key = ""
     with pytest.raises(RuntimeError):
         call_endpoint(ots_doc)

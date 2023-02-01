@@ -2,9 +2,9 @@ from mindee.documents import fr, us
 from mindee.documents.cropper import CropperV1, TypeCropperV1
 from mindee.documents.custom import CustomV1, TypeCustomV1
 from mindee.documents.financial import (
-    FinancialV0,
+    FinancialDocumentV1,
     FinancialV1,
-    TypeFinancialV0,
+    TypeFinancialDocumentV1,
     TypeFinancialV1,
 )
 from mindee.documents.invoice import InvoiceV3, InvoiceV4, TypeInvoiceV3, TypeInvoiceV4
