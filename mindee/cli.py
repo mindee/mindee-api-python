@@ -38,6 +38,10 @@ DOCUMENTS: Dict[str, CommandConfig] = {
         help="Financial Document (receipt or invoice)",
         doc_class=documents.TypeFinancialV1,
     ),
+    "proof-of-address": CommandConfig(
+        help="Proof of Address",
+        doc_class=documents.TypeProofOfAddressV1,
+    ),
     "us-check": CommandConfig(
         help="US Bank Check",
         doc_class=documents.us.TypeBankCheckV1,
