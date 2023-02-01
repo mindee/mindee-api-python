@@ -34,9 +34,9 @@ DOCUMENTS: Dict[str, CommandConfig] = {
         help="Passport",
         doc_class=documents.TypePassportV1,
     ),
-    "financial": CommandConfig(
+    "financial-document": CommandConfig(
         help="Financial Document (receipt or invoice)",
-        doc_class=documents.TypeFinancialV1,
+        doc_class=documents.TypeFinancialDocumentV1,
     ),
     "proof-of-address": CommandConfig(
         help="Proof of Address",

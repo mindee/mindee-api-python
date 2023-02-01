@@ -4,7 +4,7 @@ from typing import BinaryIO, Dict, Optional, Type
 from mindee.documents import (
     CropperV1,
     CustomV1,
-    FinancialV0,
+    FinancialDocumentV1,
     FinancialV1,
     InvoiceV3,
     InvoiceV4,
@@ -230,9 +230,9 @@ class Client:
                     )
                 ],
             ),
-            (OTS_OWNER, FinancialV0.__name__): DocumentConfig(
+            (OTS_OWNER, FinancialV1.__name__): DocumentConfig(
                 document_type="financial_doc",
-                document_class=FinancialV0,
+                document_class=FinancialV1,
                 endpoints=[
                     StandardEndpoint(
                         url_name="invoices", version="3", api_key=self.api_key
@@ -242,9 +242,9 @@ class Client:
                     ),
                 ],
             ),
-            (OTS_OWNER, FinancialV1.__name__): DocumentConfig(
-                document_type="financial_doc",
-                document_class=FinancialV1,
+            (OTS_OWNER, FinancialDocumentV1.__name__): DocumentConfig(
+                document_type="financial_document",
+                document_class=FinancialDocumentV1,
                 endpoints=[
                     StandardEndpoint(
                         url_name="financial_document", version="1", api_key=self.api_key
