@@ -58,7 +58,7 @@ class FinancialV1(Document):
         """
         Union of `Invoice` and `Receipt`.
 
-        DEPRECATED, do not use.
+        DEPRECATED, use ``FinancialDocumentV1`` instead.
 
         :param api_prediction: Raw prediction from HTTP response
         :param input_source: Input object
