@@ -1,9 +1,7 @@
 from typing import List, Optional, TypeVar
 
 from mindee.documents.base import Document, TypeApiPrediction, clean_out_string
-from mindee.documents.invoice.invoice_v3 import InvoiceV3
-from mindee.documents.receipt.receipt_v3 import ReceiptV3
-from mindee.endpoints import Endpoint
+from mindee.documents.invoice.line_item import InvoiceLineItem
 from mindee.fields.amount import AmountField
 from mindee.fields.company_registration import CompanyRegistrationField
 from mindee.fields.date import DateField
@@ -11,42 +9,53 @@ from mindee.fields.locale import LocaleField
 from mindee.fields.payment_details import PaymentDetails
 from mindee.fields.tax import TaxField
 from mindee.fields.text import TextField
-from mindee.input.sources import InputSource
 
 
 class FinancialV1(Document):
     locale: LocaleField
     """locale information"""
-    total_incl: AmountField
+    total_amount: AmountField
     """Total including taxes"""
-    total_excl: AmountField
+    total_net: AmountField
     """Total excluding taxes"""
     date: DateField
-    """Date the document was issued"""
-    time: TextField
-    """Time the document was issued"""
+    """Date the invoice was issued"""
     invoice_number: TextField
     """Invoice number"""
+    reference_numbers: List[TextField]
+    """List of Reference numbers including PO number."""
     due_date: DateField
     """Date the invoice is due"""
-    taxes: List[TaxField]
+    taxes: List[TaxField] = []
     """List of all taxes"""
-    merchant_name: TextField
-    """Merchant/Supplier's name"""
+    total_tax: AmountField
+    """Sum total of all taxes"""
+    supplier_name: TextField
+    """Supplier 's name"""
     supplier_address: TextField
-    """Merchant/Supplier's address"""
+    """Supplier's address"""
+    supplier_company_registrations: List[CompanyRegistrationField]
+    """Company numbers"""
     customer_name: TextField
     """Customer's name"""
     customer_address: TextField
     """Customer's address"""
-    customer_company_registration: List[CompanyRegistrationField]
+    customer_company_registrations: List[CompanyRegistrationField]
     """Customer company registration numbers"""
-    payment_details: List[PaymentDetails]
+    supplier_payment_details: List[PaymentDetails]
     """Payment details"""
-    company_number: List[CompanyRegistrationField]
-    """Company numbers"""
-    total_tax: AmountField
-    """Sum total of all taxes"""
+    line_items: List[InvoiceLineItem]
+    """Details of line items"""
+    tip: AmountField
+    """Total amount of tip and gratuity."""
+    time: TextField
+    """Time as seen on the receipt in HH:MM format."""
+    document_type: TextField
+    """A classification field, among predefined classes."""
+    category: TextField
+    """The invoice or receipt category among predefined classes."""
+    subcategory: TextField
+    """The invoice or receipt sub-category among predefined classes."""
 
     def __init__(
         self,
@@ -71,8 +80,7 @@ class FinancialV1(Document):
             api_prediction=api_prediction,
             page_n=page_n,
         )
-        self._build_from_api_prediction(api_prediction, page_n=page_n)
-        self._checklist()
+        self._build_from_api_prediction(api_prediction["prediction"], page_n=page_n)
 
     def _build_from_api_prediction(
         self, api_prediction: TypeApiPrediction, page_n: Optional[int] = None
@@ -83,137 +91,101 @@ class FinancialV1(Document):
         :param api_prediction: Raw prediction from HTTP response
         :param page_n: Page number for multi pages pdf input
         """
-        if "invoice_number" in api_prediction["prediction"].keys():
-            invoice = InvoiceV3(api_prediction, self.input_file, page_n=page_n)
-            self.locale = invoice.locale
-            self.total_incl = invoice.total_incl
-            self.total_excl = invoice.total_excl
-            self.date = invoice.invoice_date
-            self.invoice_number = invoice.invoice_number
-            self.due_date = invoice.due_date
-            self.taxes = invoice.taxes
-            self.merchant_name = invoice.supplier
-            self.payment_details = invoice.payment_details
-            self.company_number = invoice.company_number
-            self.orientation = invoice.orientation
-            self.total_tax = invoice.total_tax
-            self.time = TextField({"value": None, "confidence": 0.0})
-            self.supplier_address = invoice.supplier_address
-            self.customer_name = invoice.customer_name
-            self.customer_company_registration = invoice.customer_company_registration
-            self.customer_address = invoice.customer_address
-        else:
-            receipt = ReceiptV3(api_prediction, self.input_file, page_n=page_n)
-            self.orientation = receipt.orientation
-            self.date = receipt.date
-            self.due_date = receipt.date
-            self.taxes = receipt.taxes
-            self.locale = receipt.locale
-            self.total_incl = receipt.total_incl
-            self.total_excl = receipt.total_excl
-            self.merchant_name = receipt.merchant_name
-            self.time = receipt.time
-            self.total_tax = receipt.total_tax
-            self.customer_company_registration = []
-            self.company_number = []
-            self.payment_details = []
-            self.invoice_number = TextField({"value": None, "confidence": 0.0})
-            self.supplier_address = TextField({"value": None, "confidence": 0.0})
-            self.customer_name = TextField({"value": None, "confidence": 0.0})
-            self.customer_address = TextField({"value": None, "confidence": 0.0})
-
-    def __str__(self) -> str:
-        return clean_out_string(
-            "-----Financial Document data-----\n"
-            f"Filename: {self.filename or ''}\n"
-            f"Invoice number: {self.invoice_number.value}\n"
-            f"Total amount including taxes: {self.total_incl.value}\n"
-            f"Total amount excluding taxes: {self.total_excl.value}\n"
-            "Date: %s\n"
-            "Invoice due date: %s\n"
-            "Supplier name: %s\n"
-            f"Supplier address: {self.supplier_address}\n"
-            f"Customer name: {self.customer_name}\n"
-            f"Customer company registration: {self.customer_company_registration}\n"
-            f"Customer address: {self.customer_address}\n"
-            "Taxes: %s\n"
-            "Total taxes: %s\n"
-            "----------------------"
-            % (
-                self.date.value,
-                self.due_date.value,
-                self.merchant_name.value,
-                ",".join([str(t.value) + " " + str(t.rate) + "%" for t in self.taxes]),
-                self.total_tax.value,
-            )
+        self.supplier_company_registrations = [
+            CompanyRegistrationField(field_dict, page_n=page_n)
+            for field_dict in api_prediction["supplier_company_registrations"]
+        ]
+        self.date = DateField(api_prediction["date"], page_n=page_n)
+        self.due_date = DateField(api_prediction["due_date"], page_n=page_n)
+        self.invoice_number = TextField(api_prediction["invoice_number"], page_n=page_n)
+        self.reference_numbers = [
+            TextField(reference_number, page_n=page_n)
+            for reference_number in api_prediction["reference_numbers"]
+        ]
+        self.locale = LocaleField(
+            api_prediction["locale"], value_key="language", page_n=page_n
+        )
+        self.supplier_name = TextField(api_prediction["supplier_name"], page_n=page_n)
+        self.supplier_address = TextField(
+            api_prediction["supplier_address"], page_n=page_n
+        )
+        self.customer_name = TextField(api_prediction["customer_name"], page_n=page_n)
+        self.customer_company_registrations = [
+            CompanyRegistrationField(field_dict, page_n=page_n)
+            for field_dict in api_prediction["customer_company_registrations"]
+        ]
+        self.customer_address = TextField(
+            api_prediction["customer_address"], page_n=page_n
         )
 
-    @staticmethod
-    def request(
-        endpoints: List[Endpoint],
-        input_source: InputSource,
-        include_words: bool = False,
-        close_file: bool = True,
-        cropper: bool = False,
-    ):
-        """
-        Make request to prediction endpoint.
+        self.taxes = [
+            TaxField(tax_prediction, page_n=page_n, value_key="value")
+            for tax_prediction in api_prediction["taxes"]
+        ]
+        self.supplier_payment_details = [
+            PaymentDetails(payment_detail, page_n=page_n)
+            for payment_detail in api_prediction["supplier_payment_details"]
+        ]
+        self.line_items = [
+            InvoiceLineItem(prediction=line_item, page_n=page_n)
+            for line_item in api_prediction["line_items"]
+        ]
+        self.total_amount = AmountField(api_prediction["total_amount"], page_n=page_n)
+        self.total_net = AmountField(api_prediction["total_net"], page_n=page_n)
+        self.total_tax = AmountField(api_prediction["total_tax"], page_n=page_n)
+        self.tip = AmountField(api_prediction["tip"], page_n=page_n)
+        self.time = TextField(api_prediction["time"], page_n=page_n)
+        self.document_type = TextField(api_prediction["document_type"], page_n=page_n)
+        self.category = TextField(api_prediction["category"], page_n=page_n)
+        self.subcategory = TextField(api_prediction["subcategory"], page_n=page_n)
 
-        :param input_source: Input object
-        :param endpoints: Endpoints config
-        :param include_words: Include Mindee vision words in http_response
-        :param close_file: Whether to `close()` the file after parsing it.
-        :param cropper: Including Mindee cropper results.
-        """
-        if "pdf" in input_source.file_mimetype:
-            # invoices is index 0, receipts 1 (this should be cleaned up)
-            index = 0
-        else:
-            index = 1
-        return endpoints[index].predict_req_post(
-            input_source, include_words, close_file, cropper=cropper
+    def __str__(self) -> str:
+        supplier_company_registrations = "; ".join(
+            [str(n.value) for n in self.supplier_company_registrations]
+        )
+        customer_company_registrations = "; ".join(
+            [str(n.value) for n in self.customer_company_registrations]
+        )
+        reference_numbers = ", ".join([str(n.value) for n in self.reference_numbers])
+        payment_details = "\n                          ".join(
+            [str(p) for p in self.supplier_payment_details]
+        )
+        taxes = "\n       ".join(f"{t}" for t in self.taxes)
+        line_items = "\n"
+        if self.line_items:
+            line_items = "\n  Code           | QTY    | Price   | Amount   | Tax (Rate)       | Description\n"
+            for item in self.line_items:
+                line_items += f"  {item}\n"
+        return clean_out_string(
+            "----- Financial Document V1 -----\n"
+            f"Filename: {self.filename or ''}\n"
+            f"Document type: {self.document_type}\n"
+            f"Category: {self.category}\n"
+            f"Subcategory: {self.subcategory}\n"
+            f"Locale: {self.locale}\n"
+            f"Invoice number: {self.invoice_number}\n"
+            f"Reference numbers: {reference_numbers}\n"
+            f"Date: {self.date}\n"
+            f"Due date: {self.due_date}\n"
+            f"Time: {self.time}\n"
+            f"Supplier name: {self.supplier_name}\n"
+            f"Supplier address: {self.supplier_address}\n"
+            f"Supplier company registrations: {supplier_company_registrations}\n"
+            f"Supplier payment details: {payment_details}\n"
+            f"Customer name: {self.customer_name}\n"
+            f"Customer address: {self.customer_address}\n"
+            f"Customer company registrations: {customer_company_registrations}\n"
+            f"Tip: {self.tip}\n"
+            f"Taxes: {taxes}\n"
+            f"Total tax: {self.total_tax}\n"
+            f"Total net: {self.total_net}\n"
+            f"Total amount: {self.total_amount}\n"
+            f"Line Items: {line_items}"
+            "----------------------"
         )
 
     def _checklist(self) -> None:
-        """Set the validation rules."""
-        self.checklist = {"taxes_match_total_incl": self.__taxes_match_total_incl()}
-
-    # Checks
-    def __taxes_match_total_incl(self) -> bool:
-        """
-        Check invoice rule of matching between taxes and total_incl.
-
-        :return: True if rule matches, False otherwise
-        """
-        # Check taxes and total_incl exist
-        if len(self.taxes) == 0 or self.total_incl.value is None:
-            return False
-
-        # Reconstruct total_incl from taxes
-        total_vat = 0.0
-        reconstructed_total = 0.0
-        for tax in self.taxes:
-            if tax.rate is not None and tax.rate != 0 and tax.value is not None:
-                total_vat += tax.value
-                reconstructed_total += tax.value + 100 * tax.value / tax.rate
-
-        # Sanity check
-        if total_vat <= 0:
-            return False
-
-        # Crate epsilon
-        eps = 1 / (100 * total_vat)
-        if (
-            self.total_incl.value * (1 - eps) - 0.02
-            <= reconstructed_total
-            <= self.total_incl.value * (1 + eps) + 0.02
-        ):
-            for tax in self.taxes:
-                tax.confidence = 1.0
-            self.total_tax.confidence = 1.0
-            self.total_incl.confidence = 1.0
-            return True
-        return False
+        pass
 
 
 TypeFinancialV1 = TypeVar("TypeFinancialV1", bound=FinancialV1)
