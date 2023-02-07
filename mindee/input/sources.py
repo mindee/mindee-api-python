@@ -56,10 +56,8 @@ class InputSource:
             raise MimeTypeError(f"Could not determine MIME type of '{self.filename}'")
 
         if self.file_mimetype not in ALLOWED_MIME_TYPES:
-            raise MimeTypeError(
-                "File type not allowed, must be one of {%s}"
-                % ", ".join(ALLOWED_MIME_TYPES)
-            )
+            file_types = ", ".join(ALLOWED_MIME_TYPES)
+            raise MimeTypeError(f"File type not allowed, must be one of {file_types}")
 
     def is_pdf(self) -> bool:
         """:return: True if the file is a PDF."""

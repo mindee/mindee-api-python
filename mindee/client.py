@@ -154,8 +154,7 @@ class DocumentClient:
 
         if not response.ok and self.raise_on_error:
             raise HTTPException(
-                "API %s HTTP error: %s"
-                % (response.status_code, json.dumps(dict_response))
+                f"API {response.status_code} HTTP error: {json.dumps(dict_response)}"
             )
         return PredictResponse[TypeDocument](
             http_response=dict_response,
