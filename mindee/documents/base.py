@@ -100,7 +100,7 @@ class Document:
         raise NotImplementedError()
 
     def _checklist(self) -> None:
-        raise NotImplementedError()
+        pass
 
     def _reconstruct(self) -> None:
         pass
