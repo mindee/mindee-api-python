@@ -43,7 +43,6 @@ class PassportV1(Document):
         api_prediction=None,
         input_source=None,
         page_n: Optional[int] = None,
-        document_type="passport",
     ):
         """
         Passport document.
@@ -54,7 +53,7 @@ class PassportV1(Document):
         """
         super().__init__(
             input_source=input_source,
-            document_type=document_type,
+            document_type="passport",
             api_prediction=api_prediction,
             page_n=page_n,
         )

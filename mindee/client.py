@@ -194,7 +194,6 @@ class Client:
     def _init_default_endpoints(self) -> None:
         self._doc_configs = {
             (OTS_OWNER, InvoiceV3.__name__): DocumentConfig(
-                document_type="invoice_v3",
                 document_class=InvoiceV3,
                 endpoints=[
                     StandardEndpoint(
@@ -203,7 +202,6 @@ class Client:
                 ],
             ),
             (OTS_OWNER, InvoiceV4.__name__): DocumentConfig(
-                document_type="invoice_v4",
                 document_class=InvoiceV4,
                 endpoints=[
                     StandardEndpoint(
@@ -212,7 +210,6 @@ class Client:
                 ],
             ),
             (OTS_OWNER, ReceiptV3.__name__): DocumentConfig(
-                document_type="receipt_v3",
                 document_class=ReceiptV3,
                 endpoints=[
                     StandardEndpoint(
@@ -221,7 +218,6 @@ class Client:
                 ],
             ),
             (OTS_OWNER, ReceiptV4.__name__): DocumentConfig(
-                document_type="receipt_v4",
                 document_class=ReceiptV4,
                 endpoints=[
                     StandardEndpoint(
@@ -230,7 +226,6 @@ class Client:
                 ],
             ),
             (OTS_OWNER, FinancialV1.__name__): DocumentConfig(
-                document_type="financial_doc",
                 document_class=FinancialV1,
                 endpoints=[
                     StandardEndpoint(
@@ -242,7 +237,6 @@ class Client:
                 ],
             ),
             (OTS_OWNER, FinancialDocumentV1.__name__): DocumentConfig(
-                document_type="financial_document",
                 document_class=FinancialDocumentV1,
                 endpoints=[
                     StandardEndpoint(
@@ -251,7 +245,6 @@ class Client:
                 ],
             ),
             (OTS_OWNER, PassportV1.__name__): DocumentConfig(
-                document_type="passport_v1",
                 document_class=PassportV1,
                 endpoints=[
                     StandardEndpoint(
@@ -260,7 +253,6 @@ class Client:
                 ],
             ),
             (OTS_OWNER, us.BankCheckV1.__name__): DocumentConfig(
-                document_type="bank_check_v1",
                 document_class=us.BankCheckV1,
                 endpoints=[
                     StandardEndpoint(
@@ -269,7 +261,6 @@ class Client:
                 ],
             ),
             (OTS_OWNER, fr.CarteGriseV1.__name__): DocumentConfig(
-                document_type="carte_grise_v1",
                 document_class=fr.CarteGriseV1,
                 endpoints=[
                     StandardEndpoint(
@@ -278,7 +269,6 @@ class Client:
                 ],
             ),
             (OTS_OWNER, ProofOfAddressV1.__name__): DocumentConfig(
-                document_type="proof_of_address_v1",
                 document_class=ProofOfAddressV1,
                 endpoints=[
                     StandardEndpoint(
@@ -287,7 +277,6 @@ class Client:
                 ],
             ),
             (OTS_OWNER, CropperV1.__name__): DocumentConfig(
-                document_type="cropper_v1",
                 document_class=CropperV1,
                 endpoints=[
                     StandardEndpoint(

@@ -32,7 +32,6 @@ class ProofOfAddressV1(Document):
         api_prediction=None,
         input_source=None,
         page_n: Optional[int] = None,
-        document_type="proof_of_address",
     ):
         """
         Proof of Address document.
@@ -43,7 +42,7 @@ class ProofOfAddressV1(Document):
         """
         super().__init__(
             input_source=input_source,
-            document_type=document_type,
+            document_type="proof_of_address",
             api_prediction=api_prediction,
             page_n=page_n,
         )
