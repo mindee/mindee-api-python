@@ -28,7 +28,7 @@ def clean_out_string(out_string: str) -> str:
 
 
 class Document:
-    type: str
+    type: Optional[str]
     """Document type"""
     checklist: dict
     """Validation checks for the document"""
@@ -47,7 +47,7 @@ class Document:
     def __init__(
         self,
         input_source: InputSource,
-        document_type: str,
+        document_type: Optional[str],
         api_prediction: TypeApiPrediction,
         page_n: Optional[int] = None,
     ):

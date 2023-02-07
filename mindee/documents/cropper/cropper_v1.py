@@ -13,7 +13,6 @@ class CropperV1(Document):
         api_prediction: TypeApiPrediction,
         input_source=None,
         page_n: Optional[int] = None,
-        document_type="cropper",
     ):
         """
         Custom document object.
@@ -25,7 +24,7 @@ class CropperV1(Document):
         """
         super().__init__(
             input_source=input_source,
-            document_type=document_type,
+            document_type="cropper",
             api_prediction=api_prediction,
             page_n=page_n,
         )

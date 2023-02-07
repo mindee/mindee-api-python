@@ -15,7 +15,7 @@ class PredictResponse(Generic[TypeDocument]):
 
     http_response: Dict[str, Any]
     """Raw HTTP response JSON"""
-    document_type: str
+    document_type: Optional[str] = None
     """Document type"""
     input_path: Optional[str] = None
     """Path of the input file"""
@@ -63,20 +63,36 @@ class PredictResponse(Generic[TypeDocument]):
         doc_config: DocumentConfig,
         input_source: InputSource,
     ) -> None:
+        # This is some seriously ugly stuff.
+        # Simplify all this in V4, as we won't need to pass the document type anymore
         for api_page in self.http_response["document"]["inference"]["pages"]:
-            self.pages.append(
+            if doc_config.document_type:
                 # https://github.com/python/mypy/issues/13596
-                doc_config.document_class(  # type: ignore
+                page = doc_config.document_class(
                     api_prediction=api_page,
                     input_source=input_source,
                     document_type=doc_config.document_type,
                     page_n=api_page["id"],
                 )
-            )
+            else:
+                page = doc_config.document_class(  # type: ignore
+                    api_prediction=api_page,
+                    input_source=input_source,
+                    page_n=api_page["id"],
+                )
+            self.pages.append(page)  # type: ignore
+
         # https://github.com/python/mypy/issues/13596
-        self.document = doc_config.document_class(  # type: ignore
-            api_prediction=self.http_response["document"]["inference"],
-            input_source=input_source,
-            document_type=doc_config.document_type,
-            page_n=None,
-        )
+        if doc_config.document_type:
+            self.document = doc_config.document_class(  # type: ignore
+                api_prediction=self.http_response["document"]["inference"],
+                input_source=input_source,
+                document_type=doc_config.document_type,
+                page_n=None,
+            )
+        else:
+            self.document = doc_config.document_class(  # type: ignore
+                api_prediction=self.http_response["document"]["inference"],
+                input_source=input_source,
+                page_n=None,
+            )

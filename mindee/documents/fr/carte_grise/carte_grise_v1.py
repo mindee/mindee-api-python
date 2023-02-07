@@ -94,7 +94,6 @@ class CarteGriseV1(Document):
         api_prediction=None,
         input_source=None,
         page_n: Optional[int] = None,
-        document_type="carte_grise",
     ):
         """
         Bank check document.
@@ -105,7 +104,7 @@ class CarteGriseV1(Document):
         """
         super().__init__(
             input_source=input_source,
-            document_type=document_type,
+            document_type="carte_grise",
             api_prediction=api_prediction,
             page_n=page_n,
         )
