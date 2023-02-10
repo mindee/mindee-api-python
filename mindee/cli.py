@@ -50,6 +50,14 @@ DOCUMENTS: Dict[str, CommandConfig] = {
         help="French Carte Grise",
         doc_class=documents.fr.TypeCarteGriseV1,
     ),
+    "fr-carte-vitale": CommandConfig(
+        help="French Carte Vitale",
+        doc_class=documents.fr.TypeCarteVitaleV1,
+    ),
+    "fr-id-card": CommandConfig(
+        help="French ID Card",
+        doc_class=documents.fr.TypeIdCardV1,
+    ),
 }
 
 

@@ -6,7 +6,7 @@ from mindee.fields.text import TextField
 
 
 class CarteVitaleV1(Document):
-    """A Carte Vitale prediction."""
+    """Carte Vitale v1 prediction results."""
 
     given_names: List[TextField]
     """The given name(s) of the card holder."""
@@ -24,7 +24,7 @@ class CarteVitaleV1(Document):
         page_n: Optional[int] = None,
     ):
         """
-         document.
+        Carte Vitale v1 prediction results.
 
         :param api_prediction: Raw prediction from HTTP response
         :param input_source: Input object
@@ -65,12 +65,14 @@ class CarteVitaleV1(Document):
         )
 
     def __str__(self) -> str:
+        given_names = "\n".join([str(item) for item in self.given_names])
         return clean_out_string(
-            "----- Carte Vitale V1 -----\n"
-            f"Given Name(s): {self.given_names}"
-            f"Surname: {self.surname}"
-            f"Social Security Number: {self.social_security}"
-            f"Issuance Date: {self.issuance_date}"
+            "----- FR Carte Vitale V1 -----\n"
+            f"Filename: {self.filename or ''}\n"
+            f"Given Name(s): { given_names }\n"
+            f"Surname: { self.surname }\n"
+            f"Social Security Number: { self.social_security }\n"
+            f"Issuance Date: { self.issuance_date }\n"
             "----------------------"
         )
 
