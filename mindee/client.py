@@ -1,5 +1,5 @@
 import json
-from typing import BinaryIO, Dict, Optional, Type
+from typing import BinaryIO, Dict, List, NamedTuple, Optional, Type
 
 from mindee.documents import (
     CropperV1,
@@ -168,6 +168,12 @@ class DocumentClient:
         self.input_doc.file_object.close()
 
 
+class ConfigSpec(NamedTuple):
+    klass: Type[Document]
+    url_name: str
+    version: str
+
+
 class Client:
     """
     Mindee API Client.
@@ -191,100 +197,97 @@ class Client:
         self.api_key = api_key
         self._init_default_endpoints()
 
+    def _standard_doc_config(
+        self, klass: Type[Document], url_name: str, version: str
+    ) -> DocumentConfig:
+        return DocumentConfig(
+            document_class=klass,
+            endpoints=[
+                StandardEndpoint(
+                    url_name=url_name, version=version, api_key=self.api_key
+                )
+            ],
+        )
+
     def _init_default_endpoints(self) -> None:
-        self._doc_configs = {
-            (OTS_OWNER, InvoiceV3.__name__): DocumentConfig(
-                document_class=InvoiceV3,
-                endpoints=[
-                    StandardEndpoint(
-                        url_name="invoices", version="3", api_key=self.api_key
-                    )
-                ],
+        configs: List[ConfigSpec] = [
+            ConfigSpec(
+                klass=InvoiceV3,
+                url_name="invoices",
+                version="3",
             ),
-            (OTS_OWNER, InvoiceV4.__name__): DocumentConfig(
-                document_class=InvoiceV4,
-                endpoints=[
-                    StandardEndpoint(
-                        url_name="invoices", version="4", api_key=self.api_key
-                    )
-                ],
+            ConfigSpec(
+                klass=InvoiceV4,
+                url_name="invoices",
+                version="4",
             ),
-            (OTS_OWNER, ReceiptV3.__name__): DocumentConfig(
-                document_class=ReceiptV3,
-                endpoints=[
-                    StandardEndpoint(
-                        url_name="expense_receipts", version="3", api_key=self.api_key
-                    )
-                ],
+            ConfigSpec(
+                klass=ReceiptV3,
+                url_name="expense_receipts",
+                version="3",
             ),
-            (OTS_OWNER, ReceiptV4.__name__): DocumentConfig(
-                document_class=ReceiptV4,
-                endpoints=[
-                    StandardEndpoint(
-                        url_name="expense_receipts", version="4", api_key=self.api_key
-                    )
-                ],
+            ConfigSpec(
+                klass=ReceiptV4,
+                url_name="expense_receipts",
+                version="4",
             ),
-            (OTS_OWNER, FinancialV1.__name__): DocumentConfig(
-                document_class=FinancialV1,
-                endpoints=[
-                    StandardEndpoint(
-                        url_name="invoices", version="3", api_key=self.api_key
-                    ),
-                    StandardEndpoint(
-                        url_name="expense_receipts", version="3", api_key=self.api_key
-                    ),
-                ],
+            ConfigSpec(
+                klass=FinancialDocumentV1,
+                url_name="financial_document",
+                version="1",
             ),
-            (OTS_OWNER, FinancialDocumentV1.__name__): DocumentConfig(
-                document_class=FinancialDocumentV1,
-                endpoints=[
-                    StandardEndpoint(
-                        url_name="financial_document", version="1", api_key=self.api_key
-                    ),
-                ],
+            ConfigSpec(
+                klass=PassportV1,
+                url_name="passport",
+                version="1",
             ),
-            (OTS_OWNER, PassportV1.__name__): DocumentConfig(
-                document_class=PassportV1,
-                endpoints=[
-                    StandardEndpoint(
-                        url_name="passport", version="1", api_key=self.api_key
-                    )
-                ],
+            ConfigSpec(
+                klass=ProofOfAddressV1,
+                url_name="proof_of_address",
+                version="1",
             ),
-            (OTS_OWNER, us.BankCheckV1.__name__): DocumentConfig(
-                document_class=us.BankCheckV1,
-                endpoints=[
-                    StandardEndpoint(
-                        url_name="bank_check", version="1", api_key=self.api_key
-                    )
-                ],
+            ConfigSpec(
+                klass=CropperV1,
+                url_name="cropper",
+                version="1",
             ),
-            (OTS_OWNER, fr.CarteGriseV1.__name__): DocumentConfig(
-                document_class=fr.CarteGriseV1,
-                endpoints=[
-                    StandardEndpoint(
-                        url_name="carte_grise", version="1", api_key=self.api_key
-                    )
-                ],
+            ConfigSpec(
+                klass=us.BankCheckV1,
+                url_name="bank_check",
+                version="1",
             ),
-            (OTS_OWNER, ProofOfAddressV1.__name__): DocumentConfig(
-                document_class=ProofOfAddressV1,
-                endpoints=[
-                    StandardEndpoint(
-                        url_name="proof_of_address", version="1", api_key=self.api_key
-                    )
-                ],
+            ConfigSpec(
+                klass=fr.CarteGriseV1,
+                url_name="carte_grise",
+                version="1",
             ),
-            (OTS_OWNER, CropperV1.__name__): DocumentConfig(
-                document_class=CropperV1,
-                endpoints=[
-                    StandardEndpoint(
-                        url_name="cropper", version="1", api_key=self.api_key
-                    )
-                ],
+            ConfigSpec(
+                klass=fr.IdCardV1,
+                url_name="idcard_fr",
+                version="1",
             ),
-        }
+            ConfigSpec(
+                klass=fr.CarteVitaleV1,
+                url_name="carte_vitale",
+                version="1",
+            ),
+        ]
+        for config in configs:
+            config_key = (OTS_OWNER, config.klass.__name__)
+            self._doc_configs[config_key] = self._standard_doc_config(
+                config.klass, config.url_name, config.version
+            )
+        self._doc_configs[OTS_OWNER, FinancialV1.__name__] = DocumentConfig(
+            document_class=FinancialV1,
+            endpoints=[
+                StandardEndpoint(
+                    url_name="invoices", version="3", api_key=self.api_key
+                ),
+                StandardEndpoint(
+                    url_name="expense_receipts", version="3", api_key=self.api_key
+                ),
+            ],
+        )
 
     def add_endpoint(
         self,
