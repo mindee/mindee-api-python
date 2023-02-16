@@ -66,6 +66,10 @@ DOCUMENTS: Dict[str, CommandConfig] = {
         help="FR ID Card",
         doc_class=documents.fr.TypeIdCardV1,
     ),
+    "fr-bank-account-details": CommandConfig(
+        help="FR Bank Account Details",
+        doc_class=documents.fr.TypeBankAccountDetailsV1,
+    ),
 }
 
 

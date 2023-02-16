@@ -87,7 +87,7 @@ def test_cli_passport(ots_doc):
 
 
 def test_cli_us_bank_check(ots_doc):
-    ots_doc.product_name = "us-check"
+    ots_doc.product_name = "us-bank-check"
     ots_doc.api_key = ""
     with pytest.raises(RuntimeError):
         call_endpoint(ots_doc)
