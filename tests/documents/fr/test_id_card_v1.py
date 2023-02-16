@@ -29,14 +29,12 @@ def id_card_v1_page0():
 
 
 def test_doc_constructor(id_card_v1_doc):
-    reference_str = (
-        open(f"{ FR_ID_CARD_DATA_DIR }/response_v1/doc_to_string.txt").read().strip()
-    )
+    file_path = f"{ FR_ID_CARD_DATA_DIR }/response_v1/doc_to_string.txt"
+    reference_str = open(file_path, "r", encoding="utf-8").read().strip()
     assert str(id_card_v1_doc) == reference_str
 
 
 def test_page0_constructor(id_card_v1_page0):
-    reference_str = (
-        open(f"{ FR_ID_CARD_DATA_DIR }/response_v1/page0_to_string.txt").read().strip()
-    )
+    file_path = f"{ FR_ID_CARD_DATA_DIR }/response_v1/page0_to_string.txt"
+    reference_str = open(file_path, "r", encoding="utf-8").read().strip()
     assert str(id_card_v1_page0) == reference_str
