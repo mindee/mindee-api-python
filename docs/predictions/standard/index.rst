@@ -2,9 +2,9 @@ Off the Shelf
 #############
 
 .. toctree::
-   :maxdepth: 2
+    :maxdepth: 2
 
-   ./international
-   ./us
-   ./fr
-   ./field_types
+    ./field_types
+    ./international
+    ./us
+    ./fr

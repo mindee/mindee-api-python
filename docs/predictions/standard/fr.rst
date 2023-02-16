@@ -1,8 +1,6 @@
 France
 ======
 
-Carte Grise
------------
-.. autoclass:: mindee.documents.fr.CarteGriseV1
-    :members:
-    :undoc-members:
+.. include:: ./documents/fr/id_card_v1.rst
+.. include:: ./documents/fr/carte_vitale_v1.rst
+.. include:: ./documents/fr/carte_grise_v1.rst

@@ -1,30 +1,9 @@
 International
 =============
 
-Invoices
---------
-.. autoclass:: mindee.documents.InvoiceV3
-    :members:
-
-.. autoclass:: mindee.documents.InvoiceV4
-    :members:
-
-Expense Receipts
-----------------
-.. autoclass:: mindee.documents.ReceiptV3
-    :members:
-
-.. autoclass:: mindee.documents.ReceiptV4
-    :members:
-
-Passports
----------
-.. autoclass:: mindee.documents.PassportV1
-    :members:
-
-Financial Documents
--------------------
-.. autoclass:: mindee.documents.FinancialV1
-    :members:
-    :undoc-members:
-    :exclude-members: __init__, request
+.. include:: ./documents/financial_document_v1.rst
+.. include:: ./documents/passport_v1.rst
+.. include:: ./documents/invoice_v3.rst
+.. include:: ./documents/invoice_v4.rst
+.. include:: ./documents/receipt_v3.rst
+.. include:: ./documents/receipt_v4.rst
