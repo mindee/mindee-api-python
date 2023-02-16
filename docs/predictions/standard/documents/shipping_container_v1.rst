@@ -3,7 +3,7 @@ Shipping Container V1
 
 **Sample Code:**
 
-.. literalinclude:: /code_samples/shipping_container_v1.py
+.. literalinclude:: /extras/code_samples/shipping_container_v1.txt
     :language: Python
 
 .. autoclass:: mindee.documents.ShippingContainerV1

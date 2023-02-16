@@ -259,6 +259,11 @@ class Client:
                 version="1",
             ),
             ConfigSpec(
+                doc_class=documents.fr.BankAccountDetailsV1,
+                url_name="bank_account_details",
+                version="1",
+            ),
+            ConfigSpec(
                 doc_class=documents.ShippingContainerV1,
                 url_name="shipping_containers",
                 version="1",

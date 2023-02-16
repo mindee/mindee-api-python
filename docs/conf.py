@@ -56,6 +56,9 @@ html_theme_options = {
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ["_static"]
 
+# A list of paths that contain extra files not directly related to the documentation.
+html_extra_path = ["extras"]
+
 
 # -- autodoc -----------------------------------------------------------------
 

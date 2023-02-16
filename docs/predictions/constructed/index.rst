@@ -1,6 +1,12 @@
 API Builder
 ###########
 
+
+**Sample Code:**
+
+.. literalinclude:: /extras/code_samples/custom_v1.txt
+    :language: Python
+
 Prediction
 ==========
 .. autoclass:: mindee.documents.CustomV1
