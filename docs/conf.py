@@ -62,7 +62,7 @@ html_static_path = ["_static"]
 autodoc_member_order = "groupwise"
 autodoc_class_signature = "separated"
 autodoc_typehints = "description"
-autodoc_default_options = {"undoc-members": True, "exclude-members": "__init__"}
+autodoc_default_options = {"exclude-members": "__init__"}
 
 # -- autodoc-typehints -------------------------------------------------------
 

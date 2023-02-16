@@ -42,20 +42,24 @@ DOCUMENTS: Dict[str, CommandConfig] = {
         help="Proof of Address",
         doc_class=documents.TypeProofOfAddressV1,
     ),
+    "shipping-container": CommandConfig(
+        help="Shipping Container",
+        doc_class=documents.fr.TypeIdCardV1,
+    ),
     "us-check": CommandConfig(
         help="US Bank Check",
         doc_class=documents.us.TypeBankCheckV1,
     ),
     "fr-carte-grise": CommandConfig(
-        help="French Carte Grise",
+        help="FR Carte Grise",
         doc_class=documents.fr.TypeCarteGriseV1,
     ),
     "fr-carte-vitale": CommandConfig(
-        help="French Carte Vitale",
+        help="FR Carte Vitale",
         doc_class=documents.fr.TypeCarteVitaleV1,
     ),
     "fr-id-card": CommandConfig(
-        help="French ID Card",
+        help="FR ID Card",
         doc_class=documents.fr.TypeIdCardV1,
     ),
 }
