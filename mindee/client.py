@@ -263,6 +263,11 @@ class Client:
                 url_name="shipping_containers",
                 version="1",
             ),
+            ConfigSpec(
+                doc_class=documents.eu.LicensePlateV1,
+                url_name="license_plates",
+                version="1",
+            ),
         ]
         for config in configs:
             config_key = (OTS_OWNER, config.doc_class.__name__)

@@ -7,4 +7,5 @@ Off the Shelf
     ./field_types
     ./international
     ./us
+    ./eu
     ./fr
