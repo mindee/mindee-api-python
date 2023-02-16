@@ -1,0 +1,1 @@
+from .license_plate.license_plate_v1 import LicensePlateV1, TypeLicensePlateV1

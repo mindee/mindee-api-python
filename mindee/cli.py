@@ -46,9 +46,13 @@ DOCUMENTS: Dict[str, CommandConfig] = {
         help="Shipping Container",
         doc_class=documents.fr.TypeIdCardV1,
     ),
-    "us-check": CommandConfig(
+    "us-bank-check": CommandConfig(
         help="US Bank Check",
         doc_class=documents.us.TypeBankCheckV1,
+    ),
+    "eu-license-plate": CommandConfig(
+        help="EU License Plate",
+        doc_class=documents.eu.TypeLicensePlateV1,
     ),
     "fr-carte-grise": CommandConfig(
         help="FR Carte Grise",

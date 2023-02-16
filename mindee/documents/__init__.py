@@ -1,6 +1,7 @@
 from mindee.documents import fr, us
 from mindee.documents.cropper import CropperV1, TypeCropperV1
 from mindee.documents.custom import CustomV1, TypeCustomV1
+from mindee.documents.eu import LicensePlateV1, TypeLicensePlateV1
 from mindee.documents.financial import (
     FinancialDocumentV1,
     FinancialV1,
