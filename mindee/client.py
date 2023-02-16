@@ -1,20 +1,7 @@
 import json
 from typing import BinaryIO, Dict, List, NamedTuple, Optional, Type
 
-from mindee.documents import (
-    CropperV1,
-    CustomV1,
-    FinancialDocumentV1,
-    FinancialV1,
-    InvoiceV3,
-    InvoiceV4,
-    PassportV1,
-    ProofOfAddressV1,
-    ReceiptV3,
-    ReceiptV4,
-    fr,
-    us,
-)
+from mindee import documents
 from mindee.documents.base import Document, TypeDocument
 from mindee.documents.config import DocumentConfig, DocumentConfigDict
 from mindee.endpoints import OTS_OWNER, CustomEndpoint, HTTPException, StandardEndpoint
@@ -87,7 +74,7 @@ class DocumentClient:
             This performs a cropping operation on the server and will increase response time.
         """
         bound_classname = get_bound_classname(document_class)
-        if bound_classname != CustomV1.__name__:
+        if bound_classname != documents.CustomV1.__name__:
             endpoint_name = get_bound_classname(document_class)
         elif endpoint_name is None:
             raise RuntimeError(
@@ -169,7 +156,7 @@ class DocumentClient:
 
 
 class ConfigSpec(NamedTuple):
-    klass: Type[Document]
+    doc_class: Type[Document]
     url_name: str
     version: str
 
@@ -212,73 +199,78 @@ class Client:
     def _init_default_endpoints(self) -> None:
         configs: List[ConfigSpec] = [
             ConfigSpec(
-                klass=InvoiceV3,
+                doc_class=documents.InvoiceV3,
                 url_name="invoices",
                 version="3",
             ),
             ConfigSpec(
-                klass=InvoiceV4,
+                doc_class=documents.InvoiceV4,
                 url_name="invoices",
                 version="4",
             ),
             ConfigSpec(
-                klass=ReceiptV3,
+                doc_class=documents.ReceiptV3,
                 url_name="expense_receipts",
                 version="3",
             ),
             ConfigSpec(
-                klass=ReceiptV4,
+                doc_class=documents.ReceiptV4,
                 url_name="expense_receipts",
                 version="4",
             ),
             ConfigSpec(
-                klass=FinancialDocumentV1,
+                doc_class=documents.FinancialDocumentV1,
                 url_name="financial_document",
                 version="1",
             ),
             ConfigSpec(
-                klass=PassportV1,
+                doc_class=documents.PassportV1,
                 url_name="passport",
                 version="1",
             ),
             ConfigSpec(
-                klass=ProofOfAddressV1,
+                doc_class=documents.ProofOfAddressV1,
                 url_name="proof_of_address",
                 version="1",
             ),
             ConfigSpec(
-                klass=CropperV1,
+                doc_class=documents.CropperV1,
                 url_name="cropper",
                 version="1",
             ),
             ConfigSpec(
-                klass=us.BankCheckV1,
+                doc_class=documents.us.BankCheckV1,
                 url_name="bank_check",
                 version="1",
             ),
             ConfigSpec(
-                klass=fr.CarteGriseV1,
+                doc_class=documents.fr.CarteGriseV1,
                 url_name="carte_grise",
                 version="1",
             ),
             ConfigSpec(
-                klass=fr.IdCardV1,
+                doc_class=documents.fr.IdCardV1,
                 url_name="idcard_fr",
                 version="1",
             ),
             ConfigSpec(
-                klass=fr.CarteVitaleV1,
+                doc_class=documents.fr.CarteVitaleV1,
                 url_name="carte_vitale",
+                version="1",
+            ),
+            ConfigSpec(
+                doc_class=documents.ShippingContainerV1,
+                url_name="shipping_containers",
                 version="1",
             ),
         ]
         for config in configs:
-            config_key = (OTS_OWNER, config.klass.__name__)
+            config_key = (OTS_OWNER, config.doc_class.__name__)
             self._doc_configs[config_key] = self._standard_doc_config(
-                config.klass, config.url_name, config.version
+                config.doc_class, config.url_name, config.version
             )
-        self._doc_configs[OTS_OWNER, FinancialV1.__name__] = DocumentConfig(
-            document_class=FinancialV1,
+        self._doc_configs[OTS_OWNER, documents.FinancialV1.__name__] = DocumentConfig(
+            document_class=documents.FinancialV1,
             endpoints=[
                 StandardEndpoint(
                     url_name="invoices", version="3", api_key=self.api_key
@@ -294,7 +286,7 @@ class Client:
         account_name: str,
         endpoint_name: str,
         version: str = "1",
-        document_class: Type[Document] = CustomV1,
+        document_class: Type[Document] = documents.CustomV1,
     ) -> "Client":
         """
         Add a custom endpoint, created using the Mindee API Builder.

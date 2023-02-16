@@ -8,4 +8,3 @@ Carte Vitale V1
 
 .. autoclass:: mindee.documents.fr.CarteVitaleV1
     :members:
-    :undoc-members:

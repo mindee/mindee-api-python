@@ -8,4 +8,3 @@ Carte Nationale d'Identité V1
 
 .. autoclass:: mindee.documents.fr.IdCardV1
     :members:
-    :undoc-members:
