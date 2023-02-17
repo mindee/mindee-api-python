@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Geometry Helpers &mdash; Mindee Python Client  documentation</title>
@@ -28,11 +28,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> Mindee Python Client
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Mindee Python Client
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -104,7 +108,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="index.html">Utilities</a></li>
       <li class="breadcrumb-item active">Geometry Helpers</li>
       <li class="wy-breadcrumbs-aside">
@@ -250,13 +254,13 @@
 <span class="sig-prename descclassname"><span class="pre">mindee.geometry.</span></span><span class="sig-name descname"><span class="pre">get_bbox</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.get_bbox" title="Permalink to this definition"></a></dt>
 <dd><p>Given a sequence of points, calculate a bbox that encompasses all points.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>points</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<a class="reference internal" href="#mindee.geometry.Point" title="mindee.geometry.Point"><code class="xref py py-class docutils literal notranslate"><span class="pre">Point</span></code></a>]) – Polygon to process.</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="#mindee.geometry.BBox" title="mindee.geometry.BBox"><code class="xref py py-class docutils literal notranslate"><span class="pre">BBox</span></code></a></p>
 </dd>
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>A bbox that encompasses all points</p>
 </dd>
 </dl>
@@ -267,13 +271,13 @@
 <span class="sig-prename descclassname"><span class="pre">mindee.geometry.</span></span><span class="sig-name descname"><span class="pre">get_bounding_box</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.get_bounding_box" title="Permalink to this definition"></a></dt>
 <dd><p>Given a sequence of points, calculate a bounding box that encompasses all points.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>points</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<a class="reference internal" href="#mindee.geometry.Point" title="mindee.geometry.Point"><code class="xref py py-class docutils literal notranslate"><span class="pre">Point</span></code></a>]) – Polygon to process.</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="#mindee.geometry.Quadrilateral" title="mindee.geometry.Quadrilateral"><code class="xref py py-class docutils literal notranslate"><span class="pre">Quadrilateral</span></code></a></p>
 </dd>
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>A bounding box that encompasses all points.</p>
 </dd>
 </dl>
@@ -284,13 +288,13 @@
 <span class="sig-prename descclassname"><span class="pre">mindee.geometry.</span></span><span class="sig-name descname"><span class="pre">get_bounding_box_for_polygons</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vertices</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.get_bounding_box_for_polygons" title="Permalink to this definition"></a></dt>
 <dd><p>Given a sequence of polygons, calculate a bounding box that encompasses all polygons.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>vertices</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<a class="reference internal" href="#mindee.geometry.Polygon" title="mindee.geometry.Polygon"><code class="xref py py-class docutils literal notranslate"><span class="pre">Polygon</span></code></a>]) – List of polygons</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="#mindee.geometry.Quadrilateral" title="mindee.geometry.Quadrilateral"><code class="xref py py-class docutils literal notranslate"><span class="pre">Quadrilateral</span></code></a></p>
 </dd>
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>A bounding box that encompasses all polygons</p>
 </dd>
 </dl>
@@ -301,13 +305,13 @@
 <span class="sig-prename descclassname"><span class="pre">mindee.geometry.</span></span><span class="sig-name descname"><span class="pre">get_centroid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.get_centroid" title="Permalink to this definition"></a></dt>
 <dd><p>Get the central point (centroid) given a sequence of points.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>points</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<a class="reference internal" href="#mindee.geometry.Point" title="mindee.geometry.Point"><code class="xref py py-class docutils literal notranslate"><span class="pre">Point</span></code></a>]) – Polygon to process.</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="#mindee.geometry.Point" title="mindee.geometry.Point"><code class="xref py py-class docutils literal notranslate"><span class="pre">Point</span></code></a></p>
 </dd>
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The centroid</p>
 </dd>
 </dl>
@@ -318,10 +322,10 @@
 <span class="sig-prename descclassname"><span class="pre">mindee.geometry.</span></span><span class="sig-name descname"><span class="pre">get_min_max_x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.get_min_max_x" title="Permalink to this definition"></a></dt>
 <dd><p>Get the maximum and minimum Y value given a sequence of points.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>points</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<a class="reference internal" href="#mindee.geometry.Point" title="mindee.geometry.Point"><code class="xref py py-class docutils literal notranslate"><span class="pre">Point</span></code></a>]) – List of points</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="#mindee.geometry.MinMax" title="mindee.geometry.MinMax"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinMax</span></code></a></p>
 </dd>
 </dl>
@@ -332,10 +336,10 @@
 <span class="sig-prename descclassname"><span class="pre">mindee.geometry.</span></span><span class="sig-name descname"><span class="pre">get_min_max_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.get_min_max_y" title="Permalink to this definition"></a></dt>
 <dd><p>Get the maximum and minimum Y value given a sequence of points.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>points</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<a class="reference internal" href="#mindee.geometry.Point" title="mindee.geometry.Point"><code class="xref py py-class docutils literal notranslate"><span class="pre">Point</span></code></a>]) – List of points</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="#mindee.geometry.MinMax" title="mindee.geometry.MinMax"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinMax</span></code></a></p>
 </dd>
 </dl>
@@ -346,13 +350,13 @@
 <span class="sig-prename descclassname"><span class="pre">mindee.geometry.</span></span><span class="sig-name descname"><span class="pre">is_point_in_polygon_x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">point</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">polygon</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.is_point_in_polygon_x" title="Permalink to this definition"></a></dt>
 <dd><p>Determine if the Point is in the Polygon’s Y-axis.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>point</strong> (<a class="reference internal" href="#mindee.geometry.Point" title="mindee.geometry.Point"><code class="xref py py-class docutils literal notranslate"><span class="pre">Point</span></code></a>) – Point to compare</p></li>
 <li><p><strong>polygon</strong> (<a class="reference internal" href="#mindee.geometry.Polygon" title="mindee.geometry.Polygon"><code class="xref py py-class docutils literal notranslate"><span class="pre">Polygon</span></code></a>) – Polygon to look into</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
 </dd>
 </dl>
@@ -363,13 +367,13 @@
 <span class="sig-prename descclassname"><span class="pre">mindee.geometry.</span></span><span class="sig-name descname"><span class="pre">is_point_in_polygon_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">point</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">polygon</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.is_point_in_polygon_y" title="Permalink to this definition"></a></dt>
 <dd><p>Determine if the Point is in the Polygon’s Y-axis.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>point</strong> (<a class="reference internal" href="#mindee.geometry.Point" title="mindee.geometry.Point"><code class="xref py py-class docutils literal notranslate"><span class="pre">Point</span></code></a>) – Point to compare</p></li>
 <li><p><strong>polygon</strong> (<a class="reference internal" href="#mindee.geometry.Polygon" title="mindee.geometry.Polygon"><code class="xref py py-class docutils literal notranslate"><span class="pre">Polygon</span></code></a>) – Polygon to look into</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
 </dd>
 </dl>
@@ -380,14 +384,14 @@
 <span class="sig-prename descclassname"><span class="pre">mindee.geometry.</span></span><span class="sig-name descname"><span class="pre">is_point_in_x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">point</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.is_point_in_x" title="Permalink to this definition"></a></dt>
 <dd><p>Determine if the Point is in the Polygon’s Y-axis.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>point</strong> (<a class="reference internal" href="#mindee.geometry.Point" title="mindee.geometry.Point"><code class="xref py py-class docutils literal notranslate"><span class="pre">Point</span></code></a>) – Point to compare</p></li>
 <li><p><strong>min_x</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – Minimum X-axis value</p></li>
 <li><p><strong>max_x</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – Maximum X-axis value</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
 </dd>
 </dl>
@@ -398,14 +402,14 @@
 <span class="sig-prename descclassname"><span class="pre">mindee.geometry.</span></span><span class="sig-name descname"><span class="pre">is_point_in_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">point</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.is_point_in_y" title="Permalink to this definition"></a></dt>
 <dd><p>Determine if the Point is in the Polygon’s Y-axis.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>point</strong> (<a class="reference internal" href="#mindee.geometry.Point" title="mindee.geometry.Point"><code class="xref py py-class docutils literal notranslate"><span class="pre">Point</span></code></a>) – Point to compare</p></li>
 <li><p><strong>min_y</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – Minimum Y-axis value</p></li>
 <li><p><strong>max_y</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – Maximum Y-axis value</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
 </dd>
 </dl>
@@ -416,10 +420,10 @@
 <span class="sig-prename descclassname"><span class="pre">mindee.geometry.</span></span><span class="sig-name descname"><span class="pre">polygon_from_prediction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prediction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.polygon_from_prediction" title="Permalink to this definition"></a></dt>
 <dd><p>Transform a prediction into a Polygon.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>prediction</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>]) – API prediction.</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="#mindee.geometry.Polygon" title="mindee.geometry.Polygon"><code class="xref py py-class docutils literal notranslate"><span class="pre">Polygon</span></code></a></p>
 </dd>
 </dl>
@@ -430,10 +434,10 @@
 <span class="sig-prename descclassname"><span class="pre">mindee.geometry.</span></span><span class="sig-name descname"><span class="pre">quadrilateral_from_prediction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prediction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.quadrilateral_from_prediction" title="Permalink to this definition"></a></dt>
 <dd><p>Transform a prediction into a Quadrilateral.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>prediction</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>]) – API prediction.</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="#mindee.geometry.Quadrilateral" title="mindee.geometry.Quadrilateral"><code class="xref py py-class docutils literal notranslate"><span class="pre">Quadrilateral</span></code></a></p>
 </dd>
 </dl>

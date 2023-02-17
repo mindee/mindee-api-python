@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Off the Shelf &mdash; Mindee Python Client  documentation</title>
@@ -20,7 +20,7 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="International" href="international.html" />
+    <link rel="next" title="Common Fields" href="field_types.html" />
     <link rel="prev" title="Base" href="../base.html" /> 
 </head>
 
@@ -29,11 +29,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> Mindee Python Client
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Mindee Python Client
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -45,10 +49,11 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Predictions</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../base.html">Base</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Off the Shelf</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="field_types.html">Common Fields</a></li>
 <li class="toctree-l3"><a class="reference internal" href="international.html">International</a></li>
 <li class="toctree-l3"><a class="reference internal" href="us.html">United States of America</a></li>
+<li class="toctree-l3"><a class="reference internal" href="eu.html">European Union</a></li>
 <li class="toctree-l3"><a class="reference internal" href="fr.html">France</a></li>
-<li class="toctree-l3"><a class="reference internal" href="field_types.html">Common Fields</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../constructed/index.html">API Builder</a></li>
@@ -70,7 +75,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Predictions</a></li>
       <li class="breadcrumb-item active">Off the Shelf</li>
       <li class="wy-breadcrumbs-aside">
@@ -86,23 +91,33 @@
 <h1>Off the Shelf<a class="headerlink" href="#off-the-shelf" title="Permalink to this heading"></a></h1>
 <div class="toctree-wrapper compound">
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="field_types.html">Common Fields</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="field_types.html#off-the-shelf-documents">Off the Shelf Documents</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="international.html">International</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="international.html#invoices">Invoices</a></li>
-<li class="toctree-l2"><a class="reference internal" href="international.html#expense-receipts">Expense Receipts</a></li>
-<li class="toctree-l2"><a class="reference internal" href="international.html#passports">Passports</a></li>
-<li class="toctree-l2"><a class="reference internal" href="international.html#financial-documents">Financial Documents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="international.html#financial-document-v1">Financial Document V1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="international.html#passport-v1">Passport V1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="international.html#shipping-container-v1">Shipping Container V1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="international.html#invoice-v3">Invoice V3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="international.html#invoice-v4">Invoice V4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="international.html#receipt-v3">Receipt V3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="international.html#receipt-v4">Receipt V4</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="us.html">United States of America</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="us.html#bank-checks">Bank Checks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="us.html#bank-check-v1">Bank Check V1</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="eu.html">European Union</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="eu.html#license-plate-v1">License Plate V1</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="fr.html">France</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="fr.html#carte-grise">Carte Grise</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="field_types.html">Common Fields</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="field_types.html#off-the-shelf-documents">Off the Shelf Documents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fr.html#carte-nationale-d-identite-v1">Carte Nationale d’Identité V1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fr.html#carte-vitale-v1">Carte Vitale V1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fr.html#carte-grise-v1">Carte Grise V1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="fr.html#bank-account-details-v1">Bank Account Details V1</a></li>
 </ul>
 </li>
 </ul>
@@ -114,7 +129,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../base.html" class="btn btn-neutral float-left" title="Base" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="international.html" class="btn btn-neutral float-right" title="International" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="field_types.html" class="btn btn-neutral float-right" title="Common Fields" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

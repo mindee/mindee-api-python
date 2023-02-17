@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>United States of America &mdash; Mindee Python Client  documentation</title>
@@ -20,7 +20,7 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="France" href="fr.html" />
+    <link rel="next" title="European Union" href="eu.html" />
     <link rel="prev" title="International" href="international.html" /> 
 </head>
 
@@ -29,11 +29,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> Mindee Python Client
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Mindee Python Client
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -45,13 +49,14 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Predictions</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../base.html">Base</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Off the Shelf</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="field_types.html">Common Fields</a></li>
 <li class="toctree-l3"><a class="reference internal" href="international.html">International</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">United States of America</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#bank-checks">Bank Checks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bank-check-v1">Bank Check V1</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="eu.html">European Union</a></li>
 <li class="toctree-l3"><a class="reference internal" href="fr.html">France</a></li>
-<li class="toctree-l3"><a class="reference internal" href="field_types.html">Common Fields</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../constructed/index.html">API Builder</a></li>
@@ -73,7 +78,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Predictions</a></li>
           <li class="breadcrumb-item"><a href="index.html">Off the Shelf</a></li>
       <li class="breadcrumb-item active">United States of America</li>
@@ -88,8 +93,24 @@
              
   <section id="united-states-of-america">
 <h1>United States of America<a class="headerlink" href="#united-states-of-america" title="Permalink to this heading"></a></h1>
-<section id="bank-checks">
-<h2>Bank Checks<a class="headerlink" href="#bank-checks" title="Permalink to this heading"></a></h2>
+<section id="bank-check-v1">
+<h2>Bank Check V1<a class="headerlink" href="#bank-check-v1" title="Permalink to this heading"></a></h2>
+<p><strong>Sample Code:</strong></p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mindee</span> <span class="kn">import</span> <span class="n">Client</span><span class="p">,</span> <span class="n">documents</span>
+
+<span class="c1"># Init a new client</span>
+<span class="n">mindee_client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;my-api-key&quot;</span><span class="p">)</span>
+
+<span class="c1"># Load a file from disk</span>
+<span class="n">input_doc</span> <span class="o">=</span> <span class="n">mindee_client</span><span class="o">.</span><span class="n">doc_from_path</span><span class="p">(</span><span class="s2">&quot;/path/to/the/file.ext&quot;</span><span class="p">)</span>
+
+<span class="c1"># Parse the US Bank Check Details by passing the appropriate type</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">input_doc</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">documents</span><span class="o">.</span><span class="n">us</span><span class="o">.</span><span class="n">TypeBankCheckV1</span><span class="p">)</span>
+
+<span class="c1"># Print a brief summary of the parsed data</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">document</span><span class="p">)</span>
+</pre></div>
+</div>
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.documents.us.BankCheckV1">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mindee.documents.us.</span></span><span class="sig-name descname"><span class="pre">BankCheckV1</span></span><a class="headerlink" href="#mindee.documents.us.BankCheckV1" title="Permalink to this definition"></a></dt>
@@ -118,6 +139,18 @@
 </dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.us.BankCheckV1.checklist">
+<span class="sig-name descname"><span class="pre">checklist</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><a class="headerlink" href="#mindee.documents.us.BankCheckV1.checklist" title="Permalink to this definition"></a></dt>
+<dd><p>Validation checks for the document</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.us.BankCheckV1.cropper">
+<span class="sig-name descname"><span class="pre">cropper</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List[PositionField]</span></em><a class="headerlink" href="#mindee.documents.us.BankCheckV1.cropper" title="Permalink to this definition"></a></dt>
+<dd><p>Cropper results</p>
+</dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.documents.us.BankCheckV1.date">
 <span class="sig-name descname"><span class="pre">date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.date.DateField" title="mindee.fields.date.DateField"><code class="xref py py-class docutils literal notranslate"><span class="pre">DateField</span></code></a></em><a class="headerlink" href="#mindee.documents.us.BankCheckV1.date" title="Permalink to this definition"></a></dt>
 <dd><p>Date the check was issued</p>
@@ -141,6 +174,12 @@
 <dd><p>The positions of the signatures on the image.</p>
 </dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.us.BankCheckV1.type">
+<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[str]</span></em><a class="headerlink" href="#mindee.documents.us.BankCheckV1.type" title="Permalink to this definition"></a></dt>
+<dd><p>Document type</p>
+</dd></dl>
+
 </dd></dl>
 
 </section>
@@ -151,7 +190,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="international.html" class="btn btn-neutral float-left" title="International" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="fr.html" class="btn btn-neutral float-right" title="France" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="eu.html" class="btn btn-neutral float-right" title="European Union" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

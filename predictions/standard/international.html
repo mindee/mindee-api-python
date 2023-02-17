@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>International &mdash; Mindee Python Client  documentation</title>
@@ -21,7 +21,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="United States of America" href="us.html" />
-    <link rel="prev" title="Off the Shelf" href="index.html" /> 
+    <link rel="prev" title="Common Fields" href="field_types.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -29,11 +29,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> Mindee Python Client
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Mindee Python Client
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -45,16 +49,20 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Predictions</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../base.html">Base</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Off the Shelf</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="field_types.html">Common Fields</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">International</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#invoices">Invoices</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#expense-receipts">Expense Receipts</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#passports">Passports</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#financial-documents">Financial Documents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#financial-document-v1">Financial Document V1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#passport-v1">Passport V1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#shipping-container-v1">Shipping Container V1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#invoice-v3">Invoice V3</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#invoice-v4">Invoice V4</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#receipt-v3">Receipt V3</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#receipt-v4">Receipt V4</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="us.html">United States of America</a></li>
+<li class="toctree-l3"><a class="reference internal" href="eu.html">European Union</a></li>
 <li class="toctree-l3"><a class="reference internal" href="fr.html">France</a></li>
-<li class="toctree-l3"><a class="reference internal" href="field_types.html">Common Fields</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../constructed/index.html">API Builder</a></li>
@@ -76,7 +84,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Predictions</a></li>
           <li class="breadcrumb-item"><a href="index.html">Off the Shelf</a></li>
       <li class="breadcrumb-item active">International</li>
@@ -91,15 +99,431 @@
              
   <section id="international">
 <h1>International<a class="headerlink" href="#international" title="Permalink to this heading"></a></h1>
-<section id="invoices">
-<h2>Invoices<a class="headerlink" href="#invoices" title="Permalink to this heading"></a></h2>
+<section id="financial-document-v1">
+<h2>Financial Document V1<a class="headerlink" href="#financial-document-v1" title="Permalink to this heading"></a></h2>
+<p><strong>Sample Code:</strong></p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mindee</span> <span class="kn">import</span> <span class="n">Client</span><span class="p">,</span> <span class="n">documents</span>
+
+<span class="c1"># Init a new client</span>
+<span class="n">mindee_client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;my-api-key&quot;</span><span class="p">)</span>
+
+<span class="c1"># Load a file from disk</span>
+<span class="n">input_doc</span> <span class="o">=</span> <span class="n">mindee_client</span><span class="o">.</span><span class="n">doc_from_path</span><span class="p">(</span><span class="s2">&quot;/path/to/the/file.ext&quot;</span><span class="p">)</span>
+
+<span class="c1"># Parse the Financial Document by passing the appropriate type</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">input_doc</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">documents</span><span class="o">.</span><span class="n">TypeFinancialDocumentV1</span><span class="p">)</span>
+
+<span class="c1"># Print a brief summary of the parsed data</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">document</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.documents.FinancialDocumentV1">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mindee.documents.</span></span><span class="sig-name descname"><span class="pre">FinancialDocumentV1</span></span><a class="headerlink" href="#mindee.documents.FinancialDocumentV1" title="Permalink to this definition"></a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.FinancialDocumentV1.category">
+<span class="sig-name descname"><span class="pre">category</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.FinancialDocumentV1.category" title="Permalink to this definition"></a></dt>
+<dd><p>The invoice or receipt category among predefined classes.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.FinancialDocumentV1.checklist">
+<span class="sig-name descname"><span class="pre">checklist</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><a class="headerlink" href="#mindee.documents.FinancialDocumentV1.checklist" title="Permalink to this definition"></a></dt>
+<dd><p>Validation checks for the document</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.FinancialDocumentV1.cropper">
+<span class="sig-name descname"><span class="pre">cropper</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List[PositionField]</span></em><a class="headerlink" href="#mindee.documents.FinancialDocumentV1.cropper" title="Permalink to this definition"></a></dt>
+<dd><p>Cropper results</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.FinancialDocumentV1.customer_address">
+<span class="sig-name descname"><span class="pre">customer_address</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.FinancialDocumentV1.customer_address" title="Permalink to this definition"></a></dt>
+<dd><p>Customer’s address</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.FinancialDocumentV1.customer_company_registrations">
+<span class="sig-name descname"><span class="pre">customer_company_registrations</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="field_types.html#mindee.fields.company_registration.CompanyRegistrationField" title="mindee.fields.company_registration.CompanyRegistrationField"><code class="xref py py-class docutils literal notranslate"><span class="pre">CompanyRegistrationField</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.documents.FinancialDocumentV1.customer_company_registrations" title="Permalink to this definition"></a></dt>
+<dd><p>Customer company registration numbers</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.FinancialDocumentV1.customer_name">
+<span class="sig-name descname"><span class="pre">customer_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.FinancialDocumentV1.customer_name" title="Permalink to this definition"></a></dt>
+<dd><p>Customer’s name</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.FinancialDocumentV1.date">
+<span class="sig-name descname"><span class="pre">date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.date.DateField" title="mindee.fields.date.DateField"><code class="xref py py-class docutils literal notranslate"><span class="pre">DateField</span></code></a></em><a class="headerlink" href="#mindee.documents.FinancialDocumentV1.date" title="Permalink to this definition"></a></dt>
+<dd><p>Date the invoice was issued</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.FinancialDocumentV1.document_type">
+<span class="sig-name descname"><span class="pre">document_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.FinancialDocumentV1.document_type" title="Permalink to this definition"></a></dt>
+<dd><p>A classification field, among predefined classes.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.FinancialDocumentV1.due_date">
+<span class="sig-name descname"><span class="pre">due_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.date.DateField" title="mindee.fields.date.DateField"><code class="xref py py-class docutils literal notranslate"><span class="pre">DateField</span></code></a></em><a class="headerlink" href="#mindee.documents.FinancialDocumentV1.due_date" title="Permalink to this definition"></a></dt>
+<dd><p>Date the invoice is due</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.FinancialDocumentV1.invoice_number">
+<span class="sig-name descname"><span class="pre">invoice_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.FinancialDocumentV1.invoice_number" title="Permalink to this definition"></a></dt>
+<dd><p>Invoice number</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.FinancialDocumentV1.line_items">
+<span class="sig-name descname"><span class="pre">line_items</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">InvoiceLineItem</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.documents.FinancialDocumentV1.line_items" title="Permalink to this definition"></a></dt>
+<dd><p>Details of line items</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.FinancialDocumentV1.locale">
+<span class="sig-name descname"><span class="pre">locale</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.locale.LocaleField" title="mindee.fields.locale.LocaleField"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocaleField</span></code></a></em><a class="headerlink" href="#mindee.documents.FinancialDocumentV1.locale" title="Permalink to this definition"></a></dt>
+<dd><p>locale information</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.FinancialDocumentV1.reference_numbers">
+<span class="sig-name descname"><span class="pre">reference_numbers</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.documents.FinancialDocumentV1.reference_numbers" title="Permalink to this definition"></a></dt>
+<dd><p>List of Reference numbers including PO number.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.FinancialDocumentV1.subcategory">
+<span class="sig-name descname"><span class="pre">subcategory</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.FinancialDocumentV1.subcategory" title="Permalink to this definition"></a></dt>
+<dd><p>The invoice or receipt sub-category among predefined classes.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.FinancialDocumentV1.supplier_address">
+<span class="sig-name descname"><span class="pre">supplier_address</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.FinancialDocumentV1.supplier_address" title="Permalink to this definition"></a></dt>
+<dd><p>Supplier’s address</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.FinancialDocumentV1.supplier_company_registrations">
+<span class="sig-name descname"><span class="pre">supplier_company_registrations</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="field_types.html#mindee.fields.company_registration.CompanyRegistrationField" title="mindee.fields.company_registration.CompanyRegistrationField"><code class="xref py py-class docutils literal notranslate"><span class="pre">CompanyRegistrationField</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.documents.FinancialDocumentV1.supplier_company_registrations" title="Permalink to this definition"></a></dt>
+<dd><p>Company numbers</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.FinancialDocumentV1.supplier_name">
+<span class="sig-name descname"><span class="pre">supplier_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.FinancialDocumentV1.supplier_name" title="Permalink to this definition"></a></dt>
+<dd><p>Supplier ‘s name</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.FinancialDocumentV1.supplier_payment_details">
+<span class="sig-name descname"><span class="pre">supplier_payment_details</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="field_types.html#mindee.fields.payment_details.PaymentDetails" title="mindee.fields.payment_details.PaymentDetails"><code class="xref py py-class docutils literal notranslate"><span class="pre">PaymentDetails</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.documents.FinancialDocumentV1.supplier_payment_details" title="Permalink to this definition"></a></dt>
+<dd><p>Payment details</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.FinancialDocumentV1.taxes">
+<span class="sig-name descname"><span class="pre">taxes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="field_types.html#mindee.fields.tax.TaxField" title="mindee.fields.tax.TaxField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TaxField</span></code></a><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#mindee.documents.FinancialDocumentV1.taxes" title="Permalink to this definition"></a></dt>
+<dd><p>List of all taxes</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.FinancialDocumentV1.time">
+<span class="sig-name descname"><span class="pre">time</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.FinancialDocumentV1.time" title="Permalink to this definition"></a></dt>
+<dd><p>Time as seen on the receipt in HH:MM format.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.FinancialDocumentV1.tip">
+<span class="sig-name descname"><span class="pre">tip</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.amount.AmountField" title="mindee.fields.amount.AmountField"><code class="xref py py-class docutils literal notranslate"><span class="pre">AmountField</span></code></a></em><a class="headerlink" href="#mindee.documents.FinancialDocumentV1.tip" title="Permalink to this definition"></a></dt>
+<dd><p>Total amount of tip and gratuity.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.FinancialDocumentV1.total_amount">
+<span class="sig-name descname"><span class="pre">total_amount</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.amount.AmountField" title="mindee.fields.amount.AmountField"><code class="xref py py-class docutils literal notranslate"><span class="pre">AmountField</span></code></a></em><a class="headerlink" href="#mindee.documents.FinancialDocumentV1.total_amount" title="Permalink to this definition"></a></dt>
+<dd><p>Total including taxes</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.FinancialDocumentV1.total_net">
+<span class="sig-name descname"><span class="pre">total_net</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.amount.AmountField" title="mindee.fields.amount.AmountField"><code class="xref py py-class docutils literal notranslate"><span class="pre">AmountField</span></code></a></em><a class="headerlink" href="#mindee.documents.FinancialDocumentV1.total_net" title="Permalink to this definition"></a></dt>
+<dd><p>Total excluding taxes</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.FinancialDocumentV1.total_tax">
+<span class="sig-name descname"><span class="pre">total_tax</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.amount.AmountField" title="mindee.fields.amount.AmountField"><code class="xref py py-class docutils literal notranslate"><span class="pre">AmountField</span></code></a></em><a class="headerlink" href="#mindee.documents.FinancialDocumentV1.total_tax" title="Permalink to this definition"></a></dt>
+<dd><p>Sum total of all taxes</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.FinancialDocumentV1.type">
+<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[str]</span></em><a class="headerlink" href="#mindee.documents.FinancialDocumentV1.type" title="Permalink to this definition"></a></dt>
+<dd><p>Document type</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="passport-v1">
+<h2>Passport V1<a class="headerlink" href="#passport-v1" title="Permalink to this heading"></a></h2>
+<p><strong>Sample Code:</strong></p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mindee</span> <span class="kn">import</span> <span class="n">Client</span><span class="p">,</span> <span class="n">documents</span>
+
+<span class="c1"># Init a new client</span>
+<span class="n">mindee_client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;my-api-key&quot;</span><span class="p">)</span>
+
+<span class="c1"># Load a file from disk</span>
+<span class="n">input_doc</span> <span class="o">=</span> <span class="n">mindee_client</span><span class="o">.</span><span class="n">doc_from_path</span><span class="p">(</span><span class="s2">&quot;/path/to/the/file.ext&quot;</span><span class="p">)</span>
+
+<span class="c1"># Parse the Passport by passing the appropriate type</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">input_doc</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">documents</span><span class="o">.</span><span class="n">TypePassportV1</span><span class="p">)</span>
+
+<span class="c1"># Print a brief summary of the parsed data</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">document</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.documents.PassportV1">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mindee.documents.</span></span><span class="sig-name descname"><span class="pre">PassportV1</span></span><a class="headerlink" href="#mindee.documents.PassportV1" title="Permalink to this definition"></a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="mindee.documents.PassportV1.check_sum">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">check_sum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">to_check</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.documents.PassportV1.check_sum" title="Permalink to this definition"></a></dt>
+<dd><p>Validate the checksum.</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Machine-readable_passport">https://en.wikipedia.org/wiki/Machine-readable_passport</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>to_check</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – MRZ value to check</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>checksum of the value</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.documents.PassportV1.is_expired">
+<span class="sig-name descname"><span class="pre">is_expired</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.documents.PassportV1.is_expired" title="Permalink to this definition"></a></dt>
+<dd><p>Check the passport’s validity.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the passport is expired, False otherwise</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.PassportV1.birth_date">
+<span class="sig-name descname"><span class="pre">birth_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.date.DateField" title="mindee.fields.date.DateField"><code class="xref py py-class docutils literal notranslate"><span class="pre">DateField</span></code></a></em><a class="headerlink" href="#mindee.documents.PassportV1.birth_date" title="Permalink to this definition"></a></dt>
+<dd><p>Holder’s date of birth</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.PassportV1.birth_place">
+<span class="sig-name descname"><span class="pre">birth_place</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.PassportV1.birth_place" title="Permalink to this definition"></a></dt>
+<dd><p>Holder’s place of birth</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.PassportV1.checklist">
+<span class="sig-name descname"><span class="pre">checklist</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><a class="headerlink" href="#mindee.documents.PassportV1.checklist" title="Permalink to this definition"></a></dt>
+<dd><p>Validation checks for the document</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.PassportV1.country">
+<span class="sig-name descname"><span class="pre">country</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.PassportV1.country" title="Permalink to this definition"></a></dt>
+<dd><p>Country of issue</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.PassportV1.cropper">
+<span class="sig-name descname"><span class="pre">cropper</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List[PositionField]</span></em><a class="headerlink" href="#mindee.documents.PassportV1.cropper" title="Permalink to this definition"></a></dt>
+<dd><p>Cropper results</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.PassportV1.expiry_date">
+<span class="sig-name descname"><span class="pre">expiry_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.date.DateField" title="mindee.fields.date.DateField"><code class="xref py py-class docutils literal notranslate"><span class="pre">DateField</span></code></a></em><a class="headerlink" href="#mindee.documents.PassportV1.expiry_date" title="Permalink to this definition"></a></dt>
+<dd><p>Date the passport expires</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.PassportV1.full_name">
+<span class="sig-name descname"><span class="pre">full_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.PassportV1.full_name" title="Permalink to this definition"></a></dt>
+<dd><p>Holder’s full name.
+The combination of <cite>given_names</cite> and <cite>surname</cite> fields.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.PassportV1.gender">
+<span class="sig-name descname"><span class="pre">gender</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.PassportV1.gender" title="Permalink to this definition"></a></dt>
+<dd><p>Holder’s gender or sex</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.PassportV1.given_names">
+<span class="sig-name descname"><span class="pre">given_names</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.documents.PassportV1.given_names" title="Permalink to this definition"></a></dt>
+<dd><p>Holder’s list of first (given) names</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.PassportV1.id_number">
+<span class="sig-name descname"><span class="pre">id_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.PassportV1.id_number" title="Permalink to this definition"></a></dt>
+<dd><p>Passport number</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.PassportV1.issuance_date">
+<span class="sig-name descname"><span class="pre">issuance_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.date.DateField" title="mindee.fields.date.DateField"><code class="xref py py-class docutils literal notranslate"><span class="pre">DateField</span></code></a></em><a class="headerlink" href="#mindee.documents.PassportV1.issuance_date" title="Permalink to this definition"></a></dt>
+<dd><p>Date the passport was issued</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.PassportV1.mrz">
+<span class="sig-name descname"><span class="pre">mrz</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.PassportV1.mrz" title="Permalink to this definition"></a></dt>
+<dd><p>Combination of both MRZ fields.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.PassportV1.mrz1">
+<span class="sig-name descname"><span class="pre">mrz1</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.PassportV1.mrz1" title="Permalink to this definition"></a></dt>
+<dd><p>First line of the Machine-Readable Zone</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.PassportV1.mrz2">
+<span class="sig-name descname"><span class="pre">mrz2</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.PassportV1.mrz2" title="Permalink to this definition"></a></dt>
+<dd><p>Second line of the Machine-Readable Zone</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.PassportV1.surname">
+<span class="sig-name descname"><span class="pre">surname</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.PassportV1.surname" title="Permalink to this definition"></a></dt>
+<dd><p>Holder’s last name (surname)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.PassportV1.type">
+<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[str]</span></em><a class="headerlink" href="#mindee.documents.PassportV1.type" title="Permalink to this definition"></a></dt>
+<dd><p>Document type</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="shipping-container-v1">
+<h2>Shipping Container V1<a class="headerlink" href="#shipping-container-v1" title="Permalink to this heading"></a></h2>
+<p><strong>Sample Code:</strong></p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mindee</span> <span class="kn">import</span> <span class="n">Client</span><span class="p">,</span> <span class="n">documents</span>
+
+<span class="c1"># Init a new client</span>
+<span class="n">mindee_client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;my-api-key&quot;</span><span class="p">)</span>
+
+<span class="c1"># Load a file from disk</span>
+<span class="n">input_doc</span> <span class="o">=</span> <span class="n">mindee_client</span><span class="o">.</span><span class="n">doc_from_path</span><span class="p">(</span><span class="s2">&quot;/path/to/the/file.ext&quot;</span><span class="p">)</span>
+
+<span class="c1"># Parse the Shipping Container by passing the appropriate type</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">input_doc</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">documents</span><span class="o">.</span><span class="n">TypeShippingContainerV1</span><span class="p">)</span>
+
+<span class="c1"># Print a brief summary of the parsed data</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">document</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.documents.ShippingContainerV1">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mindee.documents.</span></span><span class="sig-name descname"><span class="pre">ShippingContainerV1</span></span><a class="headerlink" href="#mindee.documents.ShippingContainerV1" title="Permalink to this definition"></a></dt>
+<dd><p>Shipping Container v1 prediction results.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.ShippingContainerV1.checklist">
+<span class="sig-name descname"><span class="pre">checklist</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><a class="headerlink" href="#mindee.documents.ShippingContainerV1.checklist" title="Permalink to this definition"></a></dt>
+<dd><p>Validation checks for the document</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.ShippingContainerV1.cropper">
+<span class="sig-name descname"><span class="pre">cropper</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List[PositionField]</span></em><a class="headerlink" href="#mindee.documents.ShippingContainerV1.cropper" title="Permalink to this definition"></a></dt>
+<dd><p>Cropper results</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.ShippingContainerV1.owner">
+<span class="sig-name descname"><span class="pre">owner</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.ShippingContainerV1.owner" title="Permalink to this definition"></a></dt>
+<dd><p>The ISO-6346 code for container owner and equipment identifier.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.ShippingContainerV1.serial_number">
+<span class="sig-name descname"><span class="pre">serial_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.ShippingContainerV1.serial_number" title="Permalink to this definition"></a></dt>
+<dd><p>ISO-6346 code for container serial number.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.ShippingContainerV1.size_type">
+<span class="sig-name descname"><span class="pre">size_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.ShippingContainerV1.size_type" title="Permalink to this definition"></a></dt>
+<dd><p>ISO 6346 code for container length, height and type.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.ShippingContainerV1.type">
+<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[str]</span></em><a class="headerlink" href="#mindee.documents.ShippingContainerV1.type" title="Permalink to this definition"></a></dt>
+<dd><p>Document type</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="invoice-v3">
+<h2>Invoice V3<a class="headerlink" href="#invoice-v3" title="Permalink to this heading"></a></h2>
+<p><strong>Sample Code:</strong></p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mindee</span> <span class="kn">import</span> <span class="n">Client</span><span class="p">,</span> <span class="n">documents</span>
+
+<span class="c1"># Init a new client</span>
+<span class="n">mindee_client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;my-api-key&quot;</span><span class="p">)</span>
+
+<span class="c1"># Load a file from disk</span>
+<span class="n">input_doc</span> <span class="o">=</span> <span class="n">mindee_client</span><span class="o">.</span><span class="n">doc_from_path</span><span class="p">(</span><span class="s2">&quot;/path/to/the/file.ext&quot;</span><span class="p">)</span>
+
+<span class="c1"># Parse the Invoice by passing the appropriate type</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">input_doc</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">documents</span><span class="o">.</span><span class="n">TypeInvoiceV3</span><span class="p">)</span>
+
+<span class="c1"># Print a brief summary of the parsed data</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">document</span><span class="p">)</span>
+</pre></div>
+</div>
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.documents.InvoiceV3">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mindee.documents.</span></span><span class="sig-name descname"><span class="pre">InvoiceV3</span></span><a class="headerlink" href="#mindee.documents.InvoiceV3" title="Permalink to this definition"></a></dt>
 <dd><dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.InvoiceV3.checklist">
+<span class="sig-name descname"><span class="pre">checklist</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><a class="headerlink" href="#mindee.documents.InvoiceV3.checklist" title="Permalink to this definition"></a></dt>
+<dd><p>Validation checks for the document</p>
+</dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.documents.InvoiceV3.company_number">
 <span class="sig-name descname"><span class="pre">company_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="field_types.html#mindee.fields.company_registration.CompanyRegistrationField" title="mindee.fields.company_registration.CompanyRegistrationField"><code class="xref py py-class docutils literal notranslate"><span class="pre">CompanyRegistrationField</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.documents.InvoiceV3.company_number" title="Permalink to this definition"></a></dt>
 <dd><p>Company numbers</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.InvoiceV3.cropper">
+<span class="sig-name descname"><span class="pre">cropper</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List[PositionField]</span></em><a class="headerlink" href="#mindee.documents.InvoiceV3.cropper" title="Permalink to this definition"></a></dt>
+<dd><p>Cropper results</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -198,12 +622,49 @@
 <dd><p>Sum total of all taxes</p>
 </dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.InvoiceV3.type">
+<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[str]</span></em><a class="headerlink" href="#mindee.documents.InvoiceV3.type" title="Permalink to this definition"></a></dt>
+<dd><p>Document type</p>
 </dd></dl>
 
+</dd></dl>
+
+</section>
+<section id="invoice-v4">
+<h2>Invoice V4<a class="headerlink" href="#invoice-v4" title="Permalink to this heading"></a></h2>
+<p><strong>Sample Code:</strong></p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mindee</span> <span class="kn">import</span> <span class="n">Client</span><span class="p">,</span> <span class="n">documents</span>
+
+<span class="c1"># Init a new client</span>
+<span class="n">mindee_client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;my-api-key&quot;</span><span class="p">)</span>
+
+<span class="c1"># Load a file from disk</span>
+<span class="n">input_doc</span> <span class="o">=</span> <span class="n">mindee_client</span><span class="o">.</span><span class="n">doc_from_path</span><span class="p">(</span><span class="s2">&quot;/path/to/the/file.ext&quot;</span><span class="p">)</span>
+
+<span class="c1"># Parse the Invoice by passing the appropriate type</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">input_doc</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">documents</span><span class="o">.</span><span class="n">TypeInvoiceV4</span><span class="p">)</span>
+
+<span class="c1"># Print a brief summary of the parsed data</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">document</span><span class="p">)</span>
+</pre></div>
+</div>
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.documents.InvoiceV4">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mindee.documents.</span></span><span class="sig-name descname"><span class="pre">InvoiceV4</span></span><a class="headerlink" href="#mindee.documents.InvoiceV4" title="Permalink to this definition"></a></dt>
 <dd><dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.InvoiceV4.checklist">
+<span class="sig-name descname"><span class="pre">checklist</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><a class="headerlink" href="#mindee.documents.InvoiceV4.checklist" title="Permalink to this definition"></a></dt>
+<dd><p>Validation checks for the document</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.InvoiceV4.cropper">
+<span class="sig-name descname"><span class="pre">cropper</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List[PositionField]</span></em><a class="headerlink" href="#mindee.documents.InvoiceV4.cropper" title="Permalink to this definition"></a></dt>
+<dd><p>Cropper results</p>
+</dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.documents.InvoiceV4.customer_address">
 <span class="sig-name descname"><span class="pre">customer_address</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.InvoiceV4.customer_address" title="Permalink to this definition"></a></dt>
 <dd><p>Customer’s address</p>
@@ -305,11 +766,33 @@
 <dd><p>Sum total of all taxes</p>
 </dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.InvoiceV4.type">
+<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[str]</span></em><a class="headerlink" href="#mindee.documents.InvoiceV4.type" title="Permalink to this definition"></a></dt>
+<dd><p>Document type</p>
+</dd></dl>
+
 </dd></dl>
 
 </section>
-<section id="expense-receipts">
-<h2>Expense Receipts<a class="headerlink" href="#expense-receipts" title="Permalink to this heading"></a></h2>
+<section id="receipt-v3">
+<h2>Receipt V3<a class="headerlink" href="#receipt-v3" title="Permalink to this heading"></a></h2>
+<p><strong>Sample Code:</strong></p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mindee</span> <span class="kn">import</span> <span class="n">Client</span><span class="p">,</span> <span class="n">documents</span>
+
+<span class="c1"># Init a new client</span>
+<span class="n">mindee_client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;my-api-key&quot;</span><span class="p">)</span>
+
+<span class="c1"># Load a file from disk</span>
+<span class="n">input_doc</span> <span class="o">=</span> <span class="n">mindee_client</span><span class="o">.</span><span class="n">doc_from_path</span><span class="p">(</span><span class="s2">&quot;/path/to/the/file.ext&quot;</span><span class="p">)</span>
+
+<span class="c1"># Parse the Receipt by passing the appropriate type</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">input_doc</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">documents</span><span class="o">.</span><span class="n">TypeReceiptV3</span><span class="p">)</span>
+
+<span class="c1"># Print a brief summary of the parsed data</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">document</span><span class="p">)</span>
+</pre></div>
+</div>
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.documents.ReceiptV3">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mindee.documents.</span></span><span class="sig-name descname"><span class="pre">ReceiptV3</span></span><a class="headerlink" href="#mindee.documents.ReceiptV3" title="Permalink to this definition"></a></dt>
@@ -317,6 +800,18 @@
 <dt class="sig sig-object py" id="mindee.documents.ReceiptV3.category">
 <span class="sig-name descname"><span class="pre">category</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.ReceiptV3.category" title="Permalink to this definition"></a></dt>
 <dd><p>Service category</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.ReceiptV3.checklist">
+<span class="sig-name descname"><span class="pre">checklist</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><a class="headerlink" href="#mindee.documents.ReceiptV3.checklist" title="Permalink to this definition"></a></dt>
+<dd><p>Validation checks for the document</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.ReceiptV3.cropper">
+<span class="sig-name descname"><span class="pre">cropper</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List[PositionField]</span></em><a class="headerlink" href="#mindee.documents.ReceiptV3.cropper" title="Permalink to this definition"></a></dt>
+<dd><p>Cropper results</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -367,8 +862,33 @@
 <dd><p>Sum total of all taxes</p>
 </dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.ReceiptV3.type">
+<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[str]</span></em><a class="headerlink" href="#mindee.documents.ReceiptV3.type" title="Permalink to this definition"></a></dt>
+<dd><p>Document type</p>
 </dd></dl>
 
+</dd></dl>
+
+</section>
+<section id="receipt-v4">
+<h2>Receipt V4<a class="headerlink" href="#receipt-v4" title="Permalink to this heading"></a></h2>
+<p><strong>Sample Code:</strong></p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mindee</span> <span class="kn">import</span> <span class="n">Client</span><span class="p">,</span> <span class="n">documents</span>
+
+<span class="c1"># Init a new client</span>
+<span class="n">mindee_client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;my-api-key&quot;</span><span class="p">)</span>
+
+<span class="c1"># Load a file from disk</span>
+<span class="n">input_doc</span> <span class="o">=</span> <span class="n">mindee_client</span><span class="o">.</span><span class="n">doc_from_path</span><span class="p">(</span><span class="s2">&quot;/path/to/the/file.ext&quot;</span><span class="p">)</span>
+
+<span class="c1"># Parse the Receipt by passing the appropriate type</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">input_doc</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">documents</span><span class="o">.</span><span class="n">TypeReceiptV4</span><span class="p">)</span>
+
+<span class="c1"># Print a brief summary of the parsed data</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">document</span><span class="p">)</span>
+</pre></div>
+</div>
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.documents.ReceiptV4">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mindee.documents.</span></span><span class="sig-name descname"><span class="pre">ReceiptV4</span></span><a class="headerlink" href="#mindee.documents.ReceiptV4" title="Permalink to this definition"></a></dt>
@@ -376,6 +896,18 @@
 <dt class="sig sig-object py" id="mindee.documents.ReceiptV4.category">
 <span class="sig-name descname"><span class="pre">category</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.ReceiptV4.category" title="Permalink to this definition"></a></dt>
 <dd><p>The type, or service category, of the purchase.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.ReceiptV4.checklist">
+<span class="sig-name descname"><span class="pre">checklist</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><a class="headerlink" href="#mindee.documents.ReceiptV4.checklist" title="Permalink to this definition"></a></dt>
+<dd><p>Validation checks for the document</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.ReceiptV4.cropper">
+<span class="sig-name descname"><span class="pre">cropper</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List[PositionField]</span></em><a class="headerlink" href="#mindee.documents.ReceiptV4.cropper" title="Permalink to this definition"></a></dt>
+<dd><p>Cropper results</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -444,227 +976,10 @@
 <dd><p>Total tax amount of the purchase.</p>
 </dd></dl>
 
-</dd></dl>
-
-</section>
-<section id="passports">
-<h2>Passports<a class="headerlink" href="#passports" title="Permalink to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="mindee.documents.PassportV1">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mindee.documents.</span></span><span class="sig-name descname"><span class="pre">PassportV1</span></span><a class="headerlink" href="#mindee.documents.PassportV1" title="Permalink to this definition"></a></dt>
-<dd><dl class="py method">
-<dt class="sig sig-object py" id="mindee.documents.PassportV1.check_sum">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">check_sum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">to_check</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.documents.PassportV1.check_sum" title="Permalink to this definition"></a></dt>
-<dd><p>Validate the checksum.</p>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Machine-readable_passport">https://en.wikipedia.org/wiki/Machine-readable_passport</a></p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>to_check</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – MRZ value to check</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>checksum of the value</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="mindee.documents.PassportV1.is_expired">
-<span class="sig-name descname"><span class="pre">is_expired</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.documents.PassportV1.is_expired" title="Permalink to this definition"></a></dt>
-<dd><p>Check the passport’s validity.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>True if the passport is expired, False otherwise</p>
-</dd>
-</dl>
-</dd></dl>
-
 <dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.documents.PassportV1.birth_date">
-<span class="sig-name descname"><span class="pre">birth_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.date.DateField" title="mindee.fields.date.DateField"><code class="xref py py-class docutils literal notranslate"><span class="pre">DateField</span></code></a></em><a class="headerlink" href="#mindee.documents.PassportV1.birth_date" title="Permalink to this definition"></a></dt>
-<dd><p>Holder’s date of birth</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.documents.PassportV1.birth_place">
-<span class="sig-name descname"><span class="pre">birth_place</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.PassportV1.birth_place" title="Permalink to this definition"></a></dt>
-<dd><p>Holder’s place of birth</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.documents.PassportV1.country">
-<span class="sig-name descname"><span class="pre">country</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.PassportV1.country" title="Permalink to this definition"></a></dt>
-<dd><p>Country of issue</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.documents.PassportV1.expiry_date">
-<span class="sig-name descname"><span class="pre">expiry_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.date.DateField" title="mindee.fields.date.DateField"><code class="xref py py-class docutils literal notranslate"><span class="pre">DateField</span></code></a></em><a class="headerlink" href="#mindee.documents.PassportV1.expiry_date" title="Permalink to this definition"></a></dt>
-<dd><p>Date the passport expires</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.documents.PassportV1.full_name">
-<span class="sig-name descname"><span class="pre">full_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.PassportV1.full_name" title="Permalink to this definition"></a></dt>
-<dd><p>Holder’s full name.
-The combination of <cite>given_names</cite> and <cite>surname</cite> fields.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.documents.PassportV1.gender">
-<span class="sig-name descname"><span class="pre">gender</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.PassportV1.gender" title="Permalink to this definition"></a></dt>
-<dd><p>Holder’s gender or sex</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.documents.PassportV1.given_names">
-<span class="sig-name descname"><span class="pre">given_names</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.documents.PassportV1.given_names" title="Permalink to this definition"></a></dt>
-<dd><p>Holder’s list of first (given) names</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.documents.PassportV1.id_number">
-<span class="sig-name descname"><span class="pre">id_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.PassportV1.id_number" title="Permalink to this definition"></a></dt>
-<dd><p>Passport number</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.documents.PassportV1.issuance_date">
-<span class="sig-name descname"><span class="pre">issuance_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.date.DateField" title="mindee.fields.date.DateField"><code class="xref py py-class docutils literal notranslate"><span class="pre">DateField</span></code></a></em><a class="headerlink" href="#mindee.documents.PassportV1.issuance_date" title="Permalink to this definition"></a></dt>
-<dd><p>Date the passport was issued</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.documents.PassportV1.mrz">
-<span class="sig-name descname"><span class="pre">mrz</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.PassportV1.mrz" title="Permalink to this definition"></a></dt>
-<dd><p>Combination of both MRZ fields.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.documents.PassportV1.mrz1">
-<span class="sig-name descname"><span class="pre">mrz1</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.PassportV1.mrz1" title="Permalink to this definition"></a></dt>
-<dd><p>First line of the Machine-Readable Zone</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.documents.PassportV1.mrz2">
-<span class="sig-name descname"><span class="pre">mrz2</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.PassportV1.mrz2" title="Permalink to this definition"></a></dt>
-<dd><p>Second line of the Machine-Readable Zone</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.documents.PassportV1.surname">
-<span class="sig-name descname"><span class="pre">surname</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.PassportV1.surname" title="Permalink to this definition"></a></dt>
-<dd><p>Holder’s last name (surname)</p>
-</dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="financial-documents">
-<h2>Financial Documents<a class="headerlink" href="#financial-documents" title="Permalink to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="mindee.documents.FinancialV1">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mindee.documents.</span></span><span class="sig-name descname"><span class="pre">FinancialV1</span></span><a class="headerlink" href="#mindee.documents.FinancialV1" title="Permalink to this definition"></a></dt>
-<dd><dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.documents.FinancialV1.company_number">
-<span class="sig-name descname"><span class="pre">company_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="field_types.html#mindee.fields.company_registration.CompanyRegistrationField" title="mindee.fields.company_registration.CompanyRegistrationField"><code class="xref py py-class docutils literal notranslate"><span class="pre">CompanyRegistrationField</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.documents.FinancialV1.company_number" title="Permalink to this definition"></a></dt>
-<dd><p>Company numbers</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.documents.FinancialV1.customer_address">
-<span class="sig-name descname"><span class="pre">customer_address</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.FinancialV1.customer_address" title="Permalink to this definition"></a></dt>
-<dd><p>Customer’s address</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.documents.FinancialV1.customer_company_registration">
-<span class="sig-name descname"><span class="pre">customer_company_registration</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="field_types.html#mindee.fields.company_registration.CompanyRegistrationField" title="mindee.fields.company_registration.CompanyRegistrationField"><code class="xref py py-class docutils literal notranslate"><span class="pre">CompanyRegistrationField</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.documents.FinancialV1.customer_company_registration" title="Permalink to this definition"></a></dt>
-<dd><p>Customer company registration numbers</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.documents.FinancialV1.customer_name">
-<span class="sig-name descname"><span class="pre">customer_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.FinancialV1.customer_name" title="Permalink to this definition"></a></dt>
-<dd><p>Customer’s name</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.documents.FinancialV1.date">
-<span class="sig-name descname"><span class="pre">date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.date.DateField" title="mindee.fields.date.DateField"><code class="xref py py-class docutils literal notranslate"><span class="pre">DateField</span></code></a></em><a class="headerlink" href="#mindee.documents.FinancialV1.date" title="Permalink to this definition"></a></dt>
-<dd><p>Date the document was issued</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.documents.FinancialV1.due_date">
-<span class="sig-name descname"><span class="pre">due_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.date.DateField" title="mindee.fields.date.DateField"><code class="xref py py-class docutils literal notranslate"><span class="pre">DateField</span></code></a></em><a class="headerlink" href="#mindee.documents.FinancialV1.due_date" title="Permalink to this definition"></a></dt>
-<dd><p>Date the invoice is due</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.documents.FinancialV1.invoice_number">
-<span class="sig-name descname"><span class="pre">invoice_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.FinancialV1.invoice_number" title="Permalink to this definition"></a></dt>
-<dd><p>Invoice number</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.documents.FinancialV1.locale">
-<span class="sig-name descname"><span class="pre">locale</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.locale.LocaleField" title="mindee.fields.locale.LocaleField"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocaleField</span></code></a></em><a class="headerlink" href="#mindee.documents.FinancialV1.locale" title="Permalink to this definition"></a></dt>
-<dd><p>locale information</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.documents.FinancialV1.merchant_name">
-<span class="sig-name descname"><span class="pre">merchant_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.FinancialV1.merchant_name" title="Permalink to this definition"></a></dt>
-<dd><p>Merchant/Supplier’s name</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.documents.FinancialV1.payment_details">
-<span class="sig-name descname"><span class="pre">payment_details</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="field_types.html#mindee.fields.payment_details.PaymentDetails" title="mindee.fields.payment_details.PaymentDetails"><code class="xref py py-class docutils literal notranslate"><span class="pre">PaymentDetails</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.documents.FinancialV1.payment_details" title="Permalink to this definition"></a></dt>
-<dd><p>Payment details</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.documents.FinancialV1.supplier_address">
-<span class="sig-name descname"><span class="pre">supplier_address</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.FinancialV1.supplier_address" title="Permalink to this definition"></a></dt>
-<dd><p>Merchant/Supplier’s address</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.documents.FinancialV1.taxes">
-<span class="sig-name descname"><span class="pre">taxes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="field_types.html#mindee.fields.tax.TaxField" title="mindee.fields.tax.TaxField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TaxField</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.documents.FinancialV1.taxes" title="Permalink to this definition"></a></dt>
-<dd><p>List of all taxes</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.documents.FinancialV1.time">
-<span class="sig-name descname"><span class="pre">time</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.FinancialV1.time" title="Permalink to this definition"></a></dt>
-<dd><p>Time the document was issued</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.documents.FinancialV1.total_excl">
-<span class="sig-name descname"><span class="pre">total_excl</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.amount.AmountField" title="mindee.fields.amount.AmountField"><code class="xref py py-class docutils literal notranslate"><span class="pre">AmountField</span></code></a></em><a class="headerlink" href="#mindee.documents.FinancialV1.total_excl" title="Permalink to this definition"></a></dt>
-<dd><p>Total excluding taxes</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.documents.FinancialV1.total_incl">
-<span class="sig-name descname"><span class="pre">total_incl</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.amount.AmountField" title="mindee.fields.amount.AmountField"><code class="xref py py-class docutils literal notranslate"><span class="pre">AmountField</span></code></a></em><a class="headerlink" href="#mindee.documents.FinancialV1.total_incl" title="Permalink to this definition"></a></dt>
-<dd><p>Total including taxes</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.documents.FinancialV1.total_tax">
-<span class="sig-name descname"><span class="pre">total_tax</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="field_types.html#mindee.fields.amount.AmountField" title="mindee.fields.amount.AmountField"><code class="xref py py-class docutils literal notranslate"><span class="pre">AmountField</span></code></a></em><a class="headerlink" href="#mindee.documents.FinancialV1.total_tax" title="Permalink to this definition"></a></dt>
-<dd><p>Sum total of all taxes</p>
+<dt class="sig sig-object py" id="mindee.documents.ReceiptV4.type">
+<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[str]</span></em><a class="headerlink" href="#mindee.documents.ReceiptV4.type" title="Permalink to this definition"></a></dt>
+<dd><p>Document type</p>
 </dd></dl>
 
 </dd></dl>
@@ -676,7 +991,7 @@ The combination of <cite>given_names</cite> and <cite>surname</cite> fields.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="Off the Shelf" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="field_types.html" class="btn btn-neutral float-left" title="Common Fields" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="us.html" class="btn btn-neutral float-right" title="United States of America" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

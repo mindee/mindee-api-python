@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Receipt V4 &mdash; Mindee Python Client  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Mindee Python Client
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../client.html">Document Parsing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Predictions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../utilities/index.html">Utilities</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Mindee Python Client</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Receipt V4</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/predictions/standard/documents/receipt_v4.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="receipt-v4">
+<h1>Receipt V4<a class="headerlink" href="#receipt-v4" title="Permalink to this heading"></a></h1>
+<p><strong>Sample Code:</strong></p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mindee</span> <span class="kn">import</span> <span class="n">Client</span><span class="p">,</span> <span class="n">documents</span>
+
+<span class="c1"># Init a new client</span>
+<span class="n">mindee_client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;my-api-key&quot;</span><span class="p">)</span>
+
+<span class="c1"># Load a file from disk</span>
+<span class="n">input_doc</span> <span class="o">=</span> <span class="n">mindee_client</span><span class="o">.</span><span class="n">doc_from_path</span><span class="p">(</span><span class="s2">&quot;/path/to/the/file.ext&quot;</span><span class="p">)</span>
+
+<span class="c1"># Parse the Receipt by passing the appropriate type</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">input_doc</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">documents</span><span class="o">.</span><span class="n">TypeReceiptV4</span><span class="p">)</span>
+
+<span class="c1"># Print a brief summary of the parsed data</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">document</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.documents.ReceiptV4">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mindee.documents.</span></span><span class="sig-name descname"><span class="pre">ReceiptV4</span></span><a class="headerlink" href="#mindee.documents.ReceiptV4" title="Permalink to this definition"></a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.ReceiptV4.category">
+<span class="sig-name descname"><span class="pre">category</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.ReceiptV4.category" title="Permalink to this definition"></a></dt>
+<dd><p>The type, or service category, of the purchase.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.ReceiptV4.date">
+<span class="sig-name descname"><span class="pre">date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../field_types.html#mindee.fields.date.DateField" title="mindee.fields.date.DateField"><code class="xref py py-class docutils literal notranslate"><span class="pre">DateField</span></code></a></em><a class="headerlink" href="#mindee.documents.ReceiptV4.date" title="Permalink to this definition"></a></dt>
+<dd><p>Date the receipt was issued</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.ReceiptV4.document_type">
+<span class="sig-name descname"><span class="pre">document_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.ReceiptV4.document_type" title="Permalink to this definition"></a></dt>
+<dd><p>Whether the document is an expense receipt or a credit card receipt.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.ReceiptV4.locale">
+<span class="sig-name descname"><span class="pre">locale</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../field_types.html#mindee.fields.locale.LocaleField" title="mindee.fields.locale.LocaleField"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocaleField</span></code></a></em><a class="headerlink" href="#mindee.documents.ReceiptV4.locale" title="Permalink to this definition"></a></dt>
+<dd><p>locale information</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.ReceiptV4.subcategory">
+<span class="sig-name descname"><span class="pre">subcategory</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.ReceiptV4.subcategory" title="Permalink to this definition"></a></dt>
+<dd><p>The receipt sub category among predefined classes.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.ReceiptV4.supplier">
+<span class="sig-name descname"><span class="pre">supplier</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.ReceiptV4.supplier" title="Permalink to this definition"></a></dt>
+<dd><p>The merchant, or supplier, as found on the receipt.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.ReceiptV4.taxes">
+<span class="sig-name descname"><span class="pre">taxes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="../field_types.html#mindee.fields.tax.TaxField" title="mindee.fields.tax.TaxField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TaxField</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.documents.ReceiptV4.taxes" title="Permalink to this definition"></a></dt>
+<dd><p>List of all taxes.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.ReceiptV4.time">
+<span class="sig-name descname"><span class="pre">time</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.ReceiptV4.time" title="Permalink to this definition"></a></dt>
+<dd><p>Time the receipt was issued, in HH: MM format.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.ReceiptV4.tip">
+<span class="sig-name descname"><span class="pre">tip</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../field_types.html#mindee.fields.amount.AmountField" title="mindee.fields.amount.AmountField"><code class="xref py py-class docutils literal notranslate"><span class="pre">AmountField</span></code></a></em><a class="headerlink" href="#mindee.documents.ReceiptV4.tip" title="Permalink to this definition"></a></dt>
+<dd><p>Total amount of tip and gratuity.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.ReceiptV4.total_amount">
+<span class="sig-name descname"><span class="pre">total_amount</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../field_types.html#mindee.fields.amount.AmountField" title="mindee.fields.amount.AmountField"><code class="xref py py-class docutils literal notranslate"><span class="pre">AmountField</span></code></a></em><a class="headerlink" href="#mindee.documents.ReceiptV4.total_amount" title="Permalink to this definition"></a></dt>
+<dd><p>Total including taxes</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.ReceiptV4.total_net">
+<span class="sig-name descname"><span class="pre">total_net</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../field_types.html#mindee.fields.amount.AmountField" title="mindee.fields.amount.AmountField"><code class="xref py py-class docutils literal notranslate"><span class="pre">AmountField</span></code></a></em><a class="headerlink" href="#mindee.documents.ReceiptV4.total_net" title="Permalink to this definition"></a></dt>
+<dd><p>Total amount of the purchase excluding taxes.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.ReceiptV4.total_tax">
+<span class="sig-name descname"><span class="pre">total_tax</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../field_types.html#mindee.fields.amount.AmountField" title="mindee.fields.amount.AmountField"><code class="xref py py-class docutils literal notranslate"><span class="pre">AmountField</span></code></a></em><a class="headerlink" href="#mindee.documents.ReceiptV4.total_tax" title="Permalink to this definition"></a></dt>
+<dd><p>Total tax amount of the purchase.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Mindee.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
