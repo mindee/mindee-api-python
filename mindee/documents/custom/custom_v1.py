@@ -63,8 +63,5 @@ class CustomV1(Document):
         custom_doc_str += "----------------------"
         return clean_out_string(custom_doc_str)
 
-    def _checklist(self) -> None:
-        pass
-
 
 TypeCustomV1 = TypeVar("TypeCustomV1", bound=CustomV1)

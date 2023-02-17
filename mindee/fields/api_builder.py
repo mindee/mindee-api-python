@@ -14,7 +14,7 @@ class ClassificationField:
         self.confidence = prediction["confidence"]
 
     def __str__(self) -> str:
-        return self.value
+        return self.value or ""
 
 
 class ListFieldValue(FieldPositionMixin):
