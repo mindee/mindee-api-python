@@ -3,7 +3,7 @@ Carte Vitale V1
 
 **Sample Code:**
 
-.. literalinclude:: /code_samples/fr/carte_vitale_v1.py
+.. literalinclude:: /extras/code_samples/fr/carte_vitale_v1.txt
     :language: Python
 
 .. autoclass:: mindee.documents.fr.CarteVitaleV1
