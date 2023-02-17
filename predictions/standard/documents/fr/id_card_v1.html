@@ -75,6 +75,21 @@
   <section id="carte-nationale-d-identite-v1">
 <h1>Carte Nationale d’Identité V1<a class="headerlink" href="#carte-nationale-d-identite-v1" title="Permalink to this heading"></a></h1>
 <p><strong>Sample Code:</strong></p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mindee</span> <span class="kn">import</span> <span class="n">Client</span><span class="p">,</span> <span class="n">documents</span>
+
+<span class="c1"># Init a new client</span>
+<span class="n">mindee_client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;my-api-key&quot;</span><span class="p">)</span>
+
+<span class="c1"># Load a file from disk</span>
+<span class="n">input_doc</span> <span class="o">=</span> <span class="n">mindee_client</span><span class="o">.</span><span class="n">doc_from_path</span><span class="p">(</span><span class="s2">&quot;/path/to/the/file.ext&quot;</span><span class="p">)</span>
+
+<span class="c1"># Parse the Carte Nationale d&#39;Identité by passing the appropriate type</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">input_doc</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">documents</span><span class="o">.</span><span class="n">fr</span><span class="o">.</span><span class="n">TypeIdCardV1</span><span class="p">)</span>
+
+<span class="c1"># Print a brief summary of the parsed data</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">document</span><span class="p">)</span>
+</pre></div>
+</div>
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.documents.fr.IdCardV1">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mindee.documents.fr.</span></span><span class="sig-name descname"><span class="pre">IdCardV1</span></span><a class="headerlink" href="#mindee.documents.fr.IdCardV1" title="Permalink to this definition"></a></dt>
