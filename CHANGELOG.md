@@ -1,5 +1,18 @@
 # Mindee Python API Library Changelog
 
+## v3.5.0 - 2023-02-17
+### Changes
+* :safety_vest: make sure CI is run on various OSes
+* :arrow_up: general update to all dependencies
+* :sparkles: add support for FR carte vitale v1
+* :sparkles: add support for FR ID card v1
+* :sparkles: add support for shipping container v1
+* :sparkles: add EU license plate v1
+* :memo: add sample code for all supported APIs
+
+### Fixes
+* :bug: fix for null classification field on custom APIs
+
 ## v3.4.0 - 2023-02-01
 ### Changes
 * :sparkles: add support for: financial document v1
