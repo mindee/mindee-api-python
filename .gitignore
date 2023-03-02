@@ -136,3 +136,4 @@ dmypy.json
 # Temp files
 *.swp
 *-swp
+_test.py

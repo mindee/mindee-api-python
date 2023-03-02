@@ -36,7 +36,7 @@ jobs:
       uses: actions/cache@v3
       with:
         path: ~/.cache/pip
-        key: ${{ runner.os }}-test-${{ hashFiles('**/setup.py') }}
+        key: ${{ runner.os }}-test-${{ hashFiles('**/setup.cfg') }}
         restore-keys: |
           ${{ runner.os }}-test-
 

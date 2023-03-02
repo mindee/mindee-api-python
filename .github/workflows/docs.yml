@@ -1,7 +1,7 @@
 #
 # Publish Documentation to GitHub pages.
 #
-name: Documentation
+name: Publish Documentation
 
 on:
   release:
