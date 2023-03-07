@@ -1,0 +1,10 @@
+Cropper V1
+----------
+
+**Sample Code:**
+
+.. literalinclude:: /extras/code_samples/cropper_1.txt
+    :language: Python
+
+.. autoclass:: mindee.documents.CropperV1
+    :members:

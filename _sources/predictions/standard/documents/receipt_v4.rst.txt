@@ -3,7 +3,7 @@ Receipt V4
 
 **Sample Code:**
 
-.. literalinclude:: /extras/code_samples/receipt_v4.txt
+.. literalinclude:: /extras/code_samples/expense_receipts_4.txt
     :language: Python
 
 .. autoclass:: mindee.documents.ReceiptV4

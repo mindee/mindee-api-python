@@ -4,7 +4,7 @@ API Builder
 
 **Sample Code:**
 
-.. literalinclude:: /extras/code_samples/custom_v1.txt
+.. literalinclude:: /extras/code_samples/custom_1.txt
     :language: Python
 
 Prediction
