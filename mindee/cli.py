@@ -76,13 +76,19 @@ DOCUMENTS: Dict[str, CommandConfig] = {
 def _get_input_doc(client, args) -> DocumentClient:
     if args.input_type == "file":
         with open(args.path, "rb", buffering=30) as file_handle:
-            return client.doc_from_file(file_handle)
+            return client.doc_from_file(input_file=file_handle)
     elif args.input_type == "base64":
         with open(args.path, "rt", encoding="ascii") as base64_handle:
-            return client.doc_from_b64string(base64_handle.read(), "test.jpg")
+            return client.doc_from_b64string(
+                input_string=base64_handle.read(), filename="test.jpg"
+            )
     elif args.input_type == "bytes":
         with open(args.path, "rb") as bytes_handle:
-            return client.doc_from_bytes(bytes_handle.read(), bytes_handle.name)
+            return client.doc_from_bytes(
+                input_bytes=bytes_handle.read(), filename=bytes_handle.name
+            )
+    elif args.input_type == "url":
+        return client.doc_from_url(url=args.path)
     return client.doc_from_path(args.path)
 
 
@@ -181,13 +187,14 @@ def _parse_args() -> Namespace:
             "-i",
             "--input-type",
             dest="input_type",
-            choices=["path", "file", "base64", "bytes"],
+            choices=["path", "file", "base64", "bytes", "url"],
             default="path",
             help="Specify how to handle the input.\n"
             "- path: open a path (default).\n"
             "- file: open as a file handle.\n"
-            "- base64: load the from a base64 encoded text file.\n"
-            "- bytes: load the contents as raw bytes.",
+            "- base64: open a base64 encoded text file.\n"
+            "- bytes: open the contents as raw bytes.\n"
+            "- url: open an URL.",
         )
         subp.add_argument(
             "-o",

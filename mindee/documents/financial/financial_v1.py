@@ -1,4 +1,4 @@
-from typing import List, Optional, TypeVar
+from typing import List, Optional, TypeVar, Union
 
 from mindee.documents.base import Document, TypeApiPrediction, clean_out_string
 from mindee.documents.invoice.invoice_v3 import InvoiceV3
@@ -11,7 +11,7 @@ from mindee.fields.locale import LocaleField
 from mindee.fields.payment_details import PaymentDetails
 from mindee.fields.tax import TaxField
 from mindee.fields.text import TextField
-from mindee.input.sources import InputSource
+from mindee.input.sources import LocalInputSource, UrlInputSource
 
 
 class FinancialV1(Document):
@@ -152,7 +152,7 @@ class FinancialV1(Document):
     @staticmethod
     def request(
         endpoints: List[Endpoint],
-        input_source: InputSource,
+        input_source: Union[LocalInputSource, UrlInputSource],
         include_words: bool = False,
         close_file: bool = True,
         cropper: bool = False,
@@ -166,6 +166,9 @@ class FinancialV1(Document):
         :param close_file: Whether to `close()` the file after parsing it.
         :param cropper: Including Mindee cropper results.
         """
+        if isinstance(input_source, UrlInputSource):
+            raise AssertionError("URL input is not supported for this API endpoint.")
+
         if "pdf" in input_source.file_mimetype:
             # invoices is index 0, receipts 1 (this should be cleaned up)
             index = 0

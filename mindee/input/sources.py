@@ -2,6 +2,7 @@ import base64
 import io
 import mimetypes
 import os
+from enum import Enum
 from typing import BinaryIO, Optional, Sequence, Tuple
 
 import pikepdf
@@ -22,26 +23,29 @@ ALLOWED_MIME_TYPES = [
     "image/webp",
 ]
 
-INPUT_TYPE_FILE = "file"
-INPUT_TYPE_BASE64 = "base64"
-INPUT_TYPE_BYTES = "bytes"
-INPUT_TYPE_PATH = "path"
+
+class InputType(Enum):
+    FILE = "file"
+    BASE64 = "base64"
+    BYTES = "bytes"
+    PATH = "path"
+    URL = "url"
 
 
 class MimeTypeError(AssertionError):
     pass
 
 
-class InputSource:
+class LocalInputSource:
     file_object: BinaryIO
     filename: str
     file_mimetype: str
-    input_type: str
+    input_type: InputType
     filepath: Optional[str] = None
 
     def __init__(
         self,
-        input_type: str,
+        input_type: InputType,
     ):
         self.input_type = input_type
         self._check_mimetype()
@@ -168,7 +172,7 @@ class InputSource:
         return self.filename, data
 
 
-class FileInput(InputSource):
+class FileInput(LocalInputSource):
     def __init__(self, file: BinaryIO):
         """
         Input document from a Python binary file object.
@@ -182,10 +186,10 @@ class FileInput(InputSource):
         self.file_object = file
         self.filename = os.path.basename(file.name)
         self.filepath = file.name
-        super().__init__(input_type=INPUT_TYPE_FILE)
+        super().__init__(input_type=InputType.FILE)
 
 
-class PathInput(InputSource):
+class PathInput(LocalInputSource):
     def __init__(self, filepath: str):
         """
         Input document from a path.
@@ -195,10 +199,10 @@ class PathInput(InputSource):
         self.file_object = open(filepath, "rb")  # pylint: disable=consider-using-with
         self.filename = os.path.basename(filepath)
         self.filepath = filepath
-        super().__init__(input_type=INPUT_TYPE_PATH)
+        super().__init__(input_type=InputType.PATH)
 
 
-class BytesInput(InputSource):
+class BytesInput(LocalInputSource):
     def __init__(self, raw_bytes: bytes, filename: str):
         """
         Input document from raw bytes (no buffer).
@@ -209,10 +213,10 @@ class BytesInput(InputSource):
         self.file_object = io.BytesIO(raw_bytes)
         self.filename = filename
         self.filepath = None
-        super().__init__(input_type=INPUT_TYPE_BYTES)
+        super().__init__(input_type=InputType.BYTES)
 
 
-class Base64Input(InputSource):
+class Base64Input(LocalInputSource):
     def __init__(self, base64_string: str, filename: str):
         """
         Input document from a base64 encoded string.
@@ -223,4 +227,23 @@ class Base64Input(InputSource):
         self.file_object = io.BytesIO(base64.standard_b64decode(base64_string))
         self.filename = filename
         self.filepath = None
-        super().__init__(input_type=INPUT_TYPE_BASE64)
+        super().__init__(input_type=InputType.BASE64)
+
+
+class UrlInputSource:
+    url: str
+
+    def __init__(self, url: str):
+        """
+        Input document from a base64 encoded string.
+
+        :param url: URL to send, must be HTTPS
+        """
+        if not url.lower().startswith("https"):
+            raise AssertionError("URL must be HTTPS")
+
+        self.input_type = InputType.URL
+
+        logger.debug("URL input: %s", url)
+
+        self.url = url

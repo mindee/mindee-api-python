@@ -1,5 +1,5 @@
 import json
-from typing import BinaryIO, Dict, List, NamedTuple, Optional, Type
+from typing import BinaryIO, Dict, List, NamedTuple, Optional, Type, Union
 
 from mindee import documents
 from mindee.documents.base import Document, TypeDocument
@@ -10,8 +10,9 @@ from mindee.input.sources import (
     Base64Input,
     BytesInput,
     FileInput,
-    InputSource,
+    LocalInputSource,
     PathInput,
+    UrlInputSource,
 )
 from mindee.logger import logger
 from mindee.response import PredictResponse
@@ -23,13 +24,13 @@ def get_bound_classname(type_var) -> str:
 
 
 class DocumentClient:
-    input_doc: InputSource
+    input_doc: Union[LocalInputSource, UrlInputSource]
     doc_configs: DocumentConfigDict
     raise_on_error: bool = True
 
     def __init__(
         self,
-        input_doc: InputSource,
+        input_doc: Union[LocalInputSource, UrlInputSource],
         doc_configs: DocumentConfigDict,
         raise_on_error: bool,
     ):
@@ -108,12 +109,13 @@ class DocumentClient:
 
         doc_config = self.doc_configs[config_key]
         doc_config.check_api_keys()
-        if page_options and self.input_doc.is_pdf():
-            self.input_doc.process_pdf(
-                page_options.operation,
-                page_options.on_min_pages,
-                page_options.page_indexes,
-            )
+        if not isinstance(self.input_doc, UrlInputSource):
+            if page_options and self.input_doc.is_pdf():
+                self.input_doc.process_pdf(
+                    page_options.operation,
+                    page_options.on_min_pages,
+                    page_options.page_indexes,
+                )
         return self._make_request(
             document_class, doc_config, include_words, close_file, cropper
         )
@@ -152,7 +154,8 @@ class DocumentClient:
 
     def close(self) -> None:
         """Close the file object."""
-        self.input_doc.file_object.close()
+        if not isinstance(self.input_doc, UrlInputSource):
+            self.input_doc.file_object.close()
 
 
 class ConfigSpec(NamedTuple):
@@ -391,6 +394,24 @@ class Client:
         input_doc = BytesInput(
             input_bytes,
             filename,
+        )
+        return DocumentClient(
+            input_doc=input_doc,
+            doc_configs=self._doc_configs,
+            raise_on_error=self.raise_on_error,
+        )
+
+    def doc_from_url(
+        self,
+        url: str,
+    ) -> DocumentClient:
+        """
+        Load a document from an URL.
+
+        :param url: Raw byte input
+        """
+        input_doc = UrlInputSource(
+            url,
         )
         return DocumentClient(
             input_doc=input_doc,

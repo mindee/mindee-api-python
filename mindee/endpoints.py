@@ -3,7 +3,7 @@ from typing import Dict, Optional, Union
 
 import requests
 
-from mindee.input.sources import InputSource
+from mindee.input.sources import LocalInputSource, UrlInputSource
 from mindee.logger import logger
 from mindee.versions import __version__, get_platform, python_version
 
@@ -97,7 +97,7 @@ class Endpoint:
 
     def predict_req_post(
         self,
-        input_source: InputSource,
+        input_source: Union[LocalInputSource, UrlInputSource],
         include_words: bool = False,
         close_file: bool = True,
         cropper: bool = False,
@@ -111,7 +111,6 @@ class Endpoint:
         :param cropper: Including Mindee cropping results.
         :return: requests response
         """
-        files = {"document": input_source.read_contents(close_file)}
         data = {}
         if include_words:
             data["include_mvision"] = "true"
@@ -120,20 +119,31 @@ class Endpoint:
         if cropper:
             params["cropper"] = "true"
 
-        response = requests.post(
-            f"{self._url_root}/predict",
-            files=files,
-            headers=self.base_headers,
-            data=data,
-            params=params,
-            timeout=self._request_timeout,
-        )
+        if isinstance(input_source, UrlInputSource):
+            data["document"] = input_source.url
+            response = requests.post(
+                f"{self._url_root}/predict",
+                headers=self.base_headers,
+                data=data,
+                params=params,
+                timeout=self._request_timeout,
+            )
+        else:
+            files = {"document": input_source.read_contents(close_file)}
+            response = requests.post(
+                f"{self._url_root}/predict",
+                files=files,
+                headers=self.base_headers,
+                data=data,
+                params=params,
+                timeout=self._request_timeout,
+            )
         return response
 
 
 class CustomEndpoint(Endpoint):
     def training_req_post(
-        self, input_source: InputSource, close_file: bool = True
+        self, input_source: LocalInputSource, close_file: bool = True
     ) -> requests.Response:
         """
         Make a request to POST a document for training.
@@ -155,7 +165,7 @@ class CustomEndpoint(Endpoint):
         return response
 
     def training_async_req_post(
-        self, input_source: InputSource, close_file: bool = True
+        self, input_source: LocalInputSource, close_file: bool = True
     ) -> requests.Response:
         """
         Make a request to POST a document for training without processing.
