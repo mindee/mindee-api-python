@@ -1,5 +1,12 @@
 # Mindee Python API Library Changelog
 
+## v3.6.0 - 2023-03-10
+### Changes
+* :sparkles: add an URL input source
+* :memo: add proof of address documentation
+### Fixes
+* :bug: fix file extension for sample code inclusion
+
 ## v3.5.0 - 2023-02-17
 ### Changes
 * :safety_vest: make sure CI is run on various OSes
