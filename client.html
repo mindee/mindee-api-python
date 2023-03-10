@@ -53,6 +53,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#mindee.client.Client.doc_from_bytes"><code class="docutils literal notranslate"><span class="pre">Client.doc_from_bytes()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.client.Client.doc_from_file"><code class="docutils literal notranslate"><span class="pre">Client.doc_from_file()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.client.Client.doc_from_path"><code class="docutils literal notranslate"><span class="pre">Client.doc_from_path()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.client.Client.doc_from_url"><code class="docutils literal notranslate"><span class="pre">Client.doc_from_url()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -199,6 +200,20 @@ Must inherit from <code class="docutils literal notranslate"><span class="pre">m
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>input_path</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Path of file to open</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#mindee.client.DocumentClient" title="mindee.client.DocumentClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">DocumentClient</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.client.Client.doc_from_url">
+<span class="sig-name descname"><span class="pre">doc_from_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.client.Client.doc_from_url" title="Permalink to this definition"></a></dt>
+<dd><p>Load a document from an URL.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>url</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Raw byte input</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="#mindee.client.DocumentClient" title="mindee.client.DocumentClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">DocumentClient</span></code></a></p>
