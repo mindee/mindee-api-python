@@ -1,8 +1,8 @@
-from typing import Any, Dict, Generic, List, Optional
+from typing import Any, Dict, Generic, List, Optional, Union
 
 from mindee.documents.base import TypeDocument
 from mindee.documents.config import DocumentConfig
-from mindee.input.sources import InputSource
+from mindee.input.sources import LocalInputSource, UrlInputSource
 from mindee.logger import logger
 
 
@@ -32,7 +32,7 @@ class PredictResponse(Generic[TypeDocument]):
         self,
         doc_config: DocumentConfig,
         http_response: dict,
-        input_source: InputSource,
+        input_source: Union[LocalInputSource, UrlInputSource],
         response_ok: bool,
     ) -> None:
         """
@@ -48,7 +48,7 @@ class PredictResponse(Generic[TypeDocument]):
         self.document_type = doc_config.document_type
         self.pages = []
 
-        if input_source:
+        if not isinstance(input_source, UrlInputSource):
             self.input_path = input_source.filepath
             self.input_filename = input_source.filename
             self.input_mimetype = input_source.file_mimetype
@@ -61,7 +61,7 @@ class PredictResponse(Generic[TypeDocument]):
     def _load_response(
         self,
         doc_config: DocumentConfig,
-        input_source: InputSource,
+        input_source: Union[LocalInputSource, UrlInputSource],
     ) -> None:
         # This is some seriously ugly stuff.
         # Simplify all this in V4, as we won't need to pass the document type anymore

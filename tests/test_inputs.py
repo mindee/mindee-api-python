@@ -10,6 +10,7 @@ from mindee.input.sources import (
     FileInput,
     MimeTypeError,
     PathInput,
+    UrlInputSource,
 )
 from tests import INVOICE_DATA_DIR, PDF_DATA_DIR, RECEIPT_DATA_DIR
 
@@ -143,6 +144,11 @@ def test_pdf_input_from_bytes():
     assert input_obj.is_pdf() is True
     input_obj.process_pdf(behavior=KEEP_ONLY, on_min_pages=2, page_indexes=[0])
     assert input_obj.count_doc_pages() == 1
+
+
+def test_pdf_input_from_url():
+    with pytest.raises(AssertionError):
+        UrlInputSource(url="http://example.com/invoice.pdf")
 
 
 def test_pdf_blank_check():

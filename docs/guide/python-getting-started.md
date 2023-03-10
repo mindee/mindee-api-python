@@ -153,6 +153,15 @@ async def upload(upload: UploadFile):
     )
 ```
 
+### URL
+Allows sending an URL directly.
+
+**Note**: No local operations can be performed on the input (such as removing pages from a PDF).
+
+```python
+input_doc = mindee_client.doc_from_url(url="https://www.example.com/invoice.pdf")
+```
+
 ## Sending a File
 To send a file to the API, we need to specify how to process the document.
 This will determine which API endpoint is used and how the API return will be handled internally by the library.

@@ -1,11 +1,11 @@
 import datetime
 import re
-from typing import Any, Dict, List, Optional, TypeVar
+from typing import Any, Dict, List, Optional, TypeVar, Union
 
 from mindee.endpoints import Endpoint
 from mindee.fields.orientation import OrientationField
 from mindee.fields.position import PositionField
-from mindee.input.sources import InputSource
+from mindee.input.sources import LocalInputSource, UrlInputSource
 
 TypeApiPrediction = Dict[str, Any]
 
@@ -46,15 +46,18 @@ class Document:
 
     def __init__(
         self,
-        input_source: InputSource,
+        input_source: Union[LocalInputSource, UrlInputSource],
         document_type: Optional[str],
         api_prediction: TypeApiPrediction,
         page_n: Optional[int] = None,
     ):
         if input_source:
-            self.filepath = input_source.filepath
-            self.filename = input_source.filename
-            self.file_extension = input_source.file_mimetype
+            if isinstance(input_source, UrlInputSource):
+                self.filename = input_source.url
+            else:
+                self.filepath = input_source.filepath
+                self.filename = input_source.filename
+                self.file_extension = input_source.file_mimetype
         self.checklist = {}
         self.type = document_type
 
@@ -67,7 +70,7 @@ class Document:
     @staticmethod
     def request(
         endpoints: List[Endpoint],
-        input_source: InputSource,
+        input_source: Union[LocalInputSource, UrlInputSource],
         include_words: bool = False,
         close_file: bool = True,
         cropper: bool = False,
