@@ -158,10 +158,10 @@ def get_centroid(points: Points) -> Point:
     :param points: Polygon to process.
     :return: The centroid
     """
-    numb_vertices = len(points)
+    vertices_count = len(points)
     x_sum = sum(x for x, _ in points)
     y_sum = sum(y for _, y in points)
-    return Point(x_sum / numb_vertices, y_sum / numb_vertices)
+    return Point(x_sum / vertices_count, y_sum / vertices_count)
 
 
 def get_min_max_y(points: Points) -> MinMax:
