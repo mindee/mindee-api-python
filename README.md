@@ -86,7 +86,7 @@ Complete details on the working of the library are available in the following gu
 * [Passport API](https://developers.mindee.com/docs/python-passport-ocr)
 * [Receipt API](https://developers.mindee.com/docs/python-receipt-ocr)
 
-You can view the source code on [GitHub](https://github.com/mindee/mindee-api-nodejs).
+You can view the source code on [GitHub](https://github.com/mindee/mindee-api-python).
 
 You can also take a look at the
 **[Reference Documentation](https://mindee.github.io/mindee-api-python/)**.
