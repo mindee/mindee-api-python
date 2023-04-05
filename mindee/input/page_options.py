@@ -5,6 +5,8 @@ REMOVE = "REMOVE"
 
 
 class PageOptions(NamedTuple):
+    """Options to pass to the `parse` method for cutting multipage documents."""
+
     page_indexes: Sequence[int]
     """
     Zero-based list of page indexes.
