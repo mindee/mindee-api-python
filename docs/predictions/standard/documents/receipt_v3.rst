@@ -1,10 +1,10 @@
-Receipt V3
+Receipt V4
 ----------
 
 **Sample Code:**
 
-.. literalinclude:: /extras/code_samples/receipt_v3.txt
+.. literalinclude:: /extras/code_samples/expense_receipts_v3.txt
     :language: Python
 
-.. autoclass:: mindee.documents.ReceiptV3
+.. autoclass:: mindee.documents.ReceiptV4
     :members:
