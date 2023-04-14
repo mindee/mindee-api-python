@@ -28,7 +28,7 @@ DOCUMENTS: Dict[str, CommandConfig] = {
     ),
     "receipt": CommandConfig(
         help="Expense Receipt",
-        doc_class=documents.TypeReceiptV4,
+        doc_class=documents.TypeReceiptV5,
     ),
     "passport": CommandConfig(
         help="Passport",
