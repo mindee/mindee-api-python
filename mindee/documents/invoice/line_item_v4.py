@@ -3,7 +3,7 @@ from typing import Optional
 from mindee.fields.base import FieldPositionMixin, TypePrediction, float_to_string
 
 
-class InvoiceLineItem(FieldPositionMixin):
+class InvoiceLineItemV4(FieldPositionMixin):
     product_code: Optional[str]
     """The product code referring to the item."""
     description: Optional[str]
