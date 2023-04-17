@@ -120,13 +120,15 @@ class ReceiptV5(Document):
         line_items = "\n"
         if self.line_items:
             line_items = (
-                "\n  ========= ========= ========== ===================================="
-                "\n  Quantity  Price     Amount     Description"
-                "\n  ========= ========= ========== ===================================="
+                "\n  +----------+----------+-----------+------------------------------------+"
+                "\n  | Quantity | Price    | Amount    | Description                        |"
+                "\n  +==========+==========+===========+====================================+"
             )
             for item in self.line_items:
-                line_items += f"\n  {item}"
-            line_items += "\n  ========= ========= ========== ====================================\n"
+                line_items += (
+                    f"\n  {item}"
+                    "\n  +----------+----------+-----------+------------------------------------+"
+                )
 
         return clean_out_string(
             "Receipt V5 Prediction\n=====================\n"
@@ -144,7 +146,7 @@ class ReceiptV5(Document):
             f":Supplier Phone Number: {self.supplier_phone_number}\n"
             f":Supplier Address: {self.supplier_address}\n"
             f":Supplier Company Registrations: {supplier_company_registrations}\n"
-            f":Line Items: {line_items}"
+            f":Line Items: {line_items}\n"
             f":Taxes: {taxes}\n"
             f":Total Taxes: {self.total_tax}\n"
         )

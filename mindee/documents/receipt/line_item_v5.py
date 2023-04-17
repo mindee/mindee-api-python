@@ -55,4 +55,4 @@ class ReceiptV5LineItem(FieldPositionMixin):
             float_to_string(self.total_amount),
             description,
         ]
-        return "{:<9} {:<9} {:<10} {}".format(*row)
+        return "| {:<8} | {:<8} | {:<9} | {:<34} |".format(*row)
