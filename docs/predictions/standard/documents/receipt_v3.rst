@@ -1,4 +1,4 @@
-Receipt V4
+Receipt V3
 ----------
 
 **Sample Code:**
