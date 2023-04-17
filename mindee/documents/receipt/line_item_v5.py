@@ -3,9 +3,7 @@ from typing import Optional
 from mindee.fields.base import FieldPositionMixin, TypePrediction, float_to_string
 
 
-class InvoiceLineItem(FieldPositionMixin):
-    product_code: Optional[str]
-    """The product code referring to the item."""
+class ReceiptV5LineItem(FieldPositionMixin):
     description: Optional[str]
     """The item description."""
     quantity: Optional[float]
@@ -14,10 +12,6 @@ class InvoiceLineItem(FieldPositionMixin):
     """The item unit price."""
     total_amount: Optional[float]
     """The item total amount."""
-    tax_rate: Optional[float]
-    """The item tax rate in percentage."""
-    tax_amount: Optional[float]
-    """The item tax amount."""
     confidence: float = 0.0
     """Confidence score"""
     page_n: int
@@ -46,28 +40,19 @@ class InvoiceLineItem(FieldPositionMixin):
             except TypeError:
                 return None
 
-        self.product_code = prediction["product_code"]
         self.description = prediction["description"]
         self.quantity = to_opt_float("quantity")
         self.unit_price = to_opt_float("unit_price")
         self.total_amount = to_opt_float("total_amount")
-        self.tax_rate = to_opt_float("tax_rate")
-        self.tax_amount = to_opt_float("tax_amount")
 
     def __str__(self) -> str:
-        tax = float_to_string(self.tax_amount)
-        if self.tax_rate is not None:
-            tax += f" ({float_to_string(self.tax_rate)}%)"
-
         description = self.description or ""
         if len(description) > 32:
             description = description[:32] + "..."
         row = [
-            self.product_code or "",
             float_to_string(self.quantity),
             float_to_string(self.unit_price),
             float_to_string(self.total_amount),
-            tax,
             description,
         ]
-        return "{:<14} | {:<6} | {:<7} | {:<8} | {:<16} | {} ".format(*row)
+        return "| {:<8} | {:<8} | {:<9} | {:<34} |".format(*row)

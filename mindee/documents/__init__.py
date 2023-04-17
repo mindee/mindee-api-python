@@ -11,7 +11,14 @@ from mindee.documents.financial import (
 from mindee.documents.invoice import InvoiceV3, InvoiceV4, TypeInvoiceV3, TypeInvoiceV4
 from mindee.documents.passport import PassportV1, TypePassportV1
 from mindee.documents.proof_of_address import ProofOfAddressV1, TypeProofOfAddressV1
-from mindee.documents.receipt import ReceiptV3, ReceiptV4, TypeReceiptV3, TypeReceiptV4
+from mindee.documents.receipt import (
+    ReceiptV3,
+    ReceiptV4,
+    ReceiptV5,
+    TypeReceiptV3,
+    TypeReceiptV4,
+    TypeReceiptV5,
+)
 from mindee.documents.shipping_container import (
     ShippingContainerV1,
     TypeShippingContainerV1,

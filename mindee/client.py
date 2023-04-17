@@ -222,6 +222,11 @@ class Client:
                 version="4",
             ),
             ConfigSpec(
+                doc_class=documents.ReceiptV5,
+                url_name="expense_receipts",
+                version="5",
+            ),
+            ConfigSpec(
                 doc_class=documents.FinancialDocumentV1,
                 url_name="financial_document",
                 version="1",
