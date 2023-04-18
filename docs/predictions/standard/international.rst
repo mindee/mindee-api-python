@@ -10,3 +10,4 @@ International
 .. include:: ./documents/passport_v1.rst
 .. include:: ./documents/shipping_container_v1.rst
 .. include:: ./documents/proof_of_address_v1.rst
+.. include:: ./documents/cropper_v1.rst
