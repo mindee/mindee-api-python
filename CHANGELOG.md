@@ -1,11 +1,18 @@
 # Mindee Python API Library Changelog
 
+## v3.7.0 - 2023-04-18
+### Changes
+* :sparkles: add support for receipt v5
+* :white_check_mark: use code samples for integration testing
+
+
 ## v3.6.0 - 2023-03-10
 ### Changes
 * :sparkles: add an URL input source
 * :memo: add proof of address documentation
 ### Fixes
 * :bug: fix file extension for sample code inclusion
+
 
 ## v3.5.0 - 2023-02-17
 ### Changes
@@ -20,6 +27,7 @@
 ### Fixes
 * :bug: fix for null classification field on custom APIs
 
+
 ## v3.4.0 - 2023-02-01
 ### Changes
 * :sparkles: add support for: financial document v1
@@ -33,9 +41,11 @@ It's still usable with no code modifications but will be **removed** in a future
 All users are encouraged to move to `FinancialDocumentV1` which has much better performance.
 Also field names in `FinancialDocumentV1` now match those of `Invoice` and `Receipt`.
 
+
 ## v3.3.0 - 2023-01-27
 ### Changes
 * sparkles: Add French carte grise v1 support
+
 
 ## v3.2.1 - 2023-01-18
 ### Changes
@@ -44,6 +54,7 @@ Also field names in `FinancialDocumentV1` now match those of `Invoice` and `Rece
 
 ### Fixes
 * :bug: Fix misleading docstrings
+
 
 ## v3.2.0 - 2023-01-06
 ### Changes
@@ -59,6 +70,7 @@ Also field names in `FinancialDocumentV1` now match those of `Invoice` and `Rece
 ### Fixes
 * :bug: fix for invoice v4 URL
 
+
 ## v3.1.0 - 2022-12-01
 ### Changes
 * :sparkles: allow setting base URL from env
@@ -70,6 +82,7 @@ Also field names in `FinancialDocumentV1` now match those of `Invoice` and `Rece
 
 ### Fixes
 * :bug: page_n should always be set when available (#106)
+
 
 ## v3.0.0 - 2022-11-07
 ### ¡Breaking Changes!
@@ -87,6 +100,7 @@ Also field names in `FinancialDocumentV1` now match those of `Invoice` and `Rece
 ### Fixes
 * :bug: Make sure the user is specified when calling custom docs on CLI
 * :bug: Add default timeout of 120 seconds for endpoints.
+
 
 ## v2.6.0 - 2022-10-10
 ### Fixes
