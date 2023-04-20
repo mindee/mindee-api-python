@@ -2,9 +2,7 @@ import json
 
 import pytest
 
-from mindee.documents.fr.bank_account_details.bank_account_details_v1 import (
-    BankAccountDetailsV1,
-)
+from mindee.documents.fr import BankAccountDetailsV1
 
 FR_BANK_ACCOUNT_DETAILS_DATA_DIR = "./tests/data/fr/bank_account_details"
 

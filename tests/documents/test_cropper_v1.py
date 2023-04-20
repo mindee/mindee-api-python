@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from mindee.documents.cropper.cropper_v1 import CropperV1
+from mindee.documents import CropperV1
 from tests import CROPPER_DATA_DIR
 
 FILE_PATH_CROPPER_V1_COMPLETE = f"{CROPPER_DATA_DIR}/response_v1/complete.json"

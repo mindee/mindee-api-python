@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from mindee.documents.fr.id_card.id_card_v1 import IdCardV1
+from mindee.documents.fr import IdCardV1
 
 FR_ID_CARD_DATA_DIR = "./tests/data/fr/id_card"
 

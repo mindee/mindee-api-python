@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from mindee.documents.fr.carte_vitale.carte_vitale_v1 import CarteVitaleV1
+from mindee.documents.fr import CarteVitaleV1
 
 FR_CARTE_VITALE_DATA_DIR = "./tests/data/fr/carte_vitale"
 

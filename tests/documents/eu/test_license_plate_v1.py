@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from mindee.documents.eu.license_plate.license_plate_v1 import LicensePlateV1
+from mindee.documents.eu import LicensePlateV1
 
 EU_LICENSE_PLATE_DATA_DIR = "./tests/data/eu/license_plate"
 

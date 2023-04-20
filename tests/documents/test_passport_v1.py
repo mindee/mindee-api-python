@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from mindee.documents.passport.passport_v1 import PassportV1
+from mindee.documents import PassportV1
 from tests import PASSPORT_DATA_DIR
 
 FILE_PATH_PASSPORT_V1_COMPLETE = f"{PASSPORT_DATA_DIR}/response_v1/complete.json"

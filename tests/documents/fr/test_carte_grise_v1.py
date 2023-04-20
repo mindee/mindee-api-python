@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from mindee.documents.fr.carte_grise.carte_grise_v1 import CarteGriseV1
+from mindee.documents.fr import CarteGriseV1
 from tests import FR_CARTE_GRISE_DATA_DIR
 
 FILE_PATH_FR_CARTE_GRISE_V1_COMPLETE = (
