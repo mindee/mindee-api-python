@@ -1,5 +1,10 @@
 # Mindee Python API Library Changelog
 
+## v3.7.1 - 2023-04-20
+### Fixes
+* :bug: fix EU imports, use short imports in tests
+
+
 ## v3.7.0 - 2023-04-18
 ### Changes
 * :sparkles: add support for receipt v5
