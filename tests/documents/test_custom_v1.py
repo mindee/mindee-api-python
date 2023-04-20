@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from mindee.documents.custom.custom_v1 import CustomV1
+from mindee.documents import CustomV1
 from mindee.fields.api_builder import ClassificationField, ListField, ListFieldValue
 from tests import CUSTOM_DATA_DIR
 

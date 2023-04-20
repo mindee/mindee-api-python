@@ -2,9 +2,7 @@ import json
 
 import pytest
 
-from mindee.documents.shipping_container.shipping_container_v1 import (
-    ShippingContainerV1,
-)
+from mindee.documents import ShippingContainerV1
 
 SHIPPING_CONTAINER_DATA_DIR = "./tests/data/shipping_container"
 

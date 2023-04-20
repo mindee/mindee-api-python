@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from mindee.documents.proof_of_address.proof_of_address_v1 import ProofOfAddressV1
+from mindee.documents import ProofOfAddressV1
 
 PROOF_OF_ADDRESS_DATA_DIR = "./tests/data/proof_of_address"
 

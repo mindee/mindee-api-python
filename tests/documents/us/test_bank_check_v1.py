@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from mindee.documents.us.bank_check.bank_check_v1 import BankCheckV1
+from mindee.documents.us import BankCheckV1
 from tests import US_BANK_CHECK_DATA_DIR
 
 FILE_PATH_US_BANK_CHECK_V1_COMPLETE = (

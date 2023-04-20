@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from mindee.documents.financial.financial_document_v1 import FinancialDocumentV1
+from mindee.documents import FinancialDocumentV1
 from tests import FINANCIAL_DOC_DATA_DIR
 
 FILE_PATH_FINANCIAL_DOC_V1_INVOICE = (

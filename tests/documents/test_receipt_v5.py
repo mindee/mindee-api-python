@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from mindee.documents.receipt.receipt_v5 import ReceiptV5
+from mindee.documents import ReceiptV5
 from tests import RECEIPT_DATA_DIR
 
 FILE_PATH_RECEIPT_V5_COMPLETE = f"{RECEIPT_DATA_DIR}/response_v5/complete.json"
