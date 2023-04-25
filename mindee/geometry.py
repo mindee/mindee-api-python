@@ -68,7 +68,7 @@ class MinMax(NamedTuple):
 
 class Polygon(list):
     """
-    Contains any number of vertices coordinates (Points).
+    Contains any number of vertex coordinates (Points).
 
     Inherits from base class ``list`` so is compatible with type ``Points``.
     """
