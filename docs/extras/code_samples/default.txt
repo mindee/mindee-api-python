@@ -1,0 +1,21 @@
+import json
+import requests
+
+api_key = "my-api-key"
+account = "my-account"
+endpoint = "my-endpoint"
+version = "my-version"
+
+url = f"https://api.mindee.net/v1/products/{account}/{endpoint}/v{version}/predict"
+
+with open("/path/to/the/file.ext", "rb") as file_handle:
+    files = {"document": file_handle}
+    headers = {"Authorization": f"Token {api_key}"}
+    response = requests.post(url, files=files, headers=headers)
+
+json_response = response.json()
+
+if not response.ok:
+    raise RuntimeError(json_response["api_request"]["error"])
+
+print(json.dumps(json_response["document"], indent=2))
