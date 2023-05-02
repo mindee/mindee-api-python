@@ -187,9 +187,7 @@ class Endpoint:
 
     def document_queue_req_get(
         self,
-        queue_id: str,
-        include_words: bool = False,
-        cropper: bool = False,
+        queue_id: str
     ) -> requests.Response:
         """
         Sends a request matching a given queue_id. Returns either a Job or a Document.
@@ -201,18 +199,9 @@ class Endpoint:
             This performs a cropping operation on the server and will increase response time.
 
         """
-        data = {}
-        if include_words:
-            data["include_mvision"] = "true"
-
-        params = {}
-        if cropper:
-            params["cropper"] = "true"
         response = requests.get(
             f"{self._url_root}/documents/queue/{queue_id}",
             headers=self.base_headers,
-            data=data,
-            params=params,
             timeout=self._request_timeout,
         )
         return response
