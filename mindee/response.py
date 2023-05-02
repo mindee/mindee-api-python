@@ -1,9 +1,49 @@
-from typing import Any, Dict, Generic, List, Optional, Union
+from datetime import datetime
+from typing import Any, Dict, Generic, List, Literal, Optional, Union
 
 from mindee.documents.base import TypeDocument
 from mindee.documents.config import DocumentConfig
 from mindee.input.sources import LocalInputSource, UrlInputSource
 from mindee.logger import logger
+
+
+class Job:
+    """
+    Job wrapper for a request sent to the API.
+
+    Only relevant in the case of async work.
+    """
+
+    issued_at: datetime
+    """Timestamp of the request reception by the API."""
+    available_at: Optional[datetime]
+    """Timestamp of the request after it has been completed."""
+    job_id: Optional[str]
+    """ID of the job."""
+    status: Optional[str]
+    """Status of the request, as seen by the API."""
+    milli_secs_taken: int  # Check if that one is fine as a simple int
+    """Time (ms) taken for the request to be processed by the API."""
+
+    def __init__(self, json_response: dict) -> None:
+        """
+        Wrapper for the HTTP response sent from the API when a document is enqueued.
+
+        :param json_response: JSON response sent by the server
+        """
+        self.issued_at = datetime.strptime(
+            json_response["issued_at"], "%Y-%m-%dT%H:%M:%S.%fZ"
+        )  # check date formatting later
+        if json_response.get("available_at"):
+            self.available_at = datetime.strptime(
+                json_response["available_at"], "%Y-%m-%dT%H:%M:%S.%fZ"
+            )
+        self.job_id = json_response.get("id")
+        self.status = json_response.get("status")
+        if self.available_at:
+            self.milli_secs_taken = int(
+                (self.available_at.microsecond - self.issued_at.microsecond) / 1000
+            )
 
 
 class PredictResponse(Generic[TypeDocument]):
@@ -31,7 +71,7 @@ class PredictResponse(Generic[TypeDocument]):
     def __init__(
         self,
         doc_config: DocumentConfig,
-        http_response: dict,
+        http_response: Dict,
         input_source: Union[LocalInputSource, UrlInputSource],
         response_ok: bool,
     ) -> None:
@@ -96,3 +136,28 @@ class PredictResponse(Generic[TypeDocument]):
                 input_source=input_source,
                 page_n=None,
             )
+
+
+class AsyncPredictResponse(PredictResponse[TypeDocument]):
+    """
+    Response of a prediction request.
+
+    Certain properties will depend on the document type.
+    """
+
+    job: Job
+
+    def __init__(
+        self,
+        doc_config: DocumentConfig,
+        http_response: Dict,
+        input_source: Union[LocalInputSource, UrlInputSource],
+        response_ok: bool,
+    ) -> None:
+        super().__init__(
+            doc_config=doc_config,
+            http_response=http_response,
+            input_source=input_source,
+            response_ok=response_ok,
+        )
+        self.job = Job(http_response["job"])

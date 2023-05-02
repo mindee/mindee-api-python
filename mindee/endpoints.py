@@ -140,6 +140,83 @@ class Endpoint:
             )
         return response
 
+    def predict_async_req_post(
+        self,
+        input_source: Union[LocalInputSource, UrlInputSource],
+        include_words: bool = False,
+        close_file: bool = True,
+        cropper: bool = False,
+    ) -> requests.Response:
+        """
+        Make an asynchronous request to POST a document for prediction.
+
+        :param input_source: Input object
+        :param include_words: Include raw OCR words in the response
+        :param close_file: Whether to `close()` the file after parsing it.
+        :param cropper: Including Mindee cropping results.
+        :return: requests response
+        """
+        data = {}
+        if include_words:
+            data["include_mvision"] = "true"
+
+        params = {}
+        if cropper:
+            params["cropper"] = "true"
+
+        if isinstance(input_source, UrlInputSource):
+            data["document"] = input_source.url
+            response = requests.post(
+                f"{self._url_root}/predict_async",
+                headers=self.base_headers,
+                data=data,
+                params=params,
+                timeout=self._request_timeout,
+            )
+        else:
+            files = {"document": input_source.read_contents(close_file)}
+            response = requests.post(
+                f"{self._url_root}/predict_async",
+                files=files,
+                headers=self.base_headers,
+                data=data,
+                params=params,
+                timeout=self._request_timeout,
+            )
+        return response
+
+    def document_queue_req_get(
+        self,
+        queue_id: str,
+        include_words: bool = False,
+        cropper: bool = False,
+    ) -> requests.Response:
+        """
+        Sends a request matching a given queue_id. Returns either a Job or a Document.
+
+        :param queue_id: queue_id received from the API
+        :param include_words: Whether to include the full text for each page.
+            This performs a full OCR operation on the server and will increase response time.
+        :param cropper: Whether to include cropper results for each page.
+            This performs a cropping operation on the server and will increase response time.
+
+        """
+        data = {}
+        if include_words:
+            data["include_mvision"] = "true"
+
+        params = {}
+        if cropper:
+            params["cropper"] = "true"
+        response = requests.get(
+            f"{self._url_root}/documents/queue/{queue_id}",
+            headers=self.base_headers,
+            data=data,
+            params=params,
+            timeout=self._request_timeout,
+        )
+        return response
+
 
 class CustomEndpoint(Endpoint):
     def training_req_post(

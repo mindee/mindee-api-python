@@ -15,7 +15,7 @@ from mindee.input.sources import (
     UrlInputSource,
 )
 from mindee.logger import logger
-from mindee.response import PredictResponse
+from mindee.response import AsyncPredictResponse, PredictResponse
 
 
 def get_bound_classname(type_var) -> str:
@@ -120,6 +120,136 @@ class DocumentClient:
             document_class, doc_config, include_words, close_file, cropper
         )
 
+    def enqueue(
+        self,
+        document_class: TypeDocument,
+        endpoint_name: Optional[str] = None,
+        account_name: Optional[str] = None,
+        include_words: bool = False,
+        close_file: bool = True,
+        page_options: Optional[PageOptions] = None,
+        cropper: bool = False,
+    ) -> PredictResponse[TypeDocument]:
+        """
+        Enqueueing to an async endpoint.
+
+        :param document_class: The document class to use.
+            The response object will be instantiated based on this parameter.
+
+        :param endpoint_name: For custom endpoints, the "API name" field in the "Settings" page of the API Builder.
+            Do not set for standard (off the shelf) endpoints.
+
+        :param account_name: For custom endpoints, your account or organization username on the API Builder.
+            This is normally not required unless you have a custom endpoint which has the
+            same name as standard (off the shelf) endpoint.
+            Do not set for standard (off the shelf) endpoints.
+
+        :param include_words: Whether to include the full text for each page.
+            This performs a full OCR operation on the server and will increase response time.
+
+        :param close_file: Whether to ``close()`` the file after parsing it.
+          Set to ``False`` if you need to access the file after this operation.
+
+        :param page_options: If set, remove pages from the document as specified.
+            This is done before sending the file to the server and is useful to avoid page limitations.
+
+        :param cropper: Whether to include cropper results for each page.
+            This performs a cropping operation on the server and will increase response time.
+        """
+        bound_classname = get_bound_classname(document_class)
+        if bound_classname != documents.CustomV1.__name__:
+            endpoint_name = get_bound_classname(document_class)
+        elif endpoint_name is None:
+            raise RuntimeError(
+                f"endpoint_name is required when using {bound_classname} class"
+            )
+
+        logger.debug("Enqueuing document as '%s'", endpoint_name)
+
+        found = []
+        for k in self.doc_configs.keys():
+            if k[1] == endpoint_name:
+                found.append(k)
+
+        if len(found) == 0:
+            raise RuntimeError(f"Document type not configured: {endpoint_name}")
+
+        if account_name:
+            config_key = (account_name, endpoint_name)
+        elif len(found) == 1:
+            config_key = found[0]
+        else:
+            usernames = [k[0] for k in found]
+            raise RuntimeError(
+                (
+                    "Duplicate configuration detected.\n"
+                    f"You specified a document_type '{endpoint_name}' in your custom config.\n"
+                    "To avoid confusion, please add the 'account_name' attribute to "
+                    f"the parse method, one of {usernames}."
+                )
+            )
+
+        doc_config = self.doc_configs[config_key]
+        doc_config.check_api_keys()
+        if not isinstance(self.input_doc, UrlInputSource):
+            if page_options and self.input_doc.is_pdf():
+                self.input_doc.process_pdf(
+                    page_options.operation,
+                    page_options.on_min_pages,
+                    page_options.page_indexes,
+                )
+        return self._make_request(
+            document_class, doc_config, include_words, close_file, cropper
+        )
+
+    def parse_queued(
+        self,
+        queue_id: str,
+        endpoint_name: str,
+        account_name: Optional[str] = None,
+        include_words: bool = False,
+        cropper: bool = False,
+    ) -> AsyncPredictResponse:
+        """
+        Parses a queued document.
+
+        :param queue_id: queue_id received from the API
+        :param endpoint_name: For custom endpoints, the "API name" field in the "Settings" page of the API Builder.
+            Do not set for standard (off the shelf) endpoints.
+        :param account_name: For custom endpoints, your account or organization username on the API Builder.
+            This is normally not required unless you have a custom endpoint which has the
+            same name as standard (off the shelf) endpoint.
+            Do not set for standard (off the shelf) endpoints.
+
+        """
+        found = []
+        for k in self.doc_configs.keys():
+            if k[1] == endpoint_name:
+                found.append(k)
+
+        if len(found) == 0:
+            raise RuntimeError(f"Document type not configured: {endpoint_name}")
+
+        if account_name:
+            config_key = (account_name, endpoint_name)
+        elif len(found) == 1:
+            config_key = found[0]
+        else:
+            usernames = [k[0] for k in found]
+            raise RuntimeError(
+                (
+                    "Duplicate configuration detected.\n"
+                    f"You specified a document_type '{endpoint_name}' in your custom config.\n"
+                    "To avoid confusion, please add the 'account_name' attribute to "
+                    f"the parse method, one of {usernames}."
+                )
+            )
+
+        doc_config = self.doc_configs[config_key]
+        doc_config.check_api_keys()
+
+        return self._get_queued_document(queue_id, doc_config, include_words, cropper)
+
     def _make_request(
         self,
         document_class: TypeDocument,
@@ -145,11 +275,45 @@ class DocumentClient:
             raise HTTPException(
                 f"API {response.status_code} HTTP error: {json.dumps(dict_response)}"
             )
+
         return PredictResponse[TypeDocument](
             http_response=dict_response,
             doc_config=doc_config,
             input_source=self.input_doc,
             response_ok=response.ok,
+        )
+
+    def _get_queued_document(
+        self,
+        queue_id: str,
+        doc_config: DocumentConfig,
+        include_words: bool = False,
+        cropper: bool = False,
+    ) -> AsyncPredictResponse[TypeDocument]:
+        """
+        Fetches a document or a Job from a given queue.
+
+        :param queue_id: Queue_id received from the API
+        :param doc_config: Pre-checked document configuration.
+        """
+        queue_response = doc_config.endpoints[0].document_queue_req_get(
+            queue_id=queue_id, include_words=include_words, cropper=cropper
+        )
+
+        if (
+            not queue_response.status_code
+            or queue_response.status_code < 200
+            or queue_response.status_code > 302
+        ):
+            raise HTTPException(
+                f"API {queue_response.status_code} HTTP error: {json.dumps(queue_response)}"
+            )
+
+        return AsyncPredictResponse[TypeDocument](
+            doc_config=doc_config,
+            http_response=queue_response.json(),
+            input_source=self.input_doc,
+            response_ok=queue_response.ok,
         )
 
     def close(self) -> None:
