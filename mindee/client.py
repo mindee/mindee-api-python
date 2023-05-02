@@ -198,10 +198,7 @@ class DocumentClient:
                     page_options.on_min_pages,
                     page_options.page_indexes,
                 )
-        return self._predict_async(
-            doc_config, include_words, close_file, cropper
-        )
-
+        return self._predict_async(doc_config, include_words, close_file, cropper)
 
     def parse_queued(
         self,
@@ -249,7 +246,7 @@ class DocumentClient:
         doc_config = self.doc_configs[config_key]
         doc_config.check_api_keys()
 
-        return self._get_queued_document(queue_id, doc_config, include_words, cropper)
+        return self._get_queued_document(doc_config, queue_id)
 
     def _make_request(
         self,
@@ -283,22 +280,18 @@ class DocumentClient:
             input_source=self.input_doc,
             response_ok=response.ok,
         )
-        
+
     def _predict_async(
         self,
         doc_config: DocumentConfig,
         include_words: bool = False,
         close_file: bool = True,
-        cropper: bool = False
+        cropper: bool = False,
     ) -> PredictResponse[TypeDocument]:
         response = doc_config.endpoints[0].predict_async_req_post(
-            self.input_doc,
-            include_words,
-            close_file,
-            cropper
-        ) # TODO: refactor this into the document class
-        
-        
+            self.input_doc, include_words, close_file, cropper
+        )  # TODO: refactor this into the document class
+
         dict_response = response.json()
 
         if not response.ok and self.raise_on_error:
@@ -324,7 +317,8 @@ class DocumentClient:
         :param doc_config: Pre-checked document configuration.
         """
         queue_response = doc_config.endpoints[0].document_queue_req_get(
-            queue_id=queue_id)
+            queue_id=queue_id
+        )
 
         if (
             not queue_response.status_code

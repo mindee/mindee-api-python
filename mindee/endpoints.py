@@ -185,10 +185,7 @@ class Endpoint:
             )
         return response
 
-    def document_queue_req_get(
-        self,
-        queue_id: str
-    ) -> requests.Response:
+    def document_queue_req_get(self, queue_id: str) -> requests.Response:
         """
         Sends a request matching a given queue_id. Returns either a Job or a Document.
 
