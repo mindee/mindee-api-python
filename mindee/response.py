@@ -1,4 +1,5 @@
 from datetime import datetime
+import json
 from typing import Any, Dict, Generic, List, Optional, Union
 
 from mindee.documents.base import TypeDocument
@@ -16,11 +17,11 @@ class Job:
 
     issued_at: datetime
     """Timestamp of the request reception by the API."""
-    available_at: Optional[datetime]
+    available_at: Optional[datetime] = None
     """Timestamp of the request after it has been completed."""
-    job_id: Optional[str]
+    job_id: Optional[str] = None
     """ID of the job."""
-    status: Optional[str]
+    status: Optional[str] = None
     """Status of the request, as seen by the API."""
     milli_secs_taken: int  # Check if that one is fine as a simple int
     """Time (ms) taken for the request to be processed by the API."""
@@ -31,19 +32,18 @@ class Job:
 
         :param json_response: JSON response sent by the server
         """
-        self.issued_at = datetime.strptime(
-            json_response["issued_at"], "%Y-%m-%dT%H:%M:%S.%fZ"
-        )  # check date formatting later
+        self.issued_at = datetime.fromisoformat(json_response["issued_at"])
         if json_response.get("available_at"):
-            self.available_at = datetime.strptime(
-                json_response["available_at"], "%Y-%m-%dT%H:%M:%S.%fZ"
-            )
+            self.available_at = datetime.fromisoformat(json_response["available_at"])
         self.job_id = json_response.get("id")
         self.status = json_response.get("status")
         if self.available_at:
             self.milli_secs_taken = int(
                 (self.available_at.microsecond - self.issued_at.microsecond) / 1000
             )
+            
+    def __str__(self) -> str:
+        return json.dumps(self.__dict__, indent=4, sort_keys=True, default=str)
 
 
 class PredictResponse(Generic[TypeDocument]):
@@ -146,8 +146,18 @@ class AsyncPredictResponse(PredictResponse[TypeDocument]):
     """
 
     job: Job
-    # Inheritance of Optional isn't a possibility, so this technically just a wrapper
-
+    document: Optional[TypeDocument] = None
+    http_response: Dict[str, Any] = {}
+    """Raw HTTP response JSON"""
+    document_type: Optional[str] = None
+    """Document type"""
+    input_path: Optional[str] = None
+    """Path of the input file"""
+    input_filename: Optional[str] = None
+    """Name of the input file"""
+    input_mimetype: Optional[str] = None
+    """MIME type of the input file"""
+    
     def __init__(
         self,
         http_response: Dict,
@@ -162,4 +172,10 @@ class AsyncPredictResponse(PredictResponse[TypeDocument]):
                 input_source=input_source,
                 response_ok=response_ok,
             )
+            self.document = super().document
+            self.http_response = super().http_response
+            self.document_type = super().document_type
+            self.input_path = super().input_path
+            self.input_filename = super().input_filename
+            self.input_mimetype = super().input_mimetype
         self.job = Job(http_response["job"])

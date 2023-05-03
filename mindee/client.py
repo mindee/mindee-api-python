@@ -201,7 +201,11 @@ class DocumentClient:
         return self._predict_async(doc_config, include_words, close_file, cropper)
 
     def parse_queued(
-        self, queue_id: str, endpoint_name: str, account_name: Optional[str] = None
+        self,
+        document_class: TypeDocument,
+        queue_id: str,
+        endpoint_name: Optional[str] = None,
+        account_name: Optional[str] = None
     ) -> AsyncPredictResponse[TypeDocument]:
         """
         Parses a queued document.
@@ -214,6 +218,14 @@ class DocumentClient:
             same name as standard (off the shelf) endpoint.
             Do not set for standard (off the shelf) endpoints.
         """
+        bound_classname = get_bound_classname(document_class)
+        if bound_classname != documents.CustomV1.__name__:
+            endpoint_name = get_bound_classname(document_class)
+        elif endpoint_name is None:
+            raise RuntimeError(
+                f"endpoint_name is required when using {bound_classname} class"
+            )
+        
         found = []
         for k in self.doc_configs.keys():
             if k[1] == endpoint_name:
@@ -467,6 +479,11 @@ class Client:
                 url_name="license_plates",
                 version="1",
             ),
+            ConfigSpec(
+                doc_class=documents.InvoiceSplitterV1,
+                url_name="invoice_splitter",
+                version="1"
+            )
         ]
         for config in configs:
             config_key = (OTS_OWNER, config.doc_class.__name__)
