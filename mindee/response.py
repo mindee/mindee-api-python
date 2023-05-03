@@ -10,9 +10,9 @@ from mindee.logger import logger
 
 class Job:
     """
-    Job wrapper for a request sent to the API.
+    Job class for asynchronous requests.
 
-    Only relevant in the case of async work.
+    Will hold information on the queue a document has been submitted to.
     """
 
     issued_at: datetime
@@ -71,7 +71,7 @@ class PredictResponse(Generic[TypeDocument]):
     def __init__(
         self,
         doc_config: DocumentConfig,
-        http_response: Dict,
+        http_response: Dict[str, Any],
         input_source: Union[LocalInputSource, UrlInputSource],
         response_ok: bool,
     ) -> None:
@@ -145,25 +145,25 @@ class AsyncPredictResponse(PredictResponse[TypeDocument]):
     """
 
     job: Job
-    document: Optional[TypeDocument] = None
-    http_response: Dict[str, Any] = {}
-    """Raw HTTP response JSON"""
-    document_type: Optional[str] = None
-    """Document type"""
-    input_path: Optional[str] = None
-    """Path of the input file"""
-    input_filename: Optional[str] = None
-    """Name of the input file"""
-    input_mimetype: Optional[str] = None
-    """MIME type of the input file"""
+    """Job linked to an Async prediction."""
 
     def __init__(
         self,
-        http_response: Dict,
+        http_response: Dict[str, Any],
         doc_config: Optional[DocumentConfig] = None,
         input_source: Optional[Union[LocalInputSource, UrlInputSource]] = None,
         response_ok: Optional[bool] = None,
     ) -> None:
+        """
+        Container wrapper for a raw API response.
+
+        Inherits and instantiates a normal PredictResponse if the parsing of
+        the current queue is both requested and done.
+
+        :param doc_config: DocumentConfig
+        :param input_source: Input object
+        :param http_response: json response from HTTP call
+        """
         if (
             doc_config
             and input_source

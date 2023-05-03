@@ -5,19 +5,33 @@ from mindee.input.sources import LocalInputSource, UrlInputSource
 
 
 class PageGroup:
+    """Page Group class for Invoice splitter."""
+
     page_indexes: List[int] = []
-    confidence: int
+    """Index of each page"""
+    confidence: float = 0.0
+    """Confidence score"""
 
     def __init__(self, prediction: Dict[str, Any]):
         self.page_indexes = prediction["page_indexes"]
-        self.confidence = prediction["confidence"]
+        try:
+            self.confidence = float(prediction["confidence"])
+        except (KeyError, TypeError):
+            pass
 
     def __str__(self) -> str:
         return f"page indexes: {', '.join([str(page_index) for page_index in self.page_indexes])}"
 
 
 class InvoiceSplitterV1(Document):
+    """
+    Invoice Splitter prediction results.
+
+    Currently uses the API's async endpoints.
+    """
+
     invoice_page_groups: List[PageGroup] = []
+    """Page groups linked to an invoice."""
 
     def __init__(
         self,
