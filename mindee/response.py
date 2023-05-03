@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Any, Dict, Generic, List, Literal, Optional, Union
+from typing import Any, Dict, Generic, List, Optional, Union
 
 from mindee.documents.base import TypeDocument
 from mindee.documents.config import DocumentConfig
@@ -140,24 +140,26 @@ class PredictResponse(Generic[TypeDocument]):
 
 class AsyncPredictResponse(PredictResponse[TypeDocument]):
     """
-    Response of a prediction request.
+    Async Response Wrapper class for a Predict response.
 
-    Certain properties will depend on the document type.
+    Since Optional inheritance is convoluted, this is used as a simple wrapper for PredictResponse.
     """
 
     job: Job
+    # Inheritance of Optional isn't a possibility, so this technically just a wrapper
 
     def __init__(
         self,
-        doc_config: DocumentConfig,
         http_response: Dict,
-        input_source: Union[LocalInputSource, UrlInputSource],
-        response_ok: bool,
+        doc_config: Optional[DocumentConfig] = None,
+        input_source: Optional[Union[LocalInputSource, UrlInputSource]] = None,
+        response_ok: Optional[bool] = None,
     ) -> None:
-        super().__init__(
-            doc_config=doc_config,
-            http_response=http_response,
-            input_source=input_source,
-            response_ok=response_ok,
-        )
+        if doc_config and input_source and response_ok is not None:
+            super().__init__(
+                http_response=http_response,
+                doc_config=doc_config,
+                input_source=input_source,
+                response_ok=response_ok,
+            )
         self.job = Job(http_response["job"])

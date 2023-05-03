@@ -129,7 +129,7 @@ class DocumentClient:
         close_file: bool = True,
         page_options: Optional[PageOptions] = None,
         cropper: bool = False,
-    ) -> PredictResponse[TypeDocument]:
+    ) -> AsyncPredictResponse[TypeDocument]:
         """
         Enqueueing to an async endpoint.
 
@@ -201,13 +201,8 @@ class DocumentClient:
         return self._predict_async(doc_config, include_words, close_file, cropper)
 
     def parse_queued(
-        self,
-        queue_id: str,
-        endpoint_name: str,
-        account_name: Optional[str] = None,
-        include_words: bool = False,
-        cropper: bool = False,
-    ) -> AsyncPredictResponse:
+        self, queue_id: str, endpoint_name: str, account_name: Optional[str] = None
+    ) -> AsyncPredictResponse[TypeDocument]:
         """
         Parses a queued document.
 
@@ -218,7 +213,6 @@ class DocumentClient:
             This is normally not required unless you have a custom endpoint which has the
             same name as standard (off the shelf) endpoint.
             Do not set for standard (off the shelf) endpoints.
-
         """
         found = []
         for k in self.doc_configs.keys():
@@ -287,10 +281,15 @@ class DocumentClient:
         include_words: bool = False,
         close_file: bool = True,
         cropper: bool = False,
-    ) -> PredictResponse[TypeDocument]:
+    ) -> AsyncPredictResponse[TypeDocument]:
+        """
+        Sends a document to the queue, and sends back an asynchronous predict response.
+
+        :param doc_config: Configuration of the document.
+        """
         response = doc_config.endpoints[0].predict_async_req_post(
             self.input_doc, include_words, close_file, cropper
-        )  # TODO: refactor this into the document class
+        )
 
         dict_response = response.json()
 
@@ -298,11 +297,9 @@ class DocumentClient:
             raise HTTPException(
                 f"API {response.status_code} HTTP error: {json.dumps(dict_response)}"
             )
-        return PredictResponse[TypeDocument](
+
+        return AsyncPredictResponse[TypeDocument](
             http_response=dict_response,
-            doc_config=doc_config,
-            input_source=self.input_doc,
-            response_ok=response.ok,
         )
 
     def _get_queued_document(
@@ -329,9 +326,14 @@ class DocumentClient:
                 f"API {queue_response.status_code} HTTP error: {json.dumps(queue_response)}"
             )
 
+        if queue_response.status_code != 302:
+            return AsyncPredictResponse[TypeDocument](
+                http_response=queue_response.json()
+            )
+
         return AsyncPredictResponse[TypeDocument](
-            doc_config=doc_config,
             http_response=queue_response.json(),
+            doc_config=doc_config,
             input_source=self.input_doc,
             response_ok=queue_response.ok,
         )
