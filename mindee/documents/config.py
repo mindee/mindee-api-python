@@ -27,8 +27,8 @@ class DocumentConfig:
             if not endpoint.api_key:
                 raise RuntimeError(
                     (
-                        f"Missing API key for '{endpoint.url_name} v{endpoint.version}',"
-                        "check your Client configuration.\n"
+                        f"Missing API key for '{endpoint.url_name} v{endpoint.version.strip()}',"
+                        " check your Client configuration.\n"
                         "You can set this using the "
                         f"'{API_KEY_ENV_NAME}' environment variable."
                     )

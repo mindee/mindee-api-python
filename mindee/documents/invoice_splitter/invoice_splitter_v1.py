@@ -1,6 +1,6 @@
 from typing import Any, Dict, List, Optional, TypeVar, Union
 
-from mindee.documents.base import Document, TypeApiPrediction
+from mindee.documents.base import Document, TypeApiPrediction, clean_out_string
 from mindee.input.sources import LocalInputSource, UrlInputSource
 
 
@@ -27,7 +27,7 @@ class InvoiceSplitterV1(Document):
     ):
         super().__init__(
             input_source=input_source,
-            document_type="shipping_container",
+            document_type="invoice_splitter",
             api_prediction=api_prediction,
             page_n=page_n,
         )
@@ -43,7 +43,7 @@ class InvoiceSplitterV1(Document):
         :param page_n: Page number
         """
         if (
-            api_prediction["invoice_page_groups"]
+            "invoice_page_groups" in api_prediction
             and len(api_prediction["invoice_page_groups"]) > 0
         ):
             self.invoice_page_groups = [
@@ -52,16 +52,15 @@ class InvoiceSplitterV1(Document):
             ]
 
     def __str__(self) -> str:
-        invoice_page_groups = "\n"
         if len(self.invoice_page_groups) > 0:
-            invoice_page_groups += "\n ".join(
+            invoice_page_groups = f"\n { ' ' * 20 }".join(
                 [str(ivp) for ivp in self.invoice_page_groups]
             )
 
-        out_str = (
-            f"----- Invoice Splitter V1 -----"
-            f"Filename: {self.filename}"
-            f"Invoice Page Groups: {invoice_page_groups}"
+        out_str = clean_out_string(
+            f"----- Invoice Splitter V1 -----\n"
+            f"Filename: {self.filename}\n"
+            f"Invoice Page Groups: {invoice_page_groups}\n"
             f"----------------------"
         )
         return out_str

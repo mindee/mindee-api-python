@@ -205,7 +205,7 @@ class DocumentClient:
         document_class: TypeDocument,
         queue_id: str,
         endpoint_name: Optional[str] = None,
-        account_name: Optional[str] = None
+        account_name: Optional[str] = None,
     ) -> AsyncPredictResponse[TypeDocument]:
         """
         Parses a queued document.
@@ -225,7 +225,7 @@ class DocumentClient:
             raise RuntimeError(
                 f"endpoint_name is required when using {bound_classname} class"
             )
-        
+
         found = []
         for k in self.doc_configs.keys():
             if k[1] == endpoint_name:
@@ -248,7 +248,6 @@ class DocumentClient:
                     f"the parse method, one of {usernames}."
                 )
             )
-
         doc_config = self.doc_configs[config_key]
         doc_config.check_api_keys()
 
@@ -312,6 +311,9 @@ class DocumentClient:
 
         return AsyncPredictResponse[TypeDocument](
             http_response=dict_response,
+            doc_config=doc_config,
+            input_source=self.input_doc,
+            response_ok=response.ok,
         )
 
     def _get_queued_document(
@@ -336,11 +338,6 @@ class DocumentClient:
         ):
             raise HTTPException(
                 f"API {queue_response.status_code} HTTP error: {json.dumps(queue_response)}"
-            )
-
-        if queue_response.status_code != 302:
-            return AsyncPredictResponse[TypeDocument](
-                http_response=queue_response.json()
             )
 
         return AsyncPredictResponse[TypeDocument](
@@ -482,9 +479,10 @@ class Client:
             ConfigSpec(
                 doc_class=documents.InvoiceSplitterV1,
                 url_name="invoice_splitter",
-                version="1"
-            )
+                version="1",
+            ),
         ]
+
         for config in configs:
             config_key = (OTS_OWNER, config.doc_class.__name__)
             self._doc_configs[config_key] = self._standard_doc_config(

@@ -1,5 +1,5 @@
-from datetime import datetime
 import json
+from datetime import datetime
 from typing import Any, Dict, Generic, List, Optional, Union
 
 from mindee.documents.base import TypeDocument
@@ -41,7 +41,7 @@ class Job:
             self.milli_secs_taken = int(
                 (self.available_at.microsecond - self.issued_at.microsecond) / 1000
             )
-            
+
     def __str__(self) -> str:
         return json.dumps(self.__dict__, indent=4, sort_keys=True, default=str)
 
@@ -83,7 +83,6 @@ class PredictResponse(Generic[TypeDocument]):
         :param http_response: json response from HTTP call
         """
         logger.debug("Handling API response")
-
         self.http_response = http_response
         self.document_type = doc_config.document_type
         self.pages = []
@@ -157,7 +156,7 @@ class AsyncPredictResponse(PredictResponse[TypeDocument]):
     """Name of the input file"""
     input_mimetype: Optional[str] = None
     """MIME type of the input file"""
-    
+
     def __init__(
         self,
         http_response: Dict,
@@ -165,17 +164,16 @@ class AsyncPredictResponse(PredictResponse[TypeDocument]):
         input_source: Optional[Union[LocalInputSource, UrlInputSource]] = None,
         response_ok: Optional[bool] = None,
     ) -> None:
-        if doc_config and input_source and response_ok is not None:
+        if (
+            doc_config
+            and input_source
+            and http_response["job"]["status"] == "completed"
+            and response_ok is not None
+        ):
             super().__init__(
                 http_response=http_response,
                 doc_config=doc_config,
                 input_source=input_source,
                 response_ok=response_ok,
             )
-            self.document = super().document
-            self.http_response = super().http_response
-            self.document_type = super().document_type
-            self.input_path = super().input_path
-            self.input_filename = super().input_filename
-            self.input_mimetype = super().input_mimetype
         self.job = Job(http_response["job"])
