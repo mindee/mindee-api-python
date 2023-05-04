@@ -8,6 +8,7 @@ from mindee.documents.financial import (
     TypeFinancialV1,
 )
 from mindee.documents.invoice import InvoiceV3, InvoiceV4, TypeInvoiceV3, TypeInvoiceV4
+from mindee.documents.invoice_splitter import InvoiceSplitterV1, TypeInvoiceSplitterV1
 from mindee.documents.passport import PassportV1, TypePassportV1
 from mindee.documents.proof_of_address import ProofOfAddressV1, TypeProofOfAddressV1
 from mindee.documents.receipt import (
@@ -22,4 +23,3 @@ from mindee.documents.shipping_container import (
     ShippingContainerV1,
     TypeShippingContainerV1,
 )
-from mindee.documents.invoice_splitter import InvoiceSplitterV1, TypeInvoiceSplitterV1

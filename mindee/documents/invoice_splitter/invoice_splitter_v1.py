@@ -1,7 +1,6 @@
-from typing import Any, Dict, List, Optional, TypeVar, Union
+from typing import Any, Dict, List, Optional, TypeVar
 
 from mindee.documents.base import Document, TypeApiPrediction, clean_out_string
-from mindee.input.sources import LocalInputSource, UrlInputSource
 
 
 class PageGroup:
@@ -35,8 +34,8 @@ class InvoiceSplitterV1(Document):
 
     def __init__(
         self,
-        api_prediction: Dict[str, Any],
-        input_source: Optional[Union[LocalInputSource, UrlInputSource]] = None,
+        api_prediction: TypeApiPrediction,
+        input_source=None,
         page_n: Optional[int] = None,
     ):
         super().__init__(
@@ -48,7 +47,7 @@ class InvoiceSplitterV1(Document):
         self._build_from_api_prediction(api_prediction["prediction"])
 
     def _build_from_api_prediction(
-        self, api_prediction: TypeApiPrediction
+        self, api_prediction: TypeApiPrediction, page_n: Optional[int] = None
     ) -> None:
         """
         Build the object from the prediction API JSON.
