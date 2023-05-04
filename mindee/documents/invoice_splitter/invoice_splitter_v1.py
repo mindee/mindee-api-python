@@ -23,11 +23,7 @@ class PageGroup:
 
 
 class InvoiceSplitterV1(Document):
-    """
-    Invoice Splitter prediction results.
-
-    Currently uses the API's async endpoints.
-    """
+    """Invoice Splitter v1 prediction results."""
 
     invoice_page_groups: List[PageGroup] = []
     """Page groups linked to an invoice."""

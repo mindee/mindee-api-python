@@ -111,34 +111,9 @@ class Endpoint:
         :param cropper: Including Mindee cropping results.
         :return: requests response
         """
-        data = {}
-        if include_words:
-            data["include_mvision"] = "true"
-
-        params = {}
-        if cropper:
-            params["cropper"] = "true"
-
-        if isinstance(input_source, UrlInputSource):
-            data["document"] = input_source.url
-            response = requests.post(
-                f"{self._url_root}/predict",
-                headers=self.base_headers,
-                data=data,
-                params=params,
-                timeout=self._request_timeout,
-            )
-        else:
-            files = {"document": input_source.read_contents(close_file)}
-            response = requests.post(
-                f"{self._url_root}/predict",
-                files=files,
-                headers=self.base_headers,
-                data=data,
-                params=params,
-                timeout=self._request_timeout,
-            )
-        return response
+        return self._custom_request(
+            "predict", input_source, include_words, close_file, cropper
+        )
 
     def predict_async_req_post(
         self,
@@ -156,6 +131,18 @@ class Endpoint:
         :param cropper: Including Mindee cropping results.
         :return: requests response
         """
+        return self._custom_request(
+            "predict_async", input_source, include_words, close_file, cropper
+        )
+
+    def _custom_request(
+        self,
+        route: str,
+        input_source: Union[LocalInputSource, UrlInputSource],
+        include_words: bool = False,
+        close_file: bool = True,
+        cropper: bool = False,
+    ):
         data = {}
         if include_words:
             data["include_mvision"] = "true"
@@ -167,7 +154,7 @@ class Endpoint:
         if isinstance(input_source, UrlInputSource):
             data["document"] = input_source.url
             response = requests.post(
-                f"{self._url_root}/predict_async",
+                f"{self._url_root}/{route}",
                 headers=self.base_headers,
                 data=data,
                 params=params,
@@ -176,13 +163,14 @@ class Endpoint:
         else:
             files = {"document": input_source.read_contents(close_file)}
             response = requests.post(
-                f"{self._url_root}/predict_async",
+                f"{self._url_root}/{route}",
                 files=files,
                 headers=self.base_headers,
                 data=data,
                 params=params,
                 timeout=self._request_timeout,
             )
+
         return response
 
     def document_queue_req_get(self, queue_id: str) -> requests.Response:

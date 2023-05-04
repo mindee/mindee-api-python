@@ -23,7 +23,7 @@ class Job:
     """Timestamp of the request after it has been completed."""
     status: Optional[str] = None
     """Status of the request, as seen by the API."""
-    milli_secs_taken: int  # Check if that one is fine as a simple int
+    millisecs_taken: int
     """Time (ms) taken for the request to be processed by the API."""
 
     def __init__(self, json_response: dict) -> None:
@@ -38,7 +38,7 @@ class Job:
         self.job_id = json_response.get("id")
         self.status = json_response.get("status")
         if self.available_at:
-            self.milli_secs_taken = int(
+            self.millisecs_taken = int(
                 (self.available_at.microsecond - self.issued_at.microsecond) / 1000
             )
 
@@ -150,9 +150,9 @@ class AsyncPredictResponse(PredictResponse[TypeDocument]):
     def __init__(
         self,
         http_response: Dict[str, Any],
-        doc_config: Optional[DocumentConfig] = None,
-        input_source: Optional[Union[LocalInputSource, UrlInputSource]] = None,
-        response_ok: Optional[bool] = None,
+        doc_config: DocumentConfig,
+        input_source: Union[LocalInputSource, UrlInputSource],
+        response_ok: bool,
     ) -> None:
         """
         Container wrapper for a raw API response.
@@ -164,16 +164,10 @@ class AsyncPredictResponse(PredictResponse[TypeDocument]):
         :param input_source: Input object
         :param http_response: json response from HTTP call
         """
-        if (
-            doc_config
-            and input_source
-            and http_response["job"]["status"] == "completed"
-            and response_ok is not None
-        ):
-            super().__init__(
-                http_response=http_response,
-                doc_config=doc_config,
-                input_source=input_source,
-                response_ok=response_ok,
-            )
+        super().__init__(
+            http_response=http_response,
+            doc_config=doc_config,
+            input_source=input_source,
+            response_ok=response_ok and http_response["job"]["status"] == "completed",
+        )
         self.job = Job(http_response["job"])

@@ -84,31 +84,7 @@ class DocumentClient:
 
         logger.debug("Parsing document as '%s'", endpoint_name)
 
-        found = []
-        for k in self.doc_configs.keys():
-            if k[1] == endpoint_name:
-                found.append(k)
-
-        if len(found) == 0:
-            raise RuntimeError(f"Document type not configured: {endpoint_name}")
-
-        if account_name:
-            config_key = (account_name, endpoint_name)
-        elif len(found) == 1:
-            config_key = found[0]
-        else:
-            usernames = [k[0] for k in found]
-            raise RuntimeError(
-                (
-                    "Duplicate configuration detected.\n"
-                    f"You specified a document_type '{endpoint_name}' in your custom config.\n"
-                    "To avoid confusion, please add the 'account_name' attribute to "
-                    f"the parse method, one of {usernames}."
-                )
-            )
-
-        doc_config = self.doc_configs[config_key]
-        doc_config.check_api_keys()
+        doc_config = self._check_config(endpoint_name, account_name)
         if not isinstance(self.input_doc, UrlInputSource):
             if page_options and self.input_doc.is_pdf():
                 self.input_doc.process_pdf(
@@ -166,31 +142,7 @@ class DocumentClient:
 
         logger.debug("Enqueuing document as '%s'", endpoint_name)
 
-        found = []
-        for k in self.doc_configs.keys():
-            if k[1] == endpoint_name:
-                found.append(k)
-
-        if len(found) == 0:
-            raise RuntimeError(f"Document type not configured: {endpoint_name}")
-
-        if account_name:
-            config_key = (account_name, endpoint_name)
-        elif len(found) == 1:
-            config_key = found[0]
-        else:
-            usernames = [k[0] for k in found]
-            raise RuntimeError(
-                (
-                    "Duplicate configuration detected.\n"
-                    f"You specified a document_type '{endpoint_name}' in your custom config.\n"
-                    "To avoid confusion, please add the 'account_name' attribute to "
-                    f"the parse method, one of {usernames}."
-                )
-            )
-
-        doc_config = self.doc_configs[config_key]
-        doc_config.check_api_keys()
+        doc_config = self._check_config(endpoint_name, account_name)
         if not isinstance(self.input_doc, UrlInputSource):
             if page_options and self.input_doc.is_pdf():
                 self.input_doc.process_pdf(
@@ -226,30 +178,9 @@ class DocumentClient:
                 f"endpoint_name is required when using {bound_classname} class"
             )
 
-        found = []
-        for k in self.doc_configs.keys():
-            if k[1] == endpoint_name:
-                found.append(k)
+        logger.debug("Fetching queued document as '%s'", endpoint_name)
 
-        if len(found) == 0:
-            raise RuntimeError(f"Document type not configured: {endpoint_name}")
-
-        if account_name:
-            config_key = (account_name, endpoint_name)
-        elif len(found) == 1:
-            config_key = found[0]
-        else:
-            usernames = [k[0] for k in found]
-            raise RuntimeError(
-                (
-                    "Duplicate configuration detected.\n"
-                    f"You specified a document_type '{endpoint_name}' in your custom config.\n"
-                    "To avoid confusion, please add the 'account_name' attribute to "
-                    f"the parse method, one of {usernames}."
-                )
-            )
-        doc_config = self.doc_configs[config_key]
-        doc_config.check_api_keys()
+        doc_config = self._check_config(endpoint_name, account_name)
 
         return self._get_queued_document(doc_config, queue_id)
 
@@ -351,6 +282,34 @@ class DocumentClient:
         """Close the file object."""
         if not isinstance(self.input_doc, UrlInputSource):
             self.input_doc.file_object.close()
+
+    def _check_config(self, endpoint_name, account_name) -> DocumentConfig:
+        found = []
+        for k in self.doc_configs.keys():
+            if k[1] == endpoint_name:
+                found.append(k)
+
+        if len(found) == 0:
+            raise RuntimeError(f"Document type not configured: {endpoint_name}")
+
+        if account_name:
+            config_key = (account_name, endpoint_name)
+        elif len(found) == 1:
+            config_key = found[0]
+        else:
+            usernames = [k[0] for k in found]
+            raise RuntimeError(
+                (
+                    "Duplicate configuration detected.\n"
+                    f"You specified a document_type '{endpoint_name}' in your custom config.\n"
+                    "To avoid confusion, please add the 'account_name' attribute to "
+                    f"the parse method, one of {usernames}."
+                )
+            )
+
+        doc_config = self.doc_configs[config_key]
+        doc_config.check_api_keys()
+        return doc_config
 
 
 class ConfigSpec(NamedTuple):
