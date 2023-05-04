@@ -1,2 +1,2 @@
 from mindee.client import Client, PageOptions
-from mindee.response import PredictResponse
+from mindee.response import AsyncPredictResponse, Job, PredictResponse

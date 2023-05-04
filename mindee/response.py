@@ -15,12 +15,12 @@ class Job:
     Will hold information on the queue a document has been submitted to.
     """
 
+    job_id: Optional[str] = None
+    """ID of the job sent by the API in response to an enqueue request."""
     issued_at: datetime
     """Timestamp of the request reception by the API."""
     available_at: Optional[datetime] = None
     """Timestamp of the request after it has been completed."""
-    job_id: Optional[str] = None
-    """ID of the job."""
     status: Optional[str] = None
     """Status of the request, as seen by the API."""
     milli_secs_taken: int  # Check if that one is fine as a simple int
@@ -141,11 +141,11 @@ class AsyncPredictResponse(PredictResponse[TypeDocument]):
     """
     Async Response Wrapper class for a Predict response.
 
-    Since Optional inheritance is convoluted, this is used as a simple wrapper for PredictResponse.
+    Links a Job to a PredictResponse.
     """
 
     job: Job
-    """Job linked to an Async prediction."""
+    """Job object link to the prediction. As long as it isn't complete, the prediction doesn't exist."""
 
     def __init__(
         self,
