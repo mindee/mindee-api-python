@@ -141,7 +141,7 @@ class AsyncPredictResponse(PredictResponse[TypeDocument]):
     """
     Async Response Wrapper class for a Predict response.
 
-    Links a Job to a PredictResponse.
+    Links a Job to a future PredictResponse.
     """
 
     job: Job
