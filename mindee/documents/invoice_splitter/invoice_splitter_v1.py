@@ -36,8 +36,8 @@ class InvoiceSplitterV1(Document):
     def __init__(
         self,
         api_prediction: Dict[str, Any],
-        input_source: Union[LocalInputSource, UrlInputSource],
-        page_n: int,
+        input_source: Optional[Union[LocalInputSource, UrlInputSource]] = None,
+        page_n: Optional[int] = None,
     ):
         super().__init__(
             input_source=input_source,
@@ -45,10 +45,10 @@ class InvoiceSplitterV1(Document):
             api_prediction=api_prediction,
             page_n=page_n,
         )
-        self._build_from_api_prediction(api_prediction["prediction"], page_n=page_n)
+        self._build_from_api_prediction(api_prediction["prediction"])
 
     def _build_from_api_prediction(
-        self, api_prediction: TypeApiPrediction, page_n: Optional[int] = None
+        self, api_prediction: TypeApiPrediction
     ) -> None:
         """
         Build the object from the prediction API JSON.
@@ -67,17 +67,17 @@ class InvoiceSplitterV1(Document):
 
     def __str__(self) -> str:
         if len(self.invoice_page_groups) > 0:
-            invoice_page_groups = f"\n { ' ' * 20 }".join(
+            invoice_page_groups = "\n  "
+            invoice_page_groups += f"\n{ ' ' * 2 }".join(
                 [str(ivp) for ivp in self.invoice_page_groups]
             )
 
-        out_str = clean_out_string(
+        return clean_out_string(
             f"----- Invoice Splitter V1 -----\n"
-            f"Filename: {self.filename}\n"
+            f"Filename: {self.filename or ''}\n"
             f"Invoice Page Groups: {invoice_page_groups}\n"
             f"----------------------"
         )
-        return out_str
 
 
 TypeInvoiceSplitterV1 = TypeVar("TypeInvoiceSplitterV1", bound=InvoiceSplitterV1)
