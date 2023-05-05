@@ -8,15 +8,18 @@ mindee_client = Client(api_key="my-api-key")
 input_doc = mindee_client.doc_from_path("/path/to/the/file.ext")
 
 # Queue the async Document by passing the appropriate type (e.g. InvoiceSplitterV1)
-queue_result = input_doc.enqueue(documents.InvoiceSplitterV1)
+queue_result = input_doc.enqueue(documents.TypeInvoiceSplitterV1)
+
+# Get the id of the queue (job)
+queue_id = queue_result.job.job_id
 
 # Wait for the result to be ready (will take a few seconds)
 sleep(10)
 
 # Fetch and parse the result, using the same type
-parsed_result = input_doc.parse_queued(documents.InvoiceSplitterV1)
+parsed_result = input_doc.parse_queued(documents.TypeInvoiceSplitterV1, queue_id)
 
 # Check whether the result is ready
-if parsed_result.status=="completed":
+if parsed_result.api_request.status=="completed":
     # Print a brief summary of the parsed data
     print(result.document)
