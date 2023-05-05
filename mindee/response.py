@@ -18,6 +18,10 @@ class ApiRequest:
 
     def __init__(self, json_response: dict) -> None:
         self.url = json_response["url"]
+        self.error = json_response["error"]
+        self.resources = json_response["resources"]
+        self.status = json_response["status"]
+        self.status_code = json_response["status_code"]
 
 
 class Job:

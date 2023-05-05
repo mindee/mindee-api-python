@@ -1,0 +1,22 @@
+from mindee import Client, documents
+from time import wait
+
+# Init a new client
+mindee_client = Client(api_key="my-api-key")
+
+# Load a file from disk
+input_doc = mindee_client.doc_from_path("/path/to/the/file.ext")
+
+# Queue the async Document by passing the appropriate type (e.g. InvoiceSplitterV1)
+queue_result = input_doc.enqueue(documents.InvoiceSplitterV1)
+
+# Wait for the result to be ready (will take a few seconds)
+wait(10)
+
+# Fetch and parse the result, using the same type
+parsed_result = input_doc.parse_queued(documents.InvoiceSplitterV1)
+
+# Check whether the result is ready
+if parsed_result.status="completed"
+    # Print a brief summary of the parsed data
+    print(result.document)
