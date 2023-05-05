@@ -30,7 +30,7 @@ class InvoiceSplitterV1(Document):
 
     def __init__(
         self,
-        api_prediction: TypeApiPrediction=None,
+        api_prediction: TypeApiPrediction,
         input_source=None,
         page_n: Optional[int] = None,
     ):
