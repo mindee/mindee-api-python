@@ -1,6 +1,8 @@
 import json
 from datetime import datetime
-from typing import Any, Dict, Generic, List, Literal, Optional, Union
+from typing import Any, Dict, Generic, List, Optional, Union
+
+from typing_extensions import Literal
 
 from mindee.documents.base import TypeDocument
 from mindee.documents.config import DocumentConfig
