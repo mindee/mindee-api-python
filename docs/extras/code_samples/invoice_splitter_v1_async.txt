@@ -1,5 +1,5 @@
 from mindee import Client, documents
-from time import wait
+from time import sleep
 
 # Init a new client
 mindee_client = Client(api_key="my-api-key")
@@ -11,7 +11,7 @@ input_doc = mindee_client.doc_from_path("/path/to/the/file.ext")
 queue_result = input_doc.enqueue(documents.InvoiceSplitterV1)
 
 # Wait for the result to be ready (will take a few seconds)
-wait(10)
+sleep(10)
 
 # Fetch and parse the result, using the same type
 parsed_result = input_doc.parse_queued(documents.InvoiceSplitterV1)
