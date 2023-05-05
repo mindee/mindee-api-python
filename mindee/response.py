@@ -1,11 +1,23 @@
 import json
 from datetime import datetime
-from typing import Any, Dict, Generic, List, Optional, Union
+from typing import Any, Dict, Generic, List, Literal, Optional, Union
 
 from mindee.documents.base import TypeDocument
 from mindee.documents.config import DocumentConfig
 from mindee.input.sources import LocalInputSource, UrlInputSource
 from mindee.logger import logger
+
+
+class ApiRequest:
+    error: Dict[str, Any]
+    resources: List[str]
+    status: Literal["failure", "success"]
+    status_code: int
+    """HTTP status code."""
+    url: str
+
+    def __init__(self, json_response: dict) -> None:
+        self.url = json_response["url"]
 
 
 class Job:
@@ -137,15 +149,17 @@ class PredictResponse(Generic[TypeDocument]):
             )
 
 
-class AsyncPredictResponse(PredictResponse[TypeDocument]):
+class AsyncPredictResponse(Generic[TypeDocument]):
     """
     Async Response Wrapper class for a Predict response.
 
     Links a Job to a future PredictResponse.
     """
 
+    api_request: ApiRequest
     job: Job
     """Job object link to the prediction. As long as it isn't complete, the prediction doesn't exist."""
+    document: PredictResponse[TypeDocument]
 
     def __init__(
         self,
@@ -164,10 +178,11 @@ class AsyncPredictResponse(PredictResponse[TypeDocument]):
         :param input_source: Input object
         :param http_response: json response from HTTP call
         """
-        super().__init__(
+        self.document = PredictResponse[TypeDocument](
             http_response=http_response,
             doc_config=doc_config,
             input_source=input_source,
             response_ok=response_ok and http_response["job"]["status"] == "completed",
         )
         self.job = Job(http_response["job"])
+        self.api_request = ApiRequest(http_response["api_request"])
