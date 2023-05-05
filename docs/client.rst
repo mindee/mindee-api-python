@@ -21,3 +21,10 @@ PredictResponse
 ---------------
 .. autoclass:: mindee.response.PredictResponse
     :members:
+
+AsyncPredictResponse
+--------------------
+.. autoclass:: mindee.response.AsyncPredictResponse
+    :members:
+.. autoclass:: mindee.response.Job
+    :members:

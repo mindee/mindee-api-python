@@ -1,9 +1,71 @@
+import json
+from datetime import datetime
+from enum import Enum
 from typing import Any, Dict, Generic, List, Optional, Union
 
 from mindee.documents.base import TypeDocument
 from mindee.documents.config import DocumentConfig
 from mindee.input.sources import LocalInputSource, UrlInputSource
 from mindee.logger import logger
+
+
+class RequestStatus(Enum):
+    FAILURE = "failure"
+    SUCCESS = "success"
+
+
+class ApiRequest:
+    error: Dict[str, Any]
+    resources: List[str]
+    status: RequestStatus
+    status_code: int
+    """HTTP status code."""
+    url: str
+
+    def __init__(self, json_response: dict) -> None:
+        self.url = json_response["url"]
+        self.error = json_response["error"]
+        self.resources = json_response["resources"]
+        self.status = RequestStatus(json_response["status"])
+        self.status_code = json_response["status_code"]
+
+
+class Job:
+    """
+    Job class for asynchronous requests.
+
+    Will hold information on the queue a document has been submitted to.
+    """
+
+    job_id: Optional[str] = None
+    """ID of the job sent by the API in response to an enqueue request."""
+    issued_at: datetime
+    """Timestamp of the request reception by the API."""
+    available_at: Optional[datetime] = None
+    """Timestamp of the request after it has been completed."""
+    status: Optional[str] = None
+    """Status of the request, as seen by the API."""
+    millisecs_taken: int
+    """Time (ms) taken for the request to be processed by the API."""
+
+    def __init__(self, json_response: dict) -> None:
+        """
+        Wrapper for the HTTP response sent from the API when a document is enqueued.
+
+        :param json_response: JSON response sent by the server
+        """
+        self.issued_at = datetime.fromisoformat(json_response["issued_at"])
+        if json_response.get("available_at"):
+            self.available_at = datetime.fromisoformat(json_response["available_at"])
+        self.job_id = json_response.get("id")
+        self.status = json_response.get("status")
+        if self.available_at:
+            self.millisecs_taken = int(
+                (self.available_at.microsecond - self.issued_at.microsecond) / 1000
+            )
+
+    def __str__(self) -> str:
+        return json.dumps(self.__dict__, indent=4, sort_keys=True, default=str)
 
 
 class PredictResponse(Generic[TypeDocument]):
@@ -31,7 +93,7 @@ class PredictResponse(Generic[TypeDocument]):
     def __init__(
         self,
         doc_config: DocumentConfig,
-        http_response: dict,
+        http_response: Dict[str, Any],
         input_source: Union[LocalInputSource, UrlInputSource],
         response_ok: bool,
     ) -> None:
@@ -43,7 +105,6 @@ class PredictResponse(Generic[TypeDocument]):
         :param http_response: json response from HTTP call
         """
         logger.debug("Handling API response")
-
         self.http_response = http_response
         self.document_type = doc_config.document_type
         self.pages = []
@@ -96,3 +157,42 @@ class PredictResponse(Generic[TypeDocument]):
                 input_source=input_source,
                 page_n=None,
             )
+
+
+class AsyncPredictResponse(Generic[TypeDocument]):
+    """
+    Async Response Wrapper class for a Predict response.
+
+    Links a Job to a future PredictResponse.
+    """
+
+    api_request: ApiRequest
+    job: Job
+    """Job object link to the prediction. As long as it isn't complete, the prediction doesn't exist."""
+    document: PredictResponse[TypeDocument]
+
+    def __init__(
+        self,
+        http_response: Dict[str, Any],
+        doc_config: DocumentConfig,
+        input_source: Union[LocalInputSource, UrlInputSource],
+        response_ok: bool,
+    ) -> None:
+        """
+        Container wrapper for a raw API response.
+
+        Inherits and instantiates a normal PredictResponse if the parsing of
+        the current queue is both requested and done.
+
+        :param doc_config: DocumentConfig
+        :param input_source: Input object
+        :param http_response: json response from HTTP call
+        """
+        self.document = PredictResponse[TypeDocument](
+            http_response=http_response,
+            doc_config=doc_config,
+            input_source=input_source,
+            response_ok=response_ok and http_response["job"]["status"] == "completed",
+        )
+        self.job = Job(http_response["job"])
+        self.api_request = ApiRequest(http_response["api_request"])
