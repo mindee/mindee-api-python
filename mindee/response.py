@@ -1,8 +1,7 @@
 import json
 from datetime import datetime
+from enum import Enum
 from typing import Any, Dict, Generic, List, Optional, Union
-
-from typing_extensions import Literal
 
 from mindee.documents.base import TypeDocument
 from mindee.documents.config import DocumentConfig
@@ -10,10 +9,15 @@ from mindee.input.sources import LocalInputSource, UrlInputSource
 from mindee.logger import logger
 
 
+class RequestStatus(Enum):
+    FAILURE = "failure"
+    SUCCESS = "success"
+
+
 class ApiRequest:
     error: Dict[str, Any]
     resources: List[str]
-    status: Literal["failure", "success"]
+    status: RequestStatus
     status_code: int
     """HTTP status code."""
     url: str
