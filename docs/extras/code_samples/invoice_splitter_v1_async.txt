@@ -1,6 +1,5 @@
 from mindee import Client, documents
 from time import sleep
-import os
 
 # Init a new client
 mindee_client = Client(api_key="my-api-key")
