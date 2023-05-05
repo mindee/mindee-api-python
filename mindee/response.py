@@ -26,7 +26,7 @@ class ApiRequest:
         self.url = json_response["url"]
         self.error = json_response["error"]
         self.resources = json_response["resources"]
-        self.status = json_response["status"]
+        self.status = RequestStatus(json_response["status"])
         self.status_code = json_response["status_code"]
 
 
