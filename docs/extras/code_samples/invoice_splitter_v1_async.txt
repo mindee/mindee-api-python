@@ -30,7 +30,7 @@ queue_id = queue_result.job.job_id
 # Recursive function that tries to retrieve the completed document.
 # If the document is not "complete", try again
 def get_doc_from_async_queue(queue_id, times_tried=0):
-    sleep(1)
+    sleep(INTERVAL_SECS)
     
     if times_tried >= MAX_RETRIES:
         raise Exception(f"Maximum retries reached {times_tried}")
