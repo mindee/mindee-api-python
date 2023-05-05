@@ -17,6 +17,6 @@ wait(10)
 parsed_result = input_doc.parse_queued(documents.InvoiceSplitterV1)
 
 # Check whether the result is ready
-if parsed_result.status=="completed"
+if parsed_result.status=="completed":
     # Print a brief summary of the parsed data
     print(result.document)
