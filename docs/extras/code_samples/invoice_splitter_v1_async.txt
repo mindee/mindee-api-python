@@ -37,7 +37,7 @@ def get_doc_from_async_queue(queue_id, times_tried=0):
     # Fetch and parse the result, using the same type
     parsed_result = input_doc.parse_queued(doc_class, queue_id)
     # Check whether the result is ready
-    if parsed_result.job.status=="completed":
+    if parsed_result.job.status == "completed":
         # Print a brief summary of the parsed data
         print(parsed_result.document.document)
         return
