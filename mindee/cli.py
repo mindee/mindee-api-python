@@ -1,6 +1,6 @@
 import argparse
 import json
-from argparse import Namespace
+from argparse import Namespace, ArgumentParser
 from dataclasses import dataclass
 from typing import Dict, Generic, TypeVar
 
@@ -15,6 +15,8 @@ TypeDoc = TypeVar("TypeDoc", bound=Document)
 class CommandConfig(Generic[TypeDoc]):
     help: str
     doc_class: TypeDoc
+    is_sync: bool = True
+    is_async: bool = False
 
 
 DOCUMENTS: Dict[str, CommandConfig] = {
@@ -70,6 +72,12 @@ DOCUMENTS: Dict[str, CommandConfig] = {
         help="FR Bank Account Details",
         doc_class=documents.fr.TypeBankAccountDetailsV1,
     ),
+    "invoice-splitter": CommandConfig(
+        help="Invoice Splitter",
+        doc_class=documents.TypeInvoiceSplitterV1,
+        is_sync=False,
+        is_async=True,
+    )
 }
 
 
@@ -146,86 +154,266 @@ def _parse_args() -> Namespace:
         required=True,
     )
     for name, info in DOCUMENTS.items():
+        subp = subparsers.add_parser(name, help=info.help)        
+        if info.is_sync:
+            if name == "custom":
+                add_sync_custom_options(subp)
+            else:
+                add_sync_default_options(subp)
+            add_sync_common_options(subp)
+            
+    for name, info in DOCUMENTS.items():
         subp = subparsers.add_parser(name, help=info.help)
-        if name == "custom":
+        if info.is_async:
+            subp = subparsers.add_parser("enqueue")
+            if name=="custom":
+                add_async_post_custom_options(subp)
+            else:
+                add_async_post_default_options(subp)
+            add_async_post_common_options(subp)
+                
+            subp = subparsers.add_parser("parse-queued")
+            if name=="custom":
+                add_async_get_custom_options(subp)
+            else:
+                add_async_get_default_options(subp)
+            add_async_get_common_options(subp)
+            
             subp.add_argument(
-                "-u",
-                "--user",
-                dest="username",
-                required=True,
-                help="API account name for the endpoint",
-            )
-            subp.add_argument(
-                "-k",
-                "--key",
-                dest="api_key",
-                help="API key for the account",
-            )
-            subp.add_argument(
-                "-v",
-                "--version",
-                default="1",
-                dest="api_version",
-                help="Version for the endpoint. If not set, use the latest version of the model.",
-            )
-            subp.add_argument(dest="api_name", help="Name of the API")
-        else:
-            subp.add_argument(
-                "-k",
-                "--key",
-                dest="api_key",
-                help="API key for the account",
-            )
-            subp.add_argument(
-                "-w",
-                "--with-words",
+                "-t",
+                "--full-text",
                 dest="include_words",
                 action="store_true",
-                help="Include words in response",
+                help="include full document text in response",
             )
-        subp.add_argument(
-            "-i",
-            "--input-type",
-            dest="input_type",
-            choices=["path", "file", "base64", "bytes", "url"],
-            default="path",
-            help="Specify how to handle the input.\n"
-            "- path: open a path (default).\n"
-            "- file: open as a file handle.\n"
-            "- base64: open a base64 encoded text file.\n"
-            "- bytes: open the contents as raw bytes.\n"
-            "- url: open an URL.",
-        )
-        subp.add_argument(
-            "-o",
-            "--output-type",
-            dest="output_type",
-            choices=["summary", "raw", "parsed"],
-            default="summary",
-            help="Specify how to output the data.\n"
-            "- summary: a basic summary (default)\n"
-            "- raw: the raw HTTP response\n"
-            "- parsed: the validated and parsed data fields\n",
-        )
-        subp.add_argument(
-            "-c",
-            "--cut",
-            dest="cut_doc",
-            action="store_true",
-            help="Cut document pages",
-        )
-        subp.add_argument(
-            "-p",
-            "--pages-keep",
-            dest="doc_pages",
-            type=int,
-            default=5,
-            help="Number of document pages to keep, default: 5",
-        )
-        subp.add_argument(dest="path", help="Full path to the file")
 
     parsed_args = parser.parse_args()
     return parsed_args
+
+def add_async_get_common_options(
+    subp:ArgumentParser
+):
+    subp.add_argument(
+        "-c",
+        "--cut-doc",
+        dest="cut_doc",
+        action="store_true",
+        help="Cut document pages",
+    )
+    subp.add_argument(
+        "-i",
+        "--input-type",
+        dest="input_type",
+        choices=["path", "file", "base64", "bytes", "url"],
+        default="path",
+        help="Specify how to handle the input.\n"
+        "- path: open a path (default).\n"
+        "- file: open as a file handle.\n"
+        "- base64: open a base64 encoded text file.\n"
+        "- bytes: open the contents as raw bytes.\n"
+        "- url: open an URL.",
+    )
+    subp.add_argument(
+        "-p",
+        "--pages-keep",
+        dest="doc_pages",
+        type=int,
+        default=5,
+        help="Number of document pages to keep, default: 5",
+    )
+
+def add_async_get_default_options(
+    subp:ArgumentParser
+):
+    subp.add_argument(
+        "-k",
+        "--key",
+        dest="api_key",
+        help="API key for the account",
+    )
+    subp.add_argument(
+        "-t",
+        "--full-text",
+        dest="include_words",
+        action="store_true",
+        help="include full document text in response",
+    )
+
+def add_async_get_custom_options(
+    subp:ArgumentParser
+):
+    subp.add_argument(
+        "-e",
+        "--endpoint",
+        dest="endpoint_name",
+        help="API endpoint name (required)",
+        required=True
+    )
+    subp.add_argument(
+        "-a",
+        "--account-name",
+        dest="username",
+        required=True,
+        help="API account name for the endpoint (required)",
+    )
+    subp.add_argument(
+        "-v",
+        "--version",
+        default="1",
+        dest="api_version",
+        help="Version for the endpoint. If not set, use the latest version of the model.",
+    )
+    subp.add_argument(dest="api_name", help="Name of the API")
+
+
+def add_async_post_common_options(
+    subp:ArgumentParser
+):
+    subp.add_argument(
+        "-c",
+        "--cut-doc",
+        dest="cut_doc",
+        action="store_true",
+        help="Cut document pages",
+    )
+    subp.add_argument(
+        "-i",
+        "--input-type",
+        dest="input_type",
+        choices=["path", "file", "base64", "bytes", "url"],
+        default="path",
+        help="Specify how to handle the input.\n"
+        "- path: open a path (default).\n"
+        "- file: open as a file handle.\n"
+        "- base64: open a base64 encoded text file.\n"
+        "- bytes: open the contents as raw bytes.\n"
+        "- url: open an URL.",
+    )
+    subp.add_argument(
+        "-p",
+        "--pages-keep",
+        dest="doc_pages",
+        type=int,
+        default=5,
+        help="Number of document pages to keep, default: 5",
+    )
+
+def add_async_post_default_options(
+    subp:ArgumentParser
+):
+    subp.add_argument(
+        "-t",
+        "--full-text",
+        dest="include_words",
+        action="store_true",
+        help="include full document text in response",
+    )
+
+def add_async_post_custom_options(
+    subp:ArgumentParser
+):
+    subp.add_argument(
+        "-e",
+        "--endpoint",
+        dest="endpoint_name",
+        help="API endpoint name (required)",
+        required=True
+    )
+    subp.add_argument(
+        "-a",
+        "--account-name",
+        dest="username",
+        required=True,
+        help="API account name for the endpoint (required)",
+    )
+    subp.add_argument(
+        "-v",
+        "--version",
+        default="1",
+        dest="api_version",
+        help="Version for the endpoint. If not set, use the latest version of the model.",
+    )
+    subp.add_argument(dest="api_name", help="Name of the API")
+
+def add_sync_common_options(
+    subp:ArgumentParser
+):
+    subp.add_argument(
+        "-k",
+        "--key",
+        dest="api_key",
+        help="API key for the account",
+    )
+    subp.add_argument(
+        "-i",
+        "--input-type",
+        dest="input_type",
+        choices=["path", "file", "base64", "bytes", "url"],
+        default="path",
+        help="Specify how to handle the input.\n"
+        "- path: open a path (default).\n"
+        "- file: open as a file handle.\n"
+        "- base64: open a base64 encoded text file.\n"
+        "- bytes: open the contents as raw bytes.\n"
+        "- url: open an URL.",
+    )
+    subp.add_argument(
+        "-o",
+        "--output-type",
+        dest="output_type",
+        choices=["summary", "raw", "parsed"],
+        default="summary",
+        help="Specify how to output the data.\n"
+        "- summary: a basic summary (default)\n"
+        "- raw: the raw HTTP response\n"
+        "- parsed: the validated and parsed data fields\n",
+    )
+    subp.add_argument(
+        "-c",
+        "--cut-doc",
+        dest="cut_doc",
+        action="store_true",
+        help="Cut document pages",
+    )
+    subp.add_argument(
+        "-p",
+        "--pages-keep",
+        dest="doc_pages",
+        type=int,
+        default=5,
+        help="Number of document pages to keep, default: 5",
+    )
+    subp.add_argument(dest="path", help="Full path to the file")
+
+def add_sync_default_options(
+    subp:ArgumentParser
+):
+    subp.add_argument(
+        "-t",
+        "--full-text",
+        dest="include_words",
+        action="store_true",
+        help="include full document text in response",
+    )
+    
+def add_sync_custom_options(
+    subp:ArgumentParser
+):
+    subp.add_argument(
+        "-a",
+        "--account-name",
+        dest="username",
+        required=True,
+        help="API account name for the endpoint (required)",
+    )
+    subp.add_argument(
+        "-v",
+        "--version",
+        default="1",
+        dest="api_version",
+        help="Version for the endpoint. If not set, use the latest version of the model.",
+    )
+    subp.add_argument(dest="api_name", help="Name of the API")
 
 
 def main() -> None:
