@@ -60,7 +60,10 @@ class Job:
         self.job_id = json_response.get("id")
         self.status = json_response.get("status")
         if self.available_at:
-            self.millisecs_taken = int((self.available_at-self.issued_at).total_seconds()*1000)
+            self.millisecs_taken = int(
+                (self.available_at - self.issued_at).total_seconds() * 1000
+            )
+
     def __str__(self) -> str:
         return json.dumps(self.__dict__, indent=4, sort_keys=True, default=str)
 
@@ -91,7 +94,7 @@ class PredictResponse(Generic[TypeDocument]):
         self,
         doc_config: DocumentConfig,
         http_response: Dict[str, Any],
-        input_source: Optional[Union[LocalInputSource, UrlInputSource]],
+        input_source: Union[LocalInputSource, UrlInputSource],
         response_ok: bool,
     ) -> None:
         """
@@ -106,12 +109,12 @@ class PredictResponse(Generic[TypeDocument]):
         self.document_type = doc_config.document_type
         self.pages = []
 
-        if not isinstance(input_source, UrlInputSource) and input_source:
+        if not isinstance(input_source, UrlInputSource):
             self.input_path = input_source.filepath
             self.input_filename = input_source.filename
             self.input_mimetype = input_source.file_mimetype
 
-        if not response_ok:
+        if not response_ok or not input_source:
             self.document = None
         else:
             self._load_response(doc_config, input_source)

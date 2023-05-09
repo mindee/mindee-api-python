@@ -584,12 +584,19 @@ class Client:
             raise_on_error=self.raise_on_error,
         )
 
-    def no_doc(
-        self
-    ):
+    def no_doc(self) -> DocumentClient:
+        """
+        Load an empty dummy document.
+
+        Used when calling parse-queued to avoid having to use a formerly
+        created DocumentClientObject.
+        """
+        input_doc = BytesInput(
+            bytearray(),
+            "",
+        )
         return DocumentClient(
-            input_doc=None,
+            input_doc=input_doc,
             doc_configs=self._doc_configs,
             raise_on_error=self.raise_on_error,
         )
-        
