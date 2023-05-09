@@ -158,7 +158,7 @@ def call_endpoint(args: Namespace):
                 doc = parsed_data.document.document
                 print(json.dumps(doc, indent=2, default=serialize_for_json))
             else:
-                print(parsed_data.document.document_type)
+                print(parsed_data.document.document)
         else:
             print(parsed_data.job)
     elif args.instruction_type == "parse":
