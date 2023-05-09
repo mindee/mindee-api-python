@@ -111,7 +111,7 @@ class PredictResponse(Generic[TypeDocument]):
             self.input_filename = input_source.filename
             self.input_mimetype = input_source.file_mimetype
 
-        if not response_ok or not input_source:
+        if not response_ok:
             self.document = None
         else:
             self._load_response(doc_config, input_source)

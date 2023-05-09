@@ -268,7 +268,7 @@ class DocumentClient:
             or queue_response.status_code > 302
         ):
             raise HTTPException(
-                f"API {queue_response.status_code} HTTP error: {json.dumps(queue_response)}"
+                f"API {queue_response.status_code} HTTP error: {json.dumps(queue_response.json())}"
             )
 
         return AsyncPredictResponse[TypeDocument](

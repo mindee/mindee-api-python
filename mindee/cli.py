@@ -2,7 +2,7 @@ import argparse
 import json
 from argparse import Namespace, ArgumentParser
 from dataclasses import dataclass
-from typing import Dict, Generic, TypeVar
+from typing import Dict, Generic, Optional, TypeVar
 
 from mindee import Client, PageOptions, documents
 from mindee.client import DocumentClient
@@ -82,24 +82,30 @@ DOCUMENTS: Dict[str, CommandConfig] = {
 }
 
 
-def _get_input_doc(client: Client, args: Namespace) -> DocumentClient:
-    if args.input_type == "file":
-        with open(args.path, "rb", buffering=30) as file_handle:
-            return client.doc_from_file(input_file=file_handle)
-    elif args.input_type == "base64":
-        with open(args.path, "rt", encoding="ascii") as base64_handle:
-            return client.doc_from_b64string(
-                input_string=base64_handle.read(), filename="test.jpg"
-            )
-    elif args.input_type == "bytes":
-        with open(args.path, "rb") as bytes_handle:
-            return client.doc_from_bytes(
-                input_bytes=bytes_handle.read(), filename=bytes_handle.name
-            )
-    elif args.input_type == "url":
-        return client.doc_from_url(url=args.path)
-    return client.doc_from_path(args.path)
-
+def _get_input_doc(
+    client: Client,
+    args: Namespace,
+    parsed_path:Optional[str]=None
+) -> DocumentClient:
+    if not parsed_path:
+        if args.input_type == "file":
+            with open(args.path, "rb", buffering=30) as file_handle:
+                return client.doc_from_file(input_file=file_handle)
+        elif args.input_type == "base64":
+            with open(args.path, "rt", encoding="ascii") as base64_handle:
+                return client.doc_from_b64string(
+                    input_string=base64_handle.read(), filename="test.jpg"
+                )
+        elif args.input_type == "bytes":
+            with open(args.path, "rb") as bytes_handle:
+                return client.doc_from_bytes(
+                    input_bytes=bytes_handle.read(), filename=bytes_handle.name
+                )
+        elif args.input_type == "url":
+            return client.doc_from_url(url=args.path)
+        return client.doc_from_path(args.path)
+    else:
+        return client.doc_from_url(parsed_path)
 
 def call_endpoint(args: Namespace):
     """Call the endpoint given passed arguments."""
@@ -135,22 +141,24 @@ def call_endpoint(args: Namespace):
         input_doc = client.no_doc()
         if args.product_name == "custom":
             parsed_data = input_doc.parse_queued(
-                doc_class,
+                document_class=doc_class,
+                queue_id=args.queue_id,
                 endpoint_name=args.api_name,
                 account_name=args.username,
             )
         else:
             parsed_data = input_doc.parse_queued(
-                doc_class, queue_id=args.queue_id
+                document_class=doc_class, queue_id=args.queue_id
             )
         if parsed_data.job.status=="completed":
+            input_doc = _get_input_doc(client, args, parsed_data.api_request.url)
             if args.output_type == "raw":
-                print(json.dumps(parsed_data.http_response, indent=2))
+                print(json.dumps(parsed_data.document.http_response, indent=2))
             elif args.output_type == "parsed":
                 doc = parsed_data.document.document
                 print(json.dumps(doc, indent=2, default=serialize_for_json))
             else:
-                print(parsed_data.job)
+                print(parsed_data.document.document_type)
         else:
             print(parsed_data.job)
     elif args.instruction_type == "parse":
