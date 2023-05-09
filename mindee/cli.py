@@ -7,6 +7,7 @@ from typing import Dict, Generic, TypeVar
 from mindee import Client, PageOptions, documents
 from mindee.client import DocumentClient
 from mindee.documents.base import Document, serialize_for_json
+from mindee.input.sources import LocalInputSource
 
 TypeDoc = TypeVar("TypeDoc", bound=Document)
 
@@ -81,7 +82,7 @@ DOCUMENTS: Dict[str, CommandConfig] = {
 }
 
 
-def _get_input_doc(client, args) -> DocumentClient:
+def _get_input_doc(client: Client, args: Namespace) -> DocumentClient:
     if args.input_type == "file":
         with open(args.path, "rb", buffering=30) as file_handle:
             return client.doc_from_file(input_file=file_handle)
@@ -106,22 +107,13 @@ def call_endpoint(args: Namespace):
     info = DOCUMENTS[args.product_name]
     doc_class = info.doc_class
 
-    input_doc = _get_input_doc(client, args)
 
-    if args.cut_doc and args.doc_pages:
-        page_options = PageOptions(range(args.doc_pages), on_min_pages=0)
-    else:
-        page_options = None
-
-    if args.output_type == "raw":
-        print(json.dumps(parsed_data.http_response, indent=2))
-    elif args.output_type == "parsed":
-        doc = parsed_data.document
-        print(json.dumps(doc, indent=2, default=serialize_for_json))
-    else:
-        print(parsed_data.document)
+    page_options = None
         
     if args.instruction_type == "enqueue":
+        if args.cut_doc and args.doc_pages:
+            page_options = PageOptions(range(args.doc_pages), on_min_pages=0)
+        input_doc = _get_input_doc(client, args)
         if args.product_name == "custom":
             client.add_endpoint(
                 endpoint_name=args.api_name,
@@ -135,10 +127,12 @@ def call_endpoint(args: Namespace):
                 page_options=page_options
             )
         else:
-            parsed_data = input_doc.parse(
+            parsed_data = input_doc.enqueue(
                 doc_class, include_words=args.include_words, page_options=page_options
             )
+        print(parsed_data.job)
     elif args.instruction_type == "parse-queued":
+        input_doc = client.no_doc()
         if args.product_name == "custom":
             parsed_data = input_doc.parse_queued(
                 doc_class,
@@ -149,7 +143,20 @@ def call_endpoint(args: Namespace):
             parsed_data = input_doc.parse_queued(
                 doc_class, queue_id=args.queue_id
             )
+        if parsed_data.job.status=="completed":
+            if args.output_type == "raw":
+                print(json.dumps(parsed_data.http_response, indent=2))
+            elif args.output_type == "parsed":
+                doc = parsed_data.document.document
+                print(json.dumps(doc, indent=2, default=serialize_for_json))
+            else:
+                print(parsed_data.job)
+        else:
+            print(parsed_data.job)
     elif args.instruction_type == "parse":
+        if args.cut_doc and args.doc_pages:
+            page_options = PageOptions(range(args.doc_pages), on_min_pages=0)
+        input_doc = _get_input_doc(client, args)
         if args.product_name == "custom":
             client.add_endpoint(
                 endpoint_name=args.api_name,
@@ -166,6 +173,13 @@ def call_endpoint(args: Namespace):
             parsed_data = input_doc.parse(
                 doc_class, include_words=args.include_words, page_options=page_options
             )
+        if args.output_type == "raw":
+            print(json.dumps(parsed_data.http_response, indent=2))
+        elif args.output_type == "parsed":
+            doc = parsed_data.document
+            print(json.dumps(doc, indent=2, default=serialize_for_json))
+        else:
+            print(parsed_data.document)
 
 
 def _parse_args() -> Namespace:
@@ -196,16 +210,17 @@ def _parse_args() -> Namespace:
         if info.is_sync:
             subp_predict = parsers_instruction_type.add_parser("parse", help=f"Parse {name}")
             _add_options(subp_predict, "predict", name)
+            subp_predict.add_argument(dest="path", help="Full path to the file")
                 
         if info.is_async:
             parser_enqueue = parsers_instruction_type.add_parser("enqueue", help=f"Enqueue {name}")
             _add_options(parser_enqueue, "enqueue", name)
+            parser_enqueue.add_argument(dest="path", help="Full path to the file")
             
             parser_parse_queued = parsers_instruction_type.add_parser("parse-queued", help=f"Parse (queued) {name}")
             _add_options(parser_parse_queued, "parse-queued", name)
             parser_parse_queued.add_argument(dest="queue_id", help="Async queue ID for a document (required)")
             
-        subp.add_argument(dest="path", help="Full path to the file")
 
     parsed_args = parser.parse_args()
     return parsed_args

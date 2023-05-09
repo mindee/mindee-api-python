@@ -583,3 +583,13 @@ class Client:
             doc_configs=self._doc_configs,
             raise_on_error=self.raise_on_error,
         )
+
+    def no_doc(
+        self
+    ):
+        return DocumentClient(
+            input_doc=None,
+            doc_configs=self._doc_configs,
+            raise_on_error=self.raise_on_error,
+        )
+        
