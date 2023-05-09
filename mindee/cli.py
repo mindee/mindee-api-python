@@ -103,12 +103,6 @@ def _get_input_doc(client, args) -> DocumentClient:
 def call_endpoint(args: Namespace):
     """Call the endpoint given passed arguments."""
     client = Client(api_key=args.api_key, raise_on_error=args.raise_on_error)
-    if args.product_name == "custom":
-        client.add_endpoint(
-            endpoint_name=args.api_name,
-            account_name=args.username,
-            version=args.api_version,
-        )
     info = DOCUMENTS[args.product_name]
     doc_class = info.doc_class
 
@@ -118,17 +112,6 @@ def call_endpoint(args: Namespace):
         page_options = PageOptions(range(args.doc_pages), on_min_pages=0)
     else:
         page_options = None
-    if args.product_name == "custom":
-        parsed_data = input_doc.parse(
-            doc_class,
-            endpoint_name=args.api_name,
-            account_name=args.username,
-            page_options=page_options,
-        )
-    else:
-        parsed_data = input_doc.parse(
-            doc_class, include_words=args.include_words, page_options=page_options
-        )
 
     if args.output_type == "raw":
         print(json.dumps(parsed_data.http_response, indent=2))
@@ -137,6 +120,52 @@ def call_endpoint(args: Namespace):
         print(json.dumps(doc, indent=2, default=serialize_for_json))
     else:
         print(parsed_data.document)
+        
+    if args.instruction_type == "enqueue":
+        if args.product_name == "custom":
+            client.add_endpoint(
+                endpoint_name=args.api_name,
+                account_name=args.username,
+                version=args.api_version,
+            )
+            parsed_data = input_doc.enqueue(
+                doc_class,
+                endpoint_name=args.api_name,
+                account_name=args.username,
+                page_options=page_options
+            )
+        else:
+            parsed_data = input_doc.parse(
+                doc_class, include_words=args.include_words, page_options=page_options
+            )
+    elif args.instruction_type == "parse-queued":
+        if args.product_name == "custom":
+            parsed_data = input_doc.parse_queued(
+                doc_class,
+                endpoint_name=args.api_name,
+                account_name=args.username,
+            )
+        else:
+            parsed_data = input_doc.parse_queued(
+                doc_class, queue_id=args.queue_id
+            )
+    elif args.instruction_type == "parse":
+        if args.product_name == "custom":
+            client.add_endpoint(
+                endpoint_name=args.api_name,
+                account_name=args.username,
+                version=args.api_version,
+            )
+            parsed_data = input_doc.parse(
+                doc_class,
+                endpoint_name=args.api_name,
+                account_name=args.username,
+                page_options=page_options,
+            )
+        else:
+            parsed_data = input_doc.parse(
+                doc_class, include_words=args.include_words, page_options=page_options
+            )
 
 
 def _parse_args() -> Namespace:
@@ -149,273 +178,121 @@ def _parse_args() -> Namespace:
         dest="raise_on_error",
         help="don't raise errors",
     )
+    parser.add_argument(
+        "-k",
+        "--key",
+        dest="api_key",
+        help="API key for the account",
+    )
     subparsers = parser.add_subparsers(
         dest="product_name",
         required=True,
     )
-    for name, info in DOCUMENTS.items():
-        subp = subparsers.add_parser(name, help=info.help)        
-        if info.is_sync:
-            if name == "custom":
-                add_sync_custom_options(subp)
-            else:
-                add_sync_default_options(subp)
-            add_sync_common_options(subp)
-            
+    
     for name, info in DOCUMENTS.items():
         subp = subparsers.add_parser(name, help=info.help)
-        if info.is_async:
-            subp = subparsers.add_parser("enqueue")
-            if name=="custom":
-                add_async_post_custom_options(subp)
-            else:
-                add_async_post_default_options(subp)
-            add_async_post_common_options(subp)
+        parsers_instruction_type = subp.add_subparsers(dest="instruction_type")
+        
+        if info.is_sync:
+            subp_predict = parsers_instruction_type.add_parser("parse", help=f"Parse {name}")
+            _add_options(subp_predict, "predict", name)
                 
-            subp = subparsers.add_parser("parse-queued")
-            if name=="custom":
-                add_async_get_custom_options(subp)
-            else:
-                add_async_get_default_options(subp)
-            add_async_get_common_options(subp)
+        if info.is_async:
+            parser_enqueue = parsers_instruction_type.add_parser("enqueue", help=f"Enqueue {name}")
+            _add_options(parser_enqueue, "enqueue", name)
             
-            subp.add_argument(
+            parser_parse_queued = parsers_instruction_type.add_parser("parse-queued", help=f"Parse (queued) {name} <queue_id>")
+            _add_options(parser_parse_queued, "parse-queued", name)
+            
+
+    parsed_args = parser.parse_args()
+    return parsed_args
+
+    
+def _add_options(parser:ArgumentParser, category: str, name:str):
+    """
+    Adds options to a given command.
+    
+    :param parser: The argument parser object.
+    :param category: The category of the current command (Predict/Enqueue/Parse-Enqueued).
+    :param name: Name of the current command (Default/Custom).
+    """
+    
+    
+    if category in ["predict", "enqueue"]:
+        parser.add_argument(
+            "-i",
+            "--input-type",
+            dest="input_type",
+            choices=["path", "file", "base64", "bytes", "url"],
+            default="path",
+            help="Specify how to handle the input.\n"
+            "- path: open a path (default).\n"
+            "- file: open as a file handle.\n"
+            "- base64: open a base64 encoded text file.\n"
+            "- bytes: open the contents as raw bytes.\n"
+            "- url: open an URL.",
+        )
+        parser.add_argument(
+            "-c",
+            "--cut-doc",
+            dest="cut_doc",
+            action="store_true",
+            help="Cut document pages",
+        )
+        parser.add_argument(
+            "-p",
+            "--pages-keep",
+            dest="doc_pages",
+            type=int,
+            default=5,
+            help="Number of document pages to keep, default: 5",
+        )
+        
+        if name=="custom":
+            parser.add_argument(
+                "-a",
+                "--account-name",
+                dest="username",
+                required=True,
+                help="API account name for the endpoint (required)",
+            )
+            parser.add_argument(
+                "-e",
+                "--endpoint",
+                dest="endpoint_name",
+                help="API endpoint name (required)",
+                required=True
+            )
+            parser.add_argument(
+                "-v",
+                "--version",
+                default="1",
+                dest="api_version",
+                help="Version for the endpoint. If not set, use the latest version of the model.",
+            )
+        else:
+            parser.add_argument(
                 "-t",
                 "--full-text",
                 dest="include_words",
                 action="store_true",
                 help="include full document text in response",
             )
-
-    parsed_args = parser.parse_args()
-    return parsed_args
-
-def add_async_get_common_options(
-    subp:ArgumentParser
-):
-    subp.add_argument(
-        "-c",
-        "--cut-doc",
-        dest="cut_doc",
-        action="store_true",
-        help="Cut document pages",
-    )
-    subp.add_argument(
-        "-i",
-        "--input-type",
-        dest="input_type",
-        choices=["path", "file", "base64", "bytes", "url"],
-        default="path",
-        help="Specify how to handle the input.\n"
-        "- path: open a path (default).\n"
-        "- file: open as a file handle.\n"
-        "- base64: open a base64 encoded text file.\n"
-        "- bytes: open the contents as raw bytes.\n"
-        "- url: open an URL.",
-    )
-    subp.add_argument(
-        "-p",
-        "--pages-keep",
-        dest="doc_pages",
-        type=int,
-        default=5,
-        help="Number of document pages to keep, default: 5",
-    )
-
-def add_async_get_default_options(
-    subp:ArgumentParser
-):
-    subp.add_argument(
-        "-k",
-        "--key",
-        dest="api_key",
-        help="API key for the account",
-    )
-    subp.add_argument(
-        "-t",
-        "--full-text",
-        dest="include_words",
-        action="store_true",
-        help="include full document text in response",
-    )
-
-def add_async_get_custom_options(
-    subp:ArgumentParser
-):
-    subp.add_argument(
-        "-e",
-        "--endpoint",
-        dest="endpoint_name",
-        help="API endpoint name (required)",
-        required=True
-    )
-    subp.add_argument(
-        "-a",
-        "--account-name",
-        dest="username",
-        required=True,
-        help="API account name for the endpoint (required)",
-    )
-    subp.add_argument(
-        "-v",
-        "--version",
-        default="1",
-        dest="api_version",
-        help="Version for the endpoint. If not set, use the latest version of the model.",
-    )
-    subp.add_argument(dest="api_name", help="Name of the API")
-
-
-def add_async_post_common_options(
-    subp:ArgumentParser
-):
-    subp.add_argument(
-        "-c",
-        "--cut-doc",
-        dest="cut_doc",
-        action="store_true",
-        help="Cut document pages",
-    )
-    subp.add_argument(
-        "-i",
-        "--input-type",
-        dest="input_type",
-        choices=["path", "file", "base64", "bytes", "url"],
-        default="path",
-        help="Specify how to handle the input.\n"
-        "- path: open a path (default).\n"
-        "- file: open as a file handle.\n"
-        "- base64: open a base64 encoded text file.\n"
-        "- bytes: open the contents as raw bytes.\n"
-        "- url: open an URL.",
-    )
-    subp.add_argument(
-        "-p",
-        "--pages-keep",
-        dest="doc_pages",
-        type=int,
-        default=5,
-        help="Number of document pages to keep, default: 5",
-    )
-
-def add_async_post_default_options(
-    subp:ArgumentParser
-):
-    subp.add_argument(
-        "-t",
-        "--full-text",
-        dest="include_words",
-        action="store_true",
-        help="include full document text in response",
-    )
-
-def add_async_post_custom_options(
-    subp:ArgumentParser
-):
-    subp.add_argument(
-        "-e",
-        "--endpoint",
-        dest="endpoint_name",
-        help="API endpoint name (required)",
-        required=True
-    )
-    subp.add_argument(
-        "-a",
-        "--account-name",
-        dest="username",
-        required=True,
-        help="API account name for the endpoint (required)",
-    )
-    subp.add_argument(
-        "-v",
-        "--version",
-        default="1",
-        dest="api_version",
-        help="Version for the endpoint. If not set, use the latest version of the model.",
-    )
-    subp.add_argument(dest="api_name", help="Name of the API")
-
-def add_sync_common_options(
-    subp:ArgumentParser
-):
-    subp.add_argument(
-        "-k",
-        "--key",
-        dest="api_key",
-        help="API key for the account",
-    )
-    subp.add_argument(
-        "-i",
-        "--input-type",
-        dest="input_type",
-        choices=["path", "file", "base64", "bytes", "url"],
-        default="path",
-        help="Specify how to handle the input.\n"
-        "- path: open a path (default).\n"
-        "- file: open as a file handle.\n"
-        "- base64: open a base64 encoded text file.\n"
-        "- bytes: open the contents as raw bytes.\n"
-        "- url: open an URL.",
-    )
-    subp.add_argument(
-        "-o",
-        "--output-type",
-        dest="output_type",
-        choices=["summary", "raw", "parsed"],
-        default="summary",
-        help="Specify how to output the data.\n"
-        "- summary: a basic summary (default)\n"
-        "- raw: the raw HTTP response\n"
-        "- parsed: the validated and parsed data fields\n",
-    )
-    subp.add_argument(
-        "-c",
-        "--cut-doc",
-        dest="cut_doc",
-        action="store_true",
-        help="Cut document pages",
-    )
-    subp.add_argument(
-        "-p",
-        "--pages-keep",
-        dest="doc_pages",
-        type=int,
-        default=5,
-        help="Number of document pages to keep, default: 5",
-    )
-    subp.add_argument(dest="path", help="Full path to the file")
-
-def add_sync_default_options(
-    subp:ArgumentParser
-):
-    subp.add_argument(
-        "-t",
-        "--full-text",
-        dest="include_words",
-        action="store_true",
-        help="include full document text in response",
-    )
+        
+    if category in ["predict", "parse-queued"]:
+        parser.add_argument(
+            "-o",
+            "--output-type",
+            dest="output_type",
+            choices=["summary", "raw", "parsed"],
+            default="summary",
+            help="Specify how to output the data.\n"
+            "- summary: a basic summary (default)\n"
+            "- raw: the raw HTTP response\n"
+            "- parsed: the validated and parsed data fields\n",
+        )
     
-def add_sync_custom_options(
-    subp:ArgumentParser
-):
-    subp.add_argument(
-        "-a",
-        "--account-name",
-        dest="username",
-        required=True,
-        help="API account name for the endpoint (required)",
-    )
-    subp.add_argument(
-        "-v",
-        "--version",
-        default="1",
-        dest="api_version",
-        help="Version for the endpoint. If not set, use the latest version of the model.",
-    )
-    subp.add_argument(dest="api_name", help="Name of the API")
-
-
 def main() -> None:
     """Run the Command Line Interface."""
     call_endpoint(_parse_args())
