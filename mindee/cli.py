@@ -152,7 +152,7 @@ def process_parse(args: Namespace, client: Client, doc_class) -> None:
 
 def process_parse_queued(args: Namespace, client: Client, doc_class) -> None:
     """Processes the results of a queued parsing request."""
-    input_doc = client.no_doc()
+    input_doc = client.doc_for_async()
     if args.product_name == "custom":
         parsed_data = input_doc.parse_queued(
             document_class=doc_class,
@@ -164,8 +164,7 @@ def process_parse_queued(args: Namespace, client: Client, doc_class) -> None:
         parsed_data = input_doc.parse_queued(
             document_class=doc_class, queue_id=args.queue_id
         )
-    if parsed_data.job.status == "completed":
-        input_doc = _get_input_doc(client, args, parsed_data.api_request.url)
+    if parsed_data.job.status == "completed" and parsed_data.document is not None:
         if args.output_type == "raw":
             print(json.dumps(parsed_data.document.http_response, indent=2))
         elif args.output_type == "parsed":

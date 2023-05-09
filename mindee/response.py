@@ -94,7 +94,7 @@ class PredictResponse(Generic[TypeDocument]):
         self,
         doc_config: DocumentConfig,
         http_response: Dict[str, Any],
-        input_source: Union[LocalInputSource, UrlInputSource],
+        input_source: Optional[Union[LocalInputSource, UrlInputSource]],
         response_ok: bool,
     ) -> None:
         """
@@ -109,12 +109,12 @@ class PredictResponse(Generic[TypeDocument]):
         self.document_type = doc_config.document_type
         self.pages = []
 
-        if not isinstance(input_source, UrlInputSource):
+        if isinstance(input_source, LocalInputSource):
             self.input_path = input_source.filepath
             self.input_filename = input_source.filename
             self.input_mimetype = input_source.file_mimetype
 
-        if not response_ok or not input_source:
+        if not response_ok:
             self.document = None
         else:
             self._load_response(doc_config, input_source)
@@ -122,7 +122,7 @@ class PredictResponse(Generic[TypeDocument]):
     def _load_response(
         self,
         doc_config: DocumentConfig,
-        input_source: Union[LocalInputSource, UrlInputSource],
+        input_source: Optional[Union[LocalInputSource, UrlInputSource]],
     ) -> None:
         # This is some seriously ugly stuff.
         # Simplify all this in V4, as we won't need to pass the document type anymore
@@ -169,13 +169,13 @@ class AsyncPredictResponse(Generic[TypeDocument]):
     api_request: ApiRequest
     job: Job
     """Job object link to the prediction. As long as it isn't complete, the prediction doesn't exist."""
-    document: PredictResponse[TypeDocument]
+    document: Optional[PredictResponse[TypeDocument]]
 
     def __init__(
         self,
         http_response: Dict[str, Any],
         doc_config: DocumentConfig,
-        input_source: Union[LocalInputSource, UrlInputSource],
+        input_source: Optional[Union[LocalInputSource, UrlInputSource]],
         response_ok: bool,
     ) -> None:
         """

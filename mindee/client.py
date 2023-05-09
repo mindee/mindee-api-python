@@ -24,13 +24,13 @@ def get_bound_classname(type_var) -> str:
 
 
 class DocumentClient:
-    input_doc: Union[LocalInputSource, UrlInputSource]
+    input_doc: Optional[Union[LocalInputSource, UrlInputSource]]
     doc_configs: DocumentConfigDict
     raise_on_error: bool = True
 
     def __init__(
         self,
-        input_doc: Union[LocalInputSource, UrlInputSource],
+        input_doc: Optional[Union[LocalInputSource, UrlInputSource]],
         doc_configs: DocumentConfigDict,
         raise_on_error: bool,
     ):
@@ -74,6 +74,8 @@ class DocumentClient:
         :param cropper: Whether to include cropper results for each page.
             This performs a cropping operation on the server and will increase response time.
         """
+        if self.input_doc is None:
+            raise RuntimeError("The 'parse' function requires an input document.")
         bound_classname = get_bound_classname(document_class)
         if bound_classname != documents.CustomV1.__name__:
             endpoint_name = get_bound_classname(document_class)
@@ -93,7 +95,11 @@ class DocumentClient:
                     page_options.page_indexes,
                 )
         return self._make_request(
-            document_class, doc_config, include_words, close_file, cropper
+            document_class,
+            doc_config,
+            include_words,
+            close_file,
+            cropper,
         )
 
     def enqueue(
@@ -132,6 +138,8 @@ class DocumentClient:
         :param cropper: Whether to include cropper results for each page.
             This performs a cropping operation on the server and will increase response time.
         """
+        if self.input_doc is None:
+            raise RuntimeError("The 'enqueue' function requires an input document.")
         bound_classname = get_bound_classname(document_class)
         if bound_classname != documents.CustomV1.__name__:
             endpoint_name = get_bound_classname(document_class)
@@ -194,7 +202,10 @@ class DocumentClient:
     ) -> PredictResponse[TypeDocument]:
         if get_bound_classname(document_class) != doc_config.document_class.__name__:
             raise RuntimeError("Document class mismatch!")
-
+        if self.input_doc is None:
+            raise RuntimeError(
+                "The '_make_request' class method requires an input document."
+            )
         response = doc_config.document_class.request(
             doc_config.endpoints,
             self.input_doc,
@@ -229,6 +240,10 @@ class DocumentClient:
 
         :param doc_config: Configuration of the document.
         """
+        if self.input_doc is None:
+            raise RuntimeError(
+                "The '_predict_async' class method requires an input document."
+            )
         response = doc_config.endpoints[0].predict_async_req_post(
             self.input_doc, include_words, close_file, cropper
         )
@@ -280,7 +295,7 @@ class DocumentClient:
 
     def close(self) -> None:
         """Close the file object."""
-        if not isinstance(self.input_doc, UrlInputSource):
+        if isinstance(self.input_doc, LocalInputSource):
             self.input_doc.file_object.close()
 
     def _check_config(self, endpoint_name, account_name) -> DocumentConfig:
@@ -584,19 +599,12 @@ class Client:
             raise_on_error=self.raise_on_error,
         )
 
-    def no_doc(self) -> DocumentClient:
-        """
-        Load an empty dummy document.
-
-        Used when calling parse-queued to avoid having to use a formerly
-        created DocumentClientObject.
-        """
-        input_doc = BytesInput(
-            bytearray(),
-            "",
-        )
+    def doc_for_async(
+        self,
+    ) -> DocumentClient:
+        """Creates an empty doc for asynchronous parsing requests."""
         return DocumentClient(
-            input_doc=input_doc,
+            input_doc=None,
             doc_configs=self._doc_configs,
             raise_on_error=self.raise_on_error,
         )
