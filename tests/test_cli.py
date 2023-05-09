@@ -23,6 +23,7 @@ def custom_doc(monkeypatch):
         output_type="summary",
         include_words=False,
         path="./tests/data/pdf/blank.pdf",
+        instruction_type="parse",
     )
 
 
@@ -38,6 +39,34 @@ def ots_doc(monkeypatch):
         output_type="summary",
         include_words=False,
         path="./tests/data/invoice/invoice.pdf",
+        instruction_type="parse",
+    )
+
+
+@pytest.fixture
+def ots_doc_enqueue(monkeypatch):
+    clear_envvars(monkeypatch)
+    return Namespace(
+        api_key="dummy",
+        raise_on_error=True,
+        cut_doc=False,
+        doc_pages=3,
+        input_type="path",
+        include_words=False,
+        path="./tests/data/invoice_splitter/2_invoices.pdf",
+        instruction_type="enqueue",
+    )
+
+
+@pytest.fixture
+def ots_doc_parse_queued(monkeypatch):
+    clear_envvars(monkeypatch)
+    return Namespace(
+        api_key="dummy",
+        raise_on_error=True,
+        output_type="summary",
+        queue_id="dummy-queue-id",
+        instruction_type="parse-queued",
     )
 
 
@@ -94,3 +123,23 @@ def test_cli_us_bank_check(ots_doc):
     ots_doc.api_key = "dummy"
     with pytest.raises(HTTPException):
         call_endpoint(ots_doc)
+
+
+def test_cli_invoice_splitter_enqueue(ots_doc_enqueue):
+    ots_doc_enqueue.product_name = "invoice-splitter"
+    ots_doc_enqueue.api_key = ""
+    with pytest.raises(RuntimeError):
+        call_endpoint(ots_doc_enqueue)
+    ots_doc_enqueue.api_key = "dummy"
+    with pytest.raises(HTTPException):
+        call_endpoint(ots_doc_enqueue)
+
+
+def test_cli_invoice_splitter_parse_queued(ots_doc_parse_queued):
+    ots_doc_parse_queued.product_name = "invoice-splitter"
+    ots_doc_parse_queued.api_key = ""
+    with pytest.raises(RuntimeError):
+        call_endpoint(ots_doc_parse_queued)
+    ots_doc_parse_queued.api_key = "dummy"
+    with pytest.raises(HTTPException):
+        call_endpoint(ots_doc_parse_queued)
