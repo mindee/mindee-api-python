@@ -200,12 +200,6 @@ def _parse_args() -> Namespace:
         dest="raise_on_error",
         help="don't raise errors",
     )
-    parser.add_argument(
-        "-k",
-        "--key",
-        dest="api_key",
-        help="API key for the account",
-    )
     subparsers = parser.add_subparsers(
         dest="product_name",
         required=True,
@@ -243,6 +237,12 @@ def _add_options(parser:ArgumentParser, category: str, name:str):
     :param name: Name of the current command (Default/Custom).
     """
     
+    parser.add_argument(
+        "-k",
+        "--key",
+        dest="api_key",
+        help="API key for the account",
+    )
     
     if category in ["predict", "enqueue"]:
         parser.add_argument(

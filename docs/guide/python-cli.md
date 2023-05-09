@@ -10,20 +10,32 @@ python3 -m mindee --help
 ### Example command help
 
 ```shell
-python3 -m mindee invoice --help
+python3 -m mindee invoice parse --help
 ```
 
 ### Example parse command for Off-the-Shelf document
 
 ```shell
-python3 -m mindee invoice --invoice-key xxxxxxx /path/to/invoice.pdf
+python3 -m mindee invoice parse --key xxxxxxx /path/to/invoice.pdf
+```
+
+### Example enqueue command for Off-the-Shelf document (async)
+
+```shell
+python3 -m mindee invoice-splitter enqueue --key xxxxxxx /path/to/invoice-splitter.pdf
+```
+
+### Example parse-queued command for Off-the-Shelf document (async)
+
+```shell
+python3 -m mindee invoice-splitter parse-queued --key xxxxxxx id-of-the-job
 ```
 
 ### Works with environment variables
 
 ```shell
 export MINDEE_API_KEY=xxxxxx
-python3 -m mindee invoice /path/to/invoice.pdf
+python3 -m mindee invoice parse /path/to/invoice.pdf
 ```
 
 ### Example parse command for a custom document
@@ -35,7 +47,7 @@ python3 -m mindee custom -u pikachu -k xxxxxxx pokemon_card /path/to/card.jpg
 ### You can get the full parsed output as well
 
 ```shell
-python3 -m mindee invoice -o parsed /path/to/invoice.pdf
+python3 -m mindee invoice parse -o parsed /path/to/invoice.pdf
 ```
 
 ### In the Git repo, there's a helper script for it
