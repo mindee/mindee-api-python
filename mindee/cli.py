@@ -191,7 +191,7 @@ def _parse_args() -> Namespace:
     
     for name, info in DOCUMENTS.items():
         subp = subparsers.add_parser(name, help=info.help)
-        parsers_instruction_type = subp.add_subparsers(dest="instruction_type")
+        parsers_instruction_type = subp.add_subparsers(dest="instruction_type", required=True)
         
         if info.is_sync:
             subp_predict = parsers_instruction_type.add_parser("parse", help=f"Parse {name}")
@@ -201,9 +201,11 @@ def _parse_args() -> Namespace:
             parser_enqueue = parsers_instruction_type.add_parser("enqueue", help=f"Enqueue {name}")
             _add_options(parser_enqueue, "enqueue", name)
             
-            parser_parse_queued = parsers_instruction_type.add_parser("parse-queued", help=f"Parse (queued) {name} <queue_id>")
+            parser_parse_queued = parsers_instruction_type.add_parser("parse-queued", help=f"Parse (queued) {name}")
             _add_options(parser_parse_queued, "parse-queued", name)
+            parser_parse_queued.add_argument(dest="queue_id", help="Async queue ID for a document (required)")
             
+        subp.add_argument(dest="path", help="Full path to the file")
 
     parsed_args = parser.parse_args()
     return parsed_args
