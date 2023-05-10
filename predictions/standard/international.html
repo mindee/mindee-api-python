@@ -59,6 +59,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#financial-document-v1">Financial Document V1</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#passport-v1">Passport V1</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#shipping-container-v1">Shipping Container V1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#invoice-splitter-v1">Invoice Splitter V1</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#proof-of-address-v1">Proof of Address V1</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cropper-v1">Cropper V1</a></li>
 </ul>
@@ -1138,6 +1139,97 @@ The combination of <cite>given_names</cite> and <cite>surname</cite> fields.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.documents.ShippingContainerV1.type">
 <span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[str]</span></em><a class="headerlink" href="#mindee.documents.ShippingContainerV1.type" title="Permalink to this definition"></a></dt>
+<dd><p>Document type</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="invoice-splitter-v1">
+<h2>Invoice Splitter V1<a class="headerlink" href="#invoice-splitter-v1" title="Permalink to this heading"></a></h2>
+<p><strong>Sample Code:</strong></p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mindee</span> <span class="kn">import</span> <span class="n">Client</span><span class="p">,</span> <span class="n">documents</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
+
+<span class="c1"># Init a new client</span>
+<span class="n">mindee_client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;my-api-key&quot;</span><span class="p">)</span>
+
+<span class="c1"># Load a file from disk</span>
+<span class="n">input_doc</span> <span class="o">=</span> <span class="n">mindee_client</span><span class="o">.</span><span class="n">doc_from_path</span><span class="p">(</span><span class="s2">&quot;/path/to/the/file.ext&quot;</span><span class="p">)</span>
+
+<span class="c1"># Put the document class in a local variable to keep the code DRY</span>
+
+<span class="n">doc_class</span> <span class="o">=</span> <span class="n">documents</span><span class="o">.</span><span class="n">TypeInvoiceSplitterV1</span>
+
+<span class="c1"># Limit the amount of API calls to retrieve your document</span>
+<span class="n">MAX_RETRIES</span> <span class="o">=</span> <span class="mi">10</span>
+
+<span class="c1"># How many seconds to wait in-between tries</span>
+<span class="n">INTERVAL_SECS</span> <span class="o">=</span> <span class="mi">6</span>
+
+<span class="c1"># Counter to keep track of how many times we try to retrieve the document</span>
+<span class="n">times_tried</span> <span class="o">=</span> <span class="mi">1</span>
+
+
+<span class="n">queue_result</span> <span class="o">=</span> <span class="n">input_doc</span><span class="o">.</span><span class="n">enqueue</span><span class="p">(</span><span class="n">doc_class</span><span class="p">)</span>
+
+<span class="c1"># Get the id of the queue (job)</span>
+<span class="n">queue_id</span> <span class="o">=</span> <span class="n">queue_result</span><span class="o">.</span><span class="n">job</span><span class="o">.</span><span class="n">job_id</span>
+
+<span class="c1"># Recursive function that tries to retrieve the completed document.</span>
+<span class="c1"># If the document is not &quot;complete&quot;, try again</span>
+<span class="k">def</span> <span class="nf">get_doc_from_async_queue</span><span class="p">(</span><span class="n">queue_id</span><span class="p">,</span> <span class="n">times_tried</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+
+    <span class="c1"># Have we exceeded our retry count?</span>
+    <span class="k">if</span> <span class="n">times_tried</span> <span class="o">&gt;=</span> <span class="n">MAX_RETRIES</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Maximum retries reached </span><span class="si">{</span><span class="n">times_tried</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Wait for a few seconds before fetching</span>
+    <span class="n">sleep</span><span class="p">(</span><span class="n">INTERVAL_SECS</span><span class="p">)</span>
+
+    <span class="c1"># Fetch and parse the result, using the same type</span>
+    <span class="n">parsed_result</span> <span class="o">=</span> <span class="n">input_doc</span><span class="o">.</span><span class="n">parse_queued</span><span class="p">(</span><span class="n">doc_class</span><span class="p">,</span> <span class="n">queue_id</span><span class="p">)</span>
+
+    <span class="c1"># Check whether the result is ready</span>
+    <span class="k">if</span> <span class="n">parsed_result</span><span class="o">.</span><span class="n">job</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="s2">&quot;completed&quot;</span><span class="p">:</span>
+
+        <span class="c1"># Print a brief summary of the parsed data</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">parsed_result</span><span class="o">.</span><span class="n">document</span><span class="o">.</span><span class="n">document</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="c1"># Otherwise, try again...</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">get_doc_from_async_queue</span><span class="p">(</span><span class="n">queue_id</span><span class="p">,</span> <span class="n">times_tried</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Start the recursion...</span>
+<span class="n">get_doc_from_async_queue</span><span class="p">(</span><span class="n">queue_id</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.documents.InvoiceSplitterV1">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mindee.documents.</span></span><span class="sig-name descname"><span class="pre">InvoiceSplitterV1</span></span><a class="headerlink" href="#mindee.documents.InvoiceSplitterV1" title="Permalink to this definition"></a></dt>
+<dd><p>Invoice Splitter v1 prediction results.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.InvoiceSplitterV1.checklist">
+<span class="sig-name descname"><span class="pre">checklist</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span></em><a class="headerlink" href="#mindee.documents.InvoiceSplitterV1.checklist" title="Permalink to this definition"></a></dt>
+<dd><p>Validation checks for the document</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.InvoiceSplitterV1.cropper">
+<span class="sig-name descname"><span class="pre">cropper</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List[PositionField]</span></em><a class="headerlink" href="#mindee.documents.InvoiceSplitterV1.cropper" title="Permalink to this definition"></a></dt>
+<dd><p>Cropper results</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.InvoiceSplitterV1.invoice_page_groups">
+<span class="sig-name descname"><span class="pre">invoice_page_groups</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">PageGroup</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#mindee.documents.InvoiceSplitterV1.invoice_page_groups" title="Permalink to this definition"></a></dt>
+<dd><p>Page groups linked to an invoice.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.InvoiceSplitterV1.type">
+<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[str]</span></em><a class="headerlink" href="#mindee.documents.InvoiceSplitterV1.type" title="Permalink to this definition"></a></dt>
 <dd><p>Document type</p>
 </dd></dl>
 

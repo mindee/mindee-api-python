@@ -49,6 +49,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#client">Client</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#mindee.client.Client"><code class="docutils literal notranslate"><span class="pre">Client</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.client.Client.add_endpoint"><code class="docutils literal notranslate"><span class="pre">Client.add_endpoint()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.client.Client.doc_for_async"><code class="docutils literal notranslate"><span class="pre">Client.doc_for_async()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.client.Client.doc_from_b64string"><code class="docutils literal notranslate"><span class="pre">Client.doc_from_b64string()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.client.Client.doc_from_bytes"><code class="docutils literal notranslate"><span class="pre">Client.doc_from_bytes()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.client.Client.doc_from_file"><code class="docutils literal notranslate"><span class="pre">Client.doc_from_file()</span></code></a></li>
@@ -67,7 +68,9 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#mindee.client.DocumentClient"><code class="docutils literal notranslate"><span class="pre">DocumentClient</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.client.DocumentClient.close"><code class="docutils literal notranslate"><span class="pre">DocumentClient.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.client.DocumentClient.enqueue"><code class="docutils literal notranslate"><span class="pre">DocumentClient.enqueue()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.client.DocumentClient.parse"><code class="docutils literal notranslate"><span class="pre">DocumentClient.parse()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.client.DocumentClient.parse_queued"><code class="docutils literal notranslate"><span class="pre">DocumentClient.parse_queued()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -81,6 +84,21 @@
 <li class="toctree-l4"><a class="reference internal" href="#mindee.response.PredictResponse.input_mimetype"><code class="docutils literal notranslate"><span class="pre">PredictResponse.input_mimetype</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.response.PredictResponse.input_path"><code class="docutils literal notranslate"><span class="pre">PredictResponse.input_path</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.response.PredictResponse.pages"><code class="docutils literal notranslate"><span class="pre">PredictResponse.pages</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#asyncpredictresponse">AsyncPredictResponse</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.response.AsyncPredictResponse"><code class="docutils literal notranslate"><span class="pre">AsyncPredictResponse</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.response.AsyncPredictResponse.job"><code class="docutils literal notranslate"><span class="pre">AsyncPredictResponse.job</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.response.Job"><code class="docutils literal notranslate"><span class="pre">Job</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.response.Job.available_at"><code class="docutils literal notranslate"><span class="pre">Job.available_at</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.response.Job.issued_at"><code class="docutils literal notranslate"><span class="pre">Job.issued_at</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.response.Job.job_id"><code class="docutils literal notranslate"><span class="pre">Job.job_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.response.Job.millisecs_taken"><code class="docutils literal notranslate"><span class="pre">Job.millisecs_taken</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.response.Job.status"><code class="docutils literal notranslate"><span class="pre">Job.status</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -141,6 +159,17 @@ Must inherit from <code class="docutils literal notranslate"><span class="pre">m
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="#mindee.client.Client" title="mindee.client.Client"><code class="xref py py-class docutils literal notranslate"><span class="pre">Client</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.client.Client.doc_for_async">
+<span class="sig-name descname"><span class="pre">doc_for_async</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.client.Client.doc_for_async" title="Permalink to this definition"></a></dt>
+<dd><p>Creates an empty doc for asynchronous parsing requests.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#mindee.client.DocumentClient" title="mindee.client.DocumentClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">DocumentClient</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -272,6 +301,37 @@ A negative index can be used, indicating an offset from the end of the document.
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="mindee.client.DocumentClient.enqueue">
+<span class="sig-name descname"><span class="pre">enqueue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">document_class</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">account_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_words</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">close_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cropper</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.client.DocumentClient.enqueue" title="Permalink to this definition"></a></dt>
+<dd><p>Enqueueing to an async endpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>document_class</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">TypeDocument</span></code>, bound= <a class="reference internal" href="predictions/base.html#mindee.documents.base.Document" title="mindee.documents.base.Document"><code class="xref py py-class docutils literal notranslate"><span class="pre">Document</span></code></a>)) – The document class to use.
+The response object will be instantiated based on this parameter.</p></li>
+<li><p><strong>endpoint_name</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>], default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – For custom endpoints, the “API name” field in the “Settings” page of the API Builder.
+Do not set for standard (off the shelf) endpoints.</p></li>
+<li><p><strong>account_name</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>], default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – For custom endpoints, your account or organization username on the API Builder.
+This is normally not required unless you have a custom endpoint which has the
+same name as standard (off the shelf) endpoint.
+Do not set for standard (off the shelf) endpoints.</p></li>
+<li><p><strong>include_words</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Whether to include the full text for each page.
+This performs a full OCR operation on the server and will increase response time.</p></li>
+<li><p><strong>close_file</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">True</span></code>) – Whether to <code class="docutils literal notranslate"><span class="pre">close()</span></code> the file after parsing it.
+Set to <code class="docutils literal notranslate"><span class="pre">False</span></code> if you need to access the file after this operation.</p></li>
+<li><p><strong>page_options</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="#mindee.input.page_options.PageOptions" title="mindee.input.page_options.PageOptions"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageOptions</span></code></a>], default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – If set, remove pages from the document as specified.
+This is done before sending the file to the server and is useful to avoid page limitations.</p></li>
+<li><p><strong>cropper</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Whether to include cropper results for each page.
+This performs a cropping operation on the server and will increase response time.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#mindee.response.AsyncPredictResponse" title="mindee.response.AsyncPredictResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">AsyncPredictResponse</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">TypeDocument</span></code>, bound= <a class="reference internal" href="predictions/base.html#mindee.documents.base.Document" title="mindee.documents.base.Document"><code class="xref py py-class docutils literal notranslate"><span class="pre">Document</span></code></a>)]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="mindee.client.DocumentClient.parse">
 <span class="sig-name descname"><span class="pre">parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">document_class</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">account_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_words</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">close_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cropper</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.client.DocumentClient.parse" title="Permalink to this definition"></a></dt>
 <dd><p>Call prediction API on the document and parse the results.</p>
@@ -298,6 +358,29 @@ This performs a cropping operation on the server and will increase response time
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="#mindee.response.PredictResponse" title="mindee.response.PredictResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">PredictResponse</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">TypeDocument</span></code>, bound= <a class="reference internal" href="predictions/base.html#mindee.documents.base.Document" title="mindee.documents.base.Document"><code class="xref py py-class docutils literal notranslate"><span class="pre">Document</span></code></a>)]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.client.DocumentClient.parse_queued">
+<span class="sig-name descname"><span class="pre">parse_queued</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">document_class</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">queue_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">account_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.client.DocumentClient.parse_queued" title="Permalink to this definition"></a></dt>
+<dd><p>Parses a queued document.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>queue_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – queue_id received from the API</p></li>
+<li><p><strong>endpoint_name</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>], default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – For custom endpoints, the “API name” field in the “Settings” page of the API Builder.
+Do not set for standard (off the shelf) endpoints.</p></li>
+<li><p><strong>account_name</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>], default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – For custom endpoints, your account or organization username on the API Builder.
+This is normally not required unless you have a custom endpoint which has the
+same name as standard (off the shelf) endpoint.
+Do not set for standard (off the shelf) endpoints.</p></li>
+<li><p><strong>document_class</strong> (<em>TypeDocument</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#mindee.response.AsyncPredictResponse" title="mindee.response.AsyncPredictResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">AsyncPredictResponse</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">TypeDocument</span></code>, bound= <a class="reference internal" href="predictions/base.html#mindee.documents.base.Document" title="mindee.documents.base.Document"><code class="xref py py-class docutils literal notranslate"><span class="pre">Document</span></code></a>)]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -352,6 +435,59 @@ This performs a cropping operation on the server and will increase response time
 <dt class="sig sig-object py" id="mindee.response.PredictResponse.pages">
 <span class="sig-name descname"><span class="pre">pages</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code><span class="pre">(</span><code class="docutils literal notranslate"><span class="pre">TypeDocument</span></code><span class="pre">,</span> <span class="pre">bound=</span> <a class="reference internal" href="predictions/base.html#mindee.documents.base.Document" title="mindee.documents.base.Document"><code class="xref py py-class docutils literal notranslate"><span class="pre">Document</span></code></a><span class="pre">)]</span></em><a class="headerlink" href="#mindee.response.PredictResponse.pages" title="Permalink to this definition"></a></dt>
 <dd><p>A list of instances of the <code class="docutils literal notranslate"><span class="pre">Document</span></code> class, according to the type given.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="asyncpredictresponse">
+<h2>AsyncPredictResponse<a class="headerlink" href="#asyncpredictresponse" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.response.AsyncPredictResponse">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mindee.response.</span></span><span class="sig-name descname"><span class="pre">AsyncPredictResponse</span></span><a class="headerlink" href="#mindee.response.AsyncPredictResponse" title="Permalink to this definition"></a></dt>
+<dd><p>Async Response Wrapper class for a Predict response.</p>
+<p>Links a Job to a future PredictResponse.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.response.AsyncPredictResponse.job">
+<span class="sig-name descname"><span class="pre">job</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.response.Job" title="mindee.response.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></a></em><a class="headerlink" href="#mindee.response.AsyncPredictResponse.job" title="Permalink to this definition"></a></dt>
+<dd><p>Job object link to the prediction. As long as it isn’t complete, the prediction doesn’t exist.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.response.Job">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mindee.response.</span></span><span class="sig-name descname"><span class="pre">Job</span></span><a class="headerlink" href="#mindee.response.Job" title="Permalink to this definition"></a></dt>
+<dd><p>Job class for asynchronous requests.</p>
+<p>Will hold information on the queue a document has been submitted to.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.response.Job.available_at">
+<span class="sig-name descname"><span class="pre">available_at</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.response.Job.available_at" title="Permalink to this definition"></a></dt>
+<dd><p>Timestamp of the request after it has been completed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.response.Job.issued_at">
+<span class="sig-name descname"><span class="pre">issued_at</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code></em><a class="headerlink" href="#mindee.response.Job.issued_at" title="Permalink to this definition"></a></dt>
+<dd><p>Timestamp of the request reception by the API.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.response.Job.job_id">
+<span class="sig-name descname"><span class="pre">job_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.response.Job.job_id" title="Permalink to this definition"></a></dt>
+<dd><p>ID of the job sent by the API in response to an enqueue request.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.response.Job.millisecs_taken">
+<span class="sig-name descname"><span class="pre">millisecs_taken</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.response.Job.millisecs_taken" title="Permalink to this definition"></a></dt>
+<dd><p>Time (ms) taken for the request to be processed by the API.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.response.Job.status">
+<span class="sig-name descname"><span class="pre">status</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.response.Job.status" title="Permalink to this definition"></a></dt>
+<dd><p>Status of the request, as seen by the API.</p>
 </dd></dl>
 
 </dd></dl>
