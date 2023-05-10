@@ -220,23 +220,61 @@ def _parse_args() -> Namespace:
         )
 
         if info.is_sync:
-            subp_predict = parsers_instruction_type.add_parser(
+            parser_predict = parsers_instruction_type.add_parser(
                 "parse", help=f"Parse {name}"
             )
-            _add_options(subp_predict, "predict", name)
-            subp_predict.add_argument(dest="path", help="Full path to the file")
+            _add_sending_options(parser_predict)
+            if name == "custom":
+                _add_custom_options(parser_predict)
+            else:
+                parser_predict.add_argument(
+                    "-t",
+                    "--full-text",
+                    dest="include_words",
+                    action="store_true",
+                    help="include full document text in response",
+                )
+            parser_predict.add_argument(dest="path", help="Full path to the file")
+            parser_predict.add_argument(
+                "-k",
+                "--key",
+                dest="api_key",
+                help="API key for the account",
+            )
 
         if info.is_async:
             parser_enqueue = parsers_instruction_type.add_parser(
                 "enqueue", help=f"Enqueue {name}"
             )
-            _add_options(parser_enqueue, "enqueue", name)
+            parser_enqueue.add_argument(
+                "-k",
+                "--key",
+                dest="api_key",
+                help="API key for the account",
+            )
+            _add_sending_options(parser_enqueue)
+            if name == "custom":
+                _add_custom_options(parser_enqueue)
+            else:
+                parser_enqueue.add_argument(
+                    "-t",
+                    "--full-text",
+                    dest="include_words",
+                    action="store_true",
+                    help="include full document text in response",
+                )
             parser_enqueue.add_argument(dest="path", help="Full path to the file")
 
             parser_parse_queued = parsers_instruction_type.add_parser(
                 "parse-queued", help=f"Parse (queued) {name}"
             )
-            _add_options(parser_parse_queued, "parse-queued", name)
+            parser_parse_queued.add_argument(
+                "-k",
+                "--key",
+                dest="api_key",
+                help="API key for the account",
+            )
+            _add_display_options(parser_parse_queued)
             parser_parse_queued.add_argument(
                 dest="queue_id", help="Async queue ID for a document (required)"
             )
@@ -245,88 +283,76 @@ def _parse_args() -> Namespace:
     return parsed_args
 
 
-def _add_options(parser: ArgumentParser, category: str, name: str):
-    """Adds options to a given command."""
+def _add_display_options(parser: ArgumentParser):
+    """Adds options related to output/display of a document (parse, parse-queued)."""
     parser.add_argument(
-        "-k",
-        "--key",
-        dest="api_key",
-        help="API key for the account",
+        "-o",
+        "--output-type",
+        dest="output_type",
+        choices=["summary", "raw", "parsed"],
+        default="summary",
+        help="Specify how to output the data.\n"
+        "- summary: a basic summary (default)\n"
+        "- raw: the raw HTTP response\n"
+        "- parsed: the validated and parsed data fields\n",
     )
 
-    if category in ["predict", "enqueue"]:
-        parser.add_argument(
-            "-i",
-            "--input-type",
-            dest="input_type",
-            choices=["path", "file", "base64", "bytes", "url"],
-            default="path",
-            help="Specify how to handle the input.\n"
-            "- path: open a path (default).\n"
-            "- file: open as a file handle.\n"
-            "- base64: open a base64 encoded text file.\n"
-            "- bytes: open the contents as raw bytes.\n"
-            "- url: open an URL.",
-        )
-        parser.add_argument(
-            "-c",
-            "--cut-doc",
-            dest="cut_doc",
-            action="store_true",
-            help="Cut document pages",
-        )
-        parser.add_argument(
-            "-p",
-            "--pages-keep",
-            dest="doc_pages",
-            type=int,
-            default=5,
-            help="Number of document pages to keep, default: 5",
-        )
 
-        if name == "custom":
-            parser.add_argument(
-                "-a",
-                "--account-name",
-                dest="username",
-                required=True,
-                help="API account name for the endpoint (required)",
-            )
-            parser.add_argument(
-                "-e",
-                "--endpoint",
-                dest="endpoint_name",
-                help="API endpoint name (required)",
-                required=True,
-            )
-            parser.add_argument(
-                "-v",
-                "--version",
-                default="1",
-                dest="api_version",
-                help="Version for the endpoint. If not set, use the latest version of the model.",
-            )
-        else:
-            parser.add_argument(
-                "-t",
-                "--full-text",
-                dest="include_words",
-                action="store_true",
-                help="include full document text in response",
-            )
+def _add_sending_options(parser: ArgumentParser):
+    """Adds options for sending requests (parse, enqueue)."""
+    parser.add_argument(
+        "-i",
+        "--input-type",
+        dest="input_type",
+        choices=["path", "file", "base64", "bytes", "url"],
+        default="path",
+        help="Specify how to handle the input.\n"
+        "- path: open a path (default).\n"
+        "- file: open as a file handle.\n"
+        "- base64: open a base64 encoded text file.\n"
+        "- bytes: open the contents as raw bytes.\n"
+        "- url: open an URL.",
+    )
+    parser.add_argument(
+        "-c",
+        "--cut-doc",
+        dest="cut_doc",
+        action="store_true",
+        help="Cut document pages",
+    )
+    parser.add_argument(
+        "-p",
+        "--pages-keep",
+        dest="doc_pages",
+        type=int,
+        default=5,
+        help="Number of document pages to keep, default: 5",
+    )
 
-    if category in ["predict", "parse-queued"]:
-        parser.add_argument(
-            "-o",
-            "--output-type",
-            dest="output_type",
-            choices=["summary", "raw", "parsed"],
-            default="summary",
-            help="Specify how to output the data.\n"
-            "- summary: a basic summary (default)\n"
-            "- raw: the raw HTTP response\n"
-            "- parsed: the validated and parsed data fields\n",
-        )
+
+def _add_custom_options(parser: ArgumentParser):
+    """Adds options to custom-type documents."""
+    parser.add_argument(
+        "-a",
+        "--account-name",
+        dest="username",
+        required=True,
+        help="API account name for the endpoint (required)",
+    )
+    parser.add_argument(
+        "-e",
+        "--endpoint",
+        dest="endpoint_name",
+        help="API endpoint name (required)",
+        required=True,
+    )
+    parser.add_argument(
+        "-v",
+        "--version",
+        default="1",
+        dest="api_version",
+        help="Version for the endpoint. If not set, use the latest version of the model.",
+    )
 
 
 def main() -> None:
