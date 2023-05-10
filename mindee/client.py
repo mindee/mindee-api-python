@@ -75,7 +75,7 @@ class DocumentClient:
             This performs a cropping operation on the server and will increase response time.
         """
         if self.input_doc is None:
-            raise RuntimeError("The 'parse' function requires an input document.")
+            raise TypeError("The 'parse' function requires an input document.")
         bound_classname = get_bound_classname(document_class)
         if bound_classname != documents.CustomV1.__name__:
             endpoint_name = get_bound_classname(document_class)
@@ -139,7 +139,7 @@ class DocumentClient:
             This performs a cropping operation on the server and will increase response time.
         """
         if self.input_doc is None:
-            raise RuntimeError("The 'enqueue' function requires an input document.")
+            raise TypeError("The 'enqueue' function requires an input document.")
         bound_classname = get_bound_classname(document_class)
         if bound_classname != documents.CustomV1.__name__:
             endpoint_name = get_bound_classname(document_class)
@@ -203,7 +203,7 @@ class DocumentClient:
         if get_bound_classname(document_class) != doc_config.document_class.__name__:
             raise RuntimeError("Document class mismatch!")
         if self.input_doc is None:
-            raise RuntimeError(
+            raise TypeError(
                 "The '_make_request' class method requires an input document."
             )
         response = doc_config.document_class.request(
@@ -241,7 +241,7 @@ class DocumentClient:
         :param doc_config: Configuration of the document.
         """
         if self.input_doc is None:
-            raise RuntimeError(
+            raise TypeError(
                 "The '_predict_async' class method requires an input document."
             )
         response = doc_config.endpoints[0].predict_async_req_post(
