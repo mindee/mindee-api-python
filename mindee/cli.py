@@ -107,11 +107,11 @@ def call_endpoint(args: Namespace):
     info = DOCUMENTS[args.product_name]
     doc_class = info.doc_class
 
-    if args.instruction_type == "enqueue":
+    if args.call_method == "enqueue":
         process_parse_enqueue(args, client, doc_class)
-    elif args.instruction_type == "parse-queued":
+    elif args.call_method == "parse-queued":
         process_parse_queued(args, client, doc_class)
-    elif args.instruction_type == "parse":
+    elif args.call_method == "parse":
         process_parse(args, client, doc_class)
 
 
@@ -124,14 +124,14 @@ def process_parse(args: Namespace, client: Client, doc_class) -> None:
     input_doc = _get_input_doc(client, args)
     if args.product_name == "custom":
         client.add_endpoint(
-            endpoint_name=args.api_name,
-            account_name=args.username,
+            endpoint_name=args.endpoint_name,
+            account_name=args.account_name,
             version=args.api_version,
         )
         parsed_data = input_doc.parse(
             doc_class,
-            endpoint_name=args.api_name,
-            account_name=args.username,
+            endpoint_name=args.endpoint_name,
+            account_name=args.account_name,
             page_options=page_options,
         )
     else:
@@ -148,8 +148,8 @@ def process_parse_queued(args: Namespace, client: Client, doc_class) -> None:
         parsed_data = input_doc.parse_queued(
             document_class=doc_class,
             queue_id=args.queue_id,
-            endpoint_name=args.api_name,
-            account_name=args.username,
+            endpoint_name=args.endpoint_name,
+            account_name=args.account_name,
         )
     else:
         parsed_data = input_doc.parse_queued(
@@ -182,13 +182,13 @@ def process_parse_enqueue(args: Namespace, client: Client, doc_class) -> None:
     if args.product_name == "custom":
         client.add_endpoint(
             endpoint_name=args.api_name,
-            account_name=args.username,
+            account_name=args.account,
             version=args.api_version,
         )
         parsed_data = input_doc.enqueue(
             doc_class,
             endpoint_name=args.api_name,
-            account_name=args.username,
+            account_name=args.account,
             page_options=page_options,
         )
     else:
@@ -215,15 +215,15 @@ def _parse_args() -> Namespace:
 
     for name, info in DOCUMENTS.items():
         subp = subparsers.add_parser(name, help=info.help)
-        parsers_instruction_type = subp.add_subparsers(
-            dest="instruction_type", required=True
-        )
+        parsers_call_method = subp.add_subparsers(dest="call_method", required=True)
 
         if info.is_sync:
-            parser_predict = parsers_instruction_type.add_parser(
+            parser_predict = parsers_call_method.add_parser(
                 "parse", help=f"Parse {name}"
             )
+            _add_main_options(parser_predict)
             _add_sending_options(parser_predict)
+            _add_display_options(parser_predict)
             if name == "custom":
                 _add_custom_options(parser_predict)
             else:
@@ -234,24 +234,12 @@ def _parse_args() -> Namespace:
                     action="store_true",
                     help="include full document text in response",
                 )
-            parser_predict.add_argument(dest="path", help="Full path to the file")
-            parser_predict.add_argument(
-                "-k",
-                "--key",
-                dest="api_key",
-                help="API key for the account",
-            )
 
         if info.is_async:
-            parser_enqueue = parsers_instruction_type.add_parser(
+            parser_enqueue = parsers_call_method.add_parser(
                 "enqueue", help=f"Enqueue {name}"
             )
-            parser_enqueue.add_argument(
-                "-k",
-                "--key",
-                dest="api_key",
-                help="API key for the account",
-            )
+            _add_main_options(parser_enqueue)
             _add_sending_options(parser_enqueue)
             if name == "custom":
                 _add_custom_options(parser_enqueue)
@@ -263,17 +251,11 @@ def _parse_args() -> Namespace:
                     action="store_true",
                     help="include full document text in response",
                 )
-            parser_enqueue.add_argument(dest="path", help="Full path to the file")
 
-            parser_parse_queued = parsers_instruction_type.add_parser(
+            parser_parse_queued = parsers_call_method.add_parser(
                 "parse-queued", help=f"Parse (queued) {name}"
             )
-            parser_parse_queued.add_argument(
-                "-k",
-                "--key",
-                dest="api_key",
-                help="API key for the account",
-            )
+            _add_main_options(parser_parse_queued)
             _add_display_options(parser_parse_queued)
             parser_parse_queued.add_argument(
                 dest="queue_id", help="Async queue ID for a document (required)"
@@ -281,6 +263,15 @@ def _parse_args() -> Namespace:
 
     parsed_args = parser.parse_args()
     return parsed_args
+
+
+def _add_main_options(parser: ArgumentParser):
+    parser.add_argument(
+        "-k",
+        "--key",
+        dest="api_key",
+        help="API key for the account",
+    )
 
 
 def _add_display_options(parser: ArgumentParser):
@@ -328,14 +319,15 @@ def _add_sending_options(parser: ArgumentParser):
         default=5,
         help="Number of document pages to keep, default: 5",
     )
+    parser.add_argument(dest="path", help="Full path to the file")
 
 
 def _add_custom_options(parser: ArgumentParser):
     """Adds options to custom-type documents."""
     parser.add_argument(
         "-a",
-        "--account-name",
-        dest="username",
+        "--account",
+        dest="account_name",
         required=True,
         help="API account name for the endpoint (required)",
     )
