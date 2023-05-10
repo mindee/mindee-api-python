@@ -46,7 +46,7 @@ class Document:
 
     def __init__(
         self,
-        input_source: Union[LocalInputSource, UrlInputSource],
+        input_source: Optional[Union[LocalInputSource, UrlInputSource]],
         document_type: Optional[str],
         api_prediction: TypeApiPrediction,
         page_n: Optional[int] = None,

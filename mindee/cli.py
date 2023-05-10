@@ -1,12 +1,13 @@
 import argparse
 import json
-from argparse import Namespace
+from argparse import ArgumentParser, Namespace
 from dataclasses import dataclass
 from typing import Dict, Generic, TypeVar
 
 from mindee import Client, PageOptions, documents
 from mindee.client import DocumentClient
 from mindee.documents.base import Document, serialize_for_json
+from mindee.response import PredictResponse
 
 TypeDoc = TypeVar("TypeDoc", bound=Document)
 
@@ -15,6 +16,8 @@ TypeDoc = TypeVar("TypeDoc", bound=Document)
 class CommandConfig(Generic[TypeDoc]):
     help: str
     doc_class: TypeDoc
+    is_sync: bool = True
+    is_async: bool = False
 
 
 DOCUMENTS: Dict[str, CommandConfig] = {
@@ -70,10 +73,16 @@ DOCUMENTS: Dict[str, CommandConfig] = {
         help="FR Bank Account Details",
         doc_class=documents.fr.TypeBankAccountDetailsV1,
     ),
+    "invoice-splitter": CommandConfig(
+        help="Invoice Splitter",
+        doc_class=documents.TypeInvoiceSplitterV1,
+        is_sync=False,
+        is_async=True,
+    ),
 }
 
 
-def _get_input_doc(client, args) -> DocumentClient:
+def _get_input_doc(client: Client, args: Namespace) -> DocumentClient:
     if args.input_type == "file":
         with open(args.path, "rb", buffering=30) as file_handle:
             return client.doc_from_file(input_file=file_handle)
@@ -95,40 +104,98 @@ def _get_input_doc(client, args) -> DocumentClient:
 def call_endpoint(args: Namespace):
     """Call the endpoint given passed arguments."""
     client = Client(api_key=args.api_key, raise_on_error=args.raise_on_error)
-    if args.product_name == "custom":
-        client.add_endpoint(
-            endpoint_name=args.api_name,
-            account_name=args.username,
-            version=args.api_version,
-        )
     info = DOCUMENTS[args.product_name]
     doc_class = info.doc_class
 
-    input_doc = _get_input_doc(client, args)
+    if args.call_method == "enqueue":
+        process_parse_enqueue(args, client, doc_class)
+    elif args.call_method == "parse-queued":
+        process_parse_queued(args, client, doc_class)
+    elif args.call_method == "parse":
+        process_parse(args, client, doc_class)
 
+
+def process_parse(args: Namespace, client: Client, doc_class) -> None:
+    """Processes the results of a parsing request."""
     if args.cut_doc and args.doc_pages:
         page_options = PageOptions(range(args.doc_pages), on_min_pages=0)
     else:
         page_options = None
+    input_doc = _get_input_doc(client, args)
     if args.product_name == "custom":
+        client.add_endpoint(
+            endpoint_name=args.endpoint_name,
+            account_name=args.account_name,
+            version=args.api_version,
+        )
         parsed_data = input_doc.parse(
             doc_class,
-            endpoint_name=args.api_name,
-            account_name=args.username,
+            endpoint_name=args.endpoint_name,
+            account_name=args.account_name,
             page_options=page_options,
         )
     else:
         parsed_data = input_doc.parse(
             doc_class, include_words=args.include_words, page_options=page_options
         )
+    display_doc(args.output_type, parsed_data)
 
-    if args.output_type == "raw":
-        print(json.dumps(parsed_data.http_response, indent=2))
-    elif args.output_type == "parsed":
-        doc = parsed_data.document
+
+def process_parse_queued(args: Namespace, client: Client, doc_class) -> None:
+    """Processes the results of a queued parsing request."""
+    input_doc = client.doc_for_async()
+    if args.product_name == "custom":
+        parsed_data = input_doc.parse_queued(
+            document_class=doc_class,
+            queue_id=args.queue_id,
+            endpoint_name=args.endpoint_name,
+            account_name=args.account_name,
+        )
+    else:
+        parsed_data = input_doc.parse_queued(
+            document_class=doc_class, queue_id=args.queue_id
+        )
+    if parsed_data.job.status == "completed" and parsed_data.document is not None:
+        display_doc(args.output_type, parsed_data.document)
+    else:
+        print(parsed_data.job)
+
+
+def display_doc(output_type: str, document_response: PredictResponse):
+    """Display the parsed document."""
+    if output_type == "raw":
+        print(json.dumps(document_response.http_response, indent=2))
+    elif output_type == "parsed":
+        doc = document_response.document
         print(json.dumps(doc, indent=2, default=serialize_for_json))
     else:
-        print(parsed_data.document)
+        print(document_response.document)
+
+
+def process_parse_enqueue(args: Namespace, client: Client, doc_class) -> None:
+    """Processes the results of an enqueuing request."""
+    if args.cut_doc and args.doc_pages:
+        page_options = PageOptions(range(args.doc_pages), on_min_pages=0)
+    else:
+        page_options = None
+    input_doc = _get_input_doc(client, args)
+    if args.product_name == "custom":
+        client.add_endpoint(
+            endpoint_name=args.endpoint_name,
+            account_name=args.account_name,
+            version=args.api_version,
+        )
+        parsed_data = input_doc.enqueue(
+            doc_class,
+            endpoint_name=args.endpoint_name,
+            account_name=args.account_name,
+            page_options=page_options,
+        )
+    else:
+        parsed_data = input_doc.enqueue(
+            doc_class, include_words=args.include_words, page_options=page_options
+        )
+    print(parsed_data.job)
 
 
 def _parse_args() -> Namespace:
@@ -145,87 +212,139 @@ def _parse_args() -> Namespace:
         dest="product_name",
         required=True,
     )
+
     for name, info in DOCUMENTS.items():
         subp = subparsers.add_parser(name, help=info.help)
-        if name == "custom":
-            subp.add_argument(
-                "-u",
-                "--user",
-                dest="username",
-                required=True,
-                help="API account name for the endpoint",
+        parsers_call_method = subp.add_subparsers(dest="call_method", required=True)
+
+        if info.is_sync:
+            parser_predict = parsers_call_method.add_parser(
+                "parse", help=f"Parse {name}"
             )
-            subp.add_argument(
-                "-k",
-                "--key",
-                dest="api_key",
-                help="API key for the account",
+            _add_main_options(parser_predict)
+            _add_sending_options(parser_predict)
+            _add_display_options(parser_predict)
+            if name == "custom":
+                _add_custom_options(parser_predict)
+            else:
+                parser_predict.add_argument(
+                    "-t",
+                    "--full-text",
+                    dest="include_words",
+                    action="store_true",
+                    help="include full document text in response",
+                )
+
+        if info.is_async:
+            parser_enqueue = parsers_call_method.add_parser(
+                "enqueue", help=f"Enqueue {name}"
             )
-            subp.add_argument(
-                "-v",
-                "--version",
-                default="1",
-                dest="api_version",
-                help="Version for the endpoint. If not set, use the latest version of the model.",
+            _add_main_options(parser_enqueue)
+            _add_sending_options(parser_enqueue)
+            if name == "custom":
+                _add_custom_options(parser_enqueue)
+            else:
+                parser_enqueue.add_argument(
+                    "-t",
+                    "--full-text",
+                    dest="include_words",
+                    action="store_true",
+                    help="include full document text in response",
+                )
+
+            parser_parse_queued = parsers_call_method.add_parser(
+                "parse-queued", help=f"Parse (queued) {name}"
             )
-            subp.add_argument(dest="api_name", help="Name of the API")
-        else:
-            subp.add_argument(
-                "-k",
-                "--key",
-                dest="api_key",
-                help="API key for the account",
+            _add_main_options(parser_parse_queued)
+            _add_display_options(parser_parse_queued)
+            parser_parse_queued.add_argument(
+                dest="queue_id", help="Async queue ID for a document (required)"
             )
-            subp.add_argument(
-                "-w",
-                "--with-words",
-                dest="include_words",
-                action="store_true",
-                help="Include words in response",
-            )
-        subp.add_argument(
-            "-i",
-            "--input-type",
-            dest="input_type",
-            choices=["path", "file", "base64", "bytes", "url"],
-            default="path",
-            help="Specify how to handle the input.\n"
-            "- path: open a path (default).\n"
-            "- file: open as a file handle.\n"
-            "- base64: open a base64 encoded text file.\n"
-            "- bytes: open the contents as raw bytes.\n"
-            "- url: open an URL.",
-        )
-        subp.add_argument(
-            "-o",
-            "--output-type",
-            dest="output_type",
-            choices=["summary", "raw", "parsed"],
-            default="summary",
-            help="Specify how to output the data.\n"
-            "- summary: a basic summary (default)\n"
-            "- raw: the raw HTTP response\n"
-            "- parsed: the validated and parsed data fields\n",
-        )
-        subp.add_argument(
-            "-c",
-            "--cut",
-            dest="cut_doc",
-            action="store_true",
-            help="Cut document pages",
-        )
-        subp.add_argument(
-            "-p",
-            "--pages-keep",
-            dest="doc_pages",
-            type=int,
-            default=5,
-            help="Number of document pages to keep, default: 5",
-        )
-        subp.add_argument(dest="path", help="Full path to the file")
 
     parsed_args = parser.parse_args()
     return parsed_args
+
+
+def _add_main_options(parser: ArgumentParser):
+    parser.add_argument(
+        "-k",
+        "--key",
+        dest="api_key",
+        help="API key for the account",
+    )
+
+
+def _add_display_options(parser: ArgumentParser):
+    """Adds options related to output/display of a document (parse, parse-queued)."""
+    parser.add_argument(
+        "-o",
+        "--output-type",
+        dest="output_type",
+        choices=["summary", "raw", "parsed"],
+        default="summary",
+        help="Specify how to output the data.\n"
+        "- summary: a basic summary (default)\n"
+        "- raw: the raw HTTP response\n"
+        "- parsed: the validated and parsed data fields\n",
+    )
+
+
+def _add_sending_options(parser: ArgumentParser):
+    """Adds options for sending requests (parse, enqueue)."""
+    parser.add_argument(
+        "-i",
+        "--input-type",
+        dest="input_type",
+        choices=["path", "file", "base64", "bytes", "url"],
+        default="path",
+        help="Specify how to handle the input.\n"
+        "- path: open a path (default).\n"
+        "- file: open as a file handle.\n"
+        "- base64: open a base64 encoded text file.\n"
+        "- bytes: open the contents as raw bytes.\n"
+        "- url: open an URL.",
+    )
+    parser.add_argument(
+        "-c",
+        "--cut-doc",
+        dest="cut_doc",
+        action="store_true",
+        help="Cut document pages",
+    )
+    parser.add_argument(
+        "-p",
+        "--pages-keep",
+        dest="doc_pages",
+        type=int,
+        default=5,
+        help="Number of document pages to keep, default: 5",
+    )
+    parser.add_argument(dest="path", help="Full path to the file")
+
+
+def _add_custom_options(parser: ArgumentParser):
+    """Adds options to custom-type documents."""
+    parser.add_argument(
+        "-a",
+        "--account",
+        dest="account_name",
+        required=True,
+        help="API account name for the endpoint (required)",
+    )
+    parser.add_argument(
+        "-e",
+        "--endpoint",
+        dest="endpoint_name",
+        help="API endpoint name (required)",
+        required=True,
+    )
+    parser.add_argument(
+        "-v",
+        "--version",
+        default="1",
+        dest="api_version",
+        help="Version for the endpoint. If not set, use the latest version of the model.",
+    )
 
 
 def main() -> None:
