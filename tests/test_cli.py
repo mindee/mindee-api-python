@@ -12,8 +12,8 @@ def custom_doc(monkeypatch):
     clear_envvars(monkeypatch)
     return Namespace(
         product_name="custom",
-        api_name="license_plate",
-        username="mindee",
+        endpoint_name="license_plate",
+        account_name="mindee",
         api_key="dummy",
         api_version="1",
         raise_on_error=True,
@@ -23,7 +23,7 @@ def custom_doc(monkeypatch):
         output_type="summary",
         include_words=False,
         path="./tests/data/pdf/blank.pdf",
-        instruction_type="parse",
+        call_method="parse",
     )
 
 
@@ -39,7 +39,7 @@ def ots_doc(monkeypatch):
         output_type="summary",
         include_words=False,
         path="./tests/data/invoice/invoice.pdf",
-        instruction_type="parse",
+        call_method="parse",
     )
 
 
@@ -54,7 +54,7 @@ def ots_doc_enqueue(monkeypatch):
         input_type="path",
         include_words=False,
         path="./tests/data/invoice_splitter/2_invoices.pdf",
-        instruction_type="enqueue",
+        call_method="enqueue",
     )
 
 
@@ -66,7 +66,7 @@ def ots_doc_parse_queued(monkeypatch):
         raise_on_error=True,
         output_type="summary",
         queue_id="dummy-queue-id",
-        instruction_type="parse-queued",
+        call_method="parse-queued",
     )
 
 

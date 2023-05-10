@@ -181,14 +181,14 @@ def process_parse_enqueue(args: Namespace, client: Client, doc_class) -> None:
     input_doc = _get_input_doc(client, args)
     if args.product_name == "custom":
         client.add_endpoint(
-            endpoint_name=args.api_name,
-            account_name=args.account,
+            endpoint_name=args.endpoint_name,
+            account_name=args.account_name,
             version=args.api_version,
         )
         parsed_data = input_doc.enqueue(
             doc_class,
-            endpoint_name=args.api_name,
-            account_name=args.account,
+            endpoint_name=args.endpoint_name,
+            account_name=args.account_name,
             page_options=page_options,
         )
     else:
