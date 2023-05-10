@@ -2,8 +2,8 @@
 
 # v3.8.0 - 2023-05-10
 ### Changes
-* :sparkles: Add support for Invoice Splitter V1
-* :sparkles: add support for asynchronous requests in CLI
+* :sparkles: add support for Invoice Splitter V1
+* :sparkles: add support for asynchronous requests
 
 
 ## v3.7.1 - 2023-04-20
