@@ -1,6 +1,6 @@
 # Mindee Python API Library Changelog
 
-# v3.8.0 - 2023-05-10
+## v3.8.0 - 2023-05-10
 ### Changes
 * :sparkles: add support for Invoice Splitter V1
 * :sparkles: add support for asynchronous requests
