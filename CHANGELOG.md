@@ -1,5 +1,9 @@
 # Mindee Python API Library Changelog
 
+## v3.8.1 - 2023-05-11
+### Fixes
+* :bug: fix naming of job ID property
+
 ## v3.8.0 - 2023-05-10
 ### Changes
 * :sparkles: add support for Invoice Splitter V1
