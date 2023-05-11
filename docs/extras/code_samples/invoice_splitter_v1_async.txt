@@ -24,7 +24,7 @@ times_tried = 1
 queue_result = input_doc.enqueue(doc_class)
 
 # Get the id of the queue (job)
-queue_id = queue_result.job.job_id
+queue_id = queue_result.job.id
 
 # Recursive function that tries to retrieve the completed document.
 # If the document is not "complete", try again
