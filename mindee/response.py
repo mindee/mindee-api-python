@@ -37,7 +37,7 @@ class Job:
     Will hold information on the queue a document has been submitted to.
     """
 
-    job_id: Optional[str] = None
+    id: Optional[str] = None
     """ID of the job sent by the API in response to an enqueue request."""
     issued_at: datetime
     """Timestamp of the request reception by the API."""
@@ -57,7 +57,7 @@ class Job:
         self.issued_at = datetime.fromisoformat(json_response["issued_at"])
         if json_response.get("available_at"):
             self.available_at = datetime.fromisoformat(json_response["available_at"])
-        self.job_id = json_response.get("id")
+        self.id = json_response.get("id")
         self.status = json_response.get("status")
         if self.available_at:
             self.millisecs_taken = int(

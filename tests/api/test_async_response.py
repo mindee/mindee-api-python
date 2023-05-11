@@ -56,7 +56,7 @@ def test_async_response_post_success(dummy_file_input, dummy_config):
     )
     assert parsed_response.job.available_at is None
     assert parsed_response.job.status == "waiting"
-    assert parsed_response.job.job_id == "76c90710-3a1b-4b91-8a39-31a6543e347c"
+    assert parsed_response.job.id == "76c90710-3a1b-4b91-8a39-31a6543e347c"
     assert not parsed_response.api_request.error
 
 
@@ -72,7 +72,7 @@ def test_async_response_post_fail(dummy_file_input, dummy_config):
     assert parsed_response.job.issued_at.isoformat() == "2023-01-01T00:00:00+00:00"
     assert parsed_response.job.available_at is None
     assert parsed_response.job.status is None
-    assert parsed_response.job.job_id is None
+    assert parsed_response.job.id is None
     assert parsed_response.api_request.error
     assert parsed_response.api_request.error["code"] == "Forbidden"
 
@@ -89,7 +89,7 @@ def test_async_get_processing(dummy_file_input, dummy_config):
     assert parsed_response.job.issued_at.isoformat() == "2023-03-16T12:33:49.602947"
     assert parsed_response.job.available_at is None
     assert parsed_response.job.status == "processing"
-    assert parsed_response.job.job_id == "76c90710-3a1b-4b91-8a39-31a6543e347c"
+    assert parsed_response.job.id == "76c90710-3a1b-4b91-8a39-31a6543e347c"
     assert not parsed_response.api_request.error
 
 
