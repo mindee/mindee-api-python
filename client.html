@@ -95,8 +95,8 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#mindee.response.Job"><code class="docutils literal notranslate"><span class="pre">Job</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.response.Job.available_at"><code class="docutils literal notranslate"><span class="pre">Job.available_at</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.response.Job.id"><code class="docutils literal notranslate"><span class="pre">Job.id</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.response.Job.issued_at"><code class="docutils literal notranslate"><span class="pre">Job.issued_at</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mindee.response.Job.job_id"><code class="docutils literal notranslate"><span class="pre">Job.job_id</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.response.Job.millisecs_taken"><code class="docutils literal notranslate"><span class="pre">Job.millisecs_taken</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.response.Job.status"><code class="docutils literal notranslate"><span class="pre">Job.status</span></code></a></li>
 </ul>
@@ -467,15 +467,15 @@ Do not set for standard (off the shelf) endpoints.</p></li>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.response.Job.issued_at">
-<span class="sig-name descname"><span class="pre">issued_at</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code></em><a class="headerlink" href="#mindee.response.Job.issued_at" title="Permalink to this definition"></a></dt>
-<dd><p>Timestamp of the request reception by the API.</p>
+<dt class="sig sig-object py" id="mindee.response.Job.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.response.Job.id" title="Permalink to this definition"></a></dt>
+<dd><p>ID of the job sent by the API in response to an enqueue request.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.response.Job.job_id">
-<span class="sig-name descname"><span class="pre">job_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.response.Job.job_id" title="Permalink to this definition"></a></dt>
-<dd><p>ID of the job sent by the API in response to an enqueue request.</p>
+<dt class="sig sig-object py" id="mindee.response.Job.issued_at">
+<span class="sig-name descname"><span class="pre">issued_at</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code></em><a class="headerlink" href="#mindee.response.Job.issued_at" title="Permalink to this definition"></a></dt>
+<dd><p>Timestamp of the request reception by the API.</p>
 </dd></dl>
 
 <dl class="py attribute">

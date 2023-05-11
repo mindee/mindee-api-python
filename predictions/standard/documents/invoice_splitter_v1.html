@@ -101,7 +101,7 @@
 <span class="n">queue_result</span> <span class="o">=</span> <span class="n">input_doc</span><span class="o">.</span><span class="n">enqueue</span><span class="p">(</span><span class="n">doc_class</span><span class="p">)</span>
 
 <span class="c1"># Get the id of the queue (job)</span>
-<span class="n">queue_id</span> <span class="o">=</span> <span class="n">queue_result</span><span class="o">.</span><span class="n">job</span><span class="o">.</span><span class="n">job_id</span>
+<span class="n">queue_id</span> <span class="o">=</span> <span class="n">queue_result</span><span class="o">.</span><span class="n">job</span><span class="o">.</span><span class="n">id</span>
 
 <span class="c1"># Recursive function that tries to retrieve the completed document.</span>
 <span class="c1"># If the document is not &quot;complete&quot;, try again</span>
