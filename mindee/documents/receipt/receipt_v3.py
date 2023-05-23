@@ -3,6 +3,7 @@ from typing import List, Optional, TypeVar
 from mindee.documents.base import Document, TypeApiPrediction, clean_out_string
 from mindee.fields.amount import AmountField
 from mindee.fields.base import field_array_confidence, field_array_sum
+from mindee.fields.classification import ClassificationField
 from mindee.fields.date import DateField
 from mindee.fields.locale import LocaleField
 from mindee.fields.tax import TaxField
@@ -18,7 +19,7 @@ class ReceiptV3(Document):
     """Date the receipt was issued"""
     time: TextField
     """Time the receipt was issued"""
-    category: TextField
+    category: ClassificationField
     """Service category"""
     merchant_name: TextField
     """Merchant's name"""
@@ -81,7 +82,7 @@ class ReceiptV3(Document):
         self.locale = LocaleField(api_prediction["locale"], page_n=page_n)
         self.total_incl = AmountField(api_prediction["total_incl"], page_n=page_n)
         self.date = DateField(api_prediction["date"], page_n=page_n)
-        self.category = TextField(api_prediction["category"], page_n=page_n)
+        self.category = ClassificationField(api_prediction["category"], page_n=page_n)
         self.merchant_name = TextField(
             api_prediction["supplier"], value_key="value", page_n=page_n
         )

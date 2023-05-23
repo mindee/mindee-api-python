@@ -3,6 +3,7 @@ from typing import List, Optional, TypeVar
 from mindee.documents.base import Document, TypeApiPrediction, clean_out_string
 from mindee.documents.invoice.line_item_v4 import InvoiceLineItemV4
 from mindee.fields.amount import AmountField
+from mindee.fields.classification import ClassificationField
 from mindee.fields.company_registration import CompanyRegistrationField
 from mindee.fields.date import DateField
 from mindee.fields.locale import LocaleField
@@ -50,11 +51,11 @@ class FinancialDocumentV1(Document):
     """Total amount of tip and gratuity."""
     time: TextField
     """Time as seen on the receipt in HH:MM format."""
-    document_type: TextField
+    document_type: ClassificationField
     """A classification field, among predefined classes."""
-    category: TextField
+    category: ClassificationField
     """The invoice or receipt category among predefined classes."""
-    subcategory: TextField
+    subcategory: ClassificationField
     """The invoice or receipt sub-category among predefined classes."""
 
     def __init__(
@@ -134,9 +135,13 @@ class FinancialDocumentV1(Document):
         self.total_tax = AmountField(api_prediction["total_tax"], page_n=page_n)
         self.tip = AmountField(api_prediction["tip"], page_n=page_n)
         self.time = TextField(api_prediction["time"], page_n=page_n)
-        self.document_type = TextField(api_prediction["document_type"], page_n=page_n)
-        self.category = TextField(api_prediction["category"], page_n=page_n)
-        self.subcategory = TextField(api_prediction["subcategory"], page_n=page_n)
+        self.document_type = ClassificationField(
+            api_prediction["document_type"], page_n=page_n
+        )
+        self.category = ClassificationField(api_prediction["category"], page_n=page_n)
+        self.subcategory = ClassificationField(
+            api_prediction["subcategory"], page_n=page_n
+        )
 
     def __str__(self) -> str:
         supplier_company_registrations = "; ".join(

@@ -3,6 +3,7 @@ from typing import List, Optional, TypeVar
 from mindee.documents.base import Document, TypeApiPrediction, clean_out_string
 from mindee.documents.receipt.line_item_v5 import ReceiptV5LineItem
 from mindee.fields.amount import AmountField
+from mindee.fields.classification import ClassificationField
 from mindee.fields.company_registration import CompanyRegistrationField
 from mindee.fields.date import DateField
 from mindee.fields.locale import LocaleField
@@ -19,11 +20,11 @@ class ReceiptV5(Document):
     """The date the purchase was made."""
     time: TextField
     """Time of purchase with 24 hours formatting (HH:MM)."""
-    category: TextField
+    category: ClassificationField
     """The receipt category among predefined classes."""
-    subcategory: TextField
+    subcategory: ClassificationField
     """The receipt sub category among predefined classes for transport and food."""
-    document_type: TextField
+    document_type: ClassificationField
     """Whether the document is an expense receipt or a credit card receipt."""
     supplier_name: TextField
     """The name of the supplier or merchant."""
@@ -80,9 +81,13 @@ class ReceiptV5(Document):
         self.total_tax = AmountField(api_prediction["total_tax"], page_n=page_n)
         self.tip = AmountField(api_prediction["tip"], page_n=page_n)
         self.date = DateField(api_prediction["date"], page_n=page_n)
-        self.category = TextField(api_prediction["category"], page_n=page_n)
-        self.subcategory = TextField(api_prediction["subcategory"], page_n=page_n)
-        self.document_type = TextField(api_prediction["document_type"], page_n=page_n)
+        self.category = ClassificationField(api_prediction["category"], page_n=page_n)
+        self.subcategory = ClassificationField(
+            api_prediction["subcategory"], page_n=page_n
+        )
+        self.document_type = ClassificationField(
+            api_prediction["document_type"], page_n=page_n
+        )
         self.supplier_name = TextField(
             api_prediction["supplier_name"], value_key="value", page_n=page_n
         )
