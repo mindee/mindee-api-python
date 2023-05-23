@@ -36,6 +36,7 @@ def test_doc_constructor(receipt_v5_doc_object: ReceiptV5):
     assert receipt_v5_doc_object.orientation is None
     assert receipt_v5_doc_object.date.page_n == 0
     assert str(receipt_v5_doc_object) == doc_str
+    assert receipt_v5_doc_object.taxes[0].basis == 8.5
 
 
 def test_page_constructor(receipt_v5_page_object: ReceiptV5):
@@ -46,6 +47,7 @@ def test_page_constructor(receipt_v5_page_object: ReceiptV5):
     assert receipt_v5_page_object.date.page_n == 0
     assert str(receipt_v5_page_object) == doc_str
     assert len(receipt_v5_page_object.cropper) == 0
+    assert receipt_v5_page_object.taxes[0].basis == 8.5
 
 
 def test_all_na(receipt_v5_doc_object_empty: ReceiptV5):
