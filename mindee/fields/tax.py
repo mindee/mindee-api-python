@@ -59,7 +59,7 @@ class TaxField(FieldPositionMixin, BaseField):
             self.code = None
 
         try:
-            self.basis = float(prediction["basis"])
+            self.basis = float(prediction["base"])
         except (ValueError, TypeError, KeyError):
             self.basis = None
 
