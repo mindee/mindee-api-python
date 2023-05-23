@@ -1,8 +1,16 @@
 # Mindee Python API Library Changelog
 
+## v3.8.2 - 2023-05-23
+### Changes
+* :recycle: add a specific class for classifications, which are never None
+### Fixes
+* :bug: fix for tax base amount
+
+
 ## v3.8.1 - 2023-05-11
 ### Fixes
 * :bug: fix naming of job ID property
+
 
 ## v3.8.0 - 2023-05-10
 ### Changes
