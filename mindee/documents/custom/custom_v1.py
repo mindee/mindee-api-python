@@ -1,7 +1,7 @@
 from typing import Dict, Optional, TypeVar
 
 from mindee.documents.base import Document, TypeApiPrediction, clean_out_string
-from mindee.fields.api_builder import ClassificationField, ListField
+from mindee.documents.custom.custom_v1_fields import ClassificationField, ListField
 
 
 class CustomV1(Document):

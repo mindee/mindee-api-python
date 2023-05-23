@@ -3,7 +3,11 @@ import json
 import pytest
 
 from mindee.documents import CustomV1
-from mindee.fields.api_builder import ClassificationField, ListField, ListFieldValue
+from mindee.documents.custom.custom_v1_fields import (
+    ClassificationField,
+    ListField,
+    ListFieldValue,
+)
 from tests import CUSTOM_DATA_DIR
 
 FILE_PATH_CUSTOM_V1_COMPLETE = f"{CUSTOM_DATA_DIR}/response_v1/complete.json"

@@ -4,6 +4,7 @@ from mindee.documents.base import Document, TypeApiPrediction, clean_out_string
 from mindee.documents.invoice import checks, reconstruct
 from mindee.documents.invoice.line_item_v4 import InvoiceLineItemV4
 from mindee.fields.amount import AmountField
+from mindee.fields.classification import ClassificationField
 from mindee.fields.company_registration import CompanyRegistrationField
 from mindee.fields.date import DateField
 from mindee.fields.locale import LocaleField
@@ -15,6 +16,8 @@ from mindee.fields.text import TextField
 class InvoiceV4(Document):
     locale: LocaleField
     """locale information"""
+    document_type: ClassificationField
+    """Whether the document is an INVOICE or a CREDIT NOTE."""
     total_amount: AmountField
     """Total including taxes"""
     total_net: AmountField
@@ -80,6 +83,9 @@ class InvoiceV4(Document):
         :param api_prediction: Raw prediction from HTTP response
         :param page_n: Page number for multi pages pdf input
         """
+        self.document_type = ClassificationField(
+            api_prediction["document_type"], page_n=page_n
+        )
         self.supplier_company_registrations = [
             CompanyRegistrationField(field_dict, page_n=page_n)
             for field_dict in api_prediction["supplier_company_registrations"]
