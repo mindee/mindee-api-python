@@ -9,7 +9,7 @@ from mindee.fields.company_registration import CompanyRegistrationField
 from mindee.fields.date import DateField
 from mindee.fields.locale import LocaleField
 from mindee.fields.payment_details import PaymentDetails
-from mindee.fields.tax import TaxField
+from mindee.fields.tax import Taxes
 from mindee.fields.text import TextField
 
 
@@ -30,7 +30,7 @@ class InvoiceV4(Document):
     """List of Reference numbers including PO number."""
     due_date: DateField
     """Date the invoice is due"""
-    taxes: List[TaxField] = []
+    taxes: Taxes
     """List of all taxes"""
     total_tax: AmountField
     """Sum total of all taxes"""
@@ -113,10 +113,7 @@ class InvoiceV4(Document):
             api_prediction["customer_address"], page_n=page_n
         )
 
-        self.taxes = [
-            TaxField(tax_prediction, page_n=page_n, value_key="value")
-            for tax_prediction in api_prediction["taxes"]
-        ]
+        self.taxes = Taxes(api_prediction["taxes"], page_id=page_n)
         self.supplier_payment_details = [
             PaymentDetails(payment_detail, page_n=page_n)
             for payment_detail in api_prediction["supplier_payment_details"]
@@ -140,7 +137,6 @@ class InvoiceV4(Document):
         payment_details = "\n                          ".join(
             [str(p) for p in self.supplier_payment_details]
         )
-        taxes = "\n       ".join(f"{t}" for t in self.taxes)
         line_items = "\n"
         if self.line_items:
             line_items = "\n  Code           | QTY    | Price   | Amount   | Tax (Rate)       | Description\n"
@@ -148,26 +144,26 @@ class InvoiceV4(Document):
                 line_items += f"  {item}\n"
 
         return clean_out_string(
-            "----- Invoice V4 -----\n"
-            f"Filename: {self.filename or ''}\n"
-            f"Locale: {self.locale}\n"
-            f"Invoice number: {self.invoice_number}\n"
-            f"Reference numbers: {reference_numbers}\n"
-            f"Invoice date: {self.invoice_date}\n"
-            f"Invoice due date: {self.due_date}\n"
-            f"Supplier name: {self.supplier_name}\n"
-            f"Supplier address: {self.supplier_address}\n"
-            f"Supplier company registrations: {supplier_company_registrations}\n"
-            f"Supplier payment details: {payment_details}\n"
-            f"Customer name: {self.customer_name}\n"
-            f"Customer company registrations: {customer_company_registrations}\n"
-            f"Customer address: {self.customer_address}\n"
-            f"Line Items: {line_items}"
-            f"Taxes: {taxes}\n"
-            f"Total taxes: {self.total_tax}\n"
-            f"Total amount excluding taxes: {self.total_net}\n"
-            f"Total amount including taxes: {self.total_amount}\n"
-            "----------------------"
+            "Invoice V4 Prediction\n"
+            "=====================\n"
+            f":Filename: {self.filename or ''}\n"
+            f":Locale: {self.locale}\n"
+            f":Invoice number: {self.invoice_number}\n"
+            f":Reference numbers: {reference_numbers}\n"
+            f":Invoice date: {self.invoice_date}\n"
+            f":Invoice due date: {self.due_date}\n"
+            f":Supplier name: {self.supplier_name}\n"
+            f":Supplier address: {self.supplier_address}\n"
+            f":Supplier company registrations: {supplier_company_registrations}\n"
+            f":Supplier payment details: {payment_details}\n"
+            f":Customer name: {self.customer_name}\n"
+            f":Customer company registrations: {customer_company_registrations}\n"
+            f":Customer address: {self.customer_address}\n"
+            f":Line Items: {line_items}"
+            f":Taxes: {self.taxes}\n"
+            f":Total tax: {self.total_tax}\n"
+            f":Total net: {self.total_net}\n"
+            f":Total amount: {self.total_amount}"
         )
 
     def _reconstruct(self) -> None:

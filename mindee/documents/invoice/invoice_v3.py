@@ -8,7 +8,7 @@ from mindee.fields.company_registration import CompanyRegistrationField
 from mindee.fields.date import DateField
 from mindee.fields.locale import LocaleField
 from mindee.fields.payment_details import PaymentDetails
-from mindee.fields.tax import TaxField
+from mindee.fields.tax import Taxes
 from mindee.fields.text import TextField
 
 
@@ -27,7 +27,7 @@ class InvoiceV3(Document):
     """Invoice number"""
     due_date: DateField
     """Date the invoice is due"""
-    taxes: List[TaxField] = []
+    taxes: Taxes
     """List of all taxes"""
     total_tax: AmountField
     """Sum total of all taxes"""
@@ -103,11 +103,7 @@ class InvoiceV3(Document):
         self.customer_address = TextField(
             api_prediction["customer_address"], page_n=page_n
         )
-
-        self.taxes = [
-            TaxField(tax_prediction, page_n=page_n, value_key="value")
-            for tax_prediction in api_prediction["taxes"]
-        ]
+        self.taxes = Taxes(api_prediction["taxes"], page_id=page_n)
         self.payment_details = [
             PaymentDetails(payment_detail, page_n=page_n)
             for payment_detail in api_prediction["payment_details"]
@@ -142,27 +138,26 @@ class InvoiceV3(Document):
         payment_details = "\n                 ".join(
             [str(p) for p in self.payment_details]
         )
-        taxes = "\n       ".join(f"{t}" for t in self.taxes)
 
         return clean_out_string(
-            "----- Invoice V3 -----\n"
-            f"Filename: {self.filename or ''}\n"
-            f"Invoice number: {self.invoice_number}\n"
-            f"Total amount including taxes: {self.total_amount}\n"
-            f"Total amount excluding taxes: {self.total_net}\n"
-            f"Invoice date: {self.invoice_date}\n"
-            f"Invoice due date: {self.due_date}\n"
-            f"Supplier name: {self.supplier}\n"
-            f"Supplier address: {self.supplier_address}\n"
-            f"Customer name: {self.customer_name}\n"
-            f"Customer company registration: {customer_company_registration}\n"
-            f"Customer address: {self.customer_address}\n"
-            f"Payment details: {payment_details}\n"
-            f"Company numbers: {company_numbers}\n"
-            f"Taxes: {taxes}\n"
-            f"Total taxes: {self.total_tax}\n"
-            f"Locale: {self.locale}\n"
-            "----------------------"
+            "Invoice V3 Prediction\n"
+            "=====================\n"
+            f":Filename: {self.filename or ''}\n"
+            f":Invoice number: {self.invoice_number}\n"
+            f":Total amount: {self.total_amount}\n"
+            f":Total net: {self.total_net}\n"
+            f":Invoice date: {self.invoice_date}\n"
+            f":Invoice due date: {self.due_date}\n"
+            f":Supplier name: {self.supplier}\n"
+            f":Supplier address: {self.supplier_address}\n"
+            f":Customer name: {self.customer_name}\n"
+            f":Customer company registration: {customer_company_registration}\n"
+            f":Customer address: {self.customer_address}\n"
+            f":Payment details: {payment_details}\n"
+            f":Company numbers: {company_numbers}\n"
+            f":Taxes: {self.taxes}\n"
+            f":Total tax: {self.total_tax}\n"
+            f":Locale: {self.locale}"
         )
 
     def _reconstruct(self) -> None:

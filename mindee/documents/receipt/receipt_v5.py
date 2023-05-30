@@ -7,7 +7,7 @@ from mindee.fields.classification import ClassificationField
 from mindee.fields.company_registration import CompanyRegistrationField
 from mindee.fields.date import DateField
 from mindee.fields.locale import LocaleField
-from mindee.fields.tax import TaxField
+from mindee.fields.tax import Taxes
 from mindee.fields.text import TextField
 
 
@@ -34,7 +34,7 @@ class ReceiptV5(Document):
     """The address of the supplier or merchant."""
     supplier_company_registrations: List[CompanyRegistrationField]
     """List of supplier company registrations or identifiers."""
-    taxes: List[TaxField]
+    taxes: Taxes
     """List of tax lines information including: Amount, tax rate, tax base amount and tax code."""
     total_tax: AmountField
     """The total amount of taxes."""
@@ -102,58 +102,55 @@ class ReceiptV5(Document):
             for field_dict in api_prediction["supplier_company_registrations"]
         ]
         self.time = TextField(api_prediction["time"], value_key="value", page_n=page_n)
-        self.taxes = [
-            TaxField(
-                tax_prediction,
-                page_n=page_n,
-                value_key="value",
-                rate_key="rate",
-                code_key="code",
-            )
-            for tax_prediction in api_prediction["taxes"]
-        ]
+        self.taxes = Taxes(api_prediction["taxes"], page_id=page_n)
         self.line_items = [
             ReceiptV5LineItem(prediction=line_item, page_n=page_n)
             for line_item in api_prediction["line_items"]
         ]
 
+    @staticmethod
+    def _line_items_separator(char: str):
+        out_str = "  "
+        out_str += f"+{char * 38}"
+        out_str += f"+{char * 10}"
+        out_str += f"+{char * 14}"
+        out_str += f"+{char * 12}"
+        return out_str + "+"
+
     def __str__(self) -> str:
-        taxes = "\n       ".join(f"{t}" for t in self.taxes)
         supplier_company_registrations = "; ".join(
             [str(n.value) for n in self.supplier_company_registrations]
         )
         line_items = "\n"
         if self.line_items:
             line_items = (
-                "\n  +----------+----------+-----------+------------------------------------+"
-                "\n  | Quantity | Price    | Amount    | Description                        |"
-                "\n  +==========+==========+===========+====================================+"
+                f"\n{self._line_items_separator('-')}"
+                "\n  | Description                          | Quantity | Total Amount | Unit Price |"
+                f"\n{self._line_items_separator('=')}"
             )
             for item in self.line_items:
-                line_items += (
-                    f"\n  {item}"
-                    "\n  +----------+----------+-----------+------------------------------------+"
-                )
+                line_items += f"\n  {item}\n{self._line_items_separator('-')}"
 
         return clean_out_string(
-            "Receipt V5 Prediction\n=====================\n"
+            "Receipt V5 Prediction\n"
+            "=====================\n"
             f":Filename: {self.filename or ''}\n"
             f":Expense Locale: {self.locale}\n"
-            f":Total Amount: {self.total_amount}\n"
-            f":Total Excluding Taxes: {self.total_net}\n"
-            f":Tip and Gratuity: {self.tip}\n"
-            f":Purchase Date: {self.date}\n"
-            f":Purchase Time: {self.time}\n"
             f":Expense Category: {self.category}\n"
             f":Expense Sub Category: {self.subcategory}\n"
             f":Document Type: {self.document_type}\n"
+            f":Purchase Date: {self.date}\n"
+            f":Purchase Time: {self.time}\n"
+            f":Total Amount: {self.total_amount}\n"
+            f":Total Excluding Taxes: {self.total_net}\n"
+            f":Total Tax: {self.total_tax}\n"
+            f":Tip and Gratuity: {self.tip}\n"
+            f":Taxes: {self.taxes}\n"
             f":Supplier Name: {self.supplier_name}\n"
-            f":Supplier Phone Number: {self.supplier_phone_number}\n"
-            f":Supplier Address: {self.supplier_address}\n"
             f":Supplier Company Registrations: {supplier_company_registrations}\n"
+            f":Supplier Address: {self.supplier_address}\n"
+            f":Supplier Phone Number: {self.supplier_phone_number}\n"
             f":Line Items: {line_items}\n"
-            f":Taxes: {taxes}\n"
-            f":Total Taxes: {self.total_tax}\n"
         )
 
     def _checklist(self) -> None:

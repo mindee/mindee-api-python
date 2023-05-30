@@ -1,4 +1,4 @@
-from typing import List, Optional, TypeVar
+from typing import Optional, TypeVar
 
 from mindee.documents.base import Document, TypeApiPrediction, clean_out_string
 from mindee.fields.amount import AmountField
@@ -6,7 +6,7 @@ from mindee.fields.base import field_array_confidence, field_array_sum
 from mindee.fields.classification import ClassificationField
 from mindee.fields.date import DateField
 from mindee.fields.locale import LocaleField
-from mindee.fields.tax import TaxField
+from mindee.fields.tax import Taxes
 from mindee.fields.text import TextField
 
 
@@ -23,7 +23,7 @@ class ReceiptV3(Document):
     """Service category"""
     merchant_name: TextField
     """Merchant's name"""
-    taxes: List[TaxField]
+    taxes: Taxes
     """List of all taxes"""
     total_tax: AmountField
     """Sum total of all taxes"""
@@ -54,20 +54,19 @@ class ReceiptV3(Document):
         self._reconstruct()
 
     def __str__(self) -> str:
-        taxes = "\n       ".join(f"{t}" for t in self.taxes)
         return clean_out_string(
-            "-----Receipt data-----\n"
-            f"Filename: {self.filename or ''}\n"
-            f"Total amount including taxes: {self.total_incl}\n"
-            f"Total amount excluding taxes: {self.total_excl}\n"
-            f"Date: {self.date}\n"
-            f"Category: {self.category}\n"
-            f"Time: {self.time}\n"
-            f"Merchant name: {self.merchant_name}\n"
-            f"Taxes: {taxes}\n"
-            f"Total taxes: {self.total_tax}\n"
-            f"Locale: {self.locale}\n"
-            "----------------------"
+            "Receipt V3 Prediction\n"
+            "=====================\n"
+            f":Filename: {self.filename or ''}\n"
+            f":Total amount: {self.total_incl}\n"
+            f":Total net: {self.total_excl}\n"
+            f":Date: {self.date}\n"
+            f":Category: {self.category}\n"
+            f":Time: {self.time}\n"
+            f":Merchant name: {self.merchant_name}\n"
+            f":Taxes: {self.taxes}\n"
+            f":Total tax: {self.total_tax}\n"
+            f":Locale: {self.locale}"
         )
 
     def _build_from_api_prediction(
@@ -87,16 +86,7 @@ class ReceiptV3(Document):
             api_prediction["supplier"], value_key="value", page_n=page_n
         )
         self.time = TextField(api_prediction["time"], value_key="value", page_n=page_n)
-        self.taxes = [
-            TaxField(
-                tax_prediction,
-                page_n=page_n,
-                value_key="value",
-                rate_key="rate",
-                code_key="code",
-            )
-            for tax_prediction in api_prediction["taxes"]
-        ]
+        self.taxes = Taxes(api_prediction["taxes"], page_id=page_n)
         self.total_tax = AmountField({"value": None, "confidence": 0.0}, page_n=page_n)
         self.total_excl = AmountField({"value": None, "confidence": 0.0}, page_n=page_n)
 
