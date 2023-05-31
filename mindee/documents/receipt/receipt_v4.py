@@ -65,23 +65,23 @@ class ReceiptV4(Document):
         :param api_prediction: Raw prediction from HTTP response
         :param page_n: Page number for multi pages pdf input
         """
-        self.locale = LocaleField(api_prediction["locale"], page_n=page_n)
-        self.total_amount = AmountField(api_prediction["total_amount"], page_n=page_n)
-        self.total_net = AmountField(api_prediction["total_net"], page_n=page_n)
-        self.total_tax = AmountField(api_prediction["total_tax"], page_n=page_n)
-        self.tip = AmountField(api_prediction["tip"], page_n=page_n)
-        self.date = DateField(api_prediction["date"], page_n=page_n)
-        self.category = ClassificationField(api_prediction["category"], page_n=page_n)
+        self.locale = LocaleField(api_prediction["locale"], page_id=page_n)
+        self.total_amount = AmountField(api_prediction["total_amount"], page_id=page_n)
+        self.total_net = AmountField(api_prediction["total_net"], page_id=page_n)
+        self.total_tax = AmountField(api_prediction["total_tax"], page_id=page_n)
+        self.tip = AmountField(api_prediction["tip"], page_id=page_n)
+        self.date = DateField(api_prediction["date"], page_id=page_n)
+        self.category = ClassificationField(api_prediction["category"], page_id=page_n)
         self.subcategory = ClassificationField(
-            api_prediction["subcategory"], page_n=page_n
+            api_prediction["subcategory"], page_id=page_n
         )
         self.document_type = ClassificationField(
-            api_prediction["document_type"], page_n=page_n
+            api_prediction["document_type"], page_id=page_n
         )
         self.supplier = TextField(
-            api_prediction["supplier"], value_key="value", page_n=page_n
+            api_prediction["supplier"], value_key="value", page_id=page_n
         )
-        self.time = TextField(api_prediction["time"], value_key="value", page_n=page_n)
+        self.time = TextField(api_prediction["time"], value_key="value", page_id=page_n)
         self.taxes = Taxes(api_prediction["taxes"], page_id=page_n)
 
     def __str__(self) -> str:

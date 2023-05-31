@@ -84,47 +84,47 @@ class InvoiceV4(Document):
         :param page_n: Page number for multi pages pdf input
         """
         self.document_type = ClassificationField(
-            api_prediction["document_type"], page_n=page_n
+            api_prediction["document_type"], page_id=page_n
         )
         self.supplier_company_registrations = [
-            CompanyRegistrationField(field_dict, page_n=page_n)
+            CompanyRegistrationField(field_dict, page_id=page_n)
             for field_dict in api_prediction["supplier_company_registrations"]
         ]
-        self.invoice_date = DateField(api_prediction["date"], page_n=page_n)
-        self.due_date = DateField(api_prediction["due_date"], page_n=page_n)
-        self.invoice_number = TextField(api_prediction["invoice_number"], page_n=page_n)
+        self.invoice_date = DateField(api_prediction["date"], page_id=page_n)
+        self.due_date = DateField(api_prediction["due_date"], page_id=page_n)
+        self.invoice_number = TextField(
+            api_prediction["invoice_number"], page_id=page_n
+        )
         self.reference_numbers = [
-            TextField(reference_number, page_n=page_n)
+            TextField(reference_number, page_id=page_n)
             for reference_number in api_prediction["reference_numbers"]
         ]
-        self.locale = LocaleField(
-            api_prediction["locale"], value_key="language", page_n=page_n
-        )
-        self.supplier_name = TextField(api_prediction["supplier_name"], page_n=page_n)
+        self.locale = LocaleField(api_prediction["locale"], page_id=page_n)
+        self.supplier_name = TextField(api_prediction["supplier_name"], page_id=page_n)
         self.supplier_address = TextField(
-            api_prediction["supplier_address"], page_n=page_n
+            api_prediction["supplier_address"], page_id=page_n
         )
-        self.customer_name = TextField(api_prediction["customer_name"], page_n=page_n)
+        self.customer_name = TextField(api_prediction["customer_name"], page_id=page_n)
         self.customer_company_registrations = [
-            CompanyRegistrationField(field_dict, page_n=page_n)
+            CompanyRegistrationField(field_dict, page_id=page_n)
             for field_dict in api_prediction["customer_company_registrations"]
         ]
         self.customer_address = TextField(
-            api_prediction["customer_address"], page_n=page_n
+            api_prediction["customer_address"], page_id=page_n
         )
 
         self.taxes = Taxes(api_prediction["taxes"], page_id=page_n)
         self.supplier_payment_details = [
-            PaymentDetails(payment_detail, page_n=page_n)
+            PaymentDetails(payment_detail, page_id=page_n)
             for payment_detail in api_prediction["supplier_payment_details"]
         ]
         self.line_items = [
-            InvoiceLineItemV4(prediction=line_item, page_n=page_n)
+            InvoiceLineItemV4(prediction=line_item, page_id=page_n)
             for line_item in api_prediction["line_items"]
         ]
-        self.total_amount = AmountField(api_prediction["total_amount"], page_n=page_n)
-        self.total_net = AmountField(api_prediction["total_net"], page_n=page_n)
-        self.total_tax = AmountField({"value": None, "confidence": 0.0}, page_n=page_n)
+        self.total_amount = AmountField(api_prediction["total_amount"], page_id=page_n)
+        self.total_net = AmountField(api_prediction["total_net"], page_id=page_n)
+        self.total_tax = AmountField({"value": None, "confidence": 0.0}, page_id=page_n)
 
     def __str__(self) -> str:
         supplier_company_registrations = "; ".join(

@@ -15,20 +15,20 @@ class AmountField(FieldPositionMixin, BaseField):
         self,
         prediction: TypePrediction,
         reconstructed: bool = False,
-        page_n: Optional[int] = None,
+        page_id: Optional[int] = None,
     ):
         """
         Amount field object.
 
         :param prediction: Amount prediction object from HTTP response
         :param reconstructed: Bool for reconstructed object (not extracted in the API)
-        :param page_n: Page number for multi-page document
+        :param page_id: Page number for multi-page document
         """
         super().__init__(
             prediction,
             value_key="value",
             reconstructed=reconstructed,
-            page_n=page_n,
+            page_n=page_id,
         )
         try:
             self.value = round(float(prediction["value"]), 3)

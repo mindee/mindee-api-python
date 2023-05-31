@@ -6,6 +6,8 @@ TypePrediction = Dict[str, Any]
 
 
 class FieldPositionMixin:
+    """Mixin class to add position information."""
+
     bounding_box: Optional[Quadrilateral]
     """A right rectangle containing the word in the document."""
     polygon: Polygon
@@ -24,11 +26,22 @@ class FieldPositionMixin:
             self.bounding_box = get_bounding_box(self.polygon)
 
 
-class BaseField:
+class FieldConfidenceMixin:
+    """Mixin class to add a confidence score."""
+
+    confidence: float = 0.0
+    """The confidence score."""
+
+    def _set_confidence(self, prediction: TypePrediction):
+        try:
+            self.confidence = float(prediction["confidence"])
+        except (KeyError, TypeError):
+            pass
+
+
+class BaseField(FieldConfidenceMixin):
     value: Optional[Any] = None
     """Raw field value"""
-    confidence: float = 0.0
-    """Confidence score"""
     reconstructed: bool
     """Whether the field was reconstructed from other fields."""
     page_n: Optional[int] = None
@@ -63,10 +76,7 @@ class BaseField:
             return
 
         self.value = prediction[value_key]
-        try:
-            self.confidence = float(prediction["confidence"])
-        except (KeyError, TypeError):
-            pass
+        self._set_confidence(prediction)
 
     def __eq__(self, other: Any) -> bool:
         if not isinstance(other, BaseField):
@@ -139,8 +149,17 @@ def field_array_sum(array: TypeFieldList) -> float:
 
 def float_to_string(value: Optional[float], min_precision=2) -> str:
     """Print a float with a specified minimum precision, but allowing greater precision."""
-    if value is not None:
-        precision = len(str(value).split(".")[1])
-        precision = max(precision, min_precision)
-        return f"{value:.{precision}f}"
-    return ""
+    if value is None:
+        return ""
+
+    precision = len(str(value).split(".")[1])
+    precision = max(precision, min_precision)
+    return f"{value:.{precision}f}"
+
+
+def to_opt_float(prediction: TypePrediction, key: str) -> Optional[float]:
+    """Make sure a prediction value is either a ``float`` or ``None``."""
+    try:
+        return float(prediction[key])
+    except TypeError:
+        return None

@@ -79,38 +79,38 @@ class InvoiceV3(Document):
         :param page_n: Page number for multi pages pdf input
         """
         self.document_type = ClassificationField(
-            api_prediction["document_type"], page_n=page_n
+            api_prediction["document_type"], page_id=page_n
         )
         self.company_number = [
-            CompanyRegistrationField(field_dict, page_n=page_n)
+            CompanyRegistrationField(field_dict, page_id=page_n)
             for field_dict in api_prediction["company_registration"]
         ]
-        self.invoice_date = DateField(api_prediction["date"], page_n=page_n)
-        self.due_date = DateField(api_prediction["due_date"], page_n=page_n)
-        self.invoice_number = TextField(api_prediction["invoice_number"], page_n=page_n)
-        self.locale = LocaleField(
-            api_prediction["locale"], value_key="language", page_n=page_n
+        self.invoice_date = DateField(api_prediction["date"], page_id=page_n)
+        self.due_date = DateField(api_prediction["due_date"], page_id=page_n)
+        self.invoice_number = TextField(
+            api_prediction["invoice_number"], page_id=page_n
         )
-        self.supplier = TextField(api_prediction["supplier"], page_n=page_n)
+        self.locale = LocaleField(api_prediction["locale"], page_id=page_n)
+        self.supplier = TextField(api_prediction["supplier"], page_id=page_n)
         self.supplier_address = TextField(
-            api_prediction["supplier_address"], page_n=page_n
+            api_prediction["supplier_address"], page_id=page_n
         )
-        self.customer_name = TextField(api_prediction["customer"], page_n=page_n)
+        self.customer_name = TextField(api_prediction["customer"], page_id=page_n)
         self.customer_company_registration = [
-            CompanyRegistrationField(field_dict, page_n=page_n)
+            CompanyRegistrationField(field_dict, page_id=page_n)
             for field_dict in api_prediction["customer_company_registration"]
         ]
         self.customer_address = TextField(
-            api_prediction["customer_address"], page_n=page_n
+            api_prediction["customer_address"], page_id=page_n
         )
         self.taxes = Taxes(api_prediction["taxes"], page_id=page_n)
         self.payment_details = [
-            PaymentDetails(payment_detail, page_n=page_n)
+            PaymentDetails(payment_detail, page_id=page_n)
             for payment_detail in api_prediction["payment_details"]
         ]
-        self.total_amount = AmountField(api_prediction["total_incl"], page_n=page_n)
-        self.total_net = AmountField(api_prediction["total_excl"], page_n=page_n)
-        self.total_tax = AmountField({"value": None, "confidence": 0.0}, page_n=page_n)
+        self.total_amount = AmountField(api_prediction["total_incl"], page_id=page_n)
+        self.total_net = AmountField(api_prediction["total_excl"], page_id=page_n)
+        self.total_tax = AmountField({"value": None, "confidence": 0.0}, page_id=page_n)
 
     @property
     def total_incl(self) -> AmountField:

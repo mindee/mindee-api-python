@@ -46,15 +46,15 @@ class ShippingContainerV1(Document):
         """
         self.owner = TextField(
             api_prediction["owner"],
-            page_n=page_n,
+            page_id=page_n,
         )
         self.serial_number = TextField(
             api_prediction["serial_number"],
-            page_n=page_n,
+            page_id=page_n,
         )
         self.size_type = TextField(
             api_prediction["size_type"],
-            page_n=page_n,
+            page_id=page_n,
         )
 
     def __str__(self) -> str:

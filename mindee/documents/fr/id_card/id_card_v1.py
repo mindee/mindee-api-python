@@ -63,47 +63,47 @@ class IdCardV1(Document):
         """
         self.document_side = TextField(
             api_prediction.get("document_side", {}),
-            page_n=page_n,
+            page_id=page_n,
         )
         self.id_number = TextField(
             api_prediction["id_number"],
-            page_n=page_n,
+            page_id=page_n,
         )
         self.given_names = [
-            TextField(prediction, page_n=page_n)
+            TextField(prediction, page_id=page_n)
             for prediction in api_prediction["given_names"]
         ]
         self.surname = TextField(
             api_prediction["surname"],
-            page_n=page_n,
+            page_id=page_n,
         )
         self.birth_date = DateField(
             api_prediction["birth_date"],
-            page_n=page_n,
+            page_id=page_n,
         )
         self.birth_place = TextField(
             api_prediction["birth_place"],
-            page_n=page_n,
+            page_id=page_n,
         )
         self.expiry_date = DateField(
             api_prediction["expiry_date"],
-            page_n=page_n,
+            page_id=page_n,
         )
         self.authority = TextField(
             api_prediction["authority"],
-            page_n=page_n,
+            page_id=page_n,
         )
         self.gender = TextField(
             api_prediction["gender"],
-            page_n=page_n,
+            page_id=page_n,
         )
         self.mrz1 = TextField(
             api_prediction["mrz1"],
-            page_n=page_n,
+            page_id=page_n,
         )
         self.mrz2 = TextField(
             api_prediction["mrz2"],
-            page_n=page_n,
+            page_id=page_n,
         )
 
     def __str__(self) -> str:

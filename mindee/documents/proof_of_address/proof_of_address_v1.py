@@ -61,39 +61,39 @@ class ProofOfAddressV1(Document):
         """
         self.locale = LocaleField(
             api_prediction["locale"],
-            page_n=page_n,
+            page_id=page_n,
         )
         self.issuer_name = TextField(
             api_prediction["issuer_name"],
-            page_n=page_n,
+            page_id=page_n,
         )
         self.issuer_company_registration = [
-            CompanyRegistrationField(prediction, page_n=page_n)
+            CompanyRegistrationField(prediction, page_id=page_n)
             for prediction in api_prediction["issuer_company_registration"]
         ]
         self.issuer_address = TextField(
             api_prediction["issuer_address"],
-            page_n=page_n,
+            page_id=page_n,
         )
         self.recipient_name = TextField(
             api_prediction["recipient_name"],
-            page_n=page_n,
+            page_id=page_n,
         )
         self.recipient_company_registration = [
-            CompanyRegistrationField(prediction, page_n=page_n)
+            CompanyRegistrationField(prediction, page_id=page_n)
             for prediction in api_prediction["recipient_company_registration"]
         ]
         self.recipient_address = TextField(
             api_prediction["recipient_address"],
-            page_n=page_n,
+            page_id=page_n,
         )
         self.dates = [
-            DateField(prediction, page_n=page_n)
+            DateField(prediction, page_id=page_n)
             for prediction in api_prediction["dates"]
         ]
         self.date = DateField(
             api_prediction["date"],
-            page_n=page_n,
+            page_id=page_n,
         )
 
     def __str__(self) -> str:
