@@ -2,7 +2,7 @@ from typing import List, Optional, TypeVar
 
 from mindee.documents.base import Document, TypeApiPrediction, clean_out_string
 from mindee.documents.invoice import checks, reconstruct
-from mindee.documents.invoice.line_item_v4 import InvoiceLineItemV4
+from mindee.documents.invoice.invoice_v4_line_item import InvoiceV4LineItem
 from mindee.fields.amount import AmountField
 from mindee.fields.classification import ClassificationField
 from mindee.fields.company_registration import CompanyRegistrationField
@@ -48,7 +48,7 @@ class InvoiceV4(Document):
     """Customer company registration numbers"""
     supplier_payment_details: List[PaymentDetails]
     """Payment details"""
-    line_items: List[InvoiceLineItemV4]
+    line_items: List[InvoiceV4LineItem]
     """Details of line items"""
 
     def __init__(
@@ -119,7 +119,7 @@ class InvoiceV4(Document):
             for payment_detail in api_prediction["supplier_payment_details"]
         ]
         self.line_items = [
-            InvoiceLineItemV4(prediction=line_item, page_id=page_n)
+            InvoiceV4LineItem(prediction=line_item, page_id=page_n)
             for line_item in api_prediction["line_items"]
         ]
         self.total_amount = AmountField(api_prediction["total_amount"], page_id=page_n)

@@ -26,8 +26,6 @@ class FinancialDocumentV1LineItem(FieldPositionMixin, FieldConfidenceMixin):
     """The item total amount."""
     unit_price: Optional[float]
     """The item unit price."""
-    confidence: float = 0.0
-    """Confidence score"""
     page_n: int
     """The document page on which the information was found."""
 
