@@ -47,12 +47,12 @@ def test_doc_constructor(invoice_v3_doc_object):
     assert invoice_v3_doc_object.invoice_date.confidence == 0.99
     assert invoice_v3_doc_object.invoice_number.value == "0042004801351"
     assert invoice_v3_doc_object.invoice_number.confidence == 0.95
-    doc_str = open(f"{INVOICE_DATA_DIR}/response_v3/doc_to_string.txt").read().strip()
+    doc_str = open(f"{INVOICE_DATA_DIR}/response_v3/doc_to_string.rst").read().strip()
     assert str(invoice_v3_doc_object) == doc_str
 
 
 def test_page_constructor(invoice_v3_page_object):
-    doc_str = open(f"{INVOICE_DATA_DIR}/response_v3/page0_to_string.txt").read().strip()
+    doc_str = open(f"{INVOICE_DATA_DIR}/response_v3/page0_to_string.rst").read().strip()
     assert invoice_v3_page_object.orientation.value == 0
     assert invoice_v3_page_object.invoice_number.page_n == 0
     assert str(invoice_v3_page_object) == doc_str

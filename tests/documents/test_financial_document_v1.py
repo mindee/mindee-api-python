@@ -44,22 +44,14 @@ def test_doc_constructor_invoice(financial_doc_from_invoice_object):
         financial_doc_from_invoice_object.supplier_address.value
         == "4490 Oak Drive Albany, NY 12210"
     )
-    doc_str = (
-        open(f"{FINANCIAL_DOC_DATA_DIR}/response_v1/invoice_to_string.txt")
-        .read()
-        .strip()
-    )
+    doc_str = open(f"{FINANCIAL_DOC_DATA_DIR}/response_v1/invoice_to_string.rst").read()
     assert str(financial_doc_from_invoice_object) == doc_str
 
 
 def test_doc_constructor_receipt(financial_doc_from_receipt_object):
     assert financial_doc_from_receipt_object.date.value == "2014-07-07"
     assert financial_doc_from_receipt_object.supplier_address.value is None
-    doc_str = (
-        open(f"{FINANCIAL_DOC_DATA_DIR}/response_v1/receipt_to_string.txt")
-        .read()
-        .strip()
-    )
+    doc_str = open(f"{FINANCIAL_DOC_DATA_DIR}/response_v1/receipt_to_string.rst").read()
     assert str(financial_doc_from_receipt_object) == doc_str
 
 

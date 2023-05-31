@@ -52,12 +52,12 @@ def test_doc_constructor(invoice_v4_doc_object):
     for line_item in invoice_v4_doc_object.line_items:
         assert line_item.page_n == 0 or line_item.page_n == 1
         assert len(line_item.polygon) == 4
-    doc_str = open(f"{INVOICE_DATA_DIR}/response_v4/doc_to_string.txt").read().strip()
+    doc_str = open(f"{INVOICE_DATA_DIR}/response_v4/doc_to_string.rst").read().strip()
     assert str(invoice_v4_doc_object) == doc_str
 
 
 def test_page_constructor(invoice_v4_page_object):
-    doc_str = open(f"{INVOICE_DATA_DIR}/response_v4/page0_to_string.txt").read().strip()
+    doc_str = open(f"{INVOICE_DATA_DIR}/response_v4/page0_to_string.rst").read().strip()
     assert invoice_v4_page_object.orientation.value == 0
     assert invoice_v4_page_object.invoice_number.page_n == 0
     assert str(invoice_v4_page_object) == doc_str

@@ -1,11 +1,11 @@
-from typing import List, Optional, TypeVar
+from typing import Optional, TypeVar
 
 from mindee.documents.base import Document, TypeApiPrediction, clean_out_string
 from mindee.fields.amount import AmountField
 from mindee.fields.classification import ClassificationField
 from mindee.fields.date import DateField
 from mindee.fields.locale import LocaleField
-from mindee.fields.tax import TaxField
+from mindee.fields.tax import Taxes
 from mindee.fields.text import TextField
 
 
@@ -26,7 +26,7 @@ class ReceiptV4(Document):
     """Whether the document is an expense receipt or a credit card receipt."""
     supplier: TextField
     """The merchant, or supplier, as found on the receipt."""
-    taxes: List[TaxField]
+    taxes: Taxes
     """List of all taxes."""
     total_tax: AmountField
     """Total tax amount of the purchase."""
@@ -82,35 +82,25 @@ class ReceiptV4(Document):
             api_prediction["supplier"], value_key="value", page_n=page_n
         )
         self.time = TextField(api_prediction["time"], value_key="value", page_n=page_n)
-        self.taxes = [
-            TaxField(
-                tax_prediction,
-                page_n=page_n,
-                value_key="value",
-                rate_key="rate",
-                code_key="code",
-            )
-            for tax_prediction in api_prediction["taxes"]
-        ]
+        self.taxes = Taxes(api_prediction["taxes"], page_id=page_n)
 
     def __str__(self) -> str:
-        taxes = "\n       ".join(f"{t}" for t in self.taxes)
         return clean_out_string(
-            "----- Receipt V4 -----\n"
-            f"Filename: {self.filename or ''}\n"
-            f"Total amount: {self.total_amount}\n"
-            f"Total net: {self.total_net}\n"
-            f"Tip: {self.tip}\n"
-            f"Date: {self.date}\n"
-            f"Category: {self.category}\n"
-            f"Subcategory: {self.subcategory}\n"
-            f"Document type: {self.document_type}\n"
-            f"Time: {self.time}\n"
-            f"Supplier name: {self.supplier}\n"
-            f"Taxes: {taxes}\n"
-            f"Total taxes: {self.total_tax}\n"
-            f"Locale: {self.locale}\n"
-            "----------------------"
+            "Receipt V4 Prediction\n"
+            "=====================\n"
+            f":Filename: {self.filename or ''}\n"
+            f":Total amount: {self.total_amount}\n"
+            f":Total net: {self.total_net}\n"
+            f":Tip: {self.tip}\n"
+            f":Date: {self.date}\n"
+            f":Category: {self.category}\n"
+            f":Subcategory: {self.subcategory}\n"
+            f":Document type: {self.document_type}\n"
+            f":Time: {self.time}\n"
+            f":Supplier name: {self.supplier}\n"
+            f":Taxes: {self.taxes}\n"
+            f":Total tax: {self.total_tax}\n"
+            f":Locale: {self.locale}"
         )
 
     def _checklist(self) -> None:

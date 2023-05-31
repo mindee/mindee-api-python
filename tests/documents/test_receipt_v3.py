@@ -31,7 +31,7 @@ def test_doc_constructor(receipt_v3_doc_object):
     assert receipt_v3_doc_object.date.value == "2016-02-26"
     assert receipt_v3_doc_object.total_tax.value == 1.7
     assert receipt_v3_doc_object.checklist["taxes_match_total_incl"] is True
-    doc_str = open(f"{RECEIPT_DATA_DIR}/response_v3/doc_to_string.txt").read().strip()
+    doc_str = open(f"{RECEIPT_DATA_DIR}/response_v3/doc_to_string.rst").read().strip()
     assert receipt_v3_doc_object.date.page_n == 0
     assert str(receipt_v3_doc_object) == doc_str
 

@@ -50,9 +50,9 @@ class ReceiptV5LineItem(FieldPositionMixin):
         if len(description) > 32:
             description = description[:32] + "..."
         row = [
-            float_to_string(self.quantity),
-            float_to_string(self.unit_price),
-            float_to_string(self.total_amount),
             description,
+            float_to_string(self.quantity),
+            float_to_string(self.total_amount),
+            float_to_string(self.unit_price),
         ]
-        return "| {:<8} | {:<8} | {:<9} | {:<34} |".format(*row)
+        return "| {:<36} | {:<8} | {:<12} | {:<10} |".format(*row)

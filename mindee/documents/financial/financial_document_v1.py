@@ -8,7 +8,7 @@ from mindee.fields.company_registration import CompanyRegistrationField
 from mindee.fields.date import DateField
 from mindee.fields.locale import LocaleField
 from mindee.fields.payment_details import PaymentDetails
-from mindee.fields.tax import TaxField
+from mindee.fields.tax import Taxes
 from mindee.fields.text import TextField
 
 
@@ -27,7 +27,7 @@ class FinancialDocumentV1(Document):
     """List of Reference numbers including PO number."""
     due_date: DateField
     """Date the invoice is due"""
-    taxes: List[TaxField] = []
+    taxes: Taxes
     """List of all taxes"""
     total_tax: AmountField
     """Sum total of all taxes"""
@@ -117,11 +117,7 @@ class FinancialDocumentV1(Document):
         self.customer_address = TextField(
             api_prediction["customer_address"], page_n=page_n
         )
-
-        self.taxes = [
-            TaxField(tax_prediction, page_n=page_n, value_key="value")
-            for tax_prediction in api_prediction["taxes"]
-        ]
+        self.taxes = Taxes(api_prediction["taxes"], page_id=page_n)
         self.supplier_payment_details = [
             PaymentDetails(payment_detail, page_n=page_n)
             for payment_detail in api_prediction["supplier_payment_details"]
@@ -143,6 +139,15 @@ class FinancialDocumentV1(Document):
             api_prediction["subcategory"], page_n=page_n
         )
 
+    @staticmethod
+    def _line_items_separator(char: str):
+        out_str = "  "
+        out_str += f"+{char * 38}"
+        out_str += f"+{char * 10}"
+        out_str += f"+{char * 14}"
+        out_str += f"+{char * 12}"
+        return out_str + "+"
+
     def __str__(self) -> str:
         supplier_company_registrations = "; ".join(
             [str(n.value) for n in self.supplier_company_registrations]
@@ -154,38 +159,38 @@ class FinancialDocumentV1(Document):
         payment_details = "\n                          ".join(
             [str(p) for p in self.supplier_payment_details]
         )
-        taxes = "\n       ".join(f"{t}" for t in self.taxes)
         line_items = "\n"
         if self.line_items:
             line_items = "\n  Code           | QTY    | Price   | Amount   | Tax (Rate)       | Description\n"
             for item in self.line_items:
                 line_items += f"  {item}\n"
+
         return clean_out_string(
-            "----- Financial Document V1 -----\n"
-            f"Filename: {self.filename or ''}\n"
-            f"Document type: {self.document_type}\n"
-            f"Category: {self.category}\n"
-            f"Subcategory: {self.subcategory}\n"
-            f"Locale: {self.locale}\n"
-            f"Invoice number: {self.invoice_number}\n"
-            f"Reference numbers: {reference_numbers}\n"
-            f"Date: {self.date}\n"
-            f"Due date: {self.due_date}\n"
-            f"Time: {self.time}\n"
-            f"Supplier name: {self.supplier_name}\n"
-            f"Supplier address: {self.supplier_address}\n"
-            f"Supplier company registrations: {supplier_company_registrations}\n"
-            f"Supplier payment details: {payment_details}\n"
-            f"Customer name: {self.customer_name}\n"
-            f"Customer address: {self.customer_address}\n"
-            f"Customer company registrations: {customer_company_registrations}\n"
-            f"Tip: {self.tip}\n"
-            f"Taxes: {taxes}\n"
-            f"Total tax: {self.total_tax}\n"
-            f"Total net: {self.total_net}\n"
-            f"Total amount: {self.total_amount}\n"
-            f"Line Items: {line_items}"
-            "----------------------"
+            "Financial Document V1 Prediction\n"
+            "================================\n"
+            f":Filename: {self.filename or ''}\n"
+            f":Document type: {self.document_type}\n"
+            f":Category: {self.category}\n"
+            f":Subcategory: {self.subcategory}\n"
+            f":Locale: {self.locale}\n"
+            f":Invoice number: {self.invoice_number}\n"
+            f":Reference numbers: {reference_numbers}\n"
+            f":Date: {self.date}\n"
+            f":Due date: {self.due_date}\n"
+            f":Time: {self.time}\n"
+            f":Supplier name: {self.supplier_name}\n"
+            f":Supplier address: {self.supplier_address}\n"
+            f":Supplier company registrations: {supplier_company_registrations}\n"
+            f":Supplier payment details: {payment_details}\n"
+            f":Customer name: {self.customer_name}\n"
+            f":Customer address: {self.customer_address}\n"
+            f":Customer company registrations: {customer_company_registrations}\n"
+            f":Tip: {self.tip}\n"
+            f":Taxes: {self.taxes}\n"
+            f":Total tax: {self.total_tax}\n"
+            f":Total net: {self.total_net}\n"
+            f":Total amount: {self.total_amount}\n"
+            f":Line Items: {line_items}"
         )
 
     def _checklist(self) -> None:
