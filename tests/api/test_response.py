@@ -3,12 +3,14 @@ import json
 import pytest
 
 from mindee import Client
+from mindee.documents import (
+    FinancialDocumentV1,
+    InvoiceV3,
+    PassportV1,
+    ReceiptV3,
+    ReceiptV4,
+)
 from mindee.documents.base import Document
-from mindee.documents.financial.financial_document_v1 import FinancialDocumentV1
-from mindee.documents.invoice.invoice_v3 import InvoiceV3
-from mindee.documents.passport.passport_v1 import PassportV1
-from mindee.documents.receipt.receipt_v3 import ReceiptV3
-from mindee.documents.receipt.receipt_v4 import ReceiptV4
 from mindee.endpoints import OTS_OWNER
 from mindee.input.sources import PathInput
 from mindee.response import PredictResponse
