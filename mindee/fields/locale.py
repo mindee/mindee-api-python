@@ -14,23 +14,23 @@ class LocaleField(BaseField):
     def __init__(
         self,
         prediction: TypePrediction,
-        value_key: str = "value",
         reconstructed: bool = False,
-        page_n: Optional[int] = None,
+        page_id: Optional[int] = None,
     ):
         """
         Locale field object.
 
         :param prediction: Locale prediction object from HTTP response
-        :param value_key: Key to use in the locale_prediction dict
         :param reconstructed: Bool for reconstructed object (not extracted in the API)
-        :param page_n: Page number for multi-page document
+        :param page_id: Page number for multi-page document
         """
+        value_key = "value" if "value" in prediction else "language"
+
         super().__init__(
             prediction,
             value_key=value_key,
             reconstructed=reconstructed,
-            page_n=page_n,
+            page_n=page_id,
         )
         self.language = self._get_value(prediction, "language")
         self.country = self._get_value(prediction, "country")

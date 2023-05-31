@@ -46,15 +46,15 @@ class BankAccountDetailsV1(Document):
         """
         self.iban = TextField(
             api_prediction["iban"],
-            page_n=page_n,
+            page_id=page_n,
         )
         self.account_holder_name = TextField(
             api_prediction["account_holder_name"],
-            page_n=page_n,
+            page_id=page_n,
         )
         self.swift = TextField(
             api_prediction["swift"],
-            page_n=page_n,
+            page_id=page_n,
         )
 
     def __str__(self) -> str:

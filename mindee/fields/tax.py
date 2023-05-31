@@ -66,11 +66,12 @@ class TaxField(FieldPositionMixin, BaseField):
             self.confidence = 0.0
 
     def _printable_values(self) -> Dict[str, str]:
+        """Return values for printing."""
         return {
             "code": self.code if self.code is not None else "",
-            "basis": float_to_string(self.basis) if self.basis is not None else "",
-            "rate": float_to_string(self.rate) if self.rate is not None else "",
-            "value": float_to_string(self.value) if self.value is not None else "",
+            "basis": float_to_string(self.basis),
+            "rate": float_to_string(self.rate),
+            "value": float_to_string(self.value),
         }
 
     def to_table_line(self) -> str:

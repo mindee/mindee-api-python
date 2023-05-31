@@ -48,20 +48,20 @@ class CarteVitaleV1(Document):
         :param page_n: Page number
         """
         self.given_names = [
-            TextField(prediction, page_n=page_n)
+            TextField(prediction, page_id=page_n)
             for prediction in api_prediction["given_names"]
         ]
         self.surname = TextField(
             api_prediction["surname"],
-            page_n=page_n,
+            page_id=page_n,
         )
         self.social_security = TextField(
             api_prediction["social_security"],
-            page_n=page_n,
+            page_id=page_n,
         )
         self.issuance_date = DateField(
             api_prediction["issuance_date"],
-            page_n=page_n,
+            page_id=page_n,
         )
 
     def __str__(self) -> str:

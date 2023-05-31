@@ -70,22 +70,22 @@ class PassportV1(Document):
         :param api_prediction: Raw prediction from HTTP response
         :param page_n: Page number for multi pages pdf input
         """
-        self.country = TextField(api_prediction["country"], page_n=page_n)
-        self.id_number = TextField(api_prediction["id_number"], page_n=page_n)
-        self.birth_date = DateField(api_prediction["birth_date"], page_n=page_n)
-        self.expiry_date = DateField(api_prediction["expiry_date"], page_n=page_n)
-        self.issuance_date = DateField(api_prediction["issuance_date"], page_n=page_n)
-        self.birth_place = TextField(api_prediction["birth_place"], page_n=page_n)
-        self.gender = TextField(api_prediction["gender"], page_n=page_n)
-        self.surname = TextField(api_prediction["surname"], page_n=page_n)
-        self.mrz1 = TextField(api_prediction["mrz1"], page_n=page_n)
-        self.mrz2 = TextField(api_prediction["mrz2"], page_n=page_n)
+        self.country = TextField(api_prediction["country"], page_id=page_n)
+        self.id_number = TextField(api_prediction["id_number"], page_id=page_n)
+        self.birth_date = DateField(api_prediction["birth_date"], page_id=page_n)
+        self.expiry_date = DateField(api_prediction["expiry_date"], page_id=page_n)
+        self.issuance_date = DateField(api_prediction["issuance_date"], page_id=page_n)
+        self.birth_place = TextField(api_prediction["birth_place"], page_id=page_n)
+        self.gender = TextField(api_prediction["gender"], page_id=page_n)
+        self.surname = TextField(api_prediction["surname"], page_id=page_n)
+        self.mrz1 = TextField(api_prediction["mrz1"], page_id=page_n)
+        self.mrz2 = TextField(api_prediction["mrz2"], page_id=page_n)
         self.given_names = [
-            TextField(given_name, page_n=page_n)
+            TextField(given_name, page_id=page_n)
             for given_name in api_prediction["given_names"]
         ]
-        self.mrz = TextField({"value": None, "confidence": 0.0}, page_n=page_n)
-        self.full_name = TextField({"value": None, "confidence": 0.0}, page_n=page_n)
+        self.mrz = TextField({"value": None, "confidence": 0.0}, page_id=page_n)
+        self.full_name = TextField({"value": None, "confidence": 0.0}, page_id=page_n)
 
     def __str__(self) -> str:
         given_names = " ".join(

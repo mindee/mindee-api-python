@@ -41,7 +41,7 @@ class LicensePlateV1(Document):
         :param page_n: Page number
         """
         self.license_plates = [
-            TextField(prediction, page_n=page_n)
+            TextField(prediction, page_id=page_n)
             for prediction in api_prediction["license_plates"]
         ]
 

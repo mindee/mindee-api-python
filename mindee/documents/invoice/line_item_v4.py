@@ -1,6 +1,11 @@
 from typing import Optional
 
-from mindee.fields.base import FieldPositionMixin, TypePrediction, float_to_string
+from mindee.fields.base import (
+    FieldPositionMixin,
+    TypePrediction,
+    float_to_string,
+    to_opt_float,
+)
 
 
 class InvoiceLineItemV4(FieldPositionMixin):
@@ -26,33 +31,27 @@ class InvoiceLineItemV4(FieldPositionMixin):
     def __init__(
         self,
         prediction: TypePrediction,
-        page_n: Optional[int] = None,
+        page_id: Optional[int] = None,
     ):
         self._set_position(prediction)
 
-        if page_n is None:
+        if page_id is None:
             self.page_n = prediction["page_id"]
         else:
-            self.page_n = page_n
+            self.page_n = page_id
 
         try:
             self.confidence = float(prediction["confidence"])
         except (KeyError, TypeError):
             pass
 
-        def to_opt_float(key: str) -> Optional[float]:
-            try:
-                return float(prediction[key])
-            except TypeError:
-                return None
-
         self.product_code = prediction["product_code"]
         self.description = prediction["description"]
-        self.quantity = to_opt_float("quantity")
-        self.unit_price = to_opt_float("unit_price")
-        self.total_amount = to_opt_float("total_amount")
-        self.tax_rate = to_opt_float("tax_rate")
-        self.tax_amount = to_opt_float("tax_amount")
+        self.quantity = to_opt_float(prediction, "quantity")
+        self.unit_price = to_opt_float(prediction, "unit_price")
+        self.total_amount = to_opt_float(prediction, "total_amount")
+        self.tax_rate = to_opt_float(prediction, "tax_rate")
+        self.tax_amount = to_opt_float(prediction, "tax_amount")
 
     def __str__(self) -> str:
         tax = float_to_string(self.tax_amount)

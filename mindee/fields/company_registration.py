@@ -12,9 +12,9 @@ class CompanyRegistrationField(FieldPositionMixin, BaseField):
         prediction: TypePrediction,
         value_key: str = "value",
         reconstructed: bool = False,
-        page_n: Optional[int] = None,
+        page_id: Optional[int] = None,
     ):
-        super().__init__(prediction, value_key, reconstructed, page_n)
+        super().__init__(prediction, value_key, reconstructed, page_id)
         self.type = prediction["type"]
         self._set_position(prediction)
 

@@ -22,7 +22,7 @@ class PaymentDetails(FieldPositionMixin, BaseField):
         routing_number_key: str = "routing_number",
         swift_key: str = "swift",
         reconstructed: bool = False,
-        page_n: Optional[int] = None,
+        page_id: Optional[int] = None,
     ):
         """
         Payment details field object.
@@ -36,13 +36,13 @@ class PaymentDetails(FieldPositionMixin, BaseField):
             payment_details_prediction dict
         :param swift_key: Key to use for getting the SWIFT  in the payment_details_prediction dict
         :param reconstructed: Bool for reconstructed object (not extracted in the API)
-        :param page_n: Page number for multi-page document
+        :param page_id: Page number for multi-page document
         """
         super().__init__(
             prediction,
             value_key=value_key,
             reconstructed=reconstructed,
-            page_n=page_n,
+            page_n=page_id,
         )
 
         self._set_position(prediction)

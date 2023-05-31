@@ -55,13 +55,17 @@ class BankCheckV1(Document):
         :param api_prediction: Raw prediction from HTTP response
         :param page_n: Page number for multi pages pdf input
         """
-        self.routing_number = TextField(api_prediction["routing_number"], page_n=page_n)
-        self.account_number = TextField(api_prediction["account_number"], page_n=page_n)
-        self.check_number = TextField(api_prediction["check_number"], page_n=page_n)
-        self.date = DateField(api_prediction["date"], page_n=page_n)
-        self.amount = AmountField(api_prediction["amount"], page_n=page_n)
+        self.routing_number = TextField(
+            api_prediction["routing_number"], page_id=page_n
+        )
+        self.account_number = TextField(
+            api_prediction["account_number"], page_id=page_n
+        )
+        self.check_number = TextField(api_prediction["check_number"], page_id=page_n)
+        self.date = DateField(api_prediction["date"], page_id=page_n)
+        self.amount = AmountField(api_prediction["amount"], page_id=page_n)
         self.payees = [
-            TextField(payee, page_n=page_n) for payee in api_prediction["payees"]
+            TextField(payee, page_id=page_n) for payee in api_prediction["payees"]
         ]
         self.check_position = PositionField(
             api_prediction["check_position"], page_n=page_n

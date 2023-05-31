@@ -1,7 +1,6 @@
 from typing import List, Optional, TypeVar
 
 from mindee.documents.base import Document, TypeApiPrediction, clean_out_string
-from mindee.documents.invoice.line_item_v4 import InvoiceLineItemV4
 from mindee.fields.amount import AmountField
 from mindee.fields.classification import ClassificationField
 from mindee.fields.company_registration import CompanyRegistrationField
@@ -11,52 +10,58 @@ from mindee.fields.payment_details import PaymentDetails
 from mindee.fields.tax import Taxes
 from mindee.fields.text import TextField
 
+from .financial_document_v1_line_item import FinancialDocumentV1LineItem
+
 
 class FinancialDocumentV1(Document):
-    locale: LocaleField
-    """locale information"""
-    total_amount: AmountField
-    """Total including taxes"""
-    total_net: AmountField
-    """Total excluding taxes"""
-    date: DateField
-    """Date the invoice was issued"""
-    invoice_number: TextField
-    """Invoice number"""
-    reference_numbers: List[TextField]
-    """List of Reference numbers including PO number."""
-    due_date: DateField
-    """Date the invoice is due"""
-    taxes: Taxes
-    """List of all taxes"""
-    total_tax: AmountField
-    """Sum total of all taxes"""
-    supplier_name: TextField
-    """Supplier 's name"""
-    supplier_address: TextField
-    """Supplier's address"""
-    supplier_company_registrations: List[CompanyRegistrationField]
-    """Company numbers"""
-    customer_name: TextField
-    """Customer's name"""
-    customer_address: TextField
-    """Customer's address"""
-    customer_company_registrations: List[CompanyRegistrationField]
-    """Customer company registration numbers"""
-    supplier_payment_details: List[PaymentDetails]
-    """Payment details"""
-    line_items: List[InvoiceLineItemV4]
-    """Details of line items"""
-    tip: AmountField
-    """Total amount of tip and gratuity."""
-    time: TextField
-    """Time as seen on the receipt in HH:MM format."""
-    document_type: ClassificationField
-    """A classification field, among predefined classes."""
+    """Financial Document v1 prediction results."""
+
     category: ClassificationField
-    """The invoice or receipt category among predefined classes."""
+    """The purchase category among predefined classes."""
+    customer_address: TextField
+    """The address of the customer."""
+    customer_company_registrations: List[CompanyRegistrationField]
+    """List of company registrations associated to the customer."""
+    customer_name: TextField
+    """The name of the customer."""
+    date: DateField
+    """The date the purchase was made."""
+    document_type: ClassificationField
+    """One of: 'INVOICE', 'CREDIT NOTE', 'CREDIT CARD RECEIPT', 'EXPENSE RECEIPT'."""
+    due_date: DateField
+    """The date on which the payment is due."""
+    invoice_number: TextField
+    """The invoice number or identifier."""
+    line_items: List[FinancialDocumentV1LineItem]
+    """List of line item details."""
+    locale: LocaleField
+    """The locale detected on the document."""
+    reference_numbers: List[TextField]
+    """List of Reference numbers, including PO number."""
     subcategory: ClassificationField
-    """The invoice or receipt sub-category among predefined classes."""
+    """The purchase subcategory among predefined classes for transport and food."""
+    supplier_address: TextField
+    """The address of the supplier or merchant."""
+    supplier_company_registrations: List[CompanyRegistrationField]
+    """List of company registrations associated to the supplier."""
+    supplier_name: TextField
+    """The name of the supplier or merchant."""
+    supplier_payment_details: List[PaymentDetails]
+    """List of payment details associated to the supplier."""
+    supplier_phone_number: TextField
+    """The phone number of the supplier or merchant."""
+    taxes: Taxes
+    """List of tax lines information."""
+    time: TextField
+    """The time the purchase was made."""
+    tip: AmountField
+    """The total amount of tip and gratuity"""
+    total_amount: AmountField
+    """The total amount paid: includes taxes, tips, fees, and other charges."""
+    total_net: AmountField
+    """The net amount paid: does not include taxes, fees, and discounts."""
+    total_tax: AmountField
+    """The total amount of taxes."""
 
     def __init__(
         self,
@@ -65,18 +70,15 @@ class FinancialDocumentV1(Document):
         page_n: Optional[int] = None,
     ):
         """
-        Union of `Invoice` and `Receipt`.
+        Financial Document v1 prediction results.
 
         :param api_prediction: Raw prediction from HTTP response
         :param input_source: Input object
-        :param page_n: Page number for multi-page PDF input
+        :param page_n: Page number for multi pages pdf input
         """
-        # need this for building from prediction
-        self.input_file = input_source
-
         super().__init__(
             input_source=input_source,
-            document_type="financial_doc",
+            document_type="financial_document",
             api_prediction=api_prediction,
             page_n=page_n,
         )
@@ -86,115 +88,175 @@ class FinancialDocumentV1(Document):
         self, api_prediction: TypeApiPrediction, page_n: Optional[int] = None
     ) -> None:
         """
-        Build the document from an API response JSON.
+        Build the object from the prediction API JSON.
 
         :param api_prediction: Raw prediction from HTTP response
-        :param page_n: Page number for multi pages pdf input
+        :param page_n: Page number
         """
-        self.supplier_company_registrations = [
-            CompanyRegistrationField(field_dict, page_n=page_n)
-            for field_dict in api_prediction["supplier_company_registrations"]
+        self.category = ClassificationField(
+            api_prediction["category"],
+            page_id=page_n,
+        )
+        self.customer_address = TextField(
+            api_prediction["customer_address"],
+            page_id=page_n,
+        )
+        self.customer_company_registrations = [
+            CompanyRegistrationField(prediction, page_id=page_n)
+            for prediction in api_prediction["customer_company_registrations"]
         ]
-        self.date = DateField(api_prediction["date"], page_n=page_n)
-        self.due_date = DateField(api_prediction["due_date"], page_n=page_n)
-        self.invoice_number = TextField(api_prediction["invoice_number"], page_n=page_n)
-        self.reference_numbers = [
-            TextField(reference_number, page_n=page_n)
-            for reference_number in api_prediction["reference_numbers"]
+        self.customer_name = TextField(
+            api_prediction["customer_name"],
+            page_id=page_n,
+        )
+        self.date = DateField(
+            api_prediction["date"],
+            page_id=page_n,
+        )
+        self.document_type = ClassificationField(
+            api_prediction["document_type"],
+            page_id=page_n,
+        )
+        self.due_date = DateField(
+            api_prediction["due_date"],
+            page_id=page_n,
+        )
+        self.invoice_number = TextField(
+            api_prediction["invoice_number"],
+            page_id=page_n,
+        )
+        self.line_items = [
+            FinancialDocumentV1LineItem(prediction, page_id=page_n)
+            for prediction in api_prediction["line_items"]
         ]
         self.locale = LocaleField(
-            api_prediction["locale"], value_key="language", page_n=page_n
+            api_prediction["locale"],
+            page_id=page_n,
         )
-        self.supplier_name = TextField(api_prediction["supplier_name"], page_n=page_n)
-        self.supplier_address = TextField(
-            api_prediction["supplier_address"], page_n=page_n
-        )
-        self.customer_name = TextField(api_prediction["customer_name"], page_n=page_n)
-        self.customer_company_registrations = [
-            CompanyRegistrationField(field_dict, page_n=page_n)
-            for field_dict in api_prediction["customer_company_registrations"]
+        self.reference_numbers = [
+            TextField(prediction, page_id=page_n)
+            for prediction in api_prediction["reference_numbers"]
         ]
-        self.customer_address = TextField(
-            api_prediction["customer_address"], page_n=page_n
+        self.subcategory = ClassificationField(
+            api_prediction["subcategory"],
+            page_id=page_n,
+        )
+        self.supplier_address = TextField(
+            api_prediction["supplier_address"],
+            page_id=page_n,
+        )
+        self.supplier_company_registrations = [
+            CompanyRegistrationField(prediction, page_id=page_n)
+            for prediction in api_prediction["supplier_company_registrations"]
+        ]
+        self.supplier_name = TextField(
+            api_prediction["supplier_name"],
+            page_id=page_n,
+        )
+        self.supplier_payment_details = [
+            PaymentDetails(prediction, page_id=page_n)
+            for prediction in api_prediction["supplier_payment_details"]
+        ]
+        self.supplier_phone_number = TextField(
+            api_prediction["supplier_phone_number"],
+            page_id=page_n,
         )
         self.taxes = Taxes(api_prediction["taxes"], page_id=page_n)
-        self.supplier_payment_details = [
-            PaymentDetails(payment_detail, page_n=page_n)
-            for payment_detail in api_prediction["supplier_payment_details"]
-        ]
-        self.line_items = [
-            InvoiceLineItemV4(prediction=line_item, page_n=page_n)
-            for line_item in api_prediction["line_items"]
-        ]
-        self.total_amount = AmountField(api_prediction["total_amount"], page_n=page_n)
-        self.total_net = AmountField(api_prediction["total_net"], page_n=page_n)
-        self.total_tax = AmountField(api_prediction["total_tax"], page_n=page_n)
-        self.tip = AmountField(api_prediction["tip"], page_n=page_n)
-        self.time = TextField(api_prediction["time"], page_n=page_n)
-        self.document_type = ClassificationField(
-            api_prediction["document_type"], page_n=page_n
+        self.time = TextField(
+            api_prediction["time"],
+            page_id=page_n,
         )
-        self.category = ClassificationField(api_prediction["category"], page_n=page_n)
-        self.subcategory = ClassificationField(
-            api_prediction["subcategory"], page_n=page_n
+        self.tip = AmountField(
+            api_prediction["tip"],
+            page_id=page_n,
+        )
+        self.total_amount = AmountField(
+            api_prediction["total_amount"],
+            page_id=page_n,
+        )
+        self.total_net = AmountField(
+            api_prediction["total_net"],
+            page_id=page_n,
+        )
+        self.total_tax = AmountField(
+            api_prediction["total_tax"],
+            page_id=page_n,
         )
 
     @staticmethod
-    def _line_items_separator(char: str):
+    def _line_items_separator(char: str) -> str:
         out_str = "  "
         out_str += f"+{char * 38}"
+        out_str += f"+{char * 14}"
         out_str += f"+{char * 10}"
+        out_str += f"+{char * 12}"
+        out_str += f"+{char * 14}"
         out_str += f"+{char * 14}"
         out_str += f"+{char * 12}"
         return out_str + "+"
 
-    def __str__(self) -> str:
-        supplier_company_registrations = "; ".join(
-            [str(n.value) for n in self.supplier_company_registrations]
-        )
-        customer_company_registrations = "; ".join(
-            [str(n.value) for n in self.customer_company_registrations]
-        )
-        reference_numbers = ", ".join([str(n.value) for n in self.reference_numbers])
-        payment_details = "\n                          ".join(
-            [str(p) for p in self.supplier_payment_details]
-        )
-        line_items = "\n"
-        if self.line_items:
-            line_items = "\n  Code           | QTY    | Price   | Amount   | Tax (Rate)       | Description\n"
-            for item in self.line_items:
-                line_items += f"  {item}\n"
+    def _line_items_to_str(self) -> str:
+        if not self.line_items:
+            return ""
 
+        lines = f"\n{self._line_items_separator('-')}\n  ".join(
+            [item.to_table_line() for item in self.line_items]
+        )
+        out_str = ""
+        out_str += f"\n{self._line_items_separator('-')}\n "
+        out_str += " | Description                         "
+        out_str += " | Product code"
+        out_str += " | Quantity"
+        out_str += " | Tax Amount"
+        out_str += " | Tax Rate (%)"
+        out_str += " | Total Amount"
+        out_str += " | Unit Price"
+        out_str += f" |\n{self._line_items_separator('=')}"
+        out_str += f"\n  {lines}"
+        out_str += f"\n{self._line_items_separator('-')}"
+        return out_str
+
+    def __str__(self) -> str:
+        customer_company_registrations = f"\n { ' ' * 31 }".join(
+            [str(item) for item in self.customer_company_registrations],
+        )
+        reference_numbers = f"\n { ' ' * 18 }".join(
+            [str(item) for item in self.reference_numbers],
+        )
+        supplier_company_registrations = f"\n { ' ' * 31 }".join(
+            [str(item) for item in self.supplier_company_registrations],
+        )
+        supplier_payment_details = f"\n { ' ' * 25 }".join(
+            [str(item) for item in self.supplier_payment_details],
+        )
         return clean_out_string(
             "Financial Document V1 Prediction\n"
             "================================\n"
             f":Filename: {self.filename or ''}\n"
-            f":Document type: {self.document_type}\n"
-            f":Category: {self.category}\n"
-            f":Subcategory: {self.subcategory}\n"
             f":Locale: {self.locale}\n"
-            f":Invoice number: {self.invoice_number}\n"
-            f":Reference numbers: {reference_numbers}\n"
-            f":Date: {self.date}\n"
-            f":Due date: {self.due_date}\n"
-            f":Time: {self.time}\n"
-            f":Supplier name: {self.supplier_name}\n"
-            f":Supplier address: {self.supplier_address}\n"
-            f":Supplier company registrations: {supplier_company_registrations}\n"
-            f":Supplier payment details: {payment_details}\n"
-            f":Customer name: {self.customer_name}\n"
-            f":Customer address: {self.customer_address}\n"
-            f":Customer company registrations: {customer_company_registrations}\n"
-            f":Tip: {self.tip}\n"
+            f":Invoice Number: {self.invoice_number}\n"
+            f":Reference Numbers: {reference_numbers}\n"
+            f":Purchase Date: {self.date}\n"
+            f":Due Date: {self.due_date}\n"
+            f":Total Net: {self.total_net}\n"
+            f":Total Amount: {self.total_amount}\n"
             f":Taxes: {self.taxes}\n"
-            f":Total tax: {self.total_tax}\n"
-            f":Total net: {self.total_net}\n"
-            f":Total amount: {self.total_amount}\n"
-            f":Line Items: {line_items}"
+            f":Supplier Payment Details: {supplier_payment_details}\n"
+            f":Supplier name: {self.supplier_name}\n"
+            f":Supplier Company Registrations: {supplier_company_registrations}\n"
+            f":Supplier Address: {self.supplier_address}\n"
+            f":Supplier Phone Number: {self.supplier_phone_number}\n"
+            f":Customer name: {self.customer_name}\n"
+            f":Customer Company Registrations: {customer_company_registrations}\n"
+            f":Customer Address: {self.customer_address}\n"
+            f":Document Type: {self.document_type}\n"
+            f":Purchase Subcategory: {self.subcategory}\n"
+            f":Purchase Category: {self.category}\n"
+            f":Total Tax: {self.total_tax}\n"
+            f":Tip and Gratuity: {self.tip}\n"
+            f":Purchase Time: {self.time}\n"
+            f":Line Items: {self._line_items_to_str()}\n"
         )
-
-    def _checklist(self) -> None:
-        pass
 
 
 TypeFinancialDocumentV1 = TypeVar("TypeFinancialDocumentV1", bound=FinancialDocumentV1)
