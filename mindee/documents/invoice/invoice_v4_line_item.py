@@ -1,6 +1,7 @@
 from typing import Optional
 
 from mindee.fields.base import (
+    FieldConfidenceMixin,
     FieldPositionMixin,
     TypePrediction,
     float_to_string,
@@ -8,7 +9,7 @@ from mindee.fields.base import (
 )
 
 
-class InvoiceLineItemV4(FieldPositionMixin):
+class InvoiceV4LineItem(FieldPositionMixin, FieldConfidenceMixin):
     product_code: Optional[str]
     """The product code referring to the item."""
     description: Optional[str]
@@ -33,17 +34,13 @@ class InvoiceLineItemV4(FieldPositionMixin):
         prediction: TypePrediction,
         page_id: Optional[int] = None,
     ):
+        self._set_confidence(prediction)
         self._set_position(prediction)
 
         if page_id is None:
             self.page_n = prediction["page_id"]
         else:
             self.page_n = page_id
-
-        try:
-            self.confidence = float(prediction["confidence"])
-        except (KeyError, TypeError):
-            pass
 
         self.product_code = prediction["product_code"]
         self.description = prediction["description"]
