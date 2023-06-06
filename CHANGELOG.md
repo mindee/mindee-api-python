@@ -1,8 +1,16 @@
 # Mindee Python API Library Changelog
 
+## v3.9.0 - 2023-06-06
+### Changes
+* :sparkles: add support for financial documents v1.1
+* :sparkles: add support for handling OCR return
+* :recycle: update printing of receipt, invoice, financial doc
+
+
 ## v3.8.2 - 2023-05-23
 ### Changes
 * :recycle: add a specific class for classifications, which are never None
+
 ### Fixes
 * :bug: fix for tax base amount
 
