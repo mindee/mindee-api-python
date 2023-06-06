@@ -3,8 +3,9 @@ from datetime import datetime
 from enum import Enum
 from typing import Any, Dict, Generic, List, Optional, Union
 
-from mindee.documents.base import TypeDocument
+from mindee.documents.base import TypeApiPrediction, TypeDocument
 from mindee.documents.config import DocumentConfig
+from mindee.fields.ocr import Ocr
 from mindee.input.sources import LocalInputSource, UrlInputSource
 from mindee.logger import logger
 
@@ -75,7 +76,7 @@ class PredictResponse(Generic[TypeDocument]):
     This is a generic class, so certain class properties depend on the document type.
     """
 
-    http_response: Dict[str, Any]
+    http_response: TypeApiPrediction
     """Raw HTTP response JSON"""
     document_type: Optional[str] = None
     """Document type"""
@@ -89,6 +90,8 @@ class PredictResponse(Generic[TypeDocument]):
     """An instance of the ``Document`` class, according to the type given."""
     pages: List[TypeDocument]
     """A list of instances of the ``Document`` class, according to the type given."""
+    ocr: Optional[Ocr]
+    """Full OCR operation results."""
 
     def __init__(
         self,
@@ -116,8 +119,17 @@ class PredictResponse(Generic[TypeDocument]):
 
         if not response_ok:
             self.document = None
+            self.ocr = None
         else:
             self._load_response(doc_config, input_source)
+            self.ocr = self._load_ocr(http_response)
+
+    @staticmethod
+    def _load_ocr(http_response: TypeApiPrediction):
+        ocr_prediction = http_response["document"].get("ocr", None)
+        if not ocr_prediction or not ocr_prediction.get("mvision-v1", None):
+            return None
+        return Ocr(ocr_prediction)
 
     def _load_response(
         self,
