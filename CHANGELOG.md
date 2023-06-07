@@ -1,5 +1,10 @@
 # Mindee Python API Library Changelog
 
+## v3.9.1 - 2023-06-07
+### Changes
+* :memo: add documentation for OCR extraction
+
+
 ## v3.9.0 - 2023-06-06
 ### Changes
 * :sparkles: add support for financial documents v1.1
