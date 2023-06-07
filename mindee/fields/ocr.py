@@ -1,33 +1,33 @@
 from typing import List, Optional
 
 from mindee.documents.base import TypeApiPrediction
+from mindee.fields.base import FieldPositionMixin
 from mindee.geometry import (
-    Polygon,
     get_centroid,
     get_min_max_x,
     get_min_max_y,
     is_point_in_polygon_y,
-    polygon_from_prediction,
 )
 
 
-class Word:
+class OcrWord(FieldPositionMixin):
     """A single word."""
 
     confidence: float
-    polygon: Polygon
+    """The confidence score."""
     text: str
+    """The extracted text."""
 
     def __init__(self, prediction: TypeApiPrediction):
         self.confidence = prediction["confidence"]
-        self.polygon = polygon_from_prediction(prediction["polygon"])
         self.text = prediction["text"]
+        self._set_position(prediction)
 
     def __str__(self) -> str:
         return self.text
 
 
-class OcrLine(List[Word]):
+class OcrLine(List[OcrWord]):
     """A list of words which are on the same line."""
 
     def sort_on_x(self) -> None:
@@ -41,18 +41,18 @@ class OcrLine(List[Word]):
 class OcrPage:
     """OCR extraction for a single page."""
 
-    all_words: List[Word]
+    all_words: List[OcrWord]
     """All the words on the page, in semi-random order."""
     _lines: List[OcrLine]
 
     def __init__(self, prediction: TypeApiPrediction):
         self.all_words = [
-            Word(word_prediction) for word_prediction in prediction["all_words"]
+            OcrWord(word_prediction) for word_prediction in prediction["all_words"]
         ]
         self._lines = []
 
     @staticmethod
-    def _are_words_on_same_line(current_word: Word, next_word: Word) -> bool:
+    def _are_words_on_same_line(current_word: OcrWord, next_word: OcrWord) -> bool:
         """Determine if two words are on the same line."""
         current_in_next = is_point_in_polygon_y(
             get_centroid(current_word.polygon),
@@ -66,7 +66,7 @@ class OcrPage:
 
     def _to_lines(self) -> List[OcrLine]:
         """Order all the words on the page into lines."""
-        current: Optional[Word] = None
+        current: Optional[OcrWord] = None
         indexes: List[int] = []
         lines: List[OcrLine] = []
 
@@ -110,6 +110,7 @@ class MVisionV1:
     """Mindee Vision V1."""
 
     pages: List[OcrPage]
+    """List of pages."""
 
     def __init__(self, prediction: TypeApiPrediction):
         self.pages = [
@@ -124,6 +125,7 @@ class Ocr:
     """OCR extraction from the entire document."""
 
     mvision_v1: MVisionV1
+    """Mindee Vision v1 results."""
 
     def __init__(self, prediction: TypeApiPrediction):
         self.mvision_v1 = MVisionV1(prediction["mvision-v1"])
