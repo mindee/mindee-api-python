@@ -51,6 +51,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Off the Shelf</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Common Fields</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#off-the-shelf-documents">Off the Shelf Documents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocr-extraction">OCR Extraction</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="international.html">International</a></li>
@@ -589,6 +590,113 @@
 <dt class="sig sig-object py" id="mindee.fields.position.PositionField.value">
 <span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><a class="reference internal" href="../../utilities/geometry.html#mindee.geometry.Polygon" title="mindee.geometry.Polygon"><code class="xref py py-class docutils literal notranslate"><span class="pre">Polygon</span></code></a><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.fields.position.PositionField.value" title="Permalink to this definition"></a></dt>
 <dd><p>Polygon of cropped area, identical to the <code class="docutils literal notranslate"><span class="pre">polygon</span></code> property.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+<section id="ocr-extraction">
+<h2>OCR Extraction<a class="headerlink" href="#ocr-extraction" title="Permalink to this heading"></a></h2>
+<section id="ocr">
+<h3>OCR<a class="headerlink" href="#ocr" title="Permalink to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.fields.ocr.Ocr">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mindee.fields.ocr.</span></span><span class="sig-name descname"><span class="pre">Ocr</span></span><a class="headerlink" href="#mindee.fields.ocr.Ocr" title="Permalink to this definition"></a></dt>
+<dd><p>OCR extraction from the entire document.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.fields.ocr.Ocr.mvision_v1">
+<span class="sig-name descname"><span class="pre">mvision_v1</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.fields.ocr.MVisionV1" title="mindee.fields.ocr.MVisionV1"><code class="xref py py-class docutils literal notranslate"><span class="pre">MVisionV1</span></code></a></em><a class="headerlink" href="#mindee.fields.ocr.Ocr.mvision_v1" title="Permalink to this definition"></a></dt>
+<dd><p>Mindee Vision v1 results.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="mvisionv1">
+<h3>MVisionV1<a class="headerlink" href="#mvisionv1" title="Permalink to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.fields.ocr.MVisionV1">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mindee.fields.ocr.</span></span><span class="sig-name descname"><span class="pre">MVisionV1</span></span><a class="headerlink" href="#mindee.fields.ocr.MVisionV1" title="Permalink to this definition"></a></dt>
+<dd><p>Mindee Vision V1.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.fields.ocr.MVisionV1.pages">
+<span class="sig-name descname"><span class="pre">pages</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="#mindee.fields.ocr.OcrPage" title="mindee.fields.ocr.OcrPage"><code class="xref py py-class docutils literal notranslate"><span class="pre">OcrPage</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.fields.ocr.MVisionV1.pages" title="Permalink to this definition"></a></dt>
+<dd><p>List of pages.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="ocrpage">
+<h3>OcrPage<a class="headerlink" href="#ocrpage" title="Permalink to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.fields.ocr.OcrPage">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mindee.fields.ocr.</span></span><span class="sig-name descname"><span class="pre">OcrPage</span></span><a class="headerlink" href="#mindee.fields.ocr.OcrPage" title="Permalink to this definition"></a></dt>
+<dd><p>OCR extraction for a single page.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="mindee.fields.ocr.OcrPage.all_lines">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">all_lines</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mindee.fields.ocr.OcrLine" title="mindee.fields.ocr.OcrLine"><span class="pre">OcrLine</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mindee.fields.ocr.OcrPage.all_lines" title="Permalink to this definition"></a></dt>
+<dd><p>All the words on the page, ordered in lines.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.fields.ocr.OcrPage.all_words">
+<span class="sig-name descname"><span class="pre">all_words</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="#mindee.fields.ocr.OcrWord" title="mindee.fields.ocr.OcrWord"><code class="xref py py-class docutils literal notranslate"><span class="pre">OcrWord</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.fields.ocr.OcrPage.all_words" title="Permalink to this definition"></a></dt>
+<dd><p>All the words on the page, in semi-random order.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="ocrline">
+<h3>OcrLine<a class="headerlink" href="#ocrline" title="Permalink to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.fields.ocr.OcrLine">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mindee.fields.ocr.</span></span><span class="sig-name descname"><span class="pre">OcrLine</span></span><a class="headerlink" href="#mindee.fields.ocr.OcrLine" title="Permalink to this definition"></a></dt>
+<dd><p>A list of words which are on the same line.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.fields.ocr.OcrLine.sort_on_x">
+<span class="sig-name descname"><span class="pre">sort_on_x</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.fields.ocr.OcrLine.sort_on_x" title="Permalink to this definition"></a></dt>
+<dd><p>Sort the words on the line from left to right.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="ocrword">
+<h3>OcrWord<a class="headerlink" href="#ocrword" title="Permalink to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.fields.ocr.OcrWord">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mindee.fields.ocr.</span></span><span class="sig-name descname"><span class="pre">OcrWord</span></span><a class="headerlink" href="#mindee.fields.ocr.OcrWord" title="Permalink to this definition"></a></dt>
+<dd><p>A single word.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.fields.ocr.OcrWord.bounding_box">
+<span class="sig-name descname"><span class="pre">bounding_box</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[Quadrilateral]</span></em><a class="headerlink" href="#mindee.fields.ocr.OcrWord.bounding_box" title="Permalink to this definition"></a></dt>
+<dd><p>A right rectangle containing the word in the document.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.fields.ocr.OcrWord.confidence">
+<span class="sig-name descname"><span class="pre">confidence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#mindee.fields.ocr.OcrWord.confidence" title="Permalink to this definition"></a></dt>
+<dd><p>The confidence score.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.fields.ocr.OcrWord.polygon">
+<span class="sig-name descname"><span class="pre">polygon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Polygon</span></em><a class="headerlink" href="#mindee.fields.ocr.OcrWord.polygon" title="Permalink to this definition"></a></dt>
+<dd><p>A polygon containing the word in the document.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.fields.ocr.OcrWord.text">
+<span class="sig-name descname"><span class="pre">text</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#mindee.fields.ocr.OcrWord.text" title="Permalink to this definition"></a></dt>
+<dd><p>The extracted text.</p>
 </dd></dl>
 
 </dd></dl>
