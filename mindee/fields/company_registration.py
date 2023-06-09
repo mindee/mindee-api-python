@@ -4,6 +4,8 @@ from mindee.fields.base import BaseField, FieldPositionMixin, TypePrediction
 
 
 class CompanyRegistrationField(FieldPositionMixin, BaseField):
+    """A company registration item."""
+
     type: str
     """The type of registration."""
 

@@ -25,6 +25,8 @@ ALLOWED_MIME_TYPES = [
 
 
 class InputType(Enum):
+    """The input type, for internal use."""
+
     FILE = "file"
     BASE64 = "base64"
     BYTES = "bytes"
@@ -33,10 +35,12 @@ class InputType(Enum):
 
 
 class MimeTypeError(AssertionError):
-    pass
+    """The MIME Type is not valid."""
 
 
 class LocalInputSource:
+    """Base class for all input sources coming from the local machine."""
+
     file_object: BinaryIO
     filename: str
     file_mimetype: str
@@ -173,6 +177,8 @@ class LocalInputSource:
 
 
 class FileInput(LocalInputSource):
+    """A binary file input."""
+
     def __init__(self, file: BinaryIO):
         """
         Input document from a Python binary file object.
@@ -190,6 +196,8 @@ class FileInput(LocalInputSource):
 
 
 class PathInput(LocalInputSource):
+    """A local path input."""
+
     def __init__(self, filepath: str):
         """
         Input document from a path.
@@ -203,6 +211,8 @@ class PathInput(LocalInputSource):
 
 
 class BytesInput(LocalInputSource):
+    """Raw bytes input."""
+
     def __init__(self, raw_bytes: bytes, filename: str):
         """
         Input document from raw bytes (no buffer).
@@ -217,6 +227,8 @@ class BytesInput(LocalInputSource):
 
 
 class Base64Input(LocalInputSource):
+    """Base64-encoded text input."""
+
     def __init__(self, base64_string: str, filename: str):
         """
         Input document from a base64 encoded string.
@@ -231,7 +243,10 @@ class Base64Input(LocalInputSource):
 
 
 class UrlInputSource:
+    """A local or distant URL input."""
+
     url: str
+    """The Uniform Resource Locator."""
 
     def __init__(self, url: str):
         """

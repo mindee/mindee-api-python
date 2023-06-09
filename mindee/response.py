@@ -11,11 +11,15 @@ from mindee.logger import logger
 
 
 class RequestStatus(Enum):
+    """Possible request statuses."""
+
     FAILURE = "failure"
     SUCCESS = "success"
 
 
 class ApiRequest:
+    """Information on the API request made to the server."""
+
     error: Dict[str, Any]
     resources: List[str]
     status: RequestStatus

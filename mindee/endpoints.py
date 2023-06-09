@@ -193,6 +193,8 @@ class Endpoint:
 
 
 class CustomEndpoint(Endpoint):
+    """Endpoint for all custom documents."""
+
     def training_req_post(
         self, input_source: LocalInputSource, close_file: bool = True
     ) -> requests.Response:
@@ -338,6 +340,8 @@ class CustomEndpoint(Endpoint):
 
 
 class StandardEndpoint(Endpoint):
+    """Endpoint for all standard (OTS) products."""
+
     def __init__(self, url_name: str, version: str, api_key: Optional[str] = None):
         super().__init__(
             owner=OTS_OWNER,

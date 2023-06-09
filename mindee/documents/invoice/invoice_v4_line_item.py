@@ -10,6 +10,8 @@ from mindee.fields.base import (
 
 
 class InvoiceV4LineItem(FieldPositionMixin, FieldConfidenceMixin):
+    """List of line item details."""
+
     product_code: Optional[str]
     """The product code referring to the item."""
     description: Optional[str]

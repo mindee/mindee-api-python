@@ -9,7 +9,10 @@ from mindee.fields.base import (
 
 
 class AmountField(FieldPositionMixin, BaseField):
+    """A field containing an amount value."""
+
     value: Optional[float] = None
+    """The amount value as a float."""
 
     def __init__(
         self,

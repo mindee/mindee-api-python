@@ -8,6 +8,8 @@ from mindee.fields.text import TextField
 
 
 class BankCheckV1(Document):
+    """Bank Check v1 prediction results."""
+
     date: DateField
     """Date the check was issued"""
     amount: AmountField

@@ -14,6 +14,8 @@ TypeDoc = TypeVar("TypeDoc", bound=Document)
 
 @dataclass
 class CommandConfig(Generic[TypeDoc]):
+    """Configuration for a command."""
+
     help: str
     doc_class: TypeDoc
     is_sync: bool = True

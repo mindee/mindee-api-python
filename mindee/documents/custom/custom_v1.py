@@ -5,6 +5,8 @@ from mindee.documents.custom.custom_v1_fields import ClassificationField, ListFi
 
 
 class CustomV1(Document):
+    """Custom document (API Builder) v1 prediction results."""
+
     fields: Dict[str, ListField]
     """Dictionary of all fields in the document"""
     classifications: Dict[str, ClassificationField]

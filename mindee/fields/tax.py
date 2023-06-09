@@ -9,6 +9,8 @@ from mindee.fields.base import (
 
 
 class TaxField(FieldPositionMixin, BaseField):
+    """Tax line information."""
+
     value: Optional[float]
     """The amount of the tax line."""
     rate: Optional[float]
@@ -97,6 +99,8 @@ class TaxField(FieldPositionMixin, BaseField):
 
 
 class Taxes(List[TaxField]):
+    """List of tax lines information."""
+
     @staticmethod
     def _line_separator(char: str):
         out_str = "  "

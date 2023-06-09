@@ -4,6 +4,8 @@ from mindee.fields.base import BaseField, FieldPositionMixin, TypePrediction
 
 
 class TextField(FieldPositionMixin, BaseField):
+    """A field containing a text value."""
+
     value: Optional[str] = None
 
     def __init__(

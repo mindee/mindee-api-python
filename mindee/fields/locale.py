@@ -4,12 +4,14 @@ from mindee.fields.base import BaseField, TypePrediction
 
 
 class LocaleField(BaseField):
+    """The locale detected on the document."""
+
     language: Optional[str] = None
-    """ISO 639-1 language code"""
+    """The ISO 639-1 code of the language."""
     country: Optional[str] = None
-    """ISO 3166-1 alpha-2 country code"""
+    """The ISO 3166-1 alpha-2 code of the country."""
     currency: Optional[str] = None
-    """ISO 4217 currency code"""
+    """The ISO 4217 code of the currency."""
 
     def __init__(
         self,

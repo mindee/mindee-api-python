@@ -8,6 +8,8 @@ from mindee.fields.text import TextField
 
 
 class PassportV1(Document):
+    """Cropper v1 prediction results."""
+
     country: TextField
     """Country of issue"""
     id_number: TextField

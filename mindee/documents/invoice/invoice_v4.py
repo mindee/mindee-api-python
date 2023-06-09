@@ -14,6 +14,8 @@ from mindee.fields.text import TextField
 
 
 class InvoiceV4(Document):
+    """Invoice v4 prediction results."""
+
     locale: LocaleField
     """locale information"""
     document_type: ClassificationField

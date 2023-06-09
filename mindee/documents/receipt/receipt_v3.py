@@ -11,6 +11,8 @@ from mindee.fields.text import TextField
 
 
 class ReceiptV3(Document):
+    """Receipt v3 prediction results."""
+
     locale: LocaleField
     """locale information"""
     total_incl: AmountField

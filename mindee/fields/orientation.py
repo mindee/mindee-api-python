@@ -4,8 +4,10 @@ from mindee.fields.base import BaseField, TypePrediction
 
 
 class OrientationField(BaseField):
+    """The clockwise rotation to apply (in degrees) to make the image upright."""
+
     value: int
-    """Orientation degrees. One of 0, 90, 180, 270"""
+    """Degrees as an integer."""
 
     def __init__(
         self,

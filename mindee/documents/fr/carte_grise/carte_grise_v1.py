@@ -6,6 +6,8 @@ from mindee.fields.text import TextField
 
 
 class CarteGriseV1(Document):
+    """Carte Grise v1 prediction results."""
+
     formula_number: TextField
     """Document formula number"""
     mrz1: TextField

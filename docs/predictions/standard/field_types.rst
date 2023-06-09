@@ -35,8 +35,13 @@ Date Field
     :members:
     :inherited-members:
 
-Tax Field
----------
+List of Taxes
+-------------
+.. autoclass:: mindee.fields.tax.Taxes
+    :members:
+
+Tax Line
+--------
 .. autoclass:: mindee.fields.tax.TaxField
     :members:
     :inherited-members:
