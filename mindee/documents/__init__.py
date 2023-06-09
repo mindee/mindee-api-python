@@ -3,6 +3,7 @@ from mindee.documents.cropper import CropperV1, TypeCropperV1
 from mindee.documents.custom import CustomV1, TypeCustomV1
 from mindee.documents.financial_document import (
     FinancialDocumentV1,
+    FinancialDocumentV1LineItem,
     FinancialV1,
     TypeFinancialDocumentV1,
     TypeFinancialV1,
@@ -15,6 +16,7 @@ from mindee.documents.receipt import (
     ReceiptV3,
     ReceiptV4,
     ReceiptV5,
+    ReceiptV5LineItem,
     TypeReceiptV3,
     TypeReceiptV4,
     TypeReceiptV5,

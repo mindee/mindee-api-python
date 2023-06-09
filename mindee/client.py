@@ -24,6 +24,8 @@ def get_bound_classname(type_var) -> str:
 
 
 class DocumentClient:
+    """PArsing methods for the document."""
+
     input_doc: Optional[Union[LocalInputSource, UrlInputSource]]
     doc_configs: DocumentConfigDict
     raise_on_error: bool = True
@@ -328,6 +330,8 @@ class DocumentClient:
 
 
 class ConfigSpec(NamedTuple):
+    """API Configuration specifications."""
+
     doc_class: Type[Document]
     url_name: str
     version: str

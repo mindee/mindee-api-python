@@ -13,6 +13,8 @@ from mindee.fields.text import TextField
 
 
 class InvoiceV3(Document):
+    """Invoice v3 prediction results."""
+
     locale: LocaleField
     """locale information"""
     document_type: ClassificationField

@@ -40,6 +40,8 @@ class FieldConfidenceMixin:
 
 
 class BaseField(FieldConfidenceMixin):
+    """Base class for most fields."""
+
     value: Optional[Any] = None
     """Raw field value"""
     reconstructed: bool

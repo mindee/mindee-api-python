@@ -4,6 +4,8 @@ from mindee.fields.base import FieldPositionMixin, TypePrediction
 
 
 class ClassificationField:
+    """A classification field."""
+
     value: str
     """The classification value."""
     confidence: float
@@ -18,6 +20,8 @@ class ClassificationField:
 
 
 class ListFieldValue(FieldPositionMixin):
+    """A single value or word."""
+
     content: str
     """The content text"""
     confidence: float = 0.0
@@ -33,6 +37,8 @@ class ListFieldValue(FieldPositionMixin):
 
 
 class ListField:
+    """A list of values or words."""
+
     confidence: float = 0.0
     """Confidence score"""
     reconstructed: bool

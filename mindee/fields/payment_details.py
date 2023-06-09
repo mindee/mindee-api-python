@@ -4,6 +4,8 @@ from mindee.fields.base import BaseField, FieldPositionMixin, TypePrediction
 
 
 class PaymentDetails(FieldPositionMixin, BaseField):
+    """Information on a single payment."""
+
     account_number: Optional[str] = None
     """Account number"""
     iban: Optional[str] = None

@@ -4,7 +4,7 @@ from typing import NamedTuple, Sequence
 
 
 class GeometryError(RuntimeError):
-    pass
+    """An error related to geometry operations."""
 
 
 class Point(NamedTuple):

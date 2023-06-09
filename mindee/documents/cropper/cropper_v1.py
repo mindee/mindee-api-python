@@ -5,6 +5,8 @@ from mindee.fields.position import PositionField
 
 
 class CropperV1(Document):
+    """Cropper v1 prediction results."""
+
     cropping: List[PositionField]
     """List of all detected cropped elements in the image"""
 

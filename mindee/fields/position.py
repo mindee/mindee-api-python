@@ -11,6 +11,8 @@ from mindee.geometry import (
 
 
 class PositionField(BaseField):
+    """A field indicating a position or area on the document."""
+
     value: Optional[Polygon] = None
     """Polygon of cropped area, identical to the ``polygon`` property."""
     polygon: Optional[Polygon] = None

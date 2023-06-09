@@ -8,3 +8,6 @@ Receipt V5
 
 .. autoclass:: mindee.documents.ReceiptV5
     :members:
+
+.. autoclass:: mindee.documents.ReceiptV5LineItem
+    :members:

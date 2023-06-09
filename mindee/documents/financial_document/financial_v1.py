@@ -15,6 +15,8 @@ from mindee.input.sources import LocalInputSource, UrlInputSource
 
 
 class FinancialV1(Document):
+    """DEPRECATED: an invoice or receipt prediction."""
+
     locale: LocaleField
     """locale information"""
     total_incl: AmountField

@@ -7,6 +7,8 @@ _docT = Type[Document]
 
 
 class DocumentConfig:
+    """Configuration for a prediction API."""
+
     document_type: Optional[str]
     endpoints: List[Endpoint]
     document_class: _docT

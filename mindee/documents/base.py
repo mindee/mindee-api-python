@@ -28,6 +28,8 @@ def clean_out_string(out_string: str) -> str:
 
 
 class Document:
+    """Base class for all predictions."""
+
     type: Optional[str]
     """Document type"""
     checklist: dict
