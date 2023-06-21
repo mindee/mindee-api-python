@@ -9,10 +9,11 @@ mindee_client = Client(api_key="my-api-key")
 # Load a file from disk
 input_doc = mindee_client.doc_from_path("/path/to/the/file.ext")
 
-# Parse the document as an Invoice by passing the appropriate type
-api_response = input_doc.parse(documents.TypePassportV1)
+# Parse the Passport by passing the appropriate type
+result = input_doc.parse(documents.TypePassportV1)
 
-print(api_response.document)
+# Print a brief summary of the parsed data
+print(result.document)
 ```
 
 Using this sample fake passport below, we are going to illustrate how to extract the data that we want using the SDK.
@@ -62,14 +63,14 @@ We create the document class by iterating over each page one by one. Each page i
 For example, if you send a three-page passport, the page-level prediction will provide you with three names, three-countries codes, and so on.
 
 ```python
-print(passport_data.pages)
+print(result.pages)
 ```
 
 ### Raw HTTP Response
 Contains the full Mindee API HTTP response object in JSON format
 
 ```python
-receipt_data.http_response # full HTTP request object
+result.http_response # full HTTP request object
 ```
 
 
@@ -103,7 +104,7 @@ Using the above example, the following are the basic fields that can be extracte
 
 ```python
 # To get the passport's owner date of birth
-birth_date = passport_data.document.birth_date.value
+birth_date = result.document.birth_date.value
 print("DOB: ", birth_date)
 ```
 
@@ -111,7 +112,7 @@ print("DOB: ", birth_date)
 
 ```python
 # To get the passport's owner
-birth_place = passport_data.document.birth_place.value
+birth_place = result.document.birth_place.value
 print("birthplace: ", birth_place)
 ```
 
@@ -120,7 +121,7 @@ print("birthplace: ", birth_place)
 
 ```python
 # To get the passport country code
-country_code = passport_data.document.country.value
+country_code = result.document.country.value
 print("passport country code: ", country_code)
 ```
 
@@ -129,7 +130,7 @@ print("passport country code: ", country_code)
 
 ```python
 # To get the passport expiry date
-expiry_date = passport_data.document.expiry_date.value
+expiry_date = result.document.expiry_date.value
 print("expires: ", expiry_date)
 ```
 
@@ -138,7 +139,7 @@ print("expires: ", expiry_date)
 
 ```python
 # To get the passport's owner gender (string among {"M", "F"}
-gender = passport_data.document.gender.value
+gender = result.document.gender.value
 print("gender: ", gender)
 ```
 
@@ -147,7 +148,7 @@ print("gender: ", gender)
 
 ```python
 # To get the list of names
-given_names = passport_data.document.given_names
+given_names = result.document.given_names
 print("Given names: ")
 # Loop on each given name
 for given_name in given_names:
@@ -161,7 +162,7 @@ print(name)
 
 ```python
 # To get the passport id number (string)
-id_number = passport_data.document.id_number.value
+id_number = result.document.id_number.value
 print("passport number: ", id_number)
 ```
 
@@ -170,7 +171,7 @@ print("passport number: ", id_number)
 
 ```python
 # To get the passport date of issuance
-issuance_date = passport_data.document.issuance_date.value
+issuance_date = result.document.issuance_date.value
 print("issued: ", issuance_date)
 ```
 
@@ -179,7 +180,7 @@ print("issued: ", issuance_date)
 
 ```python
 # To get the passport  first line of machine readable zone (string)
-mrz1 = passport_data.document.mrz1.value
+mrz1 = result.document.mrz1.value
 print("mrz1: ", mrz1)
 ```
 
@@ -187,7 +188,7 @@ print("mrz1: ", mrz1)
 
 ```python
 # To get the passport full machine-readable zone (string)
-mrz2 = passport_data.document.mrz2.value
+mrz2 = result.document.mrz2.value
 print("mrz2: ", mrz2)
 ```
 
@@ -195,7 +196,7 @@ print("mrz2: ", mrz2)
 
 ```python
 # To get the passport full machine readable zone (string)
-mrz = passport_data.document.mrz
+mrz = result.document.mrz
 print("mrz: ", mrz)
 ```
 
@@ -204,7 +205,7 @@ print("mrz: ", mrz)
 
 ```python
 # To get the passport's owner surname
-surname = passport_data.document.surname.value
+surname = result.document.surname.value
 print("surname: ", surname)
 ```
 
