@@ -14,38 +14,46 @@ mindee_client = Client(api_key="my-api-key")
 # Load a file from disk
 input_doc = mindee_client.doc_from_path("/path/to/the/file.ext")
 
-# Parse the document as an Invoice by passing the appropriate type
-api_response = input_doc.parse(documents.TypeInvoiceV4)
+# Parse the Invoice by passing the appropriate type
+result = input_doc.parse(documents.TypeInvoiceV4)
 
-print(api_response.document)
+# Print a brief summary of the parsed data
+print(result.document)
 ```
 
 Output:
 ```
------ Invoice V4 -----
-Filename: a74eaa5-c8e283b-sample_invoice.jpeg
-Locale: en; en; CAD;
-Invoice number: 14
-Reference numbers: AD29094
-Invoice date: 2018-09-25
-Invoice due date: 2018-09-25
-Supplier name: TURNPIKE DESIGNS CO.
-Supplier address: 156 University Ave, Toronto ON, Canada M5H 2H7
-Supplier company registrations:
-Supplier payment details:
-Customer name: JIRO DOI
-Customer company registrations:
-Customer address: 1954 Bloon Street West Toronto, ON, M6P 3K9 Canada
-Line Items:
+Invoice V4 Prediction
+=====================
+:Filename:
+:Locale: fr; fr; EUR;
+:Invoice number: 0042004801351
+:Reference numbers: AD29094
+:Invoice date: 2020-02-17
+:Invoice due date: 2020-02-17
+:Supplier name: TURNPIKE DESIGNS CO.
+:Supplier address: 156 University Ave, Toronto ON, Canada M5H 2H7
+:Supplier company registrations: 501124705; FR33501124705
+:Supplier payment details: FR7640254025476501124705368;
+:Customer name: JIRO DOI
+:Customer company registrations: FR00000000000; 111222333
+:Customer address: 1954 Bloon Street West Toronto, ON, M6P 3K9 Canada
+:Line Items:
   Code           | QTY    | Price   | Amount   | Tax (Rate)       | Description
-                 | 1.00   | 65.00   | 65.00    |                  | Platinum web hosting package Dow...
-                 | 3.00   | 2100.00 | 2100.00  |                  | 2 page website design Includes b...
-                 | 1.00   | 250.00  | 250.00   |                  | Mobile designs Includes responsi...
-Taxes: 193.20 8.00%
-Total taxes: 193.20
-Total amount excluding taxes: 2415.00
-Total amount including taxes: 2608.20
-----------------------
+                 |        |         | 4.31     |  (2.10%)         | PQ20 ETIQ ULTRA RESIS METAXXDC
+                 | 1.00   | 65.00   | 75.00    | 10.00            | Platinum web hosting package Dow...
+  XXX81125600010 | 1.00   | 250.01  | 275.51   | 25.50 (10.20%)   | a long string describing the ite...
+  ABC456         | 200.30 | 8.101   | 1622.63  | 121.70 (7.50%)   | Liquid perfection
+                 |        |         |          |                  | CARTOUCHE L NR BROTHER TN247BK
+:Taxes:
+  +---------------+--------+----------+---------------+
+  | Base          | Code   | Rate (%) | Amount        |
+  +===============+========+==========+===============+
+  |               |        | 20.00    | 97.98         |
+  +---------------+--------+----------+---------------+
+:Total tax: 97.98
+:Total net: 489.97
+:Total amount: 587.95
 ```
 
 ## Invoice Data Structure
@@ -64,7 +72,7 @@ Basically, we iterate over each page, and for each field, we keep the one that h
 For example, if you send a three-page invoice, the document level will provide you with one tax, one total, and so on.
 
 ```python
-print(api_response.document)
+print(result.document)
 ```
 
 ### Page Level Prediction
@@ -72,7 +80,7 @@ For page level prediction, in a multi-page pdf we construct the document class b
 
 ```python
 # [InvoiceV4, InvoiceV4 ...]
-invoice_data.pages
+result.pages
 ```
 
 ### Raw HTTP Response
@@ -80,7 +88,7 @@ This contains the full Mindee API HTTP response object in JSON format
 
 ```python
 # full HTTP request object
-invoice_data.http_response
+result.http_response
 ```
 
 ## Extracted Fields
@@ -112,21 +120,21 @@ Depending on the field type, there might be additional attributes that will be e
 
 ```python
 # To get the customer name (string)
-customer_name = invoice_data.document.customer_name.value
+customer_name = result.document.customer_name.value
 ```
 
 - **customer_address**: Customer's address
 
 ```python
 # To get the customer address (string)
-customer_address = invoice_data.document.customer_address.value
+customer_address = result.document.customer_address.value
 ```
 
 - **customer_company_registrations**: Customer Company Registration
 
 ```python
 # To get the customer company registation (string)
-customer_company_registrations = invoice_data.document.customer_company_registrations
+customer_company_registrations = result.document.customer_company_registrations
 
 for customer_company_registration in customer_company_registrations:
     # To get the type of number
@@ -143,14 +151,14 @@ for customer_company_registration in customer_company_registrations:
 
 ```python
 # To get the invoice date of issuance (string)
-invoice_date = invoice_data.document.invoice_date.value
+invoice_date = result.document.invoice_date.value
 ```
 
 - **due_date**: Payment due date of the invoice.
 
 ```python
 # To get the invoice due date (string)
-due_date = invoice_data.document.due_date.value
+due_date = result.document.due_date.value
 ```
 
 ### Locale and Currency
@@ -159,14 +167,14 @@ due_date = invoice_data.document.due_date.value
 
 ```python
 # To get the total language code
-language = invoice_data.document.locale.value
+language = result.document.locale.value
 ```
 
 - **currency** (String): ISO currency code.
 
 ``` python
 # To get the invoice currency code
-currency = invoice_data.document.locale.currency
+currency = result.document.locale.currency
 ```
 
 ### Payment Information
@@ -179,7 +187,7 @@ currency = invoice_data.document.locale.currency
 
 ```python
 # To get the list of payment details
-payment_details = invoice_data.document.payment_details
+payment_details = result.document.payment_details
 
 # Loop on each object
 for payment_detail in payment_details:
@@ -206,7 +214,7 @@ for payment_detail in payment_details:
 
 ```python
 # To get the list of payment details
-reference_numbers = invoice_data.document.reference_numbers
+reference_numbers = result.document.reference_numbers
 
 # Loop on each object
 for reference_number in reference_numbers:
@@ -222,7 +230,7 @@ for reference_number in reference_numbers:
 
 ```python
 # To get the list of company numbers
-supplier_company_registrations = invoice_data.document.supplier_company_registrations
+supplier_company_registrations = result.document.supplier_company_registrations
 
 # Loop on each object
 for company_registration in supplier_company_registrations:
@@ -237,14 +245,14 @@ for company_registration in supplier_company_registrations:
 
 ```python
 # To get the supplier name
-supplier_name = invoice_data.document.supplier_name.value
+supplier_name = result.document.supplier_name.value
 ```
 
 - **supplier_address**: Supplier address as written in the invoice.
 
 ```python
 # To get the supplier address
-supplier_address = invoice_data.document.supplier_address.value
+supplier_address = result.document.supplier_address.value
 ```
 
 ### Taxes
@@ -255,7 +263,7 @@ supplier_address = invoice_data.document.supplier_address.value
 
 ```python
 # To get the list of taxes
-taxes = invoice_data.document.taxes
+taxes = result.document.taxes
 
 # Loop on each Tax field
 for tax in taxes:
@@ -275,21 +283,21 @@ for tax in taxes:
 
 ```python
 # To get the total amount including taxes value (float), ex: 14.24
-total_amount = invoice_data.document.total_amount.value
+total_amount = result.document.total_amount.value
 ```
 
 - **total_net**: Total amount excluding taxes.
 
 ```python
 # To get the total amount excluding taxes value (float), ex: 10.21
-total_net = invoice_data.document.total_net.value
+total_net = result.document.total_net.value
 ```
 
 - **total_tax**: Total tax value from tax lines.
 
 ```python
 # To get the total tax amount value (float), ex: 8.42
-total_tax = invoice_data.document.total_tax.value
+total_tax = result.document.total_tax.value
 ```
 
 ### Line Items
@@ -307,7 +315,7 @@ total_tax = invoice_data.document.total_tax.value
 
 ```python
 # Loop on line items
-for line_item in invoice_data.document.line_items:
+for line_item in result.document.line_items:
    # Show just the description
    print(line_item.description)
 
