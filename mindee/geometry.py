@@ -208,7 +208,7 @@ def get_min_max_x(points: Points) -> MinMax:
 
 def is_point_in_polygon_x(point: Point, polygon: Polygon) -> bool:
     """
-    Determine if the Point is in the Polygon's Y-axis.
+    Determine if the Point is in the Polygon's X-axis.
 
     :param point: Point to compare
     :param polygon: Polygon to look into
@@ -219,7 +219,7 @@ def is_point_in_polygon_x(point: Point, polygon: Polygon) -> bool:
 
 def is_point_in_x(point: Point, min_x: float, max_x: float) -> bool:
     """
-    Determine if the Point is in the Polygon's Y-axis.
+    Determine if the Point is within the X-axis interval.
 
     :param point: Point to compare
     :param min_x: Minimum X-axis value
