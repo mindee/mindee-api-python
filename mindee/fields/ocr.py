@@ -41,14 +41,17 @@ class OcrLine(List[OcrWord]):
 class OcrPage:
     """OCR extraction for a single page."""
 
-    all_words: List[OcrWord]
-    """All the words on the page, in semi-random order."""
+    _all_words: List[OcrWord]
     _lines: List[OcrLine]
 
     def __init__(self, prediction: TypeApiPrediction):
-        self.all_words = [
+        self._all_words = [
             OcrWord(word_prediction) for word_prediction in prediction["all_words"]
         ]
+        # make sure words are sorted from top to bottom
+        self._all_words.sort(
+            key=lambda item: get_min_max_y(item.polygon).min, reverse=False
+        )
         self._lines = []
 
     @staticmethod
@@ -70,14 +73,9 @@ class OcrPage:
         indexes: List[int] = []
         lines: List[OcrLine] = []
 
-        # make sure words are sorted from top to bottom
-        self.all_words.sort(
-            key=lambda item: get_min_max_y(item.polygon).min, reverse=False
-        )
-
-        for _ in self.all_words:
+        for _ in self._all_words:
             line: OcrLine = OcrLine()
-            for idx, word in enumerate(self.all_words):
+            for idx, word in enumerate(self._all_words):
                 if idx in indexes:
                     continue
                 if current is None:
@@ -101,6 +99,11 @@ class OcrPage:
         if not self._lines:
             self._lines = self._to_lines()
         return self._lines
+
+    @property
+    def all_words(self) -> List[OcrWord]:
+        """All the words on the page, in semi-random order."""
+        return self._all_words
 
     def __str__(self) -> str:
         return "\n".join(str(line) for line in self.all_lines) + "\n"
