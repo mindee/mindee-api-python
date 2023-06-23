@@ -44,10 +44,16 @@ python3 -m mindee invoice parse /path/to/invoice.pdf
 python3 -m mindee custom -u pikachu -k xxxxxxx pokemon_card /path/to/card.jpg
 ```
 
-### You can get the full parsed output as well
+### Printing the raw parsed data instead of the summary
 
 ```shell
 python3 -m mindee invoice parse -o parsed /path/to/invoice.pdf
+```
+
+### Extracting all the words using OCR
+
+```shell
+python3 -m mindee invoice parse -t /path/to/invoice.pdf
 ```
 
 ### In the Git repo, there's a helper script for it
