@@ -445,11 +445,6 @@ class Client:
                 version="1",
             ),
             ConfigSpec(
-                doc_class=documents.ShippingContainerV1,
-                url_name="shipping_containers",
-                version="1",
-            ),
-            ConfigSpec(
                 doc_class=documents.eu.LicensePlateV1,
                 url_name="license_plates",
                 version="1",

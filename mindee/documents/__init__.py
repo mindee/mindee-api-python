@@ -25,7 +25,3 @@ from mindee.documents.receipt import (
     TypeReceiptV4,
     TypeReceiptV5,
 )
-from mindee.documents.shipping_container import (
-    ShippingContainerV1,
-    TypeShippingContainerV1,
-)
