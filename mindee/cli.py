@@ -140,7 +140,7 @@ def process_parse(args: Namespace, client: Client, doc_class) -> None:
         parsed_data = input_doc.parse(
             doc_class, include_words=args.include_words, page_options=page_options
         )
-    display_doc(args.output_type, parsed_data)
+    display_doc(args.output_type, args.include_words, parsed_data)
 
 
 def process_parse_queued(args: Namespace, client: Client, doc_class) -> None:
@@ -158,20 +158,25 @@ def process_parse_queued(args: Namespace, client: Client, doc_class) -> None:
             document_class=doc_class, queue_id=args.queue_id
         )
     if parsed_data.job.status == "completed" and parsed_data.document is not None:
-        display_doc(args.output_type, parsed_data.document)
+        display_doc(args.output_type, args.include_words, parsed_data.document)
     else:
         print(parsed_data.job)
 
 
-def display_doc(output_type: str, document_response: PredictResponse):
+def display_doc(output_type: str, include_words: bool, response: PredictResponse):
     """Display the parsed document."""
     if output_type == "raw":
-        print(json.dumps(document_response.http_response, indent=2))
+        print(json.dumps(response.http_response, indent=2))
     elif output_type == "parsed":
-        doc = document_response.document
-        print(json.dumps(doc, indent=2, default=serialize_for_json))
+        if include_words:
+            print(json.dumps(response.ocr, indent=2, default=serialize_for_json))
+        print(json.dumps(response.document, indent=2, default=serialize_for_json))
     else:
-        print(document_response.document)
+        if include_words:
+            print("OCR Begin >>>>>>>>>>\n")
+            print(response.ocr)
+            print("<<<<<<<<<< OCR End\n")
+        print(response.document)
 
 
 def process_parse_enqueue(args: Namespace, client: Client, doc_class) -> None:
