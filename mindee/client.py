@@ -459,6 +459,11 @@ class Client:
                 url_name="invoice_splitter",
                 version="1",
             ),
+            ConfigSpec(
+                doc_class=documents.MaterialCertificateV1,
+                url_name="material_certificate",
+                version="1",
+            ),
         ]
 
         for config in configs:

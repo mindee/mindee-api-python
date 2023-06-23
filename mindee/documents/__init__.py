@@ -10,6 +10,10 @@ from mindee.documents.financial_document import (
 )
 from mindee.documents.invoice import InvoiceV3, InvoiceV4, TypeInvoiceV3, TypeInvoiceV4
 from mindee.documents.invoice_splitter import InvoiceSplitterV1, TypeInvoiceSplitterV1
+from mindee.documents.material_certificate import (
+    MaterialCertificateV1,
+    TypeMaterialCertificateV1,
+)
 from mindee.documents.passport import PassportV1, TypePassportV1
 from mindee.documents.proof_of_address import ProofOfAddressV1, TypeProofOfAddressV1
 from mindee.documents.receipt import (
