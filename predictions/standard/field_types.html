@@ -101,7 +101,8 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.fields.base.BaseField">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mindee.fields.base.</span></span><span class="sig-name descname"><span class="pre">BaseField</span></span><a class="headerlink" href="#mindee.fields.base.BaseField" title="Permalink to this definition"></a></dt>
-<dd><dl class="py attribute">
+<dd><p>Base class for most fields.</p>
+<dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.fields.base.BaseField.confidence">
 <span class="sig-name descname"><span class="pre">confidence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#mindee.fields.base.BaseField.confidence" title="Permalink to this definition"></a></dt>
 <dd><p>The confidence score.</p>
@@ -133,7 +134,8 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.fields.text.TextField">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mindee.fields.text.</span></span><span class="sig-name descname"><span class="pre">TextField</span></span><a class="headerlink" href="#mindee.fields.text.TextField" title="Permalink to this definition"></a></dt>
-<dd><dl class="py attribute">
+<dd><p>A field containing a text value.</p>
+<dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.fields.text.TextField.bounding_box">
 <span class="sig-name descname"><span class="pre">bounding_box</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[Quadrilateral]</span></em><a class="headerlink" href="#mindee.fields.text.TextField.bounding_box" title="Permalink to this definition"></a></dt>
 <dd><p>A right rectangle containing the word in the document.</p>
@@ -177,7 +179,8 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.fields.company_registration.CompanyRegistrationField">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mindee.fields.company_registration.</span></span><span class="sig-name descname"><span class="pre">CompanyRegistrationField</span></span><a class="headerlink" href="#mindee.fields.company_registration.CompanyRegistrationField" title="Permalink to this definition"></a></dt>
-<dd><dl class="py attribute">
+<dd><p>A company registration item.</p>
+<dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.fields.company_registration.CompanyRegistrationField.bounding_box">
 <span class="sig-name descname"><span class="pre">bounding_box</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[Quadrilateral]</span></em><a class="headerlink" href="#mindee.fields.company_registration.CompanyRegistrationField.bounding_box" title="Permalink to this definition"></a></dt>
 <dd><p>A right rectangle containing the word in the document.</p>
@@ -227,7 +230,8 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.fields.amount.AmountField">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mindee.fields.amount.</span></span><span class="sig-name descname"><span class="pre">AmountField</span></span><a class="headerlink" href="#mindee.fields.amount.AmountField" title="Permalink to this definition"></a></dt>
-<dd><dl class="py attribute">
+<dd><p>A field containing an amount value.</p>
+<dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.fields.amount.AmountField.bounding_box">
 <span class="sig-name descname"><span class="pre">bounding_box</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[Quadrilateral]</span></em><a class="headerlink" href="#mindee.fields.amount.AmountField.bounding_box" title="Permalink to this definition"></a></dt>
 <dd><p>A right rectangle containing the word in the document.</p>
@@ -260,7 +264,7 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.fields.amount.AmountField.value">
 <span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.fields.amount.AmountField.value" title="Permalink to this definition"></a></dt>
-<dd><p>Raw field value</p>
+<dd><p>The amount value as a float.</p>
 </dd></dl>
 
 </dd></dl>
@@ -271,7 +275,8 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.fields.date.DateField">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mindee.fields.date.</span></span><span class="sig-name descname"><span class="pre">DateField</span></span><a class="headerlink" href="#mindee.fields.date.DateField" title="Permalink to this definition"></a></dt>
-<dd><dl class="py attribute">
+<dd><p>A field containing a date value.</p>
+<dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.fields.date.DateField.bounding_box">
 <span class="sig-name descname"><span class="pre">bounding_box</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[Quadrilateral]</span></em><a class="headerlink" href="#mindee.fields.date.DateField.bounding_box" title="Permalink to this definition"></a></dt>
 <dd><p>A right rectangle containing the word in the document.</p>
@@ -316,12 +321,22 @@
 </dd></dl>
 
 </section>
-<section id="tax-field">
-<h3>Tax Field<a class="headerlink" href="#tax-field" title="Permalink to this heading"></a></h3>
+<section id="list-of-taxes">
+<h3>List of Taxes<a class="headerlink" href="#list-of-taxes" title="Permalink to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.fields.tax.Taxes">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mindee.fields.tax.</span></span><span class="sig-name descname"><span class="pre">Taxes</span></span><a class="headerlink" href="#mindee.fields.tax.Taxes" title="Permalink to this definition"></a></dt>
+<dd><p>List of tax lines information.</p>
+</dd></dl>
+
+</section>
+<section id="tax-line">
+<h3>Tax Line<a class="headerlink" href="#tax-line" title="Permalink to this heading"></a></h3>
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.fields.tax.TaxField">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mindee.fields.tax.</span></span><span class="sig-name descname"><span class="pre">TaxField</span></span><a class="headerlink" href="#mindee.fields.tax.TaxField" title="Permalink to this definition"></a></dt>
-<dd><dl class="py method">
+<dd><p>Tax line information.</p>
+<dl class="py method">
 <dt class="sig sig-object py" id="mindee.fields.tax.TaxField.to_table_line">
 <span class="sig-name descname"><span class="pre">to_table_line</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.fields.tax.TaxField.to_table_line" title="Permalink to this definition"></a></dt>
 <dd><p>Output in a format suitable for inclusion in an rST table.</p>
@@ -394,7 +409,8 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.fields.locale.LocaleField">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mindee.fields.locale.</span></span><span class="sig-name descname"><span class="pre">LocaleField</span></span><a class="headerlink" href="#mindee.fields.locale.LocaleField" title="Permalink to this definition"></a></dt>
-<dd><dl class="py attribute">
+<dd><p>The locale detected on the document.</p>
+<dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.fields.locale.LocaleField.confidence">
 <span class="sig-name descname"><span class="pre">confidence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#mindee.fields.locale.LocaleField.confidence" title="Permalink to this definition"></a></dt>
 <dd><p>The confidence score.</p>
@@ -403,19 +419,19 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.fields.locale.LocaleField.country">
 <span class="sig-name descname"><span class="pre">country</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.fields.locale.LocaleField.country" title="Permalink to this definition"></a></dt>
-<dd><p>ISO 3166-1 alpha-2 country code</p>
+<dd><p>The ISO 3166-1 alpha-2 code of the country.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.fields.locale.LocaleField.currency">
 <span class="sig-name descname"><span class="pre">currency</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.fields.locale.LocaleField.currency" title="Permalink to this definition"></a></dt>
-<dd><p>ISO 4217 currency code</p>
+<dd><p>The ISO 4217 code of the currency.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.fields.locale.LocaleField.language">
 <span class="sig-name descname"><span class="pre">language</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.fields.locale.LocaleField.language" title="Permalink to this definition"></a></dt>
-<dd><p>ISO 639-1 language code</p>
+<dd><p>The ISO 639-1 code of the language.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -444,7 +460,8 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.fields.orientation.OrientationField">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mindee.fields.orientation.</span></span><span class="sig-name descname"><span class="pre">OrientationField</span></span><a class="headerlink" href="#mindee.fields.orientation.OrientationField" title="Permalink to this definition"></a></dt>
-<dd><dl class="py attribute">
+<dd><p>The clockwise rotation to apply (in degrees) to make the image upright.</p>
+<dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.fields.orientation.OrientationField.confidence">
 <span class="sig-name descname"><span class="pre">confidence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.0</span></em><a class="headerlink" href="#mindee.fields.orientation.OrientationField.confidence" title="Permalink to this definition"></a></dt>
 <dd><p>The confidence score.</p>
@@ -465,7 +482,7 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.fields.orientation.OrientationField.value">
 <span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.fields.orientation.OrientationField.value" title="Permalink to this definition"></a></dt>
-<dd><p>Orientation degrees. One of 0, 90, 180, 270</p>
+<dd><p>Degrees as an integer.</p>
 </dd></dl>
 
 </dd></dl>
@@ -476,7 +493,8 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.fields.payment_details.PaymentDetails">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mindee.fields.payment_details.</span></span><span class="sig-name descname"><span class="pre">PaymentDetails</span></span><a class="headerlink" href="#mindee.fields.payment_details.PaymentDetails" title="Permalink to this definition"></a></dt>
-<dd><dl class="py attribute">
+<dd><p>Information on a single payment.</p>
+<dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.fields.payment_details.PaymentDetails.account_number">
 <span class="sig-name descname"><span class="pre">account_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.fields.payment_details.PaymentDetails.account_number" title="Permalink to this definition"></a></dt>
 <dd><p>Account number</p>
@@ -544,7 +562,8 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.fields.position.PositionField">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mindee.fields.position.</span></span><span class="sig-name descname"><span class="pre">PositionField</span></span><a class="headerlink" href="#mindee.fields.position.PositionField" title="Permalink to this definition"></a></dt>
-<dd><dl class="py attribute">
+<dd><p>A field indicating a position or area on the document.</p>
+<dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.fields.position.PositionField.bounding_box">
 <span class="sig-name descname"><span class="pre">bounding_box</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><a class="reference internal" href="../../utilities/geometry.html#mindee.geometry.Quadrilateral" title="mindee.geometry.Quadrilateral"><code class="xref py py-class docutils literal notranslate"><span class="pre">Quadrilateral</span></code></a><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.fields.position.PositionField.bounding_box" title="Permalink to this definition"></a></dt>
 <dd><p>Straight rectangle of cropped area (does not exceed the canvas)</p>
@@ -640,9 +659,9 @@
 <dd><p>All the words on the page, ordered in lines.</p>
 </dd></dl>
 
-<dl class="py attribute">
+<dl class="py property">
 <dt class="sig sig-object py" id="mindee.fields.ocr.OcrPage.all_words">
-<span class="sig-name descname"><span class="pre">all_words</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="#mindee.fields.ocr.OcrWord" title="mindee.fields.ocr.OcrWord"><code class="xref py py-class docutils literal notranslate"><span class="pre">OcrWord</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.fields.ocr.OcrPage.all_words" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">all_words</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mindee.fields.ocr.OcrWord" title="mindee.fields.ocr.OcrWord"><span class="pre">OcrWord</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mindee.fields.ocr.OcrPage.all_words" title="Permalink to this definition"></a></dt>
 <dd><p>All the words on the page, in semi-random order.</p>
 </dd></dl>
 

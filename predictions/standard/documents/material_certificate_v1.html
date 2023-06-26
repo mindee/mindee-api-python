@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shipping Container V1 &mdash; Mindee Python Client  documentation</title>
+  <title>Material Certificate V1 &mdash; Mindee Python Client  documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -62,9 +62,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Shipping Container V1</li>
+      <li class="breadcrumb-item active">Material Certificate V1</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../../../_sources/predictions/standard/documents/shipping_container_v1.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../../_sources/predictions/standard/documents/material_certificate_v1.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -72,8 +72,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="shipping-container-v1">
-<h1>Shipping Container V1<a class="headerlink" href="#shipping-container-v1" title="Permalink to this heading"></a></h1>
+  <section id="material-certificate-v1">
+<h1>Material Certificate V1<a class="headerlink" href="#material-certificate-v1" title="Permalink to this heading"></a></h1>
 <p><strong>Sample Code:</strong></p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mindee</span> <span class="kn">import</span> <span class="n">Client</span><span class="p">,</span> <span class="n">documents</span>
 
@@ -83,33 +83,33 @@
 <span class="c1"># Load a file from disk</span>
 <span class="n">input_doc</span> <span class="o">=</span> <span class="n">mindee_client</span><span class="o">.</span><span class="n">doc_from_path</span><span class="p">(</span><span class="s2">&quot;/path/to/the/file.ext&quot;</span><span class="p">)</span>
 
-<span class="c1"># Parse the Shipping Container by passing the appropriate type</span>
-<span class="n">result</span> <span class="o">=</span> <span class="n">input_doc</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">documents</span><span class="o">.</span><span class="n">TypeShippingContainerV1</span><span class="p">)</span>
+<span class="c1"># Parse the Material Certificate by passing the appropriate type</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">input_doc</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">documents</span><span class="o">.</span><span class="n">TypeMaterialCertificateV1</span><span class="p">)</span>
 
 <span class="c1"># Print a brief summary of the parsed data</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">document</span><span class="p">)</span>
 </pre></div>
 </div>
 <dl class="py class">
-<dt class="sig sig-object py" id="mindee.documents.ShippingContainerV1">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mindee.documents.</span></span><span class="sig-name descname"><span class="pre">ShippingContainerV1</span></span><a class="headerlink" href="#mindee.documents.ShippingContainerV1" title="Permalink to this definition"></a></dt>
-<dd><p>Shipping Container v1 prediction results.</p>
+<dt class="sig sig-object py" id="mindee.documents.MaterialCertificateV1">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mindee.documents.</span></span><span class="sig-name descname"><span class="pre">MaterialCertificateV1</span></span><a class="headerlink" href="#mindee.documents.MaterialCertificateV1" title="Permalink to this definition"></a></dt>
+<dd><p>Material Certificate v1 prediction results.</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.documents.ShippingContainerV1.owner">
-<span class="sig-name descname"><span class="pre">owner</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.ShippingContainerV1.owner" title="Permalink to this definition"></a></dt>
-<dd><p>The ISO-6346 code for container owner and equipment identifier.</p>
+<dt class="sig sig-object py" id="mindee.documents.MaterialCertificateV1.certificate_type">
+<span class="sig-name descname"><span class="pre">certificate_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.MaterialCertificateV1.certificate_type" title="Permalink to this definition"></a></dt>
+<dd><p>Material Type field is the type of material used in the product, such as metal, plastic, or wood.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.documents.ShippingContainerV1.serial_number">
-<span class="sig-name descname"><span class="pre">serial_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.ShippingContainerV1.serial_number" title="Permalink to this definition"></a></dt>
-<dd><p>ISO-6346 code for container serial number.</p>
+<dt class="sig sig-object py" id="mindee.documents.MaterialCertificateV1.heat_number">
+<span class="sig-name descname"><span class="pre">heat_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.MaterialCertificateV1.heat_number" title="Permalink to this definition"></a></dt>
+<dd><p>Heat Number is a unique identifier assigned to a batch of material produced in a manufacturing process.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.documents.ShippingContainerV1.size_type">
-<span class="sig-name descname"><span class="pre">size_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.ShippingContainerV1.size_type" title="Permalink to this definition"></a></dt>
-<dd><p>ISO 6346 code for container length, height and type.</p>
+<dt class="sig sig-object py" id="mindee.documents.MaterialCertificateV1.norm">
+<span class="sig-name descname"><span class="pre">norm</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.MaterialCertificateV1.norm" title="Permalink to this definition"></a></dt>
+<dd><p>Material Grade field is the designation of the material’s chemical and physical properties.</p>
 </dd></dl>
 
 </dd></dl>

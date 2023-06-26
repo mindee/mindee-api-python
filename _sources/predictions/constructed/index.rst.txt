@@ -17,18 +17,18 @@ Fields
 
 Value List
 ----------
-.. autoclass:: mindee.fields.api_builder.ListField
+.. autoclass:: mindee.documents.custom_v1_fields.ListField
     :members:
     :inherited-members:
 
 Word Value
 ----------
-.. autoclass:: mindee.fields.api_builder.ListFieldValue
+.. autoclass:: mindee.documents.custom_v1_fields.ListFieldValue
     :members:
     :inherited-members:
 
 Classification
 --------------
-.. autoclass:: mindee.fields.api_builder.ClassificationField
+.. autoclass:: mindee.documents.custom_v1_fields.ClassificationField
     :members:
     :inherited-members:

@@ -86,6 +86,7 @@
  | <a href="#J"><strong>J</strong></a>
  | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
+ | <a href="#N"><strong>N</strong></a>
  | <a href="#O"><strong>O</strong></a>
  | <a href="#P"><strong>P</strong></a>
  | <a href="#Q"><strong>Q</strong></a>
@@ -120,7 +121,7 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="predictions/standard/field_types.html#mindee.fields.ocr.OcrPage.all_words">all_words (mindee.fields.ocr.OcrPage attribute)</a>
+      <li><a href="predictions/standard/field_types.html#mindee.fields.ocr.OcrPage.all_words">all_words (mindee.fields.ocr.OcrPage property)</a>
 </li>
       <li><a href="predictions/standard/documents/us/bank_check_v1.html#mindee.documents.us.BankCheckV1.amount">amount (mindee.documents.us.BankCheckV1 attribute)</a>, <a href="predictions/standard/us.html#mindee.documents.us.BankCheckV1.amount">[1]</a>
 </li>
@@ -164,15 +165,19 @@
         <li><a href="predictions/standard/documents/passport_v1.html#mindee.documents.PassportV1.birth_place">(mindee.documents.PassportV1 attribute)</a>, <a href="predictions/standard/international.html#mindee.documents.PassportV1.birth_place">[1]</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="utilities/geometry.html#mindee.geometry.Quadrilateral.bottom_left">bottom_left (mindee.geometry.Quadrilateral attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="utilities/geometry.html#mindee.geometry.Quadrilateral.bottom_right">bottom_right (mindee.geometry.Quadrilateral attribute)</a>
 </li>
-      <li><a href="predictions/standard/field_types.html#mindee.fields.amount.AmountField.bounding_box">bounding_box (mindee.fields.amount.AmountField attribute)</a>
+      <li><a href="predictions/standard/international.html#mindee.documents.FinancialDocumentV1LineItem.bounding_box">bounding_box (mindee.documents.FinancialDocumentV1LineItem attribute)</a>
 
       <ul>
+        <li><a href="predictions/standard/international.html#mindee.documents.ReceiptV5LineItem.bounding_box">(mindee.documents.ReceiptV5LineItem attribute)</a>
+</li>
+        <li><a href="predictions/standard/field_types.html#mindee.fields.amount.AmountField.bounding_box">(mindee.fields.amount.AmountField attribute)</a>
+</li>
         <li><a href="predictions/standard/field_types.html#mindee.fields.company_registration.CompanyRegistrationField.bounding_box">(mindee.fields.company_registration.CompanyRegistrationField attribute)</a>
 </li>
         <li><a href="predictions/standard/field_types.html#mindee.fields.date.DateField.bounding_box">(mindee.fields.date.DateField attribute)</a>
@@ -214,6 +219,8 @@
         <li><a href="predictions/standard/documents/receipt_v5.html#mindee.documents.ReceiptV5.category">(mindee.documents.ReceiptV5 attribute)</a>, <a href="predictions/standard/international.html#mindee.documents.ReceiptV5.category">[1]</a>
 </li>
       </ul></li>
+      <li><a href="predictions/standard/documents/material_certificate_v1.html#mindee.documents.MaterialCertificateV1.certificate_type">certificate_type (mindee.documents.MaterialCertificateV1 attribute)</a>
+</li>
       <li><a href="predictions/standard/documents/us/bank_check_v1.html#mindee.documents.us.BankCheckV1.check_number">check_number (mindee.documents.us.BankCheckV1 attribute)</a>, <a href="predictions/standard/us.html#mindee.documents.us.BankCheckV1.check_number">[1]</a>
 </li>
       <li><a href="predictions/standard/documents/us/bank_check_v1.html#mindee.documents.us.BankCheckV1.check_position">check_position (mindee.documents.us.BankCheckV1 attribute)</a>, <a href="predictions/standard/us.html#mindee.documents.us.BankCheckV1.check_position">[1]</a>
@@ -251,8 +258,6 @@
 </li>
         <li><a href="predictions/standard/international.html#mindee.documents.ReceiptV5.checklist">(mindee.documents.ReceiptV5 attribute)</a>
 </li>
-        <li><a href="predictions/standard/international.html#mindee.documents.ShippingContainerV1.checklist">(mindee.documents.ShippingContainerV1 attribute)</a>
-</li>
         <li><a href="predictions/standard/us.html#mindee.documents.us.BankCheckV1.checklist">(mindee.documents.us.BankCheckV1 attribute)</a>
 </li>
       </ul></li>
@@ -268,9 +273,11 @@
 </li>
       <li><a href="predictions/standard/field_types.html#mindee.fields.company_registration.CompanyRegistrationField">CompanyRegistrationField (class in mindee.fields.company_registration)</a>
 </li>
-      <li><a href="predictions/standard/field_types.html#mindee.fields.amount.AmountField.confidence">confidence (mindee.fields.amount.AmountField attribute)</a>
+      <li><a href="predictions/standard/documents/receipt_v5.html#mindee.documents.ReceiptV5LineItem.confidence">confidence (mindee.documents.ReceiptV5LineItem attribute)</a>, <a href="predictions/standard/international.html#mindee.documents.ReceiptV5LineItem.confidence">[1]</a>
 
       <ul>
+        <li><a href="predictions/standard/field_types.html#mindee.fields.amount.AmountField.confidence">(mindee.fields.amount.AmountField attribute)</a>
+</li>
         <li><a href="predictions/standard/field_types.html#mindee.fields.base.BaseField.confidence">(mindee.fields.base.BaseField attribute)</a>
 </li>
         <li><a href="predictions/standard/field_types.html#mindee.fields.company_registration.CompanyRegistrationField.confidence">(mindee.fields.company_registration.CompanyRegistrationField attribute)</a>
@@ -330,8 +337,6 @@
         <li><a href="predictions/standard/documents/receipt_v4.html#mindee.documents.ReceiptV4.cropper">(mindee.documents.ReceiptV4 attribute)</a>, <a href="predictions/standard/international.html#id3">[1]</a>, <a href="predictions/standard/international.html#mindee.documents.ReceiptV4.cropper">[2]</a>
 </li>
         <li><a href="predictions/standard/international.html#mindee.documents.ReceiptV5.cropper">(mindee.documents.ReceiptV5 attribute)</a>
-</li>
-        <li><a href="predictions/standard/international.html#mindee.documents.ShippingContainerV1.cropper">(mindee.documents.ShippingContainerV1 attribute)</a>
 </li>
         <li><a href="predictions/standard/us.html#mindee.documents.us.BankCheckV1.cropper">(mindee.documents.us.BankCheckV1 attribute)</a>
 </li>
@@ -396,16 +401,22 @@
 </li>
       <li><a href="predictions/standard/documents/proof_of_address_v1.html#mindee.documents.ProofOfAddressV1.dates">dates (mindee.documents.ProofOfAddressV1 attribute)</a>, <a href="predictions/standard/international.html#mindee.documents.ProofOfAddressV1.dates">[1]</a>
 </li>
+      <li><a href="predictions/standard/documents/financial_document_v1.html#mindee.documents.FinancialDocumentV1LineItem.description">description (mindee.documents.FinancialDocumentV1LineItem attribute)</a>, <a href="predictions/standard/international.html#mindee.documents.FinancialDocumentV1LineItem.description">[1]</a>
+
+      <ul>
+        <li><a href="predictions/standard/documents/receipt_v5.html#mindee.documents.ReceiptV5LineItem.description">(mindee.documents.ReceiptV5LineItem attribute)</a>, <a href="predictions/standard/international.html#mindee.documents.ReceiptV5LineItem.description">[1]</a>
+</li>
+      </ul></li>
       <li><a href="client.html#mindee.client.Client.doc_for_async">doc_for_async() (mindee.client.Client method)</a>
 </li>
       <li><a href="client.html#mindee.client.Client.doc_from_b64string">doc_from_b64string() (mindee.client.Client method)</a>
 </li>
       <li><a href="client.html#mindee.client.Client.doc_from_bytes">doc_from_bytes() (mindee.client.Client method)</a>
 </li>
-      <li><a href="client.html#mindee.client.Client.doc_from_file">doc_from_file() (mindee.client.Client method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="client.html#mindee.client.Client.doc_from_file">doc_from_file() (mindee.client.Client method)</a>
+</li>
       <li><a href="client.html#mindee.client.Client.doc_from_path">doc_from_path() (mindee.client.Client method)</a>
 </li>
       <li><a href="client.html#mindee.client.Client.doc_from_url">doc_from_url() (mindee.client.Client method)</a>
@@ -482,6 +493,8 @@
 </li>
       <li><a href="predictions/standard/documents/financial_document_v1.html#mindee.documents.FinancialDocumentV1">FinancialDocumentV1 (class in mindee.documents)</a>, <a href="predictions/standard/international.html#mindee.documents.FinancialDocumentV1">[1]</a>
 </li>
+      <li><a href="predictions/standard/documents/financial_document_v1.html#mindee.documents.FinancialDocumentV1LineItem">FinancialDocumentV1LineItem (class in mindee.documents)</a>, <a href="predictions/standard/international.html#mindee.documents.FinancialDocumentV1LineItem">[1]</a>
+</li>
       <li><a href="predictions/standard/documents/fr/carte_grise_v1.html#mindee.documents.fr.CarteGriseV1.formula_number">formula_number (mindee.documents.fr.CarteGriseV1 attribute)</a>, <a href="predictions/standard/fr.html#mindee.documents.fr.CarteGriseV1.formula_number">[1]</a>
 </li>
       <li><a href="predictions/standard/documents/passport_v1.html#mindee.documents.PassportV1.full_name">full_name (mindee.documents.PassportV1 attribute)</a>, <a href="predictions/standard/international.html#mindee.documents.PassportV1.full_name">[1]</a>
@@ -532,10 +545,12 @@
 <h2 id="H">H</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="utilities/geometry.html#mindee.geometry.BBox.height">height (mindee.geometry.BBox property)</a>
+      <li><a href="predictions/standard/documents/material_certificate_v1.html#mindee.documents.MaterialCertificateV1.heat_number">heat_number (mindee.documents.MaterialCertificateV1 attribute)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="utilities/geometry.html#mindee.geometry.BBox.height">height (mindee.geometry.BBox property)</a>
+</li>
       <li><a href="client.html#mindee.response.PredictResponse.http_response">http_response (mindee.response.PredictResponse attribute)</a>
 </li>
   </ul></td>
@@ -680,6 +695,8 @@
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="predictions/standard/documents/material_certificate_v1.html#mindee.documents.MaterialCertificateV1">MaterialCertificateV1 (class in mindee.documents)</a>
+</li>
       <li><a href="utilities/geometry.html#mindee.geometry.MinMax.max">max (mindee.geometry.MinMax attribute)</a>
 </li>
       <li><a href="client.html#mindee.response.Job.millisecs_taken">millisecs_taken (mindee.response.Job attribute)</a>
@@ -729,6 +746,14 @@
   </ul></td>
 </tr></table>
 
+<h2 id="N">N</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="predictions/standard/documents/material_certificate_v1.html#mindee.documents.MaterialCertificateV1.norm">norm (mindee.documents.MaterialCertificateV1 attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
 <h2 id="O">O</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -742,17 +767,15 @@
 </li>
       <li><a href="predictions/standard/field_types.html#mindee.fields.ocr.OcrWord">OcrWord (class in mindee.fields.ocr)</a>
 </li>
-      <li><a href="client.html#mindee.input.page_options.PageOptions.on_min_pages">on_min_pages (mindee.input.page_options.PageOptions attribute)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="client.html#mindee.input.page_options.PageOptions.on_min_pages">on_min_pages (mindee.input.page_options.PageOptions attribute)</a>
+</li>
       <li><a href="client.html#mindee.input.page_options.PageOptions.operation">operation (mindee.input.page_options.PageOptions attribute)</a>
 </li>
       <li><a href="predictions/base.html#mindee.documents.base.Document.orientation">orientation (mindee.documents.base.Document attribute)</a>
 </li>
       <li><a href="predictions/standard/field_types.html#mindee.fields.orientation.OrientationField">OrientationField (class in mindee.fields.orientation)</a>
-</li>
-      <li><a href="predictions/standard/documents/shipping_container_v1.html#mindee.documents.ShippingContainerV1.owner">owner (mindee.documents.ShippingContainerV1 attribute)</a>, <a href="predictions/standard/international.html#mindee.documents.ShippingContainerV1.owner">[1]</a>
 </li>
       <li><a href="predictions/standard/documents/fr/carte_grise_v1.html#mindee.documents.fr.CarteGriseV1.owner_first_name">owner_first_name (mindee.documents.fr.CarteGriseV1 attribute)</a>, <a href="predictions/standard/fr.html#mindee.documents.fr.CarteGriseV1.owner_first_name">[1]</a>
 </li>
@@ -774,9 +797,13 @@
 </li>
       <li><a href="client.html#mindee.input.page_options.PageOptions.page_indexes">page_indexes (mindee.input.page_options.PageOptions attribute)</a>
 </li>
-      <li><a href="predictions/standard/field_types.html#mindee.fields.amount.AmountField.page_n">page_n (mindee.fields.amount.AmountField attribute)</a>
+      <li><a href="predictions/standard/documents/financial_document_v1.html#mindee.documents.FinancialDocumentV1LineItem.page_n">page_n (mindee.documents.FinancialDocumentV1LineItem attribute)</a>, <a href="predictions/standard/international.html#mindee.documents.FinancialDocumentV1LineItem.page_n">[1]</a>
 
       <ul>
+        <li><a href="predictions/standard/documents/receipt_v5.html#mindee.documents.ReceiptV5LineItem.page_n">(mindee.documents.ReceiptV5LineItem attribute)</a>, <a href="predictions/standard/international.html#mindee.documents.ReceiptV5LineItem.page_n">[1]</a>
+</li>
+        <li><a href="predictions/standard/field_types.html#mindee.fields.amount.AmountField.page_n">(mindee.fields.amount.AmountField attribute)</a>
+</li>
         <li><a href="predictions/standard/field_types.html#mindee.fields.base.BaseField.page_n">(mindee.fields.base.BaseField attribute)</a>
 </li>
         <li><a href="predictions/standard/field_types.html#mindee.fields.company_registration.CompanyRegistrationField.page_n">(mindee.fields.company_registration.CompanyRegistrationField attribute)</a>
@@ -822,9 +849,13 @@
 </li>
       <li><a href="utilities/geometry.html#mindee.geometry.Polygon">Polygon (class in mindee.geometry)</a>
 </li>
-      <li><a href="predictions/standard/field_types.html#mindee.fields.amount.AmountField.polygon">polygon (mindee.fields.amount.AmountField attribute)</a>
+      <li><a href="predictions/standard/international.html#mindee.documents.FinancialDocumentV1LineItem.polygon">polygon (mindee.documents.FinancialDocumentV1LineItem attribute)</a>
 
       <ul>
+        <li><a href="predictions/standard/international.html#mindee.documents.ReceiptV5LineItem.polygon">(mindee.documents.ReceiptV5LineItem attribute)</a>
+</li>
+        <li><a href="predictions/standard/field_types.html#mindee.fields.amount.AmountField.polygon">(mindee.fields.amount.AmountField attribute)</a>
+</li>
         <li><a href="predictions/standard/field_types.html#mindee.fields.company_registration.CompanyRegistrationField.polygon">(mindee.fields.company_registration.CompanyRegistrationField attribute)</a>
 </li>
         <li><a href="predictions/standard/field_types.html#mindee.fields.date.DateField.polygon">(mindee.fields.date.DateField attribute)</a>
@@ -846,6 +877,8 @@
 </li>
       <li><a href="client.html#mindee.response.PredictResponse">PredictResponse (class in mindee.response)</a>
 </li>
+      <li><a href="predictions/standard/documents/financial_document_v1.html#mindee.documents.FinancialDocumentV1LineItem.product_code">product_code (mindee.documents.FinancialDocumentV1LineItem attribute)</a>, <a href="predictions/standard/international.html#mindee.documents.FinancialDocumentV1LineItem.product_code">[1]</a>
+</li>
       <li><a href="predictions/standard/documents/proof_of_address_v1.html#mindee.documents.ProofOfAddressV1">ProofOfAddressV1 (class in mindee.documents)</a>, <a href="predictions/standard/international.html#mindee.documents.ProofOfAddressV1">[1]</a>
 </li>
   </ul></td>
@@ -858,12 +891,18 @@
 </li>
       <li><a href="predictions/standard/field_types.html#mindee.fields.position.PositionField.quadrangle">quadrangle (mindee.fields.position.PositionField attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="utilities/geometry.html#mindee.geometry.Quadrilateral">Quadrilateral (class in mindee.geometry)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="utilities/geometry.html#mindee.geometry.quadrilateral_from_prediction">quadrilateral_from_prediction() (in module mindee.geometry)</a>
 </li>
+      <li><a href="predictions/standard/documents/financial_document_v1.html#mindee.documents.FinancialDocumentV1LineItem.quantity">quantity (mindee.documents.FinancialDocumentV1LineItem attribute)</a>, <a href="predictions/standard/international.html#mindee.documents.FinancialDocumentV1LineItem.quantity">[1]</a>
+
+      <ul>
+        <li><a href="predictions/standard/documents/receipt_v5.html#mindee.documents.ReceiptV5LineItem.quantity">(mindee.documents.ReceiptV5LineItem attribute)</a>, <a href="predictions/standard/international.html#mindee.documents.ReceiptV5LineItem.quantity">[1]</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -875,6 +914,8 @@
       <li><a href="predictions/standard/documents/receipt_v3.html#mindee.documents.ReceiptV4">ReceiptV4 (class in mindee.documents)</a>, <a href="predictions/standard/documents/receipt_v4.html#mindee.documents.ReceiptV4">[1]</a>, <a href="predictions/standard/international.html#id0">[2]</a>, <a href="predictions/standard/international.html#mindee.documents.ReceiptV4">[3]</a>
 </li>
       <li><a href="predictions/standard/documents/receipt_v5.html#mindee.documents.ReceiptV5">ReceiptV5 (class in mindee.documents)</a>, <a href="predictions/standard/international.html#mindee.documents.ReceiptV5">[1]</a>
+</li>
+      <li><a href="predictions/standard/documents/receipt_v5.html#mindee.documents.ReceiptV5LineItem">ReceiptV5LineItem (class in mindee.documents)</a>, <a href="predictions/standard/international.html#mindee.documents.ReceiptV5LineItem">[1]</a>
 </li>
       <li><a href="predictions/standard/documents/proof_of_address_v1.html#mindee.documents.ProofOfAddressV1.recipient_address">recipient_address (mindee.documents.ProofOfAddressV1 attribute)</a>, <a href="predictions/standard/international.html#mindee.documents.ProofOfAddressV1.recipient_address">[1]</a>
 </li>
@@ -932,13 +973,7 @@
 </li>
       <li><a href="predictions/standard/documents/fr/carte_grise_v1.html#mindee.documents.fr.CarteGriseV1.s2">s2 (mindee.documents.fr.CarteGriseV1 attribute)</a>, <a href="predictions/standard/fr.html#mindee.documents.fr.CarteGriseV1.s2">[1]</a>
 </li>
-      <li><a href="predictions/standard/documents/shipping_container_v1.html#mindee.documents.ShippingContainerV1.serial_number">serial_number (mindee.documents.ShippingContainerV1 attribute)</a>, <a href="predictions/standard/international.html#mindee.documents.ShippingContainerV1.serial_number">[1]</a>
-</li>
-      <li><a href="predictions/standard/documents/shipping_container_v1.html#mindee.documents.ShippingContainerV1">ShippingContainerV1 (class in mindee.documents)</a>, <a href="predictions/standard/international.html#mindee.documents.ShippingContainerV1">[1]</a>
-</li>
       <li><a href="predictions/standard/documents/us/bank_check_v1.html#mindee.documents.us.BankCheckV1.signatures_positions">signatures_positions (mindee.documents.us.BankCheckV1 attribute)</a>, <a href="predictions/standard/us.html#mindee.documents.us.BankCheckV1.signatures_positions">[1]</a>
-</li>
-      <li><a href="predictions/standard/documents/shipping_container_v1.html#mindee.documents.ShippingContainerV1.size_type">size_type (mindee.documents.ShippingContainerV1 attribute)</a>, <a href="predictions/standard/international.html#mindee.documents.ShippingContainerV1.size_type">[1]</a>
 </li>
       <li><a href="predictions/standard/documents/fr/carte_vitale_v1.html#mindee.documents.fr.CarteVitaleV1.social_security">social_security (mindee.documents.fr.CarteVitaleV1 attribute)</a>, <a href="predictions/standard/fr.html#mindee.documents.fr.CarteVitaleV1.social_security">[1]</a>
 </li>
@@ -1020,6 +1055,12 @@
 <h2 id="T">T</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="predictions/standard/documents/financial_document_v1.html#mindee.documents.FinancialDocumentV1LineItem.tax_amount">tax_amount (mindee.documents.FinancialDocumentV1LineItem attribute)</a>, <a href="predictions/standard/international.html#mindee.documents.FinancialDocumentV1LineItem.tax_amount">[1]</a>
+</li>
+      <li><a href="predictions/standard/documents/financial_document_v1.html#mindee.documents.FinancialDocumentV1LineItem.tax_rate">tax_rate (mindee.documents.FinancialDocumentV1LineItem attribute)</a>, <a href="predictions/standard/international.html#mindee.documents.FinancialDocumentV1LineItem.tax_rate">[1]</a>
+</li>
+      <li><a href="predictions/standard/field_types.html#mindee.fields.tax.Taxes">Taxes (class in mindee.fields.tax)</a>
+</li>
       <li><a href="predictions/standard/documents/financial_document_v1.html#mindee.documents.FinancialDocumentV1.taxes">taxes (mindee.documents.FinancialDocumentV1 attribute)</a>, <a href="predictions/standard/international.html#mindee.documents.FinancialDocumentV1.taxes">[1]</a>
 
       <ul>
@@ -1054,8 +1095,14 @@
         <li><a href="predictions/standard/documents/receipt_v5.html#mindee.documents.ReceiptV5.tip">(mindee.documents.ReceiptV5 attribute)</a>, <a href="predictions/standard/international.html#mindee.documents.ReceiptV5.tip">[1]</a>
 </li>
       </ul></li>
-      <li><a href="predictions/standard/field_types.html#mindee.fields.tax.TaxField.to_table_line">to_table_line() (mindee.fields.tax.TaxField method)</a>
+      <li><a href="predictions/standard/documents/financial_document_v1.html#mindee.documents.FinancialDocumentV1LineItem.to_table_line">to_table_line() (mindee.documents.FinancialDocumentV1LineItem method)</a>, <a href="predictions/standard/international.html#mindee.documents.FinancialDocumentV1LineItem.to_table_line">[1]</a>
+
+      <ul>
+        <li><a href="predictions/standard/documents/receipt_v5.html#mindee.documents.ReceiptV5LineItem.to_table_line">(mindee.documents.ReceiptV5LineItem method)</a>, <a href="predictions/standard/international.html#mindee.documents.ReceiptV5LineItem.to_table_line">[1]</a>
 </li>
+        <li><a href="predictions/standard/field_types.html#mindee.fields.tax.TaxField.to_table_line">(mindee.fields.tax.TaxField method)</a>
+</li>
+      </ul></li>
       <li><a href="utilities/geometry.html#mindee.geometry.Quadrilateral.top_left">top_left (mindee.geometry.Quadrilateral attribute)</a>
 </li>
       <li><a href="utilities/geometry.html#mindee.geometry.Quadrilateral.top_right">top_right (mindee.geometry.Quadrilateral attribute)</a>
@@ -1063,6 +1110,8 @@
       <li><a href="predictions/standard/documents/financial_document_v1.html#mindee.documents.FinancialDocumentV1.total_amount">total_amount (mindee.documents.FinancialDocumentV1 attribute)</a>, <a href="predictions/standard/international.html#mindee.documents.FinancialDocumentV1.total_amount">[1]</a>
 
       <ul>
+        <li><a href="predictions/standard/documents/financial_document_v1.html#mindee.documents.FinancialDocumentV1LineItem.total_amount">(mindee.documents.FinancialDocumentV1LineItem attribute)</a>, <a href="predictions/standard/international.html#mindee.documents.FinancialDocumentV1LineItem.total_amount">[1]</a>
+</li>
         <li><a href="predictions/standard/documents/invoice_v3.html#mindee.documents.InvoiceV3.total_amount">(mindee.documents.InvoiceV3 attribute)</a>, <a href="predictions/standard/international.html#mindee.documents.InvoiceV3.total_amount">[1]</a>
 </li>
         <li><a href="predictions/standard/documents/invoice_v4.html#mindee.documents.InvoiceV4.total_amount">(mindee.documents.InvoiceV4 attribute)</a>, <a href="predictions/standard/international.html#mindee.documents.InvoiceV4.total_amount">[1]</a>
@@ -1071,7 +1120,11 @@
 </li>
         <li><a href="predictions/standard/documents/receipt_v5.html#mindee.documents.ReceiptV5.total_amount">(mindee.documents.ReceiptV5 attribute)</a>, <a href="predictions/standard/international.html#mindee.documents.ReceiptV5.total_amount">[1]</a>
 </li>
+        <li><a href="predictions/standard/documents/receipt_v5.html#mindee.documents.ReceiptV5LineItem.total_amount">(mindee.documents.ReceiptV5LineItem attribute)</a>, <a href="predictions/standard/international.html#mindee.documents.ReceiptV5LineItem.total_amount">[1]</a>
+</li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="predictions/standard/documents/invoice_v3.html#mindee.documents.InvoiceV3.total_excl">total_excl (mindee.documents.InvoiceV3 property)</a>, <a href="predictions/standard/international.html#mindee.documents.InvoiceV3.total_excl">[1]</a>
 </li>
       <li><a href="predictions/standard/documents/invoice_v3.html#mindee.documents.InvoiceV3.total_incl">total_incl (mindee.documents.InvoiceV3 property)</a>, <a href="predictions/standard/international.html#mindee.documents.InvoiceV3.total_incl">[1]</a>
@@ -1088,8 +1141,6 @@
         <li><a href="predictions/standard/documents/receipt_v5.html#mindee.documents.ReceiptV5.total_net">(mindee.documents.ReceiptV5 attribute)</a>, <a href="predictions/standard/international.html#mindee.documents.ReceiptV5.total_net">[1]</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="predictions/standard/documents/financial_document_v1.html#mindee.documents.FinancialDocumentV1.total_tax">total_tax (mindee.documents.FinancialDocumentV1 attribute)</a>, <a href="predictions/standard/international.html#mindee.documents.FinancialDocumentV1.total_tax">[1]</a>
 
       <ul>
@@ -1133,8 +1184,6 @@
 </li>
         <li><a href="predictions/standard/international.html#mindee.documents.ReceiptV5.type">(mindee.documents.ReceiptV5 attribute)</a>
 </li>
-        <li><a href="predictions/standard/international.html#mindee.documents.ShippingContainerV1.type">(mindee.documents.ShippingContainerV1 attribute)</a>
-</li>
         <li><a href="predictions/standard/us.html#mindee.documents.us.BankCheckV1.type">(mindee.documents.us.BankCheckV1 attribute)</a>
 </li>
         <li><a href="predictions/standard/field_types.html#mindee.fields.company_registration.CompanyRegistrationField.type">(mindee.fields.company_registration.CompanyRegistrationField attribute)</a>
@@ -1148,10 +1197,16 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="predictions/standard/documents/fr/carte_grise_v1.html#mindee.documents.fr.CarteGriseV1.u1">u1 (mindee.documents.fr.CarteGriseV1 attribute)</a>, <a href="predictions/standard/fr.html#mindee.documents.fr.CarteGriseV1.u1">[1]</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="predictions/standard/documents/fr/carte_grise_v1.html#mindee.documents.fr.CarteGriseV1.u2">u2 (mindee.documents.fr.CarteGriseV1 attribute)</a>, <a href="predictions/standard/fr.html#mindee.documents.fr.CarteGriseV1.u2">[1]</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="predictions/standard/documents/financial_document_v1.html#mindee.documents.FinancialDocumentV1LineItem.unit_price">unit_price (mindee.documents.FinancialDocumentV1LineItem attribute)</a>, <a href="predictions/standard/international.html#mindee.documents.FinancialDocumentV1LineItem.unit_price">[1]</a>
+
+      <ul>
+        <li><a href="predictions/standard/documents/receipt_v5.html#mindee.documents.ReceiptV5LineItem.unit_price">(mindee.documents.ReceiptV5LineItem attribute)</a>, <a href="predictions/standard/international.html#mindee.documents.ReceiptV5LineItem.unit_price">[1]</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
