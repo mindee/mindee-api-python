@@ -1,5 +1,16 @@
 # Mindee Python API Library Changelog
 
+## v3.10.0 - 2023-06-26
+### Changes
+* :coffin: remove support for Shipping Container
+* :sparkles: add OpenAPI GET request
+* :sparkles: add OCR output in CLI
+* :sparkles: add support for material certificate v1
+
+### Fixes
+* :bug: fix potential problem where the words can be re-arranged by the user when calculating lines.
+
+
 ## v3.9.1 - 2023-06-07
 ### Changes
 * :memo: add documentation for OCR extraction
