@@ -47,10 +47,6 @@ DOCUMENTS: Dict[str, CommandConfig] = {
         help="Proof of Address",
         doc_class=documents.TypeProofOfAddressV1,
     ),
-    "shipping-container": CommandConfig(
-        help="Shipping Container",
-        doc_class=documents.fr.TypeIdCardV1,
-    ),
     "us-bank-check": CommandConfig(
         help="US Bank Check",
         doc_class=documents.us.TypeBankCheckV1,
