@@ -191,6 +191,15 @@ class Endpoint:
         )
         return response
 
+    def openapi_get_req(self):
+        """Get the OpenAPI specification of the product."""
+        response = requests.get(
+            f"{self._url_root}/openapi.json",
+            headers=self.base_headers,
+            timeout=self._request_timeout,
+        )
+        return response
+
 
 class CustomEndpoint(Endpoint):
     """Endpoint for all custom documents."""
