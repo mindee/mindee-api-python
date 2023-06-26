@@ -16,35 +16,35 @@ class ReceiptV5(Document):
     """Receipt v5 prediction results."""
 
     category: ClassificationField
-    """The receipt category among predefined classes."""
+    """The purchase category among predefined classes."""
     date: DateField
     """The date the purchase was made."""
     document_type: ClassificationField
-    """Whether the document is an expense receipt or a credit card receipt."""
+    """One of: 'CREDIT CARD RECEIPT', 'EXPENSE RECEIPT'."""
     line_items: List[ReceiptV5LineItem]
-    """Full extraction of lines, including: description, quantity, unit price and total."""
+    """List of line item details."""
     locale: LocaleField
-    """The locale identifier in BCP 47 (RFC 5646) format: ISO language code, '-', ISO country code."""
+    """The locale detected on the document."""
     subcategory: ClassificationField
-    """The receipt sub category among predefined classes for transport and food."""
+    """The purchase subcategory among predefined classes for transport and food."""
     supplier_address: TextField
-    """The address of the supplier or merchant returned as a single string."""
+    """The address of the supplier or merchant."""
     supplier_company_registrations: List[CompanyRegistrationField]
-    """List of supplier company registrations or identifiers."""
+    """List of company registrations associated to the supplier."""
     supplier_name: TextField
     """The name of the supplier or merchant."""
     supplier_phone_number: TextField
-    """The Phone number of the supplier or merchant returned as a single string."""
+    """The phone number of the supplier or merchant."""
     taxes: Taxes
-    """List of tax lines information including: Amount, tax rate, tax base amount and tax code."""
+    """List of tax lines information."""
     time: TextField
-    """Time of purchase with 24 hours formatting (HH:MM)."""
+    """The time the purchase was made."""
     tip: AmountField
     """The total amount of tip and gratuity."""
     total_amount: AmountField
-    """The total amount paid including taxes, discounts, fees, tips, and gratuity."""
+    """The total amount paid: includes taxes, discounts, fees, tips, and gratuity."""
     total_net: AmountField
-    """The total amount excluding taxes."""
+    """The net amount paid: does not include taxes, fees, and discounts."""
     total_tax: AmountField
     """The total amount of taxes."""
 
@@ -176,13 +176,13 @@ class ReceiptV5(Document):
             "=====================\n"
             f":Filename: {self.filename or ''}\n"
             f":Expense Locale: {self.locale}\n"
-            f":Expense Category: {self.category}\n"
-            f":Expense Sub Category: {self.subcategory}\n"
+            f":Purchase Category: {self.category}\n"
+            f":Purchase Subcategory: {self.subcategory}\n"
             f":Document Type: {self.document_type}\n"
             f":Purchase Date: {self.date}\n"
             f":Purchase Time: {self.time}\n"
             f":Total Amount: {self.total_amount}\n"
-            f":Total Excluding Taxes: {self.total_net}\n"
+            f":Total Net: {self.total_net}\n"
             f":Total Tax: {self.total_tax}\n"
             f":Tip and Gratuity: {self.tip}\n"
             f":Taxes: {self.taxes}\n"

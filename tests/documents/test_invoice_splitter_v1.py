@@ -5,7 +5,6 @@ import pytest
 from mindee.documents import InvoiceSplitterV1
 
 INVOICE_SPLITTER_DATA_DIR = "./tests/data/invoice_splitter"
-
 FILE_PATH_INVOICE_SPLITTER_V1_COMPLETE = (
     f"{ INVOICE_SPLITTER_DATA_DIR }/response_v1/complete.json"
 )

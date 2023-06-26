@@ -1,6 +1,7 @@
 from typing import List, Optional, TypeVar
 
 from mindee.documents.base import Document, TypeApiPrediction, clean_out_string
+from mindee.fields.classification import ClassificationField
 from mindee.fields.date import DateField
 from mindee.fields.text import TextField
 
@@ -8,28 +9,28 @@ from mindee.fields.text import TextField
 class IdCardV1(Document):
     """Carte Nationale d'Identité v1 prediction results."""
 
-    document_side: TextField
-    """The side of the document which is visible."""
-    id_number: TextField
-    """The identification card number."""
-    given_names: List[TextField]
-    """The given name(s) of the card holder."""
-    surname: TextField
-    """The surname of the card holder."""
+    authority: TextField
+    """The name of the issuing authority."""
     birth_date: DateField
     """The date of birth of the card holder."""
     birth_place: TextField
     """The place of birth of the card holder."""
+    document_side: ClassificationField
+    """The side of the document which is visible."""
     expiry_date: DateField
     """The expiry date of the identification card."""
-    authority: TextField
-    """The name of the issuing authority."""
     gender: TextField
     """The gender of the card holder."""
+    given_names: List[TextField]
+    """The given name(s) of the card holder."""
+    id_number: TextField
+    """The identification card number."""
     mrz1: TextField
     """Machine Readable Zone, first line"""
     mrz2: TextField
     """Machine Readable Zone, second line"""
+    surname: TextField
+    """The surname of the card holder."""
 
     def __init__(
         self,
@@ -61,20 +62,8 @@ class IdCardV1(Document):
         :param api_prediction: Raw prediction from HTTP response
         :param page_n: Page number
         """
-        self.document_side = TextField(
-            api_prediction.get("document_side", {}),
-            page_id=page_n,
-        )
-        self.id_number = TextField(
-            api_prediction["id_number"],
-            page_id=page_n,
-        )
-        self.given_names = [
-            TextField(prediction, page_id=page_n)
-            for prediction in api_prediction["given_names"]
-        ]
-        self.surname = TextField(
-            api_prediction["surname"],
+        self.authority = TextField(
+            api_prediction["authority"],
             page_id=page_n,
         )
         self.birth_date = DateField(
@@ -85,16 +74,24 @@ class IdCardV1(Document):
             api_prediction["birth_place"],
             page_id=page_n,
         )
+        self.document_side = ClassificationField(
+            api_prediction.get("document_side", {}),
+            page_id=page_n,
+        )
         self.expiry_date = DateField(
             api_prediction["expiry_date"],
             page_id=page_n,
         )
-        self.authority = TextField(
-            api_prediction["authority"],
-            page_id=page_n,
-        )
         self.gender = TextField(
             api_prediction["gender"],
+            page_id=page_n,
+        )
+        self.given_names = [
+            TextField(prediction, page_id=page_n)
+            for prediction in api_prediction["given_names"]
+        ]
+        self.id_number = TextField(
+            api_prediction["id_number"],
             page_id=page_n,
         )
         self.mrz1 = TextField(
@@ -103,6 +100,10 @@ class IdCardV1(Document):
         )
         self.mrz2 = TextField(
             api_prediction["mrz2"],
+            page_id=page_n,
+        )
+        self.surname = TextField(
+            api_prediction["surname"],
             page_id=page_n,
         )
 

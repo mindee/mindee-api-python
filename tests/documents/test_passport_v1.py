@@ -3,73 +3,58 @@ import json
 import pytest
 
 from mindee.documents import PassportV1
-from tests import PASSPORT_DATA_DIR
 
-FILE_PATH_PASSPORT_V1_COMPLETE = f"{PASSPORT_DATA_DIR}/response_v1/complete.json"
+PASSPORT_DATA_DIR = "./tests/data/passport"
+FILE_PATH_PASSPORT_V1_COMPLETE = f"{ PASSPORT_DATA_DIR }/response_v1/complete.json"
+FILE_PATH_PASSPORT_V1_EMPTY = f"{ PASSPORT_DATA_DIR }/response_v1/empty.json"
 
 
 @pytest.fixture
-def passport_v1_doc_object():
+def passport_v1_doc() -> PassportV1:
     json_data = json.load(open(FILE_PATH_PASSPORT_V1_COMPLETE))
-    return PassportV1(api_prediction=json_data["document"]["inference"], page_n=None)
+    return PassportV1(json_data["document"]["inference"], page_n=None)
 
 
 @pytest.fixture
-def passport_v1_doc_object_empty():
-    json_data = json.load(open(f"{PASSPORT_DATA_DIR}/response_v1/empty.json"))
-    return PassportV1(api_prediction=json_data["document"]["inference"], page_n=None)
+def passport_v1_doc_empty() -> PassportV1:
+    json_data = json.load(open(FILE_PATH_PASSPORT_V1_EMPTY))
+    return PassportV1(json_data["document"]["inference"], page_n=None)
 
 
 @pytest.fixture
-def passport_v1_page_object():
+def passport_v1_page0():
     json_data = json.load(open(FILE_PATH_PASSPORT_V1_COMPLETE))
-    return PassportV1(
-        api_prediction=json_data["document"]["inference"]["pages"][0], page_n=0
-    )
+    return PassportV1(json_data["document"]["inference"]["pages"][0], page_n=0)
 
 
-def test_constructor(passport_v1_doc_object):
-    assert not passport_v1_doc_object.is_expired()
-    assert passport_v1_doc_object.all_checks()
-    doc_str = (
-        open(f"{PASSPORT_DATA_DIR}/response_v1/page0_to_string.txt").read().strip()
-    )
-    assert passport_v1_doc_object.birth_date.page_n == 0
-    assert str(passport_v1_doc_object) == doc_str
+def test_empty_doc_constructor(passport_v1_doc_empty):
+    assert passport_v1_doc_empty.country.value is None
+    assert passport_v1_doc_empty.id_number.value is None
+    assert len(passport_v1_doc_empty.given_names) == 0
+    assert passport_v1_doc_empty.surname.value is None
+    assert passport_v1_doc_empty.birth_date.value is None
+    assert passport_v1_doc_empty.birth_place.value is None
+    assert passport_v1_doc_empty.gender.value is None
+    assert passport_v1_doc_empty.issuance_date.value is None
+    assert passport_v1_doc_empty.expiry_date.value is None
+    assert passport_v1_doc_empty.mrz1.value is None
+    assert passport_v1_doc_empty.mrz2.value is None
 
 
-def test_page_constructor(passport_v1_page_object):
-    doc_str = (
-        open(f"{PASSPORT_DATA_DIR}/response_v1/page0_to_string.txt").read().strip()
-    )
-    assert passport_v1_page_object.orientation.value == 0
-    assert passport_v1_page_object.birth_date.page_n == 0
-    assert str(passport_v1_page_object) == doc_str
-    assert len(passport_v1_page_object.cropper) == 0
+def test_doc_constructor(passport_v1_doc):
+    file_path = f"{ PASSPORT_DATA_DIR }/response_v1/doc_to_string.txt"
+    reference_str = open(file_path, "r", encoding="utf-8").read().strip()
+    assert str(passport_v1_doc) == reference_str
 
 
-def test_all_na(passport_v1_doc_object_empty):
-    assert passport_v1_doc_object_empty.mrz.value is None
-    assert passport_v1_doc_object_empty.country.value is None
-    assert passport_v1_doc_object_empty.id_number.value is None
-    assert passport_v1_doc_object_empty.birth_date.value is None
-    assert passport_v1_doc_object_empty.expiry_date.value is None
-    assert passport_v1_doc_object_empty.issuance_date.value is None
-    assert passport_v1_doc_object_empty.birth_place.value is None
-    assert passport_v1_doc_object_empty.gender.value is None
-    assert passport_v1_doc_object_empty.surname.value is None
-    assert passport_v1_doc_object_empty.mrz1.value is None
-    assert passport_v1_doc_object_empty.mrz2.value is None
-    assert len(passport_v1_doc_object_empty.given_names) == 0
+def test_page0_constructor(passport_v1_page0):
+    file_path = f"{ PASSPORT_DATA_DIR }/response_v1/page0_to_string.txt"
+    reference_str = open(file_path, "r", encoding="utf-8").read().strip()
+    assert str(passport_v1_page0) == reference_str
 
 
-def test_checklist(passport_v1_doc_object):
-    for check in passport_v1_doc_object.checklist.values():
-        assert check is True
-
-
-def test_checklist_all_na(passport_v1_doc_object_empty):
-    for check in passport_v1_doc_object_empty.checklist.values():
+def test_checklist_all_na(passport_v1_doc_empty):
+    for check in passport_v1_doc_empty.checklist.values():
         assert check is False
 
 

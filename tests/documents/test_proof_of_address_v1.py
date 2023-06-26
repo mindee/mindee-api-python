@@ -5,7 +5,6 @@ import pytest
 from mindee.documents import ProofOfAddressV1
 
 PROOF_OF_ADDRESS_DATA_DIR = "./tests/data/proof_of_address"
-
 FILE_PATH_PROOF_OF_ADDRESS_V1_COMPLETE = (
     f"{ PROOF_OF_ADDRESS_DATA_DIR }/response_v1/complete.json"
 )

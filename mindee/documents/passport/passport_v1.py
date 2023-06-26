@@ -8,37 +8,37 @@ from mindee.fields.text import TextField
 
 
 class PassportV1(Document):
-    """Cropper v1 prediction results."""
+    """Passport v1 prediction results."""
 
+    birth_date: DateField
+    """The date of birth of the passport holder."""
+    birth_place: TextField
+    """The place of birth of the passport holder."""
     country: TextField
-    """Country of issue"""
-    id_number: TextField
-    """Passport number"""
+    """The country's 3 letter code (ISO 3166-1 alpha-3)."""
     expiry_date: DateField
-    """Date the passport expires"""
-    issuance_date: DateField
-    """Date the passport was issued"""
-    surname: TextField
-    """Holder's last name (surname)"""
-    given_names: List[TextField]
-    """Holder's list of first (given) names"""
+    """The expiry date of the passport."""
     full_name: TextField
     """
     Holder's full name.
     The combination of `given_names` and `surname` fields.
     """
-    birth_date: DateField
-    """Holder's date of birth"""
-    birth_place: TextField
-    """Holder's place of birth"""
     gender: TextField
-    """Holder's gender or sex"""
-    mrz1: TextField
-    """First line of the Machine-Readable Zone"""
-    mrz2: TextField
-    """Second line of the Machine-Readable Zone"""
+    """The gender of the passport holder."""
+    given_names: List[TextField]
+    """The given name(s) of the passport holder."""
+    id_number: TextField
+    """The passport's identification number."""
+    issuance_date: DateField
+    """The date the passport was issued."""
     mrz: TextField
     """Combination of both MRZ fields."""
+    mrz1: TextField
+    """Machine Readable Zone, first line"""
+    mrz2: TextField
+    """Machine Readable Zone, second line"""
+    surname: TextField
+    """The surname of the passport holder."""
 
     def __init__(
         self,
@@ -47,7 +47,7 @@ class PassportV1(Document):
         page_n: Optional[int] = None,
     ):
         """
-        Passport document.
+        Passport v1 prediction results.
 
         :param api_prediction: Raw prediction from HTTP response
         :param input_source: Input object
@@ -67,25 +67,55 @@ class PassportV1(Document):
         self, api_prediction: TypeApiPrediction, page_n: Optional[int] = None
     ) -> None:
         """
-        Build the document from an API response JSON.
+        Build the object from the prediction API JSON.
 
         :param api_prediction: Raw prediction from HTTP response
         :param page_n: Page number for multi pages pdf input
         """
-        self.country = TextField(api_prediction["country"], page_id=page_n)
-        self.id_number = TextField(api_prediction["id_number"], page_id=page_n)
-        self.birth_date = DateField(api_prediction["birth_date"], page_id=page_n)
-        self.expiry_date = DateField(api_prediction["expiry_date"], page_id=page_n)
-        self.issuance_date = DateField(api_prediction["issuance_date"], page_id=page_n)
-        self.birth_place = TextField(api_prediction["birth_place"], page_id=page_n)
-        self.gender = TextField(api_prediction["gender"], page_id=page_n)
-        self.surname = TextField(api_prediction["surname"], page_id=page_n)
-        self.mrz1 = TextField(api_prediction["mrz1"], page_id=page_n)
-        self.mrz2 = TextField(api_prediction["mrz2"], page_id=page_n)
+        self.birth_date = DateField(
+            api_prediction["birth_date"],
+            page_id=page_n,
+        )
+        self.birth_place = TextField(
+            api_prediction["birth_place"],
+            page_id=page_n,
+        )
+        self.country = TextField(
+            api_prediction["country"],
+            page_id=page_n,
+        )
+        self.expiry_date = DateField(
+            api_prediction["expiry_date"],
+            page_id=page_n,
+        )
+        self.gender = TextField(
+            api_prediction["gender"],
+            page_id=page_n,
+        )
         self.given_names = [
-            TextField(given_name, page_id=page_n)
-            for given_name in api_prediction["given_names"]
+            TextField(prediction, page_id=page_n)
+            for prediction in api_prediction["given_names"]
         ]
+        self.id_number = TextField(
+            api_prediction["id_number"],
+            page_id=page_n,
+        )
+        self.issuance_date = DateField(
+            api_prediction["issuance_date"],
+            page_id=page_n,
+        )
+        self.mrz1 = TextField(
+            api_prediction["mrz1"],
+            page_id=page_n,
+        )
+        self.mrz2 = TextField(
+            api_prediction["mrz2"],
+            page_id=page_n,
+        )
+        self.surname = TextField(
+            api_prediction["surname"],
+            page_id=page_n,
+        )
         self.mrz = TextField({"value": None, "confidence": 0.0}, page_id=page_n)
         self.full_name = TextField({"value": None, "confidence": 0.0}, page_id=page_n)
 
