@@ -5,3 +5,4 @@ France
 .. include:: ./documents/fr/carte_vitale_v1.rst
 .. include:: ./documents/fr/carte_grise_v1.rst
 .. include:: ./documents/fr/bank_account_details_v1.rst
+.. include:: ./documents/fr/bank_account_details_v2.rst

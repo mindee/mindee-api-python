@@ -8,7 +8,6 @@ mindee_client = Client(api_key="my-api-key")
 input_doc = mindee_client.doc_from_path("/path/to/the/file.ext")
 
 # Put the document class in a local variable to keep the code DRY
-
 doc_class = documents.TypeInvoiceSplitterV1
 
 # Limit the amount of API calls to retrieve your document

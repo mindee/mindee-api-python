@@ -445,6 +445,11 @@ class Client:
                 version="1",
             ),
             ConfigSpec(
+                doc_class=documents.fr.BankAccountDetailsV2,
+                url_name="bank_account_details",
+                version="2",
+            ),
+            ConfigSpec(
                 doc_class=documents.eu.LicensePlateV1,
                 url_name="license_plates",
                 version="1",
