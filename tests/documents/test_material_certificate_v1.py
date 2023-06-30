@@ -5,7 +5,6 @@ import pytest
 from mindee.documents import MaterialCertificateV1
 
 MATERIAL_CERTIFICATE_DATA_DIR = "./tests/data/material_certificate"
-
 FILE_PATH_MATERIAL_CERTIFICATE_V1_COMPLETE = (
     f"{ MATERIAL_CERTIFICATE_DATA_DIR }/response_v1/complete.json"
 )

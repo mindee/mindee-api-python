@@ -10,7 +10,7 @@ from mindee.fields.base import (
 
 
 class ReceiptV5LineItem(FieldPositionMixin, FieldConfidenceMixin):
-    """Full extraction of lines, including: description, quantity, unit price and total."""
+    """List of line item details."""
 
     description: Optional[str]
     """The item description."""
@@ -20,8 +20,6 @@ class ReceiptV5LineItem(FieldPositionMixin, FieldConfidenceMixin):
     """The item total amount."""
     unit_price: Optional[float]
     """The item unit price."""
-    confidence: float = 0.0
-    """Confidence score"""
     page_n: int
     """The document page on which the information was found."""
 
