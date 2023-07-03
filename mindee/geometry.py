@@ -142,26 +142,7 @@ def get_bbox(points: Points) -> BBox:
     return BBox(x_min, y_min, x_max, y_max)
 
 
-def merge_polygons_as_bounding_box(vertices: Sequence[Polygon]) -> Quadrilateral:
-    """
-    Given a sequence of polygons, calculate a bounding box that encompasses all polygons.
-
-    :param vertices: List of polygons
-    :return: A bounding box that encompasses all polygons
-    """
-    y_min = min(y for v in vertices for _, y in v)
-    y_max = max(y for v in vertices for _, y in v)
-    x_min = min(x for v in vertices for x, _ in v)
-    x_max = max(x for v in vertices for x, _ in v)
-    return Quadrilateral(
-        Point(x_min, y_min),
-        Point(x_max, y_min),
-        Point(x_max, y_max),
-        Point(x_min, y_max),
-    )
-
-
-def merge_polygons_as_polygon(vertices: Sequence[Polygon]) -> Polygon:
+def merge_polygons(vertices: Sequence[Polygon]) -> Polygon:
     """
     Given a sequence of polygons, calculate a polygon box that encompasses all polygons.
 

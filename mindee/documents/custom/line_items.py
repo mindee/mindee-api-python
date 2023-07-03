@@ -3,10 +3,10 @@ from typing import Dict, List, Sequence
 from mindee.documents.custom.custom_v1_fields import ListField, ListFieldValue
 from mindee.geometry import (
     Quadrilateral,
+    get_bounding_box,
     get_min_max_y,
     is_point_in_y,
-    merge_polygons_as_bounding_box,
-    merge_polygons_as_polygon,
+    merge_polygons,
 )
 
 
@@ -92,7 +92,7 @@ def get_line_items(
             ]
             line.fields[field].content = " ".join([v.content for v in field_words])
             try:
-                line.fields[field].polygon = merge_polygons_as_polygon(
+                line.fields[field].polygon = merge_polygons(
                     [v.polygon for v in field_words]
                 )
             except ValueError:
@@ -106,6 +106,6 @@ def get_line_items(
                 all_polygons.append(line.fields[field].polygon)
             except IndexError:
                 pass
-        line.bounding_box = merge_polygons_as_bounding_box(all_polygons)
+        line.bounding_box = get_bounding_box(merge_polygons(all_polygons))
         line.row_number = idx
     return line_items

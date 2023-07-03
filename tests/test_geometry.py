@@ -87,7 +87,8 @@ def test_get_centroid(rectangle_a):
 
 
 def test_bounding_box_several_polygons(rectangle_b, quadrangle_a):
-    assert geometry.merge_polygons_as_bounding_box((rectangle_b, quadrangle_a)) == (
+    merged = geometry.merge_polygons((rectangle_b, quadrangle_a))
+    assert geometry.get_bounding_box(merged) == (
         (0.124, 0.407),
         (0.381, 0.407),
         (0.381, 0.546),
@@ -96,7 +97,7 @@ def test_bounding_box_several_polygons(rectangle_b, quadrangle_a):
 
 
 def test_polygon_merge(rectangle_b, quadrangle_a):
-    assert geometry.merge_polygons_as_polygon((rectangle_b, quadrangle_a)) == [
+    assert geometry.merge_polygons((rectangle_b, quadrangle_a)) == [
         (0.124, 0.407),
         (0.381, 0.407),
         (0.381, 0.546),
