@@ -1,5 +1,11 @@
 # Mindee Python API Library Changelog
 
+## v3.11.0 - 2023-07-03
+### Changes
+* :sparkles: add basic support for line items
+* :sparkles: add support for FR bank account details v2
+
+
 ## v3.10.0 - 2023-06-26
 ### Changes
 * :coffin: remove support for Shipping Container
