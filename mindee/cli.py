@@ -136,7 +136,11 @@ def process_parse(args: Namespace, client: Client, doc_class) -> None:
         parsed_data = input_doc.parse(
             doc_class, include_words=args.include_words, page_options=page_options
         )
-    display_doc(args.output_type, args.include_words, parsed_data)
+    try:
+        include_words = args.include_words
+    except AttributeError:
+        include_words = False
+    display_doc(args.output_type, include_words, parsed_data)
 
 
 def process_parse_queued(args: Namespace, client: Client, doc_class) -> None:
@@ -154,7 +158,11 @@ def process_parse_queued(args: Namespace, client: Client, doc_class) -> None:
             document_class=doc_class, queue_id=args.queue_id
         )
     if parsed_data.job.status == "completed" and parsed_data.document is not None:
-        display_doc(args.output_type, args.include_words, parsed_data.document)
+        try:
+            include_words = args.include_words
+        except AttributeError:
+            include_words = False
+        display_doc(args.output_type, include_words, parsed_data.document)
     else:
         print(parsed_data.job)
 
