@@ -11,4 +11,4 @@ International
 .. include:: ./documents/invoice_splitter_v1.rst
 .. include:: ./documents/proof_of_address_v1.rst
 .. include:: ./documents/cropper_v1.rst
-.. include:: ./documents/material_certificate.rst
+.. include:: ./documents/material_certificate_v1.rst

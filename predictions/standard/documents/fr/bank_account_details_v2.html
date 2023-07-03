@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bank Account Details V2 &mdash; Mindee Python Client  documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            Mindee Python Client
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../client.html">Document Parsing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Predictions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../utilities/index.html">Utilities</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Mindee Python Client</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Bank Account Details V2</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../../_sources/predictions/standard/documents/fr/bank_account_details_v2.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="bank-account-details-v2">
+<h1>Bank Account Details V2<a class="headerlink" href="#bank-account-details-v2" title="Permalink to this heading"></a></h1>
+<p><strong>Sample Code:</strong></p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mindee</span> <span class="kn">import</span> <span class="n">Client</span><span class="p">,</span> <span class="n">documents</span>
+
+<span class="c1"># Init a new client</span>
+<span class="n">mindee_client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;my-api-key&quot;</span><span class="p">)</span>
+
+<span class="c1"># Load a file from disk</span>
+<span class="n">input_doc</span> <span class="o">=</span> <span class="n">mindee_client</span><span class="o">.</span><span class="n">doc_from_path</span><span class="p">(</span><span class="s2">&quot;/path/to/the/file.ext&quot;</span><span class="p">)</span>
+
+<span class="c1"># Parse the Bank Account Details by passing the appropriate type</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">input_doc</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">documents</span><span class="o">.</span><span class="n">fr</span><span class="o">.</span><span class="n">TypeBankAccountDetailsV2</span><span class="p">)</span>
+
+<span class="c1"># Print a brief summary of the parsed data</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">document</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.documents.fr.BankAccountDetailsV2">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mindee.documents.fr.</span></span><span class="sig-name descname"><span class="pre">BankAccountDetailsV2</span></span><a class="headerlink" href="#mindee.documents.fr.BankAccountDetailsV2" title="Permalink to this definition"></a></dt>
+<dd><p>Bank Account Details v2 prediction results.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.fr.BankAccountDetailsV2.account_holders_names">
+<span class="sig-name descname"><span class="pre">account_holders_names</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../../field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.fr.BankAccountDetailsV2.account_holders_names" title="Permalink to this definition"></a></dt>
+<dd><p>Full extraction of the account holders names.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.fr.BankAccountDetailsV2.bban">
+<span class="sig-name descname"><span class="pre">bban</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">BankAccountDetailsV2Bban</span></code></em><a class="headerlink" href="#mindee.documents.fr.BankAccountDetailsV2.bban" title="Permalink to this definition"></a></dt>
+<dd><p>Full extraction of BBAN, including: branch code, bank code, account and key.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.fr.BankAccountDetailsV2.iban">
+<span class="sig-name descname"><span class="pre">iban</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../../field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.fr.BankAccountDetailsV2.iban" title="Permalink to this definition"></a></dt>
+<dd><p>Full extraction of the IBAN number.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.documents.fr.BankAccountDetailsV2.swift_code">
+<span class="sig-name descname"><span class="pre">swift_code</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../../field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.fr.BankAccountDetailsV2.swift_code" title="Permalink to this definition"></a></dt>
+<dd><p>Full extraction of the SWIFT code.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Mindee.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

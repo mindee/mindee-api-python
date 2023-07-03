@@ -93,7 +93,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.documents.PassportV1">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">mindee.documents.</span></span><span class="sig-name descname"><span class="pre">PassportV1</span></span><a class="headerlink" href="#mindee.documents.PassportV1" title="Permalink to this definition"></a></dt>
-<dd><p>Cropper v1 prediction results.</p>
+<dd><p>Passport v1 prediction results.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.documents.PassportV1.check_sum">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">check_sum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">to_check</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.documents.PassportV1.check_sum" title="Permalink to this definition"></a></dt>
@@ -129,25 +129,25 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.documents.PassportV1.birth_date">
 <span class="sig-name descname"><span class="pre">birth_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../field_types.html#mindee.fields.date.DateField" title="mindee.fields.date.DateField"><code class="xref py py-class docutils literal notranslate"><span class="pre">DateField</span></code></a></em><a class="headerlink" href="#mindee.documents.PassportV1.birth_date" title="Permalink to this definition"></a></dt>
-<dd><p>Holder’s date of birth</p>
+<dd><p>The date of birth of the passport holder.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.documents.PassportV1.birth_place">
 <span class="sig-name descname"><span class="pre">birth_place</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.PassportV1.birth_place" title="Permalink to this definition"></a></dt>
-<dd><p>Holder’s place of birth</p>
+<dd><p>The place of birth of the passport holder.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.documents.PassportV1.country">
 <span class="sig-name descname"><span class="pre">country</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.PassportV1.country" title="Permalink to this definition"></a></dt>
-<dd><p>Country of issue</p>
+<dd><p>The country’s 3 letter code (ISO 3166-1 alpha-3).</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.documents.PassportV1.expiry_date">
 <span class="sig-name descname"><span class="pre">expiry_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../field_types.html#mindee.fields.date.DateField" title="mindee.fields.date.DateField"><code class="xref py py-class docutils literal notranslate"><span class="pre">DateField</span></code></a></em><a class="headerlink" href="#mindee.documents.PassportV1.expiry_date" title="Permalink to this definition"></a></dt>
-<dd><p>Date the passport expires</p>
+<dd><p>The expiry date of the passport.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -160,25 +160,25 @@ The combination of <cite>given_names</cite> and <cite>surname</cite> fields.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.documents.PassportV1.gender">
 <span class="sig-name descname"><span class="pre">gender</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.PassportV1.gender" title="Permalink to this definition"></a></dt>
-<dd><p>Holder’s gender or sex</p>
+<dd><p>The gender of the passport holder.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.documents.PassportV1.given_names">
 <span class="sig-name descname"><span class="pre">given_names</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="../field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.documents.PassportV1.given_names" title="Permalink to this definition"></a></dt>
-<dd><p>Holder’s list of first (given) names</p>
+<dd><p>The given name(s) of the passport holder.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.documents.PassportV1.id_number">
 <span class="sig-name descname"><span class="pre">id_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.PassportV1.id_number" title="Permalink to this definition"></a></dt>
-<dd><p>Passport number</p>
+<dd><p>The passport’s identification number.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.documents.PassportV1.issuance_date">
 <span class="sig-name descname"><span class="pre">issuance_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../field_types.html#mindee.fields.date.DateField" title="mindee.fields.date.DateField"><code class="xref py py-class docutils literal notranslate"><span class="pre">DateField</span></code></a></em><a class="headerlink" href="#mindee.documents.PassportV1.issuance_date" title="Permalink to this definition"></a></dt>
-<dd><p>Date the passport was issued</p>
+<dd><p>The date the passport was issued.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -190,19 +190,19 @@ The combination of <cite>given_names</cite> and <cite>surname</cite> fields.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.documents.PassportV1.mrz1">
 <span class="sig-name descname"><span class="pre">mrz1</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.PassportV1.mrz1" title="Permalink to this definition"></a></dt>
-<dd><p>First line of the Machine-Readable Zone</p>
+<dd><p>Machine Readable Zone, first line</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.documents.PassportV1.mrz2">
 <span class="sig-name descname"><span class="pre">mrz2</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.PassportV1.mrz2" title="Permalink to this definition"></a></dt>
-<dd><p>Second line of the Machine-Readable Zone</p>
+<dd><p>Machine Readable Zone, second line</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.documents.PassportV1.surname">
 <span class="sig-name descname"><span class="pre">surname</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../field_types.html#mindee.fields.text.TextField" title="mindee.fields.text.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></em><a class="headerlink" href="#mindee.documents.PassportV1.surname" title="Permalink to this definition"></a></dt>
-<dd><p>Holder’s last name (surname)</p>
+<dd><p>The surname of the passport holder.</p>
 </dd></dl>
 
 </dd></dl>
