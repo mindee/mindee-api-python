@@ -20,9 +20,9 @@ pikepdf==6.2.9
     # via mindee (setup.py)
 pillow==9.4.0
     # via pikepdf
-pytz==2022.7.1
+pytz==2023.3
     # via mindee (setup.py)
-requests==2.28.2
+requests==2.31.0
     # via mindee (setup.py)
 urllib3==1.26.14
     # via requests
