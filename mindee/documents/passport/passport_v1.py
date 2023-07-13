@@ -300,8 +300,11 @@ class PassportV1(Document):
             and self.given_names[0].value is not None
             and self.full_name.value is None
         ):
+            given_names = " ".join(
+                [name.value if name.value else "" for name in self.given_names]
+            )
             full_name = {
-                "value": self.given_names[0].value + " " + self.surname.value,
+                "value": f"{given_names} {self.surname}",
                 "confidence": field_array_confidence(
                     [self.surname, self.given_names[0]]
                 ),
