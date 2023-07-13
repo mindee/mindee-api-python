@@ -142,15 +142,13 @@ class LocalInputSource:
         self.file_object.seek(0)
         with pikepdf.open(self.file_object) as pdf:
             for page in pdf.pages:
-                # mypy incorrectly identifies the "/Length" key's value as
-                # an object rather than an int.
                 try:
                     total_size = page["/Contents"]["/Length"]
                 except ValueError:
-                    total_size = 0  # type: ignore
-                    for content in page["/Contents"]:  # type: ignore
+                    total_size = 0
+                    for content in page["/Contents"]:
                         total_size += content["/Length"]
-                has_data = total_size > 1000  # type: ignore
+                has_data = total_size > 1000
 
                 has_font = "/Font" in page["/Resources"].keys()
                 has_xobj = "/XObject" in page["/Resources"].keys()
