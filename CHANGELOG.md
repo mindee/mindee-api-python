@@ -1,5 +1,15 @@
 # Mindee Python API Library Changelog
 
+## v3.11.1 - 2023-07-13
+### Changes
+* :arrow_up: GitHub CI and mypy updates
+* :arrow_up: update requests to 2.31
+
+### Fixes
+* :bug: fix full_name for multiple given names
+* :bug: fix for parsing OCR response in CLI
+
+
 ## v3.11.0 - 2023-07-03
 ### Changes
 * :sparkles: add basic support for line items
