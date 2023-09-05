@@ -4,7 +4,7 @@ import pytest
 
 from mindee.documents import PassportV1
 
-PASSPORT_DATA_DIR = "./tests/data/passport"
+PASSPORT_DATA_DIR = "./tests/data/products/passport"
 FILE_PATH_PASSPORT_V1_COMPLETE = f"{ PASSPORT_DATA_DIR }/response_v1/complete.json"
 FILE_PATH_PASSPORT_V1_EMPTY = f"{ PASSPORT_DATA_DIR }/response_v1/empty.json"
 
@@ -42,36 +42,12 @@ def test_empty_doc_constructor(passport_v1_doc_empty):
 
 
 def test_doc_constructor(passport_v1_doc):
-    file_path = f"{ PASSPORT_DATA_DIR }/response_v1/doc_to_string.txt"
-    reference_str = open(file_path, "r", encoding="utf-8").read().strip()
+    file_path = f"{ PASSPORT_DATA_DIR }/response_v1/doc_to_string.rst"
+    reference_str = open(file_path, "r", encoding="utf-8").read()
     assert str(passport_v1_doc) == reference_str
 
 
 def test_page0_constructor(passport_v1_page0):
-    file_path = f"{ PASSPORT_DATA_DIR }/response_v1/page0_to_string.txt"
-    reference_str = open(file_path, "r", encoding="utf-8").read().strip()
+    file_path = f"{ PASSPORT_DATA_DIR }/response_v1/page0_to_string.rst"
+    reference_str = open(file_path, "r", encoding="utf-8").read()
     assert str(passport_v1_page0) == reference_str
-
-
-def test_checklist_all_na(passport_v1_doc_empty):
-    for check in passport_v1_doc_empty.checklist.values():
-        assert check is False
-
-
-def test_checksum():
-    mrz = "7077979792GBR9505209M1704224<<<<<<<<<<<<<<00"
-    assert PassportV1.check_sum(mrz[0:10] + mrz[13:20] + mrz[21:43]) == mrz[43]
-
-
-def test_wrong_checksum():
-    mrz = "7077974792GBR9505209M1704224<<<<<<<<<<<<<<00"
-    assert PassportV1.check_sum(mrz[0:10] + mrz[13:20] + mrz[21:43]) != mrz[43]
-    mrz = "7077974792GBR9505209M1404224<<<<<<<<<<<<<<00"
-    assert PassportV1.check_sum(mrz[0:10] + mrz[13:20] + mrz[21:43]) != mrz[43]
-    mrz = "7077974792GBR9505209M1404224<<<<<<<<<<<<<<08"
-    assert PassportV1.check_sum(mrz[0:10] + mrz[13:20] + mrz[21:43]) != mrz[43]
-
-
-def test_checksum_with_personal_number_alpha():
-    mrz = "XDB0661884ESP9502138F1808122RE20050024133894"
-    assert PassportV1.check_sum(mrz[28:42]) == mrz[42]

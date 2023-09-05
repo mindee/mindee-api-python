@@ -59,15 +59,16 @@ class BankAccountDetailsV1(Document):
 
     def __str__(self) -> str:
         return clean_out_string(
-            "----- FR Bank Account Details V1 -----\n"
-            f"Filename: {self.filename or ''}\n"
-            f"IBAN: { self.iban }\n"
-            f"Account Holder's Name: { self.account_holder_name }\n"
-            f"SWIFT Code: { self.swift }\n"
-            "----------------------"
+            "FR Bank Account Details V1 Prediction\n"
+            "=====================================\n"
+            f":Filename: {self.filename or ''}\n"
+            f":IBAN: {self.iban}\n"
+            f":Account Holder's Name: {self.account_holder_name}\n"
+            f":SWIFT Code: {self.swift}\n"
         )
 
 
 TypeBankAccountDetailsV1 = TypeVar(
-    "TypeBankAccountDetailsV1", bound=BankAccountDetailsV1
+    "TypeBankAccountDetailsV1",
+    bound=BankAccountDetailsV1,
 )

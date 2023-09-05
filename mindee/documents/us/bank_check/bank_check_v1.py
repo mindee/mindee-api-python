@@ -91,18 +91,28 @@ class BankCheckV1(Document):
         ]
 
     def __str__(self) -> str:
-        payees = ", ".join([str(payee) for payee in self.payees])
+        payees = f"\n { ' ' * 8 }".join(
+            [str(item) for item in self.payees],
+        )
+        signatures_positions = f"\n { ' ' * 21 }".join(
+            [str(item) for item in self.signatures_positions],
+        )
         return clean_out_string(
-            "----- US Bank Check V1 -----\n"
-            f"Filename: {self.filename or ''}\n"
-            f"Routing number: {self.routing_number}\n"
-            f"Account number: {self.account_number}\n"
-            f"Check number: {self.check_number}\n"
-            f"Date: {self.date}\n"
-            f"Amount: {self.amount}\n"
-            f"Payees: {payees}\n"
-            "----------------------"
+            "US Bank Check V1 Prediction\n"
+            "===========================\n"
+            f":Filename: {self.filename or ''}\n"
+            f":Check Position: {self.check_position}\n"
+            f":Signature Positions: {signatures_positions}\n"
+            f":Check Issue Date: {self.date}\n"
+            f":Amount: {self.amount}\n"
+            f":Payees: {payees}\n"
+            f":Routing Number: {self.routing_number}\n"
+            f":Account Number: {self.account_number}\n"
+            f":Check Number: {self.check_number}\n"
         )
 
 
-TypeBankCheckV1 = TypeVar("TypeBankCheckV1", bound=BankCheckV1)
+TypeBankCheckV1 = TypeVar(
+    "TypeBankCheckV1",
+    bound=BankCheckV1,
+)

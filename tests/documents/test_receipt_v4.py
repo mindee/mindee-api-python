@@ -49,9 +49,7 @@ def test_page_constructor(receipt_v4_page_object):
 
 
 def test_cropper():
-    json_data = json.load(
-        open(f"{RECEIPT_DATA_DIR}/response_v4/complete_with_cropper.json")
-    )
+    json_data = json.load(open("./tests/data/extras/cropper/complete.json"))
     receipt_v4_page_object = ReceiptV4(
         api_prediction=json_data["document"]["inference"]["pages"][0], page_n=0
     )

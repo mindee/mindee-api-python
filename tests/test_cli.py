@@ -22,7 +22,7 @@ def custom_doc(monkeypatch):
         input_type="path",
         output_type="summary",
         include_words=False,
-        path="./tests/data/pdf/blank.pdf",
+        path="./tests/data/file_types/pdf/blank.pdf",
         call_method="parse",
     )
 
@@ -38,7 +38,7 @@ def ots_doc(monkeypatch):
         input_type="path",
         output_type="summary",
         include_words=False,
-        path="./tests/data/invoice/invoice.pdf",
+        path="./tests/data/products/invoices/invoice.pdf",
         call_method="parse",
     )
 
@@ -53,7 +53,7 @@ def ots_doc_enqueue(monkeypatch):
         doc_pages=3,
         input_type="path",
         include_words=False,
-        path="./tests/data/invoice_splitter/2_invoices.pdf",
+        path="./tests/data/products/invoice_splitter/default_sample.pdf",
         call_method="enqueue",
     )
 

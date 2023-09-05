@@ -65,18 +65,21 @@ class CarteVitaleV1(Document):
         )
 
     def __str__(self) -> str:
-        given_names = f"\n { ' ' * 12 }".join(
+        given_names = f"\n { ' ' * 15 }".join(
             [str(item) for item in self.given_names],
         )
         return clean_out_string(
-            "----- FR Carte Vitale V1 -----\n"
-            f"Filename: {self.filename or ''}\n"
-            f"Given Name(s): { given_names }\n"
-            f"Surname: { self.surname }\n"
-            f"Social Security Number: { self.social_security }\n"
-            f"Issuance Date: { self.issuance_date }\n"
-            "----------------------"
+            "FR Carte Vitale V1 Prediction\n"
+            "=============================\n"
+            f":Filename: {self.filename or ''}\n"
+            f":Given Name(s): {given_names}\n"
+            f":Surname: {self.surname}\n"
+            f":Social Security Number: {self.social_security}\n"
+            f":Issuance Date: {self.issuance_date}\n"
         )
 
 
-TypeCarteVitaleV1 = TypeVar("TypeCarteVitaleV1", bound=CarteVitaleV1)
+TypeCarteVitaleV1 = TypeVar(
+    "TypeCarteVitaleV1",
+    bound=CarteVitaleV1,
+)

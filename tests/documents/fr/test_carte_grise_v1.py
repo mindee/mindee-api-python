@@ -3,8 +3,8 @@ import json
 import pytest
 
 from mindee.documents.fr import CarteGriseV1
-from tests import FR_CARTE_GRISE_DATA_DIR
 
+FR_CARTE_GRISE_DATA_DIR = "./tests/data/products/carte_grise"
 FILE_PATH_FR_CARTE_GRISE_V1_COMPLETE = (
     f"{FR_CARTE_GRISE_DATA_DIR}/response_v1/complete.json"
 )

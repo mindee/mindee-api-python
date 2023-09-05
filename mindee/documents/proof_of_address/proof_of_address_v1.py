@@ -97,29 +97,32 @@ class ProofOfAddressV1(Document):
         )
 
     def __str__(self) -> str:
-        dates = f"\n { ' ' * 6 }".join(
+        dates = f"\n { ' ' * 7 }".join(
             [str(item) for item in self.dates],
         )
-        issuer_company_registration = f"\n { ' ' * 28 }".join(
+        issuer_company_registration = f"\n { ' ' * 30 }".join(
             [str(item) for item in self.issuer_company_registration],
         )
-        recipient_company_registration = f"\n { ' ' * 31 }".join(
+        recipient_company_registration = f"\n { ' ' * 33 }".join(
             [str(item) for item in self.recipient_company_registration],
         )
         return clean_out_string(
-            "----- Proof of Address V1 -----\n"
-            f"Filename: {self.filename or ''}\n"
-            f"Locale: { self.locale }\n"
-            f"Issuer Name: { self.issuer_name }\n"
-            f"Issuer Company Registrations: { issuer_company_registration }\n"
-            f"Issuer Address: { self.issuer_address }\n"
-            f"Recipient Name: { self.recipient_name }\n"
-            f"Recipient Company Registrations: { recipient_company_registration }\n"
-            f"Recipient Address: { self.recipient_address }\n"
-            f"Dates: { dates }\n"
-            f"Date of Issue: { self.date }\n"
-            "----------------------"
+            "Proof of Address V1 Prediction\n"
+            "==============================\n"
+            f":Filename: {self.filename or ''}\n"
+            f":Locale: {self.locale}\n"
+            f":Issuer Name: {self.issuer_name}\n"
+            f":Issuer Company Registrations: {issuer_company_registration}\n"
+            f":Issuer Address: {self.issuer_address}\n"
+            f":Recipient Name: {self.recipient_name}\n"
+            f":Recipient Company Registrations: {recipient_company_registration}\n"
+            f":Recipient Address: {self.recipient_address}\n"
+            f":Dates: {dates}\n"
+            f":Date of Issue: {self.date}\n"
         )
 
 
-TypeProofOfAddressV1 = TypeVar("TypeProofOfAddressV1", bound=ProofOfAddressV1)
+TypeProofOfAddressV1 = TypeVar(
+    "TypeProofOfAddressV1",
+    bound=ProofOfAddressV1,
+)

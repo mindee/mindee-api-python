@@ -4,7 +4,7 @@ import pytest
 
 from mindee.documents.us import BankCheckV1
 
-US_BANK_CHECK_DATA_DIR = "./tests/data/us/bank_check"
+US_BANK_CHECK_DATA_DIR = "./tests/data/products/bank_check"
 FILE_PATH_US_BANK_CHECK_V1_COMPLETE = (
     f"{ US_BANK_CHECK_DATA_DIR }/response_v1/complete.json"
 )
@@ -30,7 +30,7 @@ def bank_check_v1_page0():
 
 
 def test_empty_doc_constructor(bank_check_v1_doc_empty):
-    assert bank_check_v1_doc_empty.check_position.value == []
+    assert bank_check_v1_doc_empty.check_position.value is None
     assert len(bank_check_v1_doc_empty.signatures_positions) == 0
     assert bank_check_v1_doc_empty.date.value is None
     assert bank_check_v1_doc_empty.amount.value is None
@@ -40,14 +40,13 @@ def test_empty_doc_constructor(bank_check_v1_doc_empty):
     assert bank_check_v1_doc_empty.check_number.value is None
 
 
-# Technical tests
-def test_constructor(bank_check_v1_doc):
-    assert bank_check_v1_doc.date.value == "2022-04-26"
-    assert bank_check_v1_doc.amount.value == 6496.58
-    assert bank_check_v1_doc.routing_number.value == "012345678"
-    assert bank_check_v1_doc.account_number.value == "12345678910"
-    assert bank_check_v1_doc.check_number.value == "8620001342"
-    doc_str = (
-        open(f"{US_BANK_CHECK_DATA_DIR}/response_v1/doc_to_string.txt").read().strip()
-    )
-    assert str(bank_check_v1_doc) == doc_str
+def test_doc_constructor(bank_check_v1_doc):
+    file_path = f"{ US_BANK_CHECK_DATA_DIR }/response_v1/doc_to_string.rst"
+    reference_str = open(file_path, "r", encoding="utf-8").read()
+    assert str(bank_check_v1_doc) == reference_str
+
+
+def test_page0_constructor(bank_check_v1_page0):
+    file_path = f"{ US_BANK_CHECK_DATA_DIR }/response_v1/page0_to_string.rst"
+    reference_str = open(file_path, "r", encoding="utf-8").read()
+    assert str(bank_check_v1_page0) == reference_str

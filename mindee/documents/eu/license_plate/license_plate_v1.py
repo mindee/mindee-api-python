@@ -46,15 +46,18 @@ class LicensePlateV1(Document):
         ]
 
     def __str__(self) -> str:
-        license_plates = f"\n { ' ' * 15 }".join(
-            [str(item) for item in self.license_plates]
+        license_plates = f"\n { ' ' * 16 }".join(
+            [str(item) for item in self.license_plates],
         )
         return clean_out_string(
-            "----- EU License Plate V1 -----\n"
-            f"Filename: {self.filename or ''}\n"
-            f"License Plates: { license_plates }\n"
-            "----------------------"
+            "EU License Plate V1 Prediction\n"
+            "==============================\n"
+            f":Filename: {self.filename or ''}\n"
+            f":License Plates: {license_plates}\n"
         )
 
 
-TypeLicensePlateV1 = TypeVar("TypeLicensePlateV1", bound=LicensePlateV1)
+TypeLicensePlateV1 = TypeVar(
+    "TypeLicensePlateV1",
+    bound=LicensePlateV1,
+)

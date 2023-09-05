@@ -19,7 +19,7 @@ class PageGroup:
             pass
 
     def __str__(self) -> str:
-        return f"page indexes: {', '.join([str(page_index) for page_index in self.page_indexes])}"
+        return f":Page indexes: {', '.join([str(page_index) for page_index in self.page_indexes])}"
 
 
 class InvoiceSplitterV1(Document):
@@ -61,6 +61,7 @@ class InvoiceSplitterV1(Document):
             ]
 
     def __str__(self) -> str:
+        invoice_page_groups = ""
         if len(self.invoice_page_groups) > 0:
             invoice_page_groups = "\n  "
             invoice_page_groups += f"\n{ ' ' * 2 }".join(
@@ -68,10 +69,10 @@ class InvoiceSplitterV1(Document):
             )
 
         return clean_out_string(
-            f"----- Invoice Splitter V1 -----\n"
-            f"Filename: {self.filename or ''}\n"
-            f"Invoice Page Groups: {invoice_page_groups}\n"
-            f"----------------------"
+            "Invoice Splitter V1 Prediction\n"
+            "==============================\n"
+            f":Filename: {self.filename or ''}\n"
+            f":Invoice Page Groups: {invoice_page_groups}\n"
         )
 
 

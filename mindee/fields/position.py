@@ -54,8 +54,14 @@ class PositionField(BaseField):
 
         def get_polygon(key: str) -> Optional[Polygon]:
             try:
-                return polygon_from_prediction(prediction[key])
-            except (KeyError, GeometryError):
+                polygon = prediction[key]
+            except KeyError:
+                return None
+            if not polygon:
+                return None
+            try:
+                return polygon_from_prediction(polygon)
+            except GeometryError:
                 return None
 
         self.bounding_box = get_quadrilateral("bounding_box")

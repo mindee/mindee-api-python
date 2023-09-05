@@ -4,7 +4,7 @@ import pytest
 
 from mindee.documents.fr import BankAccountDetailsV2
 
-FR_BANK_ACCOUNT_DETAILS_DATA_DIR = "./tests/data/fr/bank_account_details"
+FR_BANK_ACCOUNT_DETAILS_DATA_DIR = "./tests/data/products/bank_account_details"
 FILE_PATH_FR_BANK_ACCOUNT_DETAILS_V2_COMPLETE = (
     f"{ FR_BANK_ACCOUNT_DETAILS_DATA_DIR }/response_v2/complete.json"
 )

@@ -4,7 +4,7 @@ import pytest
 
 from mindee.documents import FinancialDocumentV1
 
-FINANCIAL_DOC_DATA_DIR = "./tests/data/financial_document"
+FINANCIAL_DOC_DATA_DIR = "./tests/data/products/financial_document"
 FILE_PATH_FINANCIAL_DOC_V1_INVOICE = (
     f"{FINANCIAL_DOC_DATA_DIR}/response_v1/complete_invoice.json"
 )
