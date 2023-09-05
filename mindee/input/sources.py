@@ -142,6 +142,8 @@ class LocalInputSource:
         self.file_object.seek(0)
         with pikepdf.open(self.file_object) as pdf:
             for page in pdf.pages:
+                # mypy incorrectly identifies the "/Length" key's value as
+                # an object rather than an int.
                 try:
                     total_size = page["/Contents"]["/Length"]
                 except ValueError:
