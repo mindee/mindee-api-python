@@ -10,22 +10,22 @@ from mindee.fields.text import TextField
 class BankCheckV1(Document):
     """Bank Check v1 prediction results."""
 
-    date: DateField
-    """Date the check was issued"""
-    amount: AmountField
-    """Amount to be paid"""
-    payees: List[TextField]
-    """List of payees (full name or company name)"""
-    check_number: TextField
-    """Check number"""
-    routing_number: TextField
-    """Payer's bank account routing number"""
     account_number: TextField
-    """Payer's bank account number"""
+    """The check payer's account number."""
+    amount: AmountField
+    """The amount of the check."""
+    check_number: TextField
+    """The issuer's check number."""
     check_position: PositionField
-    """Check's position in the image"""
+    """The position of the check on the document."""
+    date: DateField
+    """The date the check was issued."""
+    payees: List[TextField]
+    """List of the check's payees (recipients)."""
+    routing_number: TextField
+    """The check issuer's routing number."""
     signatures_positions: List[PositionField]
-    """The positions of the signatures on the image."""
+    """List of signature positions"""
 
     def __init__(
         self,
@@ -34,7 +34,7 @@ class BankCheckV1(Document):
         page_n: Optional[int] = None,
     ):
         """
-        Bank check document.
+        Bank Check v1 prediction results.
 
         :param api_prediction: Raw prediction from HTTP response
         :param input_source: Input object
@@ -52,29 +52,42 @@ class BankCheckV1(Document):
         self, api_prediction: TypeApiPrediction, page_n: Optional[int] = None
     ) -> None:
         """
-        Build the document from an API response JSON.
+        Build the object from the prediction API JSON.
 
         :param api_prediction: Raw prediction from HTTP response
-        :param page_n: Page number for multi pages pdf input
+        :param page_n: Page number
         """
-        self.routing_number = TextField(
-            api_prediction["routing_number"], page_id=page_n
-        )
         self.account_number = TextField(
-            api_prediction["account_number"], page_id=page_n
+            api_prediction["account_number"],
+            page_id=page_n,
         )
-        self.check_number = TextField(api_prediction["check_number"], page_id=page_n)
-        self.date = DateField(api_prediction["date"], page_id=page_n)
-        self.amount = AmountField(api_prediction["amount"], page_id=page_n)
-        self.payees = [
-            TextField(payee, page_id=page_n) for payee in api_prediction["payees"]
-        ]
+        self.amount = AmountField(
+            api_prediction["amount"],
+            page_id=page_n,
+        )
+        self.check_number = TextField(
+            api_prediction["check_number"],
+            page_id=page_n,
+        )
         self.check_position = PositionField(
-            api_prediction["check_position"], page_n=page_n
+            api_prediction.get("check_position", {}),
+            page_id=page_n,
+        )
+        self.date = DateField(
+            api_prediction["date"],
+            page_id=page_n,
+        )
+        self.payees = [
+            TextField(prediction, page_id=page_n)
+            for prediction in api_prediction["payees"]
+        ]
+        self.routing_number = TextField(
+            api_prediction["routing_number"],
+            page_id=page_n,
         )
         self.signatures_positions = [
-            PositionField(signature_position, page_n=page_n)
-            for signature_position in api_prediction["signatures_positions"]
+            PositionField(prediction, page_id=page_n)
+            for prediction in api_prediction["signatures_positions"]
         ]
 
     def __str__(self) -> str:
@@ -90,9 +103,6 @@ class BankCheckV1(Document):
             f"Payees: {payees}\n"
             "----------------------"
         )
-
-    def _checklist(self) -> None:
-        pass
 
 
 TypeBankCheckV1 = TypeVar("TypeBankCheckV1", bound=BankCheckV1)

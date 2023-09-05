@@ -7,10 +7,10 @@ from mindee.fields.text import TextField
 class BankAccountDetailsV1(Document):
     """Bank Account Details v1 prediction results."""
 
-    iban: TextField
-    """The International Bank Account Number (IBAN)."""
     account_holder_name: TextField
     """The name of the account holder as seen on the document."""
+    iban: TextField
+    """The International Bank Account Number (IBAN)."""
     swift: TextField
     """The bank's SWIFT Business Identifier Code (BIC)."""
 
@@ -44,12 +44,12 @@ class BankAccountDetailsV1(Document):
         :param api_prediction: Raw prediction from HTTP response
         :param page_n: Page number
         """
-        self.iban = TextField(
-            api_prediction["iban"],
-            page_id=page_n,
-        )
         self.account_holder_name = TextField(
             api_prediction["account_holder_name"],
+            page_id=page_n,
+        )
+        self.iban = TextField(
+            api_prediction["iban"],
             page_id=page_n,
         )
         self.swift = TextField(

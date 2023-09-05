@@ -145,10 +145,10 @@ class LocalInputSource:
                 try:
                     total_size = page["/Contents"]["/Length"]
                 except ValueError:
-                    total_size = 0
-                    for content in page["/Contents"]:
+                    total_size = 0  # type: ignore
+                    for content in page["/Contents"]:  # type: ignore
                         total_size += content["/Length"]
-                has_data = total_size > 1000
+                has_data = total_size > 1000  # type: ignore
 
                 has_font = "/Font" in page["/Resources"].keys()
                 has_xobj = "/XObject" in page["/Resources"].keys()

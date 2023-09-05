@@ -43,7 +43,7 @@ class CropperV1(Document):
             return
 
         for crop in api_prediction["cropping"]:
-            self.cropping.append(PositionField(prediction=crop))
+            self.cropping.append(PositionField(prediction=crop, page_id=page_n))
 
     def _checklist(self) -> None:
         pass

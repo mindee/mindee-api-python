@@ -108,7 +108,9 @@ class IdCardV1(Document):
         )
 
     def __str__(self) -> str:
-        given_names = "\n".join([str(item) for item in self.given_names])
+        given_names = f"\n { ' ' * 12 }".join(
+            [str(item) for item in self.given_names],
+        )
         return clean_out_string(
             "----- FR Carte Nationale d'Identité V1 -----\n"
             f"Filename: {self.filename or ''}\n"

@@ -10,12 +10,12 @@ class CarteVitaleV1(Document):
 
     given_names: List[TextField]
     """The given name(s) of the card holder."""
-    surname: TextField
-    """The surname of the card holder."""
-    social_security: TextField
-    """The Social Security Number (Numéro de Sécurité Sociale) of the card holder"""
     issuance_date: DateField
     """The date the card was issued."""
+    social_security: TextField
+    """The Social Security Number (Numéro de Sécurité Sociale) of the card holder"""
+    surname: TextField
+    """The surname of the card holder."""
 
     def __init__(
         self,
@@ -51,21 +51,23 @@ class CarteVitaleV1(Document):
             TextField(prediction, page_id=page_n)
             for prediction in api_prediction["given_names"]
         ]
-        self.surname = TextField(
-            api_prediction["surname"],
+        self.issuance_date = DateField(
+            api_prediction["issuance_date"],
             page_id=page_n,
         )
         self.social_security = TextField(
             api_prediction["social_security"],
             page_id=page_n,
         )
-        self.issuance_date = DateField(
-            api_prediction["issuance_date"],
+        self.surname = TextField(
+            api_prediction["surname"],
             page_id=page_n,
         )
 
     def __str__(self) -> str:
-        given_names = "\n".join([str(item) for item in self.given_names])
+        given_names = f"\n { ' ' * 12 }".join(
+            [str(item) for item in self.given_names],
+        )
         return clean_out_string(
             "----- FR Carte Vitale V1 -----\n"
             f"Filename: {self.filename or ''}\n"

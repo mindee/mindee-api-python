@@ -31,6 +31,18 @@ def proof_of_address_v1_page0():
     return ProofOfAddressV1(json_data["document"]["inference"]["pages"][0], page_n=0)
 
 
+def test_empty_doc_constructor(proof_of_address_v1_doc_empty):
+    assert proof_of_address_v1_doc_empty.locale.value is None
+    assert proof_of_address_v1_doc_empty.issuer_name.value is None
+    assert len(proof_of_address_v1_doc_empty.issuer_company_registration) == 0
+    assert proof_of_address_v1_doc_empty.issuer_address.value is None
+    assert proof_of_address_v1_doc_empty.recipient_name.value is None
+    assert len(proof_of_address_v1_doc_empty.recipient_company_registration) == 0
+    assert proof_of_address_v1_doc_empty.recipient_address.value is None
+    assert len(proof_of_address_v1_doc_empty.dates) == 0
+    assert proof_of_address_v1_doc_empty.date.value is None
+
+
 def test_doc_constructor(proof_of_address_v1_doc):
     file_path = f"{ PROOF_OF_ADDRESS_DATA_DIR }/response_v1/doc_to_string.txt"
     reference_str = open(file_path, "r", encoding="utf-8").read().strip()
