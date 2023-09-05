@@ -309,4 +309,7 @@ class PassportV1(Document):
             self.full_name = TextField(full_name, reconstructed=True)
 
 
-TypePassportV1 = TypeVar("TypePassportV1", bound=PassportV1)
+TypePassportV1 = TypeVar(
+    "TypePassportV1",
+    bound=PassportV1,
+)
