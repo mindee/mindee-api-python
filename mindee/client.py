@@ -435,6 +435,11 @@ class Client:
                 version="1",
             ),
             ConfigSpec(
+                doc_class=documents.fr.IdCardV2,
+                url_name="idcard_fr",
+                version="2",
+            ),
+            ConfigSpec(
                 doc_class=documents.fr.CarteVitaleV1,
                 url_name="carte_vitale",
                 version="1",
