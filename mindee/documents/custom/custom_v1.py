@@ -57,12 +57,14 @@ class CustomV1(Document):
                 self.fields[field_name] = ListField(prediction=field, page_n=page_n)
 
     def __str__(self) -> str:
-        custom_doc_str = f"----- {self.type} -----\nFilename: {self.filename or ''}\n"
+        custom_doc_str = f"{self.type} V1 Prediction"
+        custom_doc_str += "\n" + "=" * len(custom_doc_str)
+        custom_doc_str += f"\n:Filename: {self.filename or ''}\n"
+
         for class_name, class_info in self.classifications.items():
-            custom_doc_str += f"{class_name}: {class_info}\n"
+            custom_doc_str += f":{class_name}: {class_info}\n"
         for field_name, field_info in self.fields.items():
-            custom_doc_str += f"{field_name}: {field_info}\n"
-        custom_doc_str += "----------------------"
+            custom_doc_str += f":{field_name}: {field_info}\n"
         return clean_out_string(custom_doc_str)
 
 

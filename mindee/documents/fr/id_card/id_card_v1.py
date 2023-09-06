@@ -108,23 +108,28 @@ class IdCardV1(Document):
         )
 
     def __str__(self) -> str:
-        given_names = "\n".join([str(item) for item in self.given_names])
+        given_names = f"\n { ' ' * 15 }".join(
+            [str(item) for item in self.given_names],
+        )
         return clean_out_string(
-            "----- FR Carte Nationale d'Identité V1 -----\n"
-            f"Filename: {self.filename or ''}\n"
-            f"Document Side: { self.document_side }\n"
-            f"Identity Number: { self.id_number }\n"
-            f"Given Name(s): { given_names }\n"
-            f"Surname: { self.surname }\n"
-            f"Date of Birth: { self.birth_date }\n"
-            f"Place of Birth: { self.birth_place }\n"
-            f"Expiry Date: { self.expiry_date }\n"
-            f"Issuing Authority: { self.authority }\n"
-            f"Gender: { self.gender }\n"
-            f"MRZ Line 1: { self.mrz1 }\n"
-            f"MRZ Line 2: { self.mrz2 }\n"
-            "----------------------"
+            "FR Carte Nationale d'Identité V1 Prediction\n"
+            "===========================================\n"
+            f":Filename: {self.filename or ''}\n"
+            f":Document Side: {self.document_side}\n"
+            f":Identity Number: {self.id_number}\n"
+            f":Given Name(s): {given_names}\n"
+            f":Surname: {self.surname}\n"
+            f":Date of Birth: {self.birth_date}\n"
+            f":Place of Birth: {self.birth_place}\n"
+            f":Expiry Date: {self.expiry_date}\n"
+            f":Issuing Authority: {self.authority}\n"
+            f":Gender: {self.gender}\n"
+            f":MRZ Line 1: {self.mrz1}\n"
+            f":MRZ Line 2: {self.mrz2}\n"
         )
 
 
-TypeIdCardV1 = TypeVar("TypeIdCardV1", bound=IdCardV1)
+TypeIdCardV1 = TypeVar(
+    "TypeIdCardV1",
+    bound=IdCardV1,
+)

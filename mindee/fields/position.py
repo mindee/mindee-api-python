@@ -29,7 +29,7 @@ class PositionField(BaseField):
         prediction: TypePrediction,
         value_key: str = "polygon",
         reconstructed: bool = False,
-        page_n: Optional[int] = None,
+        page_id: Optional[int] = None,
     ):
         """
         Position field object.
@@ -37,13 +37,13 @@ class PositionField(BaseField):
         :param prediction: Position prediction object from HTTP response
         :param value_key: Key to use in the position_prediction dict
         :param reconstructed: Bool for reconstructed object (not extracted in the API)
-        :param page_n: Page number for multi-page document
+        :param page_id: Page number for multi-page document
         """
         super().__init__(
             prediction,
             value_key=value_key,
             reconstructed=reconstructed,
-            page_n=page_n,
+            page_n=page_id,
         )
 
         def get_quadrilateral(key: str) -> Optional[Quadrilateral]:
@@ -54,8 +54,14 @@ class PositionField(BaseField):
 
         def get_polygon(key: str) -> Optional[Polygon]:
             try:
-                return polygon_from_prediction(prediction[key])
-            except (KeyError, GeometryError):
+                polygon = prediction[key]
+            except KeyError:
+                return None
+            if not polygon:
+                return None
+            try:
+                return polygon_from_prediction(polygon)
+            except GeometryError:
                 return None
 
         self.bounding_box = get_quadrilateral("bounding_box")

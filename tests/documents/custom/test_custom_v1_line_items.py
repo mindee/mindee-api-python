@@ -2,7 +2,7 @@ import json
 
 from mindee.documents import CustomV1
 from mindee.documents.custom.line_items import get_line_items
-from tests import CUSTOM_DATA_DIR
+from tests.documents.custom.test_custom_v1 import CUSTOM_DATA_DIR
 
 
 def test_single_table_01():

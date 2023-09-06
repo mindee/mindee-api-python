@@ -12,7 +12,10 @@ from mindee.input.sources import (
     PathInput,
     UrlInputSource,
 )
-from tests import INVOICE_DATA_DIR, PDF_DATA_DIR, RECEIPT_DATA_DIR
+from tests import INVOICE_DATA_DIR, RECEIPT_DATA_DIR
+
+FILE_TYPES_DIR = "./tests/data/file_types"
+PDF_DATA_DIR = "./tests/data/file_types/pdf"
 
 #
 # PDF
@@ -170,18 +173,18 @@ def test_pdf_blank_check():
 
 
 def test_tif_input_from_path():
-    input_obj_1 = PathInput(f"{RECEIPT_DATA_DIR}/receipt.tif")
+    input_obj_1 = PathInput(f"{FILE_TYPES_DIR}/receipt.tif")
     assert input_obj_1.file_mimetype == "image/tiff"
 
-    input_obj_2 = PathInput(f"{RECEIPT_DATA_DIR}/receipt.tiff")
+    input_obj_2 = PathInput(f"{FILE_TYPES_DIR}/receipt.tiff")
     assert input_obj_2.file_mimetype == "image/tiff"
 
 
 def test_heic_input_from_path():
-    input_obj_1 = PathInput(f"{RECEIPT_DATA_DIR}/receipt.heic")
+    input_obj_1 = PathInput(f"{FILE_TYPES_DIR}/receipt.heic")
     assert input_obj_1.file_mimetype == "image/heic"
 
 
 def test_txt_input_from_path():
     with pytest.raises(MimeTypeError):
-        PathInput(f"{RECEIPT_DATA_DIR}/receipt.txt")
+        PathInput(f"{FILE_TYPES_DIR}/receipt.txt")

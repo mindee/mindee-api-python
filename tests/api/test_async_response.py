@@ -19,7 +19,7 @@ FILE_PATH_GET_COMPLETED = f"{ ASYNC_DIR }/get_completed.json"
 
 @pytest.fixture
 def dummy_file_input():
-    file_input = PathInput("./tests/data/invoice_splitter/2_invoices.pdf")
+    file_input = PathInput("./tests/data/products/invoice_splitter/default_sample.pdf")
     return file_input
 
 

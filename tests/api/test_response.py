@@ -25,7 +25,7 @@ from tests.documents.test_receipt_v4 import FILE_PATH_RECEIPT_V4_COMPLETE
 
 @pytest.fixture
 def dummy_file_input():
-    file_input = PathInput("./tests/data/receipt/receipt.jpg")
+    file_input = PathInput("./tests/data/file_types/receipt.jpg")
     return file_input
 
 

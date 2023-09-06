@@ -120,27 +120,24 @@ class PassportV1(Document):
         self.full_name = TextField({"value": None, "confidence": 0.0}, page_id=page_n)
 
     def __str__(self) -> str:
-        given_names = " ".join(
-            [
-                given_name.value if given_name.value is not None else ""
-                for given_name in self.given_names
-            ]
+        given_names = f"\n { ' ' * 15 }".join(
+            [str(item) for item in self.given_names],
         )
         return clean_out_string(
-            "----- Passport V1 -----\n"
-            f"Filename: {self.filename or ''}\n"
-            f"Full name: {self.full_name}\n"
-            f"Given names: {given_names}\n"
-            f"Surname: {self.surname}\n"
-            f"Country: {self.country}\n"
-            f"ID Number: {self.id_number}\n"
-            f"Issuance date: {self.issuance_date}\n"
-            f"Birth date: {self.birth_date}\n"
-            f"Expiry date: {self.expiry_date}\n"
-            f"MRZ 1: {self.mrz1}\n"
-            f"MRZ 2: {self.mrz2}\n"
-            f"MRZ: {self.mrz}\n"
-            "----------------------"
+            "Passport V1 Prediction\n"
+            "======================\n"
+            f":Filename: {self.filename or ''}\n"
+            f":Country Code: {self.country}\n"
+            f":ID Number: {self.id_number}\n"
+            f":Given Name(s): {given_names}\n"
+            f":Surname: {self.surname}\n"
+            f":Date of Birth: {self.birth_date}\n"
+            f":Place of Birth: {self.birth_place}\n"
+            f":Gender: {self.gender}\n"
+            f":Date of Issue: {self.issuance_date}\n"
+            f":Expiry Date: {self.expiry_date}\n"
+            f":MRZ Line 1: {self.mrz1}\n"
+            f":MRZ Line 2: {self.mrz2}\n"
         )
 
     def is_expired(self) -> bool:
@@ -312,4 +309,7 @@ class PassportV1(Document):
             self.full_name = TextField(full_name, reconstructed=True)
 
 
-TypePassportV1 = TypeVar("TypePassportV1", bound=PassportV1)
+TypePassportV1 = TypeVar(
+    "TypePassportV1",
+    bound=PassportV1,
+)

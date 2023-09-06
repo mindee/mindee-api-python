@@ -78,5 +78,6 @@ class BankAccountDetailsV2(Document):
 
 
 TypeBankAccountDetailsV2 = TypeVar(
-    "TypeBankAccountDetailsV2", bound=BankAccountDetailsV2
+    "TypeBankAccountDetailsV2",
+    bound=BankAccountDetailsV2,
 )

@@ -8,8 +8,8 @@ from mindee.documents.custom.custom_v1_fields import (
     ListField,
     ListFieldValue,
 )
-from tests import CUSTOM_DATA_DIR
 
+CUSTOM_DATA_DIR = "./tests/data/products/custom"
 FILE_PATH_CUSTOM_V1_COMPLETE = f"{CUSTOM_DATA_DIR}/response_v1/complete.json"
 FILE_PATH_CUSTOM_V1_EMPTY = f"{CUSTOM_DATA_DIR}/response_v1/empty.json"
 
@@ -50,7 +50,7 @@ def test_empty(custom_v1_doc_object_empty):
 
 
 def test_complete(custom_v1_doc_object):
-    doc_str = open(f"{CUSTOM_DATA_DIR}/response_v1/doc_to_string.txt").read().strip()
+    doc_str = open(f"{CUSTOM_DATA_DIR}/response_v1/doc_to_string.rst").read()
     for field_name, field in custom_v1_doc_object.fields.items():
         assert len(field_name) > 0
         assert isinstance(field, ListField)

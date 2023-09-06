@@ -168,8 +168,8 @@ class ReceiptV5(Document):
         return out_str
 
     def __str__(self) -> str:
-        supplier_company_registrations = "; ".join(
-            [str(n.value) for n in self.supplier_company_registrations]
+        supplier_company_registrations = f"\n { ' ' * 32 }".join(
+            [str(item) for item in self.supplier_company_registrations],
         )
         return clean_out_string(
             "Receipt V5 Prediction\n"
@@ -194,4 +194,7 @@ class ReceiptV5(Document):
         )
 
 
-TypeReceiptV5 = TypeVar("TypeReceiptV5", bound=ReceiptV5)
+TypeReceiptV5 = TypeVar(
+    "TypeReceiptV5",
+    bound=ReceiptV5,
+)

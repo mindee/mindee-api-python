@@ -7,19 +7,18 @@ from mindee.fields.position import PositionField
 class CropperV1(Document):
     """Cropper v1 prediction results."""
 
-    cropping: List[PositionField]
-    """List of all detected cropped elements in the image"""
+    cropping: List[PositionField] = []
+    """List of documents found in the image."""
 
     def __init__(
         self,
-        api_prediction: TypeApiPrediction,
+        api_prediction=None,
         input_source=None,
         page_n: Optional[int] = None,
     ):
         """
-        Custom document object.
+        Cropper v1 prediction results.
 
-        :param document_type: Document type
         :param api_prediction: Raw prediction from HTTP response
         :param input_source: Input object
         :param page_n: Page number for multi pages pdf input
@@ -35,27 +34,33 @@ class CropperV1(Document):
     def _build_from_api_prediction(
         self, api_prediction: TypeApiPrediction, page_n: Optional[int] = None
     ) -> None:
-        """Build the document from an API response JSON."""
-        self.cropping = []
+        """
+        Build the object from the prediction API JSON.
 
-        # cropping is only present on pages
+        :param api_prediction: Raw prediction from HTTP response
+        :param page_n: Page number
+        """
         if page_n is None:
             return
 
-        for crop in api_prediction["cropping"]:
-            self.cropping.append(PositionField(prediction=crop))
+        self.cropping = [
+            PositionField(prediction, page_id=page_n)
+            for prediction in api_prediction["cropping"]
+        ]
 
-    def _checklist(self) -> None:
-        pass
-
-    def __str__(self):
-        cropping = "\n          ".join([str(crop) for crop in self.cropping])
+    def __str__(self) -> str:
+        cropping = f"\n { ' ' * 18 }".join(
+            [str(item) for item in self.cropping],
+        )
         return clean_out_string(
-            "----- Cropper Data -----\n"
-            f"Filename: {self.filename or ''}\n"
-            f"Cropping: {cropping}\n"
-            "------------------------"
+            "Cropper V1 Prediction\n"
+            "=====================\n"
+            f":Filename: {self.filename or ''}\n"
+            f":Document Cropper: {cropping}\n"
         )
 
 
-TypeCropperV1 = TypeVar("TypeCropperV1", bound=CropperV1)
+TypeCropperV1 = TypeVar(
+    "TypeCropperV1",
+    bound=CropperV1,
+)

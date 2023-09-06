@@ -4,7 +4,7 @@ import pytest
 
 from mindee.documents import ReceiptV5
 
-RECEIPT_DATA_DIR = "./tests/data/receipt"
+RECEIPT_DATA_DIR = "./tests/data/products/expense_receipts"
 FILE_PATH_RECEIPT_V5_COMPLETE = f"{ RECEIPT_DATA_DIR }/response_v5/complete.json"
 FILE_PATH_RECEIPT_V5_EMPTY = f"{ RECEIPT_DATA_DIR }/response_v5/empty.json"
 
