@@ -6,5 +6,5 @@ Carte Vitale V1
 .. literalinclude:: /extras/code_samples/carte_vitale_v1.txt
     :language: Python
 
-.. autoclass:: mindee.documents.fr.CarteVitaleV1
+.. autoclass:: mindee.product.fr.CarteVitaleV1
     :members:

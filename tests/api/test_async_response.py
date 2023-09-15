@@ -3,11 +3,11 @@ import json
 import pytest
 
 from mindee import Client
-from mindee.documents.base import Document
-from mindee.documents.invoice_splitter import InvoiceSplitterV1
-from mindee.endpoints import OTS_OWNER
+from mindee.http.endpoints import OTS_OWNER
 from mindee.input.sources import PathInput
-from mindee.response import AsyncPredictResponse
+from mindee.parsing.common.api_response import AsyncPredictResponse
+from mindee.parsing.common.document import Document
+from mindee.product.invoice_splitter import InvoiceSplitterV1
 
 ASYNC_DIR = "./tests/data/async"
 

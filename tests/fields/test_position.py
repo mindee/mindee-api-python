@@ -1,4 +1,4 @@
-from mindee.fields.position import PositionField
+from mindee.parsing.standard.position import PositionField
 
 
 def test_constructor():
