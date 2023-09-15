@@ -6,5 +6,5 @@ Carte Nationale d'Identité V2
 .. literalinclude:: /extras/code_samples/idcard_fr_v2.txt
     :language: Python
 
-.. autoclass:: mindee.documents.fr.IdCardV2
+.. autoclass:: mindee.product.fr.IdCardV2
     :members:

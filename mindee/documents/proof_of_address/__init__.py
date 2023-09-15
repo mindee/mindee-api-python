@@ -1,1 +1,0 @@
-from .proof_of_address_v1 import ProofOfAddressV1, TypeProofOfAddressV1

@@ -6,5 +6,5 @@ Cropper V1
 .. literalinclude:: /extras/code_samples/cropper_v1.txt
     :language: Python
 
-.. autoclass:: mindee.documents.CropperV1
+.. autoclass:: mindee.product.CropperV1
     :members:

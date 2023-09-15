@@ -19,7 +19,7 @@ Finally, Python away!
 
 #### Global Documents
 ```python
-from mindee import Client, documents
+from mindee import Client, product
 
 # Init a new client
 mindee_client = Client(api_key="my-api-key")
@@ -28,7 +28,7 @@ mindee_client = Client(api_key="my-api-key")
 input_doc = mindee_client.doc_from_path("/path/to/the/file.ext")
 
 # Parse the document as an invoice by passing the appropriate type
-result = input_doc.parse(documents.TypeInvoiceV4)
+result = input_doc.parse(product.TypeInvoiceV4)
 
 # Print a brief summary of the parsed data
 print(result.document)
@@ -36,7 +36,7 @@ print(result.document)
 
 #### Region-Specific Documents
 ```python
-from mindee import Client, documents
+from mindee import Client, product
 
 # Init a new client
 mindee_client = Client(api_key="my-api-key")
@@ -45,7 +45,7 @@ mindee_client = Client(api_key="my-api-key")
 input_doc = mindee_client.doc_from_path("/path/to/the/file.ext")
 
 # Parse the document as a USA bank check by passing the appropriate type
-result = input_doc.parse(documents.us.TypeBankCheckV1)
+result = input_doc.parse(product.us.TypeBankCheckV1)
 
 # Print a brief summary of the parsed data
 print(result.document)
@@ -54,7 +54,7 @@ print(result.document)
 #### Custom Document (API Builder)
 
 ```python
-from mindee import Client, documents
+from mindee import Client, product
 
 # Init a new client and add your custom endpoint (document)
 mindee_client = Client(api_key="my-api-key").add_endpoint(
@@ -66,7 +66,7 @@ mindee_client = Client(api_key="my-api-key").add_endpoint(
 # The endpoint name must be specified since it can't be determined from the class.
 result = mindee_client.doc_from_path(
     "/path/to/the/file.ext"
-).parse(documents.TypeCustomV1, endpoint_name="wnine")
+).parse(product.TypeCustomV1, endpoint_name="wnine")
 
 # Print a brief summary of the parsed data
 print(result.document)

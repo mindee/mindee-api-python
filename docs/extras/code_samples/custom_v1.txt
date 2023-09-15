@@ -1,4 +1,4 @@
-from mindee import Client, documents
+from mindee import Client, product
 
 # Init a new client and add your custom endpoint (document)
 mindee_client = Client(api_key="my-api-key").add_endpoint(
@@ -10,7 +10,7 @@ mindee_client = Client(api_key="my-api-key").add_endpoint(
 # The endpoint name must be specified since it cannot be determined from the class.
 result = mindee_client.doc_from_path(
     "/path/to/the/file.ext"
-).parse(documents.TypeCustomV1, endpoint_name="my-endpoint")
+).parse(product.TypeCustomV1, endpoint_name="my-endpoint")
 
 # Print a brief summary of the parsed data
 print(result.document)
