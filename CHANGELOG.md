@@ -1,5 +1,10 @@
 # Mindee Python API Library Changelog
 
+## v3.12.0 - 2023-09-15
+### Changes
+* :sparkles: add support for FR ID card v2
+
+
 ## v3.11.1 - 2023-07-13
 ### Changes
 * :arrow_up: GitHub CI and mypy updates
