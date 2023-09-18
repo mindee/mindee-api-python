@@ -27,50 +27,50 @@ DOCUMENTS: Dict[str, CommandConfig] = {
         help="Custom document type from API builder",
         doc_class=product.TypeCustomV1,
     ),
-    "invoice": CommandConfig(
-        help="Invoice",
-        doc_class=product.TypeInvoiceV4,
-    ),
-    "receipt": CommandConfig(
-        help="Expense Receipt",
-        doc_class=product.TypeReceiptV5,
-    ),
-    "passport": CommandConfig(
-        help="Passport",
-        doc_class=product.TypePassportV1,
-    ),
-    "financial-document": CommandConfig(
-        help="Financial Document (receipt or invoice)",
-        doc_class=product.TypeFinancialDocumentV1,
-    ),
-    "proof-of-address": CommandConfig(
-        help="Proof of Address",
-        doc_class=product.TypeProofOfAddressV1,
-    ),
-    "us-bank-check": CommandConfig(
-        help="US Bank Check",
-        doc_class=product.us.TypeBankCheckV1,
-    ),
-    "eu-license-plate": CommandConfig(
-        help="EU License Plate",
-        doc_class=product.eu.TypeLicensePlateV1,
-    ),
-    "fr-carte-grise": CommandConfig(
-        help="FR Carte Grise",
-        doc_class=product.fr.TypeCarteGriseV1,
-    ),
-    "fr-carte-vitale": CommandConfig(
-        help="FR Carte Vitale",
-        doc_class=product.fr.TypeCarteVitaleV1,
-    ),
-    "fr-id-card": CommandConfig(
-        help="FR ID Card",
-        doc_class=product.fr.TypeIdCardV1,
-    ),
-    "fr-bank-account-details": CommandConfig(
-        help="FR Bank Account Details",
-        doc_class=product.fr.TypeBankAccountDetailsV1,
-    ),
+    # "invoice": CommandConfig(
+    #     help="Invoice",
+    #     doc_class=product.TypeInvoiceV4,
+    # ),
+    # "receipt": CommandConfig(
+    #     help="Expense Receipt",
+    #     doc_class=product.TypeReceiptV5,
+    # ),
+    # "passport": CommandConfig(
+    #     help="Passport",
+    #     doc_class=product.TypePassportV1,
+    # ),
+    # "financial-document": CommandConfig(
+    #     help="Financial Document (receipt or invoice)",
+    #     doc_class=product.TypeFinancialDocumentV1,
+    # ),
+    # "proof-of-address": CommandConfig(
+    #     help="Proof of Address",
+    #     doc_class=product.TypeProofOfAddressV1,
+    # ),
+    # "us-bank-check": CommandConfig(
+    #     help="US Bank Check",
+    #     doc_class=product.us.TypeBankCheckV1,
+    # ),
+    # "eu-license-plate": CommandConfig(
+    #     help="EU License Plate",
+    #     doc_class=product.eu.TypeLicensePlateV1,
+    # ),
+    # "fr-carte-grise": CommandConfig(
+    #     help="FR Carte Grise",
+    #     doc_class=product.fr.TypeCarteGriseV1,
+    # ),
+    # "fr-carte-vitale": CommandConfig(
+    #     help="FR Carte Vitale",
+    #     doc_class=product.fr.TypeCarteVitaleV1,
+    # ),
+    # "fr-id-card": CommandConfig(
+    #     help="FR ID Card",
+    #     doc_class=product.fr.TypeIdCardV1,
+    # ),
+    # "fr-bank-account-details": CommandConfig(
+    #     help="FR Bank Account Details",
+    #     doc_class=product.fr.TypeBankAccountDetailsV1,
+    # ),
     "invoice-splitter": CommandConfig(
         help="Invoice Splitter",
         doc_class=product.TypeInvoiceSplitterV1,

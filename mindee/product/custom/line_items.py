@@ -1,6 +1,5 @@
 from typing import Dict, List, Sequence
 
-from mindee.product.custom.custom_v1_fields import ListField, ListFieldValue
 from mindee.geometry import (
     Quadrilateral,
     get_bounding_box,
@@ -8,6 +7,7 @@ from mindee.geometry import (
     is_point_in_y,
     merge_polygons,
 )
+from mindee.product.custom.custom_v1_fields import ListField, ListFieldValue
 
 
 def _array_product(array: Sequence[float]) -> float:

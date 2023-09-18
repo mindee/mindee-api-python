@@ -374,101 +374,91 @@ class Client:
 
     def _init_default_endpoints(self) -> None:
         configs: List[ConfigSpec] = [
-            ConfigSpec(
-                doc_class=product.InvoiceV3,
-                url_name="invoices",
-                version="3",
-            ),
-            ConfigSpec(
-                doc_class=product.InvoiceV4,
-                url_name="invoices",
-                version="4",
-            ),
-            ConfigSpec(
-                doc_class=product.ReceiptV3,
-                url_name="expense_receipts",
-                version="3",
-            ),
+            # ConfigSpec(
+            #     doc_class=product.InvoiceV4,
+            #     url_name="invoices",
+            #     version="4",
+            # ),
             ConfigSpec(
                 doc_class=product.ReceiptV4,
                 url_name="expense_receipts",
                 version="4",
             ),
-            ConfigSpec(
-                doc_class=product.ReceiptV5,
-                url_name="expense_receipts",
-                version="5",
-            ),
-            ConfigSpec(
-                doc_class=product.FinancialDocumentV1,
-                url_name="financial_document",
-                version="1",
-            ),
-            ConfigSpec(
-                doc_class=product.PassportV1,
-                url_name="passport",
-                version="1",
-            ),
-            ConfigSpec(
-                doc_class=product.ProofOfAddressV1,
-                url_name="proof_of_address",
-                version="1",
-            ),
-            ConfigSpec(
-                doc_class=product.CropperV1,
-                url_name="cropper",
-                version="1",
-            ),
-            ConfigSpec(
-                doc_class=product.us.BankCheckV1,
-                url_name="bank_check",
-                version="1",
-            ),
-            ConfigSpec(
-                doc_class=product.fr.CarteGriseV1,
-                url_name="carte_grise",
-                version="1",
-            ),
-            ConfigSpec(
-                doc_class=product.fr.IdCardV1,
-                url_name="idcard_fr",
-                version="1",
-            ),
-            ConfigSpec(
-                doc_class=product.fr.IdCardV2,
-                url_name="idcard_fr",
-                version="2",
-            ),
-            ConfigSpec(
-                doc_class=product.fr.CarteVitaleV1,
-                url_name="carte_vitale",
-                version="1",
-            ),
-            ConfigSpec(
-                doc_class=product.fr.BankAccountDetailsV1,
-                url_name="bank_account_details",
-                version="1",
-            ),
-            ConfigSpec(
-                doc_class=product.fr.BankAccountDetailsV2,
-                url_name="bank_account_details",
-                version="2",
-            ),
-            ConfigSpec(
-                doc_class=product.eu.LicensePlateV1,
-                url_name="license_plates",
-                version="1",
-            ),
+            # ConfigSpec(
+            #     doc_class=product.ReceiptV5,
+            #     url_name="expense_receipts",
+            #     version="5",
+            # ),
+            # ConfigSpec(
+            #     doc_class=product.FinancialDocumentV1,
+            #     url_name="financial_document",
+            #     version="1",
+            # ),
+            # ConfigSpec(
+            #     doc_class=product.PassportV1,
+            #     url_name="passport",
+            #     version="1",
+            # ),
+            # ConfigSpec(
+            #     doc_class=product.ProofOfAddressV1,
+            #     url_name="proof_of_address",
+            #     version="1",
+            # ),
+            # ConfigSpec(
+            #     doc_class=product.CropperV1,
+            #     url_name="cropper",
+            #     version="1",
+            # ),
+            # ConfigSpec(
+            #     doc_class=product.us.BankCheckV1,
+            #     url_name="bank_check",
+            #     version="1",
+            # ),
+            # ConfigSpec(
+            #     doc_class=product.fr.CarteGriseV1,
+            #     url_name="carte_grise",
+            #     version="1",
+            # ),
+            # ConfigSpec(
+            #     doc_class=product.fr.IdCardV1,
+            #     url_name="idcard_fr",
+            #     version="1",
+            # ),
+            # ConfigSpec(
+            #     doc_class=product.fr.IdCardV2,
+            #     url_name="idcard_fr",
+            #     version="2",
+            # ),
+            # ConfigSpec(
+            #     doc_class=product.fr.CarteVitaleV1,
+            #     url_name="carte_vitale",
+            #     version="1",
+            # ),
+            # ConfigSpec(
+            #     doc_class=product.fr.BankAccountDetailsV1,
+            #     url_name="bank_account_details",
+            #     version="1",
+            # ),
+            # ConfigSpec(
+            #     doc_class=product.fr.BankAccountDetailsV2,
+            #     url_name="bank_account_details",
+            #     version="2",
+            # ),
+            # ConfigSpec(
+            #     doc_class=product.eu.LicensePlateV1,
+            #     url_name="license_plates",
+            #     version="1",
+            # ),
             ConfigSpec(
                 doc_class=product.InvoiceSplitterV1,
                 url_name="invoice_splitter",
                 version="1",
             ),
-            ConfigSpec(
-                doc_class=product.MaterialCertificateV1,
-                url_name="material_certificate",
-                version="1",
-            ),
+            # ConfigSpec(
+            #     doc_class=product.MaterialCertificateV1,
+            #     url_name="material_certificate",
+            #     version="1",
+            # ),
         ]
 
         for config in configs:
@@ -476,17 +466,6 @@ class Client:
             self._doc_configs[config_key] = self._standard_doc_config(
                 config.doc_class, config.url_name, config.version
             )
-        self._doc_configs[OTS_OWNER, product.FinancialV1.__name__] = DocumentConfig(
-            document_class=product.FinancialV1,
-            endpoints=[
-                StandardEndpoint(
-                    url_name="invoices", version="3", api_key=self.api_key
-                ),
-                StandardEndpoint(
-                    url_name="expense_receipts", version="3", api_key=self.api_key
-                ),
-            ],
-        )
 
     def add_endpoint(
         self,
