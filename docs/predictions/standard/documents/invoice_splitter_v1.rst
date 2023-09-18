@@ -6,5 +6,5 @@ Invoice Splitter V1
 .. literalinclude:: /extras/code_samples/invoice_splitter_v1_async.txt
     :language: Python
 
-.. autoclass:: mindee.documents.InvoiceSplitterV1
+.. autoclass:: mindee.product.InvoiceSplitterV1
     :members:

@@ -166,7 +166,7 @@ input_doc = mindee_client.doc_from_url(url="https://www.example.com/invoice.pdf"
 To send a file to the API, we need to specify how to process the document.
 This will determine which API endpoint is used and how the API return will be handled internally by the library.
 
-More specifically, we need to set a `mindee.documents.TypeDocument` type as the first parameter of the `parse` method.
+More specifically, we need to set a `mindee.product.TypeDocument` type as the first parameter of the `parse` method.
 
 This is because the `parse` method's' return type depends on its first argument.
 
@@ -176,13 +176,13 @@ This is detailed in each document-specific guide.
 ### Off-the-Shelf Documents
 Simply setting the correct class is enough:
 ```python
-result = input_doc.parse(documents.TypeInvoiceV4)
+result = input_doc.parse(product.TypeInvoiceV4)
 ```
 
 ### Custom Documents
 The endpoint to use must also be set, this is done in the `endpoint_name` argument of the `parse` method:
 ```python
-result = input_doc.parse(documents.TypeCustomV1, endpoint_name="wnine")
+result = input_doc.parse(product.TypeCustomV1, endpoint_name="wnine")
 ```
 
 This is because the `CustomV1` class is enough to handle the return processing, but the actual endpoint needs to be specified.

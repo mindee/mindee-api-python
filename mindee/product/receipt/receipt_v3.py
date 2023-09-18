@@ -1,0 +1,179 @@
+from typing import Optional, TypeVar
+
+from mindee.product.base import Document, TypeApiPrediction, clean_out_string
+from mindee.fields.amount import AmountField
+from mindee.fields.base import field_array_confidence, field_array_sum
+from mindee.fields.classification import ClassificationField
+from mindee.fields.date import DateField
+from mindee.fields.locale import LocaleField
+from mindee.fields.tax import Taxes
+from mindee.fields.text import TextField
+
+
+class ReceiptV3(Document):
+    """Receipt v3 prediction results."""
+
+    locale: LocaleField
+    """locale information"""
+    total_incl: AmountField
+    """Total including taxes"""
+    date: DateField
+    """Date the receipt was issued"""
+    time: TextField
+    """Time the receipt was issued"""
+    category: ClassificationField
+    """Service category"""
+    merchant_name: TextField
+    """Merchant's name"""
+    taxes: Taxes
+    """List of all taxes"""
+    total_tax: AmountField
+    """Sum total of all taxes"""
+    total_excl: AmountField
+    """Total excluding taxes"""
+
+    def __init__(
+        self,
+        api_prediction=None,
+        input_source=None,
+        page_n: Optional[int] = None,
+    ):
+        """
+        Receipt document.
+
+        :param api_prediction: Raw prediction from HTTP response
+        :param input_source: Input object
+        :param page_n: Page number for multi pages pdf input
+        """
+        super().__init__(
+            input_source=input_source,
+            document_type="receipt",
+            api_prediction=api_prediction,
+            page_n=page_n,
+        )
+        self._build_from_api_prediction(api_prediction["prediction"], page_n=page_n)
+        self._checklist()
+        self._reconstruct()
+
+    def __str__(self) -> str:
+        return clean_out_string(
+            "Receipt V3 Prediction\n"
+            "=====================\n"
+            f":Filename: {self.filename or ''}\n"
+            f":Total amount: {self.total_incl}\n"
+            f":Total net: {self.total_excl}\n"
+            f":Date: {self.date}\n"
+            f":Category: {self.category}\n"
+            f":Time: {self.time}\n"
+            f":Merchant name: {self.merchant_name}\n"
+            f":Taxes: {self.taxes}\n"
+            f":Total tax: {self.total_tax}\n"
+            f":Locale: {self.locale}"
+        )
+
+    def _build_from_api_prediction(
+        self, api_prediction: TypeApiPrediction, page_n: Optional[int] = None
+    ) -> None:
+        """
+        Build the document from an API response JSON.
+
+        :param api_prediction: Raw prediction from HTTP response
+        :param page_n: Page number for multi pages pdf input
+        """
+        self.locale = LocaleField(api_prediction["locale"], page_id=page_n)
+        self.total_incl = AmountField(api_prediction["total_incl"], page_id=page_n)
+        self.date = DateField(api_prediction["date"], page_id=page_n)
+        self.category = ClassificationField(api_prediction["category"], page_id=page_n)
+        self.merchant_name = TextField(
+            api_prediction["supplier"], value_key="value", page_id=page_n
+        )
+        self.time = TextField(api_prediction["time"], value_key="value", page_id=page_n)
+        self.taxes = Taxes(api_prediction["taxes"], page_id=page_n)
+        self.total_tax = AmountField({"value": None, "confidence": 0.0}, page_id=page_n)
+        self.total_excl = AmountField(
+            {"value": None, "confidence": 0.0}, page_id=page_n
+        )
+
+    def _checklist(self) -> None:
+        """Call check methods."""
+        self.checklist = {"taxes_match_total_incl": self.__taxes_match_total()}
+
+    def _reconstruct(self) -> None:
+        """Call fields reconstruction methods."""
+        self.__reconstruct_total_excl_from_tcc_and_taxes()
+        self.__reconstruct_total_tax()
+
+    # Checks
+    def __taxes_match_total(self) -> bool:
+        """
+        Check receipt rule of matching between taxes and total_incl.
+
+        :return: True if rule matches, False otherwise
+        """
+        # Check taxes and total amount exist
+        if len(self.taxes) == 0 or self.total_incl.value is None:
+            return False
+
+        # Reconstruct total_incl from taxes
+        total_vat = 0.0
+        reconstructed_total = 0.0
+        for tax in self.taxes:
+            if tax.value is None or tax.rate is None or tax.rate == 0:
+                return False
+            total_vat += tax.value
+            reconstructed_total += tax.value + 100 * tax.value / tax.rate
+
+        # Sanity check
+        if total_vat <= 0:
+            return False
+
+        # Crate epsilon
+        eps = 1 / (100 * total_vat)
+        if (
+            self.total_incl.value * (1 - eps) - 0.02
+            <= reconstructed_total
+            <= self.total_incl.value * (1 + eps) + 0.02
+        ):
+            for tax in self.taxes:
+                tax.confidence = 1.0
+            self.total_tax.confidence = 1.0
+            self.total_incl.confidence = 1.0
+            return True
+        return False
+
+    # Reconstruct
+    def __reconstruct_total_excl_from_tcc_and_taxes(self) -> None:
+        """
+        Set self.total_excl with Amount object.
+
+        The total_excl Amount value is the difference between total_incl and sum of taxes
+        The total_excl Amount confidence is the product of self.taxes probabilities
+            multiplied by total_incl confidence
+        """
+        if self.taxes and self.total_incl.value is not None:
+            total_excl = {
+                "value": self.total_incl.value - field_array_sum(self.taxes),
+                "confidence": field_array_confidence(self.taxes)
+                * self.total_incl.confidence,
+            }
+            self.total_excl = AmountField(total_excl, reconstructed=True)
+
+    def __reconstruct_total_tax(self) -> None:
+        """
+        Set self.total_tax with Amount object.
+
+        The total_tax Amount value is the sum of all self.taxes value
+        The total_tax Amount confidence is the product of self.taxes probabilities
+        """
+        if self.taxes and self.total_tax.value is None:
+            total_tax = {
+                "value": sum(
+                    tax.value if tax.value is not None else 0 for tax in self.taxes
+                ),
+                "confidence": field_array_confidence(self.taxes),
+            }
+            if total_tax["value"] > 0:
+                self.total_tax = AmountField(total_tax, reconstructed=True)
+
+
+TypeReceiptV3 = TypeVar("TypeReceiptV3", bound=ReceiptV3)

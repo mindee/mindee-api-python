@@ -6,5 +6,5 @@ Bank Account Details V1
 .. literalinclude:: /extras/code_samples/bank_account_details_v1.txt
     :language: Python
 
-.. autoclass:: mindee.documents.fr.BankAccountDetailsV1
+.. autoclass:: mindee.product.fr.BankAccountDetailsV1
     :members:

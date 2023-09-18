@@ -1,9 +1,7 @@
 import json
 from typing import BinaryIO, Dict, List, NamedTuple, Optional, Type, Union
 
-from mindee import documents
-from mindee.documents.base import Document, TypeDocument
-from mindee.documents.config import DocumentConfig, DocumentConfigDict
+from mindee import product
 from mindee.endpoints import OTS_OWNER, CustomEndpoint, HTTPException, StandardEndpoint
 from mindee.input.page_options import PageOptions
 from mindee.input.sources import (
@@ -15,6 +13,8 @@ from mindee.input.sources import (
     UrlInputSource,
 )
 from mindee.logger import logger
+from mindee.product.base import Document, TypeDocument
+from mindee.product.config import DocumentConfig, DocumentConfigDict
 from mindee.response import AsyncPredictResponse, PredictResponse
 
 
@@ -79,7 +79,7 @@ class DocumentClient:
         if self.input_doc is None:
             raise TypeError("The 'parse' function requires an input document.")
         bound_classname = get_bound_classname(document_class)
-        if bound_classname != documents.CustomV1.__name__:
+        if bound_classname != product.CustomV1.__name__:
             endpoint_name = get_bound_classname(document_class)
         elif endpoint_name is None:
             raise RuntimeError(
@@ -143,7 +143,7 @@ class DocumentClient:
         if self.input_doc is None:
             raise TypeError("The 'enqueue' function requires an input document.")
         bound_classname = get_bound_classname(document_class)
-        if bound_classname != documents.CustomV1.__name__:
+        if bound_classname != product.CustomV1.__name__:
             endpoint_name = get_bound_classname(document_class)
         elif endpoint_name is None:
             raise RuntimeError(
@@ -181,7 +181,7 @@ class DocumentClient:
             Do not set for standard (off the shelf) endpoints.
         """
         bound_classname = get_bound_classname(document_class)
-        if bound_classname != documents.CustomV1.__name__:
+        if bound_classname != product.CustomV1.__name__:
             endpoint_name = get_bound_classname(document_class)
         elif endpoint_name is None:
             raise RuntimeError(
@@ -375,97 +375,97 @@ class Client:
     def _init_default_endpoints(self) -> None:
         configs: List[ConfigSpec] = [
             ConfigSpec(
-                doc_class=documents.InvoiceV3,
+                doc_class=product.InvoiceV3,
                 url_name="invoices",
                 version="3",
             ),
             ConfigSpec(
-                doc_class=documents.InvoiceV4,
+                doc_class=product.InvoiceV4,
                 url_name="invoices",
                 version="4",
             ),
             ConfigSpec(
-                doc_class=documents.ReceiptV3,
+                doc_class=product.ReceiptV3,
                 url_name="expense_receipts",
                 version="3",
             ),
             ConfigSpec(
-                doc_class=documents.ReceiptV4,
+                doc_class=product.ReceiptV4,
                 url_name="expense_receipts",
                 version="4",
             ),
             ConfigSpec(
-                doc_class=documents.ReceiptV5,
+                doc_class=product.ReceiptV5,
                 url_name="expense_receipts",
                 version="5",
             ),
             ConfigSpec(
-                doc_class=documents.FinancialDocumentV1,
+                doc_class=product.FinancialDocumentV1,
                 url_name="financial_document",
                 version="1",
             ),
             ConfigSpec(
-                doc_class=documents.PassportV1,
+                doc_class=product.PassportV1,
                 url_name="passport",
                 version="1",
             ),
             ConfigSpec(
-                doc_class=documents.ProofOfAddressV1,
+                doc_class=product.ProofOfAddressV1,
                 url_name="proof_of_address",
                 version="1",
             ),
             ConfigSpec(
-                doc_class=documents.CropperV1,
+                doc_class=product.CropperV1,
                 url_name="cropper",
                 version="1",
             ),
             ConfigSpec(
-                doc_class=documents.us.BankCheckV1,
+                doc_class=product.us.BankCheckV1,
                 url_name="bank_check",
                 version="1",
             ),
             ConfigSpec(
-                doc_class=documents.fr.CarteGriseV1,
+                doc_class=product.fr.CarteGriseV1,
                 url_name="carte_grise",
                 version="1",
             ),
             ConfigSpec(
-                doc_class=documents.fr.IdCardV1,
+                doc_class=product.fr.IdCardV1,
                 url_name="idcard_fr",
                 version="1",
             ),
             ConfigSpec(
-                doc_class=documents.fr.IdCardV2,
+                doc_class=product.fr.IdCardV2,
                 url_name="idcard_fr",
                 version="2",
             ),
             ConfigSpec(
-                doc_class=documents.fr.CarteVitaleV1,
+                doc_class=product.fr.CarteVitaleV1,
                 url_name="carte_vitale",
                 version="1",
             ),
             ConfigSpec(
-                doc_class=documents.fr.BankAccountDetailsV1,
+                doc_class=product.fr.BankAccountDetailsV1,
                 url_name="bank_account_details",
                 version="1",
             ),
             ConfigSpec(
-                doc_class=documents.fr.BankAccountDetailsV2,
+                doc_class=product.fr.BankAccountDetailsV2,
                 url_name="bank_account_details",
                 version="2",
             ),
             ConfigSpec(
-                doc_class=documents.eu.LicensePlateV1,
+                doc_class=product.eu.LicensePlateV1,
                 url_name="license_plates",
                 version="1",
             ),
             ConfigSpec(
-                doc_class=documents.InvoiceSplitterV1,
+                doc_class=product.InvoiceSplitterV1,
                 url_name="invoice_splitter",
                 version="1",
             ),
             ConfigSpec(
-                doc_class=documents.MaterialCertificateV1,
+                doc_class=product.MaterialCertificateV1,
                 url_name="material_certificate",
                 version="1",
             ),
@@ -476,8 +476,8 @@ class Client:
             self._doc_configs[config_key] = self._standard_doc_config(
                 config.doc_class, config.url_name, config.version
             )
-        self._doc_configs[OTS_OWNER, documents.FinancialV1.__name__] = DocumentConfig(
-            document_class=documents.FinancialV1,
+        self._doc_configs[OTS_OWNER, product.FinancialV1.__name__] = DocumentConfig(
+            document_class=product.FinancialV1,
             endpoints=[
                 StandardEndpoint(
                     url_name="invoices", version="3", api_key=self.api_key
@@ -493,7 +493,7 @@ class Client:
         account_name: str,
         endpoint_name: str,
         version: str = "1",
-        document_class: Type[Document] = documents.CustomV1,
+        document_class: Type[Document] = product.CustomV1,
     ) -> "Client":
         """
         Add a custom endpoint, created using the Mindee API Builder.
@@ -503,7 +503,7 @@ class Client:
         :param version: If set, locks the version of the model to use.
             If not set, use the latest version of the model.
         :param document_class: A document class in which the response will be extracted.
-            Must inherit from ``mindee.documents.base.Document``.
+            Must inherit from ``mindee.product.base.Document``.
         """
         self._doc_configs[(account_name, endpoint_name)] = DocumentConfig(
             document_type=endpoint_name,

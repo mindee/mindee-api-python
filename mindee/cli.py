@@ -4,9 +4,9 @@ from argparse import ArgumentParser, Namespace
 from dataclasses import dataclass
 from typing import Dict, Generic, TypeVar
 
-from mindee import Client, PageOptions, documents
+from mindee import Client, PageOptions, product
 from mindee.client import DocumentClient
-from mindee.documents.base import Document, serialize_for_json
+from mindee.product.base import Document, serialize_for_json
 from mindee.response import PredictResponse
 
 TypeDoc = TypeVar("TypeDoc", bound=Document)
@@ -25,55 +25,55 @@ class CommandConfig(Generic[TypeDoc]):
 DOCUMENTS: Dict[str, CommandConfig] = {
     "custom": CommandConfig(
         help="Custom document type from API builder",
-        doc_class=documents.TypeCustomV1,
+        doc_class=product.TypeCustomV1,
     ),
     "invoice": CommandConfig(
         help="Invoice",
-        doc_class=documents.TypeInvoiceV4,
+        doc_class=product.TypeInvoiceV4,
     ),
     "receipt": CommandConfig(
         help="Expense Receipt",
-        doc_class=documents.TypeReceiptV5,
+        doc_class=product.TypeReceiptV5,
     ),
     "passport": CommandConfig(
         help="Passport",
-        doc_class=documents.TypePassportV1,
+        doc_class=product.TypePassportV1,
     ),
     "financial-document": CommandConfig(
         help="Financial Document (receipt or invoice)",
-        doc_class=documents.TypeFinancialDocumentV1,
+        doc_class=product.TypeFinancialDocumentV1,
     ),
     "proof-of-address": CommandConfig(
         help="Proof of Address",
-        doc_class=documents.TypeProofOfAddressV1,
+        doc_class=product.TypeProofOfAddressV1,
     ),
     "us-bank-check": CommandConfig(
         help="US Bank Check",
-        doc_class=documents.us.TypeBankCheckV1,
+        doc_class=product.us.TypeBankCheckV1,
     ),
     "eu-license-plate": CommandConfig(
         help="EU License Plate",
-        doc_class=documents.eu.TypeLicensePlateV1,
+        doc_class=product.eu.TypeLicensePlateV1,
     ),
     "fr-carte-grise": CommandConfig(
         help="FR Carte Grise",
-        doc_class=documents.fr.TypeCarteGriseV1,
+        doc_class=product.fr.TypeCarteGriseV1,
     ),
     "fr-carte-vitale": CommandConfig(
         help="FR Carte Vitale",
-        doc_class=documents.fr.TypeCarteVitaleV1,
+        doc_class=product.fr.TypeCarteVitaleV1,
     ),
     "fr-id-card": CommandConfig(
         help="FR ID Card",
-        doc_class=documents.fr.TypeIdCardV1,
+        doc_class=product.fr.TypeIdCardV1,
     ),
     "fr-bank-account-details": CommandConfig(
         help="FR Bank Account Details",
-        doc_class=documents.fr.TypeBankAccountDetailsV1,
+        doc_class=product.fr.TypeBankAccountDetailsV1,
     ),
     "invoice-splitter": CommandConfig(
         help="Invoice Splitter",
-        doc_class=documents.TypeInvoiceSplitterV1,
+        doc_class=product.TypeInvoiceSplitterV1,
         is_sync=False,
         is_async=True,
     ),

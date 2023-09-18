@@ -1,7 +1,7 @@
 The Python  OCR SDK supports the [passport API](https://developers.mindee.com/docs/passport-ocr) for extracting data from passports.
 
 ```python
-from mindee import Client, documents
+from mindee import Client, product
 
 # Init a new client
 mindee_client = Client(api_key="my-api-key")
@@ -10,7 +10,7 @@ mindee_client = Client(api_key="my-api-key")
 input_doc = mindee_client.doc_from_path("/path/to/the/file.ext")
 
 # Parse the Passport by passing the appropriate type
-result = input_doc.parse(documents.TypePassportV1)
+result = input_doc.parse(product.TypePassportV1)
 
 # Print a brief summary of the parsed data
 print(result.document)

@@ -15,7 +15,7 @@ from typing import List, Tuple
 import cv2
 import numpy as np
 
-from mindee import Client, documents
+from mindee import Client, product
 
 
 def relative_to_pixel_pos(polygon, image_h: int, image_w: int) -> List[Tuple[int, int]]:
@@ -66,7 +66,7 @@ if __name__ == "__main__":
     input_doc = mindee_client.doc_from_path(image_path)
 
     # Parse the document by passing the appropriate type
-    api_response = input_doc.parse(documents.TypeCropperV1)
+    api_response = input_doc.parse(product.TypeCropperV1)
 
     # Display
     show_image_crops(image_path, api_response.pages[0].cropping)

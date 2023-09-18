@@ -3,11 +3,11 @@ from datetime import datetime
 from enum import Enum
 from typing import Any, Dict, Generic, List, Optional, Union
 
-from mindee.documents.base import TypeApiPrediction, TypeDocument
-from mindee.documents.config import DocumentConfig
 from mindee.fields.ocr import Ocr
 from mindee.input.sources import LocalInputSource, UrlInputSource
 from mindee.logger import logger
+from mindee.product.base import TypeApiPrediction, TypeDocument
+from mindee.product.config import DocumentConfig
 
 
 class RequestStatus(Enum):

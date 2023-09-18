@@ -7,7 +7,7 @@ For the following examples, we are using our own [W9s custom API](https://develo
 created with the [API Builder](https://developers.mindee.com/docs/overview).
 
 ```python
-from mindee import Client, documents
+from mindee import Client, product
 
 # Init a new client and add your custom endpoint (document)
 mindee_client = Client(api_key="my-api-key").add_endpoint(
@@ -20,7 +20,7 @@ mindee_client = Client(api_key="my-api-key").add_endpoint(
 # The endpoint name must be specified since it can't be determined from the class.
 result = mindee_client.doc_from_path(
     "/path/to/the/w9.jpg"
-).parse(documents.TypeCustomV1, endpoint_name="wnine")
+).parse(product.TypeCustomV1, endpoint_name="wnine")
 
 # Print a brief summary of the parsed data
 print(result.document)
@@ -43,7 +43,7 @@ The `endpoint_name` must be specified when calling the `parse` method for a cust
 
 ```python
 result = mindee_client.doc_from_path("/path/to/receipt.jpg").parse(
-    documents.TypeCustomV1, endpoint_name="wnine"
+    product.TypeCustomV1, endpoint_name="wnine"
 )
 
 print(result.document)
@@ -55,7 +55,7 @@ print(result.document)
 > you **must** specify your account name when calling the `parse` method:
 
 ```python
-from mindee import Client, documents
+from mindee import Client, product
 
 mindee_client = Client(api_key="johndoe-receipt-api-key").add_endpoint(
     endpoint_name="receipt",
@@ -63,7 +63,7 @@ mindee_client = Client(api_key="johndoe-receipt-api-key").add_endpoint(
 )
 
 result = mindee_client.doc_from_path("/path/to/receipt.jpg").parse(
-    documents.TypeCustomV1,
+    product.TypeCustomV1,
     endpoint_name="wnine",
     account_name="JohnDoe",
 )

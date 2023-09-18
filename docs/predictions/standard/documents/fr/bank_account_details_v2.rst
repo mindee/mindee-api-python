@@ -6,8 +6,8 @@ Bank Account Details V2
 .. literalinclude:: /extras/code_samples/bank_account_details_v2.txt
     :language: Python
 
-.. autoclass:: mindee.documents.fr.BankAccountDetailsV2
+.. autoclass:: mindee.product.fr.BankAccountDetailsV2
     :members:
 
-.. autoclass:: mindee.documents.fr.BankAccountDetailsV2Bban
+.. autoclass:: mindee.product.fr.BankAccountDetailsV2Bban
     :members:

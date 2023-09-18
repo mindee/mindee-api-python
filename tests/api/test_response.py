@@ -3,24 +3,22 @@ import json
 import pytest
 
 from mindee import Client
-from mindee.documents import (
+from mindee.endpoints import OTS_OWNER
+from mindee.input.sources import PathInput
+from mindee.product import (
     FinancialDocumentV1,
     InvoiceV3,
     PassportV1,
     ReceiptV3,
     ReceiptV4,
 )
-from mindee.documents.base import Document
-from mindee.endpoints import OTS_OWNER
-from mindee.input.sources import PathInput
+from mindee.product.base import Document
 from mindee.response import PredictResponse
-from tests.documents.test_financial_document_v1 import (
-    FILE_PATH_FINANCIAL_DOC_V1_RECEIPT,
-)
-from tests.documents.test_invoice_v3 import FILE_PATH_INVOICE_V3_COMPLETE
-from tests.documents.test_passport_v1 import FILE_PATH_PASSPORT_V1_COMPLETE
-from tests.documents.test_receipt_v3 import FILE_PATH_RECEIPT_V3_COMPLETE
-from tests.documents.test_receipt_v4 import FILE_PATH_RECEIPT_V4_COMPLETE
+from tests.product.test_financial_document_v1 import FILE_PATH_FINANCIAL_DOC_V1_RECEIPT
+from tests.product.test_invoice_v3 import FILE_PATH_INVOICE_V3_COMPLETE
+from tests.product.test_passport_v1 import FILE_PATH_PASSPORT_V1_COMPLETE
+from tests.product.test_receipt_v3 import FILE_PATH_RECEIPT_V3_COMPLETE
+from tests.product.test_receipt_v4 import FILE_PATH_RECEIPT_V4_COMPLETE
 
 
 @pytest.fixture

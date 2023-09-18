@@ -1,6 +1,5 @@
 from typing import List, Optional
 
-from mindee.documents.base import TypeApiPrediction
 from mindee.fields.base import FieldPositionMixin
 from mindee.geometry import (
     get_centroid,
@@ -8,6 +7,7 @@ from mindee.geometry import (
     get_min_max_y,
     is_point_in_polygon_y,
 )
+from mindee.product.base import TypeApiPrediction
 
 
 class OcrWord(FieldPositionMixin):

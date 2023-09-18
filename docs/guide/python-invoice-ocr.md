@@ -15,7 +15,7 @@ mindee_client = Client(api_key="my-api-key")
 input_doc = mindee_client.doc_from_path("/path/to/the/file.ext")
 
 # Parse the Invoice by passing the appropriate type
-result = input_doc.parse(documents.TypeInvoiceV4)
+result = input_doc.parse(product.TypeInvoiceV4)
 
 # Print a brief summary of the parsed data
 print(result.document)

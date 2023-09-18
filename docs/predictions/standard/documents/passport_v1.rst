@@ -6,5 +6,5 @@ Passport V1
 .. literalinclude:: /extras/code_samples/passport_v1.txt
     :language: Python
 
-.. autoclass:: mindee.documents.PassportV1
+.. autoclass:: mindee.product.PassportV1
     :members:
