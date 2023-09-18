@@ -6,5 +6,5 @@ Invoice V3
 .. literalinclude:: /extras/code_samples/invoices_v3.txt
     :language: Python
 
-.. autoclass:: mindee.documents.InvoiceV3
+.. autoclass:: mindee.product.InvoiceV3
     :members:

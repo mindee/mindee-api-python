@@ -1,4 +1,4 @@
 European Union
 ##############
 
-.. include:: ./documents/eu/license_plate_v1.rst
+.. include:: ./product/eu/license_plate_v1.rst

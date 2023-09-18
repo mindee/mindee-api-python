@@ -6,8 +6,8 @@ Financial Document V1
 .. literalinclude:: /extras/code_samples/financial_document_v1.txt
     :language: Python
 
-.. autoclass:: mindee.documents.FinancialDocumentV1
+.. autoclass:: mindee.product.FinancialDocumentV1
     :members:
 
-.. autoclass:: mindee.documents.FinancialDocumentV1LineItem
+.. autoclass:: mindee.product.FinancialDocumentV1LineItem
     :members:

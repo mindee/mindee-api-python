@@ -9,7 +9,7 @@ API Builder
 
 Prediction
 ==========
-.. autoclass:: mindee.documents.CustomV1
+.. autoclass:: mindee.product.CustomV1
     :members:
 
 Fields
@@ -17,18 +17,18 @@ Fields
 
 Value List
 ----------
-.. autoclass:: mindee.documents.custom_v1_fields.ListField
+.. autoclass:: mindee.product.custom_v1_fields.ListField
     :members:
     :inherited-members:
 
 Word Value
 ----------
-.. autoclass:: mindee.documents.custom_v1_fields.ListFieldValue
+.. autoclass:: mindee.product.custom_v1_fields.ListFieldValue
     :members:
     :inherited-members:
 
 Classification
 --------------
-.. autoclass:: mindee.documents.custom_v1_fields.ClassificationField
+.. autoclass:: mindee.product.custom_v1_fields.ClassificationField
     :members:
     :inherited-members:

@@ -1,4 +1,4 @@
-from mindee.fields.locale import LocaleField
+from mindee.parsing.standard.locale import LocaleField
 
 
 def test_constructor():

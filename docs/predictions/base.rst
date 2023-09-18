@@ -1,4 +1,4 @@
 Base
 ====
-.. autoclass:: mindee.documents.base.Document
+.. autoclass:: mindee.product.base.Document
     :members:
