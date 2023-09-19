@@ -1,13 +1,13 @@
 from typing import List, Optional
 
-from mindee.fields.base import FieldPositionMixin
 from mindee.geometry import (
     get_centroid,
     get_min_max_x,
     get_min_max_y,
     is_point_in_polygon_y,
 )
-from mindee.product.base import TypeApiPrediction
+from mindee.parsing.common.document import TypeApiPrediction
+from mindee.parsing.standard.base import FieldPositionMixin
 
 
 class OcrWord(FieldPositionMixin):

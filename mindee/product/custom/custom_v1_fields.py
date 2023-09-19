@@ -1,6 +1,6 @@
 from typing import List, Optional
 
-from mindee.fields.base import FieldPositionMixin, TypePrediction
+from mindee.parsing.standard.base import FieldPositionMixin, TypePrediction
 
 
 class ClassificationField:

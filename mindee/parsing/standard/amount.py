@@ -1,6 +1,6 @@
 from typing import Optional
 
-from mindee.fields.base import (
+from mindee.parsing.standard.base import (
     BaseField,
     FieldPositionMixin,
     TypePrediction,

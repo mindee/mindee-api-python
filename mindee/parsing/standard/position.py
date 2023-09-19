@@ -1,6 +1,5 @@
 from typing import Optional
 
-from mindee.fields.base import BaseField, TypePrediction
 from mindee.geometry import (
     GeometryError,
     Polygon,
@@ -8,6 +7,7 @@ from mindee.geometry import (
     polygon_from_prediction,
     quadrilateral_from_prediction,
 )
+from mindee.parsing.standard.base import BaseField, TypePrediction
 
 
 class PositionField(BaseField):

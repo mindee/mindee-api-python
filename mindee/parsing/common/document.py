@@ -3,9 +3,9 @@ import re
 from typing import Any, Dict, List, Optional, TypeVar, Union
 
 from mindee.endpoints import Endpoint
-from mindee.fields.orientation import OrientationField
-from mindee.fields.position import PositionField
 from mindee.input.sources import LocalInputSource, UrlInputSource
+from mindee.parsing.common.orientation import OrientationField
+from mindee.parsing.standard.position import PositionField
 
 TypeApiPrediction = Dict[str, Any]
 

@@ -1,12 +1,12 @@
 from typing import Optional, TypeVar
 
-from mindee.fields.amount import AmountField
-from mindee.fields.classification import ClassificationField
-from mindee.fields.date import DateField
-from mindee.fields.locale import LocaleField
-from mindee.fields.tax import Taxes
-from mindee.fields.text import TextField
-from mindee.product.base import Document, TypeApiPrediction, clean_out_string
+from mindee.parsing.common.document import Document, TypeApiPrediction, clean_out_string
+from mindee.parsing.standard.amount import AmountField
+from mindee.parsing.standard.classification import ClassificationField
+from mindee.parsing.standard.date import DateField
+from mindee.parsing.standard.locale import LocaleField
+from mindee.parsing.standard.tax import Taxes
+from mindee.parsing.standard.text import TextField
 
 
 class ReceiptV4(Document):

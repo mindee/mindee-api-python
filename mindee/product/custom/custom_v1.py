@@ -1,6 +1,6 @@
 from typing import Dict, Optional, TypeVar
 
-from mindee.product.base import Document, TypeApiPrediction, clean_out_string
+from mindee.parsing.common.document import Document, TypeApiPrediction, clean_out_string
 from mindee.product.custom.custom_v1_fields import ClassificationField, ListField
 
 

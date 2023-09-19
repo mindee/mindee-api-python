@@ -1,13 +1,13 @@
 import pytest
 
-from mindee.fields.base import (
+from mindee.parsing.standard.base import (
     BaseField,
     field_array_confidence,
     field_array_sum,
     float_to_string,
 )
-from mindee.fields.company_registration import CompanyRegistrationField
-from mindee.fields.text import TextField
+from mindee.parsing.standard.company_registration import CompanyRegistrationField
+from mindee.parsing.standard.text import TextField
 
 
 def test_constructor():

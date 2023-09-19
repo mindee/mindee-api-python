@@ -1,7 +1,7 @@
 from typing import Dict, List, Optional, Tuple, Type
 
 from mindee.endpoints import API_KEY_ENV_NAME, Endpoint
-from mindee.product.base import Document
+from mindee.parsing.common.document import Document
 
 _docT = Type[Document]
 

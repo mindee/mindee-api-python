@@ -5,10 +5,10 @@ import pytest
 from mindee import Client
 from mindee.endpoints import OTS_OWNER
 from mindee.input.sources import PathInput
+from mindee.parsing.common.document import Document
 from mindee.product import (  # FinancialDocumentV1,; InvoiceV3,; PassportV1,; ReceiptV3,
     ReceiptV4,
 )
-from mindee.product.base import Document
 from mindee.response import PredictResponse
 
 # from tests.product.test_financial_document_v1 import FILE_PATH_FINANCIAL_DOC_V1_RECEIPT

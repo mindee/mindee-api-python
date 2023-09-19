@@ -3,7 +3,7 @@ from typing import Optional
 
 import pytz
 
-from mindee.fields.base import BaseField, FieldPositionMixin, TypePrediction
+from mindee.parsing.standard.base import BaseField, FieldPositionMixin, TypePrediction
 
 ISO8601_DATE_FORMAT = "%Y-%m-%d"
 ISO8601_DATETIME_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
