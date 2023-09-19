@@ -1,6 +1,6 @@
 from typing import Dict, List, Optional, Tuple, Type
 
-from mindee.endpoints import API_KEY_ENV_NAME, Endpoint
+from mindee.http.endpoints import API_KEY_ENV_NAME, Endpoint
 from mindee.parsing.common.document import Document
 
 _docT = Type[Document]

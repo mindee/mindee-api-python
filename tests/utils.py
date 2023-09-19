@@ -1,4 +1,4 @@
-from mindee.endpoints import (
+from mindee.http.endpoints import (
     API_KEY_ENV_NAME,
     BASE_URL_ENV_NAME,
     REQUEST_TIMEOUT_ENV_NAME,

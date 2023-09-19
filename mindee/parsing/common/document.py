@@ -2,7 +2,7 @@ import datetime
 import re
 from typing import Any, Dict, List, Optional, TypeVar, Union
 
-from mindee.endpoints import Endpoint
+from mindee.http.endpoints import Endpoint
 from mindee.input.sources import LocalInputSource, UrlInputSource
 from mindee.parsing.common.orientation import OrientationField
 from mindee.parsing.standard.position import PositionField

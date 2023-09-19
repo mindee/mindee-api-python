@@ -1,7 +1,7 @@
 import pytest
 
 from mindee import Client, PageOptions, product
-from mindee.endpoints import HTTPException
+from mindee.http.endpoints import HTTPException
 from tests import INVOICE_DATA_DIR
 from tests.test_inputs import FILE_TYPES_DIR
 from tests.utils import clear_envvars, dummy_envvars

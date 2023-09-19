@@ -2,7 +2,12 @@ import json
 from typing import BinaryIO, Dict, List, NamedTuple, Optional, Type, Union
 
 from mindee import product
-from mindee.endpoints import OTS_OWNER, CustomEndpoint, HTTPException, StandardEndpoint
+from mindee.http.endpoints import (
+    OTS_OWNER,
+    CustomEndpoint,
+    HTTPException,
+    StandardEndpoint,
+)
 from mindee.input.page_options import PageOptions
 from mindee.input.sources import (
     Base64Input,

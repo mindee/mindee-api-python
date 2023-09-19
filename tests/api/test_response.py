@@ -3,7 +3,7 @@ import json
 import pytest
 
 from mindee import Client
-from mindee.endpoints import OTS_OWNER
+from mindee.http.endpoints import OTS_OWNER
 from mindee.input.sources import PathInput
 from mindee.parsing.common.document import Document
 from mindee.product import (  # FinancialDocumentV1,; InvoiceV3,; PassportV1,; ReceiptV3,
