@@ -18,9 +18,9 @@ from mindee.input.sources import (
     UrlInputSource,
 )
 from mindee.logger import logger
+from mindee.parsing.common.api_response import AsyncPredictResponse, PredictResponse
 from mindee.parsing.common.document import Document, TypeDocument
 from mindee.product.config import DocumentConfig, DocumentConfigDict
-from mindee.response import AsyncPredictResponse, PredictResponse
 
 
 def get_bound_classname(type_var) -> str:

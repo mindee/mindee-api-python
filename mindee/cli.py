@@ -6,8 +6,8 @@ from typing import Dict, Generic, TypeVar
 
 from mindee import Client, PageOptions, product
 from mindee.client import DocumentClient
+from mindee.parsing.common.api_response import PredictResponse
 from mindee.parsing.common.document import Document, serialize_for_json
-from mindee.response import PredictResponse
 
 TypeDoc = TypeVar("TypeDoc", bound=Document)
 

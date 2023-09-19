@@ -5,9 +5,9 @@ import pytest
 from mindee import Client
 from mindee.http.endpoints import OTS_OWNER
 from mindee.input.sources import PathInput
+from mindee.parsing.common.api_response import AsyncPredictResponse
 from mindee.parsing.common.document import Document
 from mindee.product.invoice_splitter import InvoiceSplitterV1
-from mindee.response import AsyncPredictResponse
 
 ASYNC_DIR = "./tests/data/async"
 
