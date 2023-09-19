@@ -377,7 +377,6 @@ class Client:
             ],
         )
 
-    # TODO delete & implement new syntax
     def _init_default_endpoints(self) -> None:
         configs: List[ConfigSpec] = [
             ConfigSpec(
