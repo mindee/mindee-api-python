@@ -1,6 +1,6 @@
 from typing import NamedTuple
 
-from .point import Point, Points
+from mindee.geometry.point import Points
 
 
 class BBox(NamedTuple):

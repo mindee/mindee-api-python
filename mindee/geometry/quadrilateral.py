@@ -1,9 +1,9 @@
 from typing import NamedTuple, Sequence
 
-from .bbox import get_bbox
-from .error import GeometryError
-from .point import Point, Points
-from .polygon_utils import get_centroid
+from mindee.geometry.bbox import get_bbox
+from mindee.geometry.error import GeometryError
+from mindee.geometry.point import Point, Points
+from mindee.geometry.polygon_utils import get_centroid
 
 
 class Quadrilateral(NamedTuple):

@@ -1,8 +1,8 @@
 from typing import Sequence
 
-from .minmax import get_min_max_x, get_min_max_y
-from .point import Point
-from .polygon_utils import get_centroid, is_point_in_x, is_point_in_y
+from mindee.geometry.minmax import get_min_max_x, get_min_max_y
+from mindee.geometry.point import Point
+from mindee.geometry.polygon_utils import get_centroid, is_point_in_x, is_point_in_y
 
 
 class Polygon(list):

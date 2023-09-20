@@ -1,4 +1,4 @@
-from .point import Point, Points
+from mindee.geometry.point import Point, Points
 
 
 def get_centroid(points: Points) -> Point:
