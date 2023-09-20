@@ -51,6 +51,10 @@ DOCUMENTS: Dict[str, CommandConfig] = {
         help="US Bank Check",
         doc_class=documents.us.TypeBankCheckV1,
     ),
+    "us-w9": CommandConfig(
+        help="US W9",
+        doc_class=documents.us.TypeW9V1,
+    ),
     "eu-license-plate": CommandConfig(
         help="EU License Plate",
         doc_class=documents.eu.TypeLicensePlateV1,
