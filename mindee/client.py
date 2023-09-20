@@ -469,6 +469,11 @@ class Client:
                 url_name="material_certificate",
                 version="1",
             ),
+            ConfigSpec(
+                doc_class=documents.us.W9V1,
+                url_name="us_w9",
+                version="1",
+            ),
         ]
 
         for config in configs:
