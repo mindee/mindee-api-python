@@ -40,4 +40,3 @@ def test_empty_doc_constructor(w9_v1_doc_empty):
     assert w9_v1_doc_empty.signature_position.value is None
     assert w9_v1_doc_empty.signature_date_position.value is None
     assert w9_v1_doc_empty.tax_classification_llc.value is None
-
