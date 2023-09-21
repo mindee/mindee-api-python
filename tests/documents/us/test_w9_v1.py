@@ -35,7 +35,7 @@ def test_empty_doc_constructor(w9_v1_doc_empty):
     assert w9_v1_doc_empty.business_name.value is None
     assert w9_v1_doc_empty.ein.value is None
     assert w9_v1_doc_empty.tax_classification.value is None
-    assert w9_v1_doc_empty.tax_classif_other_details.value is None
+    assert w9_v1_doc_empty.tax_classification_other_details.value is None
     assert w9_v1_doc_empty.w9_revision_date.value is None
     assert w9_v1_doc_empty.signature_position.value is None
     assert w9_v1_doc_empty.signature_date_position.value is None
