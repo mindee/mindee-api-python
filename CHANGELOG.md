@@ -1,5 +1,13 @@
 # Mindee Python API Library Changelog
 
+## v3.13.0 - 2023-09-21
+### Changes
+* :sparkles: add support for Multi Receipts Detector V1
+* :sparkles: add support for Barcode Reader V1
+* :sparkles: add support for US W9 V1
+* :recycle: small internal tweaks to accomodate for new products
+
+
 ## v3.12.0 - 2023-09-15
 ### Changes
 * :sparkles: add support for FR ID card v2
