@@ -28,7 +28,7 @@ class W9V1(Document):
     """The federal tax classification, which can vary depending on the revision date."""
     tax_classification_llc: TextField
     """Depending on revision year, among S, C, P or D for Limited Liability Company Classification."""
-    tax_classif_other_details: TextField
+    tax_classification_other_details: TextField
     """Tax Classification Other Details."""
     w9_revision_date: TextField
     """The Revision month and year of the W9 form."""
@@ -103,7 +103,7 @@ class W9V1(Document):
             api_prediction.get("tax_classification_llc", {}),
             page_id=page_n,
         )
-        self.tax_classif_other_details = TextField(
+        self.tax_classification_other_details = TextField(
             api_prediction.get("tax_classification_other_details", {}),
             page_id=page_n,
         )
@@ -124,7 +124,7 @@ class W9V1(Document):
             f":Business Name: {self.business_name}\n"
             f":EIN: {self.ein}\n"
             f":Tax Classification: {self.tax_classification}\n"
-            f":Tax Classification Other Details: {self.tax_classif_other_details}\n"
+            f":Tax Classification Other Details: {self.tax_classification_other_details}\n"
             f":W9 Revision Date: {self.w9_revision_date}\n"
             f":Signature Position: {self.signature_position}\n"
             f":Signature Date Position: {self.signature_date_position}\n"

@@ -79,6 +79,10 @@ DOCUMENTS: Dict[str, CommandConfig] = {
         help="FR Bank Account Details",
         doc_class=documents.fr.TypeBankAccountDetailsV1,
     ),
+    "multi-receipts-detector": CommandConfig(
+        help="Multi Receipts Detector",
+        doc_class=documents.TypeMultiReceiptsDetectorV1,
+    ),
     "invoice-splitter": CommandConfig(
         help="Invoice Splitter",
         doc_class=documents.TypeInvoiceSplitterV1,
