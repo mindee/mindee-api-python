@@ -27,6 +27,10 @@ DOCUMENTS: Dict[str, CommandConfig] = {
         help="Custom document type from API builder",
         doc_class=documents.TypeCustomV1,
     ),
+    "barcode-reader": CommandConfig(
+        help="Barcode Reader",
+        doc_class=documents.TypeBarcodeReaderV1,
+    ),
     "invoice": CommandConfig(
         help="Invoice",
         doc_class=documents.TypeInvoiceV4,

@@ -375,6 +375,11 @@ class Client:
     def _init_default_endpoints(self) -> None:
         configs: List[ConfigSpec] = [
             ConfigSpec(
+                doc_class=documents.BarcodeReaderV1,
+                url_name="barcode_reader",
+                version="1",
+            ),
+            ConfigSpec(
                 doc_class=documents.InvoiceV3,
                 url_name="invoices",
                 version="3",

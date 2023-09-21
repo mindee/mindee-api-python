@@ -1,4 +1,5 @@
 from mindee.documents import eu, fr, us
+from mindee.documents.barcode_reader import BarcodeReaderV1, TypeBarcodeReaderV1
 from mindee.documents.cropper import CropperV1, TypeCropperV1
 from mindee.documents.custom import CustomV1, TypeCustomV1
 from mindee.documents.financial_document import (
