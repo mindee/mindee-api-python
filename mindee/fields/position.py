@@ -72,6 +72,12 @@ class PositionField(BaseField):
         self.value = self.polygon
 
     def __str__(self) -> str:
-        if self.polygon is None:
-            return ""
-        return f"Polygon with {len(self.polygon)} points."
+        if self.polygon is not None:
+            return f"Polygon with {len(self.polygon)} points."
+        if self.bounding_box is not None:
+            return f"Polygon with {len(self.bounding_box)} points."
+        if self.rectangle is not None:
+            return f"Polygon with {len(self.rectangle)} points."
+        if self.quadrangle is not None:
+            return f"Polygon with {len(self.quadrangle)} points."
+        return ""

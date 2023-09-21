@@ -15,6 +15,10 @@ from mindee.documents.material_certificate import (
     MaterialCertificateV1,
     TypeMaterialCertificateV1,
 )
+from mindee.documents.multi_receipts_detector import (
+    MultiReceiptsDetectorV1,
+    TypeMultiReceiptsDetectorV1,
+)
 from mindee.documents.passport import PassportV1, TypePassportV1
 from mindee.documents.proof_of_address import ProofOfAddressV1, TypeProofOfAddressV1
 from mindee.documents.receipt import (
