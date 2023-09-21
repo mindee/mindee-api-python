@@ -5,8 +5,12 @@ import pytest
 from mindee.documents import BarcodeReaderV1
 
 BARCODE_READER_DATA_DIR = "./tests/data/products/barcode_reader"
-FILE_PATH_BARCODE_READER_V1_COMPLETE = f"{ BARCODE_READER_DATA_DIR }/response_v1/complete.json"
-FILE_PATH_BARCODE_READER_V1_EMPTY = f"{ BARCODE_READER_DATA_DIR }/response_v1/empty.json"
+FILE_PATH_BARCODE_READER_V1_COMPLETE = (
+    f"{ BARCODE_READER_DATA_DIR }/response_v1/complete.json"
+)
+FILE_PATH_BARCODE_READER_V1_EMPTY = (
+    f"{ BARCODE_READER_DATA_DIR }/response_v1/empty.json"
+)
 
 
 @pytest.fixture

@@ -475,6 +475,11 @@ class Client:
                 version="1",
             ),
             ConfigSpec(
+                doc_class=documents.MultiReceiptsDetectorV1,
+                url_name="multi_receipts_detector",
+                version="1",
+            ),
+            ConfigSpec(
                 doc_class=documents.us.W9V1,
                 url_name="us_w9",
                 version="1",
