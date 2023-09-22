@@ -2,12 +2,8 @@ import json
 
 import pytest
 
+from mindee.parsing.custom import ClassificationField, ListField, ListFieldValue
 from mindee.product import CustomV1
-from mindee.product.custom.custom_v1_fields import (
-    ClassificationField,
-    ListField,
-    ListFieldValue,
-)
 
 CUSTOM_DATA_DIR = "./tests/data/products/custom"
 FILE_PATH_CUSTOM_V1_COMPLETE = f"{CUSTOM_DATA_DIR}/response_v1/complete.json"

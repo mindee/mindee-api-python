@@ -6,7 +6,7 @@ from mindee.parsing.common.api_request import ApiRequest
 from mindee.parsing.common.document import TypeApiPrediction, TypeDocument
 from mindee.parsing.common.job import Job
 from mindee.parsing.common.ocr import Ocr
-from mindee.product.config import DocumentConfig
+from mindee.parsing.standard.config import DocumentConfig
 
 
 class PredictResponse(Generic[TypeDocument]):

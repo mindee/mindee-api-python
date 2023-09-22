@@ -1,7 +1,7 @@
 import json
 from typing import BinaryIO, Dict, List, NamedTuple, Optional, Type, Union
 
-from mindee import product
+from mindee.product import CustomV1, ReceiptV4, InvoiceSplitterV1
 from mindee.http.endpoints import (
     OTS_OWNER,
     CustomEndpoint,
@@ -20,7 +20,7 @@ from mindee.input.sources import (
 from mindee.logger import logger
 from mindee.parsing.common.api_response import AsyncPredictResponse, PredictResponse
 from mindee.parsing.common.document import Document, TypeDocument
-from mindee.product.config import DocumentConfig, DocumentConfigDict
+from mindee.parsing.standard.config import DocumentConfig, DocumentConfigDict
 
 
 def get_bound_classname(type_var) -> str:
@@ -84,7 +84,7 @@ class DocumentClient:
         if self.input_doc is None:
             raise TypeError("The 'parse' function requires an input document.")
         bound_classname = get_bound_classname(document_class)
-        if bound_classname != product.CustomV1.__name__:
+        if bound_classname != CustomV1.__name__:
             endpoint_name = get_bound_classname(document_class)
         elif endpoint_name is None:
             raise RuntimeError(
@@ -148,7 +148,7 @@ class DocumentClient:
         if self.input_doc is None:
             raise TypeError("The 'enqueue' function requires an input document.")
         bound_classname = get_bound_classname(document_class)
-        if bound_classname != product.CustomV1.__name__:
+        if bound_classname != CustomV1.__name__:
             endpoint_name = get_bound_classname(document_class)
         elif endpoint_name is None:
             raise RuntimeError(
@@ -186,7 +186,7 @@ class DocumentClient:
             Do not set for standard (off the shelf) endpoints.
         """
         bound_classname = get_bound_classname(document_class)
-        if bound_classname != product.CustomV1.__name__:
+        if bound_classname != CustomV1.__name__:
             endpoint_name = get_bound_classname(document_class)
         elif endpoint_name is None:
             raise RuntimeError(
@@ -380,12 +380,12 @@ class Client:
     def _init_default_endpoints(self) -> None:
         configs: List[ConfigSpec] = [
             ConfigSpec(
-                doc_class=product.ReceiptV4,
+                doc_class=ReceiptV4,
                 url_name="expense_receipts",
                 version="4",
             ),
             ConfigSpec(
-                doc_class=product.InvoiceSplitterV1,
+                doc_class=InvoiceSplitterV1,
                 url_name="invoice_splitter",
                 version="1",
             ),
@@ -402,7 +402,7 @@ class Client:
         account_name: str,
         endpoint_name: str,
         version: str = "1",
-        document_class: Type[Document] = product.CustomV1,
+        document_class: Type[Document] = CustomV1,
     ) -> "Client":
         """
         Add a custom endpoint, created using the Mindee API Builder.

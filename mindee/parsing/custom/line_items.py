@@ -7,7 +7,8 @@ from mindee.geometry import (
     is_point_in_y,
     merge_polygons,
 )
-from mindee.product.custom.custom_v1_fields import ListField, ListFieldValue
+
+from mindee.parsing.custom.list import ListField, ListFieldValue
 
 
 def _array_product(array: Sequence[float]) -> float:

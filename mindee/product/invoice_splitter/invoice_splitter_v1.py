@@ -1,6 +1,6 @@
 from typing import Any, Dict, List, Optional, TypeVar
 
-from mindee.parsing.common.document import Document, TypeApiPrediction, clean_out_string
+from mindee.parsing.common import Document, TypeApiPrediction, clean_out_string
 
 
 class PageGroup:

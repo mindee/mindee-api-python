@@ -1,13 +1,10 @@
 import datetime
-import re
 from typing import Any, Dict, List, Optional, TypeVar, Union
 
 from mindee.http.endpoints import Endpoint
 from mindee.input.sources import LocalInputSource, UrlInputSource
 from mindee.parsing.common.orientation import OrientationField
 from mindee.parsing.standard.position import PositionField
-
-TypeApiPrediction = Dict[str, Any]
 
 
 def serialize_for_json(obj: Any) -> Any:
@@ -21,10 +18,7 @@ def serialize_for_json(obj: Any) -> Any:
     return vars(obj)
 
 
-def clean_out_string(out_string: str) -> str:
-    """Clean up the string representation."""
-    regexp = re.compile(r" \n")
-    return regexp.sub("\n", out_string)
+TypeApiPrediction = Dict[str, Any]
 
 
 class Document:

@@ -4,8 +4,9 @@ from argparse import ArgumentParser, Namespace
 from dataclasses import dataclass
 from typing import Dict, Generic, TypeVar
 
-from mindee import Client, PageOptions, product
+from mindee import Client, PageOptions
 from mindee.client import DocumentClient
+from mindee.product import TypeCustomV1, TypeInvoiceSplitterV1
 from mindee.parsing.common.api_response import PredictResponse
 from mindee.parsing.common.document import Document, serialize_for_json
 
@@ -25,7 +26,7 @@ class CommandConfig(Generic[TypeDoc]):
 DOCUMENTS: Dict[str, CommandConfig] = {
     "custom": CommandConfig(
         help="Custom document type from API builder",
-        doc_class=product.TypeCustomV1,
+        doc_class=TypeCustomV1,
     ),
     # "invoice": CommandConfig(
     #     help="Invoice",
@@ -37,43 +38,43 @@ DOCUMENTS: Dict[str, CommandConfig] = {
     # ),
     # "passport": CommandConfig(
     #     help="Passport",
-    #     doc_class=product.TypePassportV1,
+    #     doc_class=TypePassportV1,
     # ),
     # "financial-document": CommandConfig(
     #     help="Financial Document (receipt or invoice)",
-    #     doc_class=product.TypeFinancialDocumentV1,
+    #     doc_class=TypeFinancialDocumentV1,
     # ),
     # "proof-of-address": CommandConfig(
     #     help="Proof of Address",
-    #     doc_class=product.TypeProofOfAddressV1,
+    #     doc_class=TypeProofOfAddressV1,
     # ),
     # "us-bank-check": CommandConfig(
     #     help="US Bank Check",
-    #     doc_class=product.us.TypeBankCheckV1,
+    #     doc_class=us.TypeBankCheckV1,
     # ),
     # "eu-license-plate": CommandConfig(
     #     help="EU License Plate",
-    #     doc_class=product.eu.TypeLicensePlateV1,
+    #     doc_class=eu.TypeLicensePlateV1,
     # ),
     # "fr-carte-grise": CommandConfig(
     #     help="FR Carte Grise",
-    #     doc_class=product.fr.TypeCarteGriseV1,
+    #     doc_class=fr.TypeCarteGriseV1,
     # ),
     # "fr-carte-vitale": CommandConfig(
     #     help="FR Carte Vitale",
-    #     doc_class=product.fr.TypeCarteVitaleV1,
+    #     doc_class=fr.TypeCarteVitaleV1,
     # ),
     # "fr-id-card": CommandConfig(
     #     help="FR ID Card",
-    #     doc_class=product.fr.TypeIdCardV1,
+    #     doc_class=fr.TypeIdCardV1,
     # ),
     # "fr-bank-account-details": CommandConfig(
     #     help="FR Bank Account Details",
-    #     doc_class=product.fr.TypeBankAccountDetailsV1,
+    #     doc_class=fr.TypeBankAccountDetailsV1,
     # ),
     "invoice-splitter": CommandConfig(
         help="Invoice Splitter",
-        doc_class=product.TypeInvoiceSplitterV1,
+        doc_class=TypeInvoiceSplitterV1,
         is_sync=False,
         is_async=True,
     ),

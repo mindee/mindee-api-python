@@ -1,7 +1,7 @@
 import json
 
+from mindee.parsing.custom import get_line_items
 from mindee.product import CustomV1
-from mindee.product.custom.line_items import get_line_items
 from tests.product.custom.test_custom_v1 import CUSTOM_DATA_DIR
 
 
