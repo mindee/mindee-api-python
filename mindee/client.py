@@ -460,6 +460,11 @@ class Client:
                 version="2",
             ),
             ConfigSpec(
+                doc_class=documents.fr.PetrolReceiptV1,
+                url_name="petrol_receipts",
+                version="1",
+            ),
+            ConfigSpec(
                 doc_class=documents.eu.LicensePlateV1,
                 url_name="license_plates",
                 version="1",

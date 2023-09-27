@@ -11,6 +11,7 @@ jobs:
     name: Run Tests
     timeout-minutes: 30
     strategy:
+      max-parallel: 4
       matrix:
         os:
           - "ubuntu-latest"
