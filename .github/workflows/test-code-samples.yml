@@ -10,9 +10,10 @@ on:
 
 jobs:
   test:
-    name: Run Tests
+    name: Run Code Samples
     timeout-minutes: 30
     strategy:
+      max-parallel: 2
       matrix:
         python-version:
           - "3.7"
