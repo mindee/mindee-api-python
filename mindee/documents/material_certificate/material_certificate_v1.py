@@ -69,5 +69,6 @@ class MaterialCertificateV1(Document):
 
 
 TypeMaterialCertificateV1 = TypeVar(
-    "TypeMaterialCertificateV1", bound=MaterialCertificateV1
+    "TypeMaterialCertificateV1",
+    bound=MaterialCertificateV1,
 )

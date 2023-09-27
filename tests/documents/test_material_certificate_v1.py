@@ -15,13 +15,17 @@ FILE_PATH_MATERIAL_CERTIFICATE_V1_EMPTY = (
 
 @pytest.fixture
 def material_certificate_v1_doc() -> MaterialCertificateV1:
-    json_data = json.load(open(FILE_PATH_MATERIAL_CERTIFICATE_V1_COMPLETE))
+    json_data = json.load(
+        open(FILE_PATH_MATERIAL_CERTIFICATE_V1_COMPLETE, encoding="utf-8")
+    )
     return MaterialCertificateV1(json_data["document"]["inference"], page_n=None)
 
 
 @pytest.fixture
 def material_certificate_v1_doc_empty() -> MaterialCertificateV1:
-    json_data = json.load(open(FILE_PATH_MATERIAL_CERTIFICATE_V1_EMPTY))
+    json_data = json.load(
+        open(FILE_PATH_MATERIAL_CERTIFICATE_V1_EMPTY, encoding="utf-8")
+    )
     return MaterialCertificateV1(json_data["document"]["inference"], page_n=None)
 
 
