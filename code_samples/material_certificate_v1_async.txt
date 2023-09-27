@@ -1,0 +1,53 @@
+from time import sleep
+
+from mindee import Client
+from mindee.documents import TypeMaterialCertificateV1
+
+
+# Init a new client
+mindee_client = Client(api_key="my-api-key")
+
+# Load a file from disk
+input_doc = mindee_client.doc_from_path("/path/to/the/file.ext")
+
+# Limit the amount of API calls to retrieve your document
+MAX_RETRIES = 10
+
+# How many seconds to wait in-between tries
+INTERVAL_SECS = 6
+
+
+# Recursive function that tries to retrieve the completed document.
+# If the document is not "completed", try again
+def get_doc_from_async_queue(queue_id, times_tried=0):
+
+    # Have we exceeded our retry count?
+    if times_tried >= MAX_RETRIES:
+        raise Exception(f"Maximum retries reached {times_tried}")
+
+    # Wait for a few seconds before fetching
+    sleep(INTERVAL_SECS)
+
+    # Fetch and parse the result, using the same type
+    parsed_result = input_doc.parse_queued(TypeMaterialCertificateV1, queue_id)
+
+    # Check whether the result is ready
+    if parsed_result.job.status == "completed":
+        return parsed_result
+
+    # Otherwise, try again...
+    else:
+        get_doc_from_async_queue(queue_id, times_tried+1)
+
+
+# Add the file to the prediction queue
+queue_result = input_doc.enqueue(TypeMaterialCertificateV1)
+
+# Get the queue's job ID
+job_id = queue_result.job.id
+
+# Start the recursion, passing the job id
+parsed_result = get_doc_from_async_queue(queue_result.job.id)
+
+# Print a brief summary of the parsed data
+print(parsed_result.document.document)

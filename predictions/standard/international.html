@@ -638,7 +638,8 @@
 <section id="receipt-v5">
 <h2>Receipt V5<a class="headerlink" href="#receipt-v5" title="Permalink to this heading"></a></h2>
 <p><strong>Sample Code:</strong></p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mindee</span> <span class="kn">import</span> <span class="n">Client</span><span class="p">,</span> <span class="n">documents</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mindee</span> <span class="kn">import</span> <span class="n">Client</span>
+<span class="kn">from</span> <span class="nn">mindee.documents</span> <span class="kn">import</span> <span class="n">TypeReceiptV5</span>
 
 <span class="c1"># Init a new client</span>
 <span class="n">mindee_client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;my-api-key&quot;</span><span class="p">)</span>
@@ -647,7 +648,7 @@
 <span class="n">input_doc</span> <span class="o">=</span> <span class="n">mindee_client</span><span class="o">.</span><span class="n">doc_from_path</span><span class="p">(</span><span class="s2">&quot;/path/to/the/file.ext&quot;</span><span class="p">)</span>
 
 <span class="c1"># Parse the Receipt by passing the appropriate type</span>
-<span class="n">result</span> <span class="o">=</span> <span class="n">input_doc</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">documents</span><span class="o">.</span><span class="n">TypeReceiptV5</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">input_doc</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">TypeReceiptV5</span><span class="p">)</span>
 
 <span class="c1"># Print a brief summary of the parsed data</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">document</span><span class="p">)</span>
@@ -836,7 +837,8 @@
 <section id="financial-document-v1">
 <h2>Financial Document V1<a class="headerlink" href="#financial-document-v1" title="Permalink to this heading"></a></h2>
 <p><strong>Sample Code:</strong></p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mindee</span> <span class="kn">import</span> <span class="n">Client</span><span class="p">,</span> <span class="n">documents</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mindee</span> <span class="kn">import</span> <span class="n">Client</span>
+<span class="kn">from</span> <span class="nn">mindee.documents</span> <span class="kn">import</span> <span class="n">TypeFinancialDocumentV1</span>
 
 <span class="c1"># Init a new client</span>
 <span class="n">mindee_client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;my-api-key&quot;</span><span class="p">)</span>
@@ -845,7 +847,7 @@
 <span class="n">input_doc</span> <span class="o">=</span> <span class="n">mindee_client</span><span class="o">.</span><span class="n">doc_from_path</span><span class="p">(</span><span class="s2">&quot;/path/to/the/file.ext&quot;</span><span class="p">)</span>
 
 <span class="c1"># Parse the Financial Document by passing the appropriate type</span>
-<span class="n">result</span> <span class="o">=</span> <span class="n">input_doc</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">documents</span><span class="o">.</span><span class="n">TypeFinancialDocumentV1</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">input_doc</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">TypeFinancialDocumentV1</span><span class="p">)</span>
 
 <span class="c1"># Print a brief summary of the parsed data</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">document</span><span class="p">)</span>
@@ -1094,7 +1096,8 @@
 <section id="passport-v1">
 <h2>Passport V1<a class="headerlink" href="#passport-v1" title="Permalink to this heading"></a></h2>
 <p><strong>Sample Code:</strong></p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mindee</span> <span class="kn">import</span> <span class="n">Client</span><span class="p">,</span> <span class="n">documents</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mindee</span> <span class="kn">import</span> <span class="n">Client</span>
+<span class="kn">from</span> <span class="nn">mindee.documents</span> <span class="kn">import</span> <span class="n">TypePassportV1</span>
 
 <span class="c1"># Init a new client</span>
 <span class="n">mindee_client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;my-api-key&quot;</span><span class="p">)</span>
@@ -1103,7 +1106,7 @@
 <span class="n">input_doc</span> <span class="o">=</span> <span class="n">mindee_client</span><span class="o">.</span><span class="n">doc_from_path</span><span class="p">(</span><span class="s2">&quot;/path/to/the/file.ext&quot;</span><span class="p">)</span>
 
 <span class="c1"># Parse the Passport by passing the appropriate type</span>
-<span class="n">result</span> <span class="o">=</span> <span class="n">input_doc</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">documents</span><span class="o">.</span><span class="n">TypePassportV1</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">input_doc</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">TypePassportV1</span><span class="p">)</span>
 
 <span class="c1"># Print a brief summary of the parsed data</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">document</span><span class="p">)</span>
@@ -1338,7 +1341,8 @@ The combination of <cite>given_names</cite> and <cite>surname</cite> fields.</p>
 <section id="proof-of-address-v1">
 <h2>Proof of Address V1<a class="headerlink" href="#proof-of-address-v1" title="Permalink to this heading"></a></h2>
 <p><strong>Sample Code:</strong></p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mindee</span> <span class="kn">import</span> <span class="n">Client</span><span class="p">,</span> <span class="n">documents</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mindee</span> <span class="kn">import</span> <span class="n">Client</span>
+<span class="kn">from</span> <span class="nn">mindee.documents</span> <span class="kn">import</span> <span class="n">TypeProofOfAddressV1</span>
 
 <span class="c1"># Init a new client</span>
 <span class="n">mindee_client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;my-api-key&quot;</span><span class="p">)</span>
@@ -1347,7 +1351,7 @@ The combination of <cite>given_names</cite> and <cite>surname</cite> fields.</p>
 <span class="n">input_doc</span> <span class="o">=</span> <span class="n">mindee_client</span><span class="o">.</span><span class="n">doc_from_path</span><span class="p">(</span><span class="s2">&quot;/path/to/the/file.ext&quot;</span><span class="p">)</span>
 
 <span class="c1"># Parse the Proof of Address by passing the appropriate type</span>
-<span class="n">result</span> <span class="o">=</span> <span class="n">input_doc</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">documents</span><span class="o">.</span><span class="n">TypeProofOfAddressV1</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">input_doc</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">TypeProofOfAddressV1</span><span class="p">)</span>
 
 <span class="c1"># Print a brief summary of the parsed data</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">document</span><span class="p">)</span>
@@ -1435,7 +1439,8 @@ The combination of <cite>given_names</cite> and <cite>surname</cite> fields.</p>
 <section id="cropper-v1">
 <h2>Cropper V1<a class="headerlink" href="#cropper-v1" title="Permalink to this heading"></a></h2>
 <p><strong>Sample Code:</strong></p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mindee</span> <span class="kn">import</span> <span class="n">Client</span><span class="p">,</span> <span class="n">documents</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mindee</span> <span class="kn">import</span> <span class="n">Client</span>
+<span class="kn">from</span> <span class="nn">mindee.documents</span> <span class="kn">import</span> <span class="n">TypeCropperV1</span>
 
 <span class="c1"># Init a new client</span>
 <span class="n">mindee_client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;my-api-key&quot;</span><span class="p">)</span>
@@ -1444,7 +1449,7 @@ The combination of <cite>given_names</cite> and <cite>surname</cite> fields.</p>
 <span class="n">input_doc</span> <span class="o">=</span> <span class="n">mindee_client</span><span class="o">.</span><span class="n">doc_from_path</span><span class="p">(</span><span class="s2">&quot;/path/to/the/file.ext&quot;</span><span class="p">)</span>
 
 <span class="c1"># Parse the Cropper by passing the appropriate type</span>
-<span class="n">result</span> <span class="o">=</span> <span class="n">input_doc</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">documents</span><span class="o">.</span><span class="n">TypeCropperV1</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">input_doc</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">TypeCropperV1</span><span class="p">)</span>
 
 <span class="c1"># Print a brief summary of the parsed data</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">document</span><span class="p">)</span>
