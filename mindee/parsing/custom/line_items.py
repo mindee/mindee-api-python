@@ -7,7 +7,6 @@ from mindee.geometry import (
     is_point_in_y,
     merge_polygons,
 )
-
 from mindee.parsing.custom.list import ListField, ListFieldValue
 
 

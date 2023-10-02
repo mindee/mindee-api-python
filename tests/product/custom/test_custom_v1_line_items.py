@@ -9,7 +9,7 @@ def test_single_table_01():
     json_data_path = f"{CUSTOM_DATA_DIR}/response_v1/line_items/single_table_01.json"
     json_data = json.load(open(json_data_path, "r"))
     doc = CustomV1(
-        "field_test", api_prediction=json_data["document"]["inference"], page_n=None
+        "field_test", api_prediction=json_data["document"]["inference"], page_id=None
     )
     anchors = ["beneficiary_birth_date"]
     columns = [

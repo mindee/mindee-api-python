@@ -1,6 +1,6 @@
 from typing import List, Optional
 
-from mindee.parsing.standard.base import FieldPositionMixin, TypePrediction
+from mindee.parsing.standard.base import FieldPositionMixin, TypePredictionField
 
 
 class ClassificationField:
@@ -11,7 +11,7 @@ class ClassificationField:
     confidence: float
     """The confidence score"""
 
-    def __init__(self, prediction: TypePrediction) -> None:
+    def __init__(self, prediction: TypePredictionField) -> None:
         self.value = prediction["value"]
         self.confidence = prediction["confidence"]
 
@@ -27,7 +27,7 @@ class ListFieldValue(FieldPositionMixin):
     confidence: float = 0.0
     """Confidence score"""
 
-    def __init__(self, prediction: TypePrediction) -> None:
+    def __init__(self, prediction: TypePredictionField) -> None:
         self.content = prediction["content"]
         self.confidence = prediction["confidence"]
         self._set_position(prediction)
@@ -43,23 +43,23 @@ class ListField:
     """Confidence score"""
     reconstructed: bool
     """Whether the field was reconstructed from other fields."""
-    page_n: int
+    page_id: int
     """The document page on which the information was found."""
     values: List[ListFieldValue]
     """List of word values"""
 
     def __init__(
         self,
-        prediction: TypePrediction,
+        prediction: TypePredictionField,
         reconstructed: bool = False,
-        page_n: Optional[int] = None,
+        page_id: Optional[int] = None,
     ):
         self.values = []
         self.reconstructed = reconstructed
-        if page_n is None:
-            self.page_n = prediction["page_id"]
+        if page_id is None:
+            self.page_id = prediction["page_id"]
         else:
-            self.page_n = page_n
+            self.page_id = page_id
         self.confidence = prediction["confidence"]
 
         for value in prediction["values"]:

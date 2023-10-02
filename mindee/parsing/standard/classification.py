@@ -1,6 +1,6 @@
 from typing import Optional
 
-from mindee.parsing.standard.base import BaseField, TypePrediction
+from mindee.parsing.standard.base import BaseField, TypePredictionField
 
 
 class ClassificationField(BaseField):
@@ -11,7 +11,7 @@ class ClassificationField(BaseField):
 
     def __init__(
         self,
-        prediction: TypePrediction,
+        prediction: TypePredictionField,
         value_key: str = "value",
         reconstructed: bool = False,
         page_id: Optional[int] = None,
@@ -28,5 +28,5 @@ class ClassificationField(BaseField):
             prediction,
             value_key=value_key,
             reconstructed=reconstructed,
-            page_n=page_id,
+            page_id=page_id,
         )

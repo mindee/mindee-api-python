@@ -6,9 +6,9 @@ from typing import Dict, Generic, TypeVar
 
 from mindee import Client, PageOptions
 from mindee.client import DocumentClient
-from mindee.product import TypeCustomV1, TypeInvoiceSplitterV1
-from mindee.parsing.common.api_response import PredictResponse
+from mindee.parsing.common.predict_response import PredictResponse
 from mindee.parsing.common.document import Document, serialize_for_json
+from mindee.product import TypeCustomV1, TypeInvoiceSplitterV1
 
 TypeDoc = TypeVar("TypeDoc", bound=Document)
 

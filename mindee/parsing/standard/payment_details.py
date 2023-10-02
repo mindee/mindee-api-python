@@ -1,6 +1,10 @@
 from typing import Optional
 
-from mindee.parsing.standard.base import BaseField, FieldPositionMixin, TypePrediction
+from mindee.parsing.standard.base import (
+    BaseField,
+    FieldPositionMixin,
+    TypePredictionField,
+)
 
 
 class PaymentDetails(FieldPositionMixin, BaseField):
@@ -17,7 +21,7 @@ class PaymentDetails(FieldPositionMixin, BaseField):
 
     def __init__(
         self,
-        prediction: TypePrediction,
+        prediction: TypePredictionField,
         value_key: str = "iban",
         account_number_key: str = "account_number",
         iban_key: str = "iban",
@@ -44,7 +48,7 @@ class PaymentDetails(FieldPositionMixin, BaseField):
             prediction,
             value_key=value_key,
             reconstructed=reconstructed,
-            page_n=page_id,
+            page_id=page_id,
         )
 
         self._set_position(prediction)

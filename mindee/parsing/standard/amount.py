@@ -3,7 +3,7 @@ from typing import Optional
 from mindee.parsing.standard.base import (
     BaseField,
     FieldPositionMixin,
-    TypePrediction,
+    TypePredictionField,
     float_to_string,
 )
 
@@ -16,7 +16,7 @@ class AmountField(FieldPositionMixin, BaseField):
 
     def __init__(
         self,
-        prediction: TypePrediction,
+        prediction: TypePredictionField,
         reconstructed: bool = False,
         page_id: Optional[int] = None,
     ):
@@ -31,7 +31,7 @@ class AmountField(FieldPositionMixin, BaseField):
             prediction,
             value_key="value",
             reconstructed=reconstructed,
-            page_n=page_id,
+            page_id=page_id,
         )
         try:
             self.value = round(float(prediction["value"]), 3)

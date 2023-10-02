@@ -7,7 +7,7 @@ from mindee.geometry import (
     polygon_from_prediction,
     quadrilateral_from_prediction,
 )
-from mindee.parsing.standard.base import BaseField, TypePrediction
+from mindee.parsing.standard.base import BaseField, TypePredictionField
 
 
 class PositionField(BaseField):
@@ -26,7 +26,7 @@ class PositionField(BaseField):
 
     def __init__(
         self,
-        prediction: TypePrediction,
+        prediction: TypePredictionField,
         value_key: str = "polygon",
         reconstructed: bool = False,
         page_id: Optional[int] = None,
@@ -43,7 +43,7 @@ class PositionField(BaseField):
             prediction,
             value_key=value_key,
             reconstructed=reconstructed,
-            page_n=page_id,
+            page_id=page_id,
         )
 
         def get_quadrilateral(key: str) -> Optional[Quadrilateral]:
@@ -72,6 +72,12 @@ class PositionField(BaseField):
         self.value = self.polygon
 
     def __str__(self) -> str:
-        if self.polygon is None:
-            return ""
-        return f"Polygon with {len(self.polygon)} points."
+        if self.polygon:
+            return f"Polygon with {len(self.polygon)} points."
+        if self.bounding_box:
+            return f"Polygon with {len(self.bounding_box)} points."
+        if self.rectangle:
+            return f"Polygon with {len(self.rectangle)} points."
+        if self.quadrangle:
+            return f"Polygon with {len(self.quadrangle)} points."
+        return ""

@@ -1,10 +1,10 @@
 from typing import Dict, Optional, TypeVar
 
-from mindee.parsing.common import Document, TypeApiPrediction, clean_out_string
+from mindee.parsing.common import Inference, StringDict, clean_out_string
 from mindee.parsing.custom import ClassificationField, ListField
 
 
-class CustomV1(Document):
+class CustomV1(Inference):
     """Custom document (API Builder) v1 prediction results."""
 
     fields: Dict[str, ListField]
@@ -15,9 +15,9 @@ class CustomV1(Document):
     def __init__(
         self,
         document_type: str,
-        api_prediction: TypeApiPrediction,
+        api_prediction: StringDict,
         input_source=None,
-        page_n: Optional[int] = None,
+        page_id: Optional[int] = None,
     ):
         """
         Custom document object.
@@ -25,24 +25,24 @@ class CustomV1(Document):
         :param document_type: Document type
         :param api_prediction: Raw prediction from HTTP response
         :param input_source: Input object
-        :param page_n: Page number for multi pages pdf input
+        :param page_id: Page number for multi pages pdf input
         """
         super().__init__(
             input_source=input_source,
             document_type=document_type,
             api_prediction=api_prediction,
-            page_n=page_n,
+            page_id=page_id,
         )
-        self._build_from_api_prediction(api_prediction["prediction"], page_n=page_n)
+        self._build_from_api_prediction(api_prediction["prediction"], page_id=page_id)
 
     def _build_from_api_prediction(
-        self, api_prediction: TypeApiPrediction, page_n: Optional[int] = None
+        self, api_prediction: StringDict, page_id: Optional[int] = None
     ) -> None:
         """
         Build the document from an API response JSON.
 
         :param api_prediction: Raw prediction from HTTP response
-        :param page_n: Page number for multi pages pdf input
+        :param page_id: Page number for multi pages pdf input
         """
         self.fields = {}
         self.classifications = {}
@@ -53,8 +53,8 @@ class CustomV1(Document):
                 self.classifications[field_name] = ClassificationField(prediction=field)
             # Only value lists have the 'values' attribute.
             elif "values" in field:
-                field["page_n"] = page_n
-                self.fields[field_name] = ListField(prediction=field, page_n=page_n)
+                field["page_id"] = page_id
+                self.fields[field_name] = ListField(prediction=field, page_id=page_id)
 
     def __str__(self) -> str:
         custom_doc_str = f"{self.type} V1 Prediction"

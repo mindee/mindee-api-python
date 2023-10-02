@@ -1,6 +1,10 @@
 from typing import Optional
 
-from mindee.parsing.standard.base import BaseField, FieldPositionMixin, TypePrediction
+from mindee.parsing.standard.base import (
+    BaseField,
+    FieldPositionMixin,
+    TypePredictionField,
+)
 
 
 class TextField(FieldPositionMixin, BaseField):
@@ -10,7 +14,7 @@ class TextField(FieldPositionMixin, BaseField):
 
     def __init__(
         self,
-        prediction: TypePrediction,
+        prediction: TypePredictionField,
         value_key: str = "value",
         reconstructed: bool = False,
         page_id: Optional[int] = None,
@@ -27,6 +31,6 @@ class TextField(FieldPositionMixin, BaseField):
             prediction,
             value_key=value_key,
             reconstructed=reconstructed,
-            page_n=page_id,
+            page_id=page_id,
         )
         self._set_position(prediction)

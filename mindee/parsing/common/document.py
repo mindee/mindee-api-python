@@ -1,10 +1,12 @@
 import datetime
-from typing import Any, Dict, List, Optional, TypeVar, Union
+from typing import Any, Dict, List, Generic, Optional, TypeVar, Union
 
 from mindee.http.endpoints import Endpoint
 from mindee.input.sources import LocalInputSource, UrlInputSource
-from mindee.parsing.common.orientation import OrientationField
-from mindee.parsing.standard.position import PositionField
+from mindee.parsing.common.extras.cropper_extra import CropperExtra
+from mindee.parsing.common.extras.extras import ExtraField, Extras
+from mindee.parsing.common.ocr import Ocr
+from mindee.parsing.common.prediction import Prediction, TypePrediction
 
 
 def serialize_for_json(obj: Any) -> Any:
@@ -18,95 +20,34 @@ def serialize_for_json(obj: Any) -> Any:
     return vars(obj)
 
 
-TypeApiPrediction = Dict[str, Any]
-
-
-class Document:
+class Document(Generic[TypePrediction]):
     """Base class for all predictions."""
 
-    type: Optional[str]
-    """Document type"""
-    checklist: dict
-    """Validation checks for the document"""
-    filepath: Optional[str] = None
-    """Path of the input document"""
-    filename: Optional[str] = None
+    filename: str
     """Name of the input document"""
-    file_extension: Optional[str] = None
-    """File extension of the input document"""
-    # orientation is only present on page-level, not document-level
-    orientation: Optional[OrientationField] = None
-    """Page orientation"""
-    cropper: List[PositionField]
-    """Cropper results"""
+    inference: Prediction
+    """Result of the base inference"""
+    id: str
+    """Id of the document as sent back by the server"""
+    extras: Optional[Extras]
+    """Potential Extras fields sent back along the prediction"""
+    ocr: Optional[Ocr]
 
     def __init__(
         self,
-        input_source: Optional[Union[LocalInputSource, UrlInputSource]],
-        document_type: Optional[str],
-        api_prediction: TypeApiPrediction,
-        page_n: Optional[int] = None,
+        prediction_type,
+        raw_response: Dict[str, Any],
     ):
-        if input_source:
-            if isinstance(input_source, UrlInputSource):
-                self.filename = input_source.url
-            else:
-                self.filepath = input_source.filepath
-                self.filename = input_source.filename
-                self.file_extension = input_source.file_mimetype
-        self.checklist = {}
-        self.type = document_type
-
-        if page_n is not None:
-            self._set_extras(api_prediction["extras"])
-            self.orientation = OrientationField(
-                api_prediction["orientation"], page_n=page_n
-            )
-
-    @staticmethod
-    def request(
-        endpoints: List[Endpoint],
-        input_source: Union[LocalInputSource, UrlInputSource],
-        include_words: bool = False,
-        close_file: bool = True,
-        cropper: bool = False,
-    ):
-        """
-        Make request to prediction endpoint.
-
-        :param input_source: Input object
-        :param endpoints: Endpoints config
-        :param include_words: Include Mindee vision words in http_response
-        :param close_file: Whether to `close()` the file after parsing it.
-        :param cropper: Including Mindee cropper results.
-        """
-        return endpoints[0].predict_req_post(
-            input_source, include_words, close_file, cropper=cropper
-        )
-
-    def _set_extras(self, extras: TypeApiPrediction):
-        self.cropper = []
-        try:
-            for crop in extras["cropper"]["cropping"]:
-                self.cropper.append(PositionField(crop))
-        except KeyError:
-            pass
-
-    def _build_from_api_prediction(
-        self, api_prediction: TypeApiPrediction, page_n: Optional[int] = None
-    ) -> None:
-        """Build the document from an API response JSON."""
-        raise NotImplementedError()
-
-    def _checklist(self) -> None:
-        pass
-
-    def _reconstruct(self) -> None:
-        pass
-
-    def all_checks(self) -> bool:
-        """Return status of all checks."""
-        return all(self.checklist)
+        self.id = raw_response.get("id", "")
+        self.filename = raw_response.get("name", "")
+        if "ocr" in raw_response and raw_response["ocr"]:
+            self.ocr = Ocr(raw_response["ocr"])
+        extras: Dict[str, ExtraField] = dict()
+        if "extras" in raw_response and raw_response["extras"]:
+            for key, extra in raw_response["extras"].items():
+                if key == "cropper":
+                    extras["cropper"] = CropperExtra(extra)
+        self.extras = Extras(extras)
+        self.inference = prediction_type(raw_response)
 
 
-TypeDocument = TypeVar("TypeDocument", bound=Document)

@@ -1,9 +1,10 @@
+from abc import ABC
 import base64
 import io
 import mimetypes
 import os
 from enum import Enum
-from typing import BinaryIO, Optional, Sequence, Tuple
+from typing import BinaryIO, Optional, Sequence, Tuple, Union
 
 import pikepdf
 
@@ -38,7 +39,10 @@ class MimeTypeError(AssertionError):
     """The MIME Type is not valid."""
 
 
-class LocalInputSource:
+class InputSource(ABC):
+    file_object: Optional[Union[BinaryIO, str]]
+
+class LocalInputSource(InputSource):
     """Base class for all input sources coming from the local machine."""
 
     file_object: BinaryIO
@@ -96,18 +100,18 @@ class LocalInputSource:
         all_pages = list(range(pages_count))
         if behavior == KEEP_ONLY:
             pages_to_keep = set()
-            for page_n in page_indexes:
+            for page_id in page_indexes:
                 try:
-                    pages_to_keep.add(all_pages[page_n])
+                    pages_to_keep.add(all_pages[page_id])
                 except IndexError:
-                    logger.warning("Page index not in source document: %s", page_n)
+                    logger.warning("Page index not in source document: %s", page_id)
         elif behavior == REMOVE:
             pages_to_remove = set()
-            for page_n in page_indexes:
+            for page_id in page_indexes:
                 try:
-                    pages_to_remove.add(all_pages[page_n])
+                    pages_to_remove.add(all_pages[page_id])
                 except IndexError:
-                    logger.warning("Page index not in source document: %s", page_n)
+                    logger.warning("Page index not in source document: %s", page_id)
             pages_to_keep = pages_to_remove.symmetric_difference(set(all_pages))
         else:
             raise AssertionError(f"Invalid cut behavior specified: {behavior}")
@@ -126,8 +130,8 @@ class LocalInputSource:
         self.file_object.seek(0)
         new_pdf = pikepdf.Pdf.new()
         with pikepdf.open(self.file_object) as pdf:
-            for page_n in page_numbers:
-                page = pdf.pages[page_n]
+            for page_id in page_numbers:
+                page = pdf.pages[page_id]
                 new_pdf.pages.append(page)
         self.file_object.close()
         self.file_object = io.BytesIO()
@@ -242,7 +246,7 @@ class Base64Input(LocalInputSource):
         super().__init__(input_type=InputType.BASE64)
 
 
-class UrlInputSource:
+class UrlInputSource(InputSource):
     """A local or distant URL input."""
 
     url: str

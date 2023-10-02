@@ -3,7 +3,7 @@ from typing import Dict, List, Optional
 from mindee.parsing.standard.base import (
     BaseField,
     FieldPositionMixin,
-    TypePrediction,
+    TypePredictionField,
     float_to_string,
 )
 
@@ -22,10 +22,10 @@ class TaxField(FieldPositionMixin, BaseField):
 
     def __init__(
         self,
-        prediction: TypePrediction,
+        prediction: TypePredictionField,
         value_key: str = "value",
         reconstructed: bool = False,
-        page_n: Optional[int] = None,
+        page_id: Optional[int] = None,
     ):
         """
         Tax field object.
@@ -33,13 +33,13 @@ class TaxField(FieldPositionMixin, BaseField):
         :param prediction: Tax prediction object from HTTP response
         :param value_key: Key to use in the tax_prediction dict
         :param reconstructed: Bool for reconstructed object (not extracted in the API)
-        :param page_n: Page number for multi pages document
+        :param page_id: Page number for multi pages document
         """
         super().__init__(
             prediction,
             value_key=value_key,
             reconstructed=reconstructed,
-            page_n=page_n,
+            page_id=page_id,
         )
 
         self._set_position(prediction)
@@ -110,10 +110,12 @@ class Taxes(List[TaxField]):
         out_str += f"+{char * 15}"
         return out_str + "+"
 
-    def __init__(self, api_prediction: List[TypePrediction], page_id: Optional[int]):
+    def __init__(
+        self, api_prediction: List[TypePredictionField], page_id: Optional[int]
+    ):
         super().__init__()
         for entry in api_prediction:
-            tax = TaxField(entry, page_n=page_id)
+            tax = TaxField(entry, page_id=page_id)
             self.append(tax)
 
     def __str__(self) -> str:

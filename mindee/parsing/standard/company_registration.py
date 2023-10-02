@@ -1,6 +1,10 @@
 from typing import Optional
 
-from mindee.parsing.standard.base import BaseField, FieldPositionMixin, TypePrediction
+from mindee.parsing.standard.base import (
+    BaseField,
+    FieldPositionMixin,
+    TypePredictionField,
+)
 
 
 class CompanyRegistrationField(FieldPositionMixin, BaseField):
@@ -11,7 +15,7 @@ class CompanyRegistrationField(FieldPositionMixin, BaseField):
 
     def __init__(
         self,
-        prediction: TypePrediction,
+        prediction: TypePredictionField,
         value_key: str = "value",
         reconstructed: bool = False,
         page_id: Optional[int] = None,

@@ -6,7 +6,7 @@ from mindee.geometry import (
     get_min_max_y,
     is_point_in_polygon_y,
 )
-from mindee.parsing.common.document import TypeApiPrediction
+from mindee.parsing.common.document import StringDict
 from mindee.parsing.standard.base import FieldPositionMixin
 
 
@@ -18,7 +18,7 @@ class OcrWord(FieldPositionMixin):
     text: str
     """The extracted text."""
 
-    def __init__(self, prediction: TypeApiPrediction):
+    def __init__(self, prediction: StringDict):
         self.confidence = prediction["confidence"]
         self.text = prediction["text"]
         self._set_position(prediction)
@@ -44,7 +44,7 @@ class OcrPage:
     _all_words: List[OcrWord]
     _lines: List[OcrLine]
 
-    def __init__(self, prediction: TypeApiPrediction):
+    def __init__(self, prediction: StringDict):
         self._all_words = [
             OcrWord(word_prediction) for word_prediction in prediction["all_words"]
         ]
@@ -115,7 +115,7 @@ class MVisionV1:
     pages: List[OcrPage]
     """List of pages."""
 
-    def __init__(self, prediction: TypeApiPrediction):
+    def __init__(self, prediction: StringDict):
         self.pages = [
             OcrPage(page_prediction) for page_prediction in prediction["pages"]
         ]
@@ -130,7 +130,7 @@ class Ocr:
     mvision_v1: MVisionV1
     """Mindee Vision v1 results."""
 
-    def __init__(self, prediction: TypeApiPrediction):
+    def __init__(self, prediction: StringDict):
         self.mvision_v1 = MVisionV1(prediction["mvision-v1"])
 
     def __str__(self) -> str:

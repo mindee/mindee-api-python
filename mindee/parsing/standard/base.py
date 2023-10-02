@@ -2,7 +2,7 @@ from typing import Any, Dict, List, Optional, TypeVar
 
 from mindee.geometry import Point, Polygon, Quadrilateral, get_bounding_box
 
-TypePrediction = Dict[str, Any]
+TypePredictionField = Dict[str, Any]
 
 
 class FieldPositionMixin:
@@ -13,7 +13,7 @@ class FieldPositionMixin:
     polygon: Polygon
     """A polygon containing the word in the document."""
 
-    def _set_position(self, prediction: TypePrediction):
+    def _set_position(self, prediction: TypePredictionField):
         self.bounding_box = None
         self.polygon = Polygon()
         try:
@@ -32,7 +32,7 @@ class FieldConfidenceMixin:
     confidence: float = 0.0
     """The confidence score."""
 
-    def _set_confidence(self, prediction: TypePrediction):
+    def _set_confidence(self, prediction: TypePredictionField):
         try:
             self.confidence = float(prediction["confidence"])
         except (KeyError, TypeError):
@@ -46,15 +46,15 @@ class BaseField(FieldConfidenceMixin):
     """Raw field value"""
     reconstructed: bool
     """Whether the field was reconstructed from other fields."""
-    page_n: Optional[int] = None
+    page_id: Optional[int] = None
     """The document page on which the information was found."""
 
     def __init__(
         self,
-        prediction: TypePrediction,
+        prediction: TypePredictionField,
         value_key: str = "value",
         reconstructed: bool = False,
-        page_n: Optional[int] = None,
+        page_id: Optional[int] = None,
     ):
         """
         Base field object.
@@ -62,15 +62,15 @@ class BaseField(FieldConfidenceMixin):
         :param prediction: Prediction object from HTTP response
         :param value_key: Key to use in the abstract_prediction dict
         :param reconstructed: Bool for reconstructed object (not extracted in the API)
-        :param page_n: Page number for multi-page PDF
+        :param page_id: Page number for multi-page PDF
         """
-        if page_n is None:
+        if page_id is None:
             try:
-                self.page_n = prediction["page_id"]
+                self.page_id = prediction["page_id"]
             except KeyError:
                 pass
         else:
-            self.page_n = page_n
+            self.page_id = page_id
 
         self.reconstructed = reconstructed
 
@@ -159,7 +159,7 @@ def float_to_string(value: Optional[float], min_precision=2) -> str:
     return f"{value:.{precision}f}"
 
 
-def to_opt_float(prediction: TypePrediction, key: str) -> Optional[float]:
+def to_opt_float(prediction: TypePredictionField, key: str) -> Optional[float]:
     """Make sure a prediction value is either a ``float`` or ``None``."""
     try:
         return float(prediction[key])

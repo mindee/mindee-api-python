@@ -1,6 +1,6 @@
 from typing import Optional
 
-from mindee.parsing.standard.base import BaseField, TypePrediction
+from mindee.parsing.standard.base import BaseField, TypePredictionField
 
 
 class LocaleField(BaseField):
@@ -15,7 +15,7 @@ class LocaleField(BaseField):
 
     def __init__(
         self,
-        prediction: TypePrediction,
+        prediction: TypePredictionField,
         reconstructed: bool = False,
         page_id: Optional[int] = None,
     ):
@@ -32,7 +32,7 @@ class LocaleField(BaseField):
             prediction,
             value_key=value_key,
             reconstructed=reconstructed,
-            page_n=page_id,
+            page_id=page_id,
         )
         self.language = self._get_value(prediction, "language")
         self.country = self._get_value(prediction, "country")

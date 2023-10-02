@@ -3,7 +3,11 @@ from typing import Optional
 
 import pytz
 
-from mindee.parsing.standard.base import BaseField, FieldPositionMixin, TypePrediction
+from mindee.parsing.standard.base import (
+    BaseField,
+    FieldPositionMixin,
+    TypePredictionField,
+)
 
 ISO8601_DATE_FORMAT = "%Y-%m-%d"
 ISO8601_DATETIME_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
@@ -19,7 +23,7 @@ class DateField(FieldPositionMixin, BaseField):
 
     def __init__(
         self,
-        prediction: TypePrediction,
+        prediction: TypePredictionField,
         reconstructed: bool = False,
         page_id: Optional[int] = None,
     ):
@@ -34,7 +38,7 @@ class DateField(FieldPositionMixin, BaseField):
             prediction,
             value_key="value",
             reconstructed=reconstructed,
-            page_n=page_id,
+            page_id=page_id,
         )
         self._set_position(prediction)
 
