@@ -5,8 +5,8 @@ from mindee.parsing.common.document import Document
 from mindee.parsing.common.extras import CropperExtra, ExtraField, Extras
 from mindee.parsing.common.inference import Inference
 from mindee.parsing.common.job import Job
-from mindee.parsing.common.mvision_v1 import MVisionV1
-from mindee.parsing.common.ocr import Ocr, OcrLine, OcrPage, OcrWord
+from mindee.parsing.common.ocr.mvision_v1 import MVisionV1
+from mindee.parsing.common.ocr.ocr import Ocr
 from mindee.parsing.common.orientation import OrientationField
 from mindee.parsing.common.page import Page, TypePage
 from mindee.parsing.common.predict_response import PredictResponse

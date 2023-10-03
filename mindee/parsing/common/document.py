@@ -4,7 +4,7 @@ from typing import Any, Dict, Optional
 from mindee.parsing.common.extras.cropper_extra import CropperExtra
 from mindee.parsing.common.extras.extras import ExtraField, Extras
 from mindee.parsing.common.inference import Inference
-from mindee.parsing.common.ocr import Ocr
+from mindee.parsing.common.ocr.ocr import Ocr
 from mindee.parsing.common.string_dict import StringDict
 
 

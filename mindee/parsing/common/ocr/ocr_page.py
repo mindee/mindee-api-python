@@ -1,41 +1,11 @@
 from typing import List, Optional
 
-from mindee.geometry import (
-    get_centroid,
-    get_min_max_x,
-    get_min_max_y,
-    is_point_in_polygon_y,
-)
+from mindee.geometry.minmax import get_min_max_y
+from mindee.geometry.polygon import is_point_in_polygon_y
+from mindee.geometry.polygon_utils import get_centroid
+from mindee.parsing.common.ocr.ocr_line import OcrLine
+from mindee.parsing.common.ocr.ocr_word import OcrWord
 from mindee.parsing.common.string_dict import StringDict
-from mindee.parsing.standard.base import FieldPositionMixin
-
-
-class OcrWord(FieldPositionMixin):
-    """A single word."""
-
-    confidence: float
-    """The confidence score."""
-    text: str
-    """The extracted text."""
-
-    def __init__(self, raw_prediction: StringDict):
-        self.confidence = raw_prediction["confidence"]
-        self.text = raw_prediction["text"]
-        self._set_position(raw_prediction)
-
-    def __str__(self) -> str:
-        return self.text
-
-
-class OcrLine(List[OcrWord]):
-    """A list of words which are on the same line."""
-
-    def sort_on_x(self) -> None:
-        """Sort the words on the line from left to right."""
-        self.sort(key=lambda item: get_min_max_x(item.polygon).min)
-
-    def __str__(self) -> str:
-        return " ".join([word.text for word in self])
 
 
 class OcrPage:
@@ -107,31 +77,3 @@ class OcrPage:
 
     def __str__(self) -> str:
         return "\n".join(str(line) for line in self.all_lines) + "\n"
-
-
-class MVisionV1:
-    """Mindee Vision V1."""
-
-    pages: List[OcrPage]
-    """List of pages."""
-
-    def __init__(self, raw_prediction: StringDict):
-        self.pages = [
-            OcrPage(page_prediction) for page_prediction in raw_prediction["pages"]
-        ]
-
-    def __str__(self) -> str:
-        return "\n".join([str(page) for page in self.pages])
-
-
-class Ocr:
-    """OCR extraction from the entire document."""
-
-    mvision_v1: MVisionV1
-    """Mindee Vision v1 results."""
-
-    def __init__(self, raw_prediction: StringDict):
-        self.mvision_v1 = MVisionV1(raw_prediction["mvision-v1"])
-
-    def __str__(self) -> str:
-        return str(self.mvision_v1)
