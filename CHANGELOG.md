@@ -1,5 +1,10 @@
 # Mindee Python API Library Changelog
 
+## v3.13.1 - 2023-10-03
+### Changes
+* :arrow_up: update `urllib`, `charset-normalizer` & `package` dependencies
+
+
 ## v3.13.0 - 2023-09-21
 ### Changes
 * :sparkles: add support for Multi Receipts Detector V1
