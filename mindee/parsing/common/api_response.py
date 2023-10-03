@@ -1,15 +1,21 @@
 from abc import ABC
-from typing import Any, Dict
 
+from mindee.logger import logger
 from mindee.parsing.common.api_request import ApiRequest
+from mindee.parsing.common.string_dict import StringDict
 
-
-StringDict = Dict[str, Any]
 
 class ApiResponse(ABC):
-    
+    """
+    Base class for responses sent by the server.
+
+    Serves as a base class for responses to both synchronous and asynchronous calls.
+    """
+
     raw_http: StringDict
     """Raw request sent by the server, as string."""
-    def __init__(self, server_response: StringDict):
-        self.api_request = ApiRequest(server_response["api_request"])
-        self.raw_http = server_response
+
+    def __init__(self, raw_response: StringDict):
+        logger.debug("Handling API response")
+        self.api_request = ApiRequest(raw_response["api_request"])
+        self.raw_http = raw_response

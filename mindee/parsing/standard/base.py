@@ -1,8 +1,7 @@
-from typing import Any, Dict, List, Optional, TypeVar
+from typing import Any, List, Optional, TypeVar
 
 from mindee.geometry import Point, Polygon, Quadrilateral, get_bounding_box
-
-TypePredictionField = Dict[str, Any]
+from mindee.parsing.common.string_dict import StringDict
 
 
 class FieldPositionMixin:
@@ -13,12 +12,12 @@ class FieldPositionMixin:
     polygon: Polygon
     """A polygon containing the word in the document."""
 
-    def _set_position(self, prediction: TypePredictionField):
+    def _set_position(self, raw_prediction: StringDict):
         self.bounding_box = None
         self.polygon = Polygon()
         try:
             self.polygon = Polygon(
-                Point(point[0], point[1]) for point in prediction["polygon"]
+                Point(point[0], point[1]) for point in raw_prediction["polygon"]
             )
         except KeyError:
             pass
@@ -32,9 +31,9 @@ class FieldConfidenceMixin:
     confidence: float = 0.0
     """The confidence score."""
 
-    def _set_confidence(self, prediction: TypePredictionField):
+    def _set_confidence(self, raw_prediction: StringDict):
         try:
-            self.confidence = float(prediction["confidence"])
+            self.confidence = float(raw_prediction["confidence"])
         except (KeyError, TypeError):
             pass
 
@@ -51,7 +50,7 @@ class BaseField(FieldConfidenceMixin):
 
     def __init__(
         self,
-        prediction: TypePredictionField,
+        raw_prediction: StringDict,
         value_key: str = "value",
         reconstructed: bool = False,
         page_id: Optional[int] = None,
@@ -59,14 +58,14 @@ class BaseField(FieldConfidenceMixin):
         """
         Base field object.
 
-        :param prediction: Prediction object from HTTP response
+        :param raw_prediction: Prediction object from HTTP response
         :param value_key: Key to use in the abstract_prediction dict
         :param reconstructed: Bool for reconstructed object (not extracted in the API)
         :param page_id: Page number for multi-page PDF
         """
         if page_id is None:
             try:
-                self.page_id = prediction["page_id"]
+                self.page_id = raw_prediction["page_id"]
             except KeyError:
                 pass
         else:
@@ -74,11 +73,11 @@ class BaseField(FieldConfidenceMixin):
 
         self.reconstructed = reconstructed
 
-        if value_key not in prediction or prediction[value_key] == "N/A":
+        if value_key not in raw_prediction or raw_prediction[value_key] == "N/A":
             return
 
-        self.value = prediction[value_key]
-        self._set_confidence(prediction)
+        self.value = raw_prediction[value_key]
+        self._set_confidence(raw_prediction)
 
     def __eq__(self, other: Any) -> bool:
         if not isinstance(other, BaseField):
@@ -159,9 +158,9 @@ def float_to_string(value: Optional[float], min_precision=2) -> str:
     return f"{value:.{precision}f}"
 
 
-def to_opt_float(prediction: TypePredictionField, key: str) -> Optional[float]:
+def to_opt_float(raw_prediction: StringDict, key: str) -> Optional[float]:
     """Make sure a prediction value is either a ``float`` or ``None``."""
     try:
-        return float(prediction[key])
+        return float(raw_prediction[key])
     except TypeError:
         return None

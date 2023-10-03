@@ -78,7 +78,9 @@ class ReceiptV4Document(Prediction):
         self.supplier = TextField(
             raw_prediction["supplier"], value_key="value", page_id=page_id
         )
-        self.time = TextField(raw_prediction["time"], value_key="value", page_id=page_id)
+        self.time = TextField(
+            raw_prediction["time"], value_key="value", page_id=page_id
+        )
         self.taxes = Taxes(raw_prediction["taxes"], page_id=page_id)
 
     def __str__(self) -> str:
@@ -96,5 +98,6 @@ class ReceiptV4Document(Prediction):
             f":Tip: {self.tip}\n"
             f":Total amount: {self.total_amount}"
         )
+
 
 TypeReceiptV4Document = TypeVar("TypeReceiptV4Document", bound=ReceiptV4Document)

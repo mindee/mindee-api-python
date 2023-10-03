@@ -1,10 +1,7 @@
 from typing import Optional
 
-from mindee.parsing.standard.base import (
-    BaseField,
-    FieldPositionMixin,
-    TypePredictionField,
-)
+from mindee.parsing.common.string_dict import StringDict
+from mindee.parsing.standard.base import BaseField, FieldPositionMixin
 
 
 class PaymentDetails(FieldPositionMixin, BaseField):
@@ -21,7 +18,7 @@ class PaymentDetails(FieldPositionMixin, BaseField):
 
     def __init__(
         self,
-        prediction: TypePredictionField,
+        raw_prediction: StringDict,
         value_key: str = "iban",
         account_number_key: str = "account_number",
         iban_key: str = "iban",
@@ -33,7 +30,7 @@ class PaymentDetails(FieldPositionMixin, BaseField):
         """
         Payment details field object.
 
-        :param prediction: Payment detail prediction object from HTTP response
+        :param raw_prediction: Payment detail prediction object from HTTP response
         :param value_key: Corresponds to iban
         :param account_number_key: Key to use for getting the account number in the
             payment_details_prediction dict
@@ -45,41 +42,41 @@ class PaymentDetails(FieldPositionMixin, BaseField):
         :param page_id: Page number for multi-page document
         """
         super().__init__(
-            prediction,
+            raw_prediction,
             value_key=value_key,
             reconstructed=reconstructed,
             page_id=page_id,
         )
 
-        self._set_position(prediction)
+        self._set_position(raw_prediction)
 
         try:
-            assert isinstance(prediction[account_number_key], str)
-            self.account_number = str(prediction[account_number_key])
+            assert isinstance(raw_prediction[account_number_key], str)
+            self.account_number = str(raw_prediction[account_number_key])
             if self.account_number == "N/A":
                 self.account_number = None
         except (KeyError, AssertionError):
             self.account_number = None
 
         try:
-            assert isinstance(prediction[iban_key], str)
-            self.iban = str(prediction[iban_key])
+            assert isinstance(raw_prediction[iban_key], str)
+            self.iban = str(raw_prediction[iban_key])
             if self.iban == "N/A":
                 self.iban = None
         except (KeyError, AssertionError):
             self.iban = None
 
         try:
-            assert isinstance(prediction[routing_number_key], str)
-            self.routing_number = str(prediction[routing_number_key])
+            assert isinstance(raw_prediction[routing_number_key], str)
+            self.routing_number = str(raw_prediction[routing_number_key])
             if self.routing_number == "N/A":
                 self.routing_number = None
         except (KeyError, AssertionError):
             self.routing_number = None
 
         try:
-            assert isinstance(prediction[swift_key], str)
-            self.swift = str(prediction[swift_key])
+            assert isinstance(raw_prediction[swift_key], str)
+            self.swift = str(raw_prediction[swift_key])
             if self.swift == "N/A":
                 self.swift = None
         except (KeyError, AssertionError):

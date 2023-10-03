@@ -1,6 +1,6 @@
 from typing import List, TypeVar
 
-from mindee.parsing.common import Inference, StringDict, Page
+from mindee.parsing.common import Inference, Page, StringDict
 from mindee.product.custom.custom_v1_document import CustomV1Document
 from mindee.product.custom.custom_v1_page import CustomV1Page
 
@@ -13,10 +13,7 @@ class CustomV1(Inference):
     endpoint_name = "custom"
     endpoint_version = "1"
 
-    def __init__(
-        self,
-        raw_prediction: StringDict
-    ):
+    def __init__(self, raw_prediction: StringDict):
         """
         Custom document object.
 
@@ -30,5 +27,6 @@ class CustomV1(Inference):
         self.pages = []
         for page in raw_prediction["pages"]:
             self.pages.append(Page(CustomV1Page, page, page["id"], page["orientation"]))
+
 
 TypeCustomV1 = TypeVar("TypeCustomV1", bound=CustomV1)

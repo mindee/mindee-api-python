@@ -1,11 +1,7 @@
 from typing import Dict, List, Optional
 
-from mindee.parsing.standard.base import (
-    BaseField,
-    FieldPositionMixin,
-    TypePredictionField,
-    float_to_string,
-)
+from mindee.parsing.common.string_dict import StringDict
+from mindee.parsing.standard.base import BaseField, FieldPositionMixin, float_to_string
 
 
 class TaxField(FieldPositionMixin, BaseField):
@@ -22,7 +18,7 @@ class TaxField(FieldPositionMixin, BaseField):
 
     def __init__(
         self,
-        prediction: TypePredictionField,
+        raw_prediction: StringDict,
         value_key: str = "value",
         reconstructed: bool = False,
         page_id: Optional[int] = None,
@@ -30,39 +26,39 @@ class TaxField(FieldPositionMixin, BaseField):
         """
         Tax field object.
 
-        :param prediction: Tax prediction object from HTTP response
+        :param raw_prediction: Tax prediction object from HTTP response
         :param value_key: Key to use in the tax_prediction dict
         :param reconstructed: Bool for reconstructed object (not extracted in the API)
         :param page_id: Page number for multi pages document
         """
         super().__init__(
-            prediction,
+            raw_prediction,
             value_key=value_key,
             reconstructed=reconstructed,
             page_id=page_id,
         )
 
-        self._set_position(prediction)
+        self._set_position(raw_prediction)
 
         try:
-            self.rate = float(prediction["rate"])
+            self.rate = float(raw_prediction["rate"])
         except (ValueError, TypeError, KeyError):
             self.rate = None
 
         try:
-            self.code = str(prediction["code"])
+            self.code = str(raw_prediction["code"])
         except (TypeError, KeyError):
             self.code = None
         if self.code in ("N/A", "None"):
             self.code = None
 
         try:
-            self.basis = float(prediction["base"])
+            self.basis = float(raw_prediction["base"])
         except (ValueError, TypeError, KeyError):
             self.basis = None
 
         try:
-            self.value = float(prediction["value"])
+            self.value = float(raw_prediction["value"])
         except (ValueError, TypeError, KeyError):
             self.value = None
             self.confidence = 0.0
@@ -110,9 +106,7 @@ class Taxes(List[TaxField]):
         out_str += f"+{char * 15}"
         return out_str + "+"
 
-    def __init__(
-        self, api_prediction: List[TypePredictionField], page_id: Optional[int]
-    ):
+    def __init__(self, api_prediction: List[StringDict], page_id: Optional[int]):
         super().__init__()
         for entry in api_prediction:
             tax = TaxField(entry, page_id=page_id)

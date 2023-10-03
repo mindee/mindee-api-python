@@ -6,7 +6,7 @@ from mindee.geometry import (
     get_min_max_y,
     is_point_in_polygon_y,
 )
-from mindee.parsing.common.api_response import StringDict
+from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.standard.base import FieldPositionMixin
 
 
@@ -18,10 +18,10 @@ class OcrWord(FieldPositionMixin):
     text: str
     """The extracted text."""
 
-    def __init__(self, prediction: StringDict):
-        self.confidence = prediction["confidence"]
-        self.text = prediction["text"]
-        self._set_position(prediction)
+    def __init__(self, raw_prediction: StringDict):
+        self.confidence = raw_prediction["confidence"]
+        self.text = raw_prediction["text"]
+        self._set_position(raw_prediction)
 
     def __str__(self) -> str:
         return self.text
@@ -44,9 +44,9 @@ class OcrPage:
     _all_words: List[OcrWord]
     _lines: List[OcrLine]
 
-    def __init__(self, prediction: StringDict):
+    def __init__(self, raw_prediction: StringDict):
         self._all_words = [
-            OcrWord(word_prediction) for word_prediction in prediction["all_words"]
+            OcrWord(word_prediction) for word_prediction in raw_prediction["all_words"]
         ]
         # make sure words are sorted from top to bottom
         self._all_words.sort(
@@ -115,9 +115,9 @@ class MVisionV1:
     pages: List[OcrPage]
     """List of pages."""
 
-    def __init__(self, prediction: StringDict):
+    def __init__(self, raw_prediction: StringDict):
         self.pages = [
-            OcrPage(page_prediction) for page_prediction in prediction["pages"]
+            OcrPage(page_prediction) for page_prediction in raw_prediction["pages"]
         ]
 
     def __str__(self) -> str:
@@ -130,8 +130,8 @@ class Ocr:
     mvision_v1: MVisionV1
     """Mindee Vision v1 results."""
 
-    def __init__(self, prediction: StringDict):
-        self.mvision_v1 = MVisionV1(prediction["mvision-v1"])
+    def __init__(self, raw_prediction: StringDict):
+        self.mvision_v1 = MVisionV1(raw_prediction["mvision-v1"])
 
     def __str__(self) -> str:
         return str(self.mvision_v1)

@@ -1,7 +1,8 @@
+import os
 from dataclasses import dataclass
 from typing import Dict, Optional, Union
+
 from mindee.logger import logger
-import os
 from mindee.versions import __version__, get_platform, python_version
 
 API_KEY_ENV_NAME = "MINDEE_API_KEY"
@@ -17,9 +18,10 @@ PLATFORM = get_platform()
 USER_AGENT = f"mindee-api-python@v{__version__} python-v{python_version} {PLATFORM}"
 
 
-
 @dataclass
 class MindeeApi:
+    """Settings class relating to API requests."""
+
     api_key: Optional[str]
     """API Key for the client."""
 
@@ -39,7 +41,7 @@ class MindeeApi:
             self.api_key = env_val
             return
         self.api_key = api_key
-        
+
     def set_from_env(self) -> None:
         """Set various parameters from environment variables, if present."""
         env_vars = {
@@ -65,25 +67,23 @@ class MindeeApi:
         api_key: Optional[str],
         endpoint_name: str,
         account_name: str,
-        version: str
-        ):
+        version: str,
+    ):
         self._set_api_key(api_key)
         if not self.api_key or len(self.api_key) == 0:
             raise RuntimeError(
-                    (
-                        f"Missing API key for '{endpoint_name} v{version}' (belonging to {account_name}),"
-                        " check your Client configuration.\n"
-                        "You can set this using the "
-                        f"'{API_KEY_ENV_NAME}' environment variable."
-                    )
+                (
+                    f"Missing API key for '{endpoint_name} v{version}' (belonging to {account_name}),"
+                    " check your Client configuration.\n"
+                    "You can set this using the "
+                    f"'{API_KEY_ENV_NAME}' environment variable."
                 )
+            )
         self.endpoint_name = endpoint_name
         self.account_name = account_name
         self.version = version
         self.request_timeout = TIMEOUT_DEFAULT
-        self._base_url = BASE_URL_DEFAULT
-
-        self.url_root = (
-            f"{self._base_url}/products/{self.account_name}/{self.endpoint_name}/v{self.version}"
-        )
+        self.set_base_url(BASE_URL_DEFAULT)
         self.set_from_env()
+
+        self.url_root = f"{self.base_url}/products/{self.account_name}/{self.endpoint_name}/v{self.version}"

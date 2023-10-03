@@ -3,8 +3,9 @@ from typing import Any, Dict, Optional
 
 from mindee.parsing.common.extras.cropper_extra import CropperExtra
 from mindee.parsing.common.extras.extras import ExtraField, Extras
-from mindee.parsing.common.ocr import Ocr
 from mindee.parsing.common.inference import Inference
+from mindee.parsing.common.ocr import Ocr
+from mindee.parsing.common.string_dict import StringDict
 
 
 def serialize_for_json(obj: Any) -> Any:
@@ -34,13 +35,13 @@ class Document:
     def __init__(
         self,
         prediction_type,
-        raw_response: Dict[str, Any],
+        raw_response: StringDict,
     ):
         self.id = raw_response.get("id", "")
         self.filename = raw_response.get("name", "")
         if "ocr" in raw_response and raw_response["ocr"]:
             self.ocr = Ocr(raw_response["ocr"])
-        extras: Dict[str, ExtraField] = dict()
+        extras: Dict[str, ExtraField] = {}
         if "extras" in raw_response and raw_response["extras"]:
             for key, extra in raw_response["extras"].items():
                 if key == "cropper":

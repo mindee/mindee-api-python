@@ -1,8 +1,11 @@
-from typing import List, Optional, TypeVar
+from typing import List
 
 from mindee.parsing.common import StringDict, clean_out_string
 from mindee.parsing.common.prediction import Prediction
-from mindee.product.invoice_splitter.invoice_splitter_v1_page_group import InvoiceSplitterV1PageGroup
+from mindee.product.invoice_splitter.invoice_splitter_v1_page_group import (
+    InvoiceSplitterV1PageGroup,
+)
+
 
 class InvoiceSplitterV1Document(Prediction):
     """Document data for Invoice Splitter, API version 1."""
@@ -10,15 +13,10 @@ class InvoiceSplitterV1Document(Prediction):
     invoice_page_groups: List[InvoiceSplitterV1PageGroup] = []
     """Page groups linked to an invoice."""
 
-    def __init__(
-        self,
-        raw_prediction: StringDict
-    ):
+    def __init__(self, raw_prediction: StringDict):
         self._build_from_raw_prediction(raw_prediction)
 
-    def _build_from_raw_prediction(
-        self, raw_prediction: StringDict
-    ) -> None:
+    def _build_from_raw_prediction(self, raw_prediction: StringDict) -> None:
         """
         Build the object from the prediction API JSON.
 

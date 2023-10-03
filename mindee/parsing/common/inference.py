@@ -1,8 +1,8 @@
 from typing import Dict, Generic, List, Optional, TypeVar
 
-from mindee.parsing.common.api_response import StringDict
 from mindee.parsing.common.page import TypePage
 from mindee.parsing.common.prediction import TypePrediction
+from mindee.parsing.common.string_dict import StringDict
 
 
 class Inference(Generic[TypePrediction, TypePage]):
@@ -41,8 +41,8 @@ class Inference(Generic[TypePrediction, TypePage]):
         prediction_str = ""
         pages_str = ""
         if self.prediction and len(self.prediction.__str__()) > 0:
-            prediction_str = self.prediction.__str__() +"\n"
-        if len(self.pages)>0:
+            prediction_str = self.prediction.__str__() + "\n"
+        if len(self.pages) > 0:
             pages_str = "\n".join([page.__str__() for page in self.pages])
         return (
             f"Inference\n"
@@ -57,11 +57,16 @@ class Inference(Generic[TypePrediction, TypePage]):
             f"{pages_str}"
         )
 
-    @classmethod
-    def get_endpoint_info(self) -> Dict[str, str]:
-        if self.endpoint_name and self.endpoint_version:
-            return {"name": self.endpoint_name, "version": self.endpoint_version}
-        raise TypeError("Can't get endpoint information for {self.__name__}")
+    @staticmethod
+    def get_endpoint_info(klass) -> Dict[str, str]:
+        """
+        Retrives the endpoint information for an Inference.
+
+        Should never retrieve info for CustomV1, as a custom endpoint should be created to use CustomV1.
+        """
+        if klass.endpoint_name and klass.endpoint_version:
+            return {"name": klass.endpoint_name, "version": klass.endpoint_version}
+        raise TypeError("Can't get endpoint information for {klass.__name__}")
 
 
 TypeInference = TypeVar("TypeInference", bound=Inference)

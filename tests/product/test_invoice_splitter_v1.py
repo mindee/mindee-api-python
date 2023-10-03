@@ -16,13 +16,13 @@ FILE_PATH_INVOICE_SPLITTER_V1_EMPTY = (
 @pytest.fixture
 def invoice_splitter_v1_doc() -> InvoiceSplitterV1:
     json_data = json.load(open(FILE_PATH_INVOICE_SPLITTER_V1_COMPLETE))
-    return InvoiceSplitterV1(json_data["document"]["inference"], page_id=None)
+    return InvoiceSplitterV1(json_data["document"]["inference"])
 
 
 @pytest.fixture
 def invoice_splitter_v1_doc_empty() -> InvoiceSplitterV1:
     json_data = json.load(open(FILE_PATH_INVOICE_SPLITTER_V1_EMPTY))
-    return InvoiceSplitterV1(json_data["document"]["inference"], page_id=None)
+    return InvoiceSplitterV1(json_data["document"]["inference"])
 
 
 @pytest.fixture

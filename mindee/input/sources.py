@@ -1,8 +1,8 @@
-from abc import ABC
 import base64
 import io
 import mimetypes
 import os
+from abc import ABC
 from enum import Enum
 from typing import BinaryIO, Optional, Sequence, Tuple, Union
 
@@ -40,7 +40,10 @@ class MimeTypeError(AssertionError):
 
 
 class InputSource(ABC):
+    """Base class for all input sources."""
+
     file_object: Optional[Union[BinaryIO, str]]
+
 
 class LocalInputSource(InputSource):
     """Base class for all input sources coming from the local machine."""

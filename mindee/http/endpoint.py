@@ -1,18 +1,13 @@
 import requests
-from mindee.http.mindee_api import MindeeApi
 
+from mindee.http.mindee_api import MindeeApi
 from mindee.input.sources import InputSource, LocalInputSource, UrlInputSource
+
 
 class Endpoint:
     """Generic API endpoint for a product."""
 
-    def __init__(
-        self,
-        url_name: str,
-        owner: str,
-        version: str,
-        settings: MindeeApi
-    ):
+    def __init__(self, url_name: str, owner: str, version: str, settings: MindeeApi):
         """
         Generic API endpoint for a product.
 
@@ -24,7 +19,6 @@ class Endpoint:
         self.url_name = url_name
         self.version = version
         self.settings = settings
-
 
     def predict_req_post(
         self,

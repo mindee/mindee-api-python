@@ -1,4 +1,4 @@
-from typing import Any, Dict, TypeVar
+from typing import TypeVar
 
 
 class Prediction:

@@ -1,5 +1,7 @@
-from typing import Any, Dict, Optional
-from mindee.parsing.common.extras import ExtraField
+from typing import Optional
+
+from mindee.parsing.common.extras.extras import ExtraField
+from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.standard.position import PositionField
 
 
@@ -7,7 +9,7 @@ class CropperExtra(ExtraField):
     """Contains information on the cropping of a prediction."""
 
     def __init__(
-        self, raw_prediction: Dict[str, Any], page_id: Optional[int] = None
+        self, raw_prediction: StringDict, page_id: Optional[int] = None
     ) -> None:
         super().__init__()
         croppings = []

@@ -1,6 +1,6 @@
 from typing import Dict, Optional
 
-from mindee.parsing.common import clean_out_string, StringDict, Prediction
+from mindee.parsing.common import Prediction, StringDict, clean_out_string
 from mindee.parsing.custom import ClassificationField, ListField
 
 
@@ -12,11 +12,7 @@ class CustomV1Document(Prediction):
     classifications: Dict[str, ClassificationField]
     """Dictionary of all classifications in the document"""
 
-    def __init__(
-        self,
-        raw_prediction: StringDict,
-        page_id: Optional[int] = None
-    ):
+    def __init__(self, raw_prediction: StringDict, page_id: Optional[int] = None):
         """
         Custom document object.
 
@@ -37,10 +33,10 @@ class CustomV1Document(Prediction):
         self.classifications = {}
         for field_name, field_contents in raw_prediction.items():
             if "value" in field_contents:
-                self.classifications[field_name] = ClassificationField(prediction=field_contents)
+                self.classifications[field_name] = ClassificationField(field_contents)
             # Only value lists have the 'values' attribute.
             elif "values" in field_contents:
-                self.fields[field_name] = ListField(prediction=field_contents, page_id=page_id)
+                self.fields[field_name] = ListField(field_contents, page_id=page_id)
 
     def __str__(self) -> str:
         out_str = ""

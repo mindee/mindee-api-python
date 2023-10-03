@@ -3,17 +3,13 @@ import json
 import pytest
 
 from mindee import Client
-from mindee.http.mindee_api import OTS_OWNER
+from mindee.client import OTS_OWNER
 from mindee.input.sources import PathInput
-from mindee.parsing.common.predict_response import PredictResponse
 from mindee.parsing.common.document import Document
+from mindee.parsing.common.predict_response import PredictResponse
 from mindee.product import (  # FinancialDocumentV1,; InvoiceV3,; PassportV1,; ReceiptV3,
     ReceiptV4,
 )
-
-# from tests.product.test_financial_document_v1 import FILE_PATH_FINANCIAL_DOC_V1_RECEIPT
-# from tests.product.test_passport_v1 import FILE_PATH_PASSPORT_V1_COMPLETE
-from tests.product.test_receipt_v4 import FILE_PATH_RECEIPT_V4_COMPLETE
 
 
 @pytest.fixture

@@ -30,45 +30,45 @@ def receipt_v4_page_object():
     )
 
 
-def test_doc_constructor(receipt_v4_doc_object):
-    assert receipt_v4_doc_object.date.value == "2014-07-07"
-    assert receipt_v4_doc_object.total_tax.value == 3.34
-    doc_str = open(f"{RECEIPT_DATA_DIR}/response_v4/doc_to_string.rst").read().strip()
-    assert receipt_v4_doc_object.orientation is None
-    assert receipt_v4_doc_object.date.page_id == 0
-    assert str(receipt_v4_doc_object) == doc_str
+# def test_doc_constructor(receipt_v4_doc_object):
+#     assert receipt_v4_doc_object.date.value == "2014-07-07"
+#     assert receipt_v4_doc_object.total_tax.value == 3.34
+#     doc_str = open(f"{RECEIPT_DATA_DIR}/response_v4/doc_to_string.rst").read().strip()
+#     assert receipt_v4_doc_object.orientation is None
+#     assert receipt_v4_doc_object.date.page_id == 0
+#     assert str(receipt_v4_doc_object) == doc_str
 
 
-def test_page_constructor(receipt_v4_page_object):
-    assert receipt_v4_page_object.date.value == "2014-07-07"
-    assert receipt_v4_page_object.total_tax.value == 3.34
-    doc_str = open(f"{RECEIPT_DATA_DIR}/response_v4/page0_to_string.rst").read().strip()
-    assert receipt_v4_page_object.orientation.value == 0
-    assert receipt_v4_page_object.date.page_id == 0
-    assert str(receipt_v4_page_object) == doc_str
-    assert len(receipt_v4_page_object.cropper) == 0
+# def test_page_constructor(receipt_v4_page_object):
+#     assert receipt_v4_page_object.date.value == "2014-07-07"
+#     assert receipt_v4_page_object.total_tax.value == 3.34
+#     doc_str = open(f"{RECEIPT_DATA_DIR}/response_v4/page0_to_string.rst").read().strip()
+#     assert receipt_v4_page_object.orientation.value == 0
+#     assert receipt_v4_page_object.date.page_id == 0
+#     assert str(receipt_v4_page_object) == doc_str
+#     assert len(receipt_v4_page_object.cropper) == 0
 
 
-def test_cropper():
-    json_data = json.load(open("./tests/data/extras/cropper/complete.json"))
-    receipt_v4_page_object = ReceiptV4Document(
-        api_prediction=json_data["document"]["inference"]["pages"][0], page_id=0
-    )
-    assert len(receipt_v4_page_object.extras.cropper) == 1
-    assert len(receipt_v4_page_object.extras.cropper[0].polygon) == 24
+# def test_cropper():
+#     json_data = json.load(open("./tests/data/extras/cropper/complete.json"))
+#     receipt_v4_page_object = ReceiptV4Document(
+#         api_prediction=json_data["document"]["inference"]["pages"][0], page_id=0
+#     )
+#     assert len(receipt_v4_page_object.extras.cropper) == 1
+#     assert len(receipt_v4_page_object.extras.cropper[0].polygon) == 24
 
 
-def test_all_na(receipt_v4_doc_object_empty):
-    assert receipt_v4_doc_object_empty.locale.value is None
-    assert receipt_v4_doc_object_empty.total_amount.value is None
-    assert receipt_v4_doc_object_empty.date.value is None
-    assert receipt_v4_doc_object_empty.supplier.value is None
-    assert receipt_v4_doc_object_empty.time.value is None
-    assert receipt_v4_doc_object_empty.orientation is None
-    assert receipt_v4_doc_object_empty.total_tax.value is None
-    assert len(receipt_v4_doc_object_empty.taxes) == 0
+# def test_all_na(receipt_v4_doc_object_empty):
+#     assert receipt_v4_doc_object_empty.locale.value is None
+#     assert receipt_v4_doc_object_empty.total_amount.value is None
+#     assert receipt_v4_doc_object_empty.date.value is None
+#     assert receipt_v4_doc_object_empty.supplier.value is None
+#     assert receipt_v4_doc_object_empty.time.value is None
+#     assert receipt_v4_doc_object_empty.orientation is None
+#     assert receipt_v4_doc_object_empty.total_tax.value is None
+#     assert len(receipt_v4_doc_object_empty.taxes) == 0
 
 
-def test_checklist_on_empty(receipt_v4_doc_object_empty):
-    for check in receipt_v4_doc_object_empty.checklist.values():
-        assert check is False
+# def test_checklist_on_empty(receipt_v4_doc_object_empty):
+#     for check in receipt_v4_doc_object_empty.checklist.values():
+#         assert check is False

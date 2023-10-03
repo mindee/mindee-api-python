@@ -3,7 +3,7 @@ import json
 import pytest
 
 from mindee import Client
-from mindee.http.mindee_api import OTS_OWNER
+from mindee.client import OTS_OWNER
 from mindee.input.sources import PathInput
 from mindee.parsing.common.async_predict_response import AsyncPredictResponse
 from mindee.parsing.common.document import Document

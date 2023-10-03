@@ -1,10 +1,9 @@
-from typing import Any, Dict, List
+from typing import List
 
 from mindee.parsing.common import Inference
 from mindee.parsing.common.page import Page
-from mindee.product.receipt.receipt_v4_document import (
-    ReceiptV4Document,
-)
+from mindee.parsing.common.string_dict import StringDict
+from mindee.product.receipt.receipt_v4_document import ReceiptV4Document
 
 
 class ReceiptV4(Inference):
@@ -19,7 +18,7 @@ class ReceiptV4(Inference):
 
     def __init__(
         self,
-        raw_prediction: Dict[str, Any],
+        raw_prediction: StringDict,
     ):
         """
         Receipt document.

@@ -1,6 +1,7 @@
 from typing import Optional
 
-from mindee.parsing.standard.base import BaseField, TypePredictionField
+from mindee.parsing.common.string_dict import StringDict
+from mindee.parsing.standard.base import BaseField
 
 
 class OrientationField(BaseField):
@@ -11,7 +12,7 @@ class OrientationField(BaseField):
 
     def __init__(
         self,
-        prediction: TypePredictionField,
+        raw_prediction: StringDict,
         value_key: str = "value",
         reconstructed: bool = False,
         page_id: Optional[int] = None,
@@ -19,20 +20,20 @@ class OrientationField(BaseField):
         """
         Page orientation.
 
-        :param prediction: Orientation prediction object from HTTP response
+        :param raw_prediction: Orientation prediction object from HTTP response
         :param value_key: Key to use in the orientation_prediction dict
         :param reconstructed: Bool for reconstructed object (not extracted in the API)
         :param page_id: Page number for multi-page document
         """
         super().__init__(
-            prediction,
+            raw_prediction,
             value_key=value_key,
             reconstructed=reconstructed,
             page_id=page_id,
         )
 
         try:
-            self.value = int(prediction[value_key])
+            self.value = int(raw_prediction[value_key])
             if self.value not in [0, 90, 180, 270]:
                 self.value = 0
         except (TypeError, ValueError, KeyError):

@@ -7,7 +7,8 @@ from mindee.geometry import (
     polygon_from_prediction,
     quadrilateral_from_prediction,
 )
-from mindee.parsing.standard.base import BaseField, TypePredictionField
+from mindee.parsing.common.string_dict import StringDict
+from mindee.parsing.standard.base import BaseField
 
 
 class PositionField(BaseField):
@@ -26,7 +27,7 @@ class PositionField(BaseField):
 
     def __init__(
         self,
-        prediction: TypePredictionField,
+        raw_prediction: StringDict,
         value_key: str = "polygon",
         reconstructed: bool = False,
         page_id: Optional[int] = None,
@@ -34,13 +35,13 @@ class PositionField(BaseField):
         """
         Position field object.
 
-        :param prediction: Position prediction object from HTTP response
+        :param raw_prediction: Position prediction object from HTTP response
         :param value_key: Key to use in the position_prediction dict
         :param reconstructed: Bool for reconstructed object (not extracted in the API)
         :param page_id: Page number for multi-page document
         """
         super().__init__(
-            prediction,
+            raw_prediction,
             value_key=value_key,
             reconstructed=reconstructed,
             page_id=page_id,
@@ -48,13 +49,13 @@ class PositionField(BaseField):
 
         def get_quadrilateral(key: str) -> Optional[Quadrilateral]:
             try:
-                return quadrilateral_from_prediction(prediction[key])
+                return quadrilateral_from_prediction(raw_prediction[key])
             except (KeyError, GeometryError):
                 return None
 
         def get_polygon(key: str) -> Optional[Polygon]:
             try:
-                polygon = prediction[key]
+                polygon = raw_prediction[key]
             except KeyError:
                 return None
             if not polygon:

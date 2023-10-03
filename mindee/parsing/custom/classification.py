@@ -1,6 +1,7 @@
 from typing import List, Optional
 
-from mindee.parsing.standard.base import FieldPositionMixin, TypePredictionField
+from mindee.parsing.common.string_dict import StringDict
+from mindee.parsing.standard.base import FieldPositionMixin
 
 
 class ClassificationField:
@@ -11,9 +12,9 @@ class ClassificationField:
     confidence: float
     """The confidence score"""
 
-    def __init__(self, prediction: TypePredictionField) -> None:
-        self.value = prediction["value"]
-        self.confidence = prediction["confidence"]
+    def __init__(self, raw_prediction: StringDict) -> None:
+        self.value = raw_prediction["value"]
+        self.confidence = raw_prediction["confidence"]
 
     def __str__(self) -> str:
         return self.value or ""
@@ -27,10 +28,10 @@ class ListFieldValue(FieldPositionMixin):
     confidence: float = 0.0
     """Confidence score"""
 
-    def __init__(self, prediction: TypePredictionField) -> None:
-        self.content = prediction["content"]
-        self.confidence = prediction["confidence"]
-        self._set_position(prediction)
+    def __init__(self, raw_prediction: StringDict) -> None:
+        self.content = raw_prediction["content"]
+        self.confidence = raw_prediction["confidence"]
+        self._set_position(raw_prediction)
 
     def __str__(self) -> str:
         return self.content
@@ -50,19 +51,19 @@ class ListField:
 
     def __init__(
         self,
-        prediction: TypePredictionField,
+        raw_prediction: StringDict,
         reconstructed: bool = False,
         page_id: Optional[int] = None,
     ):
         self.values = []
         self.reconstructed = reconstructed
         if page_id is None:
-            self.page_id = prediction["page_id"]
+            self.page_id = raw_prediction["page_id"]
         else:
             self.page_id = page_id
-        self.confidence = prediction["confidence"]
+        self.confidence = raw_prediction["confidence"]
 
-        for value in prediction["values"]:
+        for value in raw_prediction["values"]:
             self.values.append(ListFieldValue(value))
 
     @property

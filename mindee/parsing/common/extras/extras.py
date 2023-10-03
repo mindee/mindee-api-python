@@ -1,5 +1,6 @@
 from abc import ABC
-from typing import Dict, Any
+
+from mindee.parsing.common.string_dict import StringDict
 
 
 class ExtraField(ABC):
@@ -9,10 +10,11 @@ class ExtraField(ABC):
 class Extras:
     """
     ExtraField collection wrapper class.
+
     Is roughly equivalent to a dict of Extras, with a bit more utility.
     """
 
-    def __init__(self, raw_prediction: Dict[str, Any]):
+    def __init__(self, raw_prediction: StringDict):
         for key, extra in raw_prediction.items():
             setattr(self, key, extra)
 

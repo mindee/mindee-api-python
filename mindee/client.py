@@ -1,10 +1,7 @@
 import json
-from typing import BinaryIO, Dict, List, NamedTuple, Optional, Type, Union
+from typing import BinaryIO, Dict, Optional
 
-from mindee.http.endpoint import (
-    CustomEndpoint,
-    Endpoint,
-)
+from mindee.http.endpoint import CustomEndpoint, Endpoint
 from mindee.http.error import HTTPException
 from mindee.http.mindee_api import MindeeApi
 from mindee.input.page_options import PageOptions
@@ -19,8 +16,8 @@ from mindee.input.sources import (
 )
 from mindee.logger import logger
 from mindee.parsing.common.async_predict_response import AsyncPredictResponse
-from mindee.parsing.common.predict_response import PredictResponse
 from mindee.parsing.common.inference import TypeInference
+from mindee.parsing.common.predict_response import PredictResponse
 
 OTS_OWNER = "mindee"
 
@@ -39,7 +36,8 @@ def _clean_account_name(account_name: str) -> str:
     """
     if not account_name or len(account_name) < 1:
         logger.warning(
-            f"No account name provided for custom build. '{OTS_OWNER}' will be used by default."
+            "No account name provided for custom build. %s will be used by default.",
+            OTS_OWNER,
         )
         return OTS_OWNER
     return account_name
@@ -228,7 +226,7 @@ class Client:
         include_words: bool = False,
         close_file: bool = True,
         cropper: bool = False,
-        endpoint: Optional[Endpoint]=None,
+        endpoint: Optional[Endpoint] = None,
     ) -> AsyncPredictResponse:
         """
         Sends a document to the queue, and sends back an asynchronous predict response.
@@ -281,8 +279,8 @@ class Client:
 
     def _initialize_ots_endpoint(self, product_class) -> Endpoint:
         if product_class.__name__ == "CustomV1":
-            raise TypeError("Incorrect parameters for Custom build.")
-        endpoint_info = product_class.get_endpoint_info()
+            raise TypeError("Missing endpoint specifications for custom build.")
+        endpoint_info: Dict[str, str] = product_class.get_endpoint_info(product_class)
         return self._build_endpoint(
             endpoint_info["name"], OTS_OWNER, endpoint_info["version"]
         )
