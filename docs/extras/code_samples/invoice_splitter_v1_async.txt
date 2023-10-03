@@ -1,4 +1,5 @@
 from mindee import Client, product
+from time import sleep
 from mindee.parsing.common import AsyncPredictResponse
 
 from mindee.product import InvoiceSplitterV1

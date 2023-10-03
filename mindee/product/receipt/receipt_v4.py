@@ -1,16 +1,17 @@
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 from mindee.parsing.common import Inference
 from mindee.parsing.common.page import Page
 from mindee.product.receipt.receipt_v4_document import (
     ReceiptV4Document,
-    TypeReceiptV4Document,
 )
 
 
 class ReceiptV4(Inference):
-    """Receipt v4 prediction results."""
+    """Inference prediction for Receipt, API version 4."""
 
+    prediction: ReceiptV4Document
+    pages: List[Page[ReceiptV4Document]]
     endpoint_name = "expense_receipts"
     """The endpoint's name"""
     endpoint_version = "4"

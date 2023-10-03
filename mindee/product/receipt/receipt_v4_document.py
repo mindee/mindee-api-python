@@ -41,45 +41,45 @@ class ReceiptV4Document(Prediction):
 
     def __init__(
         self,
-        api_prediction=None,
+        raw_prediction=None,
         page_id: Optional[int] = None,
     ):
         """
         Receipt document.
 
-        :param api_prediction: Raw prediction from HTTP response
+        :param raw_prediction: Raw prediction from HTTP response
         :param input_source: Input object
         :param page_id: Page number for multi pages pdf input
         """
-        self._build_from_api_prediction(api_prediction["prediction"], page_id=page_id)
+        self._build_from_raw_prediction(raw_prediction, page_id=page_id)
 
-    def _build_from_api_prediction(
-        self, api_prediction: StringDict, page_id: Optional[int] = None
+    def _build_from_raw_prediction(
+        self, raw_prediction: StringDict, page_id: Optional[int] = None
     ) -> None:
         """
         Build the document from an API response JSON.
 
-        :param api_prediction: Raw prediction from HTTP response
+        :param raw_prediction: Raw prediction from HTTP response
         :param page_id: Page number for multi pages pdf input
         """
-        self.locale = LocaleField(api_prediction["locale"], page_id=page_id)
-        self.total_amount = AmountField(api_prediction["total_amount"], page_id=page_id)
-        self.total_net = AmountField(api_prediction["total_net"], page_id=page_id)
-        self.total_tax = AmountField(api_prediction["total_tax"], page_id=page_id)
-        self.tip = AmountField(api_prediction["tip"], page_id=page_id)
-        self.date = DateField(api_prediction["date"], page_id=page_id)
-        self.category = ClassificationField(api_prediction["category"], page_id=page_id)
+        self.locale = LocaleField(raw_prediction["locale"], page_id=page_id)
+        self.total_amount = AmountField(raw_prediction["total_amount"], page_id=page_id)
+        self.total_net = AmountField(raw_prediction["total_net"], page_id=page_id)
+        self.total_tax = AmountField(raw_prediction["total_tax"], page_id=page_id)
+        self.tip = AmountField(raw_prediction["tip"], page_id=page_id)
+        self.date = DateField(raw_prediction["date"], page_id=page_id)
+        self.category = ClassificationField(raw_prediction["category"], page_id=page_id)
         self.subcategory = ClassificationField(
-            api_prediction["subcategory"], page_id=page_id
+            raw_prediction["subcategory"], page_id=page_id
         )
         self.document_type = ClassificationField(
-            api_prediction["document_type"], page_id=page_id
+            raw_prediction["document_type"], page_id=page_id
         )
         self.supplier = TextField(
-            api_prediction["supplier"], value_key="value", page_id=page_id
+            raw_prediction["supplier"], value_key="value", page_id=page_id
         )
-        self.time = TextField(api_prediction["time"], value_key="value", page_id=page_id)
-        self.taxes = Taxes(api_prediction["taxes"], page_id=page_id)
+        self.time = TextField(raw_prediction["time"], value_key="value", page_id=page_id)
+        self.taxes = Taxes(raw_prediction["taxes"], page_id=page_id)
 
     def __str__(self) -> str:
         return clean_out_string(
@@ -94,7 +94,7 @@ class ReceiptV4Document(Prediction):
             f":Total net: {self.total_net}\n"
             f":Total tax: {self.total_tax}\n"
             f":Tip: {self.tip}\n"
-            f":Total amount: {self.total_amount}\n"
+            f":Total amount: {self.total_amount}"
         )
 
 TypeReceiptV4Document = TypeVar("TypeReceiptV4Document", bound=ReceiptV4Document)
