@@ -1,5 +1,3 @@
-from typing import Optional, Union
-
 import requests
 from mindee.http.mindee_api import MindeeApi
 

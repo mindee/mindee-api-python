@@ -6,7 +6,7 @@ from mindee.geometry import (
     get_min_max_y,
     is_point_in_polygon_y,
 )
-from mindee.parsing.common.document import StringDict
+from mindee.parsing.common.api_response import StringDict
 from mindee.parsing.standard.base import FieldPositionMixin
 
 

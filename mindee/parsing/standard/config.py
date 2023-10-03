@@ -1,6 +1,7 @@
 from typing import Dict, List, Optional, Tuple, Type
 
-from mindee.http.endpoints import API_KEY_ENV_NAME, Endpoint
+from mindee.http.endpoint import Endpoint
+from mindee.http.mindee_api import API_KEY_ENV_NAME
 from mindee.parsing.common.document import Document
 
 _docT = Type[Document]
@@ -26,7 +27,7 @@ class DocumentConfig:
     def check_api_keys(self) -> None:
         """Raise an exception unless all API keys are present."""
         for endpoint in self.endpoints:
-            if not endpoint.api_key:
+            if not endpoint.settings.api_key:
                 raise RuntimeError(
                     (
                         f"Missing API key for '{endpoint.url_name} v{endpoint.version}',"

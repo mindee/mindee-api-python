@@ -1,8 +1,10 @@
+from typing import Generic, Type
 from mindee.logger import logger
 from mindee.parsing.common.api_response import ApiResponse, StringDict
 from mindee.parsing.common.document import Document
+from mindee.parsing.common.inference import TypeInference
 
-class PredictResponse(ApiResponse):
+class PredictResponse(Generic[TypeInference], ApiResponse):
     """
     Response of a prediction request.
 

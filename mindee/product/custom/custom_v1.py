@@ -1,23 +1,22 @@
-from typing import Dict, Optional, TypeVar
+from typing import List, Optional, TypeVar
 
-from mindee.parsing.common import Inference, StringDict, clean_out_string
+from mindee.parsing.common import Inference, StringDict, clean_out_string, Page
 from mindee.parsing.custom import ClassificationField, ListField
+from mindee.product.custom.custom_v1_document import CustomV1Document
+from mindee.product.custom.custom_v1_page import CustomV1Page
 
 
 class CustomV1(Inference):
-    """Custom document (API Builder) v1 prediction results."""
+    """Custom document (API Builder) v1 inference results."""
 
-    fields: Dict[str, ListField]
-    """Dictionary of all fields in the document"""
-    classifications: Dict[str, ClassificationField]
-    """Dictionary of all classifications in the document"""
+    prediction: CustomV1Document
+    pages: List[Page[CustomV1Page]]
+    endpoint_name = "custom"
+    endpoint_version = "1"
 
     def __init__(
         self,
-        document_type: str,
-        api_prediction: StringDict,
-        input_source=None,
-        page_id: Optional[int] = None,
+        raw_prediction: StringDict
     ):
         """
         Custom document object.
@@ -27,13 +26,11 @@ class CustomV1(Inference):
         :param input_source: Input object
         :param page_id: Page number for multi pages pdf input
         """
-        super().__init__(
-            input_source=input_source,
-            document_type=document_type,
-            api_prediction=api_prediction,
-            page_id=page_id,
-        )
-        self._build_from_api_prediction(api_prediction["prediction"], page_id=page_id)
+        super().__init__(raw_prediction)
+        self.prediction = CustomV1Document(raw_prediction["prediction"])
+        self.pages = []
+        for page in raw_prediction["pages"]:
+            self.pages.append(Page(CustomV1Page, page, page["id"], page["orientation"]))
 
     def _build_from_api_prediction(
         self, api_prediction: StringDict, page_id: Optional[int] = None
@@ -55,17 +52,5 @@ class CustomV1(Inference):
             elif "values" in field:
                 field["page_id"] = page_id
                 self.fields[field_name] = ListField(prediction=field, page_id=page_id)
-
-    def __str__(self) -> str:
-        custom_doc_str = f"{self.type} V1 Prediction"
-        custom_doc_str += "\n" + "=" * len(custom_doc_str)
-        custom_doc_str += f"\n:Filename: {self.filename or ''}\n"
-
-        for class_name, class_info in self.classifications.items():
-            custom_doc_str += f":{class_name}: {class_info}\n"
-        for field_name, field_info in self.fields.items():
-            custom_doc_str += f":{field_name}: {field_info}\n"
-        return clean_out_string(custom_doc_str)
-
 
 TypeCustomV1 = TypeVar("TypeCustomV1", bound=CustomV1)

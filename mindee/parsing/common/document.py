@@ -1,12 +1,10 @@
 import datetime
-from typing import Any, Dict, List, Generic, Optional, TypeVar, Union
+from typing import Any, Dict, Optional
 
-from mindee.http.endpoints import Endpoint
-from mindee.input.sources import LocalInputSource, UrlInputSource
 from mindee.parsing.common.extras.cropper_extra import CropperExtra
 from mindee.parsing.common.extras.extras import ExtraField, Extras
 from mindee.parsing.common.ocr import Ocr
-from mindee.parsing.common.prediction import Prediction, TypePrediction
+from mindee.parsing.common.inference import Inference
 
 
 def serialize_for_json(obj: Any) -> Any:
@@ -20,12 +18,12 @@ def serialize_for_json(obj: Any) -> Any:
     return vars(obj)
 
 
-class Document(Generic[TypePrediction]):
+class Document:
     """Base class for all predictions."""
 
     filename: str
     """Name of the input document"""
-    inference: Prediction
+    inference: Inference
     """Result of the base inference"""
     id: str
     """Id of the document as sent back by the server"""
@@ -48,6 +46,12 @@ class Document(Generic[TypePrediction]):
                 if key == "cropper":
                     extras["cropper"] = CropperExtra(extra)
         self.extras = Extras(extras)
-        self.inference = prediction_type(raw_response)
+        self.inference = prediction_type(raw_response["inference"])
 
-
+    def __str__(self) -> str:
+        return (
+            f"########\nDocument\n########\n"
+            f":Mindee ID: {self.id}\n"
+            f":Filename: {self.filename}\n\n"
+            f"{self.inference}"
+        )

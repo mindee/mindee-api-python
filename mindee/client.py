@@ -1,7 +1,7 @@
 import json
 from typing import BinaryIO, Dict, List, NamedTuple, Optional, Type, Union
 
-from mindee.http.endpoints import (
+from mindee.http.endpoint import (
     CustomEndpoint,
     Endpoint,
 )
@@ -20,9 +20,7 @@ from mindee.input.sources import (
 from mindee.logger import logger
 from mindee.parsing.common.async_predict_response import AsyncPredictResponse
 from mindee.parsing.common.predict_response import PredictResponse
-from mindee.parsing.common.inference import Inference
-from mindee.parsing.standard.config import DocumentConfig, DocumentConfigDict
-from mindee.product import CustomV1, InvoiceSplitterV1, ReceiptV4
+from mindee.parsing.common.inference import TypeInference
 
 OTS_OWNER = "mindee"
 
@@ -43,8 +41,8 @@ def _clean_account_name(account_name: str) -> str:
         logger.warning(
             f"No account name provided for custom build. '{OTS_OWNER}' will be used by default."
         )
-        return account_name
-    return OTS_OWNER
+        return OTS_OWNER
+    return account_name
 
 
 class Client:
@@ -76,7 +74,7 @@ class Client:
         close_file: bool = True,
         page_options: Optional[PageOptions] = None,
         cropper: bool = False,
-    ) -> PredictResponse:
+    ) -> PredictResponse[TypeInference]:
         """
         Call prediction API on the document and parse the results.
 
@@ -308,7 +306,7 @@ class Client:
         self,
         endpoint_name: str,
         account_name: str,
-        version: Optional[str],
+        version: Optional[str] = None,
     ) -> Endpoint:
         """
         Add a custom endpoint, created using the Mindee API Builder.
@@ -331,71 +329,75 @@ class Client:
         return self._build_endpoint(endpoint_name, account_name, version)
 
 
-def doc_from_path(
-    input_path: str,
-) -> PathInput:
-    """
-    Load a document from an absolute path, as a string.
+    def source_from_path(
+        self,
+        input_path: str,
+    ) -> PathInput:
+        """
+        Load a document from an absolute path, as a string.
 
-    :param input_path: Path of file to open
-    """
-    return PathInput(input_path)
-
-
-def doc_from_file(
-    input_file: BinaryIO,
-) -> FileInput:
-    """
-    Load a document from a normal Python file object/handle.
-
-    :param input_file: Input file handle
-    """
-    return FileInput(
-        input_file,
-    )
+        :param input_path: Path of file to open
+        """
+        return PathInput(input_path)
 
 
-def doc_from_b64string(
-    input_string: str,
-    filename: str,
-) -> Base64Input:
-    """
-    Load a document from a base64 encoded string.
+    def source_from_file(
+        self,
+        input_file: BinaryIO,
+    ) -> FileInput:
+        """
+        Load a document from a normal Python file object/handle.
 
-    :param input_string: Input to parse as base64 string
-    :param filename: The name of the file (without the path)
-    """
-    return Base64Input(
-        input_string,
-        filename,
-    )
+        :param input_file: Input file handle
+        """
+        return FileInput(
+            input_file,
+        )
 
 
-def doc_from_bytes(
-    input_bytes: bytes,
-    filename: str,
-) -> BytesInput:
-    """
-    Load a document from raw bytes.
+    def source_from_b64string(
+        self,
+        input_string: str,
+        filename: str,
+    ) -> Base64Input:
+        """
+        Load a document from a base64 encoded string.
 
-    :param input_bytes: Raw byte input
-    :param filename: The name of the file (without the path)
-    """
-    return BytesInput(
-        input_bytes,
-        filename,
-    )
+        :param input_string: Input to parse as base64 string
+        :param filename: The name of the file (without the path)
+        """
+        return Base64Input(
+            input_string,
+            filename,
+        )
 
 
-def doc_from_url(
-    self,
-    url: str,
-) -> UrlInputSource:
-    """
-    Load a document from an URL.
+    def source_from_bytes(
+        self,
+        input_bytes: bytes,
+        filename: str,
+    ) -> BytesInput:
+        """
+        Load a document from raw bytes.
 
-    :param url: Raw byte input
-    """
-    return UrlInputSource(
-        url,
-    )
+        :param input_bytes: Raw byte input
+        :param filename: The name of the file (without the path)
+        """
+        return BytesInput(
+            input_bytes,
+            filename,
+        )
+
+
+    def source_from_url(
+        self,
+        url: str,
+    ) -> UrlInputSource:
+        """
+        Load a document from an URL.
+
+        :param url: Raw byte input
+        """
+        return UrlInputSource(
+            url,
+        )

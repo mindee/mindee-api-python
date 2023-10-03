@@ -1,0 +1,32 @@
+from typing import Dict, Optional
+
+from mindee.parsing.common import clean_out_string, StringDict, Prediction
+from mindee.parsing.custom import ClassificationField, ListField
+
+
+class CustomV1Page(Prediction):
+    """Custom V1 page prediction results."""
+
+    fields: Dict[str, ListField]
+    """Dictionary of all fields in the document"""
+
+    def __init__(
+        self,
+        raw_prediction: StringDict,
+        page_id: Optional[int]
+    ):
+        """
+        Custom document object.
+
+        :param raw_prediction: Dictionary containing the JSON document response
+        """
+        self.fields = {}
+        for field_name, field_contents in raw_prediction.items():
+            self.fields[field_name] = ListField(field_contents, page_id=page_id)
+          
+
+    def __str__(self) -> str:
+        out_str = ""
+        for field_name, field_value in self.fields.items():
+            out_str += f":{field_name}: {field_value}\n"
+        return clean_out_string(out_str).rstrip()
