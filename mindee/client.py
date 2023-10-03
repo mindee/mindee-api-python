@@ -69,11 +69,11 @@ class Client:
         self,
         product_class,
         input_source: InputSource,
-        endpoint: Optional[Endpoint],
         include_words: bool = False,
         close_file: bool = True,
         page_options: Optional[PageOptions] = None,
         cropper: bool = False,
+        endpoint: Optional[Endpoint] = None,
     ) -> PredictResponse[TypeInference]:
         """
         Call prediction API on the document and parse the results.
@@ -124,11 +124,11 @@ class Client:
         self,
         product_class,
         input_source: InputSource,
-        endpoint: Optional[Endpoint],
         include_words: bool = False,
         close_file: bool = True,
         page_options: Optional[PageOptions] = None,
         cropper: bool = False,
+        endpoint: Optional[Endpoint] = None,
     ) -> AsyncPredictResponse:
         """
         Enqueueing to an async endpoint.
@@ -172,11 +172,14 @@ class Client:
                     page_options.page_indexes,
                 )
         return self._predict_async(
-            product_class, input_source, endpoint, include_words, close_file, cropper
+            product_class, input_source, include_words, close_file, cropper, endpoint
         )
 
     def parse_queued(
-        self, product_class, endpoint: Optional[Endpoint], queue_id: str
+        self,
+        product_class,
+        queue_id: str,
+        endpoint: Optional[Endpoint] = None,
     ) -> AsyncPredictResponse:
         """
         Parses a queued document.
@@ -222,10 +225,10 @@ class Client:
         self,
         product_class,
         input_source: InputSource,
-        endpoint: Optional[Endpoint],
         include_words: bool = False,
         close_file: bool = True,
         cropper: bool = False,
+        endpoint: Optional[Endpoint]=None,
     ) -> AsyncPredictResponse:
         """
         Sends a document to the queue, and sends back an asynchronous predict response.
@@ -328,7 +331,6 @@ class Client:
             version = "1"
         return self._build_endpoint(endpoint_name, account_name, version)
 
-
     def source_from_path(
         self,
         input_path: str,
@@ -339,7 +341,6 @@ class Client:
         :param input_path: Path of file to open
         """
         return PathInput(input_path)
-
 
     def source_from_file(
         self,
@@ -353,7 +354,6 @@ class Client:
         return FileInput(
             input_file,
         )
-
 
     def source_from_b64string(
         self,
@@ -371,7 +371,6 @@ class Client:
             filename,
         )
 
-
     def source_from_bytes(
         self,
         input_bytes: bytes,
@@ -387,7 +386,6 @@ class Client:
             input_bytes,
             filename,
         )
-
 
     def source_from_url(
         self,

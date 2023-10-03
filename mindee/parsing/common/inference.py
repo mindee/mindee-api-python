@@ -20,17 +20,16 @@ class Inference(Generic[TypePrediction, TypePage]):
     """A document's top-level Prediction."""
     pages: List[TypePage]
     """A document's pages."""
-    is_rotation_applied: bool
+    is_rotation_applied: Optional[bool]
     """Whether the document has had any rotation applied to it."""
 
     def __init__(
         self,
         raw_prediction: StringDict,
     ):
-        self.is_rotation_applied = (
-            "is_rotation_applied" in raw_prediction
-            and raw_prediction["is_rotation_applied"]
-        )
+        self.is_rotation_applied = None
+        if "is_rotation_applied" in raw_prediction:
+            self.is_rotation_applied = raw_prediction["is_rotation_applied"]
         if "product" in raw_prediction and raw_prediction["product"]:
             if "name" in raw_prediction["product"]:
                 self.product_name = raw_prediction["product"]["name"]
@@ -42,7 +41,7 @@ class Inference(Generic[TypePrediction, TypePage]):
         prediction_str = ""
         pages_str = ""
         if self.prediction and len(self.prediction.__str__()) > 0:
-            prediction_str = self.prediction.__str__()
+            prediction_str = self.prediction.__str__() +"\n"
         if len(self.pages)>0:
             pages_str = "\n".join([page.__str__() for page in self.pages])
         return (
@@ -58,6 +57,7 @@ class Inference(Generic[TypePrediction, TypePage]):
             f"{pages_str}"
         )
 
+    @classmethod
     def get_endpoint_info(self) -> Dict[str, str]:
         if self.endpoint_name and self.endpoint_version:
             return {"name": self.endpoint_name, "version": self.endpoint_version}

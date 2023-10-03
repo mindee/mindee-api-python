@@ -22,9 +22,9 @@ class CustomV1Document(Prediction):
 
         :param raw_prediction: Dictionary containing the JSON document response
         """
-        self._build_from_api_prediction(raw_prediction, page_id=page_id)
+        self._build_from_raw_prediction(raw_prediction, page_id=page_id)
 
-    def _build_from_api_prediction(
+    def _build_from_raw_prediction(
         self, raw_prediction: StringDict, page_id: Optional[int] = None
     ) -> None:
         """
