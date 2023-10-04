@@ -13,8 +13,7 @@ class PredictResponse(Generic[TypeInference], ApiResponse):
     """
 
     document: Document
-    # document: Optional[TypeDocument]
-    # """An instance of the ``Document`` class, according to the type given."""
+    """The document object, properly parsed after being retrieved from the server."""
 
     def __init__(self, prediction_type, raw_response: StringDict) -> None:
         """

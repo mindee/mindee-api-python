@@ -22,5 +22,5 @@ class Extras:
         out_str = ""
         for attr in dir(self):
             if not attr.startswith("__"):
-                out_str += f":{attr}:" + getattr(self, attr).__str__() + "\n"
+                out_str += f":{attr}: {getattr(self, attr).__str__()}\n"
         return out_str

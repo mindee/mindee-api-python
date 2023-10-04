@@ -1,6 +1,4 @@
-from mindee import Client
-from mindee.parsing.common import PredictResponse
-from mindee.product import CustomV1
+from mindee import Client, PredictResponse, product
 
 # Init a new client
 mindee_client = Client(api_key="my-api-key")
@@ -12,7 +10,7 @@ input_doc = mindee_client.source_from_path("/path/to/the/file.ext")
 
 # Load a file from disk and parse it.
 # The endpoint name must be specified since it cannot be determined from the class.
-result: PredictResponse = mindee_client.parse(CustomV1, input_doc, endpoint=custom_endpoint)
+result: PredictResponse = mindee_client.parse(product.CustomV1, input_doc, endpoint=custom_endpoint)
 
 # Print a brief summary of the parsed data
 print(result.document)

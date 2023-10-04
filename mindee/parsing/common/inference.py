@@ -41,7 +41,7 @@ class Inference(Generic[TypePrediction, TypePage]):
         prediction_str = ""
         pages_str = ""
         if self.prediction and len(self.prediction.__str__()) > 0:
-            prediction_str = self.prediction.__str__() + "\n"
+            prediction_str = f"{self.prediction.__str__()}\n"
         if len(self.pages) > 0:
             pages_str = "\n".join([page.__str__() for page in self.pages])
         return (
