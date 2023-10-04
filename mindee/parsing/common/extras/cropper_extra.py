@@ -11,7 +11,7 @@ class CropperExtra:
         self, raw_prediction: StringDict, page_id: Optional[int] = None
     ) -> None:
         super().__init__()
-        croppings:List[PositionField] = []
+        croppings: List[PositionField] = []
         if "cropping" in raw_prediction and raw_prediction["cropping"]:
             for cropping in raw_prediction["cropping"]:
                 croppings.append(PositionField(cropping, page_id=page_id))

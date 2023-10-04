@@ -1,4 +1,5 @@
 from typing import Union
+
 import requests
 
 from mindee.http.mindee_api import MindeeApi
@@ -8,7 +9,9 @@ from mindee.input.sources import LocalInputSource, UrlInputSource
 class Endpoint:
     """Generic API endpoint for a product."""
 
-    def __init__(self, url_name: str, owner: str, version: str, settings: MindeeApi) -> None:
+    def __init__(
+        self, url_name: str, owner: str, version: str, settings: MindeeApi
+    ) -> None:
         """
         Generic API endpoint for a product.
 

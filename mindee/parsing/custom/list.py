@@ -4,7 +4,7 @@ from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.standard.base import FieldPositionMixin
 
 
-class ListFieldValue(FieldPositionMixin):
+class ListFieldValueV1(FieldPositionMixin):
     """A single value or word."""
 
     content: str
@@ -21,7 +21,7 @@ class ListFieldValue(FieldPositionMixin):
         return self.content
 
 
-class ListField:
+class ListFieldV1:
     """A list of values or words."""
 
     confidence: float = 0.0
@@ -30,7 +30,7 @@ class ListField:
     """Whether the field was reconstructed from other fields."""
     page_id: int
     """The document page on which the information was found."""
-    values: List[ListFieldValue]
+    values: List[ListFieldValueV1]
     """List of word values"""
 
     def __init__(
@@ -48,7 +48,7 @@ class ListField:
         self.confidence = raw_prediction["confidence"]
 
         for value in raw_prediction["values"]:
-            self.values.append(ListFieldValue(value))
+            self.values.append(ListFieldValueV1(value))
 
     @property
     def contents_list(self) -> List[str]:

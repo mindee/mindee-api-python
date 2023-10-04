@@ -6,8 +6,8 @@ from mindee.parsing.standard import (
     ClassificationField,
     DateField,
     LocaleField,
+    StringField,
     Taxes,
-    TextField,
 )
 
 
@@ -20,7 +20,7 @@ class ReceiptV4Document(Prediction):
     """Total including taxes"""
     date: DateField
     """Date the receipt was issued"""
-    time: TextField
+    time: StringField
     """Time the receipt was issued, in HH: MM format."""
     category: ClassificationField
     """The type, or service category, of the purchase."""
@@ -28,7 +28,7 @@ class ReceiptV4Document(Prediction):
     """The receipt sub category among predefined classes."""
     document_type: ClassificationField
     """Whether the document is an expense receipt or a credit card receipt."""
-    supplier: TextField
+    supplier: StringField
     """The merchant, or supplier, as found on the receipt."""
     taxes: Taxes
     """List of all taxes."""
@@ -75,10 +75,10 @@ class ReceiptV4Document(Prediction):
         self.document_type = ClassificationField(
             raw_prediction["document_type"], page_id=page_id
         )
-        self.supplier = TextField(
+        self.supplier = StringField(
             raw_prediction["supplier"], value_key="value", page_id=page_id
         )
-        self.time = TextField(
+        self.time = StringField(
             raw_prediction["time"], value_key="value", page_id=page_id
         )
         self.taxes = Taxes(raw_prediction["taxes"], page_id=page_id)

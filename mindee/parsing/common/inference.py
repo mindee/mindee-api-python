@@ -29,12 +29,7 @@ class Inference(Generic[TypePrediction, TypePage]):
         self.is_rotation_applied = None
         if "is_rotation_applied" in raw_prediction:
             self.is_rotation_applied = raw_prediction["is_rotation_applied"]
-        self.product = Product()
-        if "product" in raw_prediction and raw_prediction["product"]:
-            if "name" in raw_prediction["product"]:
-                self.product.name = raw_prediction["product"]["name"]
-            if "version" in raw_prediction["product"]:
-                self.product.version = raw_prediction["product"]["version"]
+        self.product = Product(raw_prediction["product"])
 
     def __str__(self) -> str:
         rotation_applied_str = "Yes" if self.is_rotation_applied else "No"

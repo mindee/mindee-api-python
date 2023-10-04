@@ -1,6 +1,6 @@
 from typing import Optional
-from mindee.parsing.common.extras.cropper_extra import CropperExtra
 
+from mindee.parsing.common.extras.cropper_extra import CropperExtra
 from mindee.parsing.common.string_dict import StringDict
 
 

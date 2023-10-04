@@ -1,7 +1,6 @@
 import datetime
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 
-from mindee.parsing.common.extras.cropper_extra import CropperExtra
 from mindee.parsing.common.extras.extras import Extras
 from mindee.parsing.common.inference import Inference
 from mindee.parsing.common.ocr.ocr import Ocr

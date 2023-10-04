@@ -4,7 +4,7 @@ from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.standard.base import BaseField, FieldPositionMixin
 
 
-class TextField(FieldPositionMixin, BaseField):
+class StringField(FieldPositionMixin, BaseField):
     """A field containing a text value."""
 
     value: Optional[str] = None

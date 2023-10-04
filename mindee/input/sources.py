@@ -2,9 +2,8 @@ import base64
 import io
 import mimetypes
 import os
-from abc import ABC
 from enum import Enum
-from typing import BinaryIO, Optional, Sequence, Tuple, Union
+from typing import BinaryIO, Optional, Sequence, Tuple
 
 import pikepdf
 

@@ -7,4 +7,4 @@ from mindee.parsing.standard.locale import LocaleField
 from mindee.parsing.standard.payment_details import PaymentDetails
 from mindee.parsing.standard.position import PositionField
 from mindee.parsing.standard.tax import Taxes, TaxField
-from mindee.parsing.standard.text import TextField
+from mindee.parsing.standard.text import StringField

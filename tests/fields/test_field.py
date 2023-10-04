@@ -7,7 +7,7 @@ from mindee.parsing.standard.base import (
     float_to_string,
 )
 from mindee.parsing.standard.company_registration import CompanyRegistrationField
-from mindee.parsing.standard.text import TextField
+from mindee.parsing.standard.text import StringField
 
 
 def test_constructor():
@@ -16,7 +16,7 @@ def test_constructor():
         "confidence": 0.1,
         "polygon": [[0.016, 0.707], [0.414, 0.707], [0.414, 0.831], [0.016, 0.831]],
     }
-    field = TextField(field_dict)
+    field = StringField(field_dict)
     assert field.value == "test"
     assert field.confidence == 0.1
     assert len(field.bounding_box) > 0
@@ -38,7 +38,7 @@ def test_type_constructor():
 
 def test_constructor_no_position():
     field_dict = {"value": "test", "confidence": 0.1}
-    field = TextField(field_dict)
+    field = StringField(field_dict)
     assert field.bounding_box is None
 
 

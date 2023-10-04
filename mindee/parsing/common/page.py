@@ -1,6 +1,5 @@
-from typing import Dict, Generic, Optional, TypeVar
+from typing import Generic, Optional, TypeVar
 
-from mindee.parsing.common.extras.cropper_extra import CropperExtra
 from mindee.parsing.common.extras.extras import Extras
 from mindee.parsing.common.orientation import OrientationField
 from mindee.parsing.common.prediction import Prediction, TypePrediction

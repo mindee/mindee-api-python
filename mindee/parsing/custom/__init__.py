@@ -1,3 +1,3 @@
-from mindee.parsing.custom.classification import ClassificationField
-from mindee.parsing.custom.line_items import Line, get_line_items
-from mindee.parsing.custom.list import ListField, ListFieldValue
+from mindee.parsing.custom.classification import ClassificationFieldV1
+from mindee.parsing.custom.line_items import LineV1, get_line_items
+from mindee.parsing.custom.list import ListFieldV1, ListFieldValueV1

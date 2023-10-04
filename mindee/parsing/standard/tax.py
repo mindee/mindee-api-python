@@ -106,7 +106,9 @@ class Taxes(List[TaxField]):
         out_str += f"+{char * 15}"
         return out_str + "+"
 
-    def __init__(self, api_prediction: List[StringDict], page_id: Optional[int]) -> None:
+    def __init__(
+        self, api_prediction: List[StringDict], page_id: Optional[int]
+    ) -> None:
         super().__init__()
         for entry in api_prediction:
             tax = TaxField(entry, page_id=page_id)
