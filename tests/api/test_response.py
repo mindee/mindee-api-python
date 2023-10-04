@@ -20,7 +20,7 @@ def dummy_file_input():
 
 @pytest.fixture
 def dummy_config():
-    client = Client(api_key="dummy").add_endpoint(
+    client = Client(api_key="dummy").create_endpoint(
         endpoint_name="dummy",
         account_name="dummy",
     )

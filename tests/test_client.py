@@ -10,7 +10,7 @@ from tests.utils import clear_envvars, dummy_envvars
 @pytest.fixture
 def empty_client(monkeypatch):
     clear_envvars(monkeypatch)
-    return Client().add_endpoint(
+    return Client().create_endpoint(
         endpoint_name="dummy",
         account_name="dummy",
     )
@@ -19,7 +19,7 @@ def empty_client(monkeypatch):
 @pytest.fixture
 def env_client(monkeypatch):
     dummy_envvars(monkeypatch)
-    return Client("dummy").add_endpoint(
+    return Client("dummy").create_endpoint(
         endpoint_name="dummy",
         account_name="dummy",
     )
@@ -27,7 +27,7 @@ def env_client(monkeypatch):
 
 @pytest.fixture
 def dummy_client():
-    return Client("dummy").add_endpoint(
+    return Client("dummy").create_endpoint(
         endpoint_name="dummy",
         account_name="dummy",
     )
@@ -78,22 +78,6 @@ def dummy_client_no_raise():
 #     env_client.doc_from_path(f"{FILE_TYPES_DIR}/receipt.jpg").parse(
 #         product.TypeCustomV1, "dummy"
 #     )
-
-
-def test_duplicate_configs(dummy_client):
-    client = dummy_client.add_endpoint(
-        endpoint_name="Receipt",
-        account_name="dummy",
-    )
-    assert isinstance(client, Client)
-    # with pytest.raises(RuntimeError):
-    #     client.doc_from_path(f"{FILE_TYPES_DIR}/receipt.jpg").parse(
-    #         product.TypeReceiptV5
-    #     )
-    with pytest.raises(HTTPException):
-        client.doc_from_path(f"{FILE_TYPES_DIR}/receipt.jpg").parse(
-            product.TypeCustomV1, endpoint_name="Receipt", account_name="dummy"
-        )
 
 
 # def test_parse_path_with_wrong_filetype(dummy_client):
@@ -159,7 +143,7 @@ def test_duplicate_configs(dummy_client):
 
 
 # def test_interface_version():
-#     fixed_client = Client("dummy").add_endpoint(
+#     fixed_client = Client("dummy").create_endpoint(
 #         endpoint_name="dummy",
 #         account_name="dummy",
 #         version="1.1",

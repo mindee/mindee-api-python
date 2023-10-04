@@ -121,7 +121,7 @@
 #         page_options = None
 #     input_doc = _get_input_doc(client, args)
 #     if args.product_name == "custom":
-#         client.add_endpoint(
+#         client.create_endpoint(
 #             endpoint_name=args.endpoint_name,
 #             account_name=args.account_name,
 #             version=args.api_version,
@@ -191,7 +191,7 @@
 #         page_options = None
 #     input_doc = _get_input_doc(client, args)
 #     if args.product_name == "custom":
-#         client.add_endpoint(
+#         client.create_endpoint(
 #             endpoint_name=args.endpoint_name,
 #             account_name=args.account_name,
 #             version=args.api_version,
