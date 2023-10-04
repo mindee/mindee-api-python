@@ -2,7 +2,7 @@ import datetime
 from typing import Any, Dict, Optional
 
 from mindee.parsing.common.extras.cropper_extra import CropperExtra
-from mindee.parsing.common.extras.extras import ExtraField, Extras
+from mindee.parsing.common.extras.extras import Extras
 from mindee.parsing.common.inference import Inference
 from mindee.parsing.common.ocr.ocr import Ocr
 from mindee.parsing.common.string_dict import StringDict
@@ -41,12 +41,8 @@ class Document:
         self.filename = raw_response.get("name", "")
         if "ocr" in raw_response and raw_response["ocr"]:
             self.ocr = Ocr(raw_response["ocr"])
-        extras: Dict[str, ExtraField] = {}
         if "extras" in raw_response and raw_response["extras"]:
-            for key, extra in raw_response["extras"].items():
-                if key == "cropper":
-                    extras["cropper"] = CropperExtra(extra)
-        self.extras = Extras(extras)
+            self.extras = Extras(raw_response["extras"])
         self.inference = prediction_type(raw_response["inference"])
 
     def __str__(self) -> str:

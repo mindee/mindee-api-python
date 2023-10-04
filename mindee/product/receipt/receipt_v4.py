@@ -19,7 +19,7 @@ class ReceiptV4(Inference):
     def __init__(
         self,
         raw_prediction: StringDict,
-    ):
+    ) -> None:
         """
         Receipt document.
 

@@ -1,18 +1,17 @@
-from typing import Optional
+from typing import List, Optional
 
-from mindee.parsing.common.extras.extras import ExtraField
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.standard.position import PositionField
 
 
-class CropperExtra(ExtraField):
+class CropperExtra:
     """Contains information on the cropping of a prediction."""
 
     def __init__(
         self, raw_prediction: StringDict, page_id: Optional[int] = None
     ) -> None:
         super().__init__()
-        croppings = []
+        croppings:List[PositionField] = []
         if "cropping" in raw_prediction and raw_prediction["cropping"]:
             for cropping in raw_prediction["cropping"]:
                 croppings.append(PositionField(cropping, page_id=page_id))

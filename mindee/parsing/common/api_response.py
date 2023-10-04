@@ -15,7 +15,7 @@ class ApiResponse(ABC):
     raw_http: StringDict
     """Raw request sent by the server, as string."""
 
-    def __init__(self, raw_response: StringDict):
+    def __init__(self, raw_response: StringDict) -> None:
         logger.debug("Handling API response")
         self.api_request = ApiRequest(raw_response["api_request"])
         self.raw_http = raw_response

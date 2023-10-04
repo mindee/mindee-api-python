@@ -1,5 +1,5 @@
 import json
-from typing import BinaryIO, Dict, Optional
+from typing import BinaryIO, Dict, Optional, Union
 
 from mindee.http.endpoint import CustomEndpoint, Endpoint
 from mindee.http.error import HTTPException
@@ -9,7 +9,6 @@ from mindee.input.sources import (
     Base64Input,
     BytesInput,
     FileInput,
-    InputSource,
     LocalInputSource,
     PathInput,
     UrlInputSource,
@@ -53,7 +52,7 @@ class Client:
     raise_on_error: bool
     api_key: str
 
-    def __init__(self, api_key: str = "", raise_on_error: bool = True):
+    def __init__(self, api_key: str = "", raise_on_error: bool = True) -> None:
         """
         Mindee API Client.
 
@@ -66,7 +65,7 @@ class Client:
     def parse(
         self,
         product_class,
-        input_source: InputSource,
+        input_source: Union[LocalInputSource, UrlInputSource],
         include_words: bool = False,
         close_file: bool = True,
         page_options: Optional[PageOptions] = None,
@@ -121,7 +120,7 @@ class Client:
     def enqueue(
         self,
         product_class,
-        input_source: InputSource,
+        input_source: Union[LocalInputSource, UrlInputSource],
         include_words: bool = False,
         close_file: bool = True,
         page_options: Optional[PageOptions] = None,
@@ -200,7 +199,7 @@ class Client:
     def _make_request(
         self,
         product_class,
-        input_source: InputSource,
+        input_source: Union[LocalInputSource, UrlInputSource],
         endpoint: Endpoint,
         include_words: bool,
         close_file: bool,
@@ -222,7 +221,7 @@ class Client:
     def _predict_async(
         self,
         product_class,
-        input_source: InputSource,
+        input_source: Union[LocalInputSource, UrlInputSource],
         include_words: bool = False,
         close_file: bool = True,
         cropper: bool = False,

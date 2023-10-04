@@ -10,10 +10,10 @@ from mindee.product.invoice_splitter.invoice_splitter_v1_page_group import (
 class InvoiceSplitterV1Document(Prediction):
     """Document data for Invoice Splitter, API version 1."""
 
-    invoice_page_groups: List[InvoiceSplitterV1PageGroup] = []
+    invoice_page_groups: List[InvoiceSplitterV1PageGroup]
     """Page groups linked to an invoice."""
 
-    def __init__(self, raw_prediction: StringDict):
+    def __init__(self, raw_prediction: StringDict) -> None:
         self._build_from_raw_prediction(raw_prediction)
 
     def _build_from_raw_prediction(self, raw_prediction: StringDict) -> None:
@@ -35,5 +35,5 @@ class InvoiceSplitterV1Document(Prediction):
     def __str__(self) -> str:
         page_group_str = ":Invoice Page Groups:"
         for page_group in self.invoice_page_groups:
-            page_group_str += "\n  " + page_group.__str__()
+            page_group_str += f"\n  {str(page_group)}"
         return clean_out_string(page_group_str)

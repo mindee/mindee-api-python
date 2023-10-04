@@ -10,7 +10,7 @@ class OcrWord(FieldPositionMixin):
     text: str
     """The extracted text."""
 
-    def __init__(self, raw_prediction: StringDict):
+    def __init__(self, raw_prediction: StringDict) -> None:
         self.confidence = raw_prediction["confidence"]
         self.text = raw_prediction["text"]
         self._set_position(raw_prediction)

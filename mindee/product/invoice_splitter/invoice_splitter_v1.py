@@ -16,7 +16,7 @@ class InvoiceSplitterV1(Inference):
     endpoint_name = "invoice_splitter"
     endpoint_version = "1"
 
-    def __init__(self, raw_prediction: StringDict):
+    def __init__(self, raw_prediction: StringDict) -> None:
         super().__init__(raw_prediction)
         self.prediction = InvoiceSplitterV1Document(raw_prediction["prediction"])
         self.pages = []

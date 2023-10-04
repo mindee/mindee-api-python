@@ -14,7 +14,7 @@ class OcrPage:
     _all_words: List[OcrWord]
     _lines: List[OcrLine]
 
-    def __init__(self, raw_prediction: StringDict):
+    def __init__(self, raw_prediction: StringDict) -> None:
         self._all_words = [
             OcrWord(word_prediction) for word_prediction in raw_prediction["all_words"]
         ]

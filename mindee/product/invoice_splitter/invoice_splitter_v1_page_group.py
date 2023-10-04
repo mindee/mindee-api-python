@@ -11,7 +11,7 @@ class InvoiceSplitterV1PageGroup:
     confidence: float = 0.0
     """Confidence score"""
 
-    def __init__(self, raw_prediction: StringDict):
+    def __init__(self, raw_prediction: StringDict) -> None:
         self.page_indexes = raw_prediction["page_indexes"]
         try:
             self.confidence = float(raw_prediction["confidence"])

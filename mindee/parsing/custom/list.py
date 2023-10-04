@@ -38,7 +38,7 @@ class ListField:
         raw_prediction: StringDict,
         reconstructed: bool = False,
         page_id: Optional[int] = None,
-    ):
+    ) -> None:
         self.values = []
         self.reconstructed = reconstructed
         if page_id is None:

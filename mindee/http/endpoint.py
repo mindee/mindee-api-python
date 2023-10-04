@@ -1,13 +1,14 @@
+from typing import Union
 import requests
 
 from mindee.http.mindee_api import MindeeApi
-from mindee.input.sources import InputSource, LocalInputSource, UrlInputSource
+from mindee.input.sources import LocalInputSource, UrlInputSource
 
 
 class Endpoint:
     """Generic API endpoint for a product."""
 
-    def __init__(self, url_name: str, owner: str, version: str, settings: MindeeApi):
+    def __init__(self, url_name: str, owner: str, version: str, settings: MindeeApi) -> None:
         """
         Generic API endpoint for a product.
 
@@ -22,7 +23,7 @@ class Endpoint:
 
     def predict_req_post(
         self,
-        input_source: InputSource,
+        input_source: Union[LocalInputSource, UrlInputSource],
         include_words: bool = False,
         close_file: bool = True,
         cropper: bool = False,
@@ -42,7 +43,7 @@ class Endpoint:
 
     def predict_async_req_post(
         self,
-        input_source: InputSource,
+        input_source: Union[LocalInputSource, UrlInputSource],
         include_words: bool = False,
         close_file: bool = True,
         cropper: bool = False,
@@ -63,7 +64,7 @@ class Endpoint:
     def _custom_request(
         self,
         route: str,
-        input_source: InputSource,
+        input_source: Union[LocalInputSource, UrlInputSource],
         include_words: bool = False,
         close_file: bool = True,
         cropper: bool = False,
@@ -85,7 +86,7 @@ class Endpoint:
                 params=params,
                 timeout=self.settings.request_timeout,
             )
-        elif isinstance(input_source, LocalInputSource):
+        else:
             files = {"document": input_source.read_contents(close_file)}
             response = requests.post(
                 f"{self.settings.url_root}/{route}",

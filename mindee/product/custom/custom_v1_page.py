@@ -10,7 +10,7 @@ class CustomV1Page(Prediction):
     fields: Dict[str, ListField]
     """Dictionary of all fields in the document"""
 
-    def __init__(self, raw_prediction: StringDict, page_id: Optional[int]):
+    def __init__(self, raw_prediction: StringDict, page_id: Optional[int]) -> None:
         """
         Custom document object.
 

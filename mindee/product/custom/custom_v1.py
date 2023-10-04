@@ -13,7 +13,7 @@ class CustomV1(Inference):
     endpoint_name = "custom"
     endpoint_version = "1"
 
-    def __init__(self, raw_prediction: StringDict):
+    def __init__(self, raw_prediction: StringDict) -> None:
         """
         Custom document object.
 

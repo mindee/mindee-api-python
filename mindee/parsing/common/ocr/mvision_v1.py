@@ -10,7 +10,7 @@ class MVisionV1:
     pages: List[OcrPage]
     """List of pages."""
 
-    def __init__(self, raw_prediction: StringDict):
+    def __init__(self, raw_prediction: StringDict) -> None:
         self.pages = [
             OcrPage(page_prediction) for page_prediction in raw_prediction["pages"]
         ]

@@ -12,7 +12,7 @@ class CustomV1Document(Prediction):
     classifications: Dict[str, ClassificationField]
     """Dictionary of all classifications in the document"""
 
-    def __init__(self, raw_prediction: StringDict, page_id: Optional[int] = None):
+    def __init__(self, raw_prediction: StringDict, page_id: Optional[int] = None) -> None:
         """
         Custom document object.
 

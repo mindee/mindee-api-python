@@ -8,7 +8,7 @@ class Ocr:
     mvision_v1: MVisionV1
     """Mindee Vision v1 results."""
 
-    def __init__(self, raw_prediction: StringDict):
+    def __init__(self, raw_prediction: StringDict) -> None:
         self.mvision_v1 = MVisionV1(raw_prediction["mvision-v1"])
 
     def __str__(self) -> str:
