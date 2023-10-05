@@ -1,4 +1,5 @@
 import json
+from pathlib import Path
 
 import pytest
 
@@ -8,37 +9,50 @@ from mindee.product import InvoiceSplitterV1
 from mindee.product.invoice_splitter.invoice_splitter_v1_document import (
     InvoiceSplitterV1Document,
 )
-
-FILE_PATH_COMPLETE = f"./tests/data/products/invoice_splitter/response_v1/complete.json"
-FILE_PATH_EMPTY = f"./tests/data/products/invoice_splitter/response_v1/empty.json"
-FILE_PATH_SUMMARY_FULL = (
-    f"./tests/data/products/invoice_splitter/response_v1/summary_full.rst"
-)
+from tests.product import PRODUCT_DATA_DIR
 
 
 @pytest.fixture
 def complete_doc() -> (
     Document[InvoiceSplitterV1Document, Page[InvoiceSplitterV1Document]]
 ):
-    json_data = json.load(open(FILE_PATH_COMPLETE))
+    json_data = json.load(
+        open(
+            Path(PRODUCT_DATA_DIR)
+            / "invoice_splitter"
+            / "response_v1"
+            / "complete.json"
+        )
+    )
     return Document(InvoiceSplitterV1, json_data["document"])
 
 
 @pytest.fixture
 def empty_doc() -> Document[InvoiceSplitterV1Document, Page[InvoiceSplitterV1Document]]:
-    json_data = json.load(open(FILE_PATH_EMPTY))
+    json_data = json.load(
+        open(Path(PRODUCT_DATA_DIR) / "invoice_splitter" / "response_v1" / "empty.json")
+    )
     return Document(InvoiceSplitterV1, json_data["document"])
 
 
 def test_complete_doc(
     complete_doc: Document[InvoiceSplitterV1Document, Page[InvoiceSplitterV1Document]],
 ):
-    reference_str = open(FILE_PATH_SUMMARY_FULL, "r", encoding="utf-8").read()
+    reference_str = open(
+        Path(PRODUCT_DATA_DIR)
+        / "invoice_splitter"
+        / "response_v1"
+        / "summary_full.rst",
+        "r",
+        encoding="utf-8",
+    ).read()
     assert len(complete_doc.inference.prediction.invoice_page_groups) == 3
     assert complete_doc.inference.prediction.invoice_page_groups[0].confidence == 1
     assert complete_doc.inference.prediction.invoice_page_groups[2].confidence == 0
     assert str(complete_doc) == reference_str
 
 
-def test_empty_doc(empty_doc):
+def test_empty_doc(
+    empty_doc: Document[InvoiceSplitterV1Document, Page[InvoiceSplitterV1Document]]
+):
     assert len(empty_doc.inference.prediction.invoice_page_groups) == 0

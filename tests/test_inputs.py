@@ -1,4 +1,5 @@
 import io
+from pathlib import Path
 
 import pikepdf
 import pytest
@@ -12,7 +13,7 @@ from mindee.input.sources import (
     PathInput,
     UrlInputSource,
 )
-from tests import INVOICE_DATA_DIR, RECEIPT_DATA_DIR
+from tests.product import PRODUCT_DATA_DIR
 
 FILE_TYPES_DIR = "./tests/data/file_types"
 PDF_DATA_DIR = "./tests/data/file_types/pdf"
@@ -117,7 +118,7 @@ def test_pdf_keep_no_pages():
 
 
 def test_pdf_remove_all_pages():
-    input_obj = PathInput(f"{PDF_DATA_DIR}/multipage.pdf")
+    input_obj = PathInput(Path(PDF_DATA_DIR) / "multipage.pdf")
     assert input_obj.is_pdf() is True
     with pytest.raises(RuntimeError):
         input_obj.process_pdf(
@@ -126,7 +127,7 @@ def test_pdf_remove_all_pages():
 
 
 def test_pdf_input_from_file():
-    with open(f"{INVOICE_DATA_DIR}/invoice_10p.pdf", "rb") as fp:
+    with open(Path(PDF_DATA_DIR) / "multipage.pdf", "rb") as fp:
         input_obj = FileInput(fp)
         assert input_obj.is_pdf() is True
         input_obj.process_pdf(behavior=KEEP_ONLY, on_min_pages=2, page_indexes=[0])
@@ -134,7 +135,7 @@ def test_pdf_input_from_file():
 
 
 def test_pdf_input_from_base64():
-    with open(f"{INVOICE_DATA_DIR}/invoice_10p.txt", "rt") as fp:
+    with open(Path(PRODUCT_DATA_DIR) / "invoices" / "invoice_10p.txt", "rt") as fp:
         input_obj = Base64Input(fp.read(), filename="invoice_10p.pdf")
     assert input_obj.is_pdf() is True
     input_obj.process_pdf(behavior=KEEP_ONLY, on_min_pages=2, page_indexes=[0])
@@ -142,7 +143,7 @@ def test_pdf_input_from_base64():
 
 
 def test_pdf_input_from_bytes():
-    with open(f"{INVOICE_DATA_DIR}/invoice_10p.pdf", "rb") as fp:
+    with open(Path(PRODUCT_DATA_DIR) / "invoices" / "invoice_10p.pdf", "rb") as fp:
         input_obj = BytesInput(fp.read(), filename="invoice_10p.pdf")
     assert input_obj.is_pdf() is True
     input_obj.process_pdf(behavior=KEEP_ONLY, on_min_pages=2, page_indexes=[0])
@@ -156,14 +157,14 @@ def test_pdf_input_from_url():
 
 def test_pdf_blank_check():
     with pytest.raises(AssertionError):
-        input_obj = PathInput(f"{PDF_DATA_DIR}/blank.pdf")
+        input_obj = PathInput(Path(PDF_DATA_DIR) / "blank.pdf")
         input_obj.process_pdf(behavior=KEEP_ONLY, on_min_pages=2, page_indexes=[0])
 
     with pytest.raises(AssertionError):
-        input_obj = PathInput(f"{PDF_DATA_DIR}/blank_1.pdf")
+        input_obj = PathInput(Path(PDF_DATA_DIR) / "blank_1.pdf")
         input_obj.process_pdf(behavior=KEEP_ONLY, on_min_pages=2, page_indexes=[0])
 
-    input_not_blank = PathInput(f"{PDF_DATA_DIR}/not_blank_image_only.pdf")
+    input_not_blank = PathInput(Path(PDF_DATA_DIR) / "not_blank_image_only.pdf")
     assert input_not_blank.count_doc_pages() == 1
 
 
@@ -173,18 +174,18 @@ def test_pdf_blank_check():
 
 
 def test_tif_input_from_path():
-    input_obj_1 = PathInput(f"{FILE_TYPES_DIR}/receipt.tif")
+    input_obj_1 = PathInput(Path(FILE_TYPES_DIR) / "receipt.tif")
     assert input_obj_1.file_mimetype == "image/tiff"
 
-    input_obj_2 = PathInput(f"{FILE_TYPES_DIR}/receipt.tiff")
+    input_obj_2 = PathInput(Path(FILE_TYPES_DIR) / "receipt.tiff")
     assert input_obj_2.file_mimetype == "image/tiff"
 
 
 def test_heic_input_from_path():
-    input_obj_1 = PathInput(f"{FILE_TYPES_DIR}/receipt.heic")
+    input_obj_1 = PathInput(Path(FILE_TYPES_DIR) / "receipt.heic")
     assert input_obj_1.file_mimetype == "image/heic"
 
 
 def test_txt_input_from_path():
     with pytest.raises(MimeTypeError):
-        PathInput(f"{FILE_TYPES_DIR}/receipt.txt")
+        PathInput(Path(FILE_TYPES_DIR) / "receipt.txt")

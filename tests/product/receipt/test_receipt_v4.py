@@ -1,4 +1,5 @@
 import json
+from pathlib import Path
 
 import pytest
 
@@ -6,36 +7,54 @@ from mindee.parsing.common.document import Document
 from mindee.parsing.common.page import Page
 from mindee.product import ReceiptV4
 from mindee.product.receipt.receipt_v4_document import ReceiptV4Document
-from tests import RECEIPT_DATA_DIR
-
-FILE_PATH_RECEIPT_V4_COMPLETE = f"{RECEIPT_DATA_DIR}/response_v4/complete.json"
-FILE_PATH_RECEIPT_V4_EMPTY = f"{RECEIPT_DATA_DIR}/response_v4/empty.json"
-FILE_PATH_SUMMARY_FULL = f"{RECEIPT_DATA_DIR}/response_v4/summary_full.rst"
-FILE_PATH_PAGE_0 = f"{RECEIPT_DATA_DIR}/response_v4/summary_page0.rst"
+from tests.product import PRODUCT_DATA_DIR
 
 
 @pytest.fixture
 def complete_doc() -> Document[ReceiptV4Document, Page[ReceiptV4Document]]:
-    json_data = json.load(open(FILE_PATH_RECEIPT_V4_COMPLETE))
+    json_data = json.load(
+        open(
+            Path(PRODUCT_DATA_DIR)
+            / "expense_receipts"
+            / "response_v4"
+            / "complete.json"
+        )
+    )
     return Document(ReceiptV4, json_data["document"])
 
 
 @pytest.fixture
 def empty_doc() -> Document[ReceiptV4Document, Page[ReceiptV4Document]]:
-    json_data = json.load(open(FILE_PATH_RECEIPT_V4_EMPTY))
+    json_data = json.load(
+        open(Path(PRODUCT_DATA_DIR) / "expense_receipts" / "response_v4" / "empty.json")
+    )
     return Document(ReceiptV4, json_data["document"])
 
 
 @pytest.fixture
 def complete_page_0() -> Page[ReceiptV4Document]:
-    json_data = json.load(open(FILE_PATH_RECEIPT_V4_COMPLETE))
+    json_data = json.load(
+        open(
+            Path(PRODUCT_DATA_DIR)
+            / "expense_receipts"
+            / "response_v4"
+            / "complete.json"
+        )
+    )
     return Page(ReceiptV4Document, json_data["document"]["inference"]["pages"][0])
 
 
 def test_complete_doc(
     complete_doc: Document[ReceiptV4Document, Page[ReceiptV4Document]]
 ):
-    reference_str = open(FILE_PATH_SUMMARY_FULL, "r", encoding="utf-8").read()
+    reference_str = open(
+        Path(PRODUCT_DATA_DIR)
+        / "expense_receipts"
+        / "response_v4"
+        / "summary_full.rst",
+        "r",
+        encoding="utf-8",
+    ).read()
     assert str(complete_doc) == reference_str
 
 
@@ -53,7 +72,14 @@ def test_empty_doc(empty_doc: Document[ReceiptV4Document, Page[ReceiptV4Document
 
 
 def test_complete_page(complete_page_0: Page[ReceiptV4Document]):
-    reference_str = open(FILE_PATH_PAGE_0, "r", encoding="utf-8").read()
+    reference_str = open(
+        Path(PRODUCT_DATA_DIR)
+        / "expense_receipts"
+        / "response_v4"
+        / "summary_page0.rst",
+        "r",
+        encoding="utf-8",
+    ).read()
     assert complete_page_0.orientation
     assert complete_page_0.orientation.value == 0
     assert complete_page_0.id == 0
