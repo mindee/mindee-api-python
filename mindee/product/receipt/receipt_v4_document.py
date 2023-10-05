@@ -1,6 +1,7 @@
 from typing import Optional, TypeVar
 
-from mindee.parsing.common import Prediction, StringDict, clean_out_string
+from mindee.parsing.common import Prediction, clean_out_string
+from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.standard import (
     AmountField,
     ClassificationField,
@@ -41,23 +42,11 @@ class ReceiptV4Document(Prediction):
 
     def __init__(
         self,
-        raw_prediction=None,
+        raw_prediction: StringDict,
         page_id: Optional[int] = None,
     ):
         """
         Receipt document.
-
-        :param raw_prediction: Raw prediction from HTTP response
-        :param input_source: Input object
-        :param page_id: Page number for multi pages pdf input
-        """
-        self._build_from_raw_prediction(raw_prediction, page_id=page_id)
-
-    def _build_from_raw_prediction(
-        self, raw_prediction: StringDict, page_id: Optional[int] = None
-    ) -> None:
-        """
-        Build the document from an API response JSON.
 
         :param raw_prediction: Raw prediction from HTTP response
         :param page_id: Page number for multi pages pdf input

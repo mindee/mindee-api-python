@@ -14,14 +14,10 @@ class InvoiceSplitterV1Document(Prediction):
     """Page groups linked to an invoice."""
 
     def __init__(self, raw_prediction: StringDict) -> None:
-        self._build_from_raw_prediction(raw_prediction)
-
-    def _build_from_raw_prediction(self, raw_prediction: StringDict) -> None:
         """
-        Build the object from the prediction API JSON.
+        Invoice Splitter document Object.
 
         :param raw_prediction: Raw prediction from HTTP response
-        :param page_id: Page number
         """
         if (
             "invoice_page_groups" in raw_prediction
