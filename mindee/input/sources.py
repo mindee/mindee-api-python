@@ -180,7 +180,6 @@ class LocalInputSource:
         self.file_object.close()
 
 
-
 class FileInput(LocalInputSource):
     """A binary file input."""
 
