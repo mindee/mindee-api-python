@@ -1,11 +1,7 @@
 from typing import Optional
 
-from mindee.parsing.standard.base import (
-    BaseField,
-    FieldPositionMixin,
-    TypePrediction,
-    float_to_string,
-)
+from mindee.parsing.common.string_dict import StringDict
+from mindee.parsing.standard.base import BaseField, FieldPositionMixin, float_to_string
 
 
 class AmountField(FieldPositionMixin, BaseField):
@@ -16,30 +12,30 @@ class AmountField(FieldPositionMixin, BaseField):
 
     def __init__(
         self,
-        prediction: TypePrediction,
+        raw_prediction: StringDict,
         reconstructed: bool = False,
         page_id: Optional[int] = None,
     ):
         """
         Amount field object.
 
-        :param prediction: Amount prediction object from HTTP response
+        :param raw_prediction: Amount prediction object from HTTP response
         :param reconstructed: Bool for reconstructed object (not extracted in the API)
         :param page_id: Page number for multi-page document
         """
         super().__init__(
-            prediction,
+            raw_prediction,
             value_key="value",
             reconstructed=reconstructed,
-            page_n=page_id,
+            page_id=page_id,
         )
         try:
-            self.value = round(float(prediction["value"]), 3)
+            self.value = round(float(raw_prediction["value"]), 3)
         except (ValueError, TypeError, KeyError):
             self.value = None
             self.confidence = 0.0
 
-        self._set_position(prediction)
+        self._set_position(raw_prediction)
 
     def __str__(self) -> str:
         return float_to_string(self.value)

@@ -1,0 +1,67 @@
+from typing import Dict, Generic, List, Optional, TypeVar
+
+from mindee.parsing.common.page import TypePage
+from mindee.parsing.common.prediction import TypePrediction
+from mindee.parsing.common.product import Product
+from mindee.parsing.common.string_dict import StringDict
+
+
+class Inference(Generic[TypePrediction, TypePage]):
+    """Base Inference class for all predictions."""
+
+    product: Product
+    """Name and version of a given product, as sent back by the API."""
+    endpoint_name: Optional[str]
+    """Name of the endpoint for OTS APIs"""
+    endpoint_version: Optional[str]
+    """Version of the endpoint for OTS APIs"""
+    prediction: TypePrediction
+    """A document's top-level Prediction."""
+    pages: List[TypePage]
+    """A document's pages."""
+    is_rotation_applied: Optional[bool]
+    """Whether the document has had any rotation applied to it."""
+
+    def __init__(
+        self,
+        raw_prediction: StringDict,
+    ):
+        self.is_rotation_applied = None
+        if "is_rotation_applied" in raw_prediction:
+            self.is_rotation_applied = raw_prediction["is_rotation_applied"]
+        self.product = Product(raw_prediction["product"])
+
+    def __str__(self) -> str:
+        rotation_applied_str = "Yes" if self.is_rotation_applied else "No"
+        prediction_str = ""
+        pages_str = ""
+        if self.prediction and len(str(self.prediction)) > 0:
+            prediction_str = f"{str(self.prediction)}\n"
+        if len(self.pages) > 0:
+            pages_str = "\n".join([str(page) for page in self.pages])
+        return (
+            f"Inference\n"
+            f"#########\n"
+            f":Product: {self.product}\n"
+            f":Rotation applied: {rotation_applied_str}\n\n"
+            f"Prediction\n"
+            f"==========\n"
+            f"{prediction_str}\n"
+            f"Page Predictions\n"
+            f"================\n"
+            f"{pages_str}"
+        )
+
+    @staticmethod
+    def get_endpoint_info(klass) -> Dict[str, str]:
+        """
+        Retrives the endpoint information for an Inference.
+
+        Should never retrieve info for CustomV1, as a custom endpoint should be created to use CustomV1.
+        """
+        if klass.endpoint_name and klass.endpoint_version:
+            return {"name": klass.endpoint_name, "version": klass.endpoint_version}
+        raise TypeError("Can't get endpoint information for {klass.__name__}")
+
+
+TypeInference = TypeVar("TypeInference", bound=Inference)

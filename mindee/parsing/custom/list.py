@@ -1,25 +1,10 @@
 from typing import List, Optional
 
-from mindee.parsing.standard.base import FieldPositionMixin, TypePrediction
+from mindee.parsing.common.string_dict import StringDict
+from mindee.parsing.standard.base import FieldPositionMixin
 
 
-class ClassificationField:
-    """A classification field."""
-
-    value: str
-    """The classification value."""
-    confidence: float
-    """The confidence score"""
-
-    def __init__(self, prediction: TypePrediction) -> None:
-        self.value = prediction["value"]
-        self.confidence = prediction["confidence"]
-
-    def __str__(self) -> str:
-        return self.value or ""
-
-
-class ListFieldValue(FieldPositionMixin):
+class ListFieldValueV1(FieldPositionMixin):
     """A single value or word."""
 
     content: str
@@ -27,43 +12,43 @@ class ListFieldValue(FieldPositionMixin):
     confidence: float = 0.0
     """Confidence score"""
 
-    def __init__(self, prediction: TypePrediction) -> None:
-        self.content = prediction["content"]
-        self.confidence = prediction["confidence"]
-        self._set_position(prediction)
+    def __init__(self, raw_prediction: StringDict) -> None:
+        self.content = raw_prediction["content"]
+        self.confidence = raw_prediction["confidence"]
+        self._set_position(raw_prediction)
 
     def __str__(self) -> str:
         return self.content
 
 
-class ListField:
+class ListFieldV1:
     """A list of values or words."""
 
     confidence: float = 0.0
     """Confidence score"""
     reconstructed: bool
     """Whether the field was reconstructed from other fields."""
-    page_n: int
+    page_id: int
     """The document page on which the information was found."""
-    values: List[ListFieldValue]
+    values: List[ListFieldValueV1]
     """List of word values"""
 
     def __init__(
         self,
-        prediction: TypePrediction,
+        raw_prediction: StringDict,
         reconstructed: bool = False,
-        page_n: Optional[int] = None,
-    ):
+        page_id: Optional[int] = None,
+    ) -> None:
         self.values = []
         self.reconstructed = reconstructed
-        if page_n is None:
-            self.page_n = prediction["page_id"]
+        if page_id is None:
+            self.page_id = raw_prediction["page_id"]
         else:
-            self.page_n = page_n
-        self.confidence = prediction["confidence"]
+            self.page_id = page_id
+        self.confidence = raw_prediction["confidence"]
 
-        for value in prediction["values"]:
-            self.values.append(ListFieldValue(value))
+        for value in raw_prediction["values"]:
+            self.values.append(ListFieldValueV1(value))
 
     @property
     def contents_list(self) -> List[str]:

@@ -1,112 +1,40 @@
-from typing import Optional, TypeVar
+from typing import List
 
-from mindee.parsing.common.document import Document, TypeApiPrediction, clean_out_string
-from mindee.parsing.standard.amount import AmountField
-from mindee.parsing.standard.classification import ClassificationField
-from mindee.parsing.standard.date import DateField
-from mindee.parsing.standard.locale import LocaleField
-from mindee.parsing.standard.tax import Taxes
-from mindee.parsing.standard.text import TextField
+from mindee.parsing.common import Inference
+from mindee.parsing.common.page import Page
+from mindee.parsing.common.string_dict import StringDict
+from mindee.product.receipt.receipt_v4_document import ReceiptV4Document
 
 
-class ReceiptV4(Document):
-    """Receipt v4 prediction results."""
+class ReceiptV4(Inference):
+    """Inference prediction for Receipt, API version 4."""
 
-    locale: LocaleField
-    """locale information"""
-    total_amount: AmountField
-    """Total including taxes"""
-    date: DateField
-    """Date the receipt was issued"""
-    time: TextField
-    """Time the receipt was issued, in HH: MM format."""
-    category: ClassificationField
-    """The type, or service category, of the purchase."""
-    subcategory: ClassificationField
-    """The receipt sub category among predefined classes."""
-    document_type: ClassificationField
-    """Whether the document is an expense receipt or a credit card receipt."""
-    supplier: TextField
-    """The merchant, or supplier, as found on the receipt."""
-    taxes: Taxes
-    """List of all taxes."""
-    total_tax: AmountField
-    """Total tax amount of the purchase."""
-    total_net: AmountField
-    "Total amount of the purchase excluding taxes."
-    tip: AmountField
-    """Total amount of tip and gratuity."""
+    prediction: ReceiptV4Document
+    pages: List[Page[ReceiptV4Document]]
+    endpoint_name = "expense_receipts"
+    """The endpoint's name"""
+    endpoint_version = "4"
+    """The endpoint's version"""
 
     def __init__(
         self,
-        api_prediction=None,
-        input_source=None,
-        page_n: Optional[int] = None,
-    ):
+        raw_prediction: StringDict,
+    ) -> None:
         """
         Receipt document.
 
-        :param api_prediction: Raw prediction from HTTP response
-        :param input_source: Input object
-        :param page_n: Page number for multi pages pdf input
+        :param raw_prediction: Raw prediction from HTTP response
+        :param page_id: Page number for multi pages pdf input
         """
-        super().__init__(
-            input_source=input_source,
-            document_type="receipt",
-            api_prediction=api_prediction,
-            page_n=page_n,
-        )
-        self._build_from_api_prediction(api_prediction["prediction"], page_n=page_n)
-
-    def _build_from_api_prediction(
-        self, api_prediction: TypeApiPrediction, page_n: Optional[int] = None
-    ) -> None:
-        """
-        Build the document from an API response JSON.
-
-        :param api_prediction: Raw prediction from HTTP response
-        :param page_n: Page number for multi pages pdf input
-        """
-        self.locale = LocaleField(api_prediction["locale"], page_id=page_n)
-        self.total_amount = AmountField(api_prediction["total_amount"], page_id=page_n)
-        self.total_net = AmountField(api_prediction["total_net"], page_id=page_n)
-        self.total_tax = AmountField(api_prediction["total_tax"], page_id=page_n)
-        self.tip = AmountField(api_prediction["tip"], page_id=page_n)
-        self.date = DateField(api_prediction["date"], page_id=page_n)
-        self.category = ClassificationField(api_prediction["category"], page_id=page_n)
-        self.subcategory = ClassificationField(
-            api_prediction["subcategory"], page_id=page_n
-        )
-        self.document_type = ClassificationField(
-            api_prediction["document_type"], page_id=page_n
-        )
-        self.supplier = TextField(
-            api_prediction["supplier"], value_key="value", page_id=page_n
-        )
-        self.time = TextField(api_prediction["time"], value_key="value", page_id=page_n)
-        self.taxes = Taxes(api_prediction["taxes"], page_id=page_n)
-
-    def __str__(self) -> str:
-        return clean_out_string(
-            "Receipt V4 Prediction\n"
-            "=====================\n"
-            f":Filename: {self.filename or ''}\n"
-            f":Total amount: {self.total_amount}\n"
-            f":Total net: {self.total_net}\n"
-            f":Tip: {self.tip}\n"
-            f":Date: {self.date}\n"
-            f":Category: {self.category}\n"
-            f":Subcategory: {self.subcategory}\n"
-            f":Document type: {self.document_type}\n"
-            f":Time: {self.time}\n"
-            f":Supplier name: {self.supplier}\n"
-            f":Taxes: {self.taxes}\n"
-            f":Total tax: {self.total_tax}\n"
-            f":Locale: {self.locale}"
-        )
-
-    def _checklist(self) -> None:
-        pass
-
-
-TypeReceiptV4 = TypeVar("TypeReceiptV4", bound=ReceiptV4)
+        super().__init__(raw_prediction=raw_prediction)
+        self.prediction = ReceiptV4Document(raw_prediction["prediction"])
+        self.pages = []
+        for page in raw_prediction["pages"]:
+            self.pages.append(
+                Page[ReceiptV4Document](
+                    ReceiptV4Document,
+                    page,
+                    page_id=page["id"],
+                    orientation=page["orientation"],
+                )
+            )
