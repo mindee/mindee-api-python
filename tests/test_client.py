@@ -1,4 +1,5 @@
 import binascii
+
 import pytest
 
 from mindee import Client, PageOptions, product
