@@ -96,18 +96,18 @@ class LocalInputSource:
         all_pages = list(range(pages_count))
         if behavior == KEEP_ONLY:
             pages_to_keep = set()
-            for page_n in page_indexes:
+            for page_id in page_indexes:
                 try:
-                    pages_to_keep.add(all_pages[page_n])
+                    pages_to_keep.add(all_pages[page_id])
                 except IndexError:
-                    logger.warning("Page index not in source document: %s", page_n)
+                    logger.warning("Page index not in source document: %s", page_id)
         elif behavior == REMOVE:
             pages_to_remove = set()
-            for page_n in page_indexes:
+            for page_id in page_indexes:
                 try:
-                    pages_to_remove.add(all_pages[page_n])
+                    pages_to_remove.add(all_pages[page_id])
                 except IndexError:
-                    logger.warning("Page index not in source document: %s", page_n)
+                    logger.warning("Page index not in source document: %s", page_id)
             pages_to_keep = pages_to_remove.symmetric_difference(set(all_pages))
         else:
             raise AssertionError(f"Invalid cut behavior specified: {behavior}")
@@ -126,8 +126,8 @@ class LocalInputSource:
         self.file_object.seek(0)
         new_pdf = pikepdf.Pdf.new()
         with pikepdf.open(self.file_object) as pdf:
-            for page_n in page_numbers:
-                page = pdf.pages[page_n]
+            for page_id in page_numbers:
+                page = pdf.pages[page_id]
                 new_pdf.pages.append(page)
         self.file_object.close()
         self.file_object = io.BytesIO()
@@ -179,7 +179,7 @@ class LocalInputSource:
 class FileInput(LocalInputSource):
     """A binary file input."""
 
-    def __init__(self, file: BinaryIO):
+    def __init__(self, file: BinaryIO) -> None:
         """
         Input document from a Python binary file object.
 
@@ -198,7 +198,7 @@ class FileInput(LocalInputSource):
 class PathInput(LocalInputSource):
     """A local path input."""
 
-    def __init__(self, filepath: str):
+    def __init__(self, filepath: str) -> None:
         """
         Input document from a path.
 
@@ -213,7 +213,7 @@ class PathInput(LocalInputSource):
 class BytesInput(LocalInputSource):
     """Raw bytes input."""
 
-    def __init__(self, raw_bytes: bytes, filename: str):
+    def __init__(self, raw_bytes: bytes, filename: str) -> None:
         """
         Input document from raw bytes (no buffer).
 
@@ -229,7 +229,7 @@ class BytesInput(LocalInputSource):
 class Base64Input(LocalInputSource):
     """Base64-encoded text input."""
 
-    def __init__(self, base64_string: str, filename: str):
+    def __init__(self, base64_string: str, filename: str) -> None:
         """
         Input document from a base64 encoded string.
 
@@ -248,7 +248,7 @@ class UrlInputSource:
     url: str
     """The Uniform Resource Locator."""
 
-    def __init__(self, url: str):
+    def __init__(self, url: str) -> None:
         """
         Input document from a base64 encoded string.
 

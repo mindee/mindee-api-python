@@ -1,6 +1,6 @@
 import json
 
-from mindee.parsing.common.ocr import Ocr
+from mindee.parsing.common.ocr.ocr import Ocr
 
 
 def test_response():

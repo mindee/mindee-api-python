@@ -1,13 +1,9 @@
 import json
-from typing import BinaryIO, Dict, List, NamedTuple, Optional, Type, Union
+from typing import BinaryIO, Dict, Optional, Union
 
-from mindee import product
-from mindee.http.endpoints import (
-    OTS_OWNER,
-    CustomEndpoint,
-    HTTPException,
-    StandardEndpoint,
-)
+from mindee.http.endpoint import CustomEndpoint, Endpoint
+from mindee.http.error import HTTPException
+from mindee.http.mindee_api import MindeeApi
 from mindee.input.page_options import PageOptions
 from mindee.input.sources import (
     Base64Input,
@@ -18,9 +14,11 @@ from mindee.input.sources import (
     UrlInputSource,
 )
 from mindee.logger import logger
-from mindee.parsing.common.api_response import AsyncPredictResponse, PredictResponse
-from mindee.parsing.common.document import Document, TypeDocument
-from mindee.product.config import DocumentConfig, DocumentConfigDict
+from mindee.parsing.common.async_predict_response import AsyncPredictResponse
+from mindee.parsing.common.inference import TypeInference
+from mindee.parsing.common.predict_response import PredictResponse
+
+OTS_OWNER = "mindee"
 
 
 def get_bound_classname(type_var) -> str:
@@ -28,37 +26,56 @@ def get_bound_classname(type_var) -> str:
     return type_var.__bound__.__name__
 
 
-class DocumentClient:
-    """PArsing methods for the document."""
+def _clean_account_name(account_name: str) -> str:
+    """
+    Checks that an account name is provided for custom builds, and sets the default one otherwise.
 
-    input_doc: Optional[Union[LocalInputSource, UrlInputSource]]
-    doc_configs: DocumentConfigDict
-    raise_on_error: bool = True
+    :param product_class: product class to use for API calls.
+    :param account_name: name of the account's holder. Only needed for custom products.
+    """
+    if not account_name or len(account_name) < 1:
+        logger.warning(
+            "No account name provided for custom build. %s will be used by default.",
+            OTS_OWNER,
+        )
+        return OTS_OWNER
+    return account_name
 
-    def __init__(
-        self,
-        input_doc: Optional[Union[LocalInputSource, UrlInputSource]],
-        doc_configs: DocumentConfigDict,
-        raise_on_error: bool,
-    ):
+
+class Client:
+    """
+    Mindee API Client.
+
+    See: https://developers.mindee.com/docs/
+    """
+
+    raise_on_error: bool
+    api_key: str
+
+    def __init__(self, api_key: str = "", raise_on_error: bool = True) -> None:
+        """
+        Mindee API Client.
+
+        :param api_key: Your API key for all endpoints
+        :param raise_on_error: Raise an Exception on HTTP errors
+        """
         self.raise_on_error = raise_on_error
-        self.doc_configs = doc_configs
-        self.input_doc = input_doc
+        self.api_key = api_key
 
     def parse(
         self,
-        document_class: TypeDocument,
-        endpoint_name: Optional[str] = None,
-        account_name: Optional[str] = None,
+        product_class,
+        input_source: Union[LocalInputSource, UrlInputSource],
         include_words: bool = False,
         close_file: bool = True,
         page_options: Optional[PageOptions] = None,
         cropper: bool = False,
-    ) -> PredictResponse[TypeDocument]:
+        endpoint: Optional[Endpoint] = None,
+    ) -> PredictResponse[TypeInference]:
         """
         Call prediction API on the document and parse the results.
 
-        :param document_class: The document class to use.
+        :param product_class: The document class to use.
             The response object will be instantiated based on this parameter.
 
         :param endpoint_name: For custom endpoints, the "API name" field in the "Settings" page of the API Builder.
@@ -81,48 +98,39 @@ class DocumentClient:
         :param cropper: Whether to include cropper results for each page.
             This performs a cropping operation on the server and will increase response time.
         """
-        if self.input_doc is None:
-            raise TypeError("The 'parse' function requires an input document.")
-        bound_classname = get_bound_classname(document_class)
-        if bound_classname != product.CustomV1.__name__:
-            endpoint_name = get_bound_classname(document_class)
-        elif endpoint_name is None:
-            raise RuntimeError(
-                f"endpoint_name is required when using {bound_classname} class"
-            )
+        if input_source is None:
+            raise TypeError("The 'enqueue' function requires an input document.")
 
-        logger.debug("Parsing document as '%s'", endpoint_name)
+        if not endpoint:
+            endpoint = self._initialize_ots_endpoint(product_class)
 
-        doc_config = self._check_config(endpoint_name, account_name)
-        if not isinstance(self.input_doc, UrlInputSource):
-            if page_options and self.input_doc.is_pdf():
-                self.input_doc.process_pdf(
+        logger.debug("Parsing document as '%s'", endpoint.url_name)
+
+        if isinstance(input_source, LocalInputSource):
+            if page_options and input_source.is_pdf():
+                input_source.process_pdf(
                     page_options.operation,
                     page_options.on_min_pages,
                     page_options.page_indexes,
                 )
         return self._make_request(
-            document_class,
-            doc_config,
-            include_words,
-            close_file,
-            cropper,
+            product_class, input_source, endpoint, include_words, close_file, cropper
         )
 
     def enqueue(
         self,
-        document_class: TypeDocument,
-        endpoint_name: Optional[str] = None,
-        account_name: Optional[str] = None,
+        product_class,
+        input_source: Union[LocalInputSource, UrlInputSource],
         include_words: bool = False,
         close_file: bool = True,
         page_options: Optional[PageOptions] = None,
         cropper: bool = False,
-    ) -> AsyncPredictResponse[TypeDocument]:
+        endpoint: Optional[Endpoint] = None,
+    ) -> AsyncPredictResponse:
         """
         Enqueueing to an async endpoint.
 
-        :param document_class: The document class to use.
+        :param product_class: The document class to use.
             The response object will be instantiated based on this parameter.
 
         :param endpoint_name: For custom endpoints, the "API name" field in the "Settings" page of the API Builder.
@@ -145,35 +153,31 @@ class DocumentClient:
         :param cropper: Whether to include cropper results for each page.
             This performs a cropping operation on the server and will increase response time.
         """
-        if self.input_doc is None:
+        if input_source is None:
             raise TypeError("The 'enqueue' function requires an input document.")
-        bound_classname = get_bound_classname(document_class)
-        if bound_classname != product.CustomV1.__name__:
-            endpoint_name = get_bound_classname(document_class)
-        elif endpoint_name is None:
-            raise RuntimeError(
-                f"endpoint_name is required when using {bound_classname} class"
-            )
 
-        logger.debug("Enqueuing document as '%s'", endpoint_name)
+        if not endpoint:
+            endpoint = self._initialize_ots_endpoint(product_class)
 
-        doc_config = self._check_config(endpoint_name, account_name)
-        if not isinstance(self.input_doc, UrlInputSource):
-            if page_options and self.input_doc.is_pdf():
-                self.input_doc.process_pdf(
+        logger.debug("Enqueuing document as '%s'", endpoint.url_name)
+
+        if isinstance(input_source, LocalInputSource):
+            if page_options and input_source.is_pdf():
+                input_source.process_pdf(
                     page_options.operation,
                     page_options.on_min_pages,
                     page_options.page_indexes,
                 )
-        return self._predict_async(doc_config, include_words, close_file, cropper)
+        return self._predict_async(
+            product_class, input_source, include_words, close_file, cropper, endpoint
+        )
 
     def parse_queued(
         self,
-        document_class: TypeDocument,
+        product_class,
         queue_id: str,
-        endpoint_name: Optional[str] = None,
-        account_name: Optional[str] = None,
-    ) -> AsyncPredictResponse[TypeDocument]:
+        endpoint: Optional[Endpoint] = None,
+    ) -> AsyncPredictResponse:
         """
         Parses a queued document.
 
@@ -185,40 +189,24 @@ class DocumentClient:
             same name as standard (off the shelf) endpoint.
             Do not set for standard (off the shelf) endpoints.
         """
-        bound_classname = get_bound_classname(document_class)
-        if bound_classname != product.CustomV1.__name__:
-            endpoint_name = get_bound_classname(document_class)
-        elif endpoint_name is None:
-            raise RuntimeError(
-                f"endpoint_name is required when using {bound_classname} class"
-            )
+        if not endpoint:
+            endpoint = self._initialize_ots_endpoint(product_class)
 
-        logger.debug("Fetching queued document as '%s'", endpoint_name)
+        logger.debug("Fetching queued document as '%s'", endpoint.url_name)
 
-        doc_config = self._check_config(endpoint_name, account_name)
-
-        return self._get_queued_document(doc_config, queue_id)
+        return self._get_queued_document(product_class, endpoint, queue_id)
 
     def _make_request(
         self,
-        document_class: TypeDocument,
-        doc_config: DocumentConfig,
+        product_class,
+        input_source: Union[LocalInputSource, UrlInputSource],
+        endpoint: Endpoint,
         include_words: bool,
         close_file: bool,
         cropper: bool,
-    ) -> PredictResponse[TypeDocument]:
-        if get_bound_classname(document_class) != doc_config.document_class.__name__:
-            raise RuntimeError("Document class mismatch!")
-        if self.input_doc is None:
-            raise TypeError(
-                "The '_make_request' class method requires an input document."
-            )
-        response = doc_config.document_class.request(
-            doc_config.endpoints,
-            self.input_doc,
-            include_words=include_words,
-            close_file=close_file,
-            cropper=cropper,
+    ) -> PredictResponse:
+        response = endpoint.predict_req_post(
+            input_source, include_words, close_file, cropper
         )
 
         dict_response = response.json()
@@ -228,31 +216,30 @@ class DocumentClient:
                 f"API {response.status_code} HTTP error: {json.dumps(dict_response)}"
             )
 
-        return PredictResponse[TypeDocument](
-            http_response=dict_response,
-            doc_config=doc_config,
-            input_source=self.input_doc,
-            response_ok=response.ok,
-        )
+        return PredictResponse(product_class, dict_response)
 
     def _predict_async(
         self,
-        doc_config: DocumentConfig,
+        product_class,
+        input_source: Union[LocalInputSource, UrlInputSource],
         include_words: bool = False,
         close_file: bool = True,
         cropper: bool = False,
-    ) -> AsyncPredictResponse[TypeDocument]:
+        endpoint: Optional[Endpoint] = None,
+    ) -> AsyncPredictResponse:
         """
         Sends a document to the queue, and sends back an asynchronous predict response.
 
         :param doc_config: Configuration of the document.
         """
-        if self.input_doc is None:
+        if input_source is None:
             raise TypeError(
                 "The '_predict_async' class method requires an input document."
             )
-        response = doc_config.endpoints[0].predict_async_req_post(
-            self.input_doc, include_words, close_file, cropper
+        if not endpoint:
+            endpoint = self._initialize_ots_endpoint(product_class)
+        response = endpoint.predict_async_req_post(
+            input_source, include_words, close_file, cropper
         )
 
         dict_response = response.json()
@@ -262,27 +249,21 @@ class DocumentClient:
                 f"API {response.status_code} HTTP error: {json.dumps(dict_response)}"
             )
 
-        return AsyncPredictResponse[TypeDocument](
-            http_response=dict_response,
-            doc_config=doc_config,
-            input_source=self.input_doc,
-            response_ok=response.ok,
-        )
+        return AsyncPredictResponse(product_class, dict_response)
 
     def _get_queued_document(
         self,
-        doc_config: DocumentConfig,
+        product_class,
+        endpoint: Endpoint,
         queue_id: str,
-    ) -> AsyncPredictResponse[TypeDocument]:
+    ) -> AsyncPredictResponse:
         """
         Fetches a document or a Job from a given queue.
 
         :param queue_id: Queue_id received from the API
         :param doc_config: Pre-checked document configuration.
         """
-        queue_response = doc_config.endpoints[0].document_queue_req_get(
-            queue_id=queue_id
-        )
+        queue_response = endpoint.document_queue_req_get(queue_id=queue_id)
 
         if (
             not queue_response.status_code
@@ -293,117 +274,40 @@ class DocumentClient:
                 f"API {queue_response.status_code} HTTP error: {json.dumps(queue_response.json())}"
             )
 
-        return AsyncPredictResponse[TypeDocument](
-            http_response=queue_response.json(),
-            doc_config=doc_config,
-            input_source=self.input_doc,
-            response_ok=queue_response.ok,
+        return AsyncPredictResponse(product_class, queue_response.json())
+
+    def _initialize_ots_endpoint(self, product_class) -> Endpoint:
+        if product_class.__name__ == "CustomV1":
+            raise TypeError("Missing endpoint specifications for custom build.")
+        endpoint_info: Dict[str, str] = product_class.get_endpoint_info(product_class)
+        return self._build_endpoint(
+            endpoint_info["name"], OTS_OWNER, endpoint_info["version"]
         )
 
-    def close(self) -> None:
+    def close(self, input_source) -> None:
         """Close the file object."""
-        if isinstance(self.input_doc, LocalInputSource):
-            self.input_doc.file_object.close()
+        if isinstance(input_source, LocalInputSource):
+            input_source.file_object.close()
 
-    def _check_config(self, endpoint_name, account_name) -> DocumentConfig:
-        found = []
-        for k in self.doc_configs.keys():
-            if k[1] == endpoint_name:
-                found.append(k)
-
-        if len(found) == 0:
-            raise RuntimeError(f"Document type not configured: {endpoint_name}")
-
-        if account_name:
-            config_key = (account_name, endpoint_name)
-        elif len(found) == 1:
-            config_key = found[0]
-        else:
-            usernames = [k[0] for k in found]
-            raise RuntimeError(
-                (
-                    "Duplicate configuration detected.\n"
-                    f"You specified a document_type '{endpoint_name}' in your custom config.\n"
-                    "To avoid confusion, please add the 'account_name' attribute to "
-                    f"the parse method, one of {usernames}."
-                )
-            )
-
-        doc_config = self.doc_configs[config_key]
-        doc_config.check_api_keys()
-        return doc_config
-
-
-class ConfigSpec(NamedTuple):
-    """API Configuration specifications."""
-
-    doc_class: Type[Document]
-    url_name: str
-    version: str
-
-
-class Client:
-    """
-    Mindee API Client.
-
-    See: https://developers.mindee.com/docs/
-    """
-
-    _doc_configs: DocumentConfigDict
-    raise_on_error: bool
-    api_key: str
-
-    def __init__(self, api_key: str = "", raise_on_error: bool = True):
-        """
-        Mindee API Client.
-
-        :param api_key: Your API key for all endpoints
-        :param raise_on_error: Raise an Exception on HTTP errors
-        """
-        self._doc_configs: Dict[tuple, DocumentConfig] = {}
-        self.raise_on_error = raise_on_error
-        self.api_key = api_key
-        self._init_default_endpoints()
-
-    def _standard_doc_config(
-        self, klass: Type[Document], url_name: str, version: str
-    ) -> DocumentConfig:
-        return DocumentConfig(
-            document_class=klass,
-            endpoints=[
-                StandardEndpoint(
-                    url_name=url_name, version=version, api_key=self.api_key
-                )
-            ],
+    def _build_endpoint(
+        self, endpoint_name: str, account_name: str, version: str
+    ) -> Endpoint:
+        api_settings = MindeeApi(
+            api_key=self.api_key,
+            endpoint_name=endpoint_name,
+            account_name=account_name,
+            version=version,
         )
+        if account_name and len(account_name) > 0 and account_name != "mindee":
+            return CustomEndpoint(endpoint_name, account_name, version, api_settings)
+        return Endpoint(endpoint_name, account_name, version, api_settings)
 
-    def _init_default_endpoints(self) -> None:
-        configs: List[ConfigSpec] = [
-            ConfigSpec(
-                doc_class=product.ReceiptV4,
-                url_name="expense_receipts",
-                version="4",
-            ),
-            ConfigSpec(
-                doc_class=product.InvoiceSplitterV1,
-                url_name="invoice_splitter",
-                version="1",
-            ),
-        ]
-
-        for config in configs:
-            config_key = (OTS_OWNER, config.doc_class.__name__)
-            self._doc_configs[config_key] = self._standard_doc_config(
-                config.doc_class, config.url_name, config.version
-            )
-
-    def add_endpoint(
+    def create_endpoint(
         self,
-        account_name: str,
         endpoint_name: str,
-        version: str = "1",
-        document_class: Type[Document] = product.CustomV1,
-    ) -> "Client":
+        account_name: str,
+        version: Optional[str] = None,
+    ) -> Endpoint:
         """
         Add a custom endpoint, created using the Mindee API Builder.
 
@@ -411,123 +315,84 @@ class Client:
         :param account_name: Your organization's username on the API Builder
         :param version: If set, locks the version of the model to use.
             If not set, use the latest version of the model.
-        :param document_class: A document class in which the response will be extracted.
+        :param product_class: A document class in which the response will be extracted.
             Must inherit from ``mindee.product.base.Document``.
         """
-        self._doc_configs[(account_name, endpoint_name)] = DocumentConfig(
-            document_type=endpoint_name,
-            document_class=document_class,
-            endpoints=[
-                CustomEndpoint(
-                    owner=account_name,
-                    url_name=endpoint_name,
-                    version=version,
-                    api_key=self.api_key,
-                ),
-            ],
-        )
-        return self
+        if len(endpoint_name) == 0:
+            raise TypeError("Custom endpoint require a valid 'endpoint_name'.")
+        account_name = _clean_account_name(account_name)
+        if not version or len(version) < 1:
+            logger.debug(
+                "No version provided for a custom build, will attempt to poll version 1 by default."
+            )
+            version = "1"
+        return self._build_endpoint(endpoint_name, account_name, version)
 
-    def doc_from_path(
+    def source_from_path(
         self,
         input_path: str,
-    ) -> DocumentClient:
+    ) -> PathInput:
         """
         Load a document from an absolute path, as a string.
 
         :param input_path: Path of file to open
         """
-        input_doc = PathInput(input_path)
-        return DocumentClient(
-            input_doc=input_doc,
-            doc_configs=self._doc_configs,
-            raise_on_error=self.raise_on_error,
-        )
+        return PathInput(input_path)
 
-    def doc_from_file(
+    def source_from_file(
         self,
         input_file: BinaryIO,
-    ) -> DocumentClient:
+    ) -> FileInput:
         """
         Load a document from a normal Python file object/handle.
 
         :param input_file: Input file handle
         """
-        input_doc = FileInput(
+        return FileInput(
             input_file,
         )
-        return DocumentClient(
-            input_doc=input_doc,
-            doc_configs=self._doc_configs,
-            raise_on_error=self.raise_on_error,
-        )
 
-    def doc_from_b64string(
+    def source_from_b64string(
         self,
         input_string: str,
         filename: str,
-    ) -> DocumentClient:
+    ) -> Base64Input:
         """
         Load a document from a base64 encoded string.
 
         :param input_string: Input to parse as base64 string
         :param filename: The name of the file (without the path)
         """
-        input_doc = Base64Input(
+        return Base64Input(
             input_string,
             filename,
         )
-        return DocumentClient(
-            input_doc=input_doc,
-            doc_configs=self._doc_configs,
-            raise_on_error=self.raise_on_error,
-        )
 
-    def doc_from_bytes(
+    def source_from_bytes(
         self,
         input_bytes: bytes,
         filename: str,
-    ) -> DocumentClient:
+    ) -> BytesInput:
         """
         Load a document from raw bytes.
 
         :param input_bytes: Raw byte input
         :param filename: The name of the file (without the path)
         """
-        input_doc = BytesInput(
+        return BytesInput(
             input_bytes,
             filename,
         )
-        return DocumentClient(
-            input_doc=input_doc,
-            doc_configs=self._doc_configs,
-            raise_on_error=self.raise_on_error,
-        )
 
-    def doc_from_url(
+    def source_from_url(
         self,
         url: str,
-    ) -> DocumentClient:
+    ) -> UrlInputSource:
         """
         Load a document from an URL.
 
         :param url: Raw byte input
         """
-        input_doc = UrlInputSource(
+        return UrlInputSource(
             url,
-        )
-        return DocumentClient(
-            input_doc=input_doc,
-            doc_configs=self._doc_configs,
-            raise_on_error=self.raise_on_error,
-        )
-
-    def doc_for_async(
-        self,
-    ) -> DocumentClient:
-        """Creates an empty doc for asynchronous parsing requests."""
-        return DocumentClient(
-            input_doc=None,
-            doc_configs=self._doc_configs,
-            raise_on_error=self.raise_on_error,
         )

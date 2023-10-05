@@ -137,3 +137,4 @@ dmypy.json
 *.swp
 *-swp
 _test.py
+local_test

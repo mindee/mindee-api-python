@@ -2,12 +2,8 @@ import json
 
 import pytest
 
+from mindee.parsing.custom import ClassificationField, ListField, ListFieldValue
 from mindee.product import CustomV1
-from mindee.product.custom.custom_v1_fields import (
-    ClassificationField,
-    ListField,
-    ListFieldValue,
-)
 
 CUSTOM_DATA_DIR = "./tests/data/products/custom"
 FILE_PATH_CUSTOM_V1_COMPLETE = f"{CUSTOM_DATA_DIR}/response_v1/complete.json"
@@ -18,7 +14,7 @@ FILE_PATH_CUSTOM_V1_EMPTY = f"{CUSTOM_DATA_DIR}/response_v1/empty.json"
 def custom_v1_doc_object():
     json_data = json.load(open(FILE_PATH_CUSTOM_V1_COMPLETE))
     return CustomV1(
-        "field_test", api_prediction=json_data["document"]["inference"], page_n=None
+        "field_test", api_prediction=json_data["document"]["inference"], page_id=None
     )
 
 
@@ -26,7 +22,7 @@ def custom_v1_doc_object():
 def custom_v1_doc_object_empty():
     json_data = json.load(open(FILE_PATH_CUSTOM_V1_EMPTY))
     return CustomV1(
-        "field_test", api_prediction=json_data["document"]["inference"], page_n=None
+        "field_test", api_prediction=json_data["document"]["inference"], page_id=None
     )
 
 
@@ -34,7 +30,7 @@ def custom_v1_doc_object_empty():
 def custom_v1_page_object():
     json_data = json.load(open(FILE_PATH_CUSTOM_V1_COMPLETE))
     return CustomV1(
-        "field_test", json_data["document"]["inference"]["pages"][0], page_n=0
+        "field_test", json_data["document"]["inference"]["pages"][0], page_id=0
     )
 
 
@@ -61,7 +57,6 @@ def test_complete(custom_v1_doc_object):
             assert value.content != ""
             assert len(value.bounding_box) == 4
             assert value.confidence != 0.0
-            assert field.page_n == 0 or field.page_n == 1
     for field_name, field in custom_v1_doc_object.classifications.items():
         assert len(field_name) > 0
         assert isinstance(field, ClassificationField)
@@ -74,4 +69,4 @@ def test_page_complete(custom_v1_page_object):
     for field_name, field in custom_v1_page_object.fields.items():
         assert isinstance(field, ListField)
         assert len(field.contents_list) == len(field.values)
-        assert field.page_n == 0
+        assert field.page_id == 0

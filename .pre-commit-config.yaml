@@ -15,7 +15,7 @@ repos:
     rev: 6.3.0
     hooks:
       - id: pydocstyle
-        additional_dependencies: [toml]
+        additional_dependencies: [toml, tomli]
         exclude: .*(test|__init__|version).*\.py
         args: [
             "--ignore=D10,D212,D203,D401"

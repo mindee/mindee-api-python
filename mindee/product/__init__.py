@@ -17,5 +17,6 @@ from mindee.product.invoice_splitter import InvoiceSplitterV1, TypeInvoiceSplitt
 # )
 from mindee.product.receipt import (  # ReceiptV5,; ReceiptV5LineItem,; TypeReceiptV5,
     ReceiptV4,
-    TypeReceiptV4,
+    ReceiptV4Document,
+    TypeReceiptV4Document,
 )

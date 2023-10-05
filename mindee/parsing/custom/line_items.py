@@ -7,7 +7,7 @@ from mindee.geometry import (
     is_point_in_y,
     merge_polygons,
 )
-from mindee.product.custom.custom_v1_fields import ListField, ListFieldValue
+from mindee.parsing.custom.list import ListFieldV1, ListFieldValueV1
 
 
 def _array_product(array: Sequence[float]) -> float:
@@ -22,7 +22,7 @@ def _array_product(array: Sequence[float]) -> float:
     return product
 
 
-def _find_best_anchor(anchors: Sequence[str], fields: Dict[str, ListField]) -> str:
+def _find_best_anchor(anchors: Sequence[str], fields: Dict[str, ListFieldV1]) -> str:
     """
     Find the anchor with the most rows, in the order specified by `anchors`.
 
@@ -38,22 +38,22 @@ def _find_best_anchor(anchors: Sequence[str], fields: Dict[str, ListField]) -> s
     return anchor
 
 
-def _get_empty_field() -> ListFieldValue:
+def _get_empty_field() -> ListFieldValueV1:
     """Return sample field with empty values."""
-    return ListFieldValue({"content": "", "polygon": [], "confidence": 0.0})
+    return ListFieldValueV1({"content": "", "polygon": [], "confidence": 0.0})
 
 
-class Line:
+class LineV1:
     """Represent a single line."""
 
     row_number: int
-    fields: Dict[str, ListFieldValue]
+    fields: Dict[str, ListFieldValueV1]
     bounding_box: Quadrilateral
 
 
 def get_line_items(
-    anchors: Sequence[str], columns: Sequence[str], fields: Dict[str, ListField]
-) -> List[Line]:
+    anchors: Sequence[str], columns: Sequence[str], fields: Dict[str, ListFieldV1]
+) -> List[LineV1]:
     """
     Reconstruct line items from fields.
 
@@ -61,7 +61,7 @@ def get_line_items(
     :columns: All fields which are columns
     :fields: List of field names to reconstruct table with
     """
-    line_items: List[Line] = []
+    line_items: List[LineV1] = []
     anchor = _find_best_anchor(anchors, fields)
     if not anchor:
         print(Warning("Could not find an anchor!"))
@@ -70,7 +70,7 @@ def get_line_items(
     # Loop on anchor items and create an item for each anchor item.
     # This will create all rows with just the anchor column value.
     for item in fields[anchor].values:
-        line_item = Line()
+        line_item = LineV1()
         line_item.fields = {f: _get_empty_field() for f in columns}
         line_item.fields[anchor] = item
         line_items.append(line_item)

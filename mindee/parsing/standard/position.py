@@ -7,7 +7,8 @@ from mindee.geometry import (
     polygon_from_prediction,
     quadrilateral_from_prediction,
 )
-from mindee.parsing.standard.base import BaseField, TypePrediction
+from mindee.parsing.common.string_dict import StringDict
+from mindee.parsing.standard.base import BaseField
 
 
 class PositionField(BaseField):
@@ -26,7 +27,7 @@ class PositionField(BaseField):
 
     def __init__(
         self,
-        prediction: TypePrediction,
+        raw_prediction: StringDict,
         value_key: str = "polygon",
         reconstructed: bool = False,
         page_id: Optional[int] = None,
@@ -34,27 +35,27 @@ class PositionField(BaseField):
         """
         Position field object.
 
-        :param prediction: Position prediction object from HTTP response
+        :param raw_prediction: Position prediction object from HTTP response
         :param value_key: Key to use in the position_prediction dict
         :param reconstructed: Bool for reconstructed object (not extracted in the API)
         :param page_id: Page number for multi-page document
         """
         super().__init__(
-            prediction,
+            raw_prediction,
             value_key=value_key,
             reconstructed=reconstructed,
-            page_n=page_id,
+            page_id=page_id,
         )
 
         def get_quadrilateral(key: str) -> Optional[Quadrilateral]:
             try:
-                return quadrilateral_from_prediction(prediction[key])
+                return quadrilateral_from_prediction(raw_prediction[key])
             except (KeyError, GeometryError):
                 return None
 
         def get_polygon(key: str) -> Optional[Polygon]:
             try:
-                polygon = prediction[key]
+                polygon = raw_prediction[key]
             except KeyError:
                 return None
             if not polygon:
@@ -72,6 +73,12 @@ class PositionField(BaseField):
         self.value = self.polygon
 
     def __str__(self) -> str:
-        if self.polygon is None:
-            return ""
-        return f"Polygon with {len(self.polygon)} points."
+        if self.polygon:
+            return f"Polygon with {len(self.polygon)} points."
+        if self.bounding_box:
+            return f"Polygon with {len(self.bounding_box)} points."
+        if self.rectangle:
+            return f"Polygon with {len(self.rectangle)} points."
+        if self.quadrangle:
+            return f"Polygon with {len(self.quadrangle)} points."
+        return ""
