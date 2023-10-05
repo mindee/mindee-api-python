@@ -9,9 +9,8 @@ from mindee.product import (  # FinancialDocumentV1,; InvoiceV3,; PassportV1,; R
 )
 from mindee.product.receipt.receipt_v4_document import ReceiptV4Document
 
-PRODUCT_DIR = "./tests/data/products"
 FILE_PATH_RECEIPT_V4_COMPLETE = (
-    f"{ PRODUCT_DIR }/expense_receipts/response_v4/complete.json"
+    f"./tests/data/products/expense_receipts/response_v4/complete.json"
 )
 
 

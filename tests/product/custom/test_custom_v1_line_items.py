@@ -3,11 +3,12 @@ import json
 from mindee.parsing.common.document import Document
 from mindee.parsing.custom import get_line_items
 from mindee.product import CustomV1
-from tests.product.custom.test_custom_v1 import CUSTOM_DATA_DIR
 
 
 def test_single_table_01():
-    json_data_path = f"{CUSTOM_DATA_DIR}/response_v1/line_items/single_table_01.json"
+    json_data_path = (
+        f"./tests/data/products/custom/response_v1/line_items/single_table_01.json"
+    )
     json_data = json.load(open(json_data_path, "r"))
     doc = Document(CustomV1, json_data["document"]).inference.prediction
     anchors = ["beneficiary_birth_date"]

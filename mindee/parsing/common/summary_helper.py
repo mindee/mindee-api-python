@@ -13,4 +13,4 @@ def line_separator(column_sizes: List[int], separator: str) -> str:
 def clean_out_string(out_string: str) -> str:
     """Clean up the string representation."""
     regexp = re.compile(r" \n")
-    return regexp.sub("\n", out_string)
+    return regexp.sub("\n", out_string).strip()

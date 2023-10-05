@@ -32,4 +32,4 @@ class InvoiceSplitterV1Document(Prediction):
         page_group_str = ":Invoice Page Groups:"
         for page_group in self.invoice_page_groups:
             page_group_str += f"\n  {str(page_group)}"
-        return clean_out_string(page_group_str).rstrip()
+        return clean_out_string(page_group_str)

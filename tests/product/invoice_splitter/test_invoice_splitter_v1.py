@@ -9,27 +9,24 @@ from mindee.product.invoice_splitter.invoice_splitter_v1_document import (
     InvoiceSplitterV1Document,
 )
 
-INVOICE_SPLITTER_DATA_DIR = "./tests/data/products/invoice_splitter"
-FILE_PATH_INVOICE_SPLITTER_V1_COMPLETE = (
-    f"{ INVOICE_SPLITTER_DATA_DIR }/response_v1/complete.json"
+FILE_PATH_COMPLETE = f"./tests/data/products/invoice_splitter/response_v1/complete.json"
+FILE_PATH_EMPTY = f"./tests/data/products/invoice_splitter/response_v1/empty.json"
+FILE_PATH_SUMMARY_FULL = (
+    f"./tests/data/products/invoice_splitter/response_v1/summary_full.rst"
 )
-FILE_PATH_INVOICE_SPLITTER_V1_EMPTY = (
-    f"{ INVOICE_SPLITTER_DATA_DIR }/response_v1/empty.json"
-)
-FILE_PATH_SUMMARY_FULL = f"{INVOICE_SPLITTER_DATA_DIR}/response_v1/summary_full.rst"
 
 
 @pytest.fixture
 def complete_doc() -> (
     Document[InvoiceSplitterV1Document, Page[InvoiceSplitterV1Document]]
 ):
-    json_data = json.load(open(FILE_PATH_INVOICE_SPLITTER_V1_COMPLETE))
+    json_data = json.load(open(FILE_PATH_COMPLETE))
     return Document(InvoiceSplitterV1, json_data["document"])
 
 
 @pytest.fixture
 def empty_doc() -> Document[InvoiceSplitterV1Document, Page[InvoiceSplitterV1Document]]:
-    json_data = json.load(open(FILE_PATH_INVOICE_SPLITTER_V1_EMPTY))
+    json_data = json.load(open(FILE_PATH_EMPTY))
     return Document(InvoiceSplitterV1, json_data["document"])
 
 

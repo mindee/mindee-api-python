@@ -5,9 +5,7 @@ import pytest
 from mindee import Client, PageOptions, product
 from mindee.http.error import HTTPException
 from mindee.input.sources import LocalInputSource
-from mindee.parsing.common.predict_response import PredictResponse
 from mindee.product.receipt.receipt_v4 import ReceiptV4
-from tests import INVOICE_DATA_DIR
 from tests.test_inputs import FILE_TYPES_DIR, PDF_DATA_DIR
 from tests.utils import clear_envvars, dummy_envvars
 
@@ -85,7 +83,7 @@ def test_keep_file_open(dummy_client: Client):
 
 def test_cut_options(dummy_client: Client):
     input_doc: LocalInputSource = dummy_client.source_from_path(
-        f"{INVOICE_DATA_DIR}/invoice_10p.pdf"
+        f"{FILE_TYPES_DIR}/pdf/multipage.pdf"
     )
     try:
         # need to keep file open to count the pages after parsing
