@@ -1,5 +1,6 @@
 import json
 from pathlib import Path
+from time import sleep
 from typing import BinaryIO, Dict, Optional, Union
 
 from mindee.http.endpoint import CustomEndpoint, Endpoint
@@ -97,7 +98,7 @@ class Client:
             This performs a cropping operation on the server and will increase response time.
         """
         if input_source is None:
-            raise TypeError("The 'enqueue' function requires an input document.")
+            raise TypeError("No input document provided.")
 
         if not endpoint:
             endpoint = self._initialize_ots_endpoint(product_class)
@@ -152,7 +153,7 @@ class Client:
             This performs a cropping operation on the server and will increase response time.
         """
         if input_source is None:
-            raise TypeError("The 'enqueue' function requires an input document.")
+            raise TypeError("No input document provided.")
 
         if not endpoint:
             endpoint = self._initialize_ots_endpoint(product_class)
@@ -194,6 +195,98 @@ class Client:
 
         return self._get_queued_document(product_class, endpoint, queue_id)
 
+    def _validate_async_params(
+        self, initial_delay_sec: float, delay_sec: float
+    ) -> None:
+        if delay_sec < 2:
+            raise TypeError("Cannot set auto-parsing delay to less than 2 seconds.")
+        if initial_delay_sec < 4:
+            raise TypeError("Cannot set initial parsing delay to less than 4 seconds.")
+
+    def enqueue_and_parse(
+        self,
+        product_class,
+        input_source: Union[LocalInputSource, UrlInputSource],
+        include_words: bool = False,
+        close_file: bool = True,
+        page_options: Optional[PageOptions] = None,
+        cropper: bool = False,
+        endpoint: Optional[Endpoint] = None,
+        initial_delay_sec: float = 6,
+        delay_sec: float = 3,
+        max_retries: int = 10,
+    ) -> AsyncPredictResponse:
+        """
+        Enqueueing to an async endpoint.
+
+        :param product_class: The document class to use.
+            The response object will be instantiated based on this parameter.
+
+        :param endpoint_name: For custom endpoints, the "API name" field in the "Settings" page of the API Builder.
+            Do not set for standard (off the shelf) endpoints.
+
+        :param account_name: For custom endpoints, your account or organization username on the API Builder.
+            This is normally not required unless you have a custom endpoint which has the
+            same name as standard (off the shelf) endpoint.
+            Do not set for standard (off the shelf) endpoints.
+
+        :param include_words: Whether to include the full text for each page.
+            This performs a full OCR operation on the server and will increase response time.
+
+        :param close_file: Whether to ``close()`` the file after parsing it.
+          Set to ``False`` if you need to access the file after this operation.
+
+        :param page_options: If set, remove pages from the document as specified.
+            This is done before sending the file to the server and is useful to avoid page limitations.
+
+        :param cropper: Whether to include cropper results for each page.
+            This performs a cropping operation on the server and will increase response time.
+
+        :param initial_delay_sec: Delay between each polling attempts
+            This should not be shorter than 4 seconds.
+
+        :param delay_sec: Delay between each polling attempts
+            This should not be shorter than 2 seconds.
+
+        :param max_retries: Total amount of polling attempts.
+        """
+        self._validate_async_params(initial_delay_sec, delay_sec)
+        if not endpoint:
+            endpoint = self._initialize_ots_endpoint(product_class)
+        queue_result = self.enqueue(
+            product_class,
+            input_source,
+            include_words,
+            close_file,
+            page_options,
+            cropper,
+            endpoint,
+        )
+        logger.debug(
+            "Successfully enqueued document with job id:%s", queue_result.job.id
+        )
+        sleep(initial_delay_sec)
+        retry_counter = 1
+        poll_results = self.parse_queued(product_class, queue_result.job.id, endpoint)
+        while retry_counter < max_retries:
+            if poll_results.job.status == "completed":
+                break
+            logger.debug(
+                "Polling server for parsing result with job id: %s", queue_result.job.id
+            )
+            retry_counter += 1
+            sleep(delay_sec)
+            poll_results = self.parse_queued(
+                product_class, queue_result.job.id, endpoint
+            )
+
+        if poll_results.job.status != "completed":
+            raise RuntimeError(
+                f"Couldn't retrieve document after {retry_counter} tries."
+            )
+
+        return poll_results
+
     def _make_request(
         self,
         product_class,
@@ -231,9 +324,7 @@ class Client:
         :param doc_config: Configuration of the document.
         """
         if input_source is None:
-            raise TypeError(
-                "The '_predict_async' class method requires an input document."
-            )
+            raise TypeError("No input document provided")
         if not endpoint:
             endpoint = self._initialize_ots_endpoint(product_class)
         response = endpoint.predict_async_req_post(
