@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from mindee.client import Client, OTS_OWNER
+from mindee.client import OTS_OWNER, Client
 from mindee.input.sources import PathInput
 from mindee.parsing.common.async_predict_response import AsyncPredictResponse
 from mindee.parsing.common.document import Document
@@ -25,16 +25,6 @@ def dummy_file_input() -> PathInput:
 @pytest.fixture
 def dummy_client() -> Client:
     return Client(api_key="dummy")
-
-
-def test_constructor(dummy_file_input):
-    with pytest.raises(KeyError):
-        Document(
-            dummy_file_input,
-            document_type="invoice_splitter",
-            api_prediction={},
-            page_id=0,
-        )
 
 
 def test_async_response_post_success():
@@ -73,14 +63,9 @@ def test_async_get_processing():
     assert not parsed_response.api_request.error
 
 
-def test_async_response_get_completed(dummy_file_input, dummy_config):
+def test_async_response_get_completed():
     response = json.load(open(FILE_PATH_GET_COMPLETED))
-    parsed_response = AsyncPredictResponse[InvoiceSplitterV1](
-        doc_config=dummy_config[(OTS_OWNER, InvoiceSplitterV1.__name__)],
-        http_response=response,
-        input_source=dummy_file_input,
-        response_ok=True,
-    )
+    parsed_response = AsyncPredictResponse(InvoiceSplitterV1, response)
     assert parsed_response.job is not None
     assert parsed_response.job.issued_at.isoformat() == "2023-03-21T13:52:56.326107"
     assert parsed_response.job.available_at.isoformat() == "2023-03-21T13:53:00.990339"

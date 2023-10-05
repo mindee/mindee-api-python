@@ -3,17 +3,14 @@ import pytest
 from mindee import Client, PageOptions, product
 from mindee.http.error import HTTPException
 from tests import INVOICE_DATA_DIR
-from tests.test_inputs import FILE_TYPES_DIR
+from tests.test_inputs import FILE_TYPES_DIR, PDF_DATA_DIR
 from tests.utils import clear_envvars, dummy_envvars
 
 
 @pytest.fixture
 def empty_client(monkeypatch):
     clear_envvars(monkeypatch)
-    return Client().create_endpoint(
-        endpoint_name="dummy",
-        account_name="dummy",
-    )
+    return Client()
 
 
 @pytest.fixture
@@ -38,23 +35,22 @@ def dummy_client_no_raise():
     return Client(api_key="dummy", raise_on_error=False)
 
 
-# def test_parse_path_without_token(empty_client):
-# with pytest.raises(RuntimeError):
-#     empty_client.doc_from_path(f"{FILE_TYPES_DIR}/receipt.jpg").parse(
-#         product.TypeReceiptV5
-#     )
-# with pytest.raises(RuntimeError):
-#     empty_client.doc_from_path(f"{FILE_TYPES_DIR}/receipt.jpg").parse(
-#         product.TypeInvoiceV4
-#     )
-# with pytest.raises(RuntimeError):
-#     empty_client.doc_from_path(f"{FILE_TYPES_DIR}/receipt.jpg").parse(
-#         product.TypeFinancialDocumentV1
-#     )
-# with pytest.raises(RuntimeError):
-#     empty_client.doc_from_path(f"{FILE_TYPES_DIR}/receipt.jpg").parse(
-#         product.TypePassportV1
-#     )
+def test_parse_path_without_token(empty_client: Client):
+    with pytest.raises(RuntimeError):
+        input_doc = empty_client.source_from_path(f"{PDF_DATA_DIR}/blank.pdf")
+        empty_client.parse(product.ReceiptV4, input_doc)
+    # with pytest.raises(RuntimeError):
+    #     empty_client.doc_from_path(f"{FILE_TYPES_DIR}/receipt.jpg").parse(
+    #         product.TypeInvoiceV4
+    #     )
+    # with pytest.raises(RuntimeError):
+    #     empty_client.doc_from_path(f"{FILE_TYPES_DIR}/receipt.jpg").parse(
+    #         product.TypeFinancialDocumentV1
+    #     )
+    # with pytest.raises(RuntimeError):
+    #     empty_client.doc_from_path(f"{FILE_TYPES_DIR}/receipt.jpg").parse(
+    #         product.TypePassportV1
+    #     )
 
 
 # def test_parse_path_with_env_token(env_client):

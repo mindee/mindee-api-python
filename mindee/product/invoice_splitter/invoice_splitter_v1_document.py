@@ -19,17 +19,17 @@ class InvoiceSplitterV1Document(Prediction):
 
         :param raw_prediction: Raw prediction from HTTP response
         """
+        invoice_page_groups = []
         if (
             "invoice_page_groups" in raw_prediction
             and len(raw_prediction["invoice_page_groups"]) > 0
         ):
-            self.invoice_page_groups = [
-                InvoiceSplitterV1PageGroup(prediction)
-                for prediction in raw_prediction["invoice_page_groups"]
-            ]
+            for prediction in raw_prediction["invoice_page_groups"]:
+                invoice_page_groups.append(InvoiceSplitterV1PageGroup(prediction))
+        self.invoice_page_groups = invoice_page_groups
 
     def __str__(self) -> str:
         page_group_str = ":Invoice Page Groups:"
         for page_group in self.invoice_page_groups:
             page_group_str += f"\n  {str(page_group)}"
-        return clean_out_string(page_group_str)
+        return clean_out_string(page_group_str).rstrip()

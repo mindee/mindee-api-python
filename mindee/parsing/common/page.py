@@ -21,20 +21,27 @@ class Page(Generic[TypePrediction]):
         self,
         prediction_type,
         raw_prediction: StringDict,
-        page_id: int,
-        orientation: Optional[StringDict],
     ) -> None:
-        if orientation is not None:
-            self.orientation = OrientationField(orientation, page_id=page_id)
-        self.id = page_id
-        self.prediction = prediction_type(raw_prediction["prediction"], page_id)
+        self.id = raw_prediction["id"]
+        if (
+            "orientation" in raw_prediction
+            and raw_prediction["orientation"] is not None
+        ):
+            self.orientation = OrientationField(
+                raw_prediction["orientation"], page_id=self.id
+            )
+        try:
+            self.prediction = prediction_type(raw_prediction["prediction"], self.id)
+        except TypeError:
+            self.prediction = prediction_type(raw_prediction["prediction"])
+
         if "extras" in raw_prediction and raw_prediction["extras"]:
             self.extras = Extras(raw_prediction["extras"])
 
     def __str__(self) -> str:
         title = f"Page {self.id}"
         dashes = "-" * len(title)
-        return f"{title}\n" f"{dashes}\n" f"{self.prediction}"
+        return f"{title}\n" f"{dashes}\n" f"{self.prediction}\n"
 
 
 TypePage = TypeVar("TypePage", bound=Page)
