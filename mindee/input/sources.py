@@ -175,6 +175,11 @@ class LocalInputSource:
             self.file_object.seek(0)
         return self.filename, data
 
+    def close(self) -> None:
+        """Close the file object."""
+        self.file_object.close()
+
+
 
 class FileInput(LocalInputSource):
     """A binary file input."""

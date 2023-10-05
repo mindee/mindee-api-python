@@ -101,7 +101,7 @@
 
 # def call_endpoint(args: Namespace):
 #     """Call the endpoint given passed arguments."""
-#     client = Client(api_key=args.api_key, raise_on_error=args.raise_on_error)
+#     client = Client(api_key=args.api_key)
 #     info = DOCUMENTS[args.product_name]
 #     doc_class = info.doc_class
 
@@ -212,13 +212,6 @@
 # def _parse_args() -> Namespace:
 #     """Parse command line arguments."""
 #     parser = argparse.ArgumentParser(description="Mindee API")
-#     parser.add_argument(
-#         "-E",
-#         "--no-raise-errors",
-#         action="store_false",
-#         dest="raise_on_error",
-#         help="don't raise errors",
-#     )
 #     subparsers = parser.add_subparsers(
 #         dest="product_name",
 #         required=True,

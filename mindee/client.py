@@ -49,17 +49,14 @@ class Client:
     See: https://developers.mindee.com/docs/
     """
 
-    raise_on_error: bool
     api_key: str
 
-    def __init__(self, api_key: str = "", raise_on_error: bool = True) -> None:
+    def __init__(self, api_key: str = "") -> None:
         """
         Mindee API Client.
 
         :param api_key: Your API key for all endpoints
-        :param raise_on_error: Raise an Exception on HTTP errors
         """
-        self.raise_on_error = raise_on_error
         self.api_key = api_key
 
     def parse(
@@ -211,7 +208,7 @@ class Client:
 
         dict_response = response.json()
 
-        if not response.ok and self.raise_on_error:
+        if not response.ok:
             raise HTTPException(
                 f"API {response.status_code} HTTP error: {json.dumps(dict_response)}"
             )
@@ -244,7 +241,7 @@ class Client:
 
         dict_response = response.json()
 
-        if not response.ok and self.raise_on_error:
+        if not response.ok:
             raise HTTPException(
                 f"API {response.status_code} HTTP error: {json.dumps(dict_response)}"
             )
@@ -283,11 +280,6 @@ class Client:
         return self._build_endpoint(
             endpoint_info["name"], OTS_OWNER, endpoint_info["version"]
         )
-
-    def close(self, input_source) -> None:
-        """Close the file object."""
-        if isinstance(input_source, LocalInputSource):
-            input_source.file_object.close()
 
     def _build_endpoint(
         self, endpoint_name: str, account_name: str, version: str
