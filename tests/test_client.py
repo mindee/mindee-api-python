@@ -6,7 +6,7 @@ from mindee import Client, PageOptions, product
 from mindee.http.error import HTTPException
 from mindee.input.sources import LocalInputSource
 from mindee.product.receipt.receipt_v4 import ReceiptV4
-from tests.test_inputs import FILE_TYPES_DIR, PDF_DATA_DIR
+from tests.test_inputs import FILE_TYPES_DIR
 from tests.utils import clear_envvars, dummy_envvars
 
 
@@ -29,24 +29,24 @@ def dummy_client() -> Client:
 
 def test_parse_path_without_token(empty_client: Client):
     with pytest.raises(RuntimeError):
-        input_doc = empty_client.source_from_path(f"{PDF_DATA_DIR}/blank.pdf")
+        input_doc = empty_client.source_from_path(FILE_TYPES_DIR / "pdf" / "blank.pdf")
         empty_client.parse(product.ReceiptV4, input_doc)
 
 
 def test_parse_path_with_env_token(env_client: Client):
     with pytest.raises(HTTPException):
-        input_doc = env_client.source_from_path(f"{PDF_DATA_DIR}/blank.pdf")
+        input_doc = env_client.source_from_path(FILE_TYPES_DIR / "pdf" / "blank.pdf")
         env_client.parse(product.ReceiptV4, input_doc)
 
 
 def test_parse_path_with_wrong_filetype(dummy_client: Client):
     with pytest.raises(AssertionError):
-        dummy_client.source_from_path(f"{FILE_TYPES_DIR}/receipt.jpga")
+        dummy_client.source_from_path(FILE_TYPES_DIR / "receipt.jpga")
 
 
 def test_parse_path_with_wrong_token(dummy_client: Client):
     with pytest.raises(HTTPException):
-        input_doc = dummy_client.source_from_path(f"{PDF_DATA_DIR}/blank.pdf")
+        input_doc = dummy_client.source_from_path(FILE_TYPES_DIR / "pdf" / "blank.pdf")
         dummy_client.parse(product.ReceiptV4, input_doc)
 
 
@@ -64,7 +64,7 @@ def test_interface_version(dummy_client: Client):
         version="1.1",
     )
     with pytest.raises(HTTPException):
-        input_doc = dummy_client.source_from_path(f"{FILE_TYPES_DIR}/receipt.jpg")
+        input_doc = dummy_client.source_from_path(FILE_TYPES_DIR / "receipt.jpg")
         dummy_client.parse(product.TypeCustomV1, input_doc, endpoint=dummy_endpoint)
 
 

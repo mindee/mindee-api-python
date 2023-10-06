@@ -1,4 +1,5 @@
 import json
+from pathlib import Path
 from typing import BinaryIO, Dict, Optional, Union
 
 from mindee.http.endpoint import CustomEndpoint, Endpoint
@@ -322,7 +323,7 @@ class Client:
 
     def source_from_path(
         self,
-        input_path: str,
+        input_path: Union[Path, str],
     ) -> PathInput:
         """
         Load a document from an absolute path, as a string.

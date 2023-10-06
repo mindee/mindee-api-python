@@ -1,5 +1,4 @@
 import json
-from pathlib import Path
 
 import pytest
 
@@ -13,12 +12,7 @@ from tests.product import PRODUCT_DATA_DIR
 @pytest.fixture
 def complete_doc() -> Document[ReceiptV4Document, Page[ReceiptV4Document]]:
     json_data = json.load(
-        open(
-            Path(PRODUCT_DATA_DIR)
-            / "expense_receipts"
-            / "response_v4"
-            / "complete.json"
-        )
+        open(PRODUCT_DATA_DIR / "expense_receipts" / "response_v4" / "complete.json")
     )
     return Document(ReceiptV4, json_data["document"])
 
@@ -26,7 +20,7 @@ def complete_doc() -> Document[ReceiptV4Document, Page[ReceiptV4Document]]:
 @pytest.fixture
 def empty_doc() -> Document[ReceiptV4Document, Page[ReceiptV4Document]]:
     json_data = json.load(
-        open(Path(PRODUCT_DATA_DIR) / "expense_receipts" / "response_v4" / "empty.json")
+        open(PRODUCT_DATA_DIR / "expense_receipts" / "response_v4" / "empty.json")
     )
     return Document(ReceiptV4, json_data["document"])
 
@@ -34,12 +28,7 @@ def empty_doc() -> Document[ReceiptV4Document, Page[ReceiptV4Document]]:
 @pytest.fixture
 def complete_page_0() -> Page[ReceiptV4Document]:
     json_data = json.load(
-        open(
-            Path(PRODUCT_DATA_DIR)
-            / "expense_receipts"
-            / "response_v4"
-            / "complete.json"
-        )
+        open(PRODUCT_DATA_DIR / "expense_receipts" / "response_v4" / "complete.json")
     )
     return Page(ReceiptV4Document, json_data["document"]["inference"]["pages"][0])
 
@@ -48,10 +37,7 @@ def test_complete_doc(
     complete_doc: Document[ReceiptV4Document, Page[ReceiptV4Document]]
 ):
     reference_str = open(
-        Path(PRODUCT_DATA_DIR)
-        / "expense_receipts"
-        / "response_v4"
-        / "summary_full.rst",
+        PRODUCT_DATA_DIR / "expense_receipts" / "response_v4" / "summary_full.rst",
         "r",
         encoding="utf-8",
     ).read()
@@ -73,10 +59,7 @@ def test_empty_doc(empty_doc: Document[ReceiptV4Document, Page[ReceiptV4Document
 
 def test_complete_page(complete_page_0: Page[ReceiptV4Document]):
     reference_str = open(
-        Path(PRODUCT_DATA_DIR)
-        / "expense_receipts"
-        / "response_v4"
-        / "summary_page0.rst",
+        PRODUCT_DATA_DIR / "expense_receipts" / "response_v4" / "summary_page0.rst",
         "r",
         encoding="utf-8",
     ).read()

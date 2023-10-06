@@ -17,12 +17,7 @@ def complete_doc() -> (
     Document[InvoiceSplitterV1Document, Page[InvoiceSplitterV1Document]]
 ):
     json_data = json.load(
-        open(
-            Path(PRODUCT_DATA_DIR)
-            / "invoice_splitter"
-            / "response_v1"
-            / "complete.json"
-        )
+        open(PRODUCT_DATA_DIR / "invoice_splitter" / "response_v1" / "complete.json")
     )
     return Document(InvoiceSplitterV1, json_data["document"])
 
@@ -30,7 +25,7 @@ def complete_doc() -> (
 @pytest.fixture
 def empty_doc() -> Document[InvoiceSplitterV1Document, Page[InvoiceSplitterV1Document]]:
     json_data = json.load(
-        open(Path(PRODUCT_DATA_DIR) / "invoice_splitter" / "response_v1" / "empty.json")
+        open(PRODUCT_DATA_DIR / "invoice_splitter" / "response_v1" / "empty.json")
     )
     return Document(InvoiceSplitterV1, json_data["document"])
 
@@ -39,10 +34,7 @@ def test_complete_doc(
     complete_doc: Document[InvoiceSplitterV1Document, Page[InvoiceSplitterV1Document]],
 ):
     reference_str = open(
-        Path(PRODUCT_DATA_DIR)
-        / "invoice_splitter"
-        / "response_v1"
-        / "summary_full.rst",
+        PRODUCT_DATA_DIR / "invoice_splitter" / "response_v1" / "summary_full.rst",
         "r",
         encoding="utf-8",
     ).read()

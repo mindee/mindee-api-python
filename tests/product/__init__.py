@@ -1,1 +1,3 @@
-PRODUCT_DATA_DIR = "./tests/data/products/"
+from pathlib import Path
+
+PRODUCT_DATA_DIR = Path("./tests/data/products/")
