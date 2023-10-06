@@ -25,6 +25,7 @@ class CarteVitaleV1Document(Prediction):
         Carte Vitale document.
 
         :param raw_prediction: Raw prediction from HTTP response
+        :param page_id: Page number for multi pages pdf input
         """
         self.given_names = [
             StringField(prediction, page_id=page_id)
