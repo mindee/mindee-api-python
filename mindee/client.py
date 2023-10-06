@@ -77,9 +77,6 @@ class Client:
         :param product_class: The document class to use.
             The response object will be instantiated based on this parameter.
 
-        :param endpoint_name: For custom endpoints, the "API name" field in the "Settings" page of the API Builder.
-            Do not set for standard (off the shelf) endpoints.
-
         :param account_name: For custom endpoints, your account or organization username on the API Builder.
             This is normally not required unless you have a custom endpoint which has the
             same name as standard (off the shelf) endpoint.
@@ -96,6 +93,8 @@ class Client:
 
         :param cropper: Whether to include cropper results for each page.
             This performs a cropping operation on the server and will increase response time.
+
+        :param endpoint: For custom endpoints, an endpoint has to be given.
         """
         if input_source is None:
             raise TypeError("No input document provided.")
@@ -132,9 +131,6 @@ class Client:
         :param product_class: The document class to use.
             The response object will be instantiated based on this parameter.
 
-        :param endpoint_name: For custom endpoints, the "API name" field in the "Settings" page of the API Builder.
-            Do not set for standard (off the shelf) endpoints.
-
         :param account_name: For custom endpoints, your account or organization username on the API Builder.
             This is normally not required unless you have a custom endpoint which has the
             same name as standard (off the shelf) endpoint.
@@ -151,6 +147,8 @@ class Client:
 
         :param cropper: Whether to include cropper results for each page.
             This performs a cropping operation on the server and will increase response time.
+
+        :param endpoint: For custom endpoints, an endpoint has to be given.
         """
         if input_source is None:
             raise TypeError("No input document provided.")
@@ -187,6 +185,7 @@ class Client:
             This is normally not required unless you have a custom endpoint which has the
             same name as standard (off the shelf) endpoint.
             Do not set for standard (off the shelf) endpoints.
+        :param endpoint: For custom endpoints, an endpoint has to be given.
         """
         if not endpoint:
             endpoint = self._initialize_ots_endpoint(product_class)
@@ -222,9 +221,6 @@ class Client:
         :param product_class: The document class to use.
             The response object will be instantiated based on this parameter.
 
-        :param endpoint_name: For custom endpoints, the "API name" field in the "Settings" page of the API Builder.
-            Do not set for standard (off the shelf) endpoints.
-
         :param account_name: For custom endpoints, your account or organization username on the API Builder.
             This is normally not required unless you have a custom endpoint which has the
             same name as standard (off the shelf) endpoint.
@@ -242,6 +238,8 @@ class Client:
         :param cropper: Whether to include cropper results for each page.
             This performs a cropping operation on the server and will increase response time.
 
+        :param endpoint: For custom endpoints, an endpoint has to be given.
+
         :param initial_delay_sec: Delay between each polling attempts
             This should not be shorter than 4 seconds.
 
@@ -249,6 +247,7 @@ class Client:
             This should not be shorter than 2 seconds.
 
         :param max_retries: Total amount of polling attempts.
+
         """
         self._validate_async_params(initial_delay_sec, delay_sec)
         if not endpoint:
@@ -263,7 +262,7 @@ class Client:
             endpoint,
         )
         logger.debug(
-            "Successfully enqueued document with job id:%s", queue_result.job.id
+            "Successfully enqueued document with job id: %s", queue_result.job.id
         )
         sleep(initial_delay_sec)
         retry_counter = 1

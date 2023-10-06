@@ -11,7 +11,10 @@ mindee_client = Client(api_key="my-api-key")
 input_doc = mindee_client.source_from_path("/path/to/the/file.ext")
 
 # Load a file from disk and enqueue it.
-result: AsyncPredictResponse = mindee_client.enqueue_and_parse(InvoiceSplitterV1, input_doc)
+result: AsyncPredictResponse = mindee_client.enqueue_and_parse(
+    InvoiceSplitterV1,
+    input_doc,
+)
 
 # Print a brief summary of the parsed data
 print(result.document)
