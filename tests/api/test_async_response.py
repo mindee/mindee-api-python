@@ -2,10 +2,9 @@ import json
 
 import pytest
 
-from mindee.client import OTS_OWNER, Client
+from mindee.client import Client
 from mindee.input.sources import PathInput
 from mindee.parsing.common.async_predict_response import AsyncPredictResponse
-from mindee.parsing.common.document import Document
 from mindee.product.invoice_splitter import InvoiceSplitterV1
 
 ASYNC_DIR = "./tests/data/async"
