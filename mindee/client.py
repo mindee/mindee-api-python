@@ -77,10 +77,8 @@ class Client:
         :param product_class: The document class to use.
             The response object will be instantiated based on this parameter.
 
-        :param account_name: For custom endpoints, your account or organization username on the API Builder.
-            This is normally not required unless you have a custom endpoint which has the
-            same name as standard (off the shelf) endpoint.
-            Do not set for standard (off the shelf) endpoints.
+        :param input_source: The document/source file to use.
+            Has to be be created beforehand.
 
         :param include_words: Whether to include the full text for each page.
             This performs a full OCR operation on the server and will increase response time.
@@ -131,10 +129,8 @@ class Client:
         :param product_class: The document class to use.
             The response object will be instantiated based on this parameter.
 
-        :param account_name: For custom endpoints, your account or organization username on the API Builder.
-            This is normally not required unless you have a custom endpoint which has the
-            same name as standard (off the shelf) endpoint.
-            Do not set for standard (off the shelf) endpoints.
+        :param input_source: The document/source file to use.
+            Has to be be created beforehand.
 
         :param include_words: Whether to include the full text for each page.
             This performs a full OCR operation on the server and will increase response time.
@@ -178,13 +174,9 @@ class Client:
         """
         Parses a queued document.
 
+        :param product_class: The document class to use.
+            The response object will be instantiated based on this parameter.
         :param queue_id: queue_id received from the API
-        :param endpoint_name: For custom endpoints, the "API name" field in the "Settings" page of the API Builder.
-            Do not set for standard (off the shelf) endpoints.
-        :param account_name: For custom endpoints, your account or organization username on the API Builder.
-            This is normally not required unless you have a custom endpoint which has the
-            same name as standard (off the shelf) endpoint.
-            Do not set for standard (off the shelf) endpoints.
         :param endpoint: For custom endpoints, an endpoint has to be given.
         """
         if not endpoint:
@@ -221,10 +213,8 @@ class Client:
         :param product_class: The document class to use.
             The response object will be instantiated based on this parameter.
 
-        :param account_name: For custom endpoints, your account or organization username on the API Builder.
-            This is normally not required unless you have a custom endpoint which has the
-            same name as standard (off the shelf) endpoint.
-            Do not set for standard (off the shelf) endpoints.
+        :param input_source: The document/source file to use.
+            Has to be be created beforehand.
 
         :param include_words: Whether to include the full text for each page.
             This performs a full OCR operation on the server and will increase response time.
