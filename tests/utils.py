@@ -5,7 +5,7 @@ from mindee.http.mindee_api import (
 )
 
 
-def clear_envvars(monkeypatch):
+def clear_envvars(monkeypatch) -> None:
     """
     If we have envvars set, the test will pick them up and fail,
     so let's make sure they're empty.
@@ -15,7 +15,7 @@ def clear_envvars(monkeypatch):
     monkeypatch.setenv(REQUEST_TIMEOUT_ENV_NAME, "")
 
 
-def dummy_envvars(monkeypatch):
+def dummy_envvars(monkeypatch) -> None:
     """
     Set all API keys to 'dummy'.
     """

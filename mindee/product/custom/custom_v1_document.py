@@ -35,4 +35,4 @@ class CustomV1Document(Prediction):
             out_str += f":{classification_name}: {classification_value}\n"
         for field_name, field_value in self.fields.items():
             out_str += f":{field_name}: {field_value}\n"
-        return clean_out_string(out_str).rstrip()
+        return clean_out_string(out_str)

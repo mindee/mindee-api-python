@@ -30,11 +30,4 @@ class ReceiptV4(Inference):
         self.prediction = ReceiptV4Document(raw_prediction["prediction"])
         self.pages = []
         for page in raw_prediction["pages"]:
-            self.pages.append(
-                Page[ReceiptV4Document](
-                    ReceiptV4Document,
-                    page,
-                    page_id=page["id"],
-                    orientation=page["orientation"],
-                )
-            )
+            self.pages.append(Page(ReceiptV4Document, page))

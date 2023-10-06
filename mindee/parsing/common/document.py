@@ -1,9 +1,11 @@
 import datetime
-from typing import Any, Optional
+from typing import Any, Generic, Optional
 
 from mindee.parsing.common.extras.extras import Extras
 from mindee.parsing.common.inference import Inference
 from mindee.parsing.common.ocr.ocr import Ocr
+from mindee.parsing.common.page import TypePage
+from mindee.parsing.common.prediction import TypePrediction
 from mindee.parsing.common.string_dict import StringDict
 
 
@@ -18,12 +20,12 @@ def serialize_for_json(obj: Any) -> Any:
     return vars(obj)
 
 
-class Document:
+class Document(Generic[TypePrediction, TypePage]):
     """Base class for all predictions."""
 
     filename: str
     """Name of the input document"""
-    inference: Inference
+    inference: Inference[TypePrediction, TypePage]
     """Result of the base inference"""
     id: str
     """Id of the document as sent back by the server"""

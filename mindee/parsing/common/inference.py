@@ -48,7 +48,7 @@ class Inference(Generic[TypePrediction, TypePage]):
             f"==========\n"
             f"{prediction_str}\n"
             f"Page Predictions\n"
-            f"================\n"
+            f"================\n\n"
             f"{pages_str}"
         )
 
