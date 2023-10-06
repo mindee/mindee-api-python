@@ -1,7 +1,6 @@
 from typing import Optional, TypeVar
 
-from mindee.parsing.common import Prediction, clean_out_string
-from mindee.parsing.common.string_dict import StringDict
+from mindee.parsing.common import Prediction, StringDict, clean_out_string
 from mindee.parsing.standard import (
     AmountField,
     ClassificationField,

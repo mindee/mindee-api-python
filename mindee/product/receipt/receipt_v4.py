@@ -10,21 +10,22 @@ class ReceiptV4(Inference):
     """Inference prediction for Receipt, API version 4."""
 
     prediction: ReceiptV4Document
+    """Document-level prediction."""
     pages: List[Page[ReceiptV4Document]]
+    """Page-level prediction(s)."""
     endpoint_name = "expense_receipts"
-    """The endpoint's name"""
+    """Name of the endpoint."""
     endpoint_version = "4"
-    """The endpoint's version"""
+    """Version of the endpoint."""
 
     def __init__(
         self,
         raw_prediction: StringDict,
     ) -> None:
         """
-        Receipt document.
+        Invoice Splitter v1 inference.
 
-        :param raw_prediction: Raw prediction from HTTP response
-        :param page_id: Page number for multi pages pdf input
+        :param raw_prediction: Raw prediction from the HTTP response.
         """
         super().__init__(raw_prediction=raw_prediction)
         self.prediction = ReceiptV4Document(raw_prediction["prediction"])

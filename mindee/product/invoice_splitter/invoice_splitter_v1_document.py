@@ -1,7 +1,6 @@
 from typing import List
 
-from mindee.parsing.common import StringDict, clean_out_string
-from mindee.parsing.common.prediction import Prediction
+from mindee.parsing.common import Prediction, StringDict, clean_out_string
 from mindee.product.invoice_splitter.invoice_splitter_v1_page_group import (
     InvoiceSplitterV1PageGroup,
 )
