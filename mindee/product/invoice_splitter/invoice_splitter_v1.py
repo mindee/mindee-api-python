@@ -1,4 +1,4 @@
-from typing import List, TypeVar
+from typing import List
 
 from mindee.parsing.common import Inference, Page, StringDict
 from mindee.product.invoice_splitter.invoice_splitter_v1_document import (
@@ -29,6 +29,3 @@ class InvoiceSplitterV1(Inference):
         self.pages = []
         for page in raw_prediction["pages"]:
             self.pages.append(Page(InvoiceSplitterV1Document, page))
-
-
-TypeInvoiceSplitterV1 = TypeVar("TypeInvoiceSplitterV1", bound=InvoiceSplitterV1)

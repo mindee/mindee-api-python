@@ -1,8 +1,6 @@
 from typing import List
 
-from mindee.parsing.common import Inference
-from mindee.parsing.common.page import Page
-from mindee.parsing.common.string_dict import StringDict
+from mindee.parsing.common import Inference, Page, StringDict
 from mindee.product.receipt.receipt_v4_document import ReceiptV4Document
 
 

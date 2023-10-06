@@ -66,7 +66,7 @@ def test_interface_version(dummy_client: Client):
     )
     with pytest.raises(HTTPException):
         input_doc = dummy_client.source_from_path(FILE_TYPES_DIR / "receipt.jpg")
-        dummy_client.parse(product.TypeCustomV1, input_doc, endpoint=dummy_endpoint)
+        dummy_client.parse(product.CustomV1, input_doc, endpoint=dummy_endpoint)
 
 
 def test_keep_file_open(dummy_client: Client):

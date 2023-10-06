@@ -2,8 +2,6 @@ from mindee import Client, product
 from time import sleep
 from mindee.parsing.common import AsyncPredictResponse
 
-from mindee.product import InvoiceSplitterV1
-
 # Init a new client
 mindee_client = Client(api_key="my-api-key")
 
@@ -12,7 +10,7 @@ input_doc = mindee_client.source_from_path("/path/to/the/file.ext")
 
 # Load a file from disk and enqueue it.
 result: AsyncPredictResponse = mindee_client.enqueue_and_parse(
-    InvoiceSplitterV1,
+    product.InvoiceSplitterV1,
     input_doc,
 )
 

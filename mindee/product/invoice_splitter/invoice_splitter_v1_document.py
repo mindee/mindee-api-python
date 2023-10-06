@@ -14,7 +14,7 @@ class InvoiceSplitterV1Document(Prediction):
 
     def __init__(self, raw_prediction: StringDict) -> None:
         """
-        Invoice Splitter document Object.
+        Invoice Splitter document.
 
         :param raw_prediction: Raw prediction from HTTP response
         """

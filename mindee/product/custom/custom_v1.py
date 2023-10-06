@@ -1,4 +1,4 @@
-from typing import List, TypeVar
+from typing import List
 
 from mindee.parsing.common import Inference, Page, StringDict
 from mindee.product.custom.custom_v1_document import CustomV1Document
@@ -28,6 +28,3 @@ class CustomV1(Inference):
         self.pages = []
         for page in raw_prediction["pages"]:
             self.pages.append(Page(CustomV1Page, page))
-
-
-TypeCustomV1 = TypeVar("TypeCustomV1", bound=CustomV1)

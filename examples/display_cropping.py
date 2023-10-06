@@ -63,10 +63,10 @@ if __name__ == "__main__":
     mindee_client = Client()
 
     # Load a file from disk
-    input_doc = mindee_client.doc_from_path(image_path)
+    input_doc = mindee_client.source_from_path(image_path)
 
     # Parse the document by passing the appropriate type
-    # api_response = input_doc.parse(product.TypeCropperV1)
+    # api_response = mindee_client.parse(input_doc, product.CropperV1)
 
     # Display
     # show_image_crops(image_path, api_response.pages[0].cropping)
