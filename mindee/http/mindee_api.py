@@ -36,7 +36,7 @@ class MindeeApi:
     def _set_api_key(self, api_key: Optional[str]) -> None:
         """Set the endpoint's API key from an environment variable, if present."""
         env_val = os.getenv(API_KEY_ENV_NAME, "")
-        if env_val:
+        if env_val and (not api_key or len(api_key) == 0):
             logger.debug("API key set from environment")
             self.api_key = env_val
             return

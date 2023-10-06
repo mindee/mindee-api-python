@@ -16,7 +16,6 @@
 #         account_name="mindee",
 #         api_key="dummy",
 #         api_version="1",
-#         raise_on_error=True,
 #         cut_doc=False,
 #         doc_pages=3,
 #         input_type="path",
@@ -32,7 +31,6 @@
 #     clear_envvars(monkeypatch)
 #     return Namespace(
 #         api_key="dummy",
-#         raise_on_error=True,
 #         cut_doc=False,
 #         doc_pages=3,
 #         input_type="path",
@@ -48,7 +46,6 @@
 #     clear_envvars(monkeypatch)
 #     return Namespace(
 #         api_key="dummy",
-#         raise_on_error=True,
 #         cut_doc=False,
 #         doc_pages=3,
 #         input_type="path",
@@ -63,7 +60,6 @@
 #     clear_envvars(monkeypatch)
 #     return Namespace(
 #         api_key="dummy",
-#         raise_on_error=True,
 #         output_type="summary",
 #         queue_id="dummy-queue-id",
 #         call_method="parse-queued",

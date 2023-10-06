@@ -3,7 +3,8 @@ import io
 import mimetypes
 import os
 from enum import Enum
-from typing import BinaryIO, Optional, Sequence, Tuple
+from pathlib import Path
+from typing import BinaryIO, Optional, Sequence, Tuple, Union
 
 import pikepdf
 
@@ -175,6 +176,10 @@ class LocalInputSource:
             self.file_object.seek(0)
         return self.filename, data
 
+    def close(self) -> None:
+        """Close the file object."""
+        self.file_object.close()
+
 
 class FileInput(LocalInputSource):
     """A binary file input."""
@@ -198,7 +203,7 @@ class FileInput(LocalInputSource):
 class PathInput(LocalInputSource):
     """A local path input."""
 
-    def __init__(self, filepath: str) -> None:
+    def __init__(self, filepath: Union[Path, str]) -> None:
         """
         Input document from a path.
 
@@ -206,7 +211,7 @@ class PathInput(LocalInputSource):
         """
         self.file_object = open(filepath, "rb")  # pylint: disable=consider-using-with
         self.filename = os.path.basename(filepath)
-        self.filepath = filepath
+        self.filepath = str(filepath)
         super().__init__(input_type=InputType.PATH)
 
 

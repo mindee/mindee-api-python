@@ -26,7 +26,7 @@ class CustomV1(Inference):
         self.prediction = CustomV1Document(raw_prediction["prediction"])
         self.pages = []
         for page in raw_prediction["pages"]:
-            self.pages.append(Page(CustomV1Page, page, page["id"], page["orientation"]))
+            self.pages.append(Page(CustomV1Page, page))
 
 
 TypeCustomV1 = TypeVar("TypeCustomV1", bound=CustomV1)

@@ -21,9 +21,7 @@ class InvoiceSplitterV1(Inference):
         self.prediction = InvoiceSplitterV1Document(raw_prediction["prediction"])
         self.pages = []
         for page in raw_prediction["pages"]:
-            self.pages.append(
-                Page(InvoiceSplitterV1Document, page, page["id"], page["orientation"])
-            )
+            self.pages.append(Page(InvoiceSplitterV1Document, page))
 
 
 TypeInvoiceSplitterV1 = TypeVar("TypeInvoiceSplitterV1", bound=InvoiceSplitterV1)

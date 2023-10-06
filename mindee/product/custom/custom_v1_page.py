@@ -24,4 +24,4 @@ class CustomV1Page(Prediction):
         out_str = ""
         for field_name, field_value in self.fields.items():
             out_str += f":{field_name}: {field_value}\n"
-        return clean_out_string(out_str).rstrip()
+        return clean_out_string(out_str)
