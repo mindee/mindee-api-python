@@ -11,7 +11,7 @@ class CarteVitaleV1(Inference):
 
     prediction: CarteVitaleV1Document
     """Document-level prediction."""
-    pages: List[Page]
+    pages: List[Page[CarteVitaleV1Document]]
     """Page-level prediction(s)."""
     endpoint_name = "carte_vitale"
     """Name of the endpoint."""
