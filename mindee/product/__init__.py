@@ -1,6 +1,6 @@
 from mindee.product import eu, fr, us
 
-# from mindee.product.cropper import CropperV1
+from mindee.product.cropper import CropperV1
 from mindee.product.custom import CustomV1
 
 # from mindee.product.financial_document import (

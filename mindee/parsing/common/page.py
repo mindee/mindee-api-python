@@ -13,13 +13,13 @@ class Page(Generic[TypePrediction]):
     """Id of the current page."""
     orientation: Optional[OrientationField]
     """Orientation of the page"""
-    prediction: Prediction
+    prediction: TypePrediction
     """Type of Page prediction."""
     extras: Optional[Extras]
 
     def __init__(
         self,
-        prediction_type: Type[Prediction],
+        prediction_type: Type[TypePrediction],
         raw_prediction: StringDict,
     ) -> None:
         self.id = raw_prediction["id"]
