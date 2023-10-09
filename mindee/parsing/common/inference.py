@@ -21,15 +21,16 @@ class Inference(Generic[TypePrediction, TypePage]):
     """A document's pages."""
     is_rotation_applied: Optional[bool]
     """Whether the document has had any rotation applied to it."""
+    page_id: Optional[int]
+    """Optional page id for page-level predictions."""
 
-    def __init__(
-        self,
-        raw_prediction: StringDict,
-    ):
+    def __init__(self, raw_prediction: StringDict, page_id: Optional[int] = None):
         self.is_rotation_applied = None
         if "is_rotation_applied" in raw_prediction:
             self.is_rotation_applied = raw_prediction["is_rotation_applied"]
         self.product = Product(raw_prediction["product"])
+        if page_id:
+            self.page_id = page_id
 
     def __str__(self) -> str:
         rotation_applied_str = "Yes" if self.is_rotation_applied else "No"
