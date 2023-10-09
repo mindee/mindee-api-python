@@ -5,6 +5,7 @@ import pytest
 from mindee import Client, PageOptions, product
 from mindee.http.error import HTTPException
 from mindee.input.sources import LocalInputSource
+from mindee.product.invoice_splitter.invoice_splitter_v1 import InvoiceSplitterV1
 from mindee.product.receipt.receipt_v4 import ReceiptV4
 from tests.test_inputs import FILE_TYPES_DIR
 from tests.utils import clear_envvars, dummy_envvars
@@ -97,3 +98,17 @@ def test_cut_options(dummy_client: Client):
         pass
     assert input_doc.count_doc_pages() == 5
     input_doc.close()
+
+
+def test_async_wrong_initial_delay(dummy_client: Client):
+    input_doc = dummy_client.source_from_path(FILE_TYPES_DIR / "pdf" / "blank.pdf")
+    with pytest.raises(TypeError):
+        dummy_client.enqueue_and_parse(
+            InvoiceSplitterV1, input_doc, initial_delay_sec=0
+        )
+
+
+def test_async_wrong_polling_delay(dummy_client: Client):
+    input_doc = dummy_client.source_from_path(FILE_TYPES_DIR / "pdf" / "blank.pdf")
+    with pytest.raises(TypeError):
+        dummy_client.enqueue_and_parse(InvoiceSplitterV1, input_doc, delay_sec=0)
