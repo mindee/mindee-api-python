@@ -21,7 +21,7 @@ class CompanyRegistrationField(FieldPositionMixin, BaseField):
         self.type = raw_prediction["type"]
         self._set_position(raw_prediction)
 
-    def __str__(self) -> str:
+    def display(self) -> str:
         if self.value:
             return f"{self.type}: {self.value}"
         return ""

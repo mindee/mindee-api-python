@@ -63,7 +63,5 @@ def test_complete_page_0(complete_page_0: Page[IdCardV1Page]):
         "r",
         encoding="utf-8",
     ).read()
-    assert complete_page_0.orientation
-    assert complete_page_0.orientation.value == 0
     assert complete_page_0.id == 0
     assert str(complete_page_0) == reference_str

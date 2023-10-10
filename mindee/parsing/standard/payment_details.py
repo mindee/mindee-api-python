@@ -4,7 +4,7 @@ from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.standard.base import BaseField, FieldPositionMixin
 
 
-class PaymentDetails(FieldPositionMixin, BaseField):
+class PaymentDetailsField(FieldPositionMixin, BaseField):
     """Information on a single payment."""
 
     account_number: Optional[str] = None

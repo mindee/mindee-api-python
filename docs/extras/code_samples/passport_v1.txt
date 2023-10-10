@@ -1,0 +1,18 @@
+from mindee import Client, PredictResponse, product
+
+# Init a new client
+mindee_client = Client(api_key="my-api-key")
+
+# Load a file from disk
+input_doc = mindee_client.source_from_path("/path/to/the/file.ext")
+
+# Load a file from disk and parse it.
+# The endpoint name must be specified since it cannot be determined from the class.
+result: PredictResponse = mindee_client.parse(product.PassportV1, input_doc)
+
+# Print a brief summary of the parsed data
+print(result.document)
+
+# # Iterate over all the fields in the document
+# for field_name, field_values in result.document.inference.prediction.fields.items():
+#     print(field_name, "=", field_values)

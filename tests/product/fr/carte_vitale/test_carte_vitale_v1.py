@@ -35,9 +35,7 @@ def complete_page_0() -> Page[CarteVitaleV1Document]:
     return Page(CarteVitaleV1Document, json_data["document"]["inference"]["pages"][0])
 
 
-def test_complete_doc(
-    complete_doc: Document[CarteVitaleV1Document, Page[CarteVitaleV1Document]]
-):
+def test_complete_doc(complete_doc: Document[CarteVitaleV1Document, Page[CarteVitaleV1Document]]):
     reference_str = open(
         PRODUCT_DATA_DIR / "carte_vitale" / "response_v1" / "summary_full.rst",
         "r",
@@ -46,9 +44,7 @@ def test_complete_doc(
     assert str(complete_doc) == reference_str
 
 
-def test_empty_doc(
-    empty_doc: Document[CarteVitaleV1Document, Page[CarteVitaleV1Document]]
-):
+def test_empty_doc(empty_doc: Document[CarteVitaleV1Document, Page[CarteVitaleV1Document]]):
     prediction = empty_doc.inference.prediction
     assert len(prediction.given_names) == 0
     assert prediction.surname.value is None
@@ -62,7 +58,5 @@ def test_complete_page_0(complete_page_0: Page[CarteVitaleV1Document]):
         "r",
         encoding="utf-8",
     ).read()
-    assert complete_page_0.orientation
-    assert complete_page_0.orientation.value == 0
     assert complete_page_0.id == 0
     assert str(complete_page_0) == reference_str

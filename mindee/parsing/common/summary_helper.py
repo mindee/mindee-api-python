@@ -1,5 +1,5 @@
 import re
-from typing import List
+from typing import List, Optional
 
 
 def line_separator(column_sizes: List[int], separator: str) -> str:
@@ -14,3 +14,13 @@ def clean_out_string(out_string: str) -> str:
     """Clean up the string representation."""
     regexp = re.compile(r" \n")
     return regexp.sub("\n", out_string).strip()
+
+
+def format_for_display(
+    out_string: Optional[str] = None, max_col_size: Optional[int] = None
+) -> str:
+    if not out_string or len(out_string) == 0:
+        return ""
+    if max_col_size is None:
+        return out_string
+    return out_string if len(out_string) < max_col_size else f"{out_string[:max_col_size-3]}..."
