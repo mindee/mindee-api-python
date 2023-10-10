@@ -1,0 +1,10 @@
+W9 V1
+-----
+
+**Sample Code:**
+
+.. literalinclude:: /extras/code_samples/us_w9_v1.txt
+    :language: Python
+
+.. autoclass:: mindee.product.us.W9V1
+    :members:
