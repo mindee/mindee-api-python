@@ -1,9 +1,8 @@
 from typing import Optional
 
 from mindee.parsing.common import StringDict, clean_out_string
-from mindee.product.us.w9.w9_v1_document import W9V1Document
-
 from mindee.parsing.standard import PositionField, StringField
+from mindee.product.us.w9.w9_v1_document import W9V1Document
 
 
 class W9V1Page(W9V1Document):

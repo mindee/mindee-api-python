@@ -3,8 +3,8 @@ from mindee.parsing.standard.base import (
     BaseField,
     FieldConfidenceMixin,
     FieldPositionMixin,
-    to_opt_float,
     float_to_string,
+    to_opt_float,
 )
 from mindee.parsing.standard.classification import ClassificationField
 from mindee.parsing.standard.company_registration import CompanyRegistrationField

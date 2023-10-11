@@ -1,11 +1,10 @@
 from typing import Optional
 
 from mindee.parsing.common import StringDict, clean_out_string
+from mindee.parsing.standard import PositionField
 from mindee.product.us.driver_license.driver_license_v1_document import (
     DriverLicenseV1Document,
 )
-
-from mindee.parsing.standard import PositionField
 
 
 class DriverLicenseV1Page(DriverLicenseV1Document):

@@ -10,7 +10,6 @@ from mindee.parsing.standard import (
     StringField,
     Taxes,
 )
-
 from mindee.product.receipt.receipt_v5_line_item import ReceiptV5LineItem
 
 

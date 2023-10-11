@@ -1,9 +1,8 @@
 from typing import List, Optional
 
 from mindee.parsing.common import StringDict, clean_out_string
-from mindee.product.us.bank_check.bank_check_v1_document import BankCheckV1Document
-
 from mindee.parsing.standard import PositionField
+from mindee.product.us.bank_check.bank_check_v1_document import BankCheckV1Document
 
 
 class BankCheckV1Page(BankCheckV1Document):

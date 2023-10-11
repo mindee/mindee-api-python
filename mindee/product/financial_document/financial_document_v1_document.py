@@ -11,7 +11,6 @@ from mindee.parsing.standard import (
     StringField,
     Taxes,
 )
-
 from mindee.product.financial_document.financial_document_v1_line_item import (
   FinancialDocumentV1LineItem,
 )

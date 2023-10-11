@@ -1,9 +1,8 @@
 from typing import List, Optional
 
 from mindee.parsing.common import StringDict, clean_out_string
-from mindee.product.cropper.cropper_v1_document import CropperV1Document
-
 from mindee.parsing.standard import PositionField
+from mindee.product.cropper.cropper_v1_document import CropperV1Document
 
 
 class CropperV1Page(CropperV1Document):

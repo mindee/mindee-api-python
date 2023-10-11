@@ -1,9 +1,8 @@
 from typing import Optional
 
 from mindee.parsing.common import StringDict, clean_out_string
-from mindee.product.fr.id_card.id_card_v1_document import IdCardV1Document
-
 from mindee.parsing.standard import ClassificationField
+from mindee.product.fr.id_card.id_card_v1_document import IdCardV1Document
 
 
 class IdCardV1Page(IdCardV1Document):

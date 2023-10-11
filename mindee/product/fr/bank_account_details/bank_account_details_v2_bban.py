@@ -1,10 +1,7 @@
 from typing import Dict, Optional
 
-from mindee.parsing.common import format_for_display, StringDict
-from mindee.parsing.standard import (
-    FieldConfidenceMixin,
-    FieldPositionMixin,
-)
+from mindee.parsing.common import StringDict, format_for_display
+from mindee.parsing.standard import FieldConfidenceMixin, FieldPositionMixin
 
 
 class BankAccountDetailsV2Bban(FieldPositionMixin, FieldConfidenceMixin):

@@ -1,5 +1,4 @@
 from mindee.product import eu, fr, us
-
 from mindee.product.barcode_reader.barcode_reader_v1 import BarcodeReaderV1
 from mindee.product.cropper.cropper_v1 import CropperV1
 from mindee.product.custom.custom_v1 import CustomV1

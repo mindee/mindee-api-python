@@ -21,7 +21,8 @@ class CompanyRegistrationField(FieldPositionMixin, BaseField):
         self.type = raw_prediction["type"]
         self._set_position(raw_prediction)
 
-    def display(self) -> str:
+    def print(self) -> str:
+        """Additional print function that doesn't overwrite __str__()."""
         if self.value:
             return f"{self.type}: {self.value}"
         return ""

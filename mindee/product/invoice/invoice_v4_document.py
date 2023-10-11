@@ -11,7 +11,6 @@ from mindee.parsing.standard import (
     StringField,
     Taxes,
 )
-
 from mindee.product.invoice.invoice_v4_line_item import InvoiceV4LineItem
 
 

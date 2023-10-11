@@ -2,7 +2,7 @@ from typing import Generic, Optional, Type, TypeVar
 
 from mindee.parsing.common.extras.extras import Extras
 from mindee.parsing.common.orientation import OrientationField
-from mindee.parsing.common.prediction import Prediction, TypePrediction
+from mindee.parsing.common.prediction import TypePrediction
 from mindee.parsing.common.string_dict import StringDict
 
 

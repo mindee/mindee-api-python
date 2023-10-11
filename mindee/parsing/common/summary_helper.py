@@ -19,8 +19,13 @@ def clean_out_string(out_string: str) -> str:
 def format_for_display(
     out_string: Optional[str] = None, max_col_size: Optional[int] = None
 ) -> str:
+    """Truncates line-items to the max width of their corresponding column."""
     if not out_string or len(out_string) == 0:
         return ""
     if max_col_size is None:
         return out_string
-    return out_string if len(out_string) < max_col_size else f"{out_string[:max_col_size-3]}..."
+    return (
+        out_string
+        if len(out_string) < max_col_size
+        else f"{out_string[:max_col_size-3]}..."
+    )
