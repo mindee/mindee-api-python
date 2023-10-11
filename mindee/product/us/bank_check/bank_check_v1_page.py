@@ -39,5 +39,6 @@ class BankCheckV1Page(BankCheckV1Document):
             [str(item) for item in self.signatures_positions],
         )
         return clean_out_string(
-            f":Check Position: {self.check_position}\n" f":Signature Positions: {signatures_positions}\n" + f"{super().__str__()}"
+            f":Check Position: {self.check_position}\n"
+            f":Signature Positions: {signatures_positions}\n" + f"{super().__str__()}"
         )

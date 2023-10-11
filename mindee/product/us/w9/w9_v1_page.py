@@ -96,7 +96,6 @@ class W9V1Page(W9V1Document):
 
     def __str__(self) -> str:
         return clean_out_string(
-            
             f":Name: {self.name}\n"
             f":SSN: {self.ssn}\n"
             f":Address: {self.address}\n"
@@ -108,5 +107,6 @@ class W9V1Page(W9V1Document):
             f":W9 Revision Date: {self.w9_revision_date}\n"
             f":Signature Position: {self.signature_position}\n"
             f":Signature Date Position: {self.signature_date_position}\n"
-            f":Tax Classification LLC: {self.tax_classification_llc}\n" + f"{super().__str__()}"
+            f":Tax Classification LLC: {self.tax_classification_llc}\n"
+            + f"{super().__str__()}"
         )

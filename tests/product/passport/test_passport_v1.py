@@ -33,7 +33,9 @@ def complete_page_0() -> Page[PassportV1Document]:
     return Page(PassportV1Document, json_data["document"]["inference"]["pages"][0])
 
 
-def test_complete_doc(complete_doc: Document[PassportV1Document, Page[PassportV1Document]]):
+def test_complete_doc(
+    complete_doc: Document[PassportV1Document, Page[PassportV1Document]]
+):
     reference_str = open(
         PRODUCT_DATA_DIR / "passport" / "response_v1" / "summary_full.rst",
         "r",

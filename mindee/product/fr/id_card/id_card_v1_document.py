@@ -84,7 +84,6 @@ class IdCardV1Document(Prediction):
         given_names = f"\n { ' ' * 15 }".join(
             [str(item) for item in self.given_names],
         )
-
         return clean_out_string(
             f":Identity Number: {self.id_number}\n"
             f":Given Name(s): {given_names}\n"

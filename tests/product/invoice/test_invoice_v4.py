@@ -33,7 +33,9 @@ def complete_page_0() -> Page[InvoiceV4Document]:
     return Page(InvoiceV4Document, json_data["document"]["inference"]["pages"][0])
 
 
-def test_complete_doc(complete_doc: Document[InvoiceV4Document, Page[InvoiceV4Document]]):
+def test_complete_doc(
+    complete_doc: Document[InvoiceV4Document, Page[InvoiceV4Document]]
+):
     reference_str = open(
         PRODUCT_DATA_DIR / "invoices" / "response_v4" / "summary_full.rst",
         "r",

@@ -35,7 +35,9 @@ def complete_page_0() -> Page[LicensePlateV1Document]:
     return Page(LicensePlateV1Document, json_data["document"]["inference"]["pages"][0])
 
 
-def test_complete_doc(complete_doc: Document[LicensePlateV1Document, Page[LicensePlateV1Document]]):
+def test_complete_doc(
+    complete_doc: Document[LicensePlateV1Document, Page[LicensePlateV1Document]]
+):
     reference_str = open(
         PRODUCT_DATA_DIR / "license_plates" / "response_v1" / "summary_full.rst",
         "r",
@@ -44,7 +46,9 @@ def test_complete_doc(complete_doc: Document[LicensePlateV1Document, Page[Licens
     assert str(complete_doc) == reference_str
 
 
-def test_empty_doc(empty_doc: Document[LicensePlateV1Document, Page[LicensePlateV1Document]]):
+def test_empty_doc(
+    empty_doc: Document[LicensePlateV1Document, Page[LicensePlateV1Document]]
+):
     prediction = empty_doc.inference.prediction
     assert len(prediction.license_plates) == 0
 

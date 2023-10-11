@@ -12,7 +12,9 @@ from tests.product import PRODUCT_DATA_DIR
 
 
 @pytest.fixture
-def complete_doc() -> Document[ProofOfAddressV1Document, Page[ProofOfAddressV1Document]]:
+def complete_doc() -> (
+    Document[ProofOfAddressV1Document, Page[ProofOfAddressV1Document]]
+):
     json_data = json.load(
         open(PRODUCT_DATA_DIR / "proof_of_address" / "response_v1" / "complete.json")
     )
@@ -32,10 +34,14 @@ def complete_page_0() -> Page[ProofOfAddressV1Document]:
     json_data = json.load(
         open(PRODUCT_DATA_DIR / "proof_of_address" / "response_v1" / "complete.json")
     )
-    return Page(ProofOfAddressV1Document, json_data["document"]["inference"]["pages"][0])
+    return Page(
+        ProofOfAddressV1Document, json_data["document"]["inference"]["pages"][0]
+    )
 
 
-def test_complete_doc(complete_doc: Document[ProofOfAddressV1Document, Page[ProofOfAddressV1Document]]):
+def test_complete_doc(
+    complete_doc: Document[ProofOfAddressV1Document, Page[ProofOfAddressV1Document]]
+):
     reference_str = open(
         PRODUCT_DATA_DIR / "proof_of_address" / "response_v1" / "summary_full.rst",
         "r",
@@ -44,7 +50,9 @@ def test_complete_doc(complete_doc: Document[ProofOfAddressV1Document, Page[Proo
     assert str(complete_doc) == reference_str
 
 
-def test_empty_doc(empty_doc: Document[ProofOfAddressV1Document, Page[ProofOfAddressV1Document]]):
+def test_empty_doc(
+    empty_doc: Document[ProofOfAddressV1Document, Page[ProofOfAddressV1Document]]
+):
     prediction = empty_doc.inference.prediction
     assert prediction.locale.value is None
     assert prediction.issuer_name.value is None

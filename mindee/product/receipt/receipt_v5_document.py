@@ -153,7 +153,6 @@ class ReceiptV5Document(Prediction):
         supplier_company_registrations = f"\n { ' ' * 32 }".join(
             [str(item) for item in self.supplier_company_registrations],
         )
-
         return clean_out_string(
             f":Expense Locale: {self.locale}\n"
             f":Purchase Category: {self.category}\n"

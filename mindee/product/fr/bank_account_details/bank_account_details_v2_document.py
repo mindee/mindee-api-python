@@ -3,7 +3,7 @@ from typing import Optional
 from mindee.parsing.common import Prediction, StringDict, clean_out_string
 from mindee.parsing.standard import StringField
 from mindee.product.fr.bank_account_details.bank_account_details_v2_bban import (
-  BankAccountDetailsV2Bban,
+    BankAccountDetailsV2Bban,
 )
 
 
@@ -48,7 +48,6 @@ class BankAccountDetailsV2Document(Prediction):
         )
 
     def __str__(self) -> str:
-
         return clean_out_string(
             f":Account Holder's Names: {self.account_holders_names}\n"
             f":Basic Bank Account Number:\n{self.bban.to_field_list()}\n"

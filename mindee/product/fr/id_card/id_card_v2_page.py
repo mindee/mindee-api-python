@@ -36,5 +36,6 @@ class IdCardV2Page(IdCardV2Document):
 
     def __str__(self) -> str:
         return clean_out_string(
-            f":Document Type: {self.document_type}\n" f":Document Sides: {self.document_side}\n" + f"{super().__str__()}"
+            f":Document Type: {self.document_type}\n"
+            f":Document Sides: {self.document_side}\n" + f"{super().__str__()}"
         )

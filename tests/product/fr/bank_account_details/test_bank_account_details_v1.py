@@ -12,15 +12,21 @@ from tests.product import PRODUCT_DATA_DIR
 
 
 @pytest.fixture
-def complete_doc() -> Document[BankAccountDetailsV1Document, Page[BankAccountDetailsV1Document]]:
+def complete_doc() -> (
+    Document[BankAccountDetailsV1Document, Page[BankAccountDetailsV1Document]]
+):
     json_data = json.load(
-        open(PRODUCT_DATA_DIR / "bank_account_details" / "response_v1" / "complete.json")
+        open(
+            PRODUCT_DATA_DIR / "bank_account_details" / "response_v1" / "complete.json"
+        )
     )
     return Document(BankAccountDetailsV1, json_data["document"])
 
 
 @pytest.fixture
-def empty_doc() -> Document[BankAccountDetailsV1Document, Page[BankAccountDetailsV1Document]]:
+def empty_doc() -> (
+    Document[BankAccountDetailsV1Document, Page[BankAccountDetailsV1Document]]
+):
     json_data = json.load(
         open(PRODUCT_DATA_DIR / "bank_account_details" / "response_v1" / "empty.json")
     )
@@ -30,12 +36,20 @@ def empty_doc() -> Document[BankAccountDetailsV1Document, Page[BankAccountDetail
 @pytest.fixture
 def complete_page_0() -> Page[BankAccountDetailsV1Document]:
     json_data = json.load(
-        open(PRODUCT_DATA_DIR / "bank_account_details" / "response_v1" / "complete.json")
+        open(
+            PRODUCT_DATA_DIR / "bank_account_details" / "response_v1" / "complete.json"
+        )
     )
-    return Page(BankAccountDetailsV1Document, json_data["document"]["inference"]["pages"][0])
+    return Page(
+        BankAccountDetailsV1Document, json_data["document"]["inference"]["pages"][0]
+    )
 
 
-def test_complete_doc(complete_doc: Document[BankAccountDetailsV1Document, Page[BankAccountDetailsV1Document]]):
+def test_complete_doc(
+    complete_doc: Document[
+        BankAccountDetailsV1Document, Page[BankAccountDetailsV1Document]
+    ]
+):
     reference_str = open(
         PRODUCT_DATA_DIR / "bank_account_details" / "response_v1" / "summary_full.rst",
         "r",
@@ -44,7 +58,11 @@ def test_complete_doc(complete_doc: Document[BankAccountDetailsV1Document, Page[
     assert str(complete_doc) == reference_str
 
 
-def test_empty_doc(empty_doc: Document[BankAccountDetailsV1Document, Page[BankAccountDetailsV1Document]]):
+def test_empty_doc(
+    empty_doc: Document[
+        BankAccountDetailsV1Document, Page[BankAccountDetailsV1Document]
+    ]
+):
     prediction = empty_doc.inference.prediction
     assert prediction.iban.value is None
     assert prediction.account_holder_name.value is None

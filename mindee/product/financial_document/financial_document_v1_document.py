@@ -12,7 +12,7 @@ from mindee.parsing.standard import (
     Taxes,
 )
 from mindee.product.financial_document.financial_document_v1_line_item import (
-  FinancialDocumentV1LineItem,
+    FinancialDocumentV1LineItem,
 )
 
 
@@ -213,7 +213,6 @@ class FinancialDocumentV1Document(Prediction):
         supplier_payment_details = f"\n { ' ' * 26 }".join(
             [str(item) for item in self.supplier_payment_details],
         )
-
         return clean_out_string(
             f":Locale: {self.locale}\n"
             f":Invoice Number: {self.invoice_number}\n"

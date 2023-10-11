@@ -38,5 +38,6 @@ class DriverLicenseV1Page(DriverLicenseV1Document):
 
     def __str__(self) -> str:
         return clean_out_string(
-            f":Photo: {self.photo}\n" f":Signature: {self.signature}\n" + f"{super().__str__()}"
+            f":Photo: {self.photo}\n"
+            f":Signature: {self.signature}\n" + f"{super().__str__()}"
         )

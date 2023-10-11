@@ -34,7 +34,9 @@ def complete_page_0() -> Page[BankCheckV1Page]:
     return Page(BankCheckV1Page, json_data["document"]["inference"]["pages"][0])
 
 
-def test_complete_doc(complete_doc: Document[BankCheckV1Document, Page[BankCheckV1Page]]):
+def test_complete_doc(
+    complete_doc: Document[BankCheckV1Document, Page[BankCheckV1Page]]
+):
     reference_str = open(
         PRODUCT_DATA_DIR / "bank_check" / "response_v1" / "summary_full.rst",
         "r",

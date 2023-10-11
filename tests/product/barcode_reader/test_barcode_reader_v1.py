@@ -35,7 +35,9 @@ def complete_page_0() -> Page[BarcodeReaderV1Document]:
     return Page(BarcodeReaderV1Document, json_data["document"]["inference"]["pages"][0])
 
 
-def test_complete_doc(complete_doc: Document[BarcodeReaderV1Document, Page[BarcodeReaderV1Document]]):
+def test_complete_doc(
+    complete_doc: Document[BarcodeReaderV1Document, Page[BarcodeReaderV1Document]]
+):
     reference_str = open(
         PRODUCT_DATA_DIR / "barcode_reader" / "response_v1" / "summary_full.rst",
         "r",
@@ -44,7 +46,9 @@ def test_complete_doc(complete_doc: Document[BarcodeReaderV1Document, Page[Barco
     assert str(complete_doc) == reference_str
 
 
-def test_empty_doc(empty_doc: Document[BarcodeReaderV1Document, Page[BarcodeReaderV1Document]]):
+def test_empty_doc(
+    empty_doc: Document[BarcodeReaderV1Document, Page[BarcodeReaderV1Document]]
+):
     prediction = empty_doc.inference.prediction
     assert len(prediction.codes_1d) == 0
     assert len(prediction.codes_2d) == 0

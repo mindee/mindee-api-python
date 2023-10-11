@@ -123,7 +123,6 @@ class DriverLicenseV1Document(Prediction):
         )
 
     def __str__(self) -> str:
-
         return clean_out_string(
             f":State: {self.state}\n"
             f":Driver License ID: {self.driver_license_id}\n"

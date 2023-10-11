@@ -48,7 +48,6 @@ class CarteVitaleV1Document(Prediction):
         given_names = f"\n { ' ' * 15 }".join(
             [str(item) for item in self.given_names],
         )
-
         return clean_out_string(
             f":Given Name(s): {given_names}\n"
             f":Surname: {self.surname}\n"

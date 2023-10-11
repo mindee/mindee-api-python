@@ -36,7 +36,9 @@ def complete_page_0() -> Page[DriverLicenseV1Page]:
     return Page(DriverLicenseV1Page, json_data["document"]["inference"]["pages"][0])
 
 
-def test_complete_doc(complete_doc: Document[DriverLicenseV1Document, Page[DriverLicenseV1Page]]):
+def test_complete_doc(
+    complete_doc: Document[DriverLicenseV1Document, Page[DriverLicenseV1Page]]
+):
     reference_str = open(
         PRODUCT_DATA_DIR / "us_driver_license" / "response_v1" / "summary_full.rst",
         "r",
@@ -45,7 +47,9 @@ def test_complete_doc(complete_doc: Document[DriverLicenseV1Document, Page[Drive
     assert str(complete_doc) == reference_str
 
 
-def test_empty_doc(empty_doc: Document[DriverLicenseV1Document, Page[DriverLicenseV1Page]]):
+def test_empty_doc(
+    empty_doc: Document[DriverLicenseV1Document, Page[DriverLicenseV1Page]]
+):
     prediction = empty_doc.inference.prediction
     assert prediction.state.value is None
     assert prediction.driver_license_id.value is None

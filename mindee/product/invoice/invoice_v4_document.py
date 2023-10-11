@@ -175,7 +175,6 @@ class InvoiceV4Document(Prediction):
         supplier_payment_details = f"\n { ' ' * 26 }".join(
             [str(item) for item in self.supplier_payment_details],
         )
-
         return clean_out_string(
             f":Locale: {self.locale}\n"
             f":Invoice Number: {self.invoice_number}\n"

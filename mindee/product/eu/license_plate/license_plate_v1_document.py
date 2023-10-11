@@ -30,5 +30,4 @@ class LicensePlateV1Document(Prediction):
         license_plates = f"\n { ' ' * 16 }".join(
             [str(item) for item in self.license_plates],
         )
-
         return clean_out_string(f":License Plates: {license_plates}\n")

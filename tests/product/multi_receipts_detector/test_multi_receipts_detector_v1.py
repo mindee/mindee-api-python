@@ -12,17 +12,28 @@ from tests.product import PRODUCT_DATA_DIR
 
 
 @pytest.fixture
-def complete_doc() -> Document[MultiReceiptsDetectorV1Document, Page[MultiReceiptsDetectorV1Document]]:
+def complete_doc() -> (
+    Document[MultiReceiptsDetectorV1Document, Page[MultiReceiptsDetectorV1Document]]
+):
     json_data = json.load(
-        open(PRODUCT_DATA_DIR / "multi_receipts_detector" / "response_v1" / "complete.json")
+        open(
+            PRODUCT_DATA_DIR
+            / "multi_receipts_detector"
+            / "response_v1"
+            / "complete.json"
+        )
     )
     return Document(MultiReceiptsDetectorV1, json_data["document"])
 
 
 @pytest.fixture
-def empty_doc() -> Document[MultiReceiptsDetectorV1Document, Page[MultiReceiptsDetectorV1Document]]:
+def empty_doc() -> (
+    Document[MultiReceiptsDetectorV1Document, Page[MultiReceiptsDetectorV1Document]]
+):
     json_data = json.load(
-        open(PRODUCT_DATA_DIR / "multi_receipts_detector" / "response_v1" / "empty.json")
+        open(
+            PRODUCT_DATA_DIR / "multi_receipts_detector" / "response_v1" / "empty.json"
+        )
     )
     return Document(MultiReceiptsDetectorV1, json_data["document"])
 
@@ -30,15 +41,28 @@ def empty_doc() -> Document[MultiReceiptsDetectorV1Document, Page[MultiReceiptsD
 @pytest.fixture
 def complete_page_0() -> Page[MultiReceiptsDetectorV1Document]:
     json_data = json.load(
-        open(PRODUCT_DATA_DIR / "multi_receipts_detector" / "response_v1" / "complete.json")
+        open(
+            PRODUCT_DATA_DIR
+            / "multi_receipts_detector"
+            / "response_v1"
+            / "complete.json"
+        )
     )
-    return Page(MultiReceiptsDetectorV1Document, json_data["document"]["inference"]["pages"][0])
+    return Page(
+        MultiReceiptsDetectorV1Document, json_data["document"]["inference"]["pages"][0]
+    )
 
 
 def test_complete_doc(
-  complete_doc: Document[MultiReceiptsDetectorV1Document, Page[MultiReceiptsDetectorV1Document]]):
+    complete_doc: Document[
+        MultiReceiptsDetectorV1Document, Page[MultiReceiptsDetectorV1Document]
+    ]
+):
     reference_str = open(
-        PRODUCT_DATA_DIR / "multi_receipts_detector" / "response_v1" / "summary_full.rst",
+        PRODUCT_DATA_DIR
+        / "multi_receipts_detector"
+        / "response_v1"
+        / "summary_full.rst",
         "r",
         encoding="utf-8",
     ).read()
@@ -46,14 +70,20 @@ def test_complete_doc(
 
 
 def test_empty_doc(
-  empty_doc: Document[MultiReceiptsDetectorV1Document, Page[MultiReceiptsDetectorV1Document]]):
+    empty_doc: Document[
+        MultiReceiptsDetectorV1Document, Page[MultiReceiptsDetectorV1Document]
+    ]
+):
     prediction = empty_doc.inference.prediction
     assert len(prediction.receipts) == 0
 
 
 def test_complete_page_0(complete_page_0: Page[MultiReceiptsDetectorV1Document]):
     reference_str = open(
-        PRODUCT_DATA_DIR / "multi_receipts_detector" / "response_v1" / "summary_page0.rst",
+        PRODUCT_DATA_DIR
+        / "multi_receipts_detector"
+        / "response_v1"
+        / "summary_page0.rst",
         "r",
         encoding="utf-8",
     ).read()

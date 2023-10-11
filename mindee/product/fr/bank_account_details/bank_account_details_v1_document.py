@@ -39,7 +39,6 @@ class BankAccountDetailsV1Document(Prediction):
         )
 
     def __str__(self) -> str:
-
         return clean_out_string(
             f":IBAN: {self.iban}\n"
             f":Account Holder's Name: {self.account_holder_name}\n"

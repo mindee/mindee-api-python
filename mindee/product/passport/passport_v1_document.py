@@ -90,7 +90,6 @@ class PassportV1Document(Prediction):
         given_names = f"\n { ' ' * 15 }".join(
             [str(item) for item in self.given_names],
         )
-
         return clean_out_string(
             f":Country Code: {self.country}\n"
             f":ID Number: {self.id_number}\n"

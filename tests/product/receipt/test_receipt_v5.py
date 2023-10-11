@@ -33,7 +33,9 @@ def complete_page_0() -> Page[ReceiptV5Document]:
     return Page(ReceiptV5Document, json_data["document"]["inference"]["pages"][0])
 
 
-def test_complete_doc(complete_doc: Document[ReceiptV5Document, Page[ReceiptV5Document]]):
+def test_complete_doc(
+    complete_doc: Document[ReceiptV5Document, Page[ReceiptV5Document]]
+):
     reference_str = open(
         PRODUCT_DATA_DIR / "expense_receipts" / "response_v5" / "summary_full.rst",
         "r",
