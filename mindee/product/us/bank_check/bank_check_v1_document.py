@@ -60,11 +60,10 @@ class BankCheckV1Document(Prediction):
         payees = f"\n { ' ' * 8 }".join(
             [str(item) for item in self.payees],
         )
-        return clean_out_string(
-            f":Check Issue Date: {self.date}\n"
-            f":Amount: {self.amount}\n"
-            f":Payees: {payees}\n"
-            f":Routing Number: {self.routing_number}\n"
-            f":Account Number: {self.account_number}\n"
-            f":Check Number: {self.check_number}\n"
-        )
+        out_str: str = f":Check Issue Date: {self.date}\n"
+        out_str += f":Amount: {self.amount}\n"
+        out_str += f":Payees: {payees}\n"
+        out_str += f":Routing Number: {self.routing_number}\n"
+        out_str += f":Account Number: {self.account_number}\n"
+        out_str += f":Check Number: {self.check_number}\n"
+        return clean_out_string(out_str)

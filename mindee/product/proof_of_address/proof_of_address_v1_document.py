@@ -89,14 +89,15 @@ class ProofOfAddressV1Document(Prediction):
         recipient_company_registration = f"\n { ' ' * 33 }".join(
             [str(item) for item in self.recipient_company_registration],
         )
-        return clean_out_string(
-            f":Locale: {self.locale}\n"
-            f":Issuer Name: {self.issuer_name}\n"
-            f":Issuer Company Registrations: {issuer_company_registration}\n"
-            f":Issuer Address: {self.issuer_address}\n"
-            f":Recipient Name: {self.recipient_name}\n"
+        out_str: str = f":Locale: {self.locale}\n"
+        out_str += f":Issuer Name: {self.issuer_name}\n"
+        out_str += f":Issuer Company Registrations: {issuer_company_registration}\n"
+        out_str += f":Issuer Address: {self.issuer_address}\n"
+        out_str += f":Recipient Name: {self.recipient_name}\n"
+        out_str += (
             f":Recipient Company Registrations: {recipient_company_registration}\n"
-            f":Recipient Address: {self.recipient_address}\n"
-            f":Dates: {dates}\n"
-            f":Date of Issue: {self.date}\n"
         )
+        out_str += f":Recipient Address: {self.recipient_address}\n"
+        out_str += f":Dates: {dates}\n"
+        out_str += f":Date of Issue: {self.date}\n"
+        return clean_out_string(out_str)

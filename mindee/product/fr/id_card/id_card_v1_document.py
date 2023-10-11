@@ -84,15 +84,14 @@ class IdCardV1Document(Prediction):
         given_names = f"\n { ' ' * 15 }".join(
             [str(item) for item in self.given_names],
         )
-        return clean_out_string(
-            f":Identity Number: {self.id_number}\n"
-            f":Given Name(s): {given_names}\n"
-            f":Surname: {self.surname}\n"
-            f":Date of Birth: {self.birth_date}\n"
-            f":Place of Birth: {self.birth_place}\n"
-            f":Expiry Date: {self.expiry_date}\n"
-            f":Issuing Authority: {self.authority}\n"
-            f":Gender: {self.gender}\n"
-            f":MRZ Line 1: {self.mrz1}\n"
-            f":MRZ Line 2: {self.mrz2}\n"
-        )
+        out_str: str = f":Identity Number: {self.id_number}\n"
+        out_str += f":Given Name(s): {given_names}\n"
+        out_str += f":Surname: {self.surname}\n"
+        out_str += f":Date of Birth: {self.birth_date}\n"
+        out_str += f":Place of Birth: {self.birth_place}\n"
+        out_str += f":Expiry Date: {self.expiry_date}\n"
+        out_str += f":Issuing Authority: {self.authority}\n"
+        out_str += f":Gender: {self.gender}\n"
+        out_str += f":MRZ Line 1: {self.mrz1}\n"
+        out_str += f":MRZ Line 2: {self.mrz2}\n"
+        return clean_out_string(out_str)

@@ -48,9 +48,8 @@ class CarteVitaleV1Document(Prediction):
         given_names = f"\n { ' ' * 15 }".join(
             [str(item) for item in self.given_names],
         )
-        return clean_out_string(
-            f":Given Name(s): {given_names}\n"
-            f":Surname: {self.surname}\n"
-            f":Social Security Number: {self.social_security}\n"
-            f":Issuance Date: {self.issuance_date}\n"
-        )
+        out_str: str = f":Given Name(s): {given_names}\n"
+        out_str += f":Surname: {self.surname}\n"
+        out_str += f":Social Security Number: {self.social_security}\n"
+        out_str += f":Issuance Date: {self.issuance_date}\n"
+        return clean_out_string(out_str)

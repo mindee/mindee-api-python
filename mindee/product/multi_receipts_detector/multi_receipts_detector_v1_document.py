@@ -30,4 +30,5 @@ class MultiReceiptsDetectorV1Document(Prediction):
         receipts = f"\n { ' ' * 18 }".join(
             [str(item) for item in self.receipts],
         )
-        return clean_out_string(f":List of Receipts: {receipts}\n")
+        out_str: str = f":List of Receipts: {receipts}\n"
+        return clean_out_string(out_str)

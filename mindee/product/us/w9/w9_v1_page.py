@@ -95,18 +95,17 @@ class W9V1Page(W9V1Document):
         )
 
     def __str__(self) -> str:
-        return clean_out_string(
-            f":Name: {self.name}\n"
-            f":SSN: {self.ssn}\n"
-            f":Address: {self.address}\n"
-            f":City State Zip: {self.city_state_zip}\n"
-            f":Business Name: {self.business_name}\n"
-            f":EIN: {self.ein}\n"
-            f":Tax Classification: {self.tax_classification}\n"
-            f":Tax Classification Other Details: {self.tax_classification_other_details}\n"
-            f":W9 Revision Date: {self.w9_revision_date}\n"
-            f":Signature Position: {self.signature_position}\n"
-            f":Signature Date Position: {self.signature_date_position}\n"
-            f":Tax Classification LLC: {self.tax_classification_llc}\n"
-            + f"{super().__str__()}"
-        )
+        out_str: str = f":Name: {self.name}\n"
+        out_str += f":SSN: {self.ssn}\n"
+        out_str += f":Address: {self.address}\n"
+        out_str += f":City State Zip: {self.city_state_zip}\n"
+        out_str += f":Business Name: {self.business_name}\n"
+        out_str += f":EIN: {self.ein}\n"
+        out_str += f":Tax Classification: {self.tax_classification}\n"
+        out_str += f":Tax Classification Other Details: {self.tax_classification_other_details}\n"
+        out_str += f":W9 Revision Date: {self.w9_revision_date}\n"
+        out_str += f":Signature Position: {self.signature_position}\n"
+        out_str += f":Signature Date Position: {self.signature_date_position}\n"
+        out_str += f":Tax Classification LLC: {self.tax_classification_llc}\n"
+        out_str += f"{super().__str__()}"
+        return clean_out_string(out_str)

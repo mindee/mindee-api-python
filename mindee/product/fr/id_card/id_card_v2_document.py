@@ -114,20 +114,19 @@ class IdCardV2Document(Prediction):
         given_names = f"\n { ' ' * 15 }".join(
             [str(item) for item in self.given_names],
         )
-        return clean_out_string(
-            f":Nationality: {self.nationality}\n"
-            f":Card Access Number: {self.card_access_number}\n"
-            f":Document Number: {self.document_number}\n"
-            f":Given Name(s): {given_names}\n"
-            f":Surname: {self.surname}\n"
-            f":Alternate Name: {self.alternate_name}\n"
-            f":Date of Birth: {self.birth_date}\n"
-            f":Place of Birth: {self.birth_place}\n"
-            f":Gender: {self.gender}\n"
-            f":Expiry Date: {self.expiry_date}\n"
-            f":Mrz Line 1: {self.mrz1}\n"
-            f":Mrz Line 2: {self.mrz2}\n"
-            f":Mrz Line 3: {self.mrz3}\n"
-            f":Date of Issue: {self.issue_date}\n"
-            f":Issuing Authority: {self.authority}\n"
-        )
+        out_str: str = f":Nationality: {self.nationality}\n"
+        out_str += f":Card Access Number: {self.card_access_number}\n"
+        out_str += f":Document Number: {self.document_number}\n"
+        out_str += f":Given Name(s): {given_names}\n"
+        out_str += f":Surname: {self.surname}\n"
+        out_str += f":Alternate Name: {self.alternate_name}\n"
+        out_str += f":Date of Birth: {self.birth_date}\n"
+        out_str += f":Place of Birth: {self.birth_place}\n"
+        out_str += f":Gender: {self.gender}\n"
+        out_str += f":Expiry Date: {self.expiry_date}\n"
+        out_str += f":Mrz Line 1: {self.mrz1}\n"
+        out_str += f":Mrz Line 2: {self.mrz2}\n"
+        out_str += f":Mrz Line 3: {self.mrz3}\n"
+        out_str += f":Date of Issue: {self.issue_date}\n"
+        out_str += f":Issuing Authority: {self.authority}\n"
+        return clean_out_string(out_str)

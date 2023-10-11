@@ -17,7 +17,8 @@ def complete_doc() -> (
 ):
     json_data = json.load(
         open(
-            PRODUCT_DATA_DIR / "bank_account_details" / "response_v2" / "complete.json"
+            PRODUCT_DATA_DIR / "bank_account_details" / "response_v2" / "complete.json",
+            encoding="utf-8",
         )
     )
     return Document(BankAccountDetailsV2, json_data["document"])
@@ -28,7 +29,10 @@ def empty_doc() -> (
     Document[BankAccountDetailsV2Document, Page[BankAccountDetailsV2Document]]
 ):
     json_data = json.load(
-        open(PRODUCT_DATA_DIR / "bank_account_details" / "response_v2" / "empty.json")
+        open(
+            PRODUCT_DATA_DIR / "bank_account_details" / "response_v2" / "empty.json",
+            encoding="utf-8",
+        )
     )
     return Document(BankAccountDetailsV2, json_data["document"])
 
@@ -37,7 +41,8 @@ def empty_doc() -> (
 def complete_page_0() -> Page[BankAccountDetailsV2Document]:
     json_data = json.load(
         open(
-            PRODUCT_DATA_DIR / "bank_account_details" / "response_v2" / "complete.json"
+            PRODUCT_DATA_DIR / "bank_account_details" / "response_v2" / "complete.json",
+            encoding="utf-8",
         )
     )
     return Page(

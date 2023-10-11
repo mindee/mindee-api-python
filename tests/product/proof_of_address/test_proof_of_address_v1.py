@@ -16,7 +16,10 @@ def complete_doc() -> (
     Document[ProofOfAddressV1Document, Page[ProofOfAddressV1Document]]
 ):
     json_data = json.load(
-        open(PRODUCT_DATA_DIR / "proof_of_address" / "response_v1" / "complete.json")
+        open(
+            PRODUCT_DATA_DIR / "proof_of_address" / "response_v1" / "complete.json",
+            encoding="utf-8",
+        )
     )
     return Document(ProofOfAddressV1, json_data["document"])
 
@@ -24,7 +27,10 @@ def complete_doc() -> (
 @pytest.fixture
 def empty_doc() -> Document[ProofOfAddressV1Document, Page[ProofOfAddressV1Document]]:
     json_data = json.load(
-        open(PRODUCT_DATA_DIR / "proof_of_address" / "response_v1" / "empty.json")
+        open(
+            PRODUCT_DATA_DIR / "proof_of_address" / "response_v1" / "empty.json",
+            encoding="utf-8",
+        )
     )
     return Document(ProofOfAddressV1, json_data["document"])
 
@@ -32,7 +38,10 @@ def empty_doc() -> Document[ProofOfAddressV1Document, Page[ProofOfAddressV1Docum
 @pytest.fixture
 def complete_page_0() -> Page[ProofOfAddressV1Document]:
     json_data = json.load(
-        open(PRODUCT_DATA_DIR / "proof_of_address" / "response_v1" / "complete.json")
+        open(
+            PRODUCT_DATA_DIR / "proof_of_address" / "response_v1" / "complete.json",
+            encoding="utf-8",
+        )
     )
     return Page(
         ProofOfAddressV1Document, json_data["document"]["inference"]["pages"][0]

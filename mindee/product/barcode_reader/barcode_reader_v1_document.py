@@ -39,6 +39,6 @@ class BarcodeReaderV1Document(Prediction):
         codes_2d = f"\n { ' ' * 13 }".join(
             [str(item) for item in self.codes_2d],
         )
-        return clean_out_string(
-            f":Barcodes 1D: {codes_1d}\n" f":Barcodes 2D: {codes_2d}\n"
-        )
+        out_str: str = f":Barcodes 1D: {codes_1d}\n"
+        out_str += f":Barcodes 2D: {codes_2d}\n"
+        return clean_out_string(out_str)

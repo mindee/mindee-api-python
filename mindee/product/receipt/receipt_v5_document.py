@@ -153,21 +153,22 @@ class ReceiptV5Document(Prediction):
         supplier_company_registrations = f"\n { ' ' * 32 }".join(
             [str(item) for item in self.supplier_company_registrations],
         )
-        return clean_out_string(
-            f":Expense Locale: {self.locale}\n"
-            f":Purchase Category: {self.category}\n"
-            f":Purchase Subcategory: {self.subcategory}\n"
-            f":Document Type: {self.document_type}\n"
-            f":Purchase Date: {self.date}\n"
-            f":Purchase Time: {self.time}\n"
-            f":Total Amount: {self.total_amount}\n"
-            f":Total Net: {self.total_net}\n"
-            f":Total Tax: {self.total_tax}\n"
-            f":Tip and Gratuity: {self.tip}\n"
-            f":Taxes: {self.taxes}\n"
-            f":Supplier Name: {self.supplier_name}\n"
+        out_str: str = f":Expense Locale: {self.locale}\n"
+        out_str += f":Purchase Category: {self.category}\n"
+        out_str += f":Purchase Subcategory: {self.subcategory}\n"
+        out_str += f":Document Type: {self.document_type}\n"
+        out_str += f":Purchase Date: {self.date}\n"
+        out_str += f":Purchase Time: {self.time}\n"
+        out_str += f":Total Amount: {self.total_amount}\n"
+        out_str += f":Total Net: {self.total_net}\n"
+        out_str += f":Total Tax: {self.total_tax}\n"
+        out_str += f":Tip and Gratuity: {self.tip}\n"
+        out_str += f":Taxes: {self.taxes}\n"
+        out_str += f":Supplier Name: {self.supplier_name}\n"
+        out_str += (
             f":Supplier Company Registrations: {supplier_company_registrations}\n"
-            f":Supplier Address: {self.supplier_address}\n"
-            f":Supplier Phone Number: {self.supplier_phone_number}\n"
-            f":Line Items: {self._line_items_to_str()}\n"
         )
+        out_str += f":Supplier Address: {self.supplier_address}\n"
+        out_str += f":Supplier Phone Number: {self.supplier_phone_number}\n"
+        out_str += f":Line Items: {self._line_items_to_str()}\n"
+        return clean_out_string(out_str)

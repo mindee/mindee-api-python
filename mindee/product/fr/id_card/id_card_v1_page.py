@@ -29,6 +29,6 @@ class IdCardV1Page(IdCardV1Document):
         )
 
     def __str__(self) -> str:
-        return clean_out_string(
-            f":Document Side: {self.document_side}\n" + f"{super().__str__()}"
-        )
+        out_str: str = f":Document Side: {self.document_side}\n"
+        out_str += f"{super().__str__()}"
+        return clean_out_string(out_str)

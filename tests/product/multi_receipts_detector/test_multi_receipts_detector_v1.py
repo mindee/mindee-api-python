@@ -20,7 +20,8 @@ def complete_doc() -> (
             PRODUCT_DATA_DIR
             / "multi_receipts_detector"
             / "response_v1"
-            / "complete.json"
+            / "complete.json",
+            encoding="utf-8",
         )
     )
     return Document(MultiReceiptsDetectorV1, json_data["document"])
@@ -32,7 +33,8 @@ def empty_doc() -> (
 ):
     json_data = json.load(
         open(
-            PRODUCT_DATA_DIR / "multi_receipts_detector" / "response_v1" / "empty.json"
+            PRODUCT_DATA_DIR / "multi_receipts_detector" / "response_v1" / "empty.json",
+            encoding="utf-8",
         )
     )
     return Document(MultiReceiptsDetectorV1, json_data["document"])
@@ -45,7 +47,8 @@ def complete_page_0() -> Page[MultiReceiptsDetectorV1Document]:
             PRODUCT_DATA_DIR
             / "multi_receipts_detector"
             / "response_v1"
-            / "complete.json"
+            / "complete.json",
+            encoding="utf-8",
         )
     )
     return Page(

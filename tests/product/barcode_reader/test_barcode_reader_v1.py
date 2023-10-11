@@ -14,7 +14,10 @@ from tests.product import PRODUCT_DATA_DIR
 @pytest.fixture
 def complete_doc() -> Document[BarcodeReaderV1Document, Page[BarcodeReaderV1Document]]:
     json_data = json.load(
-        open(PRODUCT_DATA_DIR / "barcode_reader" / "response_v1" / "complete.json")
+        open(
+            PRODUCT_DATA_DIR / "barcode_reader" / "response_v1" / "complete.json",
+            encoding="utf-8",
+        )
     )
     return Document(BarcodeReaderV1, json_data["document"])
 
@@ -22,7 +25,10 @@ def complete_doc() -> Document[BarcodeReaderV1Document, Page[BarcodeReaderV1Docu
 @pytest.fixture
 def empty_doc() -> Document[BarcodeReaderV1Document, Page[BarcodeReaderV1Document]]:
     json_data = json.load(
-        open(PRODUCT_DATA_DIR / "barcode_reader" / "response_v1" / "empty.json")
+        open(
+            PRODUCT_DATA_DIR / "barcode_reader" / "response_v1" / "empty.json",
+            encoding="utf-8",
+        )
     )
     return Document(BarcodeReaderV1, json_data["document"])
 
@@ -30,7 +36,10 @@ def empty_doc() -> Document[BarcodeReaderV1Document, Page[BarcodeReaderV1Documen
 @pytest.fixture
 def complete_page_0() -> Page[BarcodeReaderV1Document]:
     json_data = json.load(
-        open(PRODUCT_DATA_DIR / "barcode_reader" / "response_v1" / "complete.json")
+        open(
+            PRODUCT_DATA_DIR / "barcode_reader" / "response_v1" / "complete.json",
+            encoding="utf-8",
+        )
     )
     return Page(BarcodeReaderV1Document, json_data["document"]["inference"]["pages"][0])
 

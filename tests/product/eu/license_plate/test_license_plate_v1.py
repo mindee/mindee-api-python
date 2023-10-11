@@ -14,7 +14,10 @@ from tests.product import PRODUCT_DATA_DIR
 @pytest.fixture
 def complete_doc() -> Document[LicensePlateV1Document, Page[LicensePlateV1Document]]:
     json_data = json.load(
-        open(PRODUCT_DATA_DIR / "license_plates" / "response_v1" / "complete.json")
+        open(
+            PRODUCT_DATA_DIR / "license_plates" / "response_v1" / "complete.json",
+            encoding="utf-8",
+        )
     )
     return Document(LicensePlateV1, json_data["document"])
 
@@ -22,7 +25,10 @@ def complete_doc() -> Document[LicensePlateV1Document, Page[LicensePlateV1Docume
 @pytest.fixture
 def empty_doc() -> Document[LicensePlateV1Document, Page[LicensePlateV1Document]]:
     json_data = json.load(
-        open(PRODUCT_DATA_DIR / "license_plates" / "response_v1" / "empty.json")
+        open(
+            PRODUCT_DATA_DIR / "license_plates" / "response_v1" / "empty.json",
+            encoding="utf-8",
+        )
     )
     return Document(LicensePlateV1, json_data["document"])
 
@@ -30,7 +36,10 @@ def empty_doc() -> Document[LicensePlateV1Document, Page[LicensePlateV1Document]
 @pytest.fixture
 def complete_page_0() -> Page[LicensePlateV1Document]:
     json_data = json.load(
-        open(PRODUCT_DATA_DIR / "license_plates" / "response_v1" / "complete.json")
+        open(
+            PRODUCT_DATA_DIR / "license_plates" / "response_v1" / "complete.json",
+            encoding="utf-8",
+        )
     )
     return Page(LicensePlateV1Document, json_data["document"]["inference"]["pages"][0])
 

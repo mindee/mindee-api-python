@@ -13,7 +13,10 @@ from tests.product import PRODUCT_DATA_DIR
 @pytest.fixture
 def complete_doc() -> Document[IdCardV2Document, Page[IdCardV2Page]]:
     json_data = json.load(
-        open(PRODUCT_DATA_DIR / "idcard_fr" / "response_v2" / "complete.json")
+        open(
+            PRODUCT_DATA_DIR / "idcard_fr" / "response_v2" / "complete.json",
+            encoding="utf-8",
+        )
     )
     return Document(IdCardV2, json_data["document"])
 
@@ -21,7 +24,10 @@ def complete_doc() -> Document[IdCardV2Document, Page[IdCardV2Page]]:
 @pytest.fixture
 def empty_doc() -> Document[IdCardV2Document, Page[IdCardV2Page]]:
     json_data = json.load(
-        open(PRODUCT_DATA_DIR / "idcard_fr" / "response_v2" / "empty.json")
+        open(
+            PRODUCT_DATA_DIR / "idcard_fr" / "response_v2" / "empty.json",
+            encoding="utf-8",
+        )
     )
     return Document(IdCardV2, json_data["document"])
 
@@ -29,7 +35,10 @@ def empty_doc() -> Document[IdCardV2Document, Page[IdCardV2Page]]:
 @pytest.fixture
 def complete_page_0() -> Page[IdCardV2Page]:
     json_data = json.load(
-        open(PRODUCT_DATA_DIR / "idcard_fr" / "response_v2" / "complete.json")
+        open(
+            PRODUCT_DATA_DIR / "idcard_fr" / "response_v2" / "complete.json",
+            encoding="utf-8",
+        )
     )
     return Page(IdCardV2Page, json_data["document"]["inference"]["pages"][0])
 

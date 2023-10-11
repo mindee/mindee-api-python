@@ -175,22 +175,25 @@ class InvoiceV4Document(Prediction):
         supplier_payment_details = f"\n { ' ' * 26 }".join(
             [str(item) for item in self.supplier_payment_details],
         )
-        return clean_out_string(
-            f":Locale: {self.locale}\n"
-            f":Invoice Number: {self.invoice_number}\n"
-            f":Reference Numbers: {reference_numbers}\n"
-            f":Purchase Date: {self.date}\n"
-            f":Due Date: {self.due_date}\n"
-            f":Total Net: {self.total_net}\n"
-            f":Total Amount: {self.total_amount}\n"
-            f":Taxes: {self.taxes}\n"
-            f":Supplier Payment Details: {supplier_payment_details}\n"
-            f":Supplier Name: {self.supplier_name}\n"
+        out_str: str = f":Locale: {self.locale}\n"
+        out_str += f":Invoice Number: {self.invoice_number}\n"
+        out_str += f":Reference Numbers: {reference_numbers}\n"
+        out_str += f":Purchase Date: {self.date}\n"
+        out_str += f":Due Date: {self.due_date}\n"
+        out_str += f":Total Net: {self.total_net}\n"
+        out_str += f":Total Amount: {self.total_amount}\n"
+        out_str += f":Taxes: {self.taxes}\n"
+        out_str += f":Supplier Payment Details: {supplier_payment_details}\n"
+        out_str += f":Supplier Name: {self.supplier_name}\n"
+        out_str += (
             f":Supplier Company Registrations: {supplier_company_registrations}\n"
-            f":Supplier Address: {self.supplier_address}\n"
-            f":Customer Name: {self.customer_name}\n"
-            f":Customer Company Registrations: {customer_company_registrations}\n"
-            f":Customer Address: {self.customer_address}\n"
-            f":Document Type: {self.document_type}\n"
-            f":Line Items: {self._line_items_to_str()}\n"
         )
+        out_str += f":Supplier Address: {self.supplier_address}\n"
+        out_str += f":Customer Name: {self.customer_name}\n"
+        out_str += (
+            f":Customer Company Registrations: {customer_company_registrations}\n"
+        )
+        out_str += f":Customer Address: {self.customer_address}\n"
+        out_str += f":Document Type: {self.document_type}\n"
+        out_str += f":Line Items: {self._line_items_to_str()}\n"
+        return clean_out_string(out_str)

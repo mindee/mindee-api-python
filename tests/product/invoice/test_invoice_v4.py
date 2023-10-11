@@ -12,7 +12,10 @@ from tests.product import PRODUCT_DATA_DIR
 @pytest.fixture
 def complete_doc() -> Document[InvoiceV4Document, Page[InvoiceV4Document]]:
     json_data = json.load(
-        open(PRODUCT_DATA_DIR / "invoices" / "response_v4" / "complete.json")
+        open(
+            PRODUCT_DATA_DIR / "invoices" / "response_v4" / "complete.json",
+            encoding="utf-8",
+        )
     )
     return Document(InvoiceV4, json_data["document"])
 
@@ -20,7 +23,10 @@ def complete_doc() -> Document[InvoiceV4Document, Page[InvoiceV4Document]]:
 @pytest.fixture
 def empty_doc() -> Document[InvoiceV4Document, Page[InvoiceV4Document]]:
     json_data = json.load(
-        open(PRODUCT_DATA_DIR / "invoices" / "response_v4" / "empty.json")
+        open(
+            PRODUCT_DATA_DIR / "invoices" / "response_v4" / "empty.json",
+            encoding="utf-8",
+        )
     )
     return Document(InvoiceV4, json_data["document"])
 
@@ -28,7 +34,10 @@ def empty_doc() -> Document[InvoiceV4Document, Page[InvoiceV4Document]]:
 @pytest.fixture
 def complete_page_0() -> Page[InvoiceV4Document]:
     json_data = json.load(
-        open(PRODUCT_DATA_DIR / "invoices" / "response_v4" / "complete.json")
+        open(
+            PRODUCT_DATA_DIR / "invoices" / "response_v4" / "complete.json",
+            encoding="utf-8",
+        )
     )
     return Page(InvoiceV4Document, json_data["document"]["inference"]["pages"][0])
 

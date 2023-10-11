@@ -32,6 +32,6 @@ class CropperV1Page(CropperV1Document):
         cropping = f"\n { ' ' * 18 }".join(
             [str(item) for item in self.cropping],
         )
-        return clean_out_string(
-            f":Document Cropper: {cropping}\n" + f"{super().__str__()}"
-        )
+        out_str: str = f":Document Cropper: {cropping}\n"
+        out_str += f"{super().__str__()}"
+        return clean_out_string(out_str)

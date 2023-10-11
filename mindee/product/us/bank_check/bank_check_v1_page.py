@@ -38,7 +38,7 @@ class BankCheckV1Page(BankCheckV1Document):
         signatures_positions = f"\n { ' ' * 21 }".join(
             [str(item) for item in self.signatures_positions],
         )
-        return clean_out_string(
-            f":Check Position: {self.check_position}\n"
-            f":Signature Positions: {signatures_positions}\n" + f"{super().__str__()}"
-        )
+        out_str: str = f":Check Position: {self.check_position}\n"
+        out_str += f":Signature Positions: {signatures_positions}\n"
+        out_str += f"{super().__str__()}"
+        return clean_out_string(out_str)
