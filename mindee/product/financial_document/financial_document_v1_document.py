@@ -222,13 +222,13 @@ class FinancialDocumentV1Document(Prediction):
         out_str += f":Total Amount: {self.total_amount}\n"
         out_str += f":Taxes: {self.taxes}\n"
         out_str += f":Supplier Payment Details: {supplier_payment_details}\n"
-        out_str += f":Supplier name: {self.supplier_name}\n"
-        out_str += f":Customer Name: {self.customer_name}\n"
+        out_str += f":Supplier Name: {self.supplier_name}\n"
         out_str += (
             f":Supplier Company Registrations: {supplier_company_registrations}\n"
         )
         out_str += f":Supplier Address: {self.supplier_address}\n"
         out_str += f":Supplier Phone Number: {self.supplier_phone_number}\n"
+        out_str += f":Customer Name: {self.customer_name}\n"
         out_str += (
             f":Customer Company Registrations: {customer_company_registrations}\n"
         )

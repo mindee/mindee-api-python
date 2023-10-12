@@ -81,32 +81,32 @@ def complete_page_0_receipt() -> Page[FinancialDocumentV1Document]:
     )
 
 
-# def test_complete_doc(
-#     complete_doc_invoice: Document[
-#         FinancialDocumentV1Document, Page[FinancialDocumentV1Document]
-#     ],
-#     complete_doc_receipt: Document[
-#         FinancialDocumentV1Document, Page[FinancialDocumentV1Document]
-#     ],
-# ):
-#     reference_str_invoice = open(
-#         PRODUCT_DATA_DIR
-#         / "financial_document"
-#         / "response_v1"
-#         / "summary_full_invoice.rst",
-#         "r",
-#         encoding="utf-8",
-#     ).read()
-#     reference_str_receipt = open(
-#         PRODUCT_DATA_DIR
-#         / "financial_document"
-#         / "response_v1"
-#         / "summary_full_receipt.rst",
-#         "r",
-#         encoding="utf-8",
-#     ).read()
-#     assert str(complete_doc_invoice) == reference_str_invoice
-#     assert str(complete_doc_receipt) == reference_str_receipt
+def test_complete_doc(
+    complete_doc_invoice: Document[
+        FinancialDocumentV1Document, Page[FinancialDocumentV1Document]
+    ],
+    complete_doc_receipt: Document[
+        FinancialDocumentV1Document, Page[FinancialDocumentV1Document]
+    ],
+):
+    reference_str_invoice = open(
+        PRODUCT_DATA_DIR
+        / "financial_document"
+        / "response_v1"
+        / "summary_full_invoice.rst",
+        "r",
+        encoding="utf-8",
+    ).read()
+    reference_str_receipt = open(
+        PRODUCT_DATA_DIR
+        / "financial_document"
+        / "response_v1"
+        / "summary_full_receipt.rst",
+        "r",
+        encoding="utf-8",
+    ).read()
+    assert str(complete_doc_invoice) == reference_str_invoice
+    assert str(complete_doc_receipt) == reference_str_receipt
 
 
 def test_empty_doc(
@@ -131,27 +131,27 @@ def test_empty_doc(
     assert len(prediction.line_items) == 0
 
 
-# def test_complete_page_0(
-#     complete_page_0_invoice: Page[FinancialDocumentV1Document],
-#     complete_page_0_receipt: Page[FinancialDocumentV1Document],
-# ):
-#     reference_str_invoice = open(
-#         PRODUCT_DATA_DIR
-#         / "financial_document"
-#         / "response_v1"
-#         / "summary_page0_invoice.rst",
-#         "r",
-#         encoding="utf-8",
-#     ).read()
-#     reference_str_receipt = open(
-#         PRODUCT_DATA_DIR
-#         / "financial_document"
-#         / "response_v1"
-#         / "summary_page0_receipt.rst",
-#         "r",
-#         encoding="utf-8",
-#     ).read()
-#     assert complete_page_0_invoice.id == 0
-#     assert complete_page_0_receipt.id == 0
-#     assert str(complete_page_0_invoice) == reference_str_invoice
-#     assert str(complete_page_0_receipt) == reference_str_receipt
+def test_complete_page_0(
+    complete_page_0_invoice: Page[FinancialDocumentV1Document],
+    complete_page_0_receipt: Page[FinancialDocumentV1Document],
+):
+    reference_str_invoice = open(
+        PRODUCT_DATA_DIR
+        / "financial_document"
+        / "response_v1"
+        / "summary_page0_invoice.rst",
+        "r",
+        encoding="utf-8",
+    ).read()
+    reference_str_receipt = open(
+        PRODUCT_DATA_DIR
+        / "financial_document"
+        / "response_v1"
+        / "summary_page0_receipt.rst",
+        "r",
+        encoding="utf-8",
+    ).read()
+    assert complete_page_0_invoice.id == 0
+    assert complete_page_0_receipt.id == 0
+    assert str(complete_page_0_invoice) == reference_str_invoice
+    assert str(complete_page_0_receipt) == reference_str_receipt
