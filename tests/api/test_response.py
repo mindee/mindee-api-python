@@ -7,48 +7,60 @@ from mindee.parsing.common.predict_response import PredictResponse
 from mindee.product import (  # FinancialDocumentV1,; InvoiceV3,; PassportV1,; ReceiptV3,
     ReceiptV4,
 )
-from mindee.product.receipt.receipt_v4_document import ReceiptV4Document
-
-FILE_PATH_RECEIPT_V4_COMPLETE = (
-    f"./tests/data/products/expense_receipts/response_v4/complete.json"
+from mindee.product.financial_document.financial_document_v1 import FinancialDocumentV1
+from mindee.product.financial_document.financial_document_v1_document import (
+    FinancialDocumentV1Document,
 )
-
-
-@pytest.fixture
-def dummy_file_input():
-    file_input = PathInput("./tests/data/file_types/receipt.jpg")
-    return file_input
+from mindee.product.fr.id_card.id_card_v2 import IdCardV2
+from mindee.product.fr.id_card.id_card_v2_document import IdCardV2Document
+from mindee.product.fr.id_card.id_card_v2_page import IdCardV2Page
+from mindee.product.passport.passport_v1 import PassportV1
+from mindee.product.passport.passport_v1_document import PassportV1Document
+from mindee.product.receipt.receipt_v4_document import ReceiptV4Document
 
 
 def test_response_receipt_v4():
-    response = json.load(open(FILE_PATH_RECEIPT_V4_COMPLETE))
+    response = json.load(
+        open("./tests/data/products/expense_receipts/response_v4/complete.json")
+    )
     parsed_response = PredictResponse(ReceiptV4, response)
     assert isinstance(parsed_response.document.inference, ReceiptV4)
     for page in parsed_response.document.inference.pages:
         assert isinstance(page.prediction, ReceiptV4Document)
 
 
-# def test_response_financial_doc_with_receipt(dummy_file_input, dummy_config):
-#     response = json.load(open(FILE_PATH_FINANCIAL_DOC_V1_RECEIPT))
-#     parsed_response = PredictResponse[FinancialDocumentV1](
-#         doc_config=dummy_config[(OTS_OWNER, FinancialDocumentV1.__name__)],
-#         http_response=response,
-#         input_source=dummy_file_input,
-#         response_ok=True,
-#     )
-#     assert isinstance(parsed_response.document, FinancialDocumentV1)
-#     for page in parsed_response.pages:
-#         assert isinstance(page, FinancialDocumentV1)
+def test_response_financial_doc_with_receipt():
+    response = json.load(
+        open(
+            "./tests/data/products/financial_document/response_v1/complete_receipt.json"
+        )
+    )
+    parsed_response = PredictResponse(FinancialDocumentV1, response)
+    assert isinstance(parsed_response.document.inference, FinancialDocumentV1)
+    assert isinstance(
+        parsed_response.document.inference.prediction, FinancialDocumentV1Document
+    )
+    for page in parsed_response.document.inference.pages:
+        assert isinstance(page.prediction, FinancialDocumentV1Document)
 
 
-# def test_response_passport_v1(dummy_file_input, dummy_config):
-#     response = json.load(open(FILE_PATH_PASSPORT_V1_COMPLETE))
-#     parsed_response = PredictResponse[PassportV1](
-#         doc_config=dummy_config[(OTS_OWNER, PassportV1.__name__)],
-#         http_response=response,
-#         input_source=dummy_file_input,
-#         response_ok=True,
-#     )
-#     assert isinstance(parsed_response.document, PassportV1)
-#     for page in parsed_response.pages:
-#         assert isinstance(page, PassportV1)
+def test_response_passport_v1():
+    response = json.load(
+        open("./tests/data/products/passport/response_v1/complete.json")
+    )
+    parsed_response = PredictResponse(PassportV1, response)
+    assert isinstance(parsed_response.document.inference, PassportV1)
+    assert isinstance(parsed_response.document.inference.prediction, PassportV1Document)
+    for page in parsed_response.document.inference.pages:
+        assert isinstance(page.prediction, PassportV1Document)
+
+
+def test_response_fr_idcard_v2():
+    response = json.load(
+        open("./tests/data/products/idcard_fr/response_v2/complete.json")
+    )
+    parsed_response = PredictResponse(IdCardV2, response)
+    assert isinstance(parsed_response.document.inference, IdCardV2)
+    assert isinstance(parsed_response.document.inference.prediction, IdCardV2Document)
+    for page in parsed_response.document.inference.pages:
+        assert isinstance(page.prediction, IdCardV2Page)
