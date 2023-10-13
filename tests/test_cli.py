@@ -66,7 +66,7 @@ def ots_doc_fetch(monkeypatch):
         output_type="summary",
         queue_id="dummy-queue-id",
         call_method="parse-queued",
-        parse_type="fetch"
+        parse_type="fetch",
     )
 
 
