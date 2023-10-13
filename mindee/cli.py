@@ -133,13 +133,22 @@ class MindeeParser:
     product_class: Type[Inference]
     """Product to parse"""
 
-    def __init__(self) -> None:
-        self.parser = ArgumentParser(description="Mindee_API")
-        self.parsed_args = self._set_args()
-        self.client = Client(api_key=self.parsed_args.api_key)
+    def __init__(
+        self,
+        parser: Optional[ArgumentParser] = None,
+        parsed_args: Optional[Namespace] = None,
+        client: Optional[Client] = None,
+        input_doc: Optional[Union[LocalInputSource, UrlInputSource]] = None,
+        document_info: Optional[CommandConfig] = None,
+    ) -> None:
+        self.parser = parser if parser else ArgumentParser(description="Mindee_API")
+        self.parsed_args = parsed_args if parsed_args else self._set_args()
+        self.client = client if client else Client(api_key=self.parsed_args.api_key)
         if self.parsed_args.parse_type == "parse":
-            self.input_doc = self._get_input_doc()
-        self.document_info = DOCUMENTS[self.parsed_args.product_name]
+            self.input_doc = input_doc if input_doc else self._get_input_doc()
+        self.document_info = (
+            document_info if document_info else DOCUMENTS[self.parsed_args.product_name]
+        )
 
     def call_endpoint(self) -> None:
         """Calls the proper type of endpoint according to given command."""
@@ -192,7 +201,7 @@ class MindeeParser:
             )
         custom_endpoint: Optional[Endpoint] = None
         if self.parsed_args.product_name == "custom":
-            self.client.create_endpoint(
+            custom_endpoint = self.client.create_endpoint(
                 self.parsed_args.endpoint_name,
                 self.parsed_args.account_name,
                 self.parsed_args.api_version,
@@ -214,7 +223,7 @@ class MindeeParser:
             )
         custom_endpoint: Optional[Endpoint] = None
         if self.parsed_args.product_name == "custom":
-            self.client.create_endpoint(
+            custom_endpoint = self.client.create_endpoint(
                 self.parsed_args.endpoint_name,
                 self.parsed_args.account_name,
                 self.parsed_args.api_version,
