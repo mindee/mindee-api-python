@@ -3,9 +3,6 @@ from pathlib import Path
 from time import sleep
 from typing import BinaryIO, Dict, Optional, Type, Union
 
-from mindee.http.endpoint import CustomEndpoint, Endpoint
-from mindee.http.error import HTTPException
-from mindee.http.mindee_api import MindeeApi
 from mindee.input.page_options import PageOptions
 from mindee.input.sources import (
     Base64Input,
@@ -16,6 +13,9 @@ from mindee.input.sources import (
     UrlInputSource,
 )
 from mindee.logger import logger
+from mindee.mindee_http.endpoint import CustomEndpoint, Endpoint
+from mindee.mindee_http.error import HTTPException
+from mindee.mindee_http.mindee_api import MindeeApi
 from mindee.parsing.common.async_predict_response import AsyncPredictResponse
 from mindee.parsing.common.inference import Inference, TypeInference
 from mindee.parsing.common.predict_response import PredictResponse

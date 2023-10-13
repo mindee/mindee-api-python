@@ -2,7 +2,7 @@ from typing import Union
 
 import requests
 
-from mindee.http.mindee_api import MindeeApi
+from mindee.mindee_http.mindee_api import MindeeApi
 from mindee.input.sources import LocalInputSource, UrlInputSource
 
 

@@ -3,8 +3,8 @@ import binascii
 import pytest
 
 from mindee import Client, PageOptions, product
-from mindee.http.error import HTTPException
 from mindee.input.sources import LocalInputSource
+from mindee.mindee_http.error import HTTPException
 from mindee.product.invoice_splitter.invoice_splitter_v1 import InvoiceSplitterV1
 from mindee.product.receipt.receipt_v4 import ReceiptV4
 from tests.test_inputs import FILE_TYPES_DIR
