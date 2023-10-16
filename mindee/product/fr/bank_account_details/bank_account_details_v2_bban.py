@@ -1,6 +1,6 @@
 from typing import Dict, Optional
 
-from mindee.parsing.common import StringDict, format_for_display
+from mindee.parsing.common import StringDict, clean_out_string, format_for_display
 from mindee.parsing.standard import FieldConfidenceMixin, FieldPositionMixin
 
 
@@ -41,29 +41,27 @@ class BankAccountDetailsV2Bban(FieldPositionMixin, FieldConfidenceMixin):
 
     def _printable_values(self) -> Dict[str, str]:
         """Return values for printing."""
-        return {
-            "bban_bank_code": format_for_display(self.bban_bank_code, None),
-            "bban_branch_code": format_for_display(self.bban_branch_code, None),
-            "bban_key": format_for_display(self.bban_key, None),
-            "bban_number": format_for_display(self.bban_number, None),
-        }
+        out_dict: Dict[str, str] = {}
+        out_dict["bban_bank_code"] = format_for_display(self.bban_bank_code, None)
+        out_dict["bban_branch_code"] = format_for_display(self.bban_branch_code, None)
+        out_dict["bban_key"] = format_for_display(self.bban_key, None)
+        out_dict["bban_number"] = format_for_display(self.bban_number, None)
+        return out_dict
 
     def to_field_list(self) -> str:
         """Output the object in a format suitable for inclusion in an rST field list."""
         printable = self._printable_values()
-        return (
-            f"  :Bank Code: {printable['bban_bank_code']}\n"
-            f"  :Branch Code: {printable['bban_branch_code']}\n"
-            f"  :Key: {printable['bban_key']}\n"
-            f"  :Account Number: {printable['bban_number']}"
-        )
+        out_str: str = f"  :Bank Code: {printable['bban_bank_code']}\n"
+        out_str += f"  :Branch Code: {printable['bban_branch_code']}\n"
+        out_str += f"  :Key: {printable['bban_key']}\n"
+        out_str += f"  :Account Number: {printable['bban_number']}\n"
+        return out_str.rstrip()
 
     def __str__(self) -> str:
         """Default string representation."""
         printable = self._printable_values()
-        return (
-            f"Bank Code: {printable['bban_bank_code']}, "
-            f"Branch Code: {printable['bban_branch_code']}, "
-            f"Key: {printable['bban_key']}, "
-            f"Account Number: {printable['bban_number']}, "
-        ).strip()
+        out_str: str = f"Bank Code: {printable['bban_bank_code']}, \n"
+        out_str += f"Branch Code: {printable['bban_branch_code']}, \n"
+        out_str += f"Key: {printable['bban_key']}, \n"
+        out_str += f"Account Number: {printable['bban_number']}, \n"
+        return clean_out_string(out_str)

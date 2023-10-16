@@ -1,6 +1,6 @@
 from typing import Dict, Optional
 
-from mindee.parsing.common import StringDict, format_for_display
+from mindee.parsing.common import StringDict, clean_out_string, format_for_display
 from mindee.parsing.standard import (
     FieldConfidenceMixin,
     FieldPositionMixin,
@@ -55,39 +55,36 @@ class FinancialDocumentV1LineItem(FieldPositionMixin, FieldConfidenceMixin):
 
     def _printable_values(self) -> Dict[str, str]:
         """Return values for printing."""
-        return {
-            "description": format_for_display(self.description, 36),
-            "product_code": format_for_display(self.product_code, None),
-            "quantity": float_to_string(self.quantity),
-            "tax_amount": float_to_string(self.tax_amount),
-            "tax_rate": float_to_string(self.tax_rate),
-            "total_amount": float_to_string(self.total_amount),
-            "unit_price": float_to_string(self.unit_price),
-        }
+        out_dict: Dict[str, str] = {}
+        out_dict["description"] = format_for_display(self.description, 36)
+        out_dict["product_code"] = format_for_display(self.product_code, None)
+        out_dict["quantity"] = float_to_string(self.quantity)
+        out_dict["tax_amount"] = float_to_string(self.tax_amount)
+        out_dict["tax_rate"] = float_to_string(self.tax_rate)
+        out_dict["total_amount"] = float_to_string(self.total_amount)
+        out_dict["unit_price"] = float_to_string(self.unit_price)
+        return out_dict
 
     def to_table_line(self) -> str:
         """Output in a format suitable for inclusion in an rST table."""
         printable = self._printable_values()
-        return (
-            "|"
-            f" {printable['description']:<36} |"
-            f" {printable['product_code']:<12} |"
-            f" {printable['quantity']:<8} |"
-            f" {printable['tax_amount']:<10} |"
-            f" {printable['tax_rate']:<12} |"
-            f" {printable['total_amount']:<12} |"
-            f" {printable['unit_price']:<10} |"
-        )
+        out_str: str = f"| {printable['description']:<36} | "
+        out_str += f"{printable['product_code']:<12} | "
+        out_str += f"{printable['quantity']:<8} | "
+        out_str += f"{printable['tax_amount']:<10} | "
+        out_str += f"{printable['tax_rate']:<12} | "
+        out_str += f"{printable['total_amount']:<12} | "
+        out_str += f"{printable['unit_price']:<10} | "
+        return clean_out_string(out_str)
 
     def __str__(self) -> str:
         """Default string representation."""
         printable = self._printable_values()
-        return (
-            f"Description: {printable['description']}, "
-            f"Product code: {printable['product_code']}, "
-            f"Quantity: {printable['quantity']}, "
-            f"Tax Amount: {printable['tax_amount']}, "
-            f"Tax Rate (%): {printable['tax_rate']}, "
-            f"Total Amount: {printable['total_amount']}, "
-            f"Unit Price: {printable['unit_price']}, "
-        ).strip()
+        out_str: str = f"Description: {printable['description']}, \n"
+        out_str += f"Product code: {printable['product_code']}, \n"
+        out_str += f"Quantity: {printable['quantity']}, \n"
+        out_str += f"Tax Amount: {printable['tax_amount']}, \n"
+        out_str += f"Tax Rate (%): {printable['tax_rate']}, \n"
+        out_str += f"Total Amount: {printable['total_amount']}, \n"
+        out_str += f"Unit Price: {printable['unit_price']}, \n"
+        return clean_out_string(out_str)
