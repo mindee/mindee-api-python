@@ -1,94 +1,94 @@
 from typing import Optional
 
 from mindee.parsing.common import Prediction, StringDict, clean_out_string
-from mindee.parsing.standard import StringField
+from mindee.parsing.standard import DateField, StringField
 
 
 class CarteGriseV1Document(Prediction):
     """Document data for Carte Grise, API version 1."""
 
     a: StringField
-    """"""
-    b: StringField
-    """"""
+    """The vehicle's license plate number."""
+    b: DateField
+    """The vehicle's first release date."""
     c1: StringField
-    """"""
+    """The vehicle owner's full name including maiden name."""
     c3: StringField
-    """"""
+    """The vehicle owner's address."""
     c41: StringField
-    """"""
+    """Number of owners of the license certificate."""
     c4a: StringField
-    """"""
+    """Mentions about the ownership of the vehicle."""
     d1: StringField
-    """"""
+    """The vehicle's brand."""
     d3: StringField
-    """"""
+    """The vehicle's commercial name."""
     e: StringField
-    """"""
+    """The Vehicle Identification Number (VIN)."""
     f1: StringField
-    """"""
+    """The vehicle's maximum admissible weight."""
     f2: StringField
-    """"""
+    """The vehicle's maximum admissible weight within the license's state."""
     f3: StringField
-    """"""
+    """The vehicle's maximum authorized weight with coupling."""
     formula_number: StringField
-    """"""
+    """The document's formula number."""
     g: StringField
-    """"""
+    """The vehicle's weight with coupling if tractor different than category M1."""
     g1: StringField
-    """"""
-    i: StringField
-    """"""
+    """The vehicle's national empty weight."""
+    i: DateField
+    """The car registration date of the given certificate."""
     j: StringField
-    """"""
+    """The vehicle's category."""
     j1: StringField
-    """"""
+    """The vehicle's national type."""
     j2: StringField
-    """"""
+    """The vehicle's body type (CE)."""
     j3: StringField
-    """"""
+    """The vehicle's body type (National designation)."""
     mrz1: StringField
-    """"""
+    """Machine Readable Zone, first line."""
     mrz2: StringField
-    """"""
+    """Machine Readable Zone, second line."""
     owner_first_name: StringField
-    """"""
+    """The vehicle's owner first name."""
     owner_surname: StringField
-    """"""
+    """The vehicle's owner surname."""
     p1: StringField
-    """"""
+    """The vehicle engine's displacement (cm3)."""
     p2: StringField
-    """"""
+    """The vehicle's maximum net power (kW)."""
     p3: StringField
-    """"""
+    """The vehicle's fuel type or energy source."""
     p6: StringField
-    """"""
+    """The vehicle's administrative power (fiscal horsepower)."""
     q: StringField
-    """"""
+    """The vehicle's power to weight ratio."""
     s1: StringField
-    """"""
+    """The vehicle's number of seats."""
     s2: StringField
-    """"""
+    """The vehicle's number of standing rooms (person)."""
     u1: StringField
-    """"""
+    """The vehicle's sound level (dB)."""
     u2: StringField
-    """"""
+    """The vehicle engine's rotation speed (RPM)."""
     v7: StringField
-    """"""
+    """The vehicle's CO2 emission (g/km)."""
     x1: StringField
-    """"""
+    """Next technical control date."""
     y1: StringField
-    """"""
+    """Amount of the regional proportional tax of the registration (in euros)."""
     y2: StringField
-    """"""
+    """Amount of the additional parafiscal tax of the registration (in euros)."""
     y3: StringField
-    """"""
+    """Amount of the additional CO2 tax of the registration (in euros)."""
     y4: StringField
-    """"""
+    """Amount of the fee for managing the registration (in euros)."""
     y5: StringField
-    """"""
+    """Amount of the fee for delivery of the registration certificate in euros."""
     y6: StringField
-    """"""
+    """Total amount of registration fee to be paid in euros."""
 
     def __init__(
         self,
@@ -105,7 +105,7 @@ class CarteGriseV1Document(Prediction):
             raw_prediction["a"],
             page_id=page_id,
         )
-        self.b = StringField(
+        self.b = DateField(
             raw_prediction["b"],
             page_id=page_id,
         )
@@ -161,7 +161,7 @@ class CarteGriseV1Document(Prediction):
             raw_prediction["g1"],
             page_id=page_id,
         )
-        self.i = StringField(
+        self.i = DateField(
             raw_prediction["i"],
             page_id=page_id,
         )
@@ -270,9 +270,9 @@ class CarteGriseV1Document(Prediction):
         out_str: str = f":a: {self.a}\n"
         out_str += f":b: {self.b}\n"
         out_str += f":c1: {self.c1}\n"
-        out_str += f":c4a: {self.c4a}\n"
-        out_str += f":c41: {self.c41}\n"
         out_str += f":c3: {self.c3}\n"
+        out_str += f":c41: {self.c41}\n"
+        out_str += f":c4a: {self.c4a}\n"
         out_str += f":d1: {self.d1}\n"
         out_str += f":d3: {self.d3}\n"
         out_str += f":e: {self.e}\n"
@@ -281,6 +281,7 @@ class CarteGriseV1Document(Prediction):
         out_str += f":f3: {self.f3}\n"
         out_str += f":g: {self.g}\n"
         out_str += f":g1: {self.g1}\n"
+        out_str += f":i: {self.i}\n"
         out_str += f":j: {self.j}\n"
         out_str += f":j1: {self.j1}\n"
         out_str += f":j2: {self.j2}\n"
@@ -293,19 +294,18 @@ class CarteGriseV1Document(Prediction):
         out_str += f":s1: {self.s1}\n"
         out_str += f":s2: {self.s2}\n"
         out_str += f":u1: {self.u1}\n"
-        out_str += f":v7: {self.v7}\n"
         out_str += f":u2: {self.u2}\n"
+        out_str += f":v7: {self.v7}\n"
         out_str += f":x1: {self.x1}\n"
         out_str += f":y1: {self.y1}\n"
         out_str += f":y2: {self.y2}\n"
+        out_str += f":y3: {self.y3}\n"
         out_str += f":y4: {self.y4}\n"
         out_str += f":y5: {self.y5}\n"
         out_str += f":y6: {self.y6}\n"
-        out_str += f":i: {self.i}\n"
-        out_str += f":formula_number: {self.formula_number}\n"
-        out_str += f":mrz1: {self.mrz1}\n"
-        out_str += f":mrz2: {self.mrz2}\n"
-        out_str += f":y3: {self.y3}\n"
-        out_str += f":owner_first_name: {self.owner_first_name}\n"
-        out_str += f":owner_surname: {self.owner_surname}\n"
+        out_str += f":Formula Number: {self.formula_number}\n"
+        out_str += f":Owner's First Name: {self.owner_first_name}\n"
+        out_str += f":Owner's Surname: {self.owner_surname}\n"
+        out_str += f":MRZ Line 1: {self.mrz1}\n"
+        out_str += f":MRZ Line 2: {self.mrz2}\n"
         return clean_out_string(out_str)

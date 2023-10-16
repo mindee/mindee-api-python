@@ -3,7 +3,9 @@ from typing import Optional
 from mindee.parsing.common import Prediction, StringDict, clean_out_string
 from mindee.parsing.standard import AmountField
 from mindee.product.fr.petrol_receipt.petrol_receipt_v1_fuel import PetrolReceiptV1Fuel
-from mindee.product.fr.petrol_receipt.petrol_receipt_v1_total import PetrolReceiptV1Total
+from mindee.product.fr.petrol_receipt.petrol_receipt_v1_total import (
+    PetrolReceiptV1Total,
+)
 
 
 class PetrolReceiptV1Document(Prediction):

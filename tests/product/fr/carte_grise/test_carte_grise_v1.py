@@ -60,9 +60,9 @@ def test_empty_doc(
     assert prediction.a.value is None
     assert prediction.b.value is None
     assert prediction.c1.value is None
-    assert prediction.c4a.value is None
-    assert prediction.c41.value is None
     assert prediction.c3.value is None
+    assert prediction.c41.value is None
+    assert prediction.c4a.value is None
     assert prediction.d1.value is None
     assert prediction.d3.value is None
     assert prediction.e.value is None
@@ -71,6 +71,7 @@ def test_empty_doc(
     assert prediction.f3.value is None
     assert prediction.g.value is None
     assert prediction.g1.value is None
+    assert prediction.i.value is None
     assert prediction.j.value is None
     assert prediction.j1.value is None
     assert prediction.j2.value is None
@@ -83,21 +84,20 @@ def test_empty_doc(
     assert prediction.s1.value is None
     assert prediction.s2.value is None
     assert prediction.u1.value is None
-    assert prediction.v7.value is None
     assert prediction.u2.value is None
+    assert prediction.v7.value is None
     assert prediction.x1.value is None
     assert prediction.y1.value is None
     assert prediction.y2.value is None
+    assert prediction.y3.value is None
     assert prediction.y4.value is None
     assert prediction.y5.value is None
     assert prediction.y6.value is None
-    assert prediction.i.value is None
     assert prediction.formula_number.value is None
-    assert prediction.mrz1.value is None
-    assert prediction.mrz2.value is None
-    assert prediction.y3.value is None
     assert prediction.owner_first_name.value is None
     assert prediction.owner_surname.value is None
+    assert prediction.mrz1.value is None
+    assert prediction.mrz2.value is None
 
 
 def test_complete_page_0(complete_page_0: Page[CarteGriseV1Document]):

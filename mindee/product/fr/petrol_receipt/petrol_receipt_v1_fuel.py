@@ -1,6 +1,6 @@
 from typing import Dict, Optional
 
-from mindee.parsing.common import StringDict, format_for_display
+from mindee.parsing.common import StringDict, clean_out_string, format_for_display
 from mindee.parsing.standard import FieldConfidenceMixin, FieldPositionMixin
 
 
@@ -35,23 +35,21 @@ class PetrolReceiptV1Fuel(FieldPositionMixin, FieldConfidenceMixin):
 
     def _printable_values(self) -> Dict[str, str]:
         """Return values for printing."""
-        return {
-            "category": format_for_display(self.category, None),
-            "raw_text": format_for_display(self.raw_text, None),
-        }
+        out_dict: Dict[str, str] = {}
+        out_dict["category"] = format_for_display(self.category, None)
+        out_dict["raw_text"] = format_for_display(self.raw_text, None)
+        return out_dict
 
     def to_field_list(self) -> str:
         """Output the object in a format suitable for inclusion in an rST field list."""
         printable = self._printable_values()
-        return (
-            f"  :Category: {printable['category']}\n"
-            f"  :Raw Name: {printable['raw_text']}"
-        )
+        out_str: str = f"  :Category: {printable['category']}\n"
+        out_str += f"  :Raw Name: {printable['raw_text']}\n"
+        return out_str.rstrip()
 
     def __str__(self) -> str:
         """Default string representation."""
         printable = self._printable_values()
-        return (
-            f"Category: {printable['category']}, "
-            f"Raw Name: {printable['raw_text']}, "
-        ).strip()
+        out_str: str = f"Category: {printable['category']}, \n"
+        out_str += f"Raw Name: {printable['raw_text']}, \n"
+        return clean_out_string(out_str)
