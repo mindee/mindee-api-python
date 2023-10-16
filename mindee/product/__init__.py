@@ -5,10 +5,7 @@ from mindee.product.custom.custom_v1 import CustomV1
 from mindee.product.financial_document.financial_document_v1 import FinancialDocumentV1
 from mindee.product.invoice.invoice_v4 import InvoiceV4
 from mindee.product.invoice_splitter.invoice_splitter_v1 import InvoiceSplitterV1
-
-# from mindee.product.material_certificate import (
-#     MaterialCertificateV1,
-# )
+from mindee.product.material_certificate import MaterialCertificateV1
 from mindee.product.multi_receipts_detector.multi_receipts_detector_v1 import (
     MultiReceiptsDetectorV1,
 )
