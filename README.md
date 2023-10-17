@@ -46,12 +46,12 @@ A URL (`HTTPS` only):
 input_doc = mindee_client.source_from_url("https://files.readme.io/a74eaa5-c8e283b-sample_invoice.jpeg")
 ```
 
-A base64-encoded string, making sure to specify the extension the file name:
+A base64-encoded string, making sure to specify the extension of the file name:
 ```python
 input_doc = mindee_client.source_from_b64string(my_input_string, "my-file-name.ext")
 ```
 
-Raw bytes, making sure to specify the extension the file name:
+Raw bytes, making sure to specify the extension of the file name:
 ```python
 input_doc = mindee_client.source_from_bytes(my_raw_bytes_sequence, "my-file-name.ext")
 ```
@@ -81,7 +81,7 @@ from mindee import Client, product
 # Init a new client and add your custom endpoint (document)
 mindee_client = Client(api_key="my-api-key")
 custom_endpoint = mindee_client.create_endpoint(
-    account_name="hohn",
+    account_name="john",
     endpoint_name="wnine",
 )
 
