@@ -50,6 +50,11 @@ DOCUMENTS: Dict[str, CommandConfig] = {
         doc_class=product.FinancialDocumentV1,
         is_sync=True,
     ),
+    "fr-bank-account-details": CommandConfig(
+        help="FR Bank Account Details",
+        doc_class=product.fr.BankAccountDetailsV2,
+        is_sync=True,
+    ),
     "fr-carte-grise": CommandConfig(
         help="FR Carte Grise",
         doc_class=product.fr.CarteGriseV1,
@@ -64,9 +69,9 @@ DOCUMENTS: Dict[str, CommandConfig] = {
         doc_class=product.fr.IdCardV2,
         is_sync=True,
     ),
-    "fr-bank-account-details": CommandConfig(
-        help="FR Bank Account Details",
-        doc_class=product.fr.BankAccountDetailsV2,
+    "fr-petrol-receipt": CommandConfig(
+        help="FR Petrol Receipt",
+        doc_class=product.fr.PetrolReceiptV1,
         is_sync=True,
     ),
     "invoice": CommandConfig(
@@ -77,6 +82,12 @@ DOCUMENTS: Dict[str, CommandConfig] = {
     "invoice-splitter": CommandConfig(
         help="Invoice Splitter",
         doc_class=product.InvoiceSplitterV1,
+        is_async=True,
+    ),
+    "material-certificate": CommandConfig(
+        help="Material Certificate",
+        doc_class=product.MaterialCertificateV1,
+        is_sync=True,
         is_async=True,
     ),
     "multi-receipts": CommandConfig(
