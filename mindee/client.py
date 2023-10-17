@@ -354,7 +354,7 @@ class Client:
             dict_response = queue_response.json()
             raise handle_error(
                 str(product_class.endpoint_name),
-                dict_response.json(),
+                dict_response,
                 queue_response.status_code,
             )
 

@@ -7,7 +7,7 @@ class MindeeHTTPException(RuntimeError):
     """An exception relating to HTTP calls."""
 
     status_code: int
-    api_code: int
+    api_code: str
     api_details: str
     api_message: str
 
@@ -20,9 +20,9 @@ class MindeeHTTPException(RuntimeError):
         :param code: HTTP code for the error
         """
         self.status_code = code
-        self.api_code = http_error["code"]
-        self.api_details = http_error["details"]
-        self.api_message = http_error["message"]
+        self.api_code = http_error["code"] if "code" in http_error else None
+        self.api_details = http_error["details"] if "details" in http_error else None
+        self.api_message = http_error["message"] if "message" in http_error else None
         super().__init__(
             f"{url} {self.status_code} HTTP error: {self.api_details} - {self.api_message}"
         )
