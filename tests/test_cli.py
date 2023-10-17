@@ -22,7 +22,7 @@ def custom_doc(monkeypatch):
         output_type="summary",
         include_words=False,
         path="./tests/data/file_types/pdf/blank.pdf",
-        parse_type="parse",
+        # parse_type="parse",
         async_parse=False,
     )
 
@@ -38,7 +38,7 @@ def ots_doc(monkeypatch):
         output_type="summary",
         include_words=False,
         path="./tests/data/products/invoices/invoice.pdf",
-        parse_type="parse",
+        # parse_type="parse",
         async_parse=False,
     )
 
@@ -53,7 +53,7 @@ def ots_doc_enqueue_and_parse(monkeypatch):
         input_type="path",
         include_words=False,
         path="./tests/data/products/invoice_splitter/default_sample.pdf",
-        parse_type="parse",
+        # parse_type="parse",
         async_parse=True,
     )
 
@@ -66,7 +66,7 @@ def ots_doc_fetch(monkeypatch):
         output_type="summary",
         queue_id="dummy-queue-id",
         call_method="parse-queued",
-        parse_type="fetch",
+        # parse_type="fetch",
     )
 
 
@@ -148,13 +148,13 @@ def test_cli_invoice_splitter_enqueue(ots_doc_enqueue_and_parse):
         parser.call_endpoint()
 
 
-def test_cli_invoice_splitter_parse_queued(ots_doc_fetch):
-    ots_doc_fetch.product_name = "invoice-splitter"
-    ots_doc_fetch.api_key = ""
-    with pytest.raises(RuntimeError):
-        parser = MindeeParser(parsed_args=ots_doc_fetch)
-        parser.call_endpoint()
-    ots_doc_fetch.api_key = "dummy"
-    with pytest.raises(HTTPException):
-        parser = MindeeParser(parsed_args=ots_doc_fetch)
-        parser.call_endpoint()
+# def test_cli_invoice_splitter_parse_queued(ots_doc_fetch):
+#     ots_doc_fetch.product_name = "invoice-splitter"
+#     ots_doc_fetch.api_key = ""
+#     with pytest.raises(RuntimeError):
+#         parser = MindeeParser(parsed_args=ots_doc_fetch)
+#         parser.call_endpoint()
+#     ots_doc_fetch.api_key = "dummy"
+#     with pytest.raises(HTTPException):
+#         parser = MindeeParser(parsed_args=ots_doc_fetch)
+#         parser.call_endpoint()

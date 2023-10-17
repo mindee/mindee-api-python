@@ -155,29 +155,30 @@ class MindeeParser:
         self.parser = parser if parser else ArgumentParser(description="Mindee_API")
         self.parsed_args = parsed_args if parsed_args else self._set_args()
         self.client = client if client else Client(api_key=self.parsed_args.api_key)
-        if self.parsed_args.parse_type == "parse":
-            self.input_doc = input_doc if input_doc else self._get_input_doc()
+        # if self.parsed_args.parse_type == "parse":
+        self.input_doc = input_doc if input_doc else self._get_input_doc()
         self.document_info = (
             document_info if document_info else DOCUMENTS[self.parsed_args.product_name]
         )
 
     def call_endpoint(self) -> None:
         """Calls the proper type of endpoint according to given command."""
-        if self.parsed_args.parse_type == "parse":
-            self.call_parse()
-        else:
-            self.call_fetch()
+        #     if self.parsed_args.parse_type == "parse":
+        self.call_parse()
 
-    def call_fetch(self) -> None:
-        """Fetches an API's for a previously enqueued document."""
-        response: AsyncPredictResponse = self._parse_queued()
-        if self.parsed_args.output_type == "raw":
-            print(response.raw_http)
-        else:
-            if not hasattr(response, "document") or response.document is None:
-                print(response.job)
-            else:
-                print(response.document)
+    #     else:
+    #         self.call_fetch()
+
+    # def call_fetch(self) -> None:
+    #     """Fetches an API's for a previously enqueued document."""
+    #     response: AsyncPredictResponse = self._parse_queued()
+    #     if self.parsed_args.output_type == "raw":
+    #         print(response.raw_http)
+    #     else:
+    #         if not hasattr(response, "document") or response.document is None:
+    #             print(response.job)
+    #         else:
+    #             print(response.document)
 
     def call_parse(self) -> None:
         """Calls an endpoint with the appropriate method, and displays the results."""
@@ -250,20 +251,20 @@ class MindeeParser:
             endpoint=custom_endpoint,
         )
 
-    def _parse_queued(self) -> AsyncPredictResponse:
-        """Fetches a queue's result from a document's id."""
-        custom_endpoint: Optional[Endpoint] = None
-        if self.parsed_args.product_name == "custom":
-            self.client.create_endpoint(
-                self.parsed_args.endpoint_name,
-                self.parsed_args.account_name,
-                self.parsed_args.api_version,
-            )
-        return self.client.parse_queued(
-            self.document_info.doc_class,
-            self.parsed_args.queue_id,
-            custom_endpoint,
-        )
+    # def _parse_queued(self) -> AsyncPredictResponse:
+    #     """Fetches a queue's result from a document's id."""
+    #     custom_endpoint: Optional[Endpoint] = None
+    #     if self.parsed_args.product_name == "custom":
+    #         self.client.create_endpoint(
+    #             self.parsed_args.endpoint_name,
+    #             self.parsed_args.account_name,
+    #             self.parsed_args.api_version,
+    #         )
+    #     return self.client.parse_queued(
+    #         self.document_info.doc_class,
+    #         self.parsed_args.queue_id,
+    #         custom_endpoint,
+    #     )
 
     def _doc_str(self, output_type: str, doc_response: Document) -> str:
         if output_type == "parsed":
@@ -272,22 +273,26 @@ class MindeeParser:
 
     def _set_args(self) -> Namespace:
         """Parse command line arguments."""
-        call_parser = self.parser.add_subparsers(
-            dest="parse_type",
-            required=True,
-        )
-        parse_subparser = call_parser.add_parser("parse")
-        fetch_subparser = call_parser.add_parser("fetch")
+        # call_parser = self.parser.add_subparsers(
+        #     dest="parse_type",
+        #     required=True,
+        # )
+        # parse_subparser = call_parser.add_parser("parse")
+        # fetch_subparser = call_parser.add_parser("fetch")
 
-        parse_product_subparsers = parse_subparser.add_subparsers(
+        # parse_product_subparsers = parse_subparser.add_subparsers(
+        #     dest="product_name",
+        #     required=True,
+        # )
+        parse_product_subparsers = self.parser.add_subparsers(
             dest="product_name",
             required=True,
         )
 
-        fetch_product_subparsers = fetch_subparser.add_subparsers(
-            dest="product_name",
-            required=True,
-        )
+        # fetch_product_subparsers = fetch_subparser.add_subparsers(
+        # dest="product_name",
+        # required=True,
+        # )
 
         for name, info in DOCUMENTS.items():
             parse_subp = parse_product_subparsers.add_parser(name, help=info.help)
@@ -316,11 +321,11 @@ class MindeeParser:
                     default=False,
                 )
 
-            if info.is_async:
-                fetch_subp = fetch_product_subparsers.add_parser(name, help=info.help)
-                self._add_main_options(fetch_subp)
-                self._add_display_options(fetch_subp)
-                self._add_fetch_options(fetch_subp)
+            # if info.is_async:
+            #     fetch_subp = fetch_product_subparsers.add_parser(name, help=info.help)
+            #     self._add_main_options(fetch_subp)
+            #     self._add_display_options(fetch_subp)
+            #     self._add_fetch_options(fetch_subp)
 
         parsed_args = self.parser.parse_args()
         return parsed_args
@@ -381,12 +386,12 @@ class MindeeParser:
         )
         parser.add_argument(dest="path", help="Full path to the file")
 
-    def _add_fetch_options(self, parser: ArgumentParser):
-        """Adds an option to provide the queue ID for an async document."""
-        parser.add_argument(
-            dest="queue_id",
-            help="Async queue ID for a document (required)",
-        )
+    # def _add_fetch_options(self, parser: ArgumentParser):
+    #     """Adds an option to provide the queue ID for an async document."""
+    #     parser.add_argument(
+    #         dest="queue_id",
+    #         help="Async queue ID for a document (required)",
+    #     )
 
     def _add_custom_options(self, parser: ArgumentParser):
         """Adds options to custom-type documents."""
