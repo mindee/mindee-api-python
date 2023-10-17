@@ -14,5 +14,5 @@ https://developers.mindee.com/docs/python-sdk
    :caption: Contents:
 
    client
-   predictions/index
+   mindee/index
    utilities/index

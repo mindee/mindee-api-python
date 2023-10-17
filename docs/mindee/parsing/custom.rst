@@ -10,7 +10,7 @@ Classification
 
 Line Items
 ==========
-.. autoclass:: mindee.parsing.custom.classification.LineV1
+.. autoclass:: mindee.parsing.custom.line_items.LineV1
     :members:
 
 Lists

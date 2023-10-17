@@ -1,30 +1,10 @@
-----------------
-Document Parsing
-----------------
+-------------
+Mindee Client
+-------------
 
 .. currentmodule:: mindee.client
 
 Client
 ------
 .. autoclass:: mindee.client.Client
-    :members:
-
-DocumentClient
---------------
-.. autoclass:: mindee.input.page_options.PageOptions
-    :members:
-
-.. autoclass:: mindee.client.DocumentClient
-    :members:
-
-PredictResponse
----------------
-.. autoclass:: mindee.response.PredictResponse
-    :members:
-
-AsyncPredictResponse
---------------------
-.. autoclass:: mindee.response.AsyncPredictResponse
-    :members:
-.. autoclass:: mindee.response.Job
     :members:

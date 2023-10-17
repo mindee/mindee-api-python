@@ -9,5 +9,5 @@ Invoice V4
 .. autoclass:: mindee.product.InvoiceV4
     :members:
 
-.. autoclass:: mindee.product.InvoiceV4LineItem
+.. autoclass:: mindee.product.invoice.invoice_v4_line_item.InvoiceV4LineItem
     :members:

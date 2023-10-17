@@ -10,7 +10,7 @@ Base Field
 
 Text Field
 ----------
-.. autoclass:: mindee.parsing.standard.text.TextField
+.. autoclass:: mindee.parsing.standard.text.StringField
     :members:
     :inherited-members:
 
@@ -49,15 +49,9 @@ Locale Field
     :members:
     :inherited-members:
 
-Orientation Field
------------------
-.. autoclass:: mindee.parsing.standard.orientation.OrientationField
-    :members:
-    :inherited-members:
-
 Payment Details
 ---------------
-.. autoclass:: mindee.parsing.standard.payment_details.PaymentDetails
+.. autoclass:: mindee.parsing.standard.payment_details.PaymentDetailsField
     :members:
     :inherited-members:
 
