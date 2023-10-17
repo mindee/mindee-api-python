@@ -17,7 +17,7 @@ python3 -m mindee parse --help
 ### Example parse command for Off-the-Shelf document
 
 ```shell
-python3 -m mindee parse invoice --invoice-key xxxxxxx /path/to/invoice.pdf
+python3 -m mindee parse invoice --key xxxxxxx /path/to/invoice.pdf
 ```
 
 ### Works with environment variables
