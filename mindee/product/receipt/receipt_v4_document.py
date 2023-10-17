@@ -1,7 +1,6 @@
-from typing import Optional, TypeVar
+from typing import Optional
 
-from mindee.parsing.common import Prediction, clean_out_string
-from mindee.parsing.common.string_dict import StringDict
+from mindee.parsing.common import Prediction, StringDict, clean_out_string
 from mindee.parsing.standard import (
     AmountField,
     ClassificationField,
@@ -13,7 +12,7 @@ from mindee.parsing.standard import (
 
 
 class ReceiptV4Document(Prediction):
-    """Receipt v4 prediction results."""
+    """Document data for Receipt, API version 4."""
 
     locale: LocaleField
     """locale information"""
@@ -87,6 +86,3 @@ class ReceiptV4Document(Prediction):
             f":Tip: {self.tip}\n"
             f":Total amount: {self.total_amount}"
         )
-
-
-TypeReceiptV4Document = TypeVar("TypeReceiptV4Document", bound=ReceiptV4Document)

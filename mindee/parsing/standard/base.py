@@ -1,4 +1,4 @@
-from typing import Any, List, Optional, TypeVar
+from typing import Any, List, Optional, Type
 
 from mindee.geometry import Point, Polygon, Quadrilateral, get_bounding_box
 from mindee.parsing.common.string_dict import StringDict
@@ -96,12 +96,8 @@ class BaseField(FieldConfidenceMixin):
         return ""
 
 
-TypeBaseField = TypeVar("TypeBaseField", bound=BaseField)
-TypeFieldList = List[TypeBaseField]
-
-
 def compare_field_arrays(
-    array1: TypeFieldList, array2: TypeFieldList, attr: str = "value"
+    array1: List[Type[BaseField]], array2: List[Type[BaseField]], attr: str = "value"
 ) -> bool:
     """
     Check that all elements are present in both arrays.
@@ -116,14 +112,14 @@ def compare_field_arrays(
     return set1 == set2
 
 
-def field_array_confidence(array: TypeFieldList) -> float:
+def field_array_confidence(array: List[Type[BaseField]]) -> float:
     """
     Multiply all Field's confidence in the array.
 
     :param array: Array of fields
     :return: Product as float
     """
-    product = 1
+    product: float = 1
     for field in array:
         try:
             product *= field.confidence
@@ -132,7 +128,7 @@ def field_array_confidence(array: TypeFieldList) -> float:
     return float(product)
 
 
-def field_array_sum(array: TypeFieldList) -> float:
+def field_array_sum(array: List[Type[BaseField]]) -> float:
     """
     Add all the Field values in the array.
 
@@ -142,10 +138,12 @@ def field_array_sum(array: TypeFieldList) -> float:
     arr_sum = 0
     for field in array:
         try:
+            if field.value is None:
+                raise TypeError
             arr_sum += field.value
         except (AttributeError, TypeError):
             return 0.0
-    return float(arr_sum)
+    return arr_sum
 
 
 def float_to_string(value: Optional[float], min_precision=2) -> str:

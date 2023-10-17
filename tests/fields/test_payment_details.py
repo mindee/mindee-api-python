@@ -1,4 +1,4 @@
-from mindee.parsing.standard.payment_details import PaymentDetails
+from mindee.parsing.standard.payment_details import PaymentDetailsField
 
 
 def test_constructor():
@@ -17,7 +17,7 @@ def test_constructor():
             ]
         },
     }
-    payment_detail = PaymentDetails(field_dict)
+    payment_detail = PaymentDetailsField(field_dict)
     assert payment_detail.account_number == "account_number"
     assert payment_detail.iban == "iban"
     assert payment_detail.routing_number == "routing_number"
@@ -41,7 +41,7 @@ def test_constructor_all_na():
             ]
         },
     }
-    payment_detail = PaymentDetails(field_dict)
+    payment_detail = PaymentDetailsField(field_dict)
     assert payment_detail.account_number is None
     assert payment_detail.iban is None
     assert payment_detail.routing_number is None
@@ -64,7 +64,7 @@ def test_constructor_all_none():
             ]
         },
     }
-    payment_detail = PaymentDetails(field_dict)
+    payment_detail = PaymentDetailsField(field_dict)
     assert payment_detail.account_number is None
     assert payment_detail.iban is None
     assert payment_detail.routing_number is None

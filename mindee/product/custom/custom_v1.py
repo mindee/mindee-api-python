@@ -1,4 +1,4 @@
-from typing import List, TypeVar
+from typing import List
 
 from mindee.parsing.common import Inference, Page, StringDict
 from mindee.product.custom.custom_v1_document import CustomV1Document
@@ -9,24 +9,22 @@ class CustomV1(Inference):
     """Custom document (API Builder) v1 inference results."""
 
     prediction: CustomV1Document
+    """Document-level prediction."""
     pages: List[Page[CustomV1Page]]
+    """Page-level prediction(s)."""
     endpoint_name = "custom"
+    """Name of the endpoint."""
     endpoint_version = "1"
+    """Version of the endpoint."""
 
     def __init__(self, raw_prediction: StringDict) -> None:
         """
-        Custom document object.
+        Invoice Splitter v1 inference.
 
-        :param document_type: Document type
-        :param raw_prediction: Raw prediction from HTTP response
-        :param input_source: Input object
-        :param page_id: Page number for multi pages pdf input
+        :param raw_prediction: Raw prediction from the HTTP response.
         """
         super().__init__(raw_prediction)
         self.prediction = CustomV1Document(raw_prediction["prediction"])
         self.pages = []
         for page in raw_prediction["pages"]:
             self.pages.append(Page(CustomV1Page, page))
-
-
-TypeCustomV1 = TypeVar("TypeCustomV1", bound=CustomV1)

@@ -4,7 +4,7 @@ import pytest
 
 from mindee.parsing.common.document import Document
 from mindee.parsing.common.page import Page
-from mindee.product import ReceiptV4
+from mindee.product.receipt.receipt_v4 import ReceiptV4
 from mindee.product.receipt.receipt_v4_document import ReceiptV4Document
 from tests.product import PRODUCT_DATA_DIR
 
@@ -57,7 +57,7 @@ def test_empty_doc(empty_doc: Document[ReceiptV4Document, Page[ReceiptV4Document
     assert prediction.supplier.value is None
 
 
-def test_complete_page(complete_page_0: Page[ReceiptV4Document]):
+def test_complete_page_0(complete_page_0: Page[ReceiptV4Document]):
     reference_str = open(
         PRODUCT_DATA_DIR / "expense_receipts" / "response_v4" / "summary_page0.rst",
         "r",

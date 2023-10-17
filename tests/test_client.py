@@ -3,8 +3,8 @@ import binascii
 import pytest
 
 from mindee import Client, PageOptions, product
-from mindee.http.error import HTTPException
 from mindee.input.sources import LocalInputSource
+from mindee.mindee_http.error import HTTPException
 from mindee.product.invoice_splitter.invoice_splitter_v1 import InvoiceSplitterV1
 from mindee.product.receipt.receipt_v4 import ReceiptV4
 from tests.test_inputs import FILE_TYPES_DIR
@@ -66,7 +66,7 @@ def test_interface_version(dummy_client: Client):
     )
     with pytest.raises(HTTPException):
         input_doc = dummy_client.source_from_path(FILE_TYPES_DIR / "receipt.jpg")
-        dummy_client.parse(product.TypeCustomV1, input_doc, endpoint=dummy_endpoint)
+        dummy_client.parse(product.CustomV1, input_doc, endpoint=dummy_endpoint)
 
 
 def test_keep_file_open(dummy_client: Client):
