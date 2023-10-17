@@ -13,7 +13,6 @@ Run as follows from project root::
 from typing import List, Tuple
 
 import cv2
-from mindee.parsing.common.predict_response import PredictResponse
 import numpy as np
 
 from mindee import Client, product
