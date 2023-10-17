@@ -81,8 +81,8 @@ from mindee import Client, product
 # Init a new client and add your custom endpoint (document)
 mindee_client = Client(api_key="my-api-key")
 custom_endpoint = mindee_client.create_endpoint(
-    account_name="test",
-    endpoint_name="testis",
+    account_name="my-account-name",
+    endpoint_name="my-endpoint",
 )
 
 # Load a file from disk
