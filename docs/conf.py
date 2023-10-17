@@ -63,7 +63,10 @@ html_extra_path = ["extras"]
 # -- autodoc -----------------------------------------------------------------
 
 autodoc_member_order = "groupwise"
-# autodoc_class_signature = "separated"
+# autodoc_class_signature = "separated" # breaks new syntaxes
+
+# Hides prepended module names wich caused some classes to overflow on the right of the screen.
+add_module_names = False
 autodoc_typehints = "description"
 autodoc_default_options = {"exclude-members": "__init__"}
 
