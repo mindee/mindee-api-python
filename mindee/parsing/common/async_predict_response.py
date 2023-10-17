@@ -1,7 +1,8 @@
-from typing import Optional
+from typing import Optional, Type
 
 from mindee.parsing.common.api_response import ApiResponse, StringDict
 from mindee.parsing.common.document import Document
+from mindee.parsing.common.inference import Inference
 from mindee.parsing.common.job import Job
 
 
@@ -16,7 +17,9 @@ class AsyncPredictResponse(ApiResponse):
     """Job object link to the prediction. As long as it isn't complete, the prediction doesn't exist."""
     document: Optional[Document]
 
-    def __init__(self, prediction_type, raw_response: StringDict) -> None:
+    def __init__(
+        self, prediction_type: Type[Inference], raw_response: StringDict
+    ) -> None:
         """
         Container wrapper for a raw API response.
 

@@ -6,7 +6,7 @@ from mindee.geometry.quadrilateral import Quadrilateral
 from mindee.parsing.common.document import Document
 from mindee.parsing.common.page import Page
 from mindee.parsing.custom import ClassificationFieldV1, ListFieldV1, ListFieldValueV1
-from mindee.product import CustomV1
+from mindee.product.custom.custom_v1 import CustomV1
 from mindee.product.custom.custom_v1_document import CustomV1Document
 from mindee.product.custom.custom_v1_page import CustomV1Page
 from tests.product import PRODUCT_DATA_DIR

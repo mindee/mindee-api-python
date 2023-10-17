@@ -21,15 +21,16 @@ class Inference(Generic[TypePrediction, TypePage]):
     """A document's pages."""
     is_rotation_applied: Optional[bool]
     """Whether the document has had any rotation applied to it."""
+    page_id: Optional[int]
+    """Optional page id for page-level predictions."""
 
-    def __init__(
-        self,
-        raw_prediction: StringDict,
-    ):
+    def __init__(self, raw_prediction: StringDict, page_id: Optional[int] = None):
         self.is_rotation_applied = None
         if "is_rotation_applied" in raw_prediction:
             self.is_rotation_applied = raw_prediction["is_rotation_applied"]
         self.product = Product(raw_prediction["product"])
+        if page_id:
+            self.page_id = page_id
 
     def __str__(self) -> str:
         rotation_applied_str = "Yes" if self.is_rotation_applied else "No"
@@ -38,7 +39,9 @@ class Inference(Generic[TypePrediction, TypePage]):
         if self.prediction and len(str(self.prediction)) > 0:
             prediction_str = f"{str(self.prediction)}\n"
         if len(self.pages) > 0:
-            pages_str = "\n".join([str(page) for page in self.pages])
+            pages_str = ("\nPage Predictions\n================\n\n") + "\n".join(
+                [str(page) for page in self.pages]
+            )
         return (
             f"Inference\n"
             f"#########\n"
@@ -46,9 +49,7 @@ class Inference(Generic[TypePrediction, TypePage]):
             f":Rotation applied: {rotation_applied_str}\n\n"
             f"Prediction\n"
             f"==========\n"
-            f"{prediction_str}\n"
-            f"Page Predictions\n"
-            f"================\n\n"
+            f"{prediction_str}"
             f"{pages_str}"
         )
 

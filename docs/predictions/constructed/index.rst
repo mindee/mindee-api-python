@@ -17,18 +17,18 @@ Fields
 
 Value List
 ----------
-.. autoclass:: mindee.product.custom_v1_fields.ListField
+.. autoclass:: mindee.parsing.custom.custom_v1_fields.ListField
     :members:
     :inherited-members:
 
 Word Value
 ----------
-.. autoclass:: mindee.product.custom_v1_fields.ListFieldValue
+.. autoclass:: mindee.parsing.custom.custom_v1_fields.ListFieldValue
     :members:
     :inherited-members:
 
 Classification
 --------------
-.. autoclass:: mindee.product.custom_v1_fields.ClassificationField
+.. autoclass:: mindee.parsing.custom.custom_v1_fields.ClassificationField
     :members:
     :inherited-members:

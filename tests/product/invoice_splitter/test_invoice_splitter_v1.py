@@ -4,7 +4,7 @@ import pytest
 
 from mindee.parsing.common.document import Document
 from mindee.parsing.common.page import Page
-from mindee.product import InvoiceSplitterV1
+from mindee.product.invoice_splitter.invoice_splitter_v1 import InvoiceSplitterV1
 from mindee.product.invoice_splitter.invoice_splitter_v1_document import (
     InvoiceSplitterV1Document,
 )

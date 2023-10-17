@@ -1,11 +1,8 @@
 import json
 from pathlib import Path
 from time import sleep
-from typing import BinaryIO, Dict, Optional, Union
+from typing import BinaryIO, Dict, Optional, Type, Union
 
-from mindee.http.endpoint import CustomEndpoint, Endpoint
-from mindee.http.error import HTTPException
-from mindee.http.mindee_api import MindeeApi
 from mindee.input.page_options import PageOptions
 from mindee.input.sources import (
     Base64Input,
@@ -16,8 +13,11 @@ from mindee.input.sources import (
     UrlInputSource,
 )
 from mindee.logger import logger
+from mindee.mindee_http.endpoint import CustomEndpoint, Endpoint
+from mindee.mindee_http.error import HTTPException
+from mindee.mindee_http.mindee_api import MindeeApi
 from mindee.parsing.common.async_predict_response import AsyncPredictResponse
-from mindee.parsing.common.inference import TypeInference
+from mindee.parsing.common.inference import Inference, TypeInference
 from mindee.parsing.common.predict_response import PredictResponse
 
 OTS_OWNER = "mindee"
@@ -63,7 +63,7 @@ class Client:
 
     def parse(
         self,
-        product_class,
+        product_class: Type[Inference],
         input_source: Union[LocalInputSource, UrlInputSource],
         include_words: bool = False,
         close_file: bool = True,
@@ -115,7 +115,7 @@ class Client:
 
     def enqueue(
         self,
-        product_class,
+        product_class: Type[Inference],
         input_source: Union[LocalInputSource, UrlInputSource],
         include_words: bool = False,
         close_file: bool = True,
@@ -167,7 +167,7 @@ class Client:
 
     def parse_queued(
         self,
-        product_class,
+        product_class: Type[Inference],
         queue_id: str,
         endpoint: Optional[Endpoint] = None,
     ) -> AsyncPredictResponse:
@@ -196,7 +196,7 @@ class Client:
 
     def enqueue_and_parse(
         self,
-        product_class,
+        product_class: Type[Inference],
         input_source: Union[LocalInputSource, UrlInputSource],
         include_words: bool = False,
         close_file: bool = True,
@@ -278,7 +278,7 @@ class Client:
 
     def _make_request(
         self,
-        product_class,
+        product_class: Type[Inference],
         input_source: Union[LocalInputSource, UrlInputSource],
         endpoint: Endpoint,
         include_words: bool,
@@ -300,7 +300,7 @@ class Client:
 
     def _predict_async(
         self,
-        product_class,
+        product_class: Type[Inference],
         input_source: Union[LocalInputSource, UrlInputSource],
         include_words: bool = False,
         close_file: bool = True,
@@ -331,7 +331,7 @@ class Client:
 
     def _get_queued_document(
         self,
-        product_class,
+        product_class: Type[Inference],
         endpoint: Endpoint,
         queue_id: str,
     ) -> AsyncPredictResponse:

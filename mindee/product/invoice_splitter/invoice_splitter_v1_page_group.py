@@ -1,6 +1,6 @@
 from typing import List
 
-from mindee.parsing.common.string_dict import StringDict
+from mindee.parsing.common import StringDict
 
 
 class InvoiceSplitterV1PageGroup:

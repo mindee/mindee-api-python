@@ -1,5 +1,5 @@
 import datetime
-from typing import Any, Generic, Optional
+from typing import Any, Generic, Optional, Type
 
 from mindee.parsing.common.extras.extras import Extras
 from mindee.parsing.common.inference import Inference
@@ -35,7 +35,7 @@ class Document(Generic[TypePrediction, TypePage]):
 
     def __init__(
         self,
-        prediction_type,
+        prediction_type: Type[Inference],
         raw_response: StringDict,
     ):
         self.id = raw_response.get("id", "")

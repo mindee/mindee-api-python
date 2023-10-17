@@ -1,0 +1,277 @@
+from typing import Union
+
+import requests
+
+from mindee.input.sources import LocalInputSource, UrlInputSource
+from mindee.mindee_http.mindee_api import MindeeApi
+
+
+class Endpoint:
+    """Generic API endpoint for a product."""
+
+    def __init__(
+        self, url_name: str, owner: str, version: str, settings: MindeeApi
+    ) -> None:
+        """
+        Generic API endpoint for a product.
+
+        :param owner: owner of the product
+        :param url_name: name of the product as it appears in the URL
+        :param version: interface version
+        """
+        self.owner = owner
+        self.url_name = url_name
+        self.version = version
+        self.settings = settings
+
+    def predict_req_post(
+        self,
+        input_source: Union[LocalInputSource, UrlInputSource],
+        include_words: bool = False,
+        close_file: bool = True,
+        cropper: bool = False,
+    ) -> requests.Response:
+        """
+        Make a request to POST a document for prediction.
+
+        :param input_source: Input object
+        :param include_words: Include raw OCR words in the response
+        :param close_file: Whether to `close()` the file after parsing it.
+        :param cropper: Including Mindee cropping results.
+        :return: requests response
+        """
+        return self._custom_request(
+            "predict", input_source, include_words, close_file, cropper
+        )
+
+    def predict_async_req_post(
+        self,
+        input_source: Union[LocalInputSource, UrlInputSource],
+        include_words: bool = False,
+        close_file: bool = True,
+        cropper: bool = False,
+    ) -> requests.Response:
+        """
+        Make an asynchronous request to POST a document for prediction.
+
+        :param input_source: Input object
+        :param include_words: Include raw OCR words in the response
+        :param close_file: Whether to `close()` the file after parsing it.
+        :param cropper: Including Mindee cropping results.
+        :return: requests response
+        """
+        return self._custom_request(
+            "predict_async", input_source, include_words, close_file, cropper
+        )
+
+    def _custom_request(
+        self,
+        route: str,
+        input_source: Union[LocalInputSource, UrlInputSource],
+        include_words: bool = False,
+        close_file: bool = True,
+        cropper: bool = False,
+    ):
+        data = {}
+        if include_words:
+            data["include_mvision"] = "true"
+
+        params = {}
+        if cropper:
+            params["cropper"] = "true"
+
+        if isinstance(input_source, UrlInputSource):
+            data["document"] = input_source.url
+            response = requests.post(
+                f"{self.settings.url_root}/{route}",
+                headers=self.settings.base_headers,
+                data=data,
+                params=params,
+                timeout=self.settings.request_timeout,
+            )
+        else:
+            files = {"document": input_source.read_contents(close_file)}
+            response = requests.post(
+                f"{self.settings.url_root}/{route}",
+                files=files,
+                headers=self.settings.base_headers,
+                data=data,
+                params=params,
+                timeout=self.settings.request_timeout,
+            )
+
+        return response
+
+    def document_queue_req_get(self, queue_id: str) -> requests.Response:
+        """
+        Sends a request matching a given queue_id. Returns either a Job or a Document.
+
+        :param queue_id: queue_id received from the API
+        :param include_words: Whether to include the full text for each page.
+            This performs a full OCR operation on the server and will increase response time.
+        :param cropper: Whether to include cropper results for each page.
+            This performs a cropping operation on the server and will increase response time.
+
+        """
+        response = requests.get(
+            f"{self.settings.url_root}/documents/queue/{queue_id}",
+            headers=self.settings.base_headers,
+            timeout=self.settings.request_timeout,
+        )
+        return response
+
+    def openapi_get_req(self):
+        """Get the OpenAPI specification of the product."""
+        response = requests.get(
+            f"{self.settings.url_root}/openapi.json",
+            headers=self.settings.base_headers,
+            timeout=self.settings.request_timeout,
+        )
+        return response
+
+
+class CustomEndpoint(Endpoint):
+    """Endpoint for all custom documents."""
+
+    def training_req_post(
+        self, input_source: LocalInputSource, close_file: bool = True
+    ) -> requests.Response:
+        """
+        Make a request to POST a document for training.
+
+        :param input_source: Input object
+        :return: requests response
+        :param close_file: Whether to `close()` the file after parsing it.
+        """
+        files = {"document": input_source.read_contents(close_file)}
+        params = {"training": True, "with_candidates": True}
+
+        response = requests.post(
+            f"{self.settings.url_root}/predict",
+            files=files,
+            headers=self.settings.base_headers,
+            params=params,
+            timeout=self.settings.request_timeout,
+        )
+        return response
+
+    def training_async_req_post(
+        self, input_source: LocalInputSource, close_file: bool = True
+    ) -> requests.Response:
+        """
+        Make a request to POST a document for training without processing.
+
+        :param input_source: Input object
+        :return: requests response
+        :param close_file: Whether to `close()` the file after parsing it.
+        """
+        files = {"document": input_source.read_contents(close_file)}
+        params = {"training": True, "async": True}
+
+        response = requests.post(
+            f"{self.settings.url_root}/predict",
+            files=files,
+            headers=self.settings.base_headers,
+            params=params,
+            timeout=self.settings.request_timeout,
+        )
+        return response
+
+    def document_req_get(self, document_id: str) -> requests.Response:
+        """
+        Make a request to GET annotations for a document.
+
+        :param document_id: ID of the document
+        """
+        params = {
+            "include_annotations": True,
+            "include_candidates": True,
+            "global_orientation": True,
+        }
+        response = requests.get(
+            f"{self.settings.url_root}/documents/{document_id}",
+            headers=self.settings.base_headers,
+            params=params,
+            timeout=self.settings.request_timeout,
+        )
+        return response
+
+    def document_req_del(self, document_id: str) -> requests.Response:
+        """
+        Make a request to DELETE a document.
+
+        :param document_id: ID of the document
+        """
+        response = requests.delete(
+            f"{self.settings.url_root}/documents/{document_id}",
+            headers=self.settings.base_headers,
+            timeout=self.settings.request_timeout,
+        )
+        return response
+
+    def documents_req_get(self, page_id: int = 1) -> requests.Response:
+        """
+        Make a request to GET info on all documents.
+
+        :param page_id: Page number
+        """
+        params = {
+            "page": page_id,
+        }
+        response = requests.get(
+            f"{self.settings.url_root}/documents",
+            headers=self.settings.base_headers,
+            params=params,
+            timeout=self.settings.request_timeout,
+        )
+        return response
+
+    def annotations_req_post(
+        self, document_id: str, annotations: dict
+    ) -> requests.Response:
+        """
+        Make a request to POST annotations for a document.
+
+        :param document_id: ID of the document to annotate
+        :param annotations: Annotations object
+        :return: requests response
+        """
+        response = requests.post(
+            f"{self.settings.url_root}/documents/{document_id}/annotations",
+            headers=self.settings.base_headers,
+            json=annotations,
+            timeout=self.settings.request_timeout,
+        )
+        return response
+
+    def annotations_req_put(
+        self, document_id: str, annotations: dict
+    ) -> requests.Response:
+        """
+        Make a request to PUT annotations for a document.
+
+        :param document_id: ID of the document to annotate
+        :param annotations: Annotations object
+        :return: requests response
+        """
+        response = requests.put(
+            f"{self.settings.url_root}/documents/{document_id}/annotations",
+            headers=self.settings.base_headers,
+            json=annotations,
+            timeout=self.settings.request_timeout,
+        )
+        return response
+
+    def annotations_req_del(self, document_id: str) -> requests.Response:
+        """
+        Make a request to DELETE annotations for a document.
+
+        :param document_id: ID of the document to annotate
+        :return: requests response
+        """
+        response = requests.delete(
+            f"{self.settings.url_root}/documents/{document_id}/annotations",
+            headers=self.settings.base_headers,
+            timeout=self.settings.request_timeout,
+        )
+        return response
