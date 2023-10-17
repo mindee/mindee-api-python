@@ -43,7 +43,7 @@ input_doc = mindee_client.source_from_file(my_file)
 
 A URL (`HTTPS` only):
 ```python
-input_doc = mindee_client.source_from_url("https://https://example/path/to/file.ext")
+input_doc = mindee_client.source_from_url("https://files.readme.io/a74eaa5-c8e283b-sample_invoice.jpeg")
 ```
 
 A base64-encoded string, making sure to specify the extension the file name:
