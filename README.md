@@ -25,13 +25,35 @@ from mindee import Client, product
 mindee_client = Client(api_key="my-api-key")
 
 # Load a file from disk
-input_doc = mindee_client.doc_from_path("/path/to/the/file.ext")
+input_doc = mindee_client.source_from_path("/path/to/the/file.ext")
 
 # Parse the document as an invoice by passing the appropriate type
-result = input_doc.parse(product.TypeInvoiceV4)
+result = mindee_client.parse(product.InvoiceV4, input_doc)
 
 # Print a brief summary of the parsed data
 print(result.document)
+```
+
+**Note:** Files can also be loaded from:
+
+A python `BinaryIO` compatible file:
+```python
+input_doc = mindee_client.source_from_file(my_file)
+```
+
+A URL (`HTTPS` only):
+```python
+input_doc = mindee_client.source_from_url("https://files.readme.io/a74eaa5-c8e283b-sample_invoice.jpeg")
+```
+
+A base64-encoded string, making sure to specify the extension of the file name:
+```python
+input_doc = mindee_client.source_from_b64string(my_input_string, "my-file-name.ext")
+```
+
+Raw bytes, making sure to specify the extension of the file name:
+```python
+input_doc = mindee_client.source_from_bytes(my_raw_bytes_sequence, "my-file-name.ext")
 ```
 
 #### Region-Specific Documents
@@ -42,10 +64,10 @@ from mindee import Client, product
 mindee_client = Client(api_key="my-api-key")
 
 # Load a file from disk
-input_doc = mindee_client.doc_from_path("/path/to/the/file.ext")
+input_doc = mindee_client.source_from_path("/path/to/the/file.ext")
 
 # Parse the document as a USA bank check by passing the appropriate type
-result = input_doc.parse(product.us.TypeBankCheckV1)
+result = mindee_client.parse(product.us.BankCheckV1, input_doc)
 
 # Print a brief summary of the parsed data
 print(result.document)
@@ -57,16 +79,18 @@ print(result.document)
 from mindee import Client, product
 
 # Init a new client and add your custom endpoint (document)
-mindee_client = Client(api_key="my-api-key").add_endpoint(
+mindee_client = Client(api_key="my-api-key")
+custom_endpoint = mindee_client.create_endpoint(
     account_name="john",
     endpoint_name="wnine",
 )
 
-# Load a file from disk and parse it.
-# The endpoint name must be specified since it can't be determined from the class.
-result = mindee_client.doc_from_path(
-    "/path/to/the/file.ext"
-).parse(product.TypeCustomV1, endpoint_name="wnine")
+# Load a file from disk
+input_doc = mindee_client.source_from_path("/path/to/the/file.ext")
+
+# Parse the file.
+# The endpoint must be specified since it can't be determined from the class.
+result = parse(product.CustomV1, endpoint=custom_endpoint)
 
 # Print a brief summary of the parsed data
 print(result.document)
@@ -76,15 +100,50 @@ for field_name, field_values in result.document.fields.items():
     print(field_name, "=", field_values)
 ```
 
+### Additional Options
+Options to pass when sending a file.
+
+#### Page Options
+Allows sending only certain pages in a PDF.
+
+In this example we only send the first, penultimate and last pages:
+
+```python
+api_response = mindee_client.parse(
+    mindee.product.InvoiceV4,
+    input_source,
+    page_options=mindee.PageOptions(
+        page_indexes=[0, -2, -1],
+        operation: mindee.PageOptions.KEEP_ONLY,
+        on_min_pages=2
+    )
+)
+```
+
 ## Further Reading
 Complete details on the working of the library are available in the following guides:
 
-* [Getting started](https://developers.mindee.com/docs/getting-started)
-* [Command Line Interface (CLI)](https://developers.mindee.com/docs/python-cli)
-* [Custom APIs (API Builder)](https://developers.mindee.com/docs/python-api-builder)
-* [Invoice API](https://developers.mindee.com/docs/python-invoice-ocr)
-* [Passport API](https://developers.mindee.com/docs/python-passport-ocr)
-* [Receipt API](https://developers.mindee.com/docs/python-receipt-ocr)
+* [Python Getting started](https://developers.mindee.com/docs/python-getting-started)
+* [Python Command Line Interface (CLI)](https://developers.mindee.com/docs/python-cli)
+* [Python Custom APIs (API Builder)](https://developers.mindee.com/docs/python-api-builder)
+* [Python Invoice OCR](https://developers.mindee.com/docs/python-invoice-ocr)
+* [Python Receipt OCR](https://developers.mindee.com/docs/python-receipt-ocr)
+* [Python Financial Document OCR](https://developers.mindee.com/docs/python-financial-document-ocr)
+* [Python Passport OCR](https://developers.mindee.com/docs/python-passport-ocr)
+* [Python Proof of Address OCR](https://developers.mindee.com/docs/python-proof-of-address-ocr)
+* [Python EU License Plate OCR](https://developers.mindee.com/docs/python-eu-license-plate-ocr)
+* [Python FR Bank Account Detail OCR](https://developers.mindee.com/docs/python-fr-bank-account-details-ocr)
+* [Python FR Carte Grise OCR](https://developers.mindee.com/docs/python-fr-carte-vitale-ocr)
+* [Python FR Carte Vitale OCR](https://developers.mindee.com/docs/python-fr-carte-vitale-ocr)
+* [Python FR ID Card OCR](https://developers.mindee.com/docs/python-fr-id-card-ocr)
+* [Python FR Petrol Receipts OCR](https://developers.mindee.com/docs/python-fr-petrol-receipts-ocr)
+* [Python US Bank Check OCR](https://developers.mindee.com/docs/python-us-bank-checks-ocr)
+* [Python US W9 OCR](https://developers.mindee.com/docs/python-us-driver-license-ocr)
+* [Python US Driver License OCR](https://developers.mindee.com/docs/python-us-w9-ocr)
+* [Python Barcode Reader API](https://developers.mindee.com/docs/python-barcode-reader-api)
+* [Python Cropper API](https://developers.mindee.com/docs/python-cropper-api)
+* [Python Invoice Splitter API](https://developers.mindee.com/docs/python-invoice-splitter-api)
+* [Python Multi Receipts Detector API](https://developers.mindee.com/docs/python-multi-receipts-detector-api)
 
 You can view the source code on [GitHub](https://github.com/mindee/mindee-api-python).
 
