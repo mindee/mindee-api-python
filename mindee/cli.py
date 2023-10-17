@@ -18,7 +18,7 @@ class CommandConfig(Generic[TypeInference]):
     """Configuration for a command."""
 
     help: str
-    doc_class: TypeInference
+    doc_class: Type[TypeInference]
     is_sync: bool = False
     is_async: bool = False
 
