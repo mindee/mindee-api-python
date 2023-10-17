@@ -63,7 +63,7 @@ html_extra_path = ["extras"]
 # -- autodoc -----------------------------------------------------------------
 
 autodoc_member_order = "groupwise"
-autodoc_class_signature = "separated"
+# autodoc_class_signature = "separated"
 autodoc_typehints = "description"
 autodoc_default_options = {"exclude-members": "__init__"}
 

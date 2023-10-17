@@ -14,5 +14,6 @@ https://developers.mindee.com/docs/python-sdk
    :caption: Contents:
 
    client
-   mindee/index
-   utilities/index
+   parsing/index
+   product/index
+   misc/index
