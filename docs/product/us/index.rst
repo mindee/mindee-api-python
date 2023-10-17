@@ -1,4 +1,4 @@
-United-States
+United States
 -------------
 
 .. toctree::
