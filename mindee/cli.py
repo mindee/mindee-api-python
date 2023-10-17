@@ -184,7 +184,10 @@ class MindeeParser:
         response: Union[PredictResponse, AsyncPredictResponse]
         if self.document_info.is_sync:
             if self.document_info.is_async:
-                if self.parsed_args.async_parse is not None and self.parsed_args.async_parse:
+                if (
+                    self.parsed_args.async_parse is not None
+                    and self.parsed_args.async_parse
+                ):
                     response = self._parse_async()
                 else:
                     response = self._parse_sync()
