@@ -1,4 +1,3 @@
-import json
 from pathlib import Path
 from time import sleep
 from typing import BinaryIO, Dict, Optional, Type, Union
@@ -14,7 +13,7 @@ from mindee.input.sources import (
 )
 from mindee.logger import logger
 from mindee.mindee_http.endpoint import CustomEndpoint, Endpoint
-from mindee.mindee_http.error import HTTPException
+from mindee.mindee_http.error import handle_error
 from mindee.mindee_http.mindee_api import MindeeApi
 from mindee.parsing.common.async_predict_response import AsyncPredictResponse
 from mindee.parsing.common.inference import Inference, TypeInference
@@ -292,8 +291,10 @@ class Client:
         dict_response = response.json()
 
         if not response.ok:
-            raise HTTPException(
-                f"API {response.status_code} HTTP error: {json.dumps(dict_response)}"
+            raise handle_error(
+                str(product_class.endpoint_name),
+                dict_response,
+                response.status_code,
             )
 
         return PredictResponse(product_class, dict_response)
@@ -323,8 +324,10 @@ class Client:
         dict_response = response.json()
 
         if not response.ok:
-            raise HTTPException(
-                f"API {response.status_code} HTTP error: {json.dumps(dict_response)}"
+            raise handle_error(
+                str(product_class.endpoint_name),
+                dict_response,
+                response.status_code,
             )
 
         return AsyncPredictResponse(product_class, dict_response)
@@ -348,8 +351,11 @@ class Client:
             or queue_response.status_code < 200
             or queue_response.status_code > 302
         ):
-            raise HTTPException(
-                f"API {queue_response.status_code} HTTP error: {json.dumps(queue_response.json())}"
+            dict_response = queue_response.json()
+            raise handle_error(
+                str(product_class.endpoint_name),
+                dict_response.json(),
+                queue_response.status_code,
             )
 
         return AsyncPredictResponse(product_class, queue_response.json())
