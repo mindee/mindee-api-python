@@ -6,11 +6,11 @@ Petrol Receipt V1
 .. literalinclude:: /extras/code_samples/petrol_receipts_v1.txt
     :language: Python
 
-.. autoclass:: mindee.product.guide.PetrolReceiptV1
+.. autoclass:: mindee.product.fr.PetrolReceiptV1
     :members:
 
-.. autoclass:: mindee.product.guide.PetrolReceiptV1Fuel
+.. autoclass:: mindee.product.fr.PetrolReceiptV1Fuel
     :members:
 
-.. autoclass:: mindee.product.guide.PetrolReceiptV1Total
+.. autoclass:: mindee.product.fr.PetrolReceiptV1Total
     :members:

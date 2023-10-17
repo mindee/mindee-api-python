@@ -18,7 +18,7 @@ input_doc = mindee_client.source_from_path("/path/to/the/file.ext")
 
 # Load a file from disk and parse it.
 # The endpoint name must be specified since it cannot be determined from the class.
-result: PredictResponse = mindee_client.parse(product.guide.CarteGriseV1, input_doc)
+result: PredictResponse = mindee_client.parse(product.fr.CarteGriseV1, input_doc)
 
 # Print a brief summary of the parsed data
 print(result.document)
