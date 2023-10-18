@@ -3,7 +3,7 @@ from argparse import Namespace
 import pytest
 
 from mindee.cli import MindeeParser
-from mindee.mindee_http.error import HTTPException
+from mindee.mindee_http.error import MindeeHTTPException
 from tests.utils import clear_envvars
 
 
@@ -71,7 +71,7 @@ def ots_doc_fetch(monkeypatch):
 
 
 def test_cli_custom_doc(custom_doc):
-    with pytest.raises(HTTPException):
+    with pytest.raises(MindeeHTTPException):
         parser = MindeeParser(parsed_args=custom_doc)
         parser.call_endpoint()
 
@@ -83,7 +83,7 @@ def test_cli_invoice(ots_doc):
         parser = MindeeParser(parsed_args=ots_doc)
         parser.call_endpoint()
     ots_doc.api_key = "dummy"
-    with pytest.raises(HTTPException):
+    with pytest.raises(MindeeHTTPException):
         parser = MindeeParser(parsed_args=ots_doc)
         parser.call_endpoint()
 
@@ -95,7 +95,7 @@ def test_cli_receipt(ots_doc):
         parser = MindeeParser(parsed_args=ots_doc)
         parser.call_endpoint()
     ots_doc.api_key = "dummy"
-    with pytest.raises(HTTPException):
+    with pytest.raises(MindeeHTTPException):
         parser = MindeeParser(parsed_args=ots_doc)
         parser.call_endpoint()
 
@@ -107,7 +107,7 @@ def test_cli_financial_doc(ots_doc):
         parser = MindeeParser(parsed_args=ots_doc)
         parser.call_endpoint()
     ots_doc.api_key = "dummy"
-    with pytest.raises(HTTPException):
+    with pytest.raises(MindeeHTTPException):
         parser = MindeeParser(parsed_args=ots_doc)
         parser.call_endpoint()
 
@@ -119,7 +119,7 @@ def test_cli_passport(ots_doc):
         parser = MindeeParser(parsed_args=ots_doc)
         parser.call_endpoint()
     ots_doc.api_key = "dummy"
-    with pytest.raises(HTTPException):
+    with pytest.raises(MindeeHTTPException):
         parser = MindeeParser(parsed_args=ots_doc)
         parser.call_endpoint()
 
@@ -131,7 +131,7 @@ def test_cli_us_bank_check(ots_doc):
         parser = MindeeParser(parsed_args=ots_doc)
         parser.call_endpoint()
     ots_doc.api_key = "dummy"
-    with pytest.raises(HTTPException):
+    with pytest.raises(MindeeHTTPException):
         parser = MindeeParser(parsed_args=ots_doc)
         parser.call_endpoint()
 
@@ -143,7 +143,7 @@ def test_cli_invoice_splitter_enqueue(ots_doc_enqueue_and_parse):
         parser = MindeeParser(parsed_args=ots_doc_enqueue_and_parse)
         parser.call_endpoint()
     ots_doc_enqueue_and_parse.api_key = "dummy"
-    with pytest.raises(HTTPException):
+    with pytest.raises(MindeeHTTPException):
         parser = MindeeParser(parsed_args=ots_doc_enqueue_and_parse)
         parser.call_endpoint()
 
@@ -155,6 +155,6 @@ def test_cli_invoice_splitter_enqueue(ots_doc_enqueue_and_parse):
 #         parser = MindeeParser(parsed_args=ots_doc_fetch)
 #         parser.call_endpoint()
 #     ots_doc_fetch.api_key = "dummy"
-#     with pytest.raises(HTTPException):
+#     with pytest.raises(MindeeHTTPException):
 #         parser = MindeeParser(parsed_args=ots_doc_fetch)
 #         parser.call_endpoint()

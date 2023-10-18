@@ -12,6 +12,8 @@ class ApiResponse(ABC):
     Serves as a base class for responses to both synchronous and asynchronous calls.
     """
 
+    api_request: ApiRequest
+    """Results of the request sent to the API."""
     raw_http: StringDict
     """Raw request sent by the server, as string."""
 
