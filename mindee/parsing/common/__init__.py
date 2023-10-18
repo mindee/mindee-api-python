@@ -3,6 +3,7 @@ from mindee.parsing.common.api_response import ApiResponse
 from mindee.parsing.common.async_predict_response import AsyncPredictResponse
 from mindee.parsing.common.document import Document
 from mindee.parsing.common.extras import CropperExtra, Extras
+from mindee.parsing.common.feedback_response import FeedbackResponse
 from mindee.parsing.common.inference import Inference, TypeInference
 from mindee.parsing.common.job import Job
 from mindee.parsing.common.ocr.mvision_v1 import MVisionV1

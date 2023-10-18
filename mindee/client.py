@@ -16,8 +16,10 @@ from mindee.mindee_http.endpoint import CustomEndpoint, Endpoint
 from mindee.mindee_http.error import handle_error
 from mindee.mindee_http.mindee_api import MindeeApi
 from mindee.parsing.common.async_predict_response import AsyncPredictResponse
+from mindee.parsing.common.feedback_response import FeedbackResponse
 from mindee.parsing.common.inference import Inference, TypeInference
 from mindee.parsing.common.predict_response import PredictResponse
+from mindee.parsing.common.string_dict import StringDict
 
 OTS_OWNER = "mindee"
 
@@ -175,7 +177,7 @@ class Client:
 
         :param product_class: The document class to use.
             The response object will be instantiated based on this parameter.
-        :param queue_id: queue_id received from the API
+        :param queue_id: queue_id received from the API.
         :param endpoint: For custom endpoints, an endpoint has to be given.
         """
         if not endpoint:
@@ -275,6 +277,39 @@ class Client:
 
         return poll_results
 
+    def send_feedback(
+        self, product_class: Type[Inference], document_id: str, feedback: StringDict
+    ) -> FeedbackResponse:
+        """
+        Send a feedback for a document.
+
+        :param product_class: The document class to use.
+            The response object will be instantiated based on this parameter.
+
+        :param document_id: The id of the document to send feedback to.
+        :param feedback: Feedback to send.
+        """
+        endpoint = self._initialize_ots_endpoint(product_class)
+
+        feedback_response = endpoint.document_feedback_req_put(document_id, feedback)
+        return FeedbackResponse(feedback_response.json())
+
+    def get_document(
+        self, product_class: Type[Inference], document_id: str
+    ) -> PredictResponse:
+        """
+        Fetch prediction results from a document already processed.
+
+        :param product_class: The document class to use.
+            The response object will be instantiated based on this parameter.
+
+        :param document_id: The id of the document to send feedback to.
+        """
+        endpoint = self._initialize_ots_endpoint(product_class)
+
+        response = endpoint.document_req_get(document_id)
+        return PredictResponse(product_class, response.json())
+
     def _make_request(
         self,
         product_class: Type[Inference],
@@ -360,7 +395,7 @@ class Client:
 
         return AsyncPredictResponse(product_class, queue_response.json())
 
-    def _initialize_ots_endpoint(self, product_class) -> Endpoint:
+    def _initialize_ots_endpoint(self, product_class: type[Inference]) -> Endpoint:
         if product_class.__name__ == "CustomV1":
             raise TypeError("Missing endpoint specifications for custom build.")
         endpoint_info: Dict[str, str] = product_class.get_endpoint_info(product_class)
