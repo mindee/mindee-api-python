@@ -9,7 +9,6 @@ from mindee.input.page_options import PageOptions
 from mindee.input.sources import LocalInputSource, UrlInputSource
 from mindee.parsing.common.async_predict_response import AsyncPredictResponse
 from mindee.parsing.common.document import Document, serialize_for_json
-from mindee.parsing.common.feedback_response import FeedbackResponse
 from mindee.parsing.common.inference import Inference, TypeInference
 from mindee.parsing.common.predict_response import PredictResponse
 
@@ -156,8 +155,8 @@ class MindeeParser:
         self.parser = parser if parser else ArgumentParser(description="Mindee_API")
         self.parsed_args = parsed_args if parsed_args else self._set_args()
         self.client = client if client else Client(api_key=self.parsed_args.api_key)
-        # if self.parsed_args.parse_type == "parse":
-        self.input_doc = input_doc if input_doc else self._get_input_doc()
+        if self.parsed_args.parse_type == "parse":
+            self.input_doc = input_doc if input_doc else self._get_input_doc()
         self.document_info = (
             document_info if document_info else DOCUMENTS[self.parsed_args.product_name]
         )
@@ -166,22 +165,25 @@ class MindeeParser:
         """Calls the proper type of endpoint according to given command."""
         if self.parsed_args.parse_type == "parse":
             self.call_parse()
-        elif self.parsed_args.parse_type == "feedback":
-            self.call_feedback()
         else:
             self.call_fetch()
 
     def call_fetch(self) -> None:
         """Fetches an API's for a previously enqueued document."""
-        response: PredictResponse = self._get_doc()
+        custom_endpoint: Optional[Endpoint] = None
+        if self.parsed_args.product_name == "custom":
+            custom_endpoint = self.client.create_endpoint(
+                self.parsed_args.endpoint_name,
+                self.parsed_args.account_name,
+                self.parsed_args.api_version,
+            )
+        response: PredictResponse = self.client.get_document(
+            self.document_info.doc_class, self.parsed_args.document_id, custom_endpoint
+        )
         if self.parsed_args.output_type == "raw":
             print(response.raw_http)
-        print(response.document)
-
-    def call_feedback(self) -> None:
-        """Sends feedback to an API."""
-        response: FeedbackResponse = self._send_feedback()
-        print(response.raw_http)
+        else:
+            print(response.document)
 
     def call_parse(self) -> None:
         """Calls an endpoint with the appropriate method, and displays the results."""
@@ -254,19 +256,6 @@ class MindeeParser:
             endpoint=custom_endpoint,
         )
 
-    def _get_doc(self) -> PredictResponse:
-        """Fetches a previous parsing's result from a document's id."""
-        return self.client.get_document(
-            self.document_info.doc_class, self.parsed_args.document_id
-        )
-
-    def _send_feedback(self) -> FeedbackResponse:
-        return self.client.send_feedback(
-            self.document_info.doc_class,
-            self.parsed_args.document_id,
-            self.parsed_args.feedback,
-        )
-
     def _doc_str(self, output_type: str, doc_response: Document) -> str:
         if output_type == "parsed":
             return json.dumps(doc_response, indent=2, default=serialize_for_json)
@@ -287,7 +276,6 @@ class MindeeParser:
             )
             parse_subp = call_parser.add_parser("parse")
             fetch_subp = call_parser.add_parser("fetch")
-            feedback_subp = call_parser.add_parser("feedback")
 
             self._add_main_options(parse_subp)
             self._add_sending_options(parse_subp)
@@ -302,9 +290,6 @@ class MindeeParser:
                     action="store_true",
                     help="include full document text in response",
                 )
-                self._add_main_options(feedback_subp)
-                self._add_doc_id_option(feedback_subp)
-                self._add_feedback_options(feedback_subp)
 
             if info.is_async and info.is_sync:
                 parse_subp.add_argument(
@@ -355,22 +340,6 @@ class MindeeParser:
             "- summary: a basic summary (default)\n"
             "- raw: the raw HTTP response\n"
             "- parsed: the validated and parsed data fields\n",
-        )
-
-    def _add_feedback_options(self, parser: ArgumentParser) -> None:
-        """
-        Add options related to feedbacks.
-
-        :param parser: current parser/subparser.
-        """
-        parser.add_argument(
-            "-f",
-            "--feedback",
-            dest="feedback",
-            type=json.loads,
-            required=True,
-            help="""Feedback on the information to send back.
-This parameter is a dictionary, and should not bear duplicate keys.""",
         )
 
     def _add_sending_options(self, parser: ArgumentParser) -> None:
