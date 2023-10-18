@@ -4,7 +4,7 @@ import pytest
 
 from mindee import Client, PageOptions, product
 from mindee.input.sources import LocalInputSource
-from mindee.mindee_http.error import HTTPException
+from mindee.mindee_http.error import MindeeHTTPException
 from mindee.product.invoice_splitter.invoice_splitter_v1 import InvoiceSplitterV1
 from mindee.product.receipt.receipt_v4 import ReceiptV4
 from tests.test_inputs import FILE_TYPES_DIR
@@ -35,7 +35,7 @@ def test_parse_path_without_token(empty_client: Client):
 
 
 def test_parse_path_with_env_token(env_client: Client):
-    with pytest.raises(HTTPException):
+    with pytest.raises(MindeeHTTPException):
         input_doc = env_client.source_from_path(FILE_TYPES_DIR / "pdf" / "blank.pdf")
         env_client.parse(product.ReceiptV4, input_doc)
 
@@ -46,7 +46,7 @@ def test_parse_path_with_wrong_filetype(dummy_client: Client):
 
 
 def test_parse_path_with_wrong_token(dummy_client: Client):
-    with pytest.raises(HTTPException):
+    with pytest.raises(MindeeHTTPException):
         input_doc = dummy_client.source_from_path(FILE_TYPES_DIR / "pdf" / "blank.pdf")
         dummy_client.parse(product.ReceiptV4, input_doc)
 
@@ -64,7 +64,7 @@ def test_interface_version(dummy_client: Client):
         account_name="dummy",
         version="1.1",
     )
-    with pytest.raises(HTTPException):
+    with pytest.raises(MindeeHTTPException):
         input_doc = dummy_client.source_from_path(FILE_TYPES_DIR / "receipt.jpg")
         dummy_client.parse(product.CustomV1, input_doc, endpoint=dummy_endpoint)
 
@@ -75,7 +75,7 @@ def test_keep_file_open(dummy_client: Client):
     )
     try:
         dummy_client.parse(product.ReceiptV4, input_doc, close_file=False)
-    except HTTPException:
+    except MindeeHTTPException:
         pass
     assert not input_doc.file_object.closed
     input_doc.close()
@@ -94,7 +94,7 @@ def test_cut_options(dummy_client: Client):
             close_file=False,
             page_options=PageOptions(page_indexes=range(5)),
         )
-    except HTTPException:
+    except MindeeHTTPException:
         pass
     assert input_doc.count_doc_pages() == 5
     input_doc.close()

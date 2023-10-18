@@ -16,6 +16,7 @@ import cv2
 import numpy as np
 
 from mindee import Client, product
+from mindee.parsing.common.predict_response import PredictResponse
 
 
 def relative_to_pixel_pos(polygon, image_h: int, image_w: int) -> List[Tuple[int, int]]:
@@ -66,7 +67,7 @@ if __name__ == "__main__":
     input_doc = mindee_client.source_from_path(image_path)
 
     # Parse the document by passing the appropriate type
-    # api_response = mindee_client.parse(input_doc, product.CropperV1)
+    api_response: PredictResponse = mindee_client.parse(product.CropperV1, input_doc)
 
     # Display
-    # show_image_crops(image_path, api_response.pages[0].cropping)
+    show_image_crops(image_path, api_response.document.inference.pages[0].cropping)
