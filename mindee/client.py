@@ -424,7 +424,7 @@ class Client:
 
         return AsyncPredictResponse(product_class, queue_response.json())
 
-    def _initialize_ots_endpoint(self, product_class: type[Inference]) -> Endpoint:
+    def _initialize_ots_endpoint(self, product_class: Type[Inference]) -> Endpoint:
         if product_class.__name__ == "CustomV1":
             raise TypeError("Missing endpoint specifications for custom build.")
         endpoint_info: Dict[str, str] = product_class.get_endpoint_info(product_class)
