@@ -5,7 +5,7 @@ from mindee.mindee_http.mindee_api import MindeeApi
 
 class BaseEndpoint(ABC):
     """Base endpoint for the Mindee API."""
-    
+
     def __init__(self, settings: MindeeApi) -> None:
         """
         Base API endpoint class for all endpoints.
