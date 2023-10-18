@@ -309,36 +309,6 @@ class Client:
 
         return FeedbackResponse(feedback_response.json())
 
-    def get_document(
-        self,
-        product_class: Type[Inference],
-        document_id: str,
-        endpoint: Optional[Endpoint] = None,
-    ) -> PredictResponse:
-        """
-        Fetch prediction results from a document already processed.
-
-        :param product_class: The document class to use.
-            The response object will be instantiated based on this parameter.
-
-        :param document_id: The id of the document to send feedback to.
-        :param endpoint: For custom endpoints, an endpoint has to be given.
-        """
-        if not document_id or len(document_id) == 0:
-            raise RuntimeError("Invalid document_id.")
-        if not endpoint:
-            endpoint = self._initialize_ots_endpoint(product_class)
-
-        response = endpoint.document_req_get(document_id)
-        if not response.ok:
-            raise handle_error(
-                str(product_class.endpoint_name),
-                response.json(),
-                response.status_code,
-            )
-
-        return PredictResponse(product_class, response.json())
-
     def _make_request(
         self,
         product_class: Type[Inference],

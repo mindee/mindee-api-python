@@ -146,25 +146,6 @@ class Endpoint(BaseEndpoint):
             timeout=self.settings.request_timeout,
         )
 
-    def document_req_get(self, document_id: str) -> requests.Response:
-        """
-        Make a request to GET annotations for a document.
-
-        :param document_id: ID of the document
-        """
-        params = {
-            "include_annotations": True,
-            "include_candidates": True,
-            "global_orientation": True,
-        }
-        response = requests.get(
-            f"{self.settings.url_root}/documents/{document_id}",
-            headers=self.settings.base_headers,
-            params=params,
-            timeout=self.settings.request_timeout,
-        )
-        return response
-
 
 class CustomEndpoint(Endpoint):
     """Endpoint for all custom documents."""
@@ -237,6 +218,25 @@ class CustomEndpoint(Endpoint):
         }
         response = requests.get(
             f"{self.settings.url_root}/documents",
+            headers=self.settings.base_headers,
+            params=params,
+            timeout=self.settings.request_timeout,
+        )
+        return response
+
+    def document_req_get(self, document_id: str) -> requests.Response:
+        """
+        Make a request to GET annotations for a document.
+
+        :param document_id: ID of the document
+        """
+        params = {
+            "include_annotations": True,
+            "include_candidates": True,
+            "global_orientation": True,
+        }
+        response = requests.get(
+            f"{self.settings.url_root}/documents/{document_id}",
             headers=self.settings.base_headers,
             params=params,
             timeout=self.settings.request_timeout,

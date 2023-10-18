@@ -34,11 +34,6 @@ def test_parse_path_without_token(empty_client: Client):
         empty_client.parse(product.ReceiptV4, input_doc)
 
 
-def test_fetch_without_id(empty_client: Client):
-    with pytest.raises(RuntimeError):
-        empty_client.get_document(product.ReceiptV4, "")
-
-
 def test_feedback_without_id(empty_client: Client):
     with pytest.raises(RuntimeError):
         empty_client.send_feedback(product.ReceiptV4, "", {})

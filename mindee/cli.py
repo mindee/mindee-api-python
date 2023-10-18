@@ -9,8 +9,10 @@ from mindee.input.page_options import PageOptions
 from mindee.input.sources import LocalInputSource, UrlInputSource
 from mindee.parsing.common.async_predict_response import AsyncPredictResponse
 from mindee.parsing.common.document import Document, serialize_for_json
+from mindee.parsing.common.feedback_response import FeedbackResponse
 from mindee.parsing.common.inference import Inference, TypeInference
 from mindee.parsing.common.predict_response import PredictResponse
+from mindee.parsing.common.string_dict import StringDict
 
 
 @dataclass
@@ -142,21 +144,29 @@ class MindeeParser:
     input_doc: Union[LocalInputSource, UrlInputSource]
     """Document to be parsed."""
     product_class: Type[Inference]
-    """Product to parse"""
+    """Product to parse."""
+    feedback: Optional[StringDict]
+    """Dict representation of a feedback."""
 
     def __init__(
         self,
         parser: Optional[ArgumentParser] = None,
         parsed_args: Optional[Namespace] = None,
         client: Optional[Client] = None,
-        input_doc: Optional[Union[LocalInputSource, UrlInputSource]] = None,
         document_info: Optional[CommandConfig] = None,
     ) -> None:
         self.parser = parser if parser else ArgumentParser(description="Mindee_API")
         self.parsed_args = parsed_args if parsed_args else self._set_args()
-        self.client = client if client else Client(api_key=self.parsed_args.api_key)
-        if self.parsed_args.parse_type == "parse":
-            self.input_doc = input_doc if input_doc else self._get_input_doc()
+        self.client = (
+            client
+            if client
+            else Client(
+                api_key=self.parsed_args.api_key
+                if "api_key" in self.parsed_args
+                else None
+            )
+        )
+        self._set_input()
         self.document_info = (
             document_info if document_info else DOCUMENTS[self.parsed_args.product_name]
         )
@@ -166,10 +176,10 @@ class MindeeParser:
         if self.parsed_args.parse_type == "parse":
             self.call_parse()
         else:
-            self.call_fetch()
+            self.call_feedback()
 
-    def call_fetch(self) -> None:
-        """Fetches an API's for a previously enqueued document."""
+    def call_feedback(self) -> None:
+        """Sends feedback to an API."""
         custom_endpoint: Optional[Endpoint] = None
         if self.parsed_args.product_name == "custom":
             custom_endpoint = self.client.create_endpoint(
@@ -177,13 +187,16 @@ class MindeeParser:
                 self.parsed_args.account_name,
                 self.parsed_args.api_version,
             )
-        response: PredictResponse = self.client.get_document(
-            self.document_info.doc_class, self.parsed_args.document_id, custom_endpoint
+        if self.feedback is None:
+            raise RuntimeError("Invalid feedback provided.")
+
+        response: FeedbackResponse = self.client.send_feedback(
+            self.document_info.doc_class,
+            self.parsed_args.document_id,
+            self.feedback,
+            custom_endpoint,
         )
-        if self.parsed_args.output_type == "raw":
-            print(response.raw_http)
-        else:
-            print(response.document)
+        print(response.raw_http)
 
     def call_parse(self) -> None:
         """Calls an endpoint with the appropriate method, and displays the results."""
@@ -272,10 +285,10 @@ class MindeeParser:
             parse_subparser = parse_product_subparsers.add_parser(name, help=info.help)
 
             call_parser = parse_subparser.add_subparsers(
-                dest="parse_type",
+                dest="parse_type", required=True
             )
             parse_subp = call_parser.add_parser("parse")
-            fetch_subp = call_parser.add_parser("fetch")
+            feedback_subp = call_parser.add_parser("feedback")
 
             self._add_main_options(parse_subp)
             self._add_sending_options(parse_subp)
@@ -302,9 +315,22 @@ class MindeeParser:
                     default=False,
                 )
 
-            self._add_main_options(fetch_subp)
-            self._add_display_options(fetch_subp)
-            self._add_doc_id_option(fetch_subp)
+            self._add_main_options(feedback_subp)
+            self._add_doc_id_option(feedback_subp)
+            self._add_feedback_options(feedback_subp)
+            feedback_subp.add_argument(
+                "-i",
+                "--input-type",
+                dest="input_type",
+                choices=["path", "file", "base64", "bytes", "local"],
+                default="local",
+                help="Specify how to handle the input.\n"
+                "- path: open a path (default).\n"
+                "- file: open as a file handle.\n"
+                "- base64: open a base64 encoded text file.\n"
+                "- bytes: open the contents as raw bytes.\n"
+                "- local: provide the feedback as a dict-like string.",
+            )
 
         parsed_args = self.parser.parse_args()
         return parsed_args
@@ -313,7 +339,7 @@ class MindeeParser:
         """
         Adds main options for most parsings.
 
-        :param parser: current parser/subparser.
+        :param parser: current parser.
         """
         parser.add_argument(
             "-k",
@@ -328,7 +354,7 @@ class MindeeParser:
         """
         Adds options related to output/display of a document (parse, parse-queued).
 
-        :param parser: current parser/subparser.
+        :param parser: current parser.
         """
         parser.add_argument(
             "-o",
@@ -346,7 +372,7 @@ class MindeeParser:
         """
         Adds options for sending requests (parse, enqueue).
 
-        :param parser: current parser/subparser.
+        :param parser: current parser.
         """
         parser.add_argument(
             "-i",
@@ -382,18 +408,34 @@ class MindeeParser:
         """
         Adds an option to provide the queue ID for an async document.
 
-        :param parser: current parser/subparser.
+        :param parser: current parser.
         """
         parser.add_argument(
             dest="document_id",
             help="Async queue ID for a document (required)",
+            type=str,
+        )
+
+    def _add_feedback_options(self, parser: ArgumentParser):
+        """
+        Adds the option to give feedback manually.
+
+        :param parser: current parser.
+        """
+        parser.add_argument(
+            "-f",
+            "--feedback",
+            dest="feedback",
+            required=False,
+            type=json.loads,
+            help="Feedback as a string",
         )
 
     def _add_custom_options(self, parser: ArgumentParser):
         """
         Adds options to custom-type documents.
 
-        :param parser: current parser/subparser.
+        :param parser: current parser.
         """
         parser.add_argument(
             "-a",
@@ -435,6 +477,39 @@ class MindeeParser:
         elif self.parsed_args.input_type == "url":
             return self.client.source_from_url(self.parsed_args.path)
         return self.client.source_from_path(self.parsed_args.path)
+
+    def _get_feedback_doc(self) -> StringDict:
+        """Loads a feedback."""
+        json_doc: StringDict = {}
+        if self.parsed_args.input_type == "file":
+            with open(self.parsed_args.path, "rb", buffering=30) as f_f:
+                json_doc = json.loads(f_f.read())
+        elif self.parsed_args.input_type == "base64":
+            with open(self.parsed_args.path, "rt", encoding="ascii") as f_b64:
+                json_doc = json.loads(f_b64.read())
+        elif self.parsed_args.input_type == "bytes":
+            with open(self.parsed_args.path, "rb") as f_b:
+                json_doc = json.loads(f_b.read())
+        else:
+            if (
+                not self.parsed_args.feedback
+                or not "feedback" in self.parsed_args.feedback
+            ):
+                raise RuntimeError("Invalid feedback.")
+        if not json_doc or "feedback" not in json_doc:
+            raise RuntimeError("Invalid feedback.")
+        return json_doc
+
+    def _set_input(self) -> None:
+        """Loads an input document, or a feedback document."""
+        self.feedback = None
+        if self.parsed_args.parse_type == "feedback":
+            if not self.parsed_args.feedback:
+                self.feedback = self._get_feedback_doc()
+            else:
+                self.feedback = self.parsed_args.feedback
+        else:
+            self.input_doc = self._get_input_doc()
 
 
 def main() -> None:

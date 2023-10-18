@@ -1,3 +1,4 @@
+import json
 from argparse import Namespace
 from sys import api_version
 
@@ -62,8 +63,9 @@ def ots_doc_enqueue_and_parse(monkeypatch):
 
 
 @pytest.fixture
-def ots_doc_fetch(monkeypatch):
+def ots_doc_feedback(monkeypatch):
     clear_envvars(monkeypatch)
+    dummy_feedback = '{"feedback": {"dummy_field": {"value": "dummy"}}}'
     return Namespace(
         api_key="dummy",
         output_type="summary",
@@ -73,7 +75,10 @@ def ots_doc_fetch(monkeypatch):
         api_version="dummy",
         queue_id="dummy-queue-id",
         call_method="parse-queued",
-        parse_type="fetch",
+        input_type="path",
+        path="./tests/data/file_types/pdf/blank.pdf",
+        parse_type="feedback",
+        feedback=json.loads(dummy_feedback),
     )
 
 
@@ -155,13 +160,13 @@ def test_cli_invoice_splitter_enqueue(ots_doc_enqueue_and_parse):
         parser.call_endpoint()
 
 
-def test_cli_fetch(ots_doc_fetch):
-    ots_doc_fetch.document_id = "dummy-document-id"
-    ots_doc_fetch.api_key = ""
+def test_cli_feedback(ots_doc_feedback):
+    ots_doc_feedback.document_id = "dummy-document-id"
+    ots_doc_feedback.api_key = ""
     with pytest.raises(RuntimeError):
-        parser = MindeeParser(parsed_args=ots_doc_fetch)
+        parser = MindeeParser(parsed_args=ots_doc_feedback)
         parser.call_endpoint()
-    ots_doc_fetch.api_key = "dummy"
+    ots_doc_feedback.api_key = "dummy"
     with pytest.raises(MindeeHTTPClientException):
-        parser = MindeeParser(parsed_args=ots_doc_fetch)
+        parser = MindeeParser(parsed_args=ots_doc_feedback)
         parser.call_endpoint()
