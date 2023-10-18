@@ -289,6 +289,8 @@ class Client:
         :param document_id: The id of the document to send feedback to.
         :param feedback: Feedback to send.
         """
+        if not document_id or len(document_id) == 0:
+            raise RuntimeError("Invalid document_id.")
         endpoint = self._initialize_ots_endpoint(product_class)
 
         feedback_response = endpoint.document_feedback_req_put(document_id, feedback)
@@ -305,6 +307,8 @@ class Client:
 
         :param document_id: The id of the document to send feedback to.
         """
+        if not document_id or len(document_id) == 0:
+            raise RuntimeError("Invalid document_id.")
         endpoint = self._initialize_ots_endpoint(product_class)
 
         response = endpoint.document_req_get(document_id)
