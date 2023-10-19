@@ -1,12 +1,7 @@
 import json
 
-import pytest
-
-from mindee.input.sources import PathInput
 from mindee.parsing.common.predict_response import PredictResponse
-from mindee.product import (  # FinancialDocumentV1,; InvoiceV3,; PassportV1,; ReceiptV3,
-    ReceiptV4,
-)
+from mindee.product import ReceiptV4
 from mindee.product.financial_document.financial_document_v1 import FinancialDocumentV1
 from mindee.product.financial_document.financial_document_v1_document import (
     FinancialDocumentV1Document,

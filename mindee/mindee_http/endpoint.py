@@ -1,12 +1,16 @@
+import json
 from typing import Union
 
 import requests
+from requests import Response
 
 from mindee.input.sources import LocalInputSource, UrlInputSource
+from mindee.mindee_http.base_endpoint import BaseEndpoint
 from mindee.mindee_http.mindee_api import MindeeApi
+from mindee.parsing.common.string_dict import StringDict
 
 
-class Endpoint:
+class Endpoint(BaseEndpoint):
     """Generic API endpoint for a product."""
 
     def __init__(
@@ -19,10 +23,10 @@ class Endpoint:
         :param url_name: name of the product as it appears in the URL
         :param version: interface version
         """
+        super().__init__(settings)
         self.owner = owner
         self.url_name = url_name
         self.version = version
-        self.settings = settings
 
     def predict_req_post(
         self,
@@ -113,21 +117,35 @@ class Endpoint:
             This performs a cropping operation on the server and will increase response time.
 
         """
-        response = requests.get(
+        return requests.get(
             f"{self.settings.url_root}/documents/queue/{queue_id}",
             headers=self.settings.base_headers,
             timeout=self.settings.request_timeout,
         )
-        return response
 
-    def openapi_get_req(self):
+    def openapi_get_req(self) -> Response:
         """Get the OpenAPI specification of the product."""
-        response = requests.get(
+        return requests.get(
             f"{self.settings.url_root}/openapi.json",
             headers=self.settings.base_headers,
             timeout=self.settings.request_timeout,
         )
-        return response
+
+    def document_feedback_req_put(
+        self, document_id: str, feedback: StringDict
+    ) -> Response:
+        """
+        Send a feedback.
+
+        :param document_id: ID of the document to send feedback to.
+        :param feedback: Feedback object to send.
+        """
+        return requests.put(
+            f"{self.settings.base_url}/documents/{document_id}/feedback",
+            headers=self.settings.base_headers,
+            data=json.dumps(feedback, indent=0),
+            timeout=self.settings.request_timeout,
+        )
 
 
 class CustomEndpoint(Endpoint):
@@ -177,25 +195,6 @@ class CustomEndpoint(Endpoint):
         )
         return response
 
-    def document_req_get(self, document_id: str) -> requests.Response:
-        """
-        Make a request to GET annotations for a document.
-
-        :param document_id: ID of the document
-        """
-        params = {
-            "include_annotations": True,
-            "include_candidates": True,
-            "global_orientation": True,
-        }
-        response = requests.get(
-            f"{self.settings.url_root}/documents/{document_id}",
-            headers=self.settings.base_headers,
-            params=params,
-            timeout=self.settings.request_timeout,
-        )
-        return response
-
     def document_req_del(self, document_id: str) -> requests.Response:
         """
         Make a request to DELETE a document.
@@ -220,6 +219,25 @@ class CustomEndpoint(Endpoint):
         }
         response = requests.get(
             f"{self.settings.url_root}/documents",
+            headers=self.settings.base_headers,
+            params=params,
+            timeout=self.settings.request_timeout,
+        )
+        return response
+
+    def document_req_get(self, document_id: str) -> requests.Response:
+        """
+        Make a request to GET annotations for a document.
+
+        :param document_id: ID of the document
+        """
+        params = {
+            "include_annotations": True,
+            "include_candidates": True,
+            "global_orientation": True,
+        }
+        response = requests.get(
+            f"{self.settings.url_root}/documents/{document_id}",
             headers=self.settings.base_headers,
             params=params,
             timeout=self.settings.request_timeout,

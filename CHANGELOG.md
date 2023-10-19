@@ -1,5 +1,10 @@
 # Mindee Python API Library Changelog
 
+## v3.13.2 - 2023-10-18
+### Changes
+* :arrow_up: update `urllib` & `pillow` dependencies
+
+
 ## v3.13.1 - 2023-10-03
 ### Changes
 * :arrow_up: update `urllib`, `charset-normalizer` & `package` dependencies
