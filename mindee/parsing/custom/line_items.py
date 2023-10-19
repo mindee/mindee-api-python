@@ -7,6 +7,7 @@ from mindee.geometry import (
     is_point_in_y,
     merge_polygons,
 )
+from mindee.geometry.bbox import BBox, get_bbox
 from mindee.parsing.custom.list import ListFieldV1, ListFieldValueV1
 
 
@@ -43,17 +44,30 @@ def _get_empty_field() -> ListFieldValueV1:
     return ListFieldValueV1({"content": "", "polygon": [], "confidence": 0.0})
 
 
-class LineV1:
+class CustomLineV1:
     """Represent a single line."""
 
     row_number: int
     fields: Dict[str, ListFieldValueV1]
     bounding_box: Quadrilateral
 
+def is_box_in_line(line: CustomLineV1, bbox: BBox, height_tolerance: float)->bool:
+    """Checks if the bbox fits inside the line."""
+    line_bbox:BBox = get_bbox(line.bounding_box)
+    if abs(bbox.y_min-line_bbox.y_min) <= height_tolerance:
+        return True
+    return abs(line_bbox.y_min - bbox.y_min) <= height_tolerance
+
+def prepare(anchor_name: str, fields: Dict[str, ListFieldV1], height_line_tolerance: float)->List[CustomLineV1]:
+    lines_prepared: List[CustomLineV1] = []
+    try:
+        anchor_field = fields[anchor_name]
+    except KeyError:
+        raise
 
 def get_line_items(
-    anchors: Sequence[str], columns: Sequence[str], fields: Dict[str, ListFieldV1]
-) -> List[LineV1]:
+    anchors: Sequence[str], columns: Sequence[str], fields: Dict[str, ListFieldV1], height_tolerance: float
+) -> List[CustomLineV1]:
     """
     Reconstruct line items from fields.
 
@@ -61,7 +75,7 @@ def get_line_items(
     :columns: All fields which are columns
     :fields: List of field names to reconstruct table with
     """
-    line_items: List[LineV1] = []
+    line_items: List[CustomLineV1] = []
     anchor = _find_best_anchor(anchors, fields)
     if not anchor:
         print(Warning("Could not find an anchor!"))
@@ -70,7 +84,7 @@ def get_line_items(
     # Loop on anchor items and create an item for each anchor item.
     # This will create all rows with just the anchor column value.
     for item in fields[anchor].values:
-        line_item = LineV1()
+        line_item = CustomLineV1()
         line_item.fields = {f: _get_empty_field() for f in columns}
         line_item.fields[anchor] = item
         line_items.append(line_item)
