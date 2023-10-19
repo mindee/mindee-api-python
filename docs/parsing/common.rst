@@ -56,6 +56,15 @@ Job
     :members:
 
 
+Miscellaneous Parsing
+=====================
+
+FeedbackResponse
+----------------
+.. autoclass:: mindee.parsing.common.feedback_response.FeedbackResponse
+    :members:
+
+
 OCR Extraction
 ==============
 
