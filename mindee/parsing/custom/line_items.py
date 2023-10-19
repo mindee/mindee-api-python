@@ -63,7 +63,7 @@ def prepare(anchor_name: str, fields: Dict[str, ListFieldV1], height_line_tolera
     try:
         anchor_field = fields[anchor_name]
     except KeyError:
-        raise
+        raise RuntimeError("")
 
 def get_line_items(
     anchors: Sequence[str], columns: Sequence[str], fields: Dict[str, ListFieldV1], height_tolerance: float
