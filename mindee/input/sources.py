@@ -8,6 +8,7 @@ from typing import BinaryIO, Optional, Sequence, Tuple, Union
 
 import pikepdf
 
+from mindee.error.mindee_error import MindeeSourceError
 from mindee.input.page_options import KEEP_ONLY, REMOVE
 from mindee.logger import logger
 
@@ -90,7 +91,7 @@ class LocalInputSource:
     ) -> None:
         """Run any required processing on a PDF file."""
         if self.is_pdf_empty():
-            raise AssertionError(f"PDF pages are empty in: {self.filename}")
+            raise MindeeSourceError(f"PDF pages are empty in: {self.filename}")
         pages_count = self.count_doc_pages()
         if on_min_pages > pages_count:
             return
@@ -111,10 +112,10 @@ class LocalInputSource:
                     logger.warning("Page index not in source document: %s", page_id)
             pages_to_keep = pages_to_remove.symmetric_difference(set(all_pages))
         else:
-            raise AssertionError(f"Invalid cut behavior specified: {behavior}")
+            raise MindeeSourceError(f"Invalid cut behavior specified: {behavior}")
 
         if len(pages_to_keep) < 1:
-            raise RuntimeError("Resulting PDF would have no pages left.")
+            raise MindeeSourceError("Resulting PDF would have no pages left.")
         self.merge_pdf_pages(pages_to_keep)
 
     def merge_pdf_pages(self, page_numbers: set) -> None:
@@ -260,7 +261,7 @@ class UrlInputSource:
         :param url: URL to send, must be HTTPS
         """
         if not url.lower().startswith("https"):
-            raise AssertionError("URL must be HTTPS")
+            raise MindeeSourceError("URL must be HTTPS")
 
         self.input_type = InputType.URL
 
