@@ -2,6 +2,7 @@ from pathlib import Path
 from time import sleep
 from typing import BinaryIO, Dict, Optional, Type, Union
 
+from mindee.error.mindee_error import MindeeClientError, MindeeError
 from mindee.input.page_options import PageOptions
 from mindee.input.sources import (
     Base64Input,
@@ -96,7 +97,7 @@ class Client:
         :param endpoint: For custom endpoints, an endpoint has to be given.
         """
         if input_source is None:
-            raise TypeError("No input document provided.")
+            raise MindeeClientError("No input document provided.")
 
         if not endpoint:
             endpoint = self._initialize_ots_endpoint(product_class)
@@ -148,7 +149,7 @@ class Client:
         :param endpoint: For custom endpoints, an endpoint has to be given.
         """
         if input_source is None:
-            raise TypeError("No input document provided.")
+            raise MindeeClientError("No input document provided.")
 
         if not endpoint:
             endpoint = self._initialize_ots_endpoint(product_class)
@@ -191,9 +192,13 @@ class Client:
         self, initial_delay_sec: float, delay_sec: float
     ) -> None:
         if delay_sec < 2:
-            raise TypeError("Cannot set auto-parsing delay to less than 2 seconds.")
+            raise MindeeClientError(
+                "Cannot set auto-parsing delay to less than 2 seconds."
+            )
         if initial_delay_sec < 4:
-            raise TypeError("Cannot set initial parsing delay to less than 4 seconds.")
+            raise MindeeClientError(
+                "Cannot set initial parsing delay to less than 4 seconds."
+            )
 
     def enqueue_and_parse(
         self,
@@ -271,7 +276,7 @@ class Client:
             )
 
         if poll_results.job.status != "completed":
-            raise RuntimeError(
+            raise MindeeError(
                 f"Couldn't retrieve document after {retry_counter} tries."
             )
 
@@ -348,7 +353,7 @@ class Client:
         :param doc_config: Configuration of the document.
         """
         if input_source is None:
-            raise TypeError("No input document provided")
+            raise MindeeClientError("No input document provided")
         if not endpoint:
             endpoint = self._initialize_ots_endpoint(product_class)
         response = endpoint.predict_async_req_post(
@@ -396,7 +401,7 @@ class Client:
 
     def _initialize_ots_endpoint(self, product_class: Type[Inference]) -> Endpoint:
         if product_class.__name__ == "CustomV1":
-            raise TypeError("Missing endpoint specifications for custom build.")
+            raise MindeeClientError("Missing endpoint specifications for custom build.")
         endpoint_info: Dict[str, str] = product_class.get_endpoint_info(product_class)
         return self._build_endpoint(
             endpoint_info["name"], OTS_OWNER, endpoint_info["version"]
@@ -432,7 +437,7 @@ class Client:
             Must inherit from ``mindee.product.base.Document``.
         """
         if len(endpoint_name) == 0:
-            raise TypeError("Custom endpoint require a valid 'endpoint_name'.")
+            raise MindeeClientError("Custom endpoint require a valid 'endpoint_name'.")
         account_name = _clean_account_name(account_name)
         if not version or len(version) < 1:
             logger.debug(

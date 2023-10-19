@@ -2,6 +2,7 @@ import os
 from dataclasses import dataclass
 from typing import Dict, Optional, Union
 
+from mindee.error.mindee_error import MindeeError
 from mindee.logger import logger
 from mindee.versions import __version__, get_platform, python_version
 

@@ -1,5 +1,6 @@
 from typing import Dict, Generic, List, Optional, TypeVar
 
+from mindee.error.mindee_error import MindeeError
 from mindee.parsing.common.page import TypePage
 from mindee.parsing.common.prediction import TypePrediction
 from mindee.parsing.common.product import Product
@@ -62,7 +63,7 @@ class Inference(Generic[TypePrediction, TypePage]):
         """
         if klass.endpoint_name and klass.endpoint_version:
             return {"name": klass.endpoint_name, "version": klass.endpoint_version}
-        raise TypeError("Can't get endpoint information for {klass.__name__}")
+        raise MindeeError("Can't get endpoint information for {klass.__name__}")
 
 
 TypeInference = TypeVar("TypeInference", bound=Inference)

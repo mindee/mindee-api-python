@@ -1,5 +1,6 @@
 from typing import Union
 
+from mindee.error.mindee_error import MindeeError
 from mindee.parsing.common.string_dict import StringDict
 
 
@@ -46,7 +47,7 @@ def create_error_obj(response: Union[StringDict, str]) -> StringDict:
     if not isinstance(response, str):
         if "api_request" in response and "error" in response["api_request"]:
             return response["api_request"]["error"]
-        raise RuntimeError(f"Could not build specific HTTP exception from '{response}'")
+        raise MindeeError(f"Could not build specific HTTP exception from '{response}'")
     error_dict = {}
     if "Maximum pdf pages" in response:
         error_dict = {

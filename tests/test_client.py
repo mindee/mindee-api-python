@@ -3,6 +3,7 @@ import binascii
 import pytest
 
 from mindee import Client, PageOptions, product
+from mindee.error.mindee_error import MindeeClientError
 from mindee.input.sources import LocalInputSource
 from mindee.mindee_http.error import MindeeHTTPException
 from mindee.product.invoice_splitter.invoice_splitter_v1 import InvoiceSplitterV1
@@ -107,7 +108,7 @@ def test_cut_options(dummy_client: Client):
 
 def test_async_wrong_initial_delay(dummy_client: Client):
     input_doc = dummy_client.source_from_path(FILE_TYPES_DIR / "pdf" / "blank.pdf")
-    with pytest.raises(TypeError):
+    with pytest.raises(MindeeClientError):
         dummy_client.enqueue_and_parse(
             InvoiceSplitterV1, input_doc, initial_delay_sec=0
         )
@@ -115,5 +116,5 @@ def test_async_wrong_initial_delay(dummy_client: Client):
 
 def test_async_wrong_polling_delay(dummy_client: Client):
     input_doc = dummy_client.source_from_path(FILE_TYPES_DIR / "pdf" / "blank.pdf")
-    with pytest.raises(TypeError):
+    with pytest.raises(MindeeClientError):
         dummy_client.enqueue_and_parse(InvoiceSplitterV1, input_doc, delay_sec=0)
