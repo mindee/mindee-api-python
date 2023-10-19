@@ -2,6 +2,7 @@ import os
 from dataclasses import dataclass
 from typing import Dict, Optional, Union
 
+from mindee.error.mindee_error import MindeeApiError
 from mindee.logger import logger
 from mindee.versions import __version__, get_platform, python_version
 
@@ -36,7 +37,7 @@ class MindeeApi:
     ):
         self._set_api_key(api_key)
         if not self.api_key or len(self.api_key) == 0:
-            raise RuntimeError(
+            raise MindeeApiError(
                 (
                     f"Missing API key for '{endpoint_name} v{version}' (belonging to {account_name}),"
                     " check your Client configuration.\n"

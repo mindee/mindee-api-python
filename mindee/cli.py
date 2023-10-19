@@ -5,6 +5,7 @@ from typing import Dict, Generic, Optional, Type, Union
 
 from mindee import product
 from mindee.client import Client, Endpoint
+from mindee.error.mindee_error import MindeeClientError
 from mindee.input.page_options import PageOptions
 from mindee.input.sources import LocalInputSource, UrlInputSource
 from mindee.parsing.common.async_predict_response import AsyncPredictResponse
@@ -188,7 +189,7 @@ class MindeeParser:
                 self.parsed_args.api_version,
             )
         if self.feedback is None:
-            raise RuntimeError("Invalid feedback provided.")
+            raise MindeeClientError("Invalid feedback provided.")
 
         response: FeedbackResponse = self.client.send_feedback(
             self.document_info.doc_class,
@@ -222,7 +223,7 @@ class MindeeParser:
             print(response.raw_http)
         else:
             if response.document is None:
-                raise RuntimeError("Something went wrong during async parsing.")
+                raise MindeeClientError("Something went wrong during async parsing.")
             print(self._doc_str(self.parsed_args.output_type, response.document))
 
     def _parse_sync(self) -> PredictResponse:
@@ -471,9 +472,9 @@ class MindeeParser:
                 not self.parsed_args.feedback
                 or not "feedback" in self.parsed_args.feedback
             ):
-                raise RuntimeError("Invalid feedback.")
+                raise MindeeClientError("Invalid feedback.")
         if not json_doc or "feedback" not in json_doc:
-            raise RuntimeError("Invalid feedback.")
+            raise MindeeClientError("Invalid feedback.")
         return json_doc
 
     def _set_input(self) -> None:

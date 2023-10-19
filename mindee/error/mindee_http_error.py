@@ -1,9 +1,10 @@
 from typing import Union
 
+from mindee.error.mindee_error import MindeeError
 from mindee.parsing.common.string_dict import StringDict
 
 
-class MindeeHTTPException(RuntimeError):
+class MindeeHTTPError(RuntimeError):
     """An exception relating to HTTP calls."""
 
     status_code: int
@@ -28,14 +29,6 @@ class MindeeHTTPException(RuntimeError):
         )
 
 
-class MindeeHTTPClientException(MindeeHTTPException):
-    """API Client HTTP exception."""
-
-
-class MindeeHTTPServerException(MindeeHTTPException):
-    """API Server HTTP exception."""
-
-
 def create_error_obj(response: Union[StringDict, str]) -> StringDict:
     """
     Creates an error object based on a requests' payload.
@@ -46,7 +39,7 @@ def create_error_obj(response: Union[StringDict, str]) -> StringDict:
     if not isinstance(response, str):
         if "api_request" in response and "error" in response["api_request"]:
             return response["api_request"]["error"]
-        raise RuntimeError(f"Could not build specific HTTP exception from '{response}'")
+        raise MindeeError(f"Could not build specific HTTP exception from '{response}'")
     error_dict = {}
     if "Maximum pdf pages" in response:
         error_dict = {
@@ -87,7 +80,15 @@ def create_error_obj(response: Union[StringDict, str]) -> StringDict:
     return error_dict
 
 
-def handle_error(url: str, response: StringDict, code: int) -> MindeeHTTPException:
+class MindeeHTTPClientError(MindeeHTTPError):
+    """API Client HTTP exception."""
+
+
+class MindeeHTTPServerError(MindeeHTTPError):
+    """API Server HTTP exception."""
+
+
+def handle_error(url: str, response: StringDict, code: int) -> MindeeHTTPError:
     """
     Creates an appropriate HTTP error exception, based on retrieved HTTP error code.
 
@@ -96,7 +97,7 @@ def handle_error(url: str, response: StringDict, code: int) -> MindeeHTTPExcepti
     """
     error_obj = create_error_obj(response)
     if 400 <= code <= 499:
-        return MindeeHTTPClientException(error_obj, url, code)
+        return MindeeHTTPClientError(error_obj, url, code)
     if 500 <= code <= 599:
-        return MindeeHTTPServerException(error_obj, url, code)
-    return MindeeHTTPException(error_obj, url, code)
+        return MindeeHTTPServerError(error_obj, url, code)
+    return MindeeHTTPError(error_obj, url, code)

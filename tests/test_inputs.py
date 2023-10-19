@@ -4,6 +4,7 @@ from pathlib import Path
 import pikepdf
 import pytest
 
+from mindee.error.mindee_error import MindeeError, MindeeSourceError
 from mindee.input.page_options import KEEP_ONLY, REMOVE
 from mindee.input.sources import (
     Base64Input,
@@ -152,16 +153,16 @@ def test_pdf_input_from_bytes():
 
 
 def test_pdf_input_from_url():
-    with pytest.raises(AssertionError):
+    with pytest.raises(MindeeSourceError):
         UrlInputSource(url="http://example.com/invoice.pdf")
 
 
 def test_pdf_blank_check():
-    with pytest.raises(AssertionError):
+    with pytest.raises(MindeeError):
         input_obj = PathInput(FILE_TYPES_DIR / "pdf" / "blank.pdf")
         input_obj.process_pdf(behavior=KEEP_ONLY, on_min_pages=2, page_indexes=[0])
 
-    with pytest.raises(AssertionError):
+    with pytest.raises(MindeeError):
         input_obj = PathInput(FILE_TYPES_DIR / "pdf" / "blank_1.pdf")
         input_obj.process_pdf(behavior=KEEP_ONLY, on_min_pages=2, page_indexes=[0])
 
