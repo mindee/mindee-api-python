@@ -1,1 +1,1 @@
-from mindee.error.mindee_error import MindeeError, MindeeClientError
+from mindee.error.mindee_error import MindeeClientError, MindeeError
