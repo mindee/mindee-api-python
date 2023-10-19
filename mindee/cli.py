@@ -193,10 +193,10 @@ class MindeeParser:
         response: FeedbackResponse = self.client.send_feedback(
             self.document_info.doc_class,
             self.parsed_args.document_id,
-            self.feedback,
+            {"feedback": self.feedback},
             custom_endpoint,
         )
-        print(response.raw_http)
+        print(json.dumps(response.feedback, indent=2))
 
     def call_parse(self) -> None:
         """Calls an endpoint with the appropriate method, and displays the results."""
@@ -316,21 +316,7 @@ class MindeeParser:
                 )
 
             self._add_main_options(feedback_subp)
-            self._add_doc_id_option(feedback_subp)
             self._add_feedback_options(feedback_subp)
-            feedback_subp.add_argument(
-                "-i",
-                "--input-type",
-                dest="input_type",
-                choices=["path", "file", "base64", "bytes", "local"],
-                default="local",
-                help="Specify how to handle the input.\n"
-                "- path: open a path (default).\n"
-                "- file: open as a file handle.\n"
-                "- base64: open a base64 encoded text file.\n"
-                "- bytes: open the contents as raw bytes.\n"
-                "- local: provide the feedback as a dict-like string.",
-            )
 
         parsed_args = self.parser.parse_args()
         return parsed_args
@@ -404,18 +390,6 @@ class MindeeParser:
         )
         parser.add_argument(dest="path", help="Full path to the file")
 
-    def _add_doc_id_option(self, parser: ArgumentParser):
-        """
-        Adds an option to provide the queue ID for an async document.
-
-        :param parser: current parser.
-        """
-        parser.add_argument(
-            dest="document_id",
-            help="Async queue ID for a document (required)",
-            type=str,
-        )
-
     def _add_feedback_options(self, parser: ArgumentParser):
         """
         Adds the option to give feedback manually.
@@ -423,12 +397,14 @@ class MindeeParser:
         :param parser: current parser.
         """
         parser.add_argument(
-            "-f",
-            "--feedback",
+            dest="document_id",
+            help="Mindee UUID of the document.",
+            type=str,
+        )
+        parser.add_argument(
             dest="feedback",
-            required=False,
             type=json.loads,
-            help="Feedback as a string",
+            help='Feedback JSON string to send, ex \'{"key": "value"}\'.',
         )
 
     def _add_custom_options(self, parser: ArgumentParser):

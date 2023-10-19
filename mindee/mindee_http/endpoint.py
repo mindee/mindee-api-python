@@ -1,3 +1,4 @@
+import json
 from typing import Union
 
 import requests
@@ -140,9 +141,9 @@ class Endpoint(BaseEndpoint):
         :param feedback: Feedback object to send.
         """
         return requests.put(
-            f"{self.settings.url_root}/documents/{document_id}/feedback",
+            f"{self.settings.base_url}/documents/{document_id}/feedback",
             headers=self.settings.base_headers,
-            data=feedback,
+            data=json.dumps(feedback, indent=0),
             timeout=self.settings.request_timeout,
         )
 

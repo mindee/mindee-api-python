@@ -24,6 +24,33 @@ class MindeeApi:
 
     api_key: Optional[str]
     """API Key for the client."""
+    base_url: str
+    request_timeout: int
+
+    def __init__(
+        self,
+        api_key: Optional[str],
+        endpoint_name: str,
+        account_name: str,
+        version: str,
+    ):
+        self._set_api_key(api_key)
+        if not self.api_key or len(self.api_key) == 0:
+            raise RuntimeError(
+                (
+                    f"Missing API key for '{endpoint_name} v{version}' (belonging to {account_name}),"
+                    " check your Client configuration.\n"
+                    "You can set this using the "
+                    f"'{API_KEY_ENV_NAME}' environment variable."
+                )
+            )
+        self.endpoint_name = endpoint_name
+        self.account_name = account_name
+        self.version = version
+        self.request_timeout = TIMEOUT_DEFAULT
+        self.set_base_url(BASE_URL_DEFAULT)
+        self.set_from_env()
+        self.url_root = f"{self.base_url}/products/{self.account_name}/{self.endpoint_name}/v{self.version}"
 
     @property
     def base_headers(self) -> Dict[str, str]:
@@ -61,29 +88,3 @@ class MindeeApi:
     def set_base_url(self, value: str) -> None:
         """Set the base URL for all requests."""
         self.base_url = value
-
-    def __init__(
-        self,
-        api_key: Optional[str],
-        endpoint_name: str,
-        account_name: str,
-        version: str,
-    ):
-        self._set_api_key(api_key)
-        if not self.api_key or len(self.api_key) == 0:
-            raise RuntimeError(
-                (
-                    f"Missing API key for '{endpoint_name} v{version}' (belonging to {account_name}),"
-                    " check your Client configuration.\n"
-                    "You can set this using the "
-                    f"'{API_KEY_ENV_NAME}' environment variable."
-                )
-            )
-        self.endpoint_name = endpoint_name
-        self.account_name = account_name
-        self.version = version
-        self.request_timeout = TIMEOUT_DEFAULT
-        self.set_base_url(BASE_URL_DEFAULT)
-        self.set_from_env()
-
-        self.url_root = f"{self.base_url}/products/{self.account_name}/{self.endpoint_name}/v{self.version}"
