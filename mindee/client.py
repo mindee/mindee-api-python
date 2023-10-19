@@ -3,6 +3,7 @@ from time import sleep
 from typing import BinaryIO, Dict, Optional, Type, Union
 
 from mindee.error.mindee_error import MindeeClientError, MindeeError
+from mindee.error.mindee_http_error import handle_error
 from mindee.input.page_options import PageOptions
 from mindee.input.sources import (
     Base64Input,
@@ -14,7 +15,6 @@ from mindee.input.sources import (
 )
 from mindee.logger import logger
 from mindee.mindee_http.endpoint import CustomEndpoint, Endpoint
-from mindee.mindee_http.error import handle_error
 from mindee.mindee_http.mindee_api import MindeeApi
 from mindee.parsing.common.async_predict_response import AsyncPredictResponse
 from mindee.parsing.common.feedback_response import FeedbackResponse
@@ -300,7 +300,7 @@ class Client:
         :param endpoint: For custom endpoints, an endpoint has to be given.
         """
         if not document_id or len(document_id) == 0:
-            raise RuntimeError("Invalid document_id.")
+            raise MindeeClientError("Invalid document_id.")
         if not endpoint:
             endpoint = self._initialize_ots_endpoint(product_class)
 

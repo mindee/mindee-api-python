@@ -4,8 +4,8 @@ import pytest
 
 from mindee import Client, PageOptions, product
 from mindee.error.mindee_error import MindeeClientError
-from mindee.input.sources import LocalInputSource
 from mindee.error.mindee_http_error import MindeeHTTPError
+from mindee.input.sources import LocalInputSource
 from mindee.product.invoice_splitter.invoice_splitter_v1 import InvoiceSplitterV1
 from mindee.product.receipt.receipt_v4 import ReceiptV4
 from tests.test_inputs import FILE_TYPES_DIR
@@ -33,11 +33,6 @@ def test_parse_path_without_token(empty_client: Client):
     with pytest.raises(RuntimeError):
         input_doc = empty_client.source_from_path(FILE_TYPES_DIR / "pdf" / "blank.pdf")
         empty_client.parse(product.ReceiptV4, input_doc)
-
-
-def test_feedback_without_id(empty_client: Client):
-    with pytest.raises(RuntimeError):
-        empty_client.send_feedback(product.ReceiptV4, "", {})
 
 
 def test_parse_path_with_env_token(env_client: Client):

@@ -4,12 +4,12 @@ from pathlib import Path
 import pytest
 
 from mindee import Client, product
-from mindee.input.sources import PathInput
-from mindee.mindee_http.error import (
+from mindee.error.mindee_http_error import (
     MindeeHTTPClientError,
     MindeeHTTPServerError,
     handle_error,
 )
+from mindee.input.sources import PathInput
 from tests.test_inputs import FILE_TYPES_DIR
 from tests.utils import clear_envvars, dummy_envvars
 
