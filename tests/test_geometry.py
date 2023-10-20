@@ -1,6 +1,5 @@
 import pytest
 
-import mindee.geometry.polygon_utils
 from mindee import geometry
 
 
@@ -33,19 +32,19 @@ def test_bbox(rectangle_a, rectangle_b, quadrangle_a):
 
 
 def test_bounding_box_single_polygon(rectangle_a, rectangle_b, quadrangle_a):
-    assert mindee.geometry.get_bounding_box(rectangle_a) == (
+    assert geometry.get_bounding_box(rectangle_a) == (
         (0.123, 0.53),
         (0.175, 0.53),
         (0.175, 0.546),
         (0.123, 0.546),
     )
-    assert mindee.geometry.get_bounding_box(rectangle_b) == (
+    assert geometry.get_bounding_box(rectangle_b) == (
         geometry.Point(0.124, 0.535),
         geometry.Point(0.19, 0.535),
         geometry.Point(0.19, 0.546),
         geometry.Point(0.124, 0.546),
     )
-    assert mindee.geometry.get_bounding_box(quadrangle_a) == (
+    assert geometry.get_bounding_box(quadrangle_a) == (
         (0.205, 0.407),
         (0.381, 0.407),
         (0.381, 0.43),
@@ -89,7 +88,7 @@ def test_get_centroid(rectangle_a):
 
 def test_bounding_box_several_polygons(rectangle_b, quadrangle_a):
     merged = geometry.merge_polygons((rectangle_b, quadrangle_a))
-    assert mindee.geometry.get_bounding_box(merged) == (
+    assert geometry.get_bounding_box(merged) == (
         (0.124, 0.407),
         (0.381, 0.407),
         (0.381, 0.546),
