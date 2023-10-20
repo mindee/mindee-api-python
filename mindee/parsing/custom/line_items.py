@@ -1,25 +1,10 @@
 from typing import Dict, List, Sequence
 
-from mindee.geometry import (
-    Quadrilateral,
-    get_bounding_box,
-    get_min_max_y,
-    is_point_in_y,
-    merge_polygons,
-)
+from mindee.error.mindee_error import MindeeError
+from mindee.geometry.bbox import BBox, extend_bbox, get_bbox
+from mindee.geometry.minmax import MinMax, get_min_max_y
+from mindee.geometry.quadrilateral import get_bounding_box
 from mindee.parsing.custom.list import ListFieldV1, ListFieldValueV1
-
-
-def _array_product(array: Sequence[float]) -> float:
-    """
-    Get the product of a sequence of floats.
-
-    :array: List of floats
-    """
-    product = 1.0
-    for k in array:
-        product = product * k
-    return product
 
 
 def _find_best_anchor(anchors: Sequence[str], fields: Dict[str, ListFieldV1]) -> str:
@@ -32,28 +17,132 @@ def _find_best_anchor(anchors: Sequence[str], fields: Dict[str, ListFieldV1]) ->
     anchor_rows = 0
     for field in anchors:
         values = fields[field].values
-        if len(values) > anchor_rows:
+        if values and len(values) > anchor_rows:
             anchor_rows = len(values)
             anchor = field
     return anchor
 
 
-def _get_empty_field() -> ListFieldValueV1:
-    """Return sample field with empty values."""
-    return ListFieldValueV1({"content": "", "polygon": [], "confidence": 0.0})
-
-
-class LineV1:
+class CustomLineV1:
     """Represent a single line."""
 
     row_number: int
+    """Index of the row of a given line."""
     fields: Dict[str, ListFieldValueV1]
-    bounding_box: Quadrilateral
+    """Fields contained in the line."""
+    bbox: BBox
+    """Simplified bounding box of the line."""
+
+    def __init__(self, row_number: int):
+        self.row_number = row_number
+        self.bbox = BBox(1, 1, 0, 0)
+        self.fields = {}
+
+    def update_field(self, field_name: str, field_value: ListFieldValueV1) -> None:
+        """
+        Updates a field value if it exists.
+
+        :param field_name: name of the field to update.
+        :param field_value: value of the field to set.
+        """
+        if field_name in self.fields:
+            existing_field = self.fields[field_name]
+            existing_content = existing_field.content
+            merged_content: str = ""
+            if len(existing_content) > 0:
+                merged_content += existing_content + " "
+            merged_content += field_value.content
+            merged_polygon = get_bounding_box(
+                [*existing_field.polygon, *field_value.polygon]
+            )
+            merged_confidence = existing_field.confidence * field_value.confidence
+        else:
+            merged_content = field_value.content
+            merged_confidence = field_value.confidence
+            merged_polygon = get_bounding_box(field_value.polygon)
+
+        self.fields[field_name] = ListFieldValueV1(
+            {
+                "content": merged_content,
+                "confidence": merged_confidence,
+                "polygon": merged_polygon,
+            }
+        )
+
+
+def is_box_in_line(
+    line: CustomLineV1, bbox: BBox, height_line_tolerance: float
+) -> bool:
+    """
+    Checks if the bbox fits inside the line.
+
+    :param anchor_name: name of the anchor.
+    :param fields: fields to build lines from.
+    :param height_line_tolerance: line height tolerance for custom line reconstruction.
+    """
+    if abs(bbox.y_min - line.bbox.y_min) <= height_line_tolerance:
+        return True
+    return abs(line.bbox.y_min - bbox.y_min) <= height_line_tolerance
+
+
+def prepare(
+    anchor_name: str, fields: Dict[str, ListFieldV1], height_line_tolerance: float
+) -> List[CustomLineV1]:
+    """
+    Prepares lines before filling them.
+
+    :param anchor_name: name of the anchor.
+    :param fields: fields to build lines from.
+    :param height_line_tolerance: line height tolerance for custom line reconstruction.
+    """
+    lines_prepared: List[CustomLineV1] = []
+    try:
+        anchor_field: ListFieldV1 = fields[anchor_name]
+    except KeyError as exc:
+        raise MindeeError("No lines have been detected.") from exc
+
+    current_line_number: int = 1
+    current_line = CustomLineV1(current_line_number)
+    if anchor_field and len(anchor_field.values) > 0:
+        current_value: ListFieldValueV1 = anchor_field.values[0]
+        current_line.bbox = extend_bbox(
+            current_line.bbox,
+            current_value.polygon,
+        )
+
+        for i in range(1, len(anchor_field.values)):
+            current_value = anchor_field.values[i]
+            current_field_box = get_bbox(current_value.polygon)
+            if not is_box_in_line(
+                current_line, current_field_box, height_line_tolerance
+            ):
+                lines_prepared.append(current_line)
+                current_line_number += 1
+                current_line = CustomLineV1(current_line_number)
+            current_line.bbox = extend_bbox(
+                current_line.bbox,
+                current_value.polygon,
+            )
+        if (
+            len(
+                [
+                    line
+                    for line in lines_prepared
+                    if line.row_number == current_line_number
+                ]
+            )
+            == 0
+        ):
+            lines_prepared.append(current_line)
+    return lines_prepared
 
 
 def get_line_items(
-    anchors: Sequence[str], columns: Sequence[str], fields: Dict[str, ListFieldV1]
-) -> List[LineV1]:
+    anchors: Sequence[str],
+    field_names: Sequence[str],
+    fields: Dict[str, ListFieldV1],
+    height_line_tolerance: float = 0.01,
+) -> List[CustomLineV1]:
     """
     Reconstruct line items from fields.
 
@@ -61,51 +150,29 @@ def get_line_items(
     :columns: All fields which are columns
     :fields: List of field names to reconstruct table with
     """
-    line_items: List[LineV1] = []
-    anchor = _find_best_anchor(anchors, fields)
+    line_items: List[CustomLineV1] = []
+    fields_to_transform: Dict[str, ListFieldV1] = {}
+    for field_name, field_value in fields.items():
+        if field_name in field_names:
+            fields_to_transform[field_name] = field_value
+    anchor = _find_best_anchor(anchors, fields_to_transform)
     if not anchor:
         print(Warning("Could not find an anchor!"))
         return line_items
+    lines_prepared: List[CustomLineV1] = prepare(
+        anchor, fields_to_transform, height_line_tolerance
+    )
 
-    # Loop on anchor items and create an item for each anchor item.
-    # This will create all rows with just the anchor column value.
-    for item in fields[anchor].values:
-        line_item = LineV1()
-        line_item.fields = {f: _get_empty_field() for f in columns}
-        line_item.fields[anchor] = item
-        line_items.append(line_item)
+    for current_line in lines_prepared:
+        for field_name, field in fields_to_transform.items():
+            for list_field_value in field.values:
+                min_max_y: MinMax = get_min_max_y(list_field_value.polygon)
+                if (
+                    abs(min_max_y.max - current_line.bbox.y_max)
+                    <= height_line_tolerance
+                    and abs(min_max_y.min - current_line.bbox.y_min)
+                    <= height_line_tolerance
+                ):
+                    current_line.update_field(field_name, list_field_value)
 
-    # Loop on all created rows
-    for idx, line in enumerate(line_items):
-        # Compute sliding window between anchor item and the next
-        min_y, _ = get_min_max_y(line.fields[anchor].polygon)
-        if idx != len(line_items) - 1:
-            max_y, _ = get_min_max_y(line_items[idx + 1].fields[anchor].polygon)
-        else:
-            max_y = 1.0  # bottom of page
-        # Get candidates of each field included in sliding window and add it in line item
-        for field in columns:
-            field_words = [
-                word
-                for word in fields[field].values
-                if is_point_in_y(word.polygon.centroid, min_y, max_y)
-            ]
-            line.fields[field].content = " ".join([v.content for v in field_words])
-            try:
-                line.fields[field].polygon = merge_polygons(
-                    [v.polygon for v in field_words]
-                )
-            except ValueError:
-                pass
-            line.fields[field].confidence = _array_product(
-                [v.confidence for v in field_words]
-            )
-        all_polygons = [line.fields[anchor].polygon]
-        for field in columns:
-            try:
-                all_polygons.append(line.fields[field].polygon)
-            except IndexError:
-                pass
-        line.bounding_box = get_bounding_box(merge_polygons(all_polygons))
-        line.row_number = idx
-    return line_items
+    return lines_prepared
