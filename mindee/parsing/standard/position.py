@@ -1,12 +1,8 @@
 from typing import Optional
 
-from mindee.geometry import (
-    GeometryError,
-    Polygon,
-    Quadrilateral,
-    polygon_from_prediction,
-    quadrilateral_from_prediction,
-)
+from mindee.geometry.error import GeometryError
+from mindee.geometry.polygon import Polygon, polygon_from_prediction
+from mindee.geometry.quadrilateral import Quadrilateral, quadrilateral_from_prediction
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.standard.base import BaseField
 

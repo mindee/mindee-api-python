@@ -24,22 +24,6 @@ class Quadrilateral(NamedTuple):
         return get_centroid(self)
 
 
-def get_bounding_box(points: Points) -> Quadrilateral:
-    """
-    Given a sequence of points, calculate a bounding box that encompasses all points.
-
-    :param points: Polygon to process.
-    :return: A bounding box that encompasses all points.
-    """
-    x_min, y_min, x_max, y_max = get_bbox(points)
-    return Quadrilateral(
-        Point(x_min, y_min),
-        Point(x_max, y_min),
-        Point(x_max, y_max),
-        Point(x_min, y_max),
-    )
-
-
 def quadrilateral_from_prediction(prediction: Sequence[list]) -> Quadrilateral:
     """
     Transform a prediction into a Quadrilateral.
@@ -53,4 +37,20 @@ def quadrilateral_from_prediction(prediction: Sequence[list]) -> Quadrilateral:
         Point(prediction[1][0], prediction[1][1]),
         Point(prediction[2][0], prediction[2][1]),
         Point(prediction[3][0], prediction[3][1]),
+    )
+
+
+def get_bounding_box(points: Points) -> Quadrilateral:
+    """
+    Given a sequence of points, calculate a bounding box that encompasses all points.
+
+    :param points: Polygon to process.
+    :return: A bounding box that encompasses all points.
+    """
+    x_min, y_min, x_max, y_max = get_bbox(points)
+    return Quadrilateral(
+        Point(x_min, y_min),
+        Point(x_max, y_min),
+        Point(x_max, y_max),
+        Point(x_min, y_max),
     )

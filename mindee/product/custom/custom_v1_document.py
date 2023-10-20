@@ -28,11 +28,15 @@ class CustomV1Document(Prediction):
             elif "values" in field_contents:
                 self.fields[field_name] = ListFieldV1(field_contents)
 
-
-    def columns_to_line_items(self, anchor_names: List[str], field_names: List[str], height_tolerance: float=0.01)->CustomLineV1:
+    def columns_to_line_items(
+        self,
+        anchor_names: List[str],
+        field_names: List[str],
+        height_tolerance: float = 0.01,
+    ) -> List[CustomLineV1]:
         """
         Order column fields into line items.
-        
+
         :param anchor_names: list of possible anchor fields.
         :param field_names: list of all column fields.
         :param height_tolerance: height tolerance to apply to lines.
