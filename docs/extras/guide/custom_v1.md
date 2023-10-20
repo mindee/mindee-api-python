@@ -85,6 +85,53 @@ print(str(result.document.inference.prediction.fields["my-field"]))
 print(str(result.document.inference.prediction.classifications["my-classification"]))
 ```
 
+
+# 🧪 Custom Line Items
+
+> **⚠️ Warning**: Custom Line Items are an **experimental** feature, results may vary.
+
+
+Though not supported directly in the API, sometimes you might need to reconstitute line items by hand.
+The library provides a tool for this very purpose:
+
+## columns_to_line_items()
+The **columns_to_line_items()** function can be called from the document and page level prediction objects.
+
+It takes the following arguments:
+
+* **anchor_names** (`List[str]`): a list of the names of possible anchor (field) candidate for the horizontal placement a line. If all provided anchors are invalid, the `LineItemV1` won't be built.
+* **field_names** (`List[str]`): a list of fields to retrieve the values from
+* **height_tolerance** (`float`): Optional, the height tolerance used to build the line. It helps when the height of a line can vary unexpectedly.
+
+Example use:
+
+```python
+# document-level
+response.document.inference.prediction.columns_to_line_items(
+  anchor_names,
+  field_names,
+  0.011 # optional, defaults to 0.01
+)
+
+# page-level
+response.document.pages[0].prediction.columns_to_line_items(
+    anchor_names,
+    field_names,
+    0.011 # optional, defaults to 0.01
+)
+```
+
+It returns a list of [CustomLineV1](#CustomlineV1) objects.
+
+## CustomlineV1
+
+`CustomlineV1` represents a line as it has been read from column fields. It has the following attributes:
+
+* **row_number** (`int`): Number of a given line. Starts at 1.
+* **fields** (`Dict[str, ListFieldValueV1]`[]): List of the fields associated with the line, indexed by their column name.
+* **bbox** (`BBox`): Simple bounding box of the current line representing the 4 minimum & maximum coordinates as `float` values.
+
+
 # Questions?
 
 [Join our Slack](https://join.slack.com/t/mindee-community/shared_invite/zt-1jv6nawjq-FDgFcF2T5CmMmRpl9LLptw)

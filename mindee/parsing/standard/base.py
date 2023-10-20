@@ -1,6 +1,8 @@
 from typing import Any, List, Optional, Type
 
-from mindee.geometry import Point, Polygon, Quadrilateral, get_bounding_box
+from mindee.geometry.point import Point
+from mindee.geometry.polygon import Polygon
+from mindee.geometry.quadrilateral import Quadrilateral, get_bounding_box
 from mindee.parsing.common.string_dict import StringDict
 
 
