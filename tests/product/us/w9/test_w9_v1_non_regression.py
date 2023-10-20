@@ -1,5 +1,4 @@
 from mindee.client import Client
-
 from mindee.product.us import W9V1
 from tests.product import PRODUCT_DATA_DIR, get_id, get_version
 
@@ -12,9 +11,7 @@ def test_default_sample():
     ) as rst_file:
         rst_ref = rst_file.read()
 
-    sample = client.source_from_path(
-        PRODUCT_DATA_DIR / "us_w9" / "default_sample.jpg"
-    )
+    sample = client.source_from_path(PRODUCT_DATA_DIR / "us_w9" / "default_sample.jpg")
     response = client.parse(W9V1, sample)
     doc_response = response.document
     doc_response.id = get_id(rst_ref)

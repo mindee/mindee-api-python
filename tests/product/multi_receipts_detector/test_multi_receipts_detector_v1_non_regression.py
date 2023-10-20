@@ -1,5 +1,4 @@
 from mindee.client import Client
-
 from mindee.product import MultiReceiptsDetectorV1
 from tests.product import PRODUCT_DATA_DIR, get_id, get_version
 
@@ -7,7 +6,10 @@ from tests.product import PRODUCT_DATA_DIR, get_id, get_version
 def test_default_sample():
     client = Client()
     with open(
-        PRODUCT_DATA_DIR / "multi_receipts_detector" / "response_v1" / "default_sample.rst",
+        PRODUCT_DATA_DIR
+        / "multi_receipts_detector"
+        / "response_v1"
+        / "default_sample.rst",
         encoding="utf-8",
     ) as rst_file:
         rst_ref = rst_file.read()
