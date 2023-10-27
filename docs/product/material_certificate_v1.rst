@@ -1,10 +1,16 @@
 Material Certificate V1
 -----------------------
 
-**Sample Code:**
+**Sample Code (sync):**
 
 .. literalinclude:: /extras/code_samples/material_certificate_v1.txt
     :language: Python
+
+**Smaple Code (async):**
+
+.. literalinclude:: /extras/code_samples/material_certificate_v1_async.txt
+    :language: Python
+
 
 .. autoclass:: mindee.product.material_certificate.material_certificate_v1.MaterialCertificateV1
     :members:

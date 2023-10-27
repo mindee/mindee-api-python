@@ -40,13 +40,15 @@ python3 -m mindee parse invoice-splitter
 ```
 
 
-### You can get the full parsed output as well
+### Full parsed output
 
 ```shell
 python3 -m mindee invoice -o parsed /path/to/invoice.pdf
 ```
 
-### In the Git repo, there's a helper script for it
+### Running the script through shell
+
+A helper script allows you to start the command directly:
 
 ```shell
 ./mindee-cli.sh -h

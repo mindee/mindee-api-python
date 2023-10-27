@@ -1,3 +1,4 @@
+import json
 from abc import ABC
 
 from mindee.logger import logger
@@ -14,10 +15,15 @@ class ApiResponse(ABC):
 
     api_request: ApiRequest
     """Results of the request sent to the API."""
-    raw_http: StringDict
-    """Raw request sent by the server, as string."""
+    _raw_http: StringDict
+    """Raw request sent by the server, as a dict."""
 
     def __init__(self, raw_response: StringDict) -> None:
         logger.debug("Handling API response")
         self.api_request = ApiRequest(raw_response["api_request"])
-        self.raw_http = raw_response
+        self._raw_http = raw_response
+
+    @property
+    def raw_http(self) -> str:
+        """Displays the result of the raw response as json string."""
+        return json.dumps(self._raw_http, indent=2)

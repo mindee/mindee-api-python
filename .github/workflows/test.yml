@@ -47,5 +47,7 @@ jobs:
         pip install -e .[test]
 
     - name: Testing the code with pytest
+      env:
+        MINDEE_API_KEY: ${{ secrets.MINDEE_API_KEY_SE_TESTS }}
       run: |
         pytest
