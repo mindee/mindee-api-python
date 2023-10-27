@@ -71,7 +71,7 @@ Page 0
 ## Standard Fields
 These fields are generic and used in several products.
 
-### Basic Field
+### BasicField
 Each prediction object contains a set of fields that inherit from the generic `BaseField` class.
 A typical `BaseField` object will have the following attributes:
 
@@ -88,22 +88,22 @@ A typical `BaseField` object will have the following attributes:
 Aside from the previous attributes, all basic fields have access to a custom `__str__` method that can be used to print their value as a string.
 
 
-### Amount Field
+### AmountField
 The amount field `AmountField` only has one constraint: its **value** is an `Optional[float]`.
 
-### Date Field
+### DateField
 Aside from the basic `BaseField` attributes, the date field `DateField` also implements the following: 
 
 * **date_object** (`Date`): an accessible representation of the value as a python object. Can be `None`.
 
 
-### Position Field
+### PositionField
 The position field `PositionField` does not implement all the basic `BaseField` attributes, only **bounding_box**, **polygon** and **page_id**. On top of these, it has access to:
 
 * **rectangle** (`[Point, Point, Point, Point]`): a Polygon with four points that may be oriented (even beyond canvas).
 * **quadrangle** (`[Point, Point, Point, Point]`): a free polygon made up of four points.
 
-### String Field
+### StringField
 The text field `StringField` only has one constraint: its **value** is an `Optional[str]`.
 
 ## Page-Level Fields
@@ -113,28 +113,28 @@ Some fields are constrained to the page level, and so will not be retrievable to
 The following fields are extracted for Bank Check V1:
 
 ## Account Number
-**account_number** : The check payer's account number.
+**account_number** ([StringField](#stringfield)): The check payer's account number.
 
 ```py
 print(result.document.inference.prediction.account_number.value)
 ```
 
 ## Amount
-**amount** : The amount of the check.
+**amount** ([AmountField](#amountfield)): The amount of the check.
 
 ```py
 print(result.document.inference.prediction.amount.value)
 ```
 
 ## Check Number
-**check_number** : The issuer's check number.
+**check_number** ([StringField](#stringfield)): The issuer's check number.
 
 ```py
 print(result.document.inference.prediction.check_number.value)
 ```
 
 ## Check Position
-[📄](#page-level-fields "This field is only present on individual pages.")**check_position** : The position of the check on the document.
+[📄](#page-level-fields "This field is only present on individual pages.")**check_position** ([PositionField](#positionfield)): The position of the check on the document.
 
 ```py
 for check_position_elem of result.document.check_position:
@@ -142,14 +142,14 @@ for check_position_elem of result.document.check_position:
 ```
 
 ## Check Issue Date
-**date** : The date the check was issued.
+**date** ([DateField](#datefield)): The date the check was issued.
 
 ```py
 print(result.document.inference.prediction.date.value)
 ```
 
 ## Payees
-**payees** : List of the check's payees (recipients).
+**payees** (List[[StringField](#stringfield)]): List of the check's payees (recipients).
 
 ```py
 for payees_elem in result.document.inference.prediction.payees:
@@ -157,14 +157,14 @@ for payees_elem in result.document.inference.prediction.payees:
 ```
 
 ## Routing Number
-**routing_number** : The check issuer's routing number.
+**routing_number** ([StringField](#stringfield)): The check issuer's routing number.
 
 ```py
 print(result.document.inference.prediction.routing_number.value)
 ```
 
 ## Signature Positions
-[📄](#page-level-fields "This field is only present on individual pages.")**signatures_positions** : List of signature positions
+[📄](#page-level-fields "This field is only present on individual pages.")**signatures_positions** (List[[PositionField](#positionfield)]): List of signature positions
 
 ```py
 for page in result.document.inference.pages:

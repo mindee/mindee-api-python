@@ -67,7 +67,7 @@ Page 0
 ## Standard Fields
 These fields are generic and used in several products.
 
-### Basic Field
+### BasicField
 Each prediction object contains a set of fields that inherit from the generic `BaseField` class.
 A typical `BaseField` object will have the following attributes:
 
@@ -84,13 +84,13 @@ A typical `BaseField` object will have the following attributes:
 Aside from the previous attributes, all basic fields have access to a custom `__str__` method that can be used to print their value as a string.
 
 
-### Position Field
+### PositionField
 The position field `PositionField` does not implement all the basic `BaseField` attributes, only **bounding_box**, **polygon** and **page_id**. On top of these, it has access to:
 
 * **rectangle** (`[Point, Point, Point, Point]`): a Polygon with four points that may be oriented (even beyond canvas).
 * **quadrangle** (`[Point, Point, Point, Point]`): a free polygon made up of four points.
 
-### String Field
+### StringField
 The text field `StringField` only has one constraint: its **value** is an `Optional[str]`.
 
 ## Page-Level Fields
@@ -100,7 +100,7 @@ Some fields are constrained to the page level, and so will not be retrievable to
 The following fields are extracted for W9 V1:
 
 ## Address
-[📄](#page-level-fields "This field is only present on individual pages.")**address** : The street address (number, street, and apt. or suite no.) of the applicant.
+[📄](#page-level-fields "This field is only present on individual pages.")**address** ([StringField](#stringfield)): The street address (number, street, and apt. or suite no.) of the applicant.
 
 ```py
 for address_elem of result.document.address:
@@ -108,7 +108,7 @@ for address_elem of result.document.address:
 ```
 
 ## Business Name
-[📄](#page-level-fields "This field is only present on individual pages.")**business_name** : The business name or disregarded entity name, if different from Name.
+[📄](#page-level-fields "This field is only present on individual pages.")**business_name** ([StringField](#stringfield)): The business name or disregarded entity name, if different from Name.
 
 ```py
 for business_name_elem of result.document.business_name:
@@ -116,7 +116,7 @@ for business_name_elem of result.document.business_name:
 ```
 
 ## City State Zip
-[📄](#page-level-fields "This field is only present on individual pages.")**city_state_zip** : The city, state, and ZIP code of the applicant.
+[📄](#page-level-fields "This field is only present on individual pages.")**city_state_zip** ([StringField](#stringfield)): The city, state, and ZIP code of the applicant.
 
 ```py
 for city_state_zip_elem of result.document.city_state_zip:
@@ -124,7 +124,7 @@ for city_state_zip_elem of result.document.city_state_zip:
 ```
 
 ## EIN
-[📄](#page-level-fields "This field is only present on individual pages.")**ein** : The employer identification number.
+[📄](#page-level-fields "This field is only present on individual pages.")**ein** ([StringField](#stringfield)): The employer identification number.
 
 ```py
 for ein_elem of result.document.ein:
@@ -132,7 +132,7 @@ for ein_elem of result.document.ein:
 ```
 
 ## Name
-[📄](#page-level-fields "This field is only present on individual pages.")**name** : Name as shown on the applicant's income tax return.
+[📄](#page-level-fields "This field is only present on individual pages.")**name** ([StringField](#stringfield)): Name as shown on the applicant's income tax return.
 
 ```py
 for name_elem of result.document.name:
@@ -140,7 +140,7 @@ for name_elem of result.document.name:
 ```
 
 ## Signature Date Position
-[📄](#page-level-fields "This field is only present on individual pages.")**signature_date_position** : Position of the signature date on the document.
+[📄](#page-level-fields "This field is only present on individual pages.")**signature_date_position** ([PositionField](#positionfield)): Position of the signature date on the document.
 
 ```py
 for signature_date_position_elem of result.document.signature_date_position:
@@ -148,7 +148,7 @@ for signature_date_position_elem of result.document.signature_date_position:
 ```
 
 ## Signature Position
-[📄](#page-level-fields "This field is only present on individual pages.")**signature_position** : Position of the signature on the document.
+[📄](#page-level-fields "This field is only present on individual pages.")**signature_position** ([PositionField](#positionfield)): Position of the signature on the document.
 
 ```py
 for signature_position_elem of result.document.signature_position:
@@ -156,7 +156,7 @@ for signature_position_elem of result.document.signature_position:
 ```
 
 ## SSN
-[📄](#page-level-fields "This field is only present on individual pages.")**ssn** : The applicant's social security number.
+[📄](#page-level-fields "This field is only present on individual pages.")**ssn** ([StringField](#stringfield)): The applicant's social security number.
 
 ```py
 for ssn_elem of result.document.ssn:
@@ -164,7 +164,7 @@ for ssn_elem of result.document.ssn:
 ```
 
 ## Tax Classification
-[📄](#page-level-fields "This field is only present on individual pages.")**tax_classification** : The federal tax classification, which can vary depending on the revision date.
+[📄](#page-level-fields "This field is only present on individual pages.")**tax_classification** ([StringField](#stringfield)): The federal tax classification, which can vary depending on the revision date.
 
 ```py
 for tax_classification_elem of result.document.tax_classification:
@@ -172,7 +172,7 @@ for tax_classification_elem of result.document.tax_classification:
 ```
 
 ## Tax Classification LLC
-[📄](#page-level-fields "This field is only present on individual pages.")**tax_classification_llc** : Depending on revision year, among S, C, P or D for Limited Liability Company Classification.
+[📄](#page-level-fields "This field is only present on individual pages.")**tax_classification_llc** ([StringField](#stringfield)): Depending on revision year, among S, C, P or D for Limited Liability Company Classification.
 
 ```py
 for tax_classification_llc_elem of result.document.tax_classification_llc:
@@ -180,7 +180,7 @@ for tax_classification_llc_elem of result.document.tax_classification_llc:
 ```
 
 ## Tax Classification Other Details
-[📄](#page-level-fields "This field is only present on individual pages.")**tax_classification_other_details** : Tax Classification Other Details.
+[📄](#page-level-fields "This field is only present on individual pages.")**tax_classification_other_details** ([StringField](#stringfield)): Tax Classification Other Details.
 
 ```py
 for tax_classification_other_details_elem of result.document.tax_classification_other_details:
@@ -188,7 +188,7 @@ for tax_classification_other_details_elem of result.document.tax_classification_
 ```
 
 ## W9 Revision Date
-[📄](#page-level-fields "This field is only present on individual pages.")**w9_revision_date** : The Revision month and year of the W9 form.
+[📄](#page-level-fields "This field is only present on individual pages.")**w9_revision_date** ([StringField](#stringfield)): The Revision month and year of the W9 form.
 
 ```py
 for w9_revision_date_elem of result.document.w9_revision_date:

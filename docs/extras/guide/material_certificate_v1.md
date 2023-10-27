@@ -1,10 +1,10 @@
 ---
-title: EU License Plate OCR Python
+title: Material Certificate OCR Python
 ---
-The Python OCR SDK supports the [License Plate API](https://platform.mindee.com/mindee/license_plates).
+The Python OCR SDK supports the [Material Certificate API](https://platform.mindee.com/mindee/material_certificate).
 
-Using the [sample below](https://github.com/mindee/client-lib-test-data/blob/main/products/license_plates/default_sample.jpg), we are going to illustrate how to extract the data that we want using the OCR SDK.
-![License Plate sample](https://github.com/mindee/client-lib-test-data/blob/main/products/license_plates/default_sample.jpg?raw=true)
+Using the [sample below](https://github.com/mindee/client-lib-test-data/blob/main/products/material_certificate/default_sample.jpg), we are going to illustrate how to extract the data that we want using the OCR SDK.
+![Material Certificate sample](https://github.com/mindee/client-lib-test-data/blob/main/products/material_certificate/default_sample.jpg?raw=true)
 
 # Quick-Start
 ```py
@@ -18,7 +18,7 @@ input_doc = mindee_client.source_from_path("/path/to/the/file.ext")
 
 # Load a file from disk and parse it.
 # The endpoint name must be specified since it cannot be determined from the class.
-result: PredictResponse = mindee_client.parse(product.eu.LicensePlateV1, input_doc)
+result: PredictResponse = mindee_client.parse(product.MaterialCertificateV1, input_doc)
 
 # Print a brief summary of the parsed data
 print(result.document)
@@ -30,27 +30,6 @@ print(result.document)
 
 **Output (RST):**
 ```rst
-########
-Document
-########
-:Mindee ID: f0f48232-2c80-4473-9c6f-88a09111b84d
-:Filename: default_sample.jpg
-
-Inference
-#########
-:Product: mindee/license_plates v1.0
-:Rotation applied: No
-
-Prediction
-==========
-:License Plates: BY-323-YB
-
-Page Predictions
-================
-
-Page 0
-------
-:License Plates: BY-323-YB
 ```
 
 # Field Types
@@ -77,14 +56,27 @@ Aside from the previous attributes, all basic fields have access to a custom `__
 The text field `StringField` only has one constraint: its **value** is an `Optional[str]`.
 
 # Attributes
-The following fields are extracted for License Plate V1:
+The following fields are extracted for Material Certificate V1:
 
-## License Plates
-**license_plates** (List[[StringField](#stringfield)]): List of all license plates found in the image.
+## Certificate Type
+**certificate_type** ([StringField](#stringfield)): The type of certification.
 
 ```py
-for license_plates_elem in result.document.inference.prediction.license_plates:
-    print(license_plates_elem.value)
+print(result.document.inference.prediction.certificate_type.value)
+```
+
+## Heat Number
+**heat_number** ([StringField](#stringfield)): Heat Number is a unique identifier assigned to a batch of material produced in a manufacturing process.
+
+```py
+print(result.document.inference.prediction.heat_number.value)
+```
+
+## Norm
+**norm** ([StringField](#stringfield)): The international standard used for certification.
+
+```py
+print(result.document.inference.prediction.norm.value)
 ```
 
 # Questions?

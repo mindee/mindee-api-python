@@ -1,10 +1,7 @@
 ---
-title: GUIDE Petrol Receipt OCR Python
+title: FR Petrol Receipt OCR Python
 ---
 The Python OCR SDK supports the [Petrol Receipt API](https://platform.mindee.com/mindee/petrol_receipts).
-
-Using the [sample below](https://github.com/mindee/client-lib-test-data/blob/main/products/petrol_receipts/default_sample.jpg), we are going to illustrate how to extract the data that we want using the OCR SDK.
-![Petrol Receipt sample](https://github.com/mindee/client-lib-test-data/blob/main/products/petrol_receipts/default_sample.jpg?raw=true)
 
 # Quick-Start
 ```py
@@ -26,10 +23,6 @@ print(result.document)
 # # Iterate over all the fields in the document
 # for field_name, field_values in result.document.inference.prediction.fields.items():
 #     print(field_name, "=", field_values)
-```
-
-**Output (RST):**
-```rst
 ```
 
 # Field Types
@@ -86,7 +79,7 @@ print(result.document.inference.prediction.fuel.value)
 ```
 
 ## Price per Unit
-**price** : The price per unit of fuel.
+**price** ([AmountField](#amountfield)): The price per unit of fuel.
 
 ```py
 print(result.document.inference.prediction.price.value)
@@ -100,7 +93,7 @@ print(result.document.inference.prediction.total.value)
 ```
 
 ## Volume
-**volume** : The volume of fuel purchased.
+**volume** ([AmountField](#amountfield)): The volume of fuel purchased.
 
 ```py
 print(result.document.inference.prediction.volume.value)
