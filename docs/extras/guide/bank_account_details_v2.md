@@ -71,7 +71,7 @@ Page 0
 ## Standard Fields
 These fields are generic and used in several products.
 
-### Basic Field
+### BasicField
 Each prediction object contains a set of fields that inherit from the generic `BaseField` class.
 A typical `BaseField` object will have the following attributes:
 
@@ -87,7 +87,7 @@ A typical `BaseField` object will have the following attributes:
 
 Aside from the previous attributes, all basic fields have access to a custom `__str__` method that can be used to print their value as a string.
 
-### String Field
+### StringField
 The text field `StringField` only has one constraint: its **value** is an `Optional[str]`.
 
 ## Specific Fields
@@ -107,7 +107,7 @@ A `BankAccountDetailsV2Bban` implements the following attributes:
 The following fields are extracted for Bank Account Details V2:
 
 ## Account Holder's Names
-**account_holders_names** : Full extraction of the account holders names.
+**account_holders_names** ([StringField](#stringfield)): Full extraction of the account holders names.
 
 ```py
 print(result.document.inference.prediction.account_holders_names.value)
@@ -121,14 +121,14 @@ print(result.document.inference.prediction.bban.value)
 ```
 
 ## IBAN
-**iban** : Full extraction of the IBAN number.
+**iban** ([StringField](#stringfield)): Full extraction of the IBAN number.
 
 ```py
 print(result.document.inference.prediction.iban.value)
 ```
 
 ## SWIFT Code
-**swift_code** : Full extraction of the SWIFT code.
+**swift_code** ([StringField](#stringfield)): Full extraction of the SWIFT code.
 
 ```py
 print(result.document.inference.prediction.swift_code.value)

@@ -121,7 +121,7 @@ Page 0
 ## Standard Fields
 These fields are generic and used in several products.
 
-### Basic Field
+### BasicField
 Each prediction object contains a set of fields that inherit from the generic `BaseField` class.
 A typical `BaseField` object will have the following attributes:
 
@@ -138,34 +138,34 @@ A typical `BaseField` object will have the following attributes:
 Aside from the previous attributes, all basic fields have access to a custom `__str__` method that can be used to print their value as a string.
 
 
-### Amount Field
+### AmountField
 The amount field `AmountField` only has one constraint: its **value** is an `Optional[float]`.
 
 
-### Classification Field
+### ClassificationField
 The classification field `ClassificationField` does not implement all the basic `BaseField` attributes. It only implements **value**, **confidence** and **page_id**.
 
 > Note: a classification field's `value is always a `str`.
 
 
-### Company Registration Field
+### CompanyRegistrationField
 Aside from the basic `BaseField` attributes, the company registration field `CompanyRegistrationField` also implements the following:
 
 * **type** (`str`): the type of company.
 
-### Date Field
+### DateField
 Aside from the basic `BaseField` attributes, the date field `DateField` also implements the following: 
 
 * **date_object** (`Date`): an accessible representation of the value as a python object. Can be `None`.
 
-### Locale Field
+### LocaleField
 The locale field `LocaleField` only implements the **value**, **confidence** and **page_id** base `BaseField` attributes, but it comes with its own:
 
 * **language** (`str`): ISO 639-1 language code (e.g.: `en` for English). Can be `None`.
 * **country** (`str`): ISO 3166-1 alpha-2 or ISO 3166-1 alpha-3 code for countries (e.g.: `GRB` or `GB` for "Great Britain"). Can be `None`.
 * **currency** (`str`): ISO 4217 code for currencies (e.g.: `USD` for "US Dollars"). Can be `None`.
 
-### Payment Details Field
+### PaymentDetailsField
 Aside from the basic `BaseField` attributes, the payment details field `PaymentDetailsField` also implements the following:
 
 * **account_number** (`str`): number of an account, expressed as a string. Can be `None`.
@@ -173,10 +173,10 @@ Aside from the basic `BaseField` attributes, the payment details field `PaymentD
 * **routing_number** (`str`): routing number of an account. Can be `None`.
 * **swift** (`str`): the account holder's bank's SWIFT Business Identifier Code (BIC). Can be `None`.
 
-### String Field
+### StringField
 The text field `StringField` only has one constraint: its **value** is an `Optional[str]`.
 
-### Taxes Field
+### TaxesField
 #### Tax
 Aside from the basic `BaseField` attributes, the tax field `TaxField` also implements the following:
 
@@ -209,21 +209,21 @@ A `FinancialDocumentV1LineItem` implements the following attributes:
 The following fields are extracted for Financial Document V1:
 
 ## Purchase Category
-**category** : The purchase category among predefined classes.
+**category** ([ClassificationField](#classificationfield)): The purchase category among predefined classes.
 
 ```py
 print(result.document.inference.prediction.category.value)
 ```
 
 ## Customer Address
-**customer_address** : The address of the customer.
+**customer_address** ([StringField](#stringfield)): The address of the customer.
 
 ```py
 print(result.document.inference.prediction.customer_address.value)
 ```
 
 ## Customer Company Registrations
-**customer_company_registrations** : List of company registrations associated to the customer.
+**customer_company_registrations** (List[[CompanyRegistrationField](#companyregistrationfield)]): List of company registrations associated to the customer.
 
 ```py
 for customer_company_registrations_elem in result.document.inference.prediction.customer_company_registrations:
@@ -231,42 +231,42 @@ for customer_company_registrations_elem in result.document.inference.prediction.
 ```
 
 ## Customer Name
-**customer_name** : The name of the customer.
+**customer_name** ([StringField](#stringfield)): The name of the customer.
 
 ```py
 print(result.document.inference.prediction.customer_name.value)
 ```
 
 ## Purchase Date
-**date** : The date the purchase was made.
+**date** ([DateField](#datefield)): The date the purchase was made.
 
 ```py
 print(result.document.inference.prediction.date.value)
 ```
 
 ## Document Type
-**document_type** : One of: 'INVOICE', 'CREDIT NOTE', 'CREDIT CARD RECEIPT', 'EXPENSE RECEIPT'.
+**document_type** ([ClassificationField](#classificationfield)): One of: 'INVOICE', 'CREDIT NOTE', 'CREDIT CARD RECEIPT', 'EXPENSE RECEIPT'.
 
 ```py
 print(result.document.inference.prediction.document_type.value)
 ```
 
 ## Due Date
-**due_date** : The date on which the payment is due.
+**due_date** ([DateField](#datefield)): The date on which the payment is due.
 
 ```py
 print(result.document.inference.prediction.due_date.value)
 ```
 
 ## Invoice Number
-**invoice_number** : The invoice number or identifier.
+**invoice_number** ([StringField](#stringfield)): The invoice number or identifier.
 
 ```py
 print(result.document.inference.prediction.invoice_number.value)
 ```
 
 ## Line Items
-**line_items** ([FinancialDocumentV1LineItem]List[(#line-items-field)]): List of line item details.
+**line_items** (List[[FinancialDocumentV1LineItem](#line-items-field)]): List of line item details.
 
 ```py
 for line_items_elem in result.document.inference.prediction.line_items:
@@ -274,14 +274,14 @@ for line_items_elem in result.document.inference.prediction.line_items:
 ```
 
 ## Locale
-**locale** : The locale detected on the document.
+**locale** ([LocaleField](#localefield)): The locale detected on the document.
 
 ```py
 print(result.document.inference.prediction.locale.value)
 ```
 
 ## Reference Numbers
-**reference_numbers** : List of Reference numbers, including PO number.
+**reference_numbers** (List[[StringField](#stringfield)]): List of Reference numbers, including PO number.
 
 ```py
 for reference_numbers_elem in result.document.inference.prediction.reference_numbers:
@@ -289,21 +289,21 @@ for reference_numbers_elem in result.document.inference.prediction.reference_num
 ```
 
 ## Purchase Subcategory
-**subcategory** : The purchase subcategory among predefined classes for transport and food.
+**subcategory** ([ClassificationField](#classificationfield)): The purchase subcategory among predefined classes for transport and food.
 
 ```py
 print(result.document.inference.prediction.subcategory.value)
 ```
 
 ## Supplier Address
-**supplier_address** : The address of the supplier or merchant.
+**supplier_address** ([StringField](#stringfield)): The address of the supplier or merchant.
 
 ```py
 print(result.document.inference.prediction.supplier_address.value)
 ```
 
 ## Supplier Company Registrations
-**supplier_company_registrations** : List of company registrations associated to the supplier.
+**supplier_company_registrations** (List[[CompanyRegistrationField](#companyregistrationfield)]): List of company registrations associated to the supplier.
 
 ```py
 for supplier_company_registrations_elem in result.document.inference.prediction.supplier_company_registrations:
@@ -311,14 +311,14 @@ for supplier_company_registrations_elem in result.document.inference.prediction.
 ```
 
 ## Supplier Name
-**supplier_name** : The name of the supplier or merchant.
+**supplier_name** ([StringField](#stringfield)): The name of the supplier or merchant.
 
 ```py
 print(result.document.inference.prediction.supplier_name.value)
 ```
 
 ## Supplier Payment Details
-**supplier_payment_details** : List of payment details associated to the supplier.
+**supplier_payment_details** (List[[PaymentDetailsField](#paymentdetailsfield)]): List of payment details associated to the supplier.
 
 ```py
 for supplier_payment_details_elem in result.document.inference.prediction.supplier_payment_details:
@@ -326,14 +326,14 @@ for supplier_payment_details_elem in result.document.inference.prediction.suppli
 ```
 
 ## Supplier Phone Number
-**supplier_phone_number** : The phone number of the supplier or merchant.
+**supplier_phone_number** ([StringField](#stringfield)): The phone number of the supplier or merchant.
 
 ```py
 print(result.document.inference.prediction.supplier_phone_number.value)
 ```
 
 ## Taxes
-**taxes** : List of tax lines information.
+**taxes** (List[[TaxField](#taxes)]): List of tax lines information.
 
 ```py
 for taxes_elem in result.document.inference.prediction.taxes:
@@ -341,35 +341,35 @@ for taxes_elem in result.document.inference.prediction.taxes:
 ```
 
 ## Purchase Time
-**time** : The time the purchase was made.
+**time** ([StringField](#stringfield)): The time the purchase was made.
 
 ```py
 print(result.document.inference.prediction.time.value)
 ```
 
 ## Tip and Gratuity
-**tip** : The total amount of tip and gratuity
+**tip** ([AmountField](#amountfield)): The total amount of tip and gratuity
 
 ```py
 print(result.document.inference.prediction.tip.value)
 ```
 
 ## Total Amount
-**total_amount** : The total amount paid: includes taxes, tips, fees, and other charges.
+**total_amount** ([AmountField](#amountfield)): The total amount paid: includes taxes, tips, fees, and other charges.
 
 ```py
 print(result.document.inference.prediction.total_amount.value)
 ```
 
 ## Total Net
-**total_net** : The net amount paid: does not include taxes, fees, and discounts.
+**total_net** ([AmountField](#amountfield)): The net amount paid: does not include taxes, fees, and discounts.
 
 ```py
 print(result.document.inference.prediction.total_net.value)
 ```
 
 ## Total Tax
-**total_tax** : The total amount of taxes.
+**total_tax** ([AmountField](#amountfield)): The total amount of taxes.
 
 ```py
 print(result.document.inference.prediction.total_tax.value)

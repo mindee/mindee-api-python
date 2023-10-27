@@ -61,7 +61,7 @@ Page 0
 ## Standard Fields
 These fields are generic and used in several products.
 
-### Basic Field
+### BasicField
 Each prediction object contains a set of fields that inherit from the generic `BaseField` class.
 A typical `BaseField` object will have the following attributes:
 
@@ -77,14 +77,14 @@ A typical `BaseField` object will have the following attributes:
 
 Aside from the previous attributes, all basic fields have access to a custom `__str__` method that can be used to print their value as a string.
 
-### String Field
+### StringField
 The text field `StringField` only has one constraint: its **value** is an `Optional[str]`.
 
 # Attributes
 The following fields are extracted for Barcode Reader V1:
 
 ## Barcodes 1D
-**codes_1d** : List of decoded 1D barcodes.
+**codes_1d** (List[[StringField](#stringfield)]): List of decoded 1D barcodes.
 
 ```py
 for codes_1d_elem in result.document.inference.prediction.codes_1d:
@@ -92,7 +92,7 @@ for codes_1d_elem in result.document.inference.prediction.codes_1d:
 ```
 
 ## Barcodes 2D
-**codes_2d** : List of decoded 2D barcodes.
+**codes_2d** (List[[StringField](#stringfield)]): List of decoded 2D barcodes.
 
 ```py
 for codes_2d_elem in result.document.inference.prediction.codes_2d:

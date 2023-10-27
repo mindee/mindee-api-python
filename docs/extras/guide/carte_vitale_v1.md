@@ -63,7 +63,7 @@ Page 0
 ## Standard Fields
 These fields are generic and used in several products.
 
-### Basic Field
+### BasicField
 Each prediction object contains a set of fields that inherit from the generic `BaseField` class.
 A typical `BaseField` object will have the following attributes:
 
@@ -79,19 +79,19 @@ A typical `BaseField` object will have the following attributes:
 
 Aside from the previous attributes, all basic fields have access to a custom `__str__` method that can be used to print their value as a string.
 
-### Date Field
+### DateField
 Aside from the basic `BaseField` attributes, the date field `DateField` also implements the following: 
 
 * **date_object** (`Date`): an accessible representation of the value as a python object. Can be `None`.
 
-### String Field
+### StringField
 The text field `StringField` only has one constraint: its **value** is an `Optional[str]`.
 
 # Attributes
 The following fields are extracted for Carte Vitale V1:
 
 ## Given Name(s)
-**given_names** : The given name(s) of the card holder.
+**given_names** (List[[StringField](#stringfield)]): The given name(s) of the card holder.
 
 ```py
 for given_names_elem in result.document.inference.prediction.given_names:
@@ -99,21 +99,21 @@ for given_names_elem in result.document.inference.prediction.given_names:
 ```
 
 ## Issuance Date
-**issuance_date** : The date the card was issued.
+**issuance_date** ([DateField](#datefield)): The date the card was issued.
 
 ```py
 print(result.document.inference.prediction.issuance_date.value)
 ```
 
 ## Social Security Number
-**social_security** : The Social Security Number (Numéro de Sécurité Sociale) of the card holder
+**social_security** ([StringField](#stringfield)): The Social Security Number (Numéro de Sécurité Sociale) of the card holder
 
 ```py
 print(result.document.inference.prediction.social_security.value)
 ```
 
 ## Surname
-**surname** : The surname of the card holder.
+**surname** ([StringField](#stringfield)): The surname of the card holder.
 
 ```py
 print(result.document.inference.prediction.surname.value)

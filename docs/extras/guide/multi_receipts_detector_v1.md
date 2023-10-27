@@ -67,7 +67,7 @@ Page 0
 ## Standard Fields
 These fields are generic and used in several products.
 
-### Basic Field
+### BasicField
 Each prediction object contains a set of fields that inherit from the generic `BaseField` class.
 A typical `BaseField` object will have the following attributes:
 
@@ -84,7 +84,7 @@ A typical `BaseField` object will have the following attributes:
 Aside from the previous attributes, all basic fields have access to a custom `__str__` method that can be used to print their value as a string.
 
 
-### Position Field
+### PositionField
 The position field `PositionField` does not implement all the basic `BaseField` attributes, only **bounding_box**, **polygon** and **page_id**. On top of these, it has access to:
 
 * **rectangle** (`[Point, Point, Point, Point]`): a Polygon with four points that may be oriented (even beyond canvas).
@@ -94,7 +94,7 @@ The position field `PositionField` does not implement all the basic `BaseField` 
 The following fields are extracted for Multi Receipts Detector V1:
 
 ## List of Receipts
-**receipts** : Positions of the receipts on the document.
+**receipts** (List[[PositionField](#positionfield)]): Positions of the receipts on the document.
 
 ```py
 for receipts_elem in result.document.inference.prediction.receipts:

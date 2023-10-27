@@ -77,7 +77,7 @@ Page 0
 ## Standard Fields
 These fields are generic and used in several products.
 
-### Basic Field
+### BasicField
 Each prediction object contains a set of fields that inherit from the generic `BaseField` class.
 A typical `BaseField` object will have the following attributes:
 
@@ -93,54 +93,54 @@ A typical `BaseField` object will have the following attributes:
 
 Aside from the previous attributes, all basic fields have access to a custom `__str__` method that can be used to print their value as a string.
 
-### Date Field
+### DateField
 Aside from the basic `BaseField` attributes, the date field `DateField` also implements the following: 
 
 * **date_object** (`Date`): an accessible representation of the value as a python object. Can be `None`.
 
-### String Field
+### StringField
 The text field `StringField` only has one constraint: its **value** is an `Optional[str]`.
 
 # Attributes
 The following fields are extracted for Passport V1:
 
 ## Date of Birth
-**birth_date** : The date of birth of the passport holder.
+**birth_date** ([DateField](#datefield)): The date of birth of the passport holder.
 
 ```py
 print(result.document.inference.prediction.birth_date.value)
 ```
 
 ## Place of Birth
-**birth_place** : The place of birth of the passport holder.
+**birth_place** ([StringField](#stringfield)): The place of birth of the passport holder.
 
 ```py
 print(result.document.inference.prediction.birth_place.value)
 ```
 
 ## Country Code
-**country** : The country's 3 letter code (ISO 3166-1 alpha-3).
+**country** ([StringField](#stringfield)): The country's 3 letter code (ISO 3166-1 alpha-3).
 
 ```py
 print(result.document.inference.prediction.country.value)
 ```
 
 ## Expiry Date
-**expiry_date** : The expiry date of the passport.
+**expiry_date** ([DateField](#datefield)): The expiry date of the passport.
 
 ```py
 print(result.document.inference.prediction.expiry_date.value)
 ```
 
 ## Gender
-**gender** : The gender of the passport holder.
+**gender** ([StringField](#stringfield)): The gender of the passport holder.
 
 ```py
 print(result.document.inference.prediction.gender.value)
 ```
 
 ## Given Name(s)
-**given_names** : The given name(s) of the passport holder.
+**given_names** (List[[StringField](#stringfield)]): The given name(s) of the passport holder.
 
 ```py
 for given_names_elem in result.document.inference.prediction.given_names:
@@ -148,35 +148,35 @@ for given_names_elem in result.document.inference.prediction.given_names:
 ```
 
 ## ID Number
-**id_number** : The passport's identification number.
+**id_number** ([StringField](#stringfield)): The passport's identification number.
 
 ```py
 print(result.document.inference.prediction.id_number.value)
 ```
 
 ## Date of Issue
-**issuance_date** : The date the passport was issued.
+**issuance_date** ([DateField](#datefield)): The date the passport was issued.
 
 ```py
 print(result.document.inference.prediction.issuance_date.value)
 ```
 
 ## MRZ Line 1
-**mrz1** : Machine Readable Zone, first line
+**mrz1** ([StringField](#stringfield)): Machine Readable Zone, first line
 
 ```py
 print(result.document.inference.prediction.mrz1.value)
 ```
 
 ## MRZ Line 2
-**mrz2** : Machine Readable Zone, second line
+**mrz2** ([StringField](#stringfield)): Machine Readable Zone, second line
 
 ```py
 print(result.document.inference.prediction.mrz2.value)
 ```
 
 ## Surname
-**surname** : The surname of the passport holder.
+**surname** ([StringField](#stringfield)): The surname of the passport holder.
 
 ```py
 print(result.document.inference.prediction.surname.value)
