@@ -1,7 +1,7 @@
 from typing import NamedTuple, Sequence
 
+from mindee.error.geometry_error import GeometryError
 from mindee.geometry.bbox import get_bbox
-from mindee.geometry.error import GeometryError
 from mindee.geometry.point import Point, Points
 from mindee.geometry.polygon_utils import get_centroid
 

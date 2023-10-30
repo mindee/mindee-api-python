@@ -8,6 +8,7 @@ from typing import BinaryIO, Optional, Sequence, Tuple, Union
 
 import pikepdf
 
+from mindee.error.mimetype_error import MimeTypeError
 from mindee.error.mindee_error import MindeeSourceError
 from mindee.input.page_options import KEEP_ONLY, REMOVE
 from mindee.logger import logger
@@ -34,10 +35,6 @@ class InputType(Enum):
     BYTES = "bytes"
     PATH = "path"
     URL = "url"
-
-
-class MimeTypeError(AssertionError):
-    """The MIME Type is not valid."""
 
 
 class LocalInputSource:

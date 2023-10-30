@@ -1,4 +1,4 @@
-from typing import Dict, Generic, List, Optional, TypeVar
+from typing import Dict, Generic, List, Optional, Type, TypeVar
 
 from mindee.error.mindee_error import MindeeError
 from mindee.parsing.common.page import TypePage
@@ -55,11 +55,13 @@ class Inference(Generic[TypePrediction, TypePage]):
         )
 
     @staticmethod
-    def get_endpoint_info(klass) -> Dict[str, str]:
+    def get_endpoint_info(klass: Type["Inference"]) -> Dict[str, str]:
         """
         Retrives the endpoint information for an Inference.
 
         Should never retrieve info for CustomV1, as a custom endpoint should be created to use CustomV1.
+
+        :param klass: product subclass to access endpoint information.
         """
         if klass.endpoint_name and klass.endpoint_version:
             return {"name": klass.endpoint_name, "version": klass.endpoint_version}
