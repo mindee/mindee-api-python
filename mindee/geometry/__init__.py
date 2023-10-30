@@ -1,5 +1,4 @@
 from mindee.geometry.bbox import BBox, get_bbox
-from mindee.geometry.error import GeometryError
 from mindee.geometry.minmax import MinMax, get_min_max_x, get_min_max_y
 from mindee.geometry.point import Point, Points
 from mindee.geometry.polygon import (

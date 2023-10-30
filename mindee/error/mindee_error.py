@@ -1,9 +1,13 @@
 class MindeeError(RuntimeError):
-    """A generic exception relating to various client errors."""
+    """A generic exception relating to various HTTP errors."""
 
 
 class MindeeClientError(MindeeError):
-    """An exception relating to document parsing."""
+    """
+    An exception relating to document parsing errors.
+
+    Not to be confused with `MindeeHTTPClientError`.
+    """
 
 
 class MindeeApiError(MindeeError):

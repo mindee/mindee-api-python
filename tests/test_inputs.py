@@ -4,13 +4,13 @@ from pathlib import Path
 import pikepdf
 import pytest
 
+from mindee.error.mimetype_error import MimeTypeError
 from mindee.error.mindee_error import MindeeError, MindeeSourceError
 from mindee.input.page_options import KEEP_ONLY, REMOVE
 from mindee.input.sources import (
     Base64Input,
     BytesInput,
     FileInput,
-    MimeTypeError,
     PathInput,
     UrlInputSource,
 )

@@ -14,6 +14,12 @@ Text Field
     :members:
     :inherited-members:
 
+Classification Field
+--------------------
+.. autoclass:: mindee.parsing.standard.classification.ClassificationField
+    :members:
+    :inherited-members:
+
 Company Registration Field
 --------------------------
 .. autoclass:: mindee.parsing.standard.company_registration.CompanyRegistrationField
