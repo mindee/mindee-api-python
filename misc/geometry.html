@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Geometry Helpers &mdash; Mindee Python Client  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Input" href="input.html" />
+    <link rel="prev" title="Mindee Errors" href="error.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Mindee Python Client
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../client.html">Mindee Client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parsing/index.html">Parsing Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../product/index.html">Product</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Misc</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="error.html">Mindee Errors</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Geometry Helpers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.geometry.BBox"><code class="docutils literal notranslate"><span class="pre">BBox</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.geometry.BBox.count"><code class="docutils literal notranslate"><span class="pre">BBox.count()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.geometry.BBox.index"><code class="docutils literal notranslate"><span class="pre">BBox.index()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.geometry.BBox.area"><code class="docutils literal notranslate"><span class="pre">BBox.area</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.geometry.BBox.height"><code class="docutils literal notranslate"><span class="pre">BBox.height</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.geometry.BBox.width"><code class="docutils literal notranslate"><span class="pre">BBox.width</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.geometry.BBox.x_max"><code class="docutils literal notranslate"><span class="pre">BBox.x_max</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.geometry.BBox.x_min"><code class="docutils literal notranslate"><span class="pre">BBox.x_min</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.geometry.BBox.y_max"><code class="docutils literal notranslate"><span class="pre">BBox.y_max</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.geometry.BBox.y_min"><code class="docutils literal notranslate"><span class="pre">BBox.y_min</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.geometry.MinMax"><code class="docutils literal notranslate"><span class="pre">MinMax</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.geometry.MinMax.count"><code class="docutils literal notranslate"><span class="pre">MinMax.count()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.geometry.MinMax.index"><code class="docutils literal notranslate"><span class="pre">MinMax.index()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.geometry.MinMax.max"><code class="docutils literal notranslate"><span class="pre">MinMax.max</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.geometry.MinMax.min"><code class="docutils literal notranslate"><span class="pre">MinMax.min</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.geometry.Point"><code class="docutils literal notranslate"><span class="pre">Point</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.geometry.Point.count"><code class="docutils literal notranslate"><span class="pre">Point.count()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.geometry.Point.index"><code class="docutils literal notranslate"><span class="pre">Point.index()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.geometry.Point.x"><code class="docutils literal notranslate"><span class="pre">Point.x</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.geometry.Point.y"><code class="docutils literal notranslate"><span class="pre">Point.y</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.geometry.Polygon"><code class="docutils literal notranslate"><span class="pre">Polygon</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.geometry.Polygon.append"><code class="docutils literal notranslate"><span class="pre">Polygon.append()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.geometry.Polygon.clear"><code class="docutils literal notranslate"><span class="pre">Polygon.clear()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.geometry.Polygon.copy"><code class="docutils literal notranslate"><span class="pre">Polygon.copy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.geometry.Polygon.count"><code class="docutils literal notranslate"><span class="pre">Polygon.count()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.geometry.Polygon.extend"><code class="docutils literal notranslate"><span class="pre">Polygon.extend()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.geometry.Polygon.index"><code class="docutils literal notranslate"><span class="pre">Polygon.index()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.geometry.Polygon.insert"><code class="docutils literal notranslate"><span class="pre">Polygon.insert()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.geometry.Polygon.pop"><code class="docutils literal notranslate"><span class="pre">Polygon.pop()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.geometry.Polygon.remove"><code class="docutils literal notranslate"><span class="pre">Polygon.remove()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.geometry.Polygon.reverse"><code class="docutils literal notranslate"><span class="pre">Polygon.reverse()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.geometry.Polygon.sort"><code class="docutils literal notranslate"><span class="pre">Polygon.sort()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.geometry.Polygon.centroid"><code class="docutils literal notranslate"><span class="pre">Polygon.centroid</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.geometry.Quadrilateral"><code class="docutils literal notranslate"><span class="pre">Quadrilateral</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.geometry.Quadrilateral.count"><code class="docutils literal notranslate"><span class="pre">Quadrilateral.count()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.geometry.Quadrilateral.index"><code class="docutils literal notranslate"><span class="pre">Quadrilateral.index()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.geometry.Quadrilateral.bottom_left"><code class="docutils literal notranslate"><span class="pre">Quadrilateral.bottom_left</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.geometry.Quadrilateral.bottom_right"><code class="docutils literal notranslate"><span class="pre">Quadrilateral.bottom_right</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.geometry.Quadrilateral.centroid"><code class="docutils literal notranslate"><span class="pre">Quadrilateral.centroid</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.geometry.Quadrilateral.top_left"><code class="docutils literal notranslate"><span class="pre">Quadrilateral.top_left</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.geometry.Quadrilateral.top_right"><code class="docutils literal notranslate"><span class="pre">Quadrilateral.top_right</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.geometry.get_bbox"><code class="docutils literal notranslate"><span class="pre">get_bbox()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.geometry.get_bounding_box"><code class="docutils literal notranslate"><span class="pre">get_bounding_box()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.geometry.get_centroid"><code class="docutils literal notranslate"><span class="pre">get_centroid()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.geometry.get_min_max_x"><code class="docutils literal notranslate"><span class="pre">get_min_max_x()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.geometry.get_min_max_y"><code class="docutils literal notranslate"><span class="pre">get_min_max_y()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.geometry.is_point_in_polygon_x"><code class="docutils literal notranslate"><span class="pre">is_point_in_polygon_x()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.geometry.is_point_in_polygon_y"><code class="docutils literal notranslate"><span class="pre">is_point_in_polygon_y()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.geometry.is_point_in_x"><code class="docutils literal notranslate"><span class="pre">is_point_in_x()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.geometry.is_point_in_y"><code class="docutils literal notranslate"><span class="pre">is_point_in_y()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.geometry.merge_polygons"><code class="docutils literal notranslate"><span class="pre">merge_polygons()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.geometry.polygon_from_prediction"><code class="docutils literal notranslate"><span class="pre">polygon_from_prediction()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.geometry.quadrilateral_from_prediction"><code class="docutils literal notranslate"><span class="pre">quadrilateral_from_prediction()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="input.html">Input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mindee_http.html">Mindee HTTP</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Mindee Python Client</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Misc</a></li>
+      <li class="breadcrumb-item active">Geometry Helpers</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/misc/geometry.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-mindee.geometry">
+<span id="geometry-helpers"></span><h1>Geometry Helpers<a class="headerlink" href="#module-mindee.geometry" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.geometry.BBox">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BBox</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_min</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_min</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_max</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_max</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.BBox" title="Permalink to this definition"></a></dt>
+<dd><p>Contains exactly 4 coordinates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x_min</strong> (<em>float</em>) – </p></li>
+<li><p><strong>y_min</strong> (<em>float</em>) – </p></li>
+<li><p><strong>x_max</strong> (<em>float</em>) – </p></li>
+<li><p><strong>y_max</strong> (<em>float</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.geometry.BBox.count">
+<span class="sig-name descname"><span class="pre">count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.BBox.count" title="Permalink to this definition"></a></dt>
+<dd><p>Return number of occurrences of value.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.geometry.BBox.index">
+<span class="sig-name descname"><span class="pre">index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9223372036854775807</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.BBox.index" title="Permalink to this definition"></a></dt>
+<dd><p>Return first index of value.</p>
+<p>Raises ValueError if the value is not present.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mindee.geometry.BBox.area">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">area</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#mindee.geometry.BBox.area" title="Permalink to this definition"></a></dt>
+<dd><p>The area of the BBox.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mindee.geometry.BBox.height">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">height</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#mindee.geometry.BBox.height" title="Permalink to this definition"></a></dt>
+<dd><p>The height of the BBox.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mindee.geometry.BBox.width">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">width</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#mindee.geometry.BBox.width" title="Permalink to this definition"></a></dt>
+<dd><p>The width of the BBox.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.geometry.BBox.x_max">
+<span class="sig-name descname"><span class="pre">x_max</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#mindee.geometry.BBox.x_max" title="Permalink to this definition"></a></dt>
+<dd><p>Maximum X coordinate.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.geometry.BBox.x_min">
+<span class="sig-name descname"><span class="pre">x_min</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#mindee.geometry.BBox.x_min" title="Permalink to this definition"></a></dt>
+<dd><p>Minimum X coordinate.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.geometry.BBox.y_max">
+<span class="sig-name descname"><span class="pre">y_max</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#mindee.geometry.BBox.y_max" title="Permalink to this definition"></a></dt>
+<dd><p>Maximum Y coordinate.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.geometry.BBox.y_min">
+<span class="sig-name descname"><span class="pre">y_min</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#mindee.geometry.BBox.y_min" title="Permalink to this definition"></a></dt>
+<dd><p>Minimum Y coordinate.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.geometry.MinMax">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MinMax</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">min</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.MinMax" title="Permalink to this definition"></a></dt>
+<dd><p>A set of minimum and maximum values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>min</strong> (<em>float</em>) – </p></li>
+<li><p><strong>max</strong> (<em>float</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.geometry.MinMax.count">
+<span class="sig-name descname"><span class="pre">count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.MinMax.count" title="Permalink to this definition"></a></dt>
+<dd><p>Return number of occurrences of value.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.geometry.MinMax.index">
+<span class="sig-name descname"><span class="pre">index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9223372036854775807</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.MinMax.index" title="Permalink to this definition"></a></dt>
+<dd><p>Return first index of value.</p>
+<p>Raises ValueError if the value is not present.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.geometry.MinMax.max">
+<span class="sig-name descname"><span class="pre">max</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#mindee.geometry.MinMax.max" title="Permalink to this definition"></a></dt>
+<dd><p>Maximum</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.geometry.MinMax.min">
+<span class="sig-name descname"><span class="pre">min</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#mindee.geometry.MinMax.min" title="Permalink to this definition"></a></dt>
+<dd><p>Minimum</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.geometry.Point">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.Point" title="Permalink to this definition"></a></dt>
+<dd><p>A relative set of coordinates (X, Y) on the document.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>float</em>) – </p></li>
+<li><p><strong>y</strong> (<em>float</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.geometry.Point.count">
+<span class="sig-name descname"><span class="pre">count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.Point.count" title="Permalink to this definition"></a></dt>
+<dd><p>Return number of occurrences of value.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.geometry.Point.index">
+<span class="sig-name descname"><span class="pre">index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9223372036854775807</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.Point.index" title="Permalink to this definition"></a></dt>
+<dd><p>Return first index of value.</p>
+<p>Raises ValueError if the value is not present.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.geometry.Point.x">
+<span class="sig-name descname"><span class="pre">x</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#mindee.geometry.Point.x" title="Permalink to this definition"></a></dt>
+<dd><p>X coordinate</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.geometry.Point.y">
+<span class="sig-name descname"><span class="pre">y</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#mindee.geometry.Point.y" title="Permalink to this definition"></a></dt>
+<dd><p>Y coordinate</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.geometry.Polygon">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Polygon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.Polygon" title="Permalink to this definition"></a></dt>
+<dd><p>Contains any number of vertex coordinates (Points).</p>
+<p>Inherits from base class <code class="docutils literal notranslate"><span class="pre">list</span></code> so is compatible with type <code class="docutils literal notranslate"><span class="pre">Points</span></code>.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.geometry.Polygon.append">
+<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.Polygon.append" title="Permalink to this definition"></a></dt>
+<dd><p>Append object to the end of the list.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.geometry.Polygon.clear">
+<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.Polygon.clear" title="Permalink to this definition"></a></dt>
+<dd><p>Remove all items from list.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.geometry.Polygon.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.Polygon.copy" title="Permalink to this definition"></a></dt>
+<dd><p>Return a shallow copy of the list.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.geometry.Polygon.count">
+<span class="sig-name descname"><span class="pre">count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.Polygon.count" title="Permalink to this definition"></a></dt>
+<dd><p>Return number of occurrences of value.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.geometry.Polygon.extend">
+<span class="sig-name descname"><span class="pre">extend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterable</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.Polygon.extend" title="Permalink to this definition"></a></dt>
+<dd><p>Extend list by appending elements from the iterable.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.geometry.Polygon.index">
+<span class="sig-name descname"><span class="pre">index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9223372036854775807</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.Polygon.index" title="Permalink to this definition"></a></dt>
+<dd><p>Return first index of value.</p>
+<p>Raises ValueError if the value is not present.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.geometry.Polygon.insert">
+<span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.Polygon.insert" title="Permalink to this definition"></a></dt>
+<dd><p>Insert object before index.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.geometry.Polygon.pop">
+<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.Polygon.pop" title="Permalink to this definition"></a></dt>
+<dd><p>Remove and return item at index (default last).</p>
+<p>Raises IndexError if list is empty or index is out of range.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.geometry.Polygon.remove">
+<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.Polygon.remove" title="Permalink to this definition"></a></dt>
+<dd><p>Remove first occurrence of value.</p>
+<p>Raises ValueError if the value is not present.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.geometry.Polygon.reverse">
+<span class="sig-name descname"><span class="pre">reverse</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.Polygon.reverse" title="Permalink to this definition"></a></dt>
+<dd><p>Reverse <em>IN PLACE</em>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.geometry.Polygon.sort">
+<span class="sig-name descname"><span class="pre">sort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reverse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.Polygon.sort" title="Permalink to this definition"></a></dt>
+<dd><p>Sort the list in ascending order and return None.</p>
+<p>The sort is in-place (i.e. the list itself is modified) and stable (i.e. the
+order of two equal elements is maintained).</p>
+<p>If a key function is given, apply it once to each list item and sort them,
+ascending or descending, according to their function values.</p>
+<p>The reverse flag can be set to sort in descending order.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mindee.geometry.Polygon.centroid">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">centroid</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.geometry.Point" title="mindee.geometry.point.Point"><span class="pre">Point</span></a></em><a class="headerlink" href="#mindee.geometry.Polygon.centroid" title="Permalink to this definition"></a></dt>
+<dd><p>The central point (centroid) of the polygon.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.geometry.Quadrilateral">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Quadrilateral</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">top_left</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top_right</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bottom_right</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bottom_left</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.Quadrilateral" title="Permalink to this definition"></a></dt>
+<dd><p>Contains exactly 4 relative vertices coordinates (Points).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>top_left</strong> (<a class="reference internal" href="#mindee.geometry.Point" title="mindee.geometry.point.Point"><em>Point</em></a>) – </p></li>
+<li><p><strong>top_right</strong> (<a class="reference internal" href="#mindee.geometry.Point" title="mindee.geometry.point.Point"><em>Point</em></a>) – </p></li>
+<li><p><strong>bottom_right</strong> (<a class="reference internal" href="#mindee.geometry.Point" title="mindee.geometry.point.Point"><em>Point</em></a>) – </p></li>
+<li><p><strong>bottom_left</strong> (<a class="reference internal" href="#mindee.geometry.Point" title="mindee.geometry.point.Point"><em>Point</em></a>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.geometry.Quadrilateral.count">
+<span class="sig-name descname"><span class="pre">count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.Quadrilateral.count" title="Permalink to this definition"></a></dt>
+<dd><p>Return number of occurrences of value.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.geometry.Quadrilateral.index">
+<span class="sig-name descname"><span class="pre">index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9223372036854775807</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.Quadrilateral.index" title="Permalink to this definition"></a></dt>
+<dd><p>Return first index of value.</p>
+<p>Raises ValueError if the value is not present.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.geometry.Quadrilateral.bottom_left">
+<span class="sig-name descname"><span class="pre">bottom_left</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.geometry.Point" title="mindee.geometry.point.Point"><code class="xref py py-class docutils literal notranslate"><span class="pre">Point</span></code></a></em><a class="headerlink" href="#mindee.geometry.Quadrilateral.bottom_left" title="Permalink to this definition"></a></dt>
+<dd><p>Bottom left Point</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.geometry.Quadrilateral.bottom_right">
+<span class="sig-name descname"><span class="pre">bottom_right</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.geometry.Point" title="mindee.geometry.point.Point"><code class="xref py py-class docutils literal notranslate"><span class="pre">Point</span></code></a></em><a class="headerlink" href="#mindee.geometry.Quadrilateral.bottom_right" title="Permalink to this definition"></a></dt>
+<dd><p>Bottom right Point</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mindee.geometry.Quadrilateral.centroid">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">centroid</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.geometry.Point" title="mindee.geometry.point.Point"><span class="pre">Point</span></a></em><a class="headerlink" href="#mindee.geometry.Quadrilateral.centroid" title="Permalink to this definition"></a></dt>
+<dd><p>The central point (centroid) of the quadrilateral.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.geometry.Quadrilateral.top_left">
+<span class="sig-name descname"><span class="pre">top_left</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.geometry.Point" title="mindee.geometry.point.Point"><code class="xref py py-class docutils literal notranslate"><span class="pre">Point</span></code></a></em><a class="headerlink" href="#mindee.geometry.Quadrilateral.top_left" title="Permalink to this definition"></a></dt>
+<dd><p>Top left Point</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.geometry.Quadrilateral.top_right">
+<span class="sig-name descname"><span class="pre">top_right</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.geometry.Point" title="mindee.geometry.point.Point"><code class="xref py py-class docutils literal notranslate"><span class="pre">Point</span></code></a></em><a class="headerlink" href="#mindee.geometry.Quadrilateral.top_right" title="Permalink to this definition"></a></dt>
+<dd><p>Top right Point</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mindee.geometry.get_bbox">
+<span class="sig-name descname"><span class="pre">get_bbox</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.get_bbox" title="Permalink to this definition"></a></dt>
+<dd><p>Given a sequence of points, calculate a bbox that encompasses all points.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>points</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<a class="reference internal" href="#mindee.geometry.Point" title="mindee.geometry.point.Point"><code class="xref py py-class docutils literal notranslate"><span class="pre">Point</span></code></a>]) – Polygon to process.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#mindee.geometry.BBox" title="mindee.geometry.bbox.BBox"><code class="xref py py-class docutils literal notranslate"><span class="pre">BBox</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A bbox that encompasses all points</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mindee.geometry.get_bounding_box">
+<span class="sig-name descname"><span class="pre">get_bounding_box</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.get_bounding_box" title="Permalink to this definition"></a></dt>
+<dd><p>Given a sequence of points, calculate a bounding box that encompasses all points.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>points</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<a class="reference internal" href="#mindee.geometry.Point" title="mindee.geometry.point.Point"><code class="xref py py-class docutils literal notranslate"><span class="pre">Point</span></code></a>]) – Polygon to process.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#mindee.geometry.Quadrilateral" title="mindee.geometry.quadrilateral.Quadrilateral"><code class="xref py py-class docutils literal notranslate"><span class="pre">Quadrilateral</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A bounding box that encompasses all points.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mindee.geometry.get_centroid">
+<span class="sig-name descname"><span class="pre">get_centroid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.get_centroid" title="Permalink to this definition"></a></dt>
+<dd><p>Get the central point (centroid) given a sequence of points.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>points</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<a class="reference internal" href="#mindee.geometry.Point" title="mindee.geometry.point.Point"><code class="xref py py-class docutils literal notranslate"><span class="pre">Point</span></code></a>]) – Polygon to process.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#mindee.geometry.Point" title="mindee.geometry.point.Point"><code class="xref py py-class docutils literal notranslate"><span class="pre">Point</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The centroid</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mindee.geometry.get_min_max_x">
+<span class="sig-name descname"><span class="pre">get_min_max_x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.get_min_max_x" title="Permalink to this definition"></a></dt>
+<dd><p>Get the maximum and minimum Y value given a sequence of points.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>points</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<a class="reference internal" href="#mindee.geometry.Point" title="mindee.geometry.point.Point"><code class="xref py py-class docutils literal notranslate"><span class="pre">Point</span></code></a>]) – List of points</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#mindee.geometry.MinMax" title="mindee.geometry.minmax.MinMax"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinMax</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mindee.geometry.get_min_max_y">
+<span class="sig-name descname"><span class="pre">get_min_max_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.get_min_max_y" title="Permalink to this definition"></a></dt>
+<dd><p>Get the maximum and minimum Y value given a sequence of points.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>points</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<a class="reference internal" href="#mindee.geometry.Point" title="mindee.geometry.point.Point"><code class="xref py py-class docutils literal notranslate"><span class="pre">Point</span></code></a>]) – List of points</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#mindee.geometry.MinMax" title="mindee.geometry.minmax.MinMax"><code class="xref py py-class docutils literal notranslate"><span class="pre">MinMax</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mindee.geometry.is_point_in_polygon_x">
+<span class="sig-name descname"><span class="pre">is_point_in_polygon_x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">point</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">polygon</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.is_point_in_polygon_x" title="Permalink to this definition"></a></dt>
+<dd><p>Determine if the Point is in the Polygon’s X-axis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>point</strong> (<a class="reference internal" href="#mindee.geometry.Point" title="mindee.geometry.point.Point"><code class="xref py py-class docutils literal notranslate"><span class="pre">Point</span></code></a>) – Point to compare</p></li>
+<li><p><strong>polygon</strong> (<a class="reference internal" href="#mindee.geometry.Polygon" title="mindee.geometry.polygon.Polygon"><code class="xref py py-class docutils literal notranslate"><span class="pre">Polygon</span></code></a>) – Polygon to look into</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mindee.geometry.is_point_in_polygon_y">
+<span class="sig-name descname"><span class="pre">is_point_in_polygon_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">point</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">polygon</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.is_point_in_polygon_y" title="Permalink to this definition"></a></dt>
+<dd><p>Determine if the Point is in the Polygon’s Y-axis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>point</strong> (<a class="reference internal" href="#mindee.geometry.Point" title="mindee.geometry.point.Point"><code class="xref py py-class docutils literal notranslate"><span class="pre">Point</span></code></a>) – Point to compare</p></li>
+<li><p><strong>polygon</strong> (<a class="reference internal" href="#mindee.geometry.Polygon" title="mindee.geometry.polygon.Polygon"><code class="xref py py-class docutils literal notranslate"><span class="pre">Polygon</span></code></a>) – Polygon to look into</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mindee.geometry.is_point_in_x">
+<span class="sig-name descname"><span class="pre">is_point_in_x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">point</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.is_point_in_x" title="Permalink to this definition"></a></dt>
+<dd><p>Determine if the Point is within the X-axis interval.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>point</strong> (<a class="reference internal" href="#mindee.geometry.Point" title="mindee.geometry.point.Point"><code class="xref py py-class docutils literal notranslate"><span class="pre">Point</span></code></a>) – Point to compare</p></li>
+<li><p><strong>min_x</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – Minimum X-axis value</p></li>
+<li><p><strong>max_x</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – Maximum X-axis value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mindee.geometry.is_point_in_y">
+<span class="sig-name descname"><span class="pre">is_point_in_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">point</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.is_point_in_y" title="Permalink to this definition"></a></dt>
+<dd><p>Determine if the Point is in the Polygon’s Y-axis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>point</strong> (<a class="reference internal" href="#mindee.geometry.Point" title="mindee.geometry.point.Point"><code class="xref py py-class docutils literal notranslate"><span class="pre">Point</span></code></a>) – Point to compare</p></li>
+<li><p><strong>min_y</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – Minimum Y-axis value</p></li>
+<li><p><strong>max_y</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – Maximum Y-axis value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mindee.geometry.merge_polygons">
+<span class="sig-name descname"><span class="pre">merge_polygons</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vertices</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.merge_polygons" title="Permalink to this definition"></a></dt>
+<dd><p>Given a sequence of polygons, calculate a polygon box that encompasses all polygons.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>vertices</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<a class="reference internal" href="#mindee.geometry.Polygon" title="mindee.geometry.polygon.Polygon"><code class="xref py py-class docutils literal notranslate"><span class="pre">Polygon</span></code></a>]) – List of polygons</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#mindee.geometry.Polygon" title="mindee.geometry.polygon.Polygon"><code class="xref py py-class docutils literal notranslate"><span class="pre">Polygon</span></code></a></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A bounding box that encompasses all polygons</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mindee.geometry.polygon_from_prediction">
+<span class="sig-name descname"><span class="pre">polygon_from_prediction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prediction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.polygon_from_prediction" title="Permalink to this definition"></a></dt>
+<dd><p>Transform a prediction into a Polygon.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>prediction</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>]) – API prediction.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#mindee.geometry.Polygon" title="mindee.geometry.polygon.Polygon"><code class="xref py py-class docutils literal notranslate"><span class="pre">Polygon</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mindee.geometry.quadrilateral_from_prediction">
+<span class="sig-name descname"><span class="pre">quadrilateral_from_prediction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prediction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.quadrilateral_from_prediction" title="Permalink to this definition"></a></dt>
+<dd><p>Transform a prediction into a Quadrilateral.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>prediction</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>]) – API prediction.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#mindee.geometry.Quadrilateral" title="mindee.geometry.quadrilateral.Quadrilateral"><code class="xref py py-class docutils literal notranslate"><span class="pre">Quadrilateral</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="error.html" class="btn btn-neutral float-left" title="Mindee Errors" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="input.html" class="btn btn-neutral float-right" title="Input" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Mindee.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

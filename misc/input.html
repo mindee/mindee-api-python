@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Input &mdash; Mindee Python Client  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Mindee HTTP" href="mindee_http.html" />
+    <link rel="prev" title="Geometry Helpers" href="geometry.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Mindee Python Client
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../client.html">Mindee Client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parsing/index.html">Parsing Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../product/index.html">Product</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Misc</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="error.html">Mindee Errors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html">Geometry Helpers</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Input</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.input.Base64Input"><code class="docutils literal notranslate"><span class="pre">Base64Input</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.Base64Input.file_mimetype"><code class="docutils literal notranslate"><span class="pre">Base64Input.file_mimetype</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.Base64Input.file_object"><code class="docutils literal notranslate"><span class="pre">Base64Input.file_object</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.Base64Input.filename"><code class="docutils literal notranslate"><span class="pre">Base64Input.filename</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.Base64Input.input_type"><code class="docutils literal notranslate"><span class="pre">Base64Input.input_type</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.input.BytesInput"><code class="docutils literal notranslate"><span class="pre">BytesInput</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.BytesInput.file_mimetype"><code class="docutils literal notranslate"><span class="pre">BytesInput.file_mimetype</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.BytesInput.file_object"><code class="docutils literal notranslate"><span class="pre">BytesInput.file_object</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.BytesInput.filename"><code class="docutils literal notranslate"><span class="pre">BytesInput.filename</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.BytesInput.input_type"><code class="docutils literal notranslate"><span class="pre">BytesInput.input_type</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.input.FileInput"><code class="docutils literal notranslate"><span class="pre">FileInput</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.FileInput.file_mimetype"><code class="docutils literal notranslate"><span class="pre">FileInput.file_mimetype</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.FileInput.file_object"><code class="docutils literal notranslate"><span class="pre">FileInput.file_object</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.FileInput.filename"><code class="docutils literal notranslate"><span class="pre">FileInput.filename</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.FileInput.input_type"><code class="docutils literal notranslate"><span class="pre">FileInput.input_type</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.input.InputType"><code class="docutils literal notranslate"><span class="pre">InputType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.InputType.BASE64"><code class="docutils literal notranslate"><span class="pre">InputType.BASE64</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.InputType.BYTES"><code class="docutils literal notranslate"><span class="pre">InputType.BYTES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.InputType.FILE"><code class="docutils literal notranslate"><span class="pre">InputType.FILE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.InputType.PATH"><code class="docutils literal notranslate"><span class="pre">InputType.PATH</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.InputType.URL"><code class="docutils literal notranslate"><span class="pre">InputType.URL</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.input.LocalInputSource"><code class="docutils literal notranslate"><span class="pre">LocalInputSource</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.LocalInputSource.close"><code class="docutils literal notranslate"><span class="pre">LocalInputSource.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.LocalInputSource.count_doc_pages"><code class="docutils literal notranslate"><span class="pre">LocalInputSource.count_doc_pages()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.LocalInputSource.is_pdf"><code class="docutils literal notranslate"><span class="pre">LocalInputSource.is_pdf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.LocalInputSource.is_pdf_empty"><code class="docutils literal notranslate"><span class="pre">LocalInputSource.is_pdf_empty()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.LocalInputSource.merge_pdf_pages"><code class="docutils literal notranslate"><span class="pre">LocalInputSource.merge_pdf_pages()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.LocalInputSource.process_pdf"><code class="docutils literal notranslate"><span class="pre">LocalInputSource.process_pdf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.LocalInputSource.read_contents"><code class="docutils literal notranslate"><span class="pre">LocalInputSource.read_contents()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.LocalInputSource.file_mimetype"><code class="docutils literal notranslate"><span class="pre">LocalInputSource.file_mimetype</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.LocalInputSource.file_object"><code class="docutils literal notranslate"><span class="pre">LocalInputSource.file_object</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.LocalInputSource.filename"><code class="docutils literal notranslate"><span class="pre">LocalInputSource.filename</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.LocalInputSource.filepath"><code class="docutils literal notranslate"><span class="pre">LocalInputSource.filepath</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.LocalInputSource.input_type"><code class="docutils literal notranslate"><span class="pre">LocalInputSource.input_type</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.input.PageOptions"><code class="docutils literal notranslate"><span class="pre">PageOptions</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.PageOptions.on_min_pages"><code class="docutils literal notranslate"><span class="pre">PageOptions.on_min_pages</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.PageOptions.operation"><code class="docutils literal notranslate"><span class="pre">PageOptions.operation</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.PageOptions.page_indexes"><code class="docutils literal notranslate"><span class="pre">PageOptions.page_indexes</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.input.PathInput"><code class="docutils literal notranslate"><span class="pre">PathInput</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.PathInput.file_mimetype"><code class="docutils literal notranslate"><span class="pre">PathInput.file_mimetype</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.PathInput.file_object"><code class="docutils literal notranslate"><span class="pre">PathInput.file_object</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.PathInput.filename"><code class="docutils literal notranslate"><span class="pre">PathInput.filename</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.PathInput.input_type"><code class="docutils literal notranslate"><span class="pre">PathInput.input_type</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.input.UrlInputSource"><code class="docutils literal notranslate"><span class="pre">UrlInputSource</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.UrlInputSource.url"><code class="docutils literal notranslate"><span class="pre">UrlInputSource.url</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mindee_http.html">Mindee HTTP</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Mindee Python Client</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Misc</a></li>
+      <li class="breadcrumb-item active">Input</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/misc/input.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-mindee.input">
+<span id="input"></span><h1>Input<a class="headerlink" href="#module-mindee.input" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.input.Base64Input">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Base64Input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base64_string</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.Base64Input" title="Permalink to this definition"></a></dt>
+<dd><p>Base64-encoded text input.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>base64_string</strong> (<em>str</em>) – </p></li>
+<li><p><strong>filename</strong> (<em>str</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.Base64Input.file_mimetype">
+<span class="sig-name descname"><span class="pre">file_mimetype</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#mindee.input.Base64Input.file_mimetype" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.Base64Input.file_object">
+<span class="sig-name descname"><span class="pre">file_object</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">BinaryIO</span></code></em><a class="headerlink" href="#mindee.input.Base64Input.file_object" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.Base64Input.filename">
+<span class="sig-name descname"><span class="pre">filename</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#mindee.input.Base64Input.filename" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.Base64Input.input_type">
+<span class="sig-name descname"><span class="pre">input_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.input.InputType" title="mindee.input.sources.InputType"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputType</span></code></a></em><a class="headerlink" href="#mindee.input.Base64Input.input_type" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.input.BytesInput">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BytesInput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.BytesInput" title="Permalink to this definition"></a></dt>
+<dd><p>Raw bytes input.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>raw_bytes</strong> (<em>bytes</em>) – </p></li>
+<li><p><strong>filename</strong> (<em>str</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.BytesInput.file_mimetype">
+<span class="sig-name descname"><span class="pre">file_mimetype</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#mindee.input.BytesInput.file_mimetype" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.BytesInput.file_object">
+<span class="sig-name descname"><span class="pre">file_object</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">BinaryIO</span></code></em><a class="headerlink" href="#mindee.input.BytesInput.file_object" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.BytesInput.filename">
+<span class="sig-name descname"><span class="pre">filename</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#mindee.input.BytesInput.filename" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.BytesInput.input_type">
+<span class="sig-name descname"><span class="pre">input_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.input.InputType" title="mindee.input.sources.InputType"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputType</span></code></a></em><a class="headerlink" href="#mindee.input.BytesInput.input_type" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.input.FileInput">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">FileInput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.FileInput" title="Permalink to this definition"></a></dt>
+<dd><p>A binary file input.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file</strong> (<em>BinaryIO</em>) – </p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.FileInput.file_mimetype">
+<span class="sig-name descname"><span class="pre">file_mimetype</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#mindee.input.FileInput.file_mimetype" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.FileInput.file_object">
+<span class="sig-name descname"><span class="pre">file_object</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">BinaryIO</span></code></em><a class="headerlink" href="#mindee.input.FileInput.file_object" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.FileInput.filename">
+<span class="sig-name descname"><span class="pre">filename</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#mindee.input.FileInput.filename" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.FileInput.input_type">
+<span class="sig-name descname"><span class="pre">input_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.input.InputType" title="mindee.input.sources.InputType"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputType</span></code></a></em><a class="headerlink" href="#mindee.input.FileInput.input_type" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.input.InputType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">InputType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.InputType" title="Permalink to this definition"></a></dt>
+<dd><p>The input type, for internal use.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.InputType.BASE64">
+<span class="sig-name descname"><span class="pre">BASE64</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'base64'</span></em><a class="headerlink" href="#mindee.input.InputType.BASE64" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.InputType.BYTES">
+<span class="sig-name descname"><span class="pre">BYTES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'bytes'</span></em><a class="headerlink" href="#mindee.input.InputType.BYTES" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.InputType.FILE">
+<span class="sig-name descname"><span class="pre">FILE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'file'</span></em><a class="headerlink" href="#mindee.input.InputType.FILE" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.InputType.PATH">
+<span class="sig-name descname"><span class="pre">PATH</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'path'</span></em><a class="headerlink" href="#mindee.input.InputType.PATH" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.InputType.URL">
+<span class="sig-name descname"><span class="pre">URL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'url'</span></em><a class="headerlink" href="#mindee.input.InputType.URL" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.input.LocalInputSource">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">LocalInputSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalInputSource" title="Permalink to this definition"></a></dt>
+<dd><p>Base class for all input sources coming from the local machine.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>input_type</strong> (<a class="reference internal" href="#mindee.input.InputType" title="mindee.input.sources.InputType"><em>InputType</em></a>) – </p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.input.LocalInputSource.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalInputSource.close" title="Permalink to this definition"></a></dt>
+<dd><p>Close the file object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.input.LocalInputSource.count_doc_pages">
+<span class="sig-name descname"><span class="pre">count_doc_pages</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalInputSource.count_doc_pages" title="Permalink to this definition"></a></dt>
+<dd><p>Count the pages in the PDF.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the number of pages.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.input.LocalInputSource.is_pdf">
+<span class="sig-name descname"><span class="pre">is_pdf</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalInputSource.is_pdf" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the file is a PDF.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.input.LocalInputSource.is_pdf_empty">
+<span class="sig-name descname"><span class="pre">is_pdf_empty</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalInputSource.is_pdf_empty" title="Permalink to this definition"></a></dt>
+<dd><p>Check if the PDF is empty.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if the PDF is empty</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.input.LocalInputSource.merge_pdf_pages">
+<span class="sig-name descname"><span class="pre">merge_pdf_pages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">page_numbers</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalInputSource.merge_pdf_pages" title="Permalink to this definition"></a></dt>
+<dd><p>Create a new PDF from pages and set it to <code class="docutils literal notranslate"><span class="pre">file_object</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>page_numbers</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">set</span></code>) – List of pages number to use for merging in the original PDF.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.input.LocalInputSource.process_pdf">
+<span class="sig-name descname"><span class="pre">process_pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">behavior</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_min_pages</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_indexes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalInputSource.process_pdf" title="Permalink to this definition"></a></dt>
+<dd><p>Run any required processing on a PDF file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>behavior</strong> (<em>str</em>) – </p></li>
+<li><p><strong>on_min_pages</strong> (<em>int</em>) – </p></li>
+<li><p><strong>page_indexes</strong> (<em>Sequence</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.input.LocalInputSource.read_contents">
+<span class="sig-name descname"><span class="pre">read_contents</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">close_file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalInputSource.read_contents" title="Permalink to this definition"></a></dt>
+<dd><p>Read the contents of the input file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>close_file</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – whether to close the file after reading</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>]</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a Tuple with the file name and binary data</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.LocalInputSource.file_mimetype">
+<span class="sig-name descname"><span class="pre">file_mimetype</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#mindee.input.LocalInputSource.file_mimetype" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.LocalInputSource.file_object">
+<span class="sig-name descname"><span class="pre">file_object</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">BinaryIO</span></code></em><a class="headerlink" href="#mindee.input.LocalInputSource.file_object" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.LocalInputSource.filename">
+<span class="sig-name descname"><span class="pre">filename</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#mindee.input.LocalInputSource.filename" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.LocalInputSource.filepath">
+<span class="sig-name descname"><span class="pre">filepath</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.input.LocalInputSource.filepath" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.LocalInputSource.input_type">
+<span class="sig-name descname"><span class="pre">input_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.input.InputType" title="mindee.input.sources.InputType"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputType</span></code></a></em><a class="headerlink" href="#mindee.input.LocalInputSource.input_type" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.input.PageOptions">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PageOptions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">page_indexes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'KEEP_ONLY'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_min_pages</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.PageOptions" title="Permalink to this definition"></a></dt>
+<dd><p>Options to pass to the <cite>parse</cite> method for cutting multipage documents.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>page_indexes</strong> (<em>Sequence</em><em>[</em><em>int</em><em>]</em>) – </p></li>
+<li><p><strong>operation</strong> (<em>str</em>) – </p></li>
+<li><p><strong>on_min_pages</strong> (<em>int</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.PageOptions.on_min_pages">
+<span class="sig-name descname"><span class="pre">on_min_pages</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.input.PageOptions.on_min_pages" title="Permalink to this definition"></a></dt>
+<dd><p>Apply the operation only if document has at least this many pages.</p>
+<p>Default: <cite>0</cite> (apply on all documents)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.PageOptions.operation">
+<span class="sig-name descname"><span class="pre">operation</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#mindee.input.PageOptions.operation" title="Permalink to this definition"></a></dt>
+<dd><p>Operation to apply on the document, given the <code class="docutils literal notranslate"><span class="pre">page_indexes</span></code> specified:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">KEEP_ONLY</span></code> - keep only the specified pages, and remove all others.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">REMOVE</span></code> - remove the specified pages, and keep all others.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.PageOptions.page_indexes">
+<span class="sig-name descname"><span class="pre">page_indexes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.input.PageOptions.page_indexes" title="Permalink to this definition"></a></dt>
+<dd><p>Zero-based list of page indexes.
+A negative index can be used, indicating an offset from the end of the document.</p>
+<p><cite>[0, -1]</cite> represents the fist and last pages of the document.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.input.PathInput">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PathInput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.PathInput" title="Permalink to this definition"></a></dt>
+<dd><p>A local path input.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filepath</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.PathInput.file_mimetype">
+<span class="sig-name descname"><span class="pre">file_mimetype</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#mindee.input.PathInput.file_mimetype" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.PathInput.file_object">
+<span class="sig-name descname"><span class="pre">file_object</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">BinaryIO</span></code></em><a class="headerlink" href="#mindee.input.PathInput.file_object" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.PathInput.filename">
+<span class="sig-name descname"><span class="pre">filename</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#mindee.input.PathInput.filename" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.PathInput.input_type">
+<span class="sig-name descname"><span class="pre">input_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.input.InputType" title="mindee.input.sources.InputType"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputType</span></code></a></em><a class="headerlink" href="#mindee.input.PathInput.input_type" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.input.UrlInputSource">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">UrlInputSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.UrlInputSource" title="Permalink to this definition"></a></dt>
+<dd><p>A local or distant URL input.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>url</strong> (<em>str</em>) – </p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.UrlInputSource.url">
+<span class="sig-name descname"><span class="pre">url</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#mindee.input.UrlInputSource.url" title="Permalink to this definition"></a></dt>
+<dd><p>The Uniform Resource Locator.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="geometry.html" class="btn btn-neutral float-left" title="Geometry Helpers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="mindee_http.html" class="btn btn-neutral float-right" title="Mindee HTTP" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Mindee.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

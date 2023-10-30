@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>License Plate V1 &mdash; Mindee Python Client  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="United States" href="../us/index.html" />
+    <link rel="prev" title="Europe" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Mindee Python Client
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../client.html">Mindee Client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parsing/index.html">Parsing Utilities</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Product</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#region-specific">Region-Specific</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../fr/index.html">France</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">Europe</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">License Plate V1</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../us/index.html">United States</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#international">International</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../misc/index.html">Misc</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Mindee Python Client</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Product</a></li>
+          <li class="breadcrumb-item"><a href="index.html">Europe</a></li>
+      <li class="breadcrumb-item active">License Plate V1</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/product/eu/license_plate_v1.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="license-plate-v1">
+<h1>License Plate V1<a class="headerlink" href="#license-plate-v1" title="Permalink to this heading"></a></h1>
+<p><strong>Sample Code:</strong></p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mindee</span> <span class="kn">import</span> <span class="n">Client</span><span class="p">,</span> <span class="n">PredictResponse</span><span class="p">,</span> <span class="n">product</span>
+
+<span class="c1"># Init a new client</span>
+<span class="n">mindee_client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;my-api-key&quot;</span><span class="p">)</span>
+
+<span class="c1"># Load a file from disk</span>
+<span class="n">input_doc</span> <span class="o">=</span> <span class="n">mindee_client</span><span class="o">.</span><span class="n">source_from_path</span><span class="p">(</span><span class="s2">&quot;/path/to/the/file.ext&quot;</span><span class="p">)</span>
+
+<span class="c1"># Load a file from disk and parse it.</span>
+<span class="c1"># The endpoint name must be specified since it cannot be determined from the class.</span>
+<span class="n">result</span><span class="p">:</span> <span class="n">PredictResponse</span> <span class="o">=</span> <span class="n">mindee_client</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">product</span><span class="o">.</span><span class="n">eu</span><span class="o">.</span><span class="n">LicensePlateV1</span><span class="p">,</span> <span class="n">input_doc</span><span class="p">)</span>
+
+<span class="c1"># Print a brief summary of the parsed data</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">document</span><span class="p">)</span>
+
+<span class="c1"># # Iterate over all the fields in the document</span>
+<span class="c1"># for field_name, field_values in result.document.inference.prediction.fields.items():</span>
+<span class="c1">#     print(field_name, &quot;=&quot;, field_values)</span>
+</pre></div>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.product.eu.license_plate.license_plate_v1.LicensePlateV1">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">LicensePlateV1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.eu.license_plate.license_plate_v1.LicensePlateV1" title="Permalink to this definition"></a></dt>
+<dd><p>Inference prediction for License Plate, API version 1.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.product.eu.license_plate.license_plate_v1.LicensePlateV1.get_endpoint_info">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_endpoint_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">klass</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.eu.license_plate.license_plate_v1.LicensePlateV1.get_endpoint_info" title="Permalink to this definition"></a></dt>
+<dd><p>Retrives the endpoint information for an Inference.</p>
+<p>Should never retrieve info for CustomV1, as a custom endpoint should be created to use CustomV1.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>klass</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Inference</span></code>]) – product subclass to access endpoint information.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.eu.license_plate.license_plate_v1.LicensePlateV1.endpoint_name">
+<span class="sig-name descname"><span class="pre">endpoint_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[str]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'license_plates'</span></em><a class="headerlink" href="#mindee.product.eu.license_plate.license_plate_v1.LicensePlateV1.endpoint_name" title="Permalink to this definition"></a></dt>
+<dd><p>Name of the endpoint.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.eu.license_plate.license_plate_v1.LicensePlateV1.endpoint_version">
+<span class="sig-name descname"><span class="pre">endpoint_version</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[str]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'1'</span></em><a class="headerlink" href="#mindee.product.eu.license_plate.license_plate_v1.LicensePlateV1.endpoint_version" title="Permalink to this definition"></a></dt>
+<dd><p>Version of the endpoint.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.eu.license_plate.license_plate_v1.LicensePlateV1.is_rotation_applied">
+<span class="sig-name descname"><span class="pre">is_rotation_applied</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[bool]</span></em><a class="headerlink" href="#mindee.product.eu.license_plate.license_plate_v1.LicensePlateV1.is_rotation_applied" title="Permalink to this definition"></a></dt>
+<dd><p>Whether the document has had any rotation applied to it.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.eu.license_plate.license_plate_v1.LicensePlateV1.page_id">
+<span class="sig-name descname"><span class="pre">page_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[int]</span></em><a class="headerlink" href="#mindee.product.eu.license_plate.license_plate_v1.LicensePlateV1.page_id" title="Permalink to this definition"></a></dt>
+<dd><p>Optional page id for page-level predictions.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.eu.license_plate.license_plate_v1.LicensePlateV1.pages">
+<span class="sig-name descname"><span class="pre">pages</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="../../parsing/common.html#mindee.parsing.common.page.Page" title="mindee.parsing.common.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a><span class="pre">[</span><a class="reference internal" href="#mindee.product.eu.license_plate.license_plate_v1_document.LicensePlateV1Document" title="mindee.product.eu.license_plate.license_plate_v1_document.LicensePlateV1Document"><code class="xref py py-class docutils literal notranslate"><span class="pre">LicensePlateV1Document</span></code></a><span class="pre">]]</span></em><a class="headerlink" href="#mindee.product.eu.license_plate.license_plate_v1.LicensePlateV1.pages" title="Permalink to this definition"></a></dt>
+<dd><p>Page-level prediction(s).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.eu.license_plate.license_plate_v1.LicensePlateV1.prediction">
+<span class="sig-name descname"><span class="pre">prediction</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.product.eu.license_plate.license_plate_v1_document.LicensePlateV1Document" title="mindee.product.eu.license_plate.license_plate_v1_document.LicensePlateV1Document"><code class="xref py py-class docutils literal notranslate"><span class="pre">LicensePlateV1Document</span></code></a></em><a class="headerlink" href="#mindee.product.eu.license_plate.license_plate_v1.LicensePlateV1.prediction" title="Permalink to this definition"></a></dt>
+<dd><p>Document-level prediction.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.eu.license_plate.license_plate_v1.LicensePlateV1.product">
+<span class="sig-name descname"><span class="pre">product</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Product</span></em><a class="headerlink" href="#mindee.product.eu.license_plate.license_plate_v1.LicensePlateV1.product" title="Permalink to this definition"></a></dt>
+<dd><p>Name and version of a given product, as sent back by the API.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.product.eu.license_plate.license_plate_v1_document.LicensePlateV1Document">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">LicensePlateV1Document</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.eu.license_plate.license_plate_v1_document.LicensePlateV1Document" title="Permalink to this definition"></a></dt>
+<dd><p>Document data for License Plate, API version 1.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p></li>
+<li><p><strong>page_id</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.eu.license_plate.license_plate_v1_document.LicensePlateV1Document.license_plates">
+<span class="sig-name descname"><span class="pre">license_plates</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="../../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.eu.license_plate.license_plate_v1_document.LicensePlateV1Document.license_plates" title="Permalink to this definition"></a></dt>
+<dd><p>List of all license plates found in the image.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Europe" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../us/index.html" class="btn btn-neutral float-right" title="United States" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Mindee.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,54 +1,18 @@
-from mindee import Client, documents
+from mindee import Client, product
 from time import sleep
+from mindee.parsing.common import AsyncPredictResponse
 
 # Init a new client
 mindee_client = Client(api_key="my-api-key")
 
 # Load a file from disk
-input_doc = mindee_client.doc_from_path("/path/to/the/file.ext")
+input_doc = mindee_client.source_from_path("/path/to/the/file.ext")
 
-# Put the document class in a local variable to keep the code DRY
-doc_class = documents.TypeInvoiceSplitterV1
+# Load a file from disk and enqueue it.
+result: AsyncPredictResponse = mindee_client.enqueue_and_parse(
+    product.InvoiceSplitterV1,
+    input_doc,
+)
 
-# Limit the amount of API calls to retrieve your document
-MAX_RETRIES = 10
-
-# How many seconds to wait in-between tries
-INTERVAL_SECS = 6
-
-# Counter to keep track of how many times we try to retrieve the document
-times_tried = 1
-
-
-queue_result = input_doc.enqueue(doc_class)
-
-# Get the id of the queue (job)
-queue_id = queue_result.job.id
-
-# Recursive function that tries to retrieve the completed document.
-# If the document is not "complete", try again
-def get_doc_from_async_queue(queue_id, times_tried=0):
-
-    # Have we exceeded our retry count?
-    if times_tried >= MAX_RETRIES:
-        raise Exception(f"Maximum retries reached {times_tried}")
-    
-    # Wait for a few seconds before fetching
-    sleep(INTERVAL_SECS)
-
-    # Fetch and parse the result, using the same type
-    parsed_result = input_doc.parse_queued(doc_class, queue_id)
-
-    # Check whether the result is ready
-    if parsed_result.job.status == "completed":
-
-        # Print a brief summary of the parsed data
-        print(parsed_result.document.document)
-        return
-
-    # Otherwise, try again...
-    else:
-        get_doc_from_async_queue(queue_id, times_tried+1)
-
-# Start the recursion...
-get_doc_from_async_queue(queue_id)
+# Print a brief summary of the parsed data
+print(result.document)
