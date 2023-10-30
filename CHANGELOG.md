@@ -1,5 +1,10 @@
 # Mindee Python API Library Changelog
 
+## v4.0.1 - 2023-10-30
+### Fixes
+* :bug: add missing internal imports for some products
+
+
 ## v4.0.0 - 2023-10-30
 ### ¡Breaking Changes!
 * :art: :boom: harmonize response types & syntax with other libraries
