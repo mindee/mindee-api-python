@@ -1,5 +1,32 @@
 # Mindee Python API Library Changelog
 
+## v4.0.0 - 2023-10-30
+### ¡Breaking Changes!
+* :art: :boom: harmonize response types & syntax with other libraries
+* :art: :boom: change endpoint management & syntax
+* :art: :boom: move products to `product` module
+
+### Changes
+* :sparkles: add support for auto-poll asynchronous parsing
+* :sparkles: add support for products with both sync & async modes
+* :sparkles: add support for async custom products
+* :sparkles: :memo: add auto-generated md doc
+* :recycle: :memo: update rst doc
+* :arrow_up: update dependencies
+* :test_tube:  add experimental support for feedback API
+* :arrow_up:  improved support for custom Line Items reconstruction
+* :arrow_up: update error management system
+* :recycle: update unit-tests
+* :arrow_up: implement regression testing
+* :recycle: update CLI
+* :recycle: re-organize geometry module
+* :coffin: remove support for ReceiptV3
+* :coffin: remove support for InvoiceV3
+
+### Fixes
+* :bug: fix `raw_http` attribute displaying a python dict instead of raw JSON
+
+
 ## v3.13.2 - 2023-10-18
 ### Changes
 * :arrow_up: update `urllib` & `pillow` dependencies
