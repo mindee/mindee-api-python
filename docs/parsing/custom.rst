@@ -25,3 +25,8 @@ List Field Value
 ----------------
 .. autoclass:: mindee.parsing.custom.list.ListFieldValueV1
     :members:
+
+String Dict
+-----------
+.. autoclass:: mindee.parsing.common.string_dict.StringDict
+    :members:
