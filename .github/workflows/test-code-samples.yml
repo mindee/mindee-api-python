@@ -43,5 +43,9 @@ jobs:
           pip install -e .
 
       - name: Tests code samples
-        run: |
-            ./tests/test_code_samples.sh ${{ secrets.MINDEE_ACCOUNT_SE_TESTS }} ${{ secrets.MINDEE_ENDPOINT_SE_TESTS }} ${{ secrets.MINDEE_API_KEY_SE_TESTS }}
+        uses: actions/checkout@v3
+        with:
+          timeout_minutes: 25
+          max_attempts: 2
+          run: |
+              ./tests/test_code_samples.sh ${{ secrets.MINDEE_ACCOUNT_SE_TESTS }} ${{ secrets.MINDEE_ENDPOINT_SE_TESTS }} ${{ secrets.MINDEE_API_KEY_SE_TESTS }}

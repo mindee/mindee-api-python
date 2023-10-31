@@ -1,14 +1,20 @@
 #
-# Run unit tests.
+# Run regression tests.
 #
-name: Test
+name: Regression Test
 
 on:
-  - push
+  pull_request:
+  workflow_run:
+    workflows: ["Test Code Samples"]
+    branches:
+      - '*'
+    types:
+      - completed
 
 jobs:
   pytest:
-    name: Run Tests
+    name: Run Regression Tests
     timeout-minutes: 30
     strategy:
       max-parallel: 2
@@ -45,16 +51,12 @@ jobs:
       run: |
         python -m pip install pip
         pip install -e .[test]
-
-    - name: Unit testing with pytest
+    - name: Run Regression Testing
       env:
-        MINDEE_API_KEY: ${{ secrets.MINDEE_API_KEY_SE_TESTS }}
-      run: |
-        pytest -m "not regression" tests
-
-    - name: Regression testing with pytest
-      env:
-        MINDEE_API_KEY: ${{ secrets.MINDEE_API_KEY_SE_TESTS }}
-      run: |
-        pytest -m regression tests
-    
+          MINDEE_API_KEY: ${{ secrets.MINDEE_API_KEY_SE_TESTS }}
+      uses: actions/checkout@v3
+      with:
+        timeout_minutes: 25
+        max_attempts: 2
+        run: |
+          pytest -m regression tests
