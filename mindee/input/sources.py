@@ -4,6 +4,7 @@ import mimetypes
 import os
 from enum import Enum
 from pathlib import Path
+import tempfile
 from typing import BinaryIO, Optional, Sequence, Tuple, Union
 
 import pikepdf
@@ -45,12 +46,11 @@ class LocalInputSource:
     file_mimetype: str
     input_type: InputType
     filepath: Optional[str] = None
+    fix_pdf: bool
 
-    def __init__(
-        self,
-        input_type: InputType,
-    ):
+    def __init__(self, input_type: InputType, fix_pdf: bool = False):
         self.input_type = input_type
+        self.fix_pdf = fix_pdf
         self._check_mimetype()
 
         logger.debug("Loaded new input '%s' from %s", self.filename, self.input_type)
@@ -60,11 +60,41 @@ class LocalInputSource:
         if file_mimetype:
             self.file_mimetype = file_mimetype
         else:
-            raise MimeTypeError(f"Could not determine MIME type of '{self.filename}'")
+            if self.fix_pdf and self.filename.lower().endswith(".pdf"):
+                try:
+                    b64_str = self.file_object.read().decode("utf-8")
+                    pos = b64_str.find("%PDF")
+                    if pos != -1 and pos < 500:
+                        self.file_object.seek(pos)
+                        raw_bytes = self.file_object.read()
+                        fp = tempfile.TemporaryFile()
+                        fp.write(raw_bytes)
+                        fp.seek(0)
+                        self.file_object.close()
+                        self.file_object = io.BytesIO(
+                            base64.standard_b64decode(fp.read().decode("utf-8"))
+                        )
+                        fp.close()
+                    else:
+                        if pos < 0:
+                            raise MimeTypeError(
+                                "Provided stream isn't a valid PDF-like object."
+                            )
+                        else:
+                            raise MimeTypeError(
+                                f"PDF couldn't be fixed. PDF tag was found at position {pos}."
+                            )
+                except Exception as e:
+                    print(f"Attempt to fix pdf raised exception {e}.")
+                    raise e
+            else:
+                raise MimeTypeError(
+                    f"Could not determine MIME type of '{self.filename}'."
+                )
 
         if self.file_mimetype not in ALLOWED_MIME_TYPES:
             file_types = ", ".join(ALLOWED_MIME_TYPES)
-            raise MimeTypeError(f"File type not allowed, must be one of {file_types}")
+            raise MimeTypeError(f"File type not allowed, must be one of {file_types}.")
 
     def is_pdf(self) -> bool:
         """:return: True if the file is a PDF."""
@@ -182,7 +212,7 @@ class LocalInputSource:
 class FileInput(LocalInputSource):
     """A binary file input."""
 
-    def __init__(self, file: BinaryIO) -> None:
+    def __init__(self, file: BinaryIO, fix_pdf: bool = False) -> None:
         """
         Input document from a Python binary file object.
 
@@ -195,13 +225,13 @@ class FileInput(LocalInputSource):
         self.file_object = file
         self.filename = os.path.basename(file.name)
         self.filepath = file.name
-        super().__init__(input_type=InputType.FILE)
+        super().__init__(input_type=InputType.FILE, fix_pdf=fix_pdf)
 
 
 class PathInput(LocalInputSource):
     """A local path input."""
 
-    def __init__(self, filepath: Union[Path, str]) -> None:
+    def __init__(self, filepath: Union[Path, str], fix_pdf: bool = False) -> None:
         """
         Input document from a path.
 
@@ -210,13 +240,13 @@ class PathInput(LocalInputSource):
         self.file_object = open(filepath, "rb")  # pylint: disable=consider-using-with
         self.filename = os.path.basename(filepath)
         self.filepath = str(filepath)
-        super().__init__(input_type=InputType.PATH)
+        super().__init__(input_type=InputType.PATH, fix_pdf=fix_pdf)
 
 
 class BytesInput(LocalInputSource):
     """Raw bytes input."""
 
-    def __init__(self, raw_bytes: bytes, filename: str) -> None:
+    def __init__(self, raw_bytes: bytes, filename: str, fix_pdf: bool = False) -> None:
         """
         Input document from raw bytes (no buffer).
 
@@ -226,13 +256,15 @@ class BytesInput(LocalInputSource):
         self.file_object = io.BytesIO(raw_bytes)
         self.filename = filename
         self.filepath = None
-        super().__init__(input_type=InputType.BYTES)
+        super().__init__(input_type=InputType.BYTES, fix_pdf=fix_pdf)
 
 
 class Base64Input(LocalInputSource):
     """Base64-encoded text input."""
 
-    def __init__(self, base64_string: str, filename: str) -> None:
+    def __init__(
+        self, base64_string: str, filename: str, fix_pdf: bool = False
+    ) -> None:
         """
         Input document from a base64 encoded string.
 
@@ -242,7 +274,7 @@ class Base64Input(LocalInputSource):
         self.file_object = io.BytesIO(base64.standard_b64decode(base64_string))
         self.filename = filename
         self.filepath = None
-        super().__init__(input_type=InputType.BASE64)
+        super().__init__(input_type=InputType.BASE64, fix_pdf=fix_pdf)
 
 
 class UrlInputSource:
