@@ -66,7 +66,6 @@ class LocalInputSource:
                 buf = self.file_object.read()
                 self.file_object.seek(0)
                 pos: int = buf.find(b"%PDF-")
-                print(f"POS: {pos}")
                 if pos != -1 and pos < 500:
                     self.file_object.seek(pos)
                     raw_bytes = self.file_object.read()
