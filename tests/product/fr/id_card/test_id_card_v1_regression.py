@@ -1,8 +1,11 @@
+import pytest
+
 from mindee.client import Client
 from mindee.product.fr import IdCardV1
 from tests.product import PRODUCT_DATA_DIR, get_id, get_version
 
 
+@pytest.mark.regression
 def test_default_sample():
     client = Client()
     with open(
@@ -12,7 +15,7 @@ def test_default_sample():
         rst_ref = rst_file.read()
 
     sample = client.source_from_path(
-        PRODUCT_DATA_DIR / "idcard_fr" / "default_sample.jpg"
+        PRODUCT_DATA_DIR / "idcard_fr" / "default_sample.jpg",
     )
     response = client.parse(IdCardV1, sample)
     doc_response = response.document

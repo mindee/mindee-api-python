@@ -29,3 +29,11 @@ safe_licenses = [
   "BSD License",
   "Historical Permission Notice and Disclaimer (HPND)",
 ]
+
+[tool.pytest.ini_options]
+markers = [
+  "regression: marks tests as regression tests (deselect with '-m \"not regression\"')"
+]
+testpaths = [
+  "tests",
+]
