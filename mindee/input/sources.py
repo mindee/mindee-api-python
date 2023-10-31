@@ -60,37 +60,36 @@ class LocalInputSource:
         if file_mimetype:
             self.file_mimetype = file_mimetype
         else:
-            if self.fix_pdf and self.filename.lower().endswith(".pdf"):
-                try:
-                    b64_str = self.file_object.read().decode("utf-8")
-                    pos = b64_str.find("%PDF")
-                    if pos != -1 and pos < 500:
-                        self.file_object.seek(pos)
-                        raw_bytes = self.file_object.read()
-                        fp = tempfile.TemporaryFile()
-                        fp.write(raw_bytes)
-                        fp.seek(0)
-                        self.file_object.close()
-                        self.file_object = io.BytesIO(
-                            base64.standard_b64decode(fp.read().decode("utf-8"))
+            raise MimeTypeError(f"Could not determine MIME type of '{self.filename}'.")
+        if self.fix_pdf and self.filename.lower().endswith(".pdf"):
+            try:
+                buf = self.file_object.read()
+                self.file_object.seek(0)
+                pos: int = buf.find(b"%PDF-")
+                print(f"POS: {pos}")
+                if pos != -1 and pos < 500:
+                    self.file_object.seek(pos)
+                    raw_bytes = self.file_object.read()
+                    fp = tempfile.TemporaryFile()
+                    fp.write(raw_bytes)
+                    fp.seek(0)
+                    self.file_object = io.BytesIO(fp.read())
+                    fp.close()
+                else:
+                    if pos < 0:
+                        raise MimeTypeError(
+                            "Provided stream isn't a valid PDF-like object."
                         )
-                        fp.close()
                     else:
-                        if pos < 0:
-                            raise MimeTypeError(
-                                "Provided stream isn't a valid PDF-like object."
-                            )
-                        else:
-                            raise MimeTypeError(
-                                f"PDF couldn't be fixed. PDF tag was found at position {pos}."
-                            )
-                except Exception as e:
-                    print(f"Attempt to fix pdf raised exception {e}.")
-                    raise e
-            else:
-                raise MimeTypeError(
-                    f"Could not determine MIME type of '{self.filename}'."
-                )
+                        raise MimeTypeError(
+                            f"PDF couldn't be fixed. PDF tag was found at position {pos}."
+                        )
+                self.file_mimetype = "application/pdf"
+            except MimeTypeError as e:
+                raise e
+            except Exception as e:
+                print(f"Attempt to fix pdf raised exception {e}.")
+                raise e
 
         if self.file_mimetype not in ALLOWED_MIME_TYPES:
             file_types = ", ".join(ALLOWED_MIME_TYPES)
