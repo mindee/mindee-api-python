@@ -169,6 +169,7 @@ def test_pdf_blank_check():
     input_not_blank = PathInput(FILE_TYPES_DIR / "pdf" / "not_blank_image_only.pdf")
     assert input_not_blank.count_doc_pages() == 1
 
+
 #
 # Broken PDFS fixing
 #
@@ -177,7 +178,7 @@ def test_pdf_blank_check():
 def test_broken_unfixable_pdf():
     with pytest.raises(MimeTypeError):
         PathInput(FILE_TYPES_DIR / "pdf" / "broken_unfixable.pdf", fix_pdf=True)
-        
+
 
 def test_broken_fixable_pdf():
     PathInput(FILE_TYPES_DIR / "pdf" / "broken_fixable.pdf", fix_pdf=True)
@@ -185,6 +186,7 @@ def test_broken_fixable_pdf():
 
 def test_broken_fixable_invoice_pdf():
     PathInput(FILE_TYPES_DIR / "pdf" / "broken_invoice.pdf", fix_pdf=True)
+
 
 #
 # Images

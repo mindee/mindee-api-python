@@ -2,9 +2,9 @@ import base64
 import io
 import mimetypes
 import os
+import tempfile
 from enum import Enum
 from pathlib import Path
-import tempfile
 from typing import BinaryIO, Optional, Sequence, Tuple, Union
 
 import pikepdf
@@ -70,26 +70,25 @@ class LocalInputSource:
                 if pos != -1 and pos < 500:
                     self.file_object.seek(pos)
                     raw_bytes = self.file_object.read()
-                    fp = tempfile.TemporaryFile()
-                    fp.write(raw_bytes)
-                    fp.seek(0)
-                    self.file_object = io.BytesIO(fp.read())
-                    fp.close()
+                    temp_file = tempfile.TemporaryFile()
+                    temp_file.write(raw_bytes)
+                    temp_file.seek(0)
+                    self.file_object = io.BytesIO(temp_file.read())
+                    temp_file.close()
                 else:
                     if pos < 0:
                         raise MimeTypeError(
                             "Provided stream isn't a valid PDF-like object."
                         )
-                    else:
-                        raise MimeTypeError(
-                            f"PDF couldn't be fixed. PDF tag was found at position {pos}."
-                        )
+                    raise MimeTypeError(
+                        f"PDF couldn't be fixed. PDF tag was found at position {pos}."
+                    )
                 self.file_mimetype = "application/pdf"
-            except MimeTypeError as e:
-                raise e
-            except Exception as e:
-                print(f"Attempt to fix pdf raised exception {e}.")
-                raise e
+            except MimeTypeError as exc:
+                raise exc
+            except Exception as exc:
+                print(f"Attempt to fix pdf raised exception {exc}.")
+                raise exc
 
         if self.file_mimetype not in ALLOWED_MIME_TYPES:
             file_types = ", ".join(ALLOWED_MIME_TYPES)
