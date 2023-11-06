@@ -16,7 +16,7 @@ class PredictResponse(Generic[TypeInference], ApiResponse):
     """The document object, properly parsed after being retrieved from the server."""
 
     def __init__(
-        self, prediction_type: Type[TypeInference], raw_response: StringDict
+        self, inference_type: Type[TypeInference], raw_response: StringDict
     ) -> None:
         """
         Container for the raw API response and the parsed document.
@@ -25,4 +25,4 @@ class PredictResponse(Generic[TypeInference], ApiResponse):
         :param http_response: json response from HTTP call
         """
         super().__init__(raw_response)
-        self.document = Document(prediction_type, raw_response["document"])
+        self.document = Document(inference_type, raw_response["document"])

@@ -1,12 +1,12 @@
-from typing import Optional, Type
+from typing import Generic, Optional, Type
 
 from mindee.parsing.common.api_response import ApiResponse, StringDict
 from mindee.parsing.common.document import Document
-from mindee.parsing.common.inference import Inference
+from mindee.parsing.common.inference import TypeInference
 from mindee.parsing.common.job import Job
 
 
-class AsyncPredictResponse(ApiResponse):
+class AsyncPredictResponse(Generic[TypeInference], ApiResponse):
     """
     Async Response Wrapper class for a Predict response.
 
@@ -18,7 +18,7 @@ class AsyncPredictResponse(ApiResponse):
     document: Optional[Document]
 
     def __init__(
-        self, prediction_type: Type[Inference], raw_response: StringDict
+        self, inference_type: Type[TypeInference], raw_response: StringDict
     ) -> None:
         """
         Container wrapper for a raw API response.
@@ -32,4 +32,4 @@ class AsyncPredictResponse(ApiResponse):
         super().__init__(raw_response)
         self.job = Job(raw_response["job"])
         if "document" in raw_response and raw_response["document"]:
-            self.document = Document(prediction_type, raw_response["document"])
+            self.document = Document(inference_type, raw_response["document"])

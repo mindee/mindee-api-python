@@ -2,7 +2,7 @@ from typing import Dict, Generic, List, Optional, Type, TypeVar
 
 from mindee.error.mindee_error import MindeeError
 from mindee.parsing.common.page import TypePage
-from mindee.parsing.common.prediction import TypePrediction
+from mindee.parsing.common.prediction import Prediction, TypePrediction
 from mindee.parsing.common.product import Product
 from mindee.parsing.common.string_dict import StringDict
 
@@ -16,7 +16,7 @@ class Inference(Generic[TypePrediction, TypePage]):
     """Name of the endpoint for OTS APIs"""
     endpoint_version: Optional[str]
     """Version of the endpoint for OTS APIs"""
-    prediction: TypePrediction
+    prediction: Prediction
     """A document's top-level Prediction."""
     pages: List[TypePage]
     """A document's pages."""

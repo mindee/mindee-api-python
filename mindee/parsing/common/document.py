@@ -35,7 +35,7 @@ class Document(Generic[TypePrediction, TypePage]):
 
     def __init__(
         self,
-        prediction_type: Type[Inference],
+        inference_type: Type[Inference],
         raw_response: StringDict,
     ):
         self.id = raw_response.get("id", "")
@@ -44,7 +44,7 @@ class Document(Generic[TypePrediction, TypePage]):
             self.ocr = Ocr(raw_response["ocr"])
         if "extras" in raw_response and raw_response["extras"]:
             self.extras = Extras(raw_response["extras"])
-        self.inference = prediction_type(raw_response["inference"])
+        self.inference = inference_type(raw_response["inference"])
 
     def __str__(self) -> str:
         return (
