@@ -18,7 +18,7 @@ from mindee.mindee_http.endpoint import CustomEndpoint, Endpoint
 from mindee.mindee_http.mindee_api import MindeeApi
 from mindee.parsing.common.async_predict_response import AsyncPredictResponse
 from mindee.parsing.common.feedback_response import FeedbackResponse
-from mindee.parsing.common.inference import Inference, TypeInference
+from mindee.parsing.common.inference import Inference
 from mindee.parsing.common.predict_response import PredictResponse
 from mindee.parsing.common.string_dict import StringDict
 
@@ -72,7 +72,7 @@ class Client:
         page_options: Optional[PageOptions] = None,
         cropper: bool = False,
         endpoint: Optional[Endpoint] = None,
-    ) -> PredictResponse[TypeInference]:
+    ) -> PredictResponse:
         """
         Call prediction API on the document and parse the results.
 
