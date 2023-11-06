@@ -61,7 +61,7 @@ class LocalInputSource:
             self.file_mimetype = file_mimetype
         else:
             raise MimeTypeError(f"Could not determine MIME type of '{self.filename}'.")
-        if self.fix_pdf and self.filename.lower().endswith(".pdf"):
+        if self.fix_pdf:
             try:
                 buf = self.file_object.read()
                 self.file_object.seek(0)
