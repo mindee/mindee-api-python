@@ -72,7 +72,7 @@ List of page group indexes.
 
 An `InvoiceSplitterV1PageGroup` implements the following attributes:
 
-- **pageIndexes** (`float`\[]): List of indexes of the pages of a single invoice.
+- **page_indexes** (`float`\[]): List of indexes of the pages of a single invoice.
 - **confidence** (`float`): The confidence of the prediction.
 
 # Attributes
