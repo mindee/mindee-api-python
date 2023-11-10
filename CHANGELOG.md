@@ -1,5 +1,10 @@
 # Mindee Python API Library Changelog
 
+## v4.0.2 - 2023-10-11
+### Fixes
+* :bug: fix crashes when trying to parse from newer custom APIs
+
+
 ## v4.0.1 - 2023-10-30
 ### Fixes
 * :bug: add missing internal imports for some products
