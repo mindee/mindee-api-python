@@ -28,7 +28,7 @@ class ListFieldV1:
     """Confidence score"""
     reconstructed: bool
     """Whether the field was reconstructed from other fields."""
-    page_id: int
+    page_id: Optional[int]
     """The document page on which the information was found."""
     values: List[ListFieldValueV1]
     """List of word values"""
