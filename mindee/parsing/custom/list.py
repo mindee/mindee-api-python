@@ -44,14 +44,14 @@ class ListFieldV1:
 
         for value in raw_prediction["values"]:
             self.values.append(ListFieldValueV1(value))
-            if page_id is None:
-                if "page_id" in value:
-                    page_id = value["page_id"]
-                elif "page_id" in raw_prediction:
-                    self.page_id = raw_prediction["page_id"]
-            else:
-                self.page_id = page_id
+            if "page_id" in value:
+                page_id = value["page_id"]
 
+        if page_id is None:
+            if "page_id" in raw_prediction:
+                self.page_id = raw_prediction["page_id"]
+        else:
+            self.page_id = page_id
         self.confidence = raw_prediction["confidence"]
 
     @property
