@@ -447,33 +447,33 @@ class Client:
         return self._build_endpoint(endpoint_name, account_name, version)
 
     def source_from_path(
-        self,
-        input_path: Union[Path, str],
+        self, input_path: Union[Path, str], fix_pdf: bool = False
     ) -> PathInput:
         """
         Load a document from an absolute path, as a string.
 
         :param input_path: Path of file to open
         """
-        return PathInput(input_path)
+        input_doc = PathInput(input_path)
+        if fix_pdf:
+            input_doc.fix_pdf()
+        return input_doc
 
     def source_from_file(
-        self,
-        input_file: BinaryIO,
+        self, input_file: BinaryIO, fix_pdf: bool = False
     ) -> FileInput:
         """
         Load a document from a normal Python file object/handle.
 
         :param input_file: Input file handle
         """
-        return FileInput(
-            input_file,
-        )
+        input_doc = FileInput(input_file)
+        if fix_pdf:
+            input_doc.fix_pdf()
+        return input_doc
 
     def source_from_b64string(
-        self,
-        input_string: str,
-        filename: str,
+        self, input_string: str, filename: str, fix_pdf: bool = False
     ) -> Base64Input:
         """
         Load a document from a base64 encoded string.
@@ -481,15 +481,13 @@ class Client:
         :param input_string: Input to parse as base64 string
         :param filename: The name of the file (without the path)
         """
-        return Base64Input(
-            input_string,
-            filename,
-        )
+        input_doc = Base64Input(input_string, filename)
+        if fix_pdf:
+            input_doc.fix_pdf()
+        return input_doc
 
     def source_from_bytes(
-        self,
-        input_bytes: bytes,
-        filename: str,
+        self, input_bytes: bytes, filename: str, fix_pdf: bool = False
     ) -> BytesInput:
         """
         Load a document from raw bytes.
@@ -497,10 +495,10 @@ class Client:
         :param input_bytes: Raw byte input
         :param filename: The name of the file (without the path)
         """
-        return BytesInput(
-            input_bytes,
-            filename,
-        )
+        input_doc = BytesInput(input_bytes, filename)
+        if fix_pdf:
+            input_doc.fix_pdf()
+        return input_doc
 
     def source_from_url(
         self,
