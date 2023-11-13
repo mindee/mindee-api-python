@@ -62,36 +62,39 @@ class LocalInputSource:
         else:
             raise MimeTypeError(f"Could not determine MIME type of '{self.filename}'.")
         if self.fix_pdf:
-            try:
-                buf = self.file_object.read()
-                self.file_object.seek(0)
-                pos: int = buf.find(b"%PDF-")
-                if pos != -1 and pos < 500:
-                    self.file_object.seek(pos)
-                    raw_bytes = self.file_object.read()
-                    temp_file = tempfile.TemporaryFile()
-                    temp_file.write(raw_bytes)
-                    temp_file.seek(0)
-                    self.file_object = io.BytesIO(temp_file.read())
-                    temp_file.close()
-                else:
-                    if pos < 0:
-                        raise MimeTypeError(
-                            "Provided stream isn't a valid PDF-like object."
-                        )
-                    raise MimeTypeError(
-                        f"PDF couldn't be fixed. PDF tag was found at position {pos}."
-                    )
-                self.file_mimetype = "application/pdf"
-            except MimeTypeError as exc:
-                raise exc
-            except Exception as exc:
-                print(f"Attempt to fix pdf raised exception {exc}.")
-                raise exc
+            self._mimetype_fix()
 
         if self.file_mimetype not in ALLOWED_MIME_TYPES:
             file_types = ", ".join(ALLOWED_MIME_TYPES)
             raise MimeTypeError(f"File type not allowed, must be one of {file_types}.")
+
+    def _mimetype_fix(self) -> None:
+        try:
+            buf = self.file_object.read()
+            self.file_object.seek(0)
+            pos: int = buf.find(b"%PDF-")
+            if pos != -1 and pos < 500:
+                self.file_object.seek(pos)
+                raw_bytes = self.file_object.read()
+                temp_file = tempfile.TemporaryFile()
+                temp_file.write(raw_bytes)
+                temp_file.seek(0)
+                self.file_object = io.BytesIO(temp_file.read())
+                temp_file.close()
+            else:
+                if pos < 0:
+                    raise MimeTypeError(
+                        "Provided stream isn't a valid PDF-like object."
+                    )
+                raise MimeTypeError(
+                    f"PDF couldn't be fixed. PDF tag was found at position {pos}."
+                )
+            self.file_mimetype = "application/pdf"
+        except MimeTypeError as exc:
+            raise exc
+        except Exception as exc:
+            print(f"Attempt to fix pdf raised exception {exc}.")
+            raise exc
 
     def is_pdf(self) -> bool:
         """:return: True if the file is a PDF."""
