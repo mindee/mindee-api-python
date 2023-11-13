@@ -9,9 +9,22 @@ from mindee.product.financial_document.financial_document_v1_document import (
 from mindee.product.fr.id_card.id_card_v2 import IdCardV2
 from mindee.product.fr.id_card.id_card_v2_document import IdCardV2Document
 from mindee.product.fr.id_card.id_card_v2_page import IdCardV2Page
+from mindee.product.invoice.invoice_v4 import InvoiceV4
+from mindee.product.invoice.invoice_v4_document import InvoiceV4Document
 from mindee.product.passport.passport_v1 import PassportV1
 from mindee.product.passport.passport_v1_document import PassportV1Document
 from mindee.product.receipt.receipt_v4_document import ReceiptV4Document
+
+
+def test_invoice_receipt_v4():
+    response = json.load(
+        open("./tests/data/products/invoices/response_v4/complete.json")
+    )
+    parsed_response = PredictResponse(InvoiceV4, response)
+    assert isinstance(parsed_response.document.inference, InvoiceV4)
+    for page in parsed_response.document.inference.pages:
+        assert isinstance(page.prediction, InvoiceV4Document)
+    assert parsed_response.document.n_pages == 2
 
 
 def test_response_receipt_v4():
@@ -22,6 +35,7 @@ def test_response_receipt_v4():
     assert isinstance(parsed_response.document.inference, ReceiptV4)
     for page in parsed_response.document.inference.pages:
         assert isinstance(page.prediction, ReceiptV4Document)
+    assert parsed_response.document.n_pages == 1
 
 
 def test_response_financial_doc_with_receipt():
@@ -48,6 +62,7 @@ def test_response_passport_v1():
     assert isinstance(parsed_response.document.inference.prediction, PassportV1Document)
     for page in parsed_response.document.inference.pages:
         assert isinstance(page.prediction, PassportV1Document)
+    assert parsed_response.document.n_pages == 1
 
 
 def test_response_fr_idcard_v2():
@@ -59,3 +74,4 @@ def test_response_fr_idcard_v2():
     assert isinstance(parsed_response.document.inference.prediction, IdCardV2Document)
     for page in parsed_response.document.inference.pages:
         assert isinstance(page.prediction, IdCardV2Page)
+    assert parsed_response.document.n_pages == 1
