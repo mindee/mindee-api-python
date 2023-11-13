@@ -454,7 +454,10 @@ class Client:
 
         :param input_path: Path of file to open
         """
-        return PathInput(input_path, fix_pdf=fix_pdf)
+        input_doc = PathInput(input_path)
+        if fix_pdf:
+            input_doc.fix_pdf()
+        return input_doc
 
     def source_from_file(
         self, input_file: BinaryIO, fix_pdf: bool = False
@@ -464,7 +467,10 @@ class Client:
 
         :param input_file: Input file handle
         """
-        return FileInput(input_file, fix_pdf=fix_pdf)
+        input_doc = FileInput(input_file)
+        if fix_pdf:
+            input_doc.fix_pdf()
+        return input_doc
 
     def source_from_b64string(
         self, input_string: str, filename: str, fix_pdf: bool = False
@@ -475,7 +481,10 @@ class Client:
         :param input_string: Input to parse as base64 string
         :param filename: The name of the file (without the path)
         """
-        return Base64Input(input_string, filename, fix_pdf=fix_pdf)
+        input_doc = Base64Input(input_string, filename)
+        if fix_pdf:
+            input_doc.fix_pdf()
+        return input_doc
 
     def source_from_bytes(
         self, input_bytes: bytes, filename: str, fix_pdf: bool = False
@@ -486,7 +495,10 @@ class Client:
         :param input_bytes: Raw byte input
         :param filename: The name of the file (without the path)
         """
-        return BytesInput(input_bytes, filename, fix_pdf=fix_pdf)
+        input_doc = BytesInput(input_bytes, filename)
+        if fix_pdf:
+            input_doc.fix_pdf()
+        return input_doc
 
     def source_from_url(
         self,

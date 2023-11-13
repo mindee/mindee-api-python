@@ -177,15 +177,18 @@ def test_pdf_blank_check():
 
 def test_broken_unfixable_pdf():
     with pytest.raises(MimeTypeError):
-        PathInput(FILE_TYPES_DIR / "pdf" / "broken_unfixable.pdf", fix_pdf=True)
+        input_doc = PathInput(FILE_TYPES_DIR / "pdf" / "broken_unfixable.pdf")
+        input_doc.fix_pdf()
 
 
 def test_broken_fixable_pdf():
-    PathInput(FILE_TYPES_DIR / "pdf" / "broken_fixable.pdf", fix_pdf=True)
+    input_doc = PathInput(FILE_TYPES_DIR / "pdf" / "broken_fixable.pdf")
+    input_doc.fix_pdf()
 
 
 def test_broken_fixable_invoice_pdf():
-    PathInput(FILE_TYPES_DIR / "pdf" / "broken_invoice.pdf", fix_pdf=True)
+    input_doc = PathInput(FILE_TYPES_DIR / "pdf" / "broken_invoice.pdf")
+    input_doc.fix_pdf()
 
 
 #

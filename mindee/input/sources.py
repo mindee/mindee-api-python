@@ -10,7 +10,7 @@ from typing import BinaryIO, Optional, Sequence, Tuple, Union
 import pikepdf
 
 from mindee.error.mimetype_error import MimeTypeError
-from mindee.error.mindee_error import MindeeSourceError
+from mindee.error.mindee_error import MindeeError, MindeeSourceError
 from mindee.input.page_options import KEEP_ONLY, REMOVE
 from mindee.logger import logger
 
@@ -46,11 +46,9 @@ class LocalInputSource:
     file_mimetype: str
     input_type: InputType
     filepath: Optional[str] = None
-    fix_pdf: bool
 
-    def __init__(self, input_type: InputType, fix_pdf: bool = False):
+    def __init__(self, input_type: InputType):
         self.input_type = input_type
-        self.fix_pdf = fix_pdf
         self._check_mimetype()
 
         logger.debug("Loaded new input '%s' from %s", self.filename, self.input_type)
@@ -61,19 +59,29 @@ class LocalInputSource:
             self.file_mimetype = file_mimetype
         else:
             raise MimeTypeError(f"Could not determine MIME type of '{self.filename}'.")
-        if self.fix_pdf:
-            self._mimetype_fix()
 
         if self.file_mimetype not in ALLOWED_MIME_TYPES:
             file_types = ", ".join(ALLOWED_MIME_TYPES)
             raise MimeTypeError(f"File type not allowed, must be one of {file_types}.")
 
-    def _mimetype_fix(self) -> None:
+    def fix_pdf(self, maximum_offset: int = 500) -> None:
+        """
+        Fix a potentially broken pdf file.
+
+        WARNING: this feature alters the data of the enqueued file by removing unnecessary headers.
+
+        Reads the bytes of a PDF file until a proper pdf tag is encountered, or until the maximum offset has been
+        reached. If a tag denoting a PDF file is found, deletes all bytes before it.
+
+        :param maximum_offset: maximum byte offset where superfluous headers will be removed. Cannot be less than 0.
+        """
+        if maximum_offset < 0:
+            raise MindeeError("Can't set maximum offset for pdf-fixing to less than 0.")
         try:
             buf = self.file_object.read()
             self.file_object.seek(0)
             pos: int = buf.find(b"%PDF-")
-            if pos != -1 and pos < 500:
+            if pos != -1 and pos < maximum_offset:
                 self.file_object.seek(pos)
                 raw_bytes = self.file_object.read()
                 temp_file = tempfile.TemporaryFile()
@@ -212,7 +220,7 @@ class LocalInputSource:
 class FileInput(LocalInputSource):
     """A binary file input."""
 
-    def __init__(self, file: BinaryIO, fix_pdf: bool = False) -> None:
+    def __init__(self, file: BinaryIO) -> None:
         """
         Input document from a Python binary file object.
 
@@ -225,13 +233,13 @@ class FileInput(LocalInputSource):
         self.file_object = file
         self.filename = os.path.basename(file.name)
         self.filepath = file.name
-        super().__init__(input_type=InputType.FILE, fix_pdf=fix_pdf)
+        super().__init__(input_type=InputType.FILE)
 
 
 class PathInput(LocalInputSource):
     """A local path input."""
 
-    def __init__(self, filepath: Union[Path, str], fix_pdf: bool = False) -> None:
+    def __init__(self, filepath: Union[Path, str]) -> None:
         """
         Input document from a path.
 
@@ -240,13 +248,13 @@ class PathInput(LocalInputSource):
         self.file_object = open(filepath, "rb")  # pylint: disable=consider-using-with
         self.filename = os.path.basename(filepath)
         self.filepath = str(filepath)
-        super().__init__(input_type=InputType.PATH, fix_pdf=fix_pdf)
+        super().__init__(input_type=InputType.PATH)
 
 
 class BytesInput(LocalInputSource):
     """Raw bytes input."""
 
-    def __init__(self, raw_bytes: bytes, filename: str, fix_pdf: bool = False) -> None:
+    def __init__(self, raw_bytes: bytes, filename: str) -> None:
         """
         Input document from raw bytes (no buffer).
 
@@ -256,15 +264,13 @@ class BytesInput(LocalInputSource):
         self.file_object = io.BytesIO(raw_bytes)
         self.filename = filename
         self.filepath = None
-        super().__init__(input_type=InputType.BYTES, fix_pdf=fix_pdf)
+        super().__init__(input_type=InputType.BYTES)
 
 
 class Base64Input(LocalInputSource):
     """Base64-encoded text input."""
 
-    def __init__(
-        self, base64_string: str, filename: str, fix_pdf: bool = False
-    ) -> None:
+    def __init__(self, base64_string: str, filename: str) -> None:
         """
         Input document from a base64 encoded string.
 
@@ -274,7 +280,7 @@ class Base64Input(LocalInputSource):
         self.file_object = io.BytesIO(base64.standard_b64decode(base64_string))
         self.filename = filename
         self.filepath = None
-        super().__init__(input_type=InputType.BASE64, fix_pdf=fix_pdf)
+        super().__init__(input_type=InputType.BASE64)
 
 
 class UrlInputSource:
