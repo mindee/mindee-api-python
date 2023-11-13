@@ -2,6 +2,7 @@ import base64
 import io
 import mimetypes
 import os
+import tempfile
 from enum import Enum
 from pathlib import Path
 from typing import BinaryIO, Optional, Sequence, Tuple, Union
@@ -9,7 +10,7 @@ from typing import BinaryIO, Optional, Sequence, Tuple, Union
 import pikepdf
 
 from mindee.error.mimetype_error import MimeTypeError
-from mindee.error.mindee_error import MindeeSourceError
+from mindee.error.mindee_error import MindeeError, MindeeSourceError
 from mindee.input.page_options import KEEP_ONLY, REMOVE
 from mindee.logger import logger
 
@@ -46,10 +47,7 @@ class LocalInputSource:
     input_type: InputType
     filepath: Optional[str] = None
 
-    def __init__(
-        self,
-        input_type: InputType,
-    ):
+    def __init__(self, input_type: InputType):
         self.input_type = input_type
         self._check_mimetype()
 
@@ -60,11 +58,51 @@ class LocalInputSource:
         if file_mimetype:
             self.file_mimetype = file_mimetype
         else:
-            raise MimeTypeError(f"Could not determine MIME type of '{self.filename}'")
+            raise MimeTypeError(f"Could not determine MIME type of '{self.filename}'.")
 
         if self.file_mimetype not in ALLOWED_MIME_TYPES:
             file_types = ", ".join(ALLOWED_MIME_TYPES)
-            raise MimeTypeError(f"File type not allowed, must be one of {file_types}")
+            raise MimeTypeError(f"File type not allowed, must be one of {file_types}.")
+
+    def fix_pdf(self, maximum_offset: int = 500) -> None:
+        """
+        Fix a potentially broken pdf file.
+
+        WARNING: this feature alters the data of the enqueued file by removing unnecessary headers.
+
+        Reads the bytes of a PDF file until a proper pdf tag is encountered, or until the maximum offset has been
+        reached. If a tag denoting a PDF file is found, deletes all bytes before it.
+
+        :param maximum_offset: maximum byte offset where superfluous headers will be removed. Cannot be less than 0.
+        """
+        if maximum_offset < 0:
+            raise MindeeError("Can't set maximum offset for pdf-fixing to less than 0.")
+        try:
+            buf = self.file_object.read()
+            self.file_object.seek(0)
+            pos: int = buf.find(b"%PDF-")
+            if pos != -1 and pos < maximum_offset:
+                self.file_object.seek(pos)
+                raw_bytes = self.file_object.read()
+                temp_file = tempfile.TemporaryFile()
+                temp_file.write(raw_bytes)
+                temp_file.seek(0)
+                self.file_object = io.BytesIO(temp_file.read())
+                temp_file.close()
+            else:
+                if pos < 0:
+                    raise MimeTypeError(
+                        "Provided stream isn't a valid PDF-like object."
+                    )
+                raise MimeTypeError(
+                    f"PDF couldn't be fixed. PDF tag was found at position {pos}."
+                )
+            self.file_mimetype = "application/pdf"
+        except MimeTypeError as exc:
+            raise exc
+        except Exception as exc:
+            print(f"Attempt to fix pdf raised exception {exc}.")
+            raise exc
 
     def is_pdf(self) -> bool:
         """:return: True if the file is a PDF."""
