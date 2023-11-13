@@ -32,6 +32,9 @@ class Document(Generic[TypePrediction, TypePage]):
     extras: Optional[Extras]
     """Potential Extras fields sent back along the prediction"""
     ocr: Optional[Ocr]
+    """Potential raw text results read by the OCR (limited feature)"""
+    n_pages: int
+    """Amount of pages in the document"""
 
     def __init__(
         self,
@@ -45,6 +48,7 @@ class Document(Generic[TypePrediction, TypePage]):
         if "extras" in raw_response and raw_response["extras"]:
             self.extras = Extras(raw_response["extras"])
         self.inference = inference_type(raw_response["inference"])
+        self.n_pages = raw_response["n_pages"]
 
     def __str__(self) -> str:
         return (
