@@ -10,15 +10,15 @@ from mindee.parsing.standard.base import BaseField
 class PositionField(BaseField):
     """A field indicating a position or area on the document."""
 
-    value: Optional[Polygon] = None
+    value: Optional[Polygon]
     """Polygon of cropped area, identical to the ``polygon`` property."""
-    polygon: Optional[Polygon] = None
+    polygon: Optional[Polygon]
     """Polygon of cropped area"""
-    quadrangle: Optional[Quadrilateral] = None
+    quadrangle: Optional[Quadrilateral]
     """Quadrangle of cropped area (does not exceed the canvas)"""
-    rectangle: Optional[Quadrilateral] = None
+    rectangle: Optional[Quadrilateral]
     """Oriented rectangle of cropped area (may exceed the canvas)"""
-    bounding_box: Optional[Quadrilateral] = None
+    bounding_box: Optional[Quadrilateral]
     """Straight rectangle of cropped area (does not exceed the canvas)"""
 
     def __init__(

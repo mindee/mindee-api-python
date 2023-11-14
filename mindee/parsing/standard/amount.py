@@ -7,7 +7,7 @@ from mindee.parsing.standard.base import BaseField, FieldPositionMixin, float_to
 class AmountField(FieldPositionMixin, BaseField):
     """A field containing an amount value."""
 
-    value: Optional[float] = None
+    value: Optional[float]
     """The amount value as a float."""
 
     def __init__(
@@ -23,6 +23,7 @@ class AmountField(FieldPositionMixin, BaseField):
         :param reconstructed: Bool for reconstructed object (not extracted in the API)
         :param page_id: Page number for multi-page document
         """
+        self.value = None
         super().__init__(
             raw_prediction,
             value_key="value",

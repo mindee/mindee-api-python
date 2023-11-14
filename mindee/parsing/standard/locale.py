@@ -7,11 +7,11 @@ from mindee.parsing.standard.base import BaseField
 class LocaleField(BaseField):
     """The locale detected on the document."""
 
-    language: Optional[str] = None
+    language: Optional[str]
     """The ISO 639-1 code of the language."""
-    country: Optional[str] = None
+    country: Optional[str]
     """The ISO 3166-1 alpha-2 code of the country."""
-    currency: Optional[str] = None
+    currency: Optional[str]
     """The ISO 4217 code of the currency."""
 
     def __init__(
