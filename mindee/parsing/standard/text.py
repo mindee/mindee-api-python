@@ -7,7 +7,7 @@ from mindee.parsing.standard.base import BaseField, FieldPositionMixin
 class StringField(FieldPositionMixin, BaseField):
     """A field containing a text value."""
 
-    value: Optional[str] = None
+    value: Optional[str]
 
     def __init__(
         self,
@@ -24,6 +24,7 @@ class StringField(FieldPositionMixin, BaseField):
         :param reconstructed: Bool for reconstructed object (not extracted in the API)
         :param page_id: Page number for multi-page document
         """
+        self.value = None
         super().__init__(
             raw_prediction,
             value_key=value_key,

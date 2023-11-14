@@ -7,13 +7,13 @@ from mindee.parsing.standard.base import BaseField, FieldPositionMixin
 class PaymentDetailsField(FieldPositionMixin, BaseField):
     """Information on a single payment."""
 
-    account_number: Optional[str] = None
+    account_number: Optional[str]
     """Account number"""
-    iban: Optional[str] = None
+    iban: Optional[str]
     """Account IBAN"""
-    routing_number: Optional[str] = None
+    routing_number: Optional[str]
     """Account routing number"""
-    swift: Optional[str] = None
+    swift: Optional[str]
     """Bank's SWIFT code"""
 
     def __init__(

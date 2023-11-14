@@ -13,9 +13,9 @@ ISO8601_DATETIME_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
 class DateField(FieldPositionMixin, BaseField):
     """A field containing a date value."""
 
-    date_object: Optional[date] = None
+    date_object: Optional[date]
     """Date as a standard Python ``datetime.date`` object."""
-    value: Optional[str] = None
+    value: Optional[str]
     """The raw field value."""
 
     def __init__(
@@ -49,3 +49,7 @@ class DateField(FieldPositionMixin, BaseField):
             except (TypeError, ValueError):
                 self.date_object = None
                 self.confidence = 0.0
+        else:
+            self.date_object = None
+            self.confidence = 0.0
+            self.value = None

@@ -25,29 +25,31 @@ class FieldPositionMixin:
             pass
         if self.polygon:
             self.bounding_box = get_bounding_box(self.polygon)
+        else:
+            self.bounding_box = None
 
 
 class FieldConfidenceMixin:
     """Mixin class to add a confidence score."""
 
-    confidence: float = 0.0
+    confidence: float
     """The confidence score."""
 
     def _set_confidence(self, raw_prediction: StringDict):
         try:
             self.confidence = float(raw_prediction["confidence"])
         except (KeyError, TypeError):
-            pass
+            self.confidence = 0.0
 
 
 class BaseField(FieldConfidenceMixin):
     """Base class for most fields."""
 
-    value: Optional[Any] = None
+    value: Optional[Any]
     """Raw field value"""
     reconstructed: bool
     """Whether the field was reconstructed from other fields."""
-    page_id: Optional[int] = None
+    page_id: Optional[int]
     """The document page on which the information was found."""
 
     def __init__(
@@ -57,6 +59,8 @@ class BaseField(FieldConfidenceMixin):
         reconstructed: bool = False,
         page_id: Optional[int] = None,
     ):
+        self.value = None
+        self.confidence = 0.0
         """
         Base field object.
 

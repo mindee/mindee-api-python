@@ -9,7 +9,7 @@ class ListFieldValueV1(FieldPositionMixin):
 
     content: str
     """The content text"""
-    confidence: float = 0.0
+    confidence: float
     """Confidence score"""
 
     def __init__(self, raw_prediction: StringDict) -> None:
@@ -24,7 +24,7 @@ class ListFieldValueV1(FieldPositionMixin):
 class ListFieldV1:
     """A list of values or words."""
 
-    confidence: float = 0.0
+    confidence: float
     """Confidence score"""
     reconstructed: bool
     """Whether the field was reconstructed from other fields."""
