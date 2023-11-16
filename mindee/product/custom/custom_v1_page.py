@@ -35,6 +35,7 @@ class CustomV1Page(Prediction):
         :param height_tolerance: height tolerance to apply to lines.
         """
         return get_line_items(
+            CustomLineV1,
             anchor_names,
             field_names,
             self.fields,

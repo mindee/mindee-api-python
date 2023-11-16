@@ -1,39 +1,32 @@
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 from mindee.parsing.common import Prediction, StringDict, clean_out_string
-from mindee.parsing.custom import ClassificationFieldV1, ListFieldV1
-from mindee.parsing.custom.line_items import CustomLineV1, get_line_items
+from mindee.parsing.custom import ListFieldV2
+from mindee.parsing.custom.line_items import CustomLineV2, get_line_items
 
 
-class CustomV1Document(Prediction):
-    """Custom V1 document prediction results."""
+class CustomV2Page(Prediction):
+    """Custom V2 page prediction results."""
 
-    fields: Dict[str, ListFieldV1]
+    fields: Dict[str, ListFieldV2]
     """Dictionary of all fields in the document"""
-    classifications: Dict[str, ClassificationFieldV1]
-    """Dictionary of all classifications in the document"""
 
-    def __init__(self, raw_prediction: StringDict) -> None:
+    def __init__(self, raw_prediction: StringDict, page_id: Optional[int]) -> None:
         """
-        Custom document.
+        Custom document object.
 
         :param raw_prediction: Dictionary containing the JSON document response
         """
         self.fields = {}
-        self.classifications = {}
         for field_name, field_contents in raw_prediction.items():
-            if "value" in field_contents:
-                self.classifications[field_name] = ClassificationFieldV1(field_contents)
-            # Only value lists have the 'values' attribute.
-            elif "values" in field_contents:
-                self.fields[field_name] = ListFieldV1(field_contents)
+            self.fields[field_name] = ListFieldV2(field_contents, page_id=page_id)
 
     def columns_to_line_items(
         self,
         anchor_names: List[str],
         field_names: List[str],
         height_tolerance: float = 0.01,
-    ) -> List[CustomLineV1]:
+    ) -> List[CustomLineV2]:
         """
         Order column fields into line items.
 
@@ -42,7 +35,7 @@ class CustomV1Document(Prediction):
         :param height_tolerance: height tolerance to apply to lines.
         """
         return get_line_items(
-            CustomLineV1,
+            CustomLineV2,
             anchor_names,
             field_names,
             self.fields,
@@ -51,8 +44,6 @@ class CustomV1Document(Prediction):
 
     def __str__(self) -> str:
         out_str = ""
-        for classification_name, classification_value in self.classifications.items():
-            out_str += f":{classification_name}: {classification_value}\n"
         for field_name, field_value in self.fields.items():
             out_str += f":{field_name}: {field_value}\n"
         return clean_out_string(out_str)
