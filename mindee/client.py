@@ -2,7 +2,7 @@ from pathlib import Path
 from time import sleep
 from typing import BinaryIO, Dict, Optional, Type, Union
 
-from mindee.error.mindee_error import MindeeClientError, MindeeError
+from mindee.error.mindee_error import MindeeClientError, MindeeError, MindeeProductError
 from mindee.error.mindee_http_error import handle_error
 from mindee.input.page_options import PageOptions
 from mindee.input.sources import (
@@ -101,6 +101,10 @@ class Client:
 
         if not endpoint:
             endpoint = self._initialize_ots_endpoint(product_class)
+        elif product_class.endpoint_name != "custom":
+            raise MindeeProductError(
+                "Cannot use a custom endpoint on an off-the-shelf build."
+            )
 
         logger.debug("Parsing document as '%s'", endpoint.url_name)
 

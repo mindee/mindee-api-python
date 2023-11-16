@@ -1,6 +1,7 @@
 from abc import ABC
 from typing import List, Optional
 
+from mindee.error.mindee_error import MindeeProductError
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.standard.base import FieldPositionMixin
 
@@ -93,7 +94,12 @@ class ListFieldV1(ListField):
         else:
             self.page_id = page_id
         for value in raw_prediction["values"]:
-            self.values.append(ListFieldValueV1(value, self.page_id))
+            try:
+                self.values.append(ListFieldValueV1(value, self.page_id))
+            except AttributeError as exc:
+                raise MindeeProductError(
+                    "Wrong Custom version. Upgrade to CustomV2 to use this endpoint."
+                ) from exc
 
 
 class ListFieldV2(ListField):
@@ -112,7 +118,8 @@ class ListFieldV2(ListField):
     ) -> None:
         super().__init__(raw_prediction, reconstructed)
         for value in raw_prediction["values"]:
-            self.values.append(ListFieldValueV2(value, value["page_id"]))
+            p_id = value["page_id"] if "page_id" in value else page_id
+            self.values.append(ListFieldValueV2(value, p_id))
 
         if page_id is None:
             if "page_id" in raw_prediction:

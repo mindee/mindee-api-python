@@ -22,7 +22,7 @@ my_endpoint = mindee_client.create_endpoint(
 
 # Parse the document as an invoice by passing the appropriate type
 result = mindee_client.parse(
-    product.CustomV1,
+    product.CustomV2,
     input_doc,
     endpoint=my_endpoint
 )
@@ -45,7 +45,7 @@ If it is not set, it will default to "1".
 
 ### List Field
 
-A `ListFieldV1` is a special type of custom list that implements the following:
+A `ListFieldV2` is a special type of custom list that implements the following:
 
 * **confidence** (`float`): the confidence score of the field prediction.
 * **page_id** (`int`): the ID of the page.
@@ -59,7 +59,7 @@ Since the inner contents can vary, the value isn't accessed through a property, 
 
 ### Classification Field
 
-A `ClassificationField` is a special type of custom classification that implements the following:
+A `ClassificationFieldV2` is a special type of custom classification that implements the following:
 
 * **value** (`str`): the value of the classification. Corresponds to one of the values specified during training.
 * **confidence** (`float`): the confidence score of the field prediction.
@@ -71,7 +71,7 @@ Custom builds always have access to at least two attributes:
 
 ## Fields
 
-**fields** (Dict[`str`: List[ListFieldV1](#list-field)]): 
+**fields** (Dict[`str`: List[ListFieldV2](#list-field)]): 
 
 ```python
 print(str(result.document.inference.prediction.fields["my-field"]))
@@ -79,7 +79,7 @@ print(str(result.document.inference.prediction.fields["my-field"]))
 
 ## Classifications
 
-**classifications** ([`str`: List[ClassificationField](#classification-field)]): The purchase category among predefined classes.
+**classifications** ([`str`: List[ClassificationFieldV2](#classification-field)]): The purchase category among predefined classes.
 
 ```python
 print(str(result.document.inference.prediction.classifications["my-classification"]))
@@ -99,7 +99,7 @@ The **columns_to_line_items()** function can be called from the document and pag
 
 It takes the following arguments:
 
-* **anchor_names** (`List[str]`): a list of the names of possible anchor (field) candidate for the horizontal placement a line. If all provided anchors are invalid, the `LineItemV1` won't be built.
+* **anchor_names** (`List[str]`): a list of the names of possible anchor (field) candidate for the horizontal placement a line. If all provided anchors are invalid, the `LineItemV2` won't be built.
 * **field_names** (`List[str]`): a list of fields to retrieve the values from
 * **height_tolerance** (`float`): Optional, the height tolerance used to build the line. It helps when the height of a line can vary unexpectedly.
 
@@ -121,14 +121,14 @@ response.document.pages[0].prediction.columns_to_line_items(
 )
 ```
 
-It returns a list of [CustomLineV1](#CustomLineV1) objects.
+It returns a list of [CustomLineV2](#CustomLineV2) objects.
 
-## CustomLineV1
+## CustomLineV2
 
-`CustomLineV1` represents a line as it has been read from column fields. It has the following attributes:
+`CustomLineV2` represents a line as it has been read from column fields. It has the following attributes:
 
 * **row_number** (`int`): Number of a given line. Starts at 1.
-* **fields** (`Dict[str, ListFieldValueV1]`[]): List of the fields associated with the line, indexed by their column name.
+* **fields** (`Dict[str, ListFieldValueV2]`[]): List of the fields associated with the line, indexed by their column name.
 * **bbox** (`BBox`): Simple bounding box of the current line representing the 4 minimum & maximum coordinates as `float` values.
 
 
