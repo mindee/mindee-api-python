@@ -1,7 +1,7 @@
 from mindee.parsing.common.string_dict import StringDict
 
 
-class ClassificationFieldV1:
+class ClassificationField:
     """A classification field."""
 
     value: str
@@ -15,3 +15,11 @@ class ClassificationFieldV1:
 
     def __str__(self) -> str:
         return self.value or ""
+
+
+class ClassificationFieldV1(ClassificationField):
+    """A classification field for Custom V1."""
+
+
+class ClassificationFieldV2(ClassificationField):
+    """A classification field for Custom V2."""

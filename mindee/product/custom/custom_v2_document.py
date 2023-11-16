@@ -2,7 +2,7 @@ from typing import Dict, List
 
 from mindee.parsing.common import Prediction, StringDict, clean_out_string
 from mindee.parsing.custom import ClassificationFieldV2, ListFieldV2
-from mindee.parsing.custom.line_items import CustomLineV2, get_line_items
+from mindee.parsing.custom.line_items import CustomLineV2
 
 
 class CustomV2Document(Prediction):
@@ -41,8 +41,7 @@ class CustomV2Document(Prediction):
         :param field_names: list of all column fields.
         :param height_tolerance: height tolerance to apply to lines.
         """
-        return get_line_items(
-            CustomLineV2,
+        return CustomLineV2.get_line_items(
             anchor_names,
             field_names,
             self.fields,
