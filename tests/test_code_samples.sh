@@ -26,7 +26,7 @@ do
   if echo "$f" | grep -q "custom_v2.txt"
   then
     sed -i "s/my-account/$ACCOUNT/g" $OUTPUT_FILE
-    sed -i "s/my-endpoint/$ENDPOINT_2/g" $OUTPUT_FILE
+    sed -i "s/my-endpoint/$ENDPOINT/g" $OUTPUT_FILE
   fi
 
   if echo "${f}" | grep -q "default.txt"
