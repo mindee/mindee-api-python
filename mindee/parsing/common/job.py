@@ -14,7 +14,7 @@ class Job:
     """ID of the job sent by the API in response to an enqueue request."""
     issued_at: datetime
     """Timestamp of the request reception by the API."""
-    available_at: Optional[datetime] = None
+    available_at: Optional[datetime]
     """Timestamp of the request after it has been completed."""
     status: str
     """Status of the request, as seen by the API."""
@@ -30,6 +30,8 @@ class Job:
         self.issued_at = datetime.fromisoformat(json_response["issued_at"])
         if json_response.get("available_at"):
             self.available_at = datetime.fromisoformat(json_response["available_at"])
+        else:
+            self.available_at = None
         self.id = json_response["id"]
         self.status = json_response["status"]
         if self.available_at:

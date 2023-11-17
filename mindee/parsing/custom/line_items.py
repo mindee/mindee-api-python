@@ -4,10 +4,10 @@ from mindee.error.mindee_error import MindeeError
 from mindee.geometry.bbox import BBox, extend_bbox, get_bbox
 from mindee.geometry.minmax import MinMax, get_min_max_y
 from mindee.geometry.quadrilateral import get_bounding_box
-from mindee.parsing.custom.list import ListFieldV1, ListFieldValueV1
+from mindee.parsing.custom.list import ListField, ListFieldValue
 
 
-def _find_best_anchor(anchors: Sequence[str], fields: Dict[str, ListFieldV1]) -> str:
+def _find_best_anchor(anchors: Sequence[str], fields: Dict[str, ListField]) -> str:
     """
     Find the anchor with the most rows, in the order specified by `anchors`.
 
@@ -23,12 +23,12 @@ def _find_best_anchor(anchors: Sequence[str], fields: Dict[str, ListFieldV1]) ->
     return anchor
 
 
-class CustomLineV1:
+class CustomLine:
     """Represent a single line."""
 
     row_number: int
     """Index of the row of a given line."""
-    fields: Dict[str, ListFieldValueV1]
+    fields: Dict[str, ListFieldValue]
     """Fields contained in the line."""
     bbox: BBox
     """Simplified bounding box of the line."""
@@ -38,7 +38,7 @@ class CustomLineV1:
         self.bbox = BBox(1, 1, 0, 0)
         self.fields = {}
 
-    def update_field(self, field_name: str, field_value: ListFieldValueV1) -> None:
+    def update_field(self, field_name: str, field_value: ListFieldValue) -> None:
         """
         Updates a field value if it exists.
 
@@ -61,7 +61,7 @@ class CustomLineV1:
             merged_confidence = field_value.confidence
             merged_polygon = get_bounding_box(field_value.polygon)
 
-        self.fields[field_name] = ListFieldValueV1(
+        self.fields[field_name] = ListFieldValue(
             {
                 "content": merged_content,
                 "confidence": merged_confidence,
@@ -70,9 +70,7 @@ class CustomLineV1:
         )
 
 
-def is_box_in_line(
-    line: CustomLineV1, bbox: BBox, height_line_tolerance: float
-) -> bool:
+def is_box_in_line(line: CustomLine, bbox: BBox, height_line_tolerance: float) -> bool:
     """
     Checks if the bbox fits inside the line.
 
@@ -86,8 +84,8 @@ def is_box_in_line(
 
 
 def prepare(
-    anchor_name: str, fields: Dict[str, ListFieldV1], height_line_tolerance: float
-) -> List[CustomLineV1]:
+    anchor_name: str, fields: Dict[str, ListField], height_line_tolerance: float
+) -> List[CustomLine]:
     """
     Prepares lines before filling them.
 
@@ -95,16 +93,16 @@ def prepare(
     :param fields: fields to build lines from.
     :param height_line_tolerance: line height tolerance for custom line reconstruction.
     """
-    lines_prepared: List[CustomLineV1] = []
+    lines_prepared: List[CustomLine] = []
     try:
-        anchor_field: ListFieldV1 = fields[anchor_name]
+        anchor_field: ListField = fields[anchor_name]
     except KeyError as exc:
         raise MindeeError("No lines have been detected.") from exc
 
     current_line_number: int = 1
-    current_line = CustomLineV1(current_line_number)
+    current_line = CustomLine(current_line_number)
     if anchor_field and len(anchor_field.values) > 0:
-        current_value: ListFieldValueV1 = anchor_field.values[0]
+        current_value: ListFieldValue = anchor_field.values[0]
         current_line.bbox = extend_bbox(
             current_line.bbox,
             current_value.polygon,
@@ -118,7 +116,7 @@ def prepare(
             ):
                 lines_prepared.append(current_line)
                 current_line_number += 1
-                current_line = CustomLineV1(current_line_number)
+                current_line = CustomLine(current_line_number)
             current_line.bbox = extend_bbox(
                 current_line.bbox,
                 current_value.polygon,
@@ -140,9 +138,9 @@ def prepare(
 def get_line_items(
     anchors: Sequence[str],
     field_names: Sequence[str],
-    fields: Dict[str, ListFieldV1],
+    fields: Dict[str, ListField],
     height_line_tolerance: float = 0.01,
-) -> List[CustomLineV1]:
+) -> List[CustomLine]:
     """
     Reconstruct line items from fields.
 
@@ -150,8 +148,8 @@ def get_line_items(
     :columns: All fields which are columns
     :fields: List of field names to reconstruct table with
     """
-    line_items: List[CustomLineV1] = []
-    fields_to_transform: Dict[str, ListFieldV1] = {}
+    line_items: List[CustomLine] = []
+    fields_to_transform: Dict[str, ListField] = {}
     for field_name, field_value in fields.items():
         if field_name in field_names:
             fields_to_transform[field_name] = field_value
@@ -159,7 +157,7 @@ def get_line_items(
     if not anchor:
         print(Warning("Could not find an anchor!"))
         return line_items
-    lines_prepared: List[CustomLineV1] = prepare(
+    lines_prepared: List[CustomLine] = prepare(
         anchor, fields_to_transform, height_line_tolerance
     )
 

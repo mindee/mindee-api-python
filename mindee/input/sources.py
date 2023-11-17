@@ -45,7 +45,7 @@ class LocalInputSource:
     filename: str
     file_mimetype: str
     input_type: InputType
-    filepath: Optional[str] = None
+    filepath: Optional[str]
 
     def __init__(self, input_type: InputType):
         self.input_type = input_type

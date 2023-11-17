@@ -37,3 +37,23 @@ def test_single_table_01():
     do_tests(line_items)
     line_items_page = page.prediction.columns_to_line_items(anchors, columns, 0.011)
     do_tests(line_items_page)
+
+
+def test_single_table_02():
+    json_data_path = (
+        "./tests/data/products/custom/response_v2/line_items/single_table_01.json"
+    )
+    json_data = json.load(open(json_data_path, "r"))
+    doc = Document(CustomV1, json_data["document"]).inference.prediction
+    page = Page(CustomV1Page, json_data["document"]["inference"]["pages"][0])
+    anchors = ["beneficiary_name"]
+    columns = [
+        "beneficiary_birth_date",
+        "beneficiary_number",
+        "beneficiary_name",
+        "beneficiary_rank",
+    ]
+    line_items = doc.columns_to_line_items(anchors, columns, 0.011)
+    do_tests(line_items)
+    line_items_page = page.prediction.columns_to_line_items(anchors, columns, 0.011)
+    do_tests(line_items_page)
