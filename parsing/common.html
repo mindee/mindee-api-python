@@ -123,7 +123,7 @@
 <h3>Document<a class="headerlink" href="#document" title="Permalink to this heading"></a></h3>
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.parsing.common.document.Document">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Document</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prediction_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw_response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.parsing.common.document.Document" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Document</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inference_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw_response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.parsing.common.document.Document" title="Permalink to this definition"></a></dt>
 <dd><p>Base class for all predictions.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.parsing.common.document.Document.extras">
@@ -147,6 +147,18 @@
 <dt class="sig sig-object py" id="mindee.parsing.common.document.Document.inference">
 <span class="sig-name descname"><span class="pre">inference</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">Inference</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code><span class="pre">(</span><code class="docutils literal notranslate"><span class="pre">TypePrediction</span></code><span class="pre">,</span> <span class="pre">bound=</span> <a class="reference internal" href="#mindee.parsing.common.prediction.Prediction" title="mindee.parsing.common.prediction.Prediction"><code class="xref py py-class docutils literal notranslate"><span class="pre">Prediction</span></code></a><span class="pre">),</span> <code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code><span class="pre">(</span><code class="docutils literal notranslate"><span class="pre">TypePage</span></code><span class="pre">,</span> <span class="pre">bound=</span> <a class="reference internal" href="#mindee.parsing.common.page.Page" title="mindee.parsing.common.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a><span class="pre">)]</span></em><a class="headerlink" href="#mindee.parsing.common.document.Document.inference" title="Permalink to this definition"></a></dt>
 <dd><p>Result of the base inference</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.parsing.common.document.Document.n_pages">
+<span class="sig-name descname"><span class="pre">n_pages</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.parsing.common.document.Document.n_pages" title="Permalink to this definition"></a></dt>
+<dd><p>Amount of pages in the document</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.parsing.common.document.Document.ocr">
+<span class="sig-name descname"><span class="pre">ocr</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><a class="reference internal" href="#mindee.parsing.common.ocr.ocr.Ocr" title="mindee.parsing.common.ocr.ocr.Ocr"><code class="xref py py-class docutils literal notranslate"><span class="pre">Ocr</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.parsing.common.document.Document.ocr" title="Permalink to this definition"></a></dt>
+<dd><p>Potential raw text results read by the OCR (limited feature)</p>
 </dd></dl>
 
 </dd></dl>
@@ -198,6 +210,12 @@
 </ul>
 </dd>
 </dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.parsing.common.orientation.OrientationField.value">
+<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.parsing.common.orientation.OrientationField.value" title="Permalink to this definition"></a></dt>
+<dd><p>Degrees as an integer.</p>
+</dd></dl>
+
 </dd></dl>
 
 </section>
@@ -275,17 +293,9 @@
 <h3>AsyncPredictResponse<a class="headerlink" href="#asyncpredictresponse" title="Permalink to this heading"></a></h3>
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.parsing.common.async_predict_response.AsyncPredictResponse">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">AsyncPredictResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prediction_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw_response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.parsing.common.async_predict_response.AsyncPredictResponse" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">AsyncPredictResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inference_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw_response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.parsing.common.async_predict_response.AsyncPredictResponse" title="Permalink to this definition"></a></dt>
 <dd><p>Async Response Wrapper class for a Predict response.</p>
 <p>Links a Job to a future PredictResponse.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>prediction_type</strong> (<em>Type</em><em>[</em><em>Inference</em><em>]</em>) – </p></li>
-<li><p><strong>raw_response</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p></li>
-</ul>
-</dd>
-</dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.parsing.common.async_predict_response.AsyncPredictResponse.job">
 <span class="sig-name descname"><span class="pre">job</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.parsing.common.job.Job" title="mindee.parsing.common.job.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></a></em><a class="headerlink" href="#mindee.parsing.common.async_predict_response.AsyncPredictResponse.job" title="Permalink to this definition"></a></dt>
@@ -309,7 +319,7 @@
 </dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.parsing.common.job.Job.available_at">
-<span class="sig-name descname"><span class="pre">available_at</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.parsing.common.job.Job.available_at" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">available_at</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.parsing.common.job.Job.available_at" title="Permalink to this definition"></a></dt>
 <dd><p>Timestamp of the request after it has been completed.</p>
 </dd></dl>
 

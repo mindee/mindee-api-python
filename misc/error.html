@@ -97,6 +97,11 @@
 <li class="toctree-l4"><a class="reference internal" href="#mindee.error.MindeeHTTPServerError.status_code"><code class="docutils literal notranslate"><span class="pre">MindeeHTTPServerError.status_code</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.error.MindeeProductError"><code class="docutils literal notranslate"><span class="pre">MindeeProductError</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.error.MindeeProductError.with_traceback"><code class="docutils literal notranslate"><span class="pre">MindeeProductError.with_traceback()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.error.MindeeProductError.args"><code class="docutils literal notranslate"><span class="pre">MindeeProductError.args</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#mindee.error.handle_error"><code class="docutils literal notranslate"><span class="pre">handle_error()</span></code></a></li>
 </ul>
 </li>
@@ -353,6 +358,24 @@ set self.__traceback__ to tb and return self.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.error.MindeeHTTPServerError.status_code">
 <span class="sig-name descname"><span class="pre">status_code</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.error.MindeeHTTPServerError.status_code" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="mindee.error.MindeeProductError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MindeeProductError</span></span><a class="headerlink" href="#mindee.error.MindeeProductError" title="Permalink to this definition"></a></dt>
+<dd><p>An exception relating to the use of an incorrect product/version.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.error.MindeeProductError.with_traceback">
+<span class="sig-name descname"><span class="pre">with_traceback</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.error.MindeeProductError.with_traceback" title="Permalink to this definition"></a></dt>
+<dd><p>Exception.with_traceback(tb) –
+set self.__traceback__ to tb and return self.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.error.MindeeProductError.args">
+<span class="sig-name descname"><span class="pre">args</span></span><a class="headerlink" href="#mindee.error.MindeeProductError.args" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>

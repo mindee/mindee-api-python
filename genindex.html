@@ -205,6 +205,8 @@
 </li>
         <li><a href="misc/error.html#mindee.error.MindeeHTTPServerError.args">(MindeeHTTPServerError attribute)</a>
 </li>
+        <li><a href="misc/error.html#mindee.error.MindeeProductError.args">(MindeeProductError attribute)</a>
+</li>
       </ul></li>
       <li><a href="parsing/common.html#mindee.parsing.common.async_predict_response.AsyncPredictResponse">AsyncPredictResponse (class in mindee.parsing.common.async_predict_response)</a>
 </li>
@@ -274,7 +276,7 @@
 </li>
       <li><a href="misc/geometry.html#mindee.geometry.BBox">BBox (class in mindee.geometry)</a>
 </li>
-      <li><a href="parsing/custom.html#mindee.parsing.custom.line_items.CustomLineV1.bbox">bbox (CustomLineV1 attribute)</a>
+      <li><a href="parsing/custom.html#mindee.parsing.custom.line_items.CustomLine.bbox">bbox (CustomLine attribute)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -390,10 +392,12 @@
 </li>
       <li><a href="product/us/w9_v1.html#mindee.product.us.w9.w9_v1_page.W9V1Page.city_state_zip">city_state_zip (W9V1Page attribute)</a>
 </li>
-      <li><a href="parsing/standard.html#mindee.parsing.standard.classification.ClassificationField">ClassificationField (class in mindee.parsing.standard.classification)</a>
+      <li><a href="parsing/custom.html#mindee.parsing.custom.classification.ClassificationField">ClassificationField (class in mindee.parsing.custom.classification)</a>
+
+      <ul>
+        <li><a href="parsing/standard.html#mindee.parsing.standard.classification.ClassificationField">(class in mindee.parsing.standard.classification)</a>
 </li>
-      <li><a href="parsing/custom.html#mindee.parsing.custom.classification.ClassificationFieldV1">ClassificationFieldV1 (class in mindee.parsing.custom.classification)</a>
-</li>
+      </ul></li>
       <li><a href="misc/geometry.html#mindee.geometry.Polygon.clear">clear() (Polygon method)</a>
 </li>
       <li><a href="client.html#mindee.client.Client">Client (class in mindee.client)</a>
@@ -413,17 +417,15 @@
       <ul>
         <li><a href="parsing/standard.html#mindee.parsing.standard.base.BaseField.confidence">(BaseField attribute)</a>
 </li>
-        <li><a href="parsing/standard.html#mindee.parsing.standard.classification.ClassificationField.confidence">(ClassificationField attribute)</a>
-</li>
-        <li><a href="parsing/custom.html#mindee.parsing.custom.classification.ClassificationFieldV1.confidence">(ClassificationFieldV1 attribute)</a>
+        <li><a href="parsing/custom.html#mindee.parsing.custom.classification.ClassificationField.confidence">(ClassificationField attribute)</a>, <a href="parsing/standard.html#mindee.parsing.standard.classification.ClassificationField.confidence">[1]</a>
 </li>
         <li><a href="parsing/standard.html#mindee.parsing.standard.company_registration.CompanyRegistrationField.confidence">(CompanyRegistrationField attribute)</a>
 </li>
         <li><a href="parsing/standard.html#mindee.parsing.standard.date.DateField.confidence">(DateField attribute)</a>
 </li>
-        <li><a href="parsing/custom.html#mindee.parsing.custom.list.ListFieldV1.confidence">(ListFieldV1 attribute)</a>
+        <li><a href="parsing/custom.html#mindee.parsing.custom.list.ListField.confidence">(ListField attribute)</a>
 </li>
-        <li><a href="parsing/custom.html#mindee.parsing.custom.list.ListFieldValueV1.confidence">(ListFieldValueV1 attribute)</a>
+        <li><a href="parsing/custom.html#mindee.parsing.custom.list.ListFieldValue.confidence">(ListFieldValue attribute)</a>
 </li>
         <li><a href="parsing/standard.html#mindee.parsing.standard.locale.LocaleField.confidence">(LocaleField attribute)</a>
 </li>
@@ -444,11 +446,11 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="parsing/custom.html#mindee.parsing.custom.list.ListFieldValueV1.content">content (ListFieldValueV1 attribute)</a>
+      <li><a href="parsing/custom.html#mindee.parsing.custom.list.ListFieldValue.content">content (ListFieldValue attribute)</a>
 </li>
-      <li><a href="parsing/custom.html#mindee.parsing.custom.list.ListFieldV1.contents_list">contents_list (ListFieldV1 property)</a>
+      <li><a href="parsing/custom.html#mindee.parsing.custom.list.ListField.contents_list">contents_list (ListField property)</a>
 </li>
-      <li><a href="parsing/custom.html#mindee.parsing.custom.list.ListFieldV1.contents_string">contents_string() (ListFieldV1 method)</a>
+      <li><a href="parsing/custom.html#mindee.parsing.custom.list.ListField.contents_string">contents_string() (ListField method)</a>
 </li>
       <li><a href="misc/geometry.html#mindee.geometry.Polygon.copy">copy() (Polygon method)</a>
 </li>
@@ -504,7 +506,7 @@
         <li><a href="product/invoice_v4.html#mindee.product.invoice.invoice_v4_document.InvoiceV4Document.customer_name">(InvoiceV4Document attribute)</a>
 </li>
       </ul></li>
-      <li><a href="parsing/custom.html#mindee.parsing.custom.line_items.CustomLineV1">CustomLineV1 (class in mindee.parsing.custom.line_items)</a>
+      <li><a href="parsing/custom.html#mindee.parsing.custom.line_items.CustomLine">CustomLine (class in mindee.parsing.custom.line_items)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -776,7 +778,7 @@
 </li>
       <li><a href="parsing/common.html#mindee.parsing.common.feedback_response.FeedbackResponse">FeedbackResponse (class in mindee.parsing.common.feedback_response)</a>
 </li>
-      <li><a href="parsing/custom.html#mindee.parsing.custom.line_items.CustomLineV1.fields">fields (CustomLineV1 attribute)</a>
+      <li><a href="parsing/custom.html#mindee.parsing.custom.line_items.CustomLine.fields">fields (CustomLine attribute)</a>
 </li>
       <li><a href="misc/input.html#mindee.input.InputType.FILE">FILE (InputType attribute)</a>
 </li>
@@ -804,8 +806,6 @@
         <li><a href="misc/input.html#mindee.input.PathInput.file_object">(PathInput attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="misc/input.html#mindee.input.FileInput">FileInput (class in mindee.input)</a>
 </li>
       <li><a href="misc/input.html#mindee.input.Base64Input.filename">filename (Base64Input attribute)</a>
@@ -822,8 +822,20 @@
         <li><a href="misc/input.html#mindee.input.PathInput.filename">(PathInput attribute)</a>
 </li>
       </ul></li>
-      <li><a href="misc/input.html#mindee.input.LocalInputSource.filepath">filepath (LocalInputSource attribute)</a>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="misc/input.html#mindee.input.Base64Input.filepath">filepath (Base64Input attribute)</a>
+
+      <ul>
+        <li><a href="misc/input.html#mindee.input.BytesInput.filepath">(BytesInput attribute)</a>
 </li>
+        <li><a href="misc/input.html#mindee.input.FileInput.filepath">(FileInput attribute)</a>
+</li>
+        <li><a href="misc/input.html#mindee.input.LocalInputSource.filepath">(LocalInputSource attribute)</a>
+</li>
+        <li><a href="misc/input.html#mindee.input.PathInput.filepath">(PathInput attribute)</a>
+</li>
+      </ul></li>
       <li><a href="product/financial_document_v1.html#mindee.product.financial_document.financial_document_v1.FinancialDocumentV1">FinancialDocumentV1 (class in mindee.product.financial_document.financial_document_v1)</a>
 </li>
       <li><a href="product/financial_document_v1.html#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document">FinancialDocumentV1Document (class in mindee.product.financial_document.financial_document_v1_document)</a>
@@ -836,6 +848,8 @@
         <li><a href="product/us/driver_license_v1.html#mindee.product.us.driver_license.driver_license_v1_page.DriverLicenseV1Page.first_name">(DriverLicenseV1Page attribute)</a>
 </li>
       </ul></li>
+      <li><a href="misc/input.html#mindee.input.LocalInputSource.fix_pdf">fix_pdf() (LocalInputSource method)</a>
+</li>
       <li><a href="product/fr/carte_grise_v1.html#mindee.product.fr.carte_grise.carte_grise_v1_document.CarteGriseV1Document.formula_number">formula_number (CarteGriseV1Document attribute)</a>
 </li>
       <li><a href="product/fr/petrol_receipt_v1.html#mindee.product.fr.petrol_receipt.petrol_receipt_v1_document.PetrolReceiptV1Document.fuel">fuel (PetrolReceiptV1Document attribute)</a>
@@ -1190,9 +1204,9 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="parsing/custom.html#mindee.parsing.custom.list.ListFieldV1">ListFieldV1 (class in mindee.parsing.custom.list)</a>
+      <li><a href="parsing/custom.html#mindee.parsing.custom.list.ListField">ListField (class in mindee.parsing.custom.list)</a>
 </li>
-      <li><a href="parsing/custom.html#mindee.parsing.custom.list.ListFieldValueV1">ListFieldValueV1 (class in mindee.parsing.custom.list)</a>
+      <li><a href="parsing/custom.html#mindee.parsing.custom.list.ListFieldValue">ListFieldValue (class in mindee.parsing.custom.list)</a>
 </li>
       <li><a href="product/financial_document_v1.html#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.locale">locale (FinancialDocumentV1Document attribute)</a>
 
@@ -1272,10 +1286,12 @@
 </li>
       <li><a href="misc/error.html#mindee.error.MindeeHTTPServerError">MindeeHTTPServerError</a>
 </li>
-      <li><a href="misc/geometry.html#mindee.geometry.MinMax">MinMax (class in mindee.geometry)</a>
+      <li><a href="misc/error.html#mindee.error.MindeeProductError">MindeeProductError</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="misc/geometry.html#mindee.geometry.MinMax">MinMax (class in mindee.geometry)</a>
+</li>
       <li>
     module
 
@@ -1337,16 +1353,18 @@
 <h2 id="N">N</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="parsing/common.html#mindee.parsing.common.document.Document.n_pages">n_pages (Document attribute)</a>
+</li>
       <li><a href="product/us/w9_v1.html#mindee.product.us.w9.w9_v1_page.W9V1Page.name">name (W9V1Page attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="product/fr/id_card_v2.html#mindee.product.fr.id_card.id_card_v2_document.IdCardV2Document.nationality">nationality (IdCardV2Document attribute)</a>
 
       <ul>
         <li><a href="product/fr/id_card_v2.html#mindee.product.fr.id_card.id_card_v2_page.IdCardV2Page.nationality">(IdCardV2Page attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="product/material_certificate_v1.html#mindee.product.material_certificate.material_certificate_v1_document.MaterialCertificateV1Document.norm">norm (MaterialCertificateV1Document attribute)</a>
 </li>
   </ul></td>
@@ -1356,6 +1374,8 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="parsing/common.html#mindee.parsing.common.ocr.ocr.Ocr">Ocr (class in mindee.parsing.common.ocr.ocr)</a>
+</li>
+      <li><a href="parsing/common.html#mindee.parsing.common.document.Document.ocr">ocr (Document attribute)</a>
 </li>
       <li><a href="parsing/common.html#mindee.parsing.common.ocr.ocr_line.OcrLine">OcrLine (class in mindee.parsing.common.ocr.ocr_line)</a>
 </li>
@@ -1434,7 +1454,7 @@
 </li>
         <li><a href="product/eu/license_plate_v1.html#mindee.product.eu.license_plate.license_plate_v1.LicensePlateV1.page_id">(LicensePlateV1 attribute)</a>
 </li>
-        <li><a href="parsing/custom.html#mindee.parsing.custom.list.ListFieldV1.page_id">(ListFieldV1 attribute)</a>
+        <li><a href="parsing/custom.html#mindee.parsing.custom.list.ListFieldValue.page_id">(ListFieldValue attribute)</a>
 </li>
         <li><a href="parsing/standard.html#mindee.parsing.standard.locale.LocaleField.page_id">(LocaleField attribute)</a>
 </li>
@@ -1778,7 +1798,7 @@
 </li>
         <li><a href="parsing/standard.html#mindee.parsing.standard.date.DateField.reconstructed">(DateField attribute)</a>
 </li>
-        <li><a href="parsing/custom.html#mindee.parsing.custom.list.ListFieldV1.reconstructed">(ListFieldV1 attribute)</a>
+        <li><a href="parsing/custom.html#mindee.parsing.custom.list.ListField.reconstructed">(ListField attribute)</a>
 </li>
         <li><a href="parsing/standard.html#mindee.parsing.standard.locale.LocaleField.reconstructed">(LocaleField attribute)</a>
 </li>
@@ -1821,7 +1841,7 @@
         <li><a href="parsing/standard.html#mindee.parsing.standard.payment_details.PaymentDetailsField.routing_number">(PaymentDetailsField attribute)</a>
 </li>
       </ul></li>
-      <li><a href="parsing/custom.html#mindee.parsing.custom.line_items.CustomLineV1.row_number">row_number (CustomLineV1 attribute)</a>
+      <li><a href="parsing/custom.html#mindee.parsing.custom.line_items.CustomLine.row_number">row_number (CustomLine attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -2107,7 +2127,7 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="parsing/custom.html#mindee.parsing.custom.line_items.CustomLineV1.update_field">update_field() (CustomLineV1 method)</a>
+      <li><a href="parsing/custom.html#mindee.parsing.custom.line_items.CustomLine.update_field">update_field() (CustomLine method)</a>
 </li>
       <li><a href="misc/input.html#mindee.input.InputType.URL">URL (InputType attribute)</a>
 </li>
@@ -2128,15 +2148,15 @@
       <ul>
         <li><a href="parsing/standard.html#mindee.parsing.standard.base.BaseField.value">(BaseField attribute)</a>
 </li>
-        <li><a href="parsing/standard.html#mindee.parsing.standard.classification.ClassificationField.value">(ClassificationField attribute)</a>
-</li>
-        <li><a href="parsing/custom.html#mindee.parsing.custom.classification.ClassificationFieldV1.value">(ClassificationFieldV1 attribute)</a>
+        <li><a href="parsing/custom.html#mindee.parsing.custom.classification.ClassificationField.value">(ClassificationField attribute)</a>, <a href="parsing/standard.html#mindee.parsing.standard.classification.ClassificationField.value">[1]</a>
 </li>
         <li><a href="parsing/standard.html#mindee.parsing.standard.company_registration.CompanyRegistrationField.value">(CompanyRegistrationField attribute)</a>
 </li>
         <li><a href="parsing/standard.html#mindee.parsing.standard.date.DateField.value">(DateField attribute)</a>
 </li>
         <li><a href="parsing/standard.html#mindee.parsing.standard.locale.LocaleField.value">(LocaleField attribute)</a>
+</li>
+        <li><a href="parsing/common.html#mindee.parsing.common.orientation.OrientationField.value">(OrientationField attribute)</a>
 </li>
         <li><a href="parsing/standard.html#mindee.parsing.standard.payment_details.PaymentDetailsField.value">(PaymentDetailsField attribute)</a>
 </li>
@@ -2149,7 +2169,7 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="parsing/custom.html#mindee.parsing.custom.list.ListFieldV1.values">values (ListFieldV1 attribute)</a>
+      <li><a href="parsing/custom.html#mindee.parsing.custom.list.ListField.values">values (ListField attribute)</a>
 </li>
       <li><a href="product/fr/petrol_receipt_v1.html#mindee.product.fr.petrol_receipt.petrol_receipt_v1_document.PetrolReceiptV1Document.volume">volume (PetrolReceiptV1Document attribute)</a>
 </li>
@@ -2191,6 +2211,8 @@
         <li><a href="misc/error.html#mindee.error.MindeeHTTPError.with_traceback">(MindeeHTTPError method)</a>
 </li>
         <li><a href="misc/error.html#mindee.error.MindeeHTTPServerError.with_traceback">(MindeeHTTPServerError method)</a>
+</li>
+        <li><a href="misc/error.html#mindee.error.MindeeProductError.with_traceback">(MindeeProductError method)</a>
 </li>
       </ul></li>
   </ul></td>

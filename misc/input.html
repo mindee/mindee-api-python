@@ -56,6 +56,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#mindee.input.Base64Input.file_mimetype"><code class="docutils literal notranslate"><span class="pre">Base64Input.file_mimetype</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.input.Base64Input.file_object"><code class="docutils literal notranslate"><span class="pre">Base64Input.file_object</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.input.Base64Input.filename"><code class="docutils literal notranslate"><span class="pre">Base64Input.filename</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.Base64Input.filepath"><code class="docutils literal notranslate"><span class="pre">Base64Input.filepath</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.input.Base64Input.input_type"><code class="docutils literal notranslate"><span class="pre">Base64Input.input_type</span></code></a></li>
 </ul>
 </li>
@@ -63,6 +64,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#mindee.input.BytesInput.file_mimetype"><code class="docutils literal notranslate"><span class="pre">BytesInput.file_mimetype</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.input.BytesInput.file_object"><code class="docutils literal notranslate"><span class="pre">BytesInput.file_object</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.input.BytesInput.filename"><code class="docutils literal notranslate"><span class="pre">BytesInput.filename</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.BytesInput.filepath"><code class="docutils literal notranslate"><span class="pre">BytesInput.filepath</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.input.BytesInput.input_type"><code class="docutils literal notranslate"><span class="pre">BytesInput.input_type</span></code></a></li>
 </ul>
 </li>
@@ -70,6 +72,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#mindee.input.FileInput.file_mimetype"><code class="docutils literal notranslate"><span class="pre">FileInput.file_mimetype</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.input.FileInput.file_object"><code class="docutils literal notranslate"><span class="pre">FileInput.file_object</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.input.FileInput.filename"><code class="docutils literal notranslate"><span class="pre">FileInput.filename</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.FileInput.filepath"><code class="docutils literal notranslate"><span class="pre">FileInput.filepath</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.input.FileInput.input_type"><code class="docutils literal notranslate"><span class="pre">FileInput.input_type</span></code></a></li>
 </ul>
 </li>
@@ -84,6 +87,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#mindee.input.LocalInputSource"><code class="docutils literal notranslate"><span class="pre">LocalInputSource</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.input.LocalInputSource.close"><code class="docutils literal notranslate"><span class="pre">LocalInputSource.close()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.input.LocalInputSource.count_doc_pages"><code class="docutils literal notranslate"><span class="pre">LocalInputSource.count_doc_pages()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.LocalInputSource.fix_pdf"><code class="docutils literal notranslate"><span class="pre">LocalInputSource.fix_pdf()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.input.LocalInputSource.is_pdf"><code class="docutils literal notranslate"><span class="pre">LocalInputSource.is_pdf()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.input.LocalInputSource.is_pdf_empty"><code class="docutils literal notranslate"><span class="pre">LocalInputSource.is_pdf_empty()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.input.LocalInputSource.merge_pdf_pages"><code class="docutils literal notranslate"><span class="pre">LocalInputSource.merge_pdf_pages()</span></code></a></li>
@@ -106,6 +110,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#mindee.input.PathInput.file_mimetype"><code class="docutils literal notranslate"><span class="pre">PathInput.file_mimetype</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.input.PathInput.file_object"><code class="docutils literal notranslate"><span class="pre">PathInput.file_object</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.input.PathInput.filename"><code class="docutils literal notranslate"><span class="pre">PathInput.filename</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.PathInput.filepath"><code class="docutils literal notranslate"><span class="pre">PathInput.filepath</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.input.PathInput.input_type"><code class="docutils literal notranslate"><span class="pre">PathInput.input_type</span></code></a></li>
 </ul>
 </li>
@@ -175,6 +180,11 @@
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.Base64Input.filepath">
+<span class="sig-name descname"><span class="pre">filepath</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.input.Base64Input.filepath" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.input.Base64Input.input_type">
 <span class="sig-name descname"><span class="pre">input_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.input.InputType" title="mindee.input.sources.InputType"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputType</span></code></a></em><a class="headerlink" href="#mindee.input.Base64Input.input_type" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
@@ -209,6 +219,11 @@
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.BytesInput.filepath">
+<span class="sig-name descname"><span class="pre">filepath</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.input.BytesInput.filepath" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.input.BytesInput.input_type">
 <span class="sig-name descname"><span class="pre">input_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.input.InputType" title="mindee.input.sources.InputType"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputType</span></code></a></em><a class="headerlink" href="#mindee.input.BytesInput.input_type" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
@@ -237,6 +252,11 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.input.FileInput.filename">
 <span class="sig-name descname"><span class="pre">filename</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#mindee.input.FileInput.filename" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.FileInput.filepath">
+<span class="sig-name descname"><span class="pre">filepath</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.input.FileInput.filepath" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -307,6 +327,25 @@
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>the number of pages.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.input.LocalInputSource.fix_pdf">
+<span class="sig-name descname"><span class="pre">fix_pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">maximum_offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">500</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalInputSource.fix_pdf" title="Permalink to this definition"></a></dt>
+<dd><p>Fix a potentially broken pdf file.</p>
+<p>WARNING: this feature alters the data of the enqueued file by removing unnecessary headers.</p>
+<p>Reads the bytes of a PDF file until a proper pdf tag is encountered,
+or until the maximum offset has been reached.
+If a tag denoting a PDF file is found, deletes all bytes before it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>maximum_offset</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, default: <code class="docutils literal notranslate"><span class="pre">500</span></code>) – maximum byte offset where superfluous headers will be removed.
+Cannot be less than 0.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -407,7 +446,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.input.LocalInputSource.filepath">
-<span class="sig-name descname"><span class="pre">filepath</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.input.LocalInputSource.filepath" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">filepath</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.input.LocalInputSource.filepath" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -479,6 +518,11 @@ A negative index can be used, indicating an offset from the end of the document.
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.input.PathInput.filename">
 <span class="sig-name descname"><span class="pre">filename</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#mindee.input.PathInput.filename" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.PathInput.filepath">
+<span class="sig-name descname"><span class="pre">filepath</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.input.PathInput.filepath" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
