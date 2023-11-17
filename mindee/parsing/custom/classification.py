@@ -1,7 +1,7 @@
 from mindee.parsing.common.string_dict import StringDict
 
 
-class ClassificationFieldV1:
+class ClassificationField:
     """A classification field."""
 
     value: str

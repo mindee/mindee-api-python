@@ -3,7 +3,7 @@ from mindee import Client, PredictResponse, product
 # Init a new client
 mindee_client = Client(api_key="my-api-key")
 
-custom_endpoint = mindee_client.create_endpoint("field_test", "solution-eng-tests")
+custom_endpoint = mindee_client.create_endpoint("my-endpoint", "my-account")
 
 # Load a file from disk
 input_doc = mindee_client.source_from_path("/path/to/the/file.ext")

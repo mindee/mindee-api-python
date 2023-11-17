@@ -4,33 +4,35 @@ from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.standard.base import FieldPositionMixin
 
 
-class ListFieldValueV1(FieldPositionMixin):
+class ListFieldValue(FieldPositionMixin):
     """A single value or word."""
 
     content: str
     """The content text"""
     confidence: float
     """Confidence score"""
+    page_id: Optional[int]
 
-    def __init__(self, raw_prediction: StringDict) -> None:
+    def __init__(
+        self, raw_prediction: StringDict, page_id: Optional[int] = None
+    ) -> None:
         self.content = raw_prediction["content"]
         self.confidence = raw_prediction["confidence"]
+        self.page_id = page_id
         self._set_position(raw_prediction)
 
     def __str__(self) -> str:
         return self.content
 
 
-class ListFieldV1:
+class ListField:
     """A list of values or words."""
 
     confidence: float
     """Confidence score"""
     reconstructed: bool
     """Whether the field was reconstructed from other fields."""
-    page_id: Optional[int]
-    """The document page on which the information was found."""
-    values: List[ListFieldValueV1]
+    values: List[ListFieldValue]
     """List of word values"""
 
     def __init__(
@@ -43,15 +45,9 @@ class ListFieldV1:
         self.reconstructed = reconstructed
 
         for value in raw_prediction["values"]:
-            self.values.append(ListFieldValueV1(value))
             if "page_id" in value:
                 page_id = value["page_id"]
-
-        if page_id is None:
-            if "page_id" in raw_prediction:
-                self.page_id = raw_prediction["page_id"]
-        else:
-            self.page_id = page_id
+            self.values.append(ListFieldValue(value, page_id))
         self.confidence = raw_prediction["confidence"]
 
     @property

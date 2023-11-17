@@ -99,7 +99,7 @@ The **columns_to_line_items()** function can be called from the document and pag
 
 It takes the following arguments:
 
-* **anchor_names** (`List[str]`): a list of the names of possible anchor (field) candidate for the horizontal placement a line. If all provided anchors are invalid, the `LineItemV1` won't be built.
+* **anchor_names** (`List[str]`): a list of the names of possible anchor (field) candidate for the horizontal placement a line. If all provided anchors are invalid, the `CustomLine` won't be built.
 * **field_names** (`List[str]`): a list of fields to retrieve the values from
 * **height_tolerance** (`float`): Optional, the height tolerance used to build the line. It helps when the height of a line can vary unexpectedly.
 
@@ -121,14 +121,14 @@ response.document.pages[0].prediction.columns_to_line_items(
 )
 ```
 
-It returns a list of [CustomLineV1](#CustomlineV1) objects.
+It returns a list of [CustomLine](#CustomLine) objects.
 
-## CustomlineV1
+## CustomLine
 
-`CustomlineV1` represents a line as it has been read from column fields. It has the following attributes:
+`CustomLine` represents a line as it has been read from column fields. It has the following attributes:
 
 * **row_number** (`int`): Number of a given line. Starts at 1.
-* **fields** (`Dict[str, ListFieldValueV1]`[]): List of the fields associated with the line, indexed by their column name.
+* **fields** (`Dict[str, ListFieldValue]`[]): List of the fields associated with the line, indexed by their column name.
 * **bbox** (`BBox`): Simple bounding box of the current line representing the 4 minimum & maximum coordinates as `float` values.
 
 

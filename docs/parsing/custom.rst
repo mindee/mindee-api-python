@@ -4,13 +4,13 @@ Custom Fields
 
 Classification
 ==============
-.. autoclass:: mindee.parsing.custom.classification.ClassificationFieldV1
+.. autoclass:: mindee.parsing.custom.classification.ClassificationField
     :members:
 
 
 Line Items
 ==========
-.. autoclass:: mindee.parsing.custom.line_items.CustomLineV1
+.. autoclass:: mindee.parsing.custom.line_items.CustomLine
     :members:
 
 Lists
@@ -18,12 +18,12 @@ Lists
 
 List Field
 ----------
-.. autoclass:: mindee.parsing.custom.list.ListFieldV1
+.. autoclass:: mindee.parsing.custom.list.ListField
     :members:
 
 List Field Value
 ----------------
-.. autoclass:: mindee.parsing.custom.list.ListFieldValueV1
+.. autoclass:: mindee.parsing.custom.list.ListFieldValue
     :members:
 
 String Dict
