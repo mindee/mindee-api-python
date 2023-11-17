@@ -12,6 +12,7 @@ class ListFieldValue(FieldPositionMixin):
     confidence: float
     """Confidence score"""
     page_id: Optional[int]
+    """Id of the page the field was found on."""
 
     def __init__(
         self, raw_prediction: StringDict, page_id: Optional[int] = None
