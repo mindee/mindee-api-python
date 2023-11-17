@@ -1,4 +1,4 @@
-from typing import Dict, List, Optional
+from typing import Dict, List
 
 from mindee.parsing.common import Prediction, StringDict, clean_out_string
 from mindee.parsing.custom import ListField
@@ -11,7 +11,7 @@ class CustomV1Page(Prediction):
     fields: Dict[str, ListField]
     """Dictionary of all fields in the document"""
 
-    def __init__(self, raw_prediction: StringDict, page_id: Optional[int]) -> None:
+    def __init__(self, raw_prediction: StringDict) -> None:
         """
         Custom document object.
 
@@ -19,7 +19,7 @@ class CustomV1Page(Prediction):
         """
         self.fields = {}
         for field_name, field_contents in raw_prediction.items():
-            self.fields[field_name] = ListField(field_contents, page_id=page_id)
+            self.fields[field_name] = ListField(field_contents)
 
     def columns_to_line_items(
         self,

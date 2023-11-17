@@ -30,10 +30,7 @@ class Page(Generic[TypePrediction]):
             self.orientation = OrientationField(
                 raw_prediction["orientation"], page_id=self.id
             )
-        try:
-            self.prediction = prediction_type(raw_prediction["prediction"], self.id)
-        except TypeError:
-            self.prediction = prediction_type(raw_prediction["prediction"])
+        self.prediction = prediction_type(raw_prediction["prediction"])
 
         if "extras" in raw_prediction and raw_prediction["extras"]:
             self.extras = Extras(raw_prediction["extras"])

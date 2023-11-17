@@ -14,12 +14,12 @@ class ListFieldValue(FieldPositionMixin):
     page_id: Optional[int]
     """Id of the page the field was found on."""
 
-    def __init__(
-        self, raw_prediction: StringDict, page_id: Optional[int] = None
-    ) -> None:
+    def __init__(self, raw_prediction: StringDict) -> None:
         self.content = raw_prediction["content"]
         self.confidence = raw_prediction["confidence"]
-        self.page_id = page_id
+        self.page_id = (
+            raw_prediction["page_id"] if "page_id" in raw_prediction else None
+        )
         self._set_position(raw_prediction)
 
     def __str__(self) -> str:
@@ -36,19 +36,12 @@ class ListField:
     values: List[ListFieldValue]
     """List of word values"""
 
-    def __init__(
-        self,
-        raw_prediction: StringDict,
-        reconstructed: bool = False,
-        page_id: Optional[int] = None,
-    ) -> None:
+    def __init__(self, raw_prediction: StringDict, reconstructed: bool = False) -> None:
         self.values = []
         self.reconstructed = reconstructed
 
         for value in raw_prediction["values"]:
-            if "page_id" in value:
-                page_id = value["page_id"]
-            self.values.append(ListFieldValue(value, page_id))
+            self.values.append(ListFieldValue(value))
         self.confidence = raw_prediction["confidence"]
 
     @property
