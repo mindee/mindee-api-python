@@ -1,5 +1,18 @@
 # Mindee Python API Library Changelog
 
+## v4.1.0 - 2023-10-17
+### Changes
+* :test_tube: optimize CI + add retry mechanism
+* :recycle: homogenize typing & classes
+* :arrow_up: upgrade support for python 3.12
+* :sparkles: add n_pages attribute to document
+* :test_tube: :sparkles: add **experimental** pdf-fixing utility
+
+### Fixes
+* :memo: fix invoice-splitter doc
+* :wrench: fix wrongful instance variable assignments
+* :wrench: rework custom internals & fix custom page_id
+
 ## v4.0.2 - 2023-10-11
 ### Fixes
 * :bug: fix crashes when trying to parse from newer custom APIs
