@@ -18,6 +18,8 @@ class InvoiceSplitterV1Document(Prediction):
 
         :param raw_prediction: Raw prediction from HTTP response
         """
+        super().__init__(raw_prediction)
+
         invoice_page_groups = []
         if (
             "invoice_page_groups" in raw_prediction

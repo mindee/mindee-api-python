@@ -72,10 +72,10 @@ class CustomLine:
 
 def is_box_in_line(line: CustomLine, bbox: BBox, height_line_tolerance: float) -> bool:
     """
-    Checks if the bbox fits inside the line.
+    Checks if the bbox fits inside the given line.
 
-    :param anchor_name: name of the anchor.
-    :param fields: fields to build lines from.
+    :param line: Line to check.
+    :param bbox: Bbox to check.
     :param height_line_tolerance: line height tolerance for custom line reconstruction.
     """
     if abs(bbox.y_min - line.bbox.y_min) <= height_line_tolerance:

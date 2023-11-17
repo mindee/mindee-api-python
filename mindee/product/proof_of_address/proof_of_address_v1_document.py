@@ -42,6 +42,7 @@ class ProofOfAddressV1Document(Prediction):
         :param raw_prediction: Raw prediction from HTTP response
         :param page_id: Page number for multi pages pdf input
         """
+        super().__init__(raw_prediction, page_id)
         self.date = DateField(
             raw_prediction["date"],
             page_id=page_id,

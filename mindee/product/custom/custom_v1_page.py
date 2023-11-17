@@ -17,6 +17,7 @@ class CustomV1Page(Prediction):
 
         :param raw_prediction: Dictionary containing the JSON document response
         """
+        super().__init__(raw_prediction, page_id)
         self.fields = {}
         for field_name, field_contents in raw_prediction.items():
             self.fields[field_name] = ListField(field_contents, page_id=page_id)

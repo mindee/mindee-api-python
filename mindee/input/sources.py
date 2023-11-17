@@ -70,10 +70,12 @@ class LocalInputSource:
 
         WARNING: this feature alters the data of the enqueued file by removing unnecessary headers.
 
-        Reads the bytes of a PDF file until a proper pdf tag is encountered, or until the maximum offset has been
-        reached. If a tag denoting a PDF file is found, deletes all bytes before it.
+        Reads the bytes of a PDF file until a proper pdf tag is encountered,
+        or until the maximum offset has been reached.
+        If a tag denoting a PDF file is found, deletes all bytes before it.
 
-        :param maximum_offset: maximum byte offset where superfluous headers will be removed. Cannot be less than 0.
+        :param maximum_offset: maximum byte offset where superfluous headers will be removed.
+            Cannot be less than 0.
         """
         if maximum_offset < 0:
             raise MindeeError("Can't set maximum offset for pdf-fixing to less than 0.")

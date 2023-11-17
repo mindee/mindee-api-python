@@ -89,7 +89,8 @@ class Client:
           Set to ``False`` if you need to access the file after this operation.
 
         :param page_options: If set, remove pages from the document as specified.
-            This is done before sending the file to the server and is useful to avoid page limitations.
+            This is done before sending the file to the server.
+            It is useful to avoid page limitations.
 
         :param cropper: Whether to include cropper results for each page.
             This performs a cropping operation on the server and will increase response time.
@@ -141,7 +142,8 @@ class Client:
           Set to ``False`` if you need to access the file after this operation.
 
         :param page_options: If set, remove pages from the document as specified.
-            This is done before sending the file to the server and is useful to avoid page limitations.
+            This is done before sending the file to the server.
+            It is useful to avoid page limitations.
 
         :param cropper: Whether to include cropper results for each page.
             This performs a cropping operation on the server and will increase response time.
@@ -229,7 +231,8 @@ class Client:
           Set to ``False`` if you need to access the file after this operation.
 
         :param page_options: If set, remove pages from the document as specified.
-            This is done before sending the file to the server and is useful to avoid page limitations.
+            This is done before sending the file to the server.
+             It is useful to avoid page limitations.
 
         :param cropper: Whether to include cropper results for each page.
             This performs a cropping operation on the server and will increase response time.

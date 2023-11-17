@@ -19,6 +19,7 @@ class CustomV1Document(Prediction):
 
         :param raw_prediction: Dictionary containing the JSON document response
         """
+        super().__init__(raw_prediction)
         self.fields = {}
         self.classifications = {}
         for field_name, field_contents in raw_prediction.items():
