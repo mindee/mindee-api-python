@@ -78,19 +78,25 @@ print(result.document)
 ```python
 from mindee import Client, product
 
-# Init a new client and add your custom endpoint (document)
+# Init a new client
 mindee_client = Client(api_key="my-api-key")
-custom_endpoint = mindee_client.create_endpoint(
-    account_name="john",
-    endpoint_name="wnine",
+
+# Add your custom endpoint (document)
+my_endpoint = mindee_client.create_endpoint(
+    account_name="my-account",
+    endpoint_name="my-endpoint",
 )
 
 # Load a file from disk
 input_doc = mindee_client.source_from_path("/path/to/the/file.ext")
 
 # Parse the file.
-# The endpoint must be specified since it can't be determined from the class.
-result = parse(product.CustomV1, endpoint=custom_endpoint)
+# The endpoint must be specified since it cannot be determined from the class.
+result = mindee_client.parse(
+    product.CustomV1,
+    input_doc,
+    endpoint=my_endpoint
+)
 
 # Print a brief summary of the parsed data
 print(result.document)
@@ -109,12 +115,14 @@ Allows sending only certain pages in a PDF.
 In this example we only send the first, penultimate and last pages:
 
 ```python
-api_response = mindee_client.parse(
-    mindee.product.InvoiceV4,
+from mindee import Client, product, PageOptions
+
+result = mindee_client.parse(
+    product.InvoiceV4,
     input_source,
-    page_options=mindee.PageOptions(
+    page_options=PageOptions(
         page_indexes=[0, -2, -1],
-        operation: mindee.PageOptions.KEEP_ONLY,
+        operation=PageOptions.KEEP_ONLY,
         on_min_pages=2
     )
 )
