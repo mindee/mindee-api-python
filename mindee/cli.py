@@ -41,7 +41,7 @@ DOCUMENTS: Dict[str, CommandConfig] = {
         help="Custom document type from API builder",
         doc_class=product.CustomV1,
         is_sync=True,
-        is_async=True,
+        is_async=False,
     ),
     "eu-license-plate": CommandConfig(
         help="EU License Plate",
