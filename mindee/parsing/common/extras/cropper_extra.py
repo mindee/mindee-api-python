@@ -7,10 +7,12 @@ from mindee.parsing.standard.position import PositionField
 class CropperExtra:
     """Contains information on the cropping of a prediction."""
 
+    croppings: List[PositionField]
+    """List of all croppings coordiantes."""
+
     def __init__(
         self, raw_prediction: StringDict, page_id: Optional[int] = None
     ) -> None:
-        super().__init__()
         croppings: List[PositionField] = []
         if "cropping" in raw_prediction and raw_prediction["cropping"]:
             for cropping in raw_prediction["cropping"]:
