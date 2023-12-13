@@ -235,15 +235,18 @@ class MindeeParser:
             )
         custom_endpoint: Optional[Endpoint] = None
         if self.parsed_args.product_name == "custom":
+            include_words = False
             custom_endpoint = self.client.create_endpoint(
                 self.parsed_args.endpoint_name,
                 self.parsed_args.account_name,
                 self.parsed_args.api_version,
             )
+        else:
+            include_words = self.parsed_args.include_words
         return self.client.parse(
-            self.document_info.doc_class,
-            self.input_doc,
-            self.parsed_args.include_words,
+            product_class=self.document_info.doc_class,
+            input_source=self.input_doc,
+            include_words=include_words,
             page_options=page_options,
             endpoint=custom_endpoint,
         )
@@ -257,15 +260,18 @@ class MindeeParser:
             )
         custom_endpoint: Optional[Endpoint] = None
         if self.parsed_args.product_name == "custom":
+            include_words = False
             custom_endpoint = self.client.create_endpoint(
                 self.parsed_args.endpoint_name,
                 self.parsed_args.account_name,
                 self.parsed_args.api_version,
             )
+        else:
+            include_words = self.parsed_args.include_words
         return self.client.enqueue_and_parse(
-            self.document_info.doc_class,
-            self.input_doc,
-            self.parsed_args.include_words,
+            product_class=self.document_info.doc_class,
+            input_source=self.input_doc,
+            include_words=include_words,
             page_options=page_options,
             endpoint=custom_endpoint,
         )
