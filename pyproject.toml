@@ -33,7 +33,8 @@ safe_licenses = [
 
 [tool.pytest.ini_options]
 markers = [
-  "regression: marks tests as regression tests (deselect with '-m \"not regression\"')"
+  "regression: marks tests as regression tests (deselect with '-m \"not regression\"')",
+  "lineitems: debug line items"
 ]
 testpaths = [
   "tests",

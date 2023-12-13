@@ -91,7 +91,7 @@ The following fields are extracted for Cropper V1:
 
 ```py
 for page in result.document.inference.pages:
-    for cropping_elem of page.prediction.cropping):
+    for cropping_elem in page.prediction.cropping):
         print(cropping_elem.polygon)
 ```
 

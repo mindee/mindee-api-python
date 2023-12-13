@@ -171,7 +171,7 @@ print(result.document.inference.prediction.document_number.value)
 [📄](#page-level-fields "This field is only present on individual pages.")**document_side** ([ClassificationField](#classificationfield)): The sides of the document which are visible.
 
 ```py
-for document_side_elem of result.document.document_side:
+for document_side_elem in result.document.document_side:
     print(document_side_elem.value)
 ```
 
@@ -179,7 +179,7 @@ for document_side_elem of result.document.document_side:
 [📄](#page-level-fields "This field is only present on individual pages.")**document_type** ([ClassificationField](#classificationfield)): The document type or format.
 
 ```py
-for document_type_elem of result.document.document_type:
+for document_type_elem in result.document.document_type:
     print(document_type_elem.value)
 ```
 

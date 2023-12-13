@@ -47,7 +47,6 @@ def test_async_response_post_fail():
     assert parsed_response.job.available_at is None
     assert parsed_response.job.status is None
     assert parsed_response.job.id is None
-    assert parsed_response.api_request.error
     assert parsed_response.api_request.error["code"] == "Forbidden"
 
 

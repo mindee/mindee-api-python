@@ -172,5 +172,4 @@ def get_line_items(
                     <= height_line_tolerance
                 ):
                     current_line.update_field(field_name, list_field_value)
-
     return lines_prepared
