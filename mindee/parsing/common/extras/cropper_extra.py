@@ -8,7 +8,7 @@ class CropperExtra:
     """Contains information on the cropping of a prediction."""
 
     croppings: List[PositionField]
-    """List of all croppings coordiantes."""
+    """List of all cropping coordinates."""
 
     def __init__(
         self, raw_prediction: StringDict, page_id: Optional[int] = None
