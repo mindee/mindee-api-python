@@ -85,7 +85,7 @@ The following fields are extracted for Invoice Splitter V1:
 
 ```py
 for invoice_page_groups_elem in page.prediction.invoice_page_groups):
-    print(invoice_page_groups_elem.polygon)
+    print(invoice_page_groups_elem)
 ```
 
 # Questions?
