@@ -22,8 +22,8 @@ class CommandConfig(Generic[TypeInference]):
 
     help: str
     doc_class: Type[TypeInference]
-    is_sync: bool = False
-    is_async: bool = False
+    is_sync: bool
+    is_async: bool
 
 
 DOCUMENTS: Dict[str, CommandConfig] = {
@@ -31,11 +31,13 @@ DOCUMENTS: Dict[str, CommandConfig] = {
         help="Barcode-reader tool",
         doc_class=product.BarcodeReaderV1,
         is_sync=True,
+        is_async=False,
     ),
     "cropper": CommandConfig(
         help="Cropper tool",
         doc_class=product.CropperV1,
         is_sync=True,
+        is_async=False,
     ),
     "custom": CommandConfig(
         help="Custom document type from API builder",
@@ -47,44 +49,60 @@ DOCUMENTS: Dict[str, CommandConfig] = {
         help="EU License Plate",
         doc_class=product.eu.LicensePlateV1,
         is_sync=True,
+        is_async=False,
     ),
     "financial-document": CommandConfig(
         help="Financial Document (receipt or invoice)",
         doc_class=product.FinancialDocumentV1,
         is_sync=True,
+        is_async=False,
     ),
     "fr-bank-account-details": CommandConfig(
         help="FR Bank Account Details",
         doc_class=product.fr.BankAccountDetailsV2,
         is_sync=True,
+        is_async=False,
     ),
     "fr-carte-grise": CommandConfig(
         help="FR Carte Grise",
         doc_class=product.fr.CarteGriseV1,
+        is_sync=True,
+        is_async=False,
     ),
     "fr-carte-vitale": CommandConfig(
         help="FR Carte Vitale",
         doc_class=product.fr.CarteVitaleV1,
         is_sync=True,
+        is_async=False,
     ),
     "fr-id-card": CommandConfig(
         help="FR ID Card",
         doc_class=product.fr.IdCardV2,
         is_sync=True,
+        is_async=False,
     ),
     "fr-petrol-receipt": CommandConfig(
         help="FR Petrol Receipt",
         doc_class=product.fr.PetrolReceiptV1,
         is_sync=True,
+        is_async=False,
     ),
     "invoice": CommandConfig(
         help="Invoice",
         doc_class=product.InvoiceV4,
         is_sync=True,
+        is_async=False,
+    ),
+    "international-id": CommandConfig(
+        help="International ID",
+        doc_class=product.InternationalIdV1,
+        is_sync=False,
+        is_async=True,
     ),
     "invoice-splitter": CommandConfig(
         help="Invoice Splitter",
         doc_class=product.InvoiceSplitterV1,
+        is_sync=False,
         is_async=True,
     ),
     "material-certificate": CommandConfig(
@@ -97,44 +115,149 @@ DOCUMENTS: Dict[str, CommandConfig] = {
         help="Multi-receipts detector",
         doc_class=product.MultiReceiptsDetectorV1,
         is_sync=True,
+        is_async=False,
     ),
     "passport": CommandConfig(
         help="Passport",
         doc_class=product.PassportV1,
         is_sync=True,
+        is_async=False,
     ),
     "proof-of-address": CommandConfig(
         help="Proof of Address",
         doc_class=product.ProofOfAddressV1,
         is_sync=True,
+        is_async=False,
     ),
     "receipt": CommandConfig(
         help="Expense Receipt",
         doc_class=product.ReceiptV5,
         is_sync=True,
+        is_async=False,
     ),
     "us-bank-check": CommandConfig(
         help="US Bank Check",
         doc_class=product.us.BankCheckV1,
         is_sync=True,
+        is_async=False,
     ),
     "us-driver-license": CommandConfig(
         help="US Driver License",
         doc_class=product.us.DriverLicenseV1,
         is_sync=True,
+        is_async=False,
     ),
     "us-w9": CommandConfig(
         help="US W9",
         doc_class=product.us.W9V1,
         is_sync=True,
+        is_async=False,
     ),
 }
+
+
+class MindeeArgumentParser(ArgumentParser):
+    """Custom parser to simplify adding various options."""
+
+    def add_main_options(self) -> None:
+        """Adds main options for most parsings."""
+        self.add_argument(
+            "-k",
+            "--key",
+            dest="api_key",
+            help="API key for the account",
+            required=False,
+            default=None,
+        )
+
+    def add_display_options(self) -> None:
+        """Adds options related to output/display of a document (parse, parse-queued)."""
+        self.add_argument(
+            "-o",
+            "--output-type",
+            dest="output_type",
+            choices=["summary", "raw", "parsed"],
+            default="summary",
+            help="Specify how to output the data.\n"
+            "- summary: a basic summary (default)\n"
+            "- raw: the raw HTTP response\n"
+            "- parsed: the validated and parsed data fields\n",
+        )
+
+    def add_sending_options(self) -> None:
+        """Adds options for sending requests (parse, enqueue)."""
+        self.add_argument(
+            "-i",
+            "--input-type",
+            dest="input_type",
+            choices=["path", "file", "base64", "bytes", "url"],
+            default="path",
+            help="Specify how to handle the input.\n"
+            "- path: open a path (default).\n"
+            "- file: open as a file handle.\n"
+            "- base64: open a base64 encoded text file.\n"
+            "- bytes: open the contents as raw bytes.\n"
+            "- url: open an URL.",
+        )
+        self.add_argument(
+            "-c",
+            "--cut-doc",
+            dest="cut_doc",
+            action="store_true",
+            help="Cut document pages",
+        )
+        self.add_argument(
+            "-p",
+            "--pages-keep",
+            dest="doc_pages",
+            type=int,
+            default=5,
+            help="Number of document pages to keep, default: 5",
+        )
+        self.add_argument(dest="path", help="Full path to the file")
+
+    def add_feedback_options(self) -> None:
+        """Adds the option to give feedback manually."""
+        self.add_argument(
+            dest="document_id",
+            help="Mindee UUID of the document.",
+            type=str,
+        )
+        self.add_argument(
+            dest="feedback",
+            type=json.loads,
+            help='Feedback JSON string to send, ex \'{"key": "value"}\'.',
+        )
+
+    def add_custom_options(self) -> None:
+        """Adds options to custom-type documents."""
+        self.add_argument(
+            "-a",
+            "--account",
+            dest="account_name",
+            required=True,
+            help="API account name for the endpoint (required)",
+        )
+        self.add_argument(
+            "-e",
+            "--endpoint",
+            dest="endpoint_name",
+            help="API endpoint name (required)",
+            required=True,
+        )
+        self.add_argument(
+            "-v",
+            "--version",
+            default="1",
+            dest="api_version",
+            help="Version for the endpoint. If not set, use the latest version of the model.",
+        )
 
 
 class MindeeParser:
     """Custom parser for the Mindee CLI."""
 
-    parser: ArgumentParser
+    parser: MindeeArgumentParser
     """Parser options."""
     parsed_args: Namespace
     """Stores attributes relating to parsing."""
@@ -151,12 +274,14 @@ class MindeeParser:
 
     def __init__(
         self,
-        parser: Optional[ArgumentParser] = None,
+        parser: Optional[MindeeArgumentParser] = None,
         parsed_args: Optional[Namespace] = None,
         client: Optional[Client] = None,
         document_info: Optional[CommandConfig] = None,
     ) -> None:
-        self.parser = parser if parser else ArgumentParser(description="Mindee_API")
+        self.parser = (
+            parser if parser else MindeeArgumentParser(description="Mindee_API")
+        )
         self.parsed_args = parsed_args if parsed_args else self._set_args()
         self.client = (
             client
@@ -276,7 +401,8 @@ class MindeeParser:
             endpoint=custom_endpoint,
         )
 
-    def _doc_str(self, output_type: str, doc_response: Document) -> str:
+    @staticmethod
+    def _doc_str(output_type: str, doc_response: Document) -> str:
         if output_type == "parsed":
             return json.dumps(doc_response, indent=2, default=serialize_for_json)
         return str(doc_response)
@@ -297,11 +423,11 @@ class MindeeParser:
             parse_subp = call_parser.add_parser("parse")
             feedback_subp = call_parser.add_parser("feedback")
 
-            self._add_main_options(parse_subp)
-            self._add_sending_options(parse_subp)
-            self._add_display_options(parse_subp)
+            parse_subp.add_main_options()
+            parse_subp.add_sending_options()
+            parse_subp.add_display_options()
             if name == "custom":
-                self._add_custom_options(parse_subp)
+                parse_subp.add_custom_options()
             else:
                 parse_subp.add_argument(
                     "-t",
@@ -322,125 +448,11 @@ class MindeeParser:
                     default=False,
                 )
 
-            self._add_main_options(feedback_subp)
-            self._add_feedback_options(feedback_subp)
+            feedback_subp.add_main_options()
+            feedback_subp.add_feedback_options()
 
         parsed_args = self.parser.parse_args()
         return parsed_args
-
-    def _add_main_options(self, parser: ArgumentParser) -> None:
-        """
-        Adds main options for most parsings.
-
-        :param parser: current parser.
-        """
-        parser.add_argument(
-            "-k",
-            "--key",
-            dest="api_key",
-            help="API key for the account",
-            required=False,
-            default=None,
-        )
-
-    def _add_display_options(self, parser: ArgumentParser) -> None:
-        """
-        Adds options related to output/display of a document (parse, parse-queued).
-
-        :param parser: current parser.
-        """
-        parser.add_argument(
-            "-o",
-            "--output-type",
-            dest="output_type",
-            choices=["summary", "raw", "parsed"],
-            default="summary",
-            help="Specify how to output the data.\n"
-            "- summary: a basic summary (default)\n"
-            "- raw: the raw HTTP response\n"
-            "- parsed: the validated and parsed data fields\n",
-        )
-
-    def _add_sending_options(self, parser: ArgumentParser) -> None:
-        """
-        Adds options for sending requests (parse, enqueue).
-
-        :param parser: current parser.
-        """
-        parser.add_argument(
-            "-i",
-            "--input-type",
-            dest="input_type",
-            choices=["path", "file", "base64", "bytes", "url"],
-            default="path",
-            help="Specify how to handle the input.\n"
-            "- path: open a path (default).\n"
-            "- file: open as a file handle.\n"
-            "- base64: open a base64 encoded text file.\n"
-            "- bytes: open the contents as raw bytes.\n"
-            "- url: open an URL.",
-        )
-        parser.add_argument(
-            "-c",
-            "--cut-doc",
-            dest="cut_doc",
-            action="store_true",
-            help="Cut document pages",
-        )
-        parser.add_argument(
-            "-p",
-            "--pages-keep",
-            dest="doc_pages",
-            type=int,
-            default=5,
-            help="Number of document pages to keep, default: 5",
-        )
-        parser.add_argument(dest="path", help="Full path to the file")
-
-    def _add_feedback_options(self, parser: ArgumentParser):
-        """
-        Adds the option to give feedback manually.
-
-        :param parser: current parser.
-        """
-        parser.add_argument(
-            dest="document_id",
-            help="Mindee UUID of the document.",
-            type=str,
-        )
-        parser.add_argument(
-            dest="feedback",
-            type=json.loads,
-            help='Feedback JSON string to send, ex \'{"key": "value"}\'.',
-        )
-
-    def _add_custom_options(self, parser: ArgumentParser):
-        """
-        Adds options to custom-type documents.
-
-        :param parser: current parser.
-        """
-        parser.add_argument(
-            "-a",
-            "--account",
-            dest="account_name",
-            required=True,
-            help="API account name for the endpoint (required)",
-        )
-        parser.add_argument(
-            "-e",
-            "--endpoint",
-            dest="endpoint_name",
-            help="API endpoint name (required)",
-            required=True,
-        )
-        parser.add_argument(
-            "-v",
-            "--version",
-            default="1",
-            dest="api_version",
-            help="Version for the endpoint. If not set, use the latest version of the model.",
-        )
 
     def _get_input_doc(self) -> Union[LocalInputSource, UrlInputSource]:
         """Loads an input document."""
@@ -476,7 +488,7 @@ class MindeeParser:
         else:
             if (
                 not self.parsed_args.feedback
-                or not "feedback" in self.parsed_args.feedback
+                or "feedback" not in self.parsed_args.feedback
             ):
                 raise MindeeClientError("Invalid feedback.")
         if not json_doc or "feedback" not in json_doc:
