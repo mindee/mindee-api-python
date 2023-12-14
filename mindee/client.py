@@ -32,9 +32,8 @@ def get_bound_classname(type_var) -> str:
 
 def _clean_account_name(account_name: str) -> str:
     """
-    Checks that an account name is provided for custom builds, and sets the default one otherwise.
+    Checks that an account name is provided for custom products, and sets the default one otherwise.
 
-    :param product_class: product class to use for API calls.
     :param account_name: name of the account's holder. Only needed for custom products.
     """
     if not account_name or len(account_name) < 1:
@@ -80,7 +79,7 @@ class Client:
             The response object will be instantiated based on this parameter.
 
         :param input_source: The document/source file to use.
-            Has to be be created beforehand.
+            Has to be created beforehand.
 
         :param include_words: Whether to include the full text for each page.
             This performs a full OCR operation on the server and will increase response time.
@@ -133,7 +132,7 @@ class Client:
             The response object will be instantiated based on this parameter.
 
         :param input_source: The document/source file to use.
-            Has to be be created beforehand.
+            Has to be created beforehand.
 
         :param include_words: Whether to include the full text for each page.
             This performs a full OCR operation on the server and will increase response time.
@@ -166,7 +165,12 @@ class Client:
                     page_options.page_indexes,
                 )
         return self._predict_async(
-            product_class, input_source, include_words, close_file, cropper, endpoint
+            product_class,
+            input_source,
+            endpoint,
+            include_words,
+            close_file,
+            cropper,
         )
 
     def parse_queued(
@@ -191,16 +195,21 @@ class Client:
         return self._get_queued_document(product_class, endpoint, queue_id)
 
     def _validate_async_params(
-        self, initial_delay_sec: float, delay_sec: float
+        self, initial_delay_sec: float, delay_sec: float, max_retries: int
     ) -> None:
-        if delay_sec < 2:
+        min_delay = 1
+        min_initial_delay = 2
+        min_retries = 2
+        if delay_sec < min_delay:
             raise MindeeClientError(
-                "Cannot set auto-parsing delay to less than 2 seconds."
+                f"Cannot set auto-parsing delay to less than {min_delay} seconds."
             )
-        if initial_delay_sec < 4:
+        if initial_delay_sec < min_initial_delay:
             raise MindeeClientError(
-                "Cannot set initial parsing delay to less than 4 seconds."
+                f"Cannot set initial parsing delay to less than {min_initial_delay} seconds."
             )
+        if max_retries < min_retries:
+            raise MindeeClientError(f"Cannot set retries to less than {min_retries}.")
 
     def enqueue_and_parse(
         self,
@@ -222,7 +231,7 @@ class Client:
             The response object will be instantiated based on this parameter.
 
         :param input_source: The document/source file to use.
-            Has to be be created beforehand.
+            Has to be created beforehand.
 
         :param include_words: Whether to include the full text for each page.
             This performs a full OCR operation on the server and will increase response time.
@@ -246,9 +255,8 @@ class Client:
             This should not be shorter than 2 seconds.
 
         :param max_retries: Total amount of polling attempts.
-
         """
-        self._validate_async_params(initial_delay_sec, delay_sec)
+        self._validate_async_params(initial_delay_sec, delay_sec, max_retries)
         if not endpoint:
             endpoint = self._initialize_ots_endpoint(product_class)
         queue_result = self.enqueue(
@@ -345,16 +353,12 @@ class Client:
         self,
         product_class: Type[Inference],
         input_source: Union[LocalInputSource, UrlInputSource],
+        endpoint: Optional[Endpoint] = None,
         include_words: bool = False,
         close_file: bool = True,
         cropper: bool = False,
-        endpoint: Optional[Endpoint] = None,
     ) -> AsyncPredictResponse:
-        """
-        Sends a document to the queue, and sends back an asynchronous predict response.
-
-        :param doc_config: Configuration of the document.
-        """
+        """Sends a document to the queue, and sends back an asynchronous predict response."""
         if input_source is None:
             raise MindeeClientError("No input document provided")
         if not endpoint:
@@ -384,7 +388,6 @@ class Client:
         Fetches a document or a Job from a given queue.
 
         :param queue_id: Queue_id received from the API
-        :param doc_config: Pre-checked document configuration.
         """
         queue_response = endpoint.document_queue_req_get(queue_id=queue_id)
 
@@ -436,8 +439,6 @@ class Client:
         :param account_name: Your organization's username on the API Builder
         :param version: If set, locks the version of the model to use.
             If not set, use the latest version of the model.
-        :param product_class: A document class in which the response will be extracted.
-            Must inherit from ``mindee.product.base.Document``.
         """
         if len(endpoint_name) == 0:
             raise MindeeClientError("Custom endpoint require a valid 'endpoint_name'.")
@@ -456,6 +457,8 @@ class Client:
         Load a document from an absolute path, as a string.
 
         :param input_path: Path of file to open
+        :param fix_pdf: Whether to attempt fixing PDF files before sending.
+            Setting this to `True` can modify the data sent to Mindee.
         """
         input_doc = PathInput(input_path)
         if fix_pdf:
@@ -469,6 +472,8 @@ class Client:
         Load a document from a normal Python file object/handle.
 
         :param input_file: Input file handle
+        :param fix_pdf: Whether to attempt fixing PDF files before sending.
+            Setting this to `True` can modify the data sent to Mindee.
         """
         input_doc = FileInput(input_file)
         if fix_pdf:
@@ -483,6 +488,8 @@ class Client:
 
         :param input_string: Input to parse as base64 string
         :param filename: The name of the file (without the path)
+        :param fix_pdf: Whether to attempt fixing PDF files before sending.
+            Setting this to `True` can modify the data sent to Mindee.
         """
         input_doc = Base64Input(input_string, filename)
         if fix_pdf:
@@ -497,6 +504,8 @@ class Client:
 
         :param input_bytes: Raw byte input
         :param filename: The name of the file (without the path)
+        :param fix_pdf: Whether to attempt fixing PDF files before sending.
+            Setting this to `True` can modify the data sent to Mindee.
         """
         input_doc = BytesInput(input_bytes, filename)
         if fix_pdf:
@@ -508,7 +517,7 @@ class Client:
         url: str,
     ) -> UrlInputSource:
         """
-        Load a document from an URL.
+        Load a document from a URL.
 
         :param url: Raw byte input
         """
