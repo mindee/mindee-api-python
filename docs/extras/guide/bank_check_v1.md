@@ -137,7 +137,7 @@ print(result.document.inference.prediction.check_number.value)
 [📄](#page-level-fields "This field is only present on individual pages.")**check_position** ([PositionField](#positionfield)): The position of the check on the document.
 
 ```py
-for check_position_elem of result.document.check_position:
+for check_position_elem in result.document.check_position:
     print(check_position_elem.polygon)
 ```
 
@@ -168,7 +168,7 @@ print(result.document.inference.prediction.routing_number.value)
 
 ```py
 for page in result.document.inference.pages:
-    for signatures_positions_elem of page.prediction.signatures_positions):
+    for signatures_positions_elem in page.prediction.signatures_positions):
         print(signatures_positions_elem.polygon)
 ```
 

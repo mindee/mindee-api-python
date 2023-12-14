@@ -223,7 +223,7 @@ print(result.document.inference.prediction.last_name.value)
 [📄](#page-level-fields "This field is only present on individual pages.")**photo** ([PositionField](#positionfield)): Has a photo of the US driver license holder
 
 ```py
-for photo_elem of result.document.photo:
+for photo_elem in result.document.photo:
     print(photo_elem.polygon)
 ```
 
@@ -245,7 +245,7 @@ print(result.document.inference.prediction.sex.value)
 [📄](#page-level-fields "This field is only present on individual pages.")**signature** ([PositionField](#positionfield)): Has a signature of the US driver license holder
 
 ```py
-for signature_elem of result.document.signature:
+for signature_elem in result.document.signature:
     print(signature_elem.polygon)
 ```
 

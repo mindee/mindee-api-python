@@ -127,7 +127,7 @@ class Client:
         endpoint: Optional[Endpoint] = None,
     ) -> AsyncPredictResponse:
         """
-        Enqueueing to an async endpoint.
+        Enqueues a document to an asynchronous endpoint.
 
         :param product_class: The document class to use.
             The response object will be instantiated based on this parameter.
@@ -216,7 +216,7 @@ class Client:
         max_retries: int = 10,
     ) -> AsyncPredictResponse:
         """
-        Enqueueing to an async endpoint.
+        Enqueues to an asynchronous endpoint and automatically polls for a response.
 
         :param product_class: The document class to use.
             The response object will be instantiated based on this parameter.

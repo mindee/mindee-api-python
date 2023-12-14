@@ -1,11 +1,14 @@
 import json
 
+import pytest
+
 from mindee.parsing.common.document import Document
 from mindee.parsing.common.page import Page
 from mindee.product.custom.custom_v1 import CustomV1
 from mindee.product.custom.custom_v1_page import CustomV1Page
 
 
+@pytest.mark.lineitems
 def do_tests(line_items):
     assert len(line_items) == 3
     assert line_items[0].fields["beneficiary_name"].content == "JAMES BOND 007"
@@ -19,6 +22,7 @@ def do_tests(line_items):
     assert line_items[2].row_number == 3
 
 
+@pytest.mark.lineitems
 def test_single_table_01():
     json_data_path = (
         "./tests/data/products/custom/response_v1/line_items/single_table_01.json"
@@ -39,6 +43,7 @@ def test_single_table_01():
     do_tests(line_items_page)
 
 
+@pytest.mark.lineitems
 def test_single_table_02():
     json_data_path = (
         "./tests/data/products/custom/response_v2/line_items/single_table_01.json"
