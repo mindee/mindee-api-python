@@ -23,15 +23,15 @@ job_id = json_response_enqueue["job"]["id"]
 
 url_parse_queued = f"https://api.mindee.net/v1/products/{account}/{endpoint}/v{version}/documents/queue/{job_id}"
 sleep(4)
-response_parse = requests.get(url_parse_queued, headers=headers)
-tries = 1
-while tries < 10:
+tries = 0
+job_status = ""
+while tries < 30:
+    response_parse = requests.get(url_parse_queued, headers=headers)
     if not response_parse.ok:
         raise RuntimeError(json_response_enqueue["api_request"]["error"])
-
-    response_parse = requests.get(url_parse_queued, headers=headers)
     json_response_parse = response_parse.json()
-    if json_response_parse["job"]["status"] == "completed":
+    job_status = json_response_parse["job"]["status"]
+    if job_status == "completed":
         break
     else:
         print(json_response_parse["job"])
@@ -39,7 +39,7 @@ while tries < 10:
     tries += 1
     sleep(2)
 
-if json_response_parse["job"]["status"] != "completed":
+if job_status != "completed":
     raise RuntimeError(f"Async parsing timed out after {tries} tries")
 
 print(json.dumps(json_response_parse["document"], indent=2))

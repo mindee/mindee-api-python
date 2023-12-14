@@ -211,9 +211,9 @@ class Client:
         page_options: Optional[PageOptions] = None,
         cropper: bool = False,
         endpoint: Optional[Endpoint] = None,
-        initial_delay_sec: float = 6,
-        delay_sec: float = 3,
-        max_retries: int = 10,
+        initial_delay_sec: float = 4,
+        delay_sec: float = 2,
+        max_retries: int = 30,
     ) -> AsyncPredictResponse:
         """
         Enqueues to an asynchronous endpoint and automatically polls for a response.
