@@ -41,6 +41,7 @@ class PassportV1Document(Prediction):
         :param raw_prediction: Raw prediction from HTTP response
         :param page_id: Page number for multi pages pdf input
         """
+        super().__init__(raw_prediction, page_id)
         self.birth_date = DateField(
             raw_prediction["birth_date"],
             page_id=page_id,

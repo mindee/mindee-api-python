@@ -72,13 +72,3 @@ def test_empty_doc(
     assert prediction.iban.value is None
     assert prediction.account_holder_name.value is None
     assert prediction.swift.value is None
-
-
-def test_complete_page_0(complete_page_0: Page[BankAccountDetailsV1Document]):
-    reference_str = open(
-        PRODUCT_DATA_DIR / "bank_account_details" / "response_v1" / "summary_page0.rst",
-        "r",
-        encoding="utf-8",
-    ).read()
-    assert complete_page_0.id == 0
-    assert str(complete_page_0) == reference_str

@@ -29,4 +29,9 @@ class LicensePlateV1(Inference):
         self.prediction = LicensePlateV1Document(raw_prediction["prediction"])
         self.pages = []
         for page in raw_prediction["pages"]:
-            self.pages.append(Page(LicensePlateV1Document, page))
+            try:
+                page_production = page["prediction"]
+            except KeyError:
+                continue
+            if page_production:
+                self.pages.append(Page(LicensePlateV1Document, page))

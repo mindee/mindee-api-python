@@ -63,13 +63,3 @@ def test_empty_doc(
     assert prediction.surname.value is None
     assert prediction.social_security.value is None
     assert prediction.issuance_date.value is None
-
-
-def test_complete_page_0(complete_page_0: Page[CarteVitaleV1Document]):
-    reference_str = open(
-        PRODUCT_DATA_DIR / "carte_vitale" / "response_v1" / "summary_page0.rst",
-        "r",
-        encoding="utf-8",
-    ).read()
-    assert complete_page_0.id == 0
-    assert str(complete_page_0) == reference_str

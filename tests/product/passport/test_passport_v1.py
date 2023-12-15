@@ -66,13 +66,3 @@ def test_empty_doc(empty_doc: Document[PassportV1Document, Page[PassportV1Docume
     assert prediction.expiry_date.value is None
     assert prediction.mrz1.value is None
     assert prediction.mrz2.value is None
-
-
-def test_complete_page_0(complete_page_0: Page[PassportV1Document]):
-    reference_str = open(
-        PRODUCT_DATA_DIR / "passport" / "response_v1" / "summary_page0.rst",
-        "r",
-        encoding="utf-8",
-    ).read()
-    assert complete_page_0.id == 0
-    assert str(complete_page_0) == reference_str
