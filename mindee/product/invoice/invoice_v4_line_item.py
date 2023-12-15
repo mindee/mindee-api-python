@@ -74,7 +74,7 @@ class InvoiceV4LineItem(FieldPositionMixin, FieldConfidenceMixin):
         out_str += f"{printable['tax_amount']:<10} | "
         out_str += f"{printable['tax_rate']:<12} | "
         out_str += f"{printable['total_amount']:<12} | "
-        out_str += f"{printable['unit_price']:<10} |"
+        out_str += f"{printable['unit_price']:<10} | "
         return clean_out_string(out_str)
 
     def __str__(self) -> str:

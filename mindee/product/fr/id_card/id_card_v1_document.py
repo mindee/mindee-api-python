@@ -39,7 +39,6 @@ class IdCardV1Document(Prediction):
         :param raw_prediction: Raw prediction from HTTP response
         :param page_id: Page number for multi pages pdf input
         """
-        super().__init__(raw_prediction, page_id)
         self.authority = StringField(
             raw_prediction["authority"],
             page_id=page_id,

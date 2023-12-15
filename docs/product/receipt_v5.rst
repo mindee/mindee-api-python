@@ -16,3 +16,4 @@ Receipt V5
 
 .. autoclass:: mindee.product.receipt.receipt_v5_line_item.ReceiptV5LineItem
     :members:
+    :inherited-members:

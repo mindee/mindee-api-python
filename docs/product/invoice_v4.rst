@@ -16,3 +16,4 @@ Invoice V4
 
 .. autoclass:: mindee.product.invoice.invoice_v4_line_item.InvoiceV4LineItem
     :members:
+    :inherited-members:
