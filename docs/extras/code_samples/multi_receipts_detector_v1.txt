@@ -12,7 +12,3 @@ result: PredictResponse = mindee_client.parse(product.MultiReceiptsDetectorV1, i
 
 # Print a brief summary of the parsed data
 print(result.document)
-
-# # Iterate over all the fields in the document
-# for field_name, field_values in result.document.inference.prediction.fields.items():
-#     print(field_name, "=", field_values)

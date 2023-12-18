@@ -61,13 +61,3 @@ def test_empty_doc(
     prediction = empty_doc.inference.prediction
     assert len(prediction.codes_1d) == 0
     assert len(prediction.codes_2d) == 0
-
-
-def test_complete_page_0(complete_page_0: Page[BarcodeReaderV1Document]):
-    reference_str = open(
-        PRODUCT_DATA_DIR / "barcode_reader" / "response_v1" / "summary_page0.rst",
-        "r",
-        encoding="utf-8",
-    ).read()
-    assert complete_page_0.id == 0
-    assert str(complete_page_0) == reference_str

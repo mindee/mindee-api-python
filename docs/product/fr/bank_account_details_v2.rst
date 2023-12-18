@@ -16,3 +16,4 @@ Bank Account Details V2
 
 .. autoclass:: mindee.product.fr.bank_account_details.bank_account_details_v2_bban.BankAccountDetailsV2Bban
     :members:
+    :inherited-members:

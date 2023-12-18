@@ -22,10 +22,6 @@ result: PredictResponse = mindee_client.parse(product.ProofOfAddressV1, input_do
 
 # Print a brief summary of the parsed data
 print(result.document)
-
-# # Iterate over all the fields in the document
-# for field_name, field_values in result.document.inference.prediction.fields.items():
-#     print(field_name, "=", field_values)
 ```
 
 **Output (RST):**
@@ -33,12 +29,12 @@ print(result.document)
 ########
 Document
 ########
-:Mindee ID: 3a7e1da6-d4d0-4704-af91-051fe5484c2e
+:Mindee ID: 5d2361e9-405e-4fc1-8531-f92a3aef0c38
 :Filename: default_sample.jpg
 
 Inference
 #########
-:Product: mindee/proof_of_address v1.0
+:Product: mindee/proof_of_address v1.1
 :Rotation applied: Yes
 
 Prediction
@@ -46,7 +42,7 @@ Prediction
 :Locale: en; en; USD;
 :Issuer Name: PPL ELECTRIC UTILITIES
 :Issuer Company Registrations:
-:Issuer Address: 2 NORTH 9TH STREET CPC-GENN1 ALLENTOWN,PA 18101-1175
+:Issuer Address: 2 NORTH STH STREET CPC-GENN1 ALLENTOWN.PA 18101-1175
 :Recipient Name:
 :Recipient Company Registrations:
 :Recipient Address: 123 MAIN ST ANYTOWN,PA 18062
@@ -72,7 +68,7 @@ Page 0
 :Locale: en; en; USD;
 :Issuer Name: PPL ELECTRIC UTILITIES
 :Issuer Company Registrations:
-:Issuer Address: 2 NORTH 9TH STREET CPC-GENN1 ALLENTOWN,PA 18101-1175
+:Issuer Address: 2 NORTH STH STREET CPC-GENN1 ALLENTOWN.PA 18101-1175
 :Recipient Name:
 :Recipient Company Registrations:
 :Recipient Address: 123 MAIN ST ANYTOWN,PA 18062
@@ -104,7 +100,7 @@ A typical `BaseField` object will have the following attributes:
 * **bounding_box** (`[Point, Point, Point, Point]`): contains exactly 4 relative vertices (points) coordinates of a right rectangle containing the field in the document.
 * **polygon** (`List[Point]`): contains the relative vertices coordinates (`Point`) of a polygon containing the field in the image.
 * **page_id** (`int`): the ID of the page, is `None` when at document-level.
-* **reconstructed** (`bool`): indicates whether or not an object was reconstructed (not extracted as the API gave it).
+* **reconstructed** (`bool`): indicates whether an object was reconstructed (not extracted as the API gave it).
 
 > **Note:** A `Point` simply refers to a List of two numbers (`[float, float]`).
 

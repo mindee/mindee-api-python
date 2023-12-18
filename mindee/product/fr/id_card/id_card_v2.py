@@ -28,4 +28,9 @@ class IdCardV2(Inference):
         self.prediction = IdCardV2Document(raw_prediction["prediction"])
         self.pages = []
         for page in raw_prediction["pages"]:
-            self.pages.append(Page(IdCardV2Page, page))
+            try:
+                page_production = page["prediction"]
+            except KeyError:
+                continue
+            if page_production:
+                self.pages.append(Page(IdCardV2Page, page))

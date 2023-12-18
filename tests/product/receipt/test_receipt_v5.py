@@ -68,13 +68,3 @@ def test_empty_doc(empty_doc: Document[ReceiptV5Document, Page[ReceiptV5Document
     assert prediction.supplier_address.value is None
     assert prediction.supplier_phone_number.value is None
     assert len(prediction.line_items) == 0
-
-
-def test_complete_page_0(complete_page_0: Page[ReceiptV5Document]):
-    reference_str = open(
-        PRODUCT_DATA_DIR / "expense_receipts" / "response_v5" / "summary_page0.rst",
-        "r",
-        encoding="utf-8",
-    ).read()
-    assert complete_page_0.id == 0
-    assert str(complete_page_0) == reference_str

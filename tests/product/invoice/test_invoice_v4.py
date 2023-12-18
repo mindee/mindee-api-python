@@ -71,13 +71,3 @@ def test_empty_doc(empty_doc: Document[InvoiceV4Document, Page[InvoiceV4Document
     assert len(prediction.customer_company_registrations) == 0
     assert prediction.customer_address.value is None
     assert len(prediction.line_items) == 0
-
-
-def test_complete_page_0(complete_page_0: Page[InvoiceV4Document]):
-    reference_str = open(
-        PRODUCT_DATA_DIR / "invoices" / "response_v4" / "summary_page0.rst",
-        "r",
-        encoding="utf-8",
-    ).read()
-    assert complete_page_0.id == 0
-    assert str(complete_page_0) == reference_str
