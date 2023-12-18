@@ -51,7 +51,5 @@ jobs:
     - name: Run Regression Testing
       env:
           MINDEE_API_KEY: ${{ secrets.MINDEE_API_KEY_SE_TESTS }}
-      uses: actions/checkout@v3
-      with:
-        run: |
-          pytest -m regression tests
+      run: |
+        pytest -m regression tests
