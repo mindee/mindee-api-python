@@ -1,4 +1,4 @@
-[![License: MIT](https://img.shields.io/github/license/mindee/mindee-api-python)](https://opensource.org/licenses/MIT) [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/mindee/mindee-api-python/test.yml)](https://github.com/mindee/mindee-api-python) [![PyPI Version](https://img.shields.io/pypi/v/mindee)](https://pypi.org/project/mindee/) [![Downloads](https://img.shields.io/pypi/dm/mindee)](https://pypi.org/project/mindee/)
+[![License: MIT](https://img.shields.io/github/license/mindee/mindee-api-python)](https://opensource.org/licenses/MIT) [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/mindee/mindee-api-python/unit-test.yml)](https://github.com/mindee/mindee-api-python) [![PyPI Version](https://img.shields.io/pypi/v/mindee)](https://pypi.org/project/mindee/) [![Downloads](https://img.shields.io/pypi/dm/mindee)](https://pypi.org/project/mindee/)
 
 # Mindee API Helper Library for Python
 Quickly and easily connect to Mindee's API services using Python.
