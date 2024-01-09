@@ -397,6 +397,7 @@ class Client:
             or queue_response.status_code > 302
         ):
             dict_response = queue_response.json()
+            print(dict_response)
             raise handle_error(
                 str(product_class.endpoint_name),
                 dict_response,

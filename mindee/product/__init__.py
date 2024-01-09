@@ -2,6 +2,7 @@ from mindee.product import eu, fr, us
 from mindee.product.barcode_reader import BarcodeReaderV1, BarcodeReaderV1Document
 from mindee.product.cropper import CropperV1, CropperV1Document
 from mindee.product.custom import CustomV1, CustomV1Document, CustomV1Page
+from mindee.product.generated import GeneratedV1, GeneratedV1Document, GeneratedV1Page
 from mindee.product.financial_document import (
     FinancialDocumentV1,
     FinancialDocumentV1Document,
