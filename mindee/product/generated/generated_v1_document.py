@@ -4,6 +4,7 @@ from mindee.parsing.common import Prediction, StringDict, clean_out_string
 from mindee.parsing.custom import GeneratedListField
 from mindee.parsing.standard.text import StringField
 
+
 class GeneratedV1Document(Prediction):
     """Generated V1 document prediction results."""
 

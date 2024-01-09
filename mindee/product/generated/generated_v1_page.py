@@ -1,13 +1,14 @@
-from typing import Dict, Optional
+from typing import Dict, Optional, Union
 
 from mindee.parsing.common import Prediction, StringDict, clean_out_string
 from mindee.parsing.custom import GeneratedListField
+from mindee.parsing.standard.text import StringField
 
 
 class GeneratedV1Page(Prediction):
     """Generated V1 page prediction results."""
 
-    fields: Dict[str, GeneratedListField]
+    fields: Dict[str, Union[GeneratedListField, StringField]]
     """Dictionary of all fields in the document"""
 
     def __init__(self, raw_prediction: StringDict, page_id: Optional[int]) -> None:
@@ -19,7 +20,10 @@ class GeneratedV1Page(Prediction):
         super().__init__(raw_prediction, page_id)
         self.fields = {}
         for field_name, field_contents in raw_prediction.items():
-            self.fields[field_name] = GeneratedListField(field_contents, page_id=page_id)
+            if isinstance(field_contents, list):
+                self.fields[field_name] = GeneratedListField(field_contents)
+            else:
+                self.fields[field_name] = StringField(field_contents)
 
     def __str__(self) -> str:
         out_str = ""
