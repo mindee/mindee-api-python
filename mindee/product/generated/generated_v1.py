@@ -27,4 +27,5 @@ class GeneratedV1(Inference):
         self.prediction = GeneratedV1Document(raw_prediction["prediction"])
         self.pages = []
         for page in raw_prediction["pages"]:
-            self.pages.append(Page(GeneratedV1Page, page))
+            if page["prediction"]:
+                self.pages.append(Page(GeneratedV1Page, page))
