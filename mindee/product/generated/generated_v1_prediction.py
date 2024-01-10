@@ -2,13 +2,14 @@ from typing import Dict, List, Union
 
 from mindee.parsing.common import Prediction, StringDict, clean_out_string
 from mindee.parsing.custom import GeneratedListField
+from mindee.parsing.custom.generated_object import GeneratedObjectField
 from mindee.parsing.standard.text import StringField
 
 
 class GeneratedV1Prediction(Prediction):
     """Generated V1 document prediction results."""
 
-    fields: Dict[str, Union[GeneratedListField, StringField]]
+    fields: Dict[str, Union[GeneratedListField, StringField, GeneratedObjectField]]
     """Dictionary of all fields in the document"""
 
     def __init__(self, raw_prediction: StringDict) -> None:
@@ -34,15 +35,22 @@ class GeneratedV1Prediction(Prediction):
                 single_fields[field_name] = field_value
         return single_fields
 
-    def get_multiple_fields(self) -> Dict[str, GeneratedListField]:
-        """Returns a dictionary of all collection fields."""
-        multiple_fields = {}
+    def get_list_fields(self) -> Dict[str, GeneratedListField]:
+        """Returns a dictionary of all list-like fields."""
+        list_fields = {}
         for field_name, field_value in self.fields.items():
             if isinstance(field_value, GeneratedListField):
-                multiple_fields[field_name] = field_value
-        return multiple_fields
+                list_fields[field_name] = field_value
+        return list_fields
+
+    def get_object_fields(self) -> Dict[str, GeneratedObjectField]:
+        """Returns a dictionary of all object-like fields."""
+        object_fields = {}
+        for field_name, field_value in self.fields.items():
+            if isinstance(field_value, GeneratedObjectField):
+                object_fields[field_name] = field_value
+        return object_fields
 
     def list_field_names(self) -> List[str]:
-        """Lists names of all field keys."""
+        """Lists names of all top-level field keys."""
         return list(self.fields.keys())
-            
