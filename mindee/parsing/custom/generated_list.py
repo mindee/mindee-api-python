@@ -1,7 +1,11 @@
-from typing import List, Optional
+from typing import List, Optional, Union
 
 from mindee.parsing.common.string_dict import StringDict
-from mindee.parsing.custom.generated_object import GeneratedObjectField
+from mindee.parsing.custom.generated_object import (
+    GeneratedObjectField,
+    is_generated_object,
+)
+from mindee.parsing.standard.text import StringField
 
 
 class GeneratedListField:
@@ -9,7 +13,7 @@ class GeneratedListField:
 
     page_id: Optional[int]
     """Id of the page the object was found on"""
-    values: List[GeneratedObjectField]
+    values: List[Union["GeneratedObjectField", StringField]]
     """List of word values"""
 
     def __init__(
@@ -20,14 +24,17 @@ class GeneratedListField:
         self.values = []
 
         for value in raw_prediction:
-            if "page_id" in value and value["page_id"].isdigit():
-                page_id = int(value["page_id"])
-            self.values.append(GeneratedObjectField(value, page_id))
+            if "page_id" in value and value["page_id"] is not None:
+                page_id = value["page_id"]
+            if is_generated_object(value):
+                self.values.append(GeneratedObjectField(value, page_id))
+            else:
+                self.values.append(StringField(value, page_id=page_id))
 
     @property
     def contents_list(self) -> List[str]:
         """Return a List of the contents of all values."""
-        return [v.value or "" for v in self.values]
+        return [str(v or "") for v in self.values]
 
     def contents_string(self, separator: str = " ") -> str:
         """

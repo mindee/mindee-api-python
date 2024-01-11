@@ -1,8 +1,8 @@
 from typing import Dict, List, Union
 
 from mindee.parsing.common import Prediction, StringDict, clean_out_string
-from mindee.parsing.custom import GeneratedListField
-from mindee.parsing.custom.generated_object import GeneratedObjectField
+from mindee.parsing.custom import GeneratedObjectField
+from mindee.parsing.custom.generated_list import GeneratedListField
 from mindee.parsing.standard.text import StringField
 
 
@@ -24,7 +24,17 @@ class GeneratedV1Prediction(Prediction):
     def __str__(self) -> str:
         out_str = ""
         for field_name, field_value in self.fields.items():
-            out_str += f":{field_name}: {field_value}\n"
+            if (
+                isinstance(field_value, GeneratedListField)
+                and len(field_value.contents_list) > 0
+            ):
+                str_value = str(field_value.contents_list[0]) + "\n"
+                for sub_value in field_value.contents_list[1:]:
+                    str_value += f" { ' ' * (len(field_name)+2) }{sub_value}\n"
+                str_value = str_value.rstrip()
+            else:
+                str_value = str(field_value)
+            out_str += f":{field_name}: {str_value}\n"
         return clean_out_string(out_str)
 
     def get_single_fields(self) -> Dict[str, StringField]:
