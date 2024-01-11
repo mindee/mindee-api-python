@@ -13,7 +13,7 @@ class GeneratedListField:
 
     page_id: Optional[int]
     """Id of the page the object was found on"""
-    values: List[Union["GeneratedObjectField", StringField]]
+    values: List[Union[GeneratedObjectField, StringField]]
     """List of word values"""
 
     def __init__(
