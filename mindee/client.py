@@ -429,7 +429,7 @@ class Client:
     def create_endpoint(
         self,
         endpoint_name: str,
-        account_name: str,
+        account_name: str = "mindee",
         version: Optional[str] = None,
     ) -> Endpoint:
         """

@@ -37,5 +37,19 @@ do
     sed -i "s/my-version/1/" $OUTPUT_FILE
   fi
 
+  if echo "${f}" | grep -q "generated_v1_sync.txt"
+  then
+    sed -i "s/my-account/mindee/" $OUTPUT_FILE
+    sed -i "s/my-endpoint/invoices/" $OUTPUT_FILE
+    sed -i "s/my-version/4/" $OUTPUT_FILE
+  fi
+
+  if echo "${f}" | grep -q "generated_v1_async.txt"
+  then
+    sed -i "s/my-account/mindee/" $OUTPUT_FILE
+    sed -i "s/my-endpoint/invoice_splitter/" $OUTPUT_FILE
+    sed -i "s/my-version/1/" $OUTPUT_FILE
+  fi
+
   python $OUTPUT_FILE
 done
