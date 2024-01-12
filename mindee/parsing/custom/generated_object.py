@@ -18,7 +18,12 @@ class GeneratedObjectField:
         for name, value in raw_prediction.items():
             if name == "page_id":
                 item_page_id = value
-            elif name not in ["confidence", "polygon", "raw_value"]:
+            elif name in ["polygon", "rectangle", "quadrangle", "bounding_box"]:
+                self.__setattr__(
+                    name,
+                    f"Polygon with {len(value)} points." if value is not None else None,
+                )
+            elif name not in ["confidence", "raw_value"]:
                 self.__setattr__(
                     name,
                     str(value) if value is not None else None,
