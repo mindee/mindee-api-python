@@ -24,13 +24,20 @@ class GeneratedV1Prediction(Prediction):
     def __str__(self) -> str:
         out_str = ""
         for field_name, field_value in self.fields.items():
+            str_value = ""
             if (
                 isinstance(field_value, GeneratedListField)
-                and len(field_value.contents_list) > 0
+                and len(field_value.values) > 0
             ):
-                str_value = str(field_value.contents_list[0]) + "\n"
-                for sub_value in field_value.contents_list[1:]:
-                    str_value += f" { ' ' * (len(field_name)+2) }{sub_value}\n"
+                if isinstance(field_value.values[0], GeneratedObjectField):
+                    str_value += str(field_value.values[0])
+                else:
+                    str_value += f"{field_value.values[0]}\n"
+                for sub_value in field_value.values[1:]:
+                    if isinstance(sub_value, GeneratedObjectField):
+                        str_value += str(sub_value)
+                    else:
+                        str_value += f" { ' ' * (len(field_name)+2)}{sub_value}\n"
                 str_value = str_value.rstrip()
             else:
                 str_value = str(field_value)
