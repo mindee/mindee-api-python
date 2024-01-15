@@ -2,8 +2,8 @@ import re
 from typing import Dict, List, Union
 
 from mindee.parsing.common import Prediction, StringDict, clean_out_string
-from mindee.parsing.custom import GeneratedObjectField
-from mindee.parsing.custom.generated_list import GeneratedListField
+from mindee.parsing.generated import GeneratedObjectField
+from mindee.parsing.generated.generated_list import GeneratedListField
 from mindee.parsing.standard.text import StringField
 
 
@@ -33,13 +33,13 @@ class GeneratedV1Prediction(Prediction):
             ):
                 if isinstance(field_value.values[0], GeneratedObjectField):
                     str_value += re.sub(
-                        pattern, r"\1* :", f"{field_value.values[0].__str__(1)}"
+                        pattern, r"\1* :", f"{field_value.values[0]._str_level(1)}"
                     )
                 else:
                     str_value += re.sub(pattern, r"\1* :", f"{field_value.values[0]}\n")
                 for sub_value in field_value.values[1:]:
                     if isinstance(sub_value, GeneratedObjectField):
-                        str_value += re.sub(pattern, r"\1* :", sub_value.__str__(1))
+                        str_value += re.sub(pattern, r"\1* :", sub_value._str_level(1))
                     else:
                         str_value += f" { ' ' * (len(field_name)+2)}{sub_value}\n"
                 str_value = str_value.rstrip()

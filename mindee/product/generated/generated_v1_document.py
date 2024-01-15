@@ -1,8 +1,8 @@
 from typing import Dict, Union
 
 from mindee.parsing.common import StringDict
-from mindee.parsing.custom import GeneratedObjectField, is_generated_object
-from mindee.parsing.custom.generated_list import GeneratedListField
+from mindee.parsing.generated import GeneratedObjectField, is_generated_object
+from mindee.parsing.generated.generated_list import GeneratedListField
 from mindee.parsing.standard.text import StringField
 from mindee.product.generated.generated_v1_prediction import GeneratedV1Prediction
 

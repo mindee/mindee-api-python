@@ -39,9 +39,9 @@ class GeneratedObjectField:
                 )
             self.page_id = page_id or item_page_id
 
-    def __str__(self, level=0) -> str:
+    def _str_level(self, level=0) -> str:
         """
-        String representation.
+        ReSTructured-complient string representation.
 
         Takes into account level of indentation & displays elements as list elements.
 
@@ -59,6 +59,9 @@ class GeneratedObjectField:
                 str_value = str(value) if value is not None else ""
                 out_str += f"\n{indent}:{attr}: {str_value}"
         return "\n" + indent + (out_str.strip())
+
+    def __str__(self) -> str:
+        return self._str_level()
 
 
 def is_generated_object(str_dict: StringDict) -> bool:

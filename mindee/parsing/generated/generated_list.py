@@ -1,7 +1,7 @@
 from typing import List, Optional, Union
 
 from mindee.parsing.common.string_dict import StringDict
-from mindee.parsing.custom.generated_object import (
+from mindee.parsing.generated.generated_object import (
     GeneratedObjectField,
     is_generated_object,
 )
