@@ -7,4 +7,5 @@ Parsing Utilities
     ./standard
     ./common
     ./custom
+    ./generated
 

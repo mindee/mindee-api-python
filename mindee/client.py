@@ -227,32 +227,23 @@ class Client:
         """
         Enqueues to an asynchronous endpoint and automatically polls for a response.
 
-        :param product_class: The document class to use.
-            The response object will be instantiated based on this parameter.
+        :param product_class: The document class to use. The response object will be instantiated based on this parameter.
 
-        :param input_source: The document/source file to use.
-            Has to be created beforehand.
+        :param input_source: The document/source file to use. Has to be created beforehand.
 
-        :param include_words: Whether to include the full text for each page.
-            This performs a full OCR operation on the server and will increase response time.
+        :param include_words: Whether to include the full text for each page. This performs a full OCR operation on the server and will increase response time.
 
-        :param close_file: Whether to ``close()`` the file after parsing it.
-          Set to ``False`` if you need to access the file after this operation.
+        :param close_file: Whether to ``close()`` the file after parsing it. Set to ``False`` if you need to access the file after this operation.
 
-        :param page_options: If set, remove pages from the document as specified.
-            This is done before sending the file to the server.
-             It is useful to avoid page limitations.
+        :param page_options: If set, remove pages from the document as specified. This is done before sending the file to the server. It is useful to avoid page limitations.
 
-        :param cropper: Whether to include cropper results for each page.
-            This performs a cropping operation on the server and will increase response time.
+        :param cropper: Whether to include cropper results for each page. This performs a cropping operation on the server and will increase response time.
 
         :param endpoint: For custom endpoints, an endpoint has to be given.
 
-        :param initial_delay_sec: Delay between each polling attempts
-            This should not be shorter than 4 seconds.
+        :param initial_delay_sec: Delay between each polling attempts This should not be shorter than 4 seconds.
 
-        :param delay_sec: Delay between each polling attempts
-            This should not be shorter than 2 seconds.
+        :param delay_sec: Delay between each polling attempts This should not be shorter than 2 seconds.
 
         :param max_retries: Total amount of polling attempts.
         """

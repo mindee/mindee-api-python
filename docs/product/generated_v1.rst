@@ -1,12 +1,15 @@
 Generated V1
 ------------
 
-**Sample Code:**
 
-.. literalinclude:: /extras/code_samples/generated_v1_sync.txt
+**Sample Code (sync):**
+
+.. literalinclude:: /extras/code_samples/default.txt
     :language: Python
 
-.. literalinclude:: /extras/code_samples/generated_v1_async.txt
+**Sample Code (async):**
+
+.. literalinclude:: /extras/code_samples/default_async.txt
     :language: Python
 
 .. autoclass:: mindee.product.generated.generated_v1.GeneratedV1
@@ -18,9 +21,5 @@ Generated V1
     :inherited-members:
 
 .. autoclass:: mindee.product.generated.generated_v1.GeneratedV1Page
-    :members:
-    :inherited-members:
-
-.. autoclass:: mindee.product.generated.generated_v1.GeneratedV1Prediction
     :members:
     :inherited-members:
