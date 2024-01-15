@@ -1,13 +1,18 @@
 from typing import Optional
 
 from mindee.parsing.common.string_dict import StringDict
+from mindee.parsing.standard.position import PositionField
 
 
 class GeneratedObjectField:
     """A JSON-like object, with miscellaneous values."""
 
     page_id: Optional[int]
-    """Id of the page the object was found on"""
+    """Id of the page the object was found on."""
+    confidence: Optional[float]
+    """Confidence with which the value was assessed."""
+    raw_value: Optional[str]
+    """Raw unprocessed value, as it was sent by the server."""
 
     def __init__(
         self,
@@ -21,9 +26,13 @@ class GeneratedObjectField:
             elif name in ["polygon", "rectangle", "quadrangle", "bounding_box"]:
                 self.__setattr__(
                     name,
-                    f"Polygon with {len(value)} points." if value is not None else None,
+                    PositionField({name: value}, value_key=name, page_id=item_page_id),
                 )
-            elif name not in ["confidence", "raw_value"]:
+            elif name == "confidence":
+                self.confidence = value
+            elif name == "raw_value":
+                self.raw_value = value
+            else:
                 self.__setattr__(
                     name,
                     str(value) if value is not None else None,
@@ -41,7 +50,11 @@ class GeneratedObjectField:
         indent = "  " + "  " * level
         out_str = ""
         for attr in dir(self):
-            if not attr.startswith("__") and attr != "page_id":
+            if not attr.startswith("_") and attr not in [
+                "page_id",
+                "confidence",
+                "raw_value",
+            ]:
                 value = self.__getattribute__(attr)
                 str_value = str(value) if value is not None else ""
                 out_str += f"\n{indent}:{attr}: {str_value}"

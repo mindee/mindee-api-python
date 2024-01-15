@@ -1,45 +1,29 @@
-import json
-import requests
-from time import sleep
+from mindee import Client, PredictResponse, product
 
-api_key = "my-api-key"
-account = "my-account"
-endpoint = "my-endpoint"
-version = "my-version"
+# Init a new client
+mindee_client = Client(api_key="my-api-key")
 
-url_enqueue = f"https://api.mindee.net/v1/products/{account}/{endpoint}/v{version}/predict_async"
-headers = {"Authorization": f"Token {api_key}"}
+# Add the corresponding endpoint (document). Set the account_name to "mindee" if you are using OTS.
+my_endpoint = mindee_client.create_endpoint(
+    account_name="my-account",
+    endpoint_name="my-endpoint",
+    version="my-version"
+)
 
-with open("/path/to/the/file.ext", "rb") as file_handle:
-    files = {"document": file_handle}
-    response_enqueue = requests.post(url_enqueue, files=files, headers=headers)
+# Load a file from disk
+input_doc = mindee_client.source_from_path("/path/to/the/file.ext")
 
-json_response_enqueue = response_enqueue.json()
+# Parse the file.
+# The endpoint must be specified since it cannot be determined from the class.
+result: PredictResponse = mindee_client.enqueue_and_parse(
+    product.GeneratedV1,
+    input_doc,
+    endpoint=my_endpoint
+)
 
-if not response_enqueue.ok:
-    raise RuntimeError(json_response_enqueue["api_request"]["error"])
+# Print a brief summary of the parsed data
+print(result.document)
 
-job_id = json_response_enqueue["job"]["id"]
-
-url_parse_queued = f"https://api.mindee.net/v1/products/{account}/{endpoint}/v{version}/documents/queue/{job_id}"
-sleep(4)
-tries = 0
-job_status = ""
-while tries < 30:
-    response_parse = requests.get(url_parse_queued, headers=headers)
-    if not response_parse.ok:
-        raise RuntimeError(json_response_enqueue["api_request"]["error"])
-    json_response_parse = response_parse.json()
-    job_status = json_response_parse["job"]["status"]
-    if job_status == "completed":
-        break
-    else:
-        print(json_response_parse["job"])
-
-    tries += 1
-    sleep(2)
-
-if job_status != "completed":
-    raise RuntimeError(f"Async parsing timed out after {tries} tries")
-
-print(json.dumps(json_response_parse["document"], indent=2))
+# # Iterate over all the fields in the document
+# for field_name, field_values in result.document.inference.prediction.fields.items():
+#     print(field_name, "=", field_values)

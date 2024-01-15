@@ -1,21 +1,29 @@
-import json
-import requests
+from mindee import Client, PredictResponse, product
 
-api_key = "my-api-key"
-account = "my-account"
-endpoint = "my-endpoint"
-version = "my-version"
+# Init a new client
+mindee_client = Client(api_key="my-api-key")
 
-url = f"https://api.mindee.net/v1/products/{account}/{endpoint}/v{version}/predict"
+# Add the corresponding endpoint (document). Set the account_name to "mindee" if you are using OTS.
+my_endpoint = mindee_client.create_endpoint(
+    account_name="my-account",
+    endpoint_name="my-endpoint",
+    version="my-version"
+)
 
-with open("/path/to/the/file.ext", "rb") as file_handle:
-    files = {"document": file_handle}
-    headers = {"Authorization": f"Token {api_key}"}
-    response = requests.post(url, files=files, headers=headers)
+# Load a file from disk
+input_doc = mindee_client.source_from_path("/path/to/the/file.ext")
 
-json_response = response.json()
+# Parse the file.
+# The endpoint must be specified since it cannot be determined from the class.
+result: PredictResponse = mindee_client.parse(
+    product.GeneratedV1,
+    input_doc,
+    endpoint=my_endpoint
+)
 
-if not response.ok:
-    raise RuntimeError(json_response["api_request"]["error"])
+# Print a brief summary of the parsed data
+print(result.document)
 
-print(json.dumps(json_response["document"], indent=2))
+# # Iterate over all the fields in the document
+# for field_name, field_values in result.document.inference.prediction.fields.items():
+#     print(field_name, "=", field_values)
