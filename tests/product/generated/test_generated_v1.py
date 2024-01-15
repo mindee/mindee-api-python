@@ -19,7 +19,8 @@ def international_id_v1_complete_doc() -> (
             PRODUCT_DATA_DIR
             / "generated"
             / "response_v1"
-            / "complete_international_id_v1.json"
+            / "complete_international_id_v1.json",
+            encoding="utf-8",
         )
     )
     return Document(GeneratedV1, json_data["document"])
@@ -34,7 +35,8 @@ def international_id_v1_empty_doc() -> (
             PRODUCT_DATA_DIR
             / "generated"
             / "response_v1"
-            / "empty_international_id_v1.json"
+            / "empty_international_id_v1.json",
+            encoding="utf-8",
         )
     )
 
@@ -44,7 +46,10 @@ def international_id_v1_empty_doc() -> (
 @pytest.fixture
 def invoice_v4_empty_doc() -> Document[GeneratedV1Document, Page[GeneratedV1Page]]:
     json_data = json.load(
-        open(PRODUCT_DATA_DIR / "generated" / "response_v1" / "empty_invoice_v4.json")
+        open(
+            PRODUCT_DATA_DIR / "generated" / "response_v1" / "empty_invoice_v4.json",
+            encoding="utf-8",
+        )
     )
     return Document(GeneratedV1, json_data["document"])
 
@@ -53,7 +58,8 @@ def invoice_v4_empty_doc() -> Document[GeneratedV1Document, Page[GeneratedV1Page
 def invoice_v4_complete_doc() -> Document[GeneratedV1Document, Page[GeneratedV1Page]]:
     json_data = json.load(
         open(
-            PRODUCT_DATA_DIR / "generated" / "response_v1" / "complete_invoice_v4.json"
+            PRODUCT_DATA_DIR / "generated" / "response_v1" / "complete_invoice_v4.json",
+            encoding="utf-8",
         )
     )
     return Document(GeneratedV1, json_data["document"])
@@ -63,7 +69,8 @@ def invoice_v4_complete_doc() -> Document[GeneratedV1Document, Page[GeneratedV1P
 def invoice_v4_page_0() -> Document[GeneratedV1Document, Page[GeneratedV1Page]]:
     json_data = json.load(
         open(
-            PRODUCT_DATA_DIR / "generated" / "response_v1" / "complete_invoice_v4.json"
+            PRODUCT_DATA_DIR / "generated" / "response_v1" / "complete_invoice_v4.json",
+            encoding="utf-8",
         )
     )
     return Page(GeneratedV1Page, json_data["document"]["inference"]["pages"][0])
@@ -74,7 +81,8 @@ def test_international_id_v1_empty_doc(international_id_v1_empty_doc) -> None:
         PRODUCT_DATA_DIR
         / "generated"
         / "response_v1"
-        / "summary_empty_international_id_v1.rst"
+        / "summary_empty_international_id_v1.rst",
+        encoding="utf-8",
     ).read()
     assert str(international_id_v1_empty_doc) == doc_str
 
@@ -84,27 +92,31 @@ def test_international_id_v1_complete_doc(international_id_v1_complete_doc) -> N
         PRODUCT_DATA_DIR
         / "generated"
         / "response_v1"
-        / "summary_full_international_id_v1.rst"
+        / "summary_full_international_id_v1.rst",
+        encoding="utf-8",
     ).read()
     assert str(international_id_v1_complete_doc) == doc_str
 
 
 def test_invoice_v4_complete_doc(invoice_v4_complete_doc) -> None:
     doc_str = open(
-        PRODUCT_DATA_DIR / "generated" / "response_v1" / "summary_full_invoice_v4.rst"
+        PRODUCT_DATA_DIR / "generated" / "response_v1" / "summary_full_invoice_v4.rst",
+        encoding="utf-8",
     ).read()
     assert str(invoice_v4_complete_doc) == doc_str
 
 
 def test_invoice_v4_page0(invoice_v4_page_0) -> None:
     doc_str = open(
-        PRODUCT_DATA_DIR / "generated" / "response_v1" / "summary_page0_invoice_v4.rst"
+        PRODUCT_DATA_DIR / "generated" / "response_v1" / "summary_page0_invoice_v4.rst",
+        encoding="utf-8",
     ).read()
     assert str(invoice_v4_page_0) == doc_str
 
 
 def test_invoice_v4_empty_doc(invoice_v4_empty_doc) -> None:
     doc_str = open(
-        PRODUCT_DATA_DIR / "generated" / "response_v1" / "summary_empty_invoice_v4.rst"
+        PRODUCT_DATA_DIR / "generated" / "response_v1" / "summary_empty_invoice_v4.rst",
+        encoding="utf-8",
     ).read()
     assert str(invoice_v4_empty_doc) == doc_str
