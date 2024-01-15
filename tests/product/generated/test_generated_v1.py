@@ -7,6 +7,7 @@ from mindee.parsing.common.page import Page
 from mindee.parsing.generated.generated_list import GeneratedListField
 from mindee.parsing.generated.generated_object import GeneratedObjectField
 from mindee.parsing.standard.position import PositionField
+from mindee.parsing.standard.text import StringField
 from mindee.product.generated.generated_v1 import GeneratedV1
 from mindee.product.generated.generated_v1_document import GeneratedV1Document
 from mindee.product.generated.generated_v1_page import GeneratedV1Page
@@ -155,6 +156,14 @@ def test_invoice_v4_complete_doc(invoice_v4_complete_doc) -> None:
     assert isinstance(
         invoice_v4_complete_doc.inference.prediction.fields["locale"],
         GeneratedObjectField,
+    )
+    assert isinstance(
+        invoice_v4_complete_doc.inference.prediction.fields["locale"].currency,
+        str,
+    )
+    assert isinstance(
+        invoice_v4_complete_doc.inference.prediction.fields["document_type"],
+        StringField,
     )
     assert isinstance(
         invoice_v4_complete_doc.inference.prediction.fields[
