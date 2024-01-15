@@ -55,7 +55,7 @@ class GeneratedObjectField:
                 "confidence",
                 "raw_value",
             ]:
-                value = self.__getattribute__(attr)
+                value = getattr(self, attr)
                 str_value = str(value) if value is not None else ""
                 out_str += f"\n{indent}:{attr}: {str_value}"
         return "\n" + indent + (out_str.strip())
