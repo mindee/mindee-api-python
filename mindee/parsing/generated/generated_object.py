@@ -23,7 +23,7 @@ class GeneratedObjectField:
         for name, value in raw_prediction.items():
             if name == "page_id":
                 item_page_id = value
-            elif name in ["polygon", "rectangle", "quadrangle", "bounding_box"]:
+            elif name in ("polygon", "rectangle", "quadrangle", "bounding_box"):
                 self.__setattr__(
                     name,
                     PositionField({name: value}, value_key=name, page_id=item_page_id),
