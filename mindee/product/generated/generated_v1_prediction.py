@@ -1,3 +1,4 @@
+import re
 from typing import Dict, List, Union
 
 from mindee.parsing.common import Prediction, StringDict, clean_out_string
@@ -23,6 +24,7 @@ class GeneratedV1Prediction(Prediction):
 
     def __str__(self) -> str:
         out_str = ""
+        pattern = re.compile(r"^(\n*[  ]*)( {2}):")
         for field_name, field_value in self.fields.items():
             str_value = ""
             if (
@@ -30,12 +32,14 @@ class GeneratedV1Prediction(Prediction):
                 and len(field_value.values) > 0
             ):
                 if isinstance(field_value.values[0], GeneratedObjectField):
-                    str_value += str(field_value.values[0])
+                    str_value += re.sub(
+                        pattern, r"\1* :", f"{field_value.values[0].__str__(1)}"
+                    )
                 else:
-                    str_value += f"{field_value.values[0]}\n"
+                    str_value += re.sub(pattern, r"\1* :", f"{field_value.values[0]}\n")
                 for sub_value in field_value.values[1:]:
                     if isinstance(sub_value, GeneratedObjectField):
-                        str_value += str(sub_value)
+                        str_value += re.sub(pattern, r"\1* :", sub_value.__str__(1))
                     else:
                         str_value += f" { ' ' * (len(field_name)+2)}{sub_value}\n"
                 str_value = str_value.rstrip()

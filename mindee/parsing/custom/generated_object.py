@@ -44,8 +44,8 @@ class GeneratedObjectField:
             if not attr.startswith("__") and attr != "page_id":
                 value = self.__getattribute__(attr)
                 str_value = str(value) if value is not None else ""
-                out_str += f"\n  {indent}:{attr}: {str_value}"
-        return "\n" + indent + "* " + (out_str.strip())
+                out_str += f"\n{indent}:{attr}: {str_value}"
+        return "\n" + indent + (out_str.strip())
 
 
 def is_generated_object(str_dict: StringDict) -> bool:
