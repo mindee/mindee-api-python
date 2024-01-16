@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import List, Optional
 
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.standard.position import PositionField
@@ -13,6 +13,8 @@ class GeneratedObjectField:
     """Confidence with which the value was assessed."""
     raw_value: Optional[str]
     """Raw unprocessed value, as it was sent by the server."""
+    __printable_values: List[str]
+    """List of all printable field names."""
 
     def __init__(
         self,
@@ -20,6 +22,7 @@ class GeneratedObjectField:
         page_id: Optional[int] = None,
     ) -> None:
         item_page_id = None
+        self.__printable_values = []
         for name, value in raw_prediction.items():
             if name == "page_id":
                 item_page_id = value
@@ -28,6 +31,7 @@ class GeneratedObjectField:
                     name,
                     PositionField({name: value}, value_key=name, page_id=item_page_id),
                 )
+                self.__printable_values.append(name)
             elif name == "confidence":
                 self.confidence = value
             elif name == "raw_value":
@@ -37,6 +41,7 @@ class GeneratedObjectField:
                     name,
                     str(value) if value is not None else None,
                 )
+                self.__printable_values.append(name)
             self.page_id = page_id or item_page_id
 
     def _str_level(self, level=0) -> str:
@@ -49,15 +54,10 @@ class GeneratedObjectField:
         """
         indent = "  " + "  " * level
         out_str = ""
-        for attr in dir(self):
-            if not attr.startswith("_") and attr not in [
-                "page_id",
-                "confidence",
-                "raw_value",
-            ]:
-                value = getattr(self, attr)
-                str_value = str(value) if value is not None else ""
-                out_str += f"\n{indent}:{attr}: {str_value}"
+        for attr in self.__printable_values:
+            value = getattr(self, attr)
+            str_value = str(value) if value is not None else ""
+            out_str += f"\n{indent}:{attr}: {str_value}"
         return "\n" + indent + (out_str.strip())
 
     def __str__(self) -> str:
