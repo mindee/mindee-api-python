@@ -29,7 +29,15 @@ class GeneratedListField:
             if is_generated_object(value):
                 self.values.append(GeneratedObjectField(value, page_id))
             else:
-                self.values.append(StringField(value, page_id=page_id))
+                value_str = value
+                if "value" in value_str and value_str["value"] is not None:
+                    value_str["value"] = str(value_str["value"])
+                self.values.append(
+                    StringField(
+                        value_str,
+                        page_id=page_id,
+                    )
+                )
 
     @property
     def contents_list(self) -> List[str]:

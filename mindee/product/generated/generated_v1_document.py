@@ -28,4 +28,12 @@ class GeneratedV1Document(GeneratedV1Prediction):
             ):
                 self.fields[field_name] = GeneratedObjectField(field_contents)
             else:
-                self.fields[field_name] = StringField(field_contents)
+                field_contents_str = field_contents
+                if (
+                    "value" in field_contents_str
+                    and field_contents_str["value"] is not None
+                ):
+                    field_contents_str["value"] = str(
+                        field_contents_str["value"]
+                    )  # str cohersion for numbers
+                self.fields[field_name] = StringField(field_contents_str)
