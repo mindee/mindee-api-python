@@ -1,5 +1,19 @@
 # Mindee Python API Library Changelog
 
+# v4.2.0 - 2024-01-18
+### Changes
+* :sparkles: add support for International ID V1
+* :sparkles: add support for Generated APIs
+* :sparkles: add custom associated classes & namespace for Generated APIs
+* :memo: update sample codes for default usage
+* :memo: add documentation for Generated APIs
+
+### Fixes
+* :bug: fix sphinx doc from mistakenly looking for static files
+* :bug: fix default async config to avoid timeouts on larger files
+* :bug: fix for build badges
+
+
 ## v4.1.0 - 2023-10-17
 ### Changes
 * :test_tube: optimize CI + add retry mechanism
