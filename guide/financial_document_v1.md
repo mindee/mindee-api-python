@@ -22,10 +22,6 @@ result: PredictResponse = mindee_client.parse(product.FinancialDocumentV1, input
 
 # Print a brief summary of the parsed data
 print(result.document)
-
-# # Iterate over all the fields in the document
-# for field_name, field_values in result.document.inference.prediction.fields.items():
-#     print(field_name, "=", field_values)
 ```
 
 **Output (RST):**
@@ -72,7 +68,7 @@ Prediction
 :Purchase Time: 20:20
 :Line Items:
   +--------------------------------------+--------------+----------+------------+--------------+--------------+------------+
-  | Description                          | Product Code | Quantity | Tax Amount | Tax Rate (%) | Total Amount | Unit Price |
+  | Description                          | Product code | Quantity | Tax Amount | Tax Rate (%) | Total Amount | Unit Price |
   +======================================+==============+==========+============+==============+==============+============+
   | TAX                                  |              |          |            |              | 3.34         |            |
   +--------------------------------------+--------------+----------+------------+--------------+--------------+------------+
@@ -111,7 +107,7 @@ Page 0
 :Purchase Time: 20:20
 :Line Items:
   +--------------------------------------+--------------+----------+------------+--------------+--------------+------------+
-  | Description                          | Product Code | Quantity | Tax Amount | Tax Rate (%) | Total Amount | Unit Price |
+  | Description                          | Product code | Quantity | Tax Amount | Tax Rate (%) | Total Amount | Unit Price |
   +======================================+==============+==========+============+==============+==============+============+
   | TAX                                  |              |          |            |              | 3.34         |            |
   +--------------------------------------+--------------+----------+------------+--------------+--------------+------------+
@@ -130,7 +126,7 @@ A typical `BaseField` object will have the following attributes:
 * **bounding_box** (`[Point, Point, Point, Point]`): contains exactly 4 relative vertices (points) coordinates of a right rectangle containing the field in the document.
 * **polygon** (`List[Point]`): contains the relative vertices coordinates (`Point`) of a polygon containing the field in the image.
 * **page_id** (`int`): the ID of the page, is `None` when at document-level.
-* **reconstructed** (`bool`): indicates whether or not an object was reconstructed (not extracted as the API gave it).
+* **reconstructed** (`bool`): indicates whether an object was reconstructed (not extracted as the API gave it).
 
 > **Note:** A `Point` simply refers to a List of two numbers (`[float, float]`).
 

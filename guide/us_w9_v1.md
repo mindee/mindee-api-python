@@ -22,10 +22,6 @@ result: PredictResponse = mindee_client.parse(product.us.W9V1, input_doc)
 
 # Print a brief summary of the parsed data
 print(result.document)
-
-# # Iterate over all the fields in the document
-# for field_name, field_values in result.document.inference.prediction.fields.items():
-#     print(field_name, "=", field_values)
 ```
 
 **Output (RST):**
@@ -76,7 +72,7 @@ A typical `BaseField` object will have the following attributes:
 * **bounding_box** (`[Point, Point, Point, Point]`): contains exactly 4 relative vertices (points) coordinates of a right rectangle containing the field in the document.
 * **polygon** (`List[Point]`): contains the relative vertices coordinates (`Point`) of a polygon containing the field in the image.
 * **page_id** (`int`): the ID of the page, is `None` when at document-level.
-* **reconstructed** (`bool`): indicates whether or not an object was reconstructed (not extracted as the API gave it).
+* **reconstructed** (`bool`): indicates whether an object was reconstructed (not extracted as the API gave it).
 
 > **Note:** A `Point` simply refers to a List of two numbers (`[float, float]`).
 
@@ -103,7 +99,7 @@ The following fields are extracted for W9 V1:
 [📄](#page-level-fields "This field is only present on individual pages.")**address** ([StringField](#stringfield)): The street address (number, street, and apt. or suite no.) of the applicant.
 
 ```py
-for address_elem of result.document.address:
+for address_elem in result.document.address:
     print(address_elem.value)
 ```
 
@@ -111,7 +107,7 @@ for address_elem of result.document.address:
 [📄](#page-level-fields "This field is only present on individual pages.")**business_name** ([StringField](#stringfield)): The business name or disregarded entity name, if different from Name.
 
 ```py
-for business_name_elem of result.document.business_name:
+for business_name_elem in result.document.business_name:
     print(business_name_elem.value)
 ```
 
@@ -119,7 +115,7 @@ for business_name_elem of result.document.business_name:
 [📄](#page-level-fields "This field is only present on individual pages.")**city_state_zip** ([StringField](#stringfield)): The city, state, and ZIP code of the applicant.
 
 ```py
-for city_state_zip_elem of result.document.city_state_zip:
+for city_state_zip_elem in result.document.city_state_zip:
     print(city_state_zip_elem.value)
 ```
 
@@ -127,7 +123,7 @@ for city_state_zip_elem of result.document.city_state_zip:
 [📄](#page-level-fields "This field is only present on individual pages.")**ein** ([StringField](#stringfield)): The employer identification number.
 
 ```py
-for ein_elem of result.document.ein:
+for ein_elem in result.document.ein:
     print(ein_elem.value)
 ```
 
@@ -135,7 +131,7 @@ for ein_elem of result.document.ein:
 [📄](#page-level-fields "This field is only present on individual pages.")**name** ([StringField](#stringfield)): Name as shown on the applicant's income tax return.
 
 ```py
-for name_elem of result.document.name:
+for name_elem in result.document.name:
     print(name_elem.value)
 ```
 
@@ -143,7 +139,7 @@ for name_elem of result.document.name:
 [📄](#page-level-fields "This field is only present on individual pages.")**signature_date_position** ([PositionField](#positionfield)): Position of the signature date on the document.
 
 ```py
-for signature_date_position_elem of result.document.signature_date_position:
+for signature_date_position_elem in result.document.signature_date_position:
     print(signature_date_position_elem.polygon)
 ```
 
@@ -151,7 +147,7 @@ for signature_date_position_elem of result.document.signature_date_position:
 [📄](#page-level-fields "This field is only present on individual pages.")**signature_position** ([PositionField](#positionfield)): Position of the signature on the document.
 
 ```py
-for signature_position_elem of result.document.signature_position:
+for signature_position_elem in result.document.signature_position:
     print(signature_position_elem.polygon)
 ```
 
@@ -159,7 +155,7 @@ for signature_position_elem of result.document.signature_position:
 [📄](#page-level-fields "This field is only present on individual pages.")**ssn** ([StringField](#stringfield)): The applicant's social security number.
 
 ```py
-for ssn_elem of result.document.ssn:
+for ssn_elem in result.document.ssn:
     print(ssn_elem.value)
 ```
 
@@ -167,7 +163,7 @@ for ssn_elem of result.document.ssn:
 [📄](#page-level-fields "This field is only present on individual pages.")**tax_classification** ([StringField](#stringfield)): The federal tax classification, which can vary depending on the revision date.
 
 ```py
-for tax_classification_elem of result.document.tax_classification:
+for tax_classification_elem in result.document.tax_classification:
     print(tax_classification_elem.value)
 ```
 
@@ -175,7 +171,7 @@ for tax_classification_elem of result.document.tax_classification:
 [📄](#page-level-fields "This field is only present on individual pages.")**tax_classification_llc** ([StringField](#stringfield)): Depending on revision year, among S, C, P or D for Limited Liability Company Classification.
 
 ```py
-for tax_classification_llc_elem of result.document.tax_classification_llc:
+for tax_classification_llc_elem in result.document.tax_classification_llc:
     print(tax_classification_llc_elem.value)
 ```
 
@@ -183,7 +179,7 @@ for tax_classification_llc_elem of result.document.tax_classification_llc:
 [📄](#page-level-fields "This field is only present on individual pages.")**tax_classification_other_details** ([StringField](#stringfield)): Tax Classification Other Details.
 
 ```py
-for tax_classification_other_details_elem of result.document.tax_classification_other_details:
+for tax_classification_other_details_elem in result.document.tax_classification_other_details:
     print(tax_classification_other_details_elem.value)
 ```
 
@@ -191,7 +187,7 @@ for tax_classification_other_details_elem of result.document.tax_classification_
 [📄](#page-level-fields "This field is only present on individual pages.")**w9_revision_date** ([StringField](#stringfield)): The Revision month and year of the W9 form.
 
 ```py
-for w9_revision_date_elem of result.document.w9_revision_date:
+for w9_revision_date_elem in result.document.w9_revision_date:
     print(w9_revision_date_elem.value)
 ```
 

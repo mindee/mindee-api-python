@@ -22,10 +22,6 @@ result: PredictResponse = mindee_client.parse(product.us.DriverLicenseV1, input_
 
 # Print a brief summary of the parsed data
 print(result.document)
-
-# # Iterate over all the fields in the document
-# for field_name, field_values in result.document.inference.prediction.fields.items():
-#     print(field_name, "=", field_values)
 ```
 
 **Output (RST):**
@@ -100,7 +96,7 @@ A typical `BaseField` object will have the following attributes:
 * **bounding_box** (`[Point, Point, Point, Point]`): contains exactly 4 relative vertices (points) coordinates of a right rectangle containing the field in the document.
 * **polygon** (`List[Point]`): contains the relative vertices coordinates (`Point`) of a polygon containing the field in the image.
 * **page_id** (`int`): the ID of the page, is `None` when at document-level.
-* **reconstructed** (`bool`): indicates whether or not an object was reconstructed (not extracted as the API gave it).
+* **reconstructed** (`bool`): indicates whether an object was reconstructed (not extracted as the API gave it).
 
 > **Note:** A `Point` simply refers to a List of two numbers (`[float, float]`).
 
@@ -223,7 +219,7 @@ print(result.document.inference.prediction.last_name.value)
 [📄](#page-level-fields "This field is only present on individual pages.")**photo** ([PositionField](#positionfield)): Has a photo of the US driver license holder
 
 ```py
-for photo_elem of result.document.photo:
+for photo_elem in result.document.photo:
     print(photo_elem.polygon)
 ```
 
@@ -245,7 +241,7 @@ print(result.document.inference.prediction.sex.value)
 [📄](#page-level-fields "This field is only present on individual pages.")**signature** ([PositionField](#positionfield)): Has a signature of the US driver license holder
 
 ```py
-for signature_elem of result.document.signature:
+for signature_elem in result.document.signature:
     print(signature_elem.polygon)
 ```
 

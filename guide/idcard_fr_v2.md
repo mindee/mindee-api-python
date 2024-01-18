@@ -22,10 +22,6 @@ result: PredictResponse = mindee_client.parse(product.fr.IdCardV2, input_doc)
 
 # Print a brief summary of the parsed data
 print(result.document)
-
-# # Iterate over all the fields in the document
-# for field_name, field_values in result.document.inference.prediction.fields.items():
-#     print(field_name, "=", field_values)
 ```
 
 **Output (RST):**
@@ -98,7 +94,7 @@ A typical `BaseField` object will have the following attributes:
 * **bounding_box** (`[Point, Point, Point, Point]`): contains exactly 4 relative vertices (points) coordinates of a right rectangle containing the field in the document.
 * **polygon** (`List[Point]`): contains the relative vertices coordinates (`Point`) of a polygon containing the field in the image.
 * **page_id** (`int`): the ID of the page, is `None` when at document-level.
-* **reconstructed** (`bool`): indicates whether or not an object was reconstructed (not extracted as the API gave it).
+* **reconstructed** (`bool`): indicates whether an object was reconstructed (not extracted as the API gave it).
 
 > **Note:** A `Point` simply refers to a List of two numbers (`[float, float]`).
 
@@ -171,7 +167,7 @@ print(result.document.inference.prediction.document_number.value)
 [📄](#page-level-fields "This field is only present on individual pages.")**document_side** ([ClassificationField](#classificationfield)): The sides of the document which are visible.
 
 ```py
-for document_side_elem of result.document.document_side:
+for document_side_elem in result.document.document_side:
     print(document_side_elem.value)
 ```
 
@@ -179,7 +175,7 @@ for document_side_elem of result.document.document_side:
 [📄](#page-level-fields "This field is only present on individual pages.")**document_type** ([ClassificationField](#classificationfield)): The document type or format.
 
 ```py
-for document_type_elem of result.document.document_type:
+for document_type_elem in result.document.document_type:
     print(document_type_elem.value)
 ```
 

@@ -12,15 +12,17 @@ from mindee import Client, product
 # Init a new client
 mindee_client = Client(api_key="my-api-key")
 
-# Load a file from disk
-input_doc = mindee_client.source_from_path("/path/to/the/file.ext")
+# Add your custom endpoint (document)
 my_endpoint = mindee_client.create_endpoint(
+    account_name="my-account",
     endpoint_name="my-endpoint",
-    account_name="my-account-name",
-    version="my-version",
 )
 
-# Parse the document as an invoice by passing the appropriate type
+# Load a file from disk
+input_doc = mindee_client.source_from_path("/path/to/the/file.ext")
+
+# Parse the file.
+# The endpoint must be specified since it cannot be determined from the class.
 result = mindee_client.parse(
     product.CustomV1,
     input_doc,
@@ -29,6 +31,10 @@ result = mindee_client.parse(
 
 # Print a brief summary of the parsed data
 print(result.document)
+
+# Iterate over all the fields in the document
+for field_name, field_values in result.document.fields.items():
+    print(field_name, "=", field_values)
 ```
 
 # Custom Endpoints
@@ -47,7 +53,6 @@ If it is not set, it will default to "1".
 
 A `ListField` is a special type of custom list that implements the following:
 
-
 * **confidence** (`float`): the confidence score of the field prediction.
 * **reconstructed** (`bool`): indicates whether or not an object was reconstructed (not extracted as the API gave it).
 * **values** (`List[`[ListFieldValue](#list-field-value)`]`): list of value fields
@@ -65,7 +70,7 @@ Values of `ListField`s are stored in a `ListFieldValue` structure, which is impl
 * **confidence** (`float`): the confidence score of the prediction
 * **bounding_box** (`BBox`): 4 relative vertices corrdinates of a rectangle containing the word in the document.
 * **polygon** (`Polygon`): vertices of a polygon containing the word.
-* **page_id** (`int`): the ID of the page, is `undefined` when at document-level.
+* **page_id** (`int`): the ID of the page, is `None` when at document-level.
 
 
 ### Classification Field

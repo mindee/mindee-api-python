@@ -20,8 +20,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Invoice Splitter V1" href="invoice_splitter_v1.html" />
-    <link rel="prev" title="Cropper V1" href="cropper_v1.html" /> 
+    <link rel="next" title="Generated V1" href="generated_v1.html" />
+    <link rel="prev" title="Custom V1" href="custom_v1.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -52,12 +52,15 @@
 <li class="toctree-l2 current"><a class="reference internal" href="index.html#international">International</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="barcode_reader_v1.html">Barcode Reader V1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cropper_v1.html">Cropper V1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="custom_v1.html">Custom V1</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Financial Document V1</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.product.financial_document.financial_document_v1.FinancialDocumentV1"><code class="docutils literal notranslate"><span class="pre">FinancialDocumentV1</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document"><code class="docutils literal notranslate"><span class="pre">FinancialDocumentV1Document</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem"><code class="docutils literal notranslate"><span class="pre">FinancialDocumentV1LineItem</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="generated_v1.html">Generated V1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="international_id_v1.html">International ID V1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="invoice_splitter_v1.html">Invoice Splitter V1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="invoice_v4.html">Invoice V4</a></li>
 <li class="toctree-l3"><a class="reference internal" href="material_certificate_v1.html">Material Certificate V1</a></li>
@@ -115,10 +118,6 @@
 
 <span class="c1"># Print a brief summary of the parsed data</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">document</span><span class="p">)</span>
-
-<span class="c1"># # Iterate over all the fields in the document</span>
-<span class="c1"># for field_name, field_values in result.document.inference.prediction.fields.items():</span>
-<span class="c1">#     print(field_name, &quot;=&quot;, field_values)</span>
 </pre></div>
 </div>
 <dl class="py class">
@@ -360,6 +359,18 @@
 </dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.bounding_box">
+<span class="sig-name descname"><span class="pre">bounding_box</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[Quadrilateral]</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.bounding_box" title="Permalink to this definition"></a></dt>
+<dd><p>A right rectangle containing the word in the document.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.confidence">
+<span class="sig-name descname"><span class="pre">confidence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.confidence" title="Permalink to this definition"></a></dt>
+<dd><p>The confidence score.</p>
+</dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.description">
 <span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.description" title="Permalink to this definition"></a></dt>
 <dd><p>The item description.</p>
@@ -369,6 +380,12 @@
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.page_n">
 <span class="sig-name descname"><span class="pre">page_n</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.page_n" title="Permalink to this definition"></a></dt>
 <dd><p>The document page on which the information was found.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.polygon">
+<span class="sig-name descname"><span class="pre">polygon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Polygon</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.polygon" title="Permalink to this definition"></a></dt>
+<dd><p>A polygon containing the word in the document.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -415,8 +432,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="cropper_v1.html" class="btn btn-neutral float-left" title="Cropper V1" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="invoice_splitter_v1.html" class="btn btn-neutral float-right" title="Invoice Splitter V1" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="custom_v1.html" class="btn btn-neutral float-left" title="Custom V1" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="generated_v1.html" class="btn btn-neutral float-right" title="Generated V1" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
