@@ -1,16 +1,16 @@
 from typing import List
 
 from mindee.parsing.common import Inference, Page, StringDict
-from mindee.product.custom.custom_v1_document import CustomV1Document
-from mindee.product.custom.custom_v1_page import CustomV1Page
+from mindee.product.generated.generated_v1_document import GeneratedV1Document
+from mindee.product.generated.generated_v1_page import GeneratedV1Page
 
 
-class CustomV1(Inference):
-    """Custom document (API Builder) v1 inference results."""
+class GeneratedV1(Inference):
+    """Generated API V1 inference results."""
 
-    prediction: CustomV1Document
+    prediction: GeneratedV1Document
     """Document-level prediction."""
-    pages: List[Page[CustomV1Page]]
+    pages: List[Page[GeneratedV1Page]]
     """Page-level prediction(s)."""
     endpoint_name = "custom"
     """Name of the endpoint (placeholder)."""
@@ -24,7 +24,8 @@ class CustomV1(Inference):
         :param raw_prediction: Raw prediction from the HTTP response.
         """
         super().__init__(raw_prediction)
-        self.prediction = CustomV1Document(raw_prediction["prediction"])
+        self.prediction = GeneratedV1Document(raw_prediction["prediction"])
         self.pages = []
         for page in raw_prediction["pages"]:
-            self.pages.append(Page(CustomV1Page, page))
+            if page["prediction"]:
+                self.pages.append(Page(GeneratedV1Page, page))

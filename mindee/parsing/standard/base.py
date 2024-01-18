@@ -21,7 +21,7 @@ class FieldPositionMixin:
             self.polygon = Polygon(
                 Point(point[0], point[1]) for point in raw_prediction["polygon"]
             )
-        except KeyError:
+        except (KeyError, TypeError):
             pass
         if self.polygon:
             self.bounding_box = get_bounding_box(self.polygon)
@@ -72,7 +72,7 @@ class BaseField(FieldConfidenceMixin):
         if page_id is None:
             try:
                 self.page_id = raw_prediction["page_id"]
-            except KeyError:
+            except (KeyError, TypeError):
                 pass
         else:
             self.page_id = page_id

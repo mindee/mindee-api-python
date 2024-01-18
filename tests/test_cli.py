@@ -30,6 +30,46 @@ def custom_doc(monkeypatch):
 
 
 @pytest.fixture
+def generated_doc_sync(monkeypatch):
+    clear_envvars(monkeypatch)
+    return Namespace(
+        product_name="generated",
+        endpoint_name="license_plate",
+        account_name="mindee",
+        api_key="dummy",
+        api_version="1",
+        cut_doc=False,
+        doc_pages=3,
+        input_type="path",
+        output_type="summary",
+        include_words=False,
+        path="./tests/data/file_types/pdf/blank.pdf",
+        parse_type="parse",
+        async_parse=False,
+    )
+
+
+@pytest.fixture
+def generated_doc_async(monkeypatch):
+    clear_envvars(monkeypatch)
+    return Namespace(
+        product_name="generated",
+        endpoint_name="invoice_splitter",
+        account_name="mindee",
+        api_key="dummy",
+        api_version="1",
+        cut_doc=False,
+        doc_pages=3,
+        input_type="path",
+        output_type="summary",
+        include_words=False,
+        path="./tests/data/file_types/pdf/blank.pdf",
+        parse_type="parse",
+        async_parse=True,
+    )
+
+
+@pytest.fixture
 def ots_doc(monkeypatch):
     clear_envvars(monkeypatch)
     return Namespace(
@@ -85,6 +125,18 @@ def ots_doc_feedback(monkeypatch):
 def test_cli_custom_doc(custom_doc):
     with pytest.raises(MindeeHTTPError):
         parser = MindeeParser(parsed_args=custom_doc)
+        parser.call_endpoint()
+
+
+def test_cli_generated_doc_sync(generated_doc_sync):
+    with pytest.raises(MindeeHTTPError):
+        parser = MindeeParser(parsed_args=generated_doc_sync)
+        parser.call_endpoint()
+
+
+def test_cli_generated_doc_async(generated_doc_async):
+    with pytest.raises(MindeeHTTPError):
+        parser = MindeeParser(parsed_args=generated_doc_async)
         parser.call_endpoint()
 
 

@@ -7,6 +7,7 @@ from mindee.product.financial_document import (
     FinancialDocumentV1Document,
     FinancialDocumentV1LineItem,
 )
+from mindee.product.generated import GeneratedV1, GeneratedV1Document, GeneratedV1Page
 from mindee.product.international_id import InternationalIdV1, InternationalIdV1Document
 from mindee.product.invoice import InvoiceV4, InvoiceV4Document, InvoiceV4LineItem
 from mindee.product.invoice_splitter import InvoiceSplitterV1, InvoiceSplitterV1Document

@@ -87,6 +87,12 @@ DOCUMENTS: Dict[str, CommandConfig] = {
         is_sync=True,
         is_async=False,
     ),
+    "generated": CommandConfig(
+        help="Generated",
+        doc_class=product.GeneratedV1,
+        is_sync=True,
+        is_async=True,
+    ),
     "invoice": CommandConfig(
         help="Invoice",
         doc_class=product.InvoiceV4,
@@ -307,7 +313,7 @@ class MindeeParser:
     def call_feedback(self) -> None:
         """Sends feedback to an API."""
         custom_endpoint: Optional[Endpoint] = None
-        if self.parsed_args.product_name == "custom":
+        if self.parsed_args.product_name in ("custom", "generated"):
             custom_endpoint = self.client.create_endpoint(
                 self.parsed_args.endpoint_name,
                 self.parsed_args.account_name,
@@ -359,7 +365,7 @@ class MindeeParser:
                 range(self.parsed_args.doc_pages), on_min_pages=0
             )
         custom_endpoint: Optional[Endpoint] = None
-        if self.parsed_args.product_name == "custom":
+        if self.parsed_args.product_name in ("custom", "generated"):
             include_words = False
             custom_endpoint = self.client.create_endpoint(
                 self.parsed_args.endpoint_name,
@@ -384,7 +390,7 @@ class MindeeParser:
                 range(self.parsed_args.doc_pages), on_min_pages=0
             )
         custom_endpoint: Optional[Endpoint] = None
-        if self.parsed_args.product_name == "custom":
+        if self.parsed_args.product_name in ("custom", "generated"):
             include_words = False
             custom_endpoint = self.client.create_endpoint(
                 self.parsed_args.endpoint_name,
@@ -426,7 +432,7 @@ class MindeeParser:
             parse_subp.add_main_options()
             parse_subp.add_sending_options()
             parse_subp.add_display_options()
-            if name == "custom":
+            if name in ("custom", "generated"):
                 parse_subp.add_custom_options()
             else:
                 parse_subp.add_argument(
