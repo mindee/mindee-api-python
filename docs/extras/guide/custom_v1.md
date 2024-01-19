@@ -60,7 +60,7 @@ A `ListField` is a special type of custom list that implements the following:
 Since the inner contents can vary, the value isn't accessed through a property, but rather through the following functions:
 * **contents_list()** (`-> List[Union[str, float]]`): returns a list of values for each element.
 * **contents_string(separator=" ")** (`-> str`): returns a list of concatenated values, with an optional **separator** `str` between them.
-* **__str__()**: returns a string representation of all values, with an empty space between each of them.
+> **Note:** the `str()` method returns a string representation of all values of this object, with an empty space between each of them.
 
 
 #### List Field Value
@@ -79,7 +79,7 @@ A `ClassificationField` is a special type of custom classification that implemen
 
 * **value** (`str`): the value of the classification. Corresponds to one of the values specified during training.
 * **confidence** (`float`): the confidence score of the field prediction.
-* **__str__()**: returns a string representation of all values, with an empty space between each of them.
+> **Note:** the `str()` method returns a string representation of all values of this object, with an empty space between each of them.
 
 # Attributes
 
