@@ -60,7 +60,7 @@ Since the inner contents can vary, the value isn't accessed through a property, 
 
 - **contents_list()** (`-> List[Union[str, float]]`): returns a list of values for each element.
 - **contents_string(separator=" ")** (`-> str`): returns a list of concatenated values, with an optional **separator** `str` between them.
-- **__str__()**: returns a string representation of all values, appropriate spacing.
+> **Note:** the `str()` method returns a string representation of all values of this object, with an empty space between each of them.
 
 ### Generated Object Field
 
