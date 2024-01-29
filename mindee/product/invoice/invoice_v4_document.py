@@ -51,6 +51,8 @@ class InvoiceV4Document(Prediction):
     """The total amount paid: includes taxes, tips, fees, and other charges."""
     total_net: AmountField
     """The net amount paid: does not include taxes, fees, and discounts."""
+    total_tax: AmountField
+    """The total tax: includes all the taxes paid for this invoice."""
 
     def __init__(
         self,
@@ -129,6 +131,10 @@ class InvoiceV4Document(Prediction):
             raw_prediction["total_net"],
             page_id=page_id,
         )
+        self.total_tax = AmountField(
+            raw_prediction["total_tax"],
+            page_id=page_id,
+        )
 
     @staticmethod
     def _line_items_separator(char: str) -> str:
@@ -183,6 +189,7 @@ class InvoiceV4Document(Prediction):
         out_str += f":Due Date: {self.due_date}\n"
         out_str += f":Total Net: {self.total_net}\n"
         out_str += f":Total Amount: {self.total_amount}\n"
+        out_str += f":Total Tax: {self.total_tax}\n"
         out_str += f":Taxes: {self.taxes}\n"
         out_str += f":Supplier Payment Details: {supplier_payment_details}\n"
         out_str += f":Supplier Name: {self.supplier_name}\n"

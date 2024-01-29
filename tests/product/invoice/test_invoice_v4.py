@@ -62,6 +62,7 @@ def test_empty_doc(empty_doc: Document[InvoiceV4Document, Page[InvoiceV4Document
     assert prediction.due_date.value is None
     assert prediction.total_net.value is None
     assert prediction.total_amount.value is None
+    assert prediction.total_tax.value is None
     assert len(prediction.taxes) == 0
     assert len(prediction.supplier_payment_details) == 0
     assert prediction.supplier_name.value is None
