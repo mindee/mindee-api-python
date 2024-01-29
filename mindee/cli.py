@@ -293,9 +293,9 @@ class MindeeParser:
             client
             if client
             else Client(
-                api_key=self.parsed_args.api_key
-                if "api_key" in self.parsed_args
-                else None
+                api_key=(
+                    self.parsed_args.api_key if "api_key" in self.parsed_args else None
+                )
             )
         )
         self._set_input()

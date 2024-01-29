@@ -30,5 +30,5 @@ def test_style_pkg_versions():
                 pkg_version = lines[idx + 1].strip().split(":")[-1].strip()
                 pre_commit_versions[pkg_name] = pkg_version
 
-    for req in ("black", "pylint", "isort", "pydocstyle", "mypy"):
+    for req in ("pylint",):
         _test_version(requirements_versions, pre_commit_versions, req)

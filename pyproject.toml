@@ -32,8 +32,11 @@ safe_licenses = [
 ]
 
 [tool.pytest.ini_options]
+addopts = "--pyargs --cov mindee --cov-report term:skip-covered --cov-report term-missing -m 'not regression'"
+python_files = "test*.py"
+junit_family = "xunit2"
 markers = [
-  "regression: marks tests as regression tests (deselect with '-m \"not regression\"')",
+  "regression: marks tests as regression tests - select with '-m regression'",
   "lineitems: debug line items"
 ]
 testpaths = [
