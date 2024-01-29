@@ -37,17 +37,17 @@ jobs:
       uses: actions/cache@v3
       with:
         path: ~/.cache/pip
-        key: ${{ runner.os }}-test-${{ hashFiles('**/setup.cfg') }}
+        key: ${{ runner.os }}-dev-${{ hashFiles('setup.cfg') }}
         restore-keys: |
-          ${{ runner.os }}-test-
+          ${{ runner.os }}-dev-
 
     - name: Install dependencies
       run: |
         python -m pip install pip
-        pip install -e .[test]
+        pip install -e .[dev]
 
     - name: Unit testing with pytest
       env:
         MINDEE_API_KEY: ${{ secrets.MINDEE_API_KEY_SE_TESTS }}
       run: |
-        pytest -m "not regression" tests
+        pytest --cov-fail-under 87
