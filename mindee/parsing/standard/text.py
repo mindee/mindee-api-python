@@ -8,6 +8,8 @@ class StringField(FieldPositionMixin, BaseField):
     """A field containing a text value."""
 
     value: Optional[str]
+    raw_value: Optional[str]
+    """The value as it appears on the document."""
 
     def __init__(
         self,
@@ -32,3 +34,4 @@ class StringField(FieldPositionMixin, BaseField):
             page_id=page_id,
         )
         self._set_position(raw_prediction)
+        self.raw_value = raw_prediction.get("raw_value", None)
