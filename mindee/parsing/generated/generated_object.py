@@ -46,7 +46,7 @@ class GeneratedObjectField:
 
     def _str_level(self, level=0) -> str:
         """
-        ReSTructured-complient string representation.
+        ReSTructured-compliant string representation.
 
         Takes into account level of indentation & displays elements as list elements.
 
