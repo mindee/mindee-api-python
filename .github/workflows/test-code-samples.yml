@@ -45,3 +45,13 @@ jobs:
       - name: Tests code samples
         run: |
             ./tests/test_code_samples.sh ${{ secrets.MINDEE_ACCOUNT_SE_TESTS }} ${{ secrets.MINDEE_ENDPOINT_SE_TESTS }} ${{ secrets.MINDEE_API_KEY_SE_TESTS }}
+
+      - name: Notify Slack Action on Failure
+        uses: ravsamhq/notify-slack-action@2.3.0
+        if: ${{ always() && github.ref_name == 'main' }}
+        with:
+          status: ${{ job.status }}
+          notify_when: "failure"
+          notification_title: "{workflow} is failing"
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.PRODUCTION_ISSUES_SLACK_HOOK_URL }}
