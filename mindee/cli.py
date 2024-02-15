@@ -101,7 +101,7 @@ DOCUMENTS: Dict[str, CommandConfig] = {
     ),
     "international-id": CommandConfig(
         help="International ID",
-        doc_class=product.InternationalIdV1,
+        doc_class=product.InternationalIdV2,
         is_sync=False,
         is_async=True,
     ),
