@@ -32,12 +32,12 @@ print(result.document)
 ########
 Document
 ########
-:Mindee ID: 16bd8752-8c4d-450f-8213-f33b2097504c
+:Mindee ID: 80f2328c-58a5-486a-9599-eb2d738680f0
 :Filename: default_sample.jpg
 
 Inference
 #########
-:Product: mindee/invoices v4.2
+:Product: mindee/invoices v4.4
 :Rotation applied: Yes
 
 Prediction
@@ -49,6 +49,7 @@ Prediction
 :Due Date: 2018-09-25
 :Total Net:
 :Total Amount: 2608.20
+:Total Tax: 193.20
 :Taxes:
   +---------------+--------+----------+---------------+
   | Base          | Code   | Rate (%) | Amount        |
@@ -56,7 +57,7 @@ Prediction
   |               |        | 8.00     | 193.20        |
   +---------------+--------+----------+---------------+
 :Supplier Payment Details:
-:Supplier Name: TURNPIKE DESIGNS CO.
+:Supplier Name: TURNPIKE DESIGNS
 :Supplier Company Registrations:
 :Supplier Address: 156 University Ave, Toronto ON, Canada M5H 2H7
 :Customer Name: JIRO DOI
@@ -86,6 +87,7 @@ Page 0
 :Due Date: 2018-09-25
 :Total Net:
 :Total Amount: 2608.20
+:Total Tax: 193.20
 :Taxes:
   +---------------+--------+----------+---------------+
   | Base          | Code   | Rate (%) | Amount        |
@@ -93,7 +95,7 @@ Page 0
   |               |        | 8.00     | 193.20        |
   +---------------+--------+----------+---------------+
 :Supplier Payment Details:
-:Supplier Name: TURNPIKE DESIGNS CO.
+:Supplier Name: TURNPIKE DESIGNS
 :Supplier Company Registrations:
 :Supplier Address: 156 University Ave, Toronto ON, Canada M5H 2H7
 :Customer Name: JIRO DOI

@@ -1,7 +1,7 @@
 from typing import List, Optional
 
 from mindee.parsing.common import Prediction, StringDict, clean_out_string
-from mindee.parsing.standard import ClassificationField, StringField
+from mindee.parsing.standard import ClassificationField, DateField, StringField
 
 
 class InternationalIdV1Document(Prediction):
@@ -9,7 +9,7 @@ class InternationalIdV1Document(Prediction):
 
     address: StringField
     """The physical location of the document holder's residence."""
-    birth_date: StringField
+    birth_date: DateField
     """The date of birth of the document holder."""
     birth_place: StringField
     """The location where the document holder was born."""
@@ -19,11 +19,11 @@ class InternationalIdV1Document(Prediction):
     """The unique identifier assigned to the identification document."""
     document_type: ClassificationField
     """The type of identification document being used."""
-    expiry_date: StringField
+    expiry_date: DateField
     """The date when the document will no longer be valid for use."""
     given_names: List[StringField]
     """The first names or given names of the document holder."""
-    issue_date: StringField
+    issue_date: DateField
     """The date when the document was issued."""
     mrz1: StringField
     """First line of information in a standardized format for easy machine reading and processing."""
@@ -54,7 +54,7 @@ class InternationalIdV1Document(Prediction):
             raw_prediction["address"],
             page_id=page_id,
         )
-        self.birth_date = StringField(
+        self.birth_date = DateField(
             raw_prediction["birth_date"],
             page_id=page_id,
         )
@@ -74,7 +74,7 @@ class InternationalIdV1Document(Prediction):
             raw_prediction["document_type"],
             page_id=page_id,
         )
-        self.expiry_date = StringField(
+        self.expiry_date = DateField(
             raw_prediction["expiry_date"],
             page_id=page_id,
         )
@@ -82,7 +82,7 @@ class InternationalIdV1Document(Prediction):
             StringField(prediction, page_id=page_id)
             for prediction in raw_prediction["given_names"]
         ]
-        self.issue_date = StringField(
+        self.issue_date = DateField(
             raw_prediction["issue_date"],
             page_id=page_id,
         )

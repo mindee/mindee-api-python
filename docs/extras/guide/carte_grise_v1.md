@@ -20,8 +20,11 @@ input_doc = mindee_client.source_from_path("/path/to/the/file.ext")
 # The endpoint name must be specified since it cannot be determined from the class.
 result: PredictResponse = mindee_client.parse(product.fr.CarteGriseV1, input_doc)
 
-# Print a brief summary of the parsed data
+# Print a summary of the API result
 print(result.document)
+
+# Print the document-level summary
+# print(result.document.inference.prediction)
 ```
 
 **Output (RST):**
@@ -29,12 +32,12 @@ print(result.document)
 ########
 Document
 ########
-:Mindee ID: f0e0f7a9-0f44-4a3d-92c7-5be262133d33
+:Mindee ID: 4443182b-57c1-4426-a288-01b94f226e84
 :Filename: default_sample.jpg
 
 Inference
 #########
-:Product: mindee/carte_grise v1.0
+:Product: mindee/carte_grise v1.1
 :Rotation applied: Yes
 
 Prediction
@@ -62,14 +65,14 @@ Prediction
 :p2: 90
 :p3: GO
 :p6: 6
-:q:
+:q: 006
 :s1: 5
 :s2:
 :u1: 77
 :u2: 3000
 :v7: 155
 :x1: 2011-07-06
-:y1:
+:y1: 17835
 :y2:
 :y3: 0
 :y4: 4
