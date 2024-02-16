@@ -8,7 +8,8 @@ Using the [sample below](https://github.com/mindee/client-lib-test-data/blob/mai
 
 # Quick-Start
 ```py
-from mindee import Client, PredictResponse, product
+from mindee import Client, product, AsyncPredictResponse
+from time import sleep
 
 # Init a new client
 mindee_client = Client(api_key="my-api-key")
@@ -16,9 +17,11 @@ mindee_client = Client(api_key="my-api-key")
 # Load a file from disk
 input_doc = mindee_client.source_from_path("/path/to/the/file.ext")
 
-# Load a file from disk and parse it.
-# The endpoint name must be specified since it cannot be determined from the class.
-result: PredictResponse = mindee_client.parse(product.us.DriverLicenseV1, input_doc)
+# Load a file from disk and enqueue it.
+result: AsyncPredictResponse = mindee_client.enqueue_and_parse(
+    product.us.DriverLicenseV1,
+    input_doc,
+)
 
 # Print a brief summary of the parsed data
 print(result.document)
@@ -49,7 +52,7 @@ Prediction
 :Date Of Birth: 1957-02-01
 :Restrictions: NONE
 :Endorsements: NONE
-:Class:
+:Driver License Class: D
 :Sex: M
 :Height: 5-08
 :Weight: 185
@@ -74,7 +77,7 @@ Page 0
 :Date Of Birth: 1957-02-01
 :Restrictions: NONE
 :Endorsements: NONE
-:Class:
+:Driver License Class: D
 :Sex: M
 :Height: 5-08
 :Weight: 185

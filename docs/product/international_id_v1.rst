@@ -3,7 +3,7 @@ International ID V1
 
 **Sample Code:**
 
-.. literalinclude:: /extras/code_samples/international_id_v1_async.txt
+.. literalinclude:: /extras/code_samples/international_id_v1.txt
     :language: Python
 
 .. autoclass:: mindee.product.international_id.international_id_v1.InternationalIdV1

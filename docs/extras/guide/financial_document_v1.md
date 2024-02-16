@@ -8,7 +8,8 @@ Using the [sample below](https://github.com/mindee/client-lib-test-data/blob/mai
 
 # Quick-Start
 ```py
-from mindee import Client, PredictResponse, product
+from mindee import Client, product, AsyncPredictResponse
+from time import sleep
 
 # Init a new client
 mindee_client = Client(api_key="my-api-key")
@@ -16,9 +17,11 @@ mindee_client = Client(api_key="my-api-key")
 # Load a file from disk
 input_doc = mindee_client.source_from_path("/path/to/the/file.ext")
 
-# Load a file from disk and parse it.
-# The endpoint name must be specified since it cannot be determined from the class.
-result: PredictResponse = mindee_client.parse(product.FinancialDocumentV1, input_doc)
+# Load a file from disk and enqueue it.
+result: AsyncPredictResponse = mindee_client.enqueue_and_parse(
+    product.FinancialDocumentV1,
+    input_doc,
+)
 
 # Print a brief summary of the parsed data
 print(result.document)
@@ -29,48 +32,52 @@ print(result.document)
 ########
 Document
 ########
-:Mindee ID: 81c1d637-3a84-41d9-b40a-f72ca2a58826
+:Mindee ID: a6b54e2d-a7fa-4e08-8de6-6cd296f50f3d
 :Filename: default_sample.jpg
 
 Inference
 #########
-:Product: mindee/financial_document v1.1
+:Product: mindee/financial_document v1.2
 :Rotation applied: Yes
 
 Prediction
 ==========
 :Locale: en; en; USD;
-:Invoice Number:
-:Reference Numbers:
-:Purchase Date: 2014-07-07
-:Due Date: 2014-07-07
-:Total Net: 40.48
-:Total Amount: 53.82
+:Invoice Number: INT-001
+:Reference Numbers: 2412/2019
+:Purchase Date: 2019-02-11
+:Due Date: 2019-02-26
+:Total Net: 195.00
+:Total Amount: 204.75
 :Taxes:
   +---------------+--------+----------+---------------+
   | Base          | Code   | Rate (%) | Amount        |
   +===============+========+==========+===============+
-  |               | TAX    |          | 3.34          |
+  |               |        | 5.00     | 9.75          |
   +---------------+--------+----------+---------------+
 :Supplier Payment Details:
-:Supplier Name: LOGANS
+:Supplier Name: JOHN SMITH
 :Supplier Company Registrations:
-:Supplier Address: 2513 s stemmons freeway lewisville tx 75067
-:Supplier Phone Number: 9724596042
-:Customer Name:
+:Supplier Address: 4490 Oak Drive Albany, NY 12210
+:Supplier Phone Number:
+:Customer Name: JESSIE M HORNE
 :Customer Company Registrations:
-:Customer Address:
-:Document Type: EXPENSE RECEIPT
-:Purchase Subcategory: restaurant
-:Purchase Category: food
-:Total Tax: 3.34
-:Tip and Gratuity: 10.00
-:Purchase Time: 20:20
+:Customer Address: 2019 Redbud Drive New York, NY 10011
+:Document Type: INVOICE
+:Purchase Subcategory:
+:Purchase Category: miscellaneous
+:Total Tax: 9.75
+:Tip and Gratuity:
+:Purchase Time:
 :Line Items:
   +--------------------------------------+--------------+----------+------------+--------------+--------------+------------+
   | Description                          | Product code | Quantity | Tax Amount | Tax Rate (%) | Total Amount | Unit Price |
   +======================================+==============+==========+============+==============+==============+============+
-  | TAX                                  |              |          |            |              | 3.34         |            |
+  | Front and rear brake cables          |              | 1.00     |            |              | 100.00       | 100.00     |
+  +--------------------------------------+--------------+----------+------------+--------------+--------------+------------+
+  | New set of pedal arms                |              | 2.00     |            |              | 50.00        | 25.00      |
+  +--------------------------------------+--------------+----------+------------+--------------+--------------+------------+
+  | Labon 3hrs                           |              | 3.00     |            |              | 45.00        | 15.00      |
   +--------------------------------------+--------------+----------+------------+--------------+--------------+------------+
 
 Page Predictions
@@ -79,37 +86,41 @@ Page Predictions
 Page 0
 ------
 :Locale: en; en; USD;
-:Invoice Number:
-:Reference Numbers:
-:Purchase Date: 2014-07-07
-:Due Date: 2014-07-07
-:Total Net: 40.48
-:Total Amount: 53.82
+:Invoice Number: INT-001
+:Reference Numbers: 2412/2019
+:Purchase Date: 2019-02-11
+:Due Date: 2019-02-26
+:Total Net: 195.00
+:Total Amount: 204.75
 :Taxes:
   +---------------+--------+----------+---------------+
   | Base          | Code   | Rate (%) | Amount        |
   +===============+========+==========+===============+
-  |               | TAX    |          | 3.34          |
+  |               |        | 5.00     | 9.75          |
   +---------------+--------+----------+---------------+
 :Supplier Payment Details:
-:Supplier Name: LOGANS
+:Supplier Name: JOHN SMITH
 :Supplier Company Registrations:
-:Supplier Address: 2513 s stemmons freeway lewisville tx 75067
-:Supplier Phone Number: 9724596042
-:Customer Name:
+:Supplier Address: 4490 Oak Drive Albany, NY 12210
+:Supplier Phone Number:
+:Customer Name: JESSIE M HORNE
 :Customer Company Registrations:
-:Customer Address:
-:Document Type: EXPENSE RECEIPT
-:Purchase Subcategory: restaurant
-:Purchase Category: food
-:Total Tax: 3.34
-:Tip and Gratuity: 10.00
-:Purchase Time: 20:20
+:Customer Address: 2019 Redbud Drive New York, NY 10011
+:Document Type: INVOICE
+:Purchase Subcategory:
+:Purchase Category: miscellaneous
+:Total Tax: 9.75
+:Tip and Gratuity:
+:Purchase Time:
 :Line Items:
   +--------------------------------------+--------------+----------+------------+--------------+--------------+------------+
   | Description                          | Product code | Quantity | Tax Amount | Tax Rate (%) | Total Amount | Unit Price |
   +======================================+==============+==========+============+==============+==============+============+
-  | TAX                                  |              |          |            |              | 3.34         |            |
+  | Front and rear brake cables          |              | 1.00     |            |              | 100.00       | 100.00     |
+  +--------------------------------------+--------------+----------+------------+--------------+--------------+------------+
+  | New set of pedal arms                |              | 2.00     |            |              | 50.00        | 25.00      |
+  +--------------------------------------+--------------+----------+------------+--------------+--------------+------------+
+  | Labon 3hrs                           |              | 3.00     |            |              | 45.00        | 15.00      |
   +--------------------------------------+--------------+----------+------------+--------------+--------------+------------+
 ```
 

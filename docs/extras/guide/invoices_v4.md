@@ -8,7 +8,8 @@ Using the [sample below](https://github.com/mindee/client-lib-test-data/blob/mai
 
 # Quick-Start
 ```py
-from mindee import Client, PredictResponse, product
+from mindee import Client, product, AsyncPredictResponse
+from time import sleep
 
 # Init a new client
 mindee_client = Client(api_key="my-api-key")
@@ -16,15 +17,14 @@ mindee_client = Client(api_key="my-api-key")
 # Load a file from disk
 input_doc = mindee_client.source_from_path("/path/to/the/file.ext")
 
-# Load a file from disk and parse it.
-# The endpoint name must be specified since it cannot be determined from the class.
-result: PredictResponse = mindee_client.parse(product.InvoiceV4, input_doc)
+# Load a file from disk and enqueue it.
+result: AsyncPredictResponse = mindee_client.enqueue_and_parse(
+    product.InvoiceV4,
+    input_doc,
+)
 
-# Print a summary of the API result
+# Print a brief summary of the parsed data
 print(result.document)
-
-# Print the document-level summary
-# print(result.document.inference.prediction)
 ```
 
 **Output (RST):**
@@ -32,12 +32,12 @@ print(result.document)
 ########
 Document
 ########
-:Mindee ID: 16bd8752-8c4d-450f-8213-f33b2097504c
+:Mindee ID: 80f2328c-58a5-486a-9599-eb2d738680f0
 :Filename: default_sample.jpg
 
 Inference
 #########
-:Product: mindee/invoices v4.2
+:Product: mindee/invoices v4.4
 :Rotation applied: Yes
 
 Prediction
@@ -49,6 +49,7 @@ Prediction
 :Due Date: 2018-09-25
 :Total Net:
 :Total Amount: 2608.20
+:Total Tax: 193.20
 :Taxes:
   +---------------+--------+----------+---------------+
   | Base          | Code   | Rate (%) | Amount        |
@@ -56,7 +57,7 @@ Prediction
   |               |        | 8.00     | 193.20        |
   +---------------+--------+----------+---------------+
 :Supplier Payment Details:
-:Supplier Name: TURNPIKE DESIGNS CO.
+:Supplier Name: TURNPIKE DESIGNS
 :Supplier Company Registrations:
 :Supplier Address: 156 University Ave, Toronto ON, Canada M5H 2H7
 :Customer Name: JIRO DOI
@@ -86,6 +87,7 @@ Page 0
 :Due Date: 2018-09-25
 :Total Net:
 :Total Amount: 2608.20
+:Total Tax: 193.20
 :Taxes:
   +---------------+--------+----------+---------------+
   | Base          | Code   | Rate (%) | Amount        |
@@ -93,7 +95,7 @@ Page 0
   |               |        | 8.00     | 193.20        |
   +---------------+--------+----------+---------------+
 :Supplier Payment Details:
-:Supplier Name: TURNPIKE DESIGNS CO.
+:Supplier Name: TURNPIKE DESIGNS
 :Supplier Company Registrations:
 :Supplier Address: 156 University Ave, Toronto ON, Canada M5H 2H7
 :Customer Name: JIRO DOI
