@@ -51,6 +51,12 @@ DOCUMENTS: Dict[str, CommandConfig] = {
         is_sync=True,
         is_async=False,
     ),
+    "eu-driver-license": CommandConfig(
+        help="EU Driver License",
+        doc_class=product.eu.DriverLicenseV1,
+        is_sync=True,
+        is_async=False,
+    ),
     "financial-document": CommandConfig(
         help="Financial Document (receipt or invoice)",
         doc_class=product.FinancialDocumentV1,
