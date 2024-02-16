@@ -8,8 +8,7 @@ Using the [sample below](https://github.com/mindee/client-lib-test-data/blob/mai
 
 # Quick-Start
 ```py
-from mindee import Client, product, AsyncPredictResponse
-from time import sleep
+from mindee import Client, PredictResponse, product
 
 # Init a new client
 mindee_client = Client(api_key="my-api-key")
@@ -17,14 +16,15 @@ mindee_client = Client(api_key="my-api-key")
 # Load a file from disk
 input_doc = mindee_client.source_from_path("/path/to/the/file.ext")
 
-# Load a file from disk and enqueue it.
-result: AsyncPredictResponse = mindee_client.enqueue_and_parse(
-    product.eu.LicensePlateV1,
-    input_doc,
-)
+# Load a file from disk and parse it.
+# The endpoint name must be specified since it cannot be determined from the class.
+result: PredictResponse = mindee_client.parse(product.eu.LicensePlateV1, input_doc)
 
-# Print a brief summary of the parsed data
+# Print a summary of the API result
 print(result.document)
+
+# Print the document-level summary
+# print(result.document.inference.prediction)
 ```
 
 **Output (RST):**
