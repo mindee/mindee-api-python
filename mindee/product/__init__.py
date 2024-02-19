@@ -33,3 +33,4 @@ from mindee.product.receipt import (
     ReceiptV5Document,
     ReceiptV5LineItem,
 )
+from mindee.product.resume import ResumeV1, ResumeV1Document
