@@ -8,7 +8,7 @@ from mindee.product.eu.driver_license.driver_license_v1_page import DriverLicens
 
 
 class DriverLicenseV1(Inference):
-    """Inference prediction for EU Driver License, API version 1."""
+    """Inference prediction for Driver License, API version 1."""
 
     prediction: DriverLicenseV1Document
     """Document-level prediction."""
@@ -21,7 +21,7 @@ class DriverLicenseV1(Inference):
 
     def __init__(self, raw_prediction: StringDict):
         """
-        EU Driver License v1 inference.
+        Driver License v1 inference.
 
         :param raw_prediction: Raw prediction from the HTTP response.
         """
