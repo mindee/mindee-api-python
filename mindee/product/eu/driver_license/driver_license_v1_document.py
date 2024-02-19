@@ -5,7 +5,7 @@ from mindee.parsing.standard import DateField, StringField
 
 
 class DriverLicenseV1Document(Prediction):
-    """Document data for EU Driver License, API version 1."""
+    """Document data for Driver License, API version 1."""
 
     address: StringField
     """EU driver license holders address"""
@@ -38,7 +38,7 @@ class DriverLicenseV1Document(Prediction):
         page_id: Optional[int] = None,
     ):
         """
-        EU Driver License document.
+        Driver License document.
 
         :param raw_prediction: Raw prediction from HTTP response
         :param page_id: Page number for multi pages pdf input

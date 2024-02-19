@@ -8,7 +8,7 @@ from mindee.product.eu.driver_license.driver_license_v1_document import (
 
 
 class DriverLicenseV1Page(DriverLicenseV1Document):
-    """Page data for EU Driver License, API version 1."""
+    """Page data for Driver License, API version 1."""
 
     photo: PositionField
     """Has a photo of the EU driver license holder"""
@@ -21,7 +21,7 @@ class DriverLicenseV1Page(DriverLicenseV1Document):
         page_id: Optional[int] = None,
     ):
         """
-        EU Driver License page.
+        Driver License page.
 
         :param raw_prediction: Raw prediction from HTTP response
         :param page_id: Page number for multi pages pdf input
