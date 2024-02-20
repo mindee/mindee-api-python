@@ -51,11 +51,11 @@ class ResumeV1Education(FieldPositionMixin, FieldConfidenceMixin):
     def _printable_values(self) -> Dict[str, str]:
         """Return values for printing."""
         out_dict: Dict[str, str] = {}
-        out_dict["degree_domain"] = format_for_display(self.degree_domain, None)
-        out_dict["degree_type"] = format_for_display(self.degree_type, None)
+        out_dict["degree_domain"] = format_for_display(self.degree_domain, 15)
+        out_dict["degree_type"] = format_for_display(self.degree_type, 25)
         out_dict["end_month"] = format_for_display(self.end_month, None)
         out_dict["end_year"] = format_for_display(self.end_year, None)
-        out_dict["school"] = format_for_display(self.school, None)
+        out_dict["school"] = format_for_display(self.school, 25)
         out_dict["start_month"] = format_for_display(self.start_month, None)
         out_dict["start_year"] = format_for_display(self.start_year, None)
         return out_dict
@@ -63,11 +63,11 @@ class ResumeV1Education(FieldPositionMixin, FieldConfidenceMixin):
     def to_table_line(self) -> str:
         """Output in a format suitable for inclusion in an rST table."""
         printable = self._printable_values()
-        out_str: str = f"| {printable['degree_domain']:<6} | "
-        out_str += f"{printable['degree_type']:<6} | "
+        out_str: str = f"| {printable['degree_domain']:<15} | "
+        out_str += f"{printable['degree_type']:<25} | "
         out_str += f"{printable['end_month']:<9} | "
         out_str += f"{printable['end_year']:<8} | "
-        out_str += f"{printable['school']:<6} | "
+        out_str += f"{printable['school']:<25} | "
         out_str += f"{printable['start_month']:<11} | "
         out_str += f"{printable['start_year']:<10} | "
         return clean_out_string(out_str)

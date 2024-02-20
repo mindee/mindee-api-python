@@ -135,8 +135,8 @@ class ResumeV1Document(Prediction):
     @staticmethod
     def _social_networks_urls_separator(char: str) -> str:
         out_str = "  "
-        out_str += f"+{char * 6}"
-        out_str += f"+{char * 5}"
+        out_str += f"+{char * 22}"
+        out_str += f"+{char * 52}"
         return out_str + "+"
 
     def _social_networks_urls_to_str(self) -> str:
@@ -148,8 +148,8 @@ class ResumeV1Document(Prediction):
         )
         out_str = ""
         out_str += f"\n{self._social_networks_urls_separator('-')}\n "
-        out_str += " | Name"
-        out_str += " | URL"
+        out_str += " | Name                "
+        out_str += " | URL                                               "
         out_str += f" |\n{self._social_networks_urls_separator('=')}"
         out_str += f"\n  {lines}"
         out_str += f"\n{self._social_networks_urls_separator('-')}"
@@ -159,7 +159,7 @@ class ResumeV1Document(Prediction):
     def _languages_separator(char: str) -> str:
         out_str = "  "
         out_str += f"+{char * 10}"
-        out_str += f"+{char * 7}"
+        out_str += f"+{char * 22}"
         return out_str + "+"
 
     def _languages_to_str(self) -> str:
@@ -172,7 +172,7 @@ class ResumeV1Document(Prediction):
         out_str = ""
         out_str += f"\n{self._languages_separator('-')}\n "
         out_str += " | Language"
-        out_str += " | Level"
+        out_str += " | Level               "
         out_str += f" |\n{self._languages_separator('=')}"
         out_str += f"\n  {lines}"
         out_str += f"\n{self._languages_separator('-')}"
@@ -181,11 +181,11 @@ class ResumeV1Document(Prediction):
     @staticmethod
     def _education_separator(char: str) -> str:
         out_str = "  "
-        out_str += f"+{char * 8}"
-        out_str += f"+{char * 8}"
+        out_str += f"+{char * 17}"
+        out_str += f"+{char * 27}"
         out_str += f"+{char * 11}"
         out_str += f"+{char * 10}"
-        out_str += f"+{char * 8}"
+        out_str += f"+{char * 27}"
         out_str += f"+{char * 13}"
         out_str += f"+{char * 12}"
         return out_str + "+"
@@ -199,11 +199,11 @@ class ResumeV1Document(Prediction):
         )
         out_str = ""
         out_str += f"\n{self._education_separator('-')}\n "
-        out_str += " | Domain"
-        out_str += " | Degree"
+        out_str += " | Domain         "
+        out_str += " | Degree                   "
         out_str += " | End Month"
         out_str += " | End Year"
-        out_str += " | School"
+        out_str += " | School                   "
         out_str += " | Start Month"
         out_str += " | Start Year"
         out_str += f" |\n{self._education_separator('=')}"
@@ -214,12 +214,12 @@ class ResumeV1Document(Prediction):
     @staticmethod
     def _professional_experiences_separator(char: str) -> str:
         out_str = "  "
-        out_str += f"+{char * 15}"
+        out_str += f"+{char * 17}"
         out_str += f"+{char * 12}"
-        out_str += f"+{char * 10}"
+        out_str += f"+{char * 27}"
         out_str += f"+{char * 11}"
         out_str += f"+{char * 10}"
-        out_str += f"+{char * 6}"
+        out_str += f"+{char * 22}"
         out_str += f"+{char * 13}"
         out_str += f"+{char * 12}"
         return out_str + "+"
@@ -233,12 +233,12 @@ class ResumeV1Document(Prediction):
         )
         out_str = ""
         out_str += f"\n{self._professional_experiences_separator('-')}\n "
-        out_str += " | Contract Type"
+        out_str += " | Contract Type  "
         out_str += " | Department"
-        out_str += " | Employer"
+        out_str += " | Employer                 "
         out_str += " | End Month"
         out_str += " | End Year"
-        out_str += " | Role"
+        out_str += " | Role                "
         out_str += " | Start Month"
         out_str += " | Start Year"
         out_str += f" |\n{self._professional_experiences_separator('=')}"
@@ -249,9 +249,9 @@ class ResumeV1Document(Prediction):
     @staticmethod
     def _certificates_separator(char: str) -> str:
         out_str = "  "
-        out_str += f"+{char * 7}"
-        out_str += f"+{char * 6}"
-        out_str += f"+{char * 10}"
+        out_str += f"+{char * 12}"
+        out_str += f"+{char * 32}"
+        out_str += f"+{char * 27}"
         out_str += f"+{char * 6}"
         return out_str + "+"
 
@@ -264,9 +264,9 @@ class ResumeV1Document(Prediction):
         )
         out_str = ""
         out_str += f"\n{self._certificates_separator('-')}\n "
-        out_str += " | Grade"
-        out_str += " | Name"
-        out_str += " | Provider"
+        out_str += " | Grade     "
+        out_str += " | Name                          "
+        out_str += " | Provider                 "
         out_str += " | Year"
         out_str += f" |\n{self._certificates_separator('=')}"
         out_str += f"\n  {lines}"

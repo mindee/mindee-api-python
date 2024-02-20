@@ -37,14 +37,14 @@ class ResumeV1Language(FieldPositionMixin, FieldConfidenceMixin):
         """Return values for printing."""
         out_dict: Dict[str, str] = {}
         out_dict["language"] = format_for_display(self.language, None)
-        out_dict["level"] = format_for_display(self.level, None)
+        out_dict["level"] = format_for_display(self.level, 20)
         return out_dict
 
     def to_table_line(self) -> str:
         """Output in a format suitable for inclusion in an rST table."""
         printable = self._printable_values()
         out_str: str = f"| {printable['language']:<8} | "
-        out_str += f"{printable['level']:<5} | "
+        out_str += f"{printable['level']:<20} | "
         return clean_out_string(out_str)
 
     def __str__(self) -> str:

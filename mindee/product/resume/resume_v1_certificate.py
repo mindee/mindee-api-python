@@ -42,18 +42,18 @@ class ResumeV1Certificate(FieldPositionMixin, FieldConfidenceMixin):
     def _printable_values(self) -> Dict[str, str]:
         """Return values for printing."""
         out_dict: Dict[str, str] = {}
-        out_dict["grade"] = format_for_display(self.grade, None)
-        out_dict["name"] = format_for_display(self.name, None)
-        out_dict["provider"] = format_for_display(self.provider, None)
+        out_dict["grade"] = format_for_display(self.grade, 10)
+        out_dict["name"] = format_for_display(self.name, 30)
+        out_dict["provider"] = format_for_display(self.provider, 25)
         out_dict["year"] = format_for_display(self.year, None)
         return out_dict
 
     def to_table_line(self) -> str:
         """Output in a format suitable for inclusion in an rST table."""
         printable = self._printable_values()
-        out_str: str = f"| {printable['grade']:<5} | "
-        out_str += f"{printable['name']:<4} | "
-        out_str += f"{printable['provider']:<8} | "
+        out_str: str = f"| {printable['grade']:<10} | "
+        out_str += f"{printable['name']:<30} | "
+        out_str += f"{printable['provider']:<25} | "
         out_str += f"{printable['year']:<4} | "
         return clean_out_string(out_str)
 

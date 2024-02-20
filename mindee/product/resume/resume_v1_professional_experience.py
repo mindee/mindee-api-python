@@ -54,12 +54,12 @@ class ResumeV1ProfessionalExperience(FieldPositionMixin, FieldConfidenceMixin):
     def _printable_values(self) -> Dict[str, str]:
         """Return values for printing."""
         out_dict: Dict[str, str] = {}
-        out_dict["contract_type"] = format_for_display(self.contract_type, None)
-        out_dict["department"] = format_for_display(self.department, None)
-        out_dict["employer"] = format_for_display(self.employer, None)
+        out_dict["contract_type"] = format_for_display(self.contract_type, 15)
+        out_dict["department"] = format_for_display(self.department, 10)
+        out_dict["employer"] = format_for_display(self.employer, 25)
         out_dict["end_month"] = format_for_display(self.end_month, None)
         out_dict["end_year"] = format_for_display(self.end_year, None)
-        out_dict["role"] = format_for_display(self.role, None)
+        out_dict["role"] = format_for_display(self.role, 20)
         out_dict["start_month"] = format_for_display(self.start_month, None)
         out_dict["start_year"] = format_for_display(self.start_year, None)
         return out_dict
@@ -67,12 +67,12 @@ class ResumeV1ProfessionalExperience(FieldPositionMixin, FieldConfidenceMixin):
     def to_table_line(self) -> str:
         """Output in a format suitable for inclusion in an rST table."""
         printable = self._printable_values()
-        out_str: str = f"| {printable['contract_type']:<13} | "
+        out_str: str = f"| {printable['contract_type']:<15} | "
         out_str += f"{printable['department']:<10} | "
-        out_str += f"{printable['employer']:<8} | "
+        out_str += f"{printable['employer']:<25} | "
         out_str += f"{printable['end_month']:<9} | "
         out_str += f"{printable['end_year']:<8} | "
-        out_str += f"{printable['role']:<4} | "
+        out_str += f"{printable['role']:<20} | "
         out_str += f"{printable['start_month']:<11} | "
         out_str += f"{printable['start_year']:<10} | "
         return clean_out_string(out_str)
