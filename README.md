@@ -136,6 +136,7 @@ Complete details on the working of the library are available in the following gu
 * [Python Custom APIs (API Builder)](https://developers.mindee.com/docs/python-api-builder)
 * [Python Invoice OCR](https://developers.mindee.com/docs/python-invoice-ocr)
 * [Python International Id OCR](https://developers.mindee.com/docs/python-international-id-ocr)
+* [Python Resume OCR](https://developers.mindee.com/docs/python-resume-ocr)
 * [Python Receipt OCR](https://developers.mindee.com/docs/python-receipt-ocr)
 * [Python Financial Document OCR](https://developers.mindee.com/docs/python-financial-document-ocr)
 * [Python Passport OCR](https://developers.mindee.com/docs/python-passport-ocr)
