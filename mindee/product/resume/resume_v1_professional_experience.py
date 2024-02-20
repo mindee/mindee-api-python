@@ -8,7 +8,10 @@ class ResumeV1ProfessionalExperience(FieldPositionMixin, FieldConfidenceMixin):
     """The list of values that represent the professional experiences of an individual in their global resume."""
 
     contract_type: Optional[str]
-    """The type of contract for a professional experience. Possible values: 'Full-Time', 'Part-Time', 'Internship' and 'Freelance'."""
+    """
+    The type of contract for a professional experience. Possible values: 'Full-Time', 'Part-Time',
+    'Internship' and 'Freelance'.
+    """
     department: Optional[str]
     """The specific department or division within a company where the professional experience was gained."""
     employer: Optional[str]

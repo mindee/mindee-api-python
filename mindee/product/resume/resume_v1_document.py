@@ -41,13 +41,18 @@ class ResumeV1Document(Prediction):
     phone_number: StringField
     """The phone number of the candidate."""
     profession: StringField
-    """The area of expertise or specialization in which the individual has professional experience and qualifications."""
+    """
+    The area of expertise or specialization in which the individual has professional experience and
+    qualifications.
+    """
     professional_experiences: List[ResumeV1ProfessionalExperience]
     """The list of values that represent the professional experiences of an individual in their global resume."""
     social_networks_urls: List[ResumeV1SocialNetworksUrl]
     """The list of URLs for social network profiles of the person."""
     soft_skills: List[StringField]
-    """The list of values that represent a person's interpersonal and communication abilities in a global resume."""
+    """
+    The list of values that represent a person's interpersonal and communication abilities in a global resume.
+    """
     surnames: List[StringField]
     """The list of last names provided in a resume document."""
 
