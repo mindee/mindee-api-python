@@ -5,18 +5,18 @@ from mindee.parsing.standard import FieldConfidenceMixin, FieldPositionMixin
 
 
 class ResumeV1Education(FieldPositionMixin, FieldConfidenceMixin):
-    """The list of values that represent the educational background of an individual."""
+    """The list of the candidate's educational background."""
 
     degree_domain: Optional[str]
-    """The area of study or specialization pursued by an individual in their educational background."""
+    """The area of study or specialization."""
     degree_type: Optional[str]
-    """The type of degree obtained by the individual, such as Bachelor's, Master's, or Doctorate."""
+    """The type of degree obtained, such as Bachelor's, Master's, or Doctorate."""
     end_month: Optional[str]
-    """The month when the education program or course was completed or is expected to be completed."""
+    """The month when the education program or course was completed."""
     end_year: Optional[str]
-    """The year when the education program or course was completed or is expected to be completed."""
+    """The year when the education program or course was completed."""
     school: Optional[str]
-    """The name of the school the individual went to."""
+    """The name of the school."""
     start_month: Optional[str]
     """The month when the education program or course began."""
     start_year: Optional[str]

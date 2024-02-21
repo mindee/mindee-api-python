@@ -5,12 +5,12 @@ from mindee.parsing.standard import FieldConfidenceMixin, FieldPositionMixin
 
 
 class ResumeV1SocialNetworksUrl(FieldPositionMixin, FieldConfidenceMixin):
-    """The list of URLs for social network profiles of the person."""
+    """The list of social network profiles of the candidate."""
 
     name: Optional[str]
-    """The name of of the social media concerned."""
+    """The name of the social network."""
     url: Optional[str]
-    """The URL of the profile for this particular social network."""
+    """The URL of the social network."""
     page_n: int
     """The document page on which the information was found."""
 

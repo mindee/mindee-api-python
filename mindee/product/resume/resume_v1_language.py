@@ -5,12 +5,12 @@ from mindee.parsing.standard import FieldConfidenceMixin, FieldPositionMixin
 
 
 class ResumeV1Language(FieldPositionMixin, FieldConfidenceMixin):
-    """The list of languages that a person is proficient in, as stated in their resume."""
+    """The list of languages that the candidate is proficient in."""
 
     language: Optional[str]
-    """The language ISO 639 code."""
+    """The language's ISO 639 code."""
     level: Optional[str]
-    """The level for the language. Possible values: 'Fluent', 'Proficient', 'Intermediate' and 'Beginner'."""
+    """The candidate's level for the language."""
     page_n: int
     """The document page on which the information was found."""
 

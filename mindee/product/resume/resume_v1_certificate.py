@@ -10,9 +10,9 @@ class ResumeV1Certificate(FieldPositionMixin, FieldConfidenceMixin):
     grade: Optional[str]
     """The grade obtained for the certificate."""
     name: Optional[str]
-    """The name of certifications obtained by the individual."""
+    """The name of certification."""
     provider: Optional[str]
-    """The organization or institution that issued the certificates listed in the document."""
+    """The organization or institution that issued the certificate."""
     year: Optional[str]
     """The year when a certificate was issued or received."""
     page_n: int

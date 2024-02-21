@@ -54,7 +54,6 @@ def test_complete_doc(complete_doc: Document[ResumeV1Document, Page[ResumeV1Docu
 def test_empty_doc(empty_doc: Document[ResumeV1Document, Page[ResumeV1Document]]):
     prediction = empty_doc.inference.prediction
     assert prediction.document_language.value is None
-    assert prediction.document_type.value is None
     assert len(prediction.given_names) == 0
     assert len(prediction.surnames) == 0
     assert prediction.nationality.value is None

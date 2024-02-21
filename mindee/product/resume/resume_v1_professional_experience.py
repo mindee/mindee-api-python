@@ -5,27 +5,24 @@ from mindee.parsing.standard import FieldConfidenceMixin, FieldPositionMixin
 
 
 class ResumeV1ProfessionalExperience(FieldPositionMixin, FieldConfidenceMixin):
-    """The list of values that represent the professional experiences of an individual in their global resume."""
+    """The list of the candidate's professional experiences."""
 
     contract_type: Optional[str]
-    """
-    The type of contract for a professional experience. Possible values: 'Full-Time', 'Part-Time',
-    'Internship' and 'Freelance'.
-    """
+    """The type of contract for the professional experience."""
     department: Optional[str]
-    """The specific department or division within a company where the professional experience was gained."""
+    """The specific department or division within the company."""
     employer: Optional[str]
-    """The name of the company or organization where the candidate has worked."""
+    """The name of the company or organization."""
     end_month: Optional[str]
-    """The month when a professional experience ended."""
+    """The month when the professional experience ended."""
     end_year: Optional[str]
-    """The year when a professional experience ended."""
+    """The year when the professional experience ended."""
     role: Optional[str]
-    """The position or job title held by the individual in their previous work experience."""
+    """The position or job title held by the candidate."""
     start_month: Optional[str]
-    """The month when a professional experience began."""
+    """The month when the professional experience began."""
     start_year: Optional[str]
-    """The year when a professional experience began."""
+    """The year when the professional experience began."""
     page_n: int
     """The document page on which the information was found."""
 

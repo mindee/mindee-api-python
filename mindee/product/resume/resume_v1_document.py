@@ -1,7 +1,7 @@
 from typing import List, Optional
 
 from mindee.parsing.common import Prediction, StringDict, clean_out_string
-from mindee.parsing.standard import StringField
+from mindee.parsing.standard import ClassificationField, StringField
 from mindee.product.resume.resume_v1_certificate import ResumeV1Certificate
 from mindee.product.resume.resume_v1_education import ResumeV1Education
 from mindee.product.resume.resume_v1_language import ResumeV1Language
@@ -17,44 +17,39 @@ class ResumeV1Document(Prediction):
     """Document data for Resume, API version 1."""
 
     address: StringField
-    """The location information of the person, including city, state, and country."""
+    """The location information of the candidate, including city, state, and country."""
     certificates: List[ResumeV1Certificate]
     """The list of certificates obtained by the candidate."""
     document_language: StringField
     """The ISO 639 code of the language in which the document is written."""
-    document_type: StringField
-    """The type of the document sent, possible values being RESUME, MOTIVATION_LETTER and RECOMMENDATION_LETTER."""
+    document_type: ClassificationField
+    """The type of the document sent."""
     education: List[ResumeV1Education]
-    """The list of values that represent the educational background of an individual."""
+    """The list of the candidate's educational background."""
     email_address: StringField
     """The email address of the candidate."""
     given_names: List[StringField]
-    """The list of names that represent a person's first or given names."""
+    """The candidate's first or given names."""
     hard_skills: List[StringField]
-    """The list of specific technical abilities and knowledge mentioned in a resume."""
+    """The list of the candidate's technical abilities and knowledge."""
     job_applied: StringField
-    """The specific industry or job role that the applicant is applying for."""
+    """The position that the candidate is applying for."""
     languages: List[ResumeV1Language]
-    """The list of languages that a person is proficient in, as stated in their resume."""
+    """The list of languages that the candidate is proficient in."""
     nationality: StringField
-    """The ISO 3166 code for the country of citizenship or origin of the person."""
+    """The ISO 3166 code for the country of citizenship of the candidate."""
     phone_number: StringField
     """The phone number of the candidate."""
     profession: StringField
-    """
-    The area of expertise or specialization in which the individual has professional experience and
-    qualifications.
-    """
+    """The candidate's current profession."""
     professional_experiences: List[ResumeV1ProfessionalExperience]
-    """The list of values that represent the professional experiences of an individual in their global resume."""
+    """The list of the candidate's professional experiences."""
     social_networks_urls: List[ResumeV1SocialNetworksUrl]
-    """The list of URLs for social network profiles of the person."""
+    """The list of social network profiles of the candidate."""
     soft_skills: List[StringField]
-    """
-    The list of values that represent a person's interpersonal and communication abilities in a global resume.
-    """
+    """The list of the candidate's interpersonal and communication abilities."""
     surnames: List[StringField]
-    """The list of last names provided in a resume document."""
+    """The candidate's last names."""
 
     def __init__(
         self,
@@ -80,7 +75,7 @@ class ResumeV1Document(Prediction):
             raw_prediction["document_language"],
             page_id=page_id,
         )
-        self.document_type = StringField(
+        self.document_type = ClassificationField(
             raw_prediction["document_type"],
             page_id=page_id,
         )
