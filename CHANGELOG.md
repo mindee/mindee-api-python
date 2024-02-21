@@ -1,12 +1,21 @@
 # Mindee Python API Library Changelog
 
-# v4.3.0 - 2024-01-30
+## v4.4.0 - 2024-02-21
+### Changes
+* :sparkles: add support for Resume V1
+* :sparkles: add support for EU Driver License V1
+* :sparkles: add support for International ID V2
+### Fixes
+* :memo: fix miscellaneous documentation issues
+
+
+## v4.3.0 - 2024-01-30
 ### Changes
 * :arrow_up: update invoices to v4.4
 * :sparkles: add support for `raw_value` in string fields
 
 
-# v4.2.0 - 2024-01-18
+## v4.2.0 - 2024-01-18
 ### Changes
 * :sparkles: add support for International ID V1
 * :sparkles: add support for Generated APIs
