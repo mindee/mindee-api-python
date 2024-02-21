@@ -1,4 +1,4 @@
-g---
+---
 title: Resume OCR Python
 ---
 The Python OCR SDK supports the [Resume API](https://platform.mindee.com/mindee/resume).
