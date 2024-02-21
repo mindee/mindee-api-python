@@ -21,7 +21,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="United States" href="../us/index.html" />
-    <link rel="prev" title="Europe" href="index.html" /> 
+    <link rel="prev" title="Driver License V1" href="driver_license_v1.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -51,6 +51,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="../index.html#region-specific">Region-Specific</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../fr/index.html">France</a></li>
 <li class="toctree-l3 current"><a class="reference internal" href="index.html">Europe</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="driver_license_v1.html">Driver License V1</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">License Plate V1</a></li>
 </ul>
 </li>
@@ -104,8 +105,11 @@
 <span class="c1"># The endpoint name must be specified since it cannot be determined from the class.</span>
 <span class="n">result</span><span class="p">:</span> <span class="n">PredictResponse</span> <span class="o">=</span> <span class="n">mindee_client</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">product</span><span class="o">.</span><span class="n">eu</span><span class="o">.</span><span class="n">LicensePlateV1</span><span class="p">,</span> <span class="n">input_doc</span><span class="p">)</span>
 
-<span class="c1"># Print a brief summary of the parsed data</span>
+<span class="c1"># Print a summary of the API result</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">document</span><span class="p">)</span>
+
+<span class="c1"># Print the document-level summary</span>
+<span class="c1"># print(result.document.inference.prediction)</span>
 </pre></div>
 </div>
 <dl class="py class">
@@ -197,7 +201,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="Europe" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="driver_license_v1.html" class="btn btn-neutral float-left" title="Driver License V1" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="../us/index.html" class="btn btn-neutral float-right" title="United States" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

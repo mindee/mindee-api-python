@@ -110,8 +110,11 @@
 <span class="c1"># The endpoint name must be specified since it cannot be determined from the class.</span>
 <span class="n">result</span><span class="p">:</span> <span class="n">PredictResponse</span> <span class="o">=</span> <span class="n">mindee_client</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">product</span><span class="o">.</span><span class="n">fr</span><span class="o">.</span><span class="n">BankAccountDetailsV2</span><span class="p">,</span> <span class="n">input_doc</span><span class="p">)</span>
 
-<span class="c1"># Print a brief summary of the parsed data</span>
+<span class="c1"># Print a summary of the API result</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">document</span><span class="p">)</span>
+
+<span class="c1"># Print the document-level summary</span>
+<span class="c1"># print(result.document.inference.prediction)</span>
 </pre></div>
 </div>
 <dl class="py class">

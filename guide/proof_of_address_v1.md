@@ -20,8 +20,11 @@ input_doc = mindee_client.source_from_path("/path/to/the/file.ext")
 # The endpoint name must be specified since it cannot be determined from the class.
 result: PredictResponse = mindee_client.parse(product.ProofOfAddressV1, input_doc)
 
-# Print a brief summary of the parsed data
+# Print a summary of the API result
 print(result.document)
+
+# Print the document-level summary
+# print(result.document.inference.prediction)
 ```
 
 **Output (RST):**
@@ -42,7 +45,7 @@ Prediction
 :Locale: en; en; USD;
 :Issuer Name: PPL ELECTRIC UTILITIES
 :Issuer Company Registrations:
-:Issuer Address: 2 NORTH STH STREET CPC-GENN1 ALLENTOWN.PA 18101-1175
+:Issuer Address: 2 NORTH 9TH STREET CPC-GENN1 ALLENTOWN.PA 18101-1175
 :Recipient Name:
 :Recipient Company Registrations:
 :Recipient Address: 123 MAIN ST ANYTOWN,PA 18062
@@ -68,7 +71,7 @@ Page 0
 :Locale: en; en; USD;
 :Issuer Name: PPL ELECTRIC UTILITIES
 :Issuer Company Registrations:
-:Issuer Address: 2 NORTH STH STREET CPC-GENN1 ALLENTOWN.PA 18101-1175
+:Issuer Address: 2 NORTH 9TH STREET CPC-GENN1 ALLENTOWN.PA 18101-1175
 :Recipient Name:
 :Recipient Company Registrations:
 :Recipient Address: 123 MAIN ST ANYTOWN,PA 18062
@@ -198,4 +201,4 @@ print(result.document.inference.prediction.recipient_name.value)
 ```
 
 # Questions?
-[Join our Slack](https://join.slack.com/t/mindee-community/shared_invite/zt-1jv6nawjq-FDgFcF2T5CmMmRpl9LLptw)
+[Join our Slack](https://join.slack.com/t/mindee-community/shared_invite/zt-2d0ds7dtz-DPAF81ZqTy20chsYpQBW5g)

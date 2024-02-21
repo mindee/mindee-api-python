@@ -7,16 +7,16 @@ Generated APIs can theoretically support all APIs in a catch-all generic format.
 # Quick-Start
 
 ```python
-from mindee import Client, product
+from mindee import Client, PredictResponse, product
 
 # Init a new client
 mindee_client = Client(api_key="my-api-key")
 
-# Add your custom endpoint (document)
+# Add the corresponding endpoint (document). Set the account_name to "mindee" if you are using OTS.
 my_endpoint = mindee_client.create_endpoint(
     account_name="my-account",
     endpoint_name="my-endpoint",
-    version="my-version" # Note: version should be always provided when using for OTS products
+    version="my-version"
 )
 
 # Load a file from disk
@@ -24,7 +24,7 @@ input_doc = mindee_client.source_from_path("/path/to/the/file.ext")
 
 # Parse the file.
 # The endpoint must be specified since it cannot be determined from the class.
-result = mindee_client.parse(
+result: PredictResponse = mindee_client.enqueue_and_parse(
     product.GeneratedV1,
     input_doc,
     endpoint=my_endpoint
@@ -33,9 +33,9 @@ result = mindee_client.parse(
 # Print a brief summary of the parsed data
 print(result.document)
 
-# Iterate over all the fields in the document
-for field_name, field_values in result.document.fields.items():
-    print(field_name, "=", field_values)
+# # Iterate over all the fields in the document
+# for field_name, field_values in result.document.inference.prediction.fields.items():
+#     print(field_name, "=", field_values)
 ```
 
 # Generated Endpoints
@@ -92,4 +92,4 @@ print(str(result.document.inference.prediction.fields["my-field"]))
 
 # Questions?
 
-[Join our Slack](https://join.slack.com/t/mindee-community/shared_invite/zt-1jv6nawjq-FDgFcF2T5CmMmRpl9LLptw)
+[Join our Slack](https://join.slack.com/t/mindee-community/shared_invite/zt-2d0ds7dtz-DPAF81ZqTy20chsYpQBW5g)

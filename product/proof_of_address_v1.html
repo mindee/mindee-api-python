@@ -56,6 +56,7 @@
 <li class="toctree-l3"><a class="reference internal" href="financial_document_v1.html">Financial Document V1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="generated_v1.html">Generated V1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="international_id_v1.html">International ID V1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="international_id_v2.html">International ID V2</a></li>
 <li class="toctree-l3"><a class="reference internal" href="invoice_splitter_v1.html">Invoice Splitter V1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="invoice_v4.html">Invoice V4</a></li>
 <li class="toctree-l3"><a class="reference internal" href="material_certificate_v1.html">Material Certificate V1</a></li>
@@ -68,6 +69,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="receipt_v4.html">Receipt V4</a></li>
 <li class="toctree-l3"><a class="reference internal" href="receipt_v5.html">Receipt V5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="resume_v1.html">Resume V1</a></li>
 </ul>
 </li>
 </ul>
@@ -115,8 +117,11 @@
 <span class="c1"># The endpoint name must be specified since it cannot be determined from the class.</span>
 <span class="n">result</span><span class="p">:</span> <span class="n">PredictResponse</span> <span class="o">=</span> <span class="n">mindee_client</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">product</span><span class="o">.</span><span class="n">ProofOfAddressV1</span><span class="p">,</span> <span class="n">input_doc</span><span class="p">)</span>
 
-<span class="c1"># Print a brief summary of the parsed data</span>
+<span class="c1"># Print a summary of the API result</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">document</span><span class="p">)</span>
+
+<span class="c1"># Print the document-level summary</span>
+<span class="c1"># print(result.document.inference.prediction)</span>
 </pre></div>
 </div>
 <dl class="py class">

@@ -20,8 +20,11 @@ input_doc = mindee_client.source_from_path("/path/to/the/file.ext")
 # The endpoint name must be specified since it cannot be determined from the class.
 result: PredictResponse = mindee_client.parse(product.MaterialCertificateV1, input_doc)
 
-# Print a brief summary of the parsed data
+# Print a summary of the API result
 print(result.document)
+
+# Print the document-level summary
+# print(result.document.inference.prediction)
 ```
 
 **Output (RST):**
@@ -76,4 +79,4 @@ print(result.document.inference.prediction.norm.value)
 ```
 
 # Questions?
-[Join our Slack](https://join.slack.com/t/mindee-community/shared_invite/zt-1jv6nawjq-FDgFcF2T5CmMmRpl9LLptw)
+[Join our Slack](https://join.slack.com/t/mindee-community/shared_invite/zt-2d0ds7dtz-DPAF81ZqTy20chsYpQBW5g)
