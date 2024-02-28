@@ -4,8 +4,8 @@ import pytest
 import requests
 
 from mindee.client import Client
-from mindee.error import MindeeHTTPError
 from mindee.input.sources import PathInput
+from mindee.mindee_http.response_validation import is_valid_async_response
 from mindee.parsing.common.async_predict_response import AsyncPredictResponse
 from mindee.product.invoice_splitter import InvoiceSplitterV1
 
@@ -52,10 +52,10 @@ def test_async_response_post_success():
     parsed_response = AsyncPredictResponse(InvoiceSplitterV1, response)
     fake_response = FakeResponse(response)
     fake_response.set_ok_status(True)
-    assert Client._is_valid_async_response(fake_response) is True
+    assert is_valid_async_response(fake_response) is True
     assert parsed_response.job is not None
     assert (
-        parsed_response.job.issued_at.isoformat() == "2023-02-16T12:33:49.602947+00:00"
+            parsed_response.job.issued_at.isoformat() == "2023-02-16T12:33:49.602947+00:00"
     )
     assert parsed_response.job.available_at is None
     assert parsed_response.job.status == "waiting"
@@ -67,7 +67,7 @@ def test_async_response_post_fail():
     response = json.load(open(FILE_PATH_POST_FAIL))
     fake_response = FakeResponse(response)
     fake_response.set_ok_status(False)
-    assert Client._is_valid_async_response(fake_response) is False
+    assert is_valid_async_response(fake_response) is False
 
 
 def test_async_get_processing():
@@ -75,7 +75,7 @@ def test_async_get_processing():
     parsed_response = AsyncPredictResponse(InvoiceSplitterV1, response)
     fake_response = FakeResponse(response)
     fake_response.set_ok_status(True)
-    assert Client._is_valid_async_response(fake_response) is True
+    assert is_valid_async_response(fake_response) is True
     assert parsed_response.job is not None
     assert parsed_response.job.issued_at.isoformat() == "2023-03-16T12:33:49.602947"
     assert parsed_response.job.available_at is None
@@ -89,7 +89,7 @@ def test_async_response_get_completed():
     parsed_response = AsyncPredictResponse(InvoiceSplitterV1, response)
     fake_response = FakeResponse(response)
     fake_response.set_ok_status(True)
-    assert Client._is_valid_async_response(fake_response) is True
+    assert is_valid_async_response(fake_response) is True
     assert parsed_response.job is not None
     assert parsed_response.job.issued_at.isoformat() == "2023-03-21T13:52:56.326107"
     assert parsed_response.job.available_at.isoformat() == "2023-03-21T13:53:00.990339"

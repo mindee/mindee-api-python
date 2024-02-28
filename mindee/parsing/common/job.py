@@ -12,6 +12,8 @@ class Job:
 
     id: str
     """ID of the job sent by the API in response to an enqueue request."""
+    status_code: Optional[int]
+    """Job Status Code."""
     issued_at: datetime
     """Timestamp of the request reception by the API."""
     available_at: Optional[datetime]
@@ -33,6 +35,8 @@ class Job:
         else:
             self.available_at = None
         self.id = json_response["id"]
+        if json_response.get("status_code"):
+            self.status_code = json_response["status_code"]
         self.status = json_response["status"]
         if self.available_at:
             self.millisecs_taken = int(

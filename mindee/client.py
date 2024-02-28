@@ -1,10 +1,6 @@
-import json
 from pathlib import Path
 from time import sleep
 from typing import BinaryIO, Dict, Optional, Type, Union
-
-import requests
-
 from mindee.error.mindee_error import MindeeClientError, MindeeError
 from mindee.error.mindee_http_error import handle_error
 from mindee.input.page_options import PageOptions
@@ -17,6 +13,7 @@ from mindee.input.sources import (
     UrlInputSource,
 )
 from mindee.logger import logger
+from mindee.mindee_http import is_valid_async_response, is_valid_sync_response
 from mindee.mindee_http.endpoint import CustomEndpoint, Endpoint
 from mindee.mindee_http.mindee_api import MindeeApi
 from mindee.parsing.common.async_predict_response import AsyncPredictResponse
@@ -315,7 +312,7 @@ parameter.
             endpoint = self._initialize_ots_endpoint(product_class)
 
         feedback_response = endpoint.document_feedback_req_put(document_id, feedback)
-        if not self._is_valid_sync_response(feedback_response):
+        if not is_valid_sync_response(feedback_response):
             raise handle_error(
                 str(product_class.endpoint_name),
                 feedback_response.json(),
@@ -324,36 +321,6 @@ parameter.
 
         return FeedbackResponse(feedback_response.json())
 
-    @staticmethod
-    def _is_valid_sync_response(response: requests.Response) -> bool:
-        if not response or not response.ok:
-            return False
-        response_json = json.loads(response.content)
-        # VERY rare edge case where raw html is sent instead of json.
-        if not isinstance(response_json, dict):
-            return False
-        return True
-
-    @staticmethod
-    def _is_valid_async_response(response: requests.Response) -> bool:
-        if not Client._is_valid_sync_response(response):
-            return False
-        response_json = json.loads(response.content)
-        # Checks invalid status codes within the bounds of ok responses.
-        if response.status_code and (
-            response.status_code < 200 or response.status_code > 302
-        ):
-            return False
-        # Async errors.
-        if "job" not in response_json:
-            return False
-        if (
-            "job" in response_json
-            and "error" in response_json["job"]
-            and response_json["job"]["error"]
-        ):
-            return False
-        return True
 
     def _make_request(
         self,
@@ -370,7 +337,7 @@ parameter.
 
         dict_response = response.json()
 
-        if not self._is_valid_sync_response(response):
+        if not is_valid_sync_response(response):
             raise handle_error(
                 str(product_class.endpoint_name),
                 dict_response,
@@ -399,7 +366,7 @@ parameter.
 
         dict_response = response.json()
 
-        if not self._is_valid_async_response(response):
+        if not is_valid_async_response(response):
             raise handle_error(
                 str(product_class.endpoint_name),
                 dict_response,
@@ -421,7 +388,7 @@ parameter.
         """
         queue_response = endpoint.document_queue_req_get(queue_id=queue_id)
 
-        if not self._is_valid_async_response(queue_response):
+        if not is_valid_async_response(queue_response):
             dict_response = queue_response.json()
             raise handle_error(
                 str(product_class.endpoint_name),
