@@ -21,8 +21,8 @@ class PredictResponse(Generic[TypeInference], ApiResponse):
         """
         Container for the raw API response and the parsed document.
 
-        :param input_source: Input object
-        :param http_response: json response from HTTP call
+        :param inference_type: Type of the inference.
+        :param raw_response: json response from HTTP call.
         """
         super().__init__(raw_response)
         self.document = Document(inference_type, raw_response["document"])

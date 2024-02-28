@@ -1,18 +1,39 @@
 import json
 
 import pytest
+import requests
 
 from mindee.client import Client
+from mindee.error import MindeeHTTPError
 from mindee.input.sources import PathInput
 from mindee.parsing.common.async_predict_response import AsyncPredictResponse
 from mindee.product.invoice_splitter import InvoiceSplitterV1
 
 ASYNC_DIR = "./tests/data/async"
 
-FILE_PATH_POST_SUCCESS = f"{ ASYNC_DIR }/post_success.json"
-FILE_PATH_POST_FAIL = f"{ ASYNC_DIR }/post_fail_forbidden.json"
-FILE_PATH_GET_PROCESSING = f"{ ASYNC_DIR }/get_processing.json"
-FILE_PATH_GET_COMPLETED = f"{ ASYNC_DIR }/get_completed.json"
+FILE_PATH_POST_SUCCESS = f"{ASYNC_DIR}/post_success.json"
+FILE_PATH_POST_FAIL = f"{ASYNC_DIR}/post_fail_forbidden.json"
+FILE_PATH_GET_PROCESSING = f"{ASYNC_DIR}/get_processing.json"
+FILE_PATH_GET_COMPLETED = f"{ASYNC_DIR}/get_completed.json"
+
+
+class FakeResponse(requests.Response):
+    def __init__(self, json_data, _status_code=200):
+        super().__init__()
+        self._json_data = json_data
+        self.status_code = _status_code
+        self._ok = True
+
+    def set_ok_status(self, ok_status):
+        self._ok = ok_status
+
+    @property
+    def ok(self):
+        return self._ok
+
+    @property
+    def content(self) -> str:
+        return json.dumps(self._json_data)
 
 
 @pytest.fixture
@@ -29,6 +50,9 @@ def dummy_client() -> Client:
 def test_async_response_post_success():
     response = json.load(open(FILE_PATH_POST_SUCCESS))
     parsed_response = AsyncPredictResponse(InvoiceSplitterV1, response)
+    fake_response = FakeResponse(response)
+    fake_response.set_ok_status(True)
+    assert Client._is_valid_async_response(fake_response) is True
     assert parsed_response.job is not None
     assert (
         parsed_response.job.issued_at.isoformat() == "2023-02-16T12:33:49.602947+00:00"
@@ -41,18 +65,17 @@ def test_async_response_post_success():
 
 def test_async_response_post_fail():
     response = json.load(open(FILE_PATH_POST_FAIL))
-    parsed_response = AsyncPredictResponse(InvoiceSplitterV1, response)
-    assert parsed_response.job is not None
-    assert parsed_response.job.issued_at.isoformat() == "2023-01-01T00:00:00+00:00"
-    assert parsed_response.job.available_at is None
-    assert parsed_response.job.status is None
-    assert parsed_response.job.id is None
-    assert parsed_response.api_request.error["code"] == "Forbidden"
+    fake_response = FakeResponse(response)
+    fake_response.set_ok_status(False)
+    assert Client._is_valid_async_response(fake_response) is False
 
 
 def test_async_get_processing():
     response = json.load(open(FILE_PATH_GET_PROCESSING))
     parsed_response = AsyncPredictResponse(InvoiceSplitterV1, response)
+    fake_response = FakeResponse(response)
+    fake_response.set_ok_status(True)
+    assert Client._is_valid_async_response(fake_response) is True
     assert parsed_response.job is not None
     assert parsed_response.job.issued_at.isoformat() == "2023-03-16T12:33:49.602947"
     assert parsed_response.job.available_at is None
@@ -64,6 +87,9 @@ def test_async_get_processing():
 def test_async_response_get_completed():
     response = json.load(open(FILE_PATH_GET_COMPLETED))
     parsed_response = AsyncPredictResponse(InvoiceSplitterV1, response)
+    fake_response = FakeResponse(response)
+    fake_response.set_ok_status(True)
+    assert Client._is_valid_async_response(fake_response) is True
     assert parsed_response.job is not None
     assert parsed_response.job.issued_at.isoformat() == "2023-03-21T13:52:56.326107"
     assert parsed_response.job.available_at.isoformat() == "2023-03-21T13:53:00.990339"
