@@ -6,6 +6,7 @@ import requests
 from mindee.client import Client
 from mindee.input.sources import PathInput
 from mindee.mindee_http.response_validation import is_valid_async_response
+from mindee.parsing.common.api_request import RequestStatus
 from mindee.parsing.common.async_predict_response import AsyncPredictResponse
 from mindee.product.invoice_splitter import InvoiceSplitterV1
 
@@ -15,6 +16,7 @@ FILE_PATH_POST_SUCCESS = f"{ASYNC_DIR}/post_success.json"
 FILE_PATH_POST_FAIL = f"{ASYNC_DIR}/post_fail_forbidden.json"
 FILE_PATH_GET_PROCESSING = f"{ASYNC_DIR}/get_processing.json"
 FILE_PATH_GET_COMPLETED = f"{ASYNC_DIR}/get_completed.json"
+FILE_PATH_GET_FAILED_JOB = f"{ASYNC_DIR}/get_failed_job_error.json"
 
 
 class FakeResponse(requests.Response):
@@ -55,7 +57,7 @@ def test_async_response_post_success():
     assert is_valid_async_response(fake_response) is True
     assert parsed_response.job is not None
     assert (
-            parsed_response.job.issued_at.isoformat() == "2023-02-16T12:33:49.602947+00:00"
+        parsed_response.job.issued_at.isoformat() == "2023-02-16T12:33:49.602947+00:00"
     )
     assert parsed_response.job.available_at is None
     assert parsed_response.job.status == "waiting"
@@ -95,3 +97,17 @@ def test_async_response_get_completed():
     assert parsed_response.job.available_at.isoformat() == "2023-03-21T13:53:00.990339"
     assert parsed_response.job.status == "completed"
     assert parsed_response.api_request.error == {}
+
+
+def test_async_get_failed_job():
+    response = json.load(open(FILE_PATH_GET_FAILED_JOB))
+    parsed_response = AsyncPredictResponse(InvoiceSplitterV1, response)
+    fake_response = FakeResponse(response)
+    fake_response.set_ok_status(False)
+    assert is_valid_async_response(fake_response) is False
+    assert parsed_response.api_request.status == RequestStatus.SUCCESS
+    assert parsed_response.api_request.status_code == 200
+    assert parsed_response.job.issued_at.isoformat() == "2024-02-20T10:31:06.878599"
+    assert parsed_response.job.available_at.isoformat() == "2024-02-20T10:31:06.878599"
+    assert parsed_response.job.status == "failed"
+    assert parsed_response.job.error["code"] == "ServerError"

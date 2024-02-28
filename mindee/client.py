@@ -1,6 +1,7 @@
 from pathlib import Path
 from time import sleep
 from typing import BinaryIO, Dict, Optional, Type, Union
+
 from mindee.error.mindee_error import MindeeClientError, MindeeError
 from mindee.error.mindee_http_error import handle_error
 from mindee.input.page_options import PageOptions
@@ -13,7 +14,11 @@ from mindee.input.sources import (
     UrlInputSource,
 )
 from mindee.logger import logger
-from mindee.mindee_http import is_valid_async_response, is_valid_sync_response
+from mindee.mindee_http import (
+    clean_request_json,
+    is_valid_async_response,
+    is_valid_sync_response,
+)
 from mindee.mindee_http.endpoint import CustomEndpoint, Endpoint
 from mindee.mindee_http.mindee_api import MindeeApi
 from mindee.parsing.common.async_predict_response import AsyncPredictResponse
@@ -313,14 +318,14 @@ parameter.
 
         feedback_response = endpoint.document_feedback_req_put(document_id, feedback)
         if not is_valid_sync_response(feedback_response):
+            feedback_clean_response = clean_request_json(feedback_response)
             raise handle_error(
                 str(product_class.endpoint_name),
-                feedback_response.json(),
-                feedback_response.status_code,
+                feedback_clean_response,
+                feedback_clean_response["status_code"],
             )
 
         return FeedbackResponse(feedback_response.json())
-
 
     def _make_request(
         self,
@@ -338,10 +343,11 @@ parameter.
         dict_response = response.json()
 
         if not is_valid_sync_response(response):
+            clean_response = clean_request_json(response)
             raise handle_error(
                 str(product_class.endpoint_name),
-                dict_response,
-                response.status_code,
+                clean_response,
+                clean_response["status_code"],
             )
 
         return PredictResponse(product_class, dict_response)
@@ -367,10 +373,11 @@ parameter.
         dict_response = response.json()
 
         if not is_valid_async_response(response):
+            clean_response = clean_request_json(response)
             raise handle_error(
                 str(product_class.endpoint_name),
-                dict_response,
-                response.status_code,
+                clean_response,
+                clean_response["status_code"],
             )
 
         return AsyncPredictResponse(product_class, dict_response)
@@ -389,11 +396,11 @@ parameter.
         queue_response = endpoint.document_queue_req_get(queue_id=queue_id)
 
         if not is_valid_async_response(queue_response):
-            dict_response = queue_response.json()
+            clean_queue_response = clean_request_json(queue_response)
             raise handle_error(
                 str(product_class.endpoint_name),
-                dict_response,
-                queue_response.status_code,
+                clean_queue_response,
+                clean_queue_response["status_code"],
             )
 
         return AsyncPredictResponse(product_class, queue_response.json())
