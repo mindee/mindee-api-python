@@ -79,6 +79,6 @@ def clean_request_json(response: requests.Response) -> StringDict:
             and response_json["job"]["error"]["status_code"].isnumeric()
         ):
             error_code = int(response_json["job"]["error"]["status_code"])
-            if error_code > 400:
+            if error_code >= 400:
                 corrected_json["status_code"] = error_code
     return corrected_json
