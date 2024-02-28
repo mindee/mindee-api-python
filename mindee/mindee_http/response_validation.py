@@ -65,7 +65,7 @@ def clean_request_json(response: requests.Response) -> StringDict:
     if (
         "status_code" in response_json["api_request"]
         and response_json["api_request"]["status_code"].isdigit()
-        and int(response_json["api_request"]["status_code"]) > 399
+        and int(response_json["api_request"]["status_code"]) >= 400
     ):
         corrected_json["status_code"] = int(response_json["api_request"]["status_code"])
     if (

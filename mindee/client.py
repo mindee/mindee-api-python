@@ -322,7 +322,6 @@ parameter.
             raise handle_error(
                 str(product_class.endpoint_name),
                 feedback_clean_response,
-                feedback_clean_response["status_code"],
             )
 
         return FeedbackResponse(feedback_response.json())
@@ -347,7 +346,6 @@ parameter.
             raise handle_error(
                 str(product_class.endpoint_name),
                 clean_response,
-                clean_response["status_code"],
             )
 
         return PredictResponse(product_class, dict_response)
@@ -377,7 +375,6 @@ parameter.
             raise handle_error(
                 str(product_class.endpoint_name),
                 clean_response,
-                clean_response["status_code"],
             )
 
         return AsyncPredictResponse(product_class, dict_response)
@@ -400,7 +397,6 @@ parameter.
             raise handle_error(
                 str(product_class.endpoint_name),
                 clean_queue_response,
-                clean_queue_response["status_code"],
             )
 
         return AsyncPredictResponse(product_class, queue_response.json())

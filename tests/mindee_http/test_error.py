@@ -10,6 +10,7 @@ from mindee.error.mindee_http_error import (
     handle_error,
 )
 from mindee.input.sources import PathInput
+from mindee.mindee_http import clean_request_json
 from tests.test_inputs import FILE_TYPES_DIR
 from tests.utils import clear_envvars, dummy_envvars
 
@@ -60,7 +61,8 @@ def test_http_enqueue_and_parse_client_error(
 def test_http_400_error():
     error_ref = open(ERROR_DATA_DIR / "error_400_no_details.json")
     error_obj = json.load(error_ref)
-    error_400 = handle_error("dummy-url", error_obj, 400)
+    error_obj["status_code"] = 400
+    error_400 = handle_error("dummy-url", error_obj)
     with pytest.raises(MindeeHTTPClientError):
         raise error_400
     assert error_400.status_code == 400
@@ -72,7 +74,8 @@ def test_http_400_error():
 def test_http_401_error():
     error_ref = open(ERROR_DATA_DIR / "error_401_invalid_token.json")
     error_obj = json.load(error_ref)
-    error_401 = handle_error("dummy-url", error_obj, 401)
+    error_obj["status_code"] = 401
+    error_401 = handle_error("dummy-url", error_obj)
     with pytest.raises(MindeeHTTPClientError):
         raise error_401
     assert error_401.status_code == 401
@@ -84,7 +87,8 @@ def test_http_401_error():
 def test_http_429_error():
     error_ref = open(ERROR_DATA_DIR / "error_429_too_many_requests.json")
     error_obj = json.load(error_ref)
-    error_429 = handle_error("dummy-url", error_obj, 429)
+    error_obj["status_code"] = 429
+    error_429 = handle_error("dummy-url", error_obj)
     with pytest.raises(MindeeHTTPClientError):
         raise error_429
     assert error_429.status_code == 429
@@ -96,7 +100,8 @@ def test_http_429_error():
 def test_http_500_error():
     error_ref = open(ERROR_DATA_DIR / "error_500_inference_fail.json")
     error_obj = json.load(error_ref)
-    error_500 = handle_error("dummy-url", error_obj, 500)
+    error_obj["status_code"] = 500
+    error_500 = handle_error("dummy-url", error_obj)
     with pytest.raises(MindeeHTTPServerError):
         raise error_500
     assert error_500.status_code == 500
@@ -107,7 +112,7 @@ def test_http_500_error():
 
 def test_http_500_html_error():
     error_ref_contents = open(ERROR_DATA_DIR / "error_50x.html").read()
-    error_500 = handle_error("dummy-url", error_ref_contents, 500)
+    error_500 = handle_error("dummy-url", error_ref_contents)
     with pytest.raises(MindeeHTTPServerError):
         raise error_500
     assert error_500.status_code == 500

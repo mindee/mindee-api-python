@@ -88,7 +88,7 @@ class MindeeHTTPServerError(MindeeHTTPError):
     """API Server HTTP exception."""
 
 
-def handle_error(url: str, response: StringDict, code: int) -> MindeeHTTPError:
+def handle_error(url: str, response: StringDict) -> MindeeHTTPError:
     """
     Creates an appropriate HTTP error exception, based on retrieved HTTP error code.
 
@@ -96,6 +96,16 @@ def handle_error(url: str, response: StringDict, code: int) -> MindeeHTTPError:
     :param response: StringDict
     """
     error_obj = create_error_obj(response)
+    if not isinstance(response, str) and (  # type: ignore
+        "status_code" in response
+        and (
+            isinstance(response["status_code"], int)
+            or response["status_code"].isdigit()
+        )
+    ):
+        code = int(response["status_code"])
+    else:
+        code = 500
     if 400 <= code <= 499:
         return MindeeHTTPClientError(error_obj, url, code)
     if 500 <= code <= 599:
