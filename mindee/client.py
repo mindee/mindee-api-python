@@ -14,6 +14,11 @@ from mindee.input.sources import (
     UrlInputSource,
 )
 from mindee.logger import logger
+from mindee.mindee_http import (
+    clean_request_json,
+    is_valid_async_response,
+    is_valid_sync_response,
+)
 from mindee.mindee_http.endpoint import CustomEndpoint, Endpoint
 from mindee.mindee_http.mindee_api import MindeeApi
 from mindee.parsing.common.async_predict_response import AsyncPredictResponse
@@ -312,11 +317,11 @@ parameter.
             endpoint = self._initialize_ots_endpoint(product_class)
 
         feedback_response = endpoint.document_feedback_req_put(document_id, feedback)
-        if not feedback_response.ok:
+        if not is_valid_sync_response(feedback_response):
+            feedback_clean_response = clean_request_json(feedback_response)
             raise handle_error(
                 str(product_class.endpoint_name),
-                feedback_response.json(),
-                feedback_response.status_code,
+                feedback_clean_response,
             )
 
         return FeedbackResponse(feedback_response.json())
@@ -336,11 +341,11 @@ parameter.
 
         dict_response = response.json()
 
-        if not response.ok:
+        if not is_valid_sync_response(response):
+            clean_response = clean_request_json(response)
             raise handle_error(
                 str(product_class.endpoint_name),
-                dict_response,
-                response.status_code,
+                clean_response,
             )
 
         return PredictResponse(product_class, dict_response)
@@ -365,11 +370,11 @@ parameter.
 
         dict_response = response.json()
 
-        if not response.ok:
+        if not is_valid_async_response(response):
+            clean_response = clean_request_json(response)
             raise handle_error(
                 str(product_class.endpoint_name),
-                dict_response,
-                response.status_code,
+                clean_response,
             )
 
         return AsyncPredictResponse(product_class, dict_response)
@@ -387,16 +392,11 @@ parameter.
         """
         queue_response = endpoint.document_queue_req_get(queue_id=queue_id)
 
-        if (
-            not queue_response.status_code
-            or queue_response.status_code < 200
-            or queue_response.status_code > 302
-        ):
-            dict_response = queue_response.json()
+        if not is_valid_async_response(queue_response):
+            clean_queue_response = clean_request_json(queue_response)
             raise handle_error(
                 str(product_class.endpoint_name),
-                dict_response,
-                queue_response.status_code,
+                clean_queue_response,
             )
 
         return AsyncPredictResponse(product_class, queue_response.json())

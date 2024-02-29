@@ -2,6 +2,8 @@ import json
 from datetime import datetime
 from typing import Optional
 
+from mindee.parsing.common.string_dict import StringDict
+
 
 class Job:
     """
@@ -12,6 +14,8 @@ class Job:
 
     id: str
     """ID of the job sent by the API in response to an enqueue request."""
+    error: Optional[StringDict]
+    """Information about an error that occurred during the job processing."""
     issued_at: datetime
     """Timestamp of the request reception by the API."""
     available_at: Optional[datetime]
@@ -33,6 +37,10 @@ class Job:
         else:
             self.available_at = None
         self.id = json_response["id"]
+        if json_response.get("status_code"):
+            self.status_code = json_response["status_code"]
+        if json_response.get("error"):
+            self.error = json_response.get("error")
         self.status = json_response["status"]
         if self.available_at:
             self.millisecs_taken = int(
