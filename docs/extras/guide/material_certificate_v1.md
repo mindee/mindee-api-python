@@ -3,7 +3,7 @@ title: Material Certificate OCR Python
 ---
 The Python OCR SDK supports the [Material Certificate API](https://platform.mindee.com/mindee/material_certificate).
 
-Using the [sample below](https://github.com/mindee/client-lib-test-data/blob/main/products/material_certificate/default_sample.jpg), we are going to illustrate how to extract the data that we want using the OCR SDK.
+The [sample below](https://github.com/mindee/client-lib-test-data/blob/main/products/material_certificate/default_sample.jpg) can be used for testing purposes.
 ![Material Certificate sample](https://github.com/mindee/client-lib-test-data/blob/main/products/material_certificate/default_sample.jpg?raw=true)
 
 # Quick-Start
@@ -25,10 +25,6 @@ print(result.document)
 
 # Print the document-level summary
 # print(result.document.inference.prediction)
-```
-
-**Output (RST):**
-```rst
 ```
 
 # Field Types
