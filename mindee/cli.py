@@ -120,7 +120,7 @@ DOCUMENTS: Dict[str, CommandConfig] = {
     "material-certificate": CommandConfig(
         help="Material Certificate",
         doc_class=product.MaterialCertificateV1,
-        is_sync=True,
+        is_sync=False,
         is_async=True,
     ),
     "multi-receipts": CommandConfig(
