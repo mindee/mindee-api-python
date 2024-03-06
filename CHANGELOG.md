@@ -1,5 +1,11 @@
 # Mindee Python API Library Changelog
 
+## v4.4.1 - 2024-03-05
+### Changes
+* :recycle: update error handling to account for future evolutions
+* :memo: update some documentation
+
+
 ## v4.4.0 - 2024-02-21
 ### Changes
 * :sparkles: add support for Resume V1
