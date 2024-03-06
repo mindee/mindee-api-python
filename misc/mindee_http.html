@@ -82,6 +82,9 @@
 <li class="toctree-l4"><a class="reference internal" href="#mindee.mindee_http.MindeeApi.request_timeout"><code class="docutils literal notranslate"><span class="pre">MindeeApi.request_timeout</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.mindee_http.clean_request_json"><code class="docutils literal notranslate"><span class="pre">clean_request_json()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.mindee_http.is_valid_async_response"><code class="docutils literal notranslate"><span class="pre">is_valid_async_response()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.mindee_http.is_valid_sync_response"><code class="docutils literal notranslate"><span class="pre">is_valid_sync_response()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -465,6 +468,58 @@ This performs a cropping operation on the server and will increase response time
 <span class="sig-name descname"><span class="pre">request_timeout</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.mindee_http.MindeeApi.request_timeout" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mindee.mindee_http.clean_request_json">
+<span class="sig-name descname"><span class="pre">clean_request_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.clean_request_json" title="Permalink to this definition"></a></dt>
+<dd><p>Checks and correct the response error format depending on the two possible kind of returns.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>response</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code>) – Raw request response.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Returns the job error if the error is due to parsing, returns the http error otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mindee.mindee_http.is_valid_async_response">
+<span class="sig-name descname"><span class="pre">is_valid_async_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.is_valid_async_response" title="Permalink to this definition"></a></dt>
+<dd><p>Checks if the asynchronous response is valid. Also checks if it is a valid synchronous response.</p>
+<p>Returns True if the response is valid.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>response</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code>) – a requests response object.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mindee.mindee_http.is_valid_sync_response">
+<span class="sig-name descname"><span class="pre">is_valid_sync_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.is_valid_sync_response" title="Permalink to this definition"></a></dt>
+<dd><p>Checks if the synchronous response is valid. Returns True if the response is valid.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>response</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code>) – a requests response object.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
