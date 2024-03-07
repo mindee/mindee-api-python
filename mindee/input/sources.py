@@ -121,10 +121,10 @@ class LocalInputSource:
         return len(pdf)
 
     def process_pdf(
-            self,
-            behavior: str,
-            on_min_pages: int,
-            page_indexes: Sequence,
+        self,
+        behavior: str,
+        on_min_pages: int,
+        page_indexes: Sequence,
     ) -> None:
         """Run any required processing on a PDF file."""
         if self.is_pdf_empty():
