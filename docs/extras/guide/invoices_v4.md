@@ -205,6 +205,13 @@ A `InvoiceV4LineItem` implements the following attributes:
 # Attributes
 The following fields are extracted for Invoice V4:
 
+## Billing Address
+**billing_address** ([StringField](#stringfield)): The customer's address used for billing.
+
+```py
+print(result.document.inference.prediction.billing_address.value)
+```
+
 ## Customer Address
 **customer_address** ([StringField](#stringfield)): The address of the customer.
 
@@ -276,6 +283,13 @@ print(result.document.inference.prediction.locale.value)
 ```py
 for reference_numbers_elem in result.document.inference.prediction.reference_numbers:
     print(reference_numbers_elem.value)
+```
+
+## Shipping Address
+**shipping_address** ([StringField](#stringfield)): Customer's delivery address.
+
+```py
+print(result.document.inference.prediction.shipping_address.value)
 ```
 
 ## Supplier Address

@@ -17,6 +17,8 @@ from mindee.product.invoice.invoice_v4_line_item import InvoiceV4LineItem
 class InvoiceV4Document(Prediction):
     """Document data for Invoice, API version 4."""
 
+    billing_address: StringField
+    """The customer's address used for billing."""
     customer_address: StringField
     """The address of the customer."""
     customer_company_registrations: List[CompanyRegistrationField]
@@ -37,6 +39,8 @@ class InvoiceV4Document(Prediction):
     """The locale detected on the document."""
     reference_numbers: List[StringField]
     """List of Reference numbers, including PO number."""
+    shipping_address: StringField
+    """Customer's delivery address."""
     supplier_address: StringField
     """The address of the supplier or merchant."""
     supplier_company_registrations: List[CompanyRegistrationField]
@@ -66,6 +70,10 @@ class InvoiceV4Document(Prediction):
         :param page_id: Page number for multi pages pdf input
         """
         super().__init__(raw_prediction, page_id)
+        self.billing_address = StringField(
+            raw_prediction["billing_address"],
+            page_id=page_id,
+        )
         self.customer_address = StringField(
             raw_prediction["customer_address"],
             page_id=page_id,
@@ -106,6 +114,10 @@ class InvoiceV4Document(Prediction):
             StringField(prediction, page_id=page_id)
             for prediction in raw_prediction["reference_numbers"]
         ]
+        self.shipping_address = StringField(
+            raw_prediction["shipping_address"],
+            page_id=page_id,
+        )
         self.supplier_address = StringField(
             raw_prediction["supplier_address"],
             page_id=page_id,
@@ -202,6 +214,8 @@ class InvoiceV4Document(Prediction):
             f":Customer Company Registrations: {customer_company_registrations}\n"
         )
         out_str += f":Customer Address: {self.customer_address}\n"
+        out_str += f":Shipping Address: {self.shipping_address}\n"
+        out_str += f":Billing Address: {self.billing_address}\n"
         out_str += f":Document Type: {self.document_type}\n"
         out_str += f":Line Items: {self._line_items_to_str()}\n"
         return clean_out_string(out_str)
