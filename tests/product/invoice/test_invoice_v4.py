@@ -71,4 +71,6 @@ def test_empty_doc(empty_doc: Document[InvoiceV4Document, Page[InvoiceV4Document
     assert prediction.customer_name.value is None
     assert len(prediction.customer_company_registrations) == 0
     assert prediction.customer_address.value is None
+    assert prediction.shipping_address.value is None
+    assert prediction.billing_address.value is None
     assert len(prediction.line_items) == 0
