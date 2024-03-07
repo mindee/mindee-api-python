@@ -1,7 +1,7 @@
 import io
 from pathlib import Path
 
-import pikepdf
+import pypdfium2 as pdfium
 import pytest
 
 from mindee.error.mimetype_error import MimeTypeError
@@ -17,6 +17,7 @@ from mindee.input.sources import (
 from tests.product import PRODUCT_DATA_DIR
 
 FILE_TYPES_DIR = Path("./tests/data/file_types")
+
 
 #
 # PDF
@@ -55,18 +56,19 @@ def test_pdf_cut_n_pages(numb_pages: int):
     )
     assert input_obj.count_doc_pages() == numb_pages
 
-    # Each page in the PDF has a unique (and increasing) /Content /Length.
-    # We use this to make sure we have the correct pages
-    cut_pdf = pikepdf.open(input_obj.file_object)
-    with pikepdf.open(
-        FILE_TYPES_DIR / "pdf" / f"multipage_cut-{numb_pages}.pdf"
-    ) as pdf:
-        for idx, page in enumerate(pdf.pages):
-            assert (
-                page["/Contents"]["/Length"]
-                == cut_pdf.pages[idx]["/Contents"]["/Length"]
-            )
+    # Currently the least verbose way of comparing pages with pypdfium2
+    # I.e. each page is read & rendered as a rasterized image. These images are then compared as raw byte sequences.
+    cut_pdf = pdfium.PdfDocument(input_obj.file_object)
+    pdf = pdfium.PdfDocument(FILE_TYPES_DIR / "pdf" / f"multipage_cut-{numb_pages}.pdf")
+    for idx in range(len(pdf)):
+        pdf_page = pdf.get_page(idx)
+        pdf_page_render = pdfium.PdfPage.render(pdf_page)
+        cut_pdf_page = cut_pdf.get_page(idx)
+        cut_pdf_page_render = pdfium.PdfPage.render(cut_pdf_page)
+
+        assert bytes(pdf_page_render.buffer) == bytes(cut_pdf_page_render.buffer)
     cut_pdf.close()
+    pdf.close()
 
 
 def test_pdf_keep_5_first_pages():
