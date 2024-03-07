@@ -41,7 +41,7 @@ repos:
         exclude: "tests/|examples/|docs/"
         additional_dependencies:
           - toml
-          - pikepdf
+          - pypdfium2
           - types-pytz
           - types-requests
           - types-setuptools
