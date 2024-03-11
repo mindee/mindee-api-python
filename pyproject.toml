@@ -32,7 +32,6 @@ safe_licenses = [
   "MIT License",
   "Mozilla Public License 2.0 (MPL 2.0)",
   "BSD License",
-  "Historical Permission Notice and Disclaimer (HPND)",
   "(Apache-2.0 OR BSD-3-Clause) AND LicenseRef-PdfiumThirdParty"
 ]
 
