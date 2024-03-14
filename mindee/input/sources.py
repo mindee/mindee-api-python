@@ -179,14 +179,8 @@ class LocalInputSource:
         """
         self.file_object.seek(0)
         pdf = pdfium.PdfDocument(self.file_object)
-        for i in range(len(pdf)):
-            page = pdf.get_page(i)
-
-            has_objects = False
+        for page in pdf:
             for _ in page.get_objects():
-                has_objects = True
-                break
-            if has_objects:
                 return False
         return True
 
