@@ -1,5 +1,12 @@
 # Mindee Python API Library Changelog
 
+## v4.5.0 - 2024-03-15
+### Changes
+* :sparkles: update Invoice to v4.5 
+### Fixes
+* :bug: fix invalid error code handling for some errors (#227)
+
+
 ## v4.4.1 - 2024-03-05
 ### Changes
 * :recycle: update error handling to account for future evolutions
