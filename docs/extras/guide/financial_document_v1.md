@@ -277,7 +277,7 @@ print(result.document.inference.prediction.invoice_number.value)
 
 ```py
 for line_items_elem in result.document.inference.prediction.line_items:
-    print(line_items_elem.value)
+    print(line_items_elem)
 ```
 
 ## Locale

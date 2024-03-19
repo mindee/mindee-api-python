@@ -26,7 +26,6 @@ print(result.document)
 # Print the document-level summary
 # print(result.document.inference.prediction)
 ```
-
 # Field Types
 ## Standard Fields
 These fields are generic and used in several products.
