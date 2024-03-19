@@ -210,7 +210,7 @@ print(result.document.inference.prediction.document_type.value)
 
 ```py
 for line_items_elem in result.document.inference.prediction.line_items:
-    print(line_items_elem.value)
+    print(line_items_elem)
 ```
 
 ## Expense Locale
