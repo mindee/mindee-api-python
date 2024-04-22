@@ -15,7 +15,7 @@ from mindee.product.invoice.invoice_v4_line_item import InvoiceV4LineItem
 
 
 class InvoiceV4Document(Prediction):
-    """Document data for Invoice, API version 4."""
+    """Invoice API version 4.6 document data."""
 
     billing_address: StringField
     """The customer's address used for billing."""
@@ -23,6 +23,8 @@ class InvoiceV4Document(Prediction):
     """The address of the customer."""
     customer_company_registrations: List[CompanyRegistrationField]
     """List of company registrations associated to the customer."""
+    customer_id: StringField
+    """The customer account number or identifier from the supplier."""
     customer_name: StringField
     """The name of the customer or client."""
     date: DateField
@@ -45,10 +47,16 @@ class InvoiceV4Document(Prediction):
     """The address of the supplier or merchant."""
     supplier_company_registrations: List[CompanyRegistrationField]
     """List of company registrations associated to the supplier."""
+    supplier_email: StringField
+    """The email of the supplier or merchant."""
     supplier_name: StringField
     """The name of the supplier or merchant."""
     supplier_payment_details: List[PaymentDetailsField]
     """List of payment details associated to the supplier."""
+    supplier_phone_number: StringField
+    """The phone number of the supplier or merchant."""
+    supplier_website: StringField
+    """The website URL of the supplier or merchant."""
     taxes: Taxes
     """List of tax line details."""
     total_amount: AmountField
@@ -82,6 +90,10 @@ class InvoiceV4Document(Prediction):
             CompanyRegistrationField(prediction, page_id=page_id)
             for prediction in raw_prediction["customer_company_registrations"]
         ]
+        self.customer_id = StringField(
+            raw_prediction["customer_id"],
+            page_id=page_id,
+        )
         self.customer_name = StringField(
             raw_prediction["customer_name"],
             page_id=page_id,
@@ -126,6 +138,10 @@ class InvoiceV4Document(Prediction):
             CompanyRegistrationField(prediction, page_id=page_id)
             for prediction in raw_prediction["supplier_company_registrations"]
         ]
+        self.supplier_email = StringField(
+            raw_prediction["supplier_email"],
+            page_id=page_id,
+        )
         self.supplier_name = StringField(
             raw_prediction["supplier_name"],
             page_id=page_id,
@@ -134,6 +150,14 @@ class InvoiceV4Document(Prediction):
             PaymentDetailsField(prediction, page_id=page_id)
             for prediction in raw_prediction["supplier_payment_details"]
         ]
+        self.supplier_phone_number = StringField(
+            raw_prediction["supplier_phone_number"],
+            page_id=page_id,
+        )
+        self.supplier_website = StringField(
+            raw_prediction["supplier_website"],
+            page_id=page_id,
+        )
         self.taxes = Taxes(raw_prediction["taxes"], page_id=page_id)
         self.total_amount = AmountField(
             raw_prediction["total_amount"],
@@ -209,11 +233,15 @@ class InvoiceV4Document(Prediction):
             f":Supplier Company Registrations: {supplier_company_registrations}\n"
         )
         out_str += f":Supplier Address: {self.supplier_address}\n"
+        out_str += f":Supplier Phone Number: {self.supplier_phone_number}\n"
+        out_str += f":Supplier Website: {self.supplier_website}\n"
+        out_str += f":Supplier Email: {self.supplier_email}\n"
         out_str += f":Customer Name: {self.customer_name}\n"
         out_str += (
             f":Customer Company Registrations: {customer_company_registrations}\n"
         )
         out_str += f":Customer Address: {self.customer_address}\n"
+        out_str += f":Customer ID: {self.customer_id}\n"
         out_str += f":Shipping Address: {self.shipping_address}\n"
         out_str += f":Billing Address: {self.billing_address}\n"
         out_str += f":Document Type: {self.document_type}\n"
