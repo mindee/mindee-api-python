@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/ambv/black
-    rev: 24.1.1
+    rev: 24.4.0
     hooks:
       - id: black
 
@@ -8,7 +8,7 @@ repos:
     rev: 5.13.2
     hooks:
       - id: isort
-        args: [ "--profile", "black" ]
+        args: [ "--profile", "black" , "--split-on-trailing-comma", "true"]
         additional_dependencies: [toml]
 
   - repo: https://github.com/pycqa/pydocstyle
