@@ -10,86 +10,58 @@ from mindee.product.financial_document.financial_document_v1_document import (
 )
 from tests.product import PRODUCT_DATA_DIR
 
+RESPONSE_DIR = PRODUCT_DATA_DIR / "financial_document" / "response_v1"
+
+FinancialDocumentV1DocumentType = Document[
+    FinancialDocumentV1Document,
+    Page[FinancialDocumentV1Document],
+]
+
 
 @pytest.fixture
-def complete_doc_invoice() -> (
-    Document[FinancialDocumentV1Document, Page[FinancialDocumentV1Document]]
-):
-    json_data = json.load(
-        open(
-            PRODUCT_DATA_DIR
-            / "financial_document"
-            / "response_v1"
-            / "complete_invoice.json"
-        )
-    )
+def complete_doc_invoice() -> FinancialDocumentV1DocumentType:
+    file_path = RESPONSE_DIR / "complete_invoice.json"
+    with open(file_path, "r", encoding="utf-8") as open_file:
+        json_data = json.load(open_file)
     return Document(FinancialDocumentV1, json_data["document"])
 
 
 @pytest.fixture
-def complete_doc_receipt() -> (
-    Document[FinancialDocumentV1Document, Page[FinancialDocumentV1Document]]
-):
-    json_data = json.load(
-        open(
-            PRODUCT_DATA_DIR
-            / "financial_document"
-            / "response_v1"
-            / "complete_receipt.json"
-        )
-    )
+def complete_doc_receipt() -> FinancialDocumentV1DocumentType:
+    file_path = RESPONSE_DIR / "complete_receipt.json"
+    with open(file_path, "r", encoding="utf-8") as open_file:
+        json_data = json.load(open_file)
     return Document(FinancialDocumentV1, json_data["document"])
 
 
 @pytest.fixture
-def empty_doc() -> (
-    Document[FinancialDocumentV1Document, Page[FinancialDocumentV1Document]]
-):
-    json_data = json.load(
-        open(PRODUCT_DATA_DIR / "financial_document" / "response_v1" / "empty.json")
-    )
+def empty_doc() -> FinancialDocumentV1DocumentType:
+    file_path = RESPONSE_DIR / "empty.json"
+    with open(file_path, "r", encoding="utf-8") as open_file:
+        json_data = json.load(open_file)
     return Document(FinancialDocumentV1, json_data["document"])
 
 
 @pytest.fixture
-def complete_page_0_invoice() -> Page[FinancialDocumentV1Document]:
-    json_data = json.load(
-        open(
-            PRODUCT_DATA_DIR
-            / "financial_document"
-            / "response_v1"
-            / "complete_invoice.json"
-        )
-    )
-    return Page(
-        FinancialDocumentV1Document, json_data["document"]["inference"]["pages"][0]
-    )
+def complete_page0_invoice() -> Page[FinancialDocumentV1Document]:
+    file_path = RESPONSE_DIR / "complete_invoice.json"
+    with open(file_path, "r", encoding="utf-8") as open_file:
+        json_data = json.load(open_file)
+    page_0 = json_data["document"]["inference"]["pages"][0]
+    return Page(FinancialDocumentV1Document, page_0)
 
 
 @pytest.fixture
-def complete_page_0_receipt() -> Page[FinancialDocumentV1Document]:
-    json_data = json.load(
-        open(
-            PRODUCT_DATA_DIR
-            / "financial_document"
-            / "response_v1"
-            / "complete_receipt.json"
-        )
-    )
-    return Page(
-        FinancialDocumentV1Document, json_data["document"]["inference"]["pages"][0]
-    )
+def complete_page0_receipt() -> Page[FinancialDocumentV1Document]:
+    file_path = RESPONSE_DIR / "complete_receipt.json"
+    with open(file_path, "r", encoding="utf-8") as open_file:
+        json_data = json.load(open_file)
+    page_0 = json_data["document"]["inference"]["pages"][0]
+    return Page(FinancialDocumentV1Document, page_0)
 
 
-def test_complete_doc(
-    complete_doc_invoice: Document[
-        FinancialDocumentV1Document, Page[FinancialDocumentV1Document]
-    ],
-    complete_doc_receipt: Document[
-        FinancialDocumentV1Document, Page[FinancialDocumentV1Document]
-    ],
-):
-    reference_str_invoice = open(
+def test_complete_invoice(complete_doc_invoice: FinancialDocumentV1DocumentType):
+    reference_str = open(
         PRODUCT_DATA_DIR
         / "financial_document"
         / "response_v1"
@@ -97,7 +69,13 @@ def test_complete_doc(
         "r",
         encoding="utf-8",
     ).read()
-    reference_str_receipt = open(
+    assert str(complete_doc_invoice) == reference_str
+
+
+def test_complete_receipt(
+    complete_doc_receipt: FinancialDocumentV1DocumentType,
+):
+    reference_str = open(
         PRODUCT_DATA_DIR
         / "financial_document"
         / "response_v1"
@@ -105,13 +83,10 @@ def test_complete_doc(
         "r",
         encoding="utf-8",
     ).read()
-    assert str(complete_doc_invoice) == reference_str_invoice
-    assert str(complete_doc_receipt) == reference_str_receipt
+    assert str(complete_doc_receipt) == reference_str
 
 
-def test_empty_doc(
-    empty_doc: Document[FinancialDocumentV1Document, Page[FinancialDocumentV1Document]]
-):
+def test_empty_doc(empty_doc: FinancialDocumentV1DocumentType):
     prediction = empty_doc.inference.prediction
     assert prediction.locale.value is None
     assert prediction.invoice_number.value is None
@@ -131,11 +106,8 @@ def test_empty_doc(
     assert len(prediction.line_items) == 0
 
 
-def test_complete_page_0(
-    complete_page_0_invoice: Page[FinancialDocumentV1Document],
-    complete_page_0_receipt: Page[FinancialDocumentV1Document],
-):
-    reference_str_invoice = open(
+def test_page0_invoice(complete_page0_invoice: Page[FinancialDocumentV1Document]):
+    reference_str = open(
         PRODUCT_DATA_DIR
         / "financial_document"
         / "response_v1"
@@ -143,7 +115,12 @@ def test_complete_page_0(
         "r",
         encoding="utf-8",
     ).read()
-    reference_str_receipt = open(
+    assert complete_page0_invoice.id == 0
+    assert str(complete_page0_invoice) == reference_str
+
+
+def test_page0_receipt(complete_page0_receipt: Page[FinancialDocumentV1Document]):
+    reference_str = open(
         PRODUCT_DATA_DIR
         / "financial_document"
         / "response_v1"
@@ -151,7 +128,5 @@ def test_complete_page_0(
         "r",
         encoding="utf-8",
     ).read()
-    assert complete_page_0_invoice.id == 0
-    assert complete_page_0_receipt.id == 0
-    assert str(complete_page_0_invoice) == reference_str_invoice
-    assert str(complete_page_0_receipt) == reference_str_receipt
+    assert complete_page0_receipt.id == 0
+    assert str(complete_page0_receipt) == reference_str
