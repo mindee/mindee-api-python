@@ -215,6 +215,13 @@ A `FinancialDocumentV1LineItem` implements the following attributes:
 # Attributes
 The following fields are extracted for Financial Document V1:
 
+## Billing Address
+**billing_address** ([StringField](#stringfield)): The customer's address used for billing.
+
+```py
+print(result.document.inference.prediction.billing_address.value)
+```
+
 ## Purchase Category
 **category** ([ClassificationField](#classificationfield)): The purchase category among predefined classes.
 
@@ -235,6 +242,13 @@ print(result.document.inference.prediction.customer_address.value)
 ```py
 for customer_company_registrations_elem in result.document.inference.prediction.customer_company_registrations:
     print(customer_company_registrations_elem.value)
+```
+
+## Customer ID
+**customer_id** ([StringField](#stringfield)): The customer account number or identifier from the supplier.
+
+```py
+print(result.document.inference.prediction.customer_id.value)
 ```
 
 ## Customer Name
@@ -295,6 +309,13 @@ for reference_numbers_elem in result.document.inference.prediction.reference_num
     print(reference_numbers_elem.value)
 ```
 
+## Shipping Address
+**shipping_address** ([StringField](#stringfield)): The customer's address used for shipping.
+
+```py
+print(result.document.inference.prediction.shipping_address.value)
+```
+
 ## Purchase Subcategory
 **subcategory** ([ClassificationField](#classificationfield)): The purchase subcategory among predefined classes for transport and food.
 
@@ -317,6 +338,13 @@ for supplier_company_registrations_elem in result.document.inference.prediction.
     print(supplier_company_registrations_elem.value)
 ```
 
+## Supplier Email
+**supplier_email** ([StringField](#stringfield)): The email of the supplier or merchant.
+
+```py
+print(result.document.inference.prediction.supplier_email.value)
+```
+
 ## Supplier Name
 **supplier_name** ([StringField](#stringfield)): The name of the supplier or merchant.
 
@@ -337,6 +365,13 @@ for supplier_payment_details_elem in result.document.inference.prediction.suppli
 
 ```py
 print(result.document.inference.prediction.supplier_phone_number.value)
+```
+
+## Supplier Website
+**supplier_website** ([StringField](#stringfield)): The website URL of the supplier or merchant.
+
+```py
+print(result.document.inference.prediction.supplier_website.value)
 ```
 
 ## Taxes

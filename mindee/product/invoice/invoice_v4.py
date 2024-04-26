@@ -5,7 +5,7 @@ from mindee.product.invoice.invoice_v4_document import InvoiceV4Document
 
 
 class InvoiceV4(Inference):
-    """Inference prediction for Invoice, API version 4."""
+    """Invoice API version 4 inference prediction."""
 
     prediction: InvoiceV4Document
     """Document-level prediction."""

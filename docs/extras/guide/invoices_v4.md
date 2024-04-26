@@ -231,6 +231,13 @@ for customer_company_registrations_elem in result.document.inference.prediction.
     print(customer_company_registrations_elem.value)
 ```
 
+## Customer ID
+**customer_id** ([StringField](#stringfield)): The customer account number or identifier from the supplier.
+
+```py
+print(result.document.inference.prediction.customer_id.value)
+```
+
 ## Customer Name
 **customer_name** ([StringField](#stringfield)): The name of the customer or client.
 
@@ -311,6 +318,13 @@ for supplier_company_registrations_elem in result.document.inference.prediction.
     print(supplier_company_registrations_elem.value)
 ```
 
+## Supplier Email
+**supplier_email** ([StringField](#stringfield)): The email of the supplier or merchant.
+
+```py
+print(result.document.inference.prediction.supplier_email.value)
+```
+
 ## Supplier Name
 **supplier_name** ([StringField](#stringfield)): The name of the supplier or merchant.
 
@@ -324,6 +338,20 @@ print(result.document.inference.prediction.supplier_name.value)
 ```py
 for supplier_payment_details_elem in result.document.inference.prediction.supplier_payment_details:
     print(supplier_payment_details_elem.value)
+```
+
+## Supplier Phone Number
+**supplier_phone_number** ([StringField](#stringfield)): The phone number of the supplier or merchant.
+
+```py
+print(result.document.inference.prediction.supplier_phone_number.value)
+```
+
+## Supplier Website
+**supplier_website** ([StringField](#stringfield)): The website URL of the supplier or merchant.
+
+```py
+print(result.document.inference.prediction.supplier_website.value)
 ```
 
 ## Taxes
