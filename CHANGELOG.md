@@ -1,8 +1,13 @@
 # Mindee Python API Library Changelog
 
+## v4.6.0 - 2024-04-30
+### Changes
+* :sparkles: add support for financial document v1.6 and invoice 4.6
+
+
 ## v4.5.0 - 2024-03-15
 ### Changes
-* :sparkles: update Invoice to v4.5 
+* :sparkles: update Invoice to v4.5
 ### Fixes
 * :bug: fix invalid error code handling for some errors (#227)
 
