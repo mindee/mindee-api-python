@@ -32,12 +32,12 @@ print(result.document)
 ########
 Document
 ########
-:Mindee ID: 80f2328c-58a5-486a-9599-eb2d738680f0
+:Mindee ID: 5c0371d0-1433-43a4-b8fb-a3b11aaf9a0e
 :Filename: default_sample.jpg
 
 Inference
 #########
-:Product: mindee/invoices v4.4
+:Product: mindee/invoices v4.6
 :Rotation applied: Yes
 
 Prediction
@@ -46,7 +46,7 @@ Prediction
 :Invoice Number: 14
 :Reference Numbers: AD29094
 :Purchase Date: 2018-09-25
-:Due Date: 2018-09-25
+:Due Date:
 :Total Net:
 :Total Amount: 2608.20
 :Total Tax: 193.20
@@ -59,10 +59,16 @@ Prediction
 :Supplier Payment Details:
 :Supplier Name: TURNPIKE DESIGNS
 :Supplier Company Registrations:
-:Supplier Address: 156 University Ave, Toronto ON, Canada M5H 2H7
+:Supplier Address: 156 University Ave, Toronto ON, Canada, M5H 2H7
+:Supplier Phone Number: 4165551212
+:Supplier Website:
+:Supplier Email: i_doi@example.com
 :Customer Name: JIRO DOI
 :Customer Company Registrations:
 :Customer Address: 1954 Bloor Street West Toronto, ON, M6P 3K9 Canada
+:Customer ID:
+:Shipping Address:
+:Billing Address: 1954 Bloor Street West Toronto, ON, M6P 3K9 Canada
 :Document Type: INVOICE
 :Line Items:
   +--------------------------------------+--------------+----------+------------+--------------+--------------+------------+
@@ -84,7 +90,7 @@ Page 0
 :Invoice Number: 14
 :Reference Numbers: AD29094
 :Purchase Date: 2018-09-25
-:Due Date: 2018-09-25
+:Due Date:
 :Total Net:
 :Total Amount: 2608.20
 :Total Tax: 193.20
@@ -97,10 +103,16 @@ Page 0
 :Supplier Payment Details:
 :Supplier Name: TURNPIKE DESIGNS
 :Supplier Company Registrations:
-:Supplier Address: 156 University Ave, Toronto ON, Canada M5H 2H7
+:Supplier Address: 156 University Ave, Toronto ON, Canada, M5H 2H7
+:Supplier Phone Number: 4165551212
+:Supplier Website:
+:Supplier Email: i_doi@example.com
 :Customer Name: JIRO DOI
 :Customer Company Registrations:
 :Customer Address: 1954 Bloor Street West Toronto, ON, M6P 3K9 Canada
+:Customer ID:
+:Shipping Address:
+:Billing Address: 1954 Bloor Street West Toronto, ON, M6P 3K9 Canada
 :Document Type: INVOICE
 :Line Items:
   +--------------------------------------+--------------+----------+------------+--------------+--------------+------------+
@@ -227,6 +239,13 @@ for customer_company_registrations_elem in result.document.inference.prediction.
     print(customer_company_registrations_elem.value)
 ```
 
+## Customer ID
+**customer_id** ([StringField](#stringfield)): The customer account number or identifier from the supplier.
+
+```py
+print(result.document.inference.prediction.customer_id.value)
+```
+
 ## Customer Name
 **customer_name** ([StringField](#stringfield)): The name of the customer or client.
 
@@ -267,7 +286,7 @@ print(result.document.inference.prediction.invoice_number.value)
 
 ```py
 for line_items_elem in result.document.inference.prediction.line_items:
-    print(line_items_elem.value)
+    print(line_items_elem)
 ```
 
 ## Locale
@@ -307,6 +326,13 @@ for supplier_company_registrations_elem in result.document.inference.prediction.
     print(supplier_company_registrations_elem.value)
 ```
 
+## Supplier Email
+**supplier_email** ([StringField](#stringfield)): The email of the supplier or merchant.
+
+```py
+print(result.document.inference.prediction.supplier_email.value)
+```
+
 ## Supplier Name
 **supplier_name** ([StringField](#stringfield)): The name of the supplier or merchant.
 
@@ -320,6 +346,20 @@ print(result.document.inference.prediction.supplier_name.value)
 ```py
 for supplier_payment_details_elem in result.document.inference.prediction.supplier_payment_details:
     print(supplier_payment_details_elem.value)
+```
+
+## Supplier Phone Number
+**supplier_phone_number** ([StringField](#stringfield)): The phone number of the supplier or merchant.
+
+```py
+print(result.document.inference.prediction.supplier_phone_number.value)
+```
+
+## Supplier Website
+**supplier_website** ([StringField](#stringfield)): The website URL of the supplier or merchant.
+
+```py
+print(result.document.inference.prediction.supplier_website.value)
 ```
 
 ## Taxes

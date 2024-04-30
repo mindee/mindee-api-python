@@ -128,7 +128,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.product.invoice.invoice_v4.InvoiceV4">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">InvoiceV4</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.invoice.invoice_v4.InvoiceV4" title="Permalink to this definition"></a></dt>
-<dd><p>Inference prediction for Invoice, API version 4.</p>
+<dd><p>Invoice API version 4 inference prediction.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.product.invoice.invoice_v4.InvoiceV4.get_endpoint_info">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_endpoint_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">klass</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.invoice.invoice_v4.InvoiceV4.get_endpoint_info" title="Permalink to this definition"></a></dt>
@@ -191,7 +191,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.product.invoice.invoice_v4_document.InvoiceV4Document">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">InvoiceV4Document</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.invoice.invoice_v4_document.InvoiceV4Document" title="Permalink to this definition"></a></dt>
-<dd><p>Document data for Invoice, API version 4.</p>
+<dd><p>Invoice API version 4.6 document data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -216,6 +216,12 @@
 <dt class="sig sig-object py" id="mindee.product.invoice.invoice_v4_document.InvoiceV4Document.customer_company_registrations">
 <span class="sig-name descname"><span class="pre">customer_company_registrations</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.company_registration.CompanyRegistrationField" title="mindee.parsing.standard.company_registration.CompanyRegistrationField"><code class="xref py py-class docutils literal notranslate"><span class="pre">CompanyRegistrationField</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.invoice.invoice_v4_document.InvoiceV4Document.customer_company_registrations" title="Permalink to this definition"></a></dt>
 <dd><p>List of company registrations associated to the customer.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.invoice.invoice_v4_document.InvoiceV4Document.customer_id">
+<span class="sig-name descname"><span class="pre">customer_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.invoice.invoice_v4_document.InvoiceV4Document.customer_id" title="Permalink to this definition"></a></dt>
+<dd><p>The customer account number or identifier from the supplier.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -285,6 +291,12 @@
 </dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.invoice.invoice_v4_document.InvoiceV4Document.supplier_email">
+<span class="sig-name descname"><span class="pre">supplier_email</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.invoice.invoice_v4_document.InvoiceV4Document.supplier_email" title="Permalink to this definition"></a></dt>
+<dd><p>The email of the supplier or merchant.</p>
+</dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.invoice.invoice_v4_document.InvoiceV4Document.supplier_name">
 <span class="sig-name descname"><span class="pre">supplier_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.invoice.invoice_v4_document.InvoiceV4Document.supplier_name" title="Permalink to this definition"></a></dt>
 <dd><p>The name of the supplier or merchant.</p>
@@ -294,6 +306,18 @@
 <dt class="sig sig-object py" id="mindee.product.invoice.invoice_v4_document.InvoiceV4Document.supplier_payment_details">
 <span class="sig-name descname"><span class="pre">supplier_payment_details</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.payment_details.PaymentDetailsField" title="mindee.parsing.standard.payment_details.PaymentDetailsField"><code class="xref py py-class docutils literal notranslate"><span class="pre">PaymentDetailsField</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.invoice.invoice_v4_document.InvoiceV4Document.supplier_payment_details" title="Permalink to this definition"></a></dt>
 <dd><p>List of payment details associated to the supplier.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.invoice.invoice_v4_document.InvoiceV4Document.supplier_phone_number">
+<span class="sig-name descname"><span class="pre">supplier_phone_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.invoice.invoice_v4_document.InvoiceV4Document.supplier_phone_number" title="Permalink to this definition"></a></dt>
+<dd><p>The phone number of the supplier or merchant.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.invoice.invoice_v4_document.InvoiceV4Document.supplier_website">
+<span class="sig-name descname"><span class="pre">supplier_website</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.invoice.invoice_v4_document.InvoiceV4Document.supplier_website" title="Permalink to this definition"></a></dt>
+<dd><p>The website URL of the supplier or merchant.</p>
 </dd></dl>
 
 <dl class="py attribute">

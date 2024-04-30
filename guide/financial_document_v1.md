@@ -32,20 +32,20 @@ print(result.document)
 ########
 Document
 ########
-:Mindee ID: a6b54e2d-a7fa-4e08-8de6-6cd296f50f3d
+:Mindee ID: 503895c6-eced-42e2-a6fc-0292b7ccf680
 :Filename: default_sample.jpg
 
 Inference
 #########
-:Product: mindee/financial_document v1.2
+:Product: mindee/financial_document v1.6
 :Rotation applied: Yes
 
 Prediction
 ==========
-:Locale: en; en; USD;
+:Locale: en; USD;
 :Invoice Number: INT-001
 :Reference Numbers: 2412/2019
-:Purchase Date: 2019-02-11
+:Purchase Date: 2019-11-02
 :Due Date: 2019-02-26
 :Total Net: 195.00
 :Total Amount: 204.75
@@ -61,8 +61,13 @@ Prediction
 :Supplier Address: 4490 Oak Drive Albany, NY 12210
 :Supplier Phone Number:
 :Customer Name: JESSIE M HORNE
+:Supplier Website:
+:Supplier Email:
 :Customer Company Registrations:
 :Customer Address: 2019 Redbud Drive New York, NY 10011
+:Customer ID: 1234567890
+:Shipping Address: 2019 Redbud Drive New York, NY 10011
+:Billing Address: 4312 Wood Road New York, NY 10031
 :Document Type: INVOICE
 :Purchase Subcategory:
 :Purchase Category: miscellaneous
@@ -77,7 +82,7 @@ Prediction
   +--------------------------------------+--------------+----------+------------+--------------+--------------+------------+
   | New set of pedal arms                |              | 2.00     |            |              | 50.00        | 25.00      |
   +--------------------------------------+--------------+----------+------------+--------------+--------------+------------+
-  | Labon 3hrs                           |              | 3.00     |            |              | 45.00        | 15.00      |
+  | Labor 3hrs                           |              | 3.00     |            |              | 45.00        | 15.00      |
   +--------------------------------------+--------------+----------+------------+--------------+--------------+------------+
 
 Page Predictions
@@ -85,10 +90,10 @@ Page Predictions
 
 Page 0
 ------
-:Locale: en; en; USD;
+:Locale: en; USD;
 :Invoice Number: INT-001
 :Reference Numbers: 2412/2019
-:Purchase Date: 2019-02-11
+:Purchase Date: 2019-11-02
 :Due Date: 2019-02-26
 :Total Net: 195.00
 :Total Amount: 204.75
@@ -104,8 +109,13 @@ Page 0
 :Supplier Address: 4490 Oak Drive Albany, NY 12210
 :Supplier Phone Number:
 :Customer Name: JESSIE M HORNE
+:Supplier Website:
+:Supplier Email:
 :Customer Company Registrations:
 :Customer Address: 2019 Redbud Drive New York, NY 10011
+:Customer ID: 1234567890
+:Shipping Address: 2019 Redbud Drive New York, NY 10011
+:Billing Address: 4312 Wood Road New York, NY 10031
 :Document Type: INVOICE
 :Purchase Subcategory:
 :Purchase Category: miscellaneous
@@ -120,7 +130,7 @@ Page 0
   +--------------------------------------+--------------+----------+------------+--------------+--------------+------------+
   | New set of pedal arms                |              | 2.00     |            |              | 50.00        | 25.00      |
   +--------------------------------------+--------------+----------+------------+--------------+--------------+------------+
-  | Labon 3hrs                           |              | 3.00     |            |              | 45.00        | 15.00      |
+  | Labor 3hrs                           |              | 3.00     |            |              | 45.00        | 15.00      |
   +--------------------------------------+--------------+----------+------------+--------------+--------------+------------+
 ```
 
@@ -215,6 +225,13 @@ A `FinancialDocumentV1LineItem` implements the following attributes:
 # Attributes
 The following fields are extracted for Financial Document V1:
 
+## Billing Address
+**billing_address** ([StringField](#stringfield)): The customer's address used for billing.
+
+```py
+print(result.document.inference.prediction.billing_address.value)
+```
+
 ## Purchase Category
 **category** ([ClassificationField](#classificationfield)): The purchase category among predefined classes.
 
@@ -235,6 +252,13 @@ print(result.document.inference.prediction.customer_address.value)
 ```py
 for customer_company_registrations_elem in result.document.inference.prediction.customer_company_registrations:
     print(customer_company_registrations_elem.value)
+```
+
+## Customer ID
+**customer_id** ([StringField](#stringfield)): The customer account number or identifier from the supplier.
+
+```py
+print(result.document.inference.prediction.customer_id.value)
 ```
 
 ## Customer Name
@@ -277,7 +301,7 @@ print(result.document.inference.prediction.invoice_number.value)
 
 ```py
 for line_items_elem in result.document.inference.prediction.line_items:
-    print(line_items_elem.value)
+    print(line_items_elem)
 ```
 
 ## Locale
@@ -293,6 +317,13 @@ print(result.document.inference.prediction.locale.value)
 ```py
 for reference_numbers_elem in result.document.inference.prediction.reference_numbers:
     print(reference_numbers_elem.value)
+```
+
+## Shipping Address
+**shipping_address** ([StringField](#stringfield)): The customer's address used for shipping.
+
+```py
+print(result.document.inference.prediction.shipping_address.value)
 ```
 
 ## Purchase Subcategory
@@ -317,6 +348,13 @@ for supplier_company_registrations_elem in result.document.inference.prediction.
     print(supplier_company_registrations_elem.value)
 ```
 
+## Supplier Email
+**supplier_email** ([StringField](#stringfield)): The email of the supplier or merchant.
+
+```py
+print(result.document.inference.prediction.supplier_email.value)
+```
+
 ## Supplier Name
 **supplier_name** ([StringField](#stringfield)): The name of the supplier or merchant.
 
@@ -337,6 +375,13 @@ for supplier_payment_details_elem in result.document.inference.prediction.suppli
 
 ```py
 print(result.document.inference.prediction.supplier_phone_number.value)
+```
+
+## Supplier Website
+**supplier_website** ([StringField](#stringfield)): The website URL of the supplier or merchant.
+
+```py
+print(result.document.inference.prediction.supplier_website.value)
 ```
 
 ## Taxes
