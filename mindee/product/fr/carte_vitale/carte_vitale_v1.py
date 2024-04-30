@@ -7,7 +7,7 @@ from mindee.product.fr.carte_vitale.carte_vitale_v1_document import (
 
 
 class CarteVitaleV1(Inference):
-    """Inference prediction for Carte Vitale, API version 1."""
+    """Carte Vitale API version 1 inference prediction."""
 
     prediction: CarteVitaleV1Document
     """Document-level prediction."""

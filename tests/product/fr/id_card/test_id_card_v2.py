@@ -5,54 +5,55 @@ import pytest
 from mindee.parsing.common.document import Document
 from mindee.parsing.common.page import Page
 from mindee.product.fr import IdCardV2
-from mindee.product.fr.id_card.id_card_v2_document import IdCardV2Document
-from mindee.product.fr.id_card.id_card_v2_page import IdCardV2Page
+from mindee.product.fr.id_card.id_card_v2_document import (
+    IdCardV2Document,
+)
+from mindee.product.fr.id_card.id_card_v2_page import (
+    IdCardV2Page,
+)
 from tests.product import PRODUCT_DATA_DIR
 
+RESPONSE_DIR = PRODUCT_DATA_DIR / "idcard_fr" / "response_v2"
+
+IdCardV2DocumentType = Document[
+    IdCardV2Document,
+    Page[IdCardV2Page],
+]
+
 
 @pytest.fixture
-def complete_doc() -> Document[IdCardV2Document, Page[IdCardV2Page]]:
-    json_data = json.load(
-        open(
-            PRODUCT_DATA_DIR / "idcard_fr" / "response_v2" / "complete.json",
-            encoding="utf-8",
-        )
-    )
+def complete_doc() -> IdCardV2DocumentType:
+    file_path = RESPONSE_DIR / "complete.json"
+    with open(file_path, "r", encoding="utf-8") as open_file:
+        json_data = json.load(open_file)
     return Document(IdCardV2, json_data["document"])
 
 
 @pytest.fixture
-def empty_doc() -> Document[IdCardV2Document, Page[IdCardV2Page]]:
-    json_data = json.load(
-        open(
-            PRODUCT_DATA_DIR / "idcard_fr" / "response_v2" / "empty.json",
-            encoding="utf-8",
-        )
-    )
+def empty_doc() -> IdCardV2DocumentType:
+    file_path = RESPONSE_DIR / "empty.json"
+    with open(file_path, "r", encoding="utf-8") as open_file:
+        json_data = json.load(open_file)
     return Document(IdCardV2, json_data["document"])
 
 
 @pytest.fixture
-def complete_page_0() -> Page[IdCardV2Page]:
-    json_data = json.load(
-        open(
-            PRODUCT_DATA_DIR / "idcard_fr" / "response_v2" / "complete.json",
-            encoding="utf-8",
-        )
-    )
-    return Page(IdCardV2Page, json_data["document"]["inference"]["pages"][0])
+def complete_page0() -> Page[IdCardV2Page]:
+    file_path = RESPONSE_DIR / "complete.json"
+    with open(file_path, "r", encoding="utf-8") as open_file:
+        json_data = json.load(open_file)
+    page0 = json_data["document"]["inference"]["pages"][0]
+    return Page(IdCardV2Page, page0)
 
 
-def test_complete_doc(complete_doc: Document[IdCardV2Document, Page[IdCardV2Page]]):
-    reference_str = open(
-        PRODUCT_DATA_DIR / "idcard_fr" / "response_v2" / "summary_full.rst",
-        "r",
-        encoding="utf-8",
-    ).read()
+def test_complete_doc(complete_doc: IdCardV2DocumentType):
+    file_path = RESPONSE_DIR / "summary_full.rst"
+    with open(file_path, "r", encoding="utf-8") as open_file:
+        reference_str = open_file.read()
     assert str(complete_doc) == reference_str
 
 
-def test_empty_doc(empty_doc: Document[IdCardV2Document, Page[IdCardV2Page]]):
+def test_empty_doc(empty_doc: IdCardV2DocumentType):
     prediction = empty_doc.inference.prediction
     assert prediction.nationality.value is None
     assert prediction.card_access_number.value is None
@@ -71,11 +72,9 @@ def test_empty_doc(empty_doc: Document[IdCardV2Document, Page[IdCardV2Page]]):
     assert prediction.authority.value is None
 
 
-def test_complete_page_0(complete_page_0: Page[IdCardV2Page]):
-    reference_str = open(
-        PRODUCT_DATA_DIR / "idcard_fr" / "response_v2" / "summary_page0.rst",
-        "r",
-        encoding="utf-8",
-    ).read()
-    assert complete_page_0.id == 0
-    assert str(complete_page_0) == reference_str
+def test_complete_page0(complete_page0: Page[IdCardV2Page]):
+    file_path = RESPONSE_DIR / "summary_page0.rst"
+    with open(file_path, "r", encoding="utf-8") as open_file:
+        reference_str = open_file.read()
+    assert complete_page0.id == 0
+    assert str(complete_page0) == reference_str

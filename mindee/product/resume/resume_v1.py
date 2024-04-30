@@ -1,11 +1,13 @@
 from typing import List
 
 from mindee.parsing.common import Inference, Page, StringDict
-from mindee.product.resume.resume_v1_document import ResumeV1Document
+from mindee.product.resume.resume_v1_document import (
+    ResumeV1Document,
+)
 
 
 class ResumeV1(Inference):
-    """Inference prediction for Resume, API version 1."""
+    """Resume API version 1 inference prediction."""
 
     prediction: ResumeV1Document
     """Document-level prediction."""

@@ -10,7 +10,7 @@ from mindee.parsing.standard import (
 
 
 class ProofOfAddressV1Document(Prediction):
-    """Document data for Proof of Address, API version 1."""
+    """Proof of Address API version 1.1 document data."""
 
     date: DateField
     """The date the document was issued."""

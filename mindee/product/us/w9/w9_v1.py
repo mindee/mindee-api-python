@@ -1,12 +1,16 @@
 from typing import List
 
 from mindee.parsing.common import Inference, Page, StringDict
-from mindee.product.us.w9.w9_v1_document import W9V1Document
-from mindee.product.us.w9.w9_v1_page import W9V1Page
+from mindee.product.us.w9.w9_v1_document import (
+    W9V1Document,
+)
+from mindee.product.us.w9.w9_v1_page import (
+    W9V1Page,
+)
 
 
 class W9V1(Inference):
-    """Inference prediction for W9, API version 1."""
+    """W9 API version 1 inference prediction."""
 
     prediction: W9V1Document
     """Document-level prediction."""

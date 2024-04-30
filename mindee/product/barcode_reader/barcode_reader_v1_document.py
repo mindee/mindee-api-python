@@ -5,7 +5,7 @@ from mindee.parsing.standard import StringField
 
 
 class BarcodeReaderV1Document(Prediction):
-    """Document data for Barcode Reader, API version 1."""
+    """Barcode Reader API version 1.0 document data."""
 
     codes_1d: List[StringField]
     """List of decoded 1D barcodes."""

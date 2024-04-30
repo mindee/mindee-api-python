@@ -8,7 +8,7 @@ from mindee.product.fr.bank_account_details.bank_account_details_v2_bban import 
 
 
 class BankAccountDetailsV2Document(Prediction):
-    """Document data for Bank Account Details, API version 2."""
+    """Bank Account Details API version 2.0 document data."""
 
     account_holders_names: StringField
     """Full extraction of the account holders names."""

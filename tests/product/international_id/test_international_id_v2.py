@@ -10,58 +10,38 @@ from mindee.product.international_id.international_id_v2_document import (
 )
 from tests.product import PRODUCT_DATA_DIR
 
+RESPONSE_DIR = PRODUCT_DATA_DIR / "international_id" / "response_v2"
+
+InternationalIdV2DocumentType = Document[
+    InternationalIdV2Document,
+    Page[InternationalIdV2Document],
+]
+
 
 @pytest.fixture
-def complete_doc() -> (
-    Document[InternationalIdV2Document, Page[InternationalIdV2Document]]
-):
-    json_data = json.load(
-        open(
-            PRODUCT_DATA_DIR / "international_id" / "response_v2" / "complete.json",
-            encoding="utf-8",
-        )
-    )
+def complete_doc() -> InternationalIdV2DocumentType:
+    file_path = RESPONSE_DIR / "complete.json"
+    with open(file_path, "r", encoding="utf-8") as open_file:
+        json_data = json.load(open_file)
     return Document(InternationalIdV2, json_data["document"])
 
 
 @pytest.fixture
-def empty_doc() -> Document[InternationalIdV2Document, Page[InternationalIdV2Document]]:
-    json_data = json.load(
-        open(
-            PRODUCT_DATA_DIR / "international_id" / "response_v2" / "empty.json",
-            encoding="utf-8",
-        )
-    )
+def empty_doc() -> InternationalIdV2DocumentType:
+    file_path = RESPONSE_DIR / "empty.json"
+    with open(file_path, "r", encoding="utf-8") as open_file:
+        json_data = json.load(open_file)
     return Document(InternationalIdV2, json_data["document"])
 
 
-@pytest.fixture
-def complete_page_0() -> Page[InternationalIdV2Document]:
-    json_data = json.load(
-        open(
-            PRODUCT_DATA_DIR / "international_id" / "response_v2" / "complete.json",
-            encoding="utf-8",
-        )
-    )
-    return Page(
-        InternationalIdV2Document, json_data["document"]["inference"]["pages"][0]
-    )
-
-
-def test_complete_doc(
-    complete_doc: Document[InternationalIdV2Document, Page[InternationalIdV2Document]]
-):
-    reference_str = open(
-        PRODUCT_DATA_DIR / "international_id" / "response_v2" / "summary_full.rst",
-        "r",
-        encoding="utf-8",
-    ).read()
+def test_complete_doc(complete_doc: InternationalIdV2DocumentType):
+    file_path = RESPONSE_DIR / "summary_full.rst"
+    with open(file_path, "r", encoding="utf-8") as open_file:
+        reference_str = open_file.read()
     assert str(complete_doc) == reference_str
 
 
-def test_empty_doc(
-    empty_doc: Document[InternationalIdV2Document, Page[InternationalIdV2Document]]
-):
+def test_empty_doc(empty_doc: InternationalIdV2DocumentType):
     prediction = empty_doc.inference.prediction
     assert prediction.document_number.value is None
     assert len(prediction.surnames) == 0

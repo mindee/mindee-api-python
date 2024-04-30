@@ -1,12 +1,16 @@
 from typing import List
 
 from mindee.parsing.common import Inference, Page, StringDict
-from mindee.product.fr.id_card.id_card_v2_document import IdCardV2Document
-from mindee.product.fr.id_card.id_card_v2_page import IdCardV2Page
+from mindee.product.fr.id_card.id_card_v2_document import (
+    IdCardV2Document,
+)
+from mindee.product.fr.id_card.id_card_v2_page import (
+    IdCardV2Page,
+)
 
 
 class IdCardV2(Inference):
-    """Inference prediction for Carte Nationale d'Identité, API version 2."""
+    """Carte Nationale d'Identité API version 2 inference prediction."""
 
     prediction: IdCardV2Document
     """Document-level prediction."""

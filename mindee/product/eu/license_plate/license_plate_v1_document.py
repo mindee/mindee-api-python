@@ -5,7 +5,7 @@ from mindee.parsing.standard import StringField
 
 
 class LicensePlateV1Document(Prediction):
-    """Document data for License Plate, API version 1."""
+    """License Plate API version 1.1 document data."""
 
     license_plates: List[StringField]
     """List of all license plates found in the image."""

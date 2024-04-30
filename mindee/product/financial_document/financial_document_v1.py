@@ -7,7 +7,7 @@ from mindee.product.financial_document.financial_document_v1_document import (
 
 
 class FinancialDocumentV1(Inference):
-    """Inference prediction for Financial Document, API version 1."""
+    """Financial Document API version 1 inference prediction."""
 
     prediction: FinancialDocumentV1Document
     """Document-level prediction."""

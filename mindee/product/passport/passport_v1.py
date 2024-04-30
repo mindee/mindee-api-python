@@ -1,11 +1,13 @@
 from typing import List
 
 from mindee.parsing.common import Inference, Page, StringDict
-from mindee.product.passport.passport_v1_document import PassportV1Document
+from mindee.product.passport.passport_v1_document import (
+    PassportV1Document,
+)
 
 
 class PassportV1(Inference):
-    """Inference prediction for Passport, API version 1."""
+    """Passport API version 1 inference prediction."""
 
     prediction: PassportV1Document
     """Document-level prediction."""

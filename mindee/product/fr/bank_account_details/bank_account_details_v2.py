@@ -7,7 +7,7 @@ from mindee.product.fr.bank_account_details.bank_account_details_v2_document imp
 
 
 class BankAccountDetailsV2(Inference):
-    """Inference prediction for Bank Account Details, API version 2."""
+    """Bank Account Details API version 2 inference prediction."""
 
     prediction: BankAccountDetailsV2Document
     """Document-level prediction."""

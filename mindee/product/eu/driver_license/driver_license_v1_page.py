@@ -8,7 +8,7 @@ from mindee.product.eu.driver_license.driver_license_v1_document import (
 
 
 class DriverLicenseV1Page(DriverLicenseV1Document):
-    """Page data for Driver License, API version 1."""
+    """Driver License API version 1.0 page data."""
 
     photo: PositionField
     """Has a photo of the EU driver license holder"""

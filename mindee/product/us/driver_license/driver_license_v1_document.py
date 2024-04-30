@@ -5,7 +5,7 @@ from mindee.parsing.standard import DateField, StringField
 
 
 class DriverLicenseV1Document(Prediction):
-    """Document data for Driver License, API version 1."""
+    """Driver License API version 1.1 document data."""
 
     address: StringField
     """US driver license holders address"""

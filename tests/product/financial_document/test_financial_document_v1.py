@@ -61,28 +61,18 @@ def complete_page0_receipt() -> Page[FinancialDocumentV1Document]:
 
 
 def test_complete_invoice(complete_doc_invoice: FinancialDocumentV1DocumentType):
-    reference_str = open(
-        PRODUCT_DATA_DIR
-        / "financial_document"
-        / "response_v1"
-        / "summary_full_invoice.rst",
-        "r",
-        encoding="utf-8",
-    ).read()
+    file_path = RESPONSE_DIR / "summary_full_invoice.rst"
+    with open(file_path, "r", encoding="utf-8") as open_file:
+        reference_str = open_file.read()
     assert str(complete_doc_invoice) == reference_str
 
 
 def test_complete_receipt(
     complete_doc_receipt: FinancialDocumentV1DocumentType,
 ):
-    reference_str = open(
-        PRODUCT_DATA_DIR
-        / "financial_document"
-        / "response_v1"
-        / "summary_full_receipt.rst",
-        "r",
-        encoding="utf-8",
-    ).read()
+    file_path = RESPONSE_DIR / "summary_full_receipt.rst"
+    with open(file_path, "r", encoding="utf-8") as open_file:
+        reference_str = open_file.read()
     assert str(complete_doc_receipt) == reference_str
 
 
@@ -107,26 +97,16 @@ def test_empty_doc(empty_doc: FinancialDocumentV1DocumentType):
 
 
 def test_page0_invoice(complete_page0_invoice: Page[FinancialDocumentV1Document]):
-    reference_str = open(
-        PRODUCT_DATA_DIR
-        / "financial_document"
-        / "response_v1"
-        / "summary_page0_invoice.rst",
-        "r",
-        encoding="utf-8",
-    ).read()
+    file_path = RESPONSE_DIR / "summary_page0_invoice.rst"
+    with open(file_path, "r", encoding="utf-8") as open_file:
+        reference_str = open_file.read()
     assert complete_page0_invoice.id == 0
     assert str(complete_page0_invoice) == reference_str
 
 
 def test_page0_receipt(complete_page0_receipt: Page[FinancialDocumentV1Document]):
-    reference_str = open(
-        PRODUCT_DATA_DIR
-        / "financial_document"
-        / "response_v1"
-        / "summary_page0_receipt.rst",
-        "r",
-        encoding="utf-8",
-    ).read()
+    file_path = RESPONSE_DIR / "summary_page0_receipt.rst"
+    with open(file_path, "r", encoding="utf-8") as open_file:
+        reference_str = open_file.read()
     assert complete_page0_receipt.id == 0
     assert str(complete_page0_receipt) == reference_str

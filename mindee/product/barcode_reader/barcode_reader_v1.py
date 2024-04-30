@@ -7,7 +7,7 @@ from mindee.product.barcode_reader.barcode_reader_v1_document import (
 
 
 class BarcodeReaderV1(Inference):
-    """Inference prediction for Barcode Reader, API version 1."""
+    """Barcode Reader API version 1 inference prediction."""
 
     prediction: BarcodeReaderV1Document
     """Document-level prediction."""

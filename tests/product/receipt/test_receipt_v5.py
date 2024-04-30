@@ -5,55 +5,43 @@ import pytest
 from mindee.parsing.common.document import Document
 from mindee.parsing.common.page import Page
 from mindee.product import ReceiptV5
-from mindee.product.receipt.receipt_v5_document import ReceiptV5Document
+from mindee.product.receipt.receipt_v5_document import (
+    ReceiptV5Document,
+)
 from tests.product import PRODUCT_DATA_DIR
 
+RESPONSE_DIR = PRODUCT_DATA_DIR / "expense_receipts" / "response_v5"
+
+ReceiptV5DocumentType = Document[
+    ReceiptV5Document,
+    Page[ReceiptV5Document],
+]
+
 
 @pytest.fixture
-def complete_doc() -> Document[ReceiptV5Document, Page[ReceiptV5Document]]:
-    json_data = json.load(
-        open(
-            PRODUCT_DATA_DIR / "expense_receipts" / "response_v5" / "complete.json",
-            encoding="utf-8",
-        )
-    )
+def complete_doc() -> ReceiptV5DocumentType:
+    file_path = RESPONSE_DIR / "complete.json"
+    with open(file_path, "r", encoding="utf-8") as open_file:
+        json_data = json.load(open_file)
     return Document(ReceiptV5, json_data["document"])
 
 
 @pytest.fixture
-def empty_doc() -> Document[ReceiptV5Document, Page[ReceiptV5Document]]:
-    json_data = json.load(
-        open(
-            PRODUCT_DATA_DIR / "expense_receipts" / "response_v5" / "empty.json",
-            encoding="utf-8",
-        )
-    )
+def empty_doc() -> ReceiptV5DocumentType:
+    file_path = RESPONSE_DIR / "empty.json"
+    with open(file_path, "r", encoding="utf-8") as open_file:
+        json_data = json.load(open_file)
     return Document(ReceiptV5, json_data["document"])
 
 
-@pytest.fixture
-def complete_page_0() -> Page[ReceiptV5Document]:
-    json_data = json.load(
-        open(
-            PRODUCT_DATA_DIR / "expense_receipts" / "response_v5" / "complete.json",
-            encoding="utf-8",
-        )
-    )
-    return Page(ReceiptV5Document, json_data["document"]["inference"]["pages"][0])
-
-
-def test_complete_doc(
-    complete_doc: Document[ReceiptV5Document, Page[ReceiptV5Document]]
-):
-    reference_str = open(
-        PRODUCT_DATA_DIR / "expense_receipts" / "response_v5" / "summary_full.rst",
-        "r",
-        encoding="utf-8",
-    ).read()
+def test_complete_doc(complete_doc: ReceiptV5DocumentType):
+    file_path = RESPONSE_DIR / "summary_full.rst"
+    with open(file_path, "r", encoding="utf-8") as open_file:
+        reference_str = open_file.read()
     assert str(complete_doc) == reference_str
 
 
-def test_empty_doc(empty_doc: Document[ReceiptV5Document, Page[ReceiptV5Document]]):
+def test_empty_doc(empty_doc: ReceiptV5DocumentType):
     prediction = empty_doc.inference.prediction
     assert prediction.locale.value is None
     assert prediction.date.value is None

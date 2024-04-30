@@ -5,7 +5,7 @@ from mindee.parsing.standard import PositionField
 
 
 class MultiReceiptsDetectorV1Document(Prediction):
-    """Document data for Multi Receipts Detector, API version 1."""
+    """Multi Receipts Detector API version 1.0 document data."""
 
     receipts: List[PositionField]
     """Positions of the receipts on the document."""

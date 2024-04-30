@@ -5,7 +5,7 @@ from mindee.parsing.standard import StringField
 
 
 class MaterialCertificateV1Document(Prediction):
-    """Document data for Material Certificate, API version 1."""
+    """Material Certificate API version 1.0 document data."""
 
     certificate_type: StringField
     """The type of certification."""

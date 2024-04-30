@@ -1,7 +1,9 @@
 from typing import List
 
 from mindee.parsing.common import Inference, Page, StringDict
-from mindee.product.invoice.invoice_v4_document import InvoiceV4Document
+from mindee.product.invoice.invoice_v4_document import (
+    InvoiceV4Document,
+)
 
 
 class InvoiceV4(Inference):

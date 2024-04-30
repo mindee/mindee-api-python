@@ -14,7 +14,7 @@ from mindee.product.resume.resume_v1_social_networks_url import (
 
 
 class ResumeV1Document(Prediction):
-    """Document data for Resume, API version 1."""
+    """Resume API version 1.0 document data."""
 
     address: StringField
     """The location information of the candidate, including city, state, and country."""

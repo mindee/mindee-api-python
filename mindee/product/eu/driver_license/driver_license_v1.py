@@ -4,11 +4,13 @@ from mindee.parsing.common import Inference, Page, StringDict
 from mindee.product.eu.driver_license.driver_license_v1_document import (
     DriverLicenseV1Document,
 )
-from mindee.product.eu.driver_license.driver_license_v1_page import DriverLicenseV1Page
+from mindee.product.eu.driver_license.driver_license_v1_page import (
+    DriverLicenseV1Page,
+)
 
 
 class DriverLicenseV1(Inference):
-    """Inference prediction for Driver License, API version 1."""
+    """Driver License API version 1 inference prediction."""
 
     prediction: DriverLicenseV1Document
     """Document-level prediction."""

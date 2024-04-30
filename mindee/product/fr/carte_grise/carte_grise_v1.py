@@ -1,11 +1,13 @@
 from typing import List
 
 from mindee.parsing.common import Inference, Page, StringDict
-from mindee.product.fr.carte_grise.carte_grise_v1_document import CarteGriseV1Document
+from mindee.product.fr.carte_grise.carte_grise_v1_document import (
+    CarteGriseV1Document,
+)
 
 
 class CarteGriseV1(Inference):
-    """Inference prediction for Carte Grise, API version 1."""
+    """Carte Grise API version 1 inference prediction."""
 
     prediction: CarteGriseV1Document
     """Document-level prediction."""

@@ -5,7 +5,7 @@ from mindee.parsing.standard import DateField, StringField
 
 
 class CarteVitaleV1Document(Prediction):
-    """Document data for Carte Vitale, API version 1."""
+    """Carte Vitale API version 1.1 document data."""
 
     given_names: List[StringField]
     """The given name(s) of the card holder."""

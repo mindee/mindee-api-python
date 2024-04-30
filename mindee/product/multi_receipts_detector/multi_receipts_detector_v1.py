@@ -7,7 +7,7 @@ from mindee.product.multi_receipts_detector.multi_receipts_detector_v1_document 
 
 
 class MultiReceiptsDetectorV1(Inference):
-    """Inference prediction for Multi Receipts Detector, API version 1."""
+    """Multi Receipts Detector API version 1 inference prediction."""
 
     prediction: MultiReceiptsDetectorV1Document
     """Document-level prediction."""

@@ -5,7 +5,7 @@ from mindee.parsing.standard import StringField
 
 
 class BankAccountDetailsV1Document(Prediction):
-    """Document data for Bank Account Details, API version 1."""
+    """Bank Account Details API version 1.0 document data."""
 
     account_holder_name: StringField
     """The name of the account holder as seen on the document."""

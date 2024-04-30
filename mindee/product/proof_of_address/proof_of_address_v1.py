@@ -7,7 +7,7 @@ from mindee.product.proof_of_address.proof_of_address_v1_document import (
 
 
 class ProofOfAddressV1(Inference):
-    """Inference prediction for Proof of Address, API version 1."""
+    """Proof of Address API version 1 inference prediction."""
 
     prediction: ProofOfAddressV1Document
     """Document-level prediction."""

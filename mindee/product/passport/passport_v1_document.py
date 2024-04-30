@@ -5,7 +5,7 @@ from mindee.parsing.standard import DateField, StringField
 
 
 class PassportV1Document(Prediction):
-    """Document data for Passport, API version 1."""
+    """Passport API version 1.1 document data."""
 
     birth_date: DateField
     """The date of birth of the passport holder."""

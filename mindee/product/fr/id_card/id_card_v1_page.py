@@ -2,11 +2,13 @@ from typing import Optional
 
 from mindee.parsing.common import StringDict, clean_out_string
 from mindee.parsing.standard import ClassificationField
-from mindee.product.fr.id_card.id_card_v1_document import IdCardV1Document
+from mindee.product.fr.id_card.id_card_v1_document import (
+    IdCardV1Document,
+)
 
 
 class IdCardV1Page(IdCardV1Document):
-    """Page data for Carte Nationale d'Identité, API version 1."""
+    """Carte Nationale d'Identité API version 1.1 page data."""
 
     document_side: ClassificationField
     """The side of the document which is visible."""

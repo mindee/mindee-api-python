@@ -7,7 +7,7 @@ from mindee.product.eu.license_plate.license_plate_v1_document import (
 
 
 class LicensePlateV1(Inference):
-    """Inference prediction for License Plate, API version 1."""
+    """License Plate API version 1 inference prediction."""
 
     prediction: LicensePlateV1Document
     """Document-level prediction."""

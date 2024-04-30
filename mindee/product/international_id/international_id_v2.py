@@ -7,7 +7,7 @@ from mindee.product.international_id.international_id_v2_document import (
 
 
 class InternationalIdV2(Inference):
-    """Inference prediction for International ID, API version 2."""
+    """International ID API version 2 inference prediction."""
 
     prediction: InternationalIdV2Document
     """Document-level prediction."""

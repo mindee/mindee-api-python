@@ -5,7 +5,7 @@ from mindee.parsing.standard import DateField, StringField
 
 
 class IdCardV2Document(Prediction):
-    """Document data for Carte Nationale d'Identité, API version 2."""
+    """Carte Nationale d'Identité API version 2.0 document data."""
 
     alternate_name: StringField
     """The alternate name of the card holder."""

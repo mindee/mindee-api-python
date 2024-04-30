@@ -1,11 +1,13 @@
 from typing import List
 
 from mindee.parsing.common import Inference, Page, StringDict
-from mindee.product.receipt.receipt_v5_document import ReceiptV5Document
+from mindee.product.receipt.receipt_v5_document import (
+    ReceiptV5Document,
+)
 
 
 class ReceiptV5(Inference):
-    """Inference prediction for Receipt, API version 5."""
+    """Receipt API version 5 inference prediction."""
 
     prediction: ReceiptV5Document
     """Document-level prediction."""

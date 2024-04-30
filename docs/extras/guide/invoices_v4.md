@@ -32,12 +32,12 @@ print(result.document)
 ########
 Document
 ########
-:Mindee ID: a9062dd1-0d34-42ab-9505-0481a8545106
+:Mindee ID: 5c0371d0-1433-43a4-b8fb-a3b11aaf9a0e
 :Filename: default_sample.jpg
 
 Inference
 #########
-:Product: mindee/invoices v4.5
+:Product: mindee/invoices v4.6
 :Rotation applied: Yes
 
 Prediction
@@ -46,7 +46,7 @@ Prediction
 :Invoice Number: 14
 :Reference Numbers: AD29094
 :Purchase Date: 2018-09-25
-:Due Date: 2018-09-25
+:Due Date:
 :Total Net:
 :Total Amount: 2608.20
 :Total Tax: 193.20
@@ -59,10 +59,14 @@ Prediction
 :Supplier Payment Details:
 :Supplier Name: TURNPIKE DESIGNS
 :Supplier Company Registrations:
-:Supplier Address: 156 University Ave, Toronto ON, Canada M5H 2H7
+:Supplier Address: 156 University Ave, Toronto ON, Canada, M5H 2H7
+:Supplier Phone Number: 4165551212
+:Supplier Website:
+:Supplier Email: i_doi@example.com
 :Customer Name: JIRO DOI
 :Customer Company Registrations:
 :Customer Address: 1954 Bloor Street West Toronto, ON, M6P 3K9 Canada
+:Customer ID:
 :Shipping Address:
 :Billing Address: 1954 Bloor Street West Toronto, ON, M6P 3K9 Canada
 :Document Type: INVOICE
@@ -86,7 +90,7 @@ Page 0
 :Invoice Number: 14
 :Reference Numbers: AD29094
 :Purchase Date: 2018-09-25
-:Due Date: 2018-09-25
+:Due Date:
 :Total Net:
 :Total Amount: 2608.20
 :Total Tax: 193.20
@@ -99,10 +103,14 @@ Page 0
 :Supplier Payment Details:
 :Supplier Name: TURNPIKE DESIGNS
 :Supplier Company Registrations:
-:Supplier Address: 156 University Ave, Toronto ON, Canada M5H 2H7
+:Supplier Address: 156 University Ave, Toronto ON, Canada, M5H 2H7
+:Supplier Phone Number: 4165551212
+:Supplier Website:
+:Supplier Email: i_doi@example.com
 :Customer Name: JIRO DOI
 :Customer Company Registrations:
 :Customer Address: 1954 Bloor Street West Toronto, ON, M6P 3K9 Canada
+:Customer ID:
 :Shipping Address:
 :Billing Address: 1954 Bloor Street West Toronto, ON, M6P 3K9 Canada
 :Document Type: INVOICE

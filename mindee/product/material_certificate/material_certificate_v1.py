@@ -7,7 +7,7 @@ from mindee.product.material_certificate.material_certificate_v1_document import
 
 
 class MaterialCertificateV1(Inference):
-    """Inference prediction for Material Certificate, API version 1."""
+    """Material Certificate API version 1 inference prediction."""
 
     prediction: MaterialCertificateV1Document
     """Document-level prediction."""

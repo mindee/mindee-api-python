@@ -2,11 +2,13 @@ from typing import List, Optional
 
 from mindee.parsing.common import StringDict, clean_out_string
 from mindee.parsing.standard import PositionField
-from mindee.product.cropper.cropper_v1_document import CropperV1Document
+from mindee.product.cropper.cropper_v1_document import (
+    CropperV1Document,
+)
 
 
 class CropperV1Page(CropperV1Document):
-    """Page data for Cropper, API version 1."""
+    """Cropper API version 1.1 page data."""
 
     cropping: List[PositionField]
     """List of documents found in the image."""

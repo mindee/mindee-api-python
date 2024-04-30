@@ -14,7 +14,7 @@ from mindee.product.receipt.receipt_v5_line_item import ReceiptV5LineItem
 
 
 class ReceiptV5Document(Prediction):
-    """Document data for Receipt, API version 5."""
+    """Receipt API version 5.1 document data."""
 
     category: ClassificationField
     """The purchase category among predefined classes."""

@@ -1,12 +1,16 @@
 from typing import List
 
 from mindee.parsing.common import Inference, Page, StringDict
-from mindee.product.cropper.cropper_v1_document import CropperV1Document
-from mindee.product.cropper.cropper_v1_page import CropperV1Page
+from mindee.product.cropper.cropper_v1_document import (
+    CropperV1Document,
+)
+from mindee.product.cropper.cropper_v1_page import (
+    CropperV1Page,
+)
 
 
 class CropperV1(Inference):
-    """Inference prediction for Cropper, API version 1."""
+    """Cropper API version 1 inference prediction."""
 
     prediction: CropperV1Document
     """Document-level prediction."""

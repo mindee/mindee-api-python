@@ -5,57 +5,43 @@ import pytest
 from mindee.parsing.common.document import Document
 from mindee.parsing.common.page import Page
 from mindee.product.fr import CarteGriseV1
-from mindee.product.fr.carte_grise.carte_grise_v1_document import CarteGriseV1Document
+from mindee.product.fr.carte_grise.carte_grise_v1_document import (
+    CarteGriseV1Document,
+)
 from tests.product import PRODUCT_DATA_DIR
 
+RESPONSE_DIR = PRODUCT_DATA_DIR / "carte_grise" / "response_v1"
+
+CarteGriseV1DocumentType = Document[
+    CarteGriseV1Document,
+    Page[CarteGriseV1Document],
+]
+
 
 @pytest.fixture
-def complete_doc() -> Document[CarteGriseV1Document, Page[CarteGriseV1Document]]:
-    json_data = json.load(
-        open(
-            PRODUCT_DATA_DIR / "carte_grise" / "response_v1" / "complete.json",
-            encoding="utf-8",
-        )
-    )
+def complete_doc() -> CarteGriseV1DocumentType:
+    file_path = RESPONSE_DIR / "complete.json"
+    with open(file_path, "r", encoding="utf-8") as open_file:
+        json_data = json.load(open_file)
     return Document(CarteGriseV1, json_data["document"])
 
 
 @pytest.fixture
-def empty_doc() -> Document[CarteGriseV1Document, Page[CarteGriseV1Document]]:
-    json_data = json.load(
-        open(
-            PRODUCT_DATA_DIR / "carte_grise" / "response_v1" / "empty.json",
-            encoding="utf-8",
-        )
-    )
+def empty_doc() -> CarteGriseV1DocumentType:
+    file_path = RESPONSE_DIR / "empty.json"
+    with open(file_path, "r", encoding="utf-8") as open_file:
+        json_data = json.load(open_file)
     return Document(CarteGriseV1, json_data["document"])
 
 
-@pytest.fixture
-def complete_page_0() -> Page[CarteGriseV1Document]:
-    json_data = json.load(
-        open(
-            PRODUCT_DATA_DIR / "carte_grise" / "response_v1" / "complete.json",
-            encoding="utf-8",
-        )
-    )
-    return Page(CarteGriseV1Document, json_data["document"]["inference"]["pages"][0])
-
-
-def test_complete_doc(
-    complete_doc: Document[CarteGriseV1Document, Page[CarteGriseV1Document]]
-):
-    reference_str = open(
-        PRODUCT_DATA_DIR / "carte_grise" / "response_v1" / "summary_full.rst",
-        "r",
-        encoding="utf-8",
-    ).read()
+def test_complete_doc(complete_doc: CarteGriseV1DocumentType):
+    file_path = RESPONSE_DIR / "summary_full.rst"
+    with open(file_path, "r", encoding="utf-8") as open_file:
+        reference_str = open_file.read()
     assert str(complete_doc) == reference_str
 
 
-def test_empty_doc(
-    empty_doc: Document[CarteGriseV1Document, Page[CarteGriseV1Document]]
-):
+def test_empty_doc(empty_doc: CarteGriseV1DocumentType):
     prediction = empty_doc.inference.prediction
     assert prediction.a.value is None
     assert prediction.b.value is None

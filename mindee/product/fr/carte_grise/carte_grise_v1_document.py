@@ -5,7 +5,7 @@ from mindee.parsing.standard import DateField, StringField
 
 
 class CarteGriseV1Document(Prediction):
-    """Document data for Carte Grise, API version 1."""
+    """Carte Grise API version 1.1 document data."""
 
     a: StringField
     """The vehicle's license plate number."""

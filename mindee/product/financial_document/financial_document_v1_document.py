@@ -17,7 +17,7 @@ from mindee.product.financial_document.financial_document_v1_line_item import (
 
 
 class FinancialDocumentV1Document(Prediction):
-    """Document data for Financial Document, API version 1."""
+    """Financial Document API version 1.6 document data."""
 
     billing_address: StringField
     """The customer's address used for billing."""

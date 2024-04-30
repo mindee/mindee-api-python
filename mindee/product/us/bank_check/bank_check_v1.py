@@ -1,12 +1,16 @@
 from typing import List
 
 from mindee.parsing.common import Inference, Page, StringDict
-from mindee.product.us.bank_check.bank_check_v1_document import BankCheckV1Document
-from mindee.product.us.bank_check.bank_check_v1_page import BankCheckV1Page
+from mindee.product.us.bank_check.bank_check_v1_document import (
+    BankCheckV1Document,
+)
+from mindee.product.us.bank_check.bank_check_v1_page import (
+    BankCheckV1Page,
+)
 
 
 class BankCheckV1(Inference):
-    """Inference prediction for Bank Check, API version 1."""
+    """Bank Check API version 1 inference prediction."""
 
     prediction: BankCheckV1Document
     """Document-level prediction."""
