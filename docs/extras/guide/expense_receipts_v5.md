@@ -1,10 +1,10 @@
 ---
-title: Receipt OCR Python
+title: Expense Receipts OCR Python
 ---
-The Python OCR SDK supports the [Receipt API](https://platform.mindee.com/mindee/expense_receipts).
+The Python OCR SDK supports the [Expense Receipts API](https://platform.mindee.com/mindee/expense_receipts).
 
 Using the [sample below](https://github.com/mindee/client-lib-test-data/blob/main/products/expense_receipts/default_sample.jpg), we are going to illustrate how to extract the data that we want using the OCR SDK.
-![Receipt sample](https://github.com/mindee/client-lib-test-data/blob/main/products/expense_receipts/default_sample.jpg?raw=true)
+![Expense Receipts sample](https://github.com/mindee/client-lib-test-data/blob/main/products/expense_receipts/default_sample.jpg?raw=true)
 
 # Quick-Start
 ```py
@@ -182,7 +182,7 @@ A `ReceiptV5LineItem` implements the following attributes:
 * **unit_price** (`float`): The item unit price.
 
 # Attributes
-The following fields are extracted for Receipt V5:
+The following fields are extracted for Expense Receipts V5:
 
 ## Purchase Category
 **category** ([ClassificationField](#classificationfield)): The purchase category among predefined classes.
@@ -218,6 +218,13 @@ for line_items_elem in result.document.inference.prediction.line_items:
 
 ```py
 print(result.document.inference.prediction.locale.value)
+```
+
+## Receipt Number
+**receipt_number** ([StringField](#stringfield)): The receipt number or identifier.
+
+```py
+print(result.document.inference.prediction.receipt_number.value)
 ```
 
 ## Purchase Subcategory

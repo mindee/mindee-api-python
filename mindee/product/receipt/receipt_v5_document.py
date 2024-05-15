@@ -14,7 +14,7 @@ from mindee.product.receipt.receipt_v5_line_item import ReceiptV5LineItem
 
 
 class ReceiptV5Document(Prediction):
-    """Receipt API version 5.1 document data."""
+    """Expense Receipts API version 5.2 document data."""
 
     category: ClassificationField
     """The purchase category among predefined classes."""
@@ -26,6 +26,8 @@ class ReceiptV5Document(Prediction):
     """List of line item details."""
     locale: LocaleField
     """The locale detected on the document."""
+    receipt_number: StringField
+    """The receipt number or identifier."""
     subcategory: ClassificationField
     """The purchase subcategory among predefined classes for transport and food."""
     supplier_address: StringField
@@ -55,7 +57,7 @@ class ReceiptV5Document(Prediction):
         page_id: Optional[int] = None,
     ):
         """
-        Receipt document.
+        Expense Receipts document.
 
         :param raw_prediction: Raw prediction from HTTP response
         :param page_id: Page number for multi pages pdf input
@@ -79,6 +81,10 @@ class ReceiptV5Document(Prediction):
         ]
         self.locale = LocaleField(
             raw_prediction["locale"],
+            page_id=page_id,
+        )
+        self.receipt_number = StringField(
+            raw_prediction["receipt_number"],
             page_id=page_id,
         )
         self.subcategory = ClassificationField(
@@ -171,5 +177,6 @@ class ReceiptV5Document(Prediction):
         )
         out_str += f":Supplier Address: {self.supplier_address}\n"
         out_str += f":Supplier Phone Number: {self.supplier_phone_number}\n"
+        out_str += f":Receipt Number: {self.receipt_number}\n"
         out_str += f":Line Items: {self._line_items_to_str()}\n"
         return clean_out_string(out_str)

@@ -275,6 +275,13 @@ print(result.document.inference.prediction.customer_name.value)
 print(result.document.inference.prediction.date.value)
 ```
 
+## Document Number
+**document_number** ([StringField](#stringfield)): The document number or identifier.
+
+```py
+print(result.document.inference.prediction.document_number.value)
+```
+
 ## Document Type
 **document_type** ([ClassificationField](#classificationfield)): One of: 'INVOICE', 'CREDIT NOTE', 'CREDIT CARD RECEIPT', 'EXPENSE RECEIPT'.
 
@@ -290,7 +297,7 @@ print(result.document.inference.prediction.due_date.value)
 ```
 
 ## Invoice Number
-**invoice_number** ([StringField](#stringfield)): The invoice number or identifier.
+**invoice_number** ([StringField](#stringfield)): The invoice number or identifier only if document is an invoice.
 
 ```py
 print(result.document.inference.prediction.invoice_number.value)
@@ -309,6 +316,13 @@ for line_items_elem in result.document.inference.prediction.line_items:
 
 ```py
 print(result.document.inference.prediction.locale.value)
+```
+
+## Receipt Number
+**receipt_number** ([StringField](#stringfield)): The receipt number or identifier only if document is a receipt.
+
+```py
+print(result.document.inference.prediction.receipt_number.value)
 ```
 
 ## Reference Numbers

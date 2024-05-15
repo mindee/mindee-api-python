@@ -55,4 +55,5 @@ def test_empty_doc(empty_doc: ReceiptV5DocumentType):
     assert len(prediction.supplier_company_registrations) == 0
     assert prediction.supplier_address.value is None
     assert prediction.supplier_phone_number.value is None
+    assert prediction.receipt_number.value is None
     assert len(prediction.line_items) == 0
