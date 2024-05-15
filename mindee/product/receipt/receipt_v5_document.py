@@ -14,7 +14,7 @@ from mindee.product.receipt.receipt_v5_line_item import ReceiptV5LineItem
 
 
 class ReceiptV5Document(Prediction):
-    """Expense Receipts API version 5.2 document data."""
+    """Receipt API version 5.2 document data."""
 
     category: ClassificationField
     """The purchase category among predefined classes."""
@@ -57,7 +57,7 @@ class ReceiptV5Document(Prediction):
         page_id: Optional[int] = None,
     ):
         """
-        Expense Receipts document.
+        Receipt document.
 
         :param raw_prediction: Raw prediction from HTTP response
         :param page_id: Page number for multi pages pdf input

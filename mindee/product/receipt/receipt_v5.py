@@ -7,7 +7,7 @@ from mindee.product.receipt.receipt_v5_document import (
 
 
 class ReceiptV5(Inference):
-    """Expense Receipts API version 5 inference prediction."""
+    """Receipt API version 5 inference prediction."""
 
     prediction: ReceiptV5Document
     """Document-level prediction."""
@@ -20,7 +20,7 @@ class ReceiptV5(Inference):
 
     def __init__(self, raw_prediction: StringDict):
         """
-        Expense Receipts v5 inference.
+        Receipt v5 inference.
 
         :param raw_prediction: Raw prediction from the HTTP response.
         """

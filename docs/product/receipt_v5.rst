@@ -1,5 +1,5 @@
-Expense Receipts V5
--------------------
+Receipt V5
+----------
 
 **Sample Code:**
 
