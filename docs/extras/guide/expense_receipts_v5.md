@@ -220,6 +220,13 @@ for line_items_elem in result.document.inference.prediction.line_items:
 print(result.document.inference.prediction.locale.value)
 ```
 
+## Receipt Number
+**receipt_number** ([StringField](#stringfield)): The receipt number or identifier.
+
+```py
+print(result.document.inference.prediction.receipt_number.value)
+```
+
 ## Purchase Subcategory
 **subcategory** ([ClassificationField](#classificationfield)): The purchase subcategory among predefined classes for transport and food.
 
