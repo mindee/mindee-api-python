@@ -1,5 +1,10 @@
 # Mindee Python API Library Changelog
 
+## v4.7.0 - 2024-05-16
+### Changes
+* :sparkles: update receipt to 5.2 and financial document to 1.7
+
+
 ## v4.6.0 - 2024-04-30
 ### Changes
 * :sparkles: add support for financial document v1.6 and invoice 4.6
