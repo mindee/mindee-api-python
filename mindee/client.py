@@ -4,6 +4,7 @@ from typing import BinaryIO, Dict, Optional, Type, Union
 
 from mindee.error.mindee_error import MindeeClientError, MindeeError
 from mindee.error.mindee_http_error import handle_error
+from mindee.input import LocalResponse
 from mindee.input.page_options import PageOptions
 from mindee.input.sources import (
     Base64Input,
@@ -177,6 +178,23 @@ class Client:
             close_file,
             cropper,
         )
+
+    def load_prediction(
+        self, product_class: Type[Inference], local_response: LocalResponse
+    ) -> Union[AsyncPredictResponse, PredictResponse]:
+        """
+        Load a prediction.
+
+        :param product_class: Class of the product to use.
+        :param local_response: Local response to load.
+        :return:
+        """
+        try:
+            if local_response.json.get("job"):
+                return AsyncPredictResponse(product_class, local_response.json)
+            return PredictResponse(product_class, local_response.json)
+        except KeyError as exc:
+            raise MindeeError("No prediction found in local response.") from exc
 
     def parse_queued(
         self,
