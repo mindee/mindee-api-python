@@ -2,13 +2,16 @@ import binascii
 
 import pytest
 
-from mindee import Client, PageOptions, product
-from mindee.error.mindee_error import MindeeClientError
+from mindee import AsyncPredictResponse, Client, PageOptions, PredictResponse, product
+from mindee.error.mindee_error import MindeeClientError, MindeeError
 from mindee.error.mindee_http_error import MindeeHTTPError
+from mindee.input import LocalResponse
 from mindee.input.sources import LocalInputSource
+from mindee.product import InternationalIdV2, InvoiceV4
 from mindee.product.invoice_splitter.invoice_splitter_v1 import InvoiceSplitterV1
 from mindee.product.receipt.receipt_v4 import ReceiptV4
-from tests.test_inputs import FILE_TYPES_DIR
+from tests.mindee_http.test_error import ERROR_DATA_DIR
+from tests.test_inputs import FILE_TYPES_DIR, PRODUCT_DATA_DIR
 from tests.utils import clear_envvars, dummy_envvars
 
 
@@ -113,3 +116,41 @@ def test_async_wrong_polling_delay(dummy_client: Client):
     input_doc = dummy_client.source_from_path(FILE_TYPES_DIR / "pdf" / "blank.pdf")
     with pytest.raises(MindeeClientError):
         dummy_client.enqueue_and_parse(InvoiceSplitterV1, input_doc, delay_sec=0)
+
+
+def test_local_response_from_sync_json(dummy_client: Client):
+    input_file = LocalResponse(
+        PRODUCT_DATA_DIR / "invoices" / "response_v4" / "complete.json"
+    )
+    with open(PRODUCT_DATA_DIR / "invoices" / "response_v4" / "summary_full.rst") as f:
+        reference_doc = f.read()
+    result = dummy_client.load_prediction(InvoiceV4, input_file)
+    assert isinstance(result, PredictResponse)
+    assert str(result.document) == reference_doc
+
+
+def test_local_response_from_async_json(dummy_client: Client):
+    input_file = LocalResponse(
+        PRODUCT_DATA_DIR / "international_id" / "response_v2" / "complete.json"
+    )
+    with open(
+        PRODUCT_DATA_DIR / "international_id" / "response_v2" / "summary_full.rst"
+    ) as f:
+        reference_doc = f.read()
+    result = dummy_client.load_prediction(InternationalIdV2, input_file)
+    assert isinstance(result, AsyncPredictResponse)
+    assert str(result.document) == reference_doc
+
+
+def test_local_response_from_invalid_file(dummy_client: Client):
+    local_response = LocalResponse(
+        PRODUCT_DATA_DIR / "invoices" / "response_v4" / "summary_full.rst"
+    )
+    with pytest.raises(MindeeError):
+        print(local_response.as_dict)
+
+
+def test_local_response_from_invalid_dict(dummy_client: Client):
+    input_file = LocalResponse(ERROR_DATA_DIR / "error_400_no_details.json")
+    with pytest.raises(MindeeError):
+        dummy_client.load_prediction(InvoiceV4, input_file)
