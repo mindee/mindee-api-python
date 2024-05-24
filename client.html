@@ -51,6 +51,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#mindee.client.Client.create_endpoint"><code class="docutils literal notranslate"><span class="pre">Client.create_endpoint()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.client.Client.enqueue"><code class="docutils literal notranslate"><span class="pre">Client.enqueue()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.client.Client.enqueue_and_parse"><code class="docutils literal notranslate"><span class="pre">Client.enqueue_and_parse()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.client.Client.load_prediction"><code class="docutils literal notranslate"><span class="pre">Client.load_prediction()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.client.Client.parse"><code class="docutils literal notranslate"><span class="pre">Client.parse()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.client.Client.parse_queued"><code class="docutils literal notranslate"><span class="pre">Client.parse_queued()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.client.Client.send_feedback"><code class="docutils literal notranslate"><span class="pre">Client.send_feedback()</span></code></a></li>
@@ -177,6 +178,26 @@ This performs a cropping operation on the server and will increase response time
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="parsing/common.html#mindee.parsing.common.async_predict_response.AsyncPredictResponse" title="mindee.parsing.common.async_predict_response.AsyncPredictResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">AsyncPredictResponse</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.client.Client.load_prediction">
+<span class="sig-name descname"><span class="pre">load_prediction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">product_class</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.client.Client.load_prediction" title="Permalink to this definition"></a></dt>
+<dd><p>Load a prediction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>product_class</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Inference</span></code>]) – Class of the product to use.</p></li>
+<li><p><strong>local_response</strong> (<a class="reference internal" href="misc/input.html#mindee.input.LocalResponse" title="mindee.input.local_response.LocalResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalResponse</span></code></a>) – Local response to load.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference internal" href="parsing/common.html#mindee.parsing.common.async_predict_response.AsyncPredictResponse" title="mindee.parsing.common.async_predict_response.AsyncPredictResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">AsyncPredictResponse</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">PredictResponse</span></code>]</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A valid prediction.</p>
 </dd>
 </dl>
 </dd></dl>

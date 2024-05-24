@@ -100,6 +100,12 @@
 <li class="toctree-l4"><a class="reference internal" href="#mindee.input.LocalInputSource.input_type"><code class="docutils literal notranslate"><span class="pre">LocalInputSource.input_type</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.input.LocalResponse"><code class="docutils literal notranslate"><span class="pre">LocalResponse</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.LocalResponse.get_hmac_signature"><code class="docutils literal notranslate"><span class="pre">LocalResponse.get_hmac_signature()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.LocalResponse.is_valid_hmac_signature"><code class="docutils literal notranslate"><span class="pre">LocalResponse.is_valid_hmac_signature()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.LocalResponse.as_dict"><code class="docutils literal notranslate"><span class="pre">LocalResponse.as_dict</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#mindee.input.PageOptions"><code class="docutils literal notranslate"><span class="pre">PageOptions</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.input.PageOptions.on_min_pages"><code class="docutils literal notranslate"><span class="pre">PageOptions.on_min_pages</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.input.PageOptions.operation"><code class="docutils literal notranslate"><span class="pre">PageOptions.operation</span></code></a></li>
@@ -453,6 +459,59 @@ Cannot be less than 0.</p>
 <dt class="sig sig-object py" id="mindee.input.LocalInputSource.input_type">
 <span class="sig-name descname"><span class="pre">input_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.input.InputType" title="mindee.input.sources.InputType"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputType</span></code></a></em><a class="headerlink" href="#mindee.input.LocalInputSource.input_type" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.input.LocalResponse">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">LocalResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalResponse" title="Permalink to this definition"></a></dt>
+<dd><p>Local response loaded from a file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>input_file</strong> (<em>Union</em><em>[</em><em>BinaryIO</em><em>, </em><em>str</em><em>, </em><em>Path</em><em>, </em><em>bytes</em><em>]</em>) – </p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.input.LocalResponse.get_hmac_signature">
+<span class="sig-name descname"><span class="pre">get_hmac_signature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">secret_key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalResponse.get_hmac_signature" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the hmac signature of the local response, from the secret key provided.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>secret_key</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">bytearray</span></code>]) – Secret key, either a string or a byte/byte array.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The hmac signature of the local response.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.input.LocalResponse.is_valid_hmac_signature">
+<span class="sig-name descname"><span class="pre">is_valid_hmac_signature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">secret_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signature</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalResponse.is_valid_hmac_signature" title="Permalink to this definition"></a></dt>
+<dd><p>Checks if the hmac signature of the local response is valid.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>secret_key</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">bytearray</span></code>]) – Secret key, given as a string.</p></li>
+<li><p><strong>signature</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the HMAC signature is valid.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mindee.input.LocalResponse.as_dict">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">as_dict</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mindee.input.LocalResponse.as_dict" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the dictionary representation of the file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A json-like dictionary.</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
