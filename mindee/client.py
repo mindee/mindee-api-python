@@ -187,7 +187,7 @@ class Client:
 
         :param product_class: Class of the product to use.
         :param local_response: Local response to load.
-        :return:
+        :return: A valid prediction.
         """
         try:
             if local_response.as_dict.get("job"):
