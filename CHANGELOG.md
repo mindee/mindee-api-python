@@ -1,5 +1,11 @@
 # Mindee Python API Library Changelog
 
+## v4.8.0 - 2024-05-24
+### Changes
+* :sparkles: add support for webhooks responses & HMAC validation
+* :recycle: replaced PikePDF with PyPdfium2
+
+
 ## v4.7.0 - 2024-05-16
 ### Changes
 * :sparkles: update receipt to 5.2 and financial document to 1.7
