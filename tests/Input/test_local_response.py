@@ -22,7 +22,8 @@ def file_path():
 
 
 def test_valid_file_local_response(dummy_secret_key, signature, file_path):
-    local_response = LocalResponse(file_path)
+    with open(file_path, "rb") as file:
+        local_response = LocalResponse(file)
     assert local_response._file is not None
     assert not local_response.is_valid_hmac_signature(
         dummy_secret_key, "invalid signature"

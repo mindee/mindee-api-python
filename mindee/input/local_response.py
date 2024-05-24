@@ -2,6 +2,7 @@ import hashlib
 import hmac
 import io
 import json
+import os
 from pathlib import Path
 from typing import Any, BinaryIO, Dict, Union
 
@@ -15,18 +16,31 @@ class LocalResponse:
     """File object of the local response."""
 
     def __init__(self, input_file: Union[BinaryIO, str, Path, bytes]):
-        if isinstance(input_file, BinaryIO):
-            self._file = input_file
+        if isinstance(input_file, (BinaryIO, io.BufferedReader)):
+            str_stripped = (
+                input_file.read().decode("utf-8").replace("\r", "").replace("\n", "")
+            )
+            self._file = io.BytesIO(str_stripped.encode("utf-8"))
             self._file.seek(0)
-        elif isinstance(input_file, (str, Path)):
+        elif isinstance(input_file, Path) or (
+            isinstance(input_file, str) and os.path.exists(input_file)
+        ):
             with open(input_file, "r", encoding="utf-8") as file:
                 self._file = io.BytesIO(
                     file.read().replace("\r", "").replace("\n", "").encode()
                 )
+        elif isinstance(input_file, str):
+            self._file = io.BytesIO(
+                input_file.replace("\r", "").replace("\n", "").encode("utf-8")
+            )
         elif isinstance(input_file, bytes):
-            self._file = io.BytesIO(input_file)
+            str_stripped = (
+                input_file.decode("utf-8").replace("\r", "").replace("\n", "")
+            )
+            self._file = io.BytesIO(str_stripped.encode("utf-8"))
+            self._file.seek(0)
         else:
-            raise MindeeError("Incompatible type for input.")
+            raise MindeeError(f"Incompatible type for input '{type(input_file)}'.")
 
     @property
     def as_dict(self) -> Dict[str, Any]:
