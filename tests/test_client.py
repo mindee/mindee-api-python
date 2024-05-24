@@ -143,10 +143,11 @@ def test_local_response_from_async_json(dummy_client: Client):
 
 
 def test_local_response_from_invalid_file(dummy_client: Client):
+    local_response = LocalResponse(
+        PRODUCT_DATA_DIR / "invoices" / "response_v4" / "summary_full.rst"
+    )
     with pytest.raises(MindeeError):
-        LocalResponse(
-            PRODUCT_DATA_DIR / "invoices" / "response_v4" / "summary_full.rst"
-        )
+        print(local_response.as_dict)
 
 
 def test_local_response_from_invalid_dict(dummy_client: Client):

@@ -1,29 +1,90 @@
+import hashlib
+import hmac
+import io
 import json
 from pathlib import Path
-from typing import Union, BinaryIO, Dict, Any
-import io
+from typing import Any, BinaryIO, Dict, Union
 
 from mindee.error import MindeeError
 
 
 class LocalResponse:
-    json: Dict[str, Any]
+    """Local response loaded from a file."""
+
+    _file: BinaryIO
+    """File object of the local response."""
 
     def __init__(self, input_file: Union[BinaryIO, str, Path, bytes]):
-        input_binary: BinaryIO
         if isinstance(input_file, BinaryIO):
-            input_binary = input_file
-            input_binary.seek(0)
-        elif isinstance(input_file, str) or isinstance(input_file, Path):
-            with open(input_file, 'rb') as f:
-                input_binary = io.BytesIO(f.read())
+            self._file = input_file
+            self._file.seek(0)
+        elif isinstance(input_file, (str, Path)):
+            with open(input_file, "r", encoding="utf-8") as file:
+                self._file = io.BytesIO(
+                    file.read().replace("\r", "").replace("\n", "").encode()
+                )
         elif isinstance(input_file, bytes):
-            input_binary = io.BytesIO(input_file)
+            self._file = io.BytesIO(input_file)
         else:
-            raise TypeError('Incompatible type for input.')
+            raise MindeeError("Incompatible type for input.")
+
+    @property
+    def as_dict(self) -> Dict[str, Any]:
+        """
+        Returns the dictionary representation of the file.
+
+        :return: A json-like dictionary.
+        """
         try:
-            input_binary.seek(0)
-            self.json = json.load(input_binary)
-            input_binary.close()
+            self._file.seek(0)
+            out_json = json.loads(self._file.read())
         except json.decoder.JSONDecodeError as exc:
-            raise MindeeError('File is not a valid dictionary.') from exc
+            raise MindeeError("File is not a valid dictionary.") from exc
+        return out_json
+
+    @staticmethod
+    def _process_secret_key(
+        secret_key: Union[str, bytes, bytearray]
+    ) -> Union[bytes, bytearray]:
+        """
+        Processes the secret key as a byte array.
+
+        :param secret_key: Secret key, either a string or a byte/byte array.
+        :return: a byte/byte array secret key.
+        """
+        if isinstance(secret_key, (bytes, bytearray)):
+            return secret_key
+        return secret_key.encode("utf-8")
+
+    def get_hmac_signature(self, secret_key: Union[str, bytes, bytearray]):
+        """
+        Returns the hmac signature of the local response, from the secret key provided.
+
+        :param secret_key: Secret key, either a string or a byte/byte array.
+        :return: The hmac signature of the local response.
+        """
+        algorithm = hashlib.sha256
+
+        try:
+            self._file.seek(0)
+            mac = hmac.new(
+                LocalResponse._process_secret_key(secret_key),
+                self._file.read(),
+                algorithm,
+            )
+        except (TypeError, ValueError) as exc:
+            raise MindeeError("Could not get HMAC signature from payload.") from exc
+
+        return mac.hexdigest()
+
+    def is_valid_hmac_signature(
+        self, secret_key: Union[str, bytes, bytearray], signature: str
+    ):
+        """
+        Checks if the hmac signature of the local response is valid.
+
+        :param secret_key: Secret key, given as a string.
+        :param signature:
+        :return: True if the HMAC signature is valid.
+        """
+        return signature == self.get_hmac_signature(secret_key)

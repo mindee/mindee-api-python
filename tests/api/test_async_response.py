@@ -1,4 +1,5 @@
 import json
+from pathlib import Path
 
 import pytest
 import requests
@@ -10,13 +11,13 @@ from mindee.parsing.common.api_request import RequestStatus
 from mindee.parsing.common.async_predict_response import AsyncPredictResponse
 from mindee.product.invoice_splitter import InvoiceSplitterV1
 
-ASYNC_DIR = "./tests/data/async"
+ASYNC_DIR = Path("./tests/data/async")
 
-FILE_PATH_POST_SUCCESS = f"{ASYNC_DIR}/post_success.json"
-FILE_PATH_POST_FAIL = f"{ASYNC_DIR}/post_fail_forbidden.json"
-FILE_PATH_GET_PROCESSING = f"{ASYNC_DIR}/get_processing.json"
-FILE_PATH_GET_COMPLETED = f"{ASYNC_DIR}/get_completed.json"
-FILE_PATH_GET_FAILED_JOB = f"{ASYNC_DIR}/get_failed_job_error.json"
+FILE_PATH_POST_SUCCESS = ASYNC_DIR / "post_success.json"
+FILE_PATH_POST_FAIL = ASYNC_DIR / "post_fail_forbidden.json"
+FILE_PATH_GET_PROCESSING = ASYNC_DIR / "get_processing.json"
+FILE_PATH_GET_COMPLETED = ASYNC_DIR / "get_completed.json"
+FILE_PATH_GET_FAILED_JOB = ASYNC_DIR / "get_failed_job_error.json"
 
 
 class FakeResponse(requests.Response):

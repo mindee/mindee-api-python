@@ -190,9 +190,9 @@ class Client:
         :return:
         """
         try:
-            if local_response.json.get("job"):
-                return AsyncPredictResponse(product_class, local_response.json)
-            return PredictResponse(product_class, local_response.json)
+            if local_response.as_dict.get("job"):
+                return AsyncPredictResponse(product_class, local_response.as_dict)
+            return PredictResponse(product_class, local_response.as_dict)
         except KeyError as exc:
             raise MindeeError("No prediction found in local response.") from exc
 
