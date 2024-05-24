@@ -7,7 +7,7 @@ from enum import Enum
 from pathlib import Path
 from typing import BinaryIO, Optional, Sequence, Tuple, Union
 
-import pikepdf
+import pypdfium2 as pdfium
 
 from mindee.error.mimetype_error import MimeTypeError
 from mindee.error.mindee_error import MindeeError, MindeeSourceError
@@ -117,8 +117,8 @@ class LocalInputSource:
         :return: the number of pages.
         """
         self.file_object.seek(0)
-        with pikepdf.open(self.file_object) as pdf:
-            return len(pdf.pages)
+        pdf = pdfium.PdfDocument(self.file_object)
+        return len(pdf)
 
     def process_pdf(
         self,
@@ -163,14 +163,13 @@ class LocalInputSource:
         :return: None
         """
         self.file_object.seek(0)
-        new_pdf = pikepdf.Pdf.new()
-        with pikepdf.open(self.file_object) as pdf:
-            for page_id in page_numbers:
-                page = pdf.pages[page_id]
-                new_pdf.pages.append(page)
+        new_pdf = pdfium.PdfDocument.new()
+        pdf = pdfium.PdfDocument(self.file_object)
+        new_pdf.import_pages(pdf, list(page_numbers))
         self.file_object.close()
-        self.file_object = io.BytesIO()
-        new_pdf.save(self.file_object)
+        bytes_io = io.BytesIO()
+        new_pdf.save(bytes_io)
+        self.file_object = bytes_io
 
     def is_pdf_empty(self) -> bool:
         """
@@ -179,24 +178,11 @@ class LocalInputSource:
         :return: ``True`` if the PDF is empty
         """
         self.file_object.seek(0)
-        with pikepdf.open(self.file_object) as pdf:
-            for page in pdf.pages:
-                # mypy incorrectly identifies the "/Length" key's value as
-                # an object rather than an int.
-                try:
-                    total_size = page["/Contents"]["/Length"]
-                except ValueError:
-                    total_size = 0  # type: ignore
-                    for content in page["/Contents"]:  # type: ignore
-                        total_size += content["/Length"]
-                has_data = total_size > 1000  # type: ignore
-
-                has_font = "/Font" in page["/Resources"].keys()
-                has_xobj = "/XObject" in page["/Resources"].keys()
-
-                if has_font or has_xobj or has_data:
-                    return False
-            return True
+        pdf = pdfium.PdfDocument(self.file_object)
+        for page in pdf:
+            for _ in page.get_objects():
+                return False
+        return True
 
     def read_contents(self, close_file: bool) -> Tuple[str, bytes]:
         """
