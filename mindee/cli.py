@@ -361,6 +361,11 @@ class MindeeParser:
         else:
             if response.document is None:
                 raise MindeeClientError("Something went wrong during async parsing.")
+            # print the OCR
+            if self.parsed_args.include_words:
+                print("#############\nDocument Text\n#############\n::\n")
+                print("  " + str(response.document.ocr).replace("\n", "\n  "))
+            # print the response as rST
             print(self._doc_str(self.parsed_args.output_type, response.document))
 
     def _parse_sync(self) -> PredictResponse:
