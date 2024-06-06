@@ -11,9 +11,12 @@ from tests.test_inputs import FILE_TYPES_DIR
 def jpg_file_path():
     return FILE_TYPES_DIR / "receipt.jpg"
 
+
 @pytest.fixture
 def txt_file_path():
     return FILE_TYPES_DIR / "receipt.txt"
+
+
 @pytest.fixture
 def png_file_path():
     return FILE_TYPES_DIR / "receipt.png"

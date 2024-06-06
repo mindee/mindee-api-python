@@ -7,6 +7,8 @@ from mindee.logger import logger
 
 
 class ExtractedImage:
+    """Generic class for image extraction."""
+
     def __init__(self, buffer: bytes, file_name: str):
         """
         Initialize the ExtractedImage with a buffer and an internal file name.
@@ -26,13 +28,13 @@ class ExtractedImage:
         """
         try:
             resolved_path = Path(output_path).resolve()
-            with open(resolved_path, 'wb') as f:
-                f.write(self.buffer.read())
-            logger.info(f"File saved successfully to {resolved_path}.")
-        except TypeError:
-            raise MindeeError("Invalid path/filename provided.")
-        except Exception as e:
-            raise e
+            with open(resolved_path, "wb") as file:
+                file.write(self.buffer.read())
+                logger.info("File saved successfully to %s.", resolved_path)
+        except TypeError as exc:
+            raise MindeeError("Invalid path/filename provided.") from exc
+        except Exception as exc:
+            raise MindeeError(f"Could not save file {Path(output_path).name}.") from exc
 
     def as_source(self) -> FileInput:
         """
