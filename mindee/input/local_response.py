@@ -98,7 +98,7 @@ class LocalResponse:
         Checks if the hmac signature of the local response is valid.
 
         :param secret_key: Secret key, given as a string.
-        :param signature:
+        :param signature: HMAC signature, given as a string.
         :return: True if the HMAC signature is valid.
         """
         return signature == self.get_hmac_signature(secret_key)

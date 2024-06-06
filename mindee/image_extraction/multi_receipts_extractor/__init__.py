@@ -1,0 +1,2 @@
+from mindee.image_extraction.multi_receipts_extractor.mult_receipts_extractor import extract_receipts_from_page
+from mindee.image_extraction.multi_receipts_extractor.extracted_mult_receipt_image import ExtractedMultiReceiptImage
