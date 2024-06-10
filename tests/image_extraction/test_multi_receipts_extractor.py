@@ -1,9 +1,8 @@
 import json
-from io import BytesIO
 
+import pypdfium2 as pdfium
 import pytest
 
-from mindee.error import MimeTypeError
 from mindee.image_extraction.multi_receipts_extractor.mult_receipts_extractor import (
     extract_receipts,
 )
@@ -48,10 +47,48 @@ def test_single_page_multi_receipt_split(
     doc = MultiReceiptsDetectorV1(response["document"]["inference"])
     extracted_receipts = extract_receipts(input_sample, doc)
     assert len(extracted_receipts) == 6
-    for i in range(len(extracted_receipts)):
-        assert extracted_receipts[i].buffer is not None
-        assert extracted_receipts[i].page_id == 0
-        assert extracted_receipts[i].receipt_id == i
+
+    assert extracted_receipts[0].page_id == 0
+    assert extracted_receipts[0].receipt_id == 0
+    image_buffer_0 = (
+        pdfium.PdfDocument(extracted_receipts[0].buffer).get_page(0).render().to_pil()
+    )
+    assert image_buffer_0.size == (341, 505)
+
+    assert extracted_receipts[1].page_id == 0
+    assert extracted_receipts[1].receipt_id == 1
+    image_buffer_1 = (
+        pdfium.PdfDocument(extracted_receipts[1].buffer).get_page(0).render().to_pil()
+    )
+    assert image_buffer_1.size == (461, 908)
+
+    assert extracted_receipts[2].page_id == 0
+    assert extracted_receipts[2].receipt_id == 2
+    image_buffer_2 = (
+        pdfium.PdfDocument(extracted_receipts[2].buffer).get_page(0).render().to_pil()
+    )
+    assert image_buffer_2.size == (471, 790)
+
+    assert extracted_receipts[3].page_id == 0
+    assert extracted_receipts[3].receipt_id == 3
+    image_buffer_3 = (
+        pdfium.PdfDocument(extracted_receipts[3].buffer).get_page(0).render().to_pil()
+    )
+    assert image_buffer_3.size == (464, 1200)
+
+    assert extracted_receipts[4].page_id == 0
+    assert extracted_receipts[4].receipt_id == 4
+    image_buffer_4 = (
+        pdfium.PdfDocument(extracted_receipts[4].buffer).get_page(0).render().to_pil()
+    )
+    assert image_buffer_4.size == (530, 943)
+
+    assert extracted_receipts[5].page_id == 0
+    assert extracted_receipts[5].receipt_id == 5
+    image_buffer_5 = (
+        pdfium.PdfDocument(extracted_receipts[5].buffer).get_page(0).render().to_pil()
+    )
+    assert image_buffer_5.size == (367, 593)
 
 
 def test_multi_page_receipt_split(
@@ -63,22 +100,38 @@ def test_multi_page_receipt_split(
     doc = MultiReceiptsDetectorV1(response["document"]["inference"])
     extracted_receipts = extract_receipts(input_sample, doc)
     assert len(extracted_receipts) == 5
-    assert extracted_receipts[0].buffer is not None
+
     assert extracted_receipts[0].page_id == 0
     assert extracted_receipts[0].receipt_id == 0
+    image_buffer_0 = (
+        pdfium.PdfDocument(extracted_receipts[0].buffer).get_page(0).render().to_pil()
+    )
+    assert image_buffer_0.size == (198, 566)
 
-    assert extracted_receipts[1].buffer is not None
     assert extracted_receipts[1].page_id == 0
     assert extracted_receipts[1].receipt_id == 1
+    image_buffer_1 = (
+        pdfium.PdfDocument(extracted_receipts[1].buffer).get_page(0).render().to_pil()
+    )
+    assert image_buffer_1.size == (206, 382)
 
-    assert extracted_receipts[2].buffer is not None
     assert extracted_receipts[2].page_id == 0
     assert extracted_receipts[2].receipt_id == 2
+    image_buffer_2 = (
+        pdfium.PdfDocument(extracted_receipts[2].buffer).get_page(0).render().to_pil()
+    )
+    assert image_buffer_2.size == (195, 231)
 
-    assert extracted_receipts[3].buffer is not None
     assert extracted_receipts[3].page_id == 1
     assert extracted_receipts[3].receipt_id == 0
+    image_buffer_3 = (
+        pdfium.PdfDocument(extracted_receipts[3].buffer).get_page(0).render().to_pil()
+    )
+    assert image_buffer_3.size == (213, 356)
 
-    assert extracted_receipts[4].buffer is not None
     assert extracted_receipts[4].page_id == 1
     assert extracted_receipts[4].receipt_id == 1
+    image_buffer_4 = (
+        pdfium.PdfDocument(extracted_receipts[4].buffer).get_page(0).render().to_pil()
+    )
+    assert image_buffer_4.size == (212, 516)
