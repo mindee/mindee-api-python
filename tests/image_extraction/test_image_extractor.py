@@ -1,42 +1,36 @@
-from io import BytesIO
+import json
 
-import pypdfium2 as pdfium
 import pytest
 from PIL import Image
 
-from mindee.error import MimeTypeError
+from mindee.image_extraction.common import extract_multiple_images_from_image
+from mindee.input import PathInput
+from mindee.product import BarcodeReaderV1
 from tests.test_inputs import PRODUCT_DATA_DIR
 
 
 @pytest.fixture
-def single_page_path():
-    return PRODUCT_DATA_DIR / "multi_receipts_detector" / "default_sample.jpg"
-
+def barcode_path():
+    return PRODUCT_DATA_DIR / "barcode_reader" / "default_sample.jpg"
 
 @pytest.fixture
-def multiple_pages_path():
-    return PRODUCT_DATA_DIR / "multi_receipts_detector" / "multipage_sample.pdf"
+def barcode_json_path():
+    return PRODUCT_DATA_DIR / "barcode_reader" / "response_v1" / "complete.json"
 
 
-def test_get_images_mono_page(single_page_path):
-    with open(single_page_path, "rb") as f:
-        jpg_file = Image.open(single_page_path)
-    jpg_height = jpg_file.size[0]
-    jpg_width = jpg_file.size[1]
-    assert jpg_height == 3628
-    assert jpg_width == 1552
+def test_barcode_image_extraction(
+    barcode_path, barcode_json_path
+):
+    with open(barcode_json_path, "rb") as f:
+        response = json.load(f)
+    inference = BarcodeReaderV1(response["document"]["inference"])
+    barcodes_1 = [code_1d.polygon for code_1d in inference.prediction.codes_1d]
+    barcodes_2 = [code_2d.polygon for code_2d in inference.prediction.codes_2d]
+    extracted_barcodes_1d = extract_multiple_images_from_image(barcode_path, barcodes_1)
+    extracted_barcodes_2d = extract_multiple_images_from_image(barcode_path, barcodes_2)
+    assert len(extracted_barcodes_1d) == 1
+    assert len(extracted_barcodes_2d) == 2
 
-
-def test_get_images_multiple_pages(multiple_pages_path):
-    with open(multiple_pages_path, "rb") as f:
-        pdf = pdfium.PdfDocument(f)
-        pdf_images = [page.render().to_pil() for page in pdf]
-    height_page_0 = pdf_images[0].size[0]
-    width_page_0 = pdf_images[0].size[1]
-    assert height_page_0 == 595
-    assert width_page_0 == 842
-
-    height_page_1 = pdf_images[1].size[0]
-    width_page_1 = pdf_images[1].size[1]
-    assert height_page_1 == 595
-    assert width_page_1 == 842
+    assert extracted_barcodes_1d[0].size == (353, 200)
+    assert extracted_barcodes_2d[0].size == (214, 216)
+    assert extracted_barcodes_2d[1].size == (193, 201)

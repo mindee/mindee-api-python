@@ -1,10 +1,11 @@
 import io
-from typing import BinaryIO, List
+from pathlib import Path
+from typing import BinaryIO, List, Union
 
 import pypdfium2 as pdfium
 from PIL import Image
 
-from mindee.geometry import Polygon, get_min_max_x, get_min_max_y
+from mindee.geometry import Point, get_min_max_x, get_min_max_y
 
 
 def attach_image_as_new_file(  # type: ignore
@@ -39,15 +40,35 @@ def attach_image_as_new_file(  # type: ignore
     return pdf
 
 
-def extract_from_page(pdf_page: pdfium.PdfPage, polygons: List[Polygon]) -> List[bytes]:  # type: ignore
+def extract_multiple_images_from_image(
+    image: Union[bytes, str, Path], polygons: List[List[Point]]
+) -> List[Image.Image]:
     """
-    Extracts elements from a page based on a list of bounding boxes.
+    Extracts elements from an image based on a list of bounding boxes.
 
-    :param pdf_page: Single PDF Page.
+    :param image: Image as a path
     :param polygons: List of coordinates to pull the elements from.
     :return: List of byte arrays representing the extracted elements.
     """
-    width, height = pdf_page.get_size()
+    return extract_multiple_images_from_page(Image.open(image), polygons)
+
+
+def extract_multiple_images_from_page(  # type: ignore
+    page: Union[pdfium.PdfPage, Image.Image], polygons: List[List[Point]]
+) -> List[Image.Image]:
+    """
+    Extracts elements from a page based on a list of bounding boxes.
+
+    :param page: Single PDF Page. If the page is a pdfium.PdfPage, it is rasterized first.
+    :param polygons: List of coordinates to pull the elements from.
+    :return: List of byte arrays representing the extracted elements.
+    """
+    if isinstance(page, pdfium.PdfPage):
+        page_content = page.render().to_pil()
+        width, height = page.get_size()
+    else:
+        page_content = page
+        width, height = page.size
 
     extracted_elements = []
     for polygon in polygons:
@@ -59,14 +80,8 @@ def extract_from_page(pdf_page: pdfium.PdfPage, polygons: List[Polygon]) -> List
         top = min_max_y.min * height
         bottom = min_max_y.max * height
 
-        # Note: cropping done via PIL instead of PyPDFium to simplify operations greatly.
-        cropped_content_pil = pdf_page.render().to_pil()
-        cropped_content_pil = cropped_content_pil.crop(
-            (int(left), int(top), int(right), int(bottom))
+        extracted_elements.append(
+            page_content.crop((int(left), int(top), int(right), int(bottom)))
         )
-        jpeg_buffer = io.BytesIO()
-        cropped_content_pil.save(jpeg_buffer, format="PDF")
-        jpeg_buffer.seek(0)
-        extracted_elements.append(jpeg_buffer.read())
 
     return extracted_elements
