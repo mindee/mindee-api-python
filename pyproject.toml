@@ -33,7 +33,7 @@ safe_licenses = [
   "Mozilla Public License 2.0 (MPL 2.0)",
   "BSD License",
   "(Apache-2.0 OR BSD-3-Clause) AND LicenseRef-PdfiumThirdParty",
-  "Historical Permission Notice and Disclaimer (HPND) (HPND)"
+  "Historical Permission Notice and Disclaimer (HPND)"
 ]
 
 [tool.pytest.ini_options]
