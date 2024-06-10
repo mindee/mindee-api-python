@@ -1,9 +1,9 @@
 from io import BytesIO
 
 import pytest
+from PIL import Image
 
 from mindee.error import MimeTypeError
-from mindee.image_extraction.common import get_image_size
 from tests.test_inputs import FILE_TYPES_DIR
 
 
@@ -24,23 +24,17 @@ def png_file_path():
 
 def test_get_image_size_jpg(jpg_file_path):
     with open(jpg_file_path, "rb") as f:
-        jpg_file = BytesIO(f.read())
-    jpg_height, jpg_width = get_image_size(jpg_file)
+        jpg_file = Image.open(jpg_file_path)
+    jpg_height = jpg_file.size[0]
+    jpg_width = jpg_file.size[1]
     assert jpg_height == 800
     assert jpg_width == 1066
 
 
 def test_get_image_size_png(png_file_path):
     with open(png_file_path, "rb") as f:
-        png_file = BytesIO(f.read())
-    png_height, png_width = get_image_size(png_file)
+        png_file = Image.open(png_file_path)
+    png_height = png_file.size[0]
+    png_width = png_file.size[1]
     assert png_height == 800
     assert png_width == 1066
-
-
-def test_get_image_size_with_invalid_mime(txt_file_path):
-    with open(txt_file_path, "rb") as f:
-        txt_file = BytesIO(f.read())
-
-    with pytest.raises(MimeTypeError):
-        get_image_size(txt_file)

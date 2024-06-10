@@ -18,19 +18,22 @@ class ExtractedImage:
         """
         self.buffer = io.BytesIO(buffer)
         self.internal_file_name = file_name
+        self.buffer.name = self.internal_file_name
 
     def save_to_file(self, output_path: str):
         """
         Saves the document to a file.
 
         :param output_path: Path to save the file to.
+        :param file_name: Name of the file.
         :raises MindeeError: If an invalid path or filename is provided.
         """
         try:
+            self.buffer.seek(0)
             resolved_path = Path(output_path).resolve()
             with open(resolved_path, "wb") as file:
                 file.write(self.buffer.read())
-                logger.info("File saved successfully to %s.", resolved_path)
+                logger.info("File saved successfully to '%s'.", resolved_path)
         except TypeError as exc:
             raise MindeeError("Invalid path/filename provided.") from exc
         except Exception as exc:

@@ -1,7 +1,7 @@
 from mindee.image_extraction.common import ExtractedImage
 
 
-class ExtractedMultiReceiptImage(ExtractedImage):
+class ExtractedMultiReceiptsImage(ExtractedImage):
     """Wrapper class for extracted multiple-receipts images."""
 
     _receipt_id: int

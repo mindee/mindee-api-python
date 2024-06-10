@@ -4,8 +4,9 @@ from io import BytesIO
 import pytest
 
 from mindee.error import MimeTypeError
-from mindee.image_extraction.common import get_image_size
-from mindee.image_extraction.multi_receipts_extractor.mult_receipts_extractor import extract_receipts
+from mindee.image_extraction.multi_receipts_extractor.mult_receipts_extractor import (
+    extract_receipts,
+)
 from mindee.input import PathInput
 from mindee.product import MultiReceiptsDetectorV1
 from tests.test_inputs import PRODUCT_DATA_DIR
@@ -18,7 +19,9 @@ def multi_receipts_single_page_path():
 
 @pytest.fixture
 def multi_receipts_single_page_json_path():
-    return PRODUCT_DATA_DIR / "multi_receipts_detector" / "response_v1" / "complete.json"
+    return (
+        PRODUCT_DATA_DIR / "multi_receipts_detector" / "response_v1" / "complete.json"
+    )
 
 
 @pytest.fixture
@@ -28,10 +31,17 @@ def multi_receipts_multi_page_path():
 
 @pytest.fixture
 def multi_receipts_multi_page_json_path():
-    return PRODUCT_DATA_DIR / "multi_receipts_detector" / "response_v1" / "multipage_sample.json"
+    return (
+        PRODUCT_DATA_DIR
+        / "multi_receipts_detector"
+        / "response_v1"
+        / "multipage_sample.json"
+    )
 
 
-def test_single_page_multi_receipt_split(multi_receipts_single_page_path, multi_receipts_single_page_json_path):
+def test_single_page_multi_receipt_split(
+    multi_receipts_single_page_path, multi_receipts_single_page_json_path
+):
     input_sample = PathInput(multi_receipts_single_page_path)
     with open(multi_receipts_single_page_json_path, "rb") as f:
         response = json.load(f)
@@ -44,7 +54,9 @@ def test_single_page_multi_receipt_split(multi_receipts_single_page_path, multi_
         assert extracted_receipts[i].receipt_id == i
 
 
-def test_multi_page_receipt_split(multi_receipts_multi_page_path, multi_receipts_multi_page_json_path):
+def test_multi_page_receipt_split(
+    multi_receipts_multi_page_path, multi_receipts_multi_page_json_path
+):
     input_sample = PathInput(multi_receipts_multi_page_path)
     with open(multi_receipts_multi_page_json_path, "rb") as f:
         response = json.load(f)
@@ -70,6 +82,3 @@ def test_multi_page_receipt_split(multi_receipts_multi_page_path, multi_receipts
     assert extracted_receipts[4].buffer is not None
     assert extracted_receipts[4].page_id == 1
     assert extracted_receipts[4].receipt_id == 1
-
-
-
