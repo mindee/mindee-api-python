@@ -1,32 +1,16 @@
 import io
 from typing import List
 
-import pypdfium2 as pdfium
-
 from mindee.error import MindeeError
 from mindee.image_extraction.common.image_extractor import (
-    attach_image_as_new_file,
     extract_multiple_images_from_page,
+    load_pdf_doc,
 )
 from mindee.image_extraction.multi_receipts_extractor.extracted_multi_receipt_image import (
     ExtractedMultiReceiptsImage,
 )
 from mindee.input import LocalInputSource
 from mindee.parsing.common import Inference
-
-
-def load_pdf_doc(input_file: LocalInputSource) -> pdfium.PdfDocument:  # type: ignore
-    """
-    Loads a PDF document from a local input source.
-
-    :param input_file: Local input.
-    :return: A valid PdfDocument handle.
-    """
-    input_file.file_object.seek(0)
-    if input_file.is_pdf():
-        return pdfium.PdfDocument(input_file.file_object)
-
-    return attach_image_as_new_file(input_file.file_object)
 
 
 def extract_receipts(

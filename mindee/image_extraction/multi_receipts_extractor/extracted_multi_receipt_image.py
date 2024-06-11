@@ -5,7 +5,6 @@ class ExtractedMultiReceiptsImage(ExtractedImage):
     """Wrapper class for extracted multiple-receipts images."""
 
     _receipt_id: int
-    _page_id: int
 
     def __init__(self, buffer, receipt_id: int, page_id: int):
         super().__init__(buffer, f"receipt_p{page_id}_{receipt_id}.pdf")

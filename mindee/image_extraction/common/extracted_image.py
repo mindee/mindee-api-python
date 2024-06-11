@@ -12,6 +12,9 @@ from mindee.logger import logger
 class ExtractedImage:
     """Generic class for image extraction."""
 
+    page_id: int
+    """Id of the page the image was extracted from."""
+
     def __init__(self, buffer: bytes, file_name: str):
         """
         Initialize the ExtractedImage with a buffer and an internal file name.

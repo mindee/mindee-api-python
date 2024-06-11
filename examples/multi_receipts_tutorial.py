@@ -1,5 +1,5 @@
 from mindee import Client, PredictResponse, product
-from mindee.image_extraction.multi_receipts_extractor.mult_receipts_extractor import (
+from mindee.image_extraction.multi_receipts_extractor.multi_receipts_extractor import (
     extract_receipts,
 )
 

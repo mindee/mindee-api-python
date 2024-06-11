@@ -6,6 +6,7 @@ import pypdfium2 as pdfium
 from PIL import Image
 
 from mindee.geometry import Point, get_min_max_x, get_min_max_y
+from mindee.input import LocalInputSource
 
 
 def attach_image_as_new_file(  # type: ignore
@@ -85,3 +86,17 @@ def extract_multiple_images_from_page(  # type: ignore
         )
 
     return extracted_elements
+
+
+def load_pdf_doc(input_file: LocalInputSource) -> pdfium.PdfDocument:  # type: ignore
+    """
+    Loads a PDF document from a local input source.
+
+    :param input_file: Local input.
+    :return: A valid PdfDocument handle.
+    """
+    input_file.file_object.seek(0)
+    if input_file.is_pdf():
+        return pdfium.PdfDocument(input_file.file_object)
+
+    return attach_image_as_new_file(input_file.file_object)
