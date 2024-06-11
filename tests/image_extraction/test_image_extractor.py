@@ -13,14 +13,13 @@ from tests.test_inputs import PRODUCT_DATA_DIR
 def barcode_path():
     return PRODUCT_DATA_DIR / "barcode_reader" / "default_sample.jpg"
 
+
 @pytest.fixture
 def barcode_json_path():
     return PRODUCT_DATA_DIR / "barcode_reader" / "response_v1" / "complete.json"
 
 
-def test_barcode_image_extraction(
-    barcode_path, barcode_json_path
-):
+def test_barcode_image_extraction(barcode_path, barcode_json_path):
     with open(barcode_json_path, "rb") as f:
         response = json.load(f)
     inference = BarcodeReaderV1(response["document"]["inference"])
