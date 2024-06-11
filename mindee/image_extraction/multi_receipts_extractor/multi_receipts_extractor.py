@@ -41,7 +41,9 @@ def extract_receipts(
             receipt.save(buffer, format="JPEG")
             buffer.seek(0)
             extracted_receipts.append(
-                ExtractedMultiReceiptsImage(buffer.read(), receipt_id, page_id)
+                ExtractedMultiReceiptsImage(
+                    buffer.read(), input_file.filename, receipt_id, page_id
+                )
             )
         images.extend(extracted_receipts)
     return images

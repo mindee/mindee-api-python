@@ -12,10 +12,18 @@ from mindee.logger import logger
 class ExtractedImage:
     """Generic class for image extraction."""
 
-    page_id: int
+    _page_id: int
     """Id of the page the image was extracted from."""
+    _element_id: int
+    """Id of the element on a given page."""
 
-    def __init__(self, buffer: bytes, file_name: str):
+    def __init__(
+        self,
+        buffer: bytes,
+        file_name: str,
+        page_id: int,
+        element_id: Optional[int] = None,
+    ) -> None:
         """
         Initialize the ExtractedImage with a buffer and an internal file name.
 
@@ -23,8 +31,10 @@ class ExtractedImage:
         :param file_name: The internal file name of the image.
         """
         self.buffer = io.BytesIO(buffer)
-        self.internal_file_name = file_name
+        self.internal_file_name = f"{file_name}_p{page_id}_{element_id}.pdf"
         self.buffer.name = self.internal_file_name
+        self._page_id = page_id
+        self._element_id = 0 if element_id is None else element_id
 
     def save_to_file(self, output_path: str, file_format: Optional[str] = None):
         """
@@ -59,3 +69,12 @@ class ExtractedImage:
         :returns: A BufferInput source.
         """
         return FileInput(self.buffer)
+
+    @property
+    def page_id(self):
+        """
+        ID of the page the receipt was found on.
+
+        :return:
+        """
+        return self._page_id
