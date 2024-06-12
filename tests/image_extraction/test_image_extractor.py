@@ -35,6 +35,6 @@ def test_barcode_image_extraction(barcode_path, barcode_json_path):
     assert len(extracted_barcodes_1d) == 1
     assert len(extracted_barcodes_2d) == 2
 
-    assert extracted_barcodes_1d[0].size == (353, 200)
-    assert extracted_barcodes_2d[0].size == (214, 216)
-    assert extracted_barcodes_2d[1].size == (193, 201)
+    assert Image.open(extracted_barcodes_1d[0].buffer).size == (353, 200)
+    assert Image.open(extracted_barcodes_2d[0].buffer).size == (214, 216)
+    assert Image.open(extracted_barcodes_2d[1].buffer).size == (193, 201)

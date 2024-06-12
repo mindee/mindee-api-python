@@ -1,4 +1,3 @@
-import io
 from typing import List
 
 from mindee.error import MindeeError
@@ -6,7 +5,7 @@ from mindee.image_extraction.common.extracted_image import ExtractedImage
 from mindee.image_extraction.common.image_extractor import (
     extract_multiple_images_from_source,
 )
-from mindee.input import BytesInput, LocalInputSource
+from mindee.input import LocalInputSource
 from mindee.parsing.common import Inference
 
 
@@ -30,15 +29,9 @@ def extract_receipts(
             receipt.bounding_box
             for receipt in inference.pages[page_id].prediction.receipts
         ]
-        extracted_receipts = []
-        receipts = extract_multiple_images_from_source(
-            input_source, page_id, receipt_positions
+        images.extend(
+            extract_multiple_images_from_source(
+                input_source, page_id, receipt_positions
+            )
         )
-        for receipt_id, receipt in enumerate(receipts):
-            buffer = io.BytesIO()
-            receipt.save(buffer, format="JPEG")
-            buffer.seek(0)
-            bytes_input = BytesInput(buffer.read(), input_source.filename)
-            extracted_receipts.append(ExtractedImage(bytes_input, page_id, receipt_id))
-        images.extend(extracted_receipts)
     return images

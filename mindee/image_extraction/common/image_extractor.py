@@ -5,7 +5,8 @@ import pypdfium2 as pdfium
 from PIL import Image
 
 from mindee.geometry import Point, get_min_max_x, get_min_max_y
-from mindee.input import LocalInputSource
+from mindee.image_extraction.common import ExtractedImage
+from mindee.input import BytesInput, LocalInputSource
 
 
 def attach_image_as_new_file(  # type: ignore
@@ -42,7 +43,7 @@ def attach_image_as_new_file(  # type: ignore
 
 def extract_multiple_images_from_source(
     input_source: LocalInputSource, page_id: int, polygons: List[List[Point]]
-) -> List[Image.Image]:
+) -> List[ExtractedImage]:
     """
     Extracts elements from a page based on a list of bounding boxes.
 
@@ -56,17 +57,30 @@ def extract_multiple_images_from_source(
     width, height = page.get_size()
 
     extracted_elements = []
-    for polygon in polygons:
+    for element_id, polygon in enumerate(polygons):
         min_max_x = get_min_max_x(polygon)
         min_max_y = get_min_max_y(polygon)
 
-        left = min_max_x.min * width
-        right = min_max_x.max * width
-        top = min_max_y.min * height
-        bottom = min_max_y.max * height
-
+        pillow_page = page_content.crop(
+            (
+                int(min_max_x.min * width),
+                int(min_max_y.min * height),
+                int(min_max_x.max * width),
+                int(min_max_y.max * height),
+            )
+        )
+        buffer = io.BytesIO()
+        pillow_page.save(buffer, format="JPEG")
+        buffer.seek(0)
         extracted_elements.append(
-            page_content.crop((int(left), int(top), int(right), int(bottom)))
+            ExtractedImage(
+                BytesInput(
+                    buffer.read(),
+                    f"{input_source.filename}_p{page_id}_e{element_id}.jpg",
+                ),
+                page_id,
+                element_id,
+            )
         )
 
     return extracted_elements
