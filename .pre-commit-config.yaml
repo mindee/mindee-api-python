@@ -45,3 +45,4 @@ repos:
           - types-requests
           - types-setuptools
           - importlib-metadata
+          - types-Pillow

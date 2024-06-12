@@ -116,9 +116,11 @@ class LocalInputSource:
 
         :return: the number of pages.
         """
-        self.file_object.seek(0)
-        pdf = pdfium.PdfDocument(self.file_object)
-        return len(pdf)
+        if self.is_pdf():
+            self.file_object.seek(0)
+            pdf = pdfium.PdfDocument(self.file_object)
+            return len(pdf)
+        return 1
 
     def process_pdf(
         self,

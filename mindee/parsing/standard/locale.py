@@ -27,7 +27,11 @@ class LocaleField(BaseField):
         :param reconstructed: Bool for reconstructed object (not extracted in the API)
         :param page_id: Page number for multi-page document
         """
-        value_key = "value" if "value" in raw_prediction else "language"
+        value_key = (
+            "value"
+            if ("value" in raw_prediction and raw_prediction["value"])
+            else "language"
+        )
 
         super().__init__(
             raw_prediction,
