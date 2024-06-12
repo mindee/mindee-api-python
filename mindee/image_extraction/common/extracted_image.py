@@ -5,7 +5,7 @@ from typing import Optional
 from PIL import Image
 
 from mindee.error import MindeeError
-from mindee.input import FileInput
+from mindee.input import FileInput, LocalInputSource
 from mindee.logger import logger
 
 
@@ -18,21 +18,18 @@ class ExtractedImage:
     """Id of the element on a given page."""
 
     def __init__(
-        self,
-        buffer: bytes,
-        file_name: str,
-        page_id: int,
-        element_id: Optional[int] = None,
+        self, input_source: LocalInputSource, page_id: int, element_id: int
     ) -> None:
         """
         Initialize the ExtractedImage with a buffer and an internal file name.
 
-        :param buffer: The byte buffer representing the image.
-        :param file_name: The internal file name of the image.
+        :param input_source: Local source for input.
+        :param page_id: ID of the page the element was found on.
+        :param element_id: ID of the element in a page.
         """
-        self.buffer = io.BytesIO(buffer)
-        self.internal_file_name = f"{file_name}_p{page_id}_{element_id}.pdf"
-        self.buffer.name = self.internal_file_name
+        self.buffer = input_source.file_object
+        self.buffer.seek(0)
+        self.internal_file_name = f"{input_source.filename}_p{page_id}_{element_id}.pdf"
         self._page_id = page_id
         self._element_id = 0 if element_id is None else element_id
 

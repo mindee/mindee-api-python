@@ -9,7 +9,7 @@ from mindee.image_extraction.common.image_extractor import (
 from mindee.image_extraction.multi_receipts_extractor.extracted_multi_receipt_image import (
     ExtractedMultiReceiptsImage,
 )
-from mindee.input import LocalInputSource
+from mindee.input import BytesInput, LocalInputSource
 from mindee.parsing.common import Inference
 
 
@@ -40,10 +40,9 @@ def extract_receipts(
             buffer = io.BytesIO()
             receipt.save(buffer, format="JPEG")
             buffer.seek(0)
+            input_source = BytesInput(buffer.read(), input_file.filename)
             extracted_receipts.append(
-                ExtractedMultiReceiptsImage(
-                    buffer.read(), input_file.filename, receipt_id, page_id
-                )
+                ExtractedMultiReceiptsImage(input_source, page_id, receipt_id)
             )
         images.extend(extracted_receipts)
     return images
