@@ -1,6 +1,5 @@
 import io
-from pathlib import Path
-from typing import BinaryIO, List, Union
+from typing import BinaryIO, List
 
 import pypdfium2 as pdfium
 from PIL import Image
@@ -41,35 +40,20 @@ def attach_image_as_new_file(  # type: ignore
     return pdf
 
 
-def extract_multiple_images_from_image(
-    image: Union[bytes, str, Path], polygons: List[List[Point]]
-) -> List[Image.Image]:
-    """
-    Extracts elements from an image based on a list of bounding boxes.
-
-    :param image: Image as a path
-    :param polygons: List of coordinates to pull the elements from.
-    :return: List of byte arrays representing the extracted elements.
-    """
-    return extract_multiple_images_from_page(Image.open(image), polygons)
-
-
-def extract_multiple_images_from_page(  # type: ignore
-    page: Union[pdfium.PdfPage, Image.Image], polygons: List[List[Point]]
+def extract_multiple_images_from_source(
+    input_source: LocalInputSource, page_id: int, polygons: List[List[Point]]
 ) -> List[Image.Image]:
     """
     Extracts elements from a page based on a list of bounding boxes.
 
-    :param page: Single PDF Page. If the page is a pdfium.PdfPage, it is rasterized first.
+    :param input_source: Local Input source to extract elements from.
+    :param page_id: id of the page to extract from.
     :param polygons: List of coordinates to pull the elements from.
     :return: List of byte arrays representing the extracted elements.
     """
-    if isinstance(page, pdfium.PdfPage):
-        page_content = page.render().to_pil()
-        width, height = page.get_size()
-    else:
-        page_content = page
-        width, height = page.size
+    page = load_pdf_doc(input_source).get_page(page_id)
+    page_content = page.render().to_pil()
+    width, height = page.get_size()
 
     extracted_elements = []
     for polygon in polygons:
@@ -95,8 +79,8 @@ def load_pdf_doc(input_file: LocalInputSource) -> pdfium.PdfDocument:  # type: i
     :param input_file: Local input.
     :return: A valid PdfDocument handle.
     """
-    input_file.file_object.seek(0)
     if input_file.is_pdf():
+        input_file.file_object.seek(0)
         return pdfium.PdfDocument(input_file.file_object)
 
     return attach_image_as_new_file(input_file.file_object)

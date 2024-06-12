@@ -27,7 +27,8 @@ class ExtractedImage:
         :param page_id: ID of the page the element was found on.
         :param element_id: ID of the element in a page.
         """
-        self.buffer = input_source.file_object
+        self.buffer = io.BytesIO(input_source.file_object.read())
+        self.buffer.name = input_source.filename
         self.buffer.seek(0)
         self.internal_file_name = f"{input_source.filename}_p{page_id}_{element_id}.pdf"
         self._page_id = page_id
@@ -42,6 +43,7 @@ class ExtractedImage:
         :raises MindeeError: If an invalid path or filename is provided.
         """
         try:
+            print(f"SAVING {self.internal_file_name}")
             resolved_path = Path(output_path).resolve()
             if not file_format:
                 if len(resolved_path.suffix) < 1:
@@ -65,6 +67,7 @@ class ExtractedImage:
 
         :returns: A BufferInput source.
         """
+        self.buffer.seek(0)
         return FileInput(self.buffer)
 
     @property
@@ -75,3 +78,12 @@ class ExtractedImage:
         :return:
         """
         return self._page_id
+
+    @property
+    def element_id(self):
+        """
+        Id of the element on a given page.
+
+        :return:
+        """
+        return self._element_id
