@@ -43,7 +43,6 @@ class ExtractedImage:
         :raises MindeeError: If an invalid path or filename is provided.
         """
         try:
-            print(f"SAVING {self.internal_file_name}")
             resolved_path = Path(output_path).resolve()
             if not file_format:
                 if len(resolved_path.suffix) < 1:
