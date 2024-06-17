@@ -1,5 +1,14 @@
 # Mindee Python API Library Changelog
 
+
+## v4.9.0 - 2024-06-17
+### Changes
+* :sparkles: add support for complete multi-receipt extraction (#240)
+* :sparkles: add support for OCR text print in CLI tool (#239)
+### Fixes
+* :recycle: fix miscellaneous typos (#241)
+
+
 ## v4.8.0 - 2024-05-24
 ### Changes
 * :sparkles: add support for webhooks responses & HMAC validation
