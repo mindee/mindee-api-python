@@ -76,7 +76,7 @@ def extract_multiple_images_from_source(
             ExtractedImage(
                 BytesInput(
                     buffer.read(),
-                    f"{input_source.filename}_p{page_id + 1}_e{element_id}.png",
+                    f"{input_source.filename}_page{page_id + 1}-{element_id}.png",
                 ),
                 page_id,
                 element_id,
