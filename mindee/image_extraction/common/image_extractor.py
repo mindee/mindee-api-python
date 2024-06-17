@@ -15,7 +15,7 @@ def attach_image_as_new_file(  # type: ignore
     """
     Attaches an image as a new page in a PdfDocument object.
 
-    :param input_buffer: Input buffer. Only supports JPEG.
+    :param input_buffer: Input buffer.
     :return: A PdfDocument handle.
     """
     # Create a new page in the PdfDocument
@@ -70,13 +70,13 @@ def extract_multiple_images_from_source(
             )
         )
         buffer = io.BytesIO()
-        pillow_page.save(buffer, format="JPEG")
+        pillow_page.save(buffer, format="PNG")
         buffer.seek(0)
         extracted_elements.append(
             ExtractedImage(
                 BytesInput(
                     buffer.read(),
-                    f"{input_source.filename}_p{page_id}_e{element_id}.jpg",
+                    f"{input_source.filename}_p{page_id}_e{element_id}.png",
                 ),
                 page_id,
                 element_id,
