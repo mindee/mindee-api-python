@@ -52,12 +52,12 @@ def extract_image_from_polygon(
     """
     Crops the image from the given polygon.
 
-    :param page_content:
-    :param polygon:
-    :param width:
-    :param height:
-    :param file_format:
-    :return:
+    :param page_content: Contents of the page as a Pillow object.
+    :param polygon: Polygon coordinates for the image.
+    :param width: Width of the generated image.
+    :param height: Height of the generated image.
+    :param file_format: Format for the generated file.
+    :return: A generated image as a buffer.
     """
     min_max_x = get_min_max_x(polygon)
     min_max_y = get_min_max_y(polygon)
@@ -78,7 +78,7 @@ def save_image_to_buffer(image: Image.Image, file_format: str) -> bytes:
 
     :param image: Pillow wrapper for the image.
     :param file_format: Format to save the file as.
-    :return:
+    :return: A valid buffer.
     """
     buffer = io.BytesIO()
     image.save(buffer, format=file_format)
@@ -86,12 +86,12 @@ def save_image_to_buffer(image: Image.Image, file_format: str) -> bytes:
     return buffer.read()
 
 
-def determine_file_format(input_source: LocalInputSource):
+def determine_file_format(input_source: LocalInputSource) -> str:
     """
     Retrieves the file format from an input source.
 
     :param input_source: Local input source to retrieve the format from.
-    :return:
+    :return: A valid pillow file format.
     """
     if input_source.is_pdf():
         return "JPEG"
@@ -106,7 +106,7 @@ def get_file_extension(file_format: str):
     Extract the correct file extension.
 
     :param file_format: Format of the file.
-    :return:
+    :return: A valid file extension.
     """
     return file_format.lower() if file_format != "JPEG" else "jpg"
 
