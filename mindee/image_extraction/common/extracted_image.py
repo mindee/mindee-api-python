@@ -82,15 +82,15 @@ class ExtractedImage:
         """
         ID of the page the receipt was found on.
 
-        :return:
+        :return: A valid page ID.
         """
         return self._page_id
 
     @property
     def element_id(self):
         """
-        Id of the element on a given page.
+        ID of the element on a given page.
 
-        :return:
+        :return: A valid element ID.
         """
         return self._element_id
