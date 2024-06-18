@@ -4,6 +4,7 @@ from typing import BinaryIO, List
 import pypdfium2 as pdfium
 from PIL import Image
 
+from mindee.error import MindeeError
 from mindee.geometry import Point, get_min_max_x, get_min_max_y
 from mindee.image_extraction.common import ExtractedImage
 from mindee.input import BytesInput, LocalInputSource
@@ -15,7 +16,7 @@ def attach_image_as_new_file(  # type: ignore
     """
     Attaches an image as a new page in a PdfDocument object.
 
-    :param input_buffer: Input buffer. Only supports JPEG.
+    :param input_buffer: Input buffer.
     :return: A PdfDocument handle.
     """
     # Create a new page in the PdfDocument
@@ -41,6 +42,75 @@ def attach_image_as_new_file(  # type: ignore
     return pdf
 
 
+def extract_image_from_polygon(
+    page_content: Image.Image,
+    polygon: List[Point],
+    width: float,
+    height: float,
+    file_format: str,
+) -> bytes:
+    """
+    Crops the image from the given polygon.
+
+    :param page_content: Contents of the page as a Pillow object.
+    :param polygon: Polygon coordinates for the image.
+    :param width: Width of the generated image.
+    :param height: Height of the generated image.
+    :param file_format: Format for the generated file.
+    :return: A generated image as a buffer.
+    """
+    min_max_x = get_min_max_x(polygon)
+    min_max_y = get_min_max_y(polygon)
+    cropped_image = page_content.crop(
+        (
+            int(min_max_x.min * width),
+            int(min_max_y.min * height),
+            int(min_max_x.max * width),
+            int(min_max_y.max * height),
+        )
+    )
+    return save_image_to_buffer(cropped_image, file_format)
+
+
+def save_image_to_buffer(image: Image.Image, file_format: str) -> bytes:
+    """
+    Saves an image as a buffer.
+
+    :param image: Pillow wrapper for the image.
+    :param file_format: Format to save the file as.
+    :return: A valid buffer.
+    """
+    buffer = io.BytesIO()
+    image.save(buffer, format=file_format)
+    buffer.seek(0)
+    return buffer.read()
+
+
+def determine_file_format(input_source: LocalInputSource) -> str:
+    """
+    Retrieves the file format from an input source.
+
+    :param input_source: Local input source to retrieve the format from.
+    :return: A valid pillow file format.
+    """
+    if input_source.is_pdf():
+        return "JPEG"
+    img = Image.open(input_source.file_object)
+    if img.format is None:
+        raise MindeeError("Image format was not found.")
+    return img.format
+
+
+def get_file_extension(file_format: str):
+    """
+    Extract the correct file extension.
+
+    :param file_format: Format of the file.
+    :return: A valid file extension.
+    """
+    return file_format.lower() if file_format != "JPEG" else "jpg"
+
+
 def extract_multiple_images_from_source(
     input_source: LocalInputSource, page_id: int, polygons: List[List[Point]]
 ) -> List[ExtractedImage]:
@@ -56,27 +126,19 @@ def extract_multiple_images_from_source(
     page_content = page.render().to_pil()
     width, height = page.get_size()
 
+    file_format = determine_file_format(input_source)
+    file_extension = get_file_extension(file_format)
+
     extracted_elements = []
     for element_id, polygon in enumerate(polygons):
-        min_max_x = get_min_max_x(polygon)
-        min_max_y = get_min_max_y(polygon)
-
-        pillow_page = page_content.crop(
-            (
-                int(min_max_x.min * width),
-                int(min_max_y.min * height),
-                int(min_max_x.max * width),
-                int(min_max_y.max * height),
-            )
+        image_data = extract_image_from_polygon(
+            page_content, polygon, width, height, file_format
         )
-        buffer = io.BytesIO()
-        pillow_page.save(buffer, format="JPEG")
-        buffer.seek(0)
         extracted_elements.append(
             ExtractedImage(
                 BytesInput(
-                    buffer.read(),
-                    f"{input_source.filename}_p{page_id}_e{element_id}.jpg",
+                    image_data,
+                    f"{input_source.filename}_page{page_id + 1}-{element_id}.{file_extension}",
                 ),
                 page_id,
                 element_id,

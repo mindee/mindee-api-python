@@ -29,8 +29,16 @@ class ExtractedImage:
         """
         self.buffer = io.BytesIO(input_source.file_object.read())
         self.buffer.name = input_source.filename
+        if input_source.is_pdf():
+            extension = "jpg"
+        else:
+            extension = Path(input_source.filename).resolve().suffix
         self.buffer.seek(0)
-        self.internal_file_name = f"{input_source.filename}_p{page_id}_{element_id}.pdf"
+        pg_number = str(page_id).zfill(3)
+        elem_number = str(element_id).zfill(3)
+        self.internal_file_name = (
+            f"{input_source.filename}_page{pg_number}-{elem_number}.{extension}"
+        )
         self._page_id = page_id
         self._element_id = 0 if element_id is None else element_id
 
@@ -74,15 +82,15 @@ class ExtractedImage:
         """
         ID of the page the receipt was found on.
 
-        :return:
+        :return: A valid page ID.
         """
         return self._page_id
 
     @property
     def element_id(self):
         """
-        Id of the element on a given page.
+        ID of the element on a given page.
 
-        :return:
+        :return: A valid element ID.
         """
         return self._element_id
