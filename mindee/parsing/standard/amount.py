@@ -39,4 +39,4 @@ class AmountField(FieldPositionMixin, BaseField):
         self._set_position(raw_prediction)
 
     def __str__(self) -> str:
-        return float_to_string(self.value)
+        return float_to_string(self.value) if self.value is not None else ""
