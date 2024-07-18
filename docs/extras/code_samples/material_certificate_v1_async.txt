@@ -1,5 +1,4 @@
 from mindee import Client, product, AsyncPredictResponse
-from time import sleep
 
 # Init a new client
 mindee_client = Client(api_key="my-api-key")

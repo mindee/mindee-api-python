@@ -17,7 +17,7 @@ from mindee.product.financial_document.financial_document_v1_line_item import (
 
 
 class FinancialDocumentV1Document(Prediction):
-    """Financial Document API version 1.7 document data."""
+    """Financial Document API version 1.9 document data."""
 
     billing_address: StringField
     """The customer's address used for billing."""
@@ -219,6 +219,7 @@ class FinancialDocumentV1Document(Prediction):
         out_str += f"+{char * 12}"
         out_str += f"+{char * 14}"
         out_str += f"+{char * 14}"
+        out_str += f"+{char * 17}"
         out_str += f"+{char * 12}"
         return out_str + "+"
 
@@ -237,6 +238,7 @@ class FinancialDocumentV1Document(Prediction):
         out_str += " | Tax Amount"
         out_str += " | Tax Rate (%)"
         out_str += " | Total Amount"
+        out_str += " | Unit of measure"
         out_str += " | Unit Price"
         out_str += f" |\n{self._line_items_separator('=')}"
         out_str += f"\n  {lines}"

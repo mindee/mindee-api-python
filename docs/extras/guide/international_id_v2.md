@@ -9,7 +9,6 @@ Using the [sample below](https://github.com/mindee/client-lib-test-data/blob/mai
 # Quick-Start
 ```py
 from mindee import Client, product, AsyncPredictResponse
-from time import sleep
 
 # Init a new client
 mindee_client = Client(api_key="my-api-key")

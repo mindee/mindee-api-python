@@ -24,6 +24,8 @@ class FinancialDocumentV1LineItem(FieldPositionMixin, FieldConfidenceMixin):
     """The item tax rate in percentage."""
     total_amount: Optional[float]
     """The item total amount."""
+    unit_measure: Optional[str]
+    """The item unit of measure."""
     unit_price: Optional[float]
     """The item unit price."""
     page_n: int
@@ -51,6 +53,7 @@ class FinancialDocumentV1LineItem(FieldPositionMixin, FieldConfidenceMixin):
         self.tax_amount = to_opt_float(raw_prediction, "tax_amount")
         self.tax_rate = to_opt_float(raw_prediction, "tax_rate")
         self.total_amount = to_opt_float(raw_prediction, "total_amount")
+        self.unit_measure = raw_prediction["unit_measure"]
         self.unit_price = to_opt_float(raw_prediction, "unit_price")
 
     def _printable_values(self) -> Dict[str, str]:
@@ -62,6 +65,7 @@ class FinancialDocumentV1LineItem(FieldPositionMixin, FieldConfidenceMixin):
         out_dict["tax_amount"] = float_to_string(self.tax_amount)
         out_dict["tax_rate"] = float_to_string(self.tax_rate)
         out_dict["total_amount"] = float_to_string(self.total_amount)
+        out_dict["unit_measure"] = format_for_display(self.unit_measure, None)
         out_dict["unit_price"] = float_to_string(self.unit_price)
         return out_dict
 
@@ -74,6 +78,7 @@ class FinancialDocumentV1LineItem(FieldPositionMixin, FieldConfidenceMixin):
         out_str += f"{printable['tax_amount']:<10} | "
         out_str += f"{printable['tax_rate']:<12} | "
         out_str += f"{printable['total_amount']:<12} | "
+        out_str += f"{printable['unit_measure']:<15} | "
         out_str += f"{printable['unit_price']:<10} | "
         return clean_out_string(out_str)
 
@@ -86,5 +91,6 @@ class FinancialDocumentV1LineItem(FieldPositionMixin, FieldConfidenceMixin):
         out_str += f"Tax Amount: {printable['tax_amount']}, \n"
         out_str += f"Tax Rate (%): {printable['tax_rate']}, \n"
         out_str += f"Total Amount: {printable['total_amount']}, \n"
+        out_str += f"Unit of measure: {printable['unit_measure']}, \n"
         out_str += f"Unit Price: {printable['unit_price']}, \n"
         return clean_out_string(out_str)
