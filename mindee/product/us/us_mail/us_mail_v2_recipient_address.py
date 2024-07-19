@@ -1,7 +1,12 @@
 from typing import Dict, Optional
 
 from mindee.parsing.common import StringDict, clean_out_string, format_for_display
-from mindee.parsing.standard import FieldConfidenceMixin, FieldPositionMixin
+from mindee.parsing.standard import (
+    FieldConfidenceMixin,
+    FieldPositionMixin,
+    bool_to_string,
+    to_opt_bool,
+)
 
 
 class UsMailV2RecipientAddress(FieldPositionMixin, FieldConfidenceMixin):
@@ -42,7 +47,7 @@ class UsMailV2RecipientAddress(FieldPositionMixin, FieldConfidenceMixin):
 
         self.city = raw_prediction["city"]
         self.complete = raw_prediction["complete"]
-        self.is_address_change = raw_prediction["is_address_change"]
+        self.is_address_change = to_opt_bool(raw_prediction, "is_address_change")
         self.postal_code = raw_prediction["postal_code"]
         self.private_mailbox_number = raw_prediction["private_mailbox_number"]
         self.state = raw_prediction["state"]
@@ -53,9 +58,11 @@ class UsMailV2RecipientAddress(FieldPositionMixin, FieldConfidenceMixin):
         out_dict: Dict[str, str] = {}
         out_dict["city"] = format_for_display(self.city, 15)
         out_dict["complete"] = format_for_display(self.complete, 35)
-        out_dict["is_address_change"] = format_for_display(self.is_address_change, None)
+        out_dict["is_address_change"] = bool_to_string(self.is_address_change)
         out_dict["postal_code"] = format_for_display(self.postal_code, None)
-        out_dict["private_mailbox_number"] = format_for_display(self.private_mailbox_number, None)
+        out_dict["private_mailbox_number"] = format_for_display(
+            self.private_mailbox_number, None
+        )
         out_dict["state"] = format_for_display(self.state, None)
         out_dict["street"] = format_for_display(self.street, 25)
         return out_dict
