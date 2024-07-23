@@ -162,9 +162,41 @@ def float_to_string(value: Optional[float], min_precision=2) -> str:
     return f"{value:.{precision}f}"
 
 
+def int_to_string(value: Optional[int]) -> str:
+    """Print an integer as a string."""
+    if value is None:
+        return ""
+
+    return f"{value}"
+
+
+def bool_to_string(value: Optional[bool]) -> str:
+    """Print a boolean as a string."""
+    if value is None:
+        return ""
+
+    return f"{value}"
+
+
 def to_opt_float(raw_prediction: StringDict, key: str) -> Optional[float]:
     """Make sure a prediction value is either a ``float`` or ``None``."""
     try:
         return float(raw_prediction[key])
+    except TypeError:
+        return None
+
+
+def to_opt_int(raw_prediction: StringDict, key: str) -> Optional[int]:
+    """Make sure a prediction value is either an ``int`` or ``None``."""
+    try:
+        return int(raw_prediction[key])
+    except TypeError:
+        return None
+
+
+def to_opt_bool(raw_prediction: StringDict, key: str) -> Optional[bool]:
+    """Make sure a prediction value is either a ``bool`` or ``None``."""
+    try:
+        return bool(raw_prediction[key])
     except TypeError:
         return None

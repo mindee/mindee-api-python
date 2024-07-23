@@ -1,42 +1,35 @@
 from typing import Optional
 
 from mindee.parsing.common.string_dict import StringDict
-from mindee.parsing.standard.base import BaseField, FieldPositionMixin, float_to_string
+from mindee.parsing.standard.base import BaseField, FieldPositionMixin
 
 
-class AmountField(FieldPositionMixin, BaseField):
-    """A field containing an amount value."""
+class BooleanField(FieldPositionMixin, BaseField):
+    """A field containing a boolean value."""
 
-    value: Optional[float]
-    """The amount value as a float."""
+    value: Optional[bool]
+    """The value as it appears on the document."""
 
     def __init__(
         self,
         raw_prediction: StringDict,
+        value_key: str = "value",
         reconstructed: bool = False,
         page_id: Optional[int] = None,
     ):
         """
-        Amount field object.
+        Boolean field object.
 
         :param raw_prediction: Amount prediction object from HTTP response
+        :param value_key: Key to use in the amount_prediction dict
         :param reconstructed: Bool for reconstructed object (not extracted in the API)
         :param page_id: Page number for multi-page document
         """
         self.value = None
         super().__init__(
             raw_prediction,
-            value_key="value",
+            value_key=value_key,
             reconstructed=reconstructed,
             page_id=page_id,
         )
-        try:
-            self.value = round(float(raw_prediction["value"]), 3)
-        except (ValueError, TypeError, KeyError):
-            self.value = None
-            self.confidence = 0.0
-
         self._set_position(raw_prediction)
-
-    def __str__(self) -> str:
-        return float_to_string(self.value)

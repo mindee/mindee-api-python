@@ -8,7 +8,7 @@ input_doc = mindee_client.source_from_path("/path/to/the/file.ext")
 
 # Load a file from disk and enqueue it.
 result: AsyncPredictResponse = mindee_client.enqueue_and_parse(
-    product.ResumeV1,
+    product.FinancialDocumentV1,
     input_doc,
 )
 
