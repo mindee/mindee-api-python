@@ -61,7 +61,7 @@ DOCUMENTS: Dict[str, CommandConfig] = {
         help="Financial Document (receipt or invoice)",
         doc_class=product.FinancialDocumentV1,
         is_sync=True,
-        is_async=False,
+        is_async=True,
     ),
     "fr-bank-account-details": CommandConfig(
         help="FR Bank Account Details",
@@ -147,6 +147,12 @@ DOCUMENTS: Dict[str, CommandConfig] = {
         is_sync=True,
         is_async=False,
     ),
+    "resume": CommandConfig(
+        help="Resume",
+        doc_class=product.ResumeV1,
+        is_sync=False,
+        is_async=True,
+    ),
     "us-bank-check": CommandConfig(
         help="US Bank Check",
         doc_class=product.us.BankCheckV1,
@@ -158,6 +164,12 @@ DOCUMENTS: Dict[str, CommandConfig] = {
         doc_class=product.us.DriverLicenseV1,
         is_sync=True,
         is_async=False,
+    ),
+    "us-healthcare-card": CommandConfig(
+        help="US Healthcare Card",
+        doc_class=product.us.HealthcareCardV1,
+        is_sync=False,
+        is_async=True,
     ),
     "us-w9": CommandConfig(
         help="US W9",
