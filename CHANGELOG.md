@@ -1,5 +1,17 @@
 # Mindee Python API Library Changelog
 
+## v4.10.0 - 2024-07-24
+### Changes
+* :sparkles: add support for Healthcare Card V1
+* :sparkles: add support for Invoice V4.7
+* :sparkles: add support for Financial Document V1.9
+* :sparkles: add support for BooleanField
+* :recycle: update company registration display format
+* :recycle: switch default image save format to PNG for image extractor
+
+### Fixes
+* :bug: fix invalid display when trying to cast null amount fields to string
+
 
 ## v4.9.0 - 2024-06-17
 ### Changes
