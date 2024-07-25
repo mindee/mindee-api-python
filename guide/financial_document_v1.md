@@ -25,7 +25,6 @@ print(result.document)
 
 # Print the document-level summary
 # print(result.document.inference.prediction)
-
 ```
 
 You can also call this product asynchronously:
@@ -47,7 +46,6 @@ result: AsyncPredictResponse = mindee_client.enqueue_and_parse(
 
 # Print a brief summary of the parsed data
 print(result.document)
-
 ```
 
 **Output (RST):**
