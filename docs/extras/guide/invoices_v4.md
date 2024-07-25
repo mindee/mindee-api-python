@@ -25,7 +25,27 @@ print(result.document)
 
 # Print the document-level summary
 # print(result.document.inference.prediction)
+```
 
+You can also call this product asynchronously:
+
+```py
+from mindee import Client, product, AsyncPredictResponse
+
+# Init a new client
+mindee_client = Client(api_key="my-api-key")
+
+# Load a file from disk
+input_doc = mindee_client.source_from_path("/path/to/the/file.ext")
+
+# Load a file from disk and enqueue it.
+result: AsyncPredictResponse = mindee_client.enqueue_and_parse(
+    product.InvoiceV4,
+    input_doc,
+)
+
+# Print a brief summary of the parsed data
+print(result.document)
 ```
 
 **Output (RST):**
