@@ -1,5 +1,8 @@
 ---
 title: US Driver License OCR Python
+category: 622b805aaec68102ea7fcbc2
+slug: python-us-driver-license-ocr
+parentDoc: 609808f773b0b90051d839de
 ---
 The Python OCR SDK supports the [Driver License API](https://platform.mindee.com/mindee/us_driver_license).
 
@@ -25,6 +28,7 @@ print(result.document)
 
 # Print the document-level summary
 # print(result.document.inference.prediction)
+
 ```
 
 **Output (RST):**
@@ -90,7 +94,7 @@ Page 0
 ## Standard Fields
 These fields are generic and used in several products.
 
-### BasicField
+### BaseField
 Each prediction object contains a set of fields that inherit from the generic `BaseField` class.
 A typical `BaseField` object will have the following attributes:
 
@@ -98,7 +102,7 @@ A typical `BaseField` object will have the following attributes:
 * **confidence** (`float`): the confidence score of the field prediction.
 * **bounding_box** (`[Point, Point, Point, Point]`): contains exactly 4 relative vertices (points) coordinates of a right rectangle containing the field in the document.
 * **polygon** (`List[Point]`): contains the relative vertices coordinates (`Point`) of a polygon containing the field in the image.
-* **page_id** (`int`): the ID of the page, is `None` when at document-level.
+* **page_id** (`int`): the ID of the page, always `None` when at document-level.
 * **reconstructed** (`bool`): indicates whether an object was reconstructed (not extracted as the API gave it).
 
 > **Note:** A `Point` simply refers to a List of two numbers (`[float, float]`).
@@ -122,104 +126,104 @@ The position field `PositionField` does not implement all the basic `BaseField` 
 The text field `StringField` only has one constraint: its **value** is an `Optional[str]`.
 
 ## Page-Level Fields
-Some fields are constrained to the page level, and so will not be retrievable to through the document.
+Some fields are constrained to the page level, and so will not be retrievable at document level.
 
 # Attributes
 The following fields are extracted for Driver License V1:
 
 ## Address
-**address** ([StringField](#stringfield)): US driver license holders address
+**address**([StringField](#stringfield)): US driver license holders address
 
 ```py
 print(result.document.inference.prediction.address.value)
 ```
 
 ## Date Of Birth
-**date_of_birth** ([DateField](#datefield)): US driver license holders date of birth
+**date_of_birth**([DateField](#datefield)): US driver license holders date of birth
 
 ```py
 print(result.document.inference.prediction.date_of_birth.value)
 ```
 
 ## Document Discriminator
-**dd_number** ([StringField](#stringfield)): Document Discriminator Number of the US Driver License
+**dd_number**([StringField](#stringfield)): Document Discriminator Number of the US Driver License
 
 ```py
 print(result.document.inference.prediction.dd_number.value)
 ```
 
 ## Driver License Class
-**dl_class** ([StringField](#stringfield)): US driver license holders class
+**dl_class**([StringField](#stringfield)): US driver license holders class
 
 ```py
 print(result.document.inference.prediction.dl_class.value)
 ```
 
 ## Driver License ID
-**driver_license_id** ([StringField](#stringfield)): ID number of the US Driver License.
+**driver_license_id**([StringField](#stringfield)): ID number of the US Driver License.
 
 ```py
 print(result.document.inference.prediction.driver_license_id.value)
 ```
 
 ## Endorsements
-**endorsements** ([StringField](#stringfield)): US driver license holders endorsements
+**endorsements**([StringField](#stringfield)): US driver license holders endorsements
 
 ```py
 print(result.document.inference.prediction.endorsements.value)
 ```
 
 ## Expiry Date
-**expiry_date** ([DateField](#datefield)): Date on which the documents expires.
+**expiry_date**([DateField](#datefield)): Date on which the documents expires.
 
 ```py
 print(result.document.inference.prediction.expiry_date.value)
 ```
 
 ## Eye Color
-**eye_color** ([StringField](#stringfield)): US driver license holders eye colour
+**eye_color**([StringField](#stringfield)): US driver license holders eye colour
 
 ```py
 print(result.document.inference.prediction.eye_color.value)
 ```
 
 ## First Name
-**first_name** ([StringField](#stringfield)): US driver license holders first name(s)
+**first_name**([StringField](#stringfield)): US driver license holders first name(s)
 
 ```py
 print(result.document.inference.prediction.first_name.value)
 ```
 
 ## Hair Color
-**hair_color** ([StringField](#stringfield)): US driver license holders hair colour
+**hair_color**([StringField](#stringfield)): US driver license holders hair colour
 
 ```py
 print(result.document.inference.prediction.hair_color.value)
 ```
 
 ## Height
-**height** ([StringField](#stringfield)): US driver license holders hight
+**height**([StringField](#stringfield)): US driver license holders hight
 
 ```py
 print(result.document.inference.prediction.height.value)
 ```
 
 ## Date Of Issue
-**issued_date** ([DateField](#datefield)): Date on which the documents was issued.
+**issued_date**([DateField](#datefield)): Date on which the documents was issued.
 
 ```py
 print(result.document.inference.prediction.issued_date.value)
 ```
 
 ## Last Name
-**last_name** ([StringField](#stringfield)): US driver license holders last name
+**last_name**([StringField](#stringfield)): US driver license holders last name
 
 ```py
 print(result.document.inference.prediction.last_name.value)
 ```
 
 ## Photo
-[📄](#page-level-fields "This field is only present on individual pages.")**photo** ([PositionField](#positionfield)): Has a photo of the US driver license holder
+[📄](#page-level-fields "This field is only present on individual pages.")**photo**([PositionField](#positionfield)): Has a photo of the US driver license holder
 
 ```py
 for photo_elem in result.document.photo:
@@ -227,21 +231,21 @@ for photo_elem in result.document.photo:
 ```
 
 ## Restrictions
-**restrictions** ([StringField](#stringfield)): US driver license holders restrictions
+**restrictions**([StringField](#stringfield)): US driver license holders restrictions
 
 ```py
 print(result.document.inference.prediction.restrictions.value)
 ```
 
 ## Sex
-**sex** ([StringField](#stringfield)): US driver license holders gender
+**sex**([StringField](#stringfield)): US driver license holders gender
 
 ```py
 print(result.document.inference.prediction.sex.value)
 ```
 
 ## Signature
-[📄](#page-level-fields "This field is only present on individual pages.")**signature** ([PositionField](#positionfield)): Has a signature of the US driver license holder
+[📄](#page-level-fields "This field is only present on individual pages.")**signature**([PositionField](#positionfield)): Has a signature of the US driver license holder
 
 ```py
 for signature_elem in result.document.signature:
@@ -249,14 +253,14 @@ for signature_elem in result.document.signature:
 ```
 
 ## State
-**state** ([StringField](#stringfield)): US State
+**state**([StringField](#stringfield)): US State
 
 ```py
 print(result.document.inference.prediction.state.value)
 ```
 
 ## Weight
-**weight** ([StringField](#stringfield)): US driver license holders weight
+**weight**([StringField](#stringfield)): US driver license holders weight
 
 ```py
 print(result.document.inference.prediction.weight.value)

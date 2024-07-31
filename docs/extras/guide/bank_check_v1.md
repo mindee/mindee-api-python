@@ -1,5 +1,8 @@
 ---
 title: US Bank Check OCR Python
+category: 622b805aaec68102ea7fcbc2
+slug: python-us-bank-check-ocr
+parentDoc: 609808f773b0b90051d839de
 ---
 The Python OCR SDK supports the [Bank Check API](https://platform.mindee.com/mindee/bank_check).
 
@@ -25,6 +28,7 @@ print(result.document)
 
 # Print the document-level summary
 # print(result.document.inference.prediction)
+
 ```
 
 **Output (RST):**
@@ -70,7 +74,7 @@ Page 0
 ## Standard Fields
 These fields are generic and used in several products.
 
-### BasicField
+### BaseField
 Each prediction object contains a set of fields that inherit from the generic `BaseField` class.
 A typical `BaseField` object will have the following attributes:
 
@@ -78,7 +82,7 @@ A typical `BaseField` object will have the following attributes:
 * **confidence** (`float`): the confidence score of the field prediction.
 * **bounding_box** (`[Point, Point, Point, Point]`): contains exactly 4 relative vertices (points) coordinates of a right rectangle containing the field in the document.
 * **polygon** (`List[Point]`): contains the relative vertices coordinates (`Point`) of a polygon containing the field in the image.
-* **page_id** (`int`): the ID of the page, is `None` when at document-level.
+* **page_id** (`int`): the ID of the page, always `None` when at document-level.
 * **reconstructed** (`bool`): indicates whether an object was reconstructed (not extracted as the API gave it).
 
 > **Note:** A `Point` simply refers to a List of two numbers (`[float, float]`).
@@ -106,34 +110,34 @@ The position field `PositionField` does not implement all the basic `BaseField` 
 The text field `StringField` only has one constraint: its **value** is an `Optional[str]`.
 
 ## Page-Level Fields
-Some fields are constrained to the page level, and so will not be retrievable to through the document.
+Some fields are constrained to the page level, and so will not be retrievable at document level.
 
 # Attributes
 The following fields are extracted for Bank Check V1:
 
 ## Account Number
-**account_number** ([StringField](#stringfield)): The check payer's account number.
+**account_number**([StringField](#stringfield)): The check payer's account number.
 
 ```py
 print(result.document.inference.prediction.account_number.value)
 ```
 
 ## Amount
-**amount** ([AmountField](#amountfield)): The amount of the check.
+**amount**([AmountField](#amountfield)): The amount of the check.
 
 ```py
 print(result.document.inference.prediction.amount.value)
 ```
 
 ## Check Number
-**check_number** ([StringField](#stringfield)): The issuer's check number.
+**check_number**([StringField](#stringfield)): The issuer's check number.
 
 ```py
 print(result.document.inference.prediction.check_number.value)
 ```
 
 ## Check Position
-[📄](#page-level-fields "This field is only present on individual pages.")**check_position** ([PositionField](#positionfield)): The position of the check on the document.
+[📄](#page-level-fields "This field is only present on individual pages.")**check_position**([PositionField](#positionfield)): The position of the check on the document.
 
 ```py
 for check_position_elem in result.document.check_position:
@@ -141,14 +145,14 @@ for check_position_elem in result.document.check_position:
 ```
 
 ## Check Issue Date
-**date** ([DateField](#datefield)): The date the check was issued.
+**date**([DateField](#datefield)): The date the check was issued.
 
 ```py
 print(result.document.inference.prediction.date.value)
 ```
 
 ## Payees
-**payees** (List[[StringField](#stringfield)]): List of the check's payees (recipients).
+**payees**(List[[StringField](#stringfield)]): List of the check's payees (recipients).
 
 ```py
 for payees_elem in result.document.inference.prediction.payees:
@@ -156,14 +160,14 @@ for payees_elem in result.document.inference.prediction.payees:
 ```
 
 ## Routing Number
-**routing_number** ([StringField](#stringfield)): The check issuer's routing number.
+**routing_number**([StringField](#stringfield)): The check issuer's routing number.
 
 ```py
 print(result.document.inference.prediction.routing_number.value)
 ```
 
 ## Signature Positions
-[📄](#page-level-fields "This field is only present on individual pages.")**signatures_positions** (List[[PositionField](#positionfield)]): List of signature positions
+[📄](#page-level-fields "This field is only present on individual pages.")**signatures_positions**(List[[PositionField](#positionfield)]): List of signature positions
 
 ```py
 for page in result.document.inference.pages:

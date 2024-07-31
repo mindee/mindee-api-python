@@ -1,5 +1,8 @@
 ---
 title: FR Carte Nationale d'Identité OCR Python
+category: 622b805aaec68102ea7fcbc2
+slug: python-fr-carte-nationale-didentité-ocr
+parentDoc: 609808f773b0b90051d839de
 ---
 The Python OCR SDK supports the [Carte Nationale d'Identité API](https://platform.mindee.com/mindee/idcard_fr).
 
@@ -25,6 +28,7 @@ print(result.document)
 
 # Print the document-level summary
 # print(result.document.inference.prediction)
+
 ```
 
 **Output (RST):**
@@ -88,7 +92,7 @@ Page 0
 ## Standard Fields
 These fields are generic and used in several products.
 
-### BasicField
+### BaseField
 Each prediction object contains a set of fields that inherit from the generic `BaseField` class.
 A typical `BaseField` object will have the following attributes:
 
@@ -96,7 +100,7 @@ A typical `BaseField` object will have the following attributes:
 * **confidence** (`float`): the confidence score of the field prediction.
 * **bounding_box** (`[Point, Point, Point, Point]`): contains exactly 4 relative vertices (points) coordinates of a right rectangle containing the field in the document.
 * **polygon** (`List[Point]`): contains the relative vertices coordinates (`Point`) of a polygon containing the field in the image.
-* **page_id** (`int`): the ID of the page, is `None` when at document-level.
+* **page_id** (`int`): the ID of the page, always `None` when at document-level.
 * **reconstructed** (`bool`): indicates whether an object was reconstructed (not extracted as the API gave it).
 
 > **Note:** A `Point` simply refers to a List of two numbers (`[float, float]`).
@@ -119,55 +123,55 @@ Aside from the basic `BaseField` attributes, the date field `DateField` also imp
 The text field `StringField` only has one constraint: its **value** is an `Optional[str]`.
 
 ## Page-Level Fields
-Some fields are constrained to the page level, and so will not be retrievable to through the document.
+Some fields are constrained to the page level, and so will not be retrievable at document level.
 
 # Attributes
 The following fields are extracted for Carte Nationale d'Identité V2:
 
 ## Alternate Name
-**alternate_name** ([StringField](#stringfield)): The alternate name of the card holder.
+**alternate_name**([StringField](#stringfield)): The alternate name of the card holder.
 
 ```py
 print(result.document.inference.prediction.alternate_name.value)
 ```
 
 ## Issuing Authority
-**authority** ([StringField](#stringfield)): The name of the issuing authority.
+**authority**([StringField](#stringfield)): The name of the issuing authority.
 
 ```py
 print(result.document.inference.prediction.authority.value)
 ```
 
 ## Date of Birth
-**birth_date** ([DateField](#datefield)): The date of birth of the card holder.
+**birth_date**([DateField](#datefield)): The date of birth of the card holder.
 
 ```py
 print(result.document.inference.prediction.birth_date.value)
 ```
 
 ## Place of Birth
-**birth_place** ([StringField](#stringfield)): The place of birth of the card holder.
+**birth_place**([StringField](#stringfield)): The place of birth of the card holder.
 
 ```py
 print(result.document.inference.prediction.birth_place.value)
 ```
 
 ## Card Access Number
-**card_access_number** ([StringField](#stringfield)): The card access number (CAN).
+**card_access_number**([StringField](#stringfield)): The card access number (CAN).
 
 ```py
 print(result.document.inference.prediction.card_access_number.value)
 ```
 
 ## Document Number
-**document_number** ([StringField](#stringfield)): The document number.
+**document_number**([StringField](#stringfield)): The document number.
 
 ```py
 print(result.document.inference.prediction.document_number.value)
 ```
 
 ## Document Sides
-[📄](#page-level-fields "This field is only present on individual pages.")**document_side** ([ClassificationField](#classificationfield)): The sides of the document which are visible.
+[📄](#page-level-fields "This field is only present on individual pages.")**document_side**([ClassificationField](#classificationfield)): The sides of the document which are visible.
 
 ```py
 for document_side_elem in result.document.document_side:
@@ -175,7 +179,7 @@ for document_side_elem in result.document.document_side:
 ```
 
 ## Document Type
-[📄](#page-level-fields "This field is only present on individual pages.")**document_type** ([ClassificationField](#classificationfield)): The document type or format.
+[📄](#page-level-fields "This field is only present on individual pages.")**document_type**([ClassificationField](#classificationfield)): The document type or format.
 
 ```py
 for document_type_elem in result.document.document_type:
@@ -183,21 +187,21 @@ for document_type_elem in result.document.document_type:
 ```
 
 ## Expiry Date
-**expiry_date** ([DateField](#datefield)): The expiry date of the identification card.
+**expiry_date**([DateField](#datefield)): The expiry date of the identification card.
 
 ```py
 print(result.document.inference.prediction.expiry_date.value)
 ```
 
 ## Gender
-**gender** ([StringField](#stringfield)): The gender of the card holder.
+**gender**([StringField](#stringfield)): The gender of the card holder.
 
 ```py
 print(result.document.inference.prediction.gender.value)
 ```
 
 ## Given Name(s)
-**given_names** (List[[StringField](#stringfield)]): The given name(s) of the card holder.
+**given_names**(List[[StringField](#stringfield)]): The given name(s) of the card holder.
 
 ```py
 for given_names_elem in result.document.inference.prediction.given_names:
@@ -205,42 +209,42 @@ for given_names_elem in result.document.inference.prediction.given_names:
 ```
 
 ## Date of Issue
-**issue_date** ([DateField](#datefield)): The date of issue of the identification card.
+**issue_date**([DateField](#datefield)): The date of issue of the identification card.
 
 ```py
 print(result.document.inference.prediction.issue_date.value)
 ```
 
 ## Mrz Line 1
-**mrz1** ([StringField](#stringfield)): The Machine Readable Zone, first line.
+**mrz1**([StringField](#stringfield)): The Machine Readable Zone, first line.
 
 ```py
 print(result.document.inference.prediction.mrz1.value)
 ```
 
 ## Mrz Line 2
-**mrz2** ([StringField](#stringfield)): The Machine Readable Zone, second line.
+**mrz2**([StringField](#stringfield)): The Machine Readable Zone, second line.
 
 ```py
 print(result.document.inference.prediction.mrz2.value)
 ```
 
 ## Mrz Line 3
-**mrz3** ([StringField](#stringfield)): The Machine Readable Zone, third line.
+**mrz3**([StringField](#stringfield)): The Machine Readable Zone, third line.
 
 ```py
 print(result.document.inference.prediction.mrz3.value)
 ```
 
 ## Nationality
-**nationality** ([StringField](#stringfield)): The nationality of the card holder.
+**nationality**([StringField](#stringfield)): The nationality of the card holder.
 
 ```py
 print(result.document.inference.prediction.nationality.value)
 ```
 
 ## Surname
-**surname** ([StringField](#stringfield)): The surname of the card holder.
+**surname**([StringField](#stringfield)): The surname of the card holder.
 
 ```py
 print(result.document.inference.prediction.surname.value)

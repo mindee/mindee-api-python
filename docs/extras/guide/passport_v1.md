@@ -1,5 +1,8 @@
 ---
 title: Passport OCR Python
+category: 622b805aaec68102ea7fcbc2
+slug: python-passport-ocr
+parentDoc: 609808f773b0b90051d839de
 ---
 The Python OCR SDK supports the [Passport API](https://platform.mindee.com/mindee/passport).
 
@@ -25,6 +28,7 @@ print(result.document)
 
 # Print the document-level summary
 # print(result.document.inference.prediction)
+
 ```
 
 **Output (RST):**
@@ -76,7 +80,7 @@ Page 0
 ## Standard Fields
 These fields are generic and used in several products.
 
-### BasicField
+### BaseField
 Each prediction object contains a set of fields that inherit from the generic `BaseField` class.
 A typical `BaseField` object will have the following attributes:
 
@@ -84,7 +88,7 @@ A typical `BaseField` object will have the following attributes:
 * **confidence** (`float`): the confidence score of the field prediction.
 * **bounding_box** (`[Point, Point, Point, Point]`): contains exactly 4 relative vertices (points) coordinates of a right rectangle containing the field in the document.
 * **polygon** (`List[Point]`): contains the relative vertices coordinates (`Point`) of a polygon containing the field in the image.
-* **page_id** (`int`): the ID of the page, is `None` when at document-level.
+* **page_id** (`int`): the ID of the page, always `None` when at document-level.
 * **reconstructed** (`bool`): indicates whether an object was reconstructed (not extracted as the API gave it).
 
 > **Note:** A `Point` simply refers to a List of two numbers (`[float, float]`).
@@ -104,42 +108,42 @@ The text field `StringField` only has one constraint: its **value** is an `Optio
 The following fields are extracted for Passport V1:
 
 ## Date of Birth
-**birth_date** ([DateField](#datefield)): The date of birth of the passport holder.
+**birth_date**([DateField](#datefield)): The date of birth of the passport holder.
 
 ```py
 print(result.document.inference.prediction.birth_date.value)
 ```
 
 ## Place of Birth
-**birth_place** ([StringField](#stringfield)): The place of birth of the passport holder.
+**birth_place**([StringField](#stringfield)): The place of birth of the passport holder.
 
 ```py
 print(result.document.inference.prediction.birth_place.value)
 ```
 
 ## Country Code
-**country** ([StringField](#stringfield)): The country's 3 letter code (ISO 3166-1 alpha-3).
+**country**([StringField](#stringfield)): The country's 3 letter code (ISO 3166-1 alpha-3).
 
 ```py
 print(result.document.inference.prediction.country.value)
 ```
 
 ## Expiry Date
-**expiry_date** ([DateField](#datefield)): The expiry date of the passport.
+**expiry_date**([DateField](#datefield)): The expiry date of the passport.
 
 ```py
 print(result.document.inference.prediction.expiry_date.value)
 ```
 
 ## Gender
-**gender** ([StringField](#stringfield)): The gender of the passport holder.
+**gender**([StringField](#stringfield)): The gender of the passport holder.
 
 ```py
 print(result.document.inference.prediction.gender.value)
 ```
 
 ## Given Name(s)
-**given_names** (List[[StringField](#stringfield)]): The given name(s) of the passport holder.
+**given_names**(List[[StringField](#stringfield)]): The given name(s) of the passport holder.
 
 ```py
 for given_names_elem in result.document.inference.prediction.given_names:
@@ -147,35 +151,35 @@ for given_names_elem in result.document.inference.prediction.given_names:
 ```
 
 ## ID Number
-**id_number** ([StringField](#stringfield)): The passport's identification number.
+**id_number**([StringField](#stringfield)): The passport's identification number.
 
 ```py
 print(result.document.inference.prediction.id_number.value)
 ```
 
 ## Date of Issue
-**issuance_date** ([DateField](#datefield)): The date the passport was issued.
+**issuance_date**([DateField](#datefield)): The date the passport was issued.
 
 ```py
 print(result.document.inference.prediction.issuance_date.value)
 ```
 
 ## MRZ Line 1
-**mrz1** ([StringField](#stringfield)): Machine Readable Zone, first line
+**mrz1**([StringField](#stringfield)): Machine Readable Zone, first line
 
 ```py
 print(result.document.inference.prediction.mrz1.value)
 ```
 
 ## MRZ Line 2
-**mrz2** ([StringField](#stringfield)): Machine Readable Zone, second line
+**mrz2**([StringField](#stringfield)): Machine Readable Zone, second line
 
 ```py
 print(result.document.inference.prediction.mrz2.value)
 ```
 
 ## Surname
-**surname** ([StringField](#stringfield)): The surname of the passport holder.
+**surname**([StringField](#stringfield)): The surname of the passport holder.
 
 ```py
 print(result.document.inference.prediction.surname.value)

@@ -1,5 +1,8 @@
 ---
 title: FR Carte Grise OCR Python
+category: 622b805aaec68102ea7fcbc2
+slug: python-fr-carte-grise-ocr
+parentDoc: 609808f773b0b90051d839de
 ---
 The Python OCR SDK supports the [Carte Grise API](https://platform.mindee.com/mindee/carte_grise).
 
@@ -25,6 +28,7 @@ print(result.document)
 
 # Print the document-level summary
 # print(result.document.inference.prediction)
+
 ```
 
 **Output (RST):**
@@ -136,7 +140,7 @@ Page 0
 ## Standard Fields
 These fields are generic and used in several products.
 
-### BasicField
+### BaseField
 Each prediction object contains a set of fields that inherit from the generic `BaseField` class.
 A typical `BaseField` object will have the following attributes:
 
@@ -144,7 +148,7 @@ A typical `BaseField` object will have the following attributes:
 * **confidence** (`float`): the confidence score of the field prediction.
 * **bounding_box** (`[Point, Point, Point, Point]`): contains exactly 4 relative vertices (points) coordinates of a right rectangle containing the field in the document.
 * **polygon** (`List[Point]`): contains the relative vertices coordinates (`Point`) of a polygon containing the field in the image.
-* **page_id** (`int`): the ID of the page, is `None` when at document-level.
+* **page_id** (`int`): the ID of the page, always `None` when at document-level.
 * **reconstructed** (`bool`): indicates whether an object was reconstructed (not extracted as the API gave it).
 
 > **Note:** A `Point` simply refers to a List of two numbers (`[float, float]`).
@@ -164,287 +168,287 @@ The text field `StringField` only has one constraint: its **value** is an `Optio
 The following fields are extracted for Carte Grise V1:
 
 ## a
-**a** ([StringField](#stringfield)): The vehicle's license plate number.
+**a**([StringField](#stringfield)): The vehicle's license plate number.
 
 ```py
 print(result.document.inference.prediction.a.value)
 ```
 
 ## b
-**b** ([DateField](#datefield)): The vehicle's first release date.
+**b**([DateField](#datefield)): The vehicle's first release date.
 
 ```py
 print(result.document.inference.prediction.b.value)
 ```
 
 ## c1
-**c1** ([StringField](#stringfield)): The vehicle owner's full name including maiden name.
+**c1**([StringField](#stringfield)): The vehicle owner's full name including maiden name.
 
 ```py
 print(result.document.inference.prediction.c1.value)
 ```
 
 ## c3
-**c3** ([StringField](#stringfield)): The vehicle owner's address.
+**c3**([StringField](#stringfield)): The vehicle owner's address.
 
 ```py
 print(result.document.inference.prediction.c3.value)
 ```
 
 ## c41
-**c41** ([StringField](#stringfield)): Number of owners of the license certificate.
+**c41**([StringField](#stringfield)): Number of owners of the license certificate.
 
 ```py
 print(result.document.inference.prediction.c41.value)
 ```
 
 ## c4a
-**c4a** ([StringField](#stringfield)): Mentions about the ownership of the vehicle.
+**c4a**([StringField](#stringfield)): Mentions about the ownership of the vehicle.
 
 ```py
 print(result.document.inference.prediction.c4a.value)
 ```
 
 ## d1
-**d1** ([StringField](#stringfield)): The vehicle's brand.
+**d1**([StringField](#stringfield)): The vehicle's brand.
 
 ```py
 print(result.document.inference.prediction.d1.value)
 ```
 
 ## d3
-**d3** ([StringField](#stringfield)): The vehicle's commercial name.
+**d3**([StringField](#stringfield)): The vehicle's commercial name.
 
 ```py
 print(result.document.inference.prediction.d3.value)
 ```
 
 ## e
-**e** ([StringField](#stringfield)): The Vehicle Identification Number (VIN).
+**e**([StringField](#stringfield)): The Vehicle Identification Number (VIN).
 
 ```py
 print(result.document.inference.prediction.e.value)
 ```
 
 ## f1
-**f1** ([StringField](#stringfield)): The vehicle's maximum admissible weight.
+**f1**([StringField](#stringfield)): The vehicle's maximum admissible weight.
 
 ```py
 print(result.document.inference.prediction.f1.value)
 ```
 
 ## f2
-**f2** ([StringField](#stringfield)): The vehicle's maximum admissible weight within the license's state.
+**f2**([StringField](#stringfield)): The vehicle's maximum admissible weight within the license's state.
 
 ```py
 print(result.document.inference.prediction.f2.value)
 ```
 
 ## f3
-**f3** ([StringField](#stringfield)): The vehicle's maximum authorized weight with coupling.
+**f3**([StringField](#stringfield)): The vehicle's maximum authorized weight with coupling.
 
 ```py
 print(result.document.inference.prediction.f3.value)
 ```
 
 ## Formula Number
-**formula_number** ([StringField](#stringfield)): The document's formula number.
+**formula_number**([StringField](#stringfield)): The document's formula number.
 
 ```py
 print(result.document.inference.prediction.formula_number.value)
 ```
 
 ## g
-**g** ([StringField](#stringfield)): The vehicle's weight with coupling if tractor different than category M1.
+**g**([StringField](#stringfield)): The vehicle's weight with coupling if tractor different than category M1.
 
 ```py
 print(result.document.inference.prediction.g.value)
 ```
 
 ## g1
-**g1** ([StringField](#stringfield)): The vehicle's national empty weight.
+**g1**([StringField](#stringfield)): The vehicle's national empty weight.
 
 ```py
 print(result.document.inference.prediction.g1.value)
 ```
 
 ## i
-**i** ([DateField](#datefield)): The car registration date of the given certificate.
+**i**([DateField](#datefield)): The car registration date of the given certificate.
 
 ```py
 print(result.document.inference.prediction.i.value)
 ```
 
 ## j
-**j** ([StringField](#stringfield)): The vehicle's category.
+**j**([StringField](#stringfield)): The vehicle's category.
 
 ```py
 print(result.document.inference.prediction.j.value)
 ```
 
 ## j1
-**j1** ([StringField](#stringfield)): The vehicle's national type.
+**j1**([StringField](#stringfield)): The vehicle's national type.
 
 ```py
 print(result.document.inference.prediction.j1.value)
 ```
 
 ## j2
-**j2** ([StringField](#stringfield)): The vehicle's body type (CE).
+**j2**([StringField](#stringfield)): The vehicle's body type (CE).
 
 ```py
 print(result.document.inference.prediction.j2.value)
 ```
 
 ## j3
-**j3** ([StringField](#stringfield)): The vehicle's body type (National designation).
+**j3**([StringField](#stringfield)): The vehicle's body type (National designation).
 
 ```py
 print(result.document.inference.prediction.j3.value)
 ```
 
 ## MRZ Line 1
-**mrz1** ([StringField](#stringfield)): Machine Readable Zone, first line.
+**mrz1**([StringField](#stringfield)): Machine Readable Zone, first line.
 
 ```py
 print(result.document.inference.prediction.mrz1.value)
 ```
 
 ## MRZ Line 2
-**mrz2** ([StringField](#stringfield)): Machine Readable Zone, second line.
+**mrz2**([StringField](#stringfield)): Machine Readable Zone, second line.
 
 ```py
 print(result.document.inference.prediction.mrz2.value)
 ```
 
 ## Owner's First Name
-**owner_first_name** ([StringField](#stringfield)): The vehicle's owner first name.
+**owner_first_name**([StringField](#stringfield)): The vehicle's owner first name.
 
 ```py
 print(result.document.inference.prediction.owner_first_name.value)
 ```
 
 ## Owner's Surname
-**owner_surname** ([StringField](#stringfield)): The vehicle's owner surname.
+**owner_surname**([StringField](#stringfield)): The vehicle's owner surname.
 
 ```py
 print(result.document.inference.prediction.owner_surname.value)
 ```
 
 ## p1
-**p1** ([StringField](#stringfield)): The vehicle engine's displacement (cm3).
+**p1**([StringField](#stringfield)): The vehicle engine's displacement (cm3).
 
 ```py
 print(result.document.inference.prediction.p1.value)
 ```
 
 ## p2
-**p2** ([StringField](#stringfield)): The vehicle's maximum net power (kW).
+**p2**([StringField](#stringfield)): The vehicle's maximum net power (kW).
 
 ```py
 print(result.document.inference.prediction.p2.value)
 ```
 
 ## p3
-**p3** ([StringField](#stringfield)): The vehicle's fuel type or energy source.
+**p3**([StringField](#stringfield)): The vehicle's fuel type or energy source.
 
 ```py
 print(result.document.inference.prediction.p3.value)
 ```
 
 ## p6
-**p6** ([StringField](#stringfield)): The vehicle's administrative power (fiscal horsepower).
+**p6**([StringField](#stringfield)): The vehicle's administrative power (fiscal horsepower).
 
 ```py
 print(result.document.inference.prediction.p6.value)
 ```
 
 ## q
-**q** ([StringField](#stringfield)): The vehicle's power to weight ratio.
+**q**([StringField](#stringfield)): The vehicle's power to weight ratio.
 
 ```py
 print(result.document.inference.prediction.q.value)
 ```
 
 ## s1
-**s1** ([StringField](#stringfield)): The vehicle's number of seats.
+**s1**([StringField](#stringfield)): The vehicle's number of seats.
 
 ```py
 print(result.document.inference.prediction.s1.value)
 ```
 
 ## s2
-**s2** ([StringField](#stringfield)): The vehicle's number of standing rooms (person).
+**s2**([StringField](#stringfield)): The vehicle's number of standing rooms (person).
 
 ```py
 print(result.document.inference.prediction.s2.value)
 ```
 
 ## u1
-**u1** ([StringField](#stringfield)): The vehicle's sound level (dB).
+**u1**([StringField](#stringfield)): The vehicle's sound level (dB).
 
 ```py
 print(result.document.inference.prediction.u1.value)
 ```
 
 ## u2
-**u2** ([StringField](#stringfield)): The vehicle engine's rotation speed (RPM).
+**u2**([StringField](#stringfield)): The vehicle engine's rotation speed (RPM).
 
 ```py
 print(result.document.inference.prediction.u2.value)
 ```
 
 ## v7
-**v7** ([StringField](#stringfield)): The vehicle's CO2 emission (g/km).
+**v7**([StringField](#stringfield)): The vehicle's CO2 emission (g/km).
 
 ```py
 print(result.document.inference.prediction.v7.value)
 ```
 
 ## x1
-**x1** ([StringField](#stringfield)): Next technical control date.
+**x1**([StringField](#stringfield)): Next technical control date.
 
 ```py
 print(result.document.inference.prediction.x1.value)
 ```
 
 ## y1
-**y1** ([StringField](#stringfield)): Amount of the regional proportional tax of the registration (in euros).
+**y1**([StringField](#stringfield)): Amount of the regional proportional tax of the registration (in euros).
 
 ```py
 print(result.document.inference.prediction.y1.value)
 ```
 
 ## y2
-**y2** ([StringField](#stringfield)): Amount of the additional parafiscal tax of the registration (in euros).
+**y2**([StringField](#stringfield)): Amount of the additional parafiscal tax of the registration (in euros).
 
 ```py
 print(result.document.inference.prediction.y2.value)
 ```
 
 ## y3
-**y3** ([StringField](#stringfield)): Amount of the additional CO2 tax of the registration (in euros).
+**y3**([StringField](#stringfield)): Amount of the additional CO2 tax of the registration (in euros).
 
 ```py
 print(result.document.inference.prediction.y3.value)
 ```
 
 ## y4
-**y4** ([StringField](#stringfield)): Amount of the fee for managing the registration (in euros).
+**y4**([StringField](#stringfield)): Amount of the fee for managing the registration (in euros).
 
 ```py
 print(result.document.inference.prediction.y4.value)
 ```
 
 ## y5
-**y5** ([StringField](#stringfield)): Amount of the fee for delivery of the registration certificate in euros.
+**y5**([StringField](#stringfield)): Amount of the fee for delivery of the registration certificate in euros.
 
 ```py
 print(result.document.inference.prediction.y5.value)
 ```
 
 ## y6
-**y6** ([StringField](#stringfield)): Total amount of registration fee to be paid in euros.
+**y6**([StringField](#stringfield)): Total amount of registration fee to be paid in euros.
 
 ```py
 print(result.document.inference.prediction.y6.value)

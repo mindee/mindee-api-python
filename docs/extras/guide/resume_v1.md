@@ -1,5 +1,8 @@
 ---
 title: Resume OCR Python
+category: 622b805aaec68102ea7fcbc2
+slug: python-resume-ocr
+parentDoc: 609808f773b0b90051d839de
 ---
 The Python OCR SDK supports the [Resume API](https://platform.mindee.com/mindee/resume).
 
@@ -24,6 +27,7 @@ result: AsyncPredictResponse = mindee_client.enqueue_and_parse(
 
 # Print a brief summary of the parsed data
 print(result.document)
+
 ```
 
 **Output (RST):**
@@ -104,7 +108,7 @@ Prediction
 ## Standard Fields
 These fields are generic and used in several products.
 
-### BasicField
+### BaseField
 Each prediction object contains a set of fields that inherit from the generic `BaseField` class.
 A typical `BaseField` object will have the following attributes:
 
@@ -112,7 +116,7 @@ A typical `BaseField` object will have the following attributes:
 * **confidence** (`float`): the confidence score of the field prediction.
 * **bounding_box** (`[Point, Point, Point, Point]`): contains exactly 4 relative vertices (points) coordinates of a right rectangle containing the field in the document.
 * **polygon** (`List[Point]`): contains the relative vertices coordinates (`Point`) of a polygon containing the field in the image.
-* **page_id** (`int`): the ID of the page, is `None` when at document-level.
+* **page_id** (`int`): the ID of the page, always `None` when at document-level.
 * **reconstructed** (`bool`): indicates whether an object was reconstructed (not extracted as the API gave it).
 
 > **Note:** A `Point` simply refers to a List of two numbers (`[float, float]`).
@@ -193,14 +197,14 @@ A `ResumeV1SocialNetworksUrl` implements the following attributes:
 The following fields are extracted for Resume V1:
 
 ## Address
-**address** ([StringField](#stringfield)): The location information of the candidate, including city, state, and country.
+**address**([StringField](#stringfield)): The location information of the candidate, including city, state, and country.
 
 ```py
 print(result.document.inference.prediction.address.value)
 ```
 
 ## Certificates
-**certificates** (List[[ResumeV1Certificate](#certificates-field)]): The list of certificates obtained by the candidate.
+**certificates**(List[[ResumeV1Certificate](#certificates-field)]): The list of certificates obtained by the candidate.
 
 ```py
 for certificates_elem in result.document.inference.prediction.certificates:
@@ -208,21 +212,21 @@ for certificates_elem in result.document.inference.prediction.certificates:
 ```
 
 ## Document Language
-**document_language** ([StringField](#stringfield)): The ISO 639 code of the language in which the document is written.
+**document_language**([StringField](#stringfield)): The ISO 639 code of the language in which the document is written.
 
 ```py
 print(result.document.inference.prediction.document_language.value)
 ```
 
 ## Document Type
-**document_type** ([ClassificationField](#classificationfield)): The type of the document sent.
+**document_type**([ClassificationField](#classificationfield)): The type of the document sent.
 
 ```py
 print(result.document.inference.prediction.document_type.value)
 ```
 
 ## Education
-**education** (List[[ResumeV1Education](#education-field)]): The list of the candidate's educational background.
+**education**(List[[ResumeV1Education](#education-field)]): The list of the candidate's educational background.
 
 ```py
 for education_elem in result.document.inference.prediction.education:
@@ -230,14 +234,14 @@ for education_elem in result.document.inference.prediction.education:
 ```
 
 ## Email Address
-**email_address** ([StringField](#stringfield)): The email address of the candidate.
+**email_address**([StringField](#stringfield)): The email address of the candidate.
 
 ```py
 print(result.document.inference.prediction.email_address.value)
 ```
 
 ## Given Names
-**given_names** (List[[StringField](#stringfield)]): The candidate's first or given names.
+**given_names**(List[[StringField](#stringfield)]): The candidate's first or given names.
 
 ```py
 for given_names_elem in result.document.inference.prediction.given_names:
@@ -245,7 +249,7 @@ for given_names_elem in result.document.inference.prediction.given_names:
 ```
 
 ## Hard Skills
-**hard_skills** (List[[StringField](#stringfield)]): The list of the candidate's technical abilities and knowledge.
+**hard_skills**(List[[StringField](#stringfield)]): The list of the candidate's technical abilities and knowledge.
 
 ```py
 for hard_skills_elem in result.document.inference.prediction.hard_skills:
@@ -253,14 +257,14 @@ for hard_skills_elem in result.document.inference.prediction.hard_skills:
 ```
 
 ## Job Applied
-**job_applied** ([StringField](#stringfield)): The position that the candidate is applying for.
+**job_applied**([StringField](#stringfield)): The position that the candidate is applying for.
 
 ```py
 print(result.document.inference.prediction.job_applied.value)
 ```
 
 ## Languages
-**languages** (List[[ResumeV1Language](#languages-field)]): The list of languages that the candidate is proficient in.
+**languages**(List[[ResumeV1Language](#languages-field)]): The list of languages that the candidate is proficient in.
 
 ```py
 for languages_elem in result.document.inference.prediction.languages:
@@ -268,28 +272,28 @@ for languages_elem in result.document.inference.prediction.languages:
 ```
 
 ## Nationality
-**nationality** ([StringField](#stringfield)): The ISO 3166 code for the country of citizenship of the candidate.
+**nationality**([StringField](#stringfield)): The ISO 3166 code for the country of citizenship of the candidate.
 
 ```py
 print(result.document.inference.prediction.nationality.value)
 ```
 
 ## Phone Number
-**phone_number** ([StringField](#stringfield)): The phone number of the candidate.
+**phone_number**([StringField](#stringfield)): The phone number of the candidate.
 
 ```py
 print(result.document.inference.prediction.phone_number.value)
 ```
 
 ## Profession
-**profession** ([StringField](#stringfield)): The candidate's current profession.
+**profession**([StringField](#stringfield)): The candidate's current profession.
 
 ```py
 print(result.document.inference.prediction.profession.value)
 ```
 
 ## Professional Experiences
-**professional_experiences** (List[[ResumeV1ProfessionalExperience](#professional-experiences-field)]): The list of the candidate's professional experiences.
+**professional_experiences**(List[[ResumeV1ProfessionalExperience](#professional-experiences-field)]): The list of the candidate's professional experiences.
 
 ```py
 for professional_experiences_elem in result.document.inference.prediction.professional_experiences:
@@ -297,7 +301,7 @@ for professional_experiences_elem in result.document.inference.prediction.profes
 ```
 
 ## Social Networks
-**social_networks_urls** (List[[ResumeV1SocialNetworksUrl](#social-networks-field)]): The list of social network profiles of the candidate.
+**social_networks_urls**(List[[ResumeV1SocialNetworksUrl](#social-networks-field)]): The list of social network profiles of the candidate.
 
 ```py
 for social_networks_urls_elem in result.document.inference.prediction.social_networks_urls:
@@ -305,7 +309,7 @@ for social_networks_urls_elem in result.document.inference.prediction.social_net
 ```
 
 ## Soft Skills
-**soft_skills** (List[[StringField](#stringfield)]): The list of the candidate's interpersonal and communication abilities.
+**soft_skills**(List[[StringField](#stringfield)]): The list of the candidate's interpersonal and communication abilities.
 
 ```py
 for soft_skills_elem in result.document.inference.prediction.soft_skills:
@@ -313,7 +317,7 @@ for soft_skills_elem in result.document.inference.prediction.soft_skills:
 ```
 
 ## Surnames
-**surnames** (List[[StringField](#stringfield)]): The candidate's last names.
+**surnames**(List[[StringField](#stringfield)]): The candidate's last names.
 
 ```py
 for surnames_elem in result.document.inference.prediction.surnames:

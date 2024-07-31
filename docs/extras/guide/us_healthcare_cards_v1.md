@@ -1,5 +1,8 @@
 ---
 title: US Healthcare Card OCR Python
+category: 622b805aaec68102ea7fcbc2
+slug: python-us-healthcare-card-ocr
+parentDoc: 609808f773b0b90051d839de
 ---
 The Python OCR SDK supports the [Healthcare Card API](https://platform.mindee.com/mindee/us_healthcare_cards).
 
@@ -24,6 +27,7 @@ result: AsyncPredictResponse = mindee_client.enqueue_and_parse(
 
 # Print a brief summary of the parsed data
 print(result.document)
+
 ```
 
 **Output (RST):**
@@ -73,7 +77,7 @@ Prediction
 ## Standard Fields
 These fields are generic and used in several products.
 
-### BasicField
+### BaseField
 Each prediction object contains a set of fields that inherit from the generic `BaseField` class.
 A typical `BaseField` object will have the following attributes:
 
@@ -81,7 +85,7 @@ A typical `BaseField` object will have the following attributes:
 * **confidence** (`float`): the confidence score of the field prediction.
 * **bounding_box** (`[Point, Point, Point, Point]`): contains exactly 4 relative vertices (points) coordinates of a right rectangle containing the field in the document.
 * **polygon** (`List[Point]`): contains the relative vertices coordinates (`Point`) of a polygon containing the field in the image.
-* **page_id** (`int`): the ID of the page, is `None` when at document-level.
+* **page_id** (`int`): the ID of the page, always `None` when at document-level.
 * **reconstructed** (`bool`): indicates whether an object was reconstructed (not extracted as the API gave it).
 
 > **Note:** A `Point` simply refers to a List of two numbers (`[float, float]`).
@@ -112,14 +116,14 @@ A `HealthcareCardV1Copay` implements the following attributes:
 The following fields are extracted for Healthcare Card V1:
 
 ## Company Name
-**company_name** ([StringField](#stringfield)): The name of the company that provides the healthcare plan.
+**company_name**([StringField](#stringfield)): The name of the company that provides the healthcare plan.
 
 ```py
 print(result.document.inference.prediction.company_name.value)
 ```
 
 ## copays
-**copays** (List[[HealthcareCardV1Copay](#copays-field)]): Is a fixed amount for a covered service.
+**copays**(List[[HealthcareCardV1Copay](#copays-field)]): Is a fixed amount for a covered service.
 
 ```py
 for copays_elem in result.document.inference.prediction.copays:
@@ -127,7 +131,7 @@ for copays_elem in result.document.inference.prediction.copays:
 ```
 
 ## Dependents
-**dependents** (List[[StringField](#stringfield)]): The list of dependents covered by the healthcare plan.
+**dependents**(List[[StringField](#stringfield)]): The list of dependents covered by the healthcare plan.
 
 ```py
 for dependents_elem in result.document.inference.prediction.dependents:
@@ -135,63 +139,63 @@ for dependents_elem in result.document.inference.prediction.dependents:
 ```
 
 ## Enrollment Date
-**enrollment_date** ([DateField](#datefield)): The date when the member enrolled in the healthcare plan.
+**enrollment_date**([DateField](#datefield)): The date when the member enrolled in the healthcare plan.
 
 ```py
 print(result.document.inference.prediction.enrollment_date.value)
 ```
 
 ## Group Number
-**group_number** ([StringField](#stringfield)): The group number associated with the healthcare plan.
+**group_number**([StringField](#stringfield)): The group number associated with the healthcare plan.
 
 ```py
 print(result.document.inference.prediction.group_number.value)
 ```
 
 ## Issuer 80840
-**issuer_80840** ([StringField](#stringfield)): The organization that issued the healthcare plan.
+**issuer_80840**([StringField](#stringfield)): The organization that issued the healthcare plan.
 
 ```py
 print(result.document.inference.prediction.issuer_80840.value)
 ```
 
 ## Member ID
-**member_id** ([StringField](#stringfield)): The unique identifier for the member in the healthcare system.
+**member_id**([StringField](#stringfield)): The unique identifier for the member in the healthcare system.
 
 ```py
 print(result.document.inference.prediction.member_id.value)
 ```
 
 ## Member Name
-**member_name** ([StringField](#stringfield)): The name of the member covered by the healthcare plan.
+**member_name**([StringField](#stringfield)): The name of the member covered by the healthcare plan.
 
 ```py
 print(result.document.inference.prediction.member_name.value)
 ```
 
 ## Payer ID
-**payer_id** ([StringField](#stringfield)): The unique identifier for the payer in the healthcare system.
+**payer_id**([StringField](#stringfield)): The unique identifier for the payer in the healthcare system.
 
 ```py
 print(result.document.inference.prediction.payer_id.value)
 ```
 
 ## RX BIN
-**rx_bin** ([StringField](#stringfield)): The BIN number for prescription drug coverage.
+**rx_bin**([StringField](#stringfield)): The BIN number for prescription drug coverage.
 
 ```py
 print(result.document.inference.prediction.rx_bin.value)
 ```
 
 ## RX GRP
-**rx_grp** ([StringField](#stringfield)): The group number for prescription drug coverage.
+**rx_grp**([StringField](#stringfield)): The group number for prescription drug coverage.
 
 ```py
 print(result.document.inference.prediction.rx_grp.value)
 ```
 
 ## RX PCN
-**rx_pcn** ([StringField](#stringfield)): The PCN number for prescription drug coverage.
+**rx_pcn**([StringField](#stringfield)): The PCN number for prescription drug coverage.
 
 ```py
 print(result.document.inference.prediction.rx_pcn.value)
