@@ -1,5 +1,5 @@
 ---
-title: Custom API Python
+title: Custom API Python (Deprecated)
 category: 622b805aaec68102ea7fcbc2
 slug: python-api-builder
 parentDoc: 609808f773b0b90051d839de
