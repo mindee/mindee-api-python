@@ -133,7 +133,8 @@ Complete details on the working of the library are available in the following gu
 
 * [Getting started](https://developers.mindee.com/docs/python-getting-started)
 * [Python Command Line Interface (CLI)](https://developers.mindee.com/docs/python-cli)
-* [Python Custom APIs (API Builder)](https://developers.mindee.com/docs/python-api-builder)
+* [Python Generated](https://developers.mindee.com/docs/generated-api-python)
+* [Python Custom APIs (Deprecated - API Builder)](https://developers.mindee.com/docs/python-api-builder)
 * [Python Invoice OCR](https://developers.mindee.com/docs/python-invoice-ocr)
 * [Python International Id OCR](https://developers.mindee.com/docs/python-international-id-ocr)
 * [Python Resume OCR](https://developers.mindee.com/docs/python-resume-ocr)
@@ -146,15 +147,15 @@ Complete details on the working of the library are available in the following gu
 * [Python FR Bank Account Detail OCR](https://developers.mindee.com/docs/python-fr-bank-account-details-ocr)
 * [Python FR Carte Grise OCR](https://developers.mindee.com/docs/python-fr-carte-grise-ocr)
 * [Python FR Carte Vitale OCR](https://developers.mindee.com/docs/python-fr-carte-vitale-ocr)
-* [Python FR ID Card OCR](https://developers.mindee.com/docs/python-fr-id-card-ocr)
+* [Python FR ID Card OCR](https://developers.mindee.com/docs/python-fr-carte-nationale-didentite-ocr)
 * [Python FR Petrol Receipts OCR](https://developers.mindee.com/docs/python-fr-petrol-receipts-ocr)
 * [Python US Bank Check OCR](https://developers.mindee.com/docs/python-us-bank-checks-ocr)
 * [Python US W9 OCR](https://developers.mindee.com/docs/python-us-w9-ocr)
 * [Python US Driver License OCR](https://developers.mindee.com/docs/python-us-driver-license-ocr)
-* [Python Barcode Reader API](https://developers.mindee.com/docs/python-barcode-reader-api)
-* [Python Cropper API](https://developers.mindee.com/docs/python-cropper-api)
-* [Python Invoice Splitter API](https://developers.mindee.com/docs/python-invoice-splitter-api)
-* [Python Multi Receipts Detector API](https://developers.mindee.com/docs/python-multi-receipts-detector-api)
+* [Python Barcode Reader API](https://developers.mindee.com/docs/python-barcode-reader-ocr)
+* [Python Cropper API](https://developers.mindee.com/docs/python-cropper-ocr)
+* [Python Invoice Splitter API](https://developers.mindee.com/docs/python-invoice-splitter-ocr)
+* [Python Multi Receipts Detector API](https://developers.mindee.com/docs/python-multi-receipts-detector-ocr)
 
 You can view the source code on [GitHub](https://github.com/mindee/mindee-api-python).
 

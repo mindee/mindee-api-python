@@ -1,5 +1,8 @@
 ---
 title: Invoice Splitter API Python
+category: 622b805aaec68102ea7fcbc2
+slug: python-invoice-splitter-api
+parentDoc: 609808f773b0b90051d839de
 ---
 The Python OCR SDK supports the [Invoice Splitter API](https://platform.mindee.com/mindee/invoice_splitter).
 
