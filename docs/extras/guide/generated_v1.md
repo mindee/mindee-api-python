@@ -1,5 +1,8 @@
 ---
-title: Generated API Python
+title: Generated OCR Python
+category: 622b805aaec68102ea7fcbc2
+slug: generated-api-python
+parentDoc: 609808f773b0b90051d839de
 ---
 The Python OCR SDK supports generated APIs.
 Generated APIs can theoretically support all APIs in a catch-all generic format.
