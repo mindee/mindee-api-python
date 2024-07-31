@@ -1,7 +1,7 @@
 ---
 title: FR Carte Nationale d'Identité OCR Python
 category: 622b805aaec68102ea7fcbc2
-slug: python-fr-carte-nationale-didentité-ocr
+slug: python-fr-carte-nationale-didentite-ocr
 parentDoc: 609808f773b0b90051d839de
 ---
 The Python OCR SDK supports the [Carte Nationale d'Identité API](https://platform.mindee.com/mindee/idcard_fr).
