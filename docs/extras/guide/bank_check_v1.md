@@ -116,28 +116,28 @@ Some fields are constrained to the page level, and so will not be retrievable at
 The following fields are extracted for Bank Check V1:
 
 ## Account Number
-**account_number**([StringField](#stringfield)): The check payer's account number.
+**account_number** ([StringField](#stringfield)): The check payer's account number.
 
 ```py
 print(result.document.inference.prediction.account_number.value)
 ```
 
 ## Amount
-**amount**([AmountField](#amountfield)): The amount of the check.
+**amount** ([AmountField](#amountfield)): The amount of the check.
 
 ```py
 print(result.document.inference.prediction.amount.value)
 ```
 
 ## Check Number
-**check_number**([StringField](#stringfield)): The issuer's check number.
+**check_number** ([StringField](#stringfield)): The issuer's check number.
 
 ```py
 print(result.document.inference.prediction.check_number.value)
 ```
 
 ## Check Position
-[📄](#page-level-fields "This field is only present on individual pages.")**check_position**([PositionField](#positionfield)): The position of the check on the document.
+[📄](#page-level-fields "This field is only present on individual pages.")**check_position** ([PositionField](#positionfield)): The position of the check on the document.
 
 ```py
 for check_position_elem in result.document.check_position:
@@ -145,14 +145,14 @@ for check_position_elem in result.document.check_position:
 ```
 
 ## Check Issue Date
-**date**([DateField](#datefield)): The date the check was issued.
+**date** ([DateField](#datefield)): The date the check was issued.
 
 ```py
 print(result.document.inference.prediction.date.value)
 ```
 
 ## Payees
-**payees**(List[[StringField](#stringfield)]): List of the check's payees (recipients).
+**payees** (List[[StringField](#stringfield)]): List of the check's payees (recipients).
 
 ```py
 for payees_elem in result.document.inference.prediction.payees:
@@ -160,14 +160,14 @@ for payees_elem in result.document.inference.prediction.payees:
 ```
 
 ## Routing Number
-**routing_number**([StringField](#stringfield)): The check issuer's routing number.
+**routing_number** ([StringField](#stringfield)): The check issuer's routing number.
 
 ```py
 print(result.document.inference.prediction.routing_number.value)
 ```
 
 ## Signature Positions
-[📄](#page-level-fields "This field is only present on individual pages.")**signatures_positions**(List[[PositionField](#positionfield)]): List of signature positions
+[📄](#page-level-fields "This field is only present on individual pages.")**signatures_positions** (List[[PositionField](#positionfield)]): List of signature positions
 
 ```py
 for page in result.document.inference.pages:

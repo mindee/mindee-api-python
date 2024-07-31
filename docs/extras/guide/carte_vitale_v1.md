@@ -94,7 +94,7 @@ The text field `StringField` only has one constraint: its **value** is an `Optio
 The following fields are extracted for Carte Vitale V1:
 
 ## Given Name(s)
-**given_names**(List[[StringField](#stringfield)]): The given name(s) of the card holder.
+**given_names** (List[[StringField](#stringfield)]): The given name(s) of the card holder.
 
 ```py
 for given_names_elem in result.document.inference.prediction.given_names:
@@ -102,21 +102,21 @@ for given_names_elem in result.document.inference.prediction.given_names:
 ```
 
 ## Issuance Date
-**issuance_date**([DateField](#datefield)): The date the card was issued.
+**issuance_date** ([DateField](#datefield)): The date the card was issued.
 
 ```py
 print(result.document.inference.prediction.issuance_date.value)
 ```
 
 ## Social Security Number
-**social_security**([StringField](#stringfield)): The Social Security Number (Numéro de Sécurité Sociale) of the card holder
+**social_security** ([StringField](#stringfield)): The Social Security Number (Numéro de Sécurité Sociale) of the card holder
 
 ```py
 print(result.document.inference.prediction.social_security.value)
 ```
 
 ## Surname
-**surname**([StringField](#stringfield)): The surname of the card holder.
+**surname** ([StringField](#stringfield)): The surname of the card holder.
 
 ```py
 print(result.document.inference.prediction.surname.value)

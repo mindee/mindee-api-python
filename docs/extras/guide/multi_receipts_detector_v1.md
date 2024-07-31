@@ -97,7 +97,7 @@ The position field `PositionField` does not implement all the basic `BaseField` 
 The following fields are extracted for Multi Receipts Detector V1:
 
 ## List of Receipts
-**receipts**(List[[PositionField](#positionfield)]): Positions of the receipts on the document.
+**receipts** (List[[PositionField](#positionfield)]): Positions of the receipts on the document.
 
 ```py
 for receipts_elem in result.document.inference.prediction.receipts:

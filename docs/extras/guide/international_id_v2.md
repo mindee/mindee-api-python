@@ -103,56 +103,56 @@ The text field `StringField` only has one constraint: its **value** is an `Optio
 The following fields are extracted for International ID V2:
 
 ## Address
-**address**([StringField](#stringfield)): The physical address of the document holder.
+**address** ([StringField](#stringfield)): The physical address of the document holder.
 
 ```py
 print(result.document.inference.prediction.address.value)
 ```
 
 ## Birth Date
-**birth_date**([DateField](#datefield)): The date of birth of the document holder.
+**birth_date** ([DateField](#datefield)): The date of birth of the document holder.
 
 ```py
 print(result.document.inference.prediction.birth_date.value)
 ```
 
 ## Birth Place
-**birth_place**([StringField](#stringfield)): The place of birth of the document holder.
+**birth_place** ([StringField](#stringfield)): The place of birth of the document holder.
 
 ```py
 print(result.document.inference.prediction.birth_place.value)
 ```
 
 ## Country of Issue
-**country_of_issue**([StringField](#stringfield)): The country where the document was issued.
+**country_of_issue** ([StringField](#stringfield)): The country where the document was issued.
 
 ```py
 print(result.document.inference.prediction.country_of_issue.value)
 ```
 
 ## Document Number
-**document_number**([StringField](#stringfield)): The unique identifier assigned to the document.
+**document_number** ([StringField](#stringfield)): The unique identifier assigned to the document.
 
 ```py
 print(result.document.inference.prediction.document_number.value)
 ```
 
 ## Document Type
-**document_type**([ClassificationField](#classificationfield)): The type of personal identification document.
+**document_type** ([ClassificationField](#classificationfield)): The type of personal identification document.
 
 ```py
 print(result.document.inference.prediction.document_type.value)
 ```
 
 ## Expiration Date
-**expiry_date**([DateField](#datefield)): The date when the document becomes invalid.
+**expiry_date** ([DateField](#datefield)): The date when the document becomes invalid.
 
 ```py
 print(result.document.inference.prediction.expiry_date.value)
 ```
 
 ## Given Names
-**given_names**(List[[StringField](#stringfield)]): The list of the document holder's given names.
+**given_names** (List[[StringField](#stringfield)]): The list of the document holder's given names.
 
 ```py
 for given_names_elem in result.document.inference.prediction.given_names:
@@ -160,63 +160,63 @@ for given_names_elem in result.document.inference.prediction.given_names:
 ```
 
 ## Issue Date
-**issue_date**([DateField](#datefield)): The date when the document was issued.
+**issue_date** ([DateField](#datefield)): The date when the document was issued.
 
 ```py
 print(result.document.inference.prediction.issue_date.value)
 ```
 
 ## MRZ Line 1
-**mrz_line1**([StringField](#stringfield)): The Machine Readable Zone, first line.
+**mrz_line1** ([StringField](#stringfield)): The Machine Readable Zone, first line.
 
 ```py
 print(result.document.inference.prediction.mrz_line1.value)
 ```
 
 ## MRZ Line 2
-**mrz_line2**([StringField](#stringfield)): The Machine Readable Zone, second line.
+**mrz_line2** ([StringField](#stringfield)): The Machine Readable Zone, second line.
 
 ```py
 print(result.document.inference.prediction.mrz_line2.value)
 ```
 
 ## MRZ Line 3
-**mrz_line3**([StringField](#stringfield)): The Machine Readable Zone, third line.
+**mrz_line3** ([StringField](#stringfield)): The Machine Readable Zone, third line.
 
 ```py
 print(result.document.inference.prediction.mrz_line3.value)
 ```
 
 ## Nationality
-**nationality**([StringField](#stringfield)): The country of citizenship of the document holder.
+**nationality** ([StringField](#stringfield)): The country of citizenship of the document holder.
 
 ```py
 print(result.document.inference.prediction.nationality.value)
 ```
 
 ## Personal Number
-**personal_number**([StringField](#stringfield)): The unique identifier assigned to the document holder.
+**personal_number** ([StringField](#stringfield)): The unique identifier assigned to the document holder.
 
 ```py
 print(result.document.inference.prediction.personal_number.value)
 ```
 
 ## Sex
-**sex**([StringField](#stringfield)): The biological sex of the document holder.
+**sex** ([StringField](#stringfield)): The biological sex of the document holder.
 
 ```py
 print(result.document.inference.prediction.sex.value)
 ```
 
 ## State of Issue
-**state_of_issue**([StringField](#stringfield)): The state or territory where the document was issued.
+**state_of_issue** ([StringField](#stringfield)): The state or territory where the document was issued.
 
 ```py
 print(result.document.inference.prediction.state_of_issue.value)
 ```
 
 ## Surnames
-**surnames**(List[[StringField](#stringfield)]): The list of the document holder's family names.
+**surnames** (List[[StringField](#stringfield)]): The list of the document holder's family names.
 
 ```py
 for surnames_elem in result.document.inference.prediction.surnames:

@@ -83,7 +83,7 @@ The text field `StringField` only has one constraint: its **value** is an `Optio
 The following fields are extracted for License Plate V1:
 
 ## License Plates
-**license_plates**(List[[StringField](#stringfield)]): List of all license plates found in the image.
+**license_plates** (List[[StringField](#stringfield)]): List of all license plates found in the image.
 
 ```py
 for license_plates_elem in result.document.inference.prediction.license_plates:

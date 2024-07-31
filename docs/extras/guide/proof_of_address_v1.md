@@ -139,14 +139,14 @@ The text field `StringField` only has one constraint: its **value** is an `Optio
 The following fields are extracted for Proof of Address V1:
 
 ## Date of Issue
-**date**([DateField](#datefield)): The date the document was issued.
+**date** ([DateField](#datefield)): The date the document was issued.
 
 ```py
 print(result.document.inference.prediction.date.value)
 ```
 
 ## Dates
-**dates**(List[[DateField](#datefield)]): List of dates found on the document.
+**dates** (List[[DateField](#datefield)]): List of dates found on the document.
 
 ```py
 for dates_elem in result.document.inference.prediction.dates:
@@ -154,14 +154,14 @@ for dates_elem in result.document.inference.prediction.dates:
 ```
 
 ## Issuer Address
-**issuer_address**([StringField](#stringfield)): The address of the document's issuer.
+**issuer_address** ([StringField](#stringfield)): The address of the document's issuer.
 
 ```py
 print(result.document.inference.prediction.issuer_address.value)
 ```
 
 ## Issuer Company Registrations
-**issuer_company_registration**(List[[CompanyRegistrationField](#companyregistrationfield)]): List of company registrations found for the issuer.
+**issuer_company_registration** (List[[CompanyRegistrationField](#companyregistrationfield)]): List of company registrations found for the issuer.
 
 ```py
 for issuer_company_registration_elem in result.document.inference.prediction.issuer_company_registration:
@@ -169,28 +169,28 @@ for issuer_company_registration_elem in result.document.inference.prediction.iss
 ```
 
 ## Issuer Name
-**issuer_name**([StringField](#stringfield)): The name of the person or company issuing the document.
+**issuer_name** ([StringField](#stringfield)): The name of the person or company issuing the document.
 
 ```py
 print(result.document.inference.prediction.issuer_name.value)
 ```
 
 ## Locale
-**locale**([LocaleField](#localefield)): The locale detected on the document.
+**locale** ([LocaleField](#localefield)): The locale detected on the document.
 
 ```py
 print(result.document.inference.prediction.locale.value)
 ```
 
 ## Recipient Address
-**recipient_address**([StringField](#stringfield)): The address of the recipient.
+**recipient_address** ([StringField](#stringfield)): The address of the recipient.
 
 ```py
 print(result.document.inference.prediction.recipient_address.value)
 ```
 
 ## Recipient Company Registrations
-**recipient_company_registration**(List[[CompanyRegistrationField](#companyregistrationfield)]): List of company registrations found for the recipient.
+**recipient_company_registration** (List[[CompanyRegistrationField](#companyregistrationfield)]): List of company registrations found for the recipient.
 
 ```py
 for recipient_company_registration_elem in result.document.inference.prediction.recipient_company_registration:
@@ -198,7 +198,7 @@ for recipient_company_registration_elem in result.document.inference.prediction.
 ```
 
 ## Recipient Name
-**recipient_name**([StringField](#stringfield)): The name of the person or company receiving the document.
+**recipient_name** ([StringField](#stringfield)): The name of the person or company receiving the document.
 
 ```py
 print(result.document.inference.prediction.recipient_name.value)

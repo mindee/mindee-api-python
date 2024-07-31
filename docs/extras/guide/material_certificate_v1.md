@@ -56,21 +56,21 @@ The text field `StringField` only has one constraint: its **value** is an `Optio
 The following fields are extracted for Material Certificate V1:
 
 ## Certificate Type
-**certificate_type**([StringField](#stringfield)): The type of certification.
+**certificate_type** ([StringField](#stringfield)): The type of certification.
 
 ```py
 print(result.document.inference.prediction.certificate_type.value)
 ```
 
 ## Heat Number
-**heat_number**([StringField](#stringfield)): Heat Number is a unique identifier assigned to a batch of material produced in a manufacturing process.
+**heat_number** ([StringField](#stringfield)): Heat Number is a unique identifier assigned to a batch of material produced in a manufacturing process.
 
 ```py
 print(result.document.inference.prediction.heat_number.value)
 ```
 
 ## Norm
-**norm**([StringField](#stringfield)): The international standard used for certification.
+**norm** ([StringField](#stringfield)): The international standard used for certification.
 
 ```py
 print(result.document.inference.prediction.norm.value)

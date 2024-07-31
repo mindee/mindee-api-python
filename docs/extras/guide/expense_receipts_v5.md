@@ -191,28 +191,28 @@ A `ReceiptV5LineItem` implements the following attributes:
 The following fields are extracted for Receipt V5:
 
 ## Purchase Category
-**category**([ClassificationField](#classificationfield)): The purchase category among predefined classes.
+**category** ([ClassificationField](#classificationfield)): The purchase category among predefined classes.
 
 ```py
 print(result.document.inference.prediction.category.value)
 ```
 
 ## Purchase Date
-**date**([DateField](#datefield)): The date the purchase was made.
+**date** ([DateField](#datefield)): The date the purchase was made.
 
 ```py
 print(result.document.inference.prediction.date.value)
 ```
 
 ## Document Type
-**document_type**([ClassificationField](#classificationfield)): One of: 'CREDIT CARD RECEIPT', 'EXPENSE RECEIPT'.
+**document_type** ([ClassificationField](#classificationfield)): One of: 'CREDIT CARD RECEIPT', 'EXPENSE RECEIPT'.
 
 ```py
 print(result.document.inference.prediction.document_type.value)
 ```
 
 ## Line Items
-**line_items**(List[[ReceiptV5LineItem](#line-items-field)]): List of line item details.
+**line_items** (List[[ReceiptV5LineItem](#line-items-field)]): List of line item details.
 
 ```py
 for line_items_elem in result.document.inference.prediction.line_items:
@@ -220,35 +220,35 @@ for line_items_elem in result.document.inference.prediction.line_items:
 ```
 
 ## Expense Locale
-**locale**([LocaleField](#localefield)): The locale detected on the document.
+**locale** ([LocaleField](#localefield)): The locale detected on the document.
 
 ```py
 print(result.document.inference.prediction.locale.value)
 ```
 
 ## Receipt Number
-**receipt_number**([StringField](#stringfield)): The receipt number or identifier.
+**receipt_number** ([StringField](#stringfield)): The receipt number or identifier.
 
 ```py
 print(result.document.inference.prediction.receipt_number.value)
 ```
 
 ## Purchase Subcategory
-**subcategory**([ClassificationField](#classificationfield)): The purchase subcategory among predefined classes for transport and food.
+**subcategory** ([ClassificationField](#classificationfield)): The purchase subcategory among predefined classes for transport and food.
 
 ```py
 print(result.document.inference.prediction.subcategory.value)
 ```
 
 ## Supplier Address
-**supplier_address**([StringField](#stringfield)): The address of the supplier or merchant.
+**supplier_address** ([StringField](#stringfield)): The address of the supplier or merchant.
 
 ```py
 print(result.document.inference.prediction.supplier_address.value)
 ```
 
 ## Supplier Company Registrations
-**supplier_company_registrations**(List[[CompanyRegistrationField](#companyregistrationfield)]): List of company registrations associated to the supplier.
+**supplier_company_registrations** (List[[CompanyRegistrationField](#companyregistrationfield)]): List of company registrations associated to the supplier.
 
 ```py
 for supplier_company_registrations_elem in result.document.inference.prediction.supplier_company_registrations:
@@ -256,21 +256,21 @@ for supplier_company_registrations_elem in result.document.inference.prediction.
 ```
 
 ## Supplier Name
-**supplier_name**([StringField](#stringfield)): The name of the supplier or merchant.
+**supplier_name** ([StringField](#stringfield)): The name of the supplier or merchant.
 
 ```py
 print(result.document.inference.prediction.supplier_name.value)
 ```
 
 ## Supplier Phone Number
-**supplier_phone_number**([StringField](#stringfield)): The phone number of the supplier or merchant.
+**supplier_phone_number** ([StringField](#stringfield)): The phone number of the supplier or merchant.
 
 ```py
 print(result.document.inference.prediction.supplier_phone_number.value)
 ```
 
 ## Taxes
-**taxes**(List[[TaxField](#taxes)]): List of tax lines information.
+**taxes** (List[[TaxField](#taxes)]): List of tax lines information.
 
 ```py
 for taxes_elem in result.document.inference.prediction.taxes:
@@ -278,35 +278,35 @@ for taxes_elem in result.document.inference.prediction.taxes:
 ```
 
 ## Purchase Time
-**time**([StringField](#stringfield)): The time the purchase was made.
+**time** ([StringField](#stringfield)): The time the purchase was made.
 
 ```py
 print(result.document.inference.prediction.time.value)
 ```
 
 ## Tip and Gratuity
-**tip**([AmountField](#amountfield)): The total amount of tip and gratuity.
+**tip** ([AmountField](#amountfield)): The total amount of tip and gratuity.
 
 ```py
 print(result.document.inference.prediction.tip.value)
 ```
 
 ## Total Amount
-**total_amount**([AmountField](#amountfield)): The total amount paid: includes taxes, discounts, fees, tips, and gratuity.
+**total_amount** ([AmountField](#amountfield)): The total amount paid: includes taxes, discounts, fees, tips, and gratuity.
 
 ```py
 print(result.document.inference.prediction.total_amount.value)
 ```
 
 ## Total Net
-**total_net**([AmountField](#amountfield)): The net amount paid: does not include taxes, fees, and discounts.
+**total_net** ([AmountField](#amountfield)): The net amount paid: does not include taxes, fees, and discounts.
 
 ```py
 print(result.document.inference.prediction.total_net.value)
 ```
 
 ## Total Tax
-**total_tax**([AmountField](#amountfield)): The total amount of taxes.
+**total_tax** ([AmountField](#amountfield)): The total amount of taxes.
 
 ```py
 print(result.document.inference.prediction.total_tax.value)

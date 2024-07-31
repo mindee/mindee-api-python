@@ -122,84 +122,84 @@ Some fields are constrained to the page level, and so will not be retrievable at
 The following fields are extracted for Driver License V1:
 
 ## Address
-**address**([StringField](#stringfield)): EU driver license holders address
+**address** ([StringField](#stringfield)): EU driver license holders address
 
 ```py
 print(result.document.inference.prediction.address.value)
 ```
 
 ## Driver License Category
-**category**([StringField](#stringfield)): EU driver license holders categories
+**category** ([StringField](#stringfield)): EU driver license holders categories
 
 ```py
 print(result.document.inference.prediction.category.value)
 ```
 
 ## Country Code
-**country_code**([StringField](#stringfield)): Country code extracted as a string.
+**country_code** ([StringField](#stringfield)): Country code extracted as a string.
 
 ```py
 print(result.document.inference.prediction.country_code.value)
 ```
 
 ## Date Of Birth
-**date_of_birth**([DateField](#datefield)): The date of birth of the document holder
+**date_of_birth** ([DateField](#datefield)): The date of birth of the document holder
 
 ```py
 print(result.document.inference.prediction.date_of_birth.value)
 ```
 
 ## Document ID
-**document_id**([StringField](#stringfield)): ID number of the Document.
+**document_id** ([StringField](#stringfield)): ID number of the Document.
 
 ```py
 print(result.document.inference.prediction.document_id.value)
 ```
 
 ## Expiry Date
-**expiry_date**([DateField](#datefield)): Date the document expires
+**expiry_date** ([DateField](#datefield)): Date the document expires
 
 ```py
 print(result.document.inference.prediction.expiry_date.value)
 ```
 
 ## First Name
-**first_name**([StringField](#stringfield)): First name(s) of the driver license holder
+**first_name** ([StringField](#stringfield)): First name(s) of the driver license holder
 
 ```py
 print(result.document.inference.prediction.first_name.value)
 ```
 
 ## Issue Authority
-**issue_authority**([StringField](#stringfield)): Authority that issued the document
+**issue_authority** ([StringField](#stringfield)): Authority that issued the document
 
 ```py
 print(result.document.inference.prediction.issue_authority.value)
 ```
 
 ## Issue Date
-**issue_date**([DateField](#datefield)): Date the document was issued
+**issue_date** ([DateField](#datefield)): Date the document was issued
 
 ```py
 print(result.document.inference.prediction.issue_date.value)
 ```
 
 ## Last Name
-**last_name**([StringField](#stringfield)): Last name of the driver license holder.
+**last_name** ([StringField](#stringfield)): Last name of the driver license holder.
 
 ```py
 print(result.document.inference.prediction.last_name.value)
 ```
 
 ## MRZ
-**mrz**([StringField](#stringfield)): Machine-readable license number
+**mrz** ([StringField](#stringfield)): Machine-readable license number
 
 ```py
 print(result.document.inference.prediction.mrz.value)
 ```
 
 ## Photo
-[📄](#page-level-fields "This field is only present on individual pages.")**photo**([PositionField](#positionfield)): Has a photo of the EU driver license holder
+[📄](#page-level-fields "This field is only present on individual pages.")**photo** ([PositionField](#positionfield)): Has a photo of the EU driver license holder
 
 ```py
 for photo_elem in result.document.photo:
@@ -207,14 +207,14 @@ for photo_elem in result.document.photo:
 ```
 
 ## Place Of Birth
-**place_of_birth**([StringField](#stringfield)): Place where the driver license holder was born
+**place_of_birth** ([StringField](#stringfield)): Place where the driver license holder was born
 
 ```py
 print(result.document.inference.prediction.place_of_birth.value)
 ```
 
 ## Signature
-[📄](#page-level-fields "This field is only present on individual pages.")**signature**([PositionField](#positionfield)): Has a signature of the EU driver license holder
+[📄](#page-level-fields "This field is only present on individual pages.")**signature** ([PositionField](#positionfield)): Has a signature of the EU driver license holder
 
 ```py
 for signature_elem in result.document.signature:
