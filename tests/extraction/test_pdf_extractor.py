@@ -2,7 +2,7 @@ import pytest
 
 from mindee import Client
 from mindee.extraction.common.pdf_extractor import PdfExtractor
-from mindee.input import PathInput, LocalResponse
+from mindee.input import LocalResponse, PathInput
 from mindee.product import InvoiceSplitterV1, InvoiceSplitterV1Document
 from tests.test_inputs import PRODUCT_DATA_DIR
 
@@ -20,11 +20,14 @@ def invoice_splitter_5p_path():
 @pytest.fixture
 def loaded_prediction():
     dummy_client = Client("dummy_key")
-    loaded_prediction_path = PRODUCT_DATA_DIR / "invoice_splitter" / "response_v1" / "complete.json"
+    loaded_prediction_path = (
+        PRODUCT_DATA_DIR / "invoice_splitter" / "response_v1" / "complete.json"
+    )
     input_response = LocalResponse(loaded_prediction_path)
     response = dummy_client.load_prediction(InvoiceSplitterV1, input_response)
     prediction: InvoiceSplitterV1Document = response.document.inference.prediction
     return prediction
+
 
 def test_image_should_extract_pdf(invoice_default_sample_path):
     jpg_input = PathInput(invoice_default_sample_path)
@@ -33,11 +36,15 @@ def test_image_should_extract_pdf(invoice_default_sample_path):
     assert extractor.get_page_count() == 1
 
 
-def test_pdf_should_extract_invoices_no_strict(invoice_splitter_5p_path, loaded_prediction):
+def test_pdf_should_extract_invoices_no_strict(
+    invoice_splitter_5p_path, loaded_prediction
+):
     pdf_input = PathInput(invoice_splitter_5p_path)
     extractor = PdfExtractor(pdf_input)
     assert extractor.get_page_count() == 5
-    extracted_pdfs_no_strict = extractor.extract_invoices(loaded_prediction.invoice_page_groups)
+    extracted_pdfs_no_strict = extractor.extract_invoices(
+        loaded_prediction.invoice_page_groups
+    )
 
     assert len(extracted_pdfs_no_strict) == 3
     assert extracted_pdfs_no_strict[0].get_page_count() == 1
@@ -50,11 +57,15 @@ def test_pdf_should_extract_invoices_no_strict(invoice_splitter_5p_path, loaded_
     assert extracted_pdfs_no_strict[2].filename == "invoice_5p_005-005.pdf"
 
 
-def test_pdf_should_extract_invoices_strict(invoice_splitter_5p_path, loaded_prediction):
+def test_pdf_should_extract_invoices_strict(
+    invoice_splitter_5p_path, loaded_prediction
+):
     pdf_input = PathInput(invoice_splitter_5p_path)
     extractor = PdfExtractor(pdf_input)
     assert extractor.get_page_count() == 5
-    extracted_pdfs_strict = extractor.extract_invoices(loaded_prediction.invoice_page_groups, True)
+    extracted_pdfs_strict = extractor.extract_invoices(
+        loaded_prediction.invoice_page_groups, True
+    )
 
     assert len(extracted_pdfs_strict) == 2
     assert extracted_pdfs_strict[0].get_page_count() == 1
