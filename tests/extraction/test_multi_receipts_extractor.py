@@ -3,7 +3,7 @@ import json
 import pytest
 from PIL import Image
 
-from mindee.image_extraction.multi_receipts_extractor.multi_receipts_extractor import (
+from mindee.extraction.multi_receipts_extractor.multi_receipts_extractor import (
     extract_receipts,
 )
 from mindee.input import PathInput

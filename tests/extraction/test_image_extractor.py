@@ -3,7 +3,7 @@ import json
 import pytest
 from PIL import Image
 
-from mindee.image_extraction.common import extract_multiple_images_from_source
+from mindee.extraction.common import extract_multiple_images_from_source
 from mindee.input import PathInput
 from mindee.product import BarcodeReaderV1
 from tests.test_inputs import PRODUCT_DATA_DIR

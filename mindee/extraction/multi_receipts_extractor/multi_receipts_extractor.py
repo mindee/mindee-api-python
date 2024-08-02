@@ -1,8 +1,8 @@
 from typing import List
 
 from mindee.error import MindeeError
-from mindee.image_extraction.common.extracted_image import ExtractedImage
-from mindee.image_extraction.common.image_extractor import (
+from mindee.extraction.common.extracted_image import ExtractedImage
+from mindee.extraction.common.image_extractor import (
     extract_multiple_images_from_source,
 )
 from mindee.input import LocalInputSource
