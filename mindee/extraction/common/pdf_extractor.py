@@ -1,18 +1,19 @@
-from pathlib import Path
-from typing import BinaryIO, List, Union, Optional
 import io
+from pathlib import Path
+from typing import BinaryIO, List, Optional, Union
+
 import pypdfium2 as pdfium
+from PIL import Image
 
 from mindee.error import MindeeError
 from mindee.extraction.common.extracted_pdf import ExtractedPdf
 from mindee.input.sources import LocalInputSource
-from PIL import Image
-
 from mindee.product.invoice_splitter import InvoiceSplitterV1PageGroup
 
 
 class PdfExtractor:
     """PDF extraction class."""
+
     _source_pdf: BinaryIO
     _filename: str
 
@@ -23,15 +24,12 @@ class PdfExtractor:
         else:
             pdf_image = Image.open(local_input.file_object)
             self._source_pdf = io.BytesIO()
-            pdf_image.save(self._source_pdf, format='PDF')
+            pdf_image.save(self._source_pdf, format="PDF")
 
     def get_page_count(self) -> int:
         """Get the number of pages in the PDF file."""
-        try:
-            pdf = pdfium.PdfDocument(self._source_pdf)
-            return len(pdf)
-        except Exception as exc:
-            raise MindeeError("Could not retrieve page count from Extracted PDF object.") from exc
+        pdf = pdfium.PdfDocument(self._source_pdf)
+        return len(pdf)
 
     def cut_pages(self, page_indexes: List) -> BinaryIO:
         """
@@ -48,7 +46,9 @@ class PdfExtractor:
         new_pdf.save(bytes_io)
         return bytes_io
 
-    def extract_sub_documents(self, page_indexes: List[List[int]]) -> List[ExtractedPdf]:
+    def extract_sub_documents(
+        self, page_indexes: List[List[int]]
+    ) -> List[ExtractedPdf]:
         """
         Extract the sub-documents from the main pdf, based on the given list of page indexes.
 
@@ -62,18 +62,24 @@ class PdfExtractor:
             if not page_index_elem or len(page_index_elem) == 0:
                 raise MindeeError("Empty indexes aren't allowed for extraction.")
             for page_index in page_index_elem:
-                print(page_index)
                 if page_index > self.get_page_count():
                     raise MindeeError(f"Index {page_index} is out of range.")
-            field_filename = f"{stem}_{'%03d' % (page_index_elem[0] + 1)}-{'%03d' % (page_index_elem[len(page_index_elem) - 1] + 1)}{extension}"
-            extracted_pdf = ExtractedPdf(self.cut_pages(page_index_elem), field_filename)
+            formatted_max_index = f"{page_index_elem[len(page_index_elem) - 1] + 1:03d}"
+            field_filename = f"{stem}_{(page_index_elem[0] + 1):03d}-{formatted_max_index}{extension}"
+            extracted_pdf = ExtractedPdf(
+                self.cut_pages(page_index_elem), field_filename
+            )
             extracted_pdfs.append(extracted_pdf)
         return extracted_pdfs
 
-    def extract_invoices(self, page_indexes: List[Union[InvoiceSplitterV1PageGroup, List[int]]],
-                         strict: bool = False) -> List[ExtractedPdf]:
+    def extract_invoices(
+        self,
+        page_indexes: List[Union[InvoiceSplitterV1PageGroup, List[int]]],
+        strict: bool = False,
+    ) -> List[ExtractedPdf]:
         """
         Extracts invoices as complete PDFs from the document.
+
         :param page_indexes: List of sub-lists of pages to keep.
         :param strict: Whether to trust confidence scores above 0.5 (included) or not.
         :return: A list of extracted invoices.
@@ -81,15 +87,18 @@ class PdfExtractor:
         if len(page_indexes) < 1:
             raise MindeeError("Not indexes provided.")
         if not isinstance(page_indexes[0], InvoiceSplitterV1PageGroup):
-            return self.extract_sub_documents(page_indexes)
+            return self.extract_sub_documents(page_indexes)  # type: ignore
         if not strict:
             if isinstance(page_indexes[0], InvoiceSplitterV1PageGroup):
-                indexes_as_list = [page_index.page_indexes for page_index in page_indexes]
+                indexes_as_list = [
+                    page_index.page_indexes for page_index in page_indexes  # type: ignore
+                ]
                 return self.extract_sub_documents(indexes_as_list)
         correct_page_indexes: List[List[int]] = []
         current_list: List[int] = []
         previous_confidence: Optional[float] = None
         for i, page_index in enumerate(page_indexes):
+            assert isinstance(page_index, InvoiceSplitterV1PageGroup)
             confidence = page_index.confidence
             page_list = page_index.page_indexes
 
