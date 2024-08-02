@@ -1,7 +1,7 @@
 import pytest
 
 from mindee import Client
-from mindee.extraction.common.pdf_extractor import PdfExtractor
+from mindee.extraction.pdf_extractor.pdf_extractor import PdfExtractor
 from mindee.input import LocalResponse, PathInput
 from mindee.product import InvoiceSplitterV1, InvoiceSplitterV1Document
 from tests.test_inputs import PRODUCT_DATA_DIR
