@@ -1,12 +1,13 @@
-import pytest
 from pathlib import Path
+
+import pytest
 
 from mindee import Client
 from mindee.extraction.common.pdf_extractor import PdfExtractor
 from mindee.input import PathInput
 from mindee.parsing.common import Document
-from mindee.product import InvoiceV4, InvoiceSplitterV1
-from tests.product import get_version, get_id
+from mindee.product import InvoiceSplitterV1, InvoiceV4
+from tests.product import get_id, get_version
 from tests.test_inputs import PRODUCT_DATA_DIR
 
 
@@ -28,13 +29,19 @@ def prepare_invoice_return(rst_file_path: Path, invoice_prediction: Document):
 @pytest.mark.regression
 def test_pdf_should_extract_invoices_strict():
     client = Client()
-    invoice_splitter_input = PathInput(PRODUCT_DATA_DIR / "invoice_splitter" / "default_sample.pdf")
-    response = client.enqueue_and_parse(InvoiceSplitterV1, invoice_splitter_input, close_file=False)
+    invoice_splitter_input = PathInput(
+        PRODUCT_DATA_DIR / "invoice_splitter" / "default_sample.pdf"
+    )
+    response = client.enqueue_and_parse(
+        InvoiceSplitterV1, invoice_splitter_input, close_file=False
+    )
     inference = response.document.inference
     pdf_extractor = PdfExtractor(invoice_splitter_input)
     assert pdf_extractor.get_page_count() == 2
 
-    extracted_pdfs_strict = pdf_extractor.extract_invoices(inference.prediction.invoice_page_groups)
+    extracted_pdfs_strict = pdf_extractor.extract_invoices(
+        inference.prediction.invoice_page_groups
+    )
 
     assert len(extracted_pdfs_strict) == 2
     assert extracted_pdfs_strict[0].filename == "default_sample_001-001.pdf"
@@ -42,5 +49,7 @@ def test_pdf_should_extract_invoices_strict():
 
     invoice_0 = client.parse(InvoiceV4, extracted_pdfs_strict[0].as_input_source())
     test_string_rst_invoice_0 = prepare_invoice_return(
-        PRODUCT_DATA_DIR / "invoices" / "response_v4" / "summary_full_invoice_p1.rst", invoice_0.document)
+        PRODUCT_DATA_DIR / "invoices" / "response_v4" / "summary_full_invoice_p1.rst",
+        invoice_0.document,
+    )
     assert test_string_rst_invoice_0 == str(invoice_0.document)
