@@ -101,7 +101,7 @@ class PdfExtractor:
             confidence = page_index.confidence
             page_list = page_index.page_indexes
 
-            if confidence > 0.5 and previous_confidence is None:
+            if confidence >= 0.5 and previous_confidence is None:
                 current_list = page_list
             elif confidence >= 0.5:
                 correct_page_indexes.append(current_list)
