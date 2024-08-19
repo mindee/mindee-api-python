@@ -85,7 +85,7 @@ class PdfExtractor:
         :return: A list of extracted invoices.
         """
         if len(page_indexes) < 1:
-            raise MindeeError("Not indexes provided.")
+            raise MindeeError("No indexes provided.")
         if not isinstance(page_indexes[0], InvoiceSplitterV1PageGroup):
             return self.extract_sub_documents(page_indexes)  # type: ignore
         if not strict:
