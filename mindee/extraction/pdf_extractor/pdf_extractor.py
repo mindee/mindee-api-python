@@ -89,11 +89,10 @@ class PdfExtractor:
         if not isinstance(page_indexes[0], InvoiceSplitterV1PageGroup):
             return self.extract_sub_documents(page_indexes)  # type: ignore
         if not strict:
-            if isinstance(page_indexes[0], InvoiceSplitterV1PageGroup):
-                indexes_as_list = [
-                    page_index.page_indexes for page_index in page_indexes  # type: ignore
-                ]
-                return self.extract_sub_documents(indexes_as_list)
+            indexes_as_list = [
+                page_index.page_indexes for page_index in page_indexes  # type: ignore
+            ]
+            return self.extract_sub_documents(indexes_as_list)
         correct_page_indexes: List[List[int]] = []
         current_list: List[int] = []
         previous_confidence: Optional[float] = None
