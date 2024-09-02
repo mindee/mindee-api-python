@@ -193,6 +193,16 @@ The following fields are extracted for Receipt V5:
 ## Purchase Category
 **category** ([ClassificationField](#classificationfield)): The purchase category among predefined classes.
 
+> Possible values include:
+> - toll
+> - food
+> - parking
+> - transport
+> - accommodation
+> - gasoline
+> - telecom
+> - miscellaneous
+
 ```py
 print(result.document.inference.prediction.category.value)
 ```
@@ -206,6 +216,10 @@ print(result.document.inference.prediction.date.value)
 
 ## Document Type
 **document_type** ([ClassificationField](#classificationfield)): One of: 'CREDIT CARD RECEIPT', 'EXPENSE RECEIPT'.
+
+> Possible values include:
+> - expense_receipt
+> - credit_card_receipt
 
 ```py
 print(result.document.inference.prediction.document_type.value)
@@ -235,6 +249,13 @@ print(result.document.inference.prediction.receipt_number.value)
 
 ## Purchase Subcategory
 **subcategory** ([ClassificationField](#classificationfield)): The purchase subcategory among predefined classes for transport and food.
+
+> Possible values include:
+> - plane
+> - taxi
+> - train
+> - restaurant
+> - shopping
 
 ```py
 print(result.document.inference.prediction.subcategory.value)
