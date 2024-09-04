@@ -1,5 +1,17 @@
 # Mindee Python API Library Changelog
 
+## v4.11.0 - 2024-09-04
+### Changes
+* :sparkles: add support for full text OCR extra
+* :sparkles: add support for invoice splitter auto-extraction
+### Fixes
+* :memo: add sample code example for image splitter auto-extraction
+* :recycle: refactor `image_extraction` and change name to `extraction`
+* :memo: update documentation
+* :recycle: fix many typos in product internals
+* :recycle: add a few missing `__init__.py` files
+
+
 ## v4.10.0 - 2024-07-24
 ### Changes
 * :sparkles: add support for Healthcare Card V1
