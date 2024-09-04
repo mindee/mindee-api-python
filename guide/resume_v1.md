@@ -1,5 +1,8 @@
 ---
 title: Resume OCR Python
+category: 622b805aaec68102ea7fcbc2
+slug: python-resume-ocr
+parentDoc: 609808f773b0b90051d839de
 ---
 The Python OCR SDK supports the [Resume API](https://platform.mindee.com/mindee/resume).
 
@@ -24,6 +27,7 @@ result: AsyncPredictResponse = mindee_client.enqueue_and_parse(
 
 # Print a brief summary of the parsed data
 print(result.document)
+
 ```
 
 **Output (RST):**
@@ -104,7 +108,7 @@ Prediction
 ## Standard Fields
 These fields are generic and used in several products.
 
-### BasicField
+### BaseField
 Each prediction object contains a set of fields that inherit from the generic `BaseField` class.
 A typical `BaseField` object will have the following attributes:
 
@@ -112,7 +116,7 @@ A typical `BaseField` object will have the following attributes:
 * **confidence** (`float`): the confidence score of the field prediction.
 * **bounding_box** (`[Point, Point, Point, Point]`): contains exactly 4 relative vertices (points) coordinates of a right rectangle containing the field in the document.
 * **polygon** (`List[Point]`): contains the relative vertices coordinates (`Point`) of a polygon containing the field in the image.
-* **page_id** (`int`): the ID of the page, is `None` when at document-level.
+* **page_id** (`int`): the ID of the page, always `None` when at document-level.
 * **reconstructed** (`bool`): indicates whether an object was reconstructed (not extracted as the API gave it).
 
 > **Note:** A `Point` simply refers to a List of two numbers (`[float, float]`).
@@ -164,6 +168,13 @@ A `ResumeV1Language` implements the following attributes:
 
 * **language** (`str`): The language's ISO 639 code.
 * **level** (`str`): The candidate's level for the language.
+
+#### Possible values include:
+ - Fluent
+ - Proficient
+ - Intermediate
+ - Beginner
+
 Fields which are specific to this product; they are not used in any other product.
 
 ### Professional Experiences Field
@@ -172,6 +183,13 @@ The list of the candidate's professional experiences.
 A `ResumeV1ProfessionalExperience` implements the following attributes:
 
 * **contract_type** (`str`): The type of contract for the professional experience.
+
+#### Possible values include:
+ - Full-Time
+ - Part-Time
+ - Internship
+ - Freelance
+
 * **department** (`str`): The specific department or division within the company.
 * **employer** (`str`): The name of the company or organization.
 * **end_month** (`str`): The month when the professional experience ended.
@@ -216,6 +234,11 @@ print(result.document.inference.prediction.document_language.value)
 
 ## Document Type
 **document_type** ([ClassificationField](#classificationfield)): The type of the document sent.
+
+#### Possible values include:
+ - RESUME
+ - MOTIVATION_LETTER
+ - RECOMMENDATION_LETTER
 
 ```py
 print(result.document.inference.prediction.document_type.value)

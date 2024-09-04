@@ -322,13 +322,7 @@
 <dd><p>Sends a request matching a given queue_id. Returns either a Job or a Document.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>queue_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – queue_id received from the API</p></li>
-<li><p><strong>include_words</strong> – Whether to include the full text for each page.
-This performs a full OCR operation on the server and will increase response time.</p></li>
-<li><p><strong>cropper</strong> – Whether to include cropper results for each page.
-This performs a cropping operation on the server and will increase response time.</p></li>
-</ul>
+<dd class="field-odd"><p><strong>queue_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – queue_id received from the API</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></p>
@@ -349,7 +343,7 @@ This performs a cropping operation on the server and will increase response time
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.mindee_http.Endpoint.predict_async_req_post">
-<span class="sig-name descname"><span class="pre">predict_async_req_post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_words</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">close_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cropper</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.Endpoint.predict_async_req_post" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">predict_async_req_post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_words</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">close_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cropper</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.Endpoint.predict_async_req_post" title="Permalink to this definition"></a></dt>
 <dd><p>Make an asynchronous request to POST a document for prediction.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -358,6 +352,7 @@ This performs a cropping operation on the server and will increase response time
 <li><p><strong>include_words</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Include raw OCR words in the response</p></li>
 <li><p><strong>close_file</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">True</span></code>) – Whether to <cite>close()</cite> the file after parsing it.</p></li>
 <li><p><strong>cropper</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Including Mindee cropping results.</p></li>
+<li><p><strong>full_text</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Whether to include the full OCR text response in compatible APIs.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -371,7 +366,7 @@ This performs a cropping operation on the server and will increase response time
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.mindee_http.Endpoint.predict_req_post">
-<span class="sig-name descname"><span class="pre">predict_req_post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_words</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">close_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cropper</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.Endpoint.predict_req_post" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">predict_req_post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_words</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">close_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cropper</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.Endpoint.predict_req_post" title="Permalink to this definition"></a></dt>
 <dd><p>Make a request to POST a document for prediction.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -380,6 +375,7 @@ This performs a cropping operation on the server and will increase response time
 <li><p><strong>include_words</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Include raw OCR words in the response</p></li>
 <li><p><strong>close_file</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">True</span></code>) – Whether to <cite>close()</cite> the file after parsing it.</p></li>
 <li><p><strong>cropper</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Including Mindee cropping results.</p></li>
+<li><p><strong>full_text</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Whether to include the full OCR text response in compatible APIs.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>

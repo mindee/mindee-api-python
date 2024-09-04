@@ -1,3 +1,9 @@
+---
+title: Getting Started
+category: 622b805aaec68102ea7fcbc2
+slug: python-getting-started
+parentDoc: 609808f773b0b90051d839de
+---
 This guide will help you get started with the Mindee Python  OCR SDK to easily extract data from your documents.
 
 The Python  OCR SDK supports [invoice](https://developers.mindee.com/docs/python-invoice-ocr), [passport](https://developers.mindee.com/docs/python-passport-ocr), [receipt](https://developers.mindee.com/docs/python-receipt-ocr) OCR APIs and [custom-built API](https://developers.mindee.com/docs/python-api-builder) from the API Builder.
