@@ -1,10 +1,10 @@
 import json
+
 import pytest
 
 from mindee import AsyncPredictResponse
 from mindee.product import InternationalIdV2
 from tests.utils import EXTRAS_DIR
-
 
 # NOTE: Implementing extras per pages without content (like the Java library)
 # would be a breaking change for the Python SDK.
@@ -20,6 +20,7 @@ from tests.utils import EXTRAS_DIR
 #
 #     return _load_pages
 
+
 @pytest.fixture
 def load_document():
     def _load_document():
@@ -32,8 +33,8 @@ def load_document():
 
 
 def test_get_full_text_ocr_result(
-        load_document,
-        # load_pages
+    load_document,
+    # load_pages
 ):
     expected_text = (EXTRAS_DIR / "full_text_ocr/full_text_ocr.txt").read_text()
 
