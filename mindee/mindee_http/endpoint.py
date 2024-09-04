@@ -34,6 +34,7 @@ class Endpoint(BaseEndpoint):
         include_words: bool = False,
         close_file: bool = True,
         cropper: bool = False,
+        full_text: bool = False,
     ) -> requests.Response:
         """
         Make a request to POST a document for prediction.
@@ -42,10 +43,11 @@ class Endpoint(BaseEndpoint):
         :param include_words: Include raw OCR words in the response
         :param close_file: Whether to `close()` the file after parsing it.
         :param cropper: Including Mindee cropping results.
+        :param full_text: Whether to include the full OCR text response in compatible APIs.
         :return: requests response
         """
         return self._custom_request(
-            "predict", input_source, include_words, close_file, cropper
+            "predict", input_source, include_words, close_file, cropper, full_text
         )
 
     def predict_async_req_post(
@@ -54,6 +56,7 @@ class Endpoint(BaseEndpoint):
         include_words: bool = False,
         close_file: bool = True,
         cropper: bool = False,
+        full_text: bool = False,
     ) -> requests.Response:
         """
         Make an asynchronous request to POST a document for prediction.
@@ -62,10 +65,11 @@ class Endpoint(BaseEndpoint):
         :param include_words: Include raw OCR words in the response
         :param close_file: Whether to `close()` the file after parsing it.
         :param cropper: Including Mindee cropping results.
+        :param full_text: Whether to include the full OCR text response in compatible APIs.
         :return: requests response
         """
         return self._custom_request(
-            "predict_async", input_source, include_words, close_file, cropper
+            "predict_async", input_source, include_words, close_file, cropper, full_text
         )
 
     def _custom_request(
@@ -75,10 +79,14 @@ class Endpoint(BaseEndpoint):
         include_words: bool = False,
         close_file: bool = True,
         cropper: bool = False,
+        full_text: bool = False,
     ):
         data = {}
         if include_words:
             data["include_mvision"] = "true"
+
+        if full_text:
+            data["full_text_ocr"] = "true"
 
         params = {}
         if cropper:
@@ -111,11 +119,6 @@ class Endpoint(BaseEndpoint):
         Sends a request matching a given queue_id. Returns either a Job or a Document.
 
         :param queue_id: queue_id received from the API
-        :param include_words: Whether to include the full text for each page.
-            This performs a full OCR operation on the server and will increase response time.
-        :param cropper: Whether to include cropper results for each page.
-            This performs a cropping operation on the server and will increase response time.
-
         """
         return requests.get(
             f"{self.settings.url_root}/documents/queue/{queue_id}",

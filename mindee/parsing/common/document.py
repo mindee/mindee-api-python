@@ -47,6 +47,7 @@ class Document(Generic[TypePrediction, TypePage]):
             self.ocr = Ocr(raw_response["ocr"])
         if "extras" in raw_response and raw_response["extras"]:
             self.extras = Extras(raw_response["extras"])
+        self._inject_full_text_ocr(raw_response)
         self.inference = inference_type(raw_response["inference"])
         self.n_pages = raw_response["n_pages"]
 
@@ -57,3 +58,21 @@ class Document(Generic[TypePrediction, TypePage]):
             f":Filename: {self.filename}\n\n"
             f"{self.inference}"
         )
+
+    def _inject_full_text_ocr(self, raw_prediction: StringDict):
+        if len(raw_prediction["inference"]["pages"]) < 1:
+            return
+        if "extras" not in raw_prediction["inference"]["pages"][0]:
+            return
+        if "full_text_ocr" not in raw_prediction["inference"]["pages"][0]["extras"]:
+            return
+        artificial_text_obj = {"content": ""}
+        artificial_text_obj["content"] += "\n".join(
+            page["extras"]["full_text_ocr"]["content"]
+            for page in raw_prediction["inference"]["pages"]
+        )
+        if not hasattr(self, "extras"):
+            self.extras = Extras({"full_text_ocr": artificial_text_obj})
+        else:
+            assert self.extras is not None
+            self.extras.add_artificial_extra({"full_text_ocr": artificial_text_obj})

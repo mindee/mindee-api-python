@@ -77,6 +77,7 @@ class Client:
         page_options: Optional[PageOptions] = None,
         cropper: bool = False,
         endpoint: Optional[Endpoint] = None,
+        full_text: bool = False,
     ) -> PredictResponse:
         """
         Call prediction API on the document and parse the results.
@@ -89,6 +90,7 @@ class Client:
 
         :param include_words: Whether to include the full text for each page.
             This performs a full OCR operation on the server and will increase response time.
+            Only available on financial document APIs.
 
         :param close_file: Whether to ``close()`` the file after parsing it.
           Set to ``False`` if you need to access the file after this operation.
@@ -101,6 +103,7 @@ class Client:
             This performs a cropping operation on the server and will increase response time.
 
         :param endpoint: For custom endpoints, an endpoint has to be given.
+        :param full_text: Whether to include the full OCR text response in compatible APIs.
         """
         if input_source is None:
             raise MindeeClientError("No input document provided.")
@@ -118,7 +121,13 @@ class Client:
                     page_options.page_indexes,
                 )
         return self._make_request(
-            product_class, input_source, endpoint, include_words, close_file, cropper
+            product_class,
+            input_source,
+            endpoint,
+            include_words,
+            close_file,
+            cropper,
+            full_text,
         )
 
     def enqueue(
@@ -130,6 +139,7 @@ class Client:
         page_options: Optional[PageOptions] = None,
         cropper: bool = False,
         endpoint: Optional[Endpoint] = None,
+        full_text: bool = False,
     ) -> AsyncPredictResponse:
         """
         Enqueues a document to an asynchronous endpoint.
@@ -154,6 +164,8 @@ class Client:
             This performs a cropping operation on the server and will increase response time.
 
         :param endpoint: For custom endpoints, an endpoint has to be given.
+
+        :param full_text: Whether to include the full OCR text response in compatible APIs.
         """
         if input_source is None:
             raise MindeeClientError("No input document provided.")
@@ -177,6 +189,7 @@ class Client:
             include_words,
             close_file,
             cropper,
+            full_text,
         )
 
     def load_prediction(
@@ -246,6 +259,7 @@ class Client:
         initial_delay_sec: float = 4,
         delay_sec: float = 2,
         max_retries: int = 30,
+        full_text: bool = False,
     ) -> AsyncPredictResponse:
         """
         Enqueues to an asynchronous endpoint and automatically polls for a response.
@@ -274,6 +288,8 @@ parameter.
         :param delay_sec: Delay between each polling attempts This should not be shorter than 2 seconds.
 
         :param max_retries: Total amount of polling attempts.
+
+        :param full_text: Whether to include the full OCR text response in compatible APIs.
         """
         self._validate_async_params(initial_delay_sec, delay_sec, max_retries)
         if not endpoint:
@@ -286,6 +302,7 @@ parameter.
             page_options,
             cropper,
             endpoint,
+            full_text,
         )
         logger.debug(
             "Successfully enqueued document with job id: %s", queue_result.job.id
@@ -352,9 +369,10 @@ parameter.
         include_words: bool,
         close_file: bool,
         cropper: bool,
+        full_text: bool,
     ) -> PredictResponse:
         response = endpoint.predict_req_post(
-            input_source, include_words, close_file, cropper
+            input_source, include_words, close_file, cropper, full_text
         )
 
         dict_response = response.json()
@@ -376,6 +394,7 @@ parameter.
         include_words: bool = False,
         close_file: bool = True,
         cropper: bool = False,
+        full_text: bool = False,
     ) -> AsyncPredictResponse:
         """Sends a document to the queue, and sends back an asynchronous predict response."""
         if input_source is None:
@@ -383,7 +402,7 @@ parameter.
         if not endpoint:
             endpoint = self._initialize_ots_endpoint(product_class)
         response = endpoint.predict_async_req_post(
-            input_source, include_words, close_file, cropper
+            input_source, include_words, close_file, cropper, full_text
         )
 
         dict_response = response.json()
