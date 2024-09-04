@@ -290,6 +290,10 @@ print(result.document.inference.prediction.date.value)
 ## Document Type
 **document_type** ([ClassificationField](#classificationfield)): One of: 'INVOICE', 'CREDIT NOTE'.
 
+#### Possible values include:
+ - INVOICE
+ - CREDIT NOTE
+
 ```py
 print(result.document.inference.prediction.document_type.value)
 ```

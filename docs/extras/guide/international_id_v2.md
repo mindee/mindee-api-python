@@ -140,6 +140,14 @@ print(result.document.inference.prediction.document_number.value)
 ## Document Type
 **document_type** ([ClassificationField](#classificationfield)): The type of personal identification document.
 
+#### Possible values include:
+ - IDENTIFICATION_CARD
+ - PASSPORT
+ - DRIVER_LICENSE
+ - VISA
+ - RESIDENCY_CARD
+ - VOTER_REGISTRATION
+
 ```py
 print(result.document.inference.prediction.document_type.value)
 ```
