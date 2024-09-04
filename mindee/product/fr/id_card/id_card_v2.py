@@ -33,8 +33,8 @@ class IdCardV2(Inference):
         self.pages = []
         for page in raw_prediction["pages"]:
             try:
-                page_production = page["prediction"]
+                page_prediction = page["prediction"]
             except KeyError:
                 continue
-            if page_production:
+            if page_prediction:
                 self.pages.append(Page(IdCardV2Page, page))
