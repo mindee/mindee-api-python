@@ -1,0 +1,55 @@
+#
+# Run integration tests.
+#
+name: Integration Test
+
+on:
+  pull_request:
+  workflow_run:
+    workflows: ["Test Code Samples"]
+    branches:
+      - '*'
+    types:
+      - completed
+
+jobs:
+  pytest:
+    name: Run Integration Tests
+    timeout-minutes: 30
+    strategy:
+      max-parallel: 2
+      matrix:
+        os:
+          - "ubuntu-latest"
+          - "windows-latest"
+        python-version:
+          - "3.7"
+          - "3.12"
+    runs-on: ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: recursive
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Cache dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-dev-${{ hashFiles('setup.cfg') }}
+        restore-keys: |
+          ${{ runner.os }}-dev-
+
+    - name: Install dependencies
+      run: |
+        python -m pip install pip
+        pip install -e .[dev]
+    - name: Run Integration Testing
+      env:
+          MINDEE_API_KEY: ${{ secrets.MINDEE_API_KEY_SE_TESTS }}
+      run: |
+        pytest -m integration

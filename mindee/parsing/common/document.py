@@ -29,7 +29,7 @@ class Document(Generic[TypePrediction, TypePage]):
     """Result of the base inference"""
     id: str
     """Id of the document as sent back by the server"""
-    extras: Extras
+    extras: Optional[Extras]
     """Potential Extras fields sent back along the prediction"""
     ocr: Optional[Ocr]
     """Potential raw text results read by the OCR (limited feature)"""
@@ -45,7 +45,7 @@ class Document(Generic[TypePrediction, TypePage]):
         self.filename = raw_response.get("name", "")
         if "ocr" in raw_response and raw_response["ocr"]:
             self.ocr = Ocr(raw_response["ocr"])
-        if "extras" in raw_response and raw_response["extras"]:
+        if "extras" in raw_response and raw_response["inference"]["extras"]:
             self.extras = Extras(raw_response["extras"])
         self._inject_full_text_ocr(raw_response)
         self.inference = inference_type(raw_response["inference"])
@@ -77,7 +77,7 @@ class Document(Generic[TypePrediction, TypePage]):
 
         artificial_text_obj = {"content": full_text_content}
 
-        if not hasattr(self, "extras"):
+        if not hasattr(self, "extras") or not self.extras:
             self.extras = Extras({"full_text_ocr": artificial_text_obj})
         else:
             self.extras.add_artificial_extra({"full_text_ocr": artificial_text_obj})
