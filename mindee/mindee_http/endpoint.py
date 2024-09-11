@@ -85,10 +85,9 @@ class Endpoint(BaseEndpoint):
         if include_words:
             data["include_mvision"] = "true"
 
-        if full_text:
-            data["full_text_ocr"] = "true"
-
         params = {}
+        if full_text:
+            params["full_text_ocr"] = "true"
         if cropper:
             params["cropper"] = "true"
 

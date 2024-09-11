@@ -14,7 +14,6 @@ from tests.utils import EXTRAS_DIR
 # def load_pages():
 #     with open(EXTRAS_DIR / "full_text_ocr/complete.json", "r") as file:
 #         prediction_data = json.load(file)
-#     print("PData", AsyncPredictResponse(InternationalIdV2, prediction_data).document.inference.pages)
 #     return AsyncPredictResponse(InternationalIdV2, prediction_data).document.inference.pages
 
 
