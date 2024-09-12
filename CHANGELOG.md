@@ -1,5 +1,10 @@
 # Mindee Python API Library Changelog
 
+## v4.11.1 - 2024-09-12
+### Fixes
+* :bug: fix full text ocr extra not being properly retrieved
+
+
 ## v4.11.0 - 2024-09-04
 ### Changes
 * :sparkles: add support for full text OCR extra
