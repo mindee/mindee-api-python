@@ -55,9 +55,7 @@ class PayslipV2Employment(FieldPositionMixin, FieldConfidenceMixin):
         out_dict: Dict[str, str] = {}
         out_dict["category"] = format_for_display(self.category)
         out_dict["coefficient"] = float_to_string(self.coefficient)
-        out_dict["collective_agreement"] = format_for_display(
-            self.collective_agreement
-        )
+        out_dict["collective_agreement"] = format_for_display(self.collective_agreement)
         out_dict["job_title"] = format_for_display(self.job_title)
         out_dict["position_level"] = format_for_display(self.position_level)
         out_dict["start_date"] = format_for_display(self.start_date)
