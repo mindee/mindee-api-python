@@ -60,7 +60,9 @@ class UsMailV2RecipientAddress(FieldPositionMixin, FieldConfidenceMixin):
         out_dict["complete"] = format_for_display(self.complete)
         out_dict["is_address_change"] = bool_to_string(self.is_address_change)
         out_dict["postal_code"] = format_for_display(self.postal_code)
-        out_dict["private_mailbox_number"] = format_for_display(self.private_mailbox_number)
+        out_dict["private_mailbox_number"] = format_for_display(
+            self.private_mailbox_number
+        )
         out_dict["state"] = format_for_display(self.state)
         out_dict["street"] = format_for_display(self.street)
         return out_dict

@@ -57,7 +57,9 @@ class PayslipV2Employee(FieldPositionMixin, FieldConfidenceMixin):
         out_dict["last_name"] = format_for_display(self.last_name)
         out_dict["phone_number"] = format_for_display(self.phone_number)
         out_dict["registration_number"] = format_for_display(self.registration_number)
-        out_dict["social_security_number"] = format_for_display(self.social_security_number)
+        out_dict["social_security_number"] = format_for_display(
+            self.social_security_number
+        )
         return out_dict
 
     def to_field_list(self) -> str:
