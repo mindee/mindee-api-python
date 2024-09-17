@@ -13,6 +13,12 @@ from mindee.product.us.healthcare_card.healthcare_card_v1_copay import (
 from mindee.product.us.healthcare_card.healthcare_card_v1_document import (
     HealthcareCardV1Document,
 )
+from mindee.product.us.us_mail.us_mail_v2 import UsMailV2
+from mindee.product.us.us_mail.us_mail_v2_document import UsMailV2Document
+from mindee.product.us.us_mail.us_mail_v2_recipient_address import (
+    UsMailV2RecipientAddress,
+)
+from mindee.product.us.us_mail.us_mail_v2_sender_address import UsMailV2SenderAddress
 from mindee.product.us.w9.w9_v1 import W9V1
 from mindee.product.us.w9.w9_v1_document import W9V1Document
 from mindee.product.us.w9.w9_v1_page import W9V1Page
