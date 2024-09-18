@@ -1,5 +1,21 @@
 # Mindee Python API Library Changelog
 
+## v4.12.0 - 2024-09-18
+### Changes
+* :sparkles: add support for BillOfLadingV1
+* :sparkles: add support for (US) UsMailV2
+* :sparkles: add support for (FR) EnergyBillV1
+* :sparkles: add support for (FR) PayslipV1
+* :sparkles: add support for NutritionFactsLabelV1
+
+### Fixes
+* :bug: fixed a bug that prevented longer decimals from appearing in the string representation of some objects
+* :bug: fixed a bug that caused non-table elements to unexpectedly appear truncated when printed to the console
+* :bug: fix full text ocr extra not properly parsing
+* :memo: fix a few documentation errors & typos
+* :wrench: updated CI dependencies
+
+
 ## v4.11.0 - 2024-09-04
 ### Changes
 * :sparkles: add support for full text OCR extra
