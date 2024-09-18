@@ -167,7 +167,7 @@ def int_to_string(value: Optional[int]) -> str:
     if value is None:
         return ""
 
-    return f"{value}.00"
+    return f"{value}"
 
 
 def bool_to_string(value: Optional[bool]) -> str:
