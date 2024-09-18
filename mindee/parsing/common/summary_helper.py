@@ -22,7 +22,9 @@ def format_for_display(
     """Truncates line-items to the max width of their corresponding column."""
     if not out_string or len(out_string) == 0:
         return ""
-    out_string = out_string.replace("\n", "\\n").replace("\r", "\\r").replace("\t", "\\t")
+    out_string = (
+        out_string.replace("\n", "\\n").replace("\r", "\\r").replace("\t", "\\t")
+    )
     if max_col_size is None:
         return out_string
     return (
