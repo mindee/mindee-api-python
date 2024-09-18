@@ -47,6 +47,15 @@ class ReceiptV5LineItem(FieldPositionMixin, FieldConfidenceMixin):
     def _printable_values(self) -> Dict[str, str]:
         """Return values for printing."""
         out_dict: Dict[str, str] = {}
+        out_dict["description"] = format_for_display(self.description)
+        out_dict["quantity"] = float_to_string(self.quantity)
+        out_dict["total_amount"] = float_to_string(self.total_amount)
+        out_dict["unit_price"] = float_to_string(self.unit_price)
+        return out_dict
+
+    def _table_printable_values(self) -> Dict[str, str]:
+        """Return values for printing inside an RST table."""
+        out_dict: Dict[str, str] = {}
         out_dict["description"] = format_for_display(self.description, 36)
         out_dict["quantity"] = float_to_string(self.quantity)
         out_dict["total_amount"] = float_to_string(self.total_amount)
@@ -55,7 +64,7 @@ class ReceiptV5LineItem(FieldPositionMixin, FieldConfidenceMixin):
 
     def to_table_line(self) -> str:
         """Output in a format suitable for inclusion in an rST table."""
-        printable = self._printable_values()
+        printable = self._table_printable_values()
         out_str: str = f"| {printable['description']:<36} | "
         out_str += f"{printable['quantity']:<8} | "
         out_str += f"{printable['total_amount']:<12} | "

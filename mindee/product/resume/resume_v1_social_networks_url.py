@@ -36,13 +36,20 @@ class ResumeV1SocialNetworksUrl(FieldPositionMixin, FieldConfidenceMixin):
     def _printable_values(self) -> Dict[str, str]:
         """Return values for printing."""
         out_dict: Dict[str, str] = {}
+        out_dict["name"] = format_for_display(self.name)
+        out_dict["url"] = format_for_display(self.url)
+        return out_dict
+
+    def _table_printable_values(self) -> Dict[str, str]:
+        """Return values for printing inside an RST table."""
+        out_dict: Dict[str, str] = {}
         out_dict["name"] = format_for_display(self.name, 20)
         out_dict["url"] = format_for_display(self.url, 50)
         return out_dict
 
     def to_table_line(self) -> str:
         """Output in a format suitable for inclusion in an rST table."""
-        printable = self._printable_values()
+        printable = self._table_printable_values()
         out_str: str = f"| {printable['name']:<20} | "
         out_str += f"{printable['url']:<50} | "
         return clean_out_string(out_str)

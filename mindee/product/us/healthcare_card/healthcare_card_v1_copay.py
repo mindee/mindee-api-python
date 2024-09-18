@@ -42,12 +42,19 @@ class HealthcareCardV1Copay(FieldPositionMixin, FieldConfidenceMixin):
         """Return values for printing."""
         out_dict: Dict[str, str] = {}
         out_dict["service_fees"] = float_to_string(self.service_fees)
+        out_dict["service_name"] = format_for_display(self.service_name)
+        return out_dict
+
+    def _table_printable_values(self) -> Dict[str, str]:
+        """Return values for printing inside an RST table."""
+        out_dict: Dict[str, str] = {}
+        out_dict["service_fees"] = float_to_string(self.service_fees)
         out_dict["service_name"] = format_for_display(self.service_name, None)
         return out_dict
 
     def to_table_line(self) -> str:
         """Output in a format suitable for inclusion in an rST table."""
-        printable = self._printable_values()
+        printable = self._table_printable_values()
         out_str: str = f"| {printable['service_fees']:<12} | "
         out_str += f"{printable['service_name']:<12} | "
         return clean_out_string(out_str)

@@ -54,6 +54,19 @@ class ResumeV1ProfessionalExperience(FieldPositionMixin, FieldConfidenceMixin):
     def _printable_values(self) -> Dict[str, str]:
         """Return values for printing."""
         out_dict: Dict[str, str] = {}
+        out_dict["contract_type"] = format_for_display(self.contract_type)
+        out_dict["department"] = format_for_display(self.department)
+        out_dict["employer"] = format_for_display(self.employer)
+        out_dict["end_month"] = format_for_display(self.end_month)
+        out_dict["end_year"] = format_for_display(self.end_year)
+        out_dict["role"] = format_for_display(self.role)
+        out_dict["start_month"] = format_for_display(self.start_month)
+        out_dict["start_year"] = format_for_display(self.start_year)
+        return out_dict
+
+    def _table_printable_values(self) -> Dict[str, str]:
+        """Return values for printing inside an RST table."""
+        out_dict: Dict[str, str] = {}
         out_dict["contract_type"] = format_for_display(self.contract_type, 15)
         out_dict["department"] = format_for_display(self.department, 10)
         out_dict["employer"] = format_for_display(self.employer, 25)
@@ -66,7 +79,7 @@ class ResumeV1ProfessionalExperience(FieldPositionMixin, FieldConfidenceMixin):
 
     def to_table_line(self) -> str:
         """Output in a format suitable for inclusion in an rST table."""
-        printable = self._printable_values()
+        printable = self._table_printable_values()
         out_str: str = f"| {printable['contract_type']:<15} | "
         out_str += f"{printable['department']:<10} | "
         out_str += f"{printable['employer']:<25} | "

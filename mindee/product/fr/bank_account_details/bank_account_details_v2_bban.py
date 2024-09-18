@@ -42,10 +42,10 @@ class BankAccountDetailsV2Bban(FieldPositionMixin, FieldConfidenceMixin):
     def _printable_values(self) -> Dict[str, str]:
         """Return values for printing."""
         out_dict: Dict[str, str] = {}
-        out_dict["bban_bank_code"] = format_for_display(self.bban_bank_code, None)
-        out_dict["bban_branch_code"] = format_for_display(self.bban_branch_code, None)
-        out_dict["bban_key"] = format_for_display(self.bban_key, None)
-        out_dict["bban_number"] = format_for_display(self.bban_number, None)
+        out_dict["bban_bank_code"] = format_for_display(self.bban_bank_code)
+        out_dict["bban_branch_code"] = format_for_display(self.bban_branch_code)
+        out_dict["bban_key"] = format_for_display(self.bban_key)
+        out_dict["bban_number"] = format_for_display(self.bban_number)
         return out_dict
 
     def to_field_list(self) -> str:
