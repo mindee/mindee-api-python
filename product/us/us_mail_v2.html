@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>US Mail V2 &mdash; Mindee Python Client  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="W9 V1" href="w9_v1.html" />
+    <link rel="prev" title="Healthcare Card V1" href="healthcare_card_v1.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Mindee Python Client
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../client.html">Mindee Client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parsing/index.html">Parsing Utilities</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Product</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#region-specific">Region-Specific</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../fr/index.html">France</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../eu/index.html">Europe</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">United States</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="bank_check_v1.html">Bank Check V1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="driver_license_v1.html">Driver License V1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="healthcare_card_v1.html">Healthcare Card V1</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">US Mail V2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="w9_v1.html">W9 V1</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#international">International</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../misc/index.html">Misc</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Mindee Python Client</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Product</a></li>
+          <li class="breadcrumb-item"><a href="index.html">United States</a></li>
+      <li class="breadcrumb-item active">US Mail V2</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/product/us/us_mail_v2.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="us-mail-v2">
+<h1>US Mail V2<a class="headerlink" href="#us-mail-v2" title="Permalink to this heading"></a></h1>
+<p><strong>Sample Code:</strong></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.product.us.us_mail.us_mail_v2.UsMailV2">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">UsMailV2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.us.us_mail.us_mail_v2.UsMailV2" title="Permalink to this definition"></a></dt>
+<dd><p>US Mail API version 2 inference prediction.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.product.us.us_mail.us_mail_v2.UsMailV2.get_endpoint_info">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_endpoint_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">klass</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.us.us_mail.us_mail_v2.UsMailV2.get_endpoint_info" title="Permalink to this definition"></a></dt>
+<dd><p>Retrives the endpoint information for an Inference.</p>
+<p>Should never retrieve info for CustomV1, as a custom endpoint should be created to use CustomV1.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>klass</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Inference</span></code>]) – product subclass to access endpoint information.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.us.us_mail.us_mail_v2.UsMailV2.endpoint_name">
+<span class="sig-name descname"><span class="pre">endpoint_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[str]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'us_mail'</span></em><a class="headerlink" href="#mindee.product.us.us_mail.us_mail_v2.UsMailV2.endpoint_name" title="Permalink to this definition"></a></dt>
+<dd><p>Name of the endpoint.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.us.us_mail.us_mail_v2.UsMailV2.endpoint_version">
+<span class="sig-name descname"><span class="pre">endpoint_version</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[str]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'2'</span></em><a class="headerlink" href="#mindee.product.us.us_mail.us_mail_v2.UsMailV2.endpoint_version" title="Permalink to this definition"></a></dt>
+<dd><p>Version of the endpoint.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.us.us_mail.us_mail_v2.UsMailV2.is_rotation_applied">
+<span class="sig-name descname"><span class="pre">is_rotation_applied</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[bool]</span></em><a class="headerlink" href="#mindee.product.us.us_mail.us_mail_v2.UsMailV2.is_rotation_applied" title="Permalink to this definition"></a></dt>
+<dd><p>Whether the document has had any rotation applied to it.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.us.us_mail.us_mail_v2.UsMailV2.page_id">
+<span class="sig-name descname"><span class="pre">page_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[int]</span></em><a class="headerlink" href="#mindee.product.us.us_mail.us_mail_v2.UsMailV2.page_id" title="Permalink to this definition"></a></dt>
+<dd><p>Optional page id for page-level predictions.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.us.us_mail.us_mail_v2.UsMailV2.pages">
+<span class="sig-name descname"><span class="pre">pages</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="../../parsing/common.html#mindee.parsing.common.page.Page" title="mindee.parsing.common.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a><span class="pre">[</span><a class="reference internal" href="#mindee.product.us.us_mail.us_mail_v2_document.UsMailV2Document" title="mindee.product.us.us_mail.us_mail_v2_document.UsMailV2Document"><code class="xref py py-class docutils literal notranslate"><span class="pre">UsMailV2Document</span></code></a><span class="pre">]]</span></em><a class="headerlink" href="#mindee.product.us.us_mail.us_mail_v2.UsMailV2.pages" title="Permalink to this definition"></a></dt>
+<dd><p>Page-level prediction(s).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.us.us_mail.us_mail_v2.UsMailV2.prediction">
+<span class="sig-name descname"><span class="pre">prediction</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.product.us.us_mail.us_mail_v2_document.UsMailV2Document" title="mindee.product.us.us_mail.us_mail_v2_document.UsMailV2Document"><code class="xref py py-class docutils literal notranslate"><span class="pre">UsMailV2Document</span></code></a></em><a class="headerlink" href="#mindee.product.us.us_mail.us_mail_v2.UsMailV2.prediction" title="Permalink to this definition"></a></dt>
+<dd><p>Document-level prediction.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.us.us_mail.us_mail_v2.UsMailV2.product">
+<span class="sig-name descname"><span class="pre">product</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Product</span></em><a class="headerlink" href="#mindee.product.us.us_mail.us_mail_v2.UsMailV2.product" title="Permalink to this definition"></a></dt>
+<dd><p>Name and version of a given product, as sent back by the API.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.product.us.us_mail.us_mail_v2_document.UsMailV2Document">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">UsMailV2Document</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.us.us_mail.us_mail_v2_document.UsMailV2Document" title="Permalink to this definition"></a></dt>
+<dd><p>US Mail API version 2.0 document data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p></li>
+<li><p><strong>page_id</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.us.us_mail.us_mail_v2_document.UsMailV2Document.recipient_addresses">
+<span class="sig-name descname"><span class="pre">recipient_addresses</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="#mindee.product.us.us_mail.us_mail_v2_recipient_address.UsMailV2RecipientAddress" title="mindee.product.us.us_mail.us_mail_v2_recipient_address.UsMailV2RecipientAddress"><code class="xref py py-class docutils literal notranslate"><span class="pre">UsMailV2RecipientAddress</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.us.us_mail.us_mail_v2_document.UsMailV2Document.recipient_addresses" title="Permalink to this definition"></a></dt>
+<dd><p>The addresses of the recipients.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.us.us_mail.us_mail_v2_document.UsMailV2Document.recipient_names">
+<span class="sig-name descname"><span class="pre">recipient_names</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="../../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.us.us_mail.us_mail_v2_document.UsMailV2Document.recipient_names" title="Permalink to this definition"></a></dt>
+<dd><p>The names of the recipients.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.us.us_mail.us_mail_v2_document.UsMailV2Document.sender_address">
+<span class="sig-name descname"><span class="pre">sender_address</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.product.us.us_mail.us_mail_v2_sender_address.UsMailV2SenderAddress" title="mindee.product.us.us_mail.us_mail_v2_sender_address.UsMailV2SenderAddress"><code class="xref py py-class docutils literal notranslate"><span class="pre">UsMailV2SenderAddress</span></code></a></em><a class="headerlink" href="#mindee.product.us.us_mail.us_mail_v2_document.UsMailV2Document.sender_address" title="Permalink to this definition"></a></dt>
+<dd><p>The address of the sender.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.us.us_mail.us_mail_v2_document.UsMailV2Document.sender_name">
+<span class="sig-name descname"><span class="pre">sender_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.us.us_mail.us_mail_v2_document.UsMailV2Document.sender_name" title="Permalink to this definition"></a></dt>
+<dd><p>The name of the sender.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.product.us.us_mail.us_mail_v2_sender_address.UsMailV2SenderAddress">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">UsMailV2SenderAddress</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.us.us_mail.us_mail_v2_sender_address.UsMailV2SenderAddress" title="Permalink to this definition"></a></dt>
+<dd><p>The address of the sender.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p></li>
+<li><p><strong>page_id</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.product.us.us_mail.us_mail_v2_sender_address.UsMailV2SenderAddress.to_field_list">
+<span class="sig-name descname"><span class="pre">to_field_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.us.us_mail.us_mail_v2_sender_address.UsMailV2SenderAddress.to_field_list" title="Permalink to this definition"></a></dt>
+<dd><p>Output the object in a format suitable for inclusion in an rST field list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.us.us_mail.us_mail_v2_sender_address.UsMailV2SenderAddress.bounding_box">
+<span class="sig-name descname"><span class="pre">bounding_box</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[Quadrilateral]</span></em><a class="headerlink" href="#mindee.product.us.us_mail.us_mail_v2_sender_address.UsMailV2SenderAddress.bounding_box" title="Permalink to this definition"></a></dt>
+<dd><p>A right rectangle containing the word in the document.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.us.us_mail.us_mail_v2_sender_address.UsMailV2SenderAddress.city">
+<span class="sig-name descname"><span class="pre">city</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.us.us_mail.us_mail_v2_sender_address.UsMailV2SenderAddress.city" title="Permalink to this definition"></a></dt>
+<dd><p>The city of the sender’s address.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.us.us_mail.us_mail_v2_sender_address.UsMailV2SenderAddress.complete">
+<span class="sig-name descname"><span class="pre">complete</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.us.us_mail.us_mail_v2_sender_address.UsMailV2SenderAddress.complete" title="Permalink to this definition"></a></dt>
+<dd><p>The complete address of the sender.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.us.us_mail.us_mail_v2_sender_address.UsMailV2SenderAddress.confidence">
+<span class="sig-name descname"><span class="pre">confidence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#mindee.product.us.us_mail.us_mail_v2_sender_address.UsMailV2SenderAddress.confidence" title="Permalink to this definition"></a></dt>
+<dd><p>The confidence score.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.us.us_mail.us_mail_v2_sender_address.UsMailV2SenderAddress.page_n">
+<span class="sig-name descname"><span class="pre">page_n</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.product.us.us_mail.us_mail_v2_sender_address.UsMailV2SenderAddress.page_n" title="Permalink to this definition"></a></dt>
+<dd><p>The document page on which the information was found.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.us.us_mail.us_mail_v2_sender_address.UsMailV2SenderAddress.polygon">
+<span class="sig-name descname"><span class="pre">polygon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Polygon</span></em><a class="headerlink" href="#mindee.product.us.us_mail.us_mail_v2_sender_address.UsMailV2SenderAddress.polygon" title="Permalink to this definition"></a></dt>
+<dd><p>A polygon containing the word in the document.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.us.us_mail.us_mail_v2_sender_address.UsMailV2SenderAddress.postal_code">
+<span class="sig-name descname"><span class="pre">postal_code</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.us.us_mail.us_mail_v2_sender_address.UsMailV2SenderAddress.postal_code" title="Permalink to this definition"></a></dt>
+<dd><p>The postal code of the sender’s address.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.us.us_mail.us_mail_v2_sender_address.UsMailV2SenderAddress.state">
+<span class="sig-name descname"><span class="pre">state</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.us.us_mail.us_mail_v2_sender_address.UsMailV2SenderAddress.state" title="Permalink to this definition"></a></dt>
+<dd><p>Second part of the ISO 3166-2 code, consisting of two letters indicating the US State.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.us.us_mail.us_mail_v2_sender_address.UsMailV2SenderAddress.street">
+<span class="sig-name descname"><span class="pre">street</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.us.us_mail.us_mail_v2_sender_address.UsMailV2SenderAddress.street" title="Permalink to this definition"></a></dt>
+<dd><p>The street of the sender’s address.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.product.us.us_mail.us_mail_v2_recipient_address.UsMailV2RecipientAddress">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">UsMailV2RecipientAddress</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.us.us_mail.us_mail_v2_recipient_address.UsMailV2RecipientAddress" title="Permalink to this definition"></a></dt>
+<dd><p>The addresses of the recipients.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p></li>
+<li><p><strong>page_id</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.product.us.us_mail.us_mail_v2_recipient_address.UsMailV2RecipientAddress.to_table_line">
+<span class="sig-name descname"><span class="pre">to_table_line</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.us.us_mail.us_mail_v2_recipient_address.UsMailV2RecipientAddress.to_table_line" title="Permalink to this definition"></a></dt>
+<dd><p>Output in a format suitable for inclusion in an rST table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.us.us_mail.us_mail_v2_recipient_address.UsMailV2RecipientAddress.bounding_box">
+<span class="sig-name descname"><span class="pre">bounding_box</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[Quadrilateral]</span></em><a class="headerlink" href="#mindee.product.us.us_mail.us_mail_v2_recipient_address.UsMailV2RecipientAddress.bounding_box" title="Permalink to this definition"></a></dt>
+<dd><p>A right rectangle containing the word in the document.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.us.us_mail.us_mail_v2_recipient_address.UsMailV2RecipientAddress.city">
+<span class="sig-name descname"><span class="pre">city</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.us.us_mail.us_mail_v2_recipient_address.UsMailV2RecipientAddress.city" title="Permalink to this definition"></a></dt>
+<dd><p>The city of the recipient’s address.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.us.us_mail.us_mail_v2_recipient_address.UsMailV2RecipientAddress.complete">
+<span class="sig-name descname"><span class="pre">complete</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.us.us_mail.us_mail_v2_recipient_address.UsMailV2RecipientAddress.complete" title="Permalink to this definition"></a></dt>
+<dd><p>The complete address of the recipient.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.us.us_mail.us_mail_v2_recipient_address.UsMailV2RecipientAddress.confidence">
+<span class="sig-name descname"><span class="pre">confidence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#mindee.product.us.us_mail.us_mail_v2_recipient_address.UsMailV2RecipientAddress.confidence" title="Permalink to this definition"></a></dt>
+<dd><p>The confidence score.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.us.us_mail.us_mail_v2_recipient_address.UsMailV2RecipientAddress.is_address_change">
+<span class="sig-name descname"><span class="pre">is_address_change</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.us.us_mail.us_mail_v2_recipient_address.UsMailV2RecipientAddress.is_address_change" title="Permalink to this definition"></a></dt>
+<dd><p>Indicates if the recipient’s address is a change of address.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.us.us_mail.us_mail_v2_recipient_address.UsMailV2RecipientAddress.page_n">
+<span class="sig-name descname"><span class="pre">page_n</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.product.us.us_mail.us_mail_v2_recipient_address.UsMailV2RecipientAddress.page_n" title="Permalink to this definition"></a></dt>
+<dd><p>The document page on which the information was found.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.us.us_mail.us_mail_v2_recipient_address.UsMailV2RecipientAddress.polygon">
+<span class="sig-name descname"><span class="pre">polygon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Polygon</span></em><a class="headerlink" href="#mindee.product.us.us_mail.us_mail_v2_recipient_address.UsMailV2RecipientAddress.polygon" title="Permalink to this definition"></a></dt>
+<dd><p>A polygon containing the word in the document.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.us.us_mail.us_mail_v2_recipient_address.UsMailV2RecipientAddress.postal_code">
+<span class="sig-name descname"><span class="pre">postal_code</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.us.us_mail.us_mail_v2_recipient_address.UsMailV2RecipientAddress.postal_code" title="Permalink to this definition"></a></dt>
+<dd><p>The postal code of the recipient’s address.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.us.us_mail.us_mail_v2_recipient_address.UsMailV2RecipientAddress.private_mailbox_number">
+<span class="sig-name descname"><span class="pre">private_mailbox_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.us.us_mail.us_mail_v2_recipient_address.UsMailV2RecipientAddress.private_mailbox_number" title="Permalink to this definition"></a></dt>
+<dd><p>The private mailbox number of the recipient’s address.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.us.us_mail.us_mail_v2_recipient_address.UsMailV2RecipientAddress.state">
+<span class="sig-name descname"><span class="pre">state</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.us.us_mail.us_mail_v2_recipient_address.UsMailV2RecipientAddress.state" title="Permalink to this definition"></a></dt>
+<dd><p>Second part of the ISO 3166-2 code, consisting of two letters indicating the US State.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.us.us_mail.us_mail_v2_recipient_address.UsMailV2RecipientAddress.street">
+<span class="sig-name descname"><span class="pre">street</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.us.us_mail.us_mail_v2_recipient_address.UsMailV2RecipientAddress.street" title="Permalink to this definition"></a></dt>
+<dd><p>The street of the recipient’s address.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="healthcare_card_v1.html" class="btn btn-neutral float-left" title="Healthcare Card V1" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="w9_v1.html" class="btn btn-neutral float-right" title="W9 V1" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Mindee.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

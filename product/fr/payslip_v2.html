@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Payslip V2 &mdash; Mindee Python Client  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Petrol Receipt V1" href="petrol_receipt_v1.html" />
+    <link rel="prev" title="Carte Nationale d’Identité V2" href="id_card_v2.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Mindee Python Client
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../client.html">Mindee Client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parsing/index.html">Parsing Utilities</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Product</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#region-specific">Region-Specific</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="index.html">France</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="bank_account_details_v1.html">Bank Account Details V1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bank_account_details_v2.html">Bank Account Details V2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="carte_grise_v1.html">Carte Grise V1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="carte_vitale_v1.html">Carte Vitale V1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="energy_bill_v1.html">Energy Bill V1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="id_card_v1.html">Carte Nationale d’Identité V1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="id_card_v2.html">Carte Nationale d’Identité V2</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Payslip V2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="petrol_receipt_v1.html">Petrol Receipt V1</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../eu/index.html">Europe</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../us/index.html">United States</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#international">International</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../misc/index.html">Misc</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Mindee Python Client</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Product</a></li>
+          <li class="breadcrumb-item"><a href="index.html">France</a></li>
+      <li class="breadcrumb-item active">Payslip V2</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/product/fr/payslip_v2.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="payslip-v2">
+<h1>Payslip V2<a class="headerlink" href="#payslip-v2" title="Permalink to this heading"></a></h1>
+<p><strong>Sample Code:</strong></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2.PayslipV2">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PayslipV2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2.PayslipV2" title="Permalink to this definition"></a></dt>
+<dd><p>Payslip API version 2 inference prediction.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2.PayslipV2.get_endpoint_info">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_endpoint_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">klass</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2.PayslipV2.get_endpoint_info" title="Permalink to this definition"></a></dt>
+<dd><p>Retrives the endpoint information for an Inference.</p>
+<p>Should never retrieve info for CustomV1, as a custom endpoint should be created to use CustomV1.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>klass</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Inference</span></code>]) – product subclass to access endpoint information.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2.PayslipV2.endpoint_name">
+<span class="sig-name descname"><span class="pre">endpoint_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[str]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'payslip_fra'</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2.PayslipV2.endpoint_name" title="Permalink to this definition"></a></dt>
+<dd><p>Name of the endpoint.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2.PayslipV2.endpoint_version">
+<span class="sig-name descname"><span class="pre">endpoint_version</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[str]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'2'</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2.PayslipV2.endpoint_version" title="Permalink to this definition"></a></dt>
+<dd><p>Version of the endpoint.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2.PayslipV2.is_rotation_applied">
+<span class="sig-name descname"><span class="pre">is_rotation_applied</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[bool]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2.PayslipV2.is_rotation_applied" title="Permalink to this definition"></a></dt>
+<dd><p>Whether the document has had any rotation applied to it.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2.PayslipV2.page_id">
+<span class="sig-name descname"><span class="pre">page_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[int]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2.PayslipV2.page_id" title="Permalink to this definition"></a></dt>
+<dd><p>Optional page id for page-level predictions.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2.PayslipV2.pages">
+<span class="sig-name descname"><span class="pre">pages</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="../../parsing/common.html#mindee.parsing.common.page.Page" title="mindee.parsing.common.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a><span class="pre">[</span><a class="reference internal" href="#mindee.product.fr.payslip.payslip_v2_document.PayslipV2Document" title="mindee.product.fr.payslip.payslip_v2_document.PayslipV2Document"><code class="xref py py-class docutils literal notranslate"><span class="pre">PayslipV2Document</span></code></a><span class="pre">]]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2.PayslipV2.pages" title="Permalink to this definition"></a></dt>
+<dd><p>Page-level prediction(s).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2.PayslipV2.prediction">
+<span class="sig-name descname"><span class="pre">prediction</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.product.fr.payslip.payslip_v2_document.PayslipV2Document" title="mindee.product.fr.payslip.payslip_v2_document.PayslipV2Document"><code class="xref py py-class docutils literal notranslate"><span class="pre">PayslipV2Document</span></code></a></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2.PayslipV2.prediction" title="Permalink to this definition"></a></dt>
+<dd><p>Document-level prediction.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2.PayslipV2.product">
+<span class="sig-name descname"><span class="pre">product</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Product</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2.PayslipV2.product" title="Permalink to this definition"></a></dt>
+<dd><p>Name and version of a given product, as sent back by the API.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_document.PayslipV2Document">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PayslipV2Document</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_document.PayslipV2Document" title="Permalink to this definition"></a></dt>
+<dd><p>Payslip API version 2.0 document data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p></li>
+<li><p><strong>page_id</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_document.PayslipV2Document.bank_account_details">
+<span class="sig-name descname"><span class="pre">bank_account_details</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.product.fr.payslip.payslip_v2_bank_account_detail.PayslipV2BankAccountDetail" title="mindee.product.fr.payslip.payslip_v2_bank_account_detail.PayslipV2BankAccountDetail"><code class="xref py py-class docutils literal notranslate"><span class="pre">PayslipV2BankAccountDetail</span></code></a></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_document.PayslipV2Document.bank_account_details" title="Permalink to this definition"></a></dt>
+<dd><p>Information about the employee’s bank account.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_document.PayslipV2Document.employee">
+<span class="sig-name descname"><span class="pre">employee</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.product.fr.payslip.payslip_v2_employee.PayslipV2Employee" title="mindee.product.fr.payslip.payslip_v2_employee.PayslipV2Employee"><code class="xref py py-class docutils literal notranslate"><span class="pre">PayslipV2Employee</span></code></a></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_document.PayslipV2Document.employee" title="Permalink to this definition"></a></dt>
+<dd><p>Information about the employee.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_document.PayslipV2Document.employer">
+<span class="sig-name descname"><span class="pre">employer</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.product.fr.payslip.payslip_v2_employer.PayslipV2Employer" title="mindee.product.fr.payslip.payslip_v2_employer.PayslipV2Employer"><code class="xref py py-class docutils literal notranslate"><span class="pre">PayslipV2Employer</span></code></a></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_document.PayslipV2Document.employer" title="Permalink to this definition"></a></dt>
+<dd><p>Information about the employer.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_document.PayslipV2Document.employment">
+<span class="sig-name descname"><span class="pre">employment</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.product.fr.payslip.payslip_v2_employment.PayslipV2Employment" title="mindee.product.fr.payslip.payslip_v2_employment.PayslipV2Employment"><code class="xref py py-class docutils literal notranslate"><span class="pre">PayslipV2Employment</span></code></a></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_document.PayslipV2Document.employment" title="Permalink to this definition"></a></dt>
+<dd><p>Information about the employment.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_document.PayslipV2Document.pay_detail">
+<span class="sig-name descname"><span class="pre">pay_detail</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.product.fr.payslip.payslip_v2_pay_detail.PayslipV2PayDetail" title="mindee.product.fr.payslip.payslip_v2_pay_detail.PayslipV2PayDetail"><code class="xref py py-class docutils literal notranslate"><span class="pre">PayslipV2PayDetail</span></code></a></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_document.PayslipV2Document.pay_detail" title="Permalink to this definition"></a></dt>
+<dd><p>Detailed information about the pay.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_document.PayslipV2Document.pay_period">
+<span class="sig-name descname"><span class="pre">pay_period</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.product.fr.payslip.payslip_v2_pay_period.PayslipV2PayPeriod" title="mindee.product.fr.payslip.payslip_v2_pay_period.PayslipV2PayPeriod"><code class="xref py py-class docutils literal notranslate"><span class="pre">PayslipV2PayPeriod</span></code></a></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_document.PayslipV2Document.pay_period" title="Permalink to this definition"></a></dt>
+<dd><p>Information about the pay period.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_document.PayslipV2Document.pto">
+<span class="sig-name descname"><span class="pre">pto</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.product.fr.payslip.payslip_v2_pto.PayslipV2Pto" title="mindee.product.fr.payslip.payslip_v2_pto.PayslipV2Pto"><code class="xref py py-class docutils literal notranslate"><span class="pre">PayslipV2Pto</span></code></a></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_document.PayslipV2Document.pto" title="Permalink to this definition"></a></dt>
+<dd><p>Information about paid time off.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_document.PayslipV2Document.salary_details">
+<span class="sig-name descname"><span class="pre">salary_details</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="#mindee.product.fr.payslip.payslip_v2_salary_detail.PayslipV2SalaryDetail" title="mindee.product.fr.payslip.payslip_v2_salary_detail.PayslipV2SalaryDetail"><code class="xref py py-class docutils literal notranslate"><span class="pre">PayslipV2SalaryDetail</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_document.PayslipV2Document.salary_details" title="Permalink to this definition"></a></dt>
+<dd><p>Detailed information about the earnings.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_employee.PayslipV2Employee">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PayslipV2Employee</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_employee.PayslipV2Employee" title="Permalink to this definition"></a></dt>
+<dd><p>Information about the employee.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p></li>
+<li><p><strong>page_id</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_employee.PayslipV2Employee.to_field_list">
+<span class="sig-name descname"><span class="pre">to_field_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_employee.PayslipV2Employee.to_field_list" title="Permalink to this definition"></a></dt>
+<dd><p>Output the object in a format suitable for inclusion in an rST field list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_employee.PayslipV2Employee.address">
+<span class="sig-name descname"><span class="pre">address</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_employee.PayslipV2Employee.address" title="Permalink to this definition"></a></dt>
+<dd><p>The address of the employee.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_employee.PayslipV2Employee.bounding_box">
+<span class="sig-name descname"><span class="pre">bounding_box</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[Quadrilateral]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_employee.PayslipV2Employee.bounding_box" title="Permalink to this definition"></a></dt>
+<dd><p>A right rectangle containing the word in the document.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_employee.PayslipV2Employee.confidence">
+<span class="sig-name descname"><span class="pre">confidence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_employee.PayslipV2Employee.confidence" title="Permalink to this definition"></a></dt>
+<dd><p>The confidence score.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_employee.PayslipV2Employee.date_of_birth">
+<span class="sig-name descname"><span class="pre">date_of_birth</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_employee.PayslipV2Employee.date_of_birth" title="Permalink to this definition"></a></dt>
+<dd><p>The date of birth of the employee.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_employee.PayslipV2Employee.first_name">
+<span class="sig-name descname"><span class="pre">first_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_employee.PayslipV2Employee.first_name" title="Permalink to this definition"></a></dt>
+<dd><p>The first name of the employee.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_employee.PayslipV2Employee.last_name">
+<span class="sig-name descname"><span class="pre">last_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_employee.PayslipV2Employee.last_name" title="Permalink to this definition"></a></dt>
+<dd><p>The last name of the employee.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_employee.PayslipV2Employee.page_n">
+<span class="sig-name descname"><span class="pre">page_n</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_employee.PayslipV2Employee.page_n" title="Permalink to this definition"></a></dt>
+<dd><p>The document page on which the information was found.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_employee.PayslipV2Employee.phone_number">
+<span class="sig-name descname"><span class="pre">phone_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_employee.PayslipV2Employee.phone_number" title="Permalink to this definition"></a></dt>
+<dd><p>The phone number of the employee.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_employee.PayslipV2Employee.polygon">
+<span class="sig-name descname"><span class="pre">polygon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Polygon</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_employee.PayslipV2Employee.polygon" title="Permalink to this definition"></a></dt>
+<dd><p>A polygon containing the word in the document.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_employee.PayslipV2Employee.registration_number">
+<span class="sig-name descname"><span class="pre">registration_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_employee.PayslipV2Employee.registration_number" title="Permalink to this definition"></a></dt>
+<dd><p>The registration number of the employee.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_employee.PayslipV2Employee.social_security_number">
+<span class="sig-name descname"><span class="pre">social_security_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_employee.PayslipV2Employee.social_security_number" title="Permalink to this definition"></a></dt>
+<dd><p>The social security number of the employee.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_employer.PayslipV2Employer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PayslipV2Employer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_employer.PayslipV2Employer" title="Permalink to this definition"></a></dt>
+<dd><p>Information about the employer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p></li>
+<li><p><strong>page_id</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_employer.PayslipV2Employer.to_field_list">
+<span class="sig-name descname"><span class="pre">to_field_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_employer.PayslipV2Employer.to_field_list" title="Permalink to this definition"></a></dt>
+<dd><p>Output the object in a format suitable for inclusion in an rST field list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_employer.PayslipV2Employer.address">
+<span class="sig-name descname"><span class="pre">address</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_employer.PayslipV2Employer.address" title="Permalink to this definition"></a></dt>
+<dd><p>The address of the employer.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_employer.PayslipV2Employer.bounding_box">
+<span class="sig-name descname"><span class="pre">bounding_box</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[Quadrilateral]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_employer.PayslipV2Employer.bounding_box" title="Permalink to this definition"></a></dt>
+<dd><p>A right rectangle containing the word in the document.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_employer.PayslipV2Employer.company_id">
+<span class="sig-name descname"><span class="pre">company_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_employer.PayslipV2Employer.company_id" title="Permalink to this definition"></a></dt>
+<dd><p>The company ID of the employer.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_employer.PayslipV2Employer.company_site">
+<span class="sig-name descname"><span class="pre">company_site</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_employer.PayslipV2Employer.company_site" title="Permalink to this definition"></a></dt>
+<dd><p>The site of the company.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_employer.PayslipV2Employer.confidence">
+<span class="sig-name descname"><span class="pre">confidence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_employer.PayslipV2Employer.confidence" title="Permalink to this definition"></a></dt>
+<dd><p>The confidence score.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_employer.PayslipV2Employer.naf_code">
+<span class="sig-name descname"><span class="pre">naf_code</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_employer.PayslipV2Employer.naf_code" title="Permalink to this definition"></a></dt>
+<dd><p>The NAF code of the employer.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_employer.PayslipV2Employer.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_employer.PayslipV2Employer.name" title="Permalink to this definition"></a></dt>
+<dd><p>The name of the employer.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_employer.PayslipV2Employer.page_n">
+<span class="sig-name descname"><span class="pre">page_n</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_employer.PayslipV2Employer.page_n" title="Permalink to this definition"></a></dt>
+<dd><p>The document page on which the information was found.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_employer.PayslipV2Employer.phone_number">
+<span class="sig-name descname"><span class="pre">phone_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_employer.PayslipV2Employer.phone_number" title="Permalink to this definition"></a></dt>
+<dd><p>The phone number of the employer.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_employer.PayslipV2Employer.polygon">
+<span class="sig-name descname"><span class="pre">polygon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Polygon</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_employer.PayslipV2Employer.polygon" title="Permalink to this definition"></a></dt>
+<dd><p>A polygon containing the word in the document.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_employer.PayslipV2Employer.urssaf_number">
+<span class="sig-name descname"><span class="pre">urssaf_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_employer.PayslipV2Employer.urssaf_number" title="Permalink to this definition"></a></dt>
+<dd><p>The URSSAF number of the employer.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_bank_account_detail.PayslipV2BankAccountDetail">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PayslipV2BankAccountDetail</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_bank_account_detail.PayslipV2BankAccountDetail" title="Permalink to this definition"></a></dt>
+<dd><p>Information about the employee’s bank account.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p></li>
+<li><p><strong>page_id</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_bank_account_detail.PayslipV2BankAccountDetail.to_field_list">
+<span class="sig-name descname"><span class="pre">to_field_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_bank_account_detail.PayslipV2BankAccountDetail.to_field_list" title="Permalink to this definition"></a></dt>
+<dd><p>Output the object in a format suitable for inclusion in an rST field list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_bank_account_detail.PayslipV2BankAccountDetail.bank_name">
+<span class="sig-name descname"><span class="pre">bank_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_bank_account_detail.PayslipV2BankAccountDetail.bank_name" title="Permalink to this definition"></a></dt>
+<dd><p>The name of the bank.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_bank_account_detail.PayslipV2BankAccountDetail.bounding_box">
+<span class="sig-name descname"><span class="pre">bounding_box</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[Quadrilateral]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_bank_account_detail.PayslipV2BankAccountDetail.bounding_box" title="Permalink to this definition"></a></dt>
+<dd><p>A right rectangle containing the word in the document.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_bank_account_detail.PayslipV2BankAccountDetail.confidence">
+<span class="sig-name descname"><span class="pre">confidence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_bank_account_detail.PayslipV2BankAccountDetail.confidence" title="Permalink to this definition"></a></dt>
+<dd><p>The confidence score.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_bank_account_detail.PayslipV2BankAccountDetail.iban">
+<span class="sig-name descname"><span class="pre">iban</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_bank_account_detail.PayslipV2BankAccountDetail.iban" title="Permalink to this definition"></a></dt>
+<dd><p>The IBAN of the bank account.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_bank_account_detail.PayslipV2BankAccountDetail.page_n">
+<span class="sig-name descname"><span class="pre">page_n</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_bank_account_detail.PayslipV2BankAccountDetail.page_n" title="Permalink to this definition"></a></dt>
+<dd><p>The document page on which the information was found.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_bank_account_detail.PayslipV2BankAccountDetail.polygon">
+<span class="sig-name descname"><span class="pre">polygon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Polygon</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_bank_account_detail.PayslipV2BankAccountDetail.polygon" title="Permalink to this definition"></a></dt>
+<dd><p>A polygon containing the word in the document.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_bank_account_detail.PayslipV2BankAccountDetail.swift">
+<span class="sig-name descname"><span class="pre">swift</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_bank_account_detail.PayslipV2BankAccountDetail.swift" title="Permalink to this definition"></a></dt>
+<dd><p>The SWIFT code of the bank.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_employment.PayslipV2Employment">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PayslipV2Employment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_employment.PayslipV2Employment" title="Permalink to this definition"></a></dt>
+<dd><p>Information about the employment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p></li>
+<li><p><strong>page_id</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_employment.PayslipV2Employment.to_field_list">
+<span class="sig-name descname"><span class="pre">to_field_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_employment.PayslipV2Employment.to_field_list" title="Permalink to this definition"></a></dt>
+<dd><p>Output the object in a format suitable for inclusion in an rST field list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_employment.PayslipV2Employment.bounding_box">
+<span class="sig-name descname"><span class="pre">bounding_box</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[Quadrilateral]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_employment.PayslipV2Employment.bounding_box" title="Permalink to this definition"></a></dt>
+<dd><p>A right rectangle containing the word in the document.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_employment.PayslipV2Employment.category">
+<span class="sig-name descname"><span class="pre">category</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_employment.PayslipV2Employment.category" title="Permalink to this definition"></a></dt>
+<dd><p>The category of the employment.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_employment.PayslipV2Employment.coefficient">
+<span class="sig-name descname"><span class="pre">coefficient</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_employment.PayslipV2Employment.coefficient" title="Permalink to this definition"></a></dt>
+<dd><p>The coefficient of the employment.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_employment.PayslipV2Employment.collective_agreement">
+<span class="sig-name descname"><span class="pre">collective_agreement</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_employment.PayslipV2Employment.collective_agreement" title="Permalink to this definition"></a></dt>
+<dd><p>The collective agreement of the employment.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_employment.PayslipV2Employment.confidence">
+<span class="sig-name descname"><span class="pre">confidence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_employment.PayslipV2Employment.confidence" title="Permalink to this definition"></a></dt>
+<dd><p>The confidence score.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_employment.PayslipV2Employment.job_title">
+<span class="sig-name descname"><span class="pre">job_title</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_employment.PayslipV2Employment.job_title" title="Permalink to this definition"></a></dt>
+<dd><p>The job title of the employee.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_employment.PayslipV2Employment.page_n">
+<span class="sig-name descname"><span class="pre">page_n</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_employment.PayslipV2Employment.page_n" title="Permalink to this definition"></a></dt>
+<dd><p>The document page on which the information was found.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_employment.PayslipV2Employment.polygon">
+<span class="sig-name descname"><span class="pre">polygon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Polygon</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_employment.PayslipV2Employment.polygon" title="Permalink to this definition"></a></dt>
+<dd><p>A polygon containing the word in the document.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_employment.PayslipV2Employment.position_level">
+<span class="sig-name descname"><span class="pre">position_level</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_employment.PayslipV2Employment.position_level" title="Permalink to this definition"></a></dt>
+<dd><p>The position level of the employment.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_employment.PayslipV2Employment.start_date">
+<span class="sig-name descname"><span class="pre">start_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_employment.PayslipV2Employment.start_date" title="Permalink to this definition"></a></dt>
+<dd><p>The start date of the employment.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_salary_detail.PayslipV2SalaryDetail">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PayslipV2SalaryDetail</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_salary_detail.PayslipV2SalaryDetail" title="Permalink to this definition"></a></dt>
+<dd><p>Detailed information about the earnings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p></li>
+<li><p><strong>page_id</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_salary_detail.PayslipV2SalaryDetail.to_table_line">
+<span class="sig-name descname"><span class="pre">to_table_line</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_salary_detail.PayslipV2SalaryDetail.to_table_line" title="Permalink to this definition"></a></dt>
+<dd><p>Output in a format suitable for inclusion in an rST table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_salary_detail.PayslipV2SalaryDetail.amount">
+<span class="sig-name descname"><span class="pre">amount</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_salary_detail.PayslipV2SalaryDetail.amount" title="Permalink to this definition"></a></dt>
+<dd><p>The amount of the earnings.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_salary_detail.PayslipV2SalaryDetail.base">
+<span class="sig-name descname"><span class="pre">base</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_salary_detail.PayslipV2SalaryDetail.base" title="Permalink to this definition"></a></dt>
+<dd><p>The base value of the earnings.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_salary_detail.PayslipV2SalaryDetail.bounding_box">
+<span class="sig-name descname"><span class="pre">bounding_box</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[Quadrilateral]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_salary_detail.PayslipV2SalaryDetail.bounding_box" title="Permalink to this definition"></a></dt>
+<dd><p>A right rectangle containing the word in the document.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_salary_detail.PayslipV2SalaryDetail.confidence">
+<span class="sig-name descname"><span class="pre">confidence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_salary_detail.PayslipV2SalaryDetail.confidence" title="Permalink to this definition"></a></dt>
+<dd><p>The confidence score.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_salary_detail.PayslipV2SalaryDetail.description">
+<span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_salary_detail.PayslipV2SalaryDetail.description" title="Permalink to this definition"></a></dt>
+<dd><p>The description of the earnings.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_salary_detail.PayslipV2SalaryDetail.page_n">
+<span class="sig-name descname"><span class="pre">page_n</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_salary_detail.PayslipV2SalaryDetail.page_n" title="Permalink to this definition"></a></dt>
+<dd><p>The document page on which the information was found.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_salary_detail.PayslipV2SalaryDetail.polygon">
+<span class="sig-name descname"><span class="pre">polygon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Polygon</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_salary_detail.PayslipV2SalaryDetail.polygon" title="Permalink to this definition"></a></dt>
+<dd><p>A polygon containing the word in the document.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_salary_detail.PayslipV2SalaryDetail.rate">
+<span class="sig-name descname"><span class="pre">rate</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_salary_detail.PayslipV2SalaryDetail.rate" title="Permalink to this definition"></a></dt>
+<dd><p>The rate of the earnings.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_pay_detail.PayslipV2PayDetail">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PayslipV2PayDetail</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_pay_detail.PayslipV2PayDetail" title="Permalink to this definition"></a></dt>
+<dd><p>Detailed information about the pay.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p></li>
+<li><p><strong>page_id</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_pay_detail.PayslipV2PayDetail.to_field_list">
+<span class="sig-name descname"><span class="pre">to_field_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_pay_detail.PayslipV2PayDetail.to_field_list" title="Permalink to this definition"></a></dt>
+<dd><p>Output the object in a format suitable for inclusion in an rST field list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_pay_detail.PayslipV2PayDetail.bounding_box">
+<span class="sig-name descname"><span class="pre">bounding_box</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[Quadrilateral]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_pay_detail.PayslipV2PayDetail.bounding_box" title="Permalink to this definition"></a></dt>
+<dd><p>A right rectangle containing the word in the document.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_pay_detail.PayslipV2PayDetail.confidence">
+<span class="sig-name descname"><span class="pre">confidence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_pay_detail.PayslipV2PayDetail.confidence" title="Permalink to this definition"></a></dt>
+<dd><p>The confidence score.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_pay_detail.PayslipV2PayDetail.gross_salary">
+<span class="sig-name descname"><span class="pre">gross_salary</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_pay_detail.PayslipV2PayDetail.gross_salary" title="Permalink to this definition"></a></dt>
+<dd><p>The gross salary of the employee.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_pay_detail.PayslipV2PayDetail.gross_salary_ytd">
+<span class="sig-name descname"><span class="pre">gross_salary_ytd</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_pay_detail.PayslipV2PayDetail.gross_salary_ytd" title="Permalink to this definition"></a></dt>
+<dd><p>The year-to-date gross salary of the employee.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_pay_detail.PayslipV2PayDetail.income_tax_rate">
+<span class="sig-name descname"><span class="pre">income_tax_rate</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_pay_detail.PayslipV2PayDetail.income_tax_rate" title="Permalink to this definition"></a></dt>
+<dd><p>The income tax rate of the employee.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_pay_detail.PayslipV2PayDetail.income_tax_withheld">
+<span class="sig-name descname"><span class="pre">income_tax_withheld</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_pay_detail.PayslipV2PayDetail.income_tax_withheld" title="Permalink to this definition"></a></dt>
+<dd><p>The income tax withheld from the employee’s pay.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_pay_detail.PayslipV2PayDetail.net_paid">
+<span class="sig-name descname"><span class="pre">net_paid</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_pay_detail.PayslipV2PayDetail.net_paid" title="Permalink to this definition"></a></dt>
+<dd><p>The net paid amount of the employee.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_pay_detail.PayslipV2PayDetail.net_paid_before_tax">
+<span class="sig-name descname"><span class="pre">net_paid_before_tax</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_pay_detail.PayslipV2PayDetail.net_paid_before_tax" title="Permalink to this definition"></a></dt>
+<dd><p>The net paid amount before tax of the employee.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_pay_detail.PayslipV2PayDetail.net_taxable">
+<span class="sig-name descname"><span class="pre">net_taxable</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_pay_detail.PayslipV2PayDetail.net_taxable" title="Permalink to this definition"></a></dt>
+<dd><p>The net taxable amount of the employee.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_pay_detail.PayslipV2PayDetail.net_taxable_ytd">
+<span class="sig-name descname"><span class="pre">net_taxable_ytd</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_pay_detail.PayslipV2PayDetail.net_taxable_ytd" title="Permalink to this definition"></a></dt>
+<dd><p>The year-to-date net taxable amount of the employee.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_pay_detail.PayslipV2PayDetail.page_n">
+<span class="sig-name descname"><span class="pre">page_n</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_pay_detail.PayslipV2PayDetail.page_n" title="Permalink to this definition"></a></dt>
+<dd><p>The document page on which the information was found.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_pay_detail.PayslipV2PayDetail.polygon">
+<span class="sig-name descname"><span class="pre">polygon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Polygon</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_pay_detail.PayslipV2PayDetail.polygon" title="Permalink to this definition"></a></dt>
+<dd><p>A polygon containing the word in the document.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_pay_detail.PayslipV2PayDetail.total_cost_employer">
+<span class="sig-name descname"><span class="pre">total_cost_employer</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_pay_detail.PayslipV2PayDetail.total_cost_employer" title="Permalink to this definition"></a></dt>
+<dd><p>The total cost to the employer.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_pay_detail.PayslipV2PayDetail.total_taxes_and_deductions">
+<span class="sig-name descname"><span class="pre">total_taxes_and_deductions</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_pay_detail.PayslipV2PayDetail.total_taxes_and_deductions" title="Permalink to this definition"></a></dt>
+<dd><p>The total taxes and deductions of the employee.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_pto.PayslipV2Pto">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PayslipV2Pto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_pto.PayslipV2Pto" title="Permalink to this definition"></a></dt>
+<dd><p>Information about paid time off.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p></li>
+<li><p><strong>page_id</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_pto.PayslipV2Pto.to_field_list">
+<span class="sig-name descname"><span class="pre">to_field_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_pto.PayslipV2Pto.to_field_list" title="Permalink to this definition"></a></dt>
+<dd><p>Output the object in a format suitable for inclusion in an rST field list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_pto.PayslipV2Pto.accrued_this_period">
+<span class="sig-name descname"><span class="pre">accrued_this_period</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_pto.PayslipV2Pto.accrued_this_period" title="Permalink to this definition"></a></dt>
+<dd><p>The amount of paid time off accrued in this period.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_pto.PayslipV2Pto.balance_end_of_period">
+<span class="sig-name descname"><span class="pre">balance_end_of_period</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_pto.PayslipV2Pto.balance_end_of_period" title="Permalink to this definition"></a></dt>
+<dd><p>The balance of paid time off at the end of the period.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_pto.PayslipV2Pto.bounding_box">
+<span class="sig-name descname"><span class="pre">bounding_box</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[Quadrilateral]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_pto.PayslipV2Pto.bounding_box" title="Permalink to this definition"></a></dt>
+<dd><p>A right rectangle containing the word in the document.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_pto.PayslipV2Pto.confidence">
+<span class="sig-name descname"><span class="pre">confidence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_pto.PayslipV2Pto.confidence" title="Permalink to this definition"></a></dt>
+<dd><p>The confidence score.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_pto.PayslipV2Pto.page_n">
+<span class="sig-name descname"><span class="pre">page_n</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_pto.PayslipV2Pto.page_n" title="Permalink to this definition"></a></dt>
+<dd><p>The document page on which the information was found.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_pto.PayslipV2Pto.polygon">
+<span class="sig-name descname"><span class="pre">polygon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Polygon</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_pto.PayslipV2Pto.polygon" title="Permalink to this definition"></a></dt>
+<dd><p>A polygon containing the word in the document.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_pto.PayslipV2Pto.used_this_period">
+<span class="sig-name descname"><span class="pre">used_this_period</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_pto.PayslipV2Pto.used_this_period" title="Permalink to this definition"></a></dt>
+<dd><p>The amount of paid time off used in this period.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_pay_period.PayslipV2PayPeriod">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PayslipV2PayPeriod</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_pay_period.PayslipV2PayPeriod" title="Permalink to this definition"></a></dt>
+<dd><p>Information about the pay period.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p></li>
+<li><p><strong>page_id</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_pay_period.PayslipV2PayPeriod.to_field_list">
+<span class="sig-name descname"><span class="pre">to_field_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_pay_period.PayslipV2PayPeriod.to_field_list" title="Permalink to this definition"></a></dt>
+<dd><p>Output the object in a format suitable for inclusion in an rST field list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_pay_period.PayslipV2PayPeriod.bounding_box">
+<span class="sig-name descname"><span class="pre">bounding_box</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[Quadrilateral]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_pay_period.PayslipV2PayPeriod.bounding_box" title="Permalink to this definition"></a></dt>
+<dd><p>A right rectangle containing the word in the document.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_pay_period.PayslipV2PayPeriod.confidence">
+<span class="sig-name descname"><span class="pre">confidence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_pay_period.PayslipV2PayPeriod.confidence" title="Permalink to this definition"></a></dt>
+<dd><p>The confidence score.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_pay_period.PayslipV2PayPeriod.end_date">
+<span class="sig-name descname"><span class="pre">end_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_pay_period.PayslipV2PayPeriod.end_date" title="Permalink to this definition"></a></dt>
+<dd><p>The end date of the pay period.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_pay_period.PayslipV2PayPeriod.month">
+<span class="sig-name descname"><span class="pre">month</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_pay_period.PayslipV2PayPeriod.month" title="Permalink to this definition"></a></dt>
+<dd><p>The month of the pay period.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_pay_period.PayslipV2PayPeriod.page_n">
+<span class="sig-name descname"><span class="pre">page_n</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_pay_period.PayslipV2PayPeriod.page_n" title="Permalink to this definition"></a></dt>
+<dd><p>The document page on which the information was found.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_pay_period.PayslipV2PayPeriod.payment_date">
+<span class="sig-name descname"><span class="pre">payment_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_pay_period.PayslipV2PayPeriod.payment_date" title="Permalink to this definition"></a></dt>
+<dd><p>The date of payment for the pay period.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_pay_period.PayslipV2PayPeriod.polygon">
+<span class="sig-name descname"><span class="pre">polygon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Polygon</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_pay_period.PayslipV2PayPeriod.polygon" title="Permalink to this definition"></a></dt>
+<dd><p>A polygon containing the word in the document.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_pay_period.PayslipV2PayPeriod.start_date">
+<span class="sig-name descname"><span class="pre">start_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_pay_period.PayslipV2PayPeriod.start_date" title="Permalink to this definition"></a></dt>
+<dd><p>The start date of the pay period.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.fr.payslip.payslip_v2_pay_period.PayslipV2PayPeriod.year">
+<span class="sig-name descname"><span class="pre">year</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.fr.payslip.payslip_v2_pay_period.PayslipV2PayPeriod.year" title="Permalink to this definition"></a></dt>
+<dd><p>The year of the pay period.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="id_card_v2.html" class="btn btn-neutral float-left" title="Carte Nationale d’Identité V2" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="petrol_receipt_v1.html" class="btn btn-neutral float-right" title="Petrol Receipt V1" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Mindee.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

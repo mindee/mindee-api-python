@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bill of Lading V1 &mdash; Mindee Python Client  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Cropper V1" href="cropper_v1.html" />
+    <link rel="prev" title="Barcode Reader V1" href="barcode_reader_v1.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Mindee Python Client
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../client.html">Mindee Client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parsing/index.html">Parsing Utilities</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Product</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#region-specific">Region-Specific</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#international">International</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="barcode_reader_v1.html">Barcode Reader V1</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Bill of Lading V1</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.product.bill_of_lading.bill_of_lading_v1.BillOfLadingV1"><code class="docutils literal notranslate"><span class="pre">BillOfLadingV1</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.product.bill_of_lading.bill_of_lading_v1_document.BillOfLadingV1Document"><code class="docutils literal notranslate"><span class="pre">BillOfLadingV1Document</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.product.bill_of_lading.bill_of_lading_v1_shipper.BillOfLadingV1Shipper"><code class="docutils literal notranslate"><span class="pre">BillOfLadingV1Shipper</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.product.bill_of_lading.bill_of_lading_v1_consignee.BillOfLadingV1Consignee"><code class="docutils literal notranslate"><span class="pre">BillOfLadingV1Consignee</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.product.bill_of_lading.bill_of_lading_v1_notify_party.BillOfLadingV1NotifyParty"><code class="docutils literal notranslate"><span class="pre">BillOfLadingV1NotifyParty</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.product.bill_of_lading.bill_of_lading_v1_carrier.BillOfLadingV1Carrier"><code class="docutils literal notranslate"><span class="pre">BillOfLadingV1Carrier</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.product.bill_of_lading.bill_of_lading_v1_carrier_item.BillOfLadingV1CarrierItem"><code class="docutils literal notranslate"><span class="pre">BillOfLadingV1CarrierItem</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cropper_v1.html">Cropper V1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="custom_v1.html">Custom V1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="financial_document_v1.html">Financial Document V1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated_v1.html">Generated V1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="international_id_v1.html">International ID V1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="international_id_v2.html">International ID V2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="invoice_splitter_v1.html">Invoice Splitter V1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="invoice_v4.html">Invoice V4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="material_certificate_v1.html">Material Certificate V1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multi_receipts_detector_v1.html">Multi Receipts Detector V1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nutrition_facts_label_v1.html">Nutrition Facts Label V1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="passport_v1.html">Passport V1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="proof_of_address_v1.html">Proof of Address V1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="receipt_v4.html">Receipt V4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="receipt_v5.html">Receipt V5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="resume_v1.html">Resume V1</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../misc/index.html">Misc</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Mindee Python Client</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Product</a></li>
+      <li class="breadcrumb-item active">Bill of Lading V1</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/product/bill_of_lading_v1.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="bill-of-lading-v1">
+<h1>Bill of Lading V1<a class="headerlink" href="#bill-of-lading-v1" title="Permalink to this heading"></a></h1>
+<p><strong>Sample Code:</strong></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1.BillOfLadingV1">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BillOfLadingV1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1.BillOfLadingV1" title="Permalink to this definition"></a></dt>
+<dd><p>Bill of Lading API version 1 inference prediction.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1.BillOfLadingV1.get_endpoint_info">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_endpoint_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">klass</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1.BillOfLadingV1.get_endpoint_info" title="Permalink to this definition"></a></dt>
+<dd><p>Retrives the endpoint information for an Inference.</p>
+<p>Should never retrieve info for CustomV1, as a custom endpoint should be created to use CustomV1.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>klass</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Inference</span></code>]) – product subclass to access endpoint information.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1.BillOfLadingV1.endpoint_name">
+<span class="sig-name descname"><span class="pre">endpoint_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[str]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'bill_of_lading'</span></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1.BillOfLadingV1.endpoint_name" title="Permalink to this definition"></a></dt>
+<dd><p>Name of the endpoint.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1.BillOfLadingV1.endpoint_version">
+<span class="sig-name descname"><span class="pre">endpoint_version</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[str]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'1'</span></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1.BillOfLadingV1.endpoint_version" title="Permalink to this definition"></a></dt>
+<dd><p>Version of the endpoint.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1.BillOfLadingV1.is_rotation_applied">
+<span class="sig-name descname"><span class="pre">is_rotation_applied</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[bool]</span></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1.BillOfLadingV1.is_rotation_applied" title="Permalink to this definition"></a></dt>
+<dd><p>Whether the document has had any rotation applied to it.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1.BillOfLadingV1.page_id">
+<span class="sig-name descname"><span class="pre">page_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[int]</span></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1.BillOfLadingV1.page_id" title="Permalink to this definition"></a></dt>
+<dd><p>Optional page id for page-level predictions.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1.BillOfLadingV1.pages">
+<span class="sig-name descname"><span class="pre">pages</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="../parsing/common.html#mindee.parsing.common.page.Page" title="mindee.parsing.common.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a><span class="pre">[</span><a class="reference internal" href="#mindee.product.bill_of_lading.bill_of_lading_v1_document.BillOfLadingV1Document" title="mindee.product.bill_of_lading.bill_of_lading_v1_document.BillOfLadingV1Document"><code class="xref py py-class docutils literal notranslate"><span class="pre">BillOfLadingV1Document</span></code></a><span class="pre">]]</span></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1.BillOfLadingV1.pages" title="Permalink to this definition"></a></dt>
+<dd><p>Page-level prediction(s).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1.BillOfLadingV1.prediction">
+<span class="sig-name descname"><span class="pre">prediction</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.product.bill_of_lading.bill_of_lading_v1_document.BillOfLadingV1Document" title="mindee.product.bill_of_lading.bill_of_lading_v1_document.BillOfLadingV1Document"><code class="xref py py-class docutils literal notranslate"><span class="pre">BillOfLadingV1Document</span></code></a></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1.BillOfLadingV1.prediction" title="Permalink to this definition"></a></dt>
+<dd><p>Document-level prediction.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1.BillOfLadingV1.product">
+<span class="sig-name descname"><span class="pre">product</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Product</span></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1.BillOfLadingV1.product" title="Permalink to this definition"></a></dt>
+<dd><p>Name and version of a given product, as sent back by the API.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_document.BillOfLadingV1Document">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BillOfLadingV1Document</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_document.BillOfLadingV1Document" title="Permalink to this definition"></a></dt>
+<dd><p>Bill of Lading API version 1.1 document data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p></li>
+<li><p><strong>page_id</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_document.BillOfLadingV1Document.bill_of_lading_number">
+<span class="sig-name descname"><span class="pre">bill_of_lading_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_document.BillOfLadingV1Document.bill_of_lading_number" title="Permalink to this definition"></a></dt>
+<dd><p>A unique identifier assigned to a Bill of Lading document.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_document.BillOfLadingV1Document.carrier">
+<span class="sig-name descname"><span class="pre">carrier</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.product.bill_of_lading.bill_of_lading_v1_carrier.BillOfLadingV1Carrier" title="mindee.product.bill_of_lading.bill_of_lading_v1_carrier.BillOfLadingV1Carrier"><code class="xref py py-class docutils literal notranslate"><span class="pre">BillOfLadingV1Carrier</span></code></a></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_document.BillOfLadingV1Document.carrier" title="Permalink to this definition"></a></dt>
+<dd><p>The shipping company responsible for transporting the goods.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_document.BillOfLadingV1Document.carrier_items">
+<span class="sig-name descname"><span class="pre">carrier_items</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="#mindee.product.bill_of_lading.bill_of_lading_v1_carrier_item.BillOfLadingV1CarrierItem" title="mindee.product.bill_of_lading.bill_of_lading_v1_carrier_item.BillOfLadingV1CarrierItem"><code class="xref py py-class docutils literal notranslate"><span class="pre">BillOfLadingV1CarrierItem</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_document.BillOfLadingV1Document.carrier_items" title="Permalink to this definition"></a></dt>
+<dd><p>The goods being shipped.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_document.BillOfLadingV1Document.consignee">
+<span class="sig-name descname"><span class="pre">consignee</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.product.bill_of_lading.bill_of_lading_v1_consignee.BillOfLadingV1Consignee" title="mindee.product.bill_of_lading.bill_of_lading_v1_consignee.BillOfLadingV1Consignee"><code class="xref py py-class docutils literal notranslate"><span class="pre">BillOfLadingV1Consignee</span></code></a></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_document.BillOfLadingV1Document.consignee" title="Permalink to this definition"></a></dt>
+<dd><p>The party to whom the goods are being shipped.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_document.BillOfLadingV1Document.date_of_issue">
+<span class="sig-name descname"><span class="pre">date_of_issue</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.date.DateField" title="mindee.parsing.standard.date.DateField"><code class="xref py py-class docutils literal notranslate"><span class="pre">DateField</span></code></a></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_document.BillOfLadingV1Document.date_of_issue" title="Permalink to this definition"></a></dt>
+<dd><p>The date when the bill of lading is issued.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_document.BillOfLadingV1Document.departure_date">
+<span class="sig-name descname"><span class="pre">departure_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.date.DateField" title="mindee.parsing.standard.date.DateField"><code class="xref py py-class docutils literal notranslate"><span class="pre">DateField</span></code></a></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_document.BillOfLadingV1Document.departure_date" title="Permalink to this definition"></a></dt>
+<dd><p>The date when the vessel departs from the port of loading.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_document.BillOfLadingV1Document.notify_party">
+<span class="sig-name descname"><span class="pre">notify_party</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.product.bill_of_lading.bill_of_lading_v1_notify_party.BillOfLadingV1NotifyParty" title="mindee.product.bill_of_lading.bill_of_lading_v1_notify_party.BillOfLadingV1NotifyParty"><code class="xref py py-class docutils literal notranslate"><span class="pre">BillOfLadingV1NotifyParty</span></code></a></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_document.BillOfLadingV1Document.notify_party" title="Permalink to this definition"></a></dt>
+<dd><p>The party to be notified of the arrival of the goods.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_document.BillOfLadingV1Document.place_of_delivery">
+<span class="sig-name descname"><span class="pre">place_of_delivery</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_document.BillOfLadingV1Document.place_of_delivery" title="Permalink to this definition"></a></dt>
+<dd><p>The place where the goods are to be delivered.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_document.BillOfLadingV1Document.port_of_discharge">
+<span class="sig-name descname"><span class="pre">port_of_discharge</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_document.BillOfLadingV1Document.port_of_discharge" title="Permalink to this definition"></a></dt>
+<dd><p>The port where the goods are unloaded from the vessel.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_document.BillOfLadingV1Document.port_of_loading">
+<span class="sig-name descname"><span class="pre">port_of_loading</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_document.BillOfLadingV1Document.port_of_loading" title="Permalink to this definition"></a></dt>
+<dd><p>The port where the goods are loaded onto the vessel.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_document.BillOfLadingV1Document.shipper">
+<span class="sig-name descname"><span class="pre">shipper</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.product.bill_of_lading.bill_of_lading_v1_shipper.BillOfLadingV1Shipper" title="mindee.product.bill_of_lading.bill_of_lading_v1_shipper.BillOfLadingV1Shipper"><code class="xref py py-class docutils literal notranslate"><span class="pre">BillOfLadingV1Shipper</span></code></a></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_document.BillOfLadingV1Document.shipper" title="Permalink to this definition"></a></dt>
+<dd><p>The party responsible for shipping the goods.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_shipper.BillOfLadingV1Shipper">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BillOfLadingV1Shipper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_shipper.BillOfLadingV1Shipper" title="Permalink to this definition"></a></dt>
+<dd><p>The party responsible for shipping the goods.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p></li>
+<li><p><strong>page_id</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_shipper.BillOfLadingV1Shipper.to_field_list">
+<span class="sig-name descname"><span class="pre">to_field_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_shipper.BillOfLadingV1Shipper.to_field_list" title="Permalink to this definition"></a></dt>
+<dd><p>Output the object in a format suitable for inclusion in an rST field list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_shipper.BillOfLadingV1Shipper.address">
+<span class="sig-name descname"><span class="pre">address</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_shipper.BillOfLadingV1Shipper.address" title="Permalink to this definition"></a></dt>
+<dd><p>The address of the shipper.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_shipper.BillOfLadingV1Shipper.bounding_box">
+<span class="sig-name descname"><span class="pre">bounding_box</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[Quadrilateral]</span></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_shipper.BillOfLadingV1Shipper.bounding_box" title="Permalink to this definition"></a></dt>
+<dd><p>A right rectangle containing the word in the document.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_shipper.BillOfLadingV1Shipper.confidence">
+<span class="sig-name descname"><span class="pre">confidence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_shipper.BillOfLadingV1Shipper.confidence" title="Permalink to this definition"></a></dt>
+<dd><p>The confidence score.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_shipper.BillOfLadingV1Shipper.email">
+<span class="sig-name descname"><span class="pre">email</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_shipper.BillOfLadingV1Shipper.email" title="Permalink to this definition"></a></dt>
+<dd><p>The  email of the shipper.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_shipper.BillOfLadingV1Shipper.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_shipper.BillOfLadingV1Shipper.name" title="Permalink to this definition"></a></dt>
+<dd><p>The name of the shipper.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_shipper.BillOfLadingV1Shipper.page_n">
+<span class="sig-name descname"><span class="pre">page_n</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_shipper.BillOfLadingV1Shipper.page_n" title="Permalink to this definition"></a></dt>
+<dd><p>The document page on which the information was found.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_shipper.BillOfLadingV1Shipper.phone">
+<span class="sig-name descname"><span class="pre">phone</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_shipper.BillOfLadingV1Shipper.phone" title="Permalink to this definition"></a></dt>
+<dd><p>The phone number of the shipper.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_shipper.BillOfLadingV1Shipper.polygon">
+<span class="sig-name descname"><span class="pre">polygon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Polygon</span></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_shipper.BillOfLadingV1Shipper.polygon" title="Permalink to this definition"></a></dt>
+<dd><p>A polygon containing the word in the document.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_consignee.BillOfLadingV1Consignee">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BillOfLadingV1Consignee</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_consignee.BillOfLadingV1Consignee" title="Permalink to this definition"></a></dt>
+<dd><p>The party to whom the goods are being shipped.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p></li>
+<li><p><strong>page_id</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_consignee.BillOfLadingV1Consignee.to_field_list">
+<span class="sig-name descname"><span class="pre">to_field_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_consignee.BillOfLadingV1Consignee.to_field_list" title="Permalink to this definition"></a></dt>
+<dd><p>Output the object in a format suitable for inclusion in an rST field list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_consignee.BillOfLadingV1Consignee.address">
+<span class="sig-name descname"><span class="pre">address</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_consignee.BillOfLadingV1Consignee.address" title="Permalink to this definition"></a></dt>
+<dd><p>The address of the consignee.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_consignee.BillOfLadingV1Consignee.bounding_box">
+<span class="sig-name descname"><span class="pre">bounding_box</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[Quadrilateral]</span></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_consignee.BillOfLadingV1Consignee.bounding_box" title="Permalink to this definition"></a></dt>
+<dd><p>A right rectangle containing the word in the document.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_consignee.BillOfLadingV1Consignee.confidence">
+<span class="sig-name descname"><span class="pre">confidence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_consignee.BillOfLadingV1Consignee.confidence" title="Permalink to this definition"></a></dt>
+<dd><p>The confidence score.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_consignee.BillOfLadingV1Consignee.email">
+<span class="sig-name descname"><span class="pre">email</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_consignee.BillOfLadingV1Consignee.email" title="Permalink to this definition"></a></dt>
+<dd><p>The  email of the shipper.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_consignee.BillOfLadingV1Consignee.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_consignee.BillOfLadingV1Consignee.name" title="Permalink to this definition"></a></dt>
+<dd><p>The name of the consignee.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_consignee.BillOfLadingV1Consignee.page_n">
+<span class="sig-name descname"><span class="pre">page_n</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_consignee.BillOfLadingV1Consignee.page_n" title="Permalink to this definition"></a></dt>
+<dd><p>The document page on which the information was found.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_consignee.BillOfLadingV1Consignee.phone">
+<span class="sig-name descname"><span class="pre">phone</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_consignee.BillOfLadingV1Consignee.phone" title="Permalink to this definition"></a></dt>
+<dd><p>The phone number of the consignee.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_consignee.BillOfLadingV1Consignee.polygon">
+<span class="sig-name descname"><span class="pre">polygon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Polygon</span></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_consignee.BillOfLadingV1Consignee.polygon" title="Permalink to this definition"></a></dt>
+<dd><p>A polygon containing the word in the document.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_notify_party.BillOfLadingV1NotifyParty">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BillOfLadingV1NotifyParty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_notify_party.BillOfLadingV1NotifyParty" title="Permalink to this definition"></a></dt>
+<dd><p>The party to be notified of the arrival of the goods.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p></li>
+<li><p><strong>page_id</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_notify_party.BillOfLadingV1NotifyParty.to_field_list">
+<span class="sig-name descname"><span class="pre">to_field_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_notify_party.BillOfLadingV1NotifyParty.to_field_list" title="Permalink to this definition"></a></dt>
+<dd><p>Output the object in a format suitable for inclusion in an rST field list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_notify_party.BillOfLadingV1NotifyParty.address">
+<span class="sig-name descname"><span class="pre">address</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_notify_party.BillOfLadingV1NotifyParty.address" title="Permalink to this definition"></a></dt>
+<dd><p>The address of the notify party.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_notify_party.BillOfLadingV1NotifyParty.bounding_box">
+<span class="sig-name descname"><span class="pre">bounding_box</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[Quadrilateral]</span></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_notify_party.BillOfLadingV1NotifyParty.bounding_box" title="Permalink to this definition"></a></dt>
+<dd><p>A right rectangle containing the word in the document.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_notify_party.BillOfLadingV1NotifyParty.confidence">
+<span class="sig-name descname"><span class="pre">confidence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_notify_party.BillOfLadingV1NotifyParty.confidence" title="Permalink to this definition"></a></dt>
+<dd><p>The confidence score.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_notify_party.BillOfLadingV1NotifyParty.email">
+<span class="sig-name descname"><span class="pre">email</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_notify_party.BillOfLadingV1NotifyParty.email" title="Permalink to this definition"></a></dt>
+<dd><p>The  email of the shipper.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_notify_party.BillOfLadingV1NotifyParty.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_notify_party.BillOfLadingV1NotifyParty.name" title="Permalink to this definition"></a></dt>
+<dd><p>The name of the notify party.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_notify_party.BillOfLadingV1NotifyParty.page_n">
+<span class="sig-name descname"><span class="pre">page_n</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_notify_party.BillOfLadingV1NotifyParty.page_n" title="Permalink to this definition"></a></dt>
+<dd><p>The document page on which the information was found.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_notify_party.BillOfLadingV1NotifyParty.phone">
+<span class="sig-name descname"><span class="pre">phone</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_notify_party.BillOfLadingV1NotifyParty.phone" title="Permalink to this definition"></a></dt>
+<dd><p>The phone number of the notify party.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_notify_party.BillOfLadingV1NotifyParty.polygon">
+<span class="sig-name descname"><span class="pre">polygon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Polygon</span></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_notify_party.BillOfLadingV1NotifyParty.polygon" title="Permalink to this definition"></a></dt>
+<dd><p>A polygon containing the word in the document.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_carrier.BillOfLadingV1Carrier">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BillOfLadingV1Carrier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_carrier.BillOfLadingV1Carrier" title="Permalink to this definition"></a></dt>
+<dd><p>The shipping company responsible for transporting the goods.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p></li>
+<li><p><strong>page_id</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_carrier.BillOfLadingV1Carrier.to_field_list">
+<span class="sig-name descname"><span class="pre">to_field_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_carrier.BillOfLadingV1Carrier.to_field_list" title="Permalink to this definition"></a></dt>
+<dd><p>Output the object in a format suitable for inclusion in an rST field list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_carrier.BillOfLadingV1Carrier.bounding_box">
+<span class="sig-name descname"><span class="pre">bounding_box</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[Quadrilateral]</span></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_carrier.BillOfLadingV1Carrier.bounding_box" title="Permalink to this definition"></a></dt>
+<dd><p>A right rectangle containing the word in the document.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_carrier.BillOfLadingV1Carrier.confidence">
+<span class="sig-name descname"><span class="pre">confidence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_carrier.BillOfLadingV1Carrier.confidence" title="Permalink to this definition"></a></dt>
+<dd><p>The confidence score.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_carrier.BillOfLadingV1Carrier.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_carrier.BillOfLadingV1Carrier.name" title="Permalink to this definition"></a></dt>
+<dd><p>The name of the carrier.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_carrier.BillOfLadingV1Carrier.page_n">
+<span class="sig-name descname"><span class="pre">page_n</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_carrier.BillOfLadingV1Carrier.page_n" title="Permalink to this definition"></a></dt>
+<dd><p>The document page on which the information was found.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_carrier.BillOfLadingV1Carrier.polygon">
+<span class="sig-name descname"><span class="pre">polygon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Polygon</span></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_carrier.BillOfLadingV1Carrier.polygon" title="Permalink to this definition"></a></dt>
+<dd><p>A polygon containing the word in the document.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_carrier.BillOfLadingV1Carrier.professional_number">
+<span class="sig-name descname"><span class="pre">professional_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_carrier.BillOfLadingV1Carrier.professional_number" title="Permalink to this definition"></a></dt>
+<dd><p>The professional number of the carrier.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_carrier.BillOfLadingV1Carrier.scac">
+<span class="sig-name descname"><span class="pre">scac</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_carrier.BillOfLadingV1Carrier.scac" title="Permalink to this definition"></a></dt>
+<dd><p>The Standard Carrier Alpha Code (SCAC) of the carrier.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_carrier_item.BillOfLadingV1CarrierItem">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BillOfLadingV1CarrierItem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_carrier_item.BillOfLadingV1CarrierItem" title="Permalink to this definition"></a></dt>
+<dd><p>The goods being shipped.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p></li>
+<li><p><strong>page_id</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_carrier_item.BillOfLadingV1CarrierItem.to_table_line">
+<span class="sig-name descname"><span class="pre">to_table_line</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_carrier_item.BillOfLadingV1CarrierItem.to_table_line" title="Permalink to this definition"></a></dt>
+<dd><p>Output in a format suitable for inclusion in an rST table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_carrier_item.BillOfLadingV1CarrierItem.bounding_box">
+<span class="sig-name descname"><span class="pre">bounding_box</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[Quadrilateral]</span></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_carrier_item.BillOfLadingV1CarrierItem.bounding_box" title="Permalink to this definition"></a></dt>
+<dd><p>A right rectangle containing the word in the document.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_carrier_item.BillOfLadingV1CarrierItem.confidence">
+<span class="sig-name descname"><span class="pre">confidence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_carrier_item.BillOfLadingV1CarrierItem.confidence" title="Permalink to this definition"></a></dt>
+<dd><p>The confidence score.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_carrier_item.BillOfLadingV1CarrierItem.description">
+<span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_carrier_item.BillOfLadingV1CarrierItem.description" title="Permalink to this definition"></a></dt>
+<dd><p>A description of the item.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_carrier_item.BillOfLadingV1CarrierItem.gross_weight">
+<span class="sig-name descname"><span class="pre">gross_weight</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_carrier_item.BillOfLadingV1CarrierItem.gross_weight" title="Permalink to this definition"></a></dt>
+<dd><p>The gross weight of the item.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_carrier_item.BillOfLadingV1CarrierItem.measurement">
+<span class="sig-name descname"><span class="pre">measurement</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_carrier_item.BillOfLadingV1CarrierItem.measurement" title="Permalink to this definition"></a></dt>
+<dd><p>The measurement of the item.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_carrier_item.BillOfLadingV1CarrierItem.measurement_unit">
+<span class="sig-name descname"><span class="pre">measurement_unit</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_carrier_item.BillOfLadingV1CarrierItem.measurement_unit" title="Permalink to this definition"></a></dt>
+<dd><p>The unit of measurement for the measurement.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_carrier_item.BillOfLadingV1CarrierItem.page_n">
+<span class="sig-name descname"><span class="pre">page_n</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_carrier_item.BillOfLadingV1CarrierItem.page_n" title="Permalink to this definition"></a></dt>
+<dd><p>The document page on which the information was found.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_carrier_item.BillOfLadingV1CarrierItem.polygon">
+<span class="sig-name descname"><span class="pre">polygon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Polygon</span></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_carrier_item.BillOfLadingV1CarrierItem.polygon" title="Permalink to this definition"></a></dt>
+<dd><p>A polygon containing the word in the document.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_carrier_item.BillOfLadingV1CarrierItem.quantity">
+<span class="sig-name descname"><span class="pre">quantity</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_carrier_item.BillOfLadingV1CarrierItem.quantity" title="Permalink to this definition"></a></dt>
+<dd><p>The quantity of the item being shipped.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.bill_of_lading.bill_of_lading_v1_carrier_item.BillOfLadingV1CarrierItem.weight_unit">
+<span class="sig-name descname"><span class="pre">weight_unit</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.bill_of_lading.bill_of_lading_v1_carrier_item.BillOfLadingV1CarrierItem.weight_unit" title="Permalink to this definition"></a></dt>
+<dd><p>The unit of measurement for weights.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="barcode_reader_v1.html" class="btn btn-neutral float-left" title="Barcode Reader V1" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cropper_v1.html" class="btn btn-neutral float-right" title="Cropper V1" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Mindee.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
