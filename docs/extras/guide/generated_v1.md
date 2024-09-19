@@ -87,10 +87,18 @@ Generated builds always have access to at least two attributes:
 
 ## Fields
 
-**fields** (`Dict[str`: `List[Union[`[GeneratedListField](#generated-list-field)[GeneratedObjectField](#generated-object-field), `(#stringfield)[StringField]]]`):
+**fields** (`Dict[str`: `List[Union[`[GeneratedListField](#generated-list-field), [GeneratedObjectField](#generated-object-field), `(#stringfield)[StringField]]]`):
 
 ```python
 print(str(result.document.inference.prediction.fields["my-field"]))
+```
+
+### Nested fields
+
+If your field `my-field` is a `GeneratedObjectField`, you can access its individual properties using the following syntax:
+
+```python
+print(str(result.document.inference.prediction.fields["my-field"].my_attribute))
 ```
 
 # Questions?
