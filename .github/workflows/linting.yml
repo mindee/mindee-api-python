@@ -17,12 +17,12 @@ jobs:
     - uses: actions/checkout@v4
 
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
 
     - name: Cache dependencies
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/.cache/pip
         key: ${{ runner.os }}-dev-${{ hashFiles('setup.cfg') }}
@@ -36,7 +36,7 @@ jobs:
         pip install -e .[dev]
 
     - name: Cache pre-commit
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/.cache/pre-commit
         key: ${{ runner.os }}-prec-${{ hashFiles('.pre-commit-config.yaml') }}

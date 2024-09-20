@@ -1,3 +1,4 @@
+from difflib import SequenceMatcher
 from pathlib import Path
 
 from mindee.mindee_http.mindee_api import (
@@ -25,3 +26,13 @@ def dummy_envvars(monkeypatch) -> None:
 
 
 EXTRAS_DIR = Path("./tests/data/extras/")
+
+
+def levenshtein_ratio(ref_str: str, target_str: str) -> float:
+    """
+    Calculates the Levenshtein ratio between two strings.
+    :param ref_str: Reference string.
+    :param target_str: Target String.
+    :return: Ratio between the two strings
+    """
+    return SequenceMatcher(None, ref_str, target_str).ratio()
