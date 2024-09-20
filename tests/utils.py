@@ -52,7 +52,11 @@ def levenshtein_distance(reference_str: str, target_str: str) -> int:
         for j in range(target_len):
             deletion_cost = previous_row[j + 1] + 1
             insertion_cost = current_row[j] + 1
-            substitution_cost = previous_row[j] if reference_str[i] == target_str[j] else previous_row[j] + 1
+            substitution_cost = (
+                previous_row[j]
+                if reference_str[i] == target_str[j]
+                else previous_row[j] + 1
+            )
 
             current_row[j + 1] = min(deletion_cost, insertion_cost, substitution_cost)
 
