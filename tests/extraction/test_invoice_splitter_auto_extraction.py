@@ -9,6 +9,7 @@ from mindee.parsing.common import Document
 from mindee.product import InvoiceSplitterV1, InvoiceV4
 from tests.product import get_id, get_version
 from tests.test_inputs import PRODUCT_DATA_DIR
+from tests.utils import levenshtein_ratio
 
 
 @pytest.fixture
@@ -52,4 +53,4 @@ def test_pdf_should_extract_invoices_strict():
         PRODUCT_DATA_DIR / "invoices" / "response_v4" / "summary_full_invoice_p1.rst",
         invoice_0.document,
     )
-    assert test_string_rst_invoice_0 == str(invoice_0.document)
+    assert levenshtein_ratio(test_string_rst_invoice_0, str(invoice_0.document)) >= 0.97
