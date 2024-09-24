@@ -3,8 +3,9 @@ from mindee.extraction.multi_receipts_extractor.multi_receipts_extractor import 
     extract_receipts,
 )
 
+api_key = "my-api-key"
 # Init a new client
-mindee_client = Client()
+mindee_client = Client(api_key)
 
 # Load a file from disk
 input_doc = mindee_client.source_from_path("path/to/your/file.ext")
