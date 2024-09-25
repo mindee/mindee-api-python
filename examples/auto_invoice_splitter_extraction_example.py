@@ -43,5 +43,4 @@ def parse_multi_page(input_source):
 
 
 if __name__ == "__main__":
-    input_path = "path/to/your/file.ext"
     parse_invoice(input_path)

@@ -22,5 +22,4 @@ def parse_receipts(input_path):
 
 
 if __name__ == "__main__":
-    input_path = "path/to/your/file.ext"
-    parse_receipts(input_path)
+    parse_receipts("path/to/your/file.ext")
