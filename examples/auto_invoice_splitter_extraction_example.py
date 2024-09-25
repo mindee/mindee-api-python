@@ -1,12 +1,10 @@
-import os
-
 from mindee import Client
 from mindee.extraction.pdf_extractor import PdfExtractor
 from mindee.input import PathInput
 from mindee.product import InvoiceSplitterV1, InvoiceV4
 
 mindee_client = Client(api_key="my-api-key")
-# mindee_client = Client() # Optionally, set from env.
+# mindee_client = Client()  # Optionally, set from env.
 
 
 def parse_invoice(file_path):
@@ -42,4 +40,4 @@ def parse_multi_page(input_source):
 
 
 if __name__ == "__main__":
-    parse_invoice(input_path)
+    parse_invoice("path/to/my/file.ext")
