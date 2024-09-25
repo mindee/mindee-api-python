@@ -1,4 +1,5 @@
 import os
+
 from mindee import Client
 from mindee.extraction.pdf_extractor import PdfExtractor
 from mindee.input import PathInput
@@ -36,9 +37,7 @@ def parse_multi_page(input_source):
         # Optional: Save the files locally
         # extracted_pdf.write_to_file("output/path")
 
-        invoice_result = mindee_client.parse(
-            InvoiceV4, extracted_pdf.as_input_source()
-        )
+        invoice_result = mindee_client.parse(InvoiceV4, extracted_pdf.as_input_source())
         print(invoice_result.document)
 
 
