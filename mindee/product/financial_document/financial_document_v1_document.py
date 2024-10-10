@@ -17,7 +17,7 @@ from mindee.product.financial_document.financial_document_v1_line_item import (
 
 
 class FinancialDocumentV1Document(Prediction):
-    """Financial Document API version 1.9 document data."""
+    """Financial Document API version 1.10 document data."""
 
     billing_address: StringField
     """The customer's address used for billing."""
@@ -45,6 +45,10 @@ class FinancialDocumentV1Document(Prediction):
     """List of line item details."""
     locale: LocaleField
     """The locale detected on the document."""
+    payment_date: DateField
+    """The date on which the payment is due / fullfilled."""
+    po_number: StringField
+    """The purchase order number."""
     receipt_number: StringField
     """The receipt number or identifier only if document is a receipt."""
     reference_numbers: List[StringField]
@@ -142,6 +146,14 @@ class FinancialDocumentV1Document(Prediction):
         ]
         self.locale = LocaleField(
             raw_prediction["locale"],
+            page_id=page_id,
+        )
+        self.payment_date = DateField(
+            raw_prediction["payment_date"],
+            page_id=page_id,
+        )
+        self.po_number = StringField(
+            raw_prediction["po_number"],
             page_id=page_id,
         )
         self.receipt_number = StringField(
@@ -260,11 +272,13 @@ class FinancialDocumentV1Document(Prediction):
         )
         out_str: str = f":Locale: {self.locale}\n"
         out_str += f":Invoice Number: {self.invoice_number}\n"
+        out_str += f":Purchase Order Number: {self.po_number}\n"
         out_str += f":Receipt Number: {self.receipt_number}\n"
         out_str += f":Document Number: {self.document_number}\n"
         out_str += f":Reference Numbers: {reference_numbers}\n"
         out_str += f":Purchase Date: {self.date}\n"
         out_str += f":Due Date: {self.due_date}\n"
+        out_str += f":Payment Date: {self.payment_date}\n"
         out_str += f":Total Net: {self.total_net}\n"
         out_str += f":Total Amount: {self.total_amount}\n"
         out_str += f":Taxes: {self.taxes}\n"

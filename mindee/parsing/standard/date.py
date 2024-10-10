@@ -17,6 +17,8 @@ class DateField(FieldPositionMixin, BaseField):
     """Date as a standard Python ``datetime.date`` object."""
     value: Optional[str]
     """The raw field value."""
+    is_computed: Optional[bool]
+    """Whether the field was computed or retrieved directly from the document."""
 
     def __init__(
         self,
@@ -39,6 +41,8 @@ class DateField(FieldPositionMixin, BaseField):
         )
         self._set_position(raw_prediction)
 
+        if "is_computed" in raw_prediction:
+            self.is_computed = raw_prediction["is_computed"]
         if self.value:
             try:
                 self.date_object = (
