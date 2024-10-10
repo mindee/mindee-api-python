@@ -365,6 +365,20 @@ for line_items_elem in result.document.inference.prediction.line_items:
 print(result.document.inference.prediction.locale.value)
 ```
 
+## Payment Date
+**payment_date** ([DateField](#datefield)): The date on which the payment is due / fullfilled.
+
+```py
+print(result.document.inference.prediction.payment_date.value)
+```
+
+## Purchase Order Number
+**po_number** ([StringField](#stringfield)): The purchase order number.
+
+```py
+print(result.document.inference.prediction.po_number.value)
+```
+
 ## Receipt Number
 **receipt_number** ([StringField](#stringfield)): The receipt number or identifier only if document is a receipt.
 

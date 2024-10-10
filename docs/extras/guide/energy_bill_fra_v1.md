@@ -6,7 +6,7 @@ parentDoc: 609808f773b0b90051d839de
 ---
 The Python OCR SDK supports the [Energy Bill API](https://platform.mindee.com/mindee/energy_bill_fra).
 
-The [sample below](https://github.com/mindee/client-lib-test-data/blob/main/products/energy_bill_fra/default_sample.jpg) can be used for testing purposes.
+Using the [sample below](https://github.com/mindee/client-lib-test-data/blob/main/products/energy_bill_fra/default_sample.jpg), we are going to illustrate how to extract the data that we want using the OCR SDK.
 ![Energy Bill sample](https://github.com/mindee/client-lib-test-data/blob/main/products/energy_bill_fra/default_sample.jpg?raw=true)
 
 # Quick-Start
@@ -29,6 +29,66 @@ result: AsyncPredictResponse = mindee_client.enqueue_and_parse(
 print(result.document)
 
 ```
+
+**Output (RST):**
+```rst
+########
+Document
+########
+:Mindee ID: 17f0ccef-e3fe-4a28-838d-d704489d6ce7
+:Filename: default_sample.pdf
+
+Inference
+#########
+:Product: mindee/energy_bill_fra v1.0
+:Rotation applied: No
+
+Prediction
+==========
+:Invoice Number: 10123590373
+:Contract ID: 1234567890
+:Delivery Point: 98765432109876
+:Invoice Date: 2021-01-29
+:Due Date: 2021-02-15
+:Total Before Taxes: 1241.03
+:Total Taxes: 238.82
+:Total Amount: 1479.85
+:Energy Supplier:
+  :Address: TSA 12345, 12345 DEMOCITY CEDEX, 75001 PARIS
+  :Name: EDF
+:Energy Consumer:
+  :Address: 12 AVENUE DES RÊVES, RDC A 123 COUR FAUSSE A, 75000 PARIS
+  :Name: John Doe
+:Subscription:
+  +--------------------------------------+------------+------------+----------+-----------+------------+
+  | Description                          | End Date   | Start Date | Tax Rate | Total     | Unit Price |
+  +======================================+============+============+==========+===========+============+
+  | Abonnement électricité               | 2021-02-28 | 2021-01-01 | 5.50     | 59.00     | 29.50      |
+  +--------------------------------------+------------+------------+----------+-----------+------------+
+:Energy Usage:
+  +--------------------------------------+------------+------------+----------+-----------+------------+
+  | Description                          | End Date   | Start Date | Tax Rate | Total     | Unit Price |
+  +======================================+============+============+==========+===========+============+
+  | Consommation (HT)                    | 2021-01-27 | 2020-11-28 | 20.00    | 898.43    | 10.47      |
+  +--------------------------------------+------------+------------+----------+-----------+------------+
+:Taxes and Contributions:
+  +--------------------------------------+------------+------------+----------+-----------+------------+
+  | Description                          | End Date   | Start Date | Tax Rate | Total     | Unit Price |
+  +======================================+============+============+==========+===========+============+
+  | Contribution au Service Public de... | 2021-01-27 | 2020-11-28 | 20.00    | 193.07    | 2.25       |
+  +--------------------------------------+------------+------------+----------+-----------+------------+
+  | Départementale sur la Conso Final... | 2020-12-31 | 2020-11-28 | 20.00    | 13.98     | 0.3315     |
+  +--------------------------------------+------------+------------+----------+-----------+------------+
+  | Communale sur la Conso Finale Ele... | 2021-01-27 | 2021-01-01 | 20.00    | 28.56     | 0.6545     |
+  +--------------------------------------+------------+------------+----------+-----------+------------+
+  | Contribution Tarifaire d'Achemine... | 2020-12-31 | 2020-11-28 | 20.00    | 27.96     | 0.663      |
+  +--------------------------------------+------------+------------+----------+-----------+------------+
+:Meter Details:
+  :Meter Number: 620
+  :Meter Type: electricity
+  :Unit of Measure: kWh
+```
+
 # Field Types
 ## Standard Fields
 These fields are generic and used in several products.

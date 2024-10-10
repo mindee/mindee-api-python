@@ -6,7 +6,7 @@ parentDoc: 609808f773b0b90051d839de
 ---
 The Python OCR SDK supports the [Bill of Lading API](https://platform.mindee.com/mindee/bill_of_lading).
 
-The [sample below](https://github.com/mindee/client-lib-test-data/blob/main/products/bill_of_lading/default_sample.jpg) can be used for testing purposes.
+Using the [sample below](https://github.com/mindee/client-lib-test-data/blob/main/products/bill_of_lading/default_sample.jpg), we are going to illustrate how to extract the data that we want using the OCR SDK.
 ![Bill of Lading sample](https://github.com/mindee/client-lib-test-data/blob/main/products/bill_of_lading/default_sample.jpg?raw=true)
 
 # Quick-Start
@@ -29,6 +29,55 @@ result: AsyncPredictResponse = mindee_client.enqueue_and_parse(
 print(result.document)
 
 ```
+
+**Output (RST):**
+```rst
+########
+Document
+########
+:Mindee ID: 3b5250a1-b52c-4e0b-bc3e-2f0146b04e29
+:Filename: default_sample.jpg
+
+Inference
+#########
+:Product: mindee/bill_of_lading v1.1
+:Rotation applied: No
+
+Prediction
+==========
+:Bill of Lading Number: XYZ123456
+:Shipper:
+  :Address: 123 OCEAN DRIVE, SHANGHAI, CHINA
+  :Email:
+  :Name: GLOBAL FREIGHT SOLUTIONS INC.
+  :Phone: 86-21-12345678
+:Consignee:
+  :Address: 789 TRADE STREET, SINGAPORE 567890, SINGAPORE
+  :Email:
+  :Name: PACIFIC TRADING CO.
+  :Phone: 65-65432100
+:Notify Party:
+  :Address: 789 TRADE STREET, SINGAPORE 567890, SINGAPORE
+  :Email:
+  :Name: PACIFIC TRADING CO.
+  :Phone: 65-65432100
+:Carrier:
+  :Name: GLOBAL SHIPPING CO.,LTD.
+  :Professional Number:
+  :SCAC:
+:Items:
+  +--------------------------------------+--------------+-------------+------------------+----------+-------------+
+  | Description                          | Gross Weight | Measurement | Measurement Unit | Quantity | Weight Unit |
+  +======================================+==============+=============+==================+==========+=============+
+  | ELECTRONIC COMPONENTS\nP/N: 12345... | 500.00       | 1.50        | cbm              | 1.00     | kgs         |
+  +--------------------------------------+--------------+-------------+------------------+----------+-------------+
+:Port of Loading: SHANGHAI, CHINA
+:Port of Discharge: LOS ANGELES, USA
+:Place of Delivery: LOS ANGELES, USA
+:Date of issue: 2022-09-30
+:Departure Date:
+```
+
 # Field Types
 ## Standard Fields
 These fields are generic and used in several products.

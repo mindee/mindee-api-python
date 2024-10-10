@@ -45,9 +45,11 @@ def test_empty_doc(empty_doc: InvoiceV4DocumentType):
     prediction = empty_doc.inference.prediction
     assert prediction.locale.value is None
     assert prediction.invoice_number.value is None
+    assert prediction.po_number.value is None
     assert len(prediction.reference_numbers) == 0
     assert prediction.date.value is None
     assert prediction.due_date.value is None
+    assert prediction.payment_date.value is None
     assert prediction.total_net.value is None
     assert prediction.total_amount.value is None
     assert prediction.total_tax.value is None
