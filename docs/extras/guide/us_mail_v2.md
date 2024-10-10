@@ -35,7 +35,7 @@ print(result.document)
 :Sender Name: zed
 :Sender Address:
   :City: Dallas
-  :Complete Address: 54321 Elm Street, Dallas, Texas ...
+  :Complete Address: 54321 Elm Street, Dallas, Texas 54321
   :Postal Code: 54321
   :State: TX
   :Street: 54321 Elm Street
