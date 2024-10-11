@@ -1,5 +1,11 @@
 # Mindee Python API Library Changelog
 
+## v4.13.0 - 2024-10-11
+### Changes
+* :sparkles: add support for Financial Document v1.10
+* :sparkles: add support for Invoice v4.8
+
+
 ## v4.12.0 - 2024-09-18
 ### Changes
 * :sparkles: add support for BillOfLadingV1
