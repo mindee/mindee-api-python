@@ -15,7 +15,7 @@ from mindee.product.invoice.invoice_v4_line_item import InvoiceV4LineItem
 
 
 class InvoiceV4Document(Prediction):
-    """Invoice API version 4.7 document data."""
+    """Invoice API version 4.8 document data."""
 
     billing_address: StringField
     """The customer's address used for billing."""
@@ -39,6 +39,10 @@ class InvoiceV4Document(Prediction):
     """List of line item details."""
     locale: LocaleField
     """The locale detected on the document."""
+    payment_date: DateField
+    """The date on which the payment is due/ was full-filled."""
+    po_number: StringField
+    """The purchase order number."""
     reference_numbers: List[StringField]
     """List of Reference numbers, including PO number."""
     shipping_address: StringField
@@ -120,6 +124,14 @@ class InvoiceV4Document(Prediction):
         ]
         self.locale = LocaleField(
             raw_prediction["locale"],
+            page_id=page_id,
+        )
+        self.payment_date = DateField(
+            raw_prediction["payment_date"],
+            page_id=page_id,
+        )
+        self.po_number = StringField(
+            raw_prediction["po_number"],
             page_id=page_id,
         )
         self.reference_numbers = [
@@ -222,9 +234,11 @@ class InvoiceV4Document(Prediction):
         )
         out_str: str = f":Locale: {self.locale}\n"
         out_str += f":Invoice Number: {self.invoice_number}\n"
+        out_str += f":Purchase Order Number: {self.po_number}\n"
         out_str += f":Reference Numbers: {reference_numbers}\n"
         out_str += f":Purchase Date: {self.date}\n"
         out_str += f":Due Date: {self.due_date}\n"
+        out_str += f":Payment Date: {self.payment_date}\n"
         out_str += f":Total Net: {self.total_net}\n"
         out_str += f":Total Amount: {self.total_amount}\n"
         out_str += f":Total Tax: {self.total_tax}\n"
