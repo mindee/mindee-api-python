@@ -6,7 +6,7 @@ parentDoc: 609808f773b0b90051d839de
 ---
 The Python OCR SDK supports the [Payslip API](https://platform.mindee.com/mindee/payslip_fra).
 
-The [sample below](https://github.com/mindee/client-lib-test-data/blob/main/products/payslip_fra/default_sample.jpg) can be used for testing purposes.
+Using the [sample below](https://github.com/mindee/client-lib-test-data/blob/main/products/payslip_fra/default_sample.jpg), we are going to illustrate how to extract the data that we want using the OCR SDK.
 ![Payslip sample](https://github.com/mindee/client-lib-test-data/blob/main/products/payslip_fra/default_sample.jpg?raw=true)
 
 # Quick-Start
@@ -29,6 +29,82 @@ result: AsyncPredictResponse = mindee_client.enqueue_and_parse(
 print(result.document)
 
 ```
+
+**Output (RST):**
+```rst
+########
+Document
+########
+:Mindee ID: 972edba5-25aa-49d0-8431-e2557ddd788e
+:Filename: default_sample.jpg
+
+Inference
+#########
+:Product: mindee/payslip_fra v2.0
+:Rotation applied: No
+
+Prediction
+==========
+:Employee:
+  :Address: 52 RUE DES FLEURS 33500 LIBOURNE FRANCE
+  :Date of Birth:
+  :First Name: Jean Luc
+  :Last Name: Picard
+  :Phone Number:
+  :Registration Number:
+  :Social Security Number: 123456789012345
+:Employer:
+  :Address: 1 RUE DU TONNOT 25210 DOUBS
+  :Company ID: 12345678901234
+  :Company Site:
+  :NAF Code: 1234A
+  :Name: DEMO COMPANY
+  :Phone Number:
+  :URSSAF Number:
+:Bank Account Details:
+  :Bank Name:
+  :IBAN:
+  :SWIFT:
+:Employment:
+  :Category: Cadre
+  :Coefficient: 600.00
+  :Collective Agreement: Construction -- Promotion
+  :Job Title: Directeur Régional du Développement
+  :Position Level:
+  :Start Date: 2022-05-01
+:Salary Details:
+  +--------------+-----------+--------------------------------------+-----------+
+  | Amount       | Base      | Description                          | Rate      |
+  +==============+===========+======================================+===========+
+  | 6666.67      |           | Salaire de base                      |           |
+  +--------------+-----------+--------------------------------------+-----------+
+  | 9.30         |           | Part patronale Mutuelle NR           |           |
+  +--------------+-----------+--------------------------------------+-----------+
+  | 508.30       |           | Avantages en nature voiture          |           |
+  +--------------+-----------+--------------------------------------+-----------+
+:Pay Detail:
+  :Gross Salary: 7184.27
+  :Gross Salary YTD: 18074.81
+  :Income Tax Rate: 17.60
+  :Income Tax Withheld: 1030.99
+  :Net Paid: 3868.32
+  :Net Paid Before Tax: 4899.31
+  :Net Taxable: 5857.90
+  :Net Taxable YTD: 14752.73
+  :Total Cost Employer: 10486.94
+  :Total Taxes and Deductions: 1650.36
+:PTO:
+  :Accrued This Period: 6.17
+  :Balance End of Period: 6.17
+  :Used This Period:
+:Pay Period:
+  :End Date: 2023-03-31
+  :Month: 03
+  :Payment Date: 2023-03-29
+  :Start Date: 2023-03-01
+  :Year: 2023
+```
+
 # Field Types
 ## Standard Fields
 These fields are generic and used in several products.
