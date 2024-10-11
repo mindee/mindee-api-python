@@ -13,10 +13,12 @@ def test_constructor():
             [0.414, 0.831],
             [0.016, 0.831],
         ],
+        "is_computed": True,
     }
     date = DateField(field_dict)
     assert date.value == "2018-04-01"
     assert isinstance(date.date_object, datetime.date)
+    assert date.is_computed
 
 
 def test_constructor_no_date():
