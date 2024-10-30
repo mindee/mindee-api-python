@@ -58,21 +58,23 @@ print(result.document)
 ########
 Document
 ########
-:Mindee ID: 372d9d08-59d8-4e1c-9622-06648c1c238b
+:Mindee ID: 651b6417-bc50-496e-aa81-207219f0b9f4
 :Filename: default_sample.jpg
 
 Inference
 #########
-:Product: mindee/invoices v4.7
+:Product: mindee/invoices v4.8
 :Rotation applied: Yes
 
 Prediction
 ==========
 :Locale: en; en; CAD;
 :Invoice Number: 14
+:Purchase Order Number: AD29094
 :Reference Numbers: AD29094
 :Purchase Date: 2018-09-25
 :Due Date:
+:Payment Date:
 :Total Net: 2145.00
 :Total Amount: 2608.20
 :Total Tax: 193.20
@@ -88,7 +90,7 @@ Prediction
 :Supplier Address: 156 University Ave, Toronto ON, Canada, M5H 2H7
 :Supplier Phone Number: 4165551212
 :Supplier Website:
-:Supplier Email: ldoi@example.com
+:Supplier Email: j_coi@example.com
 :Customer Name: JIRO DOI
 :Customer Company Registrations:
 :Customer Address: 1954 Bloor Street West Toronto, ON, M6P 3K9 Canada
@@ -114,9 +116,11 @@ Page 0
 ------
 :Locale: en; en; CAD;
 :Invoice Number: 14
+:Purchase Order Number: AD29094
 :Reference Numbers: AD29094
 :Purchase Date: 2018-09-25
 :Due Date:
+:Payment Date:
 :Total Net: 2145.00
 :Total Amount: 2608.20
 :Total Tax: 193.20
@@ -132,7 +136,7 @@ Page 0
 :Supplier Address: 156 University Ave, Toronto ON, Canada, M5H 2H7
 :Supplier Phone Number: 4165551212
 :Supplier Website:
-:Supplier Email: ldoi@example.com
+:Supplier Email: j_coi@example.com
 :Customer Name: JIRO DOI
 :Customer Company Registrations:
 :Customer Address: 1954 Bloor Street West Toronto, ON, M6P 3K9 Canada
