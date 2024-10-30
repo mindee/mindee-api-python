@@ -6,8 +6,8 @@ parentDoc: 609808f773b0b90051d839de
 ---
 The Python OCR SDK supports the [Energy Bill API](https://platform.mindee.com/mindee/energy_bill_fra).
 
-Using the [sample below](https://github.com/mindee/client-lib-test-data/blob/main/products/energy_bill_fra/default_sample.jpg), we are going to illustrate how to extract the data that we want using the OCR SDK.
-![Energy Bill sample](https://github.com/mindee/client-lib-test-data/blob/main/products/energy_bill_fra/default_sample.jpg?raw=true)
+Using the [sample below](https://github.com/mindee/client-lib-test-data/blob/main/products/energy_bill_fra/default_sample.pdf), we are going to illustrate how to extract the data that we want using the OCR SDK.
+![Energy Bill sample](https://github.com/mindee/client-lib-test-data/blob/main/products/energy_bill_fra/default_sample.pdf?raw=true)
 
 # Quick-Start
 ```py
