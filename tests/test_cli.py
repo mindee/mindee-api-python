@@ -1,6 +1,5 @@
 import json
 from argparse import Namespace
-from sys import api_version
 
 import pytest
 

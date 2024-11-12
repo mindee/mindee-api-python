@@ -1,5 +1,3 @@
-import os
-
 from mindee import Client, product
 from mindee.extraction.multi_receipts_extractor.multi_receipts_extractor import (
     extract_receipts,

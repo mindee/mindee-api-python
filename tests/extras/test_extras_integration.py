@@ -1,8 +1,6 @@
-import json
-
 import pytest
 
-from mindee import AsyncPredictResponse, Client
+from mindee import Client
 from mindee.product import InternationalIdV2, InvoiceV4
 from tests.product import PRODUCT_DATA_DIR
 
