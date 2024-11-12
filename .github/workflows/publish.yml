@@ -29,7 +29,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.cache/pip
-          key: ${{ runner.os }}-build-${{ hashFiles('setup.cfg') }}
+          key: ${{ runner.os }}-build-${{ hashFiles('pyproject.toml') }}
           restore-keys: |
             ${{ runner.os }}-build-
 

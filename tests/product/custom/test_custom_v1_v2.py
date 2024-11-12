@@ -2,7 +2,6 @@ import json
 
 import pytest
 
-from mindee.error.mindee_error import MindeeProductError
 from mindee.geometry.quadrilateral import Quadrilateral
 from mindee.parsing.common.document import Document
 from mindee.parsing.common.page import Page

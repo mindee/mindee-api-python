@@ -10,7 +10,6 @@ from mindee.error.mindee_http_error import (
     handle_error,
 )
 from mindee.input.sources import PathInput
-from mindee.mindee_http import clean_request_json
 from tests.test_inputs import FILE_TYPES_DIR
 from tests.utils import clear_envvars, dummy_envvars
 

@@ -1,9 +1,6 @@
-import os
 import sys
 
-dir_path = os.path.dirname(os.path.realpath(__file__))
-with open(os.path.join(dir_path, "version"), "r", encoding="utf-8") as version_file:
-    __version__ = version_file.read().strip()
+__version__ = "4.13.0"
 
 python_version = f"{sys.version_info[0]}.{sys.version_info[1]}"
 

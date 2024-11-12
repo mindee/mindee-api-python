@@ -1,8 +1,9 @@
 """Test to check if style packages are in same versions as pre-commit config."""
 
-import configparser
 import re
 from pathlib import Path
+
+import toml
 
 
 def _test_version(versions_a, versions_b, key):
@@ -11,11 +12,10 @@ def _test_version(versions_a, versions_b, key):
 
 def test_style_pkg_versions():
     """Check black, flake8, isort and pydocstyle versions consistency."""
-    config = configparser.ConfigParser()
-    config.read(Path(__file__).parent.parent.joinpath("setup.cfg"))
-    line_sep = re.compile(r"(==|~=)")
+    config = toml.load(Path(__file__).parent.parent.joinpath("pyproject.toml"))
+    line_sep = re.compile(r"(==|~=|>=)")
     requirements_versions = {}
-    for line in config["options.extras_require"]["dev"].split():
+    for line in config["project"]["optional-dependencies"]["lint"]:
         split_line = line_sep.split(line.strip())
         requirements_versions[split_line[0]] = split_line[2]
 

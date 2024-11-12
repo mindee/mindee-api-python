@@ -58,7 +58,7 @@ class LocalResponse:
 
     @staticmethod
     def _process_secret_key(
-        secret_key: Union[str, bytes, bytearray]
+        secret_key: Union[str, bytes, bytearray],
     ) -> Union[bytes, bytearray]:
         """
         Processes the secret key as a byte array.
