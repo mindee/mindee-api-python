@@ -58,17 +58,17 @@ print(result.document)
 ########
 Document
 ########
-:Mindee ID: 340ee4ae-b4da-41f0-b5ea-81ae29852b57
+:Mindee ID: b26161ce-35d0-4984-b1ff-886645e160e6
 :Filename: default_sample.jpg
 
 Inference
 #########
-:Product: mindee/financial_document v1.10
+:Product: mindee/financial_document v1.11
 :Rotation applied: Yes
 
 Prediction
 ==========
-:Locale: en; en; USD;
+:Locale: en-US; en; US; USD;
 :Invoice Number: INT-001
 :Purchase Order Number: 2412/2019
 :Receipt Number:
@@ -120,7 +120,7 @@ Page Predictions
 
 Page 0
 ------
-:Locale: en; en; USD;
+:Locale: en-US; en; US; USD;
 :Invoice Number: INT-001
 :Purchase Order Number: 2412/2019
 :Receipt Number:

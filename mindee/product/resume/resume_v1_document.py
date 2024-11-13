@@ -14,7 +14,7 @@ from mindee.product.resume.resume_v1_social_networks_url import (
 
 
 class ResumeV1Document(Prediction):
-    """Resume API version 1.0 document data."""
+    """Resume API version 1.1 document data."""
 
     address: StringField
     """The location information of the candidate, including city, state, and country."""
@@ -216,6 +216,7 @@ class ResumeV1Document(Prediction):
         out_str = "  "
         out_str += f"+{char * 17}"
         out_str += f"+{char * 12}"
+        out_str += f"+{char * 38}"
         out_str += f"+{char * 27}"
         out_str += f"+{char * 11}"
         out_str += f"+{char * 10}"
@@ -235,6 +236,7 @@ class ResumeV1Document(Prediction):
         out_str += f"\n{self._professional_experiences_separator('-')}\n "
         out_str += " | Contract Type  "
         out_str += " | Department"
+        out_str += " | Description                         "
         out_str += " | Employer                 "
         out_str += " | End Month"
         out_str += " | End Year"

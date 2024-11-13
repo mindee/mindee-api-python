@@ -11,6 +11,8 @@ class ResumeV1ProfessionalExperience(FieldPositionMixin, FieldConfidenceMixin):
     """The type of contract for the professional experience."""
     department: Optional[str]
     """The specific department or division within the company."""
+    description: Optional[str]
+    """The description of the professional experience as written in the document."""
     employer: Optional[str]
     """The name of the company or organization."""
     end_month: Optional[str]
@@ -44,6 +46,7 @@ class ResumeV1ProfessionalExperience(FieldPositionMixin, FieldConfidenceMixin):
 
         self.contract_type = raw_prediction["contract_type"]
         self.department = raw_prediction["department"]
+        self.description = raw_prediction["description"]
         self.employer = raw_prediction["employer"]
         self.end_month = raw_prediction["end_month"]
         self.end_year = raw_prediction["end_year"]
@@ -56,6 +59,7 @@ class ResumeV1ProfessionalExperience(FieldPositionMixin, FieldConfidenceMixin):
         out_dict: Dict[str, str] = {}
         out_dict["contract_type"] = format_for_display(self.contract_type)
         out_dict["department"] = format_for_display(self.department)
+        out_dict["description"] = format_for_display(self.description)
         out_dict["employer"] = format_for_display(self.employer)
         out_dict["end_month"] = format_for_display(self.end_month)
         out_dict["end_year"] = format_for_display(self.end_year)
@@ -69,6 +73,7 @@ class ResumeV1ProfessionalExperience(FieldPositionMixin, FieldConfidenceMixin):
         out_dict: Dict[str, str] = {}
         out_dict["contract_type"] = format_for_display(self.contract_type, 15)
         out_dict["department"] = format_for_display(self.department, 10)
+        out_dict["description"] = format_for_display(self.description, 36)
         out_dict["employer"] = format_for_display(self.employer, 25)
         out_dict["end_month"] = format_for_display(self.end_month, None)
         out_dict["end_year"] = format_for_display(self.end_year, None)
@@ -82,6 +87,7 @@ class ResumeV1ProfessionalExperience(FieldPositionMixin, FieldConfidenceMixin):
         printable = self._table_printable_values()
         out_str: str = f"| {printable['contract_type']:<15} | "
         out_str += f"{printable['department']:<10} | "
+        out_str += f"{printable['description']:<36} | "
         out_str += f"{printable['employer']:<25} | "
         out_str += f"{printable['end_month']:<9} | "
         out_str += f"{printable['end_year']:<8} | "
@@ -95,6 +101,7 @@ class ResumeV1ProfessionalExperience(FieldPositionMixin, FieldConfidenceMixin):
         printable = self._printable_values()
         out_str: str = f"Contract Type: {printable['contract_type']}, \n"
         out_str += f"Department: {printable['department']}, \n"
+        out_str += f"Description: {printable['description']}, \n"
         out_str += f"Employer: {printable['employer']}, \n"
         out_str += f"End Month: {printable['end_month']}, \n"
         out_str += f"End Year: {printable['end_year']}, \n"

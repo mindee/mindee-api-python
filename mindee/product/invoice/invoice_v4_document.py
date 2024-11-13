@@ -15,7 +15,7 @@ from mindee.product.invoice.invoice_v4_line_item import InvoiceV4LineItem
 
 
 class InvoiceV4Document(Prediction):
-    """Invoice API version 4.8 document data."""
+    """Invoice API version 4.9 document data."""
 
     billing_address: StringField
     """The customer's address used for billing."""
