@@ -234,8 +234,8 @@ class Client:
         self, initial_delay_sec: float, delay_sec: float, max_retries: int
     ) -> None:
         min_delay = 1
-        min_initial_delay = 2
-        min_retries = 2
+        min_initial_delay = 1
+        min_retries = 1
         if delay_sec < min_delay:
             raise MindeeClientError(
                 f"Cannot set auto-parsing delay to less than {min_delay} seconds."
@@ -256,8 +256,8 @@ class Client:
         page_options: Optional[PageOptions] = None,
         cropper: bool = False,
         endpoint: Optional[Endpoint] = None,
-        initial_delay_sec: float = 4,
-        delay_sec: float = 2,
+        initial_delay_sec: float = 2,
+        delay_sec: float = 1.5,
         max_retries: int = 30,
         full_text: bool = False,
     ) -> AsyncPredictResponse:
