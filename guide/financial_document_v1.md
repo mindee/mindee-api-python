@@ -58,23 +58,25 @@ print(result.document)
 ########
 Document
 ########
-:Mindee ID: 3859a462-e05f-4f4c-a736-febca66b9aa9
+:Mindee ID: b26161ce-35d0-4984-b1ff-886645e160e6
 :Filename: default_sample.jpg
 
 Inference
 #########
-:Product: mindee/financial_document v1.9
+:Product: mindee/financial_document v1.11
 :Rotation applied: Yes
 
 Prediction
 ==========
-:Locale: en; en; USD;
+:Locale: en-US; en; US; USD;
 :Invoice Number: INT-001
+:Purchase Order Number: 2412/2019
 :Receipt Number:
 :Document Number: INT-001
 :Reference Numbers: 2412/2019
 :Purchase Date: 2019-11-02
 :Due Date: 2019-02-26
+:Payment Date: 2019-02-26
 :Total Net: 195.00
 :Total Amount: 204.75
 :Taxes:
@@ -118,13 +120,15 @@ Page Predictions
 
 Page 0
 ------
-:Locale: en; en; USD;
+:Locale: en-US; en; US; USD;
 :Invoice Number: INT-001
+:Purchase Order Number: 2412/2019
 :Receipt Number:
 :Document Number: INT-001
 :Reference Numbers: 2412/2019
 :Purchase Date: 2019-11-02
 :Due Date: 2019-02-26
+:Payment Date: 2019-02-26
 :Total Net: 195.00
 :Total Amount: 204.75
 :Taxes:
