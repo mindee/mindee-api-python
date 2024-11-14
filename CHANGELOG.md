@@ -1,5 +1,16 @@
 # Mindee Python API Library Changelog
 
+## v4.14.0 - 2024-11-14
+### Changes
+* :sparkles: add support for business cards V1
+* :sparkles: add support for delivery note V1.1
+* :sparkles: add support for indian passport V1
+* :sparkles: add support for resume V1.1
+### Fixes
+* :recycle: adjust default values for async delays
+* :arrow_up: fully migrate project to pyproject.toml
+
+
 ## v4.13.0 - 2024-10-11
 ### Changes
 * :sparkles: add support for Financial Document v1.10
