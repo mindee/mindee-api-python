@@ -234,15 +234,15 @@ class Client:
         self, initial_delay_sec: float, delay_sec: float, max_retries: int
     ) -> None:
         min_delay = 1
-        min_initial_delay = 2
-        min_retries = 2
+        min_initial_delay = 1
+        min_retries = 1
         if delay_sec < min_delay:
             raise MindeeClientError(
-                f"Cannot set auto-parsing delay to less than {min_delay} seconds."
+                f"Cannot set auto-parsing delay to less than {min_delay} second(s)."
             )
         if initial_delay_sec < min_initial_delay:
             raise MindeeClientError(
-                f"Cannot set initial parsing delay to less than {min_initial_delay} seconds."
+                f"Cannot set initial parsing delay to less than {min_initial_delay} second(s)."
             )
         if max_retries < min_retries:
             raise MindeeClientError(f"Cannot set retries to less than {min_retries}.")
@@ -256,8 +256,8 @@ class Client:
         page_options: Optional[PageOptions] = None,
         cropper: bool = False,
         endpoint: Optional[Endpoint] = None,
-        initial_delay_sec: float = 4,
-        delay_sec: float = 2,
+        initial_delay_sec: float = 2,
+        delay_sec: float = 1.5,
         max_retries: int = 30,
         full_text: bool = False,
     ) -> AsyncPredictResponse:
@@ -283,9 +283,9 @@ parameter.
 
         :param endpoint: For custom endpoints, an endpoint has to be given.
 
-        :param initial_delay_sec: Delay between each polling attempts This should not be shorter than 4 seconds.
+        :param initial_delay_sec: Delay between each polling attempts This should not be shorter than 1 second.
 
-        :param delay_sec: Delay between each polling attempts This should not be shorter than 2 seconds.
+        :param delay_sec: Delay between each polling attempts This should not be shorter than 1 second.
 
         :param max_retries: Total amount of polling attempts.
 

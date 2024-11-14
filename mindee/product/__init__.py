@@ -1,4 +1,4 @@
-from mindee.product import eu, fr, us
+from mindee.product import eu, fr, ind, us
 from mindee.product.barcode_reader import BarcodeReaderV1, BarcodeReaderV1Document
 from mindee.product.bill_of_lading import (
     BillOfLadingV1,
@@ -9,8 +9,10 @@ from mindee.product.bill_of_lading import (
     BillOfLadingV1NotifyParty,
     BillOfLadingV1Shipper,
 )
+from mindee.product.business_card import BusinessCardV1, BusinessCardV1Document
 from mindee.product.cropper import CropperV1, CropperV1Document
 from mindee.product.custom import CustomV1, CustomV1Document, CustomV1Page
+from mindee.product.delivery_note import DeliveryNoteV1, DeliveryNoteV1Document
 from mindee.product.financial_document import (
     FinancialDocumentV1,
     FinancialDocumentV1Document,
