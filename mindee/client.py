@@ -238,11 +238,11 @@ class Client:
         min_retries = 1
         if delay_sec < min_delay:
             raise MindeeClientError(
-                f"Cannot set auto-parsing delay to less than {min_delay} seconds."
+                f"Cannot set auto-parsing delay to less than {min_delay} second(s)."
             )
         if initial_delay_sec < min_initial_delay:
             raise MindeeClientError(
-                f"Cannot set initial parsing delay to less than {min_initial_delay} seconds."
+                f"Cannot set initial parsing delay to less than {min_initial_delay} second(s)."
             )
         if max_retries < min_retries:
             raise MindeeClientError(f"Cannot set retries to less than {min_retries}.")
@@ -283,9 +283,9 @@ parameter.
 
         :param endpoint: For custom endpoints, an endpoint has to be given.
 
-        :param initial_delay_sec: Delay between each polling attempts This should not be shorter than 4 seconds.
+        :param initial_delay_sec: Delay between each polling attempts This should not be shorter than 1 second.
 
-        :param delay_sec: Delay between each polling attempts This should not be shorter than 2 seconds.
+        :param delay_sec: Delay between each polling attempts This should not be shorter than 1 second.
 
         :param max_retries: Total amount of polling attempts.
 
