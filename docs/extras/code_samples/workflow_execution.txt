@@ -1,0 +1,21 @@
+from mindee import Client, WorkflowResponse
+
+# Init a new client
+mindee_client = Client(api_key: "my-api-key")
+
+workflow_id = "workflow-id"
+
+# Load a file from disk
+input_doc = mindee_client.source_from_path("/path/to/the/file.ext")
+
+# Send the file to the workflow.
+result: WorkflowResponse = mindee_client.execute_workflow(
+    input_doc,
+    workflow_id,
+    # Optionally, add an alias and a priority to the workflow.
+    # alias="my-alias",
+    # priority=ExecutionPriority.LOW
+)
+
+# Print the ID of the execution to make sure it worked.
+print(result.execution.id)

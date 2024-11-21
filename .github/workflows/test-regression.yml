@@ -62,3 +62,4 @@ jobs:
         notification_title: "Regression test workflow {workflow} is failing"
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.PRODUCTION_ISSUES_SLACK_HOOK_URL }}
+        WORKFLOW_ID: ${{ secrets.WORKFLOW_ID_SE_TESTS }}

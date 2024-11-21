@@ -1,12 +1,12 @@
 from abc import ABC
 
-from mindee.mindee_http.mindee_api import MindeeApi
+from mindee.mindee_http.base_settings import BaseSettings
 
 
 class BaseEndpoint(ABC):
     """Base endpoint class for the Mindee API."""
 
-    def __init__(self, settings: MindeeApi) -> None:
+    def __init__(self, settings: BaseSettings) -> None:
         """
         Base API endpoint class for all endpoints.
 

@@ -39,7 +39,7 @@ def is_valid_async_response(response: requests.Response) -> bool:
     ):
         return False
     # Async errors.
-    if "job" not in response_json:
+    if "job" not in response_json and "execution" not in response_json:
         return False
     if (
         "job" in response_json
@@ -47,6 +47,7 @@ def is_valid_async_response(response: requests.Response) -> bool:
         and response_json["job"]["error"]
     ):
         return False
+
     return True
 
 

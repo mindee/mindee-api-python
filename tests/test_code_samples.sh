@@ -6,7 +6,7 @@ ACCOUNT=$1
 ENDPOINT=$2
 API_KEY=$3
 
-for f in $(find ./docs/extras/code_samples -maxdepth 1 -name "*.txt" | sort -h)
+for f in $(find ./docs/extras/code_samples -maxdepth 1 -name "*.txt" -not -name "workflow_execution.txt" | sort -h)
 do
   echo
   echo "###############################################"
