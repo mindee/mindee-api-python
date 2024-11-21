@@ -3,7 +3,7 @@ from typing import Optional, Union
 import requests
 
 from mindee.input import LocalInputSource, UrlInputSource
-from mindee.mindee_http import BaseEndpoint
+from mindee.mindee_http.base_endpoint import BaseEndpoint
 from mindee.mindee_http.workflow_settings import WorkflowSettings
 from mindee.parsing.common.execution_priority import ExecutionPriority
 
