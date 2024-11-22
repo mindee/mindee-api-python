@@ -1,7 +1,8 @@
 from typing import Dict, Optional
 
-from mindee.parsing.common import StringDict, clean_out_string
-from mindee.parsing.standard import (
+from mindee.parsing.common.string_dict import StringDict
+from mindee.parsing.common.summary_helper import clean_out_string
+from mindee.parsing.standard.base import (
     FieldConfidenceMixin,
     FieldPositionMixin,
     float_to_string,

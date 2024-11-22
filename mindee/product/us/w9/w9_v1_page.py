@@ -1,6 +1,7 @@
 from typing import Optional
 
-from mindee.parsing.common import StringDict, clean_out_string
+from mindee.parsing.common.string_dict import StringDict
+from mindee.parsing.common.summary_helper import clean_out_string
 from mindee.parsing.standard import PositionField, StringField
 from mindee.product.us.w9.w9_v1_document import (
     W9V1Document,

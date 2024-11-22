@@ -1,6 +1,7 @@
 from typing import List, Optional
 
-from mindee.parsing.common import StringDict, clean_out_string
+from mindee.parsing.common.string_dict import StringDict
+from mindee.parsing.common.summary_helper import clean_out_string
 from mindee.parsing.standard import PositionField
 from mindee.product.cropper.cropper_v1_document import (
     CropperV1Document,

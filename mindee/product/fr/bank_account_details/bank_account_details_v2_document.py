@@ -1,6 +1,8 @@
 from typing import Optional
 
-from mindee.parsing.common import Prediction, StringDict, clean_out_string
+from mindee.parsing.common.prediction import Prediction
+from mindee.parsing.common.string_dict import StringDict
+from mindee.parsing.common.summary_helper import clean_out_string
 from mindee.parsing.standard import StringField
 from mindee.product.fr.bank_account_details.bank_account_details_v2_bban import (
     BankAccountDetailsV2Bban,
