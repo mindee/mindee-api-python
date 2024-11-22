@@ -32,7 +32,7 @@ dependencies = [
   "pypdfium2>=4.0,<5",
   "Pillow>=9.5.0",
   "pytz>=2023.3",
-  "requests~=2.31.0",
+  "requests>=2.31.0",
 ]
 
 [project.urls]
@@ -47,7 +47,7 @@ lint = [
   "pylint==3.2.7",
   "pre-commit~=3.2.2",
   "types-pytz>=2023.3",
-  "types-requests~=2.31",
+  "types-requests>=2.31",
 ]
 test = [
   "toml~=0.10.2",
