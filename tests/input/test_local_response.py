@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pytest
 
-from mindee.input import LocalResponse
+from mindee.input.local_response import LocalResponse
 from tests.api.test_async_response import ASYNC_DIR
 
 

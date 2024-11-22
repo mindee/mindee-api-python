@@ -1,9 +1,11 @@
 import re
 from typing import Dict, List, Union
 
-from mindee.parsing.common import Prediction, StringDict, clean_out_string
-from mindee.parsing.generated import GeneratedObjectField
+from mindee.parsing.common.prediction import Prediction
+from mindee.parsing.common.string_dict import StringDict
+from mindee.parsing.common.summary_helper import clean_out_string
 from mindee.parsing.generated.generated_list import GeneratedListField
+from mindee.parsing.generated.generated_object import GeneratedObjectField
 from mindee.parsing.standard.text import StringField
 
 

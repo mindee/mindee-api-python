@@ -1,7 +1,7 @@
 import pytest
 
 from mindee.client import Client
-from mindee.product import CropperV1
+from mindee.product.cropper.cropper_v1 import CropperV1
 from tests.product import PRODUCT_DATA_DIR, get_id, get_version
 
 

@@ -4,7 +4,7 @@ import pytest
 
 from mindee.parsing.common.document import Document
 from mindee.parsing.common.page import Page
-from mindee.product.fr import PayslipV2
+from mindee.product.fr.payslip.payslip_v2 import PayslipV2
 from mindee.product.fr.payslip.payslip_v2_document import (
     PayslipV2Document,
 )

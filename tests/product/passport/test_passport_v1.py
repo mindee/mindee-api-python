@@ -4,7 +4,7 @@ import pytest
 
 from mindee.parsing.common.document import Document
 from mindee.parsing.common.page import Page
-from mindee.product import PassportV1
+from mindee.product.passport.passport_v1 import PassportV1
 from mindee.product.passport.passport_v1_document import (
     PassportV1Document,
 )

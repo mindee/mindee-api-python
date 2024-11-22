@@ -4,7 +4,7 @@ import pytest
 
 from mindee.parsing.common.document import Document
 from mindee.parsing.common.page import Page
-from mindee.product import BillOfLadingV1
+from mindee.product.bill_of_lading.bill_of_lading_v1 import BillOfLadingV1
 from mindee.product.bill_of_lading.bill_of_lading_v1_document import (
     BillOfLadingV1Document,
 )

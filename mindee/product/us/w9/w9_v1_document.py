@@ -1,4 +1,4 @@
-from mindee.parsing.common import Prediction
+from mindee.parsing.common.prediction import Prediction
 
 
 class W9V1Document(Prediction):

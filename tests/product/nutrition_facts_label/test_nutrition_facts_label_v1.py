@@ -4,7 +4,9 @@ import pytest
 
 from mindee.parsing.common.document import Document
 from mindee.parsing.common.page import Page
-from mindee.product import NutritionFactsLabelV1
+from mindee.product.nutrition_facts_label.nutrition_facts_label_v1 import (
+    NutritionFactsLabelV1,
+)
 from mindee.product.nutrition_facts_label.nutrition_facts_label_v1_document import (
     NutritionFactsLabelV1Document,
 )

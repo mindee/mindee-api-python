@@ -2,7 +2,7 @@ import json
 
 import requests
 
-from mindee.parsing.common import StringDict
+from mindee.parsing.common.string_dict import StringDict
 
 
 def is_valid_sync_response(response: requests.Response) -> bool:

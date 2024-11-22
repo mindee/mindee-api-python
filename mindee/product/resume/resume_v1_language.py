@@ -1,7 +1,8 @@
 from typing import Dict, Optional
 
-from mindee.parsing.common import StringDict, clean_out_string, format_for_display
-from mindee.parsing.standard import FieldConfidenceMixin, FieldPositionMixin
+from mindee.parsing.common.string_dict import StringDict
+from mindee.parsing.common.summary_helper import clean_out_string, format_for_display
+from mindee.parsing.standard.base import FieldConfidenceMixin, FieldPositionMixin
 
 
 class ResumeV1Language(FieldPositionMixin, FieldConfidenceMixin):

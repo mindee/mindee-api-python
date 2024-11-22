@@ -1,7 +1,7 @@
 import pytest
 
 from mindee.client import Client
-from mindee.product import ReceiptV5
+from mindee.product.receipt.receipt_v5 import ReceiptV5
 from tests.product import PRODUCT_DATA_DIR, get_id, get_version
 
 

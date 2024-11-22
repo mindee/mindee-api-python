@@ -4,7 +4,7 @@ import pytest
 
 from mindee.parsing.common.document import Document
 from mindee.parsing.common.page import Page
-from mindee.product import FinancialDocumentV1
+from mindee.product.financial_document.financial_document_v1 import FinancialDocumentV1
 from mindee.product.financial_document.financial_document_v1_document import (
     FinancialDocumentV1Document,
 )

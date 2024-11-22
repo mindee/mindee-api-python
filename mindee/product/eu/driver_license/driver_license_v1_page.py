@@ -1,7 +1,8 @@
 from typing import Optional
 
-from mindee.parsing.common import StringDict, clean_out_string
-from mindee.parsing.standard import PositionField
+from mindee.parsing.common.string_dict import StringDict
+from mindee.parsing.common.summary_helper import clean_out_string
+from mindee.parsing.standard.position import PositionField
 from mindee.product.eu.driver_license.driver_license_v1_document import (
     DriverLicenseV1Document,
 )

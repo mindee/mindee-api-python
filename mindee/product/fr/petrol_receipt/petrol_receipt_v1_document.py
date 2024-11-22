@@ -1,7 +1,9 @@
 from typing import Optional
 
-from mindee.parsing.common import Prediction, StringDict, clean_out_string
-from mindee.parsing.standard import AmountField
+from mindee.parsing.common.prediction import Prediction
+from mindee.parsing.common.string_dict import StringDict
+from mindee.parsing.common.summary_helper import clean_out_string
+from mindee.parsing.standard.amount import AmountField
 from mindee.product.fr.petrol_receipt.petrol_receipt_v1_fuel import PetrolReceiptV1Fuel
 from mindee.product.fr.petrol_receipt.petrol_receipt_v1_total import (
     PetrolReceiptV1Total,
@@ -20,17 +22,14 @@ class PetrolReceiptV1Document(Prediction):
     volume: AmountField
     """The volume of fuel purchased."""
 
-    def __init__(
-        self,
-        raw_prediction: StringDict,
-        page_id: Optional[int] = None,
-    ):
+    def __init__(self, raw_prediction: StringDict, page_id: Optional[int] = None):
         """
         Petrol Receipt document.
 
         :param raw_prediction: Raw prediction from HTTP response
         :param page_id: Page number for multi pages pdf input
         """
+        super().__init__(raw_prediction, page_id)
         self.fuel = PetrolReceiptV1Fuel(
             raw_prediction["fuel"],
             page_id=page_id,

@@ -1,16 +1,16 @@
 from typing import List, Optional
 
-from mindee.parsing.common import Prediction, StringDict, clean_out_string
-from mindee.parsing.standard import (
-    AmountField,
-    ClassificationField,
-    CompanyRegistrationField,
-    DateField,
-    LocaleField,
-    PaymentDetailsField,
-    StringField,
-    Taxes,
-)
+from mindee.parsing.common.prediction import Prediction
+from mindee.parsing.common.string_dict import StringDict
+from mindee.parsing.common.summary_helper import clean_out_string
+from mindee.parsing.standard.amount import AmountField
+from mindee.parsing.standard.classification import ClassificationField
+from mindee.parsing.standard.company_registration import CompanyRegistrationField
+from mindee.parsing.standard.date import DateField
+from mindee.parsing.standard.locale import LocaleField
+from mindee.parsing.standard.payment_details import PaymentDetailsField
+from mindee.parsing.standard.tax import Taxes
+from mindee.parsing.standard.text import StringField
 from mindee.product.financial_document.financial_document_v1_line_item import (
     FinancialDocumentV1LineItem,
 )

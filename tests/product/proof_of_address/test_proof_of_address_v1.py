@@ -4,7 +4,7 @@ import pytest
 
 from mindee.parsing.common.document import Document
 from mindee.parsing.common.page import Page
-from mindee.product import ProofOfAddressV1
+from mindee.product.proof_of_address.proof_of_address_v1 import ProofOfAddressV1
 from mindee.product.proof_of_address.proof_of_address_v1_document import (
     ProofOfAddressV1Document,
 )

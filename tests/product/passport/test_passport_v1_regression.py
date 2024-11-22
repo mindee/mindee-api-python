@@ -1,7 +1,7 @@
 import pytest
 
 from mindee.client import Client
-from mindee.product import PassportV1
+from mindee.product.passport.passport_v1 import PassportV1
 from tests.product import PRODUCT_DATA_DIR, get_id, get_version
 
 

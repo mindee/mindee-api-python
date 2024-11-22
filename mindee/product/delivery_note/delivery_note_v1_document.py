@@ -1,7 +1,11 @@
 from typing import Optional
 
-from mindee.parsing.common import Prediction, StringDict, clean_out_string
-from mindee.parsing.standard import AmountField, DateField, StringField
+from mindee.parsing.common.prediction import Prediction
+from mindee.parsing.common.string_dict import StringDict
+from mindee.parsing.common.summary_helper import clean_out_string
+from mindee.parsing.standard.amount import AmountField
+from mindee.parsing.standard.date import DateField
+from mindee.parsing.standard.text import StringField
 
 
 class DeliveryNoteV1Document(Prediction):

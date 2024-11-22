@@ -1,7 +1,7 @@
 import pytest
 
 from mindee.client import Client
-from mindee.product import BarcodeReaderV1
+from mindee.product.barcode_reader.barcode_reader_v1 import BarcodeReaderV1
 from tests.product import PRODUCT_DATA_DIR, get_id, get_version
 
 

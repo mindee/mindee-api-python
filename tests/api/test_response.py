@@ -1,7 +1,6 @@
 import json
 
 from mindee.parsing.common.predict_response import PredictResponse
-from mindee.product import ReceiptV4
 from mindee.product.financial_document.financial_document_v1 import FinancialDocumentV1
 from mindee.product.financial_document.financial_document_v1_document import (
     FinancialDocumentV1Document,
@@ -13,6 +12,7 @@ from mindee.product.invoice.invoice_v4 import InvoiceV4
 from mindee.product.invoice.invoice_v4_document import InvoiceV4Document
 from mindee.product.passport.passport_v1 import PassportV1
 from mindee.product.passport.passport_v1_document import PassportV1Document
+from mindee.product.receipt.receipt_v4 import ReceiptV4
 from mindee.product.receipt.receipt_v4_document import ReceiptV4Document
 
 

@@ -4,7 +4,7 @@ import pytest
 
 from mindee.parsing.common.document import Document
 from mindee.parsing.common.page import Page
-from mindee.product.us import W9V1
+from mindee.product.us.w9.w9_v1 import W9V1
 from mindee.product.us.w9.w9_v1_document import (
     W9V1Document,
 )

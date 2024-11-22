@@ -4,7 +4,7 @@ import pytest
 
 from mindee.parsing.common.document import Document
 from mindee.parsing.common.page import Page
-from mindee.product.fr import IdCardV2
+from mindee.product.fr.id_card.id_card_v2 import IdCardV2
 from mindee.product.fr.id_card.id_card_v2_document import (
     IdCardV2Document,
 )

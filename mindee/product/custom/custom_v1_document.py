@@ -1,8 +1,11 @@
 from typing import Dict, List
 
-from mindee.parsing.common import Prediction, StringDict, clean_out_string
-from mindee.parsing.custom import ClassificationField, ListField
+from mindee.parsing.common.prediction import Prediction
+from mindee.parsing.common.string_dict import StringDict
+from mindee.parsing.common.summary_helper import clean_out_string
+from mindee.parsing.custom.classification import ClassificationField
 from mindee.parsing.custom.line_items import CustomLine, get_line_items
+from mindee.parsing.custom.list import ListField
 
 
 class CustomV1Document(Prediction):
