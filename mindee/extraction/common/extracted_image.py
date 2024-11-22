@@ -4,8 +4,8 @@ from typing import Optional
 
 from PIL import Image
 
-from mindee.error import MindeeError
-from mindee.input import FileInput, LocalInputSource
+from mindee.error.mindee_error import MindeeError
+from mindee.input.sources import FileInput, LocalInputSource
 from mindee.logger import logger
 
 

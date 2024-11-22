@@ -1,12 +1,12 @@
 from typing import List
 
-from mindee.error import MindeeError
+from mindee.error.mindee_error import MindeeError
 from mindee.extraction.common.extracted_image import ExtractedImage
 from mindee.extraction.common.image_extractor import (
     extract_multiple_images_from_source,
 )
-from mindee.input import LocalInputSource
-from mindee.parsing.common import Inference
+from mindee.input.sources import LocalInputSource
+from mindee.parsing.common.inference import Inference
 
 
 def extract_receipts(

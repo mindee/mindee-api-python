@@ -3,8 +3,8 @@ from typing import BinaryIO
 
 import pypdfium2 as pdfium
 
-from mindee.error import MindeeError
-from mindee.input import BytesInput
+from mindee.error.mindee_error import MindeeError
+from mindee.input.sources import BytesInput
 
 
 class ExtractedPdf:

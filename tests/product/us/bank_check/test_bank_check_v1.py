@@ -4,7 +4,7 @@ import pytest
 
 from mindee.parsing.common.document import Document
 from mindee.parsing.common.page import Page
-from mindee.product.us import BankCheckV1
+from mindee.product.us.bank_check.bank_check_v1 import BankCheckV1
 from mindee.product.us.bank_check.bank_check_v1_document import (
     BankCheckV1Document,
 )

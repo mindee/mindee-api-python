@@ -6,7 +6,7 @@ import os
 from pathlib import Path
 from typing import Any, BinaryIO, Dict, Union
 
-from mindee.error import MindeeError
+from mindee.error.mindee_error import MindeeError
 
 
 class LocalResponse:

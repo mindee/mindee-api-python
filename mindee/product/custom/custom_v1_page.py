@@ -3,8 +3,8 @@ from typing import Dict, List, Optional
 from mindee.parsing.common.prediction import Prediction
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string
-from mindee.parsing.custom import ListField
 from mindee.parsing.custom.line_items import CustomLine, get_line_items
+from mindee.parsing.custom.list import ListField
 
 
 class CustomV1Page(Prediction):

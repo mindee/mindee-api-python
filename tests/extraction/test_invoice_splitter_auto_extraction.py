@@ -4,9 +4,10 @@ import pytest
 
 from mindee import Client
 from mindee.extraction.pdf_extractor.pdf_extractor import PdfExtractor
-from mindee.input import PathInput
-from mindee.parsing.common import Document
-from mindee.product import InvoiceSplitterV1, InvoiceV4
+from mindee.input.sources import PathInput
+from mindee.parsing.common.document import Document
+from mindee.product.invoice.invoice_v4 import InvoiceV4
+from mindee.product.invoice_splitter.invoice_splitter_v1 import InvoiceSplitterV1
 from tests.product import get_id, get_version
 from tests.test_inputs import PRODUCT_DATA_DIR
 from tests.utils import levenshtein_ratio

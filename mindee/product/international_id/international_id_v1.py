@@ -1,6 +1,8 @@
 from typing import List
 
-from mindee.parsing.common import Inference, Page, StringDict
+from mindee.parsing.common.inference import Inference
+from mindee.parsing.common.page import Page
+from mindee.parsing.common.string_dict import StringDict
 from mindee.product.international_id.international_id_v1_document import (
     InternationalIdV1Document,
 )

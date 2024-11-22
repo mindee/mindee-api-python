@@ -4,7 +4,7 @@ from typing import BinaryIO, Dict, Optional, Type, Union
 
 from mindee.error.mindee_error import MindeeClientError, MindeeError
 from mindee.error.mindee_http_error import handle_error
-from mindee.input import LocalResponse
+from mindee.input.local_response import LocalResponse
 from mindee.input.page_options import PageOptions
 from mindee.input.sources import (
     Base64Input,
@@ -15,13 +15,13 @@ from mindee.input.sources import (
     UrlInputSource,
 )
 from mindee.logger import logger
-from mindee.mindee_http import (
+from mindee.mindee_http.endpoint import CustomEndpoint, Endpoint
+from mindee.mindee_http.mindee_api import MindeeApi
+from mindee.mindee_http.response_validation import (
     clean_request_json,
     is_valid_async_response,
     is_valid_sync_response,
 )
-from mindee.mindee_http.endpoint import CustomEndpoint, Endpoint
-from mindee.mindee_http.mindee_api import MindeeApi
 from mindee.parsing.common.async_predict_response import AsyncPredictResponse
 from mindee.parsing.common.feedback_response import FeedbackResponse
 from mindee.parsing.common.inference import Inference

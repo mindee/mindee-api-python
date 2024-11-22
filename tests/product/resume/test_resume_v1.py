@@ -4,7 +4,7 @@ import pytest
 
 from mindee.parsing.common.document import Document
 from mindee.parsing.common.page import Page
-from mindee.product import ResumeV1
+from mindee.product.resume.resume_v1 import ResumeV1
 from mindee.product.resume.resume_v1_document import (
     ResumeV1Document,
 )

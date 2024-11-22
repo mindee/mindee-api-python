@@ -5,7 +5,7 @@ from typing import BinaryIO, List, Optional, Union
 import pypdfium2 as pdfium
 from PIL import Image
 
-from mindee.error import MindeeError
+from mindee.error.mindee_error import MindeeError
 from mindee.extraction.pdf_extractor.extracted_pdf import ExtractedPdf
 from mindee.input.sources import LocalInputSource
 from mindee.product.invoice_splitter import InvoiceSplitterV1PageGroup

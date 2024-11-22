@@ -4,7 +4,7 @@ import pytest
 
 from mindee.parsing.common.document import Document
 from mindee.parsing.common.page import Page
-from mindee.product.eu import DriverLicenseV1
+from mindee.product.eu.driver_license.driver_license_v1 import DriverLicenseV1
 from mindee.product.eu.driver_license.driver_license_v1_document import (
     DriverLicenseV1Document,
 )

@@ -1,7 +1,7 @@
 import pytest
 
 from mindee.client import Client
-from mindee.product import InvoiceSplitterV1
+from mindee.product.invoice_splitter.invoice_splitter_v1 import InvoiceSplitterV1
 from tests.product import PRODUCT_DATA_DIR, get_id, get_version
 
 

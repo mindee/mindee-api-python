@@ -4,7 +4,9 @@ import pytest
 
 from mindee.parsing.common.document import Document
 from mindee.parsing.common.page import Page
-from mindee.product.fr import BankAccountDetailsV1
+from mindee.product.fr.bank_account_details.bank_account_details_v1 import (
+    BankAccountDetailsV1,
+)
 from mindee.product.fr.bank_account_details.bank_account_details_v1_document import (
     BankAccountDetailsV1Document,
 )

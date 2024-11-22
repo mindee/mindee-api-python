@@ -4,7 +4,7 @@ import pytest
 
 from mindee.parsing.common.document import Document
 from mindee.parsing.common.page import Page
-from mindee.product.us import HealthcareCardV1
+from mindee.product.us.healthcare_card.healthcare_card_v1 import HealthcareCardV1
 from mindee.product.us.healthcare_card.healthcare_card_v1_document import (
     HealthcareCardV1Document,
 )

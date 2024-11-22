@@ -1,7 +1,8 @@
 from typing import Dict, Optional
 
-from mindee.parsing.common import StringDict, clean_out_string
-from mindee.parsing.standard import (
+from mindee.parsing.common.string_dict import StringDict
+from mindee.parsing.common.summary_helper import clean_out_string
+from mindee.parsing.standard.base import (
     FieldConfidenceMixin,
     FieldPositionMixin,
     float_to_string,
@@ -37,8 +38,7 @@ class PetrolReceiptV1Total(FieldPositionMixin, FieldConfidenceMixin):
 
     def _printable_values(self) -> Dict[str, str]:
         """Return values for printing."""
-        out_dict: Dict[str, str] = {}
-        out_dict["amount"] = float_to_string(self.amount)
+        out_dict: Dict[str, str] = {"amount": float_to_string(self.amount)}
         return out_dict
 
     def to_field_list(self) -> str:

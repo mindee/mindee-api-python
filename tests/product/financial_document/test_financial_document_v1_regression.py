@@ -1,7 +1,7 @@
 import pytest
 
 from mindee.client import Client
-from mindee.product import FinancialDocumentV1
+from mindee.product.financial_document.financial_document_v1 import FinancialDocumentV1
 from tests.product import PRODUCT_DATA_DIR, get_id, get_version
 
 

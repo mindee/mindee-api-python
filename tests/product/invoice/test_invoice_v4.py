@@ -4,7 +4,7 @@ import pytest
 
 from mindee.parsing.common.document import Document
 from mindee.parsing.common.page import Page
-from mindee.product import InvoiceV4
+from mindee.product.invoice.invoice_v4 import InvoiceV4
 from mindee.product.invoice.invoice_v4_document import (
     InvoiceV4Document,
 )

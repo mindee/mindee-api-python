@@ -4,7 +4,7 @@ import pytest
 
 from mindee.parsing.common.document import Document
 from mindee.parsing.common.page import Page
-from mindee.product.us import UsMailV2
+from mindee.product.us.us_mail.us_mail_v2 import UsMailV2
 from mindee.product.us.us_mail.us_mail_v2_document import (
     UsMailV2Document,
 )
