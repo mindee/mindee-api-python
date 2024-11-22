@@ -1,8 +1,8 @@
 from mindee import Client
 from mindee.extraction.pdf_extractor import PdfExtractor
 from mindee.input.sources import PathInput
-from mindee.product.invoice import InvoiceV4
-from mindee.product.invoice_splitter import InvoiceSplitterV1
+from mindee.product.invoice.invoice_v4 import InvoiceV4
+from mindee.product.invoice_splitter.invoice_splitter_v1 import InvoiceSplitterV1
 
 mindee_client = Client(api_key="my-api-key")
 # mindee_client = Client()  # Optionally, set from env.

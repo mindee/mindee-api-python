@@ -7,8 +7,8 @@ from mindee.error.mindee_error import MindeeClientError, MindeeError
 from mindee.error.mindee_http_error import MindeeHTTPError
 from mindee.input.local_response import LocalResponse
 from mindee.input.sources import LocalInputSource
-from mindee.product.international_id import InternationalIdV2
-from mindee.product.invoice import InvoiceV4
+from mindee.product.international_id.international_id_v2 import InternationalIdV2
+from mindee.product.invoice.invoice_v4 import InvoiceV4
 from mindee.product.invoice_splitter.invoice_splitter_v1 import InvoiceSplitterV1
 from mindee.product.receipt.receipt_v4 import ReceiptV4
 from tests.mindee_http.test_error import ERROR_DATA_DIR

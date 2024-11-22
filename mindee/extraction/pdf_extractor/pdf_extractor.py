@@ -8,7 +8,9 @@ from PIL import Image
 from mindee.error.mindee_error import MindeeError
 from mindee.extraction.pdf_extractor.extracted_pdf import ExtractedPdf
 from mindee.input.sources import LocalInputSource
-from mindee.product.invoice_splitter import InvoiceSplitterV1PageGroup
+from mindee.product.invoice_splitter.invoice_splitter_v1_page_group import (
+    InvoiceSplitterV1PageGroup,
+)
 
 
 class PdfExtractor:
