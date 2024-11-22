@@ -1,11 +1,13 @@
 from datetime import datetime
 from typing import Generic, Optional, Type
 
-from mindee.parsing.common import Inference, Page, StringDict
 from mindee.parsing.common.execution_file import ExecutionFile
 from mindee.parsing.common.execution_priority import ExecutionPriority
+from mindee.parsing.common.inference import Inference
+from mindee.parsing.common.page import Page
 from mindee.parsing.common.prediction import TypePrediction
-from mindee.product import GeneratedV1Document
+from mindee.parsing.common.string_dict import StringDict
+from mindee.product.generated.generated_v1 import GeneratedV1Document
 
 
 class Execution(Generic[TypePrediction]):

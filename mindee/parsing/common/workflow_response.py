@@ -1,9 +1,10 @@
 from typing import Generic, Type
 
-from mindee.parsing.common import Inference, StringDict
 from mindee.parsing.common.api_response import ApiResponse
 from mindee.parsing.common.execution import Execution
+from mindee.parsing.common.inference import Inference
 from mindee.parsing.common.prediction import TypePrediction
+from mindee.parsing.common.string_dict import StringDict
 
 
 class WorkflowResponse(Generic[TypePrediction], ApiResponse):
