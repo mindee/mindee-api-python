@@ -3,7 +3,9 @@ from typing import List, Optional
 from mindee.parsing.common.prediction import Prediction
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string
-from mindee.parsing.standard import AmountField, DateField, StringField
+from mindee.parsing.standard.amount import AmountField
+from mindee.parsing.standard.date import DateField
+from mindee.parsing.standard.text import StringField
 from mindee.product.fr.energy_bill.energy_bill_v1_energy_consumer import (
     EnergyBillV1EnergyConsumer,
 )

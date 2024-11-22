@@ -2,7 +2,7 @@ from typing import Optional
 
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string
-from mindee.parsing.standard import ClassificationField
+from mindee.parsing.standard.classification import ClassificationField
 from mindee.product.fr.id_card.id_card_v1_document import (
     IdCardV1Document,
 )

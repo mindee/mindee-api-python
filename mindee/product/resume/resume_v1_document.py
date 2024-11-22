@@ -3,7 +3,8 @@ from typing import List, Optional
 from mindee.parsing.common.prediction import Prediction
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string
-from mindee.parsing.standard import ClassificationField, StringField
+from mindee.parsing.standard.classification import ClassificationField
+from mindee.parsing.standard.text import StringField
 from mindee.product.resume.resume_v1_certificate import ResumeV1Certificate
 from mindee.product.resume.resume_v1_education import ResumeV1Education
 from mindee.product.resume.resume_v1_language import ResumeV1Language

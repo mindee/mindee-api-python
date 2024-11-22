@@ -3,7 +3,7 @@ from typing import List, Optional
 from mindee.parsing.common.prediction import Prediction
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string
-from mindee.parsing.standard import AmountField
+from mindee.parsing.standard.amount import AmountField
 from mindee.product.nutrition_facts_label.nutrition_facts_label_v1_added_sugar import (
     NutritionFactsLabelV1AddedSugar,
 )
