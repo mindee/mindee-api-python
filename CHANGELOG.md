@@ -1,5 +1,15 @@
 # Mindee Python API Library Changelog
 
+## v4.14.1 - 2024-11-22
+### Changes
+* :coffin: remove support for international ID V1
+* :recycle: update import syntax
+* :arrow_up: loosen dependency pinning on requests
+
+### Fixes
+* :bug: fix potential circular import issues
+
+
 ## v4.14.0 - 2024-11-14
 ### Changes
 * :sparkles: add support for business cards V1
