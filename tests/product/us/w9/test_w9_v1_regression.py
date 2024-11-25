@@ -1,7 +1,7 @@
 import pytest
 
 from mindee.client import Client
-from mindee.product.us import W9V1
+from mindee.product.us.w9.w9_v1 import W9V1
 from tests.product import PRODUCT_DATA_DIR, get_id, get_version
 
 

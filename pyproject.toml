@@ -69,8 +69,8 @@ build = [
 mindee = "mindee.cli:main"
 
 
-[tool.setuptools]
-packages = ["mindee", ]
+[tool.setuptools.packages]
+find = {}
 
 [tool.setuptools.dynamic]
 version = {attr = "mindee.versions.__version__"}
