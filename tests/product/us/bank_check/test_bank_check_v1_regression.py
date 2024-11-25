@@ -1,7 +1,7 @@
 import pytest
 
 from mindee.client import Client
-from mindee.product.us import BankCheckV1
+from mindee.product.us.bank_check.bank_check_v1 import BankCheckV1
 from tests.product import PRODUCT_DATA_DIR, get_id, get_version
 
 

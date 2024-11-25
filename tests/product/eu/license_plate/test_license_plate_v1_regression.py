@@ -1,7 +1,7 @@
 import pytest
 
 from mindee.client import Client
-from mindee.product.eu import LicensePlateV1
+from mindee.product.eu.license_plate.license_plate_v1 import LicensePlateV1
 from tests.product import PRODUCT_DATA_DIR, get_id, get_version
 
 

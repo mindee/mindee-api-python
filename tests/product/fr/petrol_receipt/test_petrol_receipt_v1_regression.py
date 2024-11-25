@@ -1,7 +1,7 @@
 import pytest
 
 from mindee.client import Client
-from mindee.product.fr import PetrolReceiptV1
+from mindee.product.fr.petrol_receipt.petrol_receipt_v1 import PetrolReceiptV1
 from tests.product import PRODUCT_DATA_DIR, get_id, get_version
 
 

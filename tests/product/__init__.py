@@ -1,7 +1,4 @@
 from pathlib import Path
-from typing import Type
-
-from mindee.parsing.common.prediction import Prediction
 
 PRODUCT_DATA_DIR = Path("./tests/data/products/")
 
