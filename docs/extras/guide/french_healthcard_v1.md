@@ -1,17 +1,17 @@
 ---
-title: FR Carte Vitale OCR Python
+title: FR Health Card OCR Python
 category: 622b805aaec68102ea7fcbc2
-slug: python-fr-carte-vitale-ocr
+slug: python-fr-health-card-ocr
 parentDoc: 609808f773b0b90051d839de
 ---
-The Python OCR SDK supports the [Carte Vitale API](https://platform.mindee.com/mindee/carte_vitale).
+The Python OCR SDK supports the [Health Card API](https://platform.mindee.com/mindee/french_healthcard).
 
-Using the [sample below](https://github.com/mindee/client-lib-test-data/blob/main/products/carte_vitale/default_sample.jpg), we are going to illustrate how to extract the data that we want using the OCR SDK.
-![Carte Vitale sample](https://github.com/mindee/client-lib-test-data/blob/main/products/carte_vitale/default_sample.jpg?raw=true)
+Using the [sample below](https://github.com/mindee/client-lib-test-data/blob/main/products/french_healthcard/default_sample.jpg), we are going to illustrate how to extract the data that we want using the OCR SDK.
+![Health Card sample](https://github.com/mindee/client-lib-test-data/blob/main/products/french_healthcard/default_sample.jpg?raw=true)
 
 # Quick-Start
 ```py
-from mindee import Client, PredictResponse, product
+from mindee import Client, product, AsyncPredictResponse
 
 # Init a new client
 mindee_client = Client(api_key="my-api-key")
@@ -19,15 +19,14 @@ mindee_client = Client(api_key="my-api-key")
 # Load a file from disk
 input_doc = mindee_client.source_from_path("/path/to/the/file.ext")
 
-# Load a file from disk and parse it.
-# The endpoint name must be specified since it cannot be determined from the class.
-result: PredictResponse = mindee_client.parse(product.fr.CarteVitaleV1, input_doc)
+# Load a file from disk and enqueue it.
+result: AsyncPredictResponse = mindee_client.enqueue_and_parse(
+    product.fr.HealthCardV1,
+    input_doc,
+)
 
-# Print a summary of the API result
+# Print a brief summary of the parsed data
 print(result.document)
-
-# Print the document-level summary
-# print(result.document.inference.prediction)
 
 ```
 
@@ -36,29 +35,19 @@ print(result.document)
 ########
 Document
 ########
-:Mindee ID: 8c25cc63-212b-4537-9c9b-3fbd3bd0ee20
+:Mindee ID: 9ee2733d-933a-4dcd-a73a-a31395e3b288
 :Filename: default_sample.jpg
 
 Inference
 #########
-:Product: mindee/carte_vitale v1.0
+:Product: mindee/french_healthcard v1.0
 :Rotation applied: Yes
 
 Prediction
 ==========
 :Given Name(s): NATHALIE
 :Surname: DURAND
-:Social Security Number: 269054958815780
-:Issuance Date: 2007-01-01
-
-Page Predictions
-================
-
-Page 0
-------
-:Given Name(s): NATHALIE
-:Surname: DURAND
-:Social Security Number: 269054958815780
+:Social Security Number: 2 69 05 49 588 157 80
 :Issuance Date: 2007-01-01
 ```
 
@@ -91,10 +80,10 @@ Aside from the basic `BaseField` attributes, the date field `DateField` also imp
 The text field `StringField` only has one constraint: its **value** is an `Optional[str]`.
 
 # Attributes
-The following fields are extracted for Carte Vitale V1:
+The following fields are extracted for Health Card V1:
 
 ## Given Name(s)
-**given_names** (List[[StringField](#stringfield)]): The given name(s) of the card holder.
+**given_names** (List[[StringField](#stringfield)]): The given names of the card holder.
 
 ```py
 for given_names_elem in result.document.inference.prediction.given_names:
@@ -102,14 +91,14 @@ for given_names_elem in result.document.inference.prediction.given_names:
 ```
 
 ## Issuance Date
-**issuance_date** ([DateField](#datefield)): The date the card was issued.
+**issuance_date** ([DateField](#datefield)): The date when the carte vitale document was issued.
 
 ```py
 print(result.document.inference.prediction.issuance_date.value)
 ```
 
 ## Social Security Number
-**social_security** ([StringField](#stringfield)): The Social Security Number (Numéro de Sécurité Sociale) of the card holder
+**social_security** ([StringField](#stringfield)): The social security number of the card holder.
 
 ```py
 print(result.document.inference.prediction.social_security.value)

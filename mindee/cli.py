@@ -27,6 +27,12 @@ class CommandConfig(Generic[TypeInference]):
 
 
 DOCUMENTS: Dict[str, CommandConfig] = {
+    # "address-proof": CommandConfig(
+    #     help="Address Proof",
+    #     doc_class=product.AddressProofV1,
+    #     is_sync=False,
+    #     is_async=True,
+    # ),
     "barcode-reader": CommandConfig(
         help="Barcode-reader tool",
         doc_class=product.BarcodeReaderV1,
@@ -51,11 +57,11 @@ DOCUMENTS: Dict[str, CommandConfig] = {
         is_sync=True,
         is_async=False,
     ),
-    "eu-driver-license": CommandConfig(
-        help="EU Driver License",
-        doc_class=product.eu.DriverLicenseV1,
-        is_sync=True,
-        is_async=False,
+    "driver-license": CommandConfig(
+        help="Driver License",
+        doc_class=product.DriverLicenseV1,
+        is_sync=False,
+        is_async=True,
     ),
     "financial-document": CommandConfig(
         help="Financial Document (receipt or invoice)",
@@ -75,17 +81,23 @@ DOCUMENTS: Dict[str, CommandConfig] = {
         is_sync=True,
         is_async=False,
     ),
-    "fr-carte-vitale": CommandConfig(
-        help="FR Carte Vitale",
-        doc_class=product.fr.CarteVitaleV1,
-        is_sync=True,
-        is_async=False,
+    "fr-health-card": CommandConfig(
+        help="FR Health Card",
+        doc_class=product.fr.HealthCardV1,
+        is_sync=False,
+        is_async=True,
     ),
     "fr-id-card": CommandConfig(
         help="FR ID Card",
         doc_class=product.fr.IdCardV2,
         is_sync=True,
         is_async=False,
+    ),
+    "fr-payslip": CommandConfig(
+        help="FR Payslip",
+        doc_class=product.fr.PayslipV3,
+        is_sync=False,
+        is_async=True,
     ),
     "fr-petrol-receipt": CommandConfig(
         help="FR Petrol Receipt",
@@ -135,12 +147,6 @@ DOCUMENTS: Dict[str, CommandConfig] = {
         is_sync=True,
         is_async=False,
     ),
-    "proof-of-address": CommandConfig(
-        help="Proof of Address",
-        doc_class=product.ProofOfAddressV1,
-        is_sync=True,
-        is_async=False,
-    ),
     "receipt": CommandConfig(
         help="Expense Receipt",
         doc_class=product.ReceiptV5,
@@ -156,12 +162,6 @@ DOCUMENTS: Dict[str, CommandConfig] = {
     "us-bank-check": CommandConfig(
         help="US Bank Check",
         doc_class=product.us.BankCheckV1,
-        is_sync=True,
-        is_async=False,
-    ),
-    "us-driver-license": CommandConfig(
-        help="US Driver License",
-        doc_class=product.us.DriverLicenseV1,
         is_sync=True,
         is_async=False,
     ),
