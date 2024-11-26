@@ -1,4 +1,5 @@
 from mindee import Client, WorkflowResponse
+from mindee.parsing.common import ExecutionPriority
 
 # Init a new client
 mindee_client = Client(api_key: "my-api-key")

@@ -243,7 +243,7 @@ class Client:
         page_options: Optional[PageOptions] = None,
     ) -> WorkflowResponse:
         """
-        Send the document to an asynchronous endpoint and return its ID in the queue.
+        Send the document to a workflow execution.
 
         :param input_source: The document/source file to use.
             Has to be created beforehand.
