@@ -9,3 +9,4 @@ from mindee.input.sources import (
     PathInput,
     UrlInputSource,
 )
+from mindee.input.workflow_options import WorkflowOptions

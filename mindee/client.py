@@ -4,6 +4,7 @@ from typing import BinaryIO, Dict, Optional, Type, Union
 
 from mindee.error.mindee_error import MindeeClientError, MindeeError
 from mindee.error.mindee_http_error import handle_error
+from mindee.input import WorkflowOptions
 from mindee.input.local_response import LocalResponse
 from mindee.input.page_options import PageOptions
 from mindee.input.sources import (
@@ -25,7 +26,6 @@ from mindee.mindee_http.response_validation import (
 from mindee.mindee_http.workflow_endpoint import WorkflowEndpoint
 from mindee.mindee_http.workflow_settings import WorkflowSettings
 from mindee.parsing.common.async_predict_response import AsyncPredictResponse
-from mindee.parsing.common.execution_priority import ExecutionPriority
 from mindee.parsing.common.feedback_response import FeedbackResponse
 from mindee.parsing.common.inference import Inference
 from mindee.parsing.common.predict_response import PredictResponse
@@ -239,10 +239,8 @@ class Client:
         self,
         input_source: Union[LocalInputSource, UrlInputSource],
         workflow_id: str,
+        options: Optional[WorkflowOptions] = None,
         page_options: Optional[PageOptions] = None,
-        alias: Optional[str] = None,
-        priority: Optional[ExecutionPriority] = None,
-        full_text: bool = False,
     ) -> WorkflowResponse:
         """
         Send the document to an asynchronous endpoint and return its ID in the queue.
@@ -252,9 +250,7 @@ class Client:
         :param workflow_id: ID of the workflow.
         :param page_options: If set, remove pages from the document as specified. This is done before sending the file\
  to the server. It is useful to avoid page limitations.
-        :param alias: Optional alias for the document.
-        :param priority: Optional priority for the document.
-        :param full_text: Whether to include the full OCR text response in compatible APIs.
+        :param options: Options for the workflow.
         :return:
         """
         if isinstance(input_source, LocalInputSource):
@@ -267,9 +263,12 @@ class Client:
 
         logger.debug("Sending document to workflow: %s", workflow_id)
 
-        return self._send_to_workflow(
-            GeneratedV1, input_source, workflow_id, alias, priority, full_text
-        )
+        if not options:
+            options = WorkflowOptions(
+                alias=None, priority=None, full_text=False, public_url=None
+            )
+
+        return self._send_to_workflow(GeneratedV1, input_source, workflow_id, options)
 
     def _validate_async_params(
         self, initial_delay_sec: float, delay_sec: float, max_retries: int
@@ -484,9 +483,7 @@ parameter.
         product_class: Type[Inference],
         input_source: Union[LocalInputSource, UrlInputSource],
         workflow_id: str,
-        alias: Optional[str] = None,
-        priority: Optional[ExecutionPriority] = None,
-        full_text: bool = False,
+        options: WorkflowOptions,
     ) -> WorkflowResponse:
         """
         Sends a document to a workflow.
@@ -497,9 +494,7 @@ parameter.
         :param input_source: The document/source file to use.
             Has to be created beforehand.
         :param workflow_id: ID of the workflow.
-        :param alias: Optional alias for the document.
-        :param priority: Priority for the document.
-        :param full_text: Whether to include the full OCR text response in compatible APIs.
+        :param options: Optional options for the workflow.
         :return:
         """
         if input_source is None:
@@ -509,9 +504,7 @@ parameter.
             WorkflowSettings(api_key=self.api_key, workflow_id=workflow_id)
         )
 
-        response = workflow_endpoint.workflow_execution_post(
-            input_source, alias, priority, full_text
-        )
+        response = workflow_endpoint.workflow_execution_post(input_source, options)
 
         dict_response = response.json()
 
