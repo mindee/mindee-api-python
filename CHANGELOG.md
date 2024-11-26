@@ -1,5 +1,10 @@
 # Mindee Python API Library Changelog
 
+## v4.14.2 - 2024-11-26
+### Fixes
+* :bug: fix circular imports error on install
+
+
 ## v4.14.1 - 2024-11-22
 ### Changes
 * :coffin: remove support for international ID V1
