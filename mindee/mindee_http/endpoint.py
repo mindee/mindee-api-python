@@ -13,6 +13,8 @@ from mindee.parsing.common.string_dict import StringDict
 class Endpoint(BaseEndpoint):
     """Generic API endpoint for a product."""
 
+    settings: MindeeApi
+
     def __init__(
         self, url_name: str, owner: str, version: str, settings: MindeeApi
     ) -> None:

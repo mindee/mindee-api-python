@@ -2,6 +2,9 @@ from mindee.parsing.common.api_request import ApiRequest
 from mindee.parsing.common.api_response import ApiResponse
 from mindee.parsing.common.async_predict_response import AsyncPredictResponse
 from mindee.parsing.common.document import Document
+from mindee.parsing.common.execution import Execution
+from mindee.parsing.common.execution_file import ExecutionFile
+from mindee.parsing.common.execution_priority import ExecutionPriority
 from mindee.parsing.common.extras import CropperExtra, Extras
 from mindee.parsing.common.feedback_response import FeedbackResponse
 from mindee.parsing.common.inference import Inference, TypeInference
@@ -18,3 +21,4 @@ from mindee.parsing.common.summary_helper import (
     format_for_display,
     line_separator,
 )
+from mindee.parsing.common.workflow_response import WorkflowResponse

@@ -52,6 +52,6 @@ jobs:
         with:
           status: ${{ job.status }}
           notify_when: "failure"
-          notification_title: "{workflow} is failing"
+          notification_title: "Code sample test '{workflow}' is failing"
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.PRODUCTION_ISSUES_SLACK_HOOK_URL }}
