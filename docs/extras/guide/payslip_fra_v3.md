@@ -21,7 +21,7 @@ input_doc = mindee_client.source_from_path("/path/to/the/file.ext")
 
 # Load a file from disk and enqueue it.
 result: AsyncPredictResponse = mindee_client.enqueue_and_parse(
-    product.fr.PayslipV2,
+    product.fr.PayslipV3,
     input_doc,
 )
 
@@ -35,16 +35,22 @@ print(result.document)
 ########
 Document
 ########
-:Mindee ID: 972edba5-25aa-49d0-8431-e2557ddd788e
+:Mindee ID: a479e3e7-6838-4e82-9a7d-99289f34ec7f
 :Filename: default_sample.jpg
 
 Inference
 #########
-:Product: mindee/payslip_fra v2.0
-:Rotation applied: No
+:Product: mindee/payslip_fra v3.0
+:Rotation applied: Yes
 
 Prediction
 ==========
+:Pay Period:
+  :End Date: 2023-03-31
+  :Month: 03
+  :Payment Date: 2023-03-29
+  :Start Date: 2023-03-01
+  :Year: 2023
 :Employee:
   :Address: 52 RUE DES FLEURS 33500 LIBOURNE FRANCE
   :Date of Birth:
@@ -67,21 +73,22 @@ Prediction
   :SWIFT:
 :Employment:
   :Category: Cadre
-  :Coefficient: 600.00
+  :Coefficient: 600,000
   :Collective Agreement: Construction -- Promotion
   :Job Title: Directeur Régional du Développement
-  :Position Level:
+  :Position Level: Niveau 5 Echelon 3
+  :Seniority Date:
   :Start Date: 2022-05-01
 :Salary Details:
-  +--------------+-----------+--------------------------------------+-----------+
-  | Amount       | Base      | Description                          | Rate      |
-  +==============+===========+======================================+===========+
-  | 6666.67      |           | Salaire de base                      |           |
-  +--------------+-----------+--------------------------------------+-----------+
-  | 9.30         |           | Part patronale Mutuelle NR           |           |
-  +--------------+-----------+--------------------------------------+-----------+
-  | 508.30       |           | Avantages en nature voiture          |           |
-  +--------------+-----------+--------------------------------------+-----------+
+  +--------------+-----------+--------------------------------------+--------+-----------+
+  | Amount       | Base      | Description                          | Number | Rate      |
+  +==============+===========+======================================+========+===========+
+  | 6666.67      |           | Salaire de base                      |        |           |
+  +--------------+-----------+--------------------------------------+--------+-----------+
+  | 9.30         |           | Part patronale Mutuelle NR           |        |           |
+  +--------------+-----------+--------------------------------------+--------+-----------+
+  | 508.30       |           | Avantages en nature voiture          |        |           |
+  +--------------+-----------+--------------------------------------+--------+-----------+
 :Pay Detail:
   :Gross Salary: 7184.27
   :Gross Salary YTD: 18074.81
@@ -93,16 +100,16 @@ Prediction
   :Net Taxable YTD: 14752.73
   :Total Cost Employer: 10486.94
   :Total Taxes and Deductions: 1650.36
-:PTO:
-  :Accrued This Period: 6.17
-  :Balance End of Period: 6.17
-  :Used This Period:
-:Pay Period:
-  :End Date: 2023-03-31
-  :Month: 03
-  :Payment Date: 2023-03-29
-  :Start Date: 2023-03-01
-  :Year: 2023
+:Paid Time Off:
+  +-----------+--------+-------------+-----------+-----------+
+  | Accrued   | Period | Type        | Remaining | Used      |
+  +===========+========+=============+===========+===========+
+  |           | N-1    | VACATION    |           |           |
+  +-----------+--------+-------------+-----------+-----------+
+  | 6.17      | N      | VACATION    | 6.17      |           |
+  +-----------+--------+-------------+-----------+-----------+
+  | 2.01      | N      | RTT         | 2.01      |           |
+  +-----------+--------+-------------+-----------+-----------+
 ```
 
 # Field Types
@@ -131,7 +138,7 @@ Fields which are specific to this product; they are not used in any other produc
 ### Bank Account Details Field
 Information about the employee's bank account.
 
-A `PayslipV2BankAccountDetail` implements the following attributes:
+A `PayslipV3BankAccountDetail` implements the following attributes:
 
 * **bank_name** (`str`): The name of the bank.
 * **iban** (`str`): The IBAN of the bank account.
@@ -141,7 +148,7 @@ Fields which are specific to this product; they are not used in any other produc
 ### Employee Field
 Information about the employee.
 
-A `PayslipV2Employee` implements the following attributes:
+A `PayslipV3Employee` implements the following attributes:
 
 * **address** (`str`): The address of the employee.
 * **date_of_birth** (`str`): The date of birth of the employee.
@@ -155,7 +162,7 @@ Fields which are specific to this product; they are not used in any other produc
 ### Employer Field
 Information about the employer.
 
-A `PayslipV2Employer` implements the following attributes:
+A `PayslipV3Employer` implements the following attributes:
 
 * **address** (`str`): The address of the employer.
 * **company_id** (`str`): The company ID of the employer.
@@ -169,20 +176,45 @@ Fields which are specific to this product; they are not used in any other produc
 ### Employment Field
 Information about the employment.
 
-A `PayslipV2Employment` implements the following attributes:
+A `PayslipV3Employment` implements the following attributes:
 
 * **category** (`str`): The category of the employment.
-* **coefficient** (`float`): The coefficient of the employment.
+* **coefficient** (`str`): The coefficient of the employment.
 * **collective_agreement** (`str`): The collective agreement of the employment.
 * **job_title** (`str`): The job title of the employee.
 * **position_level** (`str`): The position level of the employment.
+* **seniority_date** (`str`): The seniority date of the employment.
 * **start_date** (`str`): The start date of the employment.
+Fields which are specific to this product; they are not used in any other product.
+
+### Paid Time Off Field
+Information about paid time off.
+
+A `PayslipV3PaidTimeOff` implements the following attributes:
+
+* **accrued** (`float`): The amount of paid time off accrued in the period.
+* **period** (`str`): The paid time off period.
+
+#### Possible values include:
+ - N
+ - N-1
+ - N-2
+
+* **pto_type** (`str`): The type of paid time off.
+
+#### Possible values include:
+ - VACATION
+ - RTT
+ - COMPENSATORY
+
+* **remaining** (`float`): The remaining amount of paid time off at the end of the period.
+* **used** (`float`): The amount of paid time off used in the period.
 Fields which are specific to this product; they are not used in any other product.
 
 ### Pay Detail Field
 Detailed information about the pay.
 
-A `PayslipV2PayDetail` implements the following attributes:
+A `PayslipV3PayDetail` implements the following attributes:
 
 * **gross_salary** (`float`): The gross salary of the employee.
 * **gross_salary_ytd** (`float`): The year-to-date gross salary of the employee.
@@ -199,7 +231,7 @@ Fields which are specific to this product; they are not used in any other produc
 ### Pay Period Field
 Information about the pay period.
 
-A `PayslipV2PayPeriod` implements the following attributes:
+A `PayslipV3PayPeriod` implements the following attributes:
 
 * **end_date** (`str`): The end date of the pay period.
 * **month** (`str`): The month of the pay period.
@@ -208,80 +240,72 @@ A `PayslipV2PayPeriod` implements the following attributes:
 * **year** (`str`): The year of the pay period.
 Fields which are specific to this product; they are not used in any other product.
 
-### PTO Field
-Information about paid time off.
-
-A `PayslipV2Pto` implements the following attributes:
-
-* **accrued_this_period** (`float`): The amount of paid time off accrued in this period.
-* **balance_end_of_period** (`float`): The balance of paid time off at the end of the period.
-* **used_this_period** (`float`): The amount of paid time off used in this period.
-Fields which are specific to this product; they are not used in any other product.
-
 ### Salary Details Field
 Detailed information about the earnings.
 
-A `PayslipV2SalaryDetail` implements the following attributes:
+A `PayslipV3SalaryDetail` implements the following attributes:
 
-* **amount** (`float`): The amount of the earnings.
-* **base** (`float`): The base value of the earnings.
+* **amount** (`float`): The amount of the earning.
+* **base** (`float`): The base rate value of the earning.
 * **description** (`str`): The description of the earnings.
-* **rate** (`float`): The rate of the earnings.
+* **number** (`float`): The number of units in the earning.
+* **rate** (`float`): The rate of the earning.
 
 # Attributes
-The following fields are extracted for Payslip V2:
+The following fields are extracted for Payslip V3:
 
 ## Bank Account Details
-**bank_account_details** ([PayslipV2BankAccountDetail](#bank-account-details-field)): Information about the employee's bank account.
+**bank_account_details** ([PayslipV3BankAccountDetail](#bank-account-details-field)): Information about the employee's bank account.
 
 ```py
 print(result.document.inference.prediction.bank_account_details.value)
 ```
 
 ## Employee
-**employee** ([PayslipV2Employee](#employee-field)): Information about the employee.
+**employee** ([PayslipV3Employee](#employee-field)): Information about the employee.
 
 ```py
 print(result.document.inference.prediction.employee.value)
 ```
 
 ## Employer
-**employer** ([PayslipV2Employer](#employer-field)): Information about the employer.
+**employer** ([PayslipV3Employer](#employer-field)): Information about the employer.
 
 ```py
 print(result.document.inference.prediction.employer.value)
 ```
 
 ## Employment
-**employment** ([PayslipV2Employment](#employment-field)): Information about the employment.
+**employment** ([PayslipV3Employment](#employment-field)): Information about the employment.
 
 ```py
 print(result.document.inference.prediction.employment.value)
 ```
 
+## Paid Time Off
+**paid_time_off** (List[[PayslipV3PaidTimeOff](#paid-time-off-field)]): Information about paid time off.
+
+```py
+for paid_time_off_elem in result.document.inference.prediction.paid_time_off:
+    print(paid_time_off_elem.value)
+```
+
 ## Pay Detail
-**pay_detail** ([PayslipV2PayDetail](#pay-detail-field)): Detailed information about the pay.
+**pay_detail** ([PayslipV3PayDetail](#pay-detail-field)): Detailed information about the pay.
 
 ```py
 print(result.document.inference.prediction.pay_detail.value)
 ```
 
 ## Pay Period
-**pay_period** ([PayslipV2PayPeriod](#pay-period-field)): Information about the pay period.
+**pay_period** ([PayslipV3PayPeriod](#pay-period-field)): Information about the pay period.
 
 ```py
 print(result.document.inference.prediction.pay_period.value)
 ```
 
-## PTO
-**pto** ([PayslipV2Pto](#pto-field)): Information about paid time off.
-
-```py
-print(result.document.inference.prediction.pto.value)
-```
-
 ## Salary Details
-**salary_details** (List[[PayslipV2SalaryDetail](#salary-details-field)]): Detailed information about the earnings.
+**salary_details** (List[[PayslipV3SalaryDetail](#salary-details-field)]): Detailed information about the earnings.
 
 ```py
 for salary_details_elem in result.document.inference.prediction.salary_details:

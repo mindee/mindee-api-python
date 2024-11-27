@@ -9,7 +9,7 @@ from mindee.parsing.standard.text import StringField
 
 
 class IndianPassportV1Document(Prediction):
-    """Passport - India API version 1.0 document data."""
+    """Passport - India API version 1.1 document data."""
 
     address1: StringField
     """The first line of the address of the passport holder."""
