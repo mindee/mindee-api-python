@@ -1,5 +1,13 @@
 # Mindee Python API Library Changelog
 
+## v4.15.0 - 2024-11-28
+### Changes
+* :sparkles: add support for workflows
+* :sparkles: add support for French Health Card V1
+* :sparkles: add support for Driver License V1
+* :sparkles: add support for Payslip FR V3
+
+
 ## v4.14.2 - 2024-11-26
 ### Fixes
 * :bug: fix circular imports error on install
