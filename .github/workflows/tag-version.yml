@@ -8,7 +8,7 @@ on:
 jobs:
   tag-version:
     runs-on: ubuntu-latest
-    if: "contains(github.event.head_commit.message, ':bookmark: Version ')"
+    if: "contains(github.event.head_commit.message, ':bookmark:')"
 
     steps:
     - uses: actions/checkout@v4
@@ -22,8 +22,8 @@ jobs:
         version=$(git log -1 --skip=0 --pretty=%s | grep -oP "(?<=${msg_start})${version_format}")
         
         if [ -z "${version}" ]; then
-          echo 'Version not found, exiting.'
-          exit 0
+          echo 'Version not found, aborting.'
+          exit 1
         fi
         
         echo "Found version: ${version}";
