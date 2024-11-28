@@ -1,0 +1,37 @@
+name: Tag Version
+
+on:
+  push:
+    branches:
+    - tag-test
+
+jobs:
+  tag-version:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Get version
+      id: get_version
+      run: |
+        msg_start=':bookmark: Version '
+        version=$(\
+          git log -1 --skip=0 --pretty=%s |\
+          grep -oP "(?<=${msg_start})[0-9]{1,}\.[0-9]{1,}\.[0-9]{1,}" |\
+          true\
+        )
+        
+        if [ -z "${version}" ]; then
+          echo 'Version not found, exiting.'
+          exit 0
+        fi
+        
+        echo "Found version: ${version}";
+        tag="v${version}";
+        
+        echo "Would tag: ${tag}";
+        existing_tag=$(git tag -l "$tag");
+        if [ "${existing_tag}" ]; then
+          echo "Tag '${existing_tag}' already exists, aborting.";
+          exit 1;
+        fi
