@@ -51,6 +51,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#mindee.client.Client.create_endpoint"><code class="docutils literal notranslate"><span class="pre">Client.create_endpoint()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.client.Client.enqueue"><code class="docutils literal notranslate"><span class="pre">Client.enqueue()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.client.Client.enqueue_and_parse"><code class="docutils literal notranslate"><span class="pre">Client.enqueue_and_parse()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.client.Client.execute_workflow"><code class="docutils literal notranslate"><span class="pre">Client.execute_workflow()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.client.Client.load_prediction"><code class="docutils literal notranslate"><span class="pre">Client.load_prediction()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.client.Client.parse"><code class="docutils literal notranslate"><span class="pre">Client.parse()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.client.Client.parse_queued"><code class="docutils literal notranslate"><span class="pre">Client.parse_queued()</span></code></a></li>
@@ -180,6 +181,29 @@ This performs a cropping operation on the server and will increase response time
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="parsing/common.html#mindee.parsing.common.async_predict_response.AsyncPredictResponse" title="mindee.parsing.common.async_predict_response.AsyncPredictResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">AsyncPredictResponse</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.client.Client.execute_workflow">
+<span class="sig-name descname"><span class="pre">execute_workflow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">workflow_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.client.Client.execute_workflow" title="Permalink to this definition"></a></dt>
+<dd><p>Send the document to a workflow execution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_source</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference internal" href="misc/input.html#mindee.input.LocalInputSource" title="mindee.input.sources.LocalInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalInputSource</span></code></a>, <a class="reference internal" href="misc/input.html#mindee.input.UrlInputSource" title="mindee.input.sources.UrlInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">UrlInputSource</span></code></a>]) – The document/source file to use.
+Has to be created beforehand.</p></li>
+<li><p><strong>workflow_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – ID of the workflow.</p></li>
+<li><p><strong>page_options</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="misc/input.html#mindee.input.PageOptions" title="mindee.input.page_options.PageOptions"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageOptions</span></code></a>], default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – If set, remove pages from the document as specified. This is done before sending the file to the server. It is useful to avoid page limitations.</p></li>
+<li><p><strong>options</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="misc/input.html#mindee.input.WorkflowOptions" title="mindee.input.workflow_options.WorkflowOptions"><code class="xref py py-class docutils literal notranslate"><span class="pre">WorkflowOptions</span></code></a>], default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Options for the workflow.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">WorkflowResponse</span></code></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p></p>
 </dd>
 </dl>
 </dd></dl>

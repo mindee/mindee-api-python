@@ -124,6 +124,13 @@
 <li class="toctree-l4"><a class="reference internal" href="#mindee.input.UrlInputSource.url"><code class="docutils literal notranslate"><span class="pre">UrlInputSource.url</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.input.WorkflowOptions"><code class="docutils literal notranslate"><span class="pre">WorkflowOptions</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.WorkflowOptions.alias"><code class="docutils literal notranslate"><span class="pre">WorkflowOptions.alias</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.WorkflowOptions.full_text"><code class="docutils literal notranslate"><span class="pre">WorkflowOptions.full_text</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.WorkflowOptions.priority"><code class="docutils literal notranslate"><span class="pre">WorkflowOptions.priority</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.WorkflowOptions.public_url"><code class="docutils literal notranslate"><span class="pre">WorkflowOptions.public_url</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="mindee_http.html">Mindee HTTP</a></li>
@@ -604,6 +611,46 @@ A negative index can be used, indicating an offset from the end of the document.
 <dt class="sig sig-object py" id="mindee.input.UrlInputSource.url">
 <span class="sig-name descname"><span class="pre">url</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#mindee.input.UrlInputSource.url" title="Permalink to this definition"></a></dt>
 <dd><p>The Uniform Resource Locator.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.input.WorkflowOptions">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">WorkflowOptions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">priority</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">public_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.WorkflowOptions" title="Permalink to this definition"></a></dt>
+<dd><p>Options to pass to a workflow execution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>alias</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p></li>
+<li><p><strong>priority</strong> (<em>Optional</em><em>[</em><em>ExecutionPriority</em><em>]</em>) – </p></li>
+<li><p><strong>full_text</strong> (<em>bool</em>) – </p></li>
+<li><p><strong>public_url</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.WorkflowOptions.alias">
+<span class="sig-name descname"><span class="pre">alias</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.input.WorkflowOptions.alias" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for the document.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.WorkflowOptions.full_text">
+<span class="sig-name descname"><span class="pre">full_text</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><a class="headerlink" href="#mindee.input.WorkflowOptions.full_text" title="Permalink to this definition"></a></dt>
+<dd><p>Whether to include the full OCR text response in compatible APIs.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.WorkflowOptions.priority">
+<span class="sig-name descname"><span class="pre">priority</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">ExecutionPriority</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.input.WorkflowOptions.priority" title="Permalink to this definition"></a></dt>
+<dd><p>Priority of the document.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.WorkflowOptions.public_url">
+<span class="sig-name descname"><span class="pre">public_url</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.input.WorkflowOptions.public_url" title="Permalink to this definition"></a></dt>
+<dd><p>A unique, encrypted URL for accessing the document validation interface without requiring authentication.</p>
 </dd></dl>
 
 </dd></dl>
