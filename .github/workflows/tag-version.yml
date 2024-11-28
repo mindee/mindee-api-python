@@ -43,4 +43,4 @@ jobs:
         git tag -a "${tag}" -m"Version ${version}";
         git push origin "${tag}"
         
-        echo "Tagged: ${tag}"
+        echo "Tagged and pushed: ${tag}"
