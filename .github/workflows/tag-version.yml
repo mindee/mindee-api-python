@@ -3,7 +3,7 @@ name: Tag Version
 on:
   push:
     branches:
-    - tag-test
+    - main
 
 jobs:
   tag-version:
