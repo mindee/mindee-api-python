@@ -1,0 +1,46 @@
+name: Tag Version
+
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  tag-version:
+    runs-on: ubuntu-latest
+    if: "contains(github.event.head_commit.message, ':bookmark:')"
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: '0'
+
+    - name: Tag version
+      run: |
+        msg_start=':bookmark: Version '
+        version_format='[0-9]{1,}\.[0-9]{1,}\.[0-9]{1,}'
+        version=$(git log -1 --skip=0 --pretty=%s | grep -oP "(?<=${msg_start})${version_format}")
+        
+        if [ -z "${version}" ]; then
+          echo 'Version not found, aborting.'
+          exit 1
+        fi
+        
+        echo "Found version: ${version}";
+        tag="v${version}";
+        
+        echo "Would tag: ${tag}";
+        existing_tag=$(git tag -l "${tag}");
+
+        if [ "${existing_tag}" ]; then
+          echo "Tag '${existing_tag}' already exists, aborting.";
+          exit 1;
+        fi
+
+        git config user.name "Mindee";
+        git config user.email "opensource@mindee.com"
+        
+        git tag -a "${tag}" -m"Version ${version}";
+        git push origin "${tag}"
+        
+        echo "Tagged and pushed: ${tag}"
