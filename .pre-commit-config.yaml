@@ -27,7 +27,7 @@ repos:
       - id: gitleaks
 
   - repo: https://github.com/PyCQA/pylint
-    rev: v3.2.7
+    rev: v3.3.1
     hooks:
       - id: pylint
         name: pylint
