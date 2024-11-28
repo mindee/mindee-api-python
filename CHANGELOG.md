@@ -1,5 +1,10 @@
 # Mindee Python API Library Changelog
 
+## v4.15.1 - 2024-11-28
+### Changes
+* :arrow_up: update pylint
+
+
 ## v4.15.0 - 2024-11-28
 ### Changes
 * :sparkles: add support for workflows
