@@ -36,3 +36,11 @@ jobs:
           echo "Tag '${existing_tag}' already exists, aborting.";
           exit 1;
         fi
+
+        git config user.name "Mindee";
+        git config user.email "opensource@mindee.com"
+        
+        git tag -a "${tag}" -m"Version ${version}";
+        git push origin "${tag}"
+        
+        echo "Tagged: ${tag}"
