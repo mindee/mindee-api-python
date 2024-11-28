@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools", "wheel"]
+requires = ["setuptools >= 68.0.0", "wheel >= 0.40.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -44,7 +44,7 @@ Changelog = "https://github.com/mindee/mindee-api-python/blob/main/CHANGELOG.md"
 
 [project.optional-dependencies]
 lint = [
-  "pylint==3.2.7",
+  "pylint==3.3.1",
   "pre-commit~=3.2.2",
   "types-pytz>=2023.3",
   "types-requests>=2.31",
@@ -60,7 +60,6 @@ docs = [
   "sphinx-autodoc-typehints~=1.20",
 ]
 build = [
-  "setuptools==57.5.0",
   "build",
   "twine",
 ]

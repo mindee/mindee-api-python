@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from typing import Dict, Optional, Union
 
 from mindee.logger import logger
-from mindee.versions import __version__, get_platform, python_version
+from mindee.versions import PYTHON_VERSION, __version__, get_platform
 
 API_KEY_ENV_NAME = "MINDEE_API_KEY"
 API_KEY_DEFAULT = ""
@@ -15,7 +15,7 @@ REQUEST_TIMEOUT_ENV_NAME = "MINDEE_REQUEST_TIMEOUT"
 TIMEOUT_DEFAULT = 120
 
 PLATFORM = get_platform()
-USER_AGENT = f"mindee-api-python@v{__version__} python-v{python_version} {PLATFORM}"
+USER_AGENT = f"mindee-api-python@v{__version__} python-v{PYTHON_VERSION} {PLATFORM}"
 
 
 @dataclass
