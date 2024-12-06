@@ -1,6 +1,6 @@
 import io
 
-from mindee.input import InputType, LocalInputSource
+from mindee.input.sources.local_input_source import InputType, LocalInputSource
 
 
 class BytesInput(LocalInputSource):

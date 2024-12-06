@@ -1,7 +1,7 @@
 import os
 from typing import BinaryIO
 
-from mindee.input import InputType, LocalInputSource
+from mindee.input.sources.local_input_source import InputType, LocalInputSource
 
 
 class FileInput(LocalInputSource):

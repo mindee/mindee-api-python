@@ -1,5 +1,5 @@
 from mindee.error.mindee_error import MindeeSourceError
-from mindee.input import InputType
+from mindee.input.sources.local_input_source import InputType
 from mindee.logger import logger
 
 
