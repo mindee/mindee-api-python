@@ -1,11 +1,8 @@
-import base64
 import io
 import mimetypes
-import os
 import tempfile
 from enum import Enum
-from pathlib import Path
-from typing import BinaryIO, Optional, Sequence, Tuple, Union
+from typing import BinaryIO, Optional, Sequence, Tuple
 
 import pypdfium2 as pdfium
 
@@ -205,91 +202,3 @@ class LocalInputSource:
     def close(self) -> None:
         """Close the file object."""
         self.file_object.close()
-
-
-class FileInput(LocalInputSource):
-    """A binary file input."""
-
-    def __init__(self, file: BinaryIO) -> None:
-        """
-        Input document from a Python binary file object.
-
-        Note: the calling function is responsible for closing the file.
-
-        :param file: FileIO object
-        """
-        assert file.name, "File name must be set"
-
-        self.file_object = file
-        self.filename = os.path.basename(file.name)
-        self.filepath = file.name
-        super().__init__(input_type=InputType.FILE)
-
-
-class PathInput(LocalInputSource):
-    """A local path input."""
-
-    def __init__(self, filepath: Union[Path, str]) -> None:
-        """
-        Input document from a path.
-
-        :param filepath: Path to open
-        """
-        self.file_object = open(filepath, "rb")  # pylint: disable=consider-using-with
-        self.filename = os.path.basename(filepath)
-        self.filepath = str(filepath)
-        super().__init__(input_type=InputType.PATH)
-
-
-class BytesInput(LocalInputSource):
-    """Raw bytes input."""
-
-    def __init__(self, raw_bytes: bytes, filename: str) -> None:
-        """
-        Input document from raw bytes (no buffer).
-
-        :param raw_bytes: Raw data as bytes
-        :param filename: File name of the input
-        """
-        self.file_object = io.BytesIO(raw_bytes)
-        self.filename = filename
-        self.filepath = None
-        super().__init__(input_type=InputType.BYTES)
-
-
-class Base64Input(LocalInputSource):
-    """Base64-encoded text input."""
-
-    def __init__(self, base64_string: str, filename: str) -> None:
-        """
-        Input document from a base64 encoded string.
-
-        :param base64_string: Raw data as a base64 encoded string
-        :param filename: File name of the input
-        """
-        self.file_object = io.BytesIO(base64.standard_b64decode(base64_string))
-        self.filename = filename
-        self.filepath = None
-        super().__init__(input_type=InputType.BASE64)
-
-
-class UrlInputSource:
-    """A local or distant URL input."""
-
-    url: str
-    """The Uniform Resource Locator."""
-
-    def __init__(self, url: str) -> None:
-        """
-        Input document from a base64 encoded string.
-
-        :param url: URL to send, must be HTTPS
-        """
-        if not url.lower().startswith("https"):
-            raise MindeeSourceError("URL must be HTTPS")
-
-        self.input_type = InputType.URL
-
-        logger.debug("URL input: %s", url)
-
-        self.url = url
