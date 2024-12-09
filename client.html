@@ -138,7 +138,7 @@ If not set, use the latest version of the model.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>product_class</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Inference</span></code>]) – The document class to use.
 The response object will be instantiated based on this parameter.</p></li>
-<li><p><strong>input_source</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference internal" href="misc/input.html#mindee.input.LocalInputSource" title="mindee.input.sources.LocalInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalInputSource</span></code></a>, <a class="reference internal" href="misc/input.html#mindee.input.UrlInputSource" title="mindee.input.sources.UrlInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">UrlInputSource</span></code></a>]) – The document/source file to use.
+<li><p><strong>input_source</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference internal" href="misc/input.html#mindee.input.LocalInputSource" title="mindee.input.sources.local_input_source.LocalInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalInputSource</span></code></a>, <a class="reference internal" href="misc/input.html#mindee.input.UrlInputSource" title="mindee.input.sources.url_input_source.UrlInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">UrlInputSource</span></code></a>]) – The document/source file to use.
 Has to be created beforehand.</p></li>
 <li><p><strong>include_words</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Whether to include the full text for each page.
 This performs a full OCR operation on the server and will increase response time.</p></li>
@@ -167,7 +167,7 @@ This performs a cropping operation on the server and will increase response time
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>product_class</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Inference</span></code>]) – The document class to use. The response object will be instantiated based on thisparameter.</p></li>
-<li><p><strong>input_source</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference internal" href="misc/input.html#mindee.input.LocalInputSource" title="mindee.input.sources.LocalInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalInputSource</span></code></a>, <a class="reference internal" href="misc/input.html#mindee.input.UrlInputSource" title="mindee.input.sources.UrlInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">UrlInputSource</span></code></a>]) – The document/source file to use. Has to be created beforehand.</p></li>
+<li><p><strong>input_source</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference internal" href="misc/input.html#mindee.input.LocalInputSource" title="mindee.input.sources.local_input_source.LocalInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalInputSource</span></code></a>, <a class="reference internal" href="misc/input.html#mindee.input.UrlInputSource" title="mindee.input.sources.url_input_source.UrlInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">UrlInputSource</span></code></a>]) – The document/source file to use. Has to be created beforehand.</p></li>
 <li><p><strong>include_words</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Whether to include the full text for each page. This performs a full OCR operation on the server and will increase response time.</p></li>
 <li><p><strong>close_file</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">True</span></code>) – Whether to <code class="docutils literal notranslate"><span class="pre">close()</span></code> the file after parsing it. Set to <code class="docutils literal notranslate"><span class="pre">False</span></code> if you need to access the file after this operation.</p></li>
 <li><p><strong>page_options</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="misc/input.html#mindee.input.PageOptions" title="mindee.input.page_options.PageOptions"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageOptions</span></code></a>], default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – If set, remove pages from the document as specified. This is done before sending the file to the server. It is useful to avoid page limitations.</p></li>
@@ -192,7 +192,7 @@ This performs a cropping operation on the server and will increase response time
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>input_source</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference internal" href="misc/input.html#mindee.input.LocalInputSource" title="mindee.input.sources.LocalInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalInputSource</span></code></a>, <a class="reference internal" href="misc/input.html#mindee.input.UrlInputSource" title="mindee.input.sources.UrlInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">UrlInputSource</span></code></a>]) – The document/source file to use.
+<li><p><strong>input_source</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference internal" href="misc/input.html#mindee.input.LocalInputSource" title="mindee.input.sources.local_input_source.LocalInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalInputSource</span></code></a>, <a class="reference internal" href="misc/input.html#mindee.input.UrlInputSource" title="mindee.input.sources.url_input_source.UrlInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">UrlInputSource</span></code></a>]) – The document/source file to use.
 Has to be created beforehand.</p></li>
 <li><p><strong>workflow_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – ID of the workflow.</p></li>
 <li><p><strong>page_options</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<a class="reference internal" href="misc/input.html#mindee.input.PageOptions" title="mindee.input.page_options.PageOptions"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageOptions</span></code></a>], default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – If set, remove pages from the document as specified. This is done before sending the file to the server. It is useful to avoid page limitations.</p></li>
@@ -237,7 +237,7 @@ Has to be created beforehand.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>product_class</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Inference</span></code>]) – The document class to use.
 The response object will be instantiated based on this parameter.</p></li>
-<li><p><strong>input_source</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference internal" href="misc/input.html#mindee.input.LocalInputSource" title="mindee.input.sources.LocalInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalInputSource</span></code></a>, <a class="reference internal" href="misc/input.html#mindee.input.UrlInputSource" title="mindee.input.sources.UrlInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">UrlInputSource</span></code></a>]) – The document/source file to use.
+<li><p><strong>input_source</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference internal" href="misc/input.html#mindee.input.LocalInputSource" title="mindee.input.sources.local_input_source.LocalInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalInputSource</span></code></a>, <a class="reference internal" href="misc/input.html#mindee.input.UrlInputSource" title="mindee.input.sources.url_input_source.UrlInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">UrlInputSource</span></code></a>]) – The document/source file to use.
 Has to be created beforehand.</p></li>
 <li><p><strong>include_words</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Whether to include the full text for each page.
 This performs a full OCR operation on the server and will increase response time.
@@ -312,7 +312,7 @@ Setting this to <cite>True</cite> can modify the data sent to Mindee.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="misc/input.html#mindee.input.Base64Input" title="mindee.input.sources.Base64Input"><code class="xref py py-class docutils literal notranslate"><span class="pre">Base64Input</span></code></a></p>
+<dd class="field-even"><p><a class="reference internal" href="misc/input.html#mindee.input.Base64Input" title="mindee.input.sources.base_64_input.Base64Input"><code class="xref py py-class docutils literal notranslate"><span class="pre">Base64Input</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -331,7 +331,7 @@ Setting this to <cite>True</cite> can modify the data sent to Mindee.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="misc/input.html#mindee.input.BytesInput" title="mindee.input.sources.BytesInput"><code class="xref py py-class docutils literal notranslate"><span class="pre">BytesInput</span></code></a></p>
+<dd class="field-even"><p><a class="reference internal" href="misc/input.html#mindee.input.BytesInput" title="mindee.input.sources.bytes_input.BytesInput"><code class="xref py py-class docutils literal notranslate"><span class="pre">BytesInput</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -349,7 +349,7 @@ Setting this to <cite>True</cite> can modify the data sent to Mindee.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="misc/input.html#mindee.input.FileInput" title="mindee.input.sources.FileInput"><code class="xref py py-class docutils literal notranslate"><span class="pre">FileInput</span></code></a></p>
+<dd class="field-even"><p><a class="reference internal" href="misc/input.html#mindee.input.FileInput" title="mindee.input.sources.file_input.FileInput"><code class="xref py py-class docutils literal notranslate"><span class="pre">FileInput</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -367,7 +367,7 @@ Setting this to <cite>True</cite> can modify the data sent to Mindee.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="misc/input.html#mindee.input.PathInput" title="mindee.input.sources.PathInput"><code class="xref py py-class docutils literal notranslate"><span class="pre">PathInput</span></code></a></p>
+<dd class="field-even"><p><a class="reference internal" href="misc/input.html#mindee.input.PathInput" title="mindee.input.sources.path_input.PathInput"><code class="xref py py-class docutils literal notranslate"><span class="pre">PathInput</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -381,7 +381,7 @@ Setting this to <cite>True</cite> can modify the data sent to Mindee.</p></li>
 <dd class="field-odd"><p><strong>url</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Raw byte input</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="misc/input.html#mindee.input.UrlInputSource" title="mindee.input.sources.UrlInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">UrlInputSource</span></code></a></p>
+<dd class="field-even"><p><a class="reference internal" href="misc/input.html#mindee.input.UrlInputSource" title="mindee.input.sources.url_input_source.UrlInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">UrlInputSource</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>

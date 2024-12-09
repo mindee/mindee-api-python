@@ -259,7 +259,7 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>input_source</strong> (<a class="reference internal" href="input.html#mindee.input.LocalInputSource" title="mindee.input.sources.LocalInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalInputSource</span></code></a>) – Input object</p></li>
+<li><p><strong>input_source</strong> (<a class="reference internal" href="input.html#mindee.input.LocalInputSource" title="mindee.input.sources.local_input_source.LocalInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalInputSource</span></code></a>) – Input object</p></li>
 <li><p><strong>close_file</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">True</span></code>) – Whether to <cite>close()</cite> the file after parsing it.</p></li>
 </ul>
 </dd>
@@ -279,7 +279,7 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>input_source</strong> (<a class="reference internal" href="input.html#mindee.input.LocalInputSource" title="mindee.input.sources.LocalInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalInputSource</span></code></a>) – Input object</p></li>
+<li><p><strong>input_source</strong> (<a class="reference internal" href="input.html#mindee.input.LocalInputSource" title="mindee.input.sources.local_input_source.LocalInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalInputSource</span></code></a>) – Input object</p></li>
 <li><p><strong>close_file</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">True</span></code>) – Whether to <cite>close()</cite> the file after parsing it.</p></li>
 </ul>
 </dd>
@@ -362,7 +362,7 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>input_source</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference internal" href="input.html#mindee.input.LocalInputSource" title="mindee.input.sources.LocalInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalInputSource</span></code></a>, <a class="reference internal" href="input.html#mindee.input.UrlInputSource" title="mindee.input.sources.UrlInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">UrlInputSource</span></code></a>]) – Input object</p></li>
+<li><p><strong>input_source</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference internal" href="input.html#mindee.input.LocalInputSource" title="mindee.input.sources.local_input_source.LocalInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalInputSource</span></code></a>, <a class="reference internal" href="input.html#mindee.input.UrlInputSource" title="mindee.input.sources.url_input_source.UrlInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">UrlInputSource</span></code></a>]) – Input object</p></li>
 <li><p><strong>include_words</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Include raw OCR words in the response</p></li>
 <li><p><strong>close_file</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">True</span></code>) – Whether to <cite>close()</cite> the file after parsing it.</p></li>
 <li><p><strong>cropper</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Including Mindee cropping results.</p></li>
@@ -385,7 +385,7 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>input_source</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference internal" href="input.html#mindee.input.LocalInputSource" title="mindee.input.sources.LocalInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalInputSource</span></code></a>, <a class="reference internal" href="input.html#mindee.input.UrlInputSource" title="mindee.input.sources.UrlInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">UrlInputSource</span></code></a>]) – Input object</p></li>
+<li><p><strong>input_source</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference internal" href="input.html#mindee.input.LocalInputSource" title="mindee.input.sources.local_input_source.LocalInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalInputSource</span></code></a>, <a class="reference internal" href="input.html#mindee.input.UrlInputSource" title="mindee.input.sources.url_input_source.UrlInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">UrlInputSource</span></code></a>]) – Input object</p></li>
 <li><p><strong>include_words</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Include raw OCR words in the response</p></li>
 <li><p><strong>close_file</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">True</span></code>) – Whether to <cite>close()</cite> the file after parsing it.</p></li>
 <li><p><strong>cropper</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Including Mindee cropping results.</p></li>
@@ -456,7 +456,7 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>input_source</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference internal" href="input.html#mindee.input.LocalInputSource" title="mindee.input.sources.LocalInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalInputSource</span></code></a>, <a class="reference internal" href="input.html#mindee.input.UrlInputSource" title="mindee.input.sources.UrlInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">UrlInputSource</span></code></a>]) – The document/source file to use.
+<li><p><strong>input_source</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference internal" href="input.html#mindee.input.LocalInputSource" title="mindee.input.sources.local_input_source.LocalInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalInputSource</span></code></a>, <a class="reference internal" href="input.html#mindee.input.UrlInputSource" title="mindee.input.sources.url_input_source.UrlInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">UrlInputSource</span></code></a>]) – The document/source file to use.
 Has to be created beforehand.</p></li>
 <li><p><strong>options</strong> (<a class="reference internal" href="input.html#mindee.input.WorkflowOptions" title="mindee.input.workflow_options.WorkflowOptions"><code class="xref py py-class docutils literal notranslate"><span class="pre">WorkflowOptions</span></code></a>) – Options for the workflow.</p></li>
 </ul>
