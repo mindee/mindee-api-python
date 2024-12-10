@@ -146,7 +146,7 @@ Complete details on the working of the library are available in the following gu
 * [Python US Driver License OCR](https://developers.mindee.com/docs/python-eu-driver-license-ocr)
 * [Python FR Bank Account Detail OCR](https://developers.mindee.com/docs/python-fr-bank-account-details-ocr)
 * [Python FR Carte Grise OCR](https://developers.mindee.com/docs/python-fr-carte-grise-ocr)
-* [Python FR Carte Vitale OCR](https://developers.mindee.com/docs/python-fr-carte-vitale-ocr)
+* [Python FR Health Card OCR](https://developers.mindee.com/docs/python-fr-health-card-ocr)
 * [Python FR ID Card OCR](https://developers.mindee.com/docs/python-fr-carte-nationale-didentite-ocr)
 * [Python FR Petrol Receipts OCR](https://developers.mindee.com/docs/python-fr-petrol-receipts-ocr)
 * [Python US Bank Check OCR](https://developers.mindee.com/docs/python-us-bank-check-ocr)

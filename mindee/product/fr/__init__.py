@@ -15,10 +15,6 @@ from mindee.product.fr.bank_account_details.bank_account_details_v2_document imp
 )
 from mindee.product.fr.carte_grise.carte_grise_v1 import CarteGriseV1
 from mindee.product.fr.carte_grise.carte_grise_v1_document import CarteGriseV1Document
-from mindee.product.fr.carte_vitale.carte_vitale_v1 import CarteVitaleV1
-from mindee.product.fr.carte_vitale.carte_vitale_v1_document import (
-    CarteVitaleV1Document,
-)
 from mindee.product.fr.energy_bill.energy_bill_v1 import EnergyBillV1
 from mindee.product.fr.energy_bill.energy_bill_v1_document import EnergyBillV1Document
 from mindee.product.fr.energy_bill.energy_bill_v1_energy_consumer import (
