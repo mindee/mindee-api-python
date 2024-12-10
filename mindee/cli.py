@@ -115,7 +115,7 @@ DOCUMENTS: Dict[str, CommandConfig] = {
         help="Invoice",
         doc_class=product.InvoiceV4,
         is_sync=True,
-        is_async=False,
+        is_async=True,
     ),
     "international-id": CommandConfig(
         help="International ID",
@@ -164,6 +164,12 @@ DOCUMENTS: Dict[str, CommandConfig] = {
         doc_class=product.us.BankCheckV1,
         is_sync=True,
         is_async=False,
+    ),
+    "us-mail": CommandConfig(
+        help="US Mail",
+        doc_class=product.us.UsMailV2,
+        is_sync=False,
+        is_async=True,
     ),
     "us-healthcare-card": CommandConfig(
         help="US Healthcare Card",
