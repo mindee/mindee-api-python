@@ -209,9 +209,9 @@ Simply setting the correct class and passing the input document is enough:
 result = mindee_client.parse(product.InvoiceV4, input_doc)
 ```
 
-### Custom Documents
+### Custom Documents (docTI & Custom APIs)
 
-The endpoint to use must be created beforehands and subsequently passed to the `endpoint` argument of the `parse` method:
+The endpoint to use must be created beforehand and subsequently passed to the `endpoint` argument of the `enqueue_and_parse` method:
 
 ```python
 custom_endpoint = mindee_client.create_endpoint(
@@ -219,10 +219,10 @@ custom_endpoint = mindee_client.create_endpoint(
     "my-account-name",
     # "my-version" # optional
 )
-result = mindee_client.parse(product.CustomV1, input_doc, endpoint=custom_endpoint)
+result = mindee_client.enqueue_and_parse(product.GeneratedV1, input_doc, endpoint=custom_endpoint)
 ```
 
-This is because the `CustomV1` class is enough to handle the return processing, but the actual endpoint needs to be specified.
+This is because the `GeneratedV1` class is enough to handle the return processing, but the actual endpoint needs to be specified.
 
 
 ## Processing the Response

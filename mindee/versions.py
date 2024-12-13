@@ -1,6 +1,6 @@
 import sys
 
-__version__ = "4.15.1"
+__version__ = "4.16.0"
 
 PYTHON_VERSION = f"{sys.version_info[0]}.{sys.version_info[1]}"
 
