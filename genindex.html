@@ -258,6 +258,8 @@
       </ul></li>
       <li><a href="misc/input.html#mindee.input.LocalResponse.as_dict">as_dict (LocalResponse property)</a>
 </li>
+      <li><a href="misc/input.html#mindee.input.UrlInputSource.as_local_input_source">as_local_input_source() (UrlInputSource method)</a>
+</li>
       <li><a href="parsing/common.html#mindee.parsing.common.async_predict_response.AsyncPredictResponse">AsyncPredictResponse (class in mindee.parsing.common.async_predict_response)</a>
 </li>
       <li><a href="product/fr/id_card_v1.html#mindee.product.fr.id_card.id_card_v1_document.IdCardV1Document.authority">authority (IdCardV1Document attribute)</a>
@@ -575,10 +577,6 @@
       <li><a href="product/fr/carte_grise_v1.html#mindee.product.fr.carte_grise.carte_grise_v1.CarteGriseV1">CarteGriseV1 (class in mindee.product.fr.carte_grise.carte_grise_v1)</a>
 </li>
       <li><a href="product/fr/carte_grise_v1.html#mindee.product.fr.carte_grise.carte_grise_v1_document.CarteGriseV1Document">CarteGriseV1Document (class in mindee.product.fr.carte_grise.carte_grise_v1_document)</a>
-</li>
-      <li><a href="product/fr/carte_vitale_v1.html#mindee.product.fr.carte_vitale.carte_vitale_v1.CarteVitaleV1">CarteVitaleV1 (class in mindee.product.fr.carte_vitale.carte_vitale_v1)</a>
-</li>
-      <li><a href="product/fr/carte_vitale_v1.html#mindee.product.fr.carte_vitale.carte_vitale_v1_document.CarteVitaleV1Document">CarteVitaleV1Document (class in mindee.product.fr.carte_vitale.carte_vitale_v1_document)</a>
 </li>
       <li><a href="product/driver_license_v1.html#mindee.product.driver_license.driver_license_v1_document.DriverLicenseV1Document.category">category (DriverLicenseV1Document attribute)</a>, <a href="product/eu/driver_license_v1.html#mindee.product.eu.driver_license.driver_license_v1_document.DriverLicenseV1Document.category">[1]</a>
 
@@ -1231,8 +1229,6 @@
 </li>
         <li><a href="product/fr/carte_grise_v1.html#mindee.product.fr.carte_grise.carte_grise_v1.CarteGriseV1.endpoint_name">(CarteGriseV1 attribute)</a>
 </li>
-        <li><a href="product/fr/carte_vitale_v1.html#mindee.product.fr.carte_vitale.carte_vitale_v1.CarteVitaleV1.endpoint_name">(CarteVitaleV1 attribute)</a>
-</li>
         <li><a href="product/cropper_v1.html#mindee.product.cropper.cropper_v1.CropperV1.endpoint_name">(CropperV1 attribute)</a>
 </li>
         <li><a href="product/custom_v1.html#mindee.product.custom.custom_v1.CustomV1.endpoint_name">(CustomV1 attribute)</a>
@@ -1306,8 +1302,6 @@
         <li><a href="product/business_card_v1.html#mindee.product.business_card.business_card_v1.BusinessCardV1.endpoint_version">(BusinessCardV1 attribute)</a>
 </li>
         <li><a href="product/fr/carte_grise_v1.html#mindee.product.fr.carte_grise.carte_grise_v1.CarteGriseV1.endpoint_version">(CarteGriseV1 attribute)</a>
-</li>
-        <li><a href="product/fr/carte_vitale_v1.html#mindee.product.fr.carte_vitale.carte_vitale_v1.CarteVitaleV1.endpoint_version">(CarteVitaleV1 attribute)</a>
 </li>
         <li><a href="product/cropper_v1.html#mindee.product.cropper.cropper_v1.CropperV1.endpoint_version">(CropperV1 attribute)</a>
 </li>
@@ -1601,8 +1595,6 @@
 </li>
         <li><a href="product/fr/carte_grise_v1.html#mindee.product.fr.carte_grise.carte_grise_v1.CarteGriseV1.get_endpoint_info">(CarteGriseV1 static method)</a>
 </li>
-        <li><a href="product/fr/carte_vitale_v1.html#mindee.product.fr.carte_vitale.carte_vitale_v1.CarteVitaleV1.get_endpoint_info">(CarteVitaleV1 static method)</a>
-</li>
         <li><a href="product/cropper_v1.html#mindee.product.cropper.cropper_v1.CropperV1.get_endpoint_info">(CropperV1 static method)</a>
 </li>
         <li><a href="product/custom_v1.html#mindee.product.custom.custom_v1.CustomV1.get_endpoint_info">(CustomV1 static method)</a>
@@ -1688,11 +1680,9 @@
         <li><a href="product/generated_v1.html#mindee.product.generated.generated_v1.GeneratedV1Page.get_single_fields">(GeneratedV1Page method)</a>
 </li>
       </ul></li>
-      <li><a href="product/fr/carte_vitale_v1.html#mindee.product.fr.carte_vitale.carte_vitale_v1_document.CarteVitaleV1Document.given_names">given_names (CarteVitaleV1Document attribute)</a>
+      <li><a href="product/fr/health_card_v1.html#mindee.product.fr.health_card.health_card_v1_document.HealthCardV1Document.given_names">given_names (HealthCardV1Document attribute)</a>
 
       <ul>
-        <li><a href="product/fr/health_card_v1.html#mindee.product.fr.health_card.health_card_v1_document.HealthCardV1Document.given_names">(HealthCardV1Document attribute)</a>
-</li>
         <li><a href="product/fr/id_card_v1.html#mindee.product.fr.id_card.id_card_v1_document.IdCardV1Document.given_names">(IdCardV1Document attribute)</a>
 </li>
         <li><a href="product/fr/id_card_v1.html#mindee.product.fr.id_card.id_card_v1_page.IdCardV1Page.given_names">(IdCardV1Page attribute)</a>
@@ -1906,10 +1896,10 @@
 </li>
       <li><a href="misc/geometry.html#mindee.geometry.is_point_in_x">is_point_in_x() (in module mindee.geometry)</a>
 </li>
-      <li><a href="misc/geometry.html#mindee.geometry.is_point_in_y">is_point_in_y() (in module mindee.geometry)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="misc/geometry.html#mindee.geometry.is_point_in_y">is_point_in_y() (in module mindee.geometry)</a>
+</li>
       <li><a href="product/fr/bank_account_details_v1.html#mindee.product.fr.bank_account_details.bank_account_details_v1.BankAccountDetailsV1.is_rotation_applied">is_rotation_applied (BankAccountDetailsV1 attribute)</a>
 
       <ul>
@@ -1924,8 +1914,6 @@
         <li><a href="product/business_card_v1.html#mindee.product.business_card.business_card_v1.BusinessCardV1.is_rotation_applied">(BusinessCardV1 attribute)</a>
 </li>
         <li><a href="product/fr/carte_grise_v1.html#mindee.product.fr.carte_grise.carte_grise_v1.CarteGriseV1.is_rotation_applied">(CarteGriseV1 attribute)</a>
-</li>
-        <li><a href="product/fr/carte_vitale_v1.html#mindee.product.fr.carte_vitale.carte_vitale_v1.CarteVitaleV1.is_rotation_applied">(CarteVitaleV1 attribute)</a>
 </li>
         <li><a href="product/cropper_v1.html#mindee.product.cropper.cropper_v1.CropperV1.is_rotation_applied">(CropperV1 attribute)</a>
 </li>
@@ -1992,11 +1980,9 @@
 </li>
       <li><a href="misc/mindee_http.html#mindee.mindee_http.is_valid_sync_response">is_valid_sync_response() (in module mindee.mindee_http)</a>
 </li>
-      <li><a href="product/fr/carte_vitale_v1.html#mindee.product.fr.carte_vitale.carte_vitale_v1_document.CarteVitaleV1Document.issuance_date">issuance_date (CarteVitaleV1Document attribute)</a>
+      <li><a href="product/fr/health_card_v1.html#mindee.product.fr.health_card.health_card_v1_document.HealthCardV1Document.issuance_date">issuance_date (HealthCardV1Document attribute)</a>
 
       <ul>
-        <li><a href="product/fr/health_card_v1.html#mindee.product.fr.health_card.health_card_v1_document.HealthCardV1Document.issuance_date">(HealthCardV1Document attribute)</a>
-</li>
         <li><a href="product/ind/indian_passport_v1.html#mindee.product.ind.indian_passport.indian_passport_v1_document.IndianPassportV1Document.issuance_date">(IndianPassportV1Document attribute)</a>
 </li>
         <li><a href="product/passport_v1.html#mindee.product.passport.passport_v1_document.PassportV1Document.issuance_date">(PassportV1Document attribute)</a>
@@ -2498,8 +2484,6 @@
 </li>
         <li><a href="product/fr/carte_grise_v1.html#mindee.product.fr.carte_grise.carte_grise_v1.CarteGriseV1.page_id">(CarteGriseV1 attribute)</a>
 </li>
-        <li><a href="product/fr/carte_vitale_v1.html#mindee.product.fr.carte_vitale.carte_vitale_v1.CarteVitaleV1.page_id">(CarteVitaleV1 attribute)</a>
-</li>
         <li><a href="parsing/standard.html#mindee.parsing.standard.classification.ClassificationField.page_id">(ClassificationField attribute)</a>
 </li>
         <li><a href="parsing/standard.html#mindee.parsing.standard.company_registration.CompanyRegistrationField.page_id">(CompanyRegistrationField attribute)</a>
@@ -2707,8 +2691,6 @@
         <li><a href="product/business_card_v1.html#mindee.product.business_card.business_card_v1.BusinessCardV1.pages">(BusinessCardV1 attribute)</a>
 </li>
         <li><a href="product/fr/carte_grise_v1.html#mindee.product.fr.carte_grise.carte_grise_v1.CarteGriseV1.pages">(CarteGriseV1 attribute)</a>
-</li>
-        <li><a href="product/fr/carte_vitale_v1.html#mindee.product.fr.carte_vitale.carte_vitale_v1.CarteVitaleV1.pages">(CarteVitaleV1 attribute)</a>
 </li>
         <li><a href="product/cropper_v1.html#mindee.product.cropper.cropper_v1.CropperV1.pages">(CropperV1 attribute)</a>
 </li>
@@ -3134,8 +3116,6 @@
 </li>
         <li><a href="product/fr/carte_grise_v1.html#mindee.product.fr.carte_grise.carte_grise_v1.CarteGriseV1.prediction">(CarteGriseV1 attribute)</a>
 </li>
-        <li><a href="product/fr/carte_vitale_v1.html#mindee.product.fr.carte_vitale.carte_vitale_v1.CarteVitaleV1.prediction">(CarteVitaleV1 attribute)</a>
-</li>
       </ul></li>
       <li><a href="parsing/common.html#mindee.parsing.common.prediction.Prediction">Prediction (class in mindee.parsing.common.prediction)</a>
 </li>
@@ -3227,8 +3207,6 @@
         <li><a href="product/business_card_v1.html#mindee.product.business_card.business_card_v1.BusinessCardV1.product">(BusinessCardV1 attribute)</a>
 </li>
         <li><a href="product/fr/carte_grise_v1.html#mindee.product.fr.carte_grise.carte_grise_v1.CarteGriseV1.product">(CarteGriseV1 attribute)</a>
-</li>
-        <li><a href="product/fr/carte_vitale_v1.html#mindee.product.fr.carte_vitale.carte_vitale_v1.CarteVitaleV1.product">(CarteVitaleV1 attribute)</a>
 </li>
         <li><a href="product/cropper_v1.html#mindee.product.cropper.cropper_v1.CropperV1.product">(CropperV1 attribute)</a>
 </li>
@@ -3499,6 +3477,8 @@
       </ul></li>
       <li><a href="product/nutrition_facts_label_v1.html#mindee.product.nutrition_facts_label.nutrition_facts_label_v1_document.NutritionFactsLabelV1Document.saturated_fat">saturated_fat (NutritionFactsLabelV1Document attribute)</a>
 </li>
+      <li><a href="misc/input.html#mindee.input.UrlInputSource.save_to_file">save_to_file() (UrlInputSource method)</a>
+</li>
       <li><a href="product/bill_of_lading_v1.html#mindee.product.bill_of_lading.bill_of_lading_v1_carrier.BillOfLadingV1Carrier.scac">scac (BillOfLadingV1Carrier attribute)</a>
 </li>
       <li><a href="product/resume_v1.html#mindee.product.resume.resume_v1_education.ResumeV1Education.school">school (ResumeV1Education attribute)</a>
@@ -3555,12 +3535,8 @@
 </li>
       <li><a href="product/resume_v1.html#mindee.product.resume.resume_v1_document.ResumeV1Document.social_networks_urls">social_networks_urls (ResumeV1Document attribute)</a>
 </li>
-      <li><a href="product/fr/carte_vitale_v1.html#mindee.product.fr.carte_vitale.carte_vitale_v1_document.CarteVitaleV1Document.social_security">social_security (CarteVitaleV1Document attribute)</a>
-
-      <ul>
-        <li><a href="product/fr/health_card_v1.html#mindee.product.fr.health_card.health_card_v1_document.HealthCardV1Document.social_security">(HealthCardV1Document attribute)</a>
+      <li><a href="product/fr/health_card_v1.html#mindee.product.fr.health_card.health_card_v1_document.HealthCardV1Document.social_security">social_security (HealthCardV1Document attribute)</a>
 </li>
-      </ul></li>
       <li><a href="product/fr/payslip_v2.html#mindee.product.fr.payslip.payslip_v2_employee.PayslipV2Employee.social_security_number">social_security_number (PayslipV2Employee attribute)</a>
 
       <ul>
@@ -3717,11 +3693,9 @@
         <li><a href="product/invoice_v4.html#mindee.product.invoice.invoice_v4_document.InvoiceV4Document.supplier_website">(InvoiceV4Document attribute)</a>
 </li>
       </ul></li>
-      <li><a href="product/fr/carte_vitale_v1.html#mindee.product.fr.carte_vitale.carte_vitale_v1_document.CarteVitaleV1Document.surname">surname (CarteVitaleV1Document attribute)</a>
+      <li><a href="product/fr/health_card_v1.html#mindee.product.fr.health_card.health_card_v1_document.HealthCardV1Document.surname">surname (HealthCardV1Document attribute)</a>
 
       <ul>
-        <li><a href="product/fr/health_card_v1.html#mindee.product.fr.health_card.health_card_v1_document.HealthCardV1Document.surname">(HealthCardV1Document attribute)</a>
-</li>
         <li><a href="product/fr/id_card_v1.html#mindee.product.fr.id_card.id_card_v1_document.IdCardV1Document.surname">(IdCardV1Document attribute)</a>
 </li>
         <li><a href="product/fr/id_card_v1.html#mindee.product.fr.id_card.id_card_v1_page.IdCardV1Page.surname">(IdCardV1Page attribute)</a>

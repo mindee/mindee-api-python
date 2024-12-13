@@ -4,7 +4,7 @@ category: 622b805aaec68102ea7fcbc2
 slug: python-api-builder
 parentDoc: 609808f773b0b90051d839de
 ---
-> 🚧 This product is still supported, but is considered to be deprecated. If you are looking for the DocTI API documentation, you can find it [here](https://developers.mindee.com/docs/generated-api-python).
+> 🚧 This product is still supported, but is considered to be deprecated. If you are looking for the docTI API documentation, you can find it [here](https://developers.mindee.com/docs/generated-api-python).
 
 # Quick-Start
 
