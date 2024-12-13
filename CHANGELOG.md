@@ -1,5 +1,11 @@
 # Mindee Python API Library Changelog
 
+## v4.16.0 - 2024-12-13
+### Changes
+* :sparkles: allow local downloading of remote sources
+* :coffin: remove support for (FR) Carte Vitale V1 in favor of French Health Card V1
+
+
 ## v4.15.1 - 2024-11-28
 ### Changes
 * :arrow_up: update pylint

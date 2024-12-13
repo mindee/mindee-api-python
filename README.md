@@ -73,7 +73,7 @@ result = mindee_client.parse(product.us.BankCheckV1, input_doc)
 print(result.document)
 ```
 
-#### Custom Document (API Builder)
+#### Custom Documents (docTI & Custom APIs)
 
 ```python
 from mindee import Client, product
@@ -92,8 +92,8 @@ input_doc = mindee_client.source_from_path("/path/to/the/file.ext")
 
 # Parse the file.
 # The endpoint must be specified since it cannot be determined from the class.
-result = mindee_client.parse(
-    product.CustomV1,
+result = mindee_client.enqueue_and_parse(
+    product.GeneratedV1,
     input_doc,
     endpoint=my_endpoint
 )
