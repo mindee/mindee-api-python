@@ -62,7 +62,6 @@
 <li class="toctree-l4"><a class="reference internal" href="#mindee.mindee_http.CustomEndpoint.documents_req_get"><code class="docutils literal notranslate"><span class="pre">CustomEndpoint.documents_req_get()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.mindee_http.CustomEndpoint.training_async_req_post"><code class="docutils literal notranslate"><span class="pre">CustomEndpoint.training_async_req_post()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.mindee_http.CustomEndpoint.training_req_post"><code class="docutils literal notranslate"><span class="pre">CustomEndpoint.training_req_post()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mindee.mindee_http.CustomEndpoint.settings"><code class="docutils literal notranslate"><span class="pre">CustomEndpoint.settings</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#mindee.mindee_http.Endpoint"><code class="docutils literal notranslate"><span class="pre">Endpoint</span></code></a><ul>
@@ -74,23 +73,13 @@
 <li class="toctree-l4"><a class="reference internal" href="#mindee.mindee_http.Endpoint.settings"><code class="docutils literal notranslate"><span class="pre">Endpoint.settings</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#mindee.mindee_http.MindeeApi"><code class="docutils literal notranslate"><span class="pre">MindeeApi</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#mindee.mindee_http.MindeeApi.api_key"><code class="docutils literal notranslate"><span class="pre">MindeeApi.api_key</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mindee.mindee_http.MindeeApi.base_url"><code class="docutils literal notranslate"><span class="pre">MindeeApi.base_url</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mindee.mindee_http.MindeeApi.request_timeout"><code class="docutils literal notranslate"><span class="pre">MindeeApi.request_timeout</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.mindee_http.MindeeApi"><code class="docutils literal notranslate"><span class="pre">MindeeApi</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#mindee.mindee_http.WorkflowEndpoint"><code class="docutils literal notranslate"><span class="pre">WorkflowEndpoint</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.mindee_http.WorkflowEndpoint.workflow_execution_post"><code class="docutils literal notranslate"><span class="pre">WorkflowEndpoint.workflow_execution_post()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.mindee_http.WorkflowEndpoint.settings"><code class="docutils literal notranslate"><span class="pre">WorkflowEndpoint.settings</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#mindee.mindee_http.WorkflowSettings"><code class="docutils literal notranslate"><span class="pre">WorkflowSettings</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#mindee.mindee_http.WorkflowSettings.api_key"><code class="docutils literal notranslate"><span class="pre">WorkflowSettings.api_key</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mindee.mindee_http.WorkflowSettings.base_url"><code class="docutils literal notranslate"><span class="pre">WorkflowSettings.base_url</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mindee.mindee_http.WorkflowSettings.request_timeout"><code class="docutils literal notranslate"><span class="pre">WorkflowSettings.request_timeout</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.mindee_http.WorkflowSettings"><code class="docutils literal notranslate"><span class="pre">WorkflowSettings</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#mindee.mindee_http.clean_request_json"><code class="docutils literal notranslate"><span class="pre">clean_request_json()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#mindee.mindee_http.is_valid_async_response"><code class="docutils literal notranslate"><span class="pre">is_valid_async_response()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#mindee.mindee_http.is_valid_sync_response"><code class="docutils literal notranslate"><span class="pre">is_valid_sync_response()</span></code></a></li>
@@ -292,11 +281,6 @@
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.mindee_http.CustomEndpoint.settings">
-<span class="sig-name descname"><span class="pre">settings</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.mindee_http.MindeeApi" title="mindee.mindee_http.mindee_api.MindeeApi"><code class="xref py py-class docutils literal notranslate"><span class="pre">MindeeApi</span></code></a></em><a class="headerlink" href="#mindee.mindee_http.CustomEndpoint.settings" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 <dl class="py class">
@@ -422,22 +406,6 @@
 </ul>
 </dd>
 </dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.mindee_http.MindeeApi.api_key">
-<span class="sig-name descname"><span class="pre">api_key</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.mindee_http.MindeeApi.api_key" title="Permalink to this definition"></a></dt>
-<dd><p>API Key for the client.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.mindee_http.MindeeApi.base_url">
-<span class="sig-name descname"><span class="pre">base_url</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#mindee.mindee_http.MindeeApi.base_url" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.mindee_http.MindeeApi.request_timeout">
-<span class="sig-name descname"><span class="pre">request_timeout</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.mindee_http.MindeeApi.request_timeout" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 <dl class="py class">
@@ -486,22 +454,6 @@ Has to be created beforehand.</p></li>
 </ul>
 </dd>
 </dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.mindee_http.WorkflowSettings.api_key">
-<span class="sig-name descname"><span class="pre">api_key</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.mindee_http.WorkflowSettings.api_key" title="Permalink to this definition"></a></dt>
-<dd><p>API Key for the client.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.mindee_http.WorkflowSettings.base_url">
-<span class="sig-name descname"><span class="pre">base_url</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#mindee.mindee_http.WorkflowSettings.base_url" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.mindee_http.WorkflowSettings.request_timeout">
-<span class="sig-name descname"><span class="pre">request_timeout</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.mindee_http.WorkflowSettings.request_timeout" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 <dl class="py function">

@@ -126,6 +126,14 @@
 <dt class="sig sig-object py" id="mindee.parsing.common.document.Document">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Document</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inference_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw_response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.parsing.common.document.Document" title="Permalink to this definition"></a></dt>
 <dd><p>Base class for all predictions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inference_type</strong> (<em>Type</em><em>[</em><em>Inference</em><em>]</em>) – </p></li>
+<li><p><strong>raw_response</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+</dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.parsing.common.document.Document.extras">
 <span class="sig-name descname"><span class="pre">extras</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">Extras</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.parsing.common.document.Document.extras" title="Permalink to this definition"></a></dt>
@@ -171,6 +179,14 @@
 <dt class="sig sig-object py" id="mindee.parsing.common.page.Page">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Page</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prediction_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.parsing.common.page.Page" title="Permalink to this definition"></a></dt>
 <dd><p>Base Page object for predictions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>prediction_type</strong> (<em>Type</em><em>[</em><em>TypePrediction</em><em>]</em>) – </p></li>
+<li><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+</dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.parsing.common.page.Page.id">
 <span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.parsing.common.page.Page.id" title="Permalink to this definition"></a></dt>
@@ -297,6 +313,14 @@
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">AsyncPredictResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inference_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw_response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.parsing.common.async_predict_response.AsyncPredictResponse" title="Permalink to this definition"></a></dt>
 <dd><p>Async Response Wrapper class for a Predict response.</p>
 <p>Links a Job to a future PredictResponse.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inference_type</strong> (<em>Type</em><em>[</em><em>TypeInference</em><em>]</em>) – </p></li>
+<li><p><strong>raw_response</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+</dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.parsing.common.async_predict_response.AsyncPredictResponse.job">
 <span class="sig-name descname"><span class="pre">job</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.parsing.common.job.Job" title="mindee.parsing.common.job.Job"><code class="xref py py-class docutils literal notranslate"><span class="pre">Job</span></code></a></em><a class="headerlink" href="#mindee.parsing.common.async_predict_response.AsyncPredictResponse.job" title="Permalink to this definition"></a></dt>
