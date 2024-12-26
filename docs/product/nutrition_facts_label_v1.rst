@@ -3,7 +3,7 @@ Nutrition Facts Label V1
 
 **Sample Code:**
 
-.. literalinclude:: /extras/code_samples/nutrition_facts_v1.txt
+.. literalinclude:: /extras/code_samples/nutrition_facts_v1_async.txt
     :language: Python
 
 .. autoclass:: mindee.product.nutrition_facts_label.nutrition_facts_label_v1.NutritionFactsLabelV1
