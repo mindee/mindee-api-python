@@ -167,7 +167,7 @@ DOCUMENTS: Dict[str, CommandConfig] = {
     ),
     "us-mail": CommandConfig(
         help="US Mail",
-        doc_class=product.us.UsMailV2,
+        doc_class=product.us.UsMailV3,
         is_sync=False,
         is_async=True,
     ),

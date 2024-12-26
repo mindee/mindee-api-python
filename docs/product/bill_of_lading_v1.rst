@@ -3,7 +3,7 @@ Bill of Lading V1
 
 **Sample Code:**
 
-.. literalinclude:: /extras/code_samples/bill_of_lading_v1.txt
+.. literalinclude:: /extras/code_samples/bill_of_lading_v1_async.txt
     :language: Python
 
 .. autoclass:: mindee.product.bill_of_lading.bill_of_lading_v1.BillOfLadingV1
