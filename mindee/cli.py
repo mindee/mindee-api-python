@@ -313,15 +313,11 @@ class MindeeParser:
             parser if parser else MindeeArgumentParser(description="Mindee_API")
         )
         self.parsed_args = parsed_args if parsed_args else self._set_args()
-        self.client = (
-            client
-            if client
-            else Client(
-                api_key=(
-                    self.parsed_args.api_key if "api_key" in self.parsed_args else None
-                )
-            )
-        )
+        if client:
+            self.client = client
+        else:
+            api_key = self.parsed_args.api_key if "api_key" in self.parsed_args else ""
+            self.client = Client(api_key=api_key)
         self._set_input()
         self.document_info = (
             document_info if document_info else DOCUMENTS[self.parsed_args.product_name]

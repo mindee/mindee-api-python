@@ -3,7 +3,7 @@ Invoice V4
 
 **Sample Code:**
 
-.. literalinclude:: /extras/code_samples/invoices_v4.txt
+.. literalinclude:: /extras/code_samples/invoices_v4_async.txt
     :language: Python
 
 .. autoclass:: mindee.product.invoice.invoice_v4.InvoiceV4

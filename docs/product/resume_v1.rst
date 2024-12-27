@@ -3,7 +3,7 @@ Resume V1
 
 **Sample Code:**
 
-.. literalinclude:: /extras/code_samples/resume_v1.txt
+.. literalinclude:: /extras/code_samples/resume_v1_async.txt
     :language: Python
 
 .. autoclass:: mindee.product.resume.resume_v1.ResumeV1

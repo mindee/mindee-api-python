@@ -3,7 +3,7 @@ Receipt V5
 
 **Sample Code:**
 
-.. literalinclude:: /extras/code_samples/expense_receipts_v5.txt
+.. literalinclude:: /extras/code_samples/expense_receipts_v5_async.txt
     :language: Python
 
 .. autoclass:: mindee.product.receipt.receipt_v5.ReceiptV5
