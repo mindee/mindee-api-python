@@ -1,5 +1,11 @@
 # Mindee Python API Library Changelog
 
+## v4.17.0 - 2024-12-13
+### Changes
+* :sparkles: add support for us mail v3
+* :art: linting fixes
+
+
 ## v4.16.0 - 2024-12-13
 ### Changes
 * :sparkles: allow local downloading of remote sources
