@@ -3,7 +3,7 @@ Payslip V3
 
 **Sample Code:**
 
-.. literalinclude:: /extras/code_samples/payslip_fra_v3.txt
+.. literalinclude:: /extras/code_samples/payslip_fra_v3_async.txt
     :language: Python
 
 .. autoclass:: mindee.product.fr.payslip.payslip_v3.PayslipV3

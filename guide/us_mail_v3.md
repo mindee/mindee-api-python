@@ -21,7 +21,7 @@ input_doc = mindee_client.source_from_path("/path/to/the/file.ext")
 
 # Load a file from disk and enqueue it.
 result: AsyncPredictResponse = mindee_client.enqueue_and_parse(
-    product.us.UsMailV2,
+    product.us.UsMailV3,
     input_doc,
 )
 
@@ -32,7 +32,20 @@ print(result.document)
 
 **Output (RST):**
 ```rst
-:Sender Name: zed
+########
+Document
+########
+:Mindee ID: f9c36f59-977d-4ddc-9f2d-31c294c456ac
+:Filename: default_sample.jpg
+
+Inference
+#########
+:Product: mindee/us_mail v3.0
+:Rotation applied: Yes
+
+Prediction
+==========
+:Sender Name: company zed
 :Sender Address:
   :City: Dallas
   :Complete Address: 54321 Elm Street, Dallas, Texas 54321
@@ -41,11 +54,12 @@ print(result.document)
   :Street: 54321 Elm Street
 :Recipient Names: Jane Doe
 :Recipient Addresses:
-  +-----------------+-------------------------------------+-------------------+-------------+------------------------+-------+---------------------------+
-  | City            | Complete Address                    | Is Address Change | Postal Code | Private Mailbox Number | State | Street                    |
-  +=================+=====================================+===================+=============+========================+=======+===========================+
-  | Detroit         | 1234 Market Street PMB 4321, Det... |                   | 12345       | 4321                   | MI    | 1234 Market Street        |
-  +-----------------+-------------------------------------+-------------------+-------------+------------------------+-------+---------------------------+
+  +-----------------+-------------------------------------+-------------------+-------------+------------------------+-------+---------------------------+-----------------+
+  | City            | Complete Address                    | Is Address Change | Postal Code | Private Mailbox Number | State | Street                    | Unit            |
+  +=================+=====================================+===================+=============+========================+=======+===========================+=================+
+  | Detroit         | 1234 Market Street PMB 4321, Det... | False             | 12345       | 4321                   | MI    | 1234 Market Street        |                 |
+  +-----------------+-------------------------------------+-------------------+-------------+------------------------+-------+---------------------------+-----------------+
+:Return to Sender: False
 ```
 
 # Field Types
@@ -77,7 +91,7 @@ Fields which are specific to this product; they are not used in any other produc
 ### Recipient Addresses Field
 The addresses of the recipients.
 
-A `UsMailV2RecipientAddress` implements the following attributes:
+A `UsMailV3RecipientAddress` implements the following attributes:
 
 * **city** (`str`): The city of the recipient's address.
 * **complete** (`str`): The complete address of the recipient.
@@ -86,12 +100,13 @@ A `UsMailV2RecipientAddress` implements the following attributes:
 * **private_mailbox_number** (`str`): The private mailbox number of the recipient's address.
 * **state** (`str`): Second part of the ISO 3166-2 code, consisting of two letters indicating the US State.
 * **street** (`str`): The street of the recipient's address.
+* **unit** (`str`): The unit number of the recipient's address.
 Fields which are specific to this product; they are not used in any other product.
 
 ### Sender Address Field
 The address of the sender.
 
-A `UsMailV2SenderAddress` implements the following attributes:
+A `UsMailV3SenderAddress` implements the following attributes:
 
 * **city** (`str`): The city of the sender's address.
 * **complete** (`str`): The complete address of the sender.
@@ -100,10 +115,17 @@ A `UsMailV2SenderAddress` implements the following attributes:
 * **street** (`str`): The street of the sender's address.
 
 # Attributes
-The following fields are extracted for US Mail V2:
+The following fields are extracted for US Mail V3:
+
+## Return to Sender
+**is_return_to_sender** ([BooleanField](#booleanfield)): Whether the mailing is marked as return to sender.
+
+```py
+print(result.document.inference.prediction.is_return_to_sender.value)
+```
 
 ## Recipient Addresses
-**recipient_addresses** (List[[UsMailV2RecipientAddress](#recipient-addresses-field)]): The addresses of the recipients.
+**recipient_addresses** (List[[UsMailV3RecipientAddress](#recipient-addresses-field)]): The addresses of the recipients.
 
 ```py
 for recipient_addresses_elem in result.document.inference.prediction.recipient_addresses:
@@ -119,7 +141,7 @@ for recipient_names_elem in result.document.inference.prediction.recipient_names
 ```
 
 ## Sender Address
-**sender_address** ([UsMailV2SenderAddress](#sender-address-field)): The address of the sender.
+**sender_address** ([UsMailV3SenderAddress](#sender-address-field)): The address of the sender.
 
 ```py
 print(result.document.inference.prediction.sender_address.value)

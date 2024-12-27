@@ -56,6 +56,7 @@
 <li class="toctree-l4"><a class="reference internal" href="driver_license_v1.html">Driver License V1</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">Healthcare Card V1</a></li>
 <li class="toctree-l4"><a class="reference internal" href="us_mail_v2.html">US Mail V2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="us_mail_v3.html">US Mail V3</a></li>
 <li class="toctree-l4"><a class="reference internal" href="w9_v1.html">W9 V1</a></li>
 </ul>
 </li>
@@ -96,6 +97,24 @@
   <section id="healthcare-card-v1">
 <h1>Healthcare Card V1<a class="headerlink" href="#healthcare-card-v1" title="Permalink to this heading"></a></h1>
 <p><strong>Sample Code:</strong></p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mindee</span> <span class="kn">import</span> <span class="n">Client</span><span class="p">,</span> <span class="n">product</span><span class="p">,</span> <span class="n">AsyncPredictResponse</span>
+
+<span class="c1"># Init a new client</span>
+<span class="n">mindee_client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;my-api-key&quot;</span><span class="p">)</span>
+
+<span class="c1"># Load a file from disk</span>
+<span class="n">input_doc</span> <span class="o">=</span> <span class="n">mindee_client</span><span class="o">.</span><span class="n">source_from_path</span><span class="p">(</span><span class="s2">&quot;/path/to/the/file.ext&quot;</span><span class="p">)</span>
+
+<span class="c1"># Load a file from disk and enqueue it.</span>
+<span class="n">result</span><span class="p">:</span> <span class="n">AsyncPredictResponse</span> <span class="o">=</span> <span class="n">mindee_client</span><span class="o">.</span><span class="n">enqueue_and_parse</span><span class="p">(</span>
+    <span class="n">product</span><span class="o">.</span><span class="n">us</span><span class="o">.</span><span class="n">HealthcareCardV1</span><span class="p">,</span>
+    <span class="n">input_doc</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Print a brief summary of the parsed data</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">document</span><span class="p">)</span>
+</pre></div>
+</div>
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.product.us.healthcare_card.healthcare_card_v1.HealthcareCardV1">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">HealthcareCardV1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.us.healthcare_card.healthcare_card_v1.HealthcareCardV1" title="Permalink to this definition"></a></dt>

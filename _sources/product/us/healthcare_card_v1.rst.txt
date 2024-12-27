@@ -3,7 +3,7 @@ Healthcare Card V1
 
 **Sample Code:**
 
-.. literalinclude:: /extras/code_samples/us_healthcare_cards_v1.txt
+.. literalinclude:: /extras/code_samples/us_healthcare_cards_v1_async.txt
     :language: Python
 
 .. autoclass:: mindee.product.us.healthcare_card.healthcare_card_v1.HealthcareCardV1

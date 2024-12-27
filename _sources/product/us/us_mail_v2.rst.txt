@@ -3,7 +3,7 @@ US Mail V2
 
 **Sample Code:**
 
-.. literalinclude:: /extras/code_samples/us_mail_v2.txt
+.. literalinclude:: /extras/code_samples/us_mail_v2_async.txt
     :language: Python
 
 .. autoclass:: mindee.product.us.us_mail.us_mail_v2.UsMailV2
