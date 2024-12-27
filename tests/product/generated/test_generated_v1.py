@@ -487,13 +487,13 @@ def test_invoice_v4_complete_doc(invoice_v4_complete_doc) -> None:
         invoice_v4_complete_doc.inference.prediction.fields["line_items"]
         .values[0]
         .product_code
-        == None
+        is None
     )
     assert (
         invoice_v4_complete_doc.inference.prediction.fields["line_items"]
         .values[0]
         .quantity
-        == None
+        is None
     )
     assert (
         invoice_v4_complete_doc.inference.prediction.fields["line_items"]
@@ -505,13 +505,13 @@ def test_invoice_v4_complete_doc(invoice_v4_complete_doc) -> None:
         invoice_v4_complete_doc.inference.prediction.fields["line_items"]
         .values[0]
         .tax_amount
-        == None
+        is None
     )
     assert (
         invoice_v4_complete_doc.inference.prediction.fields["line_items"]
         .values[0]
         .tax_rate
-        == None
+        is None
     )
     assert (
         invoice_v4_complete_doc.inference.prediction.fields["line_items"]
@@ -523,7 +523,7 @@ def test_invoice_v4_complete_doc(invoice_v4_complete_doc) -> None:
         invoice_v4_complete_doc.inference.prediction.fields["line_items"]
         .values[0]
         .unit_price
-        == None
+        is None
     )
     assert (
         invoice_v4_complete_doc.inference.prediction.fields["line_items"]
@@ -705,19 +705,19 @@ def test_invoice_v4_page0(invoice_v4_page_0) -> None:
         == "S)BOIE 5X500 FEUILLES A4"
     )
     assert (
-        invoice_v4_page_0.prediction.fields["line_items"].values[0].product_code == None
+        invoice_v4_page_0.prediction.fields["line_items"].values[0].product_code is None
     )
-    assert invoice_v4_page_0.prediction.fields["line_items"].values[0].quantity == None
+    assert invoice_v4_page_0.prediction.fields["line_items"].values[0].quantity is None
     assert (
-        invoice_v4_page_0.prediction.fields["line_items"].values[0].tax_amount == None
+        invoice_v4_page_0.prediction.fields["line_items"].values[0].tax_amount is None
     )
-    assert invoice_v4_page_0.prediction.fields["line_items"].values[0].tax_rate == None
+    assert invoice_v4_page_0.prediction.fields["line_items"].values[0].tax_rate is None
     assert (
         invoice_v4_page_0.prediction.fields["line_items"].values[0].total_amount
         == "2.63"
     )
     assert (
-        invoice_v4_page_0.prediction.fields["line_items"].values[0].unit_price == None
+        invoice_v4_page_0.prediction.fields["line_items"].values[0].unit_price is None
     )
 
     assert isinstance(

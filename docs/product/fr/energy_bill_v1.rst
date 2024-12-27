@@ -3,7 +3,7 @@ Energy Bill V1
 
 **Sample Code:**
 
-.. literalinclude:: /extras/code_samples/energy_bill_fra_v1.txt
+.. literalinclude:: /extras/code_samples/energy_bill_fra_v1_async.txt
     :language: Python
 
 .. autoclass:: mindee.product.fr.energy_bill.energy_bill_v1.EnergyBillV1
