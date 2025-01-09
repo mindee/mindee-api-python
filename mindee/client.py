@@ -298,7 +298,7 @@ class Client:
         endpoint: Optional[Endpoint] = None,
         initial_delay_sec: float = 2,
         delay_sec: float = 1.5,
-        max_retries: int = 30,
+        max_retries: int = 80,
         full_text: bool = False,
     ) -> AsyncPredictResponse:
         """
