@@ -11,35 +11,34 @@ from mindee.geometry.polygon import get_min_max_x, get_min_max_y
 from mindee.input.sources import BytesInput, LocalInputSource
 
 
-def attach_image_as_new_file(  # type: ignore
-    input_buffer: BinaryIO,
+def attach_images_as_new_file(  # type: ignore
+    input_buffer_list: List[BinaryIO],
 ) -> pdfium.PdfDocument:
     """
-    Attaches an image as a new page in a PdfDocument object.
+    Attaches a list of images as new pages in a PdfDocument object.
 
-    :param input_buffer: Input buffer.
+    :param input_buffer_list: List of images, represented as buffers.
     :return: A PdfDocument handle.
     """
-    # Create a new page in the PdfDocument
-    input_buffer.seek(0)
-    image = Image.open(input_buffer)
-    image.convert("RGB")
-    image_buffer = io.BytesIO()
-    image.save(image_buffer, format="JPEG")
-
     pdf = pdfium.PdfDocument.new()
+    for input_buffer in input_buffer_list:
+        input_buffer.seek(0)
+        image = Image.open(input_buffer)
+        image.convert("RGB")
+        image_buffer = io.BytesIO()
+        image.save(image_buffer, format="JPEG")
 
-    image_pdf = pdfium.PdfImage.new(pdf)
-    image_pdf.load_jpeg(image_buffer)
-    width, height = image_pdf.get_size()
+        image_pdf = pdfium.PdfImage.new(pdf)
+        image_pdf.load_jpeg(image_buffer)
+        width, height = image_pdf.get_size()
 
-    matrix = pdfium.PdfMatrix().scale(width, height)
-    image_pdf.set_matrix(matrix)
+        matrix = pdfium.PdfMatrix().scale(width, height)
+        image_pdf.set_matrix(matrix)
 
-    page = pdf.new_page(width, height)
-    page.insert_obj(image_pdf)
-    page.gen_content()
-    image.close()
+        page = pdf.new_page(width, height)
+        page.insert_obj(image_pdf)
+        page.gen_content()
+        image.close()
     return pdf
 
 
@@ -160,4 +159,4 @@ def load_pdf_doc(input_file: LocalInputSource) -> pdfium.PdfDocument:  # type: i
         input_file.file_object.seek(0)
         return pdfium.PdfDocument(input_file.file_object)
 
-    return attach_image_as_new_file(input_file.file_object)
+    return attach_images_as_new_file([input_file.file_object])
