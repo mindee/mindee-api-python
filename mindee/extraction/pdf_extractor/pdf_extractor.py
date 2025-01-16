@@ -7,7 +7,7 @@ from PIL import Image
 
 from mindee.error.mindee_error import MindeeError
 from mindee.extraction.pdf_extractor.extracted_pdf import ExtractedPdf
-from mindee.input.sources import LocalInputSource
+from mindee.input.sources.local_input_source import LocalInputSource
 from mindee.product.invoice_splitter.invoice_splitter_v1_page_group import (
     InvoiceSplitterV1PageGroup,
 )

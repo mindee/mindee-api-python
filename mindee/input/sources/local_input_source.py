@@ -1,15 +1,18 @@
 import io
 import mimetypes
 import tempfile
-from enum import Enum
 from typing import BinaryIO, Optional, Sequence, Tuple
 
 import pypdfium2 as pdfium
 
 from mindee.error.mimetype_error import MimeTypeError
 from mindee.error.mindee_error import MindeeError, MindeeSourceError
+from mindee.image_operations.image_compressor import compress_image
 from mindee.input.page_options import KEEP_ONLY, REMOVE
+from mindee.input.sources.input_type import InputType
 from mindee.logger import logger
+from mindee.pdf.pdf_compressor import compress_pdf
+from mindee.pdf.pdf_utils import has_source_text
 
 mimetypes.add_type("image/heic", ".heic")
 mimetypes.add_type("image/heic", ".heif")
@@ -23,16 +26,6 @@ ALLOWED_MIME_TYPES = [
     "image/tiff",
     "image/webp",
 ]
-
-
-class InputType(Enum):
-    """The input type, for internal use."""
-
-    FILE = "file"
-    BASE64 = "base64"
-    BYTES = "bytes"
-    PATH = "path"
-    URL = "url"
 
 
 class LocalInputSource:
@@ -202,3 +195,43 @@ class LocalInputSource:
     def close(self) -> None:
         """Close the file object."""
         self.file_object.close()
+
+    def has_source_text(self) -> bool:
+        """
+        If the file is a PDF, checks if it has source text.
+
+        :return: True if the file is a PDF and has source text. False otherwise.
+        """
+        if not self.is_pdf():
+            return False
+        return has_source_text(self.file_object.read())
+
+    def compress(
+        self,
+        quality: int = 85,
+        max_width: Optional[int] = None,
+        max_height: Optional[int] = None,
+        force_source_text: bool = False,
+        disable_source_text: bool = True,
+    ) -> None:
+        """
+        Compresses the file object, either as a PDF or an image.
+
+        :param quality: Quality of the compression. For images, this is the JPEG quality.
+            For PDFs, this affects image quality within the PDF.
+        :param max_width: Maximum width for image resizing. Ignored for PDFs.
+        :param max_height: Maximum height for image resizing. Ignored for PDFs.
+        :param force_source_text: For PDFs, whether to force compression even if source text is present.
+        :param disable_source_text: For PDFs, whether to disable source text during compression.
+        """
+        new_file_bytes: bytes
+        if self.is_pdf():
+            new_file_bytes = compress_pdf(
+                self.file_object, quality, force_source_text, disable_source_text
+            )
+        else:
+            new_file_bytes = compress_image(
+                self.file_object, quality, max_width, max_height
+            )
+
+        self.file_object = io.BytesIO(new_file_bytes)

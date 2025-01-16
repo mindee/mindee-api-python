@@ -1,22 +1,25 @@
+import io
 import logging
-from io import BytesIO
 from threading import RLock
-from typing import List, Optional
+from typing import BinaryIO, List, Optional, Union
 
 import pypdfium2 as pdfium
 import pypdfium2.raw as pdfium_c
 
-from mindee.extraction import attach_images_as_new_file
 from mindee.image_operations.image_compressor import compress_image
 from mindee.pdf.pdf_char_data import PDFCharData
-from mindee.pdf.pdf_utils import extract_text_from_pdf, has_source_text
+from mindee.pdf.pdf_utils import (
+    attach_images_as_new_file,
+    extract_text_from_pdf,
+    has_source_text,
+)
 
 logger = logging.getLogger(__name__)
 MIN_QUALITY = 1
 
 
 def compress_pdf(
-    pdf_data: bytes,
+    pdf_data: Union[BinaryIO, bytes],
     image_quality: int = 85,
     force_source_text_compression: bool = False,
     disable_source_text: bool = True,
@@ -30,6 +33,9 @@ def compress_pdf(
     :param disable_source_text: If true, doesn't re-apply source text to the output PDF.
     :return: Compressed PDF as bytes.
     """
+    if not isinstance(pdf_data, bytes):
+        pdf_data = pdf_data.read()
+
     if has_source_text(pdf_data):
         if force_source_text_compression:
             if not disable_source_text:
@@ -61,9 +67,9 @@ def compress_pdf(
         return pdf_data
 
     out_pdf = attach_images_as_new_file(
-        [BytesIO(compressed_page) for compressed_page in compressed_pages]
+        [io.BytesIO(compressed_page) for compressed_page in compressed_pages]
     )
-    out_bytes = BytesIO()
+    out_bytes = io.BytesIO()
     out_pdf.save(out_bytes)
 
     return out_bytes.read()
@@ -158,8 +164,7 @@ def compress_pages_with_quality(
     pdf_document = pdfium.PdfDocument(pdf_data)
     compressed_pages = []
 
-    for i in enumerate(pdf_document):
-        page = pdf_document[i]
+    for [_, page] in enumerate(pdf_document):
         rasterized_page = rasterize_page(page, image_quality)
         compressed_image = compress_image(rasterized_page, image_quality)
 
@@ -198,7 +203,7 @@ def rasterize_page(  # type: ignore
     :return: Rasterized page as bytes.
     """
     image = page.render().to_pil()
-    buffer = BytesIO()
+    buffer = io.BytesIO()
     image.save(buffer, format="JPEG", quality=quality)
     return buffer.getvalue()
 

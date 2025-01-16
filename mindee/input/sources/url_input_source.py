@@ -10,7 +10,7 @@ import requests
 
 from mindee.error.mindee_error import MindeeSourceError
 from mindee.input.sources.bytes_input import BytesInput
-from mindee.input.sources.local_input_source import InputType
+from mindee.input.sources.input_type import InputType
 from mindee.logger import logger
 
 

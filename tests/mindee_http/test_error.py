@@ -9,7 +9,7 @@ from mindee.error.mindee_http_error import (
     MindeeHTTPServerError,
     handle_error,
 )
-from mindee.input.sources import PathInput
+from mindee.input.sources.path_input import PathInput
 from tests.test_inputs import FILE_TYPES_DIR
 from tests.utils import clear_envvars, dummy_envvars
 

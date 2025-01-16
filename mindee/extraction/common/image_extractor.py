@@ -1,5 +1,5 @@
 import io
-from typing import BinaryIO, List
+from typing import List
 
 import pypdfium2 as pdfium
 from PIL import Image
@@ -8,38 +8,9 @@ from mindee.error.mindee_error import MindeeError
 from mindee.extraction.common.extracted_image import ExtractedImage
 from mindee.geometry.point import Point
 from mindee.geometry.polygon import get_min_max_x, get_min_max_y
-from mindee.input.sources import BytesInput, LocalInputSource
-
-
-def attach_images_as_new_file(  # type: ignore
-    input_buffer_list: List[BinaryIO],
-) -> pdfium.PdfDocument:
-    """
-    Attaches a list of images as new pages in a PdfDocument object.
-
-    :param input_buffer_list: List of images, represented as buffers.
-    :return: A PdfDocument handle.
-    """
-    pdf = pdfium.PdfDocument.new()
-    for input_buffer in input_buffer_list:
-        input_buffer.seek(0)
-        image = Image.open(input_buffer)
-        image.convert("RGB")
-        image_buffer = io.BytesIO()
-        image.save(image_buffer, format="JPEG")
-
-        image_pdf = pdfium.PdfImage.new(pdf)
-        image_pdf.load_jpeg(image_buffer)
-        width, height = image_pdf.get_size()
-
-        matrix = pdfium.PdfMatrix().scale(width, height)
-        image_pdf.set_matrix(matrix)
-
-        page = pdf.new_page(width, height)
-        page.insert_obj(image_pdf)
-        page.gen_content()
-        image.close()
-    return pdf
+from mindee.input.sources.bytes_input import BytesInput
+from mindee.input.sources.local_input_source import LocalInputSource
+from mindee.pdf.pdf_utils import attach_images_as_new_file
 
 
 def extract_image_from_polygon(
@@ -157,6 +128,6 @@ def load_pdf_doc(input_file: LocalInputSource) -> pdfium.PdfDocument:  # type: i
     """
     if input_file.is_pdf():
         input_file.file_object.seek(0)
-        return pdfium.PdfDocument(input_file.file_object)
+        return pdfium.PdfDocument(input_file.file_object.read())
 
     return attach_images_as_new_file([input_file.file_object])
