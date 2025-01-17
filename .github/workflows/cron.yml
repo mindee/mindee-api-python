@@ -2,7 +2,7 @@ name: Crontab
 
 on:
   schedule:
-  - cron: '33 0 * * *'
+  - cron: '32 0 * * *'
 
 jobs:
   test_regressions:
