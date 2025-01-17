@@ -1,4 +1,4 @@
-name: Sync `documentation` directory to ReadMe
+name: Publish Guide to readme.com
 
 on:
   workflow_call:

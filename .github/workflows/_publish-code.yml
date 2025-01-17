@@ -1,7 +1,7 @@
 #
 # Publish releases to PyPi
 #
-name: Publish
+name: Publish Code
 
 on:
   workflow_call:
