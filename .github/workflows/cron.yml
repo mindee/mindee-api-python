@@ -1,0 +1,13 @@
+name: Crontab
+
+on:
+  schedule:
+  - cron: '33 0 * * *'
+
+jobs:
+  test_regressions:
+    uses: mindee/mindee-api-python/.github/workflows/_test-regressions.yml@main
+    secrets: inherit
+  test_code_samples:
+    uses: mindee/mindee-api-python/.github/workflows/_test-code-samples.yml@main
+    secrets: inherit

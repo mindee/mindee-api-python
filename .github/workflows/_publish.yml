@@ -4,10 +4,7 @@
 name: Publish
 
 on:
-  release:
-    types: [ published ]
-
-  # Allows running this workflow manually from the Actions tab
+  workflow_call:
   workflow_dispatch:
 
 jobs:

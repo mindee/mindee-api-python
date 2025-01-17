@@ -1,0 +1,17 @@
+name: Publish Release
+
+on:
+  release:
+    types: [ published ]
+
+jobs:
+  docs-publish:
+    uses: mindee/mindee-api-python/.github/workflows/_docs.yml@main
+    secrets: inherit
+  sync-readme:
+    uses: mindee/mindee-api-python/.github/workflows/_sync-readme.yml@main
+    needs: docs-publish
+    secrets: inherit
+  maven-publish:
+    uses: mindee/mindee-api-python/.github/workflows/_publish.yml@main
+    secrets: inherit

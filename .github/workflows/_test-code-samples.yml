@@ -1,11 +1,7 @@
 name: Test Code Samples
 
 on:
-  pull_request:
-  schedule:
-    - cron:  '0 0 * * *'
-
-  # Allow running this workflow manually from the Actions tab
+  workflow_call:
   workflow_dispatch:
 
 jobs:

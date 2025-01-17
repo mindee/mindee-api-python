@@ -1,19 +1,14 @@
 #
-# Run regression tests.
+# Run integration tests.
 #
-name: Regression Test
+name: Integration Test
 
 on:
-  pull_request:
-  workflow_dispatch:
-  workflow_run:
-    workflows: ["Test Code Samples"]
-    types:
-      - completed
+  workflow_call:
 
 jobs:
   pytest:
-    name: Run Regression Tests
+    name: Run Integration Tests
     timeout-minutes: 30
     strategy:
       max-parallel: 2
@@ -47,11 +42,13 @@ jobs:
       run: |
         python -m pip install pip
         pip install -e .[test]
-    - name: Run Regression Testing
+    - name: Run Integration Testing
       env:
           MINDEE_API_KEY: ${{ secrets.MINDEE_API_KEY_SE_TESTS }}
+          WORKFLOW_ID: ${{ secrets.WORKFLOW_ID_SE_TESTS }}
       run: |
-        pytest -m regression
+        pytest -m integration
+
 
     - name: Notify Slack Action on Failure
       uses: ravsamhq/notify-slack-action@2.3.0
@@ -59,6 +56,6 @@ jobs:
       with:
         status: ${{ job.status }}
         notify_when: "failure"
-        notification_title: "Regression test workflow '{workflow}' is failing"
+        notification_title: "Integration test '{workflow}' is failing"
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.PRODUCTION_ISSUES_SLACK_HOOK_URL }}
