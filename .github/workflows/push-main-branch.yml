@@ -1,0 +1,17 @@
+name: Push Main Branch
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  lint:
+    uses: mindee/mindee-api-python/.github/workflows/_lint.yml@main
+  test_units:
+    uses: mindee/mindee-api-python/.github/workflows/_test-units.yml@main
+    needs: lint
+    secrets: inherit
+  tag:
+    uses: mindee/client-lib-actions/.github/workflows/tag-version.yml@main
+    needs: build

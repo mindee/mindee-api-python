@@ -4,7 +4,7 @@
 name: Static Analysis
 
 on:
-  - push
+  workflow_call:
 
 jobs:
   static-check:
@@ -30,9 +30,17 @@ jobs:
           ${{ runner.os }}-lint-
 
     - name: Install dependencies
-      # We install the full dev requirements to make sure everything installs OK
       run: |
         python -m pip install pip
+        pip install pylic~=3.6.1
+        pip install -e .
+
+    - name: License check
+      run: |
+        pylic check --allow-extra-safe-licenses
+
+    - name: Install lint dependencies
+      run: |
         pip install -e .[lint]
 
     - name: Cache pre-commit

@@ -113,7 +113,7 @@ safe_licenses = [
   "MIT License",
   "Mozilla Public License 2.0 (MPL 2.0)",
   "BSD License",
-  "(Apache-2.0 OR BSD-3-Clause) AND LicenseRef-PdfiumThirdParty",
+  "BSD-3-Clause, Apache-2.0, PdfiumThirdParty",
   "Historical Permission Notice and Disclaimer (HPND)",
   "CMU License (MIT-CMU)",
 ]
