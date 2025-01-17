@@ -1,3 +1,4 @@
+import ctypes
 import io
 from ctypes import byref, c_double, c_int, create_string_buffer
 from threading import RLock
@@ -125,14 +126,21 @@ def get_char_info(i: int, text_handler, pdfium_lock: RLock) -> dict:
     :param pdfium_lock: Lock for thread-safe operations.
     :return: A dictionary containing character information.
     """
+    stroke = (ctypes.c_uint(), ctypes.c_uint(), ctypes.c_uint(), ctypes.c_uint())
+    fill = (ctypes.c_uint(), ctypes.c_uint(), ctypes.c_uint(), ctypes.c_uint())
+
     with pdfium_lock:
         char = chr(pdfium_c.FPDFText_GetUnicode(text_handler, i))
         font_name = get_font_name(text_handler, i)
         font_flags = get_font_flags(text_handler, i)
         font_size = pdfium_c.FPDFText_GetFontSize(text_handler, i)
         font_weight = pdfium_c.FPDFText_GetFontWeight(text_handler, i)
-        font_stroke_color = pdfium_c.FPDFText_GetStrokeColor(text_handler, i)
-        font_fill_color = pdfium_c.FPDFText_GetFillColor(text_handler, i)
+        _ = pdfium_c.FPDFText_GetStrokeColor(
+            text_handler, i, stroke[0], stroke[1], stroke[2], stroke[3]
+        )
+        _ = pdfium_c.FPDFText_GetFillColor(
+            text_handler, i, fill[0], fill[1], fill[2], fill[3]
+        )
 
     return {
         "char": char,
@@ -140,8 +148,8 @@ def get_char_info(i: int, text_handler, pdfium_lock: RLock) -> dict:
         "font_flags": font_flags,
         "font_size": font_size,
         "font_weight": font_weight,
-        "font_stroke_color": font_stroke_color,
-        "font_fill_color": font_fill_color,
+        "font_stroke_color": stroke,
+        "font_fill_color": fill,
     }
 
 

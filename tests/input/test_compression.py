@@ -19,6 +19,7 @@ def test_image_quality_compress_from_input_source():
 
     with open(OUTPUT_DIR / "compress_indirect.jpg", "wb") as f:
         f.write(receipt_input.file_object.read())
+        receipt_input.file_object.seek(0)
 
     initial_file_stats = os.stat(DATA_DIR / "file_types/receipt.jpg")
     rendered_file_stats = os.stat(OUTPUT_DIR / "compress_indirect.jpg")
@@ -62,6 +63,7 @@ def test_image_resize_from_input_source():
     image_resize_input.compress(75, 250, 1000)
     with open(OUTPUT_DIR / "resize_indirect.jpg", "wb") as f:
         f.write(image_resize_input.file_object.read())
+        image_resize_input.file_object.seek(0)
 
     initial_file_stats = os.stat(DATA_DIR / "file_types/receipt.jpg")
     rendered_file_stats = os.stat(OUTPUT_DIR / "resize_indirect.jpg")
@@ -143,8 +145,8 @@ def test_pdf_compress_from_compressor():
     resizes = []
     qualities = [85, 75, 50, 10]
     for quality in qualities:
-        pdf_resize_input.file_object.seek(0)
         resizes.append(compress_pdf(pdf_resize_input.file_object, quality))
+        pdf_resize_input.file_object.seek(0)
 
     file_names = [
         "compress85.pdf",
@@ -172,12 +174,11 @@ def test_pdf_compress_with_text_keeps_text():
 
     compressed_with_text = compress_pdf(initial_with_text.file_object, 100, True, False)
 
-    original_text = "".join(
-        [
-            text_info.char
-            for text_info in extract_text_from_pdf(initial_with_text.file_object.read())
-        ]
-    )
+    text_chars = []
+    for text_info in extract_text_from_pdf(initial_with_text.file_object.read()):
+        text_chars.append(text_info.char)
+    initial_with_text.file_object.seek(0)
+    original_text = "".join(text_chars)
     compressed_text = "".join(
         [text_info.char for text_info in extract_text_from_pdf(compressed_with_text)]
     )
@@ -193,32 +194,32 @@ def test_pdf_compress_with_text_does_not_compress():
     assert compressed_with_text == initial_with_text.file_object
 
 
-@pytest.fixture(scope="module", autouse=True)
-def cleanup():
-    yield
-    created_files = [
-        "compress10.pdf",
-        "compress50.pdf",
-        "compress75.pdf",
-        "compress85.pdf",
-        "resize_indirect.pdf",
-        "compress1.jpg",
-        "compress10.jpg",
-        "compress50.jpg",
-        "compress75.jpg",
-        "compress100.jpg",
-        "compress_indirect.jpg",
-        "resize250x500.jpg",
-        "resize500x250.jpg",
-        "resize500xnull.jpg",
-        "resize_indirect.jpg",
-        "resizenullx250.jpg",
-    ]
-
-    for file_path in created_files:
-        full_path = DATA_DIR / "output" / file_path
-        if full_path.exists():
-            try:
-                os.remove(full_path)
-            except OSError as e:
-                print(f"Could not delete file '{file_path}': {e.strerror}")
+# @pytest.fixture(scope="module", autouse=True)
+# def cleanup():
+#     yield
+#     created_files = [
+#         "compress10.pdf",
+#         "compress50.pdf",
+#         "compress75.pdf",
+#         "compress85.pdf",
+#         "resize_indirect.pdf",
+#         "compress1.jpg",
+#         "compress10.jpg",
+#         "compress50.jpg",
+#         "compress75.jpg",
+#         "compress100.jpg",
+#         "compress_indirect.jpg",
+#         "resize250x500.jpg",
+#         "resize500x250.jpg",
+#         "resize500xnull.jpg",
+#         "resize_indirect.jpg",
+#         "resizenullx250.jpg",
+#     ]
+#
+#     for file_path in created_files:
+#         full_path = DATA_DIR / "output" / file_path
+#         if full_path.exists():
+#             try:
+#                 os.remove(full_path)
+#             except OSError as e:
+#                 print(f"Could not delete file '{file_path}': {e.strerror}")

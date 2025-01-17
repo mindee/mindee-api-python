@@ -18,7 +18,7 @@ class PDFCharData:
     """Bottom bound."""
     font_name: str
     """The font name."""
-    font_size: int
+    font_size: float
     """The font size in pt."""
     font_weight: int
     """The font weight."""

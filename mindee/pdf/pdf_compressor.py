@@ -1,10 +1,12 @@
 import io
 import logging
+from ctypes import c_char_p, c_ushort
 from threading import RLock
 from typing import BinaryIO, List, Optional, Union
 
 import pypdfium2 as pdfium
 import pypdfium2.raw as pdfium_c
+from _ctypes import POINTER
 
 from mindee.image_operations.image_compressor import compress_image
 from mindee.pdf.pdf_char_data import PDFCharData
@@ -34,9 +36,12 @@ def compress_pdf(
     :return: Compressed PDF as bytes.
     """
     if not isinstance(pdf_data, bytes):
-        pdf_data = pdf_data.read()
+        pdf_bytes = pdf_data.read()
+        pdf_data.seek(0)
+    else:
+        pdf_bytes = pdf_data
 
-    if has_source_text(pdf_data):
+    if has_source_text(pdf_bytes):
         if force_source_text_compression:
             if not disable_source_text:
                 logger.warning("Re-writing PDF source-text is an EXPERIMENTAL feature.")
@@ -50,29 +55,29 @@ def compress_pdf(
                 "Found text inside of the provided PDF file. Compression operation aborted since disableSourceText "
                 "is set to 'true'."
             )
-            return pdf_data
+            return pdf_bytes
 
     extracted_text = (
-        extract_text_from_pdf(pdf_data) if not disable_source_text else None
+        extract_text_from_pdf(pdf_bytes) if not disable_source_text else None
     )
 
     compressed_pages = compress_pdf_pages(
-        pdf_data, extracted_text, image_quality, disable_source_text
+        pdf_bytes, extracted_text, image_quality, disable_source_text
     )
 
     if not compressed_pages:
         logger.warning(
             "Could not compress PDF to a smaller size. Returning original PDF."
         )
-        return pdf_data
+        return pdf_bytes
 
     out_pdf = attach_images_as_new_file(
         [io.BytesIO(compressed_page) for compressed_page in compressed_pages]
     )
-    out_bytes = io.BytesIO()
-    out_pdf.save(out_bytes)
-
-    return out_bytes.read()
+    out_buffer = io.BytesIO()
+    out_pdf.save(out_buffer)
+    out_buffer.seek(0)
+    return out_buffer.read()
 
 
 def compress_pdf_pages(
@@ -110,40 +115,40 @@ def compress_pdf_pages(
 
 
 def add_text_to_pdf_page(  # type: ignore
-    page: pdfium.PdfPage,
+    document: pdfium.PdfDocument,
+    page_id: int,
     extracted_text: Optional[List[PDFCharData]],
 ) -> None:
     """
     Adds text to a PDF page based on the extracted text data.
 
-    :param page: The PdfPage object to add text to.
+    :param document: The PDFDocument object.
+    :param page_id: ID of the current page.
     :param extracted_text: List of PDFCharData objects containing text and positioning information.
     """
     if not extracted_text:
         return
 
-    height = page.get_height()
-    document = page.pdf
+    height = document[page_id].get_height()
     pdfium_lock = RLock()
 
     with pdfium_lock:
-        text_handler = pdfium_c.FPDFText_LoadPage(page.raw)
         for char_data in extracted_text:
-            font = document.load_font(
-                char_data.font_name, pdfium_c.FPDF_FONT_TRUETYPE, True
+            font_name = c_char_p(char_data.font_name.encode("utf-8"))
+            text_handler = pdfium_c.FPDFPageObj_NewTextObj(
+                document.raw, font_name, char_data.font_size
             )
-            text_object = document.create_text_object(font, char_data.font_size)
-            text_object.set_text(char_data.char)
-            x = char_data.left
-            y = height - char_data.bottom
-            text_object.set_position(x, y)
-            r, g, b, a = char_data.font_fill_color
-            text_object.set_fill_color(r, g, b, a)
-            pdfium_c.FPDFPage_InsertObject(text_handler, text_object)
-        pdfium_c.FPDFPage_GenerateContent(text_handler)
-
-    with pdfium_lock:
-        pdfium_c.FPDFText_ClosePage(text_handler)
+            char_code = ord(char_data.char)
+            char_code_c_char = c_ushort(char_code)
+            char_ptr = POINTER(c_ushort)(char_code_c_char)
+            pdfium_c.FPDFText_SetText(text_handler, char_ptr)
+            pdfium_c.FPDFPageObj_Transform(
+                text_handler, 1, 0, 0, 1, char_data.left, height - char_data.top
+            )
+            pdfium_c.FPDFPage_InsertObject(document[page_id].raw, text_handler)
+            pdfium_c.FPDFPageObj_Destroy(text_handler)
+        pdfium_c.FPDFPage_GenerateContent(document[page_id].raw)
+        pdfium_c.FPDF_ClosePage(document[page_id].raw)
 
 
 def compress_pages_with_quality(
@@ -164,12 +169,12 @@ def compress_pages_with_quality(
     pdf_document = pdfium.PdfDocument(pdf_data)
     compressed_pages = []
 
-    for [_, page] in enumerate(pdf_document):
+    for [i, page] in enumerate(pdf_document):
         rasterized_page = rasterize_page(page, image_quality)
         compressed_image = compress_image(rasterized_page, image_quality)
 
         if not disable_source_text:
-            add_text_to_pdf_page(page, extracted_text)
+            add_text_to_pdf_page(pdf_document, i, extracted_text)
 
         compressed_pages.append(compressed_image)
 
