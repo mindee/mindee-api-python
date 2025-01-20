@@ -14,6 +14,7 @@ from mindee.pdf.pdf_char_data import PDFCharData
 from mindee.pdf.pdf_utils import (
     extract_text_from_pdf,
     has_source_text,
+    lerp,
 )
 
 logger = logging.getLogger(__name__)
@@ -61,7 +62,7 @@ def compress_pdf(
         extract_text_from_pdf(pdf_bytes) if not disable_source_text else None
     )
 
-    compressed_pages = compress_pdf_pages(pdf_bytes, image_quality)
+    compressed_pages = _compress_pdf_pages(pdf_bytes, image_quality)
 
     if not compressed_pages:
         logger.warning(
@@ -69,7 +70,7 @@ def compress_pdf(
         )
         return pdf_bytes
 
-    out_pdf = collect_images_as_pdf(
+    out_pdf = _collect_images_as_pdf(
         [compressed_page_image[0] for compressed_page_image in compressed_pages]
     )
 
@@ -83,7 +84,7 @@ def compress_pdf(
     return out_buffer.read()
 
 
-def compress_pdf_pages(
+def _compress_pdf_pages(
     pdf_data: bytes,
     image_quality: int,
 ) -> Optional[List[Tuple[bytes, int, int]]]:
@@ -98,10 +99,10 @@ def compress_pdf_pages(
     image_quality_loop = image_quality
 
     while image_quality_loop >= MIN_QUALITY:
-        compressed_pages = compress_pages_with_quality(pdf_data, image_quality_loop)
+        compressed_pages = _compress_pages_with_quality(pdf_data, image_quality_loop)
         total_compressed_size = sum(len(page) for page in compressed_pages)
 
-        if is_compression_successful(
+        if _is_compression_successful(
             total_compressed_size, original_size, image_quality
         ):
             return compressed_pages
@@ -146,7 +147,7 @@ def add_text_to_pdf_page(  # type: ignore
         pdfium_c.FPDFPage_GenerateContent(page.raw)
 
 
-def compress_pages_with_quality(
+def _compress_pages_with_quality(
     pdf_data: bytes,
     image_quality: int,
 ) -> List[Tuple[bytes, int, int]]:
@@ -160,7 +161,7 @@ def compress_pages_with_quality(
     pdf_document = pdfium.PdfDocument(pdf_data)
     compressed_pages = []
     for page in pdf_document:
-        rasterized_page = rasterize_page(page, image_quality)
+        rasterized_page = _rasterize_page(page, image_quality)
         compressed_image = compress_image(rasterized_page, image_quality)
         image = Image.open(io.BytesIO(compressed_image))
         compressed_pages.append((compressed_image, image.size[0], image.size[1]))
@@ -168,7 +169,7 @@ def compress_pages_with_quality(
     return compressed_pages
 
 
-def is_compression_successful(
+def _is_compression_successful(
     total_compressed_size: int, original_size: int, image_quality: int
 ) -> bool:
     """
@@ -183,7 +184,7 @@ def is_compression_successful(
     return total_compressed_size + total_compressed_size * overhead < original_size
 
 
-def rasterize_page(  # type: ignore
+def _rasterize_page(  # type: ignore
     page: pdfium.PdfPage,
     quality: int = 85,
 ) -> bytes:
@@ -200,19 +201,7 @@ def rasterize_page(  # type: ignore
     return buffer.getvalue()
 
 
-def lerp(start: float, end: float, t: float) -> float:
-    """
-    Performs linear interpolation between two numbers.
-
-    :param start: The starting value.
-    :param end: The ending value.
-    :param t: The interpolation factor (0 to 1).
-    :return: The interpolated value.
-    """
-    return start * (1 - t) + end * t
-
-
-def collect_images_as_pdf(image_list: List[bytes]) -> pdfium.PdfDocument:  # type: ignore
+def _collect_images_as_pdf(image_list: List[bytes]) -> pdfium.PdfDocument:  # type: ignore
     """
     Converts a list of JPEG images into pages in a PdfDocument.
 

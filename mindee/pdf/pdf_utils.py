@@ -37,12 +37,12 @@ def extract_text_from_pdf(pdf_bytes: bytes) -> List[List[PDFCharData]]:
     char_data_list: List[List[PDFCharData]] = []
 
     for i, page in enumerate(pdf):
-        char_data_list.append(process_page(page, i, pdfium_lock))
+        char_data_list.append(_process_page(page, i, pdfium_lock))
 
     return char_data_list
 
 
-def process_page(page, page_id: int, pdfium_lock: RLock) -> List[PDFCharData]:
+def _process_page(page, page_id: int, pdfium_lock: RLock) -> List[PDFCharData]:
     """
     Processes a single page of the PDF.
 
@@ -59,7 +59,7 @@ def process_page(page, page_id: int, pdfium_lock: RLock) -> List[PDFCharData]:
         count_chars = pdfium_c.FPDFText_CountChars(text_handler)
 
     for i in range(count_chars):
-        concatenated_chars = process_char(
+        concatenated_chars = _process_char(
             i, text_handler, page, pdfium_lock, internal_height, internal_width, page_id
         )
         for concatenated_char in concatenated_chars:
@@ -70,7 +70,7 @@ def process_page(page, page_id: int, pdfium_lock: RLock) -> List[PDFCharData]:
     return char_data_list
 
 
-def process_char(
+def _process_char(
     i: int,
     text_handler,
     page,
@@ -91,13 +91,13 @@ def process_char(
     :param page_id: ID of the page the character was found on.
     :return: List of character data for a page.
     """
-    char_info = get_char_info(i, text_handler, pdfium_lock)
+    char_info = _get_char_info(i, text_handler, pdfium_lock)
     if not char_info:
         return []
-    char_box = get_char_box(i, text_handler, pdfium_lock)
-    rotation = get_page_rotation(page, pdfium_lock)
+    char_box = _get_char_box(i, text_handler, pdfium_lock)
+    rotation = _get_page_rotation(page, pdfium_lock)
 
-    adjusted_box = adjust_char_box(char_box, rotation, internal_height, internal_width)
+    adjusted_box = _adjust_char_box(char_box, rotation, internal_height, internal_width)
     char_data_list: List[PDFCharData] = []
     for c in char_info["char"] or " ":
         if c in (
@@ -105,7 +105,7 @@ def process_char(
             "\r",
         ):  # Removes duplicated carriage returns in the PDF due to weird extraction.
             # IDK how to make this better, and neither does Claude, GPT4 nor GPT-o1, so I'm leaving this weird check.
-            next_char_info = get_char_info(i + 1, text_handler, pdfium_lock)
+            next_char_info = _get_char_info(i + 1, text_handler, pdfium_lock)
             if not next_char_info or next_char_info["char"] in ("\n", "\r"):
                 continue
 
@@ -128,7 +128,7 @@ def process_char(
     return char_data_list
 
 
-def get_char_info(i: int, text_handler, pdfium_lock: RLock) -> dict:
+def _get_char_info(i: int, text_handler, pdfium_lock: RLock) -> dict:
     """
     Retrieves information about a specific character.
 
@@ -145,8 +145,8 @@ def get_char_info(i: int, text_handler, pdfium_lock: RLock) -> dict:
         if unicode_char == 0xFF:
             return {}
         char = chr(unicode_char)
-        font_name = get_font_name(text_handler, i)
-        font_flags = get_font_flags(text_handler, i)
+        font_name = _get_font_name(text_handler, i)
+        font_flags = _get_font_flags(text_handler, i)
         font_size = pdfium_c.FPDFText_GetFontSize(text_handler, i)
         font_weight = pdfium_c.FPDFText_GetFontWeight(text_handler, i)
         _ = pdfium_c.FPDFText_GetStrokeColor(
@@ -167,7 +167,7 @@ def get_char_info(i: int, text_handler, pdfium_lock: RLock) -> dict:
     }
 
 
-def get_font_name(text_handler, i: int) -> str:
+def _get_font_name(text_handler, i: int) -> str:
     """
     Retrieves the font name for a specific character.
 
@@ -186,7 +186,7 @@ def get_font_name(text_handler, i: int) -> str:
     )
 
 
-def get_font_flags(text_handler, i: int) -> int:
+def _get_font_flags(text_handler, i: int) -> int:
     """
     Retrieves the font flags for a specific character.
 
@@ -199,7 +199,7 @@ def get_font_flags(text_handler, i: int) -> int:
     return flags.value
 
 
-def get_char_box(
+def _get_char_box(
     i: int, text_handler, pdfium_lock: RLock
 ) -> Tuple[float, float, float, float]:
     """
@@ -218,7 +218,7 @@ def get_char_box(
     return left.value, right.value, bottom.value, top.value
 
 
-def get_page_rotation(page, pdfium_lock: RLock) -> int:
+def _get_page_rotation(page, pdfium_lock: RLock) -> int:
     """
     Retrieves the rotation value for a specific page.
 
@@ -232,7 +232,7 @@ def get_page_rotation(page, pdfium_lock: RLock) -> int:
         )
 
 
-def adjust_char_box(
+def _adjust_char_box(
     char_box: Tuple[float, float, float, float],
     rotation: int,
     internal_height: float,
@@ -263,3 +263,15 @@ def adjust_char_box(
             internal_height - left,
         )
     return left, right, top, bottom
+
+
+def lerp(start: float, end: float, t: float) -> float:
+    """
+    Performs linear interpolation between two numbers.
+
+    :param start: The starting value.
+    :param end: The ending value.
+    :param t: The interpolation factor (0 to 1).
+    :return: The interpolated value.
+    """
+    return start * (1 - t) + end * t
