@@ -28,3 +28,5 @@ class PDFCharData:
     """RGBA representation of the font's stroke color."""
     font_fill_color: Tuple[int, int, int, int]
     """RGBA representation of the font's fill color."""
+    page_id: int
+    """ID of the page the character was found on."""

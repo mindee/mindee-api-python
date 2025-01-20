@@ -1,12 +1,10 @@
 import ctypes
-import io
 from ctypes import byref, c_double, c_int, create_string_buffer
 from threading import RLock
-from typing import BinaryIO, List, Tuple
+from typing import List, Tuple
 
 import pypdfium2 as pdfium
 import pypdfium2.raw as pdfium_c
-from PIL import Image
 
 from mindee.pdf.pdf_char_data import PDFCharData
 
@@ -27,31 +25,32 @@ def has_source_text(pdf_bytes: bytes) -> bool:
     return False
 
 
-def extract_text_from_pdf(pdf_bytes: bytes) -> List[PDFCharData]:
+def extract_text_from_pdf(pdf_bytes: bytes) -> List[List[PDFCharData]]:
     """
     Extracts the raw text from a given PDF's bytes along with font data.
 
     :param pdf_bytes: Raw bytes representation of a PDF file.
     :return: A list of info regarding each read character.
     """
-    char_data_list: List[PDFCharData] = []
     pdfium_lock = RLock()
     pdf = pdfium.PdfDocument(pdf_bytes)
+    char_data_list: List[List[PDFCharData]] = []
 
-    for page in pdf:
-        process_page(page, pdfium_lock, char_data_list)
+    for i, page in enumerate(pdf):
+        char_data_list.append(process_page(page, i, pdfium_lock))
 
     return char_data_list
 
 
-def process_page(page, pdfium_lock: RLock, char_data_list: List[PDFCharData]):
+def process_page(page, page_id: int, pdfium_lock: RLock) -> List[PDFCharData]:
     """
     Processes a single page of the PDF.
 
     :param page: The PDF page to process.
+    :param page_id: ID of the page.
     :param pdfium_lock: Lock for thread-safe operations.
-    :param char_data_list: List to append character data to.
     """
+    char_data_list: List[PDFCharData] = []
     internal_height = page.get_height()
     internal_width = page.get_width()
 
@@ -60,18 +59,15 @@ def process_page(page, pdfium_lock: RLock, char_data_list: List[PDFCharData]):
         count_chars = pdfium_c.FPDFText_CountChars(text_handler)
 
     for i in range(count_chars):
-        process_char(
-            i,
-            text_handler,
-            page,
-            pdfium_lock,
-            internal_height,
-            internal_width,
-            char_data_list,
+        concatenated_chars = process_char(
+            i, text_handler, page, pdfium_lock, internal_height, internal_width, page_id
         )
+        for concatenated_char in concatenated_chars:
+            char_data_list.append(concatenated_char)
 
     with pdfium_lock:
         pdfium_c.FPDFText_ClosePage(text_handler)
+    return char_data_list
 
 
 def process_char(
@@ -81,8 +77,8 @@ def process_char(
     pdfium_lock: RLock,
     internal_height: float,
     internal_width: float,
-    char_data_list: List[PDFCharData],
-):
+    page_id: int,
+) -> List[PDFCharData]:
     """
     Processes a single character from the PDF.
 
@@ -92,29 +88,44 @@ def process_char(
     :param pdfium_lock: Lock for thread-safe operations.
     :param internal_height: The height of the page.
     :param internal_width: The width of the page.
-    :param char_data_list: List to append character data to.
+    :param page_id: ID of the page the character was found on.
+    :return: List of character data for a page.
     """
     char_info = get_char_info(i, text_handler, pdfium_lock)
+    if not char_info:
+        return []
     char_box = get_char_box(i, text_handler, pdfium_lock)
     rotation = get_page_rotation(page, pdfium_lock)
 
     adjusted_box = adjust_char_box(char_box, rotation, internal_height, internal_width)
-
+    char_data_list: List[PDFCharData] = []
     for c in char_info["char"] or " ":
-        char_data = PDFCharData(
-            char=c,
-            left=int(adjusted_box[0]),
-            right=int(adjusted_box[1]),
-            top=int(adjusted_box[2]),
-            bottom=int(adjusted_box[3]),
-            font_name=char_info["font_name"],
-            font_size=char_info["font_size"],
-            font_weight=char_info["font_weight"],
-            font_stroke_color=char_info["font_stroke_color"],
-            font_fill_color=char_info["font_fill_color"],
-            font_flags=char_info["font_flags"],
+        if c in (
+            "\n",
+            "\r",
+        ):  # Removes duplicated carriage returns in the PDF due to weird extraction.
+            # IDK how to make this better, and neither does Claude, GPT4 nor GPT-o1, so I'm leaving this weird check.
+            next_char_info = get_char_info(i + 1, text_handler, pdfium_lock)
+            if not next_char_info or next_char_info["char"] in ("\n", "\r"):
+                continue
+
+        char_data_list.append(
+            PDFCharData(
+                char=c,
+                left=int(adjusted_box[0]),
+                right=int(adjusted_box[1]),
+                top=int(adjusted_box[2]),
+                bottom=int(adjusted_box[3]),
+                font_name=char_info["font_name"],
+                font_size=char_info["font_size"],
+                font_weight=char_info["font_weight"],
+                font_stroke_color=char_info["font_stroke_color"],
+                font_fill_color=char_info["font_fill_color"],
+                font_flags=char_info["font_flags"],
+                page_id=page_id,
+            )
         )
-        char_data_list.append(char_data)
+    return char_data_list
 
 
 def get_char_info(i: int, text_handler, pdfium_lock: RLock) -> dict:
@@ -130,7 +141,10 @@ def get_char_info(i: int, text_handler, pdfium_lock: RLock) -> dict:
     fill = (ctypes.c_uint(), ctypes.c_uint(), ctypes.c_uint(), ctypes.c_uint())
 
     with pdfium_lock:
-        char = chr(pdfium_c.FPDFText_GetUnicode(text_handler, i))
+        unicode_char = pdfium_c.FPDFText_GetUnicode(text_handler, i)
+        if unicode_char == 0xFF:
+            return {}
+        char = chr(unicode_char)
         font_name = get_font_name(text_handler, i)
         font_flags = get_font_flags(text_handler, i)
         font_size = pdfium_c.FPDFText_GetFontSize(text_handler, i)
@@ -249,34 +263,3 @@ def adjust_char_box(
             internal_height - left,
         )
     return left, right, top, bottom
-
-
-def attach_images_as_new_file(  # type: ignore
-    input_buffer_list: List[BinaryIO],
-) -> pdfium.PdfDocument:
-    """
-    Attaches a list of images as new pages in a PdfDocument object.
-
-    :param input_buffer_list: List of images, represented as buffers.
-    :return: A PdfDocument handle.
-    """
-    pdf = pdfium.PdfDocument.new()
-    for input_buffer in input_buffer_list:
-        input_buffer.seek(0)
-        image = Image.open(input_buffer)
-        image.convert("RGB")
-        image_buffer = io.BytesIO()
-        image.save(image_buffer, format="JPEG")
-
-        image_pdf = pdfium.PdfImage.new(pdf)
-        image_pdf.load_jpeg(image_buffer)
-        width, height = image_pdf.get_size()
-
-        matrix = pdfium.PdfMatrix().scale(width, height)
-        image_pdf.set_matrix(matrix)
-
-        page = pdf.new_page(width, height)
-        page.insert_obj(image_pdf)
-        page.gen_content()
-        image.close()
-    return pdf
