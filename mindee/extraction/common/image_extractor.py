@@ -12,6 +12,38 @@ from mindee.input.sources.bytes_input import BytesInput
 from mindee.input.sources.local_input_source import LocalInputSource
 
 
+def attach_image_as_new_file(  # type: ignore
+    input_buffer: BinaryIO,
+) -> pdfium.PdfDocument:
+    """
+    Attaches an image as a new page in a PdfDocument object.
+
+    :param input_buffer: Input buffer.
+    :return: A PdfDocument handle.
+    """
+    # Create a new page in the PdfDocument
+    input_buffer.seek(0)
+    image = Image.open(input_buffer)
+    image.convert("RGB")
+    image_buffer = io.BytesIO()
+    image.save(image_buffer, format="JPEG")
+
+    pdf = pdfium.PdfDocument.new()
+
+    image_pdf = pdfium.PdfImage.new(pdf)
+    image_pdf.load_jpeg(image_buffer)
+    width, height = image_pdf.get_size()
+
+    matrix = pdfium.PdfMatrix().scale(width, height)
+    image_pdf.set_matrix(matrix)
+
+    page = pdf.new_page(width, height)
+    page.insert_obj(image_pdf)
+    page.gen_content()
+    image.close()
+    return pdf
+
+
 def extract_image_from_polygon(
     page_content: Image.Image,
     polygon: List[Point],
@@ -129,35 +161,4 @@ def load_pdf_doc(input_file: LocalInputSource) -> pdfium.PdfDocument:  # type: i
         input_file.file_object.seek(0)
         return pdfium.PdfDocument(input_file.file_object.read())
 
-    return attach_images_as_new_file([input_file.file_object])
-
-
-def attach_images_as_new_file(  # type: ignore
-    input_buffer_list: List[BinaryIO],
-) -> pdfium.PdfDocument:
-    """
-    Attaches a list of images as new pages in a PdfDocument object.
-
-    :param input_buffer_list: List of images, represented as buffers.
-    :return: A PdfDocument handle.
-    """
-    pdf = pdfium.PdfDocument.new()
-    for input_buffer in input_buffer_list:
-        input_buffer.seek(0)
-        image = Image.open(input_buffer)
-        image.convert("RGB")
-        image_buffer = io.BytesIO()
-        image.save(image_buffer, format="JPEG")
-
-        image_pdf = pdfium.PdfImage.new(pdf)
-        image_pdf.load_jpeg(image_buffer)
-        width, height = image_pdf.get_size()
-
-        matrix = pdfium.PdfMatrix().scale(width, height)
-        image_pdf.set_matrix(matrix)
-
-        page = pdf.new_page(width, height)
-        page.insert_obj(image_pdf)
-        page.gen_content()
-        image.close()
-    return pdf
+    return attach_image_as_new_file(input_file.file_object)

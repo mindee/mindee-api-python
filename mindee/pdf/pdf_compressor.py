@@ -219,24 +219,15 @@ def collect_images_as_pdf(image_list: List[bytes]) -> pdfium.PdfDocument:  # typ
     :param image_list: A list of bytes representing JPEG images.
     :return: A PdfDocument handle containing the images as pages.
     """
-    # Create a new, empty PdfDocument
     out_pdf = pdfium.PdfDocument.new()
 
     for image_bytes in image_list:
-        # Load the JPEG image into a PdfImage object
         pdf_image = pdfium.PdfImage.new(out_pdf)
         pdf_image.load_jpeg(io.BytesIO(image_bytes))
 
-        # Get the dimensions of the image
         width, height = pdf_image.get_size()
-
-        # Create a new page in the PDF with the same dimensions as the image
         page = out_pdf.new_page(width, height)
-
-        # Place the image on the page
         page.insert_obj(pdf_image)
-
-        # Generate content for the page to finalize it
         page.gen_content()
 
     return out_pdf
