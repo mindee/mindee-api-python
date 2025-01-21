@@ -6,7 +6,7 @@ from mindee import AsyncPredictResponse, Client, PageOptions, PredictResponse, p
 from mindee.error.mindee_error import MindeeClientError, MindeeError
 from mindee.error.mindee_http_error import MindeeHTTPError
 from mindee.input.local_response import LocalResponse
-from mindee.input.sources import LocalInputSource
+from mindee.input.sources.local_input_source import LocalInputSource
 from mindee.product.international_id.international_id_v2 import InternationalIdV2
 from mindee.product.invoice.invoice_v4 import InvoiceV4
 from mindee.product.invoice_splitter.invoice_splitter_v1 import InvoiceSplitterV1

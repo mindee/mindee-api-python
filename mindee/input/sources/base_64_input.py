@@ -1,7 +1,8 @@
 import base64
 import io
 
-from mindee.input.sources.local_input_source import InputType, LocalInputSource
+from mindee.input.sources.input_type import InputType
+from mindee.input.sources.local_input_source import LocalInputSource
 
 
 class Base64Input(LocalInputSource):

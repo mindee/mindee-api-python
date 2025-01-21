@@ -8,7 +8,8 @@ from mindee.error.mindee_error import MindeeError
 from mindee.extraction.common.extracted_image import ExtractedImage
 from mindee.geometry.point import Point
 from mindee.geometry.polygon import get_min_max_x, get_min_max_y
-from mindee.input.sources import BytesInput, LocalInputSource
+from mindee.input.sources.bytes_input import BytesInput
+from mindee.input.sources.local_input_source import LocalInputSource
 
 
 def attach_image_as_new_file(  # type: ignore
@@ -158,6 +159,6 @@ def load_pdf_doc(input_file: LocalInputSource) -> pdfium.PdfDocument:  # type: i
     """
     if input_file.is_pdf():
         input_file.file_object.seek(0)
-        return pdfium.PdfDocument(input_file.file_object)
+        return pdfium.PdfDocument(input_file.file_object.read())
 
     return attach_image_as_new_file(input_file.file_object)
