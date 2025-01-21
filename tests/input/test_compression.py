@@ -226,7 +226,4 @@ def cleanup():
     for file_path in created_files:
         full_path = DATA_DIR / "output" / file_path
         if full_path.exists():
-            try:
-                os.remove(full_path)
-            except OSError as e:
-                print(f"Could not delete file '{file_path}': {e.strerror}")
+            os.remove(full_path)
