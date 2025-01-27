@@ -1,7 +1,10 @@
 from mindee import product
-from mindee.client import Client, PageOptions
+from mindee.client import Client
+from mindee.input.local_response import LocalResponse
+from mindee.input.page_options import PageOptions
 from mindee.parsing.common.api_response import ApiResponse
-from mindee.parsing.common.async_predict_response import AsyncPredictResponse, Job
+from mindee.parsing.common.async_predict_response import AsyncPredictResponse
 from mindee.parsing.common.feedback_response import FeedbackResponse
+from mindee.parsing.common.job import Job
 from mindee.parsing.common.predict_response import PredictResponse
 from mindee.parsing.common.workflow_response import WorkflowResponse
