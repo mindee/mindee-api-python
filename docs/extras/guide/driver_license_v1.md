@@ -6,7 +6,7 @@ parentDoc: 609808f773b0b90051d839de
 ---
 The Python OCR SDK supports the [Driver License API](https://platform.mindee.com/mindee/driver_license).
 
-The [sample below](https://github.com/mindee/client-lib-test-data/blob/main/products/driver_license/default_sample.jpg) can be used for testing purposes.
+Using the [sample below](https://github.com/mindee/client-lib-test-data/blob/main/products/driver_license/default_sample.jpg), we are going to illustrate how to extract the data that we want using the OCR SDK.
 ![Driver License sample](https://github.com/mindee/client-lib-test-data/blob/main/products/driver_license/default_sample.jpg?raw=true)
 
 # Quick-Start
@@ -29,6 +29,37 @@ result: AsyncPredictResponse = mindee_client.enqueue_and_parse(
 print(result.document)
 
 ```
+
+**Output (RST):**
+```rst
+########
+Document
+########
+:Mindee ID: fbdeae38-ada3-43ac-aa58-e01a3d47e474
+:Filename: default_sample.jpg
+
+Inference
+#########
+:Product: mindee/driver_license v1.0
+:Rotation applied: Yes
+
+Prediction
+==========
+:Country Code: USA
+:State: AZ
+:ID: D12345678
+:Category: D
+:Last Name: Sample
+:First Name: Jelani
+:Date of Birth: 1957-02-01
+:Place of Birth:
+:Expiry Date: 2018-02-01
+:Issued Date: 2013-01-10
+:Issuing Authority:
+:MRZ:
+:DD Number: DD1234567890123456
+```
+
 # Field Types
 ## Standard Fields
 These fields are generic and used in several products.
