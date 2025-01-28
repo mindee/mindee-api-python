@@ -106,8 +106,60 @@ for field_name, field_values in result.document.fields.items():
     print(field_name, "=", field_values)
 ```
 
+### Enqueue and Parse a Webhook Response
+This is an optional way of handling asynchronous APIs.
+
+```python
+
+```
+
 ### Additional Options
 Options to pass when sending a file.
+```python
+from mindee import Client, product
+from mindee.client import LocalResponse
+
+# Init a new client
+mindee_client = Client()
+
+# Load a file from disk
+input_source = mindee_client.source_from_path("/path/to/the/file.ext")
+
+# Parse the file
+
+enqueue_response = mindee_client.enqueue(
+    product.InternationalIdV2,
+    input_source,
+)
+
+# You can keep track of the job's ID for traceability concerns.
+job_id = enqueue_response.job.id
+
+
+# Load the JSON string sent by the Mindee webhook POST callback.
+# Reading the callback data will vary greatly depending on your HTTP server.
+# This is therefore beyond the scope of this example.
+
+local_response = LocalResponse(request.body())
+
+# You can also load the json from a local path.
+# local_response = LocalResponse("path/to/my/file.ext")
+
+# Optional: verify the HMAC signature
+if not local_response.is_valid_hmac_signature(my_secret_key, "some signature"):
+    raise Error("Invalid HMAC signature!")
+
+# Deserialize the response
+
+result = mindee_client.load_prediction(
+    product.InternationalIdV2,
+    local_response
+)
+
+# Print a full summary of the parsed data in RST format
+print(result.document)
+```
+
 
 #### Page Options
 Allows sending only certain pages in a PDF.
@@ -115,7 +167,7 @@ Allows sending only certain pages in a PDF.
 In this example we only send the first, penultimate and last pages:
 
 ```python
-from mindee import Client, product, PageOptions
+from mindee import product, PageOptions
 
 result = mindee_client.parse(
     product.InvoiceV4,
