@@ -142,7 +142,7 @@ job_id = enqueue_response.job.id
 
 local_response = LocalResponse(request.body())
 
-# You can also use a File object as the input.
+# You can also load the json from a local path.
 # local_response = LocalResponse("path/to/my/file.ext")
 
 # Optional: verify the HMAC signature
