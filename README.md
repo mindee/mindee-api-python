@@ -140,7 +140,10 @@ job_id = enqueue_response.job.id
 # Reading the callback data will vary greatly depending on your HTTP server.
 # This is therefore beyond the scope of this example.
 
-local_response = LocalResponse(request.body.string)
+local_response = LocalResponse(request.body())
+
+# You can also use a File object as the input.
+# local_response = mindee_client.source_from_path("path/to/my/file.ext);
 
 # Optional: verify the HMAC signature
 if not local_response.is_valid_hmac_signature(my_secret_key, "some signature"):
