@@ -1,5 +1,11 @@
 # Mindee Python API Library Changelog
 
+## v4.18.0 - 2025-02-21
+### Changes
+* :sparkles: add support for image and pdf compression
+* :recycle: increase async retry timers
+
+
 ## v4.17.0 - 2024-12-13
 ### Changes
 * :sparkles: add support for us mail v3
