@@ -58,7 +58,7 @@ print(result.document)
 ########
 Document
 ########
-:Mindee ID: b26161ce-35d0-4984-b1ff-886645e160e6
+:Mindee ID: f469a24d-3875-4a83-ad43-e0d5aa9da604
 :Filename: default_sample.jpg
 
 Inference
@@ -75,8 +75,8 @@ Prediction
 :Document Number: INT-001
 :Reference Numbers: 2412/2019
 :Purchase Date: 2019-11-02
-:Due Date: 2019-02-26
-:Payment Date: 2019-02-26
+:Due Date: 2019-11-17
+:Payment Date: 2019-11-17
 :Total Net: 195.00
 :Total Amount: 204.75
 :Taxes:
@@ -127,8 +127,8 @@ Page 0
 :Document Number: INT-001
 :Reference Numbers: 2412/2019
 :Purchase Date: 2019-11-02
-:Due Date: 2019-02-26
-:Payment Date: 2019-02-26
+:Due Date: 2019-11-17
+:Payment Date: 2019-11-17
 :Total Net: 195.00
 :Total Amount: 204.75
 :Taxes:

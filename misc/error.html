@@ -104,6 +104,18 @@
 <li class="toctree-l4"><a class="reference internal" href="#mindee.error.MindeeHTTPServerError.status_code"><code class="docutils literal notranslate"><span class="pre">MindeeHTTPServerError.status_code</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.error.MindeeImageError"><code class="docutils literal notranslate"><span class="pre">MindeeImageError</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.error.MindeeImageError.add_note"><code class="docutils literal notranslate"><span class="pre">MindeeImageError.add_note()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.error.MindeeImageError.with_traceback"><code class="docutils literal notranslate"><span class="pre">MindeeImageError.with_traceback()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.error.MindeeImageError.args"><code class="docutils literal notranslate"><span class="pre">MindeeImageError.args</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.error.MindeePDFError"><code class="docutils literal notranslate"><span class="pre">MindeePDFError</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.error.MindeePDFError.add_note"><code class="docutils literal notranslate"><span class="pre">MindeePDFError.add_note()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.error.MindeePDFError.with_traceback"><code class="docutils literal notranslate"><span class="pre">MindeePDFError.with_traceback()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.error.MindeePDFError.args"><code class="docutils literal notranslate"><span class="pre">MindeePDFError.args</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#mindee.error.MindeeProductError"><code class="docutils literal notranslate"><span class="pre">MindeeProductError</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.error.MindeeProductError.add_note"><code class="docutils literal notranslate"><span class="pre">MindeeProductError.add_note()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.error.MindeeProductError.with_traceback"><code class="docutils literal notranslate"><span class="pre">MindeeProductError.with_traceback()</span></code></a></li>
@@ -415,6 +427,56 @@ set self.__traceback__ to tb and return self.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.error.MindeeHTTPServerError.status_code">
 <span class="sig-name descname"><span class="pre">status_code</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.error.MindeeHTTPServerError.status_code" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="mindee.error.MindeeImageError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MindeeImageError</span></span><a class="headerlink" href="#mindee.error.MindeeImageError" title="Permalink to this definition"></a></dt>
+<dd><p>An exception relating to errors during image operations.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.error.MindeeImageError.add_note">
+<span class="sig-name descname"><span class="pre">add_note</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.error.MindeeImageError.add_note" title="Permalink to this definition"></a></dt>
+<dd><p>Exception.add_note(note) –
+add a note to the exception</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.error.MindeeImageError.with_traceback">
+<span class="sig-name descname"><span class="pre">with_traceback</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.error.MindeeImageError.with_traceback" title="Permalink to this definition"></a></dt>
+<dd><p>Exception.with_traceback(tb) –
+set self.__traceback__ to tb and return self.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.error.MindeeImageError.args">
+<span class="sig-name descname"><span class="pre">args</span></span><a class="headerlink" href="#mindee.error.MindeeImageError.args" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="mindee.error.MindeePDFError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MindeePDFError</span></span><a class="headerlink" href="#mindee.error.MindeePDFError" title="Permalink to this definition"></a></dt>
+<dd><p>An exception relating to errors during PDF operations.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.error.MindeePDFError.add_note">
+<span class="sig-name descname"><span class="pre">add_note</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.error.MindeePDFError.add_note" title="Permalink to this definition"></a></dt>
+<dd><p>Exception.add_note(note) –
+add a note to the exception</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.error.MindeePDFError.with_traceback">
+<span class="sig-name descname"><span class="pre">with_traceback</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.error.MindeePDFError.with_traceback" title="Permalink to this definition"></a></dt>
+<dd><p>Exception.with_traceback(tb) –
+set self.__traceback__ to tb and return self.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.error.MindeePDFError.args">
+<span class="sig-name descname"><span class="pre">args</span></span><a class="headerlink" href="#mindee.error.MindeePDFError.args" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>

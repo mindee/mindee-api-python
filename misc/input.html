@@ -65,8 +65,10 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#mindee.input.LocalInputSource"><code class="docutils literal notranslate"><span class="pre">LocalInputSource</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.input.LocalInputSource.close"><code class="docutils literal notranslate"><span class="pre">LocalInputSource.close()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.LocalInputSource.compress"><code class="docutils literal notranslate"><span class="pre">LocalInputSource.compress()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.input.LocalInputSource.count_doc_pages"><code class="docutils literal notranslate"><span class="pre">LocalInputSource.count_doc_pages()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.input.LocalInputSource.fix_pdf"><code class="docutils literal notranslate"><span class="pre">LocalInputSource.fix_pdf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.LocalInputSource.has_source_text"><code class="docutils literal notranslate"><span class="pre">LocalInputSource.has_source_text()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.input.LocalInputSource.is_pdf"><code class="docutils literal notranslate"><span class="pre">LocalInputSource.is_pdf()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.input.LocalInputSource.is_pdf_empty"><code class="docutils literal notranslate"><span class="pre">LocalInputSource.is_pdf_empty()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.input.LocalInputSource.merge_pdf_pages"><code class="docutils literal notranslate"><span class="pre">LocalInputSource.merge_pdf_pages()</span></code></a></li>
@@ -215,7 +217,7 @@
 <dd><p>Base class for all input sources coming from the local machine.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>input_type</strong> (<a class="reference internal" href="#mindee.input.InputType" title="mindee.input.sources.local_input_source.InputType"><em>InputType</em></a>) – </p>
+<dd class="field-odd"><p><strong>input_type</strong> (<a class="reference internal" href="#mindee.input.InputType" title="mindee.input.sources.input_type.InputType"><em>InputType</em></a>) – </p>
 </dd>
 </dl>
 <dl class="py method">
@@ -225,6 +227,27 @@
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.input.LocalInputSource.compress">
+<span class="sig-name descname"><span class="pre">compress</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">quality</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">85</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_source_text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disable_source_text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalInputSource.compress" title="Permalink to this definition"></a></dt>
+<dd><p>Compresses the file object, either as a PDF or an image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>quality</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, default: <code class="docutils literal notranslate"><span class="pre">85</span></code>) – Quality of the compression. For images, this is the JPEG quality.
+For PDFs, this affects image quality within the PDF.</p></li>
+<li><p><strong>max_width</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>], default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Maximum width for image resizing. Ignored for PDFs.</p></li>
+<li><p><strong>max_height</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>], default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Maximum height for image resizing. Ignored for PDFs.</p></li>
+<li><p><strong>force_source_text</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – For PDFs, whether to force compression even if source text is present.</p></li>
+<li><p><strong>disable_source_text</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">True</span></code>) – For PDFs, whether to disable source text during compression.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -258,6 +281,20 @@ Cannot be less than 0.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.input.LocalInputSource.has_source_text">
+<span class="sig-name descname"><span class="pre">has_source_text</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalInputSource.has_source_text" title="Permalink to this definition"></a></dt>
+<dd><p>If the file is a PDF, checks if it has source text.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the file is a PDF and has source text. False otherwise.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -363,7 +400,7 @@ Cannot be less than 0.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.input.LocalInputSource.input_type">
-<span class="sig-name descname"><span class="pre">input_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.input.InputType" title="mindee.input.sources.local_input_source.InputType"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputType</span></code></a></em><a class="headerlink" href="#mindee.input.LocalInputSource.input_type" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">input_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.input.InputType" title="mindee.input.sources.input_type.InputType"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputType</span></code></a></em><a class="headerlink" href="#mindee.input.LocalInputSource.input_type" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
