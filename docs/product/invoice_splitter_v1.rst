@@ -13,3 +13,7 @@ Invoice Splitter V1
 .. autoclass:: mindee.product.invoice_splitter.invoice_splitter_v1_document.InvoiceSplitterV1Document
     :members:
     :inherited-members:
+
+.. autoclass:: mindee.product.invoice_splitter.invoice_splitter_v1_invoice_page_group.InvoiceSplitterV1InvoicePageGroup
+    :members:
+    :inherited-members:
