@@ -5,6 +5,3 @@ from mindee.product.invoice_splitter.invoice_splitter_v1_document import (
 from mindee.product.invoice_splitter.invoice_splitter_v1_invoice_page_group import (
     InvoiceSplitterV1InvoicePageGroup,
 )
-from mindee.product.invoice_splitter.invoice_splitter_v1_page_group import (
-    InvoiceSplitterV1PageGroup,
-)
