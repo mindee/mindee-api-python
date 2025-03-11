@@ -8,9 +8,7 @@ from PIL import Image
 from mindee.error.mindee_error import MindeeError
 from mindee.extraction.pdf_extractor.extracted_pdf import ExtractedPdf
 from mindee.input.sources.local_input_source import LocalInputSource
-from mindee.product.invoice_splitter.invoice_splitter_v1_page_group import (
-    InvoiceSplitterV1PageGroup,
-)
+from mindee.product.invoice_splitter import InvoiceSplitterV1InvoicePageGroup
 
 
 class PdfExtractor:
@@ -76,7 +74,7 @@ class PdfExtractor:
 
     def extract_invoices(
         self,
-        page_indexes: List[Union[InvoiceSplitterV1PageGroup, List[int]]],
+        page_indexes: List[Union[InvoiceSplitterV1InvoicePageGroup, List[int]]],
         strict: bool = False,
     ) -> List[ExtractedPdf]:
         """
@@ -88,7 +86,7 @@ class PdfExtractor:
         """
         if len(page_indexes) < 1:
             raise MindeeError("No indexes provided.")
-        if not isinstance(page_indexes[0], InvoiceSplitterV1PageGroup):
+        if not isinstance(page_indexes[0], InvoiceSplitterV1InvoicePageGroup):
             return self.extract_sub_documents(page_indexes)  # type: ignore
         if not strict:
             indexes_as_list = [page_index.page_indexes for page_index in page_indexes]  # type: ignore
@@ -97,7 +95,7 @@ class PdfExtractor:
         current_list: List[int] = []
         previous_confidence: Optional[float] = None
         for i, page_index in enumerate(page_indexes):
-            assert isinstance(page_index, InvoiceSplitterV1PageGroup)
+            assert isinstance(page_index, InvoiceSplitterV1InvoicePageGroup)
             confidence = page_index.confidence
             page_list = page_index.page_indexes
 

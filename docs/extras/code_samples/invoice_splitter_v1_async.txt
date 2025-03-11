@@ -1,6 +1,4 @@
-from mindee import Client, product
-from time import sleep
-from mindee.parsing.common import AsyncPredictResponse
+from mindee import Client, product, AsyncPredictResponse
 
 # Init a new client
 mindee_client = Client(api_key="my-api-key")
