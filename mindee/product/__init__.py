@@ -10,7 +10,7 @@ from mindee.product.bill_of_lading import (
     BillOfLadingV1Shipper,
 )
 from mindee.product.business_card import BusinessCardV1, BusinessCardV1Document
-from mindee.product.cropper import CropperV1, CropperV1Document
+from mindee.product.cropper import CropperV1, CropperV1Document, CropperV1Page
 from mindee.product.custom import CustomV1, CustomV1Document, CustomV1Page
 from mindee.product.delivery_note import DeliveryNoteV1, DeliveryNoteV1Document
 from mindee.product.driver_license import DriverLicenseV1, DriverLicenseV1Document
@@ -22,7 +22,11 @@ from mindee.product.financial_document import (
 from mindee.product.generated import GeneratedV1, GeneratedV1Document, GeneratedV1Page
 from mindee.product.international_id import InternationalIdV2, InternationalIdV2Document
 from mindee.product.invoice import InvoiceV4, InvoiceV4Document, InvoiceV4LineItem
-from mindee.product.invoice_splitter import InvoiceSplitterV1, InvoiceSplitterV1Document
+from mindee.product.invoice_splitter import (
+    InvoiceSplitterV1,
+    InvoiceSplitterV1Document,
+    InvoiceSplitterV1InvoicePageGroup,
+)
 from mindee.product.material_certificate import (
     MaterialCertificateV1,
     MaterialCertificateV1Document,
@@ -49,10 +53,13 @@ from mindee.product.nutrition_facts_label import (
     NutritionFactsLabelV1TransFat,
 )
 from mindee.product.passport import PassportV1, PassportV1Document
-from mindee.product.proof_of_address import ProofOfAddressV1, ProofOfAddressV1Document
-from mindee.product.receipt import (
-    ReceiptV5,
-    ReceiptV5Document,
-    ReceiptV5LineItem,
+from mindee.product.receipt import ReceiptV5, ReceiptV5Document, ReceiptV5LineItem
+from mindee.product.resume import (
+    ResumeV1,
+    ResumeV1Certificate,
+    ResumeV1Document,
+    ResumeV1Education,
+    ResumeV1Language,
+    ResumeV1ProfessionalExperience,
+    ResumeV1SocialNetworksUrl,
 )
-from mindee.product.resume import ResumeV1, ResumeV1Document
