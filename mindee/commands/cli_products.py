@@ -64,12 +64,6 @@ PRODUCTS: Dict[str, CommandConfig] = {
         is_sync=False,
         is_async=True,
     ),
-    "eu-license-plate": CommandConfig(
-        help="License Plate",
-        doc_class=product.eu.LicensePlateV1,
-        is_sync=True,
-        is_async=False,
-    ),
     "financial-document": CommandConfig(
         help="Financial Document",
         doc_class=product.FinancialDocumentV1,
