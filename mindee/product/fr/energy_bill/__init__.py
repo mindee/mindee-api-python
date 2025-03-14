@@ -1,5 +1,7 @@
 from mindee.product.fr.energy_bill.energy_bill_v1 import EnergyBillV1
-from mindee.product.fr.energy_bill.energy_bill_v1_document import EnergyBillV1Document
+from mindee.product.fr.energy_bill.energy_bill_v1_document import (
+    EnergyBillV1Document,
+)
 from mindee.product.fr.energy_bill.energy_bill_v1_energy_consumer import (
     EnergyBillV1EnergyConsumer,
 )
