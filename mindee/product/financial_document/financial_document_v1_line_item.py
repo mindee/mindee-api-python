@@ -11,7 +11,7 @@ from mindee.parsing.standard.base import (
 
 
 class FinancialDocumentV1LineItem(FieldPositionMixin, FieldConfidenceMixin):
-    """List of line item details."""
+    """List of line item present on the document."""
 
     description: Optional[str]
     """The item description."""

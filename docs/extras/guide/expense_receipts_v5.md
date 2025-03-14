@@ -200,7 +200,7 @@ The `Taxes` field represents a list-like collection of `TaxField` objects. As it
 Fields which are specific to this product; they are not used in any other product.
 
 ### Line Items Field
-List of line item details.
+List of all line items on the receipt.
 
 A `ReceiptV5LineItem` implements the following attributes:
 
@@ -213,17 +213,17 @@ A `ReceiptV5LineItem` implements the following attributes:
 The following fields are extracted for Receipt V5:
 
 ## Purchase Category
-**category** ([ClassificationField](#classificationfield)): The purchase category among predefined classes.
+**category** ([ClassificationField](#classificationfield)): The purchase category of the receipt.
 
 #### Possible values include:
- - toll
- - food
- - parking
- - transport
- - accommodation
- - gasoline
- - telecom
- - miscellaneous
+ - 'toll'
+ - 'food'
+ - 'parking'
+ - 'transport'
+ - 'accommodation'
+ - 'gasoline'
+ - 'telecom'
+ - 'miscellaneous'
 
 ```py
 print(result.document.inference.prediction.category.value)
@@ -237,18 +237,18 @@ print(result.document.inference.prediction.date.value)
 ```
 
 ## Document Type
-**document_type** ([ClassificationField](#classificationfield)): One of: 'CREDIT CARD RECEIPT', 'EXPENSE RECEIPT'.
+**document_type** ([ClassificationField](#classificationfield)): The type of receipt: EXPENSE RECEIPT or CREDIT CARD RECEIPT.
 
 #### Possible values include:
- - expense_receipt
- - credit_card_receipt
+ - 'EXPENSE RECEIPT'
+ - 'CREDIT CARD RECEIPT'
 
 ```py
 print(result.document.inference.prediction.document_type.value)
 ```
 
 ## Line Items
-**line_items** (List[[ReceiptV5LineItem](#line-items-field)]): List of line item details.
+**line_items** (List[[ReceiptV5LineItem](#line-items-field)]): List of all line items on the receipt.
 
 ```py
 for line_items_elem in result.document.inference.prediction.line_items:
@@ -256,7 +256,7 @@ for line_items_elem in result.document.inference.prediction.line_items:
 ```
 
 ## Expense Locale
-**locale** ([LocaleField](#localefield)): The locale detected on the document.
+**locale** ([LocaleField](#localefield)): The locale of the document.
 
 ```py
 print(result.document.inference.prediction.locale.value)
@@ -270,14 +270,15 @@ print(result.document.inference.prediction.receipt_number.value)
 ```
 
 ## Purchase Subcategory
-**subcategory** ([ClassificationField](#classificationfield)): The purchase subcategory among predefined classes for transport and food.
+**subcategory** ([ClassificationField](#classificationfield)): The purchase subcategory of the receipt for transport and food.
 
 #### Possible values include:
- - plane
- - taxi
- - train
- - restaurant
- - shopping
+ - 'plane'
+ - 'taxi'
+ - 'train'
+ - 'restaurant'
+ - 'shopping'
+ - None
 
 ```py
 print(result.document.inference.prediction.subcategory.value)
@@ -291,7 +292,7 @@ print(result.document.inference.prediction.supplier_address.value)
 ```
 
 ## Supplier Company Registrations
-**supplier_company_registrations** (List[[CompanyRegistrationField](#companyregistrationfield)]): List of company registrations associated to the supplier.
+**supplier_company_registrations** (List[[CompanyRegistrationField](#companyregistrationfield)]): List of company registration numbers associated to the supplier.
 
 ```py
 for supplier_company_registrations_elem in result.document.inference.prediction.supplier_company_registrations:
@@ -313,7 +314,7 @@ print(result.document.inference.prediction.supplier_phone_number.value)
 ```
 
 ## Taxes
-**taxes** (List[[TaxField](#taxes)]): List of tax lines information.
+**taxes** (List[[TaxField](#taxes)]): The list of taxes present on the receipt.
 
 ```py
 for taxes_elem in result.document.inference.prediction.taxes:
@@ -349,7 +350,7 @@ print(result.document.inference.prediction.total_net.value)
 ```
 
 ## Total Tax
-**total_tax** ([AmountField](#amountfield)): The total amount of taxes.
+**total_tax** ([AmountField](#amountfield)): The sum of all taxes.
 
 ```py
 print(result.document.inference.prediction.total_tax.value)

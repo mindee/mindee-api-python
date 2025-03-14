@@ -167,8 +167,8 @@ print(result.document.inference.prediction.file_number.value)
 **gender** ([ClassificationField](#classificationfield)): The gender of the passport holder.
 
 #### Possible values include:
- - M
- - F
+ - 'M'
+ - 'F'
 
 ```py
 print(result.document.inference.prediction.gender.value)
@@ -262,8 +262,8 @@ print(result.document.inference.prediction.old_passport_place_of_issue.value)
 **page_number** ([ClassificationField](#classificationfield)): The page number of the passport document.
 
 #### Possible values include:
- - 1
- - 2
+ - '1'
+ - '2'
 
 ```py
 print(result.document.inference.prediction.page_number.value)

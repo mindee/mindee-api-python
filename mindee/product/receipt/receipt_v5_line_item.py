@@ -11,7 +11,7 @@ from mindee.parsing.standard.base import (
 
 
 class ReceiptV5LineItem(FieldPositionMixin, FieldConfidenceMixin):
-    """List of line item details."""
+    """List of all line items on the receipt."""
 
     description: Optional[str]
     """The item description."""

@@ -22,11 +22,11 @@ class FinancialDocumentV1Document(Prediction):
     billing_address: StringField
     """The customer's address used for billing."""
     category: ClassificationField
-    """The purchase category among predefined classes."""
+    """The purchase category, only for receipts."""
     customer_address: StringField
     """The address of the customer."""
     customer_company_registrations: List[CompanyRegistrationField]
-    """List of company registrations associated to the customer."""
+    """List of company registration numbers associated to the customer."""
     customer_id: StringField
     """The customer account number or identifier from the supplier."""
     customer_name: StringField
@@ -34,47 +34,50 @@ class FinancialDocumentV1Document(Prediction):
     date: DateField
     """The date the purchase was made."""
     document_number: StringField
-    """The document number or identifier."""
+    """The document number or identifier (invoice number or receipt number)."""
     document_type: ClassificationField
-    """One of: 'INVOICE', 'CREDIT NOTE', 'CREDIT CARD RECEIPT', 'EXPENSE RECEIPT'."""
+    """
+    The type of the document: INVOICE or CREDIT NOTE if it is an invoice, CREDIT CARD RECEIPT or EXPENSE
+    RECEIPT if it is a receipt.
+    """
     due_date: DateField
     """The date on which the payment is due."""
     invoice_number: StringField
     """The invoice number or identifier only if document is an invoice."""
     line_items: List[FinancialDocumentV1LineItem]
-    """List of line item details."""
+    """List of line item present on the document."""
     locale: LocaleField
-    """The locale detected on the document."""
+    """The locale of the document."""
     payment_date: DateField
     """The date on which the payment is due / fullfilled."""
     po_number: StringField
-    """The purchase order number."""
+    """The purchase order number, only if the document is an invoice."""
     receipt_number: StringField
     """The receipt number or identifier only if document is a receipt."""
     reference_numbers: List[StringField]
-    """List of Reference numbers, including PO number."""
+    """List of Reference numbers, including PO number, only if the document is an invoice."""
     shipping_address: StringField
     """The customer's address used for shipping."""
     subcategory: ClassificationField
-    """The purchase subcategory among predefined classes for transport and food."""
+    """The purchase subcategory for transport and food, only for receipts."""
     supplier_address: StringField
     """The address of the supplier or merchant."""
     supplier_company_registrations: List[CompanyRegistrationField]
-    """List of company registrations associated to the supplier."""
+    """List of company registration numbers associated to the supplier."""
     supplier_email: StringField
     """The email of the supplier or merchant."""
     supplier_name: StringField
     """The name of the supplier or merchant."""
     supplier_payment_details: List[PaymentDetailsField]
-    """List of payment details associated to the supplier."""
+    """List of payment details associated to the supplier (only for invoices)."""
     supplier_phone_number: StringField
     """The phone number of the supplier or merchant."""
     supplier_website: StringField
     """The website URL of the supplier or merchant."""
     taxes: Taxes
-    """List of tax lines information."""
+    """List of all taxes on the document."""
     time: StringField
-    """The time the purchase was made."""
+    """The time the purchase was made (only for receipts)."""
     tip: AmountField
     """The total amount of tip and gratuity"""
     total_amount: AmountField
@@ -82,7 +85,7 @@ class FinancialDocumentV1Document(Prediction):
     total_net: AmountField
     """The net amount paid: does not include taxes, fees, and discounts."""
     total_tax: AmountField
-    """The total amount of taxes."""
+    """The sum of all taxes present on the document."""
 
     def __init__(
         self,

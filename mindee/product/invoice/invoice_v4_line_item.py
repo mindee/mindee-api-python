@@ -11,12 +11,12 @@ from mindee.parsing.standard.base import (
 
 
 class InvoiceV4LineItem(FieldPositionMixin, FieldConfidenceMixin):
-    """List of line item details."""
+    """List of all the line items present on the invoice."""
 
     description: Optional[str]
     """The item description."""
     product_code: Optional[str]
-    """The product code referring to the item."""
+    """The product code of the item."""
     quantity: Optional[float]
     """The item quantity"""
     tax_amount: Optional[float]

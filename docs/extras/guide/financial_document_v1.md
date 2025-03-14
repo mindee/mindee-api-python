@@ -244,7 +244,7 @@ The `Taxes` field represents a list-like collection of `TaxField` objects. As it
 Fields which are specific to this product; they are not used in any other product.
 
 ### Line Items Field
-List of line item details.
+List of line item present on the document.
 
 A `FinancialDocumentV1LineItem` implements the following attributes:
 
@@ -268,17 +268,17 @@ print(result.document.inference.prediction.billing_address.value)
 ```
 
 ## Purchase Category
-**category** ([ClassificationField](#classificationfield)): The purchase category among predefined classes.
+**category** ([ClassificationField](#classificationfield)): The purchase category, only for receipts.
 
 #### Possible values include:
- - toll
- - food
- - parking
- - transport
- - accommodation
- - gasoline
- - telecom
- - miscellaneous
+ - 'toll'
+ - 'food'
+ - 'parking'
+ - 'transport'
+ - 'accommodation'
+ - 'gasoline'
+ - 'telecom'
+ - 'miscellaneous'
 
 ```py
 print(result.document.inference.prediction.category.value)
@@ -292,7 +292,7 @@ print(result.document.inference.prediction.customer_address.value)
 ```
 
 ## Customer Company Registrations
-**customer_company_registrations** (List[[CompanyRegistrationField](#companyregistrationfield)]): List of company registrations associated to the customer.
+**customer_company_registrations** (List[[CompanyRegistrationField](#companyregistrationfield)]): List of company registration numbers associated to the customer.
 
 ```py
 for customer_company_registrations_elem in result.document.inference.prediction.customer_company_registrations:
@@ -321,20 +321,20 @@ print(result.document.inference.prediction.date.value)
 ```
 
 ## Document Number
-**document_number** ([StringField](#stringfield)): The document number or identifier.
+**document_number** ([StringField](#stringfield)): The document number or identifier (invoice number or receipt number).
 
 ```py
 print(result.document.inference.prediction.document_number.value)
 ```
 
 ## Document Type
-**document_type** ([ClassificationField](#classificationfield)): One of: 'INVOICE', 'CREDIT NOTE', 'CREDIT CARD RECEIPT', 'EXPENSE RECEIPT'.
+**document_type** ([ClassificationField](#classificationfield)): The type of the document: INVOICE or CREDIT NOTE if it is an invoice, CREDIT CARD RECEIPT or EXPENSE RECEIPT if it is a receipt.
 
 #### Possible values include:
- - INVOICE
- - CREDIT NOTE
- - CREDIT CARD RECEIPT
- - EXPENSE RECEIPT
+ - 'INVOICE'
+ - 'CREDIT NOTE'
+ - 'CREDIT CARD RECEIPT'
+ - 'EXPENSE RECEIPT'
 
 ```py
 print(result.document.inference.prediction.document_type.value)
@@ -355,7 +355,7 @@ print(result.document.inference.prediction.invoice_number.value)
 ```
 
 ## Line Items
-**line_items** (List[[FinancialDocumentV1LineItem](#line-items-field)]): List of line item details.
+**line_items** (List[[FinancialDocumentV1LineItem](#line-items-field)]): List of line item present on the document.
 
 ```py
 for line_items_elem in result.document.inference.prediction.line_items:
@@ -363,7 +363,7 @@ for line_items_elem in result.document.inference.prediction.line_items:
 ```
 
 ## Locale
-**locale** ([LocaleField](#localefield)): The locale detected on the document.
+**locale** ([LocaleField](#localefield)): The locale of the document.
 
 ```py
 print(result.document.inference.prediction.locale.value)
@@ -377,7 +377,7 @@ print(result.document.inference.prediction.payment_date.value)
 ```
 
 ## Purchase Order Number
-**po_number** ([StringField](#stringfield)): The purchase order number.
+**po_number** ([StringField](#stringfield)): The purchase order number, only if the document is an invoice.
 
 ```py
 print(result.document.inference.prediction.po_number.value)
@@ -391,7 +391,7 @@ print(result.document.inference.prediction.receipt_number.value)
 ```
 
 ## Reference Numbers
-**reference_numbers** (List[[StringField](#stringfield)]): List of Reference numbers, including PO number.
+**reference_numbers** (List[[StringField](#stringfield)]): List of Reference numbers, including PO number, only if the document is an invoice.
 
 ```py
 for reference_numbers_elem in result.document.inference.prediction.reference_numbers:
@@ -406,14 +406,15 @@ print(result.document.inference.prediction.shipping_address.value)
 ```
 
 ## Purchase Subcategory
-**subcategory** ([ClassificationField](#classificationfield)): The purchase subcategory among predefined classes for transport and food.
+**subcategory** ([ClassificationField](#classificationfield)): The purchase subcategory for transport and food, only for receipts.
 
 #### Possible values include:
- - plane
- - taxi
- - train
- - restaurant
- - shopping
+ - 'plane'
+ - 'taxi'
+ - 'train'
+ - 'restaurant'
+ - 'shopping'
+ - None
 
 ```py
 print(result.document.inference.prediction.subcategory.value)
@@ -427,7 +428,7 @@ print(result.document.inference.prediction.supplier_address.value)
 ```
 
 ## Supplier Company Registrations
-**supplier_company_registrations** (List[[CompanyRegistrationField](#companyregistrationfield)]): List of company registrations associated to the supplier.
+**supplier_company_registrations** (List[[CompanyRegistrationField](#companyregistrationfield)]): List of company registration numbers associated to the supplier.
 
 ```py
 for supplier_company_registrations_elem in result.document.inference.prediction.supplier_company_registrations:
@@ -449,7 +450,7 @@ print(result.document.inference.prediction.supplier_name.value)
 ```
 
 ## Supplier Payment Details
-**supplier_payment_details** (List[[PaymentDetailsField](#paymentdetailsfield)]): List of payment details associated to the supplier.
+**supplier_payment_details** (List[[PaymentDetailsField](#paymentdetailsfield)]): List of payment details associated to the supplier (only for invoices).
 
 ```py
 for supplier_payment_details_elem in result.document.inference.prediction.supplier_payment_details:
@@ -471,7 +472,7 @@ print(result.document.inference.prediction.supplier_website.value)
 ```
 
 ## Taxes
-**taxes** (List[[TaxField](#taxes)]): List of tax lines information.
+**taxes** (List[[TaxField](#taxes)]): List of all taxes on the document.
 
 ```py
 for taxes_elem in result.document.inference.prediction.taxes:
@@ -479,7 +480,7 @@ for taxes_elem in result.document.inference.prediction.taxes:
 ```
 
 ## Purchase Time
-**time** ([StringField](#stringfield)): The time the purchase was made.
+**time** ([StringField](#stringfield)): The time the purchase was made (only for receipts).
 
 ```py
 print(result.document.inference.prediction.time.value)
@@ -507,7 +508,7 @@ print(result.document.inference.prediction.total_net.value)
 ```
 
 ## Total Tax
-**total_tax** ([AmountField](#amountfield)): The total amount of taxes.
+**total_tax** ([AmountField](#amountfield)): The sum of all taxes present on the document.
 
 ```py
 print(result.document.inference.prediction.total_tax.value)
