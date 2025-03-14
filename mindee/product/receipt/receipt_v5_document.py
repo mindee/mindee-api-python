@@ -17,29 +17,29 @@ class ReceiptV5Document(Prediction):
     """Receipt API version 5.3 document data."""
 
     category: ClassificationField
-    """The purchase category among predefined classes."""
+    """The purchase category of the receipt."""
     date: DateField
     """The date the purchase was made."""
     document_type: ClassificationField
-    """One of: 'CREDIT CARD RECEIPT', 'EXPENSE RECEIPT'."""
+    """The type of receipt: EXPENSE RECEIPT or CREDIT CARD RECEIPT."""
     line_items: List[ReceiptV5LineItem]
-    """List of line item details."""
+    """List of all line items on the receipt."""
     locale: LocaleField
-    """The locale detected on the document."""
+    """The locale of the document."""
     receipt_number: StringField
     """The receipt number or identifier."""
     subcategory: ClassificationField
-    """The purchase subcategory among predefined classes for transport and food."""
+    """The purchase subcategory of the receipt for transport and food."""
     supplier_address: StringField
     """The address of the supplier or merchant."""
     supplier_company_registrations: List[CompanyRegistrationField]
-    """List of company registrations associated to the supplier."""
+    """List of company registration numbers associated to the supplier."""
     supplier_name: StringField
     """The name of the supplier or merchant."""
     supplier_phone_number: StringField
     """The phone number of the supplier or merchant."""
     taxes: Taxes
-    """List of tax lines information."""
+    """The list of taxes present on the receipt."""
     time: StringField
     """The time the purchase was made."""
     tip: AmountField
@@ -49,7 +49,7 @@ class ReceiptV5Document(Prediction):
     total_net: AmountField
     """The net amount paid: does not include taxes, fees, and discounts."""
     total_tax: AmountField
-    """The total amount of taxes."""
+    """The sum of all taxes."""
 
     def __init__(
         self,

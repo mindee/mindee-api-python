@@ -174,9 +174,9 @@ print(result.document.inference.prediction.document_number.value)
 [📄](#page-level-fields "This field is only present on individual pages.")**document_side** ([ClassificationField](#classificationfield)): The sides of the document which are visible.
 
 #### Possible values include:
- - RECTO
- - VERSO
- - RECTO & VERSO
+ - 'RECTO'
+ - 'VERSO'
+ - 'RECTO & VERSO'
 
 ```py
 for document_side_elem in result.document.document_side:
@@ -187,8 +187,8 @@ for document_side_elem in result.document.document_side:
 [📄](#page-level-fields "This field is only present on individual pages.")**document_type** ([ClassificationField](#classificationfield)): The document type or format.
 
 #### Possible values include:
- - NEW
- - OLD
+ - 'NEW'
+ - 'OLD'
 
 ```py
 for document_type_elem in result.document.document_type:

@@ -9,7 +9,7 @@ from mindee.parsing.standard.text import StringField
 
 
 class DeliveryNoteV1Document(Prediction):
-    """Delivery note API version 1.1 document data."""
+    """Delivery note API version 1.2 document data."""
 
     customer_address: StringField
     """The address of the customer receiving the goods."""
