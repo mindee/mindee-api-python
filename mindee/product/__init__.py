@@ -1,4 +1,4 @@
-from mindee.product import eu, fr, ind, us
+from mindee.product import fr, ind, us
 from mindee.product.barcode_reader import BarcodeReaderV1, BarcodeReaderV1Document
 from mindee.product.bill_of_lading import (
     BillOfLadingV1,
@@ -51,8 +51,6 @@ from mindee.product.nutrition_facts_label import (
 from mindee.product.passport import PassportV1, PassportV1Document
 from mindee.product.proof_of_address import ProofOfAddressV1, ProofOfAddressV1Document
 from mindee.product.receipt import (
-    ReceiptV4,
-    ReceiptV4Document,
     ReceiptV5,
     ReceiptV5Document,
     ReceiptV5LineItem,

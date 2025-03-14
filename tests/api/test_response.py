@@ -12,11 +12,11 @@ from mindee.product.invoice.invoice_v4 import InvoiceV4
 from mindee.product.invoice.invoice_v4_document import InvoiceV4Document
 from mindee.product.passport.passport_v1 import PassportV1
 from mindee.product.passport.passport_v1_document import PassportV1Document
-from mindee.product.receipt.receipt_v4 import ReceiptV4
-from mindee.product.receipt.receipt_v4_document import ReceiptV4Document
+from mindee.product.receipt.receipt_v5 import ReceiptV5
+from mindee.product.receipt.receipt_v5_document import ReceiptV5Document
 
 
-def test_invoice_receipt_v4():
+def test_invoice_receipt_v5():
     response = json.load(
         open("./tests/data/products/invoices/response_v4/complete.json")
     )
@@ -27,14 +27,14 @@ def test_invoice_receipt_v4():
     assert parsed_response.document.n_pages == 2
 
 
-def test_response_receipt_v4():
+def test_response_receipt_v5():
     response = json.load(
-        open("./tests/data/products/expense_receipts/response_v4/complete.json")
+        open("./tests/data/products/expense_receipts/response_v5/complete.json")
     )
-    parsed_response = PredictResponse(ReceiptV4, response)
-    assert isinstance(parsed_response.document.inference, ReceiptV4)
+    parsed_response = PredictResponse(ReceiptV5, response)
+    assert isinstance(parsed_response.document.inference, ReceiptV5)
     for page in parsed_response.document.inference.pages:
-        assert isinstance(page.prediction, ReceiptV4Document)
+        assert isinstance(page.prediction, ReceiptV5Document)
     assert parsed_response.document.n_pages == 1
 
 
