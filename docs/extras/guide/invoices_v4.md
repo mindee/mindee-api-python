@@ -232,12 +232,12 @@ The `Taxes` field represents a list-like collection of `TaxField` objects. As it
 Fields which are specific to this product; they are not used in any other product.
 
 ### Line Items Field
-List of line item details.
+List of all the line items present on the invoice.
 
 A `InvoiceV4LineItem` implements the following attributes:
 
 * **description** (`str`): The item description.
-* **product_code** (`str`): The product code referring to the item.
+* **product_code** (`str`): The product code of the item.
 * **quantity** (`float`): The item quantity
 * **tax_amount** (`float`): The item tax amount.
 * **tax_rate** (`float`): The item tax rate in percentage.
@@ -249,7 +249,7 @@ A `InvoiceV4LineItem` implements the following attributes:
 The following fields are extracted for Invoice V4:
 
 ## Billing Address
-**billing_address** ([StringField](#stringfield)): The customer's address used for billing.
+**billing_address** ([StringField](#stringfield)): The customer billing address.
 
 ```py
 print(result.document.inference.prediction.billing_address.value)
@@ -263,7 +263,7 @@ print(result.document.inference.prediction.customer_address.value)
 ```
 
 ## Customer Company Registrations
-**customer_company_registrations** (List[[CompanyRegistrationField](#companyregistrationfield)]): List of company registrations associated to the customer.
+**customer_company_registrations** (List[[CompanyRegistrationField](#companyregistrationfield)]): List of company registration numbers associated to the customer.
 
 ```py
 for customer_company_registrations_elem in result.document.inference.prediction.customer_company_registrations:
@@ -292,11 +292,11 @@ print(result.document.inference.prediction.date.value)
 ```
 
 ## Document Type
-**document_type** ([ClassificationField](#classificationfield)): One of: 'INVOICE', 'CREDIT NOTE'.
+**document_type** ([ClassificationField](#classificationfield)): Document type: INVOICE or CREDIT NOTE.
 
 #### Possible values include:
- - INVOICE
- - CREDIT NOTE
+ - 'INVOICE'
+ - 'CREDIT NOTE'
 
 ```py
 print(result.document.inference.prediction.document_type.value)
@@ -317,7 +317,7 @@ print(result.document.inference.prediction.invoice_number.value)
 ```
 
 ## Line Items
-**line_items** (List[[InvoiceV4LineItem](#line-items-field)]): List of line item details.
+**line_items** (List[[InvoiceV4LineItem](#line-items-field)]): List of all the line items present on the invoice.
 
 ```py
 for line_items_elem in result.document.inference.prediction.line_items:
@@ -325,14 +325,14 @@ for line_items_elem in result.document.inference.prediction.line_items:
 ```
 
 ## Locale
-**locale** ([LocaleField](#localefield)): The locale detected on the document.
+**locale** ([LocaleField](#localefield)): The locale of the document.
 
 ```py
 print(result.document.inference.prediction.locale.value)
 ```
 
 ## Payment Date
-**payment_date** ([DateField](#datefield)): The date on which the payment is due/ was full-filled.
+**payment_date** ([DateField](#datefield)): The date on which the payment is due / was full-filled.
 
 ```py
 print(result.document.inference.prediction.payment_date.value)
@@ -346,7 +346,7 @@ print(result.document.inference.prediction.po_number.value)
 ```
 
 ## Reference Numbers
-**reference_numbers** (List[[StringField](#stringfield)]): List of Reference numbers, including PO number.
+**reference_numbers** (List[[StringField](#stringfield)]): List of all reference numbers on the invoice, including the purchase order number.
 
 ```py
 for reference_numbers_elem in result.document.inference.prediction.reference_numbers:
@@ -368,7 +368,7 @@ print(result.document.inference.prediction.supplier_address.value)
 ```
 
 ## Supplier Company Registrations
-**supplier_company_registrations** (List[[CompanyRegistrationField](#companyregistrationfield)]): List of company registrations associated to the supplier.
+**supplier_company_registrations** (List[[CompanyRegistrationField](#companyregistrationfield)]): List of company registration numbers associated to the supplier.
 
 ```py
 for supplier_company_registrations_elem in result.document.inference.prediction.supplier_company_registrations:
@@ -376,7 +376,7 @@ for supplier_company_registrations_elem in result.document.inference.prediction.
 ```
 
 ## Supplier Email
-**supplier_email** ([StringField](#stringfield)): The email of the supplier or merchant.
+**supplier_email** ([StringField](#stringfield)): The email address of the supplier or merchant.
 
 ```py
 print(result.document.inference.prediction.supplier_email.value)
@@ -390,7 +390,7 @@ print(result.document.inference.prediction.supplier_name.value)
 ```
 
 ## Supplier Payment Details
-**supplier_payment_details** (List[[PaymentDetailsField](#paymentdetailsfield)]): List of payment details associated to the supplier.
+**supplier_payment_details** (List[[PaymentDetailsField](#paymentdetailsfield)]): List of payment details associated to the supplier of the invoice.
 
 ```py
 for supplier_payment_details_elem in result.document.inference.prediction.supplier_payment_details:
@@ -412,7 +412,7 @@ print(result.document.inference.prediction.supplier_website.value)
 ```
 
 ## Taxes
-**taxes** (List[[TaxField](#taxes)]): List of tax line details.
+**taxes** (List[[TaxField](#taxes)]): List of taxes. Each item contains the detail of the tax.
 
 ```py
 for taxes_elem in result.document.inference.prediction.taxes:
@@ -420,21 +420,21 @@ for taxes_elem in result.document.inference.prediction.taxes:
 ```
 
 ## Total Amount
-**total_amount** ([AmountField](#amountfield)): The total amount paid: includes taxes, tips, fees, and other charges.
+**total_amount** ([AmountField](#amountfield)): The total amount of the invoice: includes taxes, tips, fees, and other charges.
 
 ```py
 print(result.document.inference.prediction.total_amount.value)
 ```
 
 ## Total Net
-**total_net** ([AmountField](#amountfield)): The net amount paid: does not include taxes, fees, and discounts.
+**total_net** ([AmountField](#amountfield)): The net amount of the invoice: does not include taxes, fees, and discounts.
 
 ```py
 print(result.document.inference.prediction.total_net.value)
 ```
 
 ## Total Tax
-**total_tax** ([AmountField](#amountfield)): The total tax: includes all the taxes paid for this invoice.
+**total_tax** ([AmountField](#amountfield)): The total tax: the sum of all the taxes for this invoice.
 
 ```py
 print(result.document.inference.prediction.total_tax.value)

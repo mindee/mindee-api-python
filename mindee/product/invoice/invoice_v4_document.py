@@ -18,11 +18,11 @@ class InvoiceV4Document(Prediction):
     """Invoice API version 4.9 document data."""
 
     billing_address: StringField
-    """The customer's address used for billing."""
+    """The customer billing address."""
     customer_address: StringField
     """The address of the customer."""
     customer_company_registrations: List[CompanyRegistrationField]
-    """List of company registrations associated to the customer."""
+    """List of company registration numbers associated to the customer."""
     customer_id: StringField
     """The customer account number or identifier from the supplier."""
     customer_name: StringField
@@ -30,45 +30,45 @@ class InvoiceV4Document(Prediction):
     date: DateField
     """The date the purchase was made."""
     document_type: ClassificationField
-    """One of: 'INVOICE', 'CREDIT NOTE'."""
+    """Document type: INVOICE or CREDIT NOTE."""
     due_date: DateField
     """The date on which the payment is due."""
     invoice_number: StringField
     """The invoice number or identifier."""
     line_items: List[InvoiceV4LineItem]
-    """List of line item details."""
+    """List of all the line items present on the invoice."""
     locale: LocaleField
-    """The locale detected on the document."""
+    """The locale of the document."""
     payment_date: DateField
-    """The date on which the payment is due/ was full-filled."""
+    """The date on which the payment is due / was full-filled."""
     po_number: StringField
     """The purchase order number."""
     reference_numbers: List[StringField]
-    """List of Reference numbers, including PO number."""
+    """List of all reference numbers on the invoice, including the purchase order number."""
     shipping_address: StringField
     """Customer's delivery address."""
     supplier_address: StringField
     """The address of the supplier or merchant."""
     supplier_company_registrations: List[CompanyRegistrationField]
-    """List of company registrations associated to the supplier."""
+    """List of company registration numbers associated to the supplier."""
     supplier_email: StringField
-    """The email of the supplier or merchant."""
+    """The email address of the supplier or merchant."""
     supplier_name: StringField
     """The name of the supplier or merchant."""
     supplier_payment_details: List[PaymentDetailsField]
-    """List of payment details associated to the supplier."""
+    """List of payment details associated to the supplier of the invoice."""
     supplier_phone_number: StringField
     """The phone number of the supplier or merchant."""
     supplier_website: StringField
     """The website URL of the supplier or merchant."""
     taxes: Taxes
-    """List of tax line details."""
+    """List of taxes. Each item contains the detail of the tax."""
     total_amount: AmountField
-    """The total amount paid: includes taxes, tips, fees, and other charges."""
+    """The total amount of the invoice: includes taxes, tips, fees, and other charges."""
     total_net: AmountField
-    """The net amount paid: does not include taxes, fees, and discounts."""
+    """The net amount of the invoice: does not include taxes, fees, and discounts."""
     total_tax: AmountField
-    """The total tax: includes all the taxes paid for this invoice."""
+    """The total tax: the sum of all the taxes for this invoice."""
 
     def __init__(
         self,
