@@ -11,7 +11,7 @@ from mindee.product.us.healthcare_card.healthcare_card_v1_copay import (
 
 
 class HealthcareCardV1Document(Prediction):
-    """Healthcare Card API version 1.0 document data."""
+    """Healthcare Card API version 1.1 document data."""
 
     company_name: StringField
     """The name of the company that provides the healthcare plan."""

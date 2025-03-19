@@ -13,7 +13,7 @@ class EnergyBillV1MeterDetail(FieldPositionMixin, FieldConfidenceMixin):
     meter_type: Optional[str]
     """The type of energy meter."""
     unit: Optional[str]
-    """The unit of measurement for energy consumption, which can be kW, m³, or L."""
+    """The unit of power for energy consumption."""
     page_n: int
     """The document page on which the information was found."""
 
@@ -50,7 +50,7 @@ class EnergyBillV1MeterDetail(FieldPositionMixin, FieldConfidenceMixin):
         printable = self._printable_values()
         out_str: str = f"  :Meter Number: {printable['meter_number']}\n"
         out_str += f"  :Meter Type: {printable['meter_type']}\n"
-        out_str += f"  :Unit of Measure: {printable['unit']}\n"
+        out_str += f"  :Unit of Power: {printable['unit']}\n"
         return out_str.rstrip()
 
     def __str__(self) -> str:
@@ -58,5 +58,5 @@ class EnergyBillV1MeterDetail(FieldPositionMixin, FieldConfidenceMixin):
         printable = self._printable_values()
         out_str: str = f"Meter Number: {printable['meter_number']}, \n"
         out_str += f"Meter Type: {printable['meter_type']}, \n"
-        out_str += f"Unit of Measure: {printable['unit']}, \n"
+        out_str += f"Unit of Power: {printable['unit']}, \n"
         return clean_out_string(out_str)

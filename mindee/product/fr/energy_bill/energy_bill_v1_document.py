@@ -27,7 +27,7 @@ from mindee.product.fr.energy_bill.energy_bill_v1_taxes_and_contribution import 
 
 
 class EnergyBillV1Document(Prediction):
-    """Energy Bill API version 1.0 document data."""
+    """Energy Bill API version 1.2 document data."""
 
     contract_id: StringField
     """The unique identifier associated with a specific contract."""
@@ -164,11 +164,13 @@ class EnergyBillV1Document(Prediction):
     @staticmethod
     def _energy_usage_separator(char: str) -> str:
         out_str = "  "
+        out_str += f"+{char * 13}"
         out_str += f"+{char * 38}"
         out_str += f"+{char * 12}"
         out_str += f"+{char * 12}"
         out_str += f"+{char * 10}"
         out_str += f"+{char * 11}"
+        out_str += f"+{char * 17}"
         out_str += f"+{char * 12}"
         return out_str + "+"
 
@@ -181,11 +183,13 @@ class EnergyBillV1Document(Prediction):
         )
         out_str = ""
         out_str += f"\n{self._energy_usage_separator('-')}\n "
+        out_str += " | Consumption"
         out_str += " | Description                         "
         out_str += " | End Date  "
         out_str += " | Start Date"
         out_str += " | Tax Rate"
         out_str += " | Total    "
+        out_str += " | Unit of Measure"
         out_str += " | Unit Price"
         out_str += f" |\n{self._energy_usage_separator('=')}"
         out_str += f"\n  {lines}"
