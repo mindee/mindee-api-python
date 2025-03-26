@@ -221,7 +221,8 @@ Aside from the basic `BaseField` attributes, the tax field `TaxField` also imple
 
 * **rate** (`float`): the tax rate applied to an item expressed as a percentage. Can be `None`.
 * **code** (`str`): tax code (or equivalent, depending on the origin of the document). Can be `None`.
-* **base** (`float`): base amount used for the tax. Can be `None`.
+* **basis** (`float`): base amount used for the tax. Can be `None`.
+* **value** (`float`): the value of the tax. Can be `None`.
 
 > Note: currently `TaxField` is not used on its own, and is accessed through a parent `Taxes` object, a list-like structure.
 

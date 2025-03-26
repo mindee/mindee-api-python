@@ -351,6 +351,8 @@ parameter.
         while retry_counter < max_retries:
             if poll_results.job.status == "completed":
                 break
+            if poll_results.job.status == "failed":
+                raise MindeeError("Parsing failed for job {poll_results.job.id}")
             logger.debug(
                 "Polling server for parsing result with job id: %s", queue_result.job.id
             )
