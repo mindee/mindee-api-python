@@ -154,12 +154,6 @@ PRODUCTS: Dict[str, CommandConfig] = {
         is_sync=True,
         is_async=False,
     ),
-    "proof-of-address": CommandConfig(
-        help="Proof of Address",
-        doc_class=product.ProofOfAddressV1,
-        is_sync=True,
-        is_async=False,
-    ),
     "receipt": CommandConfig(
         help="Receipt",
         doc_class=product.ReceiptV5,
@@ -189,11 +183,5 @@ PRODUCTS: Dict[str, CommandConfig] = {
         doc_class=product.us.UsMailV3,
         is_sync=False,
         is_async=True,
-    ),
-    "us-w9": CommandConfig(
-        help="W9",
-        doc_class=product.us.W9V1,
-        is_sync=True,
-        is_async=False,
     ),
 }

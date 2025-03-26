@@ -129,10 +129,6 @@ from mindee.product.passport.passport_v1 import PassportV1
 from mindee.product.passport.passport_v1_document import (
     PassportV1Document,
 )
-from mindee.product.proof_of_address.proof_of_address_v1 import ProofOfAddressV1
-from mindee.product.proof_of_address.proof_of_address_v1_document import (
-    ProofOfAddressV1Document,
-)
 from mindee.product.receipt.receipt_v5 import ReceiptV5
 from mindee.product.receipt.receipt_v5_document import (
     ReceiptV5Document,
