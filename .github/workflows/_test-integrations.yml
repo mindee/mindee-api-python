@@ -5,6 +5,7 @@ name: Integration Test
 
 on:
   workflow_call:
+  workflow_dispatch:
 
 jobs:
   pytest:
