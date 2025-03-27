@@ -62,17 +62,18 @@ class Document(Generic[TypePrediction, TypePage]):
     def _inject_full_text_ocr(self, raw_prediction: StringDict) -> None:
         pages = raw_prediction.get("inference", {}).get("pages", [])
 
+        # check for: empty, missing, or null
         if (
             not pages
-            or "extras" not in pages[0]
-            or "full_text_ocr" not in pages[0]["extras"]
+            or not pages[0].get("extras", None)
+            or not pages[0]["extras"].get("full_text_ocr", None)
         ):
             return
 
         full_text_content = "\n".join(
             page["extras"]["full_text_ocr"]["content"]
             for page in pages
-            if "extras" in page and "full_text_ocr" in page["extras"]
+            if page.get("extras", None) and page["extras"].get("full_text_ocr", None)
         )
 
         artificial_text_obj = {"content": full_text_content}
