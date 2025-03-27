@@ -237,9 +237,9 @@ print(result.document.inference.prediction.document_language.value)
 **document_type** ([ClassificationField](#classificationfield)): The type of the document sent.
 
 #### Possible values include:
- - RESUME
- - MOTIVATION_LETTER
- - RECOMMENDATION_LETTER
+ - 'RESUME'
+ - 'MOTIVATION_LETTER'
+ - 'RECOMMENDATION_LETTER'
 
 ```py
 print(result.document.inference.prediction.document_type.value)

@@ -1,21 +1,17 @@
 ---
-title: Invoice Splitter API Python
+title: Invoice Splitter OCR Python
 category: 622b805aaec68102ea7fcbc2
-slug: python-invoice-splitter-api
+slug: python-invoice-splitter-ocr
 parentDoc: 609808f773b0b90051d839de
 ---
 The Python OCR SDK supports the [Invoice Splitter API](https://platform.mindee.com/mindee/invoice_splitter).
 
-Using [this sample](https://github.com/mindee/client-lib-test-data/blob/main/products/invoice_splitter/default_sample.pdf), we are going to illustrate how to detect the pages of multiple invoices within the same document.
+Using the [sample below](https://github.com/mindee/client-lib-test-data/blob/main/products/invoice_splitter/default_sample.pdf), we are going to illustrate how to extract the data that we want using the OCR SDK.
+![Invoice Splitter sample](https://github.com/mindee/client-lib-test-data/blob/main/products/invoice_splitter/default_sample.pdf?raw=true)
 
 # Quick-Start
-
-> **⚠️ Important:** This API only works **asynchronously**, which means that documents have to be sent and retrieved in a specific way:
-
 ```py
-from mindee import Client, product
-from time import sleep
-from mindee.parsing.common import AsyncPredictResponse
+from mindee import Client, product, AsyncPredictResponse
 
 # Init a new client
 mindee_client = Client(api_key="my-api-key")
@@ -31,66 +27,74 @@ result: AsyncPredictResponse = mindee_client.enqueue_and_parse(
 
 # Print a brief summary of the parsed data
 print(result.document)
+
 ```
 
 **Output (RST):**
-
 ```rst
 ########
 Document
 ########
-:Mindee ID: 8c25cc63-212b-4537-9c9b-3fbd3bd0ee20
-:Filename: default_sample.jpg
+:Mindee ID: 15ad7a19-7b75-43d0-b0c6-9a641a12b49b
+:Filename: default_sample.pdf
 
 Inference
 #########
-:Product: mindee/carte_vitale v1.0
-:Rotation applied: Yes
+:Product: mindee/invoice_splitter v1.2
+:Rotation applied: No
 
 Prediction
 ==========
-:Given Name(s): NATHALIE
-:Surname: DURAND
-:Social Security Number: 269054958815780
-:Issuance Date: 2007-01-01
-
-Page Predictions
-================
-
-Page 0
-------
-:Given Name(s): NATHALIE
-:Surname: DURAND
-:Social Security Number: 269054958815780
-:Issuance Date: 2007-01-01
+:Invoice Page Groups:
+  +--------------------------------------------------------------------------+
+  | Page Indexes                                                             |
+  +==========================================================================+
+  | 0                                                                        |
+  +--------------------------------------------------------------------------+
+  | 1                                                                        |
+  +--------------------------------------------------------------------------+
 ```
 
 # Field Types
+## Standard Fields
+These fields are generic and used in several products.
+
+### BaseField
+Each prediction object contains a set of fields that inherit from the generic `BaseField` class.
+A typical `BaseField` object will have the following attributes:
+
+* **value** (`Union[float, str]`): corresponds to the field value. Can be `None` if no value was extracted.
+* **confidence** (`float`): the confidence score of the field prediction.
+* **bounding_box** (`[Point, Point, Point, Point]`): contains exactly 4 relative vertices (points) coordinates of a right rectangle containing the field in the document.
+* **polygon** (`List[Point]`): contains the relative vertices coordinates (`Point`) of a polygon containing the field in the image.
+* **page_id** (`int`): the ID of the page, always `None` when at document-level.
+* **reconstructed** (`bool`): indicates whether an object was reconstructed (not extracted as the API gave it).
+
+> **Note:** A `Point` simply refers to a List of two numbers (`[float, float]`).
+
+
+Aside from the previous attributes, all basic fields have access to a custom `__str__` method that can be used to print their value as a string.
 
 ## Specific Fields
+Fields which are specific to this product; they are not used in any other product.
 
-### Page Group
+### Invoice Page Groups Field
+List of page groups. Each group represents a single invoice within a multi-invoice document.
 
-List of page group indexes.
+A `InvoiceSplitterV1InvoicePageGroup` implements the following attributes:
 
-An `InvoiceSplitterV1PageGroup` implements the following attributes:
-
-- **page_indexes** (`float`\[]): List of indexes of the pages of a single invoice.
-- **confidence** (`float`): The confidence of the prediction.
+* **page_indexes** (`List[int]`): List of page indexes that belong to the same invoice (group).
 
 # Attributes
-
 The following fields are extracted for Invoice Splitter V1:
 
 ## Invoice Page Groups
-
-**invoice_page_groups** ([InvoiceSplitterV1PageGroup](#invoice-splitter-v1-page-group)\[]): List of page indexes that belong to the same invoice in the PDF.
+**invoice_page_groups** (List[[InvoiceSplitterV1InvoicePageGroup](#invoice-page-groups-field)]): List of page groups. Each group represents a single invoice within a multi-invoice document.
 
 ```py
-for invoice_page_groups_elem in page.prediction.invoice_page_groups):
-    print(invoice_page_groups_elem)
+for invoice_page_groups_elem in result.document.inference.prediction.invoice_page_groups:
+    print(invoice_page_groups_elem.value)
 ```
 
 # Questions?
-
 [Join our Slack](https://join.slack.com/t/mindee-community/shared_invite/zt-2d0ds7dtz-DPAF81ZqTy20chsYpQBW5g)

@@ -21,7 +21,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Resume V1" href="resume_v1.html" />
-    <link rel="prev" title="Receipt V4" href="receipt_v4.html" /> 
+    <link rel="prev" title="Passport V1" href="passport_v1.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -66,8 +66,6 @@
 <li class="toctree-l3"><a class="reference internal" href="multi_receipts_detector_v1.html">Multi Receipts Detector V1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="nutrition_facts_label_v1.html">Nutrition Facts Label V1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="passport_v1.html">Passport V1</a></li>
-<li class="toctree-l3"><a class="reference internal" href="proof_of_address_v1.html">Proof of Address V1</a></li>
-<li class="toctree-l3"><a class="reference internal" href="receipt_v4.html">Receipt V4</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Receipt V5</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.product.receipt.receipt_v5.ReceiptV5"><code class="docutils literal notranslate"><span class="pre">ReceiptV5</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.product.receipt.receipt_v5_document.ReceiptV5Document"><code class="docutils literal notranslate"><span class="pre">ReceiptV5Document</span></code></a></li>
@@ -211,7 +209,7 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.receipt.receipt_v5_document.ReceiptV5Document.category">
 <span class="sig-name descname"><span class="pre">category</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.classification.ClassificationField" title="mindee.parsing.standard.classification.ClassificationField"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClassificationField</span></code></a></em><a class="headerlink" href="#mindee.product.receipt.receipt_v5_document.ReceiptV5Document.category" title="Permalink to this definition"></a></dt>
-<dd><p>The purchase category among predefined classes.</p>
+<dd><p>The purchase category of the receipt.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -223,19 +221,19 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.receipt.receipt_v5_document.ReceiptV5Document.document_type">
 <span class="sig-name descname"><span class="pre">document_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.classification.ClassificationField" title="mindee.parsing.standard.classification.ClassificationField"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClassificationField</span></code></a></em><a class="headerlink" href="#mindee.product.receipt.receipt_v5_document.ReceiptV5Document.document_type" title="Permalink to this definition"></a></dt>
-<dd><p>One of: ‘CREDIT CARD RECEIPT’, ‘EXPENSE RECEIPT’.</p>
+<dd><p>The type of receipt: EXPENSE RECEIPT or CREDIT CARD RECEIPT.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.receipt.receipt_v5_document.ReceiptV5Document.line_items">
 <span class="sig-name descname"><span class="pre">line_items</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="#mindee.product.receipt.receipt_v5_line_item.ReceiptV5LineItem" title="mindee.product.receipt.receipt_v5_line_item.ReceiptV5LineItem"><code class="xref py py-class docutils literal notranslate"><span class="pre">ReceiptV5LineItem</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.receipt.receipt_v5_document.ReceiptV5Document.line_items" title="Permalink to this definition"></a></dt>
-<dd><p>List of line item details.</p>
+<dd><p>List of all line items on the receipt.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.receipt.receipt_v5_document.ReceiptV5Document.locale">
 <span class="sig-name descname"><span class="pre">locale</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.locale.LocaleField" title="mindee.parsing.standard.locale.LocaleField"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocaleField</span></code></a></em><a class="headerlink" href="#mindee.product.receipt.receipt_v5_document.ReceiptV5Document.locale" title="Permalink to this definition"></a></dt>
-<dd><p>The locale detected on the document.</p>
+<dd><p>The locale of the document.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -247,7 +245,7 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.receipt.receipt_v5_document.ReceiptV5Document.subcategory">
 <span class="sig-name descname"><span class="pre">subcategory</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.classification.ClassificationField" title="mindee.parsing.standard.classification.ClassificationField"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClassificationField</span></code></a></em><a class="headerlink" href="#mindee.product.receipt.receipt_v5_document.ReceiptV5Document.subcategory" title="Permalink to this definition"></a></dt>
-<dd><p>The purchase subcategory among predefined classes for transport and food.</p>
+<dd><p>The purchase subcategory of the receipt for transport and food.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -259,7 +257,7 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.receipt.receipt_v5_document.ReceiptV5Document.supplier_company_registrations">
 <span class="sig-name descname"><span class="pre">supplier_company_registrations</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.company_registration.CompanyRegistrationField" title="mindee.parsing.standard.company_registration.CompanyRegistrationField"><code class="xref py py-class docutils literal notranslate"><span class="pre">CompanyRegistrationField</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.receipt.receipt_v5_document.ReceiptV5Document.supplier_company_registrations" title="Permalink to this definition"></a></dt>
-<dd><p>List of company registrations associated to the supplier.</p>
+<dd><p>List of company registration numbers associated to the supplier.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -277,7 +275,7 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.receipt.receipt_v5_document.ReceiptV5Document.taxes">
 <span class="sig-name descname"><span class="pre">taxes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.tax.Taxes" title="mindee.parsing.standard.tax.Taxes"><code class="xref py py-class docutils literal notranslate"><span class="pre">Taxes</span></code></a></em><a class="headerlink" href="#mindee.product.receipt.receipt_v5_document.ReceiptV5Document.taxes" title="Permalink to this definition"></a></dt>
-<dd><p>List of tax lines information.</p>
+<dd><p>The list of taxes present on the receipt.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -307,7 +305,7 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.receipt.receipt_v5_document.ReceiptV5Document.total_tax">
 <span class="sig-name descname"><span class="pre">total_tax</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.amount.AmountField" title="mindee.parsing.standard.amount.AmountField"><code class="xref py py-class docutils literal notranslate"><span class="pre">AmountField</span></code></a></em><a class="headerlink" href="#mindee.product.receipt.receipt_v5_document.ReceiptV5Document.total_tax" title="Permalink to this definition"></a></dt>
-<dd><p>The total amount of taxes.</p>
+<dd><p>The sum of all taxes.</p>
 </dd></dl>
 
 </dd></dl>
@@ -315,7 +313,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.product.receipt.receipt_v5_line_item.ReceiptV5LineItem">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ReceiptV5LineItem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.receipt.receipt_v5_line_item.ReceiptV5LineItem" title="Permalink to this definition"></a></dt>
-<dd><p>List of line item details.</p>
+<dd><p>List of all line items on the receipt.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -391,7 +389,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="receipt_v4.html" class="btn btn-neutral float-left" title="Receipt V4" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="passport_v1.html" class="btn btn-neutral float-left" title="Passport V1" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="resume_v1.html" class="btn btn-neutral float-right" title="Resume V1" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
