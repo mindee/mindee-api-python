@@ -1,5 +1,10 @@
 # Mindee Python API Library Changelog
 
+## v4.19.1 - 2025-03-27
+### Fixes
+* :bug: fix for null objects in extras
+
+
 ## v4.19.0 - 2025-03-27
 ### Changes
 * :sparkles: update structure for InvoiceSplitterV1
