@@ -32,10 +32,3 @@ from mindee.product.us.us_mail.us_mail_v3_recipient_address import (
 from mindee.product.us.us_mail.us_mail_v3_sender_address import (
     UsMailV3SenderAddress,
 )
-from mindee.product.us.w9.w9_v1 import W9V1
-from mindee.product.us.w9.w9_v1_document import (
-    W9V1Document,
-)
-from mindee.product.us.w9.w9_v1_page import (
-    W9V1Page,
-)
