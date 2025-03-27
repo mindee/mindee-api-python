@@ -1,5 +1,22 @@
 # Mindee Python API Library Changelog
 
+## v4.19.0 - 2025-03-27
+### Changes
+* :sparkles: update structure for InvoiceSplitterV1
+* :sparkles: update FR EnegryBillV1 to V1.2
+* :sparkles: update US HealthcareCardV1 to V1.1
+* :coffin: remove support for EU Driver License
+* :coffin: remove support for PetrolReceiptV1
+* :coffin: remove support for ReceiptV4
+* :coffin: remove support for Proof of Address
+* :coffin: remove support for US Driver License
+* :coffin: remove support for US W9V1
+### Fixes
+* :bug: fix polling waiting for a full timeout in case of parsing failure
+* :recycle: add missing imports for some products
+* :arrow_down: downgrade pypdfium dependency due to very rare errors in local character extraction
+
+
 ## v4.18.0 - 2025-02-21
 ### Changes
 * :sparkles: add support for image and pdf compression
