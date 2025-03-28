@@ -15,3 +15,7 @@ jobs:
   tag:
     uses: mindee/client-lib-actions/.github/workflows/tag-version.yml@main
     needs: test_units
+  release:
+    uses: mindee/client-lib-actions/.github/workflows/create-release.yml@main
+    needs: tag
+    secrets: inherit
