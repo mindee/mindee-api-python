@@ -5,13 +5,13 @@ on:
     types: [ published ]
 
 jobs:
-  publish_docs:
+  publish-docs:
     uses: mindee/mindee-api-python/.github/workflows/_publish-docs.yml@main
     secrets: inherit
-  publish_guide:
+  publish-guide:
     uses: mindee/mindee-api-python/.github/workflows/_publish-guide.yml@main
-    needs: publish_docs
+    needs: publish-docs
     secrets: inherit
-  publish_code:
+  publish-code:
     uses: mindee/mindee-api-python/.github/workflows/_publish-code.yml@main
     secrets: inherit

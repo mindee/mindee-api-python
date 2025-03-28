@@ -4,21 +4,21 @@ on:
   pull_request:
 
 jobs:
-  static_analysis:
+  static-analysis:
     uses: mindee/mindee-api-python/.github/workflows/_static-analysis.yml@main
-  test_units:
+  test-units:
     uses: mindee/mindee-api-python/.github/workflows/_test-units.yml@main
-    needs: static_analysis
+    needs: static-analysis
     secrets: inherit
-  test_regressions:
+  test-regressions:
     uses: mindee/mindee-api-python/.github/workflows/_test-regressions.yml@main
-    needs: test_units
+    needs: test-units
     secrets: inherit
-  test_integrations:
+  test-integrations:
     uses: mindee/mindee-api-python/.github/workflows/_test-integrations.yml@main
-    needs: test_units
+    needs: test-units
     secrets: inherit
-  test_code_samples:
+  test-code-samples:
     uses: mindee/mindee-api-python/.github/workflows/_test-code-samples.yml@main
-    needs: test_units
+    needs: test-units
     secrets: inherit

@@ -5,9 +5,9 @@ on:
   - cron: '32 0 * * *'
 
 jobs:
-  test_regressions:
+  test-regressions:
     uses: mindee/mindee-api-python/.github/workflows/_test-regressions.yml@main
     secrets: inherit
-  test_code_samples:
+  test-code-samples:
     uses: mindee/mindee-api-python/.github/workflows/_test-code-samples.yml@main
     secrets: inherit

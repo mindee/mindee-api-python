@@ -6,11 +6,11 @@ on:
       - main
 
 jobs:
-  static_analysis:
+  static-analysis:
     uses: mindee/mindee-api-python/.github/workflows/_static-analysis.yml@main
   test_units:
     uses: mindee/mindee-api-python/.github/workflows/_test-units.yml@main
-    needs: static_analysis
+    needs: static-analysis
     secrets: inherit
   tag:
     uses: mindee/client-lib-actions/.github/workflows/tag-version.yml@main
