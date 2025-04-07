@@ -51,6 +51,7 @@ def test_empty_doc(empty_doc: HealthcareCardV1DocumentType):
     assert prediction.group_number.value is None
     assert prediction.payer_id.value is None
     assert prediction.rx_bin.value is None
+    assert prediction.rx_id.value is None
     assert prediction.rx_grp.value is None
     assert prediction.rx_pcn.value is None
     assert len(prediction.copays) == 0

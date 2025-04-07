@@ -11,7 +11,7 @@ from mindee.product.us.healthcare_card.healthcare_card_v1_copay import (
 
 
 class HealthcareCardV1Document(Prediction):
-    """Healthcare Card API version 1.1 document data."""
+    """Healthcare Card API version 1.2 document data."""
 
     company_name: StringField
     """The name of the company that provides the healthcare plan."""
@@ -35,6 +35,8 @@ class HealthcareCardV1Document(Prediction):
     """The BIN number for prescription drug coverage."""
     rx_grp: StringField
     """The group number for prescription drug coverage."""
+    rx_id: StringField
+    """The ID number for prescription drug coverage."""
     rx_pcn: StringField
     """The PCN number for prescription drug coverage."""
 
@@ -94,6 +96,10 @@ class HealthcareCardV1Document(Prediction):
             raw_prediction["rx_grp"],
             page_id=page_id,
         )
+        self.rx_id = StringField(
+            raw_prediction["rx_id"],
+            page_id=page_id,
+        )
         self.rx_pcn = StringField(
             raw_prediction["rx_pcn"],
             page_id=page_id,
@@ -134,6 +140,7 @@ class HealthcareCardV1Document(Prediction):
         out_str += f":Group Number: {self.group_number}\n"
         out_str += f":Payer ID: {self.payer_id}\n"
         out_str += f":RX BIN: {self.rx_bin}\n"
+        out_str += f":RX ID: {self.rx_id}\n"
         out_str += f":RX GRP: {self.rx_grp}\n"
         out_str += f":RX PCN: {self.rx_pcn}\n"
         out_str += f":copays: {self._copays_to_str()}\n"

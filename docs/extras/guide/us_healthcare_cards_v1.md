@@ -112,6 +112,15 @@ A `HealthcareCardV1Copay` implements the following attributes:
 * **service_fees** (`float`): The price of service.
 * **service_name** (`str`): The name of service of the copay.
 
+#### Possible values include:
+ - primary_care
+ - emergency_room
+ - urgent_care
+ - specialist
+ - office_visit
+ - prescription
+
+
 # Attributes
 The following fields are extracted for Healthcare Card V1:
 
@@ -192,6 +201,13 @@ print(result.document.inference.prediction.rx_bin.value)
 
 ```py
 print(result.document.inference.prediction.rx_grp.value)
+```
+
+## RX ID
+**rx_id** ([StringField](#stringfield)): The ID number for prescription drug coverage.
+
+```py
+print(result.document.inference.prediction.rx_id.value)
 ```
 
 ## RX PCN
