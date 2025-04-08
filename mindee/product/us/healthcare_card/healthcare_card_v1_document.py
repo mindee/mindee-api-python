@@ -109,7 +109,7 @@ class HealthcareCardV1Document(Prediction):
     def _copays_separator(char: str) -> str:
         out_str = "  "
         out_str += f"+{char * 14}"
-        out_str += f"+{char * 14}"
+        out_str += f"+{char * 22}"
         return out_str + "+"
 
     def _copays_to_str(self) -> str:
@@ -122,7 +122,7 @@ class HealthcareCardV1Document(Prediction):
         out_str = ""
         out_str += f"\n{self._copays_separator('-')}\n "
         out_str += " | Service Fees"
-        out_str += " | Service Name"
+        out_str += " | Service Name        "
         out_str += f" |\n{self._copays_separator('=')}"
         out_str += f"\n  {lines}"
         out_str += f"\n{self._copays_separator('-')}"
