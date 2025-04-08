@@ -81,8 +81,15 @@ def test_empty_doc(empty_doc: FinancialDocumentV1DocumentType):
     assert prediction.locale.value is None
     assert prediction.invoice_number.value is None
     assert len(prediction.reference_numbers) == 0
+    assert prediction.billing_address.value is None
+    assert len(prediction.customer_company_registrations) == 0
+    assert prediction.customer_id.value is None
+    assert prediction.customer_name.value is None
     assert prediction.date.value is None
     assert prediction.due_date.value is None
+    assert prediction.document_type.value is not None
+    assert prediction.document_type_extended.value is not None
+    assert prediction.document_number.value is None
     assert prediction.total_net.value is None
     assert prediction.total_amount.value is None
     assert len(prediction.taxes) == 0

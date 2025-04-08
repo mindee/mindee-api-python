@@ -17,7 +17,7 @@ from mindee.product.financial_document.financial_document_v1_line_item import (
 
 
 class FinancialDocumentV1Document(Prediction):
-    """Financial Document API version 1.11 document data."""
+    """Financial Document API version 1.12 document data."""
 
     billing_address: StringField
     """The customer's address used for billing."""
@@ -40,6 +40,8 @@ class FinancialDocumentV1Document(Prediction):
     The type of the document: INVOICE or CREDIT NOTE if it is an invoice, CREDIT CARD RECEIPT or EXPENSE
     RECEIPT if it is a receipt.
     """
+    document_type_extended: ClassificationField
+    """Document type extended."""
     due_date: DateField
     """The date on which the payment is due."""
     invoice_number: StringField
@@ -133,6 +135,10 @@ class FinancialDocumentV1Document(Prediction):
         )
         self.document_type = ClassificationField(
             raw_prediction["document_type"],
+            page_id=page_id,
+        )
+        self.document_type_extended = ClassificationField(
+            raw_prediction["document_type_extended"],
             page_id=page_id,
         )
         self.due_date = DateField(
@@ -303,6 +309,7 @@ class FinancialDocumentV1Document(Prediction):
         out_str += f":Shipping Address: {self.shipping_address}\n"
         out_str += f":Billing Address: {self.billing_address}\n"
         out_str += f":Document Type: {self.document_type}\n"
+        out_str += f":Document Type Extended: {self.document_type_extended}\n"
         out_str += f":Purchase Subcategory: {self.subcategory}\n"
         out_str += f":Purchase Category: {self.category}\n"
         out_str += f":Total Tax: {self.total_tax}\n"

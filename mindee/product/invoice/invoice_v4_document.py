@@ -15,7 +15,7 @@ from mindee.product.invoice.invoice_v4_line_item import InvoiceV4LineItem
 
 
 class InvoiceV4Document(Prediction):
-    """Invoice API version 4.9 document data."""
+    """Invoice API version 4.10 document data."""
 
     billing_address: StringField
     """The customer billing address."""
@@ -31,6 +31,8 @@ class InvoiceV4Document(Prediction):
     """The date the purchase was made."""
     document_type: ClassificationField
     """Document type: INVOICE or CREDIT NOTE."""
+    document_type_extended: ClassificationField
+    """Document type extended."""
     due_date: DateField
     """The date on which the payment is due."""
     invoice_number: StringField
@@ -108,6 +110,10 @@ class InvoiceV4Document(Prediction):
         )
         self.document_type = ClassificationField(
             raw_prediction["document_type"],
+            page_id=page_id,
+        )
+        self.document_type_extended = ClassificationField(
+            raw_prediction["document_type_extended"],
             page_id=page_id,
         )
         self.due_date = DateField(
@@ -261,5 +267,6 @@ class InvoiceV4Document(Prediction):
         out_str += f":Shipping Address: {self.shipping_address}\n"
         out_str += f":Billing Address: {self.billing_address}\n"
         out_str += f":Document Type: {self.document_type}\n"
+        out_str += f":Document Type Extended: {self.document_type_extended}\n"
         out_str += f":Line Items: {self._line_items_to_str()}\n"
         return clean_out_string(out_str)
