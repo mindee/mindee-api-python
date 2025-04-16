@@ -30,7 +30,7 @@ def test_workflow(mindee_client: Client, workflow_id: str, input_path: str):
     current_date_time = datetime.now().strftime("%Y-%m-%d-%H:%M:%S")
     alias = f"python-{current_date_time}"
     priority = ExecutionPriority.LOW
-    options = WorkflowOptions(alias=alias, priority=priority)
+    options = WorkflowOptions(alias=alias, priority=priority, rag=True)
 
     response = mindee_client.execute_workflow(input_source, workflow_id, options)
 

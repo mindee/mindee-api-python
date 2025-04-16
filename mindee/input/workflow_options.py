@@ -14,6 +14,8 @@ class WorkflowOptions:
     """Whether to include the full OCR text response in compatible APIs."""
     public_url: Optional[str]
     """A unique, encrypted URL for accessing the document validation interface without requiring authentication."""
+    rag: bool
+    """Whether to enable Retrieval-Augmented Generation."""
 
     def __init__(
         self,
@@ -21,8 +23,10 @@ class WorkflowOptions:
         priority: Optional[ExecutionPriority] = None,
         full_text: Optional[bool] = False,
         public_url: Optional[str] = None,
+        rag: Optional[bool] = False,
     ):
         self.alias = alias
         self.priority = priority
         self.full_text = full_text if full_text else False
         self.public_url = public_url
+        self.rag = rag if rag else False

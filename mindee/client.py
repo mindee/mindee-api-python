@@ -263,7 +263,7 @@ class Client:
 
         if not options:
             options = WorkflowOptions(
-                alias=None, priority=None, full_text=False, public_url=None
+                alias=None, priority=None, full_text=False, public_url=None, rag=False
             )
 
         return self._send_to_workflow(GeneratedV1, input_source, workflow_id, options)
