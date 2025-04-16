@@ -1,5 +1,10 @@
 # Mindee Python API Library Changelog
 
+## v4.21.0 - 2025-04-16
+### Changes
+* :sparkles: add support for RAG parameter in workflow executions (#319)
+
+
 ## v4.20.0 - 2025-04-08
 ### Changes
 * :sparkles: add support for Financial Document V1.12
