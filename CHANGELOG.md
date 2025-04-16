@@ -2,7 +2,7 @@
 
 ## v4.21.0 - 2025-04-16
 ### Changes
-* :sparkles: add support for rag param in workflow executions (#319)
+* :sparkles: add support for RAG parameter in workflow executions (#319)
 
 
 ## v4.20.0 - 2025-04-08
