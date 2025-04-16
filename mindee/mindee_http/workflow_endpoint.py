@@ -45,6 +45,8 @@ class WorkflowEndpoint(BaseEndpoint):
         params = {}
         if options.full_text:
             params["full_text_ocr"] = "true"
+        if options.rag:
+            params["rag"] = "true"
 
         if isinstance(input_source, UrlInputSource):
             data["document"] = input_source.url
