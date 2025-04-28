@@ -14,11 +14,11 @@ class Job:
 
     id: str
     """ID of the job sent by the API in response to an enqueue request."""
-    error: Optional[StringDict]
+    error: Optional[StringDict] = None
     """Information about an error that occurred during the job processing."""
     issued_at: datetime
     """Timestamp of the request reception by the API."""
-    available_at: Optional[datetime]
+    available_at: Optional[datetime] = None
     """Timestamp of the request after it has been completed."""
     status: str
     """Status of the request, as seen by the API."""

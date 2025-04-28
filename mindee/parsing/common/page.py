@@ -11,11 +11,11 @@ class Page(Generic[TypePrediction]):
 
     id: int
     """Id of the current page."""
-    orientation: Optional[OrientationField]
+    orientation: Optional[OrientationField] = None
     """Orientation of the page"""
     prediction: TypePrediction
     """Type of Page prediction."""
-    extras: Optional[Extras]
+    extras: Optional[Extras] = None
 
     def __init__(
         self,

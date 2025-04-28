@@ -15,7 +15,7 @@ class AsyncPredictResponse(Generic[TypeInference], ApiResponse):
 
     job: Job
     """Job object link to the prediction. As long as it isn't complete, the prediction doesn't exist."""
-    document: Optional[Document]
+    document: Optional[Document] = None
 
     def __init__(
         self, inference_type: Type[TypeInference], raw_response: StringDict

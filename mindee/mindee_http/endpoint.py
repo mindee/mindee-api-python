@@ -1,5 +1,5 @@
 import json
-from typing import Union
+from typing import Optional, Union
 
 import requests
 from requests import Response
@@ -60,6 +60,8 @@ class Endpoint(BaseEndpoint):
         close_file: bool = True,
         cropper: bool = False,
         full_text: bool = False,
+        workflow_id: Optional[str] = None,
+        rag: bool = False,
     ) -> requests.Response:
         """
         Make an asynchronous request to POST a document for prediction.
@@ -69,10 +71,19 @@ class Endpoint(BaseEndpoint):
         :param close_file: Whether to `close()` the file after parsing it.
         :param cropper: Including Mindee cropping results.
         :param full_text: Whether to include the full OCR text response in compatible APIs.
+        :param workflow_id: Workflow ID.
+        :param rag: If set, will enable Retrieval-Augmented Generation.
         :return: requests response
         """
         return self._custom_request(
-            "predict_async", input_source, include_words, close_file, cropper, full_text
+            "predict_async",
+            input_source,
+            include_words,
+            close_file,
+            cropper,
+            full_text,
+            workflow_id,
+            rag,
         )
 
     def _custom_request(
@@ -83,6 +94,8 @@ class Endpoint(BaseEndpoint):
         close_file: bool = True,
         cropper: bool = False,
         full_text: bool = False,
+        workflow_id: Optional[str] = None,
+        rag: bool = False,
     ):
         data = {}
         if include_words:
@@ -93,11 +106,18 @@ class Endpoint(BaseEndpoint):
             params["full_text_ocr"] = "true"
         if cropper:
             params["cropper"] = "true"
+        if rag:
+            params["rag"] = "true"
+
+        if workflow_id:
+            url = f"{self.settings.base_url}/workflows/{workflow_id}/{route}"
+        else:
+            url = f"{self.settings.url_root}/{route}"
 
         if isinstance(input_source, UrlInputSource):
             data["document"] = input_source.url
             response = requests.post(
-                f"{self.settings.url_root}/{route}",
+                url=url,
                 headers=self.settings.base_headers,
                 data=data,
                 params=params,
@@ -106,7 +126,7 @@ class Endpoint(BaseEndpoint):
         else:
             files = {"document": input_source.read_contents(close_file)}
             response = requests.post(
-                f"{self.settings.url_root}/{route}",
+                url=url,
                 files=files,
                 headers=self.settings.base_headers,
                 data=data,

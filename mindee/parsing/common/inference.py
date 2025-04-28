@@ -1,6 +1,7 @@
 from typing import Dict, Generic, List, Optional, Type, TypeVar
 
 from mindee.error.mindee_error import MindeeError
+from mindee.parsing.common.extras import Extras
 from mindee.parsing.common.page import TypePage
 from mindee.parsing.common.prediction import TypePrediction
 from mindee.parsing.common.product import Product
@@ -24,6 +25,8 @@ class Inference(Generic[TypePrediction, TypePage]):
     """Whether the document has had any rotation applied to it."""
     page_id: Optional[int]
     """Optional page id for page-level predictions."""
+    extras: Optional[Extras] = None
+    """Potential Extras fields sent back along with the prediction."""
 
     def __init__(self, raw_prediction: StringDict, page_id: Optional[int] = None):
         self.is_rotation_applied = None
@@ -32,6 +35,9 @@ class Inference(Generic[TypePrediction, TypePage]):
         self.product = Product(raw_prediction["product"])
         if page_id:
             self.page_id = page_id
+
+        if "extras" in raw_prediction and raw_prediction["extras"]:
+            self.extras = Extras(raw_prediction["extras"])
 
     def __str__(self) -> str:
         rotation_applied_str = "Yes" if self.is_rotation_applied else "No"
@@ -57,7 +63,7 @@ class Inference(Generic[TypePrediction, TypePage]):
     @staticmethod
     def get_endpoint_info(klass: Type["Inference"]) -> Dict[str, str]:
         """
-        Retrives the endpoint information for an Inference.
+        Retrieves the endpoint information for an Inference.
 
         Should never retrieve info for CustomV1, as a custom endpoint should be created to use CustomV1.
 
