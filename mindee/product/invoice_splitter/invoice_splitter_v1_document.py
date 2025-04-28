@@ -9,7 +9,7 @@ from mindee.product.invoice_splitter.invoice_splitter_v1_invoice_page_group impo
 
 
 class InvoiceSplitterV1Document(Prediction):
-    """Invoice Splitter API version 1.2 document data."""
+    """Invoice Splitter API version 1.4 document data."""
 
     invoice_page_groups: List[InvoiceSplitterV1InvoicePageGroup]
     """List of page groups. Each group represents a single invoice within a multi-invoice document."""
