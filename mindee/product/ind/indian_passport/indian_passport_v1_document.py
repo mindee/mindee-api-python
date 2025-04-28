@@ -182,9 +182,9 @@ class IndianPassportV1Document(Prediction):
         out_str += f":Name of Mother: {self.name_of_mother}\n"
         out_str += f":Old Passport Date of Issue: {self.old_passport_date_of_issue}\n"
         out_str += f":Old Passport Number: {self.old_passport_number}\n"
+        out_str += f":Old Passport Place of Issue: {self.old_passport_place_of_issue}\n"
         out_str += f":Address Line 1: {self.address1}\n"
         out_str += f":Address Line 2: {self.address2}\n"
         out_str += f":Address Line 3: {self.address3}\n"
-        out_str += f":Old Passport Place of Issue: {self.old_passport_place_of_issue}\n"
         out_str += f":File Number: {self.file_number}\n"
         return clean_out_string(out_str)

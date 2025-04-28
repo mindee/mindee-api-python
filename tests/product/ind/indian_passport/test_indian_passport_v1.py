@@ -59,8 +59,8 @@ def test_empty_doc(empty_doc: IndianPassportV1DocumentType):
     assert prediction.name_of_mother.value is None
     assert prediction.old_passport_date_of_issue.value is None
     assert prediction.old_passport_number.value is None
+    assert prediction.old_passport_place_of_issue.value is None
     assert prediction.address1.value is None
     assert prediction.address2.value is None
     assert prediction.address3.value is None
-    assert prediction.old_passport_place_of_issue.value is None
     assert prediction.file_number.value is None

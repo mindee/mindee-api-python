@@ -1,3 +1,8 @@
+#
+# Install the Python client library by running:
+# pip install mindee
+#
+
 from mindee import Client, WorkflowResponse
 from mindee.parsing.common import ExecutionPriority
 
@@ -13,9 +18,10 @@ input_doc = mindee_client.source_from_path("/path/to/the/file.ext")
 result: WorkflowResponse = mindee_client.execute_workflow(
     input_doc,
     workflow_id,
-    # Optionally, add an alias and a priority to the workflow.
+    # Optional parameters:
     # alias="my-alias",
-    # priority=ExecutionPriority.LOW
+    # priority=ExecutionPriority.LOW,
+    # rag=True,
 )
 
 # Print the ID of the execution to make sure it worked.

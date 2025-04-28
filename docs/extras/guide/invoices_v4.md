@@ -11,6 +11,11 @@ Using the [sample below](https://github.com/mindee/client-lib-test-data/blob/mai
 
 # Quick-Start
 ```py
+#
+# Install the Python client library by running:
+# pip install mindee
+#
+
 from mindee import Client, PredictResponse, product
 
 # Init a new client
@@ -20,8 +25,10 @@ mindee_client = Client(api_key="my-api-key")
 input_doc = mindee_client.source_from_path("/path/to/the/file.ext")
 
 # Load a file from disk and parse it.
-# The endpoint name must be specified since it cannot be determined from the class.
-result: PredictResponse = mindee_client.parse(product.InvoiceV4, input_doc)
+result: PredictResponse = mindee_client.parse(
+    product.InvoiceV4,
+    input_doc,
+)
 
 # Print a summary of the API result
 print(result.document)
@@ -34,6 +41,11 @@ print(result.document)
 You can also call this product asynchronously:
 
 ```py
+#
+# Install the Python client library by running:
+# pip install mindee
+#
+
 from mindee import Client, product, AsyncPredictResponse
 
 # Init a new client
@@ -58,12 +70,12 @@ print(result.document)
 ########
 Document
 ########
-:Mindee ID: b55db8f9-ae3b-4f05-b2f1-ec0ced5e5b70
+:Mindee ID: 3e524d26-f7dc-4852-9bbf-833a127a9570
 :Filename: default_sample.jpg
 
 Inference
 #########
-:Product: mindee/invoices v4.9
+:Product: mindee/invoices v4.10
 :Rotation applied: Yes
 
 Prediction
@@ -98,6 +110,7 @@ Prediction
 :Shipping Address:
 :Billing Address: 1954 Bloor Street West Toronto, ON, M6P 3K9 Canada
 :Document Type: INVOICE
+:Document Type Extended: INVOICE
 :Line Items:
   +--------------------------------------+--------------+----------+------------+--------------+--------------+-----------------+------------+
   | Description                          | Product code | Quantity | Tax Amount | Tax Rate (%) | Total Amount | Unit of measure | Unit Price |
@@ -144,6 +157,7 @@ Page 0
 :Shipping Address:
 :Billing Address: 1954 Bloor Street West Toronto, ON, M6P 3K9 Canada
 :Document Type: INVOICE
+:Document Type Extended: INVOICE
 :Line Items:
   +--------------------------------------+--------------+----------+------------+--------------+--------------+-----------------+------------+
   | Description                          | Product code | Quantity | Tax Amount | Tax Rate (%) | Total Amount | Unit of measure | Unit Price |

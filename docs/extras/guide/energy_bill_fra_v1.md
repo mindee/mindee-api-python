@@ -11,6 +11,11 @@ Using the [sample below](https://github.com/mindee/client-lib-test-data/blob/mai
 
 # Quick-Start
 ```py
+#
+# Install the Python client library by running:
+# pip install mindee
+#
+
 from mindee import Client, product, AsyncPredictResponse
 
 # Init a new client
@@ -35,18 +40,18 @@ print(result.document)
 ########
 Document
 ########
-:Mindee ID: 17f0ccef-e3fe-4a28-838d-d704489d6ce7
+:Mindee ID: ff1f2ca8-4d29-44d8-a564-599a982a4ef7
 :Filename: default_sample.pdf
 
 Inference
 #########
-:Product: mindee/energy_bill_fra v1.0
-:Rotation applied: No
+:Product: mindee/energy_bill_fra v1.2
+:Rotation applied: Yes
 
 Prediction
 ==========
-:Invoice Number: 10123590373
-:Contract ID: 1234567890
+:Invoice Number: 1234567890
+:Contract ID: 9876543210
 :Delivery Point: 98765432109876
 :Invoice Date: 2021-01-29
 :Due Date: 2021-02-15
@@ -54,11 +59,11 @@ Prediction
 :Total Taxes: 238.82
 :Total Amount: 1479.85
 :Energy Supplier:
-  :Address: TSA 12345, 12345 DEMOCITY CEDEX, 75001 PARIS
+  :Address: TSA 12345, 12345 DEMOCITY CEDEX
   :Name: EDF
 :Energy Consumer:
-  :Address: 12 AVENUE DES RÊVES, RDC A 123 COUR FAUSSE A, 75000 PARIS
-  :Name: John Doe
+  :Address: 123 RUE DE L'IMAGINAIRE, 75001 PARIS
+  :Name: JOHN DOE
 :Subscription:
   +--------------------------------------+------------+------------+----------+-----------+------------+
   | Description                          | End Date   | Start Date | Tax Rate | Total     | Unit Price |
@@ -66,27 +71,27 @@ Prediction
   | Abonnement électricité               | 2021-02-28 | 2021-01-01 | 5.50     | 59.00     | 29.50      |
   +--------------------------------------+------------+------------+----------+-----------+------------+
 :Energy Usage:
-  +--------------------------------------+------------+------------+----------+-----------+------------+
-  | Description                          | End Date   | Start Date | Tax Rate | Total     | Unit Price |
-  +======================================+============+============+==========+===========+============+
-  | Consommation (HT)                    | 2021-01-27 | 2020-11-28 | 20.00    | 898.43    | 10.47      |
-  +--------------------------------------+------------+------------+----------+-----------+------------+
+  +-------------+--------------------------------------+------------+------------+----------+-----------+-----------------+------------+
+  | Consumption | Description                          | End Date   | Start Date | Tax Rate | Total     | Unit of Measure | Unit Price |
+  +=============+======================================+============+============+==========+===========+=================+============+
+  | 8581.00     | Consommation électricité             | 2021-01-27 | 2020-11-28 | 20.00    | 898.43    | kWh             | 0.1047     |
+  +-------------+--------------------------------------+------------+------------+----------+-----------+-----------------+------------+
 :Taxes and Contributions:
   +--------------------------------------+------------+------------+----------+-----------+------------+
   | Description                          | End Date   | Start Date | Tax Rate | Total     | Unit Price |
   +======================================+============+============+==========+===========+============+
-  | Contribution au Service Public de... | 2021-01-27 | 2020-11-28 | 20.00    | 193.07    | 2.25       |
+  | Contribution au Service Public de... | 2021-01-27 | 2020-11-28 | 20.00    | 193.07    | 0.0225     |
   +--------------------------------------+------------+------------+----------+-----------+------------+
-  | Départementale sur la Conso Final... | 2020-12-31 | 2020-11-28 | 20.00    | 13.98     | 0.3315     |
+  | Taxe Départementale sur la Conso ... | 2021-01-27 | 2020-11-28 | 20.00    | 13.98     | 0.003315   |
   +--------------------------------------+------------+------------+----------+-----------+------------+
-  | Communale sur la Conso Finale Ele... | 2021-01-27 | 2021-01-01 | 20.00    | 28.56     | 0.6545     |
+  | Taxe Communale sur la Conso Final... | 2021-01-27 | 2020-11-28 | 20.00    | 28.56     | 0.006545   |
   +--------------------------------------+------------+------------+----------+-----------+------------+
-  | Contribution Tarifaire d'Achemine... | 2020-12-31 | 2020-11-28 | 20.00    | 27.96     | 0.663      |
+  | Taxe Communale sur la Conso Final... | 2021-01-27 | 2020-11-28 | 20.00    | 27.96     | 0.00663    |
   +--------------------------------------+------------+------------+----------+-----------+------------+
 :Meter Details:
   :Meter Number: 620
   :Meter Type: electricity
-  :Unit of Measure: kWh
+  :Unit of Power: 36kVA
 ```
 
 # Field Types

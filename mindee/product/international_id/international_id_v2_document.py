@@ -9,7 +9,7 @@ from mindee.parsing.standard.text import StringField
 
 
 class InternationalIdV2Document(Prediction):
-    """International ID API version 2.1 document data."""
+    """International ID API version 2.2 document data."""
 
     address: StringField
     """The physical address of the document holder."""

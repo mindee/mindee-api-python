@@ -11,6 +11,11 @@ Using the [sample below](https://github.com/mindee/client-lib-test-data/blob/mai
 
 # Quick-Start
 ```py
+#
+# Install the Python client library by running:
+# pip install mindee
+#
+
 from mindee import Client, PredictResponse, product
 
 # Init a new client
@@ -20,8 +25,10 @@ mindee_client = Client(api_key="my-api-key")
 input_doc = mindee_client.source_from_path("/path/to/the/file.ext")
 
 # Load a file from disk and parse it.
-# The endpoint name must be specified since it cannot be determined from the class.
-result: PredictResponse = mindee_client.parse(product.FinancialDocumentV1, input_doc)
+result: PredictResponse = mindee_client.parse(
+    product.FinancialDocumentV1,
+    input_doc,
+)
 
 # Print a summary of the API result
 print(result.document)
@@ -34,6 +41,11 @@ print(result.document)
 You can also call this product asynchronously:
 
 ```py
+#
+# Install the Python client library by running:
+# pip install mindee
+#
+
 from mindee import Client, product, AsyncPredictResponse
 
 # Init a new client
@@ -58,12 +70,12 @@ print(result.document)
 ########
 Document
 ########
-:Mindee ID: a80ac0ee-26f6-4e2e-988a-960b240d5ba7
+:Mindee ID: f52333ab-811e-4647-993e-ad79e072afa3
 :Filename: default_sample.jpg
 
 Inference
 #########
-:Product: mindee/financial_document v1.11
+:Product: mindee/financial_document v1.12
 :Rotation applied: Yes
 
 Prediction
@@ -99,6 +111,7 @@ Prediction
 :Shipping Address: 2019 Redbud Drive New York, NY 10011
 :Billing Address: 4312 Wood Road New York, NY 10031
 :Document Type: INVOICE
+:Document Type Extended: INVOICE
 :Purchase Subcategory:
 :Purchase Category: miscellaneous
 :Total Tax: 9.75
@@ -151,6 +164,7 @@ Page 0
 :Shipping Address: 2019 Redbud Drive New York, NY 10011
 :Billing Address: 4312 Wood Road New York, NY 10031
 :Document Type: INVOICE
+:Document Type Extended: INVOICE
 :Purchase Subcategory:
 :Purchase Category: miscellaneous
 :Total Tax: 9.75

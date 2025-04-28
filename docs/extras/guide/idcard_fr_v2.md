@@ -11,6 +11,11 @@ Using the [sample below](https://github.com/mindee/client-lib-test-data/blob/mai
 
 # Quick-Start
 ```py
+#
+# Install the Python client library by running:
+# pip install mindee
+#
+
 from mindee import Client, PredictResponse, product
 
 # Init a new client
@@ -20,8 +25,10 @@ mindee_client = Client(api_key="my-api-key")
 input_doc = mindee_client.source_from_path("/path/to/the/file.ext")
 
 # Load a file from disk and parse it.
-# The endpoint name must be specified since it cannot be determined from the class.
-result: PredictResponse = mindee_client.parse(product.fr.IdCardV2, input_doc)
+result: PredictResponse = mindee_client.parse(
+    product.fr.IdCardV2,
+    input_doc,
+)
 
 # Print a summary of the API result
 print(result.document)
