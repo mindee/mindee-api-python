@@ -80,4 +80,5 @@ class Execution(Generic[TypePrediction]):
         """Shorthand to parse the date, if present."""
         if not date_string:
             return None
+        date_string = date_string.replace("Z", "+00:00")
         return datetime.fromisoformat(date_string)
