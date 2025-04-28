@@ -1,9 +1,15 @@
+#
+# Install the Python client library by running:
+# pip install mindee
+#
+
 from mindee import Client, PredictResponse, product
 
 # Init a new client
 mindee_client = Client(api_key="my-api-key")
 
-# Add the corresponding endpoint (document). Set the account_name to "mindee" if you are using OTS.
+# Add the corresponding endpoint (document).
+# Set the account_name to "mindee" if you are using OTS.
 my_endpoint = mindee_client.create_endpoint(
     account_name="my-account",
     endpoint_name="my-endpoint",

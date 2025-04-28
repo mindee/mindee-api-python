@@ -108,12 +108,18 @@
   <section id="generated-v1">
 <h1>Generated V1<a class="headerlink" href="#generated-v1" title="Permalink to this heading"></a></h1>
 <p><strong>Sample Code (sync):</strong></p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">mindee</span><span class="w"> </span><span class="kn">import</span> <span class="n">Client</span><span class="p">,</span> <span class="n">PredictResponse</span><span class="p">,</span> <span class="n">product</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1">#</span>
+<span class="c1"># Install the Python client library by running:</span>
+<span class="c1"># pip install mindee</span>
+<span class="c1">#</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">mindee</span><span class="w"> </span><span class="kn">import</span> <span class="n">Client</span><span class="p">,</span> <span class="n">PredictResponse</span><span class="p">,</span> <span class="n">product</span>
 
 <span class="c1"># Init a new client</span>
 <span class="n">mindee_client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;my-api-key&quot;</span><span class="p">)</span>
 
-<span class="c1"># Add the corresponding endpoint (document). Set the account_name to &quot;mindee&quot; if you are using OTS.</span>
+<span class="c1"># Add the corresponding endpoint (document).</span>
+<span class="c1"># Set the account_name to &quot;mindee&quot; if you are using OTS.</span>
 <span class="n">my_endpoint</span> <span class="o">=</span> <span class="n">mindee_client</span><span class="o">.</span><span class="n">create_endpoint</span><span class="p">(</span>
     <span class="n">account_name</span><span class="o">=</span><span class="s2">&quot;my-account&quot;</span><span class="p">,</span>
     <span class="n">endpoint_name</span><span class="o">=</span><span class="s2">&quot;my-endpoint&quot;</span><span class="p">,</span>
@@ -140,12 +146,18 @@
 </pre></div>
 </div>
 <p><strong>Sample Code (async):</strong></p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">mindee</span><span class="w"> </span><span class="kn">import</span> <span class="n">Client</span><span class="p">,</span> <span class="n">AsyncPredictResponse</span><span class="p">,</span> <span class="n">product</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1">#</span>
+<span class="c1"># Install the Python client library by running:</span>
+<span class="c1"># pip install mindee</span>
+<span class="c1">#</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">mindee</span><span class="w"> </span><span class="kn">import</span> <span class="n">Client</span><span class="p">,</span> <span class="n">AsyncPredictResponse</span><span class="p">,</span> <span class="n">product</span>
 
 <span class="c1"># Init a new client</span>
 <span class="n">mindee_client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;my-api-key&quot;</span><span class="p">)</span>
 
-<span class="c1"># Add the corresponding endpoint (document). Set the account_name to &quot;mindee&quot; if you are using OTS.</span>
+<span class="c1"># Add the corresponding endpoint (document).</span>
+<span class="c1"># Set the account_name to &quot;mindee&quot; if you are using OTS.</span>
 <span class="n">my_endpoint</span> <span class="o">=</span> <span class="n">mindee_client</span><span class="o">.</span><span class="n">create_endpoint</span><span class="p">(</span>
     <span class="n">account_name</span><span class="o">=</span><span class="s2">&quot;my-account&quot;</span><span class="p">,</span>
     <span class="n">endpoint_name</span><span class="o">=</span><span class="s2">&quot;my-endpoint&quot;</span><span class="p">,</span>

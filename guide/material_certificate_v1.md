@@ -11,6 +11,11 @@ The [sample below](https://github.com/mindee/client-lib-test-data/blob/main/prod
 
 # Quick-Start
 ```py
+#
+# Install the Python client library by running:
+# pip install mindee
+#
+
 from mindee import Client, product, AsyncPredictResponse
 
 # Init a new client
