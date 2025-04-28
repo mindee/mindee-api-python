@@ -561,8 +561,9 @@ parameter.
             version = "1"
         return self._build_endpoint(endpoint_name, account_name, version)
 
+    @staticmethod
     def source_from_path(
-        self, input_path: Union[Path, str], fix_pdf: bool = False
+        input_path: Union[Path, str], fix_pdf: bool = False
     ) -> PathInput:
         """
         Load a document from an absolute path, as a string.
@@ -576,9 +577,8 @@ parameter.
             input_doc.fix_pdf()
         return input_doc
 
-    def source_from_file(
-        self, input_file: BinaryIO, fix_pdf: bool = False
-    ) -> FileInput:
+    @staticmethod
+    def source_from_file(input_file: BinaryIO, fix_pdf: bool = False) -> FileInput:
         """
         Load a document from a normal Python file object/handle.
 
@@ -591,8 +591,9 @@ parameter.
             input_doc.fix_pdf()
         return input_doc
 
+    @staticmethod
     def source_from_b64string(
-        self, input_string: str, filename: str, fix_pdf: bool = False
+        input_string: str, filename: str, fix_pdf: bool = False
     ) -> Base64Input:
         """
         Load a document from a base64 encoded string.
@@ -607,8 +608,9 @@ parameter.
             input_doc.fix_pdf()
         return input_doc
 
+    @staticmethod
     def source_from_bytes(
-        self, input_bytes: bytes, filename: str, fix_pdf: bool = False
+        input_bytes: bytes, filename: str, fix_pdf: bool = False
     ) -> BytesInput:
         """
         Load a document from raw bytes.
@@ -623,8 +625,8 @@ parameter.
             input_doc.fix_pdf()
         return input_doc
 
+    @staticmethod
     def source_from_url(
-        self,
         url: str,
     ) -> UrlInputSource:
         """
