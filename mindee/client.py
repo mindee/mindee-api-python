@@ -7,6 +7,7 @@ from mindee.error.mindee_http_error import handle_error
 from mindee.input import WorkflowOptions
 from mindee.input.local_response import LocalResponse
 from mindee.input.page_options import PageOptions
+from mindee.input.predict_options import AsyncPredictOptions, PredictOptions
 from mindee.input.sources.base_64_input import Base64Input
 from mindee.input.sources.bytes_input import BytesInput
 from mindee.input.sources.file_input import FileInput
@@ -123,14 +124,13 @@ class Client:
                     page_options.on_min_pages,
                     page_options.page_indexes,
                 )
+        options = PredictOptions(cropper, full_text, include_words)
         return self._make_request(
             product_class,
             input_source,
             endpoint,
-            include_words,
+            options,
             close_file,
-            cropper,
-            full_text,
         )
 
     def enqueue(
@@ -143,6 +143,8 @@ class Client:
         cropper: bool = False,
         endpoint: Optional[Endpoint] = None,
         full_text: bool = False,
+        workflow_id: Optional[str] = None,
+        rag: bool = False,
     ) -> AsyncPredictResponse:
         """
         Enqueues a document to an asynchronous endpoint.
@@ -169,6 +171,11 @@ class Client:
         :param endpoint: For custom endpoints, an endpoint has to be given.
 
         :param full_text: Whether to include the full OCR text response in compatible APIs.
+
+        :param workflow_id: Workflow ID.
+
+        :param rag: If set, will enable Retrieval-Augmented Generation.
+            Only works if a valid ``workflow_id`` is set.
         """
         if input_source is None:
             raise MindeeClientError("No input document provided.")
@@ -185,14 +192,15 @@ class Client:
                     page_options.on_min_pages,
                     page_options.page_indexes,
                 )
+        options = AsyncPredictOptions(
+            cropper, full_text, include_words, workflow_id, rag
+        )
         return self._predict_async(
             product_class,
             input_source,
+            options,
             endpoint,
-            include_words,
             close_file,
-            cropper,
-            full_text,
         )
 
     def load_prediction(
@@ -246,8 +254,9 @@ class Client:
         :param input_source: The document/source file to use.
             Has to be created beforehand.
         :param workflow_id: ID of the workflow.
-        :param page_options: If set, remove pages from the document as specified. This is done before sending the file\
- to the server. It is useful to avoid page limitations.
+        :param page_options: If set, remove pages from the document as specified.
+            This is done before sending the file to the server.
+            It is useful to avoid page limitations.
         :param options: Options for the workflow.
         :return:
         """
@@ -259,13 +268,11 @@ class Client:
                     page_options.page_indexes,
                 )
 
-        logger.debug("Sending document to workflow: %s", workflow_id)
-
         if not options:
             options = WorkflowOptions(
                 alias=None, priority=None, full_text=False, public_url=None, rag=False
             )
-
+        logger.debug("Sending document to workflow: %s", workflow_id)
         return self._send_to_workflow(GeneratedV1, input_source, workflow_id, options)
 
     def _validate_async_params(
@@ -285,7 +292,7 @@ class Client:
         if max_retries < min_retries:
             raise MindeeClientError(f"Cannot set retries to less than {min_retries}.")
 
-    def enqueue_and_parse(
+    def enqueue_and_parse(  # pylint: disable=too-many-locals
         self,
         product_class: Type[Inference],
         input_source: Union[LocalInputSource, UrlInputSource],
@@ -298,40 +305,51 @@ class Client:
         delay_sec: float = 1.5,
         max_retries: int = 80,
         full_text: bool = False,
+        workflow_id: Optional[str] = None,
+        rag: bool = False,
     ) -> AsyncPredictResponse:
         """
         Enqueues to an asynchronous endpoint and automatically polls for a response.
 
-        :param product_class: The document class to use. The response object will be instantiated based on this\
-parameter.
+        :param product_class: The document class to use.
+            The response object will be instantiated based on this parameter.
 
-        :param input_source: The document/source file to use. Has to be created beforehand.
+        :param input_source: The document/source file to use.
+            Has to be created beforehand.
 
-        :param include_words: Whether to include the full text for each page. This performs a full OCR operation on\
- the server and will increase response time.
+        :param include_words: Whether to include the full text for each page.
+            This performs a full OCR operation on the server and will increase response time.
 
-        :param close_file: Whether to ``close()`` the file after parsing it. Set to ``False`` if you need to access\
- the file after this operation.
+        :param close_file: Whether to ``close()`` the file after parsing it.
+            Set to ``False`` if you need to access the file after this operation.
 
-        :param page_options: If set, remove pages from the document as specified. This is done before sending the file\
- to the server. It is useful to avoid page limitations.
+        :param page_options: If set, remove pages from the document as specified.
+            This is done before sending the file to the server.
+            It is useful to avoid page limitations.
 
-        :param cropper: Whether to include cropper results for each page. This performs a cropping operation on the\
- server and will increase response time.
+        :param cropper: Whether to include cropper results for each page.
+            This performs a cropping operation on the server and will increase response time.
 
         :param endpoint: For custom endpoints, an endpoint has to be given.
 
-        :param initial_delay_sec: Delay between each polling attempts This should not be shorter than 1 second.
+        :param initial_delay_sec: Delay between each polling attempts.
+            This should not be shorter than 1 second.
 
-        :param delay_sec: Delay between each polling attempts This should not be shorter than 1 second.
+        :param delay_sec: Delay between each polling attempts.
+            This should not be shorter than 1 second.
 
         :param max_retries: Total amount of polling attempts.
 
         :param full_text: Whether to include the full OCR text response in compatible APIs.
+
+        :param workflow_id: Workflow ID.
+
+        :param rag: If set, will enable Retrieval-Augmented Generation.
+            Only works if a valid ``workflow_id`` is set.
         """
         self._validate_async_params(initial_delay_sec, delay_sec, max_retries)
         if not endpoint:
-            endpoint = self._initialize_ots_endpoint(product_class)
+            endpoint = self._initialize_ots_endpoint(product_class=product_class)
         queue_result = self.enqueue(
             product_class,
             input_source,
@@ -341,6 +359,8 @@ parameter.
             cropper,
             endpoint,
             full_text,
+            workflow_id,
+            rag,
         )
         logger.debug(
             "Successfully enqueued document with job id: %s", queue_result.job.id
@@ -406,15 +426,16 @@ parameter.
         product_class: Type[Inference],
         input_source: Union[LocalInputSource, UrlInputSource],
         endpoint: Endpoint,
-        include_words: bool,
+        options: PredictOptions,
         close_file: bool,
-        cropper: bool,
-        full_text: bool,
     ) -> PredictResponse:
         response = endpoint.predict_req_post(
-            input_source, include_words, close_file, cropper, full_text
+            input_source,
+            options.include_words,
+            close_file,
+            options.cropper,
+            options.full_text,
         )
-
         dict_response = response.json()
 
         if not is_valid_sync_response(response):
@@ -423,18 +444,15 @@ parameter.
                 str(product_class.endpoint_name),
                 clean_response,
             )
-
         return PredictResponse(product_class, dict_response)
 
     def _predict_async(
         self,
         product_class: Type[Inference],
         input_source: Union[LocalInputSource, UrlInputSource],
+        options: AsyncPredictOptions,
         endpoint: Optional[Endpoint] = None,
-        include_words: bool = False,
         close_file: bool = True,
-        cropper: bool = False,
-        full_text: bool = False,
     ) -> AsyncPredictResponse:
         """Sends a document to the queue, and sends back an asynchronous predict response."""
         if input_source is None:
@@ -442,9 +460,14 @@ parameter.
         if not endpoint:
             endpoint = self._initialize_ots_endpoint(product_class)
         response = endpoint.predict_async_req_post(
-            input_source, include_words, close_file, cropper, full_text
+            input_source=input_source,
+            include_words=options.include_words,
+            close_file=close_file,
+            cropper=options.cropper,
+            full_text=options.full_text,
+            workflow_id=options.workflow_id,
+            rag=options.rag,
         )
-
         dict_response = response.json()
 
         if not is_valid_async_response(response):

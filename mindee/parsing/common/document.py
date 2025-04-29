@@ -29,9 +29,9 @@ class Document(Generic[TypePrediction, TypePage]):
     """Result of the base inference"""
     id: str
     """Id of the document as sent back by the server"""
-    extras: Optional[Extras]
+    extras: Optional[Extras] = None
     """Potential Extras fields sent back along the prediction"""
-    ocr: Optional[Ocr]
+    ocr: Optional[Ocr] = None
     """Potential raw text results read by the OCR (limited feature)"""
     n_pages: int
     """Amount of pages in the document"""

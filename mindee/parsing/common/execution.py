@@ -16,7 +16,7 @@ class Execution(Generic[TypePrediction]):
     batch_name: str
     """Identifier for the batch to which the execution belongs."""
 
-    created_at: Optional[datetime]
+    created_at: Optional[datetime] = None
     """The time at which the execution started."""
 
     file: ExecutionFile
@@ -28,7 +28,7 @@ class Execution(Generic[TypePrediction]):
     inference: Optional[Inference[TypePrediction, Page[TypePrediction]]]
     """Deserialized inference object."""
 
-    priority: Optional["ExecutionPriority"]
+    priority: Optional["ExecutionPriority"] = None
     """Priority of the execution."""
 
     reviewed_at: Optional[datetime]
@@ -37,7 +37,7 @@ class Execution(Generic[TypePrediction]):
     available_at: Optional[datetime]
     """The time at which the file was uploaded to a workflow."""
 
-    reviewed_prediction: Optional["GeneratedV1Document"]
+    reviewed_prediction: Optional["GeneratedV1Document"] = None
     """Reviewed fields and values."""
 
     status: str
@@ -46,7 +46,7 @@ class Execution(Generic[TypePrediction]):
     type: Optional[str]
     """Execution type."""
 
-    uploaded_at: Optional[datetime]
+    uploaded_at: Optional[datetime] = None
     """The time at which the file was uploaded to a workflow."""
 
     workflow_id: str
