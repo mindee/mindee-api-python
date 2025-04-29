@@ -1,5 +1,10 @@
 # Mindee Python API Library Changelog
 
+## v4.22.0 - 2025-04-29
+### Changes
+* :sparkles: add support for workflow polling
+
+
 ## v4.21.1 - 2025-04-28
 ### Fixes
 * :bug: fix for Python 3.10 and lower: server uses 'Z' in date string
@@ -7,7 +12,7 @@
 
 ## v4.21.0 - 2025-04-16
 ### Changes
-* :sparkles: add support for RAG parameter in workflow executions (#319)
+* :sparkles: add support for RAG parameter in workflow executions
 
 
 ## v4.20.0 - 2025-04-08
