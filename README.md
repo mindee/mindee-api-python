@@ -43,17 +43,23 @@ input_doc = mindee_client.source_from_file(my_file)
 
 A URL (`HTTPS` only):
 ```python
-input_doc = mindee_client.source_from_url("https://files.readme.io/a74eaa5-c8e283b-sample_invoice.jpeg")
+input_doc = mindee_client.source_from_url(
+    "https://files.readme.io/a74eaa5-c8e283b-sample_invoice.jpeg"
+)
 ```
 
 A base64-encoded string, making sure to specify the extension of the file name:
 ```python
-input_doc = mindee_client.source_from_b64string(my_input_string, "my-file-name.ext")
+input_doc = mindee_client.source_from_b64string(
+    my_input_string, "my-file-name.ext"
+)
 ```
 
 Raw bytes, making sure to specify the extension of the file name:
 ```python
-input_doc = mindee_client.source_from_bytes(my_raw_bytes_sequence, "my-file-name.ext")
+input_doc = mindee_client.source_from_bytes(
+    my_raw_bytes_sequence, "my-file-name.ext"
+)
 ```
 
 #### Region-Specific Documents
@@ -110,7 +116,19 @@ for field_name, field_values in result.document.fields.items():
 This is an optional way of handling asynchronous APIs.
 
 ```python
+from mindee import Client, product
 
+mindee_client = Client()
+input_source = mindee_client.source_from_path("/path/to/the/file.ext")
+
+result = mindee_client.enqueue_and_parse(
+    product.FinancialDocumentV1,
+    input_source,
+    workflow_id="my-workflow-id",
+    rag=True,
+)
+
+print(result.document)
 ```
 
 ### Additional Options
@@ -119,13 +137,8 @@ Options to pass when sending a file.
 from mindee import Client, product
 from mindee.client import LocalResponse
 
-# Init a new client
 mindee_client = Client()
-
-# Load a file from disk
 input_source = mindee_client.source_from_path("/path/to/the/file.ext")
-
-# Parse the file
 
 enqueue_response = mindee_client.enqueue(
     product.InternationalIdV2,
