@@ -3,7 +3,6 @@ from typing import List, Optional
 from mindee.parsing.common.prediction import Prediction
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string
-from mindee.parsing.standard.address import AddressField
 from mindee.parsing.standard.amount import AmountField
 from mindee.parsing.standard.classification import ClassificationField
 from mindee.parsing.standard.company_registration import CompanyRegistrationField
@@ -31,7 +30,7 @@ class ReceiptV5Document(Prediction):
     """The receipt number or identifier."""
     subcategory: ClassificationField
     """The purchase subcategory of the receipt for transport and food."""
-    supplier_address: AddressField
+    supplier_address: StringField
     """The address of the supplier or merchant."""
     supplier_company_registrations: List[CompanyRegistrationField]
     """List of company registration numbers associated to the supplier."""
@@ -92,7 +91,7 @@ class ReceiptV5Document(Prediction):
             raw_prediction["subcategory"],
             page_id=page_id,
         )
-        self.supplier_address = AddressField(
+        self.supplier_address = StringField(
             raw_prediction["supplier_address"],
             page_id=page_id,
         )

@@ -3,7 +3,6 @@ from typing import Optional
 from mindee.parsing.common.prediction import Prediction
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string
-from mindee.parsing.standard.address import AddressField
 from mindee.parsing.standard.amount import AmountField
 from mindee.parsing.standard.date import DateField
 from mindee.parsing.standard.text import StringField
@@ -12,7 +11,7 @@ from mindee.parsing.standard.text import StringField
 class DeliveryNoteV1Document(Prediction):
     """Delivery note API version 1.2 document data."""
 
-    customer_address: AddressField
+    customer_address: StringField
     """The address of the customer receiving the goods."""
     customer_name: StringField
     """The name of the customer receiving the goods."""
@@ -20,7 +19,7 @@ class DeliveryNoteV1Document(Prediction):
     """The date on which the delivery is scheduled to arrive."""
     delivery_number: StringField
     """A unique identifier for the delivery note."""
-    supplier_address: AddressField
+    supplier_address: StringField
     """The address of the supplier providing the goods."""
     supplier_name: StringField
     """The name of the supplier providing the goods."""
@@ -39,7 +38,7 @@ class DeliveryNoteV1Document(Prediction):
         :param page_id: Page number for multi pages pdf input
         """
         super().__init__(raw_prediction, page_id)
-        self.customer_address = AddressField(
+        self.customer_address = StringField(
             raw_prediction["customer_address"],
             page_id=page_id,
         )
@@ -55,7 +54,7 @@ class DeliveryNoteV1Document(Prediction):
             raw_prediction["delivery_number"],
             page_id=page_id,
         )
-        self.supplier_address = AddressField(
+        self.supplier_address = StringField(
             raw_prediction["supplier_address"],
             page_id=page_id,
         )
