@@ -8,6 +8,7 @@ class StringField(FieldPositionMixin, BaseField):
     """A field containing a text value."""
 
     value: Optional[str]
+    """Value of the string."""
     raw_value: Optional[str]
     """The value as it appears on the document."""
 
