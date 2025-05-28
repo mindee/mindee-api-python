@@ -70,12 +70,12 @@ print(result.document)
 ########
 Document
 ########
-:Mindee ID: 3e524d26-f7dc-4852-9bbf-833a127a9570
+:Mindee ID: 744748d5-9051-461c-b70c-bbf81f5ff943
 :Filename: default_sample.jpg
 
 Inference
 #########
-:Product: mindee/invoices v4.10
+:Product: mindee/invoices v4.11
 :Rotation applied: Yes
 
 Prediction
@@ -111,6 +111,8 @@ Prediction
 :Billing Address: 1954 Bloor Street West Toronto, ON, M6P 3K9 Canada
 :Document Type: INVOICE
 :Document Type Extended: INVOICE
+:Purchase Subcategory:
+:Purchase Category: miscellaneous
 :Line Items:
   +--------------------------------------+--------------+----------+------------+--------------+--------------+-----------------+------------+
   | Description                          | Product code | Quantity | Tax Amount | Tax Rate (%) | Total Amount | Unit of measure | Unit Price |
@@ -158,6 +160,8 @@ Page 0
 :Billing Address: 1954 Bloor Street West Toronto, ON, M6P 3K9 Canada
 :Document Type: INVOICE
 :Document Type Extended: INVOICE
+:Purchase Subcategory:
+:Purchase Category: miscellaneous
 :Line Items:
   +--------------------------------------+--------------+----------+------------+--------------+--------------+-----------------+------------+
   | Description                          | Product code | Quantity | Tax Amount | Tax Rate (%) | Total Amount | Unit of measure | Unit Price |
@@ -264,14 +268,33 @@ A `InvoiceV4LineItem` implements the following attributes:
 The following fields are extracted for Invoice V4:
 
 ## Billing Address
-**billing_address** ([StringField](#stringfield)): The customer billing address.
+**billing_address** ([AddressField](#addressfield)): The customer billing address.
 
 ```py
 print(result.document.inference.prediction.billing_address.value)
 ```
 
+## Purchase Category
+**category** ([ClassificationField](#classificationfield)): The purchase category.
+
+#### Possible values include:
+ - 'toll'
+ - 'food'
+ - 'parking'
+ - 'transport'
+ - 'accommodation'
+ - 'telecom'
+ - 'miscellaneous'
+ - 'software'
+ - 'shopping'
+ - 'energy'
+
+```py
+print(result.document.inference.prediction.category.value)
+```
+
 ## Customer Address
-**customer_address** ([StringField](#stringfield)): The address of the customer.
+**customer_address** ([AddressField](#addressfield)): The address of the customer.
 
 ```py
 print(result.document.inference.prediction.customer_address.value)
@@ -387,14 +410,38 @@ for reference_numbers_elem in result.document.inference.prediction.reference_num
 ```
 
 ## Shipping Address
-**shipping_address** ([StringField](#stringfield)): Customer's delivery address.
+**shipping_address** ([AddressField](#addressfield)): Customer's delivery address.
 
 ```py
 print(result.document.inference.prediction.shipping_address.value)
 ```
 
+## Purchase Subcategory
+**subcategory** ([ClassificationField](#classificationfield)): The purchase subcategory for transport, food and shopping.
+
+#### Possible values include:
+ - 'plane'
+ - 'taxi'
+ - 'train'
+ - 'restaurant'
+ - 'shopping'
+ - 'other'
+ - 'groceries'
+ - 'cultural'
+ - 'electronics'
+ - 'office_supplies'
+ - 'micromobility'
+ - 'car_rental'
+ - 'public'
+ - 'delivery'
+ - None
+
+```py
+print(result.document.inference.prediction.subcategory.value)
+```
+
 ## Supplier Address
-**supplier_address** ([StringField](#stringfield)): The address of the supplier or merchant.
+**supplier_address** ([AddressField](#addressfield)): The address of the supplier or merchant.
 
 ```py
 print(result.document.inference.prediction.supplier_address.value)

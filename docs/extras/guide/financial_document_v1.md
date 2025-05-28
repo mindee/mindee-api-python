@@ -70,12 +70,12 @@ print(result.document)
 ########
 Document
 ########
-:Mindee ID: f52333ab-811e-4647-993e-ad79e072afa3
+:Mindee ID: 6dd26385-719b-4527-bf6f-87d9da619de5
 :Filename: default_sample.jpg
 
 Inference
 #########
-:Product: mindee/financial_document v1.12
+:Product: mindee/financial_document v1.14
 :Rotation applied: Yes
 
 Prediction
@@ -276,14 +276,14 @@ A `FinancialDocumentV1LineItem` implements the following attributes:
 The following fields are extracted for Financial Document V1:
 
 ## Billing Address
-**billing_address** ([StringField](#stringfield)): The customer's address used for billing.
+**billing_address** ([AddressField](#addressfield)): The customer's address used for billing.
 
 ```py
 print(result.document.inference.prediction.billing_address.value)
 ```
 
 ## Purchase Category
-**category** ([ClassificationField](#classificationfield)): The purchase category, only for receipts.
+**category** ([ClassificationField](#classificationfield)): The purchase category.
 
 #### Possible values include:
  - 'toll'
@@ -294,13 +294,16 @@ print(result.document.inference.prediction.billing_address.value)
  - 'gasoline'
  - 'telecom'
  - 'miscellaneous'
+ - 'software'
+ - 'shopping'
+ - 'energy'
 
 ```py
 print(result.document.inference.prediction.category.value)
 ```
 
 ## Customer Address
-**customer_address** ([StringField](#stringfield)): The address of the customer.
+**customer_address** ([AddressField](#addressfield)): The address of the customer.
 
 ```py
 print(result.document.inference.prediction.customer_address.value)
@@ -432,14 +435,14 @@ for reference_numbers_elem in result.document.inference.prediction.reference_num
 ```
 
 ## Shipping Address
-**shipping_address** ([StringField](#stringfield)): The customer's address used for shipping.
+**shipping_address** ([AddressField](#addressfield)): The customer's address used for shipping.
 
 ```py
 print(result.document.inference.prediction.shipping_address.value)
 ```
 
 ## Purchase Subcategory
-**subcategory** ([ClassificationField](#classificationfield)): The purchase subcategory for transport and food, only for receipts.
+**subcategory** ([ClassificationField](#classificationfield)): The purchase subcategory for transport, food and shooping.
 
 #### Possible values include:
  - 'plane'
@@ -447,6 +450,15 @@ print(result.document.inference.prediction.shipping_address.value)
  - 'train'
  - 'restaurant'
  - 'shopping'
+ - 'other'
+ - 'groceries'
+ - 'cultural'
+ - 'electronics'
+ - 'office_supplies'
+ - 'micromobility'
+ - 'car_rental'
+ - 'public'
+ - 'delivery'
  - None
 
 ```py
@@ -454,7 +466,7 @@ print(result.document.inference.prediction.subcategory.value)
 ```
 
 ## Supplier Address
-**supplier_address** ([StringField](#stringfield)): The address of the supplier or merchant.
+**supplier_address** ([AddressField](#addressfield)): The address of the supplier or merchant.
 
 ```py
 print(result.document.inference.prediction.supplier_address.value)

@@ -11,12 +11,12 @@ from mindee.parsing.standard.base import (
 
 
 class HealthcareCardV1Copay(FieldPositionMixin, FieldConfidenceMixin):
-    """Is a fixed amount for a covered service."""
+    """Copayments for covered services."""
 
     service_fees: Optional[float]
-    """The price of service."""
+    """The price of the service."""
     service_name: Optional[str]
-    """The name of service of the copay."""
+    """The name of the service."""
     page_n: int
     """The document page on which the information was found."""
 

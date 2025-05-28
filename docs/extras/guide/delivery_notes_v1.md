@@ -95,7 +95,7 @@ The text field `StringField` only has one constraint: its **value** is an `Optio
 The following fields are extracted for Delivery note V1:
 
 ## Customer Address
-**customer_address** ([StringField](#stringfield)): The address of the customer receiving the goods.
+**customer_address** ([AddressField](#addressfield)): The address of the customer receiving the goods.
 
 ```py
 print(result.document.inference.prediction.customer_address.value)
@@ -123,7 +123,7 @@ print(result.document.inference.prediction.delivery_number.value)
 ```
 
 ## Supplier Address
-**supplier_address** ([StringField](#stringfield)): The address of the supplier providing the goods.
+**supplier_address** ([AddressField](#addressfield)): The address of the supplier providing the goods.
 
 ```py
 print(result.document.inference.prediction.supplier_address.value)

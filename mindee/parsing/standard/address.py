@@ -60,3 +60,6 @@ class AddressField(StringField):
             self.city = raw_prediction["state"]
         if raw_prediction.get("country"):
             self.city = raw_prediction["country"]
+
+    def __str__(self) -> str:
+        return self.value if self.value else ""

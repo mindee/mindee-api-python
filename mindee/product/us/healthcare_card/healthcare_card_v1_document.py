@@ -11,12 +11,12 @@ from mindee.product.us.healthcare_card.healthcare_card_v1_copay import (
 
 
 class HealthcareCardV1Document(Prediction):
-    """Healthcare Card API version 1.2 document data."""
+    """Healthcare Card API version 1.3 document data."""
 
     company_name: StringField
     """The name of the company that provides the healthcare plan."""
     copays: List[HealthcareCardV1Copay]
-    """Is a fixed amount for a covered service."""
+    """Copayments for covered services."""
     dependents: List[StringField]
     """The list of dependents covered by the healthcare plan."""
     enrollment_date: DateField
@@ -31,6 +31,8 @@ class HealthcareCardV1Document(Prediction):
     """The name of the member covered by the healthcare plan."""
     payer_id: StringField
     """The unique identifier for the payer in the healthcare system."""
+    plan_name: StringField
+    """The name of the healthcare plan."""
     rx_bin: StringField
     """The BIN number for prescription drug coverage."""
     rx_grp: StringField
@@ -88,6 +90,10 @@ class HealthcareCardV1Document(Prediction):
             raw_prediction["payer_id"],
             page_id=page_id,
         )
+        self.plan_name = StringField(
+            raw_prediction["plan_name"],
+            page_id=page_id,
+        )
         self.rx_bin = StringField(
             raw_prediction["rx_bin"],
             page_id=page_id,
@@ -133,6 +139,7 @@ class HealthcareCardV1Document(Prediction):
             [str(item) for item in self.dependents],
         )
         out_str: str = f":Company Name: {self.company_name}\n"
+        out_str += f":Plan Name: {self.plan_name}\n"
         out_str += f":Member Name: {self.member_name}\n"
         out_str += f":Member ID: {self.member_id}\n"
         out_str += f":Issuer 80840: {self.issuer_80840}\n"
@@ -143,6 +150,6 @@ class HealthcareCardV1Document(Prediction):
         out_str += f":RX ID: {self.rx_id}\n"
         out_str += f":RX GRP: {self.rx_grp}\n"
         out_str += f":RX PCN: {self.rx_pcn}\n"
-        out_str += f":copays: {self._copays_to_str()}\n"
+        out_str += f":Copays: {self._copays_to_str()}\n"
         out_str += f":Enrollment Date: {self.enrollment_date}\n"
         return clean_out_string(out_str)

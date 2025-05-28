@@ -237,6 +237,9 @@ The following fields are extracted for Receipt V5:
  - 'gasoline'
  - 'telecom'
  - 'miscellaneous'
+ - 'software'
+ - 'shopping'
+ - 'energy'
 
 ```py
 print(result.document.inference.prediction.category.value)
@@ -291,6 +294,15 @@ print(result.document.inference.prediction.receipt_number.value)
  - 'train'
  - 'restaurant'
  - 'shopping'
+ - 'other'
+ - 'groceries'
+ - 'cultural'
+ - 'electronics'
+ - 'office_supplies'
+ - 'micromobility'
+ - 'car_rental'
+ - 'public'
+ - 'delivery'
  - None
 
 ```py
@@ -298,7 +310,7 @@ print(result.document.inference.prediction.subcategory.value)
 ```
 
 ## Supplier Address
-**supplier_address** ([StringField](#stringfield)): The address of the supplier or merchant.
+**supplier_address** ([AddressField](#addressfield)): The address of the supplier or merchant.
 
 ```py
 print(result.document.inference.prediction.supplier_address.value)

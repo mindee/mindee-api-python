@@ -7,6 +7,7 @@ from mindee.error.mindee_error import MindeeClientError, MindeeError
 from mindee.error.mindee_http_error import MindeeHTTPError
 from mindee.input.local_response import LocalResponse
 from mindee.input.sources.local_input_source import LocalInputSource
+from mindee.product import MultiReceiptsDetectorV1
 from mindee.product.international_id.international_id_v2 import InternationalIdV2
 from mindee.product.invoice.invoice_v4 import InvoiceV4
 from mindee.product.invoice_splitter.invoice_splitter_v1 import InvoiceSplitterV1
@@ -121,11 +122,16 @@ def test_async_wrong_polling_delay(dummy_client: Client):
 
 def test_local_response_from_sync_json(dummy_client: Client):
     input_file = LocalResponse(
-        PRODUCT_DATA_DIR / "invoices" / "response_v4" / "complete.json"
+        PRODUCT_DATA_DIR / "multi_receipts_detector" / "response_v1" / "complete.json"
     )
-    with open(PRODUCT_DATA_DIR / "invoices" / "response_v4" / "summary_full.rst") as f:
+    with open(
+        PRODUCT_DATA_DIR
+        / "multi_receipts_detector"
+        / "response_v1"
+        / "summary_full.rst"
+    ) as f:
         reference_doc = f.read()
-    result = dummy_client.load_prediction(InvoiceV4, input_file)
+    result = dummy_client.load_prediction(MultiReceiptsDetectorV1, input_file)
     assert isinstance(result, PredictResponse)
     assert str(result.document) == reference_doc
 
