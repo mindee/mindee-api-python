@@ -195,6 +195,21 @@ A typical `BaseField` object will have the following attributes:
 Aside from the previous attributes, all basic fields have access to a custom `__str__` method that can be used to print their value as a string.
 
 
+### AddressField
+Aside from the basic `BaseField` attributes, the address field `AddressField` also implements the following:
+
+* **street_number** (`str`): String representation of the string number. Can be `None`.
+* **street_name** (`str`): Name of the street. Can be `None`.
+* **po_box** (`str`): String representation of the PO Box number. Can be `None`.
+* **address_complement** (`str`): Address complement. Can be `None`.
+* **city** (`str`): City name. Can be `None`.
+* **postal_code** (`str`): String representation of the postal code. Can be `None`.
+* **state** (`str`): State name. Can be `None`.
+* **country** (`str`): Country name. Can be `None`.
+
+Note: The `value` field of an AddressField should be a concatenation of the rest of the values.
+
+
 ### AmountField
 The amount field `AmountField` only has one constraint: its **value** is an `Optional[float]`.
 
