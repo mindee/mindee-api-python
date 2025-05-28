@@ -3,6 +3,7 @@ from typing import List, Optional
 from mindee.parsing.common.prediction import Prediction
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string
+from mindee.parsing.standard.address import AddressField
 from mindee.parsing.standard.amount import AmountField
 from mindee.parsing.standard.classification import ClassificationField
 from mindee.parsing.standard.company_registration import CompanyRegistrationField
@@ -15,11 +16,13 @@ from mindee.product.invoice.invoice_v4_line_item import InvoiceV4LineItem
 
 
 class InvoiceV4Document(Prediction):
-    """Invoice API version 4.10 document data."""
+    """Invoice API version 4.11 document data."""
 
-    billing_address: StringField
+    billing_address: AddressField
     """The customer billing address."""
-    customer_address: StringField
+    category: ClassificationField
+    """The purchase category."""
+    customer_address: AddressField
     """The address of the customer."""
     customer_company_registrations: List[CompanyRegistrationField]
     """List of company registration numbers associated to the customer."""
@@ -47,9 +50,11 @@ class InvoiceV4Document(Prediction):
     """The purchase order number."""
     reference_numbers: List[StringField]
     """List of all reference numbers on the invoice, including the purchase order number."""
-    shipping_address: StringField
+    shipping_address: AddressField
     """Customer's delivery address."""
-    supplier_address: StringField
+    subcategory: ClassificationField
+    """The purchase subcategory for transport, food and shopping."""
+    supplier_address: AddressField
     """The address of the supplier or merchant."""
     supplier_company_registrations: List[CompanyRegistrationField]
     """List of company registration numbers associated to the supplier."""
@@ -84,11 +89,15 @@ class InvoiceV4Document(Prediction):
         :param page_id: Page number for multi pages pdf input
         """
         super().__init__(raw_prediction, page_id)
-        self.billing_address = StringField(
+        self.billing_address = AddressField(
             raw_prediction["billing_address"],
             page_id=page_id,
         )
-        self.customer_address = StringField(
+        self.category = ClassificationField(
+            raw_prediction["category"],
+            page_id=page_id,
+        )
+        self.customer_address = AddressField(
             raw_prediction["customer_address"],
             page_id=page_id,
         )
@@ -144,11 +153,15 @@ class InvoiceV4Document(Prediction):
             StringField(prediction, page_id=page_id)
             for prediction in raw_prediction["reference_numbers"]
         ]
-        self.shipping_address = StringField(
+        self.shipping_address = AddressField(
             raw_prediction["shipping_address"],
             page_id=page_id,
         )
-        self.supplier_address = StringField(
+        self.subcategory = ClassificationField(
+            raw_prediction["subcategory"],
+            page_id=page_id,
+        )
+        self.supplier_address = AddressField(
             raw_prediction["supplier_address"],
             page_id=page_id,
         )
@@ -268,5 +281,7 @@ class InvoiceV4Document(Prediction):
         out_str += f":Billing Address: {self.billing_address}\n"
         out_str += f":Document Type: {self.document_type}\n"
         out_str += f":Document Type Extended: {self.document_type_extended}\n"
+        out_str += f":Purchase Subcategory: {self.subcategory}\n"
+        out_str += f":Purchase Category: {self.category}\n"
         out_str += f":Line Items: {self._line_items_to_str()}\n"
         return clean_out_string(out_str)

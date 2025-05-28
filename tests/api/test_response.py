@@ -24,7 +24,7 @@ def test_invoice_receipt_v5():
     assert isinstance(parsed_response.document.inference, InvoiceV4)
     for page in parsed_response.document.inference.pages:
         assert isinstance(page.prediction, InvoiceV4Document)
-    assert parsed_response.document.n_pages == 2
+    assert parsed_response.document.n_pages == 1
 
 
 def test_response_receipt_v5():

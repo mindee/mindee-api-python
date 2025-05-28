@@ -1,3 +1,4 @@
+from mindee.parsing.standard.address import AddressField
 from mindee.parsing.standard.amount import AmountField
 from mindee.parsing.standard.base import (
     BaseField,

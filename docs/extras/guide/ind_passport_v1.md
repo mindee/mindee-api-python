@@ -45,7 +45,7 @@ Document
 
 Inference
 #########
-:Product: mindee/ind_passport v1.0
+:Product: mindee/ind_passport v1.2
 :Rotation applied: Yes
 
 Prediction
@@ -68,10 +68,10 @@ Prediction
 :Name of Mother:
 :Old Passport Date of Issue:
 :Old Passport Number:
+:Old Passport Place of Issue:
 :Address Line 1:
 :Address Line 2:
 :Address Line 3:
-:Old Passport Place of Issue:
 :File Number:
 ```
 

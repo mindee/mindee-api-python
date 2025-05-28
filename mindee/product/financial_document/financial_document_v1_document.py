@@ -3,6 +3,7 @@ from typing import List, Optional
 from mindee.parsing.common.prediction import Prediction
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string
+from mindee.parsing.standard.address import AddressField
 from mindee.parsing.standard.amount import AmountField
 from mindee.parsing.standard.classification import ClassificationField
 from mindee.parsing.standard.company_registration import CompanyRegistrationField
@@ -17,13 +18,13 @@ from mindee.product.financial_document.financial_document_v1_line_item import (
 
 
 class FinancialDocumentV1Document(Prediction):
-    """Financial Document API version 1.12 document data."""
+    """Financial Document API version 1.14 document data."""
 
-    billing_address: StringField
+    billing_address: AddressField
     """The customer's address used for billing."""
     category: ClassificationField
-    """The purchase category, only for receipts."""
-    customer_address: StringField
+    """The purchase category."""
+    customer_address: AddressField
     """The address of the customer."""
     customer_company_registrations: List[CompanyRegistrationField]
     """List of company registration numbers associated to the customer."""
@@ -58,11 +59,11 @@ class FinancialDocumentV1Document(Prediction):
     """The receipt number or identifier only if document is a receipt."""
     reference_numbers: List[StringField]
     """List of Reference numbers, including PO number, only if the document is an invoice."""
-    shipping_address: StringField
+    shipping_address: AddressField
     """The customer's address used for shipping."""
     subcategory: ClassificationField
-    """The purchase subcategory for transport and food, only for receipts."""
-    supplier_address: StringField
+    """The purchase subcategory for transport, food and shooping."""
+    supplier_address: AddressField
     """The address of the supplier or merchant."""
     supplier_company_registrations: List[CompanyRegistrationField]
     """List of company registration numbers associated to the supplier."""
@@ -101,7 +102,7 @@ class FinancialDocumentV1Document(Prediction):
         :param page_id: Page number for multi pages pdf input
         """
         super().__init__(raw_prediction, page_id)
-        self.billing_address = StringField(
+        self.billing_address = AddressField(
             raw_prediction["billing_address"],
             page_id=page_id,
         )
@@ -109,7 +110,7 @@ class FinancialDocumentV1Document(Prediction):
             raw_prediction["category"],
             page_id=page_id,
         )
-        self.customer_address = StringField(
+        self.customer_address = AddressField(
             raw_prediction["customer_address"],
             page_id=page_id,
         )
@@ -173,7 +174,7 @@ class FinancialDocumentV1Document(Prediction):
             StringField(prediction, page_id=page_id)
             for prediction in raw_prediction["reference_numbers"]
         ]
-        self.shipping_address = StringField(
+        self.shipping_address = AddressField(
             raw_prediction["shipping_address"],
             page_id=page_id,
         )
@@ -181,7 +182,7 @@ class FinancialDocumentV1Document(Prediction):
             raw_prediction["subcategory"],
             page_id=page_id,
         )
-        self.supplier_address = StringField(
+        self.supplier_address = AddressField(
             raw_prediction["supplier_address"],
             page_id=page_id,
         )

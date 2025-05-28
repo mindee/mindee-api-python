@@ -44,6 +44,7 @@ def test_complete_doc(complete_doc: HealthcareCardV1DocumentType):
 def test_empty_doc(empty_doc: HealthcareCardV1DocumentType):
     prediction = empty_doc.inference.prediction
     assert prediction.company_name.value is None
+    assert prediction.plan_name.value is None
     assert prediction.member_name.value is None
     assert prediction.member_id.value is None
     assert prediction.issuer_80840.value is None

@@ -40,17 +40,18 @@ print(result.document)
 ########
 Document
 ########
-:Mindee ID: 1e71d5f0-dedb-4070-9d94-9207cd9570b5
+:Mindee ID: 5e917fc8-5c13-42b2-967f-954f4eed9959
 :Filename: default_sample.jpg
 
 Inference
 #########
-:Product: mindee/us_healthcare_cards v1.2
+:Product: mindee/us_healthcare_cards v1.3
 :Rotation applied: Yes
 
 Prediction
 ==========
 :Company Name: UnitedHealthcare
+:Plan Name: Choice Plus
 :Member Name: SUBSCRIBER SMITH
 :Member ID: 123456789
 :Issuer 80840:
@@ -64,13 +65,13 @@ Prediction
 :RX ID:
 :RX GRP: UHEALTH
 :RX PCN: 9999
-:copays:
+:Copays:
   +--------------+----------------------+
   | Service Fees | Service Name         |
   +==============+======================+
-  | 300.00       | emergency_room       |
-  +--------------+----------------------+
   | 20.00        | office_visit         |
+  +--------------+----------------------+
+  | 300.00       | emergency_room       |
   +--------------+----------------------+
   | 75.00        | urgent_care          |
   +--------------+----------------------+
@@ -110,13 +111,13 @@ The text field `StringField` only has one constraint: its **value** is an `Optio
 ## Specific Fields
 Fields which are specific to this product; they are not used in any other product.
 
-### copays Field
-Is a fixed amount for a covered service.
+### Copays Field
+Copayments for covered services.
 
 A `HealthcareCardV1Copay` implements the following attributes:
 
-* **service_fees** (`float`): The price of service.
-* **service_name** (`str`): The name of service of the copay.
+* **service_fees** (`float`): The price of the service.
+* **service_name** (`str`): The name of the service.
 
 #### Possible values include:
  - primary_care
@@ -137,8 +138,8 @@ The following fields are extracted for Healthcare Card V1:
 print(result.document.inference.prediction.company_name.value)
 ```
 
-## copays
-**copays** (List[[HealthcareCardV1Copay](#copays-field)]): Is a fixed amount for a covered service.
+## Copays
+**copays** (List[[HealthcareCardV1Copay](#copays-field)]): Copayments for covered services.
 
 ```py
 for copays_elem in result.document.inference.prediction.copays:
@@ -193,6 +194,13 @@ print(result.document.inference.prediction.member_name.value)
 
 ```py
 print(result.document.inference.prediction.payer_id.value)
+```
+
+## Plan Name
+**plan_name** ([StringField](#stringfield)): The name of the healthcare plan.
+
+```py
+print(result.document.inference.prediction.plan_name.value)
 ```
 
 ## RX BIN
