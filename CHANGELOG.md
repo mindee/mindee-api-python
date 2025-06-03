@@ -1,5 +1,10 @@
 # Mindee Python API Library Changelog
 
+## v4.23.0 - 2025-06-03
+### Changes
+* :sparkles: add support for address fields
+
+
 ## v4.22.0 - 2025-04-29
 ### Changes
 * :sparkles: add support for workflow polling
