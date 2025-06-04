@@ -3,6 +3,9 @@
 ## v4.23.0 - 2025-06-03
 ### Changes
 * :sparkles: add support for address fields
+* :sparkles: add support for Financial Document V1.12
+* :sparkles: add support for Invoices V4.10
+* :sparkles: add support for US Healthcare Cards V1.2
 
 
 ## v4.22.0 - 2025-04-29
