@@ -194,7 +194,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.product.us.healthcare_card.healthcare_card_v1_document.HealthcareCardV1Document">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">HealthcareCardV1Document</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.us.healthcare_card.healthcare_card_v1_document.HealthcareCardV1Document" title="Permalink to this definition"></a></dt>
-<dd><p>Healthcare Card API version 1.2 document data.</p>
+<dd><p>Healthcare Card API version 1.3 document data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -212,7 +212,7 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.us.healthcare_card.healthcare_card_v1_document.HealthcareCardV1Document.copays">
 <span class="sig-name descname"><span class="pre">copays</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="#mindee.product.us.healthcare_card.healthcare_card_v1_copay.HealthcareCardV1Copay" title="mindee.product.us.healthcare_card.healthcare_card_v1_copay.HealthcareCardV1Copay"><code class="xref py py-class docutils literal notranslate"><span class="pre">HealthcareCardV1Copay</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.us.healthcare_card.healthcare_card_v1_document.HealthcareCardV1Document.copays" title="Permalink to this definition"></a></dt>
-<dd><p>Is a fixed amount for a covered service.</p>
+<dd><p>Copayments for covered services.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -258,6 +258,12 @@
 </dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.product.us.healthcare_card.healthcare_card_v1_document.HealthcareCardV1Document.plan_name">
+<span class="sig-name descname"><span class="pre">plan_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.us.healthcare_card.healthcare_card_v1_document.HealthcareCardV1Document.plan_name" title="Permalink to this definition"></a></dt>
+<dd><p>The name of the healthcare plan.</p>
+</dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.us.healthcare_card.healthcare_card_v1_document.HealthcareCardV1Document.rx_bin">
 <span class="sig-name descname"><span class="pre">rx_bin</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.us.healthcare_card.healthcare_card_v1_document.HealthcareCardV1Document.rx_bin" title="Permalink to this definition"></a></dt>
 <dd><p>The BIN number for prescription drug coverage.</p>
@@ -286,7 +292,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.product.us.healthcare_card.healthcare_card_v1_copay.HealthcareCardV1Copay">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">HealthcareCardV1Copay</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.us.healthcare_card.healthcare_card_v1_copay.HealthcareCardV1Copay" title="Permalink to this definition"></a></dt>
-<dd><p>Is a fixed amount for a covered service.</p>
+<dd><p>Copayments for covered services.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -333,13 +339,13 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.us.healthcare_card.healthcare_card_v1_copay.HealthcareCardV1Copay.service_fees">
 <span class="sig-name descname"><span class="pre">service_fees</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.us.healthcare_card.healthcare_card_v1_copay.HealthcareCardV1Copay.service_fees" title="Permalink to this definition"></a></dt>
-<dd><p>The price of service.</p>
+<dd><p>The price of the service.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.us.healthcare_card.healthcare_card_v1_copay.HealthcareCardV1Copay.service_name">
 <span class="sig-name descname"><span class="pre">service_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.us.healthcare_card.healthcare_card_v1_copay.HealthcareCardV1Copay.service_name" title="Permalink to this definition"></a></dt>
-<dd><p>The name of service of the copay.</p>
+<dd><p>The name of the service.</p>
 </dd></dl>
 
 </dd></dl>
