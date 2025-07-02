@@ -127,7 +127,8 @@ junit_family = "xunit2"
 markers = [
   "regression: marks tests as regression tests - select with '-m regression'",
   "lineitems: debug line items",
-  "integration: integration tests that send calls to the API - select with '-m integration'"
+  "integration: integration tests that send calls to the API - select with '-m integration'",
+  "v2: Tests specific to version 2 of the API"
 ]
 testpaths = [
   "tests",

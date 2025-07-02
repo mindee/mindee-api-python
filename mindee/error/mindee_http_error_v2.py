@@ -25,21 +25,20 @@ class MindeeHTTPErrorV2(RuntimeError):
 class MindeeHTTPUnknownErrorV2(MindeeHTTPErrorV2):
     """HTTP error with unknown status code."""
 
-    def __init__(self, status: int, detail: Optional[str]) -> None:
+    def __init__(self, detail: Optional[str]) -> None:
         super().__init__(-1, f"Couldn't deserialize server error. Found: {detail}")
 
 
-def handle_error_v2(json_response: StringDict) -> None:
+def handle_error_v2(raw_response: StringDict) -> None:
     """
     Handles HTTP errors by raising MindeeHTTPErrorV2 exceptions with proper details.
 
     :raises MindeeHTTPErrorV2: If the response has been caught.
     :raises MindeeHTTPUnknownErrorV2: If the json return format is unreadable.
     """
-    try:
-        raise MindeeHTTPErrorV2(
-            json_response["job"]["error"]["status"],
-            json_response["job"]["error"]["detail"],
-        )
-    except Exception as exc:
-        raise MindeeHTTPUnknownErrorV2(-1, json.dumps(json_response, indent=2)) from exc
+    if "status" not in raw_response or "detail" not in raw_response:
+        raise MindeeHTTPUnknownErrorV2(json.dumps(raw_response, indent=2))
+    raise MindeeHTTPErrorV2(
+        raw_response["status"],
+        raw_response["detail"],
+    )

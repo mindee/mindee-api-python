@@ -17,7 +17,11 @@ def is_valid_post_response(response: requests.Response) -> bool:
     response_json = json.loads(response.content)
     if not "job" in response_json:
         return False
-    if "job" in response_json and "error" in response_json["job"]:
+    if (
+        "job" in response_json
+        and "error" in response_json["job"]
+        and response_json["job"]["error"] is not None
+    ):
         return False
     return True
 

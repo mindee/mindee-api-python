@@ -14,7 +14,7 @@ class MindeeApiError(MindeeError):
     """An exception relating to settings of the MindeeClient."""
 
 
-class MindeeAPIV2Error(MindeeError):
+class MindeeApiV2Error(MindeeError):
     """An exception relating to settings of the MindeeClient V2."""
 
 

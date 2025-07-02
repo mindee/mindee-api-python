@@ -21,9 +21,9 @@ class ApiRequest:
     """HTTP status code."""
     url: str
 
-    def __init__(self, json_response: dict) -> None:
-        self.url = json_response["url"]
-        self.error = json_response["error"]
-        self.resources = json_response["resources"]
-        self.status = RequestStatus(json_response["status"])
-        self.status_code = json_response["status_code"]
+    def __init__(self, raw_response: StringDict) -> None:
+        self.url = raw_response["url"]
+        self.error = raw_response["error"]
+        self.resources = raw_response["resources"]
+        self.status = RequestStatus(raw_response["status"])
+        self.status_code = raw_response["status_code"]

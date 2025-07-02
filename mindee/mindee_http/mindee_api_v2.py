@@ -1,10 +1,12 @@
+import os
 from typing import Dict, Optional
 
 import requests
 
-from mindee import InferencePredictOptions
-from mindee.error.mindee_error import MindeeApiError
+from mindee.error.mindee_error import MindeeApiV2Error
 from mindee.input import LocalInputSource
+from mindee.input.inference_predict_options import InferencePredictOptions
+from mindee.logger import logger
 from mindee.mindee_http.base_settings import USER_AGENT
 from mindee.mindee_http.settings_mixin import SettingsMixin
 
@@ -12,7 +14,7 @@ API_KEY_V2_ENV_NAME = "MINDEE_V2_API_KEY"
 API_KEY_V2_DEFAULT = ""
 
 BASE_URL_ENV_NAME = "MINDEE_V2_BASE_URL"
-BASE_URL_DEFAULT = "https://api-v2.mindee.com/v2"
+BASE_URL_DEFAULT = "https://api-v2.mindee.net/v2"
 
 REQUEST_TIMEOUT_ENV_NAME = "MINDEE_REQUEST_TIMEOUT"
 TIMEOUT_DEFAULT = 120
@@ -32,7 +34,7 @@ class MindeeApiV2(SettingsMixin):
     ):
         self.api_key = api_key
         if not self.api_key or len(self.api_key) == 0:
-            raise MindeeApiError(
+            raise MindeeApiV2Error(
                 (
                     f"Missing API key,"
                     " check your Client configuration.\n"
@@ -40,15 +42,30 @@ class MindeeApiV2(SettingsMixin):
                     f"'{API_KEY_V2_ENV_NAME}' environment variable."
                 )
             )
+        self.request_timeout = TIMEOUT_DEFAULT
+        self.set_base_url(BASE_URL_DEFAULT)
+        self.set_from_env()
         self.url_root = f"{self.base_url.rstrip('/')}"
 
     @property
     def base_headers(self) -> Dict[str, str]:
         """Base headers to send with all API requests."""
         return {
-            "Authorization": f"Token {self.api_key}",
+            "Authorization": self.api_key or "",
             "User-Agent": USER_AGENT,
         }
+
+    def set_from_env(self) -> None:
+        """Set various parameters from environment variables, if present."""
+        env_vars = {
+            BASE_URL_ENV_NAME: self.set_base_url,
+            REQUEST_TIMEOUT_ENV_NAME: self.set_timeout,
+        }
+        for name, func in env_vars.items():
+            env_val = os.getenv(name, "")
+            if env_val:
+                func(env_val)
+                logger.debug("Value was set from env: %s", name)
 
     def predict_async_req_post(
         self,
@@ -64,7 +81,7 @@ class MindeeApiV2(SettingsMixin):
         :param close_file: Whether to `close()` the file after parsing it.
         :return: requests response.
         """
-        data = {}
+        data = {"model_id": options.model_id}
         params = {}
         url = f"{self.url_root}/inferences/enqueue"
 
@@ -77,7 +94,10 @@ class MindeeApiV2(SettingsMixin):
         if options.alias and len(options.alias):
             data["alias"] = options.alias
 
-        files = {"document": input_source.read_contents(close_file)}
+        files = {
+            "file": input_source.read_contents(close_file)
+            + (input_source.file_mimetype,)
+        }
         response = requests.post(
             url=url,
             files=files,

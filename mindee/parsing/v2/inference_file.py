@@ -1,3 +1,6 @@
+from mindee.parsing.common.string_dict import StringDict
+
+
 class InferenceFile:
     """Inference File info."""
 
@@ -6,6 +9,6 @@ class InferenceFile:
     alais: str
     """Alias of the file."""
 
-    def __init__(self, json_response: dict) -> None:
-        self.name = json_response["name"]
-        self.alias = json_response["alias"]
+    def __init__(self, raw_response: StringDict) -> None:
+        self.name = raw_response["name"]
+        self.alias = raw_response["alias"]

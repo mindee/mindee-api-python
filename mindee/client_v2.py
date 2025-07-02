@@ -19,19 +19,6 @@ from mindee.parsing.v2.inference_response import InferenceResponse
 from mindee.parsing.v2.polling_response import PollingResponse
 
 
-def load_prediction(local_response: LocalResponse) -> InferenceResponse:
-    """
-    Load a prediction.
-
-    :param local_response: Local response to load.
-    :return: A valid prediction.
-    """
-    try:
-        return InferenceResponse(local_response.as_dict)
-    except KeyError as exc:
-        raise MindeeError("No prediction found in local response.") from exc
-
-
 class ClientV2(ClientMixin):
     """
     Mindee API Client.
@@ -182,3 +169,16 @@ class ClientV2(ClientMixin):
             )
 
         return poll_results
+
+    @staticmethod
+    def load_inference(local_response: LocalResponse) -> InferenceResponse:
+        """
+        Load a prediction from the V2 API.
+
+        :param local_response: Local response to load.
+        :return: A valid prediction.
+        """
+        try:
+            return InferenceResponse(local_response.as_dict)
+        except KeyError as exc:
+            raise MindeeError("No prediction found in local response.") from exc

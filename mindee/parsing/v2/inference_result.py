@@ -1,3 +1,5 @@
+from typing import Optional
+
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.v2.inference_fields import InferenceFields
 from mindee.parsing.v2.inference_options import InferenceOptions
@@ -8,12 +10,16 @@ class InferenceResult:
 
     fields: InferenceFields
     """Fields contained in the inference."""
-    options: InferenceOptions
+    options: Optional[InferenceOptions]
     """Potential options retrieved alongside the inference."""
 
-    def __init__(self, json_response: StringDict) -> None:
-        self.fields = InferenceFields(json_response["fields"])
-        self.options = InferenceOptions(json_response["options"])
+    def __init__(self, raw_response: StringDict) -> None:
+        self.fields = InferenceFields(raw_response["fields"])
+        self.options = (
+            InferenceOptions(raw_response["options"])
+            if raw_response.get("options")
+            else None
+        )
 
     def __str__(self) -> str:
         str_fields = ""

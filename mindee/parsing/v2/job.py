@@ -11,16 +11,17 @@ class Job:
     """Error response if any."""
     model_id: str
     """ID of the model."""
-    file_name: str
+    filename: str
     """Name for the file."""
-    file_alias: str
+    alias: str
     """Optional alias for the file."""
     status: str
     """Status of the job."""
 
     def __init__(self, raw_response: StringDict) -> None:
+        self.id = raw_response["id"]
         self.status = raw_response["status"]
         self.error = ErrorResponse(raw_response["error"])
         self.model_id = raw_response["model_id"]
-        self.file_name = raw_response["file_name"]
-        self.file_alias = raw_response["file_alias"]
+        self.filename = raw_response["filename"]
+        self.alias = raw_response["alias"]

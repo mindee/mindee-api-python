@@ -1,6 +1,6 @@
 from typing import Dict, List, Union
 
-from mindee.error.mindee_error import MindeeAPIV2Error
+from mindee.error.mindee_error import MindeeApiV2Error
 from mindee.parsing.common.string_dict import StringDict
 
 
@@ -14,7 +14,9 @@ class BaseField:
         self._indent_level = indent_level
 
     @staticmethod
-    def create_field(raw_response: StringDict, indent_level: int = 0) -> "BaseField":
+    def create_field(
+        raw_response: StringDict, indent_level: int = 0
+    ) -> Union["ListField", "ObjectField", "SimpleField"]:
         """Factory function to create appropriate field instances."""
         if isinstance(raw_response, dict):
             if "items" in raw_response:
@@ -23,14 +25,14 @@ class BaseField:
                 return ObjectField(raw_response, indent_level)
             if "value" in raw_response:
                 return SimpleField(raw_response, indent_level)
-            raise MindeeAPIV2Error("Unrecognized field format.")
-        raise MindeeAPIV2Error("Unrecognized field format.")
+            raise MindeeApiV2Error(f"Unrecognized field format in {raw_response}.")
+        raise MindeeApiV2Error(f"Unrecognized field format {raw_response}.")
 
 
 class ListField(BaseField):
     """List field containing multiple fields."""
 
-    items: List[BaseField]
+    items: List[Union["ListField", "ObjectField", "SimpleField"]]
     """Items contained in the list."""
 
     def __init__(self, raw_response: StringDict, indent_level: int = 0):
@@ -40,23 +42,26 @@ class ListField(BaseField):
         for item in raw_response["items"]:
             if isinstance(item, dict):
                 self.items.append(BaseField.create_field(item, 1))
-            raise MindeeAPIV2Error("Unrecognized field format.")
+            else:
+                raise MindeeApiV2Error(f"Unrecognized field format '{item}'.")
 
 
 class ObjectField(BaseField):
     """Object field containing multiple fields."""
 
-    fields: Dict[str, BaseField]
+    fields: Dict[str, Union[ListField, "ObjectField", "SimpleField"]]
     """Fields contained in the object."""
 
     def __init__(self, raw_response: StringDict, indent_level: int = 0):
         super().__init__(indent_level)
-        fields: Dict[str, BaseField] = {}
-        for field_key, field_value in raw_response.items():
+        inner_fields = raw_response.get("fields", raw_response)
+
+        self.fields: Dict[str, Union["ListField", "ObjectField", "SimpleField"]] = {}
+        for field_key, field_value in inner_fields.items():
             if isinstance(field_value, dict):
-                fields[field_key] = BaseField.create_field(field_value, 1)
+                self.fields[field_key] = BaseField.create_field(field_value, 1)
             else:
-                raise MindeeAPIV2Error("Unrecognized field format.")
+                raise MindeeApiV2Error(f"Unrecognized field format '{field_value}'.")
 
     def __str__(self) -> str:
         out_str = ""
@@ -72,7 +77,7 @@ class SimpleField(BaseField):
 
     def __init__(self, raw_response: StringDict, indent_level: int = 0):
         super().__init__(indent_level)
-        self.value = raw_response["value"] if "value" in raw_response else None
+        self.value = raw_response["value"] = raw_response.get("value", None)
 
     def __str__(self) -> str:
         return f"{' ' * self._indent_level}{self.value}\n"
