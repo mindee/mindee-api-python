@@ -1,18 +1,14 @@
-from pathlib import Path
 from time import sleep
-from typing import BinaryIO, Dict, Optional, Type, Union
+from typing import Dict, Optional, Type, Union
 
+from mindee.client_mixin import ClientMixin
 from mindee.error.mindee_error import MindeeClientError, MindeeError
 from mindee.error.mindee_http_error import handle_error
 from mindee.input import WorkflowOptions
 from mindee.input.local_response import LocalResponse
 from mindee.input.page_options import PageOptions
 from mindee.input.predict_options import AsyncPredictOptions, PredictOptions
-from mindee.input.sources.base_64_input import Base64Input
-from mindee.input.sources.bytes_input import BytesInput
-from mindee.input.sources.file_input import FileInput
 from mindee.input.sources.local_input_source import LocalInputSource
-from mindee.input.sources.path_input import PathInput
 from mindee.input.sources.url_input_source import UrlInputSource
 from mindee.logger import logger
 from mindee.mindee_http.endpoint import CustomEndpoint, Endpoint
@@ -55,7 +51,7 @@ def _clean_account_name(account_name: str) -> str:
     return account_name
 
 
-class Client:
+class Client(ClientMixin):
     """
     Mindee API Client.
 
@@ -274,23 +270,6 @@ class Client:
             )
         logger.debug("Sending document to workflow: %s", workflow_id)
         return self._send_to_workflow(GeneratedV1, input_source, workflow_id, options)
-
-    def _validate_async_params(
-        self, initial_delay_sec: float, delay_sec: float, max_retries: int
-    ) -> None:
-        min_delay = 1
-        min_initial_delay = 1
-        min_retries = 1
-        if delay_sec < min_delay:
-            raise MindeeClientError(
-                f"Cannot set auto-parsing delay to less than {min_delay} second(s)."
-            )
-        if initial_delay_sec < min_initial_delay:
-            raise MindeeClientError(
-                f"Cannot set initial parsing delay to less than {min_initial_delay} second(s)."
-            )
-        if max_retries < min_retries:
-            raise MindeeClientError(f"Cannot set retries to less than {min_retries}.")
 
     def enqueue_and_parse(  # pylint: disable=too-many-locals
         self,
@@ -583,80 +562,3 @@ class Client:
             )
             version = "1"
         return self._build_endpoint(endpoint_name, account_name, version)
-
-    @staticmethod
-    def source_from_path(
-        input_path: Union[Path, str], fix_pdf: bool = False
-    ) -> PathInput:
-        """
-        Load a document from an absolute path, as a string.
-
-        :param input_path: Path of file to open
-        :param fix_pdf: Whether to attempt fixing PDF files before sending.
-            Setting this to `True` can modify the data sent to Mindee.
-        """
-        input_doc = PathInput(input_path)
-        if fix_pdf:
-            input_doc.fix_pdf()
-        return input_doc
-
-    @staticmethod
-    def source_from_file(input_file: BinaryIO, fix_pdf: bool = False) -> FileInput:
-        """
-        Load a document from a normal Python file object/handle.
-
-        :param input_file: Input file handle
-        :param fix_pdf: Whether to attempt fixing PDF files before sending.
-            Setting this to `True` can modify the data sent to Mindee.
-        """
-        input_doc = FileInput(input_file)
-        if fix_pdf:
-            input_doc.fix_pdf()
-        return input_doc
-
-    @staticmethod
-    def source_from_b64string(
-        input_string: str, filename: str, fix_pdf: bool = False
-    ) -> Base64Input:
-        """
-        Load a document from a base64 encoded string.
-
-        :param input_string: Input to parse as base64 string
-        :param filename: The name of the file (without the path)
-        :param fix_pdf: Whether to attempt fixing PDF files before sending.
-            Setting this to `True` can modify the data sent to Mindee.
-        """
-        input_doc = Base64Input(input_string, filename)
-        if fix_pdf:
-            input_doc.fix_pdf()
-        return input_doc
-
-    @staticmethod
-    def source_from_bytes(
-        input_bytes: bytes, filename: str, fix_pdf: bool = False
-    ) -> BytesInput:
-        """
-        Load a document from raw bytes.
-
-        :param input_bytes: Raw byte input
-        :param filename: The name of the file (without the path)
-        :param fix_pdf: Whether to attempt fixing PDF files before sending.
-            Setting this to `True` can modify the data sent to Mindee.
-        """
-        input_doc = BytesInput(input_bytes, filename)
-        if fix_pdf:
-            input_doc.fix_pdf()
-        return input_doc
-
-    @staticmethod
-    def source_from_url(
-        url: str,
-    ) -> UrlInputSource:
-        """
-        Load a document from a URL.
-
-        :param url: Raw byte input
-        """
-        return UrlInputSource(
-            url,
-        )
