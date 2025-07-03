@@ -1,10 +1,11 @@
-from typing import Union
+from __future__ import annotations
+from typing import Union, Dict
 
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.v2.base_field import BaseField, ListField, ObjectField, SimpleField
 
 
-class InferenceFields(dict[str, Union[SimpleField, ObjectField, ListField]]):
+class InferenceFields(Dict[str, Union[SimpleField, ObjectField, ListField]]):
     """Inference fields dict."""
 
     def __init__(self, raw_response: StringDict) -> None:
