@@ -15,10 +15,10 @@ jobs:
     needs: test-units
     secrets: inherit
   test-integrations:
-    uses: mindee/mindee-api-python/.github/workflows/_test-integrations.yml@main
+    uses: mindee/mindee-api-python/.github/workflows/_test-integrations.yml@client-v2
     needs: test-units
     secrets: inherit
   test-code-samples:
-    uses: mindee/mindee-api-python/.github/workflows/_test-code-samples.yml@main
+    uses: mindee/mindee-api-python/.github/workflows/_test-code-samples.yml@client-v2
     needs: test-units
     secrets: inherit
