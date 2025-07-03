@@ -28,12 +28,18 @@ def custom_base_url_client(monkeypatch) -> ClientV2:
 
     monkeypatch.setenv("MINDEE_V2_BASE_URL", "https://dummy-url")
 
-    def _fake_post(*args, **kwargs):
+    def _fake_response(*args, **kwargs):
         return _FakeResp()
 
     monkeypatch.setattr(
         "mindee.mindee_http.mindee_api_v2.requests.post",
-        _fake_post,
+        _fake_response,
+        raising=True,
+    )
+
+    monkeypatch.setattr(
+        "mindee.mindee_http.mindee_api_v2.requests.get",
+        _fake_response,
         raising=True,
     )
 
@@ -47,9 +53,10 @@ def test_parse_path_without_token():
 
 
 @pytest.mark.v2
-def test_parse_path_with_env_token(custom_base_url_client):
+def test_enqueue_path_with_env_token(custom_base_url_client):
     assert custom_base_url_client.mindee_api.base_url == "https://dummy-url"
     assert custom_base_url_client.mindee_api.url_root == "https://dummy-url"
+    assert custom_base_url_client.mindee_api.api_key == "dummy"
     input_doc: LocalInputSource = custom_base_url_client.source_from_path(
         f"{FILE_TYPES_DIR}/receipt.jpg"
     )
@@ -57,6 +64,23 @@ def test_parse_path_with_env_token(custom_base_url_client):
         custom_base_url_client.enqueue(
             input_doc, InferencePredictOptions("dummy-model")
         )
+
+
+@pytest.mark.v2
+def test_enqueue_and_parse_path_with_env_token(custom_base_url_client):
+    input_doc: LocalInputSource = custom_base_url_client.source_from_path(
+        f"{FILE_TYPES_DIR}/receipt.jpg"
+    )
+    with pytest.raises(MindeeHTTPErrorV2):
+        custom_base_url_client.enqueue_and_parse(
+            input_doc, InferencePredictOptions("dummy-model")
+        )
+
+
+@pytest.mark.v2
+def test_parse_queued6_and_parse_path_with_env_token(custom_base_url_client):
+    with pytest.raises(MindeeHTTPErrorV2):
+        custom_base_url_client.parse_queued("dummy-queue")
 
 
 @pytest.mark.v2
