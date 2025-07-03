@@ -104,7 +104,7 @@ class MindeeApiV2(SettingsMixin):
 
         return response
 
-    def document_queue_req_get(self, queue_id: str) -> requests.Response:
+    def get_inference_from_queue(self, queue_id: str) -> requests.Response:
         """
         Sends a request matching a given queue_id. Returns either a Job or a Document.
 

@@ -93,7 +93,7 @@ class ClientV2(ClientMixin):
         """
         logger.debug("Fetching from queue '%s'.", queue_id)
 
-        response = self.mindee_api.document_queue_req_get(queue_id)
+        response = self.mindee_api.get_inference_from_queue(queue_id)
         if not is_valid_get_response(response):
             handle_error_v2(response.json())
 

@@ -41,9 +41,15 @@ class ListField(BaseField):
         self.items = []
         for item in raw_response["items"]:
             if isinstance(item, dict):
-                self.items.append(BaseField.create_field(item, 1))
+                self.items.append(BaseField.create_field(item, self._indent_level + 2))
             else:
                 raise MindeeApiV2Error(f"Unrecognized field format '{item}'.")
+
+    def __str__(self) -> str:
+        out_str = ""
+        for item in self.items:
+            out_str += f"* {str(item)[2:] if item else ''}"
+        return "\n" + out_str if out_str else ""
 
 
 class ObjectField(BaseField):
@@ -59,14 +65,26 @@ class ObjectField(BaseField):
         self.fields: Dict[str, Union["ListField", "ObjectField", "SimpleField"]] = {}
         for field_key, field_value in inner_fields.items():
             if isinstance(field_value, dict):
-                self.fields[field_key] = BaseField.create_field(field_value, 1)
+                self.fields[field_key] = BaseField.create_field(
+                    field_value, self._indent_level + 1
+                )
             else:
                 raise MindeeApiV2Error(f"Unrecognized field format '{field_value}'.")
 
     def __str__(self) -> str:
         out_str = ""
         for field_key, field_value in self.fields.items():
-            out_str += f"{' ' * self._indent_level}:{field_key}: {field_value}\n"
+            if isinstance(field_value, ListField):
+                value_str = ""
+                if len(field_value.items) > 0:
+                    value_str = (
+                        " " * self._indent_level + str(field_value)
+                        if field_value
+                        else ""
+                    )
+                out_str += f"{' ' * self._indent_level}:{field_key}: {value_str}"
+            else:
+                out_str += f"{' ' * self._indent_level}:{field_key}: {field_value if field_value else ''}"
         return out_str
 
 
@@ -80,4 +98,4 @@ class SimpleField(BaseField):
         self.value = raw_response["value"] = raw_response.get("value", None)
 
     def __str__(self) -> str:
-        return f"{' ' * self._indent_level}{self.value}\n"
+        return f"{self.value}\n" if self.value else "\n"

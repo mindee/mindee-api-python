@@ -1,5 +1,6 @@
 from __future__ import annotations
-from typing import Union, Dict
+
+from typing import Dict, Union
 
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.v2.base_field import BaseField, ListField, ObjectField, SimpleField
@@ -19,3 +20,9 @@ class InferenceFields(Dict[str, Union[SimpleField, ObjectField, ListField]]):
             return self[item]
         except KeyError:
             raise AttributeError(item) from None
+
+    def __str__(self) -> str:
+        str_fields = ""
+        for field_key, field_value in self.items():
+            str_fields += f":{field_key}: {field_value}"
+        return str_fields

@@ -22,7 +22,7 @@ class InferenceResult:
         )
 
     def __str__(self) -> str:
-        str_fields = ""
-        for field_key, field_value in self.fields.items():
-            str_fields += f"  :{field_key}: {field_value}\n"
-        return f":fields: {str_fields}\n" f"options: {self.options}\n"
+        out_str = f":fields: {self.fields}"
+        if self.options:
+            out_str += f"\n:options: {self.options}"
+        return out_str
