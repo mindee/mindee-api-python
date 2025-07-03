@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import Optional
 
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.v2.error_response import ErrorResponse
@@ -9,7 +10,7 @@ class Webhook:
 
     id: str
     """ID of the webhook."""
-    error: ErrorResponse
+    error: Optional[ErrorResponse]
     """Error response if any."""
     created_at: datetime
     """Date and time the webhook was sent at."""
@@ -18,7 +19,9 @@ class Webhook:
 
     def __init__(self, raw_response: StringDict) -> None:
         self.id = raw_response["id"]
-        self.error = ErrorResponse(raw_response["error"])
+        self.error = (
+            ErrorResponse(raw_response["error"]) if raw_response["error"] else None
+        )
         self.created_at = self.parse_date(raw_response["created_at"])
         self.status = raw_response["status"]
 
