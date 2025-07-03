@@ -10,4 +10,3 @@ from mindee.parsing.v2.inference_response import InferenceResponse
 from mindee.parsing.v2.inference_result import InferenceResult
 from mindee.parsing.v2.job import Job
 from mindee.parsing.v2.polling_response import PollingResponse
-from mindee.parsing.v2.webhook import Webhook
