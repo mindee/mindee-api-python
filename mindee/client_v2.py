@@ -91,14 +91,14 @@ class ClientV2(ClientMixin):
 
         :param queue_id: queue_id received from the API.
         """
-        logger.debug("Fetching from queue ''%s", queue_id)
+        logger.debug("Fetching from queue '%s'.", queue_id)
 
         response = self.mindee_api.document_queue_req_get(queue_id)
         if not is_valid_get_response(response):
             handle_error_v2(response.json())
 
         dict_response = response.json()
-        if dict_response.get("job"):
+        if "job" in dict_response:
             return PollingResponse(dict_response)
         return InferenceResponse(dict_response)
 

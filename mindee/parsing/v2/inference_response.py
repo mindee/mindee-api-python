@@ -7,6 +7,7 @@ class InferenceResponse(CommonResponse):
     """Represent an inference response from Mindee V2 API."""
 
     inference: Inference
+    """Inference result."""
 
     def __init__(self, raw_response: StringDict) -> None:
         super().__init__(raw_response)

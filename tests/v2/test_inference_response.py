@@ -1,18 +1,23 @@
+import json
+
 import pytest
 
+from mindee import ClientV2, LocalResponse
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.v2 import (
     Inference,
+    InferenceFile,
+    InferenceModel,
     InferenceResponse,
-    InferenceResult,
     ListField,
     ObjectField,
     SimpleField,
 )
+from tests.test_inputs import V2_DATA_DIR
 
 
 @pytest.fixture
-def inference_json() -> StringDict:
+def inference_result_json() -> StringDict:
     return {
         "inference": {
             "model": {"id": "test-model-id"},
@@ -92,8 +97,8 @@ def inference_json() -> StringDict:
 
 
 @pytest.mark.v2
-def test_inference(inference_json):
-    inference_result = InferenceResponse(inference_json)
+def test_inference_response(inference_result_json):
+    inference_result = InferenceResponse(inference_result_json)
     assert isinstance(inference_result.inference, Inference)
     assert isinstance(
         inference_result.inference.result.fields.field_simple, SimpleField
@@ -158,3 +163,29 @@ def test_inference(inference_json):
         .value
         == "value_9"
     )
+
+
+@pytest.mark.v2
+def test_full_inference_response():
+    client_v2 = ClientV2("dummy")
+    load_response = client_v2.load_inference(
+        LocalResponse(V2_DATA_DIR / "products" / "financial_document" / "complete.json")
+    )
+
+    assert isinstance(load_response.inference, Inference)
+    assert load_response.inference.id == "12345678-1234-1234-1234-123456789abc"
+    assert isinstance(load_response.inference.result.fields.date, SimpleField)
+    assert load_response.inference.result.fields.date.value == "2019-11-02"
+    assert isinstance(load_response.inference.result.fields.taxes, ListField)
+    assert isinstance(load_response.inference.result.fields.taxes.items[0], ObjectField)
+    assert (
+        load_response.inference.result.fields.taxes.items[0].fields["base"].value
+        == 31.5
+    )
+
+    assert isinstance(load_response.inference.model, InferenceModel)
+    assert load_response.inference.model.id == "12345678-1234-1234-1234-123456789abc"
+
+    assert isinstance(load_response.inference.file, InferenceFile)
+    assert load_response.inference.file.name == "complete.jpg"
+    assert load_response.inference.file.alias == None

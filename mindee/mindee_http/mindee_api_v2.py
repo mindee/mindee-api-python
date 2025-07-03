@@ -82,28 +82,23 @@ class MindeeApiV2(SettingsMixin):
         :return: requests response.
         """
         data = {"model_id": options.model_id}
-        params = {}
         url = f"{self.url_root}/inferences/enqueue"
 
         if options.full_text:
-            params["full_text_ocr"] = "true"
+            data["full_text_ocr"] = "true"
         if options.rag:
-            params["rag"] = "true"
+            data["rag"] = "true"
         if options.webhook_ids and len(options.webhook_ids) > 0:
-            params["webhook_ids"] = ",".join(options.webhook_ids)
+            data["webhook_ids"] = ",".join(options.webhook_ids)
         if options.alias and len(options.alias):
             data["alias"] = options.alias
 
-        files = {
-            "file": input_source.read_contents(close_file)
-            + (input_source.file_mimetype,)
-        }
+        files = {"file": input_source.read_contents(close_file)}
         response = requests.post(
             url=url,
             files=files,
             headers=self.base_headers,
             data=data,
-            params=params,
             timeout=self.request_timeout,
         )
 
@@ -116,7 +111,7 @@ class MindeeApiV2(SettingsMixin):
         :param queue_id: queue_id received from the API
         """
         return requests.get(
-            f"{self.url_root}/inferences/{queue_id}",
+            f"{self.url_root}/jobs/{queue_id}",
             headers=self.base_headers,
             timeout=self.request_timeout,
         )

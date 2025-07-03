@@ -42,7 +42,7 @@ def test_parse_file_empty_multiple_pages_must_succeed(
     input_doc = v2_client.source_from_path(input_path)
     options = InferencePredictOptions(findoc_model_id)
 
-    response: InferenceResponse = v2_client.enqueue_and_parse(input_doc, options, False)
+    response: InferenceResponse = v2_client.enqueue_and_parse(input_doc, options)
 
     assert response is not None
     assert response.inference is not None
@@ -82,7 +82,7 @@ def test_parse_file_filled_single_page_must_succeed(
     assert response.inference.result is not None
     supplier_name = response.inference.result.fields["supplier_name"]
     assert supplier_name is not None
-    assert supplier_name.simple_field.value == "John Smith"
+    assert supplier_name.value == "John Smith"
 
 
 @pytest.mark.integration

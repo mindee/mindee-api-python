@@ -7,6 +7,7 @@ class PollingResponse(CommonResponse):
     """Represent an inference response from Mindee V2 API."""
 
     job: Job
+    """Job for the polling."""
 
     def __init__(self, raw_response: StringDict) -> None:
         super().__init__(raw_response)
