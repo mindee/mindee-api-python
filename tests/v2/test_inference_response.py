@@ -90,7 +90,9 @@ def inference_result_json() -> StringDict:
                         }
                     },
                 },
-                "options": None,
+                "options": {
+                    "raw_text": ["toto", "tata", "titi"],
+                },
             },
         }
     }
@@ -164,6 +166,10 @@ def test_inference_response(inference_result_json):
         == "value_9"
     )
 
+    assert inference_result.inference.result.options
+    assert len(inference_result.inference.result.options.raw_text) == 3
+    assert inference_result.inference.result.options.raw_text[0] == "toto"
+
 
 @pytest.mark.v2
 def test_full_inference_response():
@@ -188,4 +194,5 @@ def test_full_inference_response():
 
     assert isinstance(load_response.inference.file, InferenceFile)
     assert load_response.inference.file.name == "complete.jpg"
-    assert load_response.inference.file.alias == None
+    assert not load_response.inference.file.alias
+    assert not load_response.inference.result.options
