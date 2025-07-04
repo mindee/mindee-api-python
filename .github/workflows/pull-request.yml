@@ -5,20 +5,20 @@ on:
 
 jobs:
   static-analysis:
-    uses: mindee/mindee-api-python/.github/workflows/_static-analysis.yml@main
+    uses: mindee/mindee-api-python/.github/workflows/_static-analysis.yml
   test-units:
-    uses: mindee/mindee-api-python/.github/workflows/_test-units.yml@main
+    uses: mindee/mindee-api-python/.github/workflows/_test-units.yml
     needs: static-analysis
     secrets: inherit
   test-regressions:
-    uses: mindee/mindee-api-python/.github/workflows/_test-regressions.yml@main
+    uses: mindee/mindee-api-python/.github/workflows/_test-regressions.yml
     needs: test-units
     secrets: inherit
   test-integrations:
-    uses: mindee/mindee-api-python/.github/workflows/_test-integrations.yml@client-v2
+    uses: mindee/mindee-api-python/.github/workflows/_test-integrations.yml
     needs: test-units
     secrets: inherit
   test-code-samples:
-    uses: mindee/mindee-api-python/.github/workflows/_test-code-samples.yml@client-v2
+    uses: mindee/mindee-api-python/.github/workflows/_test-code-samples.yml
     needs: test-units
     secrets: inherit
