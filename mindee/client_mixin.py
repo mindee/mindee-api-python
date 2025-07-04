@@ -73,19 +73,6 @@ class ClientMixin:
         return input_doc
 
     @staticmethod
-    def source_from_url(
-        url: str,
-    ) -> UrlInputSource:
-        """
-        Load a document from a URL.
-
-        :param url: Raw byte input
-        """
-        return UrlInputSource(
-            url,
-        )
-
-    @staticmethod
     def _validate_async_params(
         initial_delay_sec: float, delay_sec: float, max_retries: int
     ) -> None:

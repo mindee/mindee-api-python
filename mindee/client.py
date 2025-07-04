@@ -562,3 +562,16 @@ class Client(ClientMixin):
             )
             version = "1"
         return self._build_endpoint(endpoint_name, account_name, version)
+
+    @staticmethod
+    def source_from_url(
+        url: str,
+    ) -> UrlInputSource:
+        """
+        Load a document from a URL.
+
+        :param url: Raw byte input
+        """
+        return UrlInputSource(
+            url,
+        )
