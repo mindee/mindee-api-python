@@ -1,8 +1,9 @@
 import os
 from dataclasses import dataclass
-from typing import Dict, Optional, Union
+from typing import Dict, Optional
 
 from mindee.logger import logger
+from mindee.mindee_http.settings_mixin import SettingsMixin
 from mindee.versions import PYTHON_VERSION, __version__, get_platform
 
 API_KEY_ENV_NAME = "MINDEE_API_KEY"
@@ -19,7 +20,7 @@ USER_AGENT = f"mindee-api-python@v{__version__} python-v{PYTHON_VERSION} {PLATFO
 
 
 @dataclass
-class BaseSettings:
+class BaseSettings(SettingsMixin):
     """Settings class relating to API requests."""
 
     api_key: Optional[str]
@@ -61,11 +62,3 @@ class BaseSettings:
             if env_val:
                 func(env_val)
                 logger.debug("Value was set from env: %s", name)
-
-    def set_timeout(self, value: Union[str, int]) -> None:
-        """Set the timeout for all requests."""
-        self.request_timeout = int(value)
-
-    def set_base_url(self, value: str) -> None:
-        """Set the base URL for all requests."""
-        self.base_url = value

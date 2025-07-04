@@ -1,5 +1,7 @@
 from mindee import product
 from mindee.client import Client
+from mindee.client_v2 import ClientV2
+from mindee.input.inference_predict_options import InferencePredictOptions
 from mindee.input.local_response import LocalResponse
 from mindee.input.page_options import PageOptions
 from mindee.parsing.common.api_response import ApiResponse
