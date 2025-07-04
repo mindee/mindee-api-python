@@ -2,7 +2,7 @@ from pathlib import Path
 from typing import BinaryIO, Union
 
 from mindee.error import MindeeClientError
-from mindee.input import Base64Input, BytesInput, FileInput, PathInput, UrlInputSource
+from mindee.input import Base64Input, BytesInput, FileInput, PathInput
 
 
 class ClientMixin:
