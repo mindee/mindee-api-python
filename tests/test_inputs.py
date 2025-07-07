@@ -15,7 +15,7 @@ from mindee.input.sources.url_input_source import UrlInputSource
 from tests.product import PRODUCT_DATA_DIR
 
 FILE_TYPES_DIR = Path("./tests/data/file_types")
-
+V2_DATA_DIR = Path("./tests/data/v2")
 
 #
 # PDF

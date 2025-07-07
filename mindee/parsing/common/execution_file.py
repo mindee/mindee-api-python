@@ -12,6 +12,6 @@ class ExecutionFile:
     alias: Optional[str]
     """File name."""
 
-    def __init__(self, json_response: StringDict):
-        self.name = json_response["name"]
-        self.alias = json_response["alias"]
+    def __init__(self, raw_response: StringDict):
+        self.name = raw_response["name"]
+        self.alias = raw_response["alias"]
