@@ -1,5 +1,13 @@
 # Mindee Python API Library Changelog
 
+## v4.24.0-rc1 - 2025-07-07
+### Changes
+* :sparkles: add support for mindee API V2 client & features
+* :recycle: remove support for python 3.7
+* :wrench: tweak CI & testing
+* :recycle: uniformize variable naming across files
+
+
 ## v4.23.0 - 2025-06-03
 ### Changes
 * :sparkles: add support for address fields
