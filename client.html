@@ -56,10 +56,6 @@
 <li class="toctree-l4"><a class="reference internal" href="#mindee.client.Client.parse"><code class="docutils literal notranslate"><span class="pre">Client.parse()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.client.Client.parse_queued"><code class="docutils literal notranslate"><span class="pre">Client.parse_queued()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.client.Client.send_feedback"><code class="docutils literal notranslate"><span class="pre">Client.send_feedback()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mindee.client.Client.source_from_b64string"><code class="docutils literal notranslate"><span class="pre">Client.source_from_b64string()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mindee.client.Client.source_from_bytes"><code class="docutils literal notranslate"><span class="pre">Client.source_from_bytes()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mindee.client.Client.source_from_file"><code class="docutils literal notranslate"><span class="pre">Client.source_from_file()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mindee.client.Client.source_from_path"><code class="docutils literal notranslate"><span class="pre">Client.source_from_path()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.client.Client.source_from_url"><code class="docutils literal notranslate"><span class="pre">Client.source_from_url()</span></code></a></li>
 </ul>
 </li>
@@ -311,80 +307,6 @@ The response object will be instantiated based on this parameter.</p></li>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="parsing/common.html#mindee.parsing.common.feedback_response.FeedbackResponse" title="mindee.parsing.common.feedback_response.FeedbackResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeedbackResponse</span></code></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="mindee.client.Client.source_from_b64string">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">source_from_b64string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_string</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fix_pdf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.client.Client.source_from_b64string" title="Permalink to this definition"></a></dt>
-<dd><p>Load a document from a base64 encoded string.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>input_string</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Input to parse as base64 string</p></li>
-<li><p><strong>filename</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The name of the file (without the path)</p></li>
-<li><p><strong>fix_pdf</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Whether to attempt fixing PDF files before sending.
-Setting this to <cite>True</cite> can modify the data sent to Mindee.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="misc/input.html#mindee.input.Base64Input" title="mindee.input.sources.base_64_input.Base64Input"><code class="xref py py-class docutils literal notranslate"><span class="pre">Base64Input</span></code></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="mindee.client.Client.source_from_bytes">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">source_from_bytes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fix_pdf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.client.Client.source_from_bytes" title="Permalink to this definition"></a></dt>
-<dd><p>Load a document from raw bytes.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>input_bytes</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>) – Raw byte input</p></li>
-<li><p><strong>filename</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The name of the file (without the path)</p></li>
-<li><p><strong>fix_pdf</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Whether to attempt fixing PDF files before sending.
-Setting this to <cite>True</cite> can modify the data sent to Mindee.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="misc/input.html#mindee.input.BytesInput" title="mindee.input.sources.bytes_input.BytesInput"><code class="xref py py-class docutils literal notranslate"><span class="pre">BytesInput</span></code></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="mindee.client.Client.source_from_file">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">source_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fix_pdf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.client.Client.source_from_file" title="Permalink to this definition"></a></dt>
-<dd><p>Load a document from a normal Python file object/handle.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>input_file</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">BinaryIO</span></code>) – Input file handle</p></li>
-<li><p><strong>fix_pdf</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Whether to attempt fixing PDF files before sending.
-Setting this to <cite>True</cite> can modify the data sent to Mindee.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="misc/input.html#mindee.input.FileInput" title="mindee.input.sources.file_input.FileInput"><code class="xref py py-class docutils literal notranslate"><span class="pre">FileInput</span></code></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="mindee.client.Client.source_from_path">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">source_from_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fix_pdf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.client.Client.source_from_path" title="Permalink to this definition"></a></dt>
-<dd><p>Load a document from an absolute path, as a string.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>input_path</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – Path of file to open</p></li>
-<li><p><strong>fix_pdf</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Whether to attempt fixing PDF files before sending.
-Setting this to <cite>True</cite> can modify the data sent to Mindee.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="misc/input.html#mindee.input.PathInput" title="mindee.input.sources.path_input.PathInput"><code class="xref py py-class docutils literal notranslate"><span class="pre">PathInput</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>

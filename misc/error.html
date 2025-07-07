@@ -62,6 +62,18 @@
 <li class="toctree-l4"><a class="reference internal" href="#mindee.error.MimeTypeError.args"><code class="docutils literal notranslate"><span class="pre">MimeTypeError.args</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.error.MindeeApiError"><code class="docutils literal notranslate"><span class="pre">MindeeApiError</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.error.MindeeApiError.add_note"><code class="docutils literal notranslate"><span class="pre">MindeeApiError.add_note()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.error.MindeeApiError.with_traceback"><code class="docutils literal notranslate"><span class="pre">MindeeApiError.with_traceback()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.error.MindeeApiError.args"><code class="docutils literal notranslate"><span class="pre">MindeeApiError.args</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.error.MindeeApiV2Error"><code class="docutils literal notranslate"><span class="pre">MindeeApiV2Error</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.error.MindeeApiV2Error.add_note"><code class="docutils literal notranslate"><span class="pre">MindeeApiV2Error.add_note()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.error.MindeeApiV2Error.with_traceback"><code class="docutils literal notranslate"><span class="pre">MindeeApiV2Error.with_traceback()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.error.MindeeApiV2Error.args"><code class="docutils literal notranslate"><span class="pre">MindeeApiV2Error.args</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#mindee.error.MindeeClientError"><code class="docutils literal notranslate"><span class="pre">MindeeClientError</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.error.MindeeClientError.add_note"><code class="docutils literal notranslate"><span class="pre">MindeeClientError.add_note()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.error.MindeeClientError.with_traceback"><code class="docutils literal notranslate"><span class="pre">MindeeClientError.with_traceback()</span></code></a></li>
@@ -205,6 +217,56 @@ set self.__traceback__ to tb and return self.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.error.MimeTypeError.args">
 <span class="sig-name descname"><span class="pre">args</span></span><a class="headerlink" href="#mindee.error.MimeTypeError.args" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="mindee.error.MindeeApiError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MindeeApiError</span></span><a class="headerlink" href="#mindee.error.MindeeApiError" title="Permalink to this definition"></a></dt>
+<dd><p>An exception relating to settings of the MindeeClient.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.error.MindeeApiError.add_note">
+<span class="sig-name descname"><span class="pre">add_note</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.error.MindeeApiError.add_note" title="Permalink to this definition"></a></dt>
+<dd><p>Exception.add_note(note) –
+add a note to the exception</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.error.MindeeApiError.with_traceback">
+<span class="sig-name descname"><span class="pre">with_traceback</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.error.MindeeApiError.with_traceback" title="Permalink to this definition"></a></dt>
+<dd><p>Exception.with_traceback(tb) –
+set self.__traceback__ to tb and return self.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.error.MindeeApiError.args">
+<span class="sig-name descname"><span class="pre">args</span></span><a class="headerlink" href="#mindee.error.MindeeApiError.args" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="mindee.error.MindeeApiV2Error">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MindeeApiV2Error</span></span><a class="headerlink" href="#mindee.error.MindeeApiV2Error" title="Permalink to this definition"></a></dt>
+<dd><p>An exception relating to settings of the MindeeClient V2.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.error.MindeeApiV2Error.add_note">
+<span class="sig-name descname"><span class="pre">add_note</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.error.MindeeApiV2Error.add_note" title="Permalink to this definition"></a></dt>
+<dd><p>Exception.add_note(note) –
+add a note to the exception</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.error.MindeeApiV2Error.with_traceback">
+<span class="sig-name descname"><span class="pre">with_traceback</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.error.MindeeApiV2Error.with_traceback" title="Permalink to this definition"></a></dt>
+<dd><p>Exception.with_traceback(tb) –
+set self.__traceback__ to tb and return self.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.error.MindeeApiV2Error.args">
+<span class="sig-name descname"><span class="pre">args</span></span><a class="headerlink" href="#mindee.error.MindeeApiV2Error.args" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
