@@ -1,4 +1,4 @@
-class PollingOptionsV2:
+class PollingOptions:
     """Options for asynchronous polling."""
 
     initial_delay_sec: float

@@ -29,6 +29,28 @@ class BaseField:
         raise MindeeApiV2Error(f"Unrecognized field format {raw_response}.")
 
 
+class InferenceFields(Dict[str, Union["SimpleField", "ObjectField", "ListField"]]):
+    """Inference fields dict."""
+
+    def __init__(self, raw_response: StringDict, indent_level: int = 0) -> None:
+        super().__init__()
+        for key, value in raw_response.items():
+            field_obj = BaseField.create_field(value, indent_level)
+            self[key] = field_obj
+
+    def __getattr__(self, item):
+        try:
+            return self[item]
+        except KeyError:
+            raise AttributeError(item) from None
+
+    def __str__(self) -> str:
+        str_fields = ""
+        for field_key, field_value in self.items():
+            str_fields += f":{field_key}: {field_value}"
+        return str_fields
+
+
 class ListField(BaseField):
     """List field containing multiple fields."""
 
@@ -55,21 +77,14 @@ class ListField(BaseField):
 class ObjectField(BaseField):
     """Object field containing multiple fields."""
 
-    fields: Dict[str, Union[ListField, "ObjectField", "SimpleField"]]
+    fields: InferenceFields
     """Fields contained in the object."""
 
     def __init__(self, raw_response: StringDict, indent_level: int = 0):
         super().__init__(indent_level)
         inner_fields = raw_response.get("fields", raw_response)
 
-        self.fields: Dict[str, Union["ListField", "ObjectField", "SimpleField"]] = {}
-        for field_key, field_value in inner_fields.items():
-            if isinstance(field_value, dict):
-                self.fields[field_key] = BaseField.create_field(
-                    field_value, self._indent_level + 1
-                )
-            else:
-                raise MindeeApiV2Error(f"Unrecognized field format '{field_value}'.")
+        self.fields = InferenceFields(inner_fields, self._indent_level + 1)
 
     def __str__(self) -> str:
         out_str = ""

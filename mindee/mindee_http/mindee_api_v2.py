@@ -68,17 +68,13 @@ class MindeeApiV2(SettingsMixin):
                 logger.debug("Value was set from env: %s", name)
 
     def predict_async_req_post(
-        self,
-        input_source: LocalInputSource,
-        options: InferencePredictOptions,
-        close_file: bool = True,
+        self, input_source: LocalInputSource, options: InferencePredictOptions
     ) -> requests.Response:
         """
         Make an asynchronous request to POST a document for prediction on the V2 API.
 
         :param input_source: Input object.
         :param options: Options for the enqueueing of the document.
-        :param close_file: Whether to `close()` the file after parsing it.
         :return: requests response.
         """
         data = {"model_id": options.model_id}
@@ -93,7 +89,7 @@ class MindeeApiV2(SettingsMixin):
         if options.alias and len(options.alias):
             data["alias"] = options.alias
 
-        files = {"file": input_source.read_contents(close_file)}
+        files = {"file": input_source.read_contents(options.close_file)}
         response = requests.post(
             url=url,
             files=files,

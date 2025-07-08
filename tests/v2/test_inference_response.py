@@ -185,6 +185,10 @@ def test_full_inference_response():
     assert isinstance(load_response.inference.result.fields.taxes, ListField)
     assert isinstance(load_response.inference.result.fields.taxes.items[0], ObjectField)
     assert (
+        load_response.inference.result.fields.customer_address.fields.city.value
+        == "New York"
+    )
+    assert (
         load_response.inference.result.fields.taxes.items[0].fields["base"].value
         == 31.5
     )
