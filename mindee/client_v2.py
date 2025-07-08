@@ -6,8 +6,7 @@ from mindee.error.mindee_error import MindeeError
 from mindee.error.mindee_http_error_v2 import handle_error_v2
 from mindee.input.inference_predict_options import InferencePredictOptions
 from mindee.input.local_response import LocalResponse
-from mindee.input.page_options import PageOptions
-from mindee.input.polling_options_v2 import PollingOptionsV2
+from mindee.input.polling_options import PollingOptions
 from mindee.input.sources.local_input_source import LocalInputSource
 from mindee.logger import logger
 from mindee.mindee_http.mindee_api_v2 import MindeeApiV2
@@ -39,11 +38,7 @@ class ClientV2(ClientMixin):
         self.mindee_api = MindeeApiV2(api_key)
 
     def enqueue(
-        self,
-        input_source: LocalInputSource,
-        options: InferencePredictOptions,
-        page_options: Optional[PageOptions] = None,
-        close_file: bool = True,
+        self, input_source: LocalInputSource, options: InferencePredictOptions
     ) -> PollingResponse:
         """
         Enqueues a document to a given model.
@@ -52,28 +47,19 @@ class ClientV2(ClientMixin):
             Has to be created beforehand.
 
         :param options: Options for the prediction.
-
-        :param close_file: Whether to ``close()`` the file after parsing it.
-          Set to ``False`` if you need to access the file after this operation.
-
-        :param page_options: If set, remove pages from the document as specified.
-            This is done before sending the file to the server.
-            It is useful to avoid page limitations.
         :return: A valid inference response.
         """
         logger.debug("Enqueuing document to '%s'", options.model_id)
 
-        if page_options and input_source.is_pdf():
+        if options.page_options and input_source.is_pdf():
             input_source.process_pdf(
-                page_options.operation,
-                page_options.on_min_pages,
-                page_options.page_indexes,
+                options.page_options.operation,
+                options.page_options.on_min_pages,
+                options.page_options.page_indexes,
             )
 
         response = self.mindee_api.predict_async_req_post(
-            input_source=input_source,
-            options=options,
-            close_file=close_file,
+            input_source=input_source, options=options
         )
         dict_response = response.json()
 
@@ -103,12 +89,7 @@ class ClientV2(ClientMixin):
         return InferenceResponse(dict_response)
 
     def enqueue_and_parse(
-        self,
-        input_source: LocalInputSource,
-        options: InferencePredictOptions,
-        polling_options: Optional[PollingOptionsV2] = None,
-        page_options: Optional[PageOptions] = None,
-        close_file: bool = True,
+        self, input_source: LocalInputSource, options: InferencePredictOptions
     ) -> InferenceResponse:
         """
         Enqueues to an asynchronous endpoint and automatically polls for a response.
@@ -118,39 +99,25 @@ class ClientV2(ClientMixin):
 
         :param options: Options for the prediction.
 
-        :param polling_options: Options for polling.
-
-        :param close_file: Whether to ``close()`` the file after parsing it.
-          Set to ``False`` if you need to access the file after this operation.
-
-        :param page_options: If set, remove pages from the document as specified.
-            This is done before sending the file to the server.
-            It is useful to avoid page limitations.
-
         :return: A valid inference response.
         """
-        if not polling_options:
-            polling_options = PollingOptionsV2()
+        if not options.polling_options:
+            options.polling_options = PollingOptions()
         self._validate_async_params(
-            polling_options.initial_delay_sec,
-            polling_options.delay_sec,
-            polling_options.max_retries,
+            options.polling_options.initial_delay_sec,
+            options.polling_options.delay_sec,
+            options.polling_options.max_retries,
         )
-        queue_result = self.enqueue(
-            input_source,
-            options,
-            page_options,
-            close_file,
-        )
+        queue_result = self.enqueue(input_source, options)
         logger.debug(
             "Successfully enqueued document with job id: %s", queue_result.job.id
         )
-        sleep(polling_options.initial_delay_sec)
+        sleep(options.polling_options.initial_delay_sec)
         retry_counter = 1
         poll_results = self.parse_queued(
             queue_result.job.id,
         )
-        while retry_counter < polling_options.max_retries:
+        while retry_counter < options.polling_options.max_retries:
             if not isinstance(poll_results, PollingResponse):
                 break
             if poll_results.job.status == "Failed":
@@ -160,7 +127,7 @@ class ClientV2(ClientMixin):
                 queue_result.job.id,
             )
             retry_counter += 1
-            sleep(polling_options.delay_sec)
+            sleep(options.polling_options.delay_sec)
             poll_results = self.parse_queued(queue_result.job.id)
 
         if not isinstance(poll_results, InferenceResponse):

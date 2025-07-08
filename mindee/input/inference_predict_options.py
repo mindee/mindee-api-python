@@ -1,6 +1,9 @@
 from dataclasses import dataclass
 from typing import List, Optional
 
+from mindee.input.page_options import PageOptions
+from mindee.input.polling_options import PollingOptions
+
 
 @dataclass
 class InferencePredictOptions:
@@ -19,3 +22,9 @@ class InferencePredictOptions:
     """Optional alias for the file."""
     webhook_ids: Optional[List[str]] = None
     """IDs of webhooks to propagate the API response to."""
+    page_options: Optional[PageOptions] = None
+    """Options for page-level inference."""
+    polling_options: Optional[PollingOptions] = None
+    """Options for polling."""
+    close_file: bool = True
+    """Whether to close the file after parsing."""
