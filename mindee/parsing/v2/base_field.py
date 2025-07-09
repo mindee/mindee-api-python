@@ -34,6 +34,7 @@ class InferenceFields(Dict[str, Union["SimpleField", "ObjectField", "ListField"]
 
     def __init__(self, raw_response: StringDict, indent_level: int = 0) -> None:
         super().__init__()
+        self._indent_level = indent_level
         for key, value in raw_response.items():
             field_obj = BaseField.create_field(value, indent_level)
             self[key] = field_obj
@@ -45,10 +46,23 @@ class InferenceFields(Dict[str, Union["SimpleField", "ObjectField", "ListField"]
             raise AttributeError(item) from None
 
     def __str__(self) -> str:
-        str_fields = ""
+        out_str = ""
         for field_key, field_value in self.items():
-            str_fields += f":{field_key}: {field_value}"
-        return str_fields
+            if isinstance(field_value, ListField):
+                value_str = " " * self._indent_level
+                if len(field_value.items) > 0:
+                    value_str = (
+                        " " * self._indent_level + str(field_value)
+                        if field_value
+                        else ""
+                    )
+                out_str += f"{' ' * self._indent_level}:{field_key}: {value_str}"
+            elif isinstance(field_value, ObjectField):
+                out_str += f"{' ' * self._indent_level}:{field_key}: {field_value}"
+            else:
+                out_str += f"{' ' * self._indent_level}:{field_key}: {field_value if field_value else ''}"
+            out_str += "\n"
+        return out_str.rstrip()
 
 
 class ListField(BaseField):
@@ -87,20 +101,7 @@ class ObjectField(BaseField):
         self.fields = InferenceFields(inner_fields, self._indent_level + 1)
 
     def __str__(self) -> str:
-        out_str = ""
-        for field_key, field_value in self.fields.items():
-            if isinstance(field_value, ListField):
-                value_str = ""
-                if len(field_value.items) > 0:
-                    value_str = (
-                        " " * self._indent_level + str(field_value)
-                        if field_value
-                        else ""
-                    )
-                out_str += f"{' ' * self._indent_level}:{field_key}: {value_str}"
-            else:
-                out_str += f"{' ' * self._indent_level}:{field_key}: {field_value if field_value else ''}"
-        return out_str
+        return f"\n{self.fields}"
 
 
 class SimpleField(BaseField):
@@ -113,4 +114,4 @@ class SimpleField(BaseField):
         self.value = raw_response["value"] = raw_response.get("value", None)
 
     def __str__(self) -> str:
-        return f"{self.value}\n" if self.value else "\n"
+        return f"{self.value}" if self.value else ""

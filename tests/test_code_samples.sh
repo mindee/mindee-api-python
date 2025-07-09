@@ -8,7 +8,7 @@ API_KEY=$3
 API_KEY_V2=$4
 MODEL_ID=$5
 
-for f in $(find ./docs/extras/code_samples -maxdepth 1 -name "*.txt" -not -name "workflow_*.txt" | sort -h)
+for f in $(find ./docs/extras/code_samples -maxdepth 1 -name "default_v2.txt" -not -name "workflow_*.txt" | sort -h)
 do
   if echo "${f}" | grep -q "default_v2.txt"; then
     if [ -z "${API_KEY_V2}" ] || [ -z "${MODEL_ID}" ]; then
