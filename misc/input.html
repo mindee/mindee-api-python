@@ -57,8 +57,11 @@
 <li class="toctree-l3"><a class="reference internal" href="#mindee.input.FileInput"><code class="docutils literal notranslate"><span class="pre">FileInput</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#mindee.input.InferencePredictOptions"><code class="docutils literal notranslate"><span class="pre">InferencePredictOptions</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.input.InferencePredictOptions.alias"><code class="docutils literal notranslate"><span class="pre">InferencePredictOptions.alias</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.InferencePredictOptions.close_file"><code class="docutils literal notranslate"><span class="pre">InferencePredictOptions.close_file</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.input.InferencePredictOptions.full_text"><code class="docutils literal notranslate"><span class="pre">InferencePredictOptions.full_text</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.input.InferencePredictOptions.model_id"><code class="docutils literal notranslate"><span class="pre">InferencePredictOptions.model_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.InferencePredictOptions.page_options"><code class="docutils literal notranslate"><span class="pre">InferencePredictOptions.page_options</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.InferencePredictOptions.polling_options"><code class="docutils literal notranslate"><span class="pre">InferencePredictOptions.polling_options</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.input.InferencePredictOptions.rag"><code class="docutils literal notranslate"><span class="pre">InferencePredictOptions.rag</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.input.InferencePredictOptions.webhook_ids"><code class="docutils literal notranslate"><span class="pre">InferencePredictOptions.webhook_ids</span></code></a></li>
 </ul>
@@ -102,10 +105,10 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#mindee.input.PathInput"><code class="docutils literal notranslate"><span class="pre">PathInput</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#mindee.input.PollingOptionsV2"><code class="docutils literal notranslate"><span class="pre">PollingOptionsV2</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#mindee.input.PollingOptionsV2.delay_sec"><code class="docutils literal notranslate"><span class="pre">PollingOptionsV2.delay_sec</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mindee.input.PollingOptionsV2.initial_delay_sec"><code class="docutils literal notranslate"><span class="pre">PollingOptionsV2.initial_delay_sec</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#mindee.input.PollingOptionsV2.max_retries"><code class="docutils literal notranslate"><span class="pre">PollingOptionsV2.max_retries</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.input.PollingOptions"><code class="docutils literal notranslate"><span class="pre">PollingOptions</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.PollingOptions.delay_sec"><code class="docutils literal notranslate"><span class="pre">PollingOptions.delay_sec</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.PollingOptions.initial_delay_sec"><code class="docutils literal notranslate"><span class="pre">PollingOptions.initial_delay_sec</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.PollingOptions.max_retries"><code class="docutils literal notranslate"><span class="pre">PollingOptions.max_retries</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#mindee.input.UrlInputSource"><code class="docutils literal notranslate"><span class="pre">UrlInputSource</span></code></a><ul>
@@ -197,7 +200,7 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.input.InferencePredictOptions">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">InferencePredictOptions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">webhook_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.InferencePredictOptions" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">InferencePredictOptions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">webhook_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">polling_options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">close_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.InferencePredictOptions" title="Permalink to this definition"></a></dt>
 <dd><p>Inference prediction options.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -207,6 +210,9 @@
 <li><p><strong>rag</strong> (<em>bool</em>) – </p></li>
 <li><p><strong>alias</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p></li>
 <li><p><strong>webhook_ids</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – </p></li>
+<li><p><strong>page_options</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="#mindee.input.PageOptions" title="mindee.input.page_options.PageOptions"><em>PageOptions</em></a><em>]</em>) – </p></li>
+<li><p><strong>polling_options</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="#mindee.input.PollingOptions" title="mindee.input.polling_options.PollingOptions"><em>PollingOptions</em></a><em>]</em>) – </p></li>
+<li><p><strong>close_file</strong> (<em>bool</em>) – </p></li>
 </ul>
 </dd>
 </dl>
@@ -214,6 +220,12 @@
 <dt class="sig sig-object py" id="mindee.input.InferencePredictOptions.alias">
 <span class="sig-name descname"><span class="pre">alias</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.input.InferencePredictOptions.alias" title="Permalink to this definition"></a></dt>
 <dd><p>Optional alias for the file.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.InferencePredictOptions.close_file">
+<span class="sig-name descname"><span class="pre">close_file</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#mindee.input.InferencePredictOptions.close_file" title="Permalink to this definition"></a></dt>
+<dd><p>Whether to close the file after parsing.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -227,6 +239,18 @@ This performs a full OCR operation on the server and will increase response time
 <dt class="sig sig-object py" id="mindee.input.InferencePredictOptions.model_id">
 <span class="sig-name descname"><span class="pre">model_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#mindee.input.InferencePredictOptions.model_id" title="Permalink to this definition"></a></dt>
 <dd><p>ID of the model.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.InferencePredictOptions.page_options">
+<span class="sig-name descname"><span class="pre">page_options</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><a class="reference internal" href="#mindee.input.PageOptions" title="mindee.input.page_options.PageOptions"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageOptions</span></code></a><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.input.InferencePredictOptions.page_options" title="Permalink to this definition"></a></dt>
+<dd><p>Options for page-level inference.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.InferencePredictOptions.polling_options">
+<span class="sig-name descname"><span class="pre">polling_options</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><a class="reference internal" href="#mindee.input.PollingOptions" title="mindee.input.polling_options.PollingOptions"><code class="xref py py-class docutils literal notranslate"><span class="pre">PollingOptions</span></code></a><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.input.InferencePredictOptions.polling_options" title="Permalink to this definition"></a></dt>
+<dd><p>Options for polling.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -573,8 +597,8 @@ A negative index can be used, indicating an offset from the end of the document.
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="mindee.input.PollingOptionsV2">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PollingOptionsV2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initial_delay_sec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay_sec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_retries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">80</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.PollingOptionsV2" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="mindee.input.PollingOptions">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PollingOptions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initial_delay_sec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay_sec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_retries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">80</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.PollingOptions" title="Permalink to this definition"></a></dt>
 <dd><p>Options for asynchronous polling.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -586,20 +610,20 @@ A negative index can be used, indicating an offset from the end of the document.
 </dd>
 </dl>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.input.PollingOptionsV2.delay_sec">
-<span class="sig-name descname"><span class="pre">delay_sec</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#mindee.input.PollingOptionsV2.delay_sec" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="mindee.input.PollingOptions.delay_sec">
+<span class="sig-name descname"><span class="pre">delay_sec</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#mindee.input.PollingOptions.delay_sec" title="Permalink to this definition"></a></dt>
 <dd><p>Delay between each polling attempts.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.input.PollingOptionsV2.initial_delay_sec">
-<span class="sig-name descname"><span class="pre">initial_delay_sec</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#mindee.input.PollingOptionsV2.initial_delay_sec" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="mindee.input.PollingOptions.initial_delay_sec">
+<span class="sig-name descname"><span class="pre">initial_delay_sec</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#mindee.input.PollingOptions.initial_delay_sec" title="Permalink to this definition"></a></dt>
 <dd><p>Initial delay before the first polling attempt.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.input.PollingOptionsV2.max_retries">
-<span class="sig-name descname"><span class="pre">max_retries</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.input.PollingOptionsV2.max_retries" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="mindee.input.PollingOptions.max_retries">
+<span class="sig-name descname"><span class="pre">max_retries</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.input.PollingOptions.max_retries" title="Permalink to this definition"></a></dt>
 <dd><p>Total amount of polling attempts.</p>
 </dd></dl>
 
