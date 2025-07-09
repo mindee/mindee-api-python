@@ -1,5 +1,14 @@
 # Mindee Python API Library Changelog
 
+## v4.24.0-rc2 - 2025-07-09
+### Changes
+* :sparkles: merge enqueue parameters into a single object
+* :sparkles: add dot access to object fields
+### Fixes
+* :recycle: remove deprecated files
+* :art: touch up string representation for most objects.
+
+
 ## v4.24.0-rc1 - 2025-07-07
 ### Changes
 * :sparkles: add support for mindee API V2 client & features

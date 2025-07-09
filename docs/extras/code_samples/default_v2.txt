@@ -5,7 +5,6 @@
 
 from mindee import ClientV2, InferencePredictOptions
 from mindee.parsing.v2 import InferenceResponse, PollingResponse
-from tests.product import PRODUCT_DATA_DIR
 
 input_path = "/path/to/the/file.ext"
 api_key = "MY_API_KEY"
