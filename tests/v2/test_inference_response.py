@@ -3,7 +3,6 @@ import json
 import pytest
 
 from mindee import ClientV2, LocalResponse
-from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.v2 import (
     Inference,
     InferenceFile,
@@ -17,90 +16,30 @@ from tests.test_inputs import V2_DATA_DIR
 
 
 @pytest.fixture
-def inference_result_json() -> StringDict:
-    return {
-        "inference": {
-            "model": {"id": "test-model-id"},
-            "file": {"name": "test-file-name.jpg", "alias": None},
-            "result": {
-                "fields": {
-                    "field_simple": {"value": "value_1"},
-                    "field_object": {
-                        "fields": {
-                            "sub_object_simple": {"value": "value_2"},
-                            "sub_object_list": {
-                                "items": [
-                                    {
-                                        "fields": {
-                                            "sub_object_list_sub_list_simple": {
-                                                "value": "value_3"
-                                            }
-                                        }
-                                    },
-                                    {
-                                        "fields": {
-                                            "sub_object_list_sub_list_object_subobject_1": {
-                                                "value": "value_4"
-                                            },
-                                            "sub_object_list_sub_list_object_subobject_2": {
-                                                "value": "value_5"
-                                            },
-                                        }
-                                    },
-                                ]
-                            },
-                            "sub_object_object": {
-                                "fields": {
-                                    "sub_object_object_sub_object_simple": {
-                                        "value": "value_6"
-                                    },
-                                    "sub_object_object_sub_object_object": {
-                                        "fields": {
-                                            "sub_object_object_sub_object_object_simple_1": {
-                                                "value": "value_7"
-                                            },
-                                            "sub_object_object_sub_object_object_simple_2": {
-                                                "value": "value_8"
-                                            },
-                                        }
-                                    },
-                                    "sub_object_object_sub_object_list": {
-                                        "items": [
-                                            {
-                                                "fields": {
-                                                    "sub_object_object_sub_object_list_simple": {
-                                                        "value": "value_9"
-                                                    },
-                                                    "sub_object_object_sub_object_list_object": {
-                                                        "fields": {
-                                                            "sub_object_object_sub_object_list_object_subobject_1": {
-                                                                "value": "value_10"
-                                                            },
-                                                            "sub_object_object_sub_object_list_object_subobject_2": {
-                                                                "value": "value_11"
-                                                            },
-                                                        }
-                                                    },
-                                                }
-                                            }
-                                        ]
-                                    },
-                                }
-                            },
-                        }
-                    },
-                },
-                "options": {
-                    "raw_text": ["toto", "tata", "titi"],
-                },
-            },
-        }
-    }
+def deep_nested_fields() -> dict:
+    with (V2_DATA_DIR / "inference/deep_nested_fields.json").open(
+        "r", encoding="utf-8"
+    ) as fh:
+        return json.load(fh)
+
+
+@pytest.fixture
+def standard_field_types() -> dict:
+    with (V2_DATA_DIR / "inference/standard_field_types.json").open(
+        "r", encoding="utf-8"
+    ) as fh:
+        return json.load(fh)
+
+
+@pytest.fixture
+def raw_texts() -> dict:
+    with (V2_DATA_DIR / "inference/raw_texts.json").open("r", encoding="utf-8") as fh:
+        return json.load(fh)
 
 
 @pytest.mark.v2
-def test_inference_response(inference_result_json):
-    inference_result = InferenceResponse(inference_result_json)
+def test_deep_nested_fields(deep_nested_fields):
+    inference_result = InferenceResponse(deep_nested_fields)
     assert isinstance(inference_result.inference, Inference)
     assert isinstance(
         inference_result.inference.result.fields.field_simple, SimpleField
@@ -166,9 +105,37 @@ def test_inference_response(inference_result_json):
         == "value_9"
     )
 
+
+@pytest.mark.v2
+def test_deep_nested_fields(standard_field_types):
+    inference_result = InferenceResponse(standard_field_types)
+    assert isinstance(inference_result.inference, Inference)
+    assert isinstance(
+        inference_result.inference.result.fields.field_simple, SimpleField
+    )
+    assert isinstance(
+        inference_result.inference.result.fields.field_object, ObjectField
+    )
+    assert isinstance(
+        inference_result.inference.result.fields.field_simple_list, ListField
+    )
+    assert isinstance(
+        inference_result.inference.result.fields.field_object_list, ListField
+    )
+
+
+@pytest.mark.v2
+def test_raw_texts(raw_texts):
+    inference_result = InferenceResponse(raw_texts)
+    assert isinstance(inference_result.inference, Inference)
+
     assert inference_result.inference.result.options
-    assert len(inference_result.inference.result.options.raw_text) == 3
-    assert inference_result.inference.result.options.raw_text[0] == "toto"
+    assert len(inference_result.inference.result.options.raw_texts) == 2
+    assert inference_result.inference.result.options.raw_texts[0].page == 0
+    assert (
+        inference_result.inference.result.options.raw_texts[0].content
+        == "This is the raw text of the first page..."
+    )
 
 
 @pytest.mark.v2
