@@ -2,9 +2,8 @@
 # Install the Python client library by running:
 # pip install mindee
 #
-
 from mindee import ClientV2, InferencePredictOptions
-from mindee.parsing.v2 import InferenceResponse, PollingResponse
+from mindee.parsing.v2 import InferenceResponse
 
 input_path = "/path/to/the/file.ext"
 api_key = "MY_API_KEY"
