@@ -1,7 +1,3 @@
-#
-# Install the Python client library by running:
-# pip install mindee
-#
 from mindee import ClientV2, InferencePredictOptions
 from mindee.parsing.v2 import InferenceResponse
 
