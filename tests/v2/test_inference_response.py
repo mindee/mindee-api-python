@@ -107,24 +107,6 @@ def test_deep_nested_fields(deep_nested_fields):
 
 
 @pytest.mark.v2
-def test_deep_nested_fields(standard_field_types):
-    inference_result = InferenceResponse(standard_field_types)
-    assert isinstance(inference_result.inference, Inference)
-    assert isinstance(
-        inference_result.inference.result.fields.field_simple, SimpleField
-    )
-    assert isinstance(
-        inference_result.inference.result.fields.field_object, ObjectField
-    )
-    assert isinstance(
-        inference_result.inference.result.fields.field_simple_list, ListField
-    )
-    assert isinstance(
-        inference_result.inference.result.fields.field_object_list, ListField
-    )
-
-
-@pytest.mark.v2
 def test_raw_texts(raw_texts):
     inference_result = InferenceResponse(raw_texts)
     assert isinstance(inference_result.inference, Inference)
