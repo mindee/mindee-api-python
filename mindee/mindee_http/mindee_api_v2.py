@@ -80,8 +80,6 @@ class MindeeApiV2(SettingsMixin):
         data = {"model_id": options.model_id}
         url = f"{self.url_root}/inferences/enqueue"
 
-        if options.full_text:
-            data["full_text_ocr"] = "true"
         if options.rag:
             data["rag"] = "true"
         if options.webhook_ids and len(options.webhook_ids) > 0:
