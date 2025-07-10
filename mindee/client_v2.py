@@ -15,7 +15,7 @@ from mindee.mindee_http.response_validation_v2 import (
     is_valid_post_response,
 )
 from mindee.parsing.v2.inference_response import InferenceResponse
-from mindee.parsing.v2.polling_response import PollingResponse
+from mindee.parsing.v2.job_response import JobResponse
 
 
 class ClientV2(ClientMixin):
@@ -39,7 +39,7 @@ class ClientV2(ClientMixin):
 
     def enqueue(
         self, input_source: LocalInputSource, options: InferencePredictOptions
-    ) -> PollingResponse:
+    ) -> JobResponse:
         """
         Enqueues a document to a given model.
 
@@ -66,12 +66,12 @@ class ClientV2(ClientMixin):
         if not is_valid_post_response(response):
             handle_error_v2(dict_response)
 
-        return PollingResponse(dict_response)
+        return JobResponse(dict_response)
 
     def parse_queued(
         self,
         queue_id: str,
-    ) -> Union[InferenceResponse, PollingResponse]:
+    ) -> Union[InferenceResponse, JobResponse]:
         """
         Parses a queued document.
 
@@ -85,7 +85,7 @@ class ClientV2(ClientMixin):
 
         dict_response = response.json()
         if "job" in dict_response:
-            return PollingResponse(dict_response)
+            return JobResponse(dict_response)
         return InferenceResponse(dict_response)
 
     def enqueue_and_parse(
@@ -118,7 +118,7 @@ class ClientV2(ClientMixin):
             queue_result.job.id,
         )
         while retry_counter < options.polling_options.max_retries:
-            if not isinstance(poll_results, PollingResponse):
+            if not isinstance(poll_results, JobResponse):
                 break
             if poll_results.job.status == "Failed":
                 raise MindeeError(f"Parsing failed for job {poll_results.job.id}")

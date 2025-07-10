@@ -7,7 +7,7 @@ from mindee.error.mindee_error import MindeeApiV2Error
 from mindee.error.mindee_http_error_v2 import MindeeHTTPErrorV2
 from mindee.input import LocalInputSource, PathInput
 from mindee.mindee_http.base_settings import USER_AGENT
-from mindee.parsing.v2 import Job, PollingResponse
+from mindee.parsing.v2 import Job, JobResponse
 from tests.test_inputs import FILE_TYPES_DIR, V2_DATA_DIR
 from tests.utils import dummy_envvars
 
@@ -137,7 +137,7 @@ def test_enqueue(custom_base_url_client):
     response = custom_base_url_client.parse_queued(
         "12345678-1234-1234-1234-123456789ABC"
     )
-    assert isinstance(response, PollingResponse)
+    assert isinstance(response, JobResponse)
     assert isinstance(response.job, Job)
     assert response.job.id == "12345678-1234-1234-1234-123456789ABC"
     assert response.job.model_id == "87654321-4321-4321-4321-CBA987654321"

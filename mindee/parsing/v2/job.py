@@ -12,6 +12,8 @@ class Job:
     """Job ID."""
     error: Optional[ErrorResponse]
     """Error response if any."""
+    created_at: datetime
+    """Timestamp of the job creation."""
     model_id: str
     """ID of the model."""
     filename: str
