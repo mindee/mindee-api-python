@@ -3,7 +3,7 @@ from mindee.parsing.v2.common_response import CommonResponse
 from mindee.parsing.v2.job import Job
 
 
-class PollingResponse(CommonResponse):
+class JobResponse(CommonResponse):
     """Represent an inference response from Mindee V2 API."""
 
     job: Job
