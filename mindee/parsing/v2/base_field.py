@@ -84,7 +84,7 @@ class ListField(BaseField):
     def __str__(self) -> str:
         out_str = ""
         for item in self.items:
-            out_str += f"* {str(item)[2:] if item else ''}"
+            out_str += f"*{str(item)[2:] if item else ''}"
         return "\n" + out_str if out_str else ""
 
 

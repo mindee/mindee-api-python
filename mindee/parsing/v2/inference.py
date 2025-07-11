@@ -28,10 +28,9 @@ class Inference:
         return (
             f"Inference\n"
             f"#########\n"
-            f":Model: {self.model.id}\n"
-            f":File:\n"
-            f"  :Name: {self.file.name}\n"
-            f"  :Alias: {self.file.alias}\n\n"
+            f":model: {self.model.id}\n"
+            ":file:\n"
+            f"{self.file.__str__(1)}"
             f"Result\n"
             f"======\n"
             f"{self.result}\n"
