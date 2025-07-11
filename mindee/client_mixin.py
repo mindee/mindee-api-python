@@ -6,14 +6,14 @@ from mindee.input import Base64Input, BytesInput, FileInput, PathInput
 
 
 class ClientMixin:
-    """Mixin for client Client V1 & V2 common static methods."""
+    """Mixin for clients V1 & V2 common static methods."""
 
     @staticmethod
     def source_from_path(
         input_path: Union[Path, str], fix_pdf: bool = False
     ) -> PathInput:
         """
-        Load a document from an absolute path, as a string.
+        Load a document from a path, as a string or a `Path` object.
 
         :param input_path: Path of file to open
         :param fix_pdf: Whether to attempt fixing PDF files before sending.

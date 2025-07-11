@@ -29,7 +29,7 @@ class Inference:
             f"Inference\n"
             f"#########\n"
             f":Model: {self.model.id}\n"
-            f":File: {self.file}\n"
+            f":File:\n"
             f"  :Name: {self.file.name}\n"
             f"  :Alias: {self.file.alias}\n\n"
             f"Result\n"

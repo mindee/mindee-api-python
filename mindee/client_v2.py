@@ -121,7 +121,13 @@ class ClientV2(ClientMixin):
             if not isinstance(poll_results, JobResponse):
                 break
             if poll_results.job.status == "Failed":
-                raise MindeeError(f"Parsing failed for job {poll_results.job.id}")
+                if poll_results.job.error:
+                    detail = poll_results.job.error.detail
+                else:
+                    detail = "No error detail available."
+                raise MindeeError(
+                    f"Parsing failed for job {poll_results.job.id}: {detail}"
+                )
             logger.debug(
                 "Polling server for parsing result with job id: %s",
                 queue_result.job.id,
