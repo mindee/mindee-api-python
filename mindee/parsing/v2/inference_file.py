@@ -16,5 +16,7 @@ class InferenceFile:
         self.alias = raw_response["alias"]
 
     def __str__(self, indent: int = 0) -> str:
-        return f"{'  ' * indent}:name: {self.name}\n"\
-               f"{'  ' * indent}:alias: {self.alias if self.alias else ''}\n"
+        return (
+            f"{'  ' * indent}:name: {self.name}\n"
+            f"{'  ' * indent}:alias: {self.alias if self.alias else ''}\n"
+        )
