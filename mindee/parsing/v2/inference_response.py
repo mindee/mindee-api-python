@@ -12,3 +12,6 @@ class InferenceResponse(CommonResponse):
     def __init__(self, raw_response: StringDict) -> None:
         super().__init__(raw_response)
         self.inference = Inference(raw_response["inference"])
+
+    def __str__(self) -> str:
+        return str(self.inference)

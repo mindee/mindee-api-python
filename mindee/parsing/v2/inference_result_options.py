@@ -4,7 +4,7 @@ from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.v2.raw_text import RawText
 
 
-class InferenceOptions:
+class InferenceResultOptions:
     """Optional information about the document."""
 
     raw_texts: List[RawText]

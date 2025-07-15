@@ -3,43 +3,33 @@ import json
 import pytest
 
 from mindee import ClientV2, LocalResponse
-from mindee.parsing.v2 import (
-    Inference,
-    InferenceFile,
-    InferenceModel,
-    InferenceResponse,
-    ListField,
-    ObjectField,
-    SimpleField,
-)
+from mindee.parsing.v2.inference import Inference
+from mindee.parsing.v2.inference_file import InferenceFile
+from mindee.parsing.v2.inference_model import InferenceModel
+from mindee.parsing.v2.inference_response import InferenceResponse
+from mindee.parsing.v2.list_field import ListField
+from mindee.parsing.v2.object_field import ObjectField
+from mindee.parsing.v2.simple_field import SimpleField
 from tests.test_inputs import V2_DATA_DIR
 
 
-@pytest.fixture
-def deep_nested_fields() -> dict:
-    with (V2_DATA_DIR / "inference/deep_nested_fields.json").open(
-        "r", encoding="utf-8"
-    ) as fh:
-        return json.load(fh)
-
-
-@pytest.fixture
-def standard_field_types() -> dict:
-    with (V2_DATA_DIR / "inference/standard_field_types.json").open(
-        "r", encoding="utf-8"
-    ) as fh:
-        return json.load(fh)
-
-
-@pytest.fixture
-def raw_texts() -> dict:
-    with (V2_DATA_DIR / "inference/raw_texts.json").open("r", encoding="utf-8") as fh:
-        return json.load(fh)
+def _get_samples(name: str) -> tuple[dict, str]:
+    with (V2_DATA_DIR / "inference" / f"{name}.json").open("r", encoding="utf-8") as fh:
+        json_sample = json.load(fh)
+    try:
+        with (V2_DATA_DIR / "inference" / f"{name}.rst").open(
+            "r", encoding="utf-8"
+        ) as fh:
+            rst_sample = fh.read()
+    except FileNotFoundError:
+        rst_sample = ""
+    return json_sample, rst_sample
 
 
 @pytest.mark.v2
-def test_deep_nested_fields(deep_nested_fields):
-    inference_result = InferenceResponse(deep_nested_fields)
+def test_deep_nested_fields():
+    json_sample, rst_sample = _get_samples("deep_nested_fields")
+    inference_result = InferenceResponse(json_sample)
     assert isinstance(inference_result.inference, Inference)
     assert isinstance(
         inference_result.inference.result.fields.field_simple, SimpleField
@@ -107,8 +97,29 @@ def test_deep_nested_fields(deep_nested_fields):
 
 
 @pytest.mark.v2
-def test_raw_texts(raw_texts):
-    inference_result = InferenceResponse(raw_texts)
+def test_standard_field_types():
+    json_sample, rst_sample = _get_samples("standard_field_types")
+    inference_result = InferenceResponse(json_sample)
+    assert isinstance(inference_result.inference, Inference)
+    assert isinstance(
+        inference_result.inference.result.fields.field_simple, SimpleField
+    )
+    assert isinstance(
+        inference_result.inference.result.fields.field_object, ObjectField
+    )
+    assert isinstance(
+        inference_result.inference.result.fields.field_simple_list, ListField
+    )
+    assert isinstance(
+        inference_result.inference.result.fields.field_object_list, ListField
+    )
+    assert rst_sample == str(inference_result)
+
+
+@pytest.mark.v2
+def test_raw_texts():
+    json_sample, rst_sample = _get_samples("raw_texts")
+    inference_result = InferenceResponse(json_sample)
     assert isinstance(inference_result.inference, Inference)
 
     assert inference_result.inference.result.options
