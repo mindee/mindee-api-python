@@ -34,11 +34,14 @@ def get_field_type(raw_response: StringDict, indent_level: int = 0) -> DynamicFi
     """Get appropriate field types."""
     if isinstance(raw_response, dict):
         if "value" in raw_response:
-            field_class = getattr(v2.simple_field, FieldType.SIMPLE.value)
+            field_file = getattr(v2, "simple_field")
+            field_class = getattr(field_file, FieldType.SIMPLE.value)
         elif "items" in raw_response:
-            field_class = getattr(v2.list_field, FieldType.LIST.value)
+            field_file = getattr(v2, "list_field")
+            field_class = getattr(field_file, FieldType.LIST.value)
         elif "fields" in raw_response:
-            field_class = getattr(v2.object_field, FieldType.OBJECT.value)
+            field_file = getattr(v2, "object_field")
+            field_class = getattr(field_file, FieldType.OBJECT.value)
         else:
             raise MindeeApiV2Error(f"Unrecognized field format in {raw_response}.")
         return field_class(raw_response, indent_level)
