@@ -1,4 +1,5 @@
 import json
+from typing import Tuple
 
 import pytest
 
@@ -13,7 +14,7 @@ from mindee.parsing.v2.simple_field import SimpleField
 from tests.test_inputs import V2_DATA_DIR
 
 
-def _get_samples(name: str) -> tuple[dict, str]:
+def _get_samples(name: str) -> Tuple[dict, str]:
     with (V2_DATA_DIR / "inference" / f"{name}.json").open("r", encoding="utf-8") as fh:
         json_sample = json.load(fh)
     try:
