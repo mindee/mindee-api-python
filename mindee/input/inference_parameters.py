@@ -6,8 +6,8 @@ from mindee.input.polling_options import PollingOptions
 
 
 @dataclass
-class InferencePredictOptions:
-    """Inference prediction options."""
+class InferenceParameters:
+    """Inference parameters to set when sending a file."""
 
     model_id: str
     """ID of the model, required."""
@@ -20,6 +20,6 @@ class InferencePredictOptions:
     page_options: Optional[PageOptions] = None
     """Options for page-level inference."""
     polling_options: Optional[PollingOptions] = None
-    """Options for polling."""
+    """Options for polling. Set only if having timeout issues."""
     close_file: bool = True
     """Whether to close the file after parsing."""

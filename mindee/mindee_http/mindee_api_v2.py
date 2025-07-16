@@ -5,7 +5,7 @@ import requests
 
 from mindee.error.mindee_error import MindeeApiV2Error
 from mindee.input import LocalInputSource
-from mindee.input.inference_predict_options import InferencePredictOptions
+from mindee.input.inference_parameters import InferenceParameters
 from mindee.logger import logger
 from mindee.mindee_http.base_settings import USER_AGENT
 from mindee.mindee_http.settings_mixin import SettingsMixin
@@ -68,7 +68,7 @@ class MindeeApiV2(SettingsMixin):
                 logger.debug("Value was set from env: %s", name)
 
     def predict_async_req_post(
-        self, input_source: LocalInputSource, options: InferencePredictOptions
+        self, input_source: LocalInputSource, options: InferenceParameters
     ) -> requests.Response:
         """
         Make an asynchronous request to POST a document for prediction on the V2 API.

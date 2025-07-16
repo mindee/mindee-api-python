@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from mindee import ClientV2, InferencePredictOptions, LocalResponse
+from mindee import ClientV2, InferenceParameters, LocalResponse
 from mindee.error.mindee_error import MindeeApiV2Error
 from mindee.error.mindee_http_error_v2 import MindeeHTTPErrorV2
 from mindee.input import LocalInputSource, PathInput
@@ -96,9 +96,7 @@ def test_enqueue_path_with_env_token(custom_base_url_client):
         f"{FILE_TYPES_DIR}/receipt.jpg"
     )
     with pytest.raises(MindeeHTTPErrorV2):
-        custom_base_url_client.enqueue(
-            input_doc, InferencePredictOptions("dummy-model")
-        )
+        custom_base_url_client.enqueue(input_doc, InferenceParameters("dummy-model"))
 
 
 @pytest.mark.v2
@@ -108,7 +106,7 @@ def test_enqueue_and_parse_path_with_env_token(custom_base_url_client):
     )
     with pytest.raises(MindeeHTTPErrorV2):
         custom_base_url_client.enqueue_and_parse(
-            input_doc, InferencePredictOptions("dummy-model")
+            input_doc, InferenceParameters("dummy-model")
         )
 
 
@@ -128,7 +126,7 @@ def test_error_handling(custom_base_url_client):
             PathInput(
                 V2_DATA_DIR / "products" / "financial_document" / "default_sample.jpg"
             ),
-            InferencePredictOptions("dummy-model"),
+            InferenceParameters("dummy-model"),
         )
         assert e.status_code == -1
         assert e.detail == "forced failure from test"

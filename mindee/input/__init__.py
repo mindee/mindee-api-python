@@ -1,4 +1,3 @@
-from mindee.input.inference_predict_options import InferencePredictOptions
 from mindee.input.local_response import LocalResponse
 from mindee.input.page_options import PageOptions
 from mindee.input.polling_options import PollingOptions
