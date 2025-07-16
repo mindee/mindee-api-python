@@ -1,7 +1,7 @@
 from typing import Dict
 
 from mindee.parsing.common.string_dict import StringDict
-from mindee.parsing.v2.dynamic_field import DynamicField, get_field_type
+from mindee.parsing.v2.dynamic_field import DynamicField, FieldType, get_field_type
 
 
 class InferenceResultFields(Dict[str, DynamicField]):
@@ -22,7 +22,7 @@ class InferenceResultFields(Dict[str, DynamicField]):
     def __str__(self) -> str:
         str_fields = ""
         for field_key, field_value in self.items():
-            if field_value.field_type == "SimpleField":
+            if field_value.field_type == FieldType.SIMPLE:
                 str_fields += f"\n:{field_key}: {field_value}"
             else:
                 str_fields += f"\n:{field_key}:{field_value}"
