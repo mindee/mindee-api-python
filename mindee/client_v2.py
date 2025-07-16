@@ -51,13 +51,6 @@ class ClientV2(ClientMixin):
         """
         logger.debug("Enqueuing document to '%s'", params.model_id)
 
-        if params.page_options and input_source.is_pdf():
-            input_source.process_pdf(
-                params.page_options.operation,
-                params.page_options.on_min_pages,
-                params.page_options.page_indexes,
-            )
-
         response = self.mindee_api.predict_async_req_post(
             input_source=input_source, options=params
         )

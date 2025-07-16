@@ -8,7 +8,7 @@ import pypdfium2 as pdfium
 from mindee.error.mimetype_error import MimeTypeError
 from mindee.error.mindee_error import MindeeError, MindeeSourceError
 from mindee.image_operations.image_compressor import compress_image
-from mindee.input.page_options import KEEP_ONLY, REMOVE
+from mindee.input.page_options import KEEP_ONLY, REMOVE, PageOptions
 from mindee.input.sources.input_type import InputType
 from mindee.logger import logger
 from mindee.pdf.pdf_compressor import compress_pdf
@@ -111,6 +111,16 @@ class LocalInputSource:
             pdf = pdfium.PdfDocument(self.file_object)
             return len(pdf)
         return 1
+
+    def apply_page_options(self, page_options: PageOptions) -> None:
+        """Apply cut and merge options on multipage documents."""
+        if not self.is_pdf():
+            raise MindeeSourceError(f"File is not a PDF: {self.filename}")
+        self.process_pdf(
+            page_options.operation,
+            page_options.on_min_pages,
+            page_options.page_indexes,
+        )
 
     def process_pdf(
         self,

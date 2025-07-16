@@ -6,7 +6,7 @@ import pytest
 
 from mindee.error.mimetype_error import MimeTypeError
 from mindee.error.mindee_error import MindeeError, MindeeSourceError
-from mindee.input.page_options import KEEP_ONLY, REMOVE
+from mindee.input.page_options import KEEP_ONLY, REMOVE, PageOptions
 from mindee.input.sources.base_64_input import Base64Input
 from mindee.input.sources.bytes_input import BytesInput
 from mindee.input.sources.file_input import FileInput
@@ -45,15 +45,8 @@ def test_pdf_reconstruct_no_cut():
     assert isinstance(input_file.file_object, io.BufferedReader)
 
 
-@pytest.mark.parametrize("numb_pages", [1, 2, 3])
-def test_pdf_cut_n_pages(numb_pages: int):
-    input_obj = PathInput(FILE_TYPES_DIR / "pdf" / "multipage.pdf")
+def _assert_pdf_options(input_obj, numb_pages):
     assert input_obj.is_pdf() is True
-    input_obj.process_pdf(
-        behavior=KEEP_ONLY, on_min_pages=2, page_indexes=[0, -2, -1][:numb_pages]
-    )
-    assert input_obj.count_doc_pages() == numb_pages
-
     # Currently the least verbose way of comparing pages with pypdfium2
     # I.e. each page is read & rendered as a rasterized image. These images are then compared as raw byte sequences.
     cut_pdf = pdfium.PdfDocument(input_obj.file_object)
@@ -67,6 +60,26 @@ def test_pdf_cut_n_pages(numb_pages: int):
         assert bytes(pdf_page_render.buffer) == bytes(cut_pdf_page_render.buffer)
     cut_pdf.close()
     pdf.close()
+
+
+@pytest.mark.parametrize("numb_pages", [1, 2, 3])
+def test_process_pdf_cut_n_pages(numb_pages: int):
+    input_obj = PathInput(FILE_TYPES_DIR / "pdf" / "multipage.pdf")
+    input_obj.process_pdf(
+        behavior=KEEP_ONLY, on_min_pages=2, page_indexes=[0, -2, -1][:numb_pages]
+    )
+    assert input_obj.count_doc_pages() == numb_pages
+    _assert_pdf_options(input_obj, numb_pages)
+
+
+@pytest.mark.parametrize("numb_pages", [1, 2, 3])
+def test_apply_pages_pdf_cut_n_pages(numb_pages: int):
+    input_obj = PathInput(FILE_TYPES_DIR / "pdf" / "multipage.pdf")
+    input_obj.apply_page_options(
+        PageOptions(on_min_pages=2, page_indexes=[0, -2, -1][:numb_pages])
+    )
+    assert input_obj.count_doc_pages() == numb_pages
+    _assert_pdf_options(input_obj, numb_pages)
 
 
 def test_pdf_keep_5_first_pages():
