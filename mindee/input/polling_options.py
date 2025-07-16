@@ -4,9 +4,9 @@ class PollingOptions:
     initial_delay_sec: float
     """Initial delay before the first polling attempt."""
     delay_sec: float
-    """Delay between each polling attempts."""
+    """Delay between each polling attempt."""
     max_retries: int
-    """Total amount of polling attempts."""
+    """Total number of polling attempts."""
 
     def __init__(
         self,

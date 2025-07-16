@@ -4,7 +4,7 @@ from typing import Optional, Union
 from mindee.client_mixin import ClientMixin
 from mindee.error.mindee_error import MindeeError
 from mindee.error.mindee_http_error_v2 import handle_error_v2
-from mindee.input.inference_predict_options import InferencePredictOptions
+from mindee.input.inference_parameters import InferenceParameters
 from mindee.input.local_response import LocalResponse
 from mindee.input.polling_options import PollingOptions
 from mindee.input.sources.local_input_source import LocalInputSource
@@ -38,7 +38,7 @@ class ClientV2(ClientMixin):
         self.mindee_api = MindeeApiV2(api_key)
 
     def enqueue(
-        self, input_source: LocalInputSource, options: InferencePredictOptions
+        self, input_source: LocalInputSource, params: InferenceParameters
     ) -> JobResponse:
         """
         Enqueues a document to a given model.
@@ -46,20 +46,13 @@ class ClientV2(ClientMixin):
         :param input_source: The document/source file to use.
             Has to be created beforehand.
 
-        :param options: Options for the prediction.
+        :param params: Parameters to set when sending a file.
         :return: A valid inference response.
         """
-        logger.debug("Enqueuing document to '%s'", options.model_id)
-
-        if options.page_options and input_source.is_pdf():
-            input_source.process_pdf(
-                options.page_options.operation,
-                options.page_options.on_min_pages,
-                options.page_options.page_indexes,
-            )
+        logger.debug("Enqueuing document to '%s'", params.model_id)
 
         response = self.mindee_api.predict_async_req_post(
-            input_source=input_source, options=options
+            input_source=input_source, options=params
         )
         dict_response = response.json()
 
@@ -89,7 +82,7 @@ class ClientV2(ClientMixin):
         return InferenceResponse(dict_response)
 
     def enqueue_and_parse(
-        self, input_source: LocalInputSource, options: InferencePredictOptions
+        self, input_source: LocalInputSource, params: InferenceParameters
     ) -> InferenceResponse:
         """
         Enqueues to an asynchronous endpoint and automatically polls for a response.
@@ -97,27 +90,27 @@ class ClientV2(ClientMixin):
         :param input_source: The document/source file to use.
             Has to be created beforehand.
 
-        :param options: Options for the prediction.
+        :param params: Parameters to set when sending a file.
 
         :return: A valid inference response.
         """
-        if not options.polling_options:
-            options.polling_options = PollingOptions()
+        if not params.polling_options:
+            params.polling_options = PollingOptions()
         self._validate_async_params(
-            options.polling_options.initial_delay_sec,
-            options.polling_options.delay_sec,
-            options.polling_options.max_retries,
+            params.polling_options.initial_delay_sec,
+            params.polling_options.delay_sec,
+            params.polling_options.max_retries,
         )
-        queue_result = self.enqueue(input_source, options)
+        queue_result = self.enqueue(input_source, params)
         logger.debug(
             "Successfully enqueued document with job id: %s", queue_result.job.id
         )
-        sleep(options.polling_options.initial_delay_sec)
+        sleep(params.polling_options.initial_delay_sec)
         retry_counter = 1
         poll_results = self.parse_queued(
             queue_result.job.id,
         )
-        while retry_counter < options.polling_options.max_retries:
+        while retry_counter < params.polling_options.max_retries:
             if not isinstance(poll_results, JobResponse):
                 break
             if poll_results.job.status == "Failed":
@@ -133,7 +126,7 @@ class ClientV2(ClientMixin):
                 queue_result.job.id,
             )
             retry_counter += 1
-            sleep(options.polling_options.delay_sec)
+            sleep(params.polling_options.delay_sec)
             poll_results = self.parse_queued(queue_result.job.id)
 
         if not isinstance(poll_results, InferenceResponse):

@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-from mindee import ClientV2, InferencePredictOptions
+from mindee import ClientV2, InferenceParameters
 from mindee.error.mindee_http_error_v2 import MindeeHTTPErrorV2
 from mindee.parsing.v2.inference_response import InferenceResponse
 from tests.test_inputs import FILE_TYPES_DIR, PRODUCT_DATA_DIR
@@ -40,7 +40,7 @@ def test_parse_file_empty_multiple_pages_must_succeed(
     assert input_path.exists(), f"sample file missing: {input_path}"
 
     input_doc = v2_client.source_from_path(input_path)
-    options = InferencePredictOptions(findoc_model_id)
+    options = InferenceParameters(findoc_model_id)
 
     response: InferenceResponse = v2_client.enqueue_and_parse(input_doc, options)
 
@@ -66,7 +66,7 @@ def test_parse_file_filled_single_page_must_succeed(
     assert input_path.exists(), f"sample file missing: {input_path}"
 
     input_doc = v2_client.source_from_path(input_path)
-    options = InferencePredictOptions(findoc_model_id)
+    options = InferenceParameters(findoc_model_id)
 
     response: InferenceResponse = v2_client.enqueue_and_parse(input_doc, options)
 
@@ -95,7 +95,7 @@ def test_invalid_uuid_must_throw_error_422(v2_client: ClientV2) -> None:
     assert input_path.exists()
 
     input_doc = v2_client.source_from_path(input_path)
-    options = InferencePredictOptions("INVALID MODEL ID")
+    options = InferenceParameters("INVALID MODEL ID")
 
     with pytest.raises(MindeeHTTPErrorV2) as exc_info:
         v2_client.enqueue(input_doc, options)
