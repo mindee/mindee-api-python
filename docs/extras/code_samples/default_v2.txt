@@ -1,5 +1,4 @@
 from mindee import ClientV2, InferencePredictOptions
-from mindee.parsing.v2 import InferenceResponse
 
 input_path = "/path/to/the/file.ext"
 api_key = "MY_API_KEY"
@@ -20,7 +19,7 @@ options = InferencePredictOptions(
 input_doc = mindee_client.source_from_path(input_path)
 
 # Upload the file
-response: InferenceResponse = mindee_client.enqueue_and_parse(
+response = mindee_client.enqueue_and_parse(
     input_doc, options
 )
 

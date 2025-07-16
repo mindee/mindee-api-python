@@ -25,14 +25,14 @@ class Inference:
         self.id = raw_response["id"] if "id" in raw_response else None
 
     def __str__(self) -> str:
+        alias = f" {self.file.alias}" if self.file.alias else ""
         return (
-            f"Inference\n"
-            f"#########\n"
-            f":Model: {self.model.id}\n"
-            f":File:\n"
-            f"  :Name: {self.file.name}\n"
-            f"  :Alias: {self.file.alias}\n\n"
-            f"Result\n"
-            f"======\n"
-            f"{self.result}\n"
+            f"Inference\n#########"
+            f"\nModel\n====="
+            f"\n:ID: {self.model.id}"
+            f"\n\nFile\n===="
+            f"\n:Name: {self.file.name}"
+            f"\n:Alias:{alias}"
+            f"{self.result}"
+            "\n"
         )

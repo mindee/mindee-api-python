@@ -1,28 +1,28 @@
 from typing import Optional
 
 from mindee.parsing.common.string_dict import StringDict
-from mindee.parsing.v2.base_field import InferenceFields
-from mindee.parsing.v2.inference_options import InferenceOptions
+from mindee.parsing.v2.inference_result_fields import InferenceResultFields
+from mindee.parsing.v2.inference_result_options import InferenceResultOptions
 
 
 class InferenceResult:
     """Inference result info."""
 
-    fields: InferenceFields
+    fields: InferenceResultFields
     """Fields contained in the inference."""
-    options: Optional[InferenceOptions]
+    options: Optional[InferenceResultOptions]
     """Potential options retrieved alongside the inference."""
 
     def __init__(self, raw_response: StringDict) -> None:
-        self.fields = InferenceFields(raw_response["fields"])
+        self.fields = InferenceResultFields(raw_response["fields"])
         self.options = (
-            InferenceOptions(raw_response["options"])
+            InferenceResultOptions(raw_response["options"])
             if raw_response.get("options")
             else None
         )
 
     def __str__(self) -> str:
-        out_str = f":fields: {self.fields}"
+        out_str = f"\n\nFields\n======{self.fields}"
         if self.options:
-            out_str += f"\n:options: {self.options}"
+            out_str += f"\n\nOptions\n====={self.options}"
         return out_str

@@ -7,7 +7,8 @@ from mindee.error.mindee_error import MindeeApiV2Error
 from mindee.error.mindee_http_error_v2 import MindeeHTTPErrorV2
 from mindee.input import LocalInputSource, PathInput
 from mindee.mindee_http.base_settings import USER_AGENT
-from mindee.parsing.v2 import Job, JobResponse
+from mindee.parsing.v2.job import Job
+from mindee.parsing.v2.job_response import JobResponse
 from tests.test_inputs import FILE_TYPES_DIR, V2_DATA_DIR
 from tests.utils import dummy_envvars
 
