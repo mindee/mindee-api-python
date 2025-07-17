@@ -1,4 +1,12 @@
-# Mindee Python API Library Changelog
+# Mindee Python Client Library Changelog
+
+## v4.24.0
+### Changes
+* :sparkles: Add support for mindee API V2 client & features
+* :wrench: Tweak CI & testing
+* :recycle: Uniformize variable naming across files
+* :boom: remove support for Python 3.7
+
 
 ## v4.24.0-rc2 - 2025-07-09
 ### Changes

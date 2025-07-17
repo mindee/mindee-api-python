@@ -3,207 +3,39 @@
 # Mindee API Helper Library for Python
 Quickly and easily connect to Mindee's API services using Python.
 
-## Quick Start
-Here's the TL;DR of getting started.
+## Mindee API Versions
+This client library has support for both Mindee platform versions.
 
-First, get an [API Key](https://developers.mindee.com/docs/create-api-key)
+### Latest - V2
+This is the new platform located here:
 
-Then, install this library:
-```shell
-pip install mindee
-```
+https://app.mindee.com
 
-Finally, Python away!
+It uses **API version 2**.
 
-### Loading a File and Parsing It
-
-#### Global Documents
-```python
-from mindee import Client, product
-
-# Init a new client
-mindee_client = Client(api_key="my-api-key")
-
-# Load a file from disk
-input_doc = mindee_client.source_from_path("/path/to/the/file.ext")
-
-# Parse the document as an invoice by passing the appropriate type
-result = mindee_client.parse(product.InvoiceV4, input_doc)
-
-# Print a brief summary of the parsed data
-print(result.document)
-```
-
-**Note:** Files can also be loaded from:
-
-A python `BinaryIO` compatible file:
-```python
-input_doc = mindee_client.source_from_file(my_file)
-```
-
-A URL (`HTTPS` only):
-```python
-input_doc = mindee_client.source_from_url(
-    "https://files.readme.io/a74eaa5-c8e283b-sample_invoice.jpeg"
-)
-```
-
-A base64-encoded string, making sure to specify the extension of the file name:
-```python
-input_doc = mindee_client.source_from_b64string(
-    my_input_string, "my-file-name.ext"
-)
-```
-
-Raw bytes, making sure to specify the extension of the file name:
-```python
-input_doc = mindee_client.source_from_bytes(
-    my_raw_bytes_sequence, "my-file-name.ext"
-)
-```
-
-#### Region-Specific Documents
-```python
-from mindee import Client, product
-
-# Init a new client
-mindee_client = Client(api_key="my-api-key")
-
-# Load a file from disk
-input_doc = mindee_client.source_from_path("/path/to/the/file.ext")
-
-# Parse the document as a USA bank check by passing the appropriate type
-result = mindee_client.parse(product.us.BankCheckV1, input_doc)
-
-# Print a brief summary of the parsed data
-print(result.document)
-```
-
-#### Custom Documents (docTI & Custom APIs)
-
-```python
-from mindee import Client, product
-
-# Init a new client
-mindee_client = Client(api_key="my-api-key")
-
-# Add your custom endpoint (document)
-my_endpoint = mindee_client.create_endpoint(
-    account_name="my-account",
-    endpoint_name="my-endpoint",
-)
-
-# Load a file from disk
-input_doc = mindee_client.source_from_path("/path/to/the/file.ext")
-
-# Parse the file.
-# The endpoint must be specified since it cannot be determined from the class.
-result = mindee_client.enqueue_and_parse(
-    product.GeneratedV1,
-    input_doc,
-    endpoint=my_endpoint
-)
-
-# Print a brief summary of the parsed data
-print(result.document)
-
-# Iterate over all the fields in the document
-for field_name, field_values in result.document.fields.items():
-    print(field_name, "=", field_values)
-```
-
-### Enqueue and Parse a Webhook Response
-This is an optional way of handling asynchronous APIs.
-
-```python
-from mindee import Client, product
-
-mindee_client = Client()
-input_source = mindee_client.source_from_path("/path/to/the/file.ext")
-
-result = mindee_client.enqueue_and_parse(
-    product.FinancialDocumentV1,
-    input_source,
-    workflow_id="my-workflow-id",
-    rag=True,
-)
-
-print(result.document)
-```
-
-### Additional Options
-Options to pass when sending a file.
-```python
-from mindee import Client, product
-from mindee.client import LocalResponse
-
-mindee_client = Client()
-input_source = mindee_client.source_from_path("/path/to/the/file.ext")
-
-enqueue_response = mindee_client.enqueue(
-    product.InternationalIdV2,
-    input_source,
-)
-
-# You can keep track of the job's ID for traceability concerns.
-job_id = enqueue_response.job.id
+Consult the
+**[Latest Documentation](https://docs.mindee.com/integrations/client-libraries-sdk)**
 
 
-# Load the JSON string sent by the Mindee webhook POST callback.
-# Reading the callback data will vary greatly depending on your HTTP server.
-# This is therefore beyond the scope of this example.
+### Legacy - V1
+This is the legacy platform located here:
 
-local_response = LocalResponse(request.body())
+https://platform.mindee.com/
 
-# You can also load the json from a local path.
-# local_response = LocalResponse("path/to/my/file.ext")
+It uses **API version 1**.
 
-# Optional: verify the HMAC signature
-# You'll need to get the "X-Mindee-Hmac-Signature" custom HTTP header.
-hmac_signature = request.headers.get("X-Mindee-Hmac-Signature")
-if not local_response.is_valid_hmac_signature(my_secret_key, hmac_signature):
-    raise Error("Bad HMAC signature! Is someone trying to do evil?")
+Consult the
+**[Legacy Documentation](https://developers.mindee.com/docs/python-getting-started)**
 
-# Deserialize the response
+## Additional Information
 
-result = mindee_client.load_prediction(
-    product.InternationalIdV2,
-    local_response
-)
+**[Source Code](https://github.com/mindee/mindee-api-python)**
 
-# Print a full summary of the parsed data in RST format
-print(result.document)
-```
+**[Reference Documentation](https://mindee.github.io/mindee-api-python/)**
 
+**[Feedback](https://feedback.mindee.com/)**
 
-#### Page Options
-Allows sending only certain pages in a PDF.
-
-In this example we only send the first, penultimate and last pages:
-
-```python
-from mindee import product, PageOptions
-
-result = mindee_client.parse(
-    product.InvoiceV4,
-    input_source,
-    page_options=PageOptions(
-        page_indexes=[0, -2, -1],
-        operation=PageOptions.KEEP_ONLY,
-        on_min_pages=2
-    )
-)
-```
-
-You can view the source code on [GitHub](https://github.com/mindee/mindee-api-python).
-
-You can also take a look at the
-**[Reference Documentation](https://mindee.github.io/mindee-api-python/)**.
-
-## License
+### License
 Copyright © Mindee
 
 Available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
-
-## Questions?
-[Join our Slack](https://join.slack.com/t/mindee-community/shared_invite/zt-2d0ds7dtz-DPAF81ZqTy20chsYpQBW5g)
