@@ -1,6 +1,6 @@
 # Mindee Python Client Library Changelog
 
-## v4.24.0
+## v4.24.0 - 2025-07-17
 ### Changes
 * :sparkles: Add support for mindee API V2 client & features
 * :wrench: Tweak CI & testing
