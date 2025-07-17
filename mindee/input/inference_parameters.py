@@ -13,7 +13,7 @@ class InferenceParameters:
     rag: bool = False
     """If set to `True`, will enable Retrieval-Augmented Generation."""
     alias: Optional[str] = None
-    """Optional alias for the file."""
+    """Use an alias to link the file to your own DB. If empty, no alias will be used."""
     webhook_ids: Optional[List[str]] = None
     """IDs of webhooks to propagate the API response to."""
     polling_options: Optional[PollingOptions] = None

@@ -1,5 +1,5 @@
 from time import sleep
-from typing import Optional, Union
+from typing import Optional
 
 from mindee.client_mixin import ClientMixin
 from mindee.error.mindee_error import MindeeError
@@ -14,6 +14,7 @@ from mindee.mindee_http.response_validation_v2 import (
     is_valid_get_response,
     is_valid_post_response,
 )
+from mindee.parsing.v2.common_response import CommonStatus
 from mindee.parsing.v2.inference_response import InferenceResponse
 from mindee.parsing.v2.job_response import JobResponse
 
@@ -37,7 +38,7 @@ class ClientV2(ClientMixin):
         self.api_key = api_key
         self.mindee_api = MindeeApiV2(api_key)
 
-    def enqueue(
+    def enqueue_inference(
         self, input_source: LocalInputSource, params: InferenceParameters
     ) -> JobResponse:
         """
@@ -49,39 +50,52 @@ class ClientV2(ClientMixin):
         :param params: Parameters to set when sending a file.
         :return: A valid inference response.
         """
-        logger.debug("Enqueuing document to '%s'", params.model_id)
+        logger.debug("Enqueuing inference using model: %s", params.model_id)
 
-        response = self.mindee_api.predict_async_req_post(
-            input_source=input_source, options=params
+        response = self.mindee_api.req_post_inference_enqueue(
+            input_source=input_source, params=params
         )
         dict_response = response.json()
 
         if not is_valid_post_response(response):
             handle_error_v2(dict_response)
-
         return JobResponse(dict_response)
 
-    def parse_queued(
-        self,
-        queue_id: str,
-    ) -> Union[InferenceResponse, JobResponse]:
+    def get_job(self, job_id: str) -> JobResponse:
         """
-        Parses a queued document.
+        Get the status of an inference that was previously enqueued.
 
-        :param queue_id: queue_id received from the API.
+        Can be used for polling.
+
+        :param job_id: UUID of the job to retrieve.
+        :return: A job response.
         """
-        logger.debug("Fetching from queue '%s'.", queue_id)
+        logger.debug("Fetching job: %s", job_id)
 
-        response = self.mindee_api.get_inference_from_queue(queue_id)
+        response = self.mindee_api.req_get_job(job_id)
         if not is_valid_get_response(response):
             handle_error_v2(response.json())
-
         dict_response = response.json()
-        if "job" in dict_response:
-            return JobResponse(dict_response)
+        return JobResponse(dict_response)
+
+    def get_inference(self, inference_id: str) -> InferenceResponse:
+        """
+        Get the result of an inference that was previously enqueued.
+
+        The inference will only be available after it has finished processing.
+
+        :param inference_id: UUID of the inference to retrieve.
+        :return: An inference response.
+        """
+        logger.debug("Fetching inference: %s", inference_id)
+
+        response = self.mindee_api.req_get_inference(inference_id)
+        if not is_valid_get_response(response):
+            handle_error_v2(response.json())
+        dict_response = response.json()
         return InferenceResponse(dict_response)
 
-    def enqueue_and_parse(
+    def enqueue_and_get_inference(
         self, input_source: LocalInputSource, params: InferenceParameters
     ) -> InferenceResponse:
         """
@@ -101,40 +115,28 @@ class ClientV2(ClientMixin):
             params.polling_options.delay_sec,
             params.polling_options.max_retries,
         )
-        queue_result = self.enqueue(input_source, params)
+        enqueue_response = self.enqueue_inference(input_source, params)
         logger.debug(
-            "Successfully enqueued document with job id: %s", queue_result.job.id
+            "Successfully enqueued inference with job id: %s", enqueue_response.job.id
         )
         sleep(params.polling_options.initial_delay_sec)
-        retry_counter = 1
-        poll_results = self.parse_queued(
-            queue_result.job.id,
-        )
-        while retry_counter < params.polling_options.max_retries:
-            if not isinstance(poll_results, JobResponse):
-                break
-            if poll_results.job.status == "Failed":
-                if poll_results.job.error:
-                    detail = poll_results.job.error.detail
+        try_counter = 0
+        while try_counter < params.polling_options.max_retries:
+            job_response = self.get_job(enqueue_response.job.id)
+            if job_response.job.status == CommonStatus.FAILED.value:
+                if job_response.job.error:
+                    detail = job_response.job.error.detail
                 else:
                     detail = "No error detail available."
                 raise MindeeError(
-                    f"Parsing failed for job {poll_results.job.id}: {detail}"
+                    f"Parsing failed for job {job_response.job.id}: {detail}"
                 )
-            logger.debug(
-                "Polling server for parsing result with job id: %s",
-                queue_result.job.id,
-            )
-            retry_counter += 1
+            if job_response.job.status == CommonStatus.PROCESSED.value:
+                return self.get_inference(job_response.job.id)
+            try_counter += 1
             sleep(params.polling_options.delay_sec)
-            poll_results = self.parse_queued(queue_result.job.id)
 
-        if not isinstance(poll_results, InferenceResponse):
-            raise MindeeError(
-                f"Couldn't retrieve document after {retry_counter} tries."
-            )
-
-        return poll_results
+        raise MindeeError(f"Couldn't retrieve document after {try_counter + 1} tries.")
 
     @staticmethod
     def load_inference(local_response: LocalResponse) -> InferenceResponse:

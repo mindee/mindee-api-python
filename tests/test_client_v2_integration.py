@@ -42,7 +42,9 @@ def test_parse_file_empty_multiple_pages_must_succeed(
     input_doc = v2_client.source_from_path(input_path)
     options = InferenceParameters(findoc_model_id)
 
-    response: InferenceResponse = v2_client.enqueue_and_parse(input_doc, options)
+    response: InferenceResponse = v2_client.enqueue_and_get_inference(
+        input_doc, options
+    )
 
     assert response is not None
     assert response.inference is not None
@@ -68,7 +70,9 @@ def test_parse_file_filled_single_page_must_succeed(
     input_doc = v2_client.source_from_path(input_path)
     options = InferenceParameters(findoc_model_id)
 
-    response: InferenceResponse = v2_client.enqueue_and_parse(input_doc, options)
+    response: InferenceResponse = v2_client.enqueue_and_get_inference(
+        input_doc, options
+    )
 
     assert response is not None
     assert response.inference is not None
@@ -98,7 +102,7 @@ def test_invalid_uuid_must_throw_error_422(v2_client: ClientV2) -> None:
     options = InferenceParameters("INVALID MODEL ID")
 
     with pytest.raises(MindeeHTTPErrorV2) as exc_info:
-        v2_client.enqueue(input_doc, options)
+        v2_client.enqueue_inference(input_doc, options)
 
     exc: MindeeHTTPErrorV2 = exc_info.value
     assert exc.status == 422

@@ -67,27 +67,27 @@ class MindeeApiV2(SettingsMixin):
                 func(env_val)
                 logger.debug("Value was set from env: %s", name)
 
-    def predict_async_req_post(
-        self, input_source: LocalInputSource, options: InferenceParameters
+    def req_post_inference_enqueue(
+        self, input_source: LocalInputSource, params: InferenceParameters
     ) -> requests.Response:
         """
         Make an asynchronous request to POST a document for prediction on the V2 API.
 
         :param input_source: Input object.
-        :param options: Options for the enqueueing of the document.
+        :param params: Options for the enqueueing of the document.
         :return: requests response.
         """
-        data = {"model_id": options.model_id}
+        data = {"model_id": params.model_id}
         url = f"{self.url_root}/inferences/enqueue"
 
-        if options.rag:
+        if params.rag:
             data["rag"] = "true"
-        if options.webhook_ids and len(options.webhook_ids) > 0:
-            data["webhook_ids"] = ",".join(options.webhook_ids)
-        if options.alias and len(options.alias):
-            data["alias"] = options.alias
+        if params.webhook_ids and len(params.webhook_ids) > 0:
+            data["webhook_ids"] = ",".join(params.webhook_ids)
+        if params.alias and len(params.alias):
+            data["alias"] = params.alias
 
-        files = {"file": input_source.read_contents(options.close_file)}
+        files = {"file": input_source.read_contents(params.close_file)}
         response = requests.post(
             url=url,
             files=files,
@@ -95,17 +95,30 @@ class MindeeApiV2(SettingsMixin):
             data=data,
             timeout=self.request_timeout,
         )
-
         return response
 
-    def get_inference_from_queue(self, queue_id: str) -> requests.Response:
+    def req_get_job(self, job_id: str) -> requests.Response:
         """
         Sends a request matching a given queue_id. Returns either a Job or a Document.
 
-        :param queue_id: queue_id received from the API
+        :param job_id: Job ID, returned by the enqueue request.
         """
         return requests.get(
-            f"{self.url_root}/jobs/{queue_id}",
+            f"{self.url_root}/jobs/{job_id}",
             headers=self.base_headers,
             timeout=self.request_timeout,
+            allow_redirects=False,
+        )
+
+    def req_get_inference(self, inference_id: str) -> requests.Response:
+        """
+        Sends a request matching a given queue_id. Returns either a Job or a Document.
+
+        :param inference_id: Inference ID, returned by the job request.
+        """
+        return requests.get(
+            f"{self.url_root}/inferences/{inference_id}",
+            headers=self.base_headers,
+            timeout=self.request_timeout,
+            allow_redirects=False,
         )
