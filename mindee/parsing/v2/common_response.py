@@ -1,7 +1,16 @@
 import json
+from enum import Enum
 
 from mindee.logger import logger
 from mindee.parsing.common.string_dict import StringDict
+
+
+class CommonStatus(str, Enum):
+    """Response status."""
+
+    PROCESSING = "Processing"
+    FAILED = "Failed"
+    PROCESSED = "Processed"
 
 
 class CommonResponse:

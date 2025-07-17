@@ -219,7 +219,7 @@ custom_endpoint = mindee_client.create_endpoint(
     "my-account-name",
     # "my-version" # optional
 )
-result = mindee_client.enqueue_and_parse(product.GeneratedV1, input_doc, endpoint=custom_endpoint)
+result = mindee_client.enqueue_and_get_inference(product.GeneratedV1, input_doc, endpoint=custom_endpoint)
 ```
 
 This is because the `GeneratedV1` class is enough to handle the return processing, but the actual endpoint needs to be specified.
