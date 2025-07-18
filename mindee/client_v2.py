@@ -5,7 +5,6 @@ from mindee.client_mixin import ClientMixin
 from mindee.error.mindee_error import MindeeError
 from mindee.error.mindee_http_error_v2 import handle_error_v2
 from mindee.input.inference_parameters import InferenceParameters
-from mindee.input.local_response import LocalResponse
 from mindee.input.polling_options import PollingOptions
 from mindee.input.sources.local_input_source import LocalInputSource
 from mindee.logger import logger
@@ -137,16 +136,3 @@ class ClientV2(ClientMixin):
             sleep(params.polling_options.delay_sec)
 
         raise MindeeError(f"Couldn't retrieve document after {try_counter + 1} tries.")
-
-    @staticmethod
-    def load_inference(local_response: LocalResponse) -> InferenceResponse:
-        """
-        Load a prediction from the V2 API.
-
-        :param local_response: Local response to load.
-        :return: A valid prediction.
-        """
-        try:
-            return InferenceResponse(local_response.as_dict)
-        except KeyError as exc:
-            raise MindeeError("No prediction found in local response.") from exc

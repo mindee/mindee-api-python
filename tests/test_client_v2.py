@@ -3,7 +3,7 @@ import json
 import pytest
 
 from mindee import ClientV2, InferenceParameters, InferenceResponse, LocalResponse
-from mindee.error.mindee_error import MindeeApiV2Error
+from mindee.error.mindee_error import MindeeApiV2Error, MindeeError
 from mindee.error.mindee_http_error_v2 import MindeeHTTPErrorV2
 from mindee.input import LocalInputSource, PathInput
 from mindee.mindee_http.base_settings import USER_AGENT
@@ -140,12 +140,14 @@ def _assert_findoc_inference(response: InferenceResponse):
 
 
 @pytest.mark.v2
-def test_loads_from_prediction(env_client):
+def test_loads_from_prediction():
     input_inference = LocalResponse(
         V2_DATA_DIR / "products" / "financial_document" / "complete.json"
     )
-    response = env_client.load_inference(input_inference)
+    response = input_inference.deserialize_response(InferenceResponse)
     _assert_findoc_inference(response)
+    with pytest.raises(MindeeError):
+        input_inference.deserialize_response(JobResponse)
 
 
 @pytest.mark.v2

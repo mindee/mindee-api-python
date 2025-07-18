@@ -4,9 +4,10 @@ import io
 import json
 import os
 from pathlib import Path
-from typing import Any, BinaryIO, Dict, Union
+from typing import Any, BinaryIO, Dict, Type, TypeVar, Union
 
 from mindee.error.mindee_error import MindeeError
+from mindee.parsing.v2.common_response import CommonResponse
 
 
 class LocalResponse:
@@ -102,3 +103,16 @@ class LocalResponse:
         :return: True if the HMAC signature is valid.
         """
         return signature == self.get_hmac_signature(secret_key)
+
+    ResponseT = TypeVar("ResponseT", bound=CommonResponse)
+
+    def deserialize_response(self, response_class: Type[ResponseT]) -> ResponseT:
+        """
+        Load a local inference.
+
+        Typically used when wanting to load a V2 webhook callback.
+        """
+        try:
+            return response_class(self.as_dict)
+        except KeyError as exc:
+            raise MindeeError("Invalid class specified for deserialization.") from exc
