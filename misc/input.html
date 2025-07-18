@@ -83,8 +83,10 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#mindee.input.LocalResponse"><code class="docutils literal notranslate"><span class="pre">LocalResponse</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.LocalResponse.deserialize_response"><code class="docutils literal notranslate"><span class="pre">LocalResponse.deserialize_response()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.input.LocalResponse.get_hmac_signature"><code class="docutils literal notranslate"><span class="pre">LocalResponse.get_hmac_signature()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.input.LocalResponse.is_valid_hmac_signature"><code class="docutils literal notranslate"><span class="pre">LocalResponse.is_valid_hmac_signature()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.LocalResponse.ResponseT"><code class="docutils literal notranslate"><span class="pre">LocalResponse.ResponseT</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.input.LocalResponse.as_dict"><code class="docutils literal notranslate"><span class="pre">LocalResponse.as_dict</span></code></a></li>
 </ul>
 </li>
@@ -437,6 +439,21 @@ Cannot be less than 0.</p>
 </dd>
 </dl>
 <dl class="py method">
+<dt class="sig sig-object py" id="mindee.input.LocalResponse.deserialize_response">
+<span class="sig-name descname"><span class="pre">deserialize_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response_class</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalResponse.deserialize_response" title="Permalink to this definition"></a></dt>
+<dd><p>Load a local inference.</p>
+<p>Typically used when wanting to load a V2 webhook callback.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">ResponseT</span></code>, bound= <code class="xref py py-class docutils literal notranslate"><span class="pre">CommonResponse</span></code>)</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>response_class</strong> (<em>Type</em><em>[</em><em>ResponseT</em><em>]</em>) – </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="mindee.input.LocalResponse.get_hmac_signature">
 <span class="sig-name descname"><span class="pre">get_hmac_signature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">secret_key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalResponse.get_hmac_signature" title="Permalink to this definition"></a></dt>
 <dd><p>Returns the hmac signature of the local response, from the secret key provided.</p>
@@ -465,6 +482,12 @@ Cannot be less than 0.</p>
 <dd class="field-even"><p>True if the HMAC signature is valid.</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.LocalResponse.ResponseT">
+<span class="sig-name descname"><span class="pre">ResponseT</span></span><a class="headerlink" href="#mindee.input.LocalResponse.ResponseT" title="Permalink to this definition"></a></dt>
+<dd><p>alias of TypeVar(‘ResponseT’, bound=<code class="xref py py-class docutils literal notranslate"><span class="pre">CommonResponse</span></code>)</p>
 </dd></dl>
 
 <dl class="py property">
