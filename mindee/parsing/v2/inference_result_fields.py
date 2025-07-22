@@ -23,7 +23,10 @@ class InferenceResultFields(Dict[str, DynamicField]):
         str_fields = ""
         for field_key, field_value in self.items():
             if field_value.field_type == FieldType.SIMPLE:
-                str_fields += f"\n:{field_key}: {field_value}"
+                final_value = f"{field_value}"
+                if final_value:
+                    final_value = f" {final_value}"
+                str_fields += f"\n:{field_key}:{final_value}"
             else:
                 str_fields += f"\n:{field_key}:{field_value}"
         return str_fields
