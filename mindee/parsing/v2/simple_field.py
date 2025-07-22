@@ -15,4 +15,4 @@ class SimpleField(BaseField):
         self.value = raw_response["value"] = raw_response.get("value", None)
 
     def __str__(self) -> str:
-        return str(self.value)
+        return str(self.value if self.value is not None else "")

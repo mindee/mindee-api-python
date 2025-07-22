@@ -112,9 +112,21 @@ def test_standard_field_types():
     json_sample, rst_sample = _get_inference_samples("standard_field_types")
     inference_result = InferenceResponse(json_sample)
     assert isinstance(inference_result.inference, Inference)
-    assert isinstance(
-        inference_result.inference.result.fields.field_simple, SimpleField
-    )
+    field_simple_string = inference_result.inference.result.fields.field_simple_string
+    assert isinstance(field_simple_string, SimpleField)
+    assert field_simple_string.value == "field_simple_string-value"
+    assert str(field_simple_string) == "field_simple_string-value"
+
+    field_simple_bool = inference_result.inference.result.fields.field_simple_bool
+    assert isinstance(field_simple_bool, SimpleField)
+    assert field_simple_bool.value is True
+    assert str(field_simple_bool) == "True"
+
+    field_simple_null = inference_result.inference.result.fields.field_simple_null
+    assert isinstance(field_simple_null, SimpleField)
+    assert field_simple_null.value is None
+    assert str(field_simple_null) == ""
+
     assert isinstance(
         inference_result.inference.result.fields.field_object, ObjectField
     )
