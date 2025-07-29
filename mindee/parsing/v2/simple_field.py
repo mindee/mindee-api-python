@@ -15,4 +15,8 @@ class SimpleField(BaseField):
         self.value = raw_response["value"] = raw_response.get("value", None)
 
     def __str__(self) -> str:
+        if type(self.value) is int:
+            return str(f"{self.value}.0")
+        if type(self.value) is bool:
+            return "True" if self.value else "False"
         return str(self.value if self.value is not None else "")
