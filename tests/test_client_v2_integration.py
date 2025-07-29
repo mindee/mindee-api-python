@@ -106,3 +106,23 @@ def test_invalid_uuid_must_throw_error_422(v2_client: ClientV2) -> None:
 
     exc: MindeeHTTPErrorV2 = exc_info.value
     assert exc.status == 422
+
+
+@pytest.mark.integration
+@pytest.mark.v2
+def test_url_input_source_must_not_raise_errors(
+    v2_client: ClientV2,
+    findoc_model_id: str,
+) -> None:
+    """
+    Load a blank PDF from an HTTPS URL and make sure the inference call completes without raising any errors.
+    """
+    url = os.getenv("MINDEE_V2_SE_TESTS_BLANK_PDF_URL")
+
+    input_doc = v2_client.source_from_url(url)
+    options = InferenceParameters(findoc_model_id)
+    response: InferenceResponse = v2_client.enqueue_and_get_inference(
+        input_doc, options
+    )
+    assert response is not None
+    assert response.inference is not None

@@ -2,7 +2,7 @@ from pathlib import Path
 from typing import BinaryIO, Union
 
 from mindee.error import MindeeClientError
-from mindee.input import Base64Input, BytesInput, FileInput, PathInput
+from mindee.input import Base64Input, BytesInput, FileInput, PathInput, UrlInputSource
 
 
 class ClientMixin:
@@ -89,3 +89,16 @@ class ClientMixin:
             )
         if max_retries < min_retries:
             raise MindeeClientError(f"Cannot set retries to less than {min_retries}.")
+
+    @staticmethod
+    def source_from_url(
+        url: str,
+    ) -> UrlInputSource:
+        """
+        Load a document from a URL.
+
+        :param url: Raw byte input
+        """
+        return UrlInputSource(
+            url,
+        )
