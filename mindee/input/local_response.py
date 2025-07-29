@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Any, BinaryIO, Dict, Type, TypeVar, Union
 
 from mindee.error.mindee_error import MindeeError
-from mindee.parsing.v2.common_response import CommonResponse
+from mindee.parsing.v2.field.common_response import CommonResponse
 
 
 class LocalResponse:

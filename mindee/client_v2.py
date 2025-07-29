@@ -14,7 +14,7 @@ from mindee.mindee_http.response_validation_v2 import (
     is_valid_get_response,
     is_valid_post_response,
 )
-from mindee.parsing.v2.common_response import CommonStatus
+from mindee.parsing.v2.field.common_response import CommonStatus
 from mindee.parsing.v2.inference_response import InferenceResponse
 from mindee.parsing.v2.job_response import JobResponse
 

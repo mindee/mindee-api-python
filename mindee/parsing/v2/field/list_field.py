@@ -1,7 +1,11 @@
 from typing import List
 
 from mindee.parsing.common.string_dict import StringDict
-from mindee.parsing.v2.dynamic_field import DynamicField, FieldType, get_field_type
+from mindee.parsing.v2.field.dynamic_field import (
+    DynamicField,
+    FieldType,
+    get_field_type,
+)
 
 
 class ListField(DynamicField):

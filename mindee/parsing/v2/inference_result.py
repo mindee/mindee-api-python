@@ -1,7 +1,7 @@
 from typing import Optional
 
 from mindee.parsing.common.string_dict import StringDict
-from mindee.parsing.v2.inference_result_fields import InferenceResultFields
+from mindee.parsing.v2.field.inference_result_fields import InferenceResultFields
 from mindee.parsing.v2.inference_result_options import InferenceResultOptions
 
 
