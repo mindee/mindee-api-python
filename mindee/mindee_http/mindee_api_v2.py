@@ -1,10 +1,10 @@
 import os
-from typing import Dict, Optional
+from typing import Dict, Optional, Union
 
 import requests
 
 from mindee.error.mindee_error import MindeeApiV2Error
-from mindee.input import LocalInputSource
+from mindee.input import LocalInputSource, UrlInputSource
 from mindee.input.inference_parameters import InferenceParameters
 from mindee.logger import logger
 from mindee.mindee_http.base_settings import USER_AGENT
@@ -68,7 +68,9 @@ class MindeeApiV2(SettingsMixin):
                 logger.debug("Value was set from env: %s", name)
 
     def req_post_inference_enqueue(
-        self, input_source: LocalInputSource, params: InferenceParameters
+        self,
+        input_source: Union[LocalInputSource, UrlInputSource],
+        params: InferenceParameters,
     ) -> requests.Response:
         """
         Make an asynchronous request to POST a document for prediction on the V2 API.
@@ -87,14 +89,25 @@ class MindeeApiV2(SettingsMixin):
         if params.alias and len(params.alias):
             data["alias"] = params.alias
 
-        files = {"file": input_source.read_contents(params.close_file)}
-        response = requests.post(
-            url=url,
-            files=files,
-            headers=self.base_headers,
-            data=data,
-            timeout=self.request_timeout,
-        )
+        if isinstance(input_source, LocalInputSource):
+            files = {"file": input_source.read_contents(params.close_file)}
+            response = requests.post(
+                url=url,
+                files=files,
+                headers=self.base_headers,
+                data=data,
+                timeout=self.request_timeout,
+            )
+        elif isinstance(input_source, UrlInputSource):
+            data["url"] = input_source.url
+            response = requests.post(
+                url=url,
+                headers=self.base_headers,
+                data=data,
+                timeout=self.request_timeout,
+            )
+        else:
+            raise MindeeApiV2Error("Invalid input source.")
         return response
 
     def req_get_job(self, job_id: str) -> requests.Response:

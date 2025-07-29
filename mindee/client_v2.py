@@ -1,9 +1,10 @@
 from time import sleep
-from typing import Optional
+from typing import Optional, Union
 
 from mindee.client_mixin import ClientMixin
 from mindee.error.mindee_error import MindeeError
 from mindee.error.mindee_http_error_v2 import handle_error_v2
+from mindee.input import UrlInputSource
 from mindee.input.inference_parameters import InferenceParameters
 from mindee.input.polling_options import PollingOptions
 from mindee.input.sources.local_input_source import LocalInputSource
@@ -13,7 +14,7 @@ from mindee.mindee_http.response_validation_v2 import (
     is_valid_get_response,
     is_valid_post_response,
 )
-from mindee.parsing.v2.common_response import CommonStatus
+from mindee.parsing.v2.field.common_response import CommonStatus
 from mindee.parsing.v2.inference_response import InferenceResponse
 from mindee.parsing.v2.job_response import JobResponse
 
@@ -38,13 +39,14 @@ class ClientV2(ClientMixin):
         self.mindee_api = MindeeApiV2(api_key)
 
     def enqueue_inference(
-        self, input_source: LocalInputSource, params: InferenceParameters
+        self,
+        input_source: Union[LocalInputSource, UrlInputSource],
+        params: InferenceParameters,
     ) -> JobResponse:
         """
         Enqueues a document to a given model.
 
-        :param input_source: The document/source file to use.
-            Has to be created beforehand.
+        :param input_source: The document/source file to use. Can be local or remote.
 
         :param params: Parameters to set when sending a file.
         :return: A valid inference response.
@@ -95,13 +97,14 @@ class ClientV2(ClientMixin):
         return InferenceResponse(dict_response)
 
     def enqueue_and_get_inference(
-        self, input_source: LocalInputSource, params: InferenceParameters
+        self,
+        input_source: Union[LocalInputSource, UrlInputSource],
+        params: InferenceParameters,
     ) -> InferenceResponse:
         """
         Enqueues to an asynchronous endpoint and automatically polls for a response.
 
-        :param input_source: The document/source file to use.
-            Has to be created beforehand.
+        :param input_source: The document/source file to use. Can be local or remote.
 
         :param params: Parameters to set when sending a file.
 

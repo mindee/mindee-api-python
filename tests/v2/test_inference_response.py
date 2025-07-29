@@ -4,13 +4,13 @@ from typing import Tuple
 
 import pytest
 
+from mindee.parsing.v2.field.list_field import ListField
+from mindee.parsing.v2.field.object_field import ObjectField
+from mindee.parsing.v2.field.simple_field import SimpleField
 from mindee.parsing.v2.inference import Inference
 from mindee.parsing.v2.inference_file import InferenceFile
 from mindee.parsing.v2.inference_model import InferenceModel
 from mindee.parsing.v2.inference_response import InferenceResponse
-from mindee.parsing.v2.list_field import ListField
-from mindee.parsing.v2.object_field import ObjectField
-from mindee.parsing.v2.simple_field import SimpleField
 from tests.test_inputs import V2_DATA_DIR
 
 

@@ -1,6 +1,6 @@
 from typing import List, Optional
 
-from mindee.parsing.v2.dynamic_field import DynamicField
+from mindee.parsing.v2.field.dynamic_field import DynamicField
 
 
 class BaseField(DynamicField):

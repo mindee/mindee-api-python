@@ -1,7 +1,7 @@
 from mindee.parsing.common.string_dict import StringDict
-from mindee.parsing.v2.base_field import BaseField
-from mindee.parsing.v2.dynamic_field import FieldType
-from mindee.parsing.v2.inference_result_fields import InferenceResultFields
+from mindee.parsing.v2.field.base_field import BaseField
+from mindee.parsing.v2.field.dynamic_field import FieldType
+from mindee.parsing.v2.field.inference_result_fields import InferenceResultFields
 
 
 class ObjectField(BaseField):
