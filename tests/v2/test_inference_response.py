@@ -181,5 +181,7 @@ def test_full_inference_response():
 
     assert isinstance(inference_result.inference.file, InferenceFile)
     assert inference_result.inference.file.name == "complete.jpg"
+    assert inference_result.inference.file.page_count == 1
+    assert inference_result.inference.file.mime_type == "image/jpeg"
     assert not inference_result.inference.file.alias
     assert not inference_result.inference.result.options

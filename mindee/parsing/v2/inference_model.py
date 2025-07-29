@@ -9,3 +9,6 @@ class InferenceModel:
 
     def __init__(self, raw_response: StringDict) -> None:
         self.id = raw_response["id"]
+
+    def __str__(self) -> str:
+        return f"Model\n=====" f"\n:ID: {self.id}"

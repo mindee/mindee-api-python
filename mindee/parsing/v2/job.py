@@ -3,6 +3,7 @@ from typing import List, Optional
 
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.v2.error_response import ErrorResponse
+from mindee.parsing.v2.job_webhook import JobWebhook
 
 
 class Job:
@@ -26,7 +27,7 @@ class Job:
     """URL to poll for the job status."""
     result_url: Optional[str]
     """URL to poll for the job result, redirects to the result if available."""
-    webhooks: List[str]
+    webhooks: List[JobWebhook]
     """ID of webhooks associated with the job."""
 
     def __init__(self, raw_response: StringDict) -> None:
@@ -43,4 +44,6 @@ class Job:
         self.filename = raw_response["filename"]
         self.result_url = raw_response["result_url"]
         self.alias = raw_response["alias"]
-        self.webhooks = raw_response["webhooks"]
+        self.webhooks = []
+        for webhook in raw_response["webhooks"]:
+            self.webhooks.append(JobWebhook(webhook))
