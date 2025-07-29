@@ -1,5 +1,10 @@
 # Mindee Python Client Library Changelog
 
+## v4.26.0 - 2025-07-29
+### Changes
+* :sparkles: add support for URL inputs for V2
+
+
 ## v4.25.0 - 2025-07-18
 ### Changes
 * :sparkles: add generic response loader
