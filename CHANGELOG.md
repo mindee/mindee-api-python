@@ -1,5 +1,13 @@
 # Mindee Python Client Library Changelog
 
+## v4.27.0 - 2025-07-30
+### Changes
+* :sparkles: add support for page count, mimetype + fixes
+### Fixes
+* :bug: fix jobs not deserializing webhook information into their proper class
+* :bug: fix typo in `InferenceFile` class: `alais` => `alias`
+
+
 ## v4.26.0 - 2025-07-29
 ### Changes
 * :sparkles: add support for URL inputs for V2
