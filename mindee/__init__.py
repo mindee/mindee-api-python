@@ -5,6 +5,11 @@ from mindee.input.inference_parameters import InferenceParameters
 from mindee.input.local_response import LocalResponse
 from mindee.input.page_options import PageOptions
 from mindee.input.polling_options import PollingOptions
+from mindee.input.sources.base_64_input import Base64Input
+from mindee.input.sources.bytes_input import BytesInput
+from mindee.input.sources.file_input import FileInput
+from mindee.input.sources.path_input import PathInput
+from mindee.input.sources.url_input_source import UrlInputSource
 from mindee.parsing.common.api_response import ApiResponse
 from mindee.parsing.common.async_predict_response import AsyncPredictResponse
 from mindee.parsing.common.feedback_response import FeedbackResponse
@@ -18,6 +23,11 @@ __all__ = [
     "Client",
     "ClientV2",
     "InferenceParameters",
+    "FileInput",
+    "PathInput",
+    "BytesInput",
+    "Base64Input",
+    "UrlInputSource",
     "LocalResponse",
     "PageOptions",
     "PollingOptions",
