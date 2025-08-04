@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class FieldConfidence(Enum):
+class FieldConfidence(str, Enum):
     """Confidence level of a field as returned by the V2 API."""
 
     CERTAIN = "Certain"
