@@ -4,6 +4,7 @@ from typing import Tuple
 
 import pytest
 
+from mindee.parsing.v2.field.field_confidence import FieldConfidence
 from mindee.parsing.v2.field.list_field import ListField
 from mindee.parsing.v2.field.object_field import ObjectField
 from mindee.parsing.v2.field.simple_field import SimpleField
@@ -185,3 +186,42 @@ def test_full_inference_response():
     assert inference_result.inference.file.mime_type == "image/jpeg"
     assert not inference_result.inference.file.alias
     assert not inference_result.inference.result.options
+
+
+@pytest.mark.v2
+def test_field_locations_and_confidence() -> None:
+    """
+    Validate that the first location polygon for the ``date`` field is correctly
+    deserialized together with the associated confidence level.
+    """
+    json_sample, _ = _get_product_samples(
+        "financial_document", "complete_with_coordinates"
+    )
+
+    inference_result = InferenceResponse(json_sample)
+
+    date_field: SimpleField = inference_result.inference.result.fields.date
+
+    assert date_field.locations, "date field should expose locations"
+    loc0 = date_field.locations[0]
+    assert loc0 is not None
+    assert loc0.page == 0
+
+    polygon = loc0.polygon
+    assert polygon is not None
+    assert len(polygon[0]) == 2
+
+    assert polygon[0][0] == 0.948979073166918
+    assert polygon[0][1] == 0.23097924535067715
+
+    assert polygon[1][0] == 0.85422
+    assert polygon[1][1] == 0.230072
+
+    assert polygon[2][0] == 0.8540899268330819
+    assert polygon[2][1] == 0.24365775464932288
+
+    assert polygon[3][0] == 0.948849
+    assert polygon[3][1] == 0.244565
+
+    assert date_field.confidence == FieldConfidence.MEDIUM
+    assert str(date_field.confidence.value) == "Medium"

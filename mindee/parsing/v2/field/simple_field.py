@@ -11,7 +11,7 @@ class SimpleField(BaseField):
     value: Union[str, float, bool, None]
 
     def __init__(self, raw_response: StringDict, indent_level: int = 0):
-        super().__init__(FieldType.SIMPLE, indent_level)
+        super().__init__(FieldType.SIMPLE, raw_response, indent_level)
         value = raw_response.get("value", None)
         if isinstance(value, int) and not isinstance(raw_response.get("value"), bool):
             self.value = float(value)
