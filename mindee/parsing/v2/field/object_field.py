@@ -11,7 +11,7 @@ class ObjectField(BaseField):
     """Fields contained in the object."""
 
     def __init__(self, raw_response: StringDict, indent_level: int = 0):
-        super().__init__(FieldType.OBJECT, indent_level)
+        super().__init__(FieldType.OBJECT, raw_response, indent_level)
         inner_fields = raw_response.get("fields", raw_response)
 
         self.fields = InferenceResultFields(inner_fields, self._indent_level + 1)
