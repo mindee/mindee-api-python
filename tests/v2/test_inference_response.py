@@ -4,14 +4,11 @@ from typing import Tuple
 
 import pytest
 
-from mindee.parsing.v2.field.field_confidence import FieldConfidence
-from mindee.parsing.v2.field.list_field import ListField
-from mindee.parsing.v2.field.object_field import ObjectField
-from mindee.parsing.v2.field.simple_field import SimpleField
+from mindee import InferenceResponse
+from mindee.parsing.v2.field import FieldConfidence, ListField, ObjectField, SimpleField
 from mindee.parsing.v2.inference import Inference
 from mindee.parsing.v2.inference_file import InferenceFile
 from mindee.parsing.v2.inference_model import InferenceModel
-from mindee.parsing.v2.inference_response import InferenceResponse
 from tests.test_inputs import V2_DATA_DIR
 
 
@@ -116,6 +113,7 @@ def test_standard_field_types():
     field_simple_string = inference_result.inference.result.fields.field_simple_string
     assert isinstance(field_simple_string, SimpleField)
     assert field_simple_string.value == "field_simple_string-value"
+    assert field_simple_string.confidence == FieldConfidence.CERTAIN
     assert str(field_simple_string) == "field_simple_string-value"
 
     field_simple_bool = inference_result.inference.result.fields.field_simple_bool

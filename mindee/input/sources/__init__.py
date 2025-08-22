@@ -5,3 +5,13 @@ from mindee.input.sources.input_type import InputType
 from mindee.input.sources.local_input_source import LocalInputSource
 from mindee.input.sources.path_input import PathInput
 from mindee.input.sources.url_input_source import UrlInputSource
+
+__all__ = [
+    "Base64Input",
+    "BytesInput",
+    "FileInput",
+    "InputType",
+    "LocalInputSource",
+    "PathInput",
+    "UrlInputSource",
+]
