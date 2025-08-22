@@ -1,5 +1,12 @@
 # Mindee Python Client Library Changelog
 
+## v4.27.1 - 2025-08-22
+### Changes
+* :recycle: use direct import of input classes
+* :bug: fix broken location & confidence data for V2 fields
+* :recycle:  make importing v2 classes easier
+
+
 ## v4.27.0 - 2025-07-30
 ### Changes
 * :sparkles: add support for page count, mimetype + fixes
