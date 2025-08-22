@@ -7,7 +7,7 @@ import pytest
 from PIL import Image
 
 from mindee.image_operations.image_compressor import compress_image
-from mindee.input.sources.path_input import PathInput
+from mindee.input.sources import PathInput
 from mindee.pdf.pdf_compressor import compress_pdf
 from mindee.pdf.pdf_utils import extract_text_from_pdf
 
