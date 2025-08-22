@@ -1,5 +1,5 @@
 from mindee.parsing.common.string_dict import StringDict
-from mindee.parsing.v2.field.common_response import CommonResponse
+from mindee.parsing.v2.common_response import CommonResponse
 from mindee.parsing.v2.job import Job
 
 
