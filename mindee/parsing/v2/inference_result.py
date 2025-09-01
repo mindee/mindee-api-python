@@ -19,5 +19,5 @@ class InferenceResult:
             self.raw_text = RawText(raw_response["raw_text"])
 
     def __str__(self) -> str:
-        out_str = f"\n\nFields\n======{self.fields}"
+        out_str = f"Fields\n======{self.fields}"
         return out_str

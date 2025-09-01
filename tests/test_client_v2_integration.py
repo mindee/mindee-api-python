@@ -37,13 +37,18 @@ def test_parse_file_empty_multiple_pages_must_succeed(
     file & model metadata.
     """
     input_path: Path = FILE_TYPES_DIR / "pdf" / "multipage_cut-2.pdf"
-    assert input_path.exists(), f"sample file missing: {input_path}"
 
-    input_doc = PathInput(input_path)
-    options = InferenceParameters(findoc_model_id)
+    input_source = PathInput(input_path)
+    params = InferenceParameters(
+        model_id=findoc_model_id,
+        rag=False,
+        raw_text=False,
+        polygon=False,
+        confidence=False,
+    )
 
     response: InferenceResponse = v2_client.enqueue_and_get_inference(
-        input_doc, options
+        input_source, params
     )
 
     assert response is not None
@@ -65,13 +70,18 @@ def test_parse_file_filled_single_page_must_succeed(
     Upload a filled single-page JPEG and verify that common fields are present.
     """
     input_path: Path = PRODUCT_DATA_DIR / "financial_document" / "default_sample.jpg"
-    assert input_path.exists(), f"sample file missing: {input_path}"
 
-    input_doc = PathInput(input_path)
-    options = InferenceParameters(findoc_model_id)
+    input_source = PathInput(input_path)
+    params = InferenceParameters(
+        model_id=findoc_model_id,
+        rag=False,
+        raw_text=False,
+        polygon=False,
+        confidence=False,
+    )
 
     response: InferenceResponse = v2_client.enqueue_and_get_inference(
-        input_doc, options
+        input_source, params
     )
 
     assert response is not None
@@ -79,6 +89,7 @@ def test_parse_file_filled_single_page_must_succeed(
 
     assert response.inference.file is not None
     assert response.inference.file.name == "default_sample.jpg"
+    assert response.inference.file.page_count == 1
 
     assert response.inference.model is not None
     assert response.inference.model.id == findoc_model_id
@@ -96,13 +107,12 @@ def test_invalid_uuid_must_throw_error_422(v2_client: ClientV2) -> None:
     Using an invalid model identifier must trigger a 422 HTTP error.
     """
     input_path: Path = FILE_TYPES_DIR / "pdf" / "multipage_cut-2.pdf"
-    assert input_path.exists()
 
-    input_doc = PathInput(input_path)
-    options = InferenceParameters("INVALID MODEL ID")
+    input_source = PathInput(input_path)
+    params = InferenceParameters(model_id="INVALID MODEL ID")
 
     with pytest.raises(MindeeHTTPErrorV2) as exc_info:
-        v2_client.enqueue_inference(input_doc, options)
+        v2_client.enqueue_inference(input_source, params)
 
     exc: MindeeHTTPErrorV2 = exc_info.value
     assert exc.status == 422
@@ -119,10 +129,16 @@ def test_url_input_source_must_not_raise_errors(
     """
     url = os.getenv("MINDEE_V2_SE_TESTS_BLANK_PDF_URL")
 
-    input_doc = UrlInputSource(url)
-    options = InferenceParameters(findoc_model_id)
+    input_source = UrlInputSource(url)
+    params = InferenceParameters(
+        model_id=findoc_model_id,
+        rag=False,
+        raw_text=False,
+        polygon=False,
+        confidence=False,
+    )
     response: InferenceResponse = v2_client.enqueue_and_get_inference(
-        input_doc, options
+        input_source, params
     )
     assert response is not None
     assert response.inference is not None
