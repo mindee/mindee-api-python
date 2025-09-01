@@ -6,6 +6,7 @@ import pytest
 
 from mindee import InferenceResponse
 from mindee.parsing.v2.field import FieldConfidence, ListField, ObjectField, SimpleField
+from mindee.parsing.v2.field.inference_fields import InferenceFields
 from mindee.parsing.v2.inference import Inference
 from mindee.parsing.v2.inference_file import InferenceFile
 from mindee.parsing.v2.inference_model import InferenceModel
@@ -116,6 +117,14 @@ def test_standard_field_types():
     assert field_simple_string.confidence == FieldConfidence.CERTAIN
     assert str(field_simple_string) == "field_simple_string-value"
 
+    field_simple_int = inference_result.inference.result.fields["field_simple_int"]
+    assert isinstance(field_simple_int, SimpleField)
+    assert isinstance(field_simple_int.value, float)
+
+    field_simple_float = inference_result.inference.result.fields["field_simple_float"]
+    assert isinstance(field_simple_float, SimpleField)
+    assert isinstance(field_simple_float.value, float)
+
     field_simple_bool = inference_result.inference.result.fields["field_simple_bool"]
     assert isinstance(field_simple_bool, SimpleField)
     assert field_simple_bool.value is True
@@ -126,16 +135,53 @@ def test_standard_field_types():
     assert field_simple_null.value is None
     assert str(field_simple_null) == ""
 
-    assert isinstance(
-        inference_result.inference.result.fields["field_object"], ObjectField
-    )
-    assert isinstance(
-        inference_result.inference.result.fields["field_simple_list"], ListField
-    )
-    assert isinstance(
-        inference_result.inference.result.fields["field_object_list"], ListField
-    )
     assert rst_sample == str(inference_result)
+
+
+@pytest.mark.v2
+def test_standard_field_object():
+    json_sample, _ = _get_inference_samples("standard_field_types")
+    inference_result = InferenceResponse(json_sample)
+
+    object_field = inference_result.inference.result.fields["field_object"]
+    assert isinstance(object_field, ObjectField)
+
+    sub_fields = object_field.fields
+    assert isinstance(sub_fields, InferenceFields)
+    assert len(sub_fields) == 2
+
+    subfield_1 = sub_fields["subfield_1"]
+    assert isinstance(subfield_1, SimpleField)
+
+    for field_name, sub_field in sub_fields.items():
+        assert field_name.startswith("subfield_")
+        assert isinstance(sub_field, SimpleField)
+
+
+@pytest.mark.v2
+def test_standard_field_object_list():
+    json_sample, _ = _get_inference_samples("standard_field_types")
+    inference_result = InferenceResponse(json_sample)
+    assert isinstance(inference_result.inference, Inference)
+
+    field_object_list = inference_result.inference.result.fields["field_object_list"]
+    assert isinstance(field_object_list, ListField)
+    assert len(field_object_list.items) == 2
+    for object_field in field_object_list.object_items:
+        assert isinstance(object_field, ObjectField)
+
+
+@pytest.mark.v2
+def test_standard_field_simple_list():
+    json_sample, _ = _get_inference_samples("standard_field_types")
+    inference_result = InferenceResponse(json_sample)
+    assert isinstance(inference_result.inference, Inference)
+
+    field_simple_list = inference_result.inference.result.fields["field_simple_list"]
+    assert isinstance(field_simple_list, ListField)
+    assert len(field_simple_list.simple_items) == 2
+    for object_field in field_simple_list.simple_items:
+        assert isinstance(object_field, SimpleField)
 
 
 @pytest.mark.v2
@@ -159,18 +205,20 @@ def test_full_inference_response():
 
     assert isinstance(inference_result.inference, Inference)
     assert inference_result.inference.id == "12345678-1234-1234-1234-123456789abc"
-    assert isinstance(inference_result.inference.result.fields.date, SimpleField)
+    assert isinstance(inference_result.inference.result.fields["date"], SimpleField)
     assert inference_result.inference.result.fields["date"].value == "2019-11-02"
-    assert isinstance(inference_result.inference.result.fields.taxes, ListField)
+    assert isinstance(inference_result.inference.result.fields["taxes"], ListField)
     assert isinstance(
         inference_result.inference.result.fields["taxes"].items[0], ObjectField
     )
     assert (
-        inference_result.inference.result.fields["customer_address"].fields.city.value
+        inference_result.inference.result.fields["customer_address"]
+        .fields["city"]
+        .value
         == "New York"
     )
     assert (
-        inference_result.inference.result.fields.taxes.items[0].fields["base"].value
+        inference_result.inference.result.fields["taxes"].items[0].fields["base"].value
         == 31.5
     )
 

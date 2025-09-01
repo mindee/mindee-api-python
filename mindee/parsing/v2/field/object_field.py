@@ -1,20 +1,20 @@
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.v2.field.base_field import BaseField
 from mindee.parsing.v2.field.dynamic_field import FieldType
-from mindee.parsing.v2.field.inference_result_fields import InferenceResultFields
+from mindee.parsing.v2.field.inference_fields import InferenceFields
 
 
 class ObjectField(BaseField):
     """Object field containing multiple fields."""
 
-    fields: InferenceResultFields
+    fields: InferenceFields
     """Fields contained in the object."""
 
     def __init__(self, raw_response: StringDict, indent_level: int = 0):
         super().__init__(FieldType.OBJECT, raw_response, indent_level)
         inner_fields = raw_response.get("fields", raw_response)
 
-        self.fields = InferenceResultFields(inner_fields, self._indent_level + 1)
+        self.fields = InferenceFields(inner_fields, self._indent_level + 1)
 
     def single_str(self) -> str:
         """String representation of a single object field."""

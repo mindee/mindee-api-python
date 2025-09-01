@@ -8,7 +8,7 @@ from mindee.parsing.v2.field.dynamic_field import (
 )
 
 
-class InferenceResultFields(Dict[str, DynamicField]):
+class InferenceFields(Dict[str, DynamicField]):
     """Inference fields dict."""
 
     def __init__(self, raw_response: StringDict, indent_level: int = 0) -> None:
