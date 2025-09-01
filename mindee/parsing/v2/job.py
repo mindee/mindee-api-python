@@ -44,6 +44,6 @@ class Job:
         self.filename = raw_response["filename"]
         self.result_url = raw_response["result_url"]
         self.alias = raw_response["alias"]
-        self.webhooks = []
-        for webhook in raw_response["webhooks"]:
-            self.webhooks.append(JobWebhook(webhook))
+        self.webhooks = [
+            JobWebhook(webhook) for webhook in raw_response.get("webhooks", [])
+        ]

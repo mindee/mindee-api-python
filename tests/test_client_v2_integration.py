@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-from mindee import ClientV2, InferenceParameters
+from mindee import ClientV2, InferenceParameters, PathInput, UrlInputSource
 from mindee.error.mindee_http_error_v2 import MindeeHTTPErrorV2
 from mindee.parsing.v2.inference_response import InferenceResponse
 from tests.test_inputs import FILE_TYPES_DIR, PRODUCT_DATA_DIR
@@ -39,7 +39,7 @@ def test_parse_file_empty_multiple_pages_must_succeed(
     input_path: Path = FILE_TYPES_DIR / "pdf" / "multipage_cut-2.pdf"
     assert input_path.exists(), f"sample file missing: {input_path}"
 
-    input_doc = v2_client.source_from_path(input_path)
+    input_doc = PathInput(input_path)
     options = InferenceParameters(findoc_model_id)
 
     response: InferenceResponse = v2_client.enqueue_and_get_inference(
@@ -67,7 +67,7 @@ def test_parse_file_filled_single_page_must_succeed(
     input_path: Path = PRODUCT_DATA_DIR / "financial_document" / "default_sample.jpg"
     assert input_path.exists(), f"sample file missing: {input_path}"
 
-    input_doc = v2_client.source_from_path(input_path)
+    input_doc = PathInput(input_path)
     options = InferenceParameters(findoc_model_id)
 
     response: InferenceResponse = v2_client.enqueue_and_get_inference(
@@ -98,7 +98,7 @@ def test_invalid_uuid_must_throw_error_422(v2_client: ClientV2) -> None:
     input_path: Path = FILE_TYPES_DIR / "pdf" / "multipage_cut-2.pdf"
     assert input_path.exists()
 
-    input_doc = v2_client.source_from_path(input_path)
+    input_doc = PathInput(input_path)
     options = InferenceParameters("INVALID MODEL ID")
 
     with pytest.raises(MindeeHTTPErrorV2) as exc_info:
@@ -119,7 +119,7 @@ def test_url_input_source_must_not_raise_errors(
     """
     url = os.getenv("MINDEE_V2_SE_TESTS_BLANK_PDF_URL")
 
-    input_doc = v2_client.source_from_url(url)
+    input_doc = UrlInputSource(url)
     options = InferenceParameters(findoc_model_id)
     response: InferenceResponse = v2_client.enqueue_and_get_inference(
         input_doc, options

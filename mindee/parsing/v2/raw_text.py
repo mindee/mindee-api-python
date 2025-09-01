@@ -1,14 +1,14 @@
+from typing import List
+
 from mindee.parsing.common.string_dict import StringDict
+from mindee.parsing.v2.raw_text_page import RawTextPage
 
 
 class RawText:
     """Raw text extracted from the document."""
 
-    page: int
+    pages: List[RawTextPage]
     """Page the raw text was found on."""
-    content: str
-    """Content of the raw text."""
 
     def __init__(self, raw_response: StringDict):
-        self.page = raw_response["page"]
-        self.content = raw_response["content"]
+        self.pages = [RawTextPage(page) for page in raw_response.get("pages", [])]
