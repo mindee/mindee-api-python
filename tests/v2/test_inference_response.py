@@ -248,16 +248,16 @@ def test_field_locations_and_confidence() -> None:
     date_field: SimpleField = inference_result.inference.result.fields["date"]
 
     assert date_field.locations, "date field should expose locations"
-    loc0 = date_field.locations[0]
-    assert loc0 is not None
-    assert loc0.page == 0
+    location = date_field.locations[0]
+    assert location is not None
+    assert location.page == 0
 
-    polygon = loc0.polygon
+    polygon = location.polygon
     assert polygon is not None
     assert len(polygon[0]) == 2
 
-    assert polygon[0][0] == 0.948979073166918
-    assert polygon[0][1] == 0.23097924535067715
+    assert polygon[0].x == 0.948979073166918
+    assert polygon[0].y == 0.23097924535067715
 
     assert polygon[1][0] == 0.85422
     assert polygon[1][1] == 0.230072

@@ -1,6 +1,6 @@
 from typing import Any, List, Optional, Type
 
-from mindee.geometry.polygon import Polygon, polygon_from_prediction
+from mindee.geometry.polygon import Polygon
 from mindee.geometry.quadrilateral import Quadrilateral, get_bounding_box
 from mindee.parsing.common.string_dict import StringDict
 
@@ -15,11 +15,10 @@ class FieldPositionMixin:
 
     def _set_position(self, raw_prediction: StringDict):
         self.bounding_box = None
-        self.polygon = Polygon()
         try:
-            self.polygon = polygon_from_prediction(raw_prediction["polygon"])
-        except (KeyError, TypeError):
-            pass
+            self.polygon = Polygon(raw_prediction.get("polygon", []))
+        except TypeError:
+            self.polygon = Polygon([])
         if self.polygon:
             self.bounding_box = get_bounding_box(self.polygon)
         else:

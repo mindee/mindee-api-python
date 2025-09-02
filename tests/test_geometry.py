@@ -53,37 +53,67 @@ def test_bounding_box_single_polygon(rectangle_a, rectangle_b, quadrangle_a):
 
 
 def test_is_point_in_polygon_y(rectangle_a, rectangle_b, quadrangle_a):
+    rectangle_a_polygon = geometry.Polygon(rectangle_a)
+    rectangle_b_polygon = geometry.Polygon(rectangle_b)
+    quadrangle_a_polygon = geometry.Polygon(quadrangle_a)
+
     # Should be in polygon A & B, since polygons overlap
     point_a = geometry.Point(0.125, 0.535)
     # Should only be in polygon C
     point_b = geometry.Point(0.300, 0.420)
 
     assert geometry.is_point_in_polygon_y(point_a, rectangle_a)
+    assert rectangle_a_polygon.is_point_in_y(point_a)
     assert geometry.is_point_in_polygon_y(point_a, rectangle_b)
+    assert rectangle_b_polygon.is_point_in_y(point_a)
     assert geometry.is_point_in_polygon_y(point_a, quadrangle_a) is False
+    assert quadrangle_a_polygon.is_point_in_y(point_a) is False
 
     assert geometry.is_point_in_polygon_y(point_b, rectangle_a) is False
+    assert rectangle_a_polygon.is_point_in_y(point_b) is False
     assert geometry.is_point_in_polygon_y(point_b, rectangle_b) is False
+    assert rectangle_b_polygon.is_point_in_y(point_b) is False
     assert geometry.is_point_in_polygon_y(point_b, quadrangle_a)
+    assert quadrangle_a_polygon.is_point_in_y(point_b)
 
 
 def test_is_point_in_polygon_x(rectangle_a, rectangle_b, quadrangle_a):
+    rectangle_a_polygon = geometry.Polygon(rectangle_a)
+    rectangle_b_polygon = geometry.Polygon(rectangle_b)
+    quadrangle_a_polygon = geometry.Polygon(quadrangle_a)
+
     # Should be in polygon A & B, since polygons overlap
     point_a = geometry.Point(0.125, 0.535)
     # Should only be in polygon C
     point_b = geometry.Point(0.300, 0.420)
 
     assert geometry.is_point_in_polygon_x(point_a, rectangle_a)
+    assert rectangle_a_polygon.is_point_in_x(point_a)
     assert geometry.is_point_in_polygon_x(point_a, rectangle_b)
+    assert rectangle_b_polygon.is_point_in_x(point_a)
     assert geometry.is_point_in_polygon_x(point_a, quadrangle_a) is False
+    assert quadrangle_a_polygon.is_point_in_x(point_a) is False
 
     assert geometry.is_point_in_polygon_x(point_b, rectangle_a) is False
+    assert rectangle_a_polygon.is_point_in_x(point_b) is False
     assert geometry.is_point_in_polygon_x(point_b, rectangle_b) is False
+    assert rectangle_b_polygon.is_point_in_x(point_b) is False
     assert geometry.is_point_in_polygon_x(point_b, quadrangle_a)
 
 
 def test_get_centroid(rectangle_a):
     assert geometry.get_centroid(rectangle_a) == (0.149, 0.538)
+    assert geometry.Polygon(rectangle_a).centroid == geometry.Point(0.149, 0.538)
+
+
+def test_empty_polygon():
+    empty = geometry.Polygon()
+    with pytest.raises(ValueError):
+        empty.is_point_in_y([0.5, 0.5])
+    with pytest.raises(ValueError):
+        empty.is_point_in_x([0.5, 0.5])
+    with pytest.raises(ValueError):
+        empty.centroid
 
 
 def test_bounding_box_several_polygons(rectangle_b, quadrangle_a):

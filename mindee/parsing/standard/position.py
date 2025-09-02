@@ -1,7 +1,7 @@
 from typing import Optional
 
 from mindee.error.geometry_error import GeometryError
-from mindee.geometry.polygon import Polygon, polygon_from_prediction
+from mindee.geometry.polygon import Polygon
 from mindee.geometry.quadrilateral import Quadrilateral, quadrilateral_from_prediction
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.standard.base import BaseField
@@ -57,7 +57,7 @@ class PositionField(BaseField):
             if not polygon:
                 return None
             try:
-                return polygon_from_prediction(polygon)
+                return Polygon(polygon)
             except GeometryError:
                 return None
 
