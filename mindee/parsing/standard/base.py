@@ -1,7 +1,6 @@
 from typing import Any, List, Optional, Type
 
-from mindee.geometry.point import Point
-from mindee.geometry.polygon import Polygon
+from mindee.geometry.polygon import Polygon, polygon_from_prediction
 from mindee.geometry.quadrilateral import Quadrilateral, get_bounding_box
 from mindee.parsing.common.string_dict import StringDict
 
@@ -18,9 +17,7 @@ class FieldPositionMixin:
         self.bounding_box = None
         self.polygon = Polygon()
         try:
-            self.polygon = Polygon(
-                Point(point[0], point[1]) for point in raw_prediction["polygon"]
-            )
+            self.polygon = polygon_from_prediction(raw_prediction["polygon"])
         except (KeyError, TypeError):
             pass
         if self.polygon:
