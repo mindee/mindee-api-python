@@ -45,6 +45,8 @@ def test_parse_file_empty_multiple_pages_must_succeed(
         raw_text=False,
         polygon=False,
         confidence=False,
+        webhook_ids=[],
+        alias='py_integration_empty_multiple'
     )
 
     response: InferenceResponse = v2_client.enqueue_and_get_inference(
@@ -78,6 +80,8 @@ def test_parse_file_filled_single_page_must_succeed(
         raw_text=False,
         polygon=False,
         confidence=False,
+        webhook_ids=[],
+        alias='py_integration_empty_multipage'
     )
 
     response: InferenceResponse = v2_client.enqueue_and_get_inference(
@@ -136,6 +140,8 @@ def test_url_input_source_must_not_raise_errors(
         raw_text=False,
         polygon=False,
         confidence=False,
+        webhook_ids=[],
+        alias='py_integration_url_source'
     )
     response: InferenceResponse = v2_client.enqueue_and_get_inference(
         input_source, params
