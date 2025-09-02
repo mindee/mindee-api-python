@@ -1,25 +1,60 @@
-from typing import Sequence
+from typing import List, Optional, Sequence
 
 from mindee.geometry.minmax import get_min_max_x, get_min_max_y
 from mindee.geometry.point import Point
 from mindee.geometry.polygon_utils import get_centroid, is_point_in_x, is_point_in_y
 
 
-class Polygon(list):
+class Polygon(List[Point]):
     """
     Contains any number of vertex coordinates (Points).
 
     Inherits from base class ``list`` so is compatible with type ``Points``.
     """
 
+    def __init__(self, vertices: Optional[list] = None):
+        # we should NOT allow the creation of invalid polygons, but it would be a breaking change
+        if not vertices:
+            vertices = []
+        else:
+            vertices = [Point(point[0], point[1]) for point in vertices]
+        super().__init__(vertices)
+
+    def _raise_if_invalid(self) -> None:
+        if len(self) < 3:
+            raise ValueError("A polygon must have at least 3 vertices")
+
     @property
     def centroid(self) -> Point:
         """The central point (centroid) of the polygon."""
+        self._raise_if_invalid()
         return get_centroid(self)
+
+    def is_point_in_x(self, point: Point) -> bool:
+        """
+        Determine if the Point is in the Polygon's X-axis.
+
+        :param point: Point to compare
+        """
+        self._raise_if_invalid()
+        min_x, max_x = get_min_max_x(self)
+        return is_point_in_x(point, min_x, max_x)
+
+    def is_point_in_y(self, point: Point) -> bool:
+        """
+        Determine if the Point is in the Polygon's Y-axis.
+
+        :param point: Point to compare
+        """
+        self._raise_if_invalid()
+        min_y, max_y = get_min_max_y(self)
+        return is_point_in_y(point, min_y, max_y)
 
 
 def is_point_in_polygon_x(point: Point, polygon: Polygon) -> bool:
     """
+    Deprecated, use ``is_point_in_x`` from ``Polygon`` class instead.
+
     Determine if the Point is in the Polygon's X-axis.
 
     :param point: Point to compare
@@ -31,6 +66,8 @@ def is_point_in_polygon_x(point: Point, polygon: Polygon) -> bool:
 
 def is_point_in_polygon_y(point: Point, polygon: Polygon) -> bool:
     """
+    Deprecated, use ``is_point_in_y`` from ``Polygon`` class instead.
+
     Determine if the Point is in the Polygon's Y-axis.
 
     :param point: Point to compare
@@ -40,13 +77,15 @@ def is_point_in_polygon_y(point: Point, polygon: Polygon) -> bool:
     return is_point_in_y(point, min_y, max_y)
 
 
-def polygon_from_prediction(prediction: Sequence[list]) -> Polygon:
+def polygon_from_prediction(prediction: Sequence[List[float]]) -> Polygon:
     """
+    Deprecated, init ``Polygon`` class directly instead.
+
     Transform a prediction into a Polygon.
 
     :param prediction: API prediction.
     """
-    return Polygon(Point(point[0], point[1]) for point in prediction)
+    return Polygon([Point(point[0], point[1]) for point in prediction])
 
 
 def merge_polygons(vertices: Sequence[Polygon]) -> Polygon:
