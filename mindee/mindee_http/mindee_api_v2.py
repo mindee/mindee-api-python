@@ -84,6 +84,12 @@ class MindeeApiV2(SettingsMixin):
 
         if params.rag:
             data["rag"] = "true"
+        if params.raw_text:
+            data["raw_text"] = "true"
+        if params.confidence:
+            data["confidence"] = "true"
+        if params.polygon:
+            data["polygon"] = "true"
         if params.webhook_ids and len(params.webhook_ids) > 0:
             data["webhook_ids"] = ",".join(params.webhook_ids)
         if params.alias and len(params.alias):

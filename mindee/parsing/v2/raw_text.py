@@ -12,3 +12,6 @@ class RawText:
 
     def __init__(self, raw_response: StringDict):
         self.pages = [RawTextPage(page) for page in raw_response.get("pages", [])]
+
+    def __str__(self) -> str:
+        return "\n\n".join([page.content for page in self.pages])
