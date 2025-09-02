@@ -85,6 +85,8 @@
 <li class="toctree-l4"><a class="reference internal" href="#mindee.geometry.Polygon.extend"><code class="docutils literal notranslate"><span class="pre">Polygon.extend()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.geometry.Polygon.index"><code class="docutils literal notranslate"><span class="pre">Polygon.index()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.geometry.Polygon.insert"><code class="docutils literal notranslate"><span class="pre">Polygon.insert()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.geometry.Polygon.is_point_in_x"><code class="docutils literal notranslate"><span class="pre">Polygon.is_point_in_x()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.geometry.Polygon.is_point_in_y"><code class="docutils literal notranslate"><span class="pre">Polygon.is_point_in_y()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.geometry.Polygon.pop"><code class="docutils literal notranslate"><span class="pre">Polygon.pop()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.geometry.Polygon.remove"><code class="docutils literal notranslate"><span class="pre">Polygon.remove()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.geometry.Polygon.reverse"><code class="docutils literal notranslate"><span class="pre">Polygon.reverse()</span></code></a></li>
@@ -300,9 +302,14 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.geometry.Polygon">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Polygon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.Polygon" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Polygon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vertices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.Polygon" title="Permalink to this definition"></a></dt>
 <dd><p>Contains any number of vertex coordinates (Points).</p>
 <p>Inherits from base class <code class="docutils literal notranslate"><span class="pre">list</span></code> so is compatible with type <code class="docutils literal notranslate"><span class="pre">Points</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>vertices</strong> (<em>Optional</em><em>[</em><em>list</em><em>]</em>) – </p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.geometry.Polygon.append">
 <span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.Polygon.append" title="Permalink to this definition"></a></dt>
@@ -344,6 +351,34 @@
 <dt class="sig sig-object py" id="mindee.geometry.Polygon.insert">
 <span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.Polygon.insert" title="Permalink to this definition"></a></dt>
 <dd><p>Insert object before index.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.geometry.Polygon.is_point_in_x">
+<span class="sig-name descname"><span class="pre">is_point_in_x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">point</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.Polygon.is_point_in_x" title="Permalink to this definition"></a></dt>
+<dd><p>Determine if the Point is in the Polygon’s X-axis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>point</strong> (<a class="reference internal" href="#mindee.geometry.Point" title="mindee.geometry.point.Point"><code class="xref py py-class docutils literal notranslate"><span class="pre">Point</span></code></a>) – Point to compare</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.geometry.Polygon.is_point_in_y">
+<span class="sig-name descname"><span class="pre">is_point_in_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">point</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.Polygon.is_point_in_y" title="Permalink to this definition"></a></dt>
+<dd><p>Determine if the Point is in the Polygon’s Y-axis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>point</strong> (<a class="reference internal" href="#mindee.geometry.Point" title="mindee.geometry.point.Point"><code class="xref py py-class docutils literal notranslate"><span class="pre">Point</span></code></a>) – Point to compare</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -526,7 +561,8 @@ ascending or descending, according to their function values.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="mindee.geometry.is_point_in_polygon_x">
 <span class="sig-name descname"><span class="pre">is_point_in_polygon_x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">point</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">polygon</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.is_point_in_polygon_x" title="Permalink to this definition"></a></dt>
-<dd><p>Determine if the Point is in the Polygon’s X-axis.</p>
+<dd><p>Deprecated, use <code class="docutils literal notranslate"><span class="pre">is_point_in_x</span></code> from <code class="docutils literal notranslate"><span class="pre">Polygon</span></code> class instead.</p>
+<p>Determine if the Point is in the Polygon’s X-axis.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -543,7 +579,8 @@ ascending or descending, according to their function values.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="mindee.geometry.is_point_in_polygon_y">
 <span class="sig-name descname"><span class="pre">is_point_in_polygon_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">point</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">polygon</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.is_point_in_polygon_y" title="Permalink to this definition"></a></dt>
-<dd><p>Determine if the Point is in the Polygon’s Y-axis.</p>
+<dd><p>Deprecated, use <code class="docutils literal notranslate"><span class="pre">is_point_in_y</span></code> from <code class="docutils literal notranslate"><span class="pre">Polygon</span></code> class instead.</p>
+<p>Determine if the Point is in the Polygon’s Y-axis.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -613,10 +650,11 @@ ascending or descending, according to their function values.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="mindee.geometry.polygon_from_prediction">
 <span class="sig-name descname"><span class="pre">polygon_from_prediction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prediction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.geometry.polygon_from_prediction" title="Permalink to this definition"></a></dt>
-<dd><p>Transform a prediction into a Polygon.</p>
+<dd><p>Deprecated, init <code class="docutils literal notranslate"><span class="pre">Polygon</span></code> class directly instead.</p>
+<p>Transform a prediction into a Polygon.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>prediction</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>]) – API prediction.</p>
+<dd class="field-odd"><p><strong>prediction</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]) – API prediction.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="#mindee.geometry.Polygon" title="mindee.geometry.polygon.Polygon"><code class="xref py py-class docutils literal notranslate"><span class="pre">Polygon</span></code></a></p>
