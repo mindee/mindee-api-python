@@ -42,7 +42,7 @@ def test_parse_file_empty_multiple_pages_must_succeed(
     params = InferenceParameters(
         model_id=findoc_model_id,
         rag=False,
-        raw_text=False,
+        raw_text=True,
         polygon=False,
         confidence=False,
         webhook_ids=[],
@@ -58,9 +58,19 @@ def test_parse_file_empty_multiple_pages_must_succeed(
 
     assert response.inference.file is not None
     assert response.inference.file.name == "multipage_cut-2.pdf"
+    assert response.inference.file.page_count == 2
 
     assert response.inference.model is not None
     assert response.inference.model.id == findoc_model_id
+
+    assert response.inference.active_options is not None
+    assert response.inference.active_options.rag is False
+    assert response.inference.active_options.raw_text is True
+    assert response.inference.active_options.polygon is False
+    assert response.inference.active_options.confidence is False
+
+    assert response.inference.result.raw_text is not None
+    assert len(response.inference.result.raw_text.pages) == 2
 
 
 @pytest.mark.integration
@@ -81,7 +91,7 @@ def test_parse_file_filled_single_page_must_succeed(
         polygon=False,
         confidence=False,
         webhook_ids=[],
-        alias="py_integration_empty_multipage",
+        alias="py_integration_filled_single",
     )
 
     response: InferenceResponse = v2_client.enqueue_and_get_inference(
@@ -95,19 +105,23 @@ def test_parse_file_filled_single_page_must_succeed(
     assert response.inference.file.name == "default_sample.jpg"
     assert response.inference.file.page_count == 1
 
+    assert response.inference.model is not None
+    assert response.inference.model.id == findoc_model_id
+
     assert response.inference.active_options is not None
     assert response.inference.active_options.rag is False
     assert response.inference.active_options.raw_text is False
     assert response.inference.active_options.polygon is False
     assert response.inference.active_options.confidence is False
 
-    assert response.inference.model is not None
-    assert response.inference.model.id == findoc_model_id
+    assert response.inference.result.raw_text is None
 
     assert response.inference.result is not None
     supplier_name = response.inference.result.fields["supplier_name"]
     assert supplier_name is not None
     assert supplier_name.value == "John Smith"
+    assert supplier_name.confidence is None
+    assert len(supplier_name.locations) == 0
 
 
 @pytest.mark.integration
