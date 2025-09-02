@@ -1,5 +1,14 @@
 # Mindee Python Client Library Changelog
 
+## v4.28.0 - 2025-09-02
+### Changes
+* :sparkles: add list field typed accessors
+* :recycle: rework polygons, use them more like a real class
+* :sparkles: add inference options
+### ¡Breaking Changes!
+* :recycle: :boom: update raw text output from server
+
+
 ## v4.27.1 - 2025-08-22
 ### Changes
 * :recycle: use direct import of input classes
