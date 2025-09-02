@@ -1,5 +1,5 @@
 from mindee.parsing.common.string_dict import StringDict
-from mindee.parsing.v2.inference_active_options import ActiveOptions
+from mindee.parsing.v2.inference_active_options import InferenceActiveOptions
 from mindee.parsing.v2.inference_file import InferenceFile
 from mindee.parsing.v2.inference_model import InferenceModel
 from mindee.parsing.v2.inference_result import InferenceResult
@@ -16,7 +16,7 @@ class Inference:
     """File info for the inference."""
     result: InferenceResult
     """Result of the inference."""
-    active_options: ActiveOptions
+    active_options: InferenceActiveOptions
     """Active options for the inference."""
 
     def __init__(self, raw_response: StringDict):
@@ -24,7 +24,7 @@ class Inference:
         self.model = InferenceModel(raw_response["model"])
         self.file = InferenceFile(raw_response["file"])
         self.result = InferenceResult(raw_response["result"])
-        self.active_options = ActiveOptions(raw_response["active_options"])
+        self.active_options = InferenceActiveOptions(raw_response["active_options"])
 
     def __str__(self) -> str:
         return (

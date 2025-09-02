@@ -1,7 +1,7 @@
 from mindee.parsing.common.string_dict import StringDict
 
 
-class ActiveOptions:
+class InferenceActiveOptions:
     """Active options for the inference."""
 
     raw_text: bool
