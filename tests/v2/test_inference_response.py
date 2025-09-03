@@ -186,7 +186,7 @@ def test_standard_field_simple_list():
 
 @pytest.mark.v2
 def test_raw_texts():
-    json_sample, rst_sample = _get_inference_samples("raw_texts")
+    json_sample, _ = _get_inference_samples("raw_texts")
     inference_result = InferenceResponse(json_sample)
     assert isinstance(inference_result.inference, Inference)
 

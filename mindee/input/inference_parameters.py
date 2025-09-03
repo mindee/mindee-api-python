@@ -10,16 +10,16 @@ class InferenceParameters:
 
     model_id: str
     """ID of the model, required."""
-    rag: bool = False
-    """Use Retrieval-Augmented Generation during inference."""
-    raw_text: bool = False
-    """Extract the entire text from the document as strings, and fill the ``raw_text`` attribute."""
-    polygon: bool = False
-    """Calculate bounding box polygons for values, and fill the ``locations`` attribute of fields"""
-    confidence: bool = False
+    rag: Optional[bool] = None
+    """Enhance extraction accuracy with Retrieval-Augmented Generation."""
+    raw_text: Optional[bool] = None
+    """Extract the full text content from the document as strings, and fill the ``raw_text`` attribute."""
+    polygon: Optional[bool] = None
+    """Calculate bounding box polygons for all fields, and fill their ``locations`` attribute."""
+    confidence: Optional[bool] = None
     """
-    Calculate confidence scores for values, and fill the ``confidence`` attribute of fields.
-    Useful for automation.
+    Boost the precision and accuracy of all extractions.
+    Calculate confidence scores for all fields, and fill their ``confidence`` attribute.
     """
     alias: Optional[str] = None
     """Use an alias to link the file to your own DB. If empty, no alias will be used."""
