@@ -118,6 +118,10 @@ def test_parse_file_filled_single_page_must_succeed(
     params = InferenceParameters(
         model_id=findoc_model_id,
         webhook_ids=[],
+        rag=None,
+        raw_text=None,
+        polygon=None,
+        confidence=None,
         alias="py_integration_filled_single",
     )
 
