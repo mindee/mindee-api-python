@@ -33,7 +33,7 @@ def test_parse_file_empty_multiple_pages_must_succeed(
     v2_client: ClientV2, findoc_model_id: str
 ) -> None:
     """
-    Upload a 2-page blank PDF and make sure the returned inference contains the
+    Upload a 2-page almost blank PDF and make sure the returned inference contains the
     file & model metadata.
     """
     input_path: Path = FILE_TYPES_DIR / "pdf" / "multipage_cut-2.pdf"
@@ -75,6 +75,37 @@ def test_parse_file_empty_multiple_pages_must_succeed(
 
 @pytest.mark.integration
 @pytest.mark.v2
+def test_parse_file_empty_single_page_options_must_succeed(
+    v2_client: ClientV2, findoc_model_id: str
+) -> None:
+    """
+    Upload a blank PDF and make sure the options are set correctly.
+    """
+    input_path: Path = FILE_TYPES_DIR / "pdf" / "blank_1.pdf"
+
+    input_source = PathInput(input_path)
+    params = InferenceParameters(
+        model_id=findoc_model_id,
+        rag=True,
+        raw_text=True,
+        polygon=True,
+        confidence=True,
+        webhook_ids=[],
+        alias="py_integration_empty_page_options",
+    )
+    response: InferenceResponse = v2_client.enqueue_and_get_inference(
+        input_source, params
+    )
+
+    assert response.inference.active_options is not None
+    assert response.inference.active_options.rag is True
+    assert response.inference.active_options.raw_text is True
+    assert response.inference.active_options.polygon is True
+    assert response.inference.active_options.confidence is True
+
+
+@pytest.mark.integration
+@pytest.mark.v2
 def test_parse_file_filled_single_page_must_succeed(
     v2_client: ClientV2, findoc_model_id: str
 ) -> None:
@@ -86,10 +117,6 @@ def test_parse_file_filled_single_page_must_succeed(
     input_source = PathInput(input_path)
     params = InferenceParameters(
         model_id=findoc_model_id,
-        rag=False,
-        raw_text=False,
-        polygon=False,
-        confidence=False,
         webhook_ids=[],
         alias="py_integration_filled_single",
     )

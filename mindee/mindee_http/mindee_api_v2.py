@@ -82,14 +82,14 @@ class MindeeApiV2(SettingsMixin):
         data = {"model_id": params.model_id}
         url = f"{self.url_root}/inferences/enqueue"
 
-        if params.rag:
-            data["rag"] = "true"
-        if params.raw_text:
-            data["raw_text"] = "true"
-        if params.confidence:
-            data["confidence"] = "true"
-        if params.polygon:
-            data["polygon"] = "true"
+        if params.rag is not None:
+            data["rag"] = str(params.rag).lower()
+        if params.raw_text is not None:
+            data["raw_text"] = str(params.raw_text).lower()
+        if params.confidence is not None:
+            data["confidence"] = str(params.confidence).lower()
+        if params.polygon is not None:
+            data["polygon"] = str(params.polygon).lower()
         if params.webhook_ids and len(params.webhook_ids) > 0:
             data["webhook_ids"] = ",".join(params.webhook_ids)
         if params.alias and len(params.alias):
