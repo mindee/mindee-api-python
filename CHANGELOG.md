@@ -1,5 +1,10 @@
 # Mindee Python Client Library Changelog
 
+## v4.28.1 - 2025-09-03
+### Fixes
+* :bug: inference options should default to None
+
+
 ## v4.28.0 - 2025-09-02
 ### Changes
 * :sparkles: add list field typed accessors
