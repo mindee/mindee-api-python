@@ -157,11 +157,11 @@ def test_parse_file_filled_single_page_must_succeed(
 
 @pytest.mark.integration
 @pytest.mark.v2
-def test_invalid_uuid_must_throw_error_422(v2_client: ClientV2) -> None:
+def test_invalid_uuid_must_throw_error(v2_client: ClientV2) -> None:
     """
     Using an invalid model identifier must trigger a 422 HTTP error.
     """
-    input_path: Path = FILE_TYPES_DIR / "pdf" / "multipage_cut-2.pdf"
+    input_path: Path = FILE_TYPES_DIR / "pdf" / "blank_1.pdf"
 
     input_source = PathInput(input_path)
     params = InferenceParameters(model_id="INVALID MODEL ID")
@@ -171,6 +171,55 @@ def test_invalid_uuid_must_throw_error_422(v2_client: ClientV2) -> None:
 
     exc: MindeeHTTPErrorV2 = exc_info.value
     assert exc.status == 422
+
+
+@pytest.mark.integration
+@pytest.mark.v2
+def test_unknown_model_must_throw_error(v2_client: ClientV2) -> None:
+    """
+    Using an unknown model identifier must trigger a 404 HTTP error.
+    """
+    input_path: Path = FILE_TYPES_DIR / "pdf" / "blank_1.pdf"
+
+    input_source = PathInput(input_path)
+    params = InferenceParameters(model_id="fc405e37-4ba4-4d03-aeba-533a8d1f0f21")
+
+    with pytest.raises(MindeeHTTPErrorV2) as exc_info:
+        v2_client.enqueue_inference(input_source, params)
+
+    exc: MindeeHTTPErrorV2 = exc_info.value
+    assert exc.status == 404
+
+
+@pytest.mark.integration
+@pytest.mark.v2
+def test_unknown_webhook_ids_must_throw_error(
+    v2_client: ClientV2, findoc_model_id: str
+) -> None:
+    """
+    Using an unknown webhook identifier must trigger an error.
+    """
+    input_path: Path = FILE_TYPES_DIR / "pdf" / "blank_1.pdf"
+
+    input_source = PathInput(input_path)
+    params = InferenceParameters(
+        model_id=findoc_model_id,
+        webhook_ids=[
+            "fc405e37-4ba4-4d03-aeba-533a8d1f0f21",
+            "fc405e37-4ba4-4d03-aeba-533a8d1f0f21",
+        ],
+        rag=None,
+        raw_text=None,
+        polygon=None,
+        confidence=None,
+    )
+
+    with pytest.raises(MindeeHTTPErrorV2) as exc_info:
+        v2_client.enqueue_inference(input_source, params)
+
+    exc: MindeeHTTPErrorV2 = exc_info.value
+    assert exc.status == 422
+    assert "no matching webhooks" in exc.detail.lower()
 
 
 @pytest.mark.integration

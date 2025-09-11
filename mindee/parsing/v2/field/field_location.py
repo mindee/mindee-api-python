@@ -10,7 +10,7 @@ class FieldLocation:
 
     def __init__(self, server_response: StringDict) -> None:
         """
-        Initialize FieldLocation from server response.
+        Initialize FieldLocation from the server response.
 
         :param server_response: Raw server response.
         """
