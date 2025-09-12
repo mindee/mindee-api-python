@@ -1,5 +1,10 @@
 # Mindee Python Client Library Changelog
 
+## v4.28.2 - 2025-09-12
+### Fixes
+* :bug: fix for multiple webhooks
+
+
 ## v4.28.1 - 2025-09-03
 ### Fixes
 * :bug: inference options should default to None
@@ -279,7 +284,6 @@
 * :sparkles: add custom associated classes & namespace for Generated APIs
 * :memo: update sample codes for default usage
 * :memo: add documentation for Generated APIs
-
 ### Fixes
 * :bug: fix sphinx doc from mistakenly looking for static files
 * :bug: fix default async config to avoid timeouts on larger files
@@ -293,7 +297,6 @@
 * :arrow_up: upgrade support for python 3.12
 * :sparkles: add n_pages attribute to document
 * :test_tube: :sparkles: add **experimental** pdf-fixing utility
-
 ### Fixes
 * :memo: fix invoice-splitter doc
 * :wrench: fix wrongful instance variable assignments
@@ -314,7 +317,6 @@
 * :art: :boom: harmonize response types & syntax with other libraries
 * :art: :boom: change endpoint management & syntax
 * :art: :boom: move products to `product` module
-
 ### Changes
 * :sparkles: add support for auto-poll asynchronous parsing
 * :sparkles: add support for products with both sync & async modes
@@ -331,7 +333,6 @@
 * :recycle: re-organize geometry module
 * :coffin: remove support for ReceiptV3
 * :coffin: remove support for InvoiceV3
-
 ### Fixes
 * :bug: fix `raw_http` attribute displaying a python dict instead of raw JSON
 
@@ -401,7 +402,6 @@
 ## v3.8.2 - 2023-05-23
 ### Changes
 * :recycle: add a specific class for classifications, which are never None
-
 ### Fixes
 * :bug: fix for tax base amount
 
@@ -445,7 +445,6 @@
 * :sparkles: add support for shipping container v1
 * :sparkles: add EU license plate v1
 * :memo: add sample code for all supported APIs
-
 ### Fixes
 * :bug: fix for null classification field on custom APIs
 
@@ -473,7 +472,6 @@ Also field names in `FinancialDocumentV1` now match those of `Invoice` and `Rece
 ### Changes
 * :arrow_up: Update pikepdf
 * :sparkles: Add support for Python 3.11
-
 ### Fixes
 * :bug: Fix misleading docstrings
 
@@ -501,7 +499,6 @@ Also field names in `FinancialDocumentV1` now match those of `Invoice` and `Rece
 * :sparkles: add Cropper support
 * :sparkles: allow setting timeout value from env
 * :sparkles: Add Invoice V4 (clearer field names, line items) (#107)
-
 ### Fixes
 * :bug: page_n should always be set when available (#106)
 
@@ -514,11 +511,9 @@ Also field names in `FinancialDocumentV1` now match those of `Invoice` and `Rece
 * :sparkles: Pass the document class instead of a string to specify how to `parse` input sources.
 * :recycle: Some methods and parameters renamed for better clarity.
 * :sparkles: Results from Custom documents are now deserialized into objects, rather than `dict`.
-
 ### Changes
 * :sparkles: Add support for expense receipts V4.
 * :recycle: minor improvements to geometry functions.
-
 ### Fixes
 * :bug: Make sure the user is specified when calling custom docs on CLI
 * :bug: Add default timeout of 120 seconds for endpoints.
@@ -527,7 +522,6 @@ Also field names in `FinancialDocumentV1` now match those of `Invoice` and `Rece
 ## v2.6.0 - 2022-10-10
 ### Fixes
 * :bug: don't print "None" when filename is empty
-
 ### Changes
 * :wastebasket: deprecate setting singular and plural names for docs (#98)
 * :sparkles: add x-axis geometry functions (#99)
@@ -555,7 +549,6 @@ Also field names in `FinancialDocumentV1` now match those of `Invoice` and `Rece
 * :bug: :memo: custom docs names refer to the API, not the type.
 * :bug: words should be separated when printing custom documents
 * :bug: empty date should return passport not in validity
-
 ### Changes
 * :sparkles: Add TIFF and HEIC support
 * :sparkles: Add real bounding boxes
@@ -565,7 +558,6 @@ Also field names in `FinancialDocumentV1` now match those of `Invoice` and `Rece
 ## v2.3.0 - 2022-05-23
 ### Fixes
 * :bug: make sure the 'Token' keyword is sent in the auth headers
-
 ### Changes
 * :sparkles: now possible to read file contents at any time
 * :hammer: run mypy in pre-commit
@@ -577,7 +569,6 @@ Also field names in `FinancialDocumentV1` now match those of `Invoice` and `Rece
 ## v2.2.0 - 2022-03-24
 ### Fixes
 * :bug: :boom: fix for customer_company_registration being a list of values
-
 ### Changes
 * :sparkles: allow specifying file closing behavior
 * :arrow_up: loosen setup.py requirements; update pinned dependencies
@@ -590,7 +581,6 @@ Also field names in `FinancialDocumentV1` now match those of `Invoice` and `Rece
 * :bug: fix custom document in CLI
 * :label: declare type info to mypy
 * :bug: fix for dumping JSON in CLI
-
 ### Changes
 * :label: set stricter pylint and mypy settings
 * :technologist: add pre-commit to ensure proper code formatting
@@ -608,7 +598,6 @@ Also field names in `FinancialDocumentV1` now match those of `Invoice` and `Rece
 ## v2.0.2 - 2022-02-21
 ### Fixes
 * :bug: fix sending financial document via the CLI
-
 ### Changes
 * :sparkles: allow getting OCR return in CLI
 * :sparkles: Make sure all document information is printed
@@ -618,7 +607,6 @@ Also field names in `FinancialDocumentV1` now match those of `Invoice` and `Rece
 ### Fixes
 * :bug: fix for invoice to string
 * :bug: fix for counting empty PDF pages
-
 ### Changes
 * :arrow_up: Update PikePDF to 4.5.0
 * :arrow_up: Update Pillow to 9.0.1 (security fix)
@@ -627,13 +615,11 @@ Also field names in `FinancialDocumentV1` now match those of `Invoice` and `Rece
 ## v2.0.0 - 2022-02-14
 ### New Features
 * :sparkles: Allow using custom documents (API builder)
-
 ### :boom: Breaking Changes
 * :recycle: `probability` renamed to `confidence` in the return fields to match
   API return
 * :recycle: `Client` initialization reworked to be more extensible
 * :recycle: Document loading and parsing reworked to separate arguments
-
 ### Changes
 * :arrow_up: Upgrade pikepdf to 4.4.1
 * :memo: Documentation migrated mainly to https://developers.mindee.com/docs
@@ -643,7 +629,6 @@ Also field names in `FinancialDocumentV1` now match those of `Invoice` and `Rece
 ### Fixes
 * :bug: fix probabilities not loaded from API
   [#49](https://github.com/mindee/mindee-api-python/issues/49)
-
 ### Changes
 * :sparkles: add CLI tool for testing
 
@@ -654,7 +639,6 @@ Also field names in `FinancialDocumentV1` now match those of `Invoice` and `Rece
   [#33](https://github.com/mindee/mindee-api-python/issues/33)
 * :bug: fixed API error when using base64
   [#45](https://github.com/mindee/mindee-api-python/issues/45)
-
 ### Changes
 * :sparkles: Add user-agent header with SDK and Python versions
 * :sparkles: Use pikepdf to replace pyMuPDF
@@ -673,7 +657,6 @@ Also field names in `FinancialDocumentV1` now match those of `Invoice` and `Rece
 ## v1.2.2 - 2021-10-11
 ### Fixes
 *  :bug: Fixed [#15](https://github.com/mindee/mindee-api-python/issues/15)
-
 ### Changes
 * :sparkles: Added pdf page number parameter for multi-pages pdfs
 * :sparkles: Added a blank pages only PDF detection & error raising
