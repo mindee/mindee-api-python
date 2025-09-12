@@ -79,7 +79,7 @@ class MindeeApiV2(SettingsMixin):
         :param params: Options for the enqueueing of the document.
         :return: requests response.
         """
-        data = {"model_id": params.model_id}
+        data: Dict[str, Union[str, list]] = {"model_id": params.model_id}
         url = f"{self.url_root}/inferences/enqueue"
 
         if params.rag is not None:
@@ -91,7 +91,7 @@ class MindeeApiV2(SettingsMixin):
         if params.polygon is not None:
             data["polygon"] = str(params.polygon).lower()
         if params.webhook_ids and len(params.webhook_ids) > 0:
-            data["webhook_ids"] = ",".join(params.webhook_ids)
+            data["webhook_ids"] = params.webhook_ids
         if params.alias and len(params.alias):
             data["alias"] = params.alias
 
