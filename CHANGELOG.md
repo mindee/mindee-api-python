@@ -1,6 +1,6 @@
 # Mindee Python Client Library Changelog
 
-## v4.28.2 - 2025-09-03
+## v4.28.2 - 2025-09-12
 ### Fixes
 * :bug: fix for multiple webhooks
 
