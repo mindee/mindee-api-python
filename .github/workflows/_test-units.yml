@@ -50,4 +50,4 @@ jobs:
       env:
         MINDEE_API_KEY: ${{ secrets.MINDEE_API_KEY_SE_TESTS }}
       run: |
-        pytest --cov-fail-under 87
+        pytest --cov mindee --cov-fail-under 87

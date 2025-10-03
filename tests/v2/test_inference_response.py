@@ -268,5 +268,12 @@ def test_field_locations_and_confidence() -> None:
     assert polygon[3][0] == 0.948849
     assert polygon[3][1] == 0.244565
 
+    assert str(date_field.confidence) == "Medium"
+    assert int(date_field.confidence) == 2
     assert date_field.confidence == FieldConfidence.MEDIUM
-    assert str(date_field.confidence.value) == "Medium"
+    assert date_field.confidence >= FieldConfidence.MEDIUM
+    assert date_field.confidence <= FieldConfidence.MEDIUM
+    assert date_field.confidence >= FieldConfidence.LOW
+    assert date_field.confidence > FieldConfidence.LOW
+    assert date_field.confidence <= FieldConfidence.HIGH
+    assert date_field.confidence < FieldConfidence.HIGH
