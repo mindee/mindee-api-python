@@ -47,7 +47,7 @@ jobs:
       env:
           MINDEE_API_KEY: ${{ secrets.MINDEE_API_KEY_SE_TESTS }}
       run: |
-        pytest -m regression
+        pytest --cov mindee -m regression
 
     - name: Notify Slack Action on Failure
       uses: ravsamhq/notify-slack-action@2.3.0

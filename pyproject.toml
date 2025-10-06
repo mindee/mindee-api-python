@@ -120,7 +120,7 @@ safe_licenses = [
 
 
 [tool.pytest.ini_options]
-addopts = "--pyargs --cov mindee --cov-report term:skip-covered --cov-report term-missing -m 'not regression and not integration'"
+addopts = "--pyargs --cov-report term:skip-covered --cov-report term-missing -m 'not regression and not integration'"
 python_files = "test*.py"
 junit_family = "xunit2"
 markers = [
