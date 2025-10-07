@@ -1,5 +1,11 @@
 # Mindee Python Client Library Changelog
 
+## v4.29.0 - 2025-10-07
+### Changes
+* :sparkles: allow comparing v2 field confidence
+* :coffin: remove obsolete US Mail V2
+
+
 ## v4.28.2 - 2025-09-12
 ### Fixes
 * :bug: fix for multiple webhooks
