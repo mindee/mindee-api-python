@@ -8,6 +8,7 @@ from mindee.input.sources import (
     Base64Input,
     BytesInput,
     FileInput,
+    LocalInputSource,
     PathInput,
     UrlInputSource,
 )
@@ -57,42 +58,37 @@ TEST_IMAGES = (
 )
 
 
-@pytest.mark.parametrize(("filename", "mimetype"), TEST_IMAGES)
-def test_image_input_from_path(filename, mimetype):
-    input_source = PathInput(FILE_TYPES_DIR / filename)
+def _assert_image(input_source: LocalInputSource, mimetype: str) -> None:
     assert input_source.file_mimetype == mimetype
     assert input_source.is_pdf() is False
     assert input_source.page_count == 1
-    assert isinstance(input_source.file_object, io.BufferedReader)
+    assert isinstance(input_source.file_object.read(15), bytes)
+
+
+@pytest.mark.parametrize(("filename", "mimetype"), TEST_IMAGES)
+def test_image_input_from_path(filename, mimetype):
+    input_source = PathInput(FILE_TYPES_DIR / filename)
+    _assert_image(input_source, mimetype)
 
 
 @pytest.mark.parametrize(("filename", "mimetype"), TEST_IMAGES)
 def test_image_input_from_file(filename, mimetype):
     with open(FILE_TYPES_DIR / filename, "rb") as fp:
         input_source = FileInput(fp)
-        assert input_source.file_mimetype == mimetype
-        assert input_source.is_pdf() is False
-        assert input_source.page_count == 1
-        assert isinstance(input_source.file_object, io.BufferedReader)
+        _assert_image(input_source, mimetype)
 
 
 @pytest.mark.parametrize(("filename", "mimetype"), TEST_IMAGES)
 def test_image_input_from_bytes(filename, mimetype):
     file_bytes = open(FILE_TYPES_DIR / filename, "rb").read()
     input_source = BytesInput(file_bytes, filename=filename)
-    assert input_source.file_mimetype == mimetype
-    assert input_source.is_pdf() is False
-    assert input_source.page_count == 1
-    assert isinstance(input_source.file_object, io.BytesIO)
+    _assert_image(input_source, mimetype)
 
 
 def test_image_input_from_base64():
     base64_input = open(FILE_TYPES_DIR / "receipt.txt", "r").read()
     input_source = Base64Input(base64_input, filename="receipt.jpg")
-    assert input_source.file_mimetype == "image/jpeg"
-    assert input_source.is_pdf() is False
-    assert input_source.page_count == 1
-    assert isinstance(input_source.file_object, io.BytesIO)
+    _assert_image(input_source, mimetype="image/jpeg")
 
 
 def test_txt_input_from_path():

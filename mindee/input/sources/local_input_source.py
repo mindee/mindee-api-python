@@ -36,6 +36,7 @@ class LocalInputSource:
     file_mimetype: str
     input_type: InputType
     filepath: Optional[str]
+    _page_count: Optional[int] = None
 
     def __init__(self, input_type: InputType):
         self.input_type = input_type
@@ -107,11 +108,14 @@ class LocalInputSource:
 
         :return: The number of pages.
         """
-        if self.is_pdf():
-            self.file_object.seek(0)
-            pdf = pdfium.PdfDocument(self.file_object)
-            return len(pdf)
-        return 1
+        if self._page_count is None:
+            if self.is_pdf():
+                self.file_object.seek(0)
+                pdf = pdfium.PdfDocument(self.file_object)
+                self._page_count = len(pdf)
+            else:
+                self._page_count = 1
+        return self._page_count
 
     def count_doc_pages(self) -> int:
         """Deprecated. Use ``page_count`` instead."""
@@ -177,6 +181,7 @@ class LocalInputSource:
         bytes_io = io.BytesIO()
         new_pdf.save(bytes_io)
         self.file_object = bytes_io
+        self._page_count = len(new_pdf)
 
     def is_pdf_empty(self) -> bool:
         """

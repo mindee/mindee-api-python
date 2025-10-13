@@ -42,6 +42,7 @@ def test_pdf_reconstruct_ok():
 @pytest.mark.parametrize("numb_pages", [1, 2, 3])
 def test_process_pdf_cut_n_pages(numb_pages: int):
     input_source = PathInput(FILE_TYPES_DIR / "pdf" / "multipage.pdf")
+    assert input_source.page_count == 12
     input_source.process_pdf(
         behavior=KEEP_ONLY, on_min_pages=2, page_indexes=[0, -2, -1][:numb_pages]
     )
@@ -52,6 +53,7 @@ def test_process_pdf_cut_n_pages(numb_pages: int):
 @pytest.mark.parametrize("numb_pages", [1, 2, 3])
 def test_apply_pages_pdf_cut_n_pages(numb_pages: int):
     input_source = PathInput(FILE_TYPES_DIR / "pdf" / "multipage.pdf")
+    assert input_source.page_count == 12
     input_source.apply_page_options(
         PageOptions(on_min_pages=2, page_indexes=[0, -2, -1][:numb_pages])
     )
@@ -61,7 +63,7 @@ def test_apply_pages_pdf_cut_n_pages(numb_pages: int):
 
 def test_pdf_keep_5_first_pages():
     input_source = PathInput(FILE_TYPES_DIR / "pdf" / "multipage.pdf")
-    assert input_source.is_pdf() is True
+    assert input_source.page_count == 12
     input_source.process_pdf(
         behavior=KEEP_ONLY, on_min_pages=2, page_indexes=[0, 1, 2, 3, 4]
     )
@@ -70,11 +72,11 @@ def test_pdf_keep_5_first_pages():
 
 def test_pdf_keep_invalid_pages():
     input_source = PathInput(FILE_TYPES_DIR / "pdf" / "multipage.pdf")
-    assert input_source.is_pdf() is True
+    assert input_source.page_count == 12
     input_source.process_pdf(
         behavior=KEEP_ONLY, on_min_pages=2, page_indexes=[0, 1, 17]
     )
-    assert input_source.count_doc_pages() == 2
+    assert input_source.page_count == 2
 
 
 def test_pdf_remove_5_last_pages():
@@ -83,7 +85,7 @@ def test_pdf_remove_5_last_pages():
     input_source.process_pdf(
         behavior=REMOVE, on_min_pages=2, page_indexes=[-5, -4, -3, -2, -1]
     )
-    assert input_source.count_doc_pages() == 7
+    assert input_source.page_count == 7
 
 
 def test_pdf_remove_5_first_pages():
@@ -92,14 +94,14 @@ def test_pdf_remove_5_first_pages():
     input_source.process_pdf(
         behavior=REMOVE, on_min_pages=2, page_indexes=list(range(5))
     )
-    assert input_source.count_doc_pages() == 7
+    assert input_source.page_count == 7
 
 
 def test_pdf_remove_invalid_pages():
     input_source = PathInput(FILE_TYPES_DIR / "pdf" / "multipage.pdf")
     assert input_source.is_pdf() is True
     input_source.process_pdf(behavior=REMOVE, on_min_pages=2, page_indexes=[16])
-    assert input_source.count_doc_pages() == 12
+    assert input_source.page_count == 12
 
 
 def test_pdf_keep_no_pages():
@@ -129,7 +131,7 @@ def test_pdf_input_from_file():
         input_source = FileInput(fp)
         assert input_source.is_pdf() is True
         input_source.process_pdf(behavior=KEEP_ONLY, on_min_pages=2, page_indexes=[0])
-    assert input_source.count_doc_pages() == 1
+    assert input_source.page_count == 1
 
 
 def test_pdf_input_from_base64():
@@ -137,7 +139,7 @@ def test_pdf_input_from_base64():
         input_source = Base64Input(fp.read(), filename="invoice_10p.pdf")
     assert input_source.is_pdf() is True
     input_source.process_pdf(behavior=KEEP_ONLY, on_min_pages=2, page_indexes=[0])
-    assert input_source.count_doc_pages() == 1
+    assert input_source.page_count == 1
 
 
 def test_pdf_input_from_bytes():
@@ -145,7 +147,7 @@ def test_pdf_input_from_bytes():
         input_source = BytesInput(fp.read(), filename="invoice_10p.pdf")
     assert input_source.is_pdf() is True
     input_source.process_pdf(behavior=KEEP_ONLY, on_min_pages=2, page_indexes=[0])
-    assert input_source.count_doc_pages() == 1
+    assert input_source.page_count == 1
 
 
 def test_pdf_blank_check():
@@ -158,4 +160,4 @@ def test_pdf_blank_check():
         input_source.process_pdf(behavior=KEEP_ONLY, on_min_pages=2, page_indexes=[0])
 
     input_not_blank = PathInput(FILE_TYPES_DIR / "pdf" / "not_blank_image_only.pdf")
-    assert input_not_blank.count_doc_pages() == 1
+    assert input_not_blank.page_count == 1
