@@ -8,7 +8,7 @@ from mindee.product.invoice.invoice_v4 import InvoiceV4
 from mindee.product.invoice.invoice_v4_document import (
     InvoiceV4Document,
 )
-from tests.product import PRODUCT_DATA_DIR
+from tests.utils import PRODUCT_DATA_DIR
 
 RESPONSE_DIR = PRODUCT_DATA_DIR / "invoices" / "response_v4"
 

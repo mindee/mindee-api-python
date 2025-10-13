@@ -11,7 +11,7 @@ from mindee.parsing.standard.text import StringField
 from mindee.product.generated.generated_v1 import GeneratedV1
 from mindee.product.generated.generated_v1_document import GeneratedV1Document
 from mindee.product.generated.generated_v1_page import GeneratedV1Page
-from tests.product import PRODUCT_DATA_DIR
+from tests.utils import PRODUCT_DATA_DIR
 
 
 @pytest.fixture

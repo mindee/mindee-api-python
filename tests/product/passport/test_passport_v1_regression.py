@@ -2,7 +2,8 @@ import pytest
 
 from mindee.client import Client
 from mindee.product.passport.passport_v1 import PassportV1
-from tests.product import PRODUCT_DATA_DIR, get_id, get_version
+from tests.product import get_id, get_version
+from tests.utils import PRODUCT_DATA_DIR
 
 
 @pytest.mark.regression

@@ -4,7 +4,8 @@ from mindee.client import Client
 from mindee.product.multi_receipts_detector.multi_receipts_detector_v1 import (
     MultiReceiptsDetectorV1,
 )
-from tests.product import PRODUCT_DATA_DIR, get_id, get_version
+from tests.product import get_id, get_version
+from tests.utils import PRODUCT_DATA_DIR
 
 
 @pytest.mark.regression

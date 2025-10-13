@@ -2,7 +2,8 @@ import pytest
 
 from mindee.client import Client
 from mindee.product.invoice_splitter.invoice_splitter_v1 import InvoiceSplitterV1
-from tests.product import PRODUCT_DATA_DIR, get_id, get_version
+from tests.product import get_id, get_version
+from tests.utils import PRODUCT_DATA_DIR
 
 
 @pytest.mark.regression

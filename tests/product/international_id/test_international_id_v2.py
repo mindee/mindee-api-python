@@ -8,7 +8,7 @@ from mindee.product.international_id.international_id_v2 import InternationalIdV
 from mindee.product.international_id.international_id_v2_document import (
     InternationalIdV2Document,
 )
-from tests.product import PRODUCT_DATA_DIR
+from tests.utils import PRODUCT_DATA_DIR
 
 RESPONSE_DIR = PRODUCT_DATA_DIR / "international_id" / "response_v2"
 

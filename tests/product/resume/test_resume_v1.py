@@ -8,7 +8,7 @@ from mindee.product.resume.resume_v1 import ResumeV1
 from mindee.product.resume.resume_v1_document import (
     ResumeV1Document,
 )
-from tests.product import PRODUCT_DATA_DIR
+from tests.utils import PRODUCT_DATA_DIR
 
 RESPONSE_DIR = PRODUCT_DATA_DIR / "resume" / "response_v1"
 

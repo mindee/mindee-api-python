@@ -8,7 +8,7 @@ from mindee.product.fr.energy_bill.energy_bill_v1 import EnergyBillV1
 from mindee.product.fr.energy_bill.energy_bill_v1_document import (
     EnergyBillV1Document,
 )
-from tests.product import PRODUCT_DATA_DIR
+from tests.utils import PRODUCT_DATA_DIR
 
 RESPONSE_DIR = PRODUCT_DATA_DIR / "energy_bill_fra" / "response_v1"
 

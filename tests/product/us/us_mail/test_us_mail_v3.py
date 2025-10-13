@@ -8,7 +8,7 @@ from mindee.product.us.us_mail.us_mail_v3 import UsMailV3
 from mindee.product.us.us_mail.us_mail_v3_document import (
     UsMailV3Document,
 )
-from tests.product import PRODUCT_DATA_DIR
+from tests.utils import PRODUCT_DATA_DIR
 
 RESPONSE_DIR = PRODUCT_DATA_DIR / "us_mail" / "response_v3"
 

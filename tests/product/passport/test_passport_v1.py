@@ -8,7 +8,7 @@ from mindee.product.passport.passport_v1 import PassportV1
 from mindee.product.passport.passport_v1_document import (
     PassportV1Document,
 )
-from tests.product import PRODUCT_DATA_DIR
+from tests.utils import PRODUCT_DATA_DIR
 
 RESPONSE_DIR = PRODUCT_DATA_DIR / "passport" / "response_v1"
 

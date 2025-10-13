@@ -10,7 +10,7 @@ from mindee.product.multi_receipts_detector.multi_receipts_detector_v1 import (
 from mindee.product.multi_receipts_detector.multi_receipts_detector_v1_document import (
     MultiReceiptsDetectorV1Document,
 )
-from tests.product import PRODUCT_DATA_DIR
+from tests.utils import PRODUCT_DATA_DIR
 
 RESPONSE_DIR = PRODUCT_DATA_DIR / "multi_receipts_detector" / "response_v1"
 

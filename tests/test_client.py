@@ -13,8 +13,7 @@ from mindee.product.invoice.invoice_v4 import InvoiceV4
 from mindee.product.invoice_splitter.invoice_splitter_v1 import InvoiceSplitterV1
 from mindee.product.receipt.receipt_v5 import ReceiptV5
 from tests.mindee_http.test_error import ERROR_DATA_DIR
-from tests.test_inputs import FILE_TYPES_DIR, PRODUCT_DATA_DIR
-from tests.utils import clear_envvars, dummy_envvars
+from tests.utils import FILE_TYPES_DIR, PRODUCT_DATA_DIR, clear_envvars, dummy_envvars
 
 
 @pytest.fixture

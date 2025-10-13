@@ -10,7 +10,7 @@ from mindee.product.nutrition_facts_label.nutrition_facts_label_v1 import (
 from mindee.product.nutrition_facts_label.nutrition_facts_label_v1_document import (
     NutritionFactsLabelV1Document,
 )
-from tests.product import PRODUCT_DATA_DIR
+from tests.utils import PRODUCT_DATA_DIR
 
 RESPONSE_DIR = PRODUCT_DATA_DIR / "nutrition_facts" / "response_v1"
 

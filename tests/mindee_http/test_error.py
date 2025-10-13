@@ -10,7 +10,7 @@ from mindee.error.mindee_http_error import (
     handle_error,
 )
 from mindee.input.sources.path_input import PathInput
-from tests.test_inputs import FILE_TYPES_DIR
+from tests.input.test_inputs import FILE_TYPES_DIR
 from tests.utils import clear_envvars, dummy_envvars
 
 ERROR_DATA_DIR = Path("./tests/data/errors")

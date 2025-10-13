@@ -10,7 +10,7 @@ from mindee.product.material_certificate.material_certificate_v1 import (
 from mindee.product.material_certificate.material_certificate_v1_document import (
     MaterialCertificateV1Document,
 )
-from tests.product import PRODUCT_DATA_DIR
+from tests.utils import PRODUCT_DATA_DIR
 
 RESPONSE_DIR = PRODUCT_DATA_DIR / "material_certificate" / "response_v1"
 

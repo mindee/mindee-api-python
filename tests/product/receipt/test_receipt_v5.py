@@ -8,7 +8,7 @@ from mindee.product.receipt.receipt_v5 import ReceiptV5
 from mindee.product.receipt.receipt_v5_document import (
     ReceiptV5Document,
 )
-from tests.product import PRODUCT_DATA_DIR
+from tests.utils import PRODUCT_DATA_DIR
 
 RESPONSE_DIR = PRODUCT_DATA_DIR / "expense_receipts" / "response_v5"
 

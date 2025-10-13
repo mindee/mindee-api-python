@@ -8,7 +8,7 @@ from mindee.product.financial_document.financial_document_v1 import FinancialDoc
 from mindee.product.financial_document.financial_document_v1_document import (
     FinancialDocumentV1Document,
 )
-from tests.product import PRODUCT_DATA_DIR
+from tests.utils import PRODUCT_DATA_DIR
 
 RESPONSE_DIR = PRODUCT_DATA_DIR / "financial_document" / "response_v1"
 

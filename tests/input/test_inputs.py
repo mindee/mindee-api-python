@@ -1,5 +1,4 @@
 import io
-from pathlib import Path
 
 import pypdfium2 as pdfium
 import pytest
@@ -14,10 +13,7 @@ from mindee.input.sources import (
     PathInput,
     UrlInputSource,
 )
-from tests.product import PRODUCT_DATA_DIR
-
-FILE_TYPES_DIR = Path("./tests/data/file_types")
-V2_DATA_DIR = Path("./tests/data/v2")
+from tests.utils import FILE_TYPES_DIR, PRODUCT_DATA_DIR
 
 #
 # PDF

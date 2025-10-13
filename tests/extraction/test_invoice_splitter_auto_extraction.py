@@ -8,8 +8,8 @@ from mindee.input.sources.path_input import PathInput
 from mindee.parsing.common.document import Document
 from mindee.product.invoice.invoice_v4 import InvoiceV4
 from mindee.product.invoice_splitter.invoice_splitter_v1 import InvoiceSplitterV1
+from tests.input.test_inputs import PRODUCT_DATA_DIR
 from tests.product import get_id, get_version
-from tests.test_inputs import PRODUCT_DATA_DIR
 from tests.utils import levenshtein_ratio
 
 
