@@ -100,17 +100,22 @@ class LocalInputSource:
         """:return: True if the file is a PDF."""
         return self.file_mimetype == "application/pdf"
 
-    def count_doc_pages(self) -> int:
+    @property
+    def page_count(self) -> int:
         """
-        Count the pages in the PDF.
+        Count the pages in the document.
 
-        :return: the number of pages.
+        :return: The number of pages.
         """
         if self.is_pdf():
             self.file_object.seek(0)
             pdf = pdfium.PdfDocument(self.file_object)
             return len(pdf)
         return 1
+
+    def count_doc_pages(self) -> int:
+        """Deprecated. Use ``page_count`` instead."""
+        return self.page_count
 
     def apply_page_options(self, page_options: PageOptions) -> None:
         """Apply cut and merge options on multipage documents."""
@@ -131,10 +136,10 @@ class LocalInputSource:
         """Run any required processing on a PDF file."""
         if self.is_pdf_empty():
             raise MindeeSourceError(f"PDF pages are empty in: {self.filename}")
-        pages_count = self.count_doc_pages()
-        if on_min_pages > pages_count:
+        page_count = self.page_count
+        if on_min_pages > page_count:
             return
-        all_pages = list(range(pages_count))
+        all_pages = list(range(page_count))
         if behavior == KEEP_ONLY:
             pages_to_keep = set()
             for page_id in page_indexes:
@@ -161,7 +166,7 @@ class LocalInputSource:
         """
         Create a new PDF from pages and set it to ``file_object``.
 
-        :param page_numbers: List of pages number to use for merging in the original PDF.
+        :param page_numbers: List of page numbers to use for merging in the original PDF.
         :return: None
         """
         self.file_object.seek(0)

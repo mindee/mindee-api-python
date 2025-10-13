@@ -101,7 +101,7 @@ def test_cut_options(dummy_client: Client):
         )
     except MindeeHTTPError:
         pass
-    assert input_doc.count_doc_pages() == 5
+    assert input_doc.page_count == 5
     input_doc.close()
 
 

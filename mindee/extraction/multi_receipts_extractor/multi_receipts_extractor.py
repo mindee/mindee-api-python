@@ -24,7 +24,7 @@ def extract_receipts(
         raise MindeeError(
             "No possible receipts candidates found for MultiReceipts extraction."
         )
-    for page_id in range(input_source.count_doc_pages()):
+    for page_id in range(input_source.page_count):
         receipt_positions = [
             receipt.bounding_box
             for receipt in inference.pages[page_id].prediction.receipts

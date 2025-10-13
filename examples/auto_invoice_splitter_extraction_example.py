@@ -11,7 +11,7 @@ mindee_client = Client(api_key="my-api-key")
 def parse_invoice(file_path):
     input_source = PathInput(file_path)
 
-    if input_source.is_pdf() and input_source.count_doc_pages() > 1:
+    if input_source.is_pdf() and input_source.page_count > 1:
         parse_multi_page(input_source)
     else:
         parse_single_page(input_source)
