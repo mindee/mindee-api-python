@@ -1,5 +1,10 @@
 # Mindee Python Client Library Changelog
 
+## v4.29.1 - 2025-10-13
+### Change
+* :recycle: harmonize getting page count from a local input source
+
+
 ## v4.29.0 - 2025-10-07
 ### Changes
 * :sparkles: allow comparing v2 field confidence
