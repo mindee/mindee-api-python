@@ -3,7 +3,7 @@ import pytest
 from mindee import Client
 from mindee.product.international_id.international_id_v2 import InternationalIdV2
 from mindee.product.invoice.invoice_v4 import InvoiceV4
-from tests.product import PRODUCT_DATA_DIR
+from tests.utils import PRODUCT_DATA_DIR
 
 
 @pytest.fixture

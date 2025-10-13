@@ -4,7 +4,8 @@ from mindee.client import Client
 from mindee.product.fr.bank_account_details.bank_account_details_v2 import (
     BankAccountDetailsV2,
 )
-from tests.product import PRODUCT_DATA_DIR, get_id, get_version
+from tests.product import get_id, get_version
+from tests.utils import PRODUCT_DATA_DIR
 
 
 @pytest.mark.regression

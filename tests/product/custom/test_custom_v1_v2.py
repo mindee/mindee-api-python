@@ -10,7 +10,7 @@ from mindee.parsing.custom.list import ListField, ListFieldValue
 from mindee.product.custom.custom_v1 import CustomV1
 from mindee.product.custom.custom_v1_document import CustomV1Document
 from mindee.product.custom.custom_v1_page import CustomV1Page
-from tests.product import PRODUCT_DATA_DIR
+from tests.utils import PRODUCT_DATA_DIR
 
 
 @pytest.fixture

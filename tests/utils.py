@@ -7,6 +7,13 @@ from mindee.mindee_http.base_settings import (
     REQUEST_TIMEOUT_ENV_NAME,
 )
 
+DATA_DIR = Path("./tests/data/")
+
+EXTRAS_DIR = DATA_DIR / "extras"
+FILE_TYPES_DIR = DATA_DIR / "file_types"
+V2_DATA_DIR = DATA_DIR / "v2"
+PRODUCT_DATA_DIR = DATA_DIR / "products"
+
 
 def clear_envvars(monkeypatch) -> None:
     """
@@ -23,9 +30,6 @@ def dummy_envvars(monkeypatch) -> None:
     Set all API keys to 'dummy'.
     """
     monkeypatch.setenv(API_KEY_ENV_NAME, "dummy")
-
-
-EXTRAS_DIR = Path("./tests/data/extras/")
 
 
 def levenshtein_ratio(ref_str: str, target_str: str) -> float:

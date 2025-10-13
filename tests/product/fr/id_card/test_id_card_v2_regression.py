@@ -2,7 +2,8 @@ import pytest
 
 from mindee.client import Client
 from mindee.product.fr.id_card.id_card_v2 import IdCardV2
-from tests.product import PRODUCT_DATA_DIR, get_id, get_version
+from tests.product import get_id, get_version
+from tests.utils import PRODUCT_DATA_DIR
 
 
 @pytest.mark.regression

@@ -10,7 +10,7 @@ from mindee.parsing.v2.field.inference_fields import InferenceFields
 from mindee.parsing.v2.inference import Inference
 from mindee.parsing.v2.inference_file import InferenceFile
 from mindee.parsing.v2.inference_model import InferenceModel
-from tests.test_inputs import V2_DATA_DIR
+from tests.utils import V2_DATA_DIR
 
 
 def _get_samples(json_path: Path, rst_path: Path) -> Tuple[dict, str]:

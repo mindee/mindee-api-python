@@ -10,7 +10,7 @@ from mindee.input.sources.path_input import PathInput
 from mindee.product.multi_receipts_detector.multi_receipts_detector_v1 import (
     MultiReceiptsDetectorV1,
 )
-from tests.test_inputs import PRODUCT_DATA_DIR
+from tests.utils import PRODUCT_DATA_DIR
 
 
 @pytest.fixture

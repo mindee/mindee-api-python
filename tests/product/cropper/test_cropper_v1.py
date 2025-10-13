@@ -11,7 +11,7 @@ from mindee.product.cropper.cropper_v1_document import (
 from mindee.product.cropper.cropper_v1_page import (
     CropperV1Page,
 )
-from tests.product import PRODUCT_DATA_DIR
+from tests.utils import PRODUCT_DATA_DIR
 
 RESPONSE_DIR = PRODUCT_DATA_DIR / "cropper" / "response_v1"
 

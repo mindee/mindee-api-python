@@ -10,8 +10,7 @@ from mindee.mindee_http.base_settings import USER_AGENT
 from mindee.parsing.v2.inference import Inference
 from mindee.parsing.v2.job import Job
 from mindee.parsing.v2.job_response import JobResponse
-from tests.test_inputs import FILE_TYPES_DIR, V2_DATA_DIR
-from tests.utils import dummy_envvars
+from tests.utils import FILE_TYPES_DIR, V2_DATA_DIR, dummy_envvars
 
 
 @pytest.fixture

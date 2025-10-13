@@ -6,7 +6,7 @@ from PIL import Image
 from mindee.extraction.common.image_extractor import extract_multiple_images_from_source
 from mindee.input.sources.path_input import PathInput
 from mindee.product.barcode_reader.barcode_reader_v1 import BarcodeReaderV1
-from tests.test_inputs import PRODUCT_DATA_DIR
+from tests.utils import PRODUCT_DATA_DIR
 
 
 @pytest.fixture

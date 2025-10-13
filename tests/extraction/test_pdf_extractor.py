@@ -8,7 +8,7 @@ from mindee.product.invoice_splitter.invoice_splitter_v1 import InvoiceSplitterV
 from mindee.product.invoice_splitter.invoice_splitter_v1_document import (
     InvoiceSplitterV1Document,
 )
-from tests.test_inputs import PRODUCT_DATA_DIR
+from tests.utils import PRODUCT_DATA_DIR
 
 
 @pytest.fixture

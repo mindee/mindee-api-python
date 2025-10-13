@@ -1,8 +1,3 @@
-from pathlib import Path
-
-PRODUCT_DATA_DIR = Path("./tests/data/products/")
-
-
 def get_version(rst_str: str) -> str:
     """Replaces the version of a created object to avoid errors during tests."""
 

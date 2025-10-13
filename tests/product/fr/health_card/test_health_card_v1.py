@@ -8,7 +8,7 @@ from mindee.product.fr.health_card.health_card_v1 import HealthCardV1
 from mindee.product.fr.health_card.health_card_v1_document import (
     HealthCardV1Document,
 )
-from tests.product import PRODUCT_DATA_DIR
+from tests.utils import PRODUCT_DATA_DIR
 
 RESPONSE_DIR = PRODUCT_DATA_DIR / "french_healthcard" / "response_v1"
 

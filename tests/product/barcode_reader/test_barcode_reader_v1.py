@@ -8,7 +8,7 @@ from mindee.product.barcode_reader.barcode_reader_v1 import BarcodeReaderV1
 from mindee.product.barcode_reader.barcode_reader_v1_document import (
     BarcodeReaderV1Document,
 )
-from tests.product import PRODUCT_DATA_DIR
+from tests.utils import PRODUCT_DATA_DIR
 
 RESPONSE_DIR = PRODUCT_DATA_DIR / "barcode_reader" / "response_v1"
 

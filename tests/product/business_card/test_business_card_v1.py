@@ -8,7 +8,7 @@ from mindee.product.business_card.business_card_v1 import BusinessCardV1
 from mindee.product.business_card.business_card_v1_document import (
     BusinessCardV1Document,
 )
-from tests.product import PRODUCT_DATA_DIR
+from tests.utils import PRODUCT_DATA_DIR
 
 RESPONSE_DIR = PRODUCT_DATA_DIR / "business_card" / "response_v1"
 

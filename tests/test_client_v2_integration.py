@@ -8,7 +8,7 @@ import pytest
 from mindee import ClientV2, InferenceParameters, PathInput, UrlInputSource
 from mindee.error.mindee_http_error_v2 import MindeeHTTPErrorV2
 from mindee.parsing.v2.inference_response import InferenceResponse
-from tests.test_inputs import FILE_TYPES_DIR, PRODUCT_DATA_DIR
+from tests.utils import FILE_TYPES_DIR, PRODUCT_DATA_DIR
 
 
 @pytest.fixture(scope="session")

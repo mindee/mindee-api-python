@@ -8,7 +8,7 @@ from mindee.product.bill_of_lading.bill_of_lading_v1 import BillOfLadingV1
 from mindee.product.bill_of_lading.bill_of_lading_v1_document import (
     BillOfLadingV1Document,
 )
-from tests.product import PRODUCT_DATA_DIR
+from tests.utils import PRODUCT_DATA_DIR
 
 RESPONSE_DIR = PRODUCT_DATA_DIR / "bill_of_lading" / "response_v1"
 
