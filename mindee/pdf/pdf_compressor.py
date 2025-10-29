@@ -1,6 +1,6 @@
 import io
 import logging
-from ctypes import c_char_p, c_ushort, POINTER
+from ctypes import POINTER, c_char_p, c_ushort
 from threading import RLock
 from typing import BinaryIO, List, Optional, Tuple, Union
 
