@@ -19,7 +19,7 @@ def output_file_path():
 
 @pytest.fixture
 def reference_file_path():
-    return "https://github.com/mindee/client-lib-test-data/blob/main/products/invoice_splitter/invoice_5p.pdf?raw=true"
+    return "https://github.com/mindee/client-lib-test-data/blob/main/v1/products/invoice_splitter/invoice_5p.pdf?raw=true"
 
 
 @pytest.mark.integration
