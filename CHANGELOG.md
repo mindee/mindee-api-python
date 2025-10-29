@@ -1,7 +1,12 @@
 # Mindee Python Client Library Changelog
 
+## v4.30.0 - 2025-10-29
+### Changes
+* :sparkles: add support for python 3.14
+
+
 ## v4.29.1 - 2025-10-13
-### Change
+### Changes
 * :recycle: harmonize getting page count from a local input source
 
 
