@@ -1,12 +1,11 @@
 import io
 import logging
-from ctypes import c_char_p, c_ushort
+from ctypes import POINTER, c_char_p, c_ushort
 from threading import RLock
 from typing import BinaryIO, List, Optional, Tuple, Union
 
 import pypdfium2 as pdfium
 import pypdfium2.raw as pdfium_c
-from _ctypes import POINTER
 from PIL import Image
 
 from mindee.image_operations.image_compressor import compress_image
