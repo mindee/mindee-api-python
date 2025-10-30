@@ -1,0 +1,25 @@
+import pytest
+
+from mindee.client import Client
+from mindee.product.financial_document.financial_document_v1 import FinancialDocumentV1
+from tests.utils import PRODUCT_DATA_DIR
+from tests.v1.product import get_id, get_version
+
+
+@pytest.mark.regression
+def test_default_sample():
+    client = Client()
+    with open(
+        PRODUCT_DATA_DIR / "financial_document" / "response_v1" / "default_sample.rst",
+        encoding="utf-8",
+    ) as rst_file:
+        rst_ref = rst_file.read()
+
+    sample = client.source_from_path(
+        PRODUCT_DATA_DIR / "financial_document" / "default_sample.jpg",
+    )
+    response = client.parse(FinancialDocumentV1, sample)
+    doc_response = response.document
+    doc_response.id = get_id(rst_ref)
+    doc_response.inference.product.version = get_version(rst_ref)
+    assert str(doc_response) == rst_ref
