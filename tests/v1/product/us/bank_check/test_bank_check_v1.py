@@ -11,9 +11,9 @@ from mindee.product.us.bank_check.bank_check_v1_document import (
 from mindee.product.us.bank_check.bank_check_v1_page import (
     BankCheckV1Page,
 )
-from tests.utils import PRODUCT_DATA_DIR
+from tests.utils import V1_PRODUCT_DATA_DIR
 
-RESPONSE_DIR = PRODUCT_DATA_DIR / "bank_check" / "response_v1"
+RESPONSE_DIR = V1_PRODUCT_DATA_DIR / "bank_check" / "response_v1"
 
 BankCheckV1DocumentType = Document[
     BankCheckV1Document,

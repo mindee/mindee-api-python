@@ -8,9 +8,9 @@ from mindee.product.fr.payslip.payslip_v2 import PayslipV2
 from mindee.product.fr.payslip.payslip_v2_document import (
     PayslipV2Document,
 )
-from tests.utils import PRODUCT_DATA_DIR
+from tests.utils import V1_PRODUCT_DATA_DIR
 
-RESPONSE_DIR = PRODUCT_DATA_DIR / "payslip_fra" / "response_v2"
+RESPONSE_DIR = V1_PRODUCT_DATA_DIR / "payslip_fra" / "response_v2"
 
 PayslipV2DocumentType = Document[
     PayslipV2Document,

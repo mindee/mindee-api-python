@@ -10,26 +10,27 @@ from mindee.image_operations.image_compressor import compress_image
 from mindee.input.sources import PathInput
 from mindee.pdf.pdf_compressor import compress_pdf
 from mindee.pdf.pdf_utils import extract_text_from_pdf
+from tests.utils import FILE_TYPES_DIR, ROOT_DATA_DIR, V1_DATA_DIR, V1_PRODUCT_DATA_DIR
 
-DATA_DIR = Path("./tests/data")
-OUTPUT_DIR = DATA_DIR / "output"
+OUTPUT_DIR = ROOT_DATA_DIR / "output"
+RECEIPT_PATH = FILE_TYPES_DIR / "receipt.jpg"
 
 
 def test_image_quality_compress_from_input_source():
-    receipt_input = PathInput(DATA_DIR / "file_types/receipt.jpg")
+    receipt_input = PathInput(RECEIPT_PATH)
     receipt_input.compress(40)
 
     with open(OUTPUT_DIR / "compress_indirect.jpg", "wb") as f:
         f.write(receipt_input.file_object.read())
         receipt_input.file_object.seek(0)
 
-    initial_file_stats = os.stat(DATA_DIR / "file_types/receipt.jpg")
+    initial_file_stats = os.stat(RECEIPT_PATH)
     rendered_file_stats = os.stat(OUTPUT_DIR / "compress_indirect.jpg")
     assert rendered_file_stats.st_size < initial_file_stats.st_size
 
 
 def test_image_quality_compresses_from_compressor():
-    receipt_input = PathInput(DATA_DIR / "file_types/receipt.jpg")
+    receipt_input = PathInput(RECEIPT_PATH)
     compresses = [
         compress_image(receipt_input.file_object, 100),
         compress_image(receipt_input.file_object),
@@ -49,7 +50,7 @@ def test_image_quality_compresses_from_compressor():
         with open(OUTPUT_DIR / file_names[i], "wb") as f:
             f.write(compressed)
 
-    initial_file_stats = os.stat(DATA_DIR / "file_types/receipt.jpg")
+    initial_file_stats = os.stat(RECEIPT_PATH)
     rendered_file_stats = [os.stat(OUTPUT_DIR / file_name) for file_name in file_names]
 
     assert initial_file_stats.st_size < rendered_file_stats[0].st_size
@@ -60,14 +61,14 @@ def test_image_quality_compresses_from_compressor():
 
 
 def test_image_resize_from_input_source():
-    image_resize_input = PathInput(DATA_DIR / "file_types/receipt.jpg")
+    image_resize_input = PathInput(RECEIPT_PATH)
 
     image_resize_input.compress(75, 250, 1000)
     with open(OUTPUT_DIR / "resize_indirect.jpg", "wb") as f:
         f.write(image_resize_input.file_object.read())
         image_resize_input.file_object.seek(0)
 
-    initial_file_stats = os.stat(DATA_DIR / "file_types/receipt.jpg")
+    initial_file_stats = os.stat(RECEIPT_PATH)
     rendered_file_stats = os.stat(OUTPUT_DIR / "resize_indirect.jpg")
     assert rendered_file_stats.st_size < initial_file_stats.st_size
 
@@ -77,7 +78,7 @@ def test_image_resize_from_input_source():
 
 
 def test_image_resize_from_compressor():
-    image_resize_input = PathInput(DATA_DIR / "file_types/receipt.jpg")
+    image_resize_input = PathInput(RECEIPT_PATH)
 
     resizes = [
         compress_image(image_resize_input.file_object, 75, 500),
@@ -96,7 +97,7 @@ def test_image_resize_from_compressor():
         with open(OUTPUT_DIR / file_names[i], "wb") as f:
             f.write(resized)
 
-    initial_file_stats = os.stat(DATA_DIR / "file_types/receipt.jpg")
+    initial_file_stats = os.stat(RECEIPT_PATH)
     rendered_file_stats = [os.stat(OUTPUT_DIR / file_name) for file_name in file_names]
 
     assert initial_file_stats.st_size > rendered_file_stats[0].st_size
@@ -106,11 +107,9 @@ def test_image_resize_from_compressor():
 
 
 def test_pdf_input_has_text():
-    has_source_text_path = DATA_DIR / "file_types/pdf/multipage.pdf"
-    has_no_source_text_path = DATA_DIR / "file_types/pdf/blank_1.pdf"
-    has_no_source_text_since_its_image_path = os.path.join(
-        DATA_DIR, "file_types/receipt.jpg"
-    )
+    has_source_text_path = FILE_TYPES_DIR / "pdf" / "multipage.pdf"
+    has_no_source_text_path = FILE_TYPES_DIR / "pdf" / "blank_1.pdf"
+    has_no_source_text_since_its_image_path = RECEIPT_PATH
 
     has_source_text_input = PathInput(has_source_text_path)
     has_no_source_text_input = PathInput(has_no_source_text_path)
@@ -125,7 +124,7 @@ def test_pdf_input_has_text():
 
 def test_pdf_compress_from_input_source():
     pdf_resize_input = PathInput(
-        DATA_DIR / "products/invoice_splitter/default_sample.pdf"
+        V1_DATA_DIR / "products" / "invoice_splitter" / "default_sample.pdf"
     )
 
     compressed_pdf = compress_pdf(pdf_resize_input.file_object, 75, True)
@@ -133,7 +132,7 @@ def test_pdf_compress_from_input_source():
         f.write(compressed_pdf)
 
     initial_file_stats = os.stat(
-        DATA_DIR / "products/invoice_splitter/default_sample.pdf"
+        V1_DATA_DIR / "products/invoice_splitter/default_sample.pdf"
     )
     rendered_file_stats = os.stat(OUTPUT_DIR / "resize_indirect.pdf")
 
@@ -142,7 +141,7 @@ def test_pdf_compress_from_input_source():
 
 def test_pdf_compress_from_compressor():
     pdf_resize_input = PathInput(
-        DATA_DIR / "products/invoice_splitter/default_sample.pdf"
+        V1_DATA_DIR / "products" / "invoice_splitter" / "default_sample.pdf"
     )
     resizes = []
     qualities = [85, 75, 50, 10]
@@ -161,7 +160,7 @@ def test_pdf_compress_from_compressor():
             f.write(resized)
 
     initial_file_stats = os.stat(
-        DATA_DIR / "products/invoice_splitter/default_sample.pdf"
+        V1_PRODUCT_DATA_DIR / "invoice_splitter" / "default_sample.pdf"
     )
     rendered_file_stats = [os.stat(OUTPUT_DIR / file_name) for file_name in file_names]
 
@@ -172,7 +171,7 @@ def test_pdf_compress_from_compressor():
 
 
 def test_pdf_compress_with_text_keeps_text():
-    initial_with_text = PathInput(DATA_DIR / "file_types/pdf/multipage.pdf")
+    initial_with_text = PathInput(FILE_TYPES_DIR / "pdf" / "multipage.pdf")
 
     compressed_with_text = compress_pdf(initial_with_text.file_object, 100, True, False)
 
@@ -194,7 +193,7 @@ def test_pdf_compress_with_text_keeps_text():
 
 
 def test_pdf_compress_with_text_does_not_compress():
-    initial_with_text = PathInput(DATA_DIR / "file_types/pdf/multipage.pdf")
+    initial_with_text = PathInput(FILE_TYPES_DIR / "pdf" / "multipage.pdf")
 
     compressed_with_text = compress_pdf(initial_with_text.file_object, 50)
 
@@ -224,6 +223,6 @@ def cleanup():
     ]
 
     for file_path in created_files:
-        full_path = DATA_DIR / "output" / file_path
+        full_path = OUTPUT_DIR / file_path
         if full_path.exists():
             os.remove(full_path)

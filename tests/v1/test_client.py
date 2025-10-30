@@ -12,8 +12,13 @@ from mindee.product.international_id.international_id_v2 import InternationalIdV
 from mindee.product.invoice.invoice_v4 import InvoiceV4
 from mindee.product.invoice_splitter.invoice_splitter_v1 import InvoiceSplitterV1
 from mindee.product.receipt.receipt_v5 import ReceiptV5
-from tests.utils import FILE_TYPES_DIR, PRODUCT_DATA_DIR, clear_envvars, dummy_envvars
-from tests.v1.mindee_http import ERROR_DATA_DIR
+from tests.utils import (
+    FILE_TYPES_DIR,
+    V1_PRODUCT_DATA_DIR,
+    clear_envvars,
+    dummy_envvars,
+)
+from tests.v1.mindee_http import V1_ERROR_DATA_DIR
 
 
 @pytest.fixture
@@ -121,10 +126,13 @@ def test_async_wrong_polling_delay(dummy_client: Client):
 
 def test_local_response_from_sync_json(dummy_client: Client):
     input_file = LocalResponse(
-        PRODUCT_DATA_DIR / "multi_receipts_detector" / "response_v1" / "complete.json"
+        V1_PRODUCT_DATA_DIR
+        / "multi_receipts_detector"
+        / "response_v1"
+        / "complete.json"
     )
     with open(
-        PRODUCT_DATA_DIR
+        V1_PRODUCT_DATA_DIR
         / "multi_receipts_detector"
         / "response_v1"
         / "summary_full.rst"
@@ -137,10 +145,10 @@ def test_local_response_from_sync_json(dummy_client: Client):
 
 def test_local_response_from_async_json(dummy_client: Client):
     input_file = LocalResponse(
-        PRODUCT_DATA_DIR / "international_id" / "response_v2" / "complete.json"
+        V1_PRODUCT_DATA_DIR / "international_id" / "response_v2" / "complete.json"
     )
     with open(
-        PRODUCT_DATA_DIR / "international_id" / "response_v2" / "summary_full.rst"
+        V1_PRODUCT_DATA_DIR / "international_id" / "response_v2" / "summary_full.rst"
     ) as f:
         reference_doc = f.read()
     result = dummy_client.load_prediction(InternationalIdV2, input_file)
@@ -150,13 +158,13 @@ def test_local_response_from_async_json(dummy_client: Client):
 
 def test_local_response_from_invalid_file(dummy_client: Client):
     local_response = LocalResponse(
-        PRODUCT_DATA_DIR / "invoices" / "response_v4" / "summary_full.rst"
+        V1_PRODUCT_DATA_DIR / "invoices" / "response_v4" / "summary_full.rst"
     )
     with pytest.raises(MindeeError):
         print(local_response.as_dict)
 
 
 def test_local_response_from_invalid_dict(dummy_client: Client):
-    input_file = LocalResponse(ERROR_DATA_DIR / "error_400_no_details.json")
+    input_file = LocalResponse(V1_ERROR_DATA_DIR / "error_400_no_details.json")
     with pytest.raises(MindeeError):
         dummy_client.load_prediction(InvoiceV4, input_file)

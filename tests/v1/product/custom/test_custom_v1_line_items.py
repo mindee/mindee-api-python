@@ -6,6 +6,7 @@ from mindee.parsing.common.document import Document
 from mindee.parsing.common.page import Page
 from mindee.product.custom.custom_v1 import CustomV1
 from mindee.product.custom.custom_v1_page import CustomV1Page
+from tests.utils import V1_PRODUCT_DATA_DIR
 
 
 @pytest.mark.lineitems
@@ -25,7 +26,11 @@ def do_tests(line_items):
 @pytest.mark.lineitems
 def test_single_table_01():
     json_data_path = (
-        "./tests/data/products/custom/response_v1/line_items/single_table_01.json"
+        V1_PRODUCT_DATA_DIR
+        / "custom"
+        / "response_v1"
+        / "line_items"
+        / "single_table_01.json"
     )
     json_data = json.load(open(json_data_path, "r"))
     doc = Document(CustomV1, json_data["document"]).inference.prediction
@@ -46,7 +51,11 @@ def test_single_table_01():
 @pytest.mark.lineitems
 def test_single_table_02():
     json_data_path = (
-        "./tests/data/products/custom/response_v2/line_items/single_table_01.json"
+        V1_PRODUCT_DATA_DIR
+        / "custom"
+        / "response_v2"
+        / "line_items"
+        / "single_table_01.json"
     )
     json_data = json.load(open(json_data_path, "r"))
     doc = Document(CustomV1, json_data["document"]).inference.prediction

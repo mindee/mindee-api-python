@@ -10,8 +10,9 @@ from mindee.mindee_http.response_validation import is_valid_async_response
 from mindee.parsing.common.api_request import RequestStatus
 from mindee.parsing.common.async_predict_response import AsyncPredictResponse
 from mindee.product.invoice_splitter.invoice_splitter_v1 import InvoiceSplitterV1
+from tests.utils import V1_DATA_DIR, V1_PRODUCT_DATA_DIR
 
-ASYNC_DIR = Path("./tests/data/async")
+ASYNC_DIR = V1_DATA_DIR / "async"
 
 FILE_PATH_POST_SUCCESS = ASYNC_DIR / "post_success.json"
 FILE_PATH_POST_FAIL = ASYNC_DIR / "post_fail_forbidden.json"
@@ -41,7 +42,9 @@ class FakeResponse(requests.Response):
 
 @pytest.fixture
 def dummy_file_input() -> PathInput:
-    file_input = PathInput("./tests/data/products/invoice_splitter/default_sample.pdf")
+    file_input = PathInput(
+        V1_PRODUCT_DATA_DIR / "invoice_splitter" / "default_sample.pdf"
+    )
     return file_input
 
 

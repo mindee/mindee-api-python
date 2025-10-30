@@ -8,9 +8,9 @@ from mindee.product.invoice_splitter.invoice_splitter_v1 import InvoiceSplitterV
 from mindee.product.invoice_splitter.invoice_splitter_v1_document import (
     InvoiceSplitterV1Document,
 )
-from tests.utils import PRODUCT_DATA_DIR
+from tests.utils import V1_PRODUCT_DATA_DIR
 
-RESPONSE_DIR = PRODUCT_DATA_DIR / "invoice_splitter" / "response_v1"
+RESPONSE_DIR = V1_PRODUCT_DATA_DIR / "invoice_splitter" / "response_v1"
 
 InvoiceSplitterV1DocumentType = Document[
     InvoiceSplitterV1Document,

@@ -5,8 +5,9 @@ import pytest
 
 from mindee.parsing.common.workflow_response import WorkflowResponse
 from mindee.product.generated.generated_v1 import GeneratedV1
+from tests.utils import V1_DATA_DIR
 
-WORKFLOW_DIR = Path("./tests/data") / "workflows"
+WORKFLOW_DIR = V1_DATA_DIR / "workflows"
 
 
 @pytest.fixture

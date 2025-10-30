@@ -11,9 +11,9 @@ from mindee.product.fr.id_card.id_card_v1_document import (
 from mindee.product.fr.id_card.id_card_v1_page import (
     IdCardV1Page,
 )
-from tests.utils import PRODUCT_DATA_DIR
+from tests.utils import V1_PRODUCT_DATA_DIR
 
-RESPONSE_DIR = PRODUCT_DATA_DIR / "idcard_fr" / "response_v1"
+RESPONSE_DIR = V1_PRODUCT_DATA_DIR / "idcard_fr" / "response_v1"
 
 IdCardV1DocumentType = Document[
     IdCardV1Document,

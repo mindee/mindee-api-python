@@ -8,24 +8,24 @@ from mindee.product.invoice_splitter.invoice_splitter_v1 import InvoiceSplitterV
 from mindee.product.invoice_splitter.invoice_splitter_v1_document import (
     InvoiceSplitterV1Document,
 )
-from tests.utils import PRODUCT_DATA_DIR
+from tests.utils import V1_PRODUCT_DATA_DIR
 
 
 @pytest.fixture
 def invoice_default_sample_path():
-    return PRODUCT_DATA_DIR / "invoices" / "default_sample.jpg"
+    return V1_PRODUCT_DATA_DIR / "invoices" / "default_sample.jpg"
 
 
 @pytest.fixture
 def invoice_splitter_5p_path():
-    return PRODUCT_DATA_DIR / "invoice_splitter" / "invoice_5p.pdf"
+    return V1_PRODUCT_DATA_DIR / "invoice_splitter" / "invoice_5p.pdf"
 
 
 @pytest.fixture
 def loaded_prediction():
     dummy_client = Client("dummy_key")
     loaded_prediction_path = (
-        PRODUCT_DATA_DIR / "invoice_splitter" / "response_v1" / "complete.json"
+        V1_PRODUCT_DATA_DIR / "invoice_splitter" / "response_v1" / "complete.json"
     )
     input_response = LocalResponse(loaded_prediction_path)
     response = dummy_client.load_prediction(InvoiceSplitterV1, input_response)

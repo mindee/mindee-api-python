@@ -11,7 +11,7 @@ from mindee.parsing.standard.text import StringField
 from mindee.product.generated.generated_v1 import GeneratedV1
 from mindee.product.generated.generated_v1_document import GeneratedV1Document
 from mindee.product.generated.generated_v1_page import GeneratedV1Page
-from tests.utils import PRODUCT_DATA_DIR
+from tests.utils import V1_PRODUCT_DATA_DIR
 
 
 @pytest.fixture
@@ -20,7 +20,7 @@ def international_id_v1_complete_doc() -> (
 ):
     json_data = json.load(
         open(
-            PRODUCT_DATA_DIR
+            V1_PRODUCT_DATA_DIR
             / "generated"
             / "response_v1"
             / "complete_international_id_v1.json",
@@ -36,7 +36,7 @@ def international_id_v1_empty_doc() -> (
 ):
     json_data = json.load(
         open(
-            PRODUCT_DATA_DIR
+            V1_PRODUCT_DATA_DIR
             / "generated"
             / "response_v1"
             / "empty_international_id_v1.json",
@@ -51,7 +51,7 @@ def international_id_v1_empty_doc() -> (
 def invoice_v4_empty_doc() -> Document[GeneratedV1Document, Page[GeneratedV1Page]]:
     json_data = json.load(
         open(
-            PRODUCT_DATA_DIR / "generated" / "response_v1" / "empty_invoice_v4.json",
+            V1_PRODUCT_DATA_DIR / "generated" / "response_v1" / "empty_invoice_v4.json",
             encoding="utf-8",
         )
     )
@@ -62,7 +62,10 @@ def invoice_v4_empty_doc() -> Document[GeneratedV1Document, Page[GeneratedV1Page
 def invoice_v4_complete_doc() -> Document[GeneratedV1Document, Page[GeneratedV1Page]]:
     json_data = json.load(
         open(
-            PRODUCT_DATA_DIR / "generated" / "response_v1" / "complete_invoice_v4.json",
+            V1_PRODUCT_DATA_DIR
+            / "generated"
+            / "response_v1"
+            / "complete_invoice_v4.json",
             encoding="utf-8",
         )
     )
@@ -73,7 +76,10 @@ def invoice_v4_complete_doc() -> Document[GeneratedV1Document, Page[GeneratedV1P
 def invoice_v4_page_0() -> Document[GeneratedV1Document, Page[GeneratedV1Page]]:
     json_data = json.load(
         open(
-            PRODUCT_DATA_DIR / "generated" / "response_v1" / "complete_invoice_v4.json",
+            V1_PRODUCT_DATA_DIR
+            / "generated"
+            / "response_v1"
+            / "complete_invoice_v4.json",
             encoding="utf-8",
         )
     )
@@ -82,7 +88,7 @@ def invoice_v4_page_0() -> Document[GeneratedV1Document, Page[GeneratedV1Page]]:
 
 def test_international_id_v1_empty_doc(international_id_v1_empty_doc) -> None:
     doc_str = open(
-        PRODUCT_DATA_DIR
+        V1_PRODUCT_DATA_DIR
         / "generated"
         / "response_v1"
         / "summary_empty_international_id_v1.rst",
@@ -231,7 +237,7 @@ def test_international_id_v1_empty_doc(international_id_v1_empty_doc) -> None:
 
 def test_international_id_v1_complete_doc(international_id_v1_complete_doc) -> None:
     doc_str = open(
-        PRODUCT_DATA_DIR
+        V1_PRODUCT_DATA_DIR
         / "generated"
         / "response_v1"
         / "summary_full_international_id_v1.rst",
@@ -398,7 +404,10 @@ def test_international_id_v1_complete_doc(international_id_v1_complete_doc) -> N
 
 def test_invoice_v4_complete_doc(invoice_v4_complete_doc) -> None:
     doc_str = open(
-        PRODUCT_DATA_DIR / "generated" / "response_v1" / "summary_full_invoice_v4.rst",
+        V1_PRODUCT_DATA_DIR
+        / "generated"
+        / "response_v1"
+        / "summary_full_invoice_v4.rst",
         encoding="utf-8",
     ).read()
     assert isinstance(
@@ -640,7 +649,10 @@ def test_invoice_v4_complete_doc(invoice_v4_complete_doc) -> None:
 
 def test_invoice_v4_page0(invoice_v4_page_0) -> None:
     doc_str = open(
-        PRODUCT_DATA_DIR / "generated" / "response_v1" / "summary_page0_invoice_v4.rst",
+        V1_PRODUCT_DATA_DIR
+        / "generated"
+        / "response_v1"
+        / "summary_page0_invoice_v4.rst",
         encoding="utf-8",
     ).read()
 
@@ -788,7 +800,10 @@ def test_invoice_v4_page0(invoice_v4_page_0) -> None:
 
 def test_invoice_v4_empty_doc(invoice_v4_empty_doc) -> None:
     doc_str = open(
-        PRODUCT_DATA_DIR / "generated" / "response_v1" / "summary_empty_invoice_v4.rst",
+        V1_PRODUCT_DATA_DIR
+        / "generated"
+        / "response_v1"
+        / "summary_empty_invoice_v4.rst",
         encoding="utf-8",
     ).read()
 

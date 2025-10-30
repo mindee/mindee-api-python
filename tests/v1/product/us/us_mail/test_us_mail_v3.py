@@ -8,9 +8,9 @@ from mindee.product.us.us_mail.us_mail_v3 import UsMailV3
 from mindee.product.us.us_mail.us_mail_v3_document import (
     UsMailV3Document,
 )
-from tests.utils import PRODUCT_DATA_DIR
+from tests.utils import V1_PRODUCT_DATA_DIR
 
-RESPONSE_DIR = PRODUCT_DATA_DIR / "us_mail" / "response_v3"
+RESPONSE_DIR = V1_PRODUCT_DATA_DIR / "us_mail" / "response_v3"
 
 UsMailV3DocumentType = Document[
     UsMailV3Document,

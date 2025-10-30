@@ -10,9 +10,9 @@ from mindee.product.fr.bank_account_details.bank_account_details_v1 import (
 from mindee.product.fr.bank_account_details.bank_account_details_v1_document import (
     BankAccountDetailsV1Document,
 )
-from tests.utils import PRODUCT_DATA_DIR
+from tests.utils import V1_PRODUCT_DATA_DIR
 
-RESPONSE_DIR = PRODUCT_DATA_DIR / "bank_account_details" / "response_v1"
+RESPONSE_DIR = V1_PRODUCT_DATA_DIR / "bank_account_details" / "response_v1"
 
 BankAccountDetailsV1DocumentType = Document[
     BankAccountDetailsV1Document,

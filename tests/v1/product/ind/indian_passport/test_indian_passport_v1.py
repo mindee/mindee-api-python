@@ -8,9 +8,9 @@ from mindee.product.ind.indian_passport.indian_passport_v1 import IndianPassport
 from mindee.product.ind.indian_passport.indian_passport_v1_document import (
     IndianPassportV1Document,
 )
-from tests.utils import PRODUCT_DATA_DIR
+from tests.utils import V1_PRODUCT_DATA_DIR
 
-RESPONSE_DIR = PRODUCT_DATA_DIR / "ind_passport" / "response_v1"
+RESPONSE_DIR = V1_PRODUCT_DATA_DIR / "ind_passport" / "response_v1"
 
 IndianPassportV1DocumentType = Document[
     IndianPassportV1Document,

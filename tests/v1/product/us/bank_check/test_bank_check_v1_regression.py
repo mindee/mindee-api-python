@@ -2,7 +2,7 @@ import pytest
 
 from mindee.client import Client
 from mindee.product.us.bank_check.bank_check_v1 import BankCheckV1
-from tests.utils import PRODUCT_DATA_DIR
+from tests.utils import V1_PRODUCT_DATA_DIR
 from tests.v1.product import get_id, get_version
 
 
@@ -10,13 +10,13 @@ from tests.v1.product import get_id, get_version
 def test_default_sample():
     client = Client()
     with open(
-        PRODUCT_DATA_DIR / "bank_check" / "response_v1" / "default_sample.rst",
+        V1_PRODUCT_DATA_DIR / "bank_check" / "response_v1" / "default_sample.rst",
         encoding="utf-8",
     ) as rst_file:
         rst_ref = rst_file.read()
 
     sample = client.source_from_path(
-        PRODUCT_DATA_DIR / "bank_check" / "default_sample.jpg",
+        V1_PRODUCT_DATA_DIR / "bank_check" / "default_sample.jpg",
     )
     response = client.parse(BankCheckV1, sample)
     doc_response = response.document

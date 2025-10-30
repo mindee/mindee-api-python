@@ -2,7 +2,7 @@ import pytest
 
 from mindee.client import Client
 from mindee.product.fr.carte_grise.carte_grise_v1 import CarteGriseV1
-from tests.utils import PRODUCT_DATA_DIR
+from tests.utils import V1_PRODUCT_DATA_DIR
 from tests.v1.product import get_id, get_version
 
 
@@ -10,13 +10,13 @@ from tests.v1.product import get_id, get_version
 def test_default_sample():
     client = Client()
     with open(
-        PRODUCT_DATA_DIR / "carte_grise" / "response_v1" / "default_sample.rst",
+        V1_PRODUCT_DATA_DIR / "carte_grise" / "response_v1" / "default_sample.rst",
         encoding="utf-8",
     ) as rst_file:
         rst_ref = rst_file.read()
 
     sample = client.source_from_path(
-        PRODUCT_DATA_DIR / "carte_grise" / "default_sample.jpg",
+        V1_PRODUCT_DATA_DIR / "carte_grise" / "default_sample.jpg",
     )
     response = client.parse(CarteGriseV1, sample)
     doc_response = response.document

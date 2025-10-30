@@ -14,11 +14,12 @@ from mindee.product.passport.passport_v1 import PassportV1
 from mindee.product.passport.passport_v1_document import PassportV1Document
 from mindee.product.receipt.receipt_v5 import ReceiptV5
 from mindee.product.receipt.receipt_v5_document import ReceiptV5Document
+from tests.utils import V1_PRODUCT_DATA_DIR
 
 
 def test_invoice_receipt_v5():
     response = json.load(
-        open("./tests/data/products/invoices/response_v4/complete.json")
+        open(V1_PRODUCT_DATA_DIR / "invoices" / "response_v4" / "complete.json")
     )
     parsed_response = PredictResponse(InvoiceV4, response)
     assert isinstance(parsed_response.document.inference, InvoiceV4)
@@ -29,7 +30,7 @@ def test_invoice_receipt_v5():
 
 def test_response_receipt_v5():
     response = json.load(
-        open("./tests/data/products/expense_receipts/response_v5/complete.json")
+        open(V1_PRODUCT_DATA_DIR / "expense_receipts" / "response_v5" / "complete.json")
     )
     parsed_response = PredictResponse(ReceiptV5, response)
     assert isinstance(parsed_response.document.inference, ReceiptV5)
@@ -41,7 +42,10 @@ def test_response_receipt_v5():
 def test_response_financial_doc_with_receipt():
     response = json.load(
         open(
-            "./tests/data/products/financial_document/response_v1/complete_receipt.json"
+            V1_PRODUCT_DATA_DIR
+            / "financial_document"
+            / "response_v1"
+            / "complete_receipt.json"
         )
     )
     parsed_response = PredictResponse(FinancialDocumentV1, response)
@@ -55,7 +59,7 @@ def test_response_financial_doc_with_receipt():
 
 def test_response_passport_v1():
     response = json.load(
-        open("./tests/data/products/passport/response_v1/complete.json")
+        open(V1_PRODUCT_DATA_DIR / "passport" / "response_v1" / "complete.json")
     )
     parsed_response = PredictResponse(PassportV1, response)
     assert isinstance(parsed_response.document.inference, PassportV1)
@@ -67,7 +71,7 @@ def test_response_passport_v1():
 
 def test_response_fr_idcard_v2():
     response = json.load(
-        open("./tests/data/products/idcard_fr/response_v2/complete.json")
+        open(V1_PRODUCT_DATA_DIR / "idcard_fr" / "response_v2" / "complete.json")
     )
     parsed_response = PredictResponse(IdCardV2, response)
     assert isinstance(parsed_response.document.inference, IdCardV2)

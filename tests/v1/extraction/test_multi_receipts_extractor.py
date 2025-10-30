@@ -10,30 +10,33 @@ from mindee.input.sources.path_input import PathInput
 from mindee.product.multi_receipts_detector.multi_receipts_detector_v1 import (
     MultiReceiptsDetectorV1,
 )
-from tests.utils import PRODUCT_DATA_DIR
+from tests.utils import V1_PRODUCT_DATA_DIR
 
 
 @pytest.fixture
 def multi_receipts_single_page_path():
-    return PRODUCT_DATA_DIR / "multi_receipts_detector" / "default_sample.jpg"
+    return V1_PRODUCT_DATA_DIR / "multi_receipts_detector" / "default_sample.jpg"
 
 
 @pytest.fixture
 def multi_receipts_single_page_json_path():
     return (
-        PRODUCT_DATA_DIR / "multi_receipts_detector" / "response_v1" / "complete.json"
+        V1_PRODUCT_DATA_DIR
+        / "multi_receipts_detector"
+        / "response_v1"
+        / "complete.json"
     )
 
 
 @pytest.fixture
 def multi_receipts_multi_page_path():
-    return PRODUCT_DATA_DIR / "multi_receipts_detector" / "multipage_sample.pdf"
+    return V1_PRODUCT_DATA_DIR / "multi_receipts_detector" / "multipage_sample.pdf"
 
 
 @pytest.fixture
 def multi_receipts_multi_page_json_path():
     return (
-        PRODUCT_DATA_DIR
+        V1_PRODUCT_DATA_DIR
         / "multi_receipts_detector"
         / "response_v1"
         / "multipage_sample.json"

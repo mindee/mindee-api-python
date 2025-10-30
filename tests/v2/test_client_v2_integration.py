@@ -6,7 +6,7 @@ import pytest
 from mindee import ClientV2, InferenceParameters, PathInput, UrlInputSource
 from mindee.error.mindee_http_error_v2 import MindeeHTTPErrorV2
 from mindee.parsing.v2.inference_response import InferenceResponse
-from tests.utils import FILE_TYPES_DIR, PRODUCT_DATA_DIR
+from tests.utils import FILE_TYPES_DIR, V1_PRODUCT_DATA_DIR
 
 
 @pytest.fixture(scope="session")
@@ -110,7 +110,7 @@ def test_parse_file_filled_single_page_must_succeed(
     """
     Upload a filled single-page JPEG and verify that common fields are present.
     """
-    input_path: Path = PRODUCT_DATA_DIR / "financial_document" / "default_sample.jpg"
+    input_path: Path = V1_PRODUCT_DATA_DIR / "financial_document" / "default_sample.jpg"
 
     input_source = PathInput(input_path)
     params = InferenceParameters(

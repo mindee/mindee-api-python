@@ -8,9 +8,9 @@ from mindee.product.delivery_note.delivery_note_v1 import DeliveryNoteV1
 from mindee.product.delivery_note.delivery_note_v1_document import (
     DeliveryNoteV1Document,
 )
-from tests.utils import PRODUCT_DATA_DIR
+from tests.utils import V1_PRODUCT_DATA_DIR
 
-RESPONSE_DIR = PRODUCT_DATA_DIR / "delivery_notes" / "response_v1"
+RESPONSE_DIR = V1_PRODUCT_DATA_DIR / "delivery_notes" / "response_v1"
 
 DeliveryNoteV1DocumentType = Document[
     DeliveryNoteV1Document,

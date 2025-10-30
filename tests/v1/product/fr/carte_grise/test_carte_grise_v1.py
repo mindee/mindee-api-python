@@ -8,9 +8,9 @@ from mindee.product.fr.carte_grise.carte_grise_v1 import CarteGriseV1
 from mindee.product.fr.carte_grise.carte_grise_v1_document import (
     CarteGriseV1Document,
 )
-from tests.utils import PRODUCT_DATA_DIR
+from tests.utils import V1_PRODUCT_DATA_DIR
 
-RESPONSE_DIR = PRODUCT_DATA_DIR / "carte_grise" / "response_v1"
+RESPONSE_DIR = V1_PRODUCT_DATA_DIR / "carte_grise" / "response_v1"
 
 CarteGriseV1DocumentType = Document[
     CarteGriseV1Document,

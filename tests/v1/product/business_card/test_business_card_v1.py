@@ -8,9 +8,9 @@ from mindee.product.business_card.business_card_v1 import BusinessCardV1
 from mindee.product.business_card.business_card_v1_document import (
     BusinessCardV1Document,
 )
-from tests.utils import PRODUCT_DATA_DIR
+from tests.utils import V1_PRODUCT_DATA_DIR
 
-RESPONSE_DIR = PRODUCT_DATA_DIR / "business_card" / "response_v1"
+RESPONSE_DIR = V1_PRODUCT_DATA_DIR / "business_card" / "response_v1"
 
 BusinessCardV1DocumentType = Document[
     BusinessCardV1Document,

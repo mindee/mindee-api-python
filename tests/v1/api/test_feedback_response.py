@@ -1,11 +1,12 @@
 import json
 
 from mindee.parsing.common.feedback_response import FeedbackResponse
+from tests.utils import V1_PRODUCT_DATA_DIR
 
 
 def test_empty_feedback_response():
     response = json.load(
-        open("./tests/data/products/invoices/feedback_response/empty.json")
+        open(V1_PRODUCT_DATA_DIR / "invoices" / "feedback_response" / "empty.json")
     )
     feedback_response = FeedbackResponse(response)
     assert feedback_response is not None

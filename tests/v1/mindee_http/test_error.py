@@ -1,5 +1,4 @@
 import json
-from pathlib import Path
 
 import pytest
 
@@ -10,10 +9,10 @@ from mindee.error.mindee_http_error import (
     handle_error,
 )
 from mindee.input.sources.path_input import PathInput
-from tests.utils import clear_envvars, dummy_envvars
+from tests.utils import V1_DATA_DIR, V1_PRODUCT_DATA_DIR, clear_envvars, dummy_envvars
 from tests.v1.input.test_inputs import FILE_TYPES_DIR
 
-ERROR_DATA_DIR = Path("./tests/data/errors")
+V1_ERROR_DATA_DIR = V1_DATA_DIR / "errors"
 
 
 @pytest.fixture
@@ -58,7 +57,7 @@ def test_http_enqueue_and_parse_client_error(
 
 
 def test_http_400_error():
-    error_ref = open(ERROR_DATA_DIR / "error_400_no_details.json")
+    error_ref = open(V1_ERROR_DATA_DIR / "error_400_no_details.json")
     error_obj = json.load(error_ref)
     error_obj["status_code"] = 400
     error_400 = handle_error("dummy-url", error_obj)
@@ -71,7 +70,7 @@ def test_http_400_error():
 
 
 def test_http_401_error():
-    error_ref = open(ERROR_DATA_DIR / "error_401_invalid_token.json")
+    error_ref = open(V1_ERROR_DATA_DIR / "error_401_invalid_token.json")
     error_obj = json.load(error_ref)
     error_obj["status_code"] = 401
     error_401 = handle_error("dummy-url", error_obj)
@@ -84,7 +83,7 @@ def test_http_401_error():
 
 
 def test_http_429_error():
-    error_ref = open(ERROR_DATA_DIR / "error_429_too_many_requests.json")
+    error_ref = open(V1_ERROR_DATA_DIR / "error_429_too_many_requests.json")
     error_obj = json.load(error_ref)
     error_obj["status_code"] = 429
     error_429 = handle_error("dummy-url", error_obj)
@@ -97,7 +96,7 @@ def test_http_429_error():
 
 
 def test_http_500_error():
-    error_ref = open(ERROR_DATA_DIR / "error_500_inference_fail.json")
+    error_ref = open(V1_ERROR_DATA_DIR / "error_500_inference_fail.json")
     error_obj = json.load(error_ref)
     error_obj["status_code"] = 500
     error_500 = handle_error("dummy-url", error_obj)
@@ -110,7 +109,7 @@ def test_http_500_error():
 
 
 def test_http_500_html_error():
-    error_ref_contents = open(ERROR_DATA_DIR / "error_50x.html").read()
+    error_ref_contents = open(V1_ERROR_DATA_DIR / "error_50x.html").read()
     error_500 = handle_error("dummy-url", error_ref_contents)
     with pytest.raises(MindeeHTTPServerError):
         raise error_500

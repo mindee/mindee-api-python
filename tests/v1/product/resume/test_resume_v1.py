@@ -8,9 +8,9 @@ from mindee.product.resume.resume_v1 import ResumeV1
 from mindee.product.resume.resume_v1_document import (
     ResumeV1Document,
 )
-from tests.utils import PRODUCT_DATA_DIR
+from tests.utils import V1_PRODUCT_DATA_DIR
 
-RESPONSE_DIR = PRODUCT_DATA_DIR / "resume" / "response_v1"
+RESPONSE_DIR = V1_PRODUCT_DATA_DIR / "resume" / "response_v1"
 
 ResumeV1DocumentType = Document[
     ResumeV1Document,

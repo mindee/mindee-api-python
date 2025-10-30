@@ -8,9 +8,9 @@ from mindee.product.driver_license.driver_license_v1 import DriverLicenseV1
 from mindee.product.driver_license.driver_license_v1_document import (
     DriverLicenseV1Document,
 )
-from tests.utils import PRODUCT_DATA_DIR
+from tests.utils import V1_PRODUCT_DATA_DIR
 
-RESPONSE_DIR = PRODUCT_DATA_DIR / "driver_license" / "response_v1"
+RESPONSE_DIR = V1_PRODUCT_DATA_DIR / "driver_license" / "response_v1"
 
 DriverLicenseV1DocumentType = Document[
     DriverLicenseV1Document,

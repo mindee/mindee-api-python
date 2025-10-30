@@ -7,7 +7,7 @@ from mindee import Client
 from mindee.input import WorkflowOptions
 from mindee.parsing.common.execution_priority import ExecutionPriority
 from mindee.product import FinancialDocumentV1, GeneratedV1
-from tests.utils import PRODUCT_DATA_DIR
+from tests.utils import V1_PRODUCT_DATA_DIR
 
 
 @pytest.fixture
@@ -22,7 +22,7 @@ def workflow_id():
 
 @pytest.fixture
 def input_path():
-    return PRODUCT_DATA_DIR / "financial_document" / "default_sample.jpg"
+    return V1_PRODUCT_DATA_DIR / "financial_document" / "default_sample.jpg"
 
 
 @pytest.mark.integration

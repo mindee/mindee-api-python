@@ -12,7 +12,7 @@ from mindee.input.sources import (
     LocalInputSource,
     PathInput,
 )
-from tests.utils import FILE_TYPES_DIR, PRODUCT_DATA_DIR
+from tests.utils import FILE_TYPES_DIR, V1_PRODUCT_DATA_DIR
 
 
 def _assert_page_options(input_source: LocalInputSource, numb_pages: int):
@@ -135,7 +135,7 @@ def test_pdf_input_from_file():
 
 
 def test_pdf_input_from_base64():
-    with open(PRODUCT_DATA_DIR / "invoices" / "invoice_10p.txt", "rt") as fp:
+    with open(V1_PRODUCT_DATA_DIR / "invoices" / "invoice_10p.txt", "rt") as fp:
         input_source = Base64Input(fp.read(), filename="invoice_10p.pdf")
     assert input_source.is_pdf() is True
     input_source.process_pdf(behavior=KEEP_ONLY, on_min_pages=2, page_indexes=[0])
@@ -143,7 +143,7 @@ def test_pdf_input_from_base64():
 
 
 def test_pdf_input_from_bytes():
-    with open(PRODUCT_DATA_DIR / "invoices" / "invoice_10p.pdf", "rb") as fp:
+    with open(V1_PRODUCT_DATA_DIR / "invoices" / "invoice_10p.pdf", "rb") as fp:
         input_source = BytesInput(fp.read(), filename="invoice_10p.pdf")
     assert input_source.is_pdf() is True
     input_source.process_pdf(behavior=KEEP_ONLY, on_min_pages=2, page_indexes=[0])

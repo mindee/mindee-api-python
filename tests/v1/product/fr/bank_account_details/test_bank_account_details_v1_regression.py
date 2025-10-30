@@ -4,7 +4,7 @@ from mindee.client import Client
 from mindee.product.fr.bank_account_details.bank_account_details_v1 import (
     BankAccountDetailsV1,
 )
-from tests.utils import PRODUCT_DATA_DIR
+from tests.utils import V1_PRODUCT_DATA_DIR
 from tests.v1.product import get_id, get_version
 
 
@@ -12,7 +12,7 @@ from tests.v1.product import get_id, get_version
 def test_default_sample():
     client = Client()
     with open(
-        PRODUCT_DATA_DIR
+        V1_PRODUCT_DATA_DIR
         / "bank_account_details"
         / "response_v1"
         / "default_sample.rst",
@@ -21,7 +21,7 @@ def test_default_sample():
         rst_ref = rst_file.read()
 
     sample = client.source_from_path(
-        PRODUCT_DATA_DIR / "bank_account_details" / "default_sample.jpg",
+        V1_PRODUCT_DATA_DIR / "bank_account_details" / "default_sample.jpg",
     )
     response = client.parse(BankAccountDetailsV1, sample)
     doc_response = response.document

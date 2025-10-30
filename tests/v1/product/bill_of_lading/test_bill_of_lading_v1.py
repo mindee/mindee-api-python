@@ -8,9 +8,9 @@ from mindee.product.bill_of_lading.bill_of_lading_v1 import BillOfLadingV1
 from mindee.product.bill_of_lading.bill_of_lading_v1_document import (
     BillOfLadingV1Document,
 )
-from tests.utils import PRODUCT_DATA_DIR
+from tests.utils import V1_PRODUCT_DATA_DIR
 
-RESPONSE_DIR = PRODUCT_DATA_DIR / "bill_of_lading" / "response_v1"
+RESPONSE_DIR = V1_PRODUCT_DATA_DIR / "bill_of_lading" / "response_v1"
 
 BillOfLadingV1DocumentType = Document[
     BillOfLadingV1Document,

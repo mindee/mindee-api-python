@@ -6,17 +6,17 @@ from PIL import Image
 from mindee.extraction.common.image_extractor import extract_multiple_images_from_source
 from mindee.input.sources.path_input import PathInput
 from mindee.product.barcode_reader.barcode_reader_v1 import BarcodeReaderV1
-from tests.utils import PRODUCT_DATA_DIR
+from tests.utils import V1_PRODUCT_DATA_DIR
 
 
 @pytest.fixture
 def barcode_path():
-    return PRODUCT_DATA_DIR / "barcode_reader" / "default_sample.jpg"
+    return V1_PRODUCT_DATA_DIR / "barcode_reader" / "default_sample.jpg"
 
 
 @pytest.fixture
 def barcode_json_path():
-    return PRODUCT_DATA_DIR / "barcode_reader" / "response_v1" / "complete.json"
+    return V1_PRODUCT_DATA_DIR / "barcode_reader" / "response_v1" / "complete.json"
 
 
 def test_barcode_image_extraction(barcode_path, barcode_json_path):
