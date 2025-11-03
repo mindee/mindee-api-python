@@ -6,7 +6,7 @@ import pytest
 from mindee import ClientV2, InferenceParameters, PathInput, UrlInputSource
 from mindee.error.mindee_http_error_v2 import MindeeHTTPErrorV2
 from mindee.parsing.v2.inference_response import InferenceResponse
-from tests.utils import FILE_TYPES_DIR, V1_PRODUCT_DATA_DIR
+from tests.utils import FILE_TYPES_DIR, V2_PRODUCT_DATA_DIR
 
 
 @pytest.fixture(scope="session")
@@ -43,14 +43,12 @@ def test_parse_file_empty_multiple_pages_must_succeed(
         raw_text=True,
         polygon=False,
         confidence=False,
-        webhook_ids=[],
         alias="py_integration_empty_multiple",
     )
 
     response: InferenceResponse = v2_client.enqueue_and_get_inference(
         input_source, params
     )
-
     assert response is not None
     assert response.inference is not None
 
@@ -66,6 +64,8 @@ def test_parse_file_empty_multiple_pages_must_succeed(
     assert response.inference.active_options.raw_text is True
     assert response.inference.active_options.polygon is False
     assert response.inference.active_options.confidence is False
+
+    assert response.inference.result is not None
 
     assert response.inference.result.raw_text is not None
     assert len(response.inference.result.raw_text.pages) == 2
@@ -88,18 +88,28 @@ def test_parse_file_empty_single_page_options_must_succeed(
         raw_text=True,
         polygon=True,
         confidence=True,
-        webhook_ids=[],
         alias="py_integration_empty_page_options",
     )
     response: InferenceResponse = v2_client.enqueue_and_get_inference(
         input_source, params
     )
+    assert response is not None
+    assert response.inference is not None
+
+    assert response.inference.model is not None
+    assert response.inference.model.id == findoc_model_id
+
+    assert response.inference.file is not None
+    assert response.inference.file.name == "blank_1.pdf"
+    assert response.inference.file.page_count == 1
 
     assert response.inference.active_options is not None
     assert response.inference.active_options.rag is True
     assert response.inference.active_options.raw_text is True
     assert response.inference.active_options.polygon is True
     assert response.inference.active_options.confidence is True
+
+    assert response.inference.result is not None
 
 
 @pytest.mark.integration
@@ -110,7 +120,7 @@ def test_parse_file_filled_single_page_must_succeed(
     """
     Upload a filled single-page JPEG and verify that common fields are present.
     """
-    input_path: Path = V1_PRODUCT_DATA_DIR / "financial_document" / "default_sample.jpg"
+    input_path: Path = V2_PRODUCT_DATA_DIR / "financial_document" / "default_sample.jpg"
 
     input_source = PathInput(input_path)
     params = InferenceParameters(
@@ -222,7 +232,7 @@ def test_unknown_webhook_ids_must_throw_error(
 
 @pytest.mark.integration
 @pytest.mark.v2
-def test_url_input_source_must_not_raise_errors(
+def test_blank_url_input_source_must_succeed(
     v2_client: ClientV2,
     findoc_model_id: str,
 ) -> None:
@@ -246,3 +256,13 @@ def test_url_input_source_must_not_raise_errors(
     )
     assert response is not None
     assert response.inference is not None
+
+    assert response.inference.file is not None
+    assert response.inference.file.page_count == 1
+
+    assert response.inference.model is not None
+    assert response.inference.model.id == findoc_model_id
+
+    assert response.inference.result is not None
+
+    assert response.inference.active_options is not None

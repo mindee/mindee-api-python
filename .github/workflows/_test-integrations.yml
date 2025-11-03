@@ -53,7 +53,6 @@ jobs:
       run: |
         pytest --cov mindee -m integration
 
-
     - name: Notify Slack Action on Failure
       uses: ravsamhq/notify-slack-action@2.3.0
       if: ${{ always() && github.ref_name == 'main' }}
