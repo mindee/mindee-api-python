@@ -9,8 +9,7 @@ from mindee.error.mindee_http_error import (
     handle_error,
 )
 from mindee.input.sources.path_input import PathInput
-from tests.utils import V1_DATA_DIR, V1_PRODUCT_DATA_DIR, clear_envvars, dummy_envvars
-from tests.v1.input.test_inputs import FILE_TYPES_DIR
+from tests.utils import FILE_TYPES_DIR, V1_DATA_DIR, clear_envvars, dummy_envvars
 
 V1_ERROR_DATA_DIR = V1_DATA_DIR / "errors"
 

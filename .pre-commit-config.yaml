@@ -1,11 +1,11 @@
 repos:
   - repo: https://github.com/ambv/black
-    rev: 24.4.0
+    rev: 25.9.0
     hooks:
       - id: black
 
   - repo: https://github.com/pycqa/isort
-    rev: 5.13.2
+    rev: 7.0.0
     hooks:
       - id: isort
         args: [ "--profile", "black" , "--split-on-trailing-comma", "true"]
@@ -39,7 +39,7 @@ repos:
         ]
 
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.15.0
+    rev: v1.18.2
     hooks:
       - id: mypy
         args: []
