@@ -179,6 +179,9 @@ def test_invalid_uuid_must_throw_error(v2_client: ClientV2) -> None:
 
     exc: MindeeHTTPErrorV2 = exc_info.value
     assert exc.status == 422
+    assert exc.title is not None
+    assert exc.code.startswith("422-")
+    assert isinstance(exc.errors, list)
 
 
 @pytest.mark.integration
@@ -197,6 +200,9 @@ def test_unknown_model_must_throw_error(v2_client: ClientV2) -> None:
 
     exc: MindeeHTTPErrorV2 = exc_info.value
     assert exc.status == 404
+    assert exc.title is not None
+    assert exc.code.startswith("404-")
+    assert isinstance(exc.errors, list)
 
 
 @pytest.mark.integration
@@ -227,6 +233,9 @@ def test_unknown_webhook_ids_must_throw_error(
 
     exc: MindeeHTTPErrorV2 = exc_info.value
     assert exc.status == 422
+    assert exc.title is not None
+    assert exc.code.startswith("422-")
+    assert isinstance(exc.errors, list)
     assert "no matching webhooks" in exc.detail.lower()
 
 

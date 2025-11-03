@@ -10,6 +10,7 @@ from mindee.parsing.v2.field.inference_fields import InferenceFields
 from mindee.parsing.v2.inference import Inference
 from mindee.parsing.v2.inference_file import InferenceFile
 from mindee.parsing.v2.inference_model import InferenceModel
+from mindee.parsing.v2.rag_metadata import RagMetadata
 from tests.utils import V2_DATA_DIR
 
 
@@ -196,6 +197,26 @@ def test_raw_texts():
         inference_result.inference.result.raw_text.pages[0].content
         == "This is the raw text of the first page..."
     )
+
+
+@pytest.mark.v2
+def test_rag_metadata_when_matched():
+    """RAG metadata when matched."""
+    json_sample, _ = _get_inference_samples("rag_matched")
+    response = InferenceResponse(json_sample)
+    rag = response.inference.result.rag
+    assert isinstance(rag, RagMetadata)
+    assert rag.retrieved_document_id == "12345abc-1234-1234-1234-123456789abc"
+
+
+@pytest.mark.v2
+def test_rag_metadata_when_not_matched():
+    """RAG metadata when not matched."""
+    json_sample, _ = _get_inference_samples("rag_not_matched")
+    response = InferenceResponse(json_sample)
+    rag = response.inference.result.rag
+    assert isinstance(rag, RagMetadata)
+    assert rag.retrieved_document_id is None
 
 
 @pytest.mark.v2
