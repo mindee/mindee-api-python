@@ -1,7 +1,6 @@
 import operator
 import os
 from functools import reduce
-from pathlib import Path
 
 import pytest
 from PIL import Image

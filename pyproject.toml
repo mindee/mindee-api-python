@@ -55,9 +55,9 @@ test = [
   "pytest-cov~=5.0",
 ]
 docs = [
-  "sphinx~=5.3",
-  "sphinx_rtd_theme~=1.1",
-  "sphinx-autodoc-typehints~=1.20",
+  "sphinx~=7.3",
+  "sphinx_rtd_theme~=2.0",
+  "sphinx-autodoc-typehints~=2.2",
 ]
 build = [
   "build",
