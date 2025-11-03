@@ -12,7 +12,6 @@ jobs:
     name: Run Integration Tests
     timeout-minutes: 30
     strategy:
-      max-parallel: 2
       matrix:
         os:
           - "ubuntu-22.04"
