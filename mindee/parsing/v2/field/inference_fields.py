@@ -2,13 +2,13 @@ from typing import Dict
 
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.v2.field.dynamic_field import (
-    DynamicField,
     FieldType,
+    FieldTypeAlias,
     get_field_type,
 )
 
 
-class InferenceFields(Dict[str, DynamicField]):
+class InferenceFields(Dict[str, FieldTypeAlias]):
     """Inference fields dict."""
 
     def __init__(self, raw_response: StringDict, indent_level: int = 0) -> None:
