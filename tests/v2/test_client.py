@@ -27,7 +27,12 @@ def custom_base_url_client(monkeypatch) -> ClientV2:
 
         def json(self):
             # Shape must match what handle_error_v2 expects
-            return {"status": -1, "detail": "forced failure from test"}
+            return {
+                "status": 0,
+                "code": "000-000",
+                "title": "From Test",
+                "detail": "forced failure from test",
+            }
 
     class _FakeOkProcessingJobResp:
         status_code = 200

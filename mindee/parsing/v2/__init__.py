@@ -1,3 +1,4 @@
+from mindee.parsing.v2.error_item import ErrorItem
 from mindee.parsing.v2.error_response import ErrorResponse
 from mindee.parsing.v2.inference import Inference
 from mindee.parsing.v2.inference_active_options import InferenceActiveOptions
@@ -16,4 +17,5 @@ __all__ = [
     "InferenceResult",
     "JobResponse",
     "ErrorResponse",
+    "ErrorItem",
 ]
