@@ -11,4 +11,4 @@ class InferenceModel:
         self.id = raw_response["id"]
 
     def __str__(self) -> str:
-        return f"Model\n=====" f"\n:ID: {self.id}"
+        return f"Model\n=====\n:ID: {self.id}"

@@ -17,3 +17,14 @@ from mindee.product.bill_of_lading.bill_of_lading_v1_notify_party import (
 from mindee.product.bill_of_lading.bill_of_lading_v1_shipper import (
     BillOfLadingV1Shipper,
 )
+
+__all__ = [
+    "BillOfLadingV1",
+    "BillOfLadingV1Carrier",
+    "BillOfLadingV1CarrierItem",
+    "BillOfLadingV1Consignee",
+    "BillOfLadingV1Document",
+    "BillOfLadingV1NotifyParty",
+    "BillOfLadingV1Shipper",
+    "BillOfLadingV1Document",
+]

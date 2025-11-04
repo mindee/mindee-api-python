@@ -90,7 +90,7 @@ class BusinessCardV1Document(Prediction):
         )
 
     def __str__(self) -> str:
-        social_media = f"\n { ' ' * 14 }".join(
+        social_media = f"\n {' ' * 14}".join(
             [str(item) for item in self.social_media],
         )
         out_str: str = f":Firstname: {self.firstname}\n"

@@ -5,3 +5,9 @@ from mindee.product.us.bank_check.bank_check_v1_document import (
 from mindee.product.us.bank_check.bank_check_v1_page import (
     BankCheckV1Page,
 )
+
+__all__ = [
+    "BankCheckV1",
+    "BankCheckV1Document",
+    "BankCheckV1Page",
+]

@@ -54,3 +54,26 @@ from mindee.product.fr.payslip.payslip_v3_pay_period import (
 from mindee.product.fr.payslip.payslip_v3_salary_detail import (
     PayslipV3SalaryDetail,
 )
+
+__all__ = [
+    "PayslipV2",
+    "PayslipV2BankAccountDetail",
+    "PayslipV2Document",
+    "PayslipV2Employee",
+    "PayslipV2Employer",
+    "PayslipV2Employment",
+    "PayslipV2PayDetail",
+    "PayslipV2PayPeriod",
+    "PayslipV2Pto",
+    "PayslipV2SalaryDetail",
+    "PayslipV3",
+    "PayslipV3BankAccountDetail",
+    "PayslipV3Document",
+    "PayslipV3Employee",
+    "PayslipV3Employer",
+    "PayslipV3Employment",
+    "PayslipV3PaidTimeOff",
+    "PayslipV3PayDetail",
+    "PayslipV3PayPeriod",
+    "PayslipV3SalaryDetail",
+]

@@ -62,7 +62,7 @@ class BankCheckV1Document(Prediction):
         )
 
     def __str__(self) -> str:
-        payees = f"\n { ' ' * 8 }".join(
+        payees = f"\n {' ' * 8}".join(
             [str(item) for item in self.payees],
         )
         out_str: str = f":Check Issue Date: {self.date}\n"

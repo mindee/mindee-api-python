@@ -128,10 +128,10 @@ class InternationalIdV2Document(Prediction):
         ]
 
     def __str__(self) -> str:
-        given_names = f"\n { ' ' * 13 }".join(
+        given_names = f"\n {' ' * 13}".join(
             [str(item) for item in self.given_names],
         )
-        surnames = f"\n { ' ' * 10 }".join(
+        surnames = f"\n {' ' * 10}".join(
             [str(item) for item in self.surnames],
         )
         out_str: str = f":Document Type: {self.document_type}\n"

@@ -91,7 +91,7 @@ class PassportV1Document(Prediction):
         )
 
     def __str__(self) -> str:
-        given_names = f"\n { ' ' * 15 }".join(
+        given_names = f"\n {' ' * 15}".join(
             [str(item) for item in self.given_names],
         )
         out_str: str = f":Country Code: {self.country}\n"

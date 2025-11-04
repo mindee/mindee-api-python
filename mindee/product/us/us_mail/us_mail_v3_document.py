@@ -94,7 +94,7 @@ class UsMailV3Document(Prediction):
         return out_str
 
     def __str__(self) -> str:
-        recipient_names = f"\n { ' ' * 17 }".join(
+        recipient_names = f"\n {' ' * 17}".join(
             [str(item) for item in self.recipient_names],
         )
         out_str: str = f":Sender Name: {self.sender_name}\n"

@@ -17,3 +17,13 @@ from mindee.product.resume.resume_v1_professional_experience import (
 from mindee.product.resume.resume_v1_social_networks_url import (
     ResumeV1SocialNetworksUrl,
 )
+
+__all__ = [
+    "ResumeV1",
+    "ResumeV1Document",
+    "ResumeV1Education",
+    "ResumeV1Language",
+    "ResumeV1ProfessionalExperience",
+    "ResumeV1SocialNetworksUrl",
+    "ResumeV1Certificate",
+]

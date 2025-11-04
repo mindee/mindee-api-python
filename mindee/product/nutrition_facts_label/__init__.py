@@ -43,3 +43,22 @@ from mindee.product.nutrition_facts_label.nutrition_facts_label_v1_total_sugar i
 from mindee.product.nutrition_facts_label.nutrition_facts_label_v1_trans_fat import (
     NutritionFactsLabelV1TransFat,
 )
+
+
+__all__ = [
+    "NutritionFactsLabelV1",
+    "NutritionFactsLabelV1Document",
+    "NutritionFactsLabelV1Nutrient",
+    "NutritionFactsLabelV1Protein",
+    "NutritionFactsLabelV1TransFat",
+    "NutritionFactsLabelV1TotalSugar",
+    "NutritionFactsLabelV1TotalFat",
+    "NutritionFactsLabelV1TotalCarbohydrate",
+    "NutritionFactsLabelV1Sodium",
+    "NutritionFactsLabelV1ServingSize",
+    "NutritionFactsLabelV1SaturatedFat",
+    "NutritionFactsLabelV1AddedSugar",
+    "NutritionFactsLabelV1DietaryFiber",
+    "NutritionFactsLabelV1Cholesterol",
+    "NutritionFactsLabelV1Calorie",
+]

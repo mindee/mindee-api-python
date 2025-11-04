@@ -38,6 +38,7 @@ __all__ = [
     "PredictResponse",
     "WorkflowResponse",
     "JobResponse",
+    "Job",
     "InferenceResponse",
     "product",
 ]

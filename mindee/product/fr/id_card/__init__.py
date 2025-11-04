@@ -12,3 +12,12 @@ from mindee.product.fr.id_card.id_card_v2_document import (
 from mindee.product.fr.id_card.id_card_v2_page import (
     IdCardV2Page,
 )
+
+__all__ = [
+    "IdCardV1",
+    "IdCardV1Document",
+    "IdCardV1Page",
+    "IdCardV2",
+    "IdCardV2Document",
+    "IdCardV2Page",
+]

@@ -22,3 +22,16 @@ from mindee.product.us.us_mail.us_mail_v3_recipient_address import (
 from mindee.product.us.us_mail.us_mail_v3_sender_address import (
     UsMailV3SenderAddress,
 )
+
+__all__ = [
+    "BankCheckV1",
+    "BankCheckV1Document",
+    "BankCheckV1Page",
+    "HealthcareCardV1",
+    "HealthcareCardV1Copay",
+    "HealthcareCardV1Document",
+    "UsMailV3",
+    "UsMailV3Document",
+    "UsMailV3RecipientAddress",
+    "UsMailV3SenderAddress",
+]

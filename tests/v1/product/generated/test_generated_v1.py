@@ -15,9 +15,9 @@ from tests.utils import V1_PRODUCT_DATA_DIR
 
 
 @pytest.fixture
-def international_id_v1_complete_doc() -> (
-    Document[GeneratedV1Document, Page[GeneratedV1Page]]
-):
+def international_id_v1_complete_doc() -> Document[
+    GeneratedV1Document, Page[GeneratedV1Page]
+]:
     json_data = json.load(
         open(
             V1_PRODUCT_DATA_DIR
@@ -31,9 +31,9 @@ def international_id_v1_complete_doc() -> (
 
 
 @pytest.fixture
-def international_id_v1_empty_doc() -> (
-    Document[GeneratedV1Document, Page[GeneratedV1Page]]
-):
+def international_id_v1_empty_doc() -> Document[
+    GeneratedV1Document, Page[GeneratedV1Page]
+]:
     json_data = json.load(
         open(
             V1_PRODUCT_DATA_DIR

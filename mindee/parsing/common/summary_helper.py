@@ -30,5 +30,5 @@ def format_for_display(
     return (
         out_string
         if len(out_string) <= max_col_size
-        else f"{out_string[:max_col_size-3]}..."
+        else f"{out_string[: max_col_size - 3]}..."
     )

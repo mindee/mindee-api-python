@@ -15,7 +15,7 @@ def is_valid_post_response(response: requests.Response) -> bool:
     if not is_valid_sync_response(response):
         return False
     response_json = json.loads(response.content)
-    if not "job" in response_json:
+    if "job" not in response_json:
         return False
     if (
         "job" in response_json
@@ -36,6 +36,6 @@ def is_valid_get_response(response: requests.Response) -> bool:
     if not is_valid_sync_response(response):
         return False
     response_json = json.loads(response.content)
-    if not "inference" in response_json and not "job" in response_json:
+    if "inference" not in response_json and "job" not in response_json:
         return False
     return True

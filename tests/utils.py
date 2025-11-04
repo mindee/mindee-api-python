@@ -8,11 +8,14 @@ from mindee.mindee_http.base_settings import (
 )
 
 ROOT_DATA_DIR = Path(__file__).parent / "data"
-V1_DATA_DIR = ROOT_DATA_DIR / "v1"
-V2_DATA_DIR = ROOT_DATA_DIR / "v2"
-EXTRAS_DIR = V1_DATA_DIR / "extras"
 FILE_TYPES_DIR = ROOT_DATA_DIR / "file_types"
+
+V1_DATA_DIR = ROOT_DATA_DIR / "v1"
+V1_ERROR_DATA_DIR = V1_DATA_DIR / "errors"
 V1_PRODUCT_DATA_DIR = V1_DATA_DIR / "products"
+V1_EXTRAS_DIR = V1_DATA_DIR / "extras"
+
+V2_DATA_DIR = ROOT_DATA_DIR / "v2"
 V2_PRODUCT_DATA_DIR = V2_DATA_DIR / "products"
 
 

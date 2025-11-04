@@ -157,7 +157,7 @@ class ReceiptV5Document(Prediction):
         return out_str
 
     def __str__(self) -> str:
-        supplier_company_registrations = f"\n { ' ' * 32 }".join(
+        supplier_company_registrations = f"\n {' ' * 32}".join(
             [str(item) for item in self.supplier_company_registrations],
         )
         out_str: str = f":Expense Locale: {self.locale}\n"
