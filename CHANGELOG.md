@@ -1,5 +1,13 @@
 # Mindee Python Client Library Changelog
 
+## v4.31.0 - 2025-11-04
+### Changes
+* :label: better field typing for v2
+* :sparkles: add RAG metadata to v2 inference response
+* :sparkles: improved v2 error messages and exceptions
+* :recycle: migrate to ruff for linting
+
+
 ## v4.30.0 - 2025-10-29
 ### Changes
 * :sparkles: add support for python 3.14
