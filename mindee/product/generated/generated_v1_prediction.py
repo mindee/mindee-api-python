@@ -43,7 +43,7 @@ class GeneratedV1Prediction(Prediction):
                     if isinstance(sub_value, GeneratedObjectField):
                         str_value += re.sub(pattern, r"\1* :", sub_value._str_level(1))
                     else:
-                        str_value += f" { ' ' * (len(field_name)+2)}{sub_value}\n"
+                        str_value += f" {' ' * (len(field_name) + 2)}{sub_value}\n"
                 str_value = str_value.rstrip()
             else:
                 str_value = str(field_value)

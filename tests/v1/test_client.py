@@ -17,8 +17,8 @@ from tests.utils import (
     V1_PRODUCT_DATA_DIR,
     clear_envvars,
     dummy_envvars,
+    V1_ERROR_DATA_DIR,
 )
-from tests.v1.mindee_http import V1_ERROR_DATA_DIR
 
 
 @pytest.fixture

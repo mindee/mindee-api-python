@@ -38,7 +38,7 @@ class BankCheckV1Page(BankCheckV1Document):
         ]
 
     def __str__(self) -> str:
-        signatures_positions = f"\n { ' ' * 21 }".join(
+        signatures_positions = f"\n {' ' * 21}".join(
             [str(item) for item in self.signatures_positions],
         )
         out_str: str = f":Check Position: {self.check_position}\n"

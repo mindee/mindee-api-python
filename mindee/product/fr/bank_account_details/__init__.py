@@ -13,3 +13,11 @@ from mindee.product.fr.bank_account_details.bank_account_details_v2_bban import 
 from mindee.product.fr.bank_account_details.bank_account_details_v2_document import (
     BankAccountDetailsV2Document,
 )
+
+__all__ = [
+    "BankAccountDetailsV1",
+    "BankAccountDetailsV1Document",
+    "BankAccountDetailsV2",
+    "BankAccountDetailsV2Bban",
+    "BankAccountDetailsV2Document",
+]

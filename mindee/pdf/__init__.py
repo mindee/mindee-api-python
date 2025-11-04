@@ -5,3 +5,11 @@ from mindee.pdf.pdf_utils import (
     has_source_text,
     lerp,
 )
+
+__all__ = [
+    "PDFCharData",
+    "compress_pdf",
+    "extract_text_from_pdf",
+    "has_source_text",
+    "lerp",
+]

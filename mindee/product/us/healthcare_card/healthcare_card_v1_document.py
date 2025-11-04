@@ -135,7 +135,7 @@ class HealthcareCardV1Document(Prediction):
         return out_str
 
     def __str__(self) -> str:
-        dependents = f"\n { ' ' * 12 }".join(
+        dependents = f"\n {' ' * 12}".join(
             [str(item) for item in self.dependents],
         )
         out_str: str = f":Company Name: {self.company_name}\n"

@@ -279,16 +279,16 @@ class ResumeV1Document(Prediction):
         return out_str
 
     def __str__(self) -> str:
-        given_names = f"\n { ' ' * 13 }".join(
+        given_names = f"\n {' ' * 13}".join(
             [str(item) for item in self.given_names],
         )
-        hard_skills = f"\n { ' ' * 13 }".join(
+        hard_skills = f"\n {' ' * 13}".join(
             [str(item) for item in self.hard_skills],
         )
-        soft_skills = f"\n { ' ' * 13 }".join(
+        soft_skills = f"\n {' ' * 13}".join(
             [str(item) for item in self.soft_skills],
         )
-        surnames = f"\n { ' ' * 10 }".join(
+        surnames = f"\n {' ' * 10}".join(
             [str(item) for item in self.surnames],
         )
         out_str: str = f":Document Language: {self.document_language}\n"

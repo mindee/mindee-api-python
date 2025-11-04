@@ -5,3 +5,9 @@ from mindee.product.receipt.receipt_v5_document import (
 from mindee.product.receipt.receipt_v5_line_item import (
     ReceiptV5LineItem,
 )
+
+__all__ = [
+    "ReceiptV5",
+    "ReceiptV5Document",
+    "ReceiptV5LineItem",
+]

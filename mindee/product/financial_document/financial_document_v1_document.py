@@ -268,16 +268,16 @@ class FinancialDocumentV1Document(Prediction):
         return out_str
 
     def __str__(self) -> str:
-        customer_company_registrations = f"\n { ' ' * 32 }".join(
+        customer_company_registrations = f"\n {' ' * 32}".join(
             [str(item) for item in self.customer_company_registrations],
         )
-        reference_numbers = f"\n { ' ' * 19 }".join(
+        reference_numbers = f"\n {' ' * 19}".join(
             [str(item) for item in self.reference_numbers],
         )
-        supplier_company_registrations = f"\n { ' ' * 32 }".join(
+        supplier_company_registrations = f"\n {' ' * 32}".join(
             [str(item) for item in self.supplier_company_registrations],
         )
-        supplier_payment_details = f"\n { ' ' * 26 }".join(
+        supplier_payment_details = f"\n {' ' * 26}".join(
             [str(item) for item in self.supplier_payment_details],
         )
         out_str: str = f":Locale: {self.locale}\n"

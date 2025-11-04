@@ -32,7 +32,7 @@ class CropperV1Page(CropperV1Document):
         ]
 
     def __str__(self) -> str:
-        cropping = f"\n { ' ' * 18 }".join(
+        cropping = f"\n {' ' * 18}".join(
             [str(item) for item in self.cropping],
         )
         out_str: str = f":Document Cropper: {cropping}\n"

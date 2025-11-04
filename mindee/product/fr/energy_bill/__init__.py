@@ -20,3 +20,20 @@ from mindee.product.fr.energy_bill.energy_bill_v1_subscription import (
 from mindee.product.fr.energy_bill.energy_bill_v1_taxes_and_contribution import (
     EnergyBillV1TaxesAndContribution,
 )
+
+__all__ = [
+    "EnergyBillV1",
+    "EnergyBillV1Document",
+    "EnergyBillV1EnergyConsumer",
+    "EnergyBillV1EnergySupplier",
+    "EnergyBillV1EnergyUsage",
+    "EnergyBillV1MeterDetail",
+    "EnergyBillV1Subscription",
+    "EnergyBillV1TaxesAndContribution",
+    "EnergyBillV1Document",
+    "EnergyBillV1EnergyConsumer",
+    "EnergyBillV1EnergySupplier",
+    "EnergyBillV1EnergyUsage",
+    "EnergyBillV1MeterDetail",
+    "EnergyBillV1Subscription",
+]

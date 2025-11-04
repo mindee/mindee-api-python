@@ -9,3 +9,17 @@ from mindee.input.sources.local_input_source import LocalInputSource
 from mindee.input.sources.path_input import PathInput
 from mindee.input.sources.url_input_source import UrlInputSource
 from mindee.input.workflow_options import WorkflowOptions
+
+__all__ = [
+    "InputType",
+    "LocalInputSource",
+    "UrlInputSource",
+    "PathInput",
+    "FileInput",
+    "Base64Input",
+    "BytesInput",
+    "WorkflowOptions",
+    "PollingOptions",
+    "PageOptions",
+    "LocalResponse",
+]

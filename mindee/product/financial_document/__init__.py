@@ -5,3 +5,9 @@ from mindee.product.financial_document.financial_document_v1_document import (
 from mindee.product.financial_document.financial_document_v1_line_item import (
     FinancialDocumentV1LineItem,
 )
+
+__all__ = [
+    "FinancialDocumentV1",
+    "FinancialDocumentV1Document",
+    "FinancialDocumentV1LineItem",
+]

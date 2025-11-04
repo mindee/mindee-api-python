@@ -6,3 +6,12 @@ from mindee.extraction.common.image_extractor import (
 from mindee.extraction.multi_receipts_extractor import multi_receipts_extractor
 from mindee.extraction.pdf_extractor.extracted_pdf import ExtractedPdf
 from mindee.extraction.pdf_extractor.pdf_extractor import PdfExtractor
+
+__all__ = [
+    "ExtractedImage",
+    "ExtractedPdf",
+    "PdfExtractor",
+    "attach_image_as_new_file",
+    "extract_multiple_images_from_source",
+    "multi_receipts_extractor",
+]

@@ -1,15 +1,10 @@
 repos:
-  - repo: https://github.com/ambv/black
-    rev: 25.9.0
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: v0.14.3
     hooks:
-      - id: black
-
-  - repo: https://github.com/pycqa/isort
-    rev: 7.0.0
-    hooks:
-      - id: isort
-        args: [ "--profile", "black" , "--split-on-trailing-comma", "true"]
-        additional_dependencies: [toml]
+      - id: ruff
+        args: [ --fix, --exit-non-zero-on-fix]
+      - id: ruff-format
 
   - repo: https://github.com/pycqa/pydocstyle
     rev: 6.3.0

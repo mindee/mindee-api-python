@@ -49,7 +49,7 @@ class HealthCardV1Document(Prediction):
         )
 
     def __str__(self) -> str:
-        given_names = f"\n { ' ' * 15 }".join(
+        given_names = f"\n {' ' * 15}".join(
             [str(item) for item in self.given_names],
         )
         out_str: str = f":Given Name(s): {given_names}\n"

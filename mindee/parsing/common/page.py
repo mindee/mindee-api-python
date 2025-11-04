@@ -41,7 +41,7 @@ class Page(Generic[TypePrediction]):
     def __str__(self) -> str:
         title = f"Page {self.id}"
         dashes = "-" * len(title)
-        return f"{title}\n" f"{dashes}\n" f"{self.prediction}\n"
+        return f"{title}\n{dashes}\n{self.prediction}\n"
 
 
 TypePage = TypeVar("TypePage", bound=Page)

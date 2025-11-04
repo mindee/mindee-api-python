@@ -15,3 +15,19 @@ from mindee.error.mindee_http_error import (
 )
 from mindee.error.mindee_image_error import MindeeImageError
 from mindee.error.mindee_pdf_error import MindeePDFError
+
+__all__ = [
+    "MindeeError",
+    "MindeeApiError",
+    "MindeeApiV2Error",
+    "MindeeClientError",
+    "MindeeProductError",
+    "MindeeHTTPError",
+    "MindeeHTTPClientError",
+    "MindeeHTTPServerError",
+    "handle_error",
+    "MindeeImageError",
+    "MindeePDFError",
+    "GeometryError",
+    "MimeTypeError",
+]

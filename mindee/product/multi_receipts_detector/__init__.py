@@ -4,3 +4,8 @@ from mindee.product.multi_receipts_detector.multi_receipts_detector_v1 import (
 from mindee.product.multi_receipts_detector.multi_receipts_detector_v1_document import (
     MultiReceiptsDetectorV1Document,
 )
+
+__all__ = [
+    "MultiReceiptsDetectorV1",
+    "MultiReceiptsDetectorV1Document",
+]
