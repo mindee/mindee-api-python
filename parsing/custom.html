@@ -1,22 +1,23 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Custom Fields &mdash; Mindee Python Client  documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -99,27 +100,27 @@
            <div itemprop="articleBody">
              
   <section id="custom-fields">
-<h1>Custom Fields<a class="headerlink" href="#custom-fields" title="Permalink to this heading"></a></h1>
+<h1>Custom Fields<a class="headerlink" href="#custom-fields" title="Link to this heading"></a></h1>
 <section id="classification">
-<h2>Classification<a class="headerlink" href="#classification" title="Permalink to this heading"></a></h2>
+<h2>Classification<a class="headerlink" href="#classification" title="Link to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.parsing.custom.classification.ClassificationField">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ClassificationField</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.parsing.custom.classification.ClassificationField" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ClassificationField</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.parsing.custom.classification.ClassificationField" title="Link to this definition"></a></dt>
 <dd><p>A classification field.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p>
+<dd class="field-odd"><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>)</p>
 </dd>
 </dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.parsing.custom.classification.ClassificationField.confidence">
-<span class="sig-name descname"><span class="pre">confidence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#mindee.parsing.custom.classification.ClassificationField.confidence" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">confidence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#mindee.parsing.custom.classification.ClassificationField.confidence" title="Link to this definition"></a></dt>
 <dd><p>The confidence score</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.parsing.custom.classification.ClassificationField.value">
-<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#mindee.parsing.custom.classification.ClassificationField.value" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#mindee.parsing.custom.classification.ClassificationField.value" title="Link to this definition"></a></dt>
 <dd><p>The classification value.</p>
 </dd></dl>
 
@@ -127,48 +128,48 @@
 
 </section>
 <section id="line-items">
-<h2>Line Items<a class="headerlink" href="#line-items" title="Permalink to this heading"></a></h2>
+<h2>Line Items<a class="headerlink" href="#line-items" title="Link to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.parsing.custom.line_items.CustomLine">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">CustomLine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row_number</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.parsing.custom.line_items.CustomLine" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">CustomLine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row_number</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.parsing.custom.line_items.CustomLine" title="Link to this definition"></a></dt>
 <dd><p>Represent a single line.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>row_number</strong> (<em>int</em>) – </p>
+<dd class="field-odd"><p><strong>row_number</strong> (<em>int</em>)</p>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.parsing.custom.line_items.CustomLine.update_field">
-<span class="sig-name descname"><span class="pre">update_field</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.parsing.custom.line_items.CustomLine.update_field" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">update_field</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.parsing.custom.line_items.CustomLine.update_field" title="Link to this definition"></a></dt>
 <dd><p>Updates a field value if it exists.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>field_name</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – name of the field to update.</p></li>
-<li><p><strong>field_value</strong> (<a class="reference internal" href="#mindee.parsing.custom.list.ListFieldValue" title="mindee.parsing.custom.list.ListFieldValue"><code class="xref py py-class docutils literal notranslate"><span class="pre">ListFieldValue</span></code></a>) – value of the field to set.</p></li>
+<li><p><strong>field_name</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – name of the field to update.</p></li>
+<li><p><strong>field_value</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#mindee.parsing.custom.list.ListFieldValue" title="mindee.parsing.custom.list.ListFieldValue"><code class="xref py py-class docutils literal notranslate"><span class="pre">ListFieldValue</span></code></a></span>) – value of the field to set.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.parsing.custom.line_items.CustomLine.bbox">
-<span class="sig-name descname"><span class="pre">bbox</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../misc/geometry.html#mindee.geometry.BBox" title="mindee.geometry.bbox.BBox"><code class="xref py py-class docutils literal notranslate"><span class="pre">BBox</span></code></a></em><a class="headerlink" href="#mindee.parsing.custom.line_items.CustomLine.bbox" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">bbox</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../misc/geometry.html#mindee.geometry.BBox" title="mindee.geometry.bbox.BBox"><code class="xref py py-class docutils literal notranslate"><span class="pre">BBox</span></code></a></em><a class="headerlink" href="#mindee.parsing.custom.line_items.CustomLine.bbox" title="Link to this definition"></a></dt>
 <dd><p>Simplified bounding box of the line.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.parsing.custom.line_items.CustomLine.fields">
-<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">,</span> <a class="reference internal" href="#mindee.parsing.custom.list.ListFieldValue" title="mindee.parsing.custom.list.ListFieldValue"><code class="xref py py-class docutils literal notranslate"><span class="pre">ListFieldValue</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.parsing.custom.line_items.CustomLine.fields" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">,</span> <a class="reference internal" href="#mindee.parsing.custom.list.ListFieldValue" title="mindee.parsing.custom.list.ListFieldValue"><code class="xref py py-class docutils literal notranslate"><span class="pre">ListFieldValue</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.parsing.custom.line_items.CustomLine.fields" title="Link to this definition"></a></dt>
 <dd><p>Fields contained in the line.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.parsing.custom.line_items.CustomLine.row_number">
-<span class="sig-name descname"><span class="pre">row_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.parsing.custom.line_items.CustomLine.row_number" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">row_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.parsing.custom.line_items.CustomLine.row_number" title="Link to this definition"></a></dt>
 <dd><p>Index of the row of a given line.</p>
 </dd></dl>
 
@@ -176,57 +177,57 @@
 
 </section>
 <section id="lists">
-<h2>Lists<a class="headerlink" href="#lists" title="Permalink to this heading"></a></h2>
+<h2>Lists<a class="headerlink" href="#lists" title="Link to this heading"></a></h2>
 <section id="list-field">
-<h3>List Field<a class="headerlink" href="#list-field" title="Permalink to this heading"></a></h3>
+<h3>List Field<a class="headerlink" href="#list-field" title="Link to this heading"></a></h3>
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.parsing.custom.list.ListField">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ListField</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reconstructed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.parsing.custom.list.ListField" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ListField</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reconstructed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.parsing.custom.list.ListField" title="Link to this definition"></a></dt>
 <dd><p>A list of values or words.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p></li>
-<li><p><strong>reconstructed</strong> (<em>bool</em>) – </p></li>
-<li><p><strong>page_id</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – </p></li>
+<li><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>)</p></li>
+<li><p><strong>reconstructed</strong> (<em>bool</em>)</p></li>
+<li><p><strong>page_id</strong> (<em>int</em><em> | </em><em>None</em>)</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.parsing.custom.list.ListField.contents_string">
-<span class="sig-name descname"><span class="pre">contents_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">separator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'</span> <span class="pre">'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.parsing.custom.list.ListField.contents_string" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">contents_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">separator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'</span> <span class="pre">'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.parsing.custom.list.ListField.contents_string" title="Link to this definition"></a></dt>
 <dd><p>Return a string representation of all values.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>separator</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, default: <code class="docutils literal notranslate"><span class="pre">'</span> <span class="pre">'</span></code>) – Character(s) to use when concatenating fields.</p>
+<dd class="field-odd"><p><strong>separator</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">'</span> <span class="pre">'</span></code>) – Character(s) to use when concatenating fields.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.parsing.custom.list.ListField.confidence">
-<span class="sig-name descname"><span class="pre">confidence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#mindee.parsing.custom.list.ListField.confidence" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">confidence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#mindee.parsing.custom.list.ListField.confidence" title="Link to this definition"></a></dt>
 <dd><p>Confidence score</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="mindee.parsing.custom.list.ListField.contents_list">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">contents_list</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mindee.parsing.custom.list.ListField.contents_list" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">contents_list</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mindee.parsing.custom.list.ListField.contents_list" title="Link to this definition"></a></dt>
 <dd><p>Return a List of the contents of all values.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.parsing.custom.list.ListField.reconstructed">
-<span class="sig-name descname"><span class="pre">reconstructed</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><a class="headerlink" href="#mindee.parsing.custom.list.ListField.reconstructed" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">reconstructed</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><a class="headerlink" href="#mindee.parsing.custom.list.ListField.reconstructed" title="Link to this definition"></a></dt>
 <dd><p>Whether the field was reconstructed from other fields.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.parsing.custom.list.ListField.values">
-<span class="sig-name descname"><span class="pre">values</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="#mindee.parsing.custom.list.ListFieldValue" title="mindee.parsing.custom.list.ListFieldValue"><code class="xref py py-class docutils literal notranslate"><span class="pre">ListFieldValue</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.parsing.custom.list.ListField.values" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">values</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="#mindee.parsing.custom.list.ListFieldValue" title="mindee.parsing.custom.list.ListFieldValue"><code class="xref py py-class docutils literal notranslate"><span class="pre">ListFieldValue</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.parsing.custom.list.ListField.values" title="Link to this definition"></a></dt>
 <dd><p>List of word values</p>
 </dd></dl>
 
@@ -234,34 +235,34 @@
 
 </section>
 <section id="list-field-value">
-<h3>List Field Value<a class="headerlink" href="#list-field-value" title="Permalink to this heading"></a></h3>
+<h3>List Field Value<a class="headerlink" href="#list-field-value" title="Link to this heading"></a></h3>
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.parsing.custom.list.ListFieldValue">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ListFieldValue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.parsing.custom.list.ListFieldValue" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ListFieldValue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.parsing.custom.list.ListFieldValue" title="Link to this definition"></a></dt>
 <dd><p>A single value or word.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p></li>
-<li><p><strong>page_id</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – </p></li>
+<li><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>)</p></li>
+<li><p><strong>page_id</strong> (<em>int</em><em> | </em><em>None</em>)</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.parsing.custom.list.ListFieldValue.confidence">
-<span class="sig-name descname"><span class="pre">confidence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#mindee.parsing.custom.list.ListFieldValue.confidence" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">confidence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#mindee.parsing.custom.list.ListFieldValue.confidence" title="Link to this definition"></a></dt>
 <dd><p>Confidence score</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.parsing.custom.list.ListFieldValue.content">
-<span class="sig-name descname"><span class="pre">content</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#mindee.parsing.custom.list.ListFieldValue.content" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">content</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#mindee.parsing.custom.list.ListFieldValue.content" title="Link to this definition"></a></dt>
 <dd><p>The content text</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.parsing.custom.list.ListFieldValue.page_id">
-<span class="sig-name descname"><span class="pre">page_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.parsing.custom.list.ListFieldValue.page_id" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">page_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.parsing.custom.list.ListFieldValue.page_id" title="Link to this definition"></a></dt>
 <dd><p>Id of the page the field was found on.</p>
 </dd></dl>
 
@@ -269,10 +270,10 @@
 
 </section>
 <section id="string-dict">
-<h3>String Dict<a class="headerlink" href="#string-dict" title="Permalink to this heading"></a></h3>
+<h3>String Dict<a class="headerlink" href="#string-dict" title="Link to this heading"></a></h3>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.parsing.common.string_dict.StringDict">
-<span class="sig-name descname"><span class="pre">StringDict</span></span><a class="headerlink" href="#mindee.parsing.common.string_dict.StringDict" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">StringDict</span></span><a class="headerlink" href="#mindee.parsing.common.string_dict.StringDict" title="Link to this definition"></a></dt>
 <dd><p>Basic JSON-compliant python dictionary.</p>
 </dd></dl>
 

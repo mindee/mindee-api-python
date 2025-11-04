@@ -1,22 +1,23 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Generated V1 &mdash; Mindee Python Client  documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -106,7 +107,7 @@
            <div itemprop="articleBody">
              
   <section id="generated-v1">
-<h1>Generated V1<a class="headerlink" href="#generated-v1" title="Permalink to this heading"></a></h1>
+<h1>Generated V1<a class="headerlink" href="#generated-v1" title="Link to this heading"></a></h1>
 <p><strong>Sample Code (sync):</strong></p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1">#</span>
 <span class="c1"># Install the Python client library by running:</span>
@@ -185,73 +186,73 @@
 </div>
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.product.generated.generated_v1.GeneratedV1">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">GeneratedV1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.generated.generated_v1.GeneratedV1" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">GeneratedV1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.generated.generated_v1.GeneratedV1" title="Link to this definition"></a></dt>
 <dd><p>Generated API V1 inference results.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p>
+<dd class="field-odd"><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>)</p>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.product.generated.generated_v1.GeneratedV1.get_endpoint_info">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_endpoint_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">klass</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.generated.generated_v1.GeneratedV1.get_endpoint_info" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_endpoint_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">klass</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.generated.generated_v1.GeneratedV1.get_endpoint_info" title="Link to this definition"></a></dt>
 <dd><p>Retrieves the endpoint information for an Inference.</p>
 <p>Should never retrieve info for CustomV1, as a custom endpoint should be created to use CustomV1.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>klass</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Inference</span></code>]) – product subclass to access endpoint information.</p>
+<dd class="field-odd"><p><strong>klass</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Inference</span></code>]</span>) – product subclass to access endpoint information.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.generated.generated_v1.GeneratedV1.endpoint_name">
-<span class="sig-name descname"><span class="pre">endpoint_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[str]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'custom'</span></em><a class="headerlink" href="#mindee.product.generated.generated_v1.GeneratedV1.endpoint_name" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">endpoint_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[str]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'custom'</span></em><a class="headerlink" href="#mindee.product.generated.generated_v1.GeneratedV1.endpoint_name" title="Link to this definition"></a></dt>
 <dd><p>Name of the endpoint (placeholder).</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.generated.generated_v1.GeneratedV1.endpoint_version">
-<span class="sig-name descname"><span class="pre">endpoint_version</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[str]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'1'</span></em><a class="headerlink" href="#mindee.product.generated.generated_v1.GeneratedV1.endpoint_version" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">endpoint_version</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[str]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'1'</span></em><a class="headerlink" href="#mindee.product.generated.generated_v1.GeneratedV1.endpoint_version" title="Link to this definition"></a></dt>
 <dd><p>Version of the endpoint.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.generated.generated_v1.GeneratedV1.extras">
-<span class="sig-name descname"><span class="pre">extras</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[Extras]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.product.generated.generated_v1.GeneratedV1.extras" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">extras</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[Extras]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.product.generated.generated_v1.GeneratedV1.extras" title="Link to this definition"></a></dt>
 <dd><p>Potential Extras fields sent back along with the prediction.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.generated.generated_v1.GeneratedV1.is_rotation_applied">
-<span class="sig-name descname"><span class="pre">is_rotation_applied</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[bool]</span></em><a class="headerlink" href="#mindee.product.generated.generated_v1.GeneratedV1.is_rotation_applied" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">is_rotation_applied</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[bool]</span></em><a class="headerlink" href="#mindee.product.generated.generated_v1.GeneratedV1.is_rotation_applied" title="Link to this definition"></a></dt>
 <dd><p>Whether the document has had any rotation applied to it.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.generated.generated_v1.GeneratedV1.page_id">
-<span class="sig-name descname"><span class="pre">page_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[int]</span></em><a class="headerlink" href="#mindee.product.generated.generated_v1.GeneratedV1.page_id" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">page_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[int]</span></em><a class="headerlink" href="#mindee.product.generated.generated_v1.GeneratedV1.page_id" title="Link to this definition"></a></dt>
 <dd><p>Optional page id for page-level predictions.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.generated.generated_v1.GeneratedV1.pages">
-<span class="sig-name descname"><span class="pre">pages</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="../parsing/common.html#mindee.parsing.common.page.Page" title="mindee.parsing.common.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a><span class="pre">[</span><a class="reference internal" href="#mindee.product.generated.generated_v1.GeneratedV1Page" title="mindee.product.generated.generated_v1_page.GeneratedV1Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">GeneratedV1Page</span></code></a><span class="pre">]]</span></em><a class="headerlink" href="#mindee.product.generated.generated_v1.GeneratedV1.pages" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">pages</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="../parsing/common.html#mindee.parsing.common.page.Page" title="mindee.parsing.common.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a><span class="pre">[</span><a class="reference internal" href="#mindee.product.generated.generated_v1.GeneratedV1Page" title="mindee.product.generated.generated_v1_page.GeneratedV1Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">GeneratedV1Page</span></code></a><span class="pre">]]</span></em><a class="headerlink" href="#mindee.product.generated.generated_v1.GeneratedV1.pages" title="Link to this definition"></a></dt>
 <dd><p>Page-level prediction(s).</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.generated.generated_v1.GeneratedV1.prediction">
-<span class="sig-name descname"><span class="pre">prediction</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.product.generated.generated_v1.GeneratedV1Document" title="mindee.product.generated.generated_v1_document.GeneratedV1Document"><code class="xref py py-class docutils literal notranslate"><span class="pre">GeneratedV1Document</span></code></a></em><a class="headerlink" href="#mindee.product.generated.generated_v1.GeneratedV1.prediction" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">prediction</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.product.generated.generated_v1.GeneratedV1Document" title="mindee.product.generated.generated_v1_document.GeneratedV1Document"><code class="xref py py-class docutils literal notranslate"><span class="pre">GeneratedV1Document</span></code></a></em><a class="headerlink" href="#mindee.product.generated.generated_v1.GeneratedV1.prediction" title="Link to this definition"></a></dt>
 <dd><p>Document-level prediction.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.generated.generated_v1.GeneratedV1.product">
-<span class="sig-name descname"><span class="pre">product</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Product</span></em><a class="headerlink" href="#mindee.product.generated.generated_v1.GeneratedV1.product" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">product</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Product</span></em><a class="headerlink" href="#mindee.product.generated.generated_v1.GeneratedV1.product" title="Link to this definition"></a></dt>
 <dd><p>Name and version of a given product, as sent back by the API.</p>
 </dd></dl>
 
@@ -259,60 +260,60 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.product.generated.generated_v1.GeneratedV1Document">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">GeneratedV1Document</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.generated.generated_v1.GeneratedV1Document" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">GeneratedV1Document</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.generated.generated_v1.GeneratedV1Document" title="Link to this definition"></a></dt>
 <dd><p>Generated V1 document prediction results.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p>
+<dd class="field-odd"><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>)</p>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.product.generated.generated_v1.GeneratedV1Document.get_list_fields">
-<span class="sig-name descname"><span class="pre">get_list_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.generated.generated_v1.GeneratedV1Document.get_list_fields" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_list_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.generated.generated_v1.GeneratedV1Document.get_list_fields" title="Link to this definition"></a></dt>
 <dd><p>Returns a dictionary of all list-like fields.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">GeneratedListField</span></code>]</p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">GeneratedListField</span></code>]</span></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.product.generated.generated_v1.GeneratedV1Document.get_object_fields">
-<span class="sig-name descname"><span class="pre">get_object_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.generated.generated_v1.GeneratedV1Document.get_object_fields" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_object_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.generated.generated_v1.GeneratedV1Document.get_object_fields" title="Link to this definition"></a></dt>
 <dd><p>Returns a dictionary of all object-like fields.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">GeneratedObjectField</span></code>]</p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">GeneratedObjectField</span></code>]</span></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.product.generated.generated_v1.GeneratedV1Document.get_single_fields">
-<span class="sig-name descname"><span class="pre">get_single_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.generated.generated_v1.GeneratedV1Document.get_single_fields" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_single_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.generated.generated_v1.GeneratedV1Document.get_single_fields" title="Link to this definition"></a></dt>
 <dd><p>Returns a dictionary of all fields that aren’t a collection.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a>]</p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a>]</span></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.product.generated.generated_v1.GeneratedV1Document.list_field_names">
-<span class="sig-name descname"><span class="pre">list_field_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.generated.generated_v1.GeneratedV1Document.list_field_names" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">list_field_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.generated.generated_v1.GeneratedV1Document.list_field_names" title="Link to this definition"></a></dt>
 <dd><p>Lists names of all top-level field keys.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.generated.generated_v1.GeneratedV1Document.fields">
-<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">,</span> <code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">GeneratedListField</span></code><span class="pre">,</span> <a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a><span class="pre">,</span> <code class="xref py py-class docutils literal notranslate"><span class="pre">GeneratedObjectField</span></code><span class="pre">]]</span></em><a class="headerlink" href="#mindee.product.generated.generated_v1.GeneratedV1Document.fields" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">,</span> <code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">GeneratedListField</span></code><span class="pre">,</span> <a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a><span class="pre">,</span> <code class="xref py py-class docutils literal notranslate"><span class="pre">GeneratedObjectField</span></code><span class="pre">]]</span></em><a class="headerlink" href="#mindee.product.generated.generated_v1.GeneratedV1Document.fields" title="Link to this definition"></a></dt>
 <dd><p>Dictionary of all fields in the document</p>
 </dd></dl>
 
@@ -320,63 +321,63 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.product.generated.generated_v1.GeneratedV1Page">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">GeneratedV1Page</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.generated.generated_v1.GeneratedV1Page" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">GeneratedV1Page</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.generated.generated_v1.GeneratedV1Page" title="Link to this definition"></a></dt>
 <dd><p>Generated V1 page prediction results.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p></li>
-<li><p><strong>page_id</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – </p></li>
+<li><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>)</p></li>
+<li><p><strong>page_id</strong> (<em>int</em><em> | </em><em>None</em>)</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.product.generated.generated_v1.GeneratedV1Page.get_list_fields">
-<span class="sig-name descname"><span class="pre">get_list_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.generated.generated_v1.GeneratedV1Page.get_list_fields" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_list_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.generated.generated_v1.GeneratedV1Page.get_list_fields" title="Link to this definition"></a></dt>
 <dd><p>Returns a dictionary of all list-like fields.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">GeneratedListField</span></code>]</p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">GeneratedListField</span></code>]</span></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.product.generated.generated_v1.GeneratedV1Page.get_object_fields">
-<span class="sig-name descname"><span class="pre">get_object_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.generated.generated_v1.GeneratedV1Page.get_object_fields" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_object_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.generated.generated_v1.GeneratedV1Page.get_object_fields" title="Link to this definition"></a></dt>
 <dd><p>Returns a dictionary of all object-like fields.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">GeneratedObjectField</span></code>]</p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">GeneratedObjectField</span></code>]</span></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.product.generated.generated_v1.GeneratedV1Page.get_single_fields">
-<span class="sig-name descname"><span class="pre">get_single_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.generated.generated_v1.GeneratedV1Page.get_single_fields" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_single_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.generated.generated_v1.GeneratedV1Page.get_single_fields" title="Link to this definition"></a></dt>
 <dd><p>Returns a dictionary of all fields that aren’t a collection.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a>]</p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a>]</span></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.product.generated.generated_v1.GeneratedV1Page.list_field_names">
-<span class="sig-name descname"><span class="pre">list_field_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.generated.generated_v1.GeneratedV1Page.list_field_names" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">list_field_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.generated.generated_v1.GeneratedV1Page.list_field_names" title="Link to this definition"></a></dt>
 <dd><p>Lists names of all top-level field keys.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.generated.generated_v1.GeneratedV1Page.fields">
-<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">,</span> <code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">GeneratedListField</span></code><span class="pre">,</span> <a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a><span class="pre">,</span> <code class="xref py py-class docutils literal notranslate"><span class="pre">GeneratedObjectField</span></code><span class="pre">]]</span></em><a class="headerlink" href="#mindee.product.generated.generated_v1.GeneratedV1Page.fields" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">,</span> <code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">GeneratedListField</span></code><span class="pre">,</span> <a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a><span class="pre">,</span> <code class="xref py py-class docutils literal notranslate"><span class="pre">GeneratedObjectField</span></code><span class="pre">]]</span></em><a class="headerlink" href="#mindee.product.generated.generated_v1.GeneratedV1Page.fields" title="Link to this definition"></a></dt>
 <dd><p>Dictionary of all fields in the document</p>
 </dd></dl>
 

@@ -1,22 +1,23 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Resume V1 &mdash; Mindee Python Client  documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -110,7 +111,7 @@
            <div itemprop="articleBody">
              
   <section id="resume-v1">
-<h1>Resume V1<a class="headerlink" href="#resume-v1" title="Permalink to this heading"></a></h1>
+<h1>Resume V1<a class="headerlink" href="#resume-v1" title="Link to this heading"></a></h1>
 <p><strong>Sample Code:</strong></p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1">#</span>
 <span class="c1"># Install the Python client library by running:</span>
@@ -137,73 +138,73 @@
 </div>
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1.ResumeV1">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ResumeV1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.resume.resume_v1.ResumeV1" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ResumeV1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.resume.resume_v1.ResumeV1" title="Link to this definition"></a></dt>
 <dd><p>Resume API version 1 inference prediction.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p>
+<dd class="field-odd"><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>)</p>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1.ResumeV1.get_endpoint_info">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_endpoint_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">klass</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.resume.resume_v1.ResumeV1.get_endpoint_info" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_endpoint_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">klass</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.resume.resume_v1.ResumeV1.get_endpoint_info" title="Link to this definition"></a></dt>
 <dd><p>Retrieves the endpoint information for an Inference.</p>
 <p>Should never retrieve info for CustomV1, as a custom endpoint should be created to use CustomV1.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>klass</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Inference</span></code>]) – product subclass to access endpoint information.</p>
+<dd class="field-odd"><p><strong>klass</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Inference</span></code>]</span>) – product subclass to access endpoint information.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1.ResumeV1.endpoint_name">
-<span class="sig-name descname"><span class="pre">endpoint_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[str]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'resume'</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1.ResumeV1.endpoint_name" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">endpoint_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[str]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'resume'</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1.ResumeV1.endpoint_name" title="Link to this definition"></a></dt>
 <dd><p>Name of the endpoint.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1.ResumeV1.endpoint_version">
-<span class="sig-name descname"><span class="pre">endpoint_version</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[str]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'1'</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1.ResumeV1.endpoint_version" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">endpoint_version</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[str]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'1'</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1.ResumeV1.endpoint_version" title="Link to this definition"></a></dt>
 <dd><p>Version of the endpoint.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1.ResumeV1.extras">
-<span class="sig-name descname"><span class="pre">extras</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[Extras]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1.ResumeV1.extras" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">extras</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[Extras]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1.ResumeV1.extras" title="Link to this definition"></a></dt>
 <dd><p>Potential Extras fields sent back along with the prediction.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1.ResumeV1.is_rotation_applied">
-<span class="sig-name descname"><span class="pre">is_rotation_applied</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[bool]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1.ResumeV1.is_rotation_applied" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">is_rotation_applied</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[bool]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1.ResumeV1.is_rotation_applied" title="Link to this definition"></a></dt>
 <dd><p>Whether the document has had any rotation applied to it.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1.ResumeV1.page_id">
-<span class="sig-name descname"><span class="pre">page_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[int]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1.ResumeV1.page_id" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">page_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[int]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1.ResumeV1.page_id" title="Link to this definition"></a></dt>
 <dd><p>Optional page id for page-level predictions.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1.ResumeV1.pages">
-<span class="sig-name descname"><span class="pre">pages</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="../parsing/common.html#mindee.parsing.common.page.Page" title="mindee.parsing.common.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a><span class="pre">[</span><a class="reference internal" href="#mindee.product.resume.resume_v1_document.ResumeV1Document" title="mindee.product.resume.resume_v1_document.ResumeV1Document"><code class="xref py py-class docutils literal notranslate"><span class="pre">ResumeV1Document</span></code></a><span class="pre">]]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1.ResumeV1.pages" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">pages</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="../parsing/common.html#mindee.parsing.common.page.Page" title="mindee.parsing.common.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a><span class="pre">[</span><a class="reference internal" href="#mindee.product.resume.resume_v1_document.ResumeV1Document" title="mindee.product.resume.resume_v1_document.ResumeV1Document"><code class="xref py py-class docutils literal notranslate"><span class="pre">ResumeV1Document</span></code></a><span class="pre">]]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1.ResumeV1.pages" title="Link to this definition"></a></dt>
 <dd><p>Page-level prediction(s).</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1.ResumeV1.prediction">
-<span class="sig-name descname"><span class="pre">prediction</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.product.resume.resume_v1_document.ResumeV1Document" title="mindee.product.resume.resume_v1_document.ResumeV1Document"><code class="xref py py-class docutils literal notranslate"><span class="pre">ResumeV1Document</span></code></a></em><a class="headerlink" href="#mindee.product.resume.resume_v1.ResumeV1.prediction" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">prediction</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.product.resume.resume_v1_document.ResumeV1Document" title="mindee.product.resume.resume_v1_document.ResumeV1Document"><code class="xref py py-class docutils literal notranslate"><span class="pre">ResumeV1Document</span></code></a></em><a class="headerlink" href="#mindee.product.resume.resume_v1.ResumeV1.prediction" title="Link to this definition"></a></dt>
 <dd><p>Document-level prediction.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1.ResumeV1.product">
-<span class="sig-name descname"><span class="pre">product</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Product</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1.ResumeV1.product" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">product</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Product</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1.ResumeV1.product" title="Link to this definition"></a></dt>
 <dd><p>Name and version of a given product, as sent back by the API.</p>
 </dd></dl>
 
@@ -211,115 +212,115 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_document.ResumeV1Document">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ResumeV1Document</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.resume.resume_v1_document.ResumeV1Document" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ResumeV1Document</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.resume.resume_v1_document.ResumeV1Document" title="Link to this definition"></a></dt>
 <dd><p>Resume API version 1.2 document data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p></li>
-<li><p><strong>page_id</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – </p></li>
+<li><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>)</p></li>
+<li><p><strong>page_id</strong> (<em>int</em><em> | </em><em>None</em>)</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_document.ResumeV1Document.address">
-<span class="sig-name descname"><span class="pre">address</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.resume.resume_v1_document.ResumeV1Document.address" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">address</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.resume.resume_v1_document.ResumeV1Document.address" title="Link to this definition"></a></dt>
 <dd><p>The location information of the candidate, including city, state, and country.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_document.ResumeV1Document.certificates">
-<span class="sig-name descname"><span class="pre">certificates</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="#mindee.product.resume.resume_v1_certificate.ResumeV1Certificate" title="mindee.product.resume.resume_v1_certificate.ResumeV1Certificate"><code class="xref py py-class docutils literal notranslate"><span class="pre">ResumeV1Certificate</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_document.ResumeV1Document.certificates" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">certificates</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="#mindee.product.resume.resume_v1_certificate.ResumeV1Certificate" title="mindee.product.resume.resume_v1_certificate.ResumeV1Certificate"><code class="xref py py-class docutils literal notranslate"><span class="pre">ResumeV1Certificate</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_document.ResumeV1Document.certificates" title="Link to this definition"></a></dt>
 <dd><p>The list of certificates obtained by the candidate.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_document.ResumeV1Document.document_language">
-<span class="sig-name descname"><span class="pre">document_language</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.resume.resume_v1_document.ResumeV1Document.document_language" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">document_language</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.resume.resume_v1_document.ResumeV1Document.document_language" title="Link to this definition"></a></dt>
 <dd><p>The ISO 639 code of the language in which the document is written.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_document.ResumeV1Document.document_type">
-<span class="sig-name descname"><span class="pre">document_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.classification.ClassificationField" title="mindee.parsing.standard.classification.ClassificationField"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClassificationField</span></code></a></em><a class="headerlink" href="#mindee.product.resume.resume_v1_document.ResumeV1Document.document_type" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">document_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.classification.ClassificationField" title="mindee.parsing.standard.classification.ClassificationField"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClassificationField</span></code></a></em><a class="headerlink" href="#mindee.product.resume.resume_v1_document.ResumeV1Document.document_type" title="Link to this definition"></a></dt>
 <dd><p>The type of the document sent.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_document.ResumeV1Document.education">
-<span class="sig-name descname"><span class="pre">education</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="#mindee.product.resume.resume_v1_education.ResumeV1Education" title="mindee.product.resume.resume_v1_education.ResumeV1Education"><code class="xref py py-class docutils literal notranslate"><span class="pre">ResumeV1Education</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_document.ResumeV1Document.education" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">education</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="#mindee.product.resume.resume_v1_education.ResumeV1Education" title="mindee.product.resume.resume_v1_education.ResumeV1Education"><code class="xref py py-class docutils literal notranslate"><span class="pre">ResumeV1Education</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_document.ResumeV1Document.education" title="Link to this definition"></a></dt>
 <dd><p>The list of the candidate’s educational background.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_document.ResumeV1Document.email_address">
-<span class="sig-name descname"><span class="pre">email_address</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.resume.resume_v1_document.ResumeV1Document.email_address" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">email_address</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.resume.resume_v1_document.ResumeV1Document.email_address" title="Link to this definition"></a></dt>
 <dd><p>The email address of the candidate.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_document.ResumeV1Document.given_names">
-<span class="sig-name descname"><span class="pre">given_names</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_document.ResumeV1Document.given_names" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">given_names</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_document.ResumeV1Document.given_names" title="Link to this definition"></a></dt>
 <dd><p>The candidate’s first or given names.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_document.ResumeV1Document.hard_skills">
-<span class="sig-name descname"><span class="pre">hard_skills</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_document.ResumeV1Document.hard_skills" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">hard_skills</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_document.ResumeV1Document.hard_skills" title="Link to this definition"></a></dt>
 <dd><p>The list of the candidate’s technical abilities and knowledge.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_document.ResumeV1Document.job_applied">
-<span class="sig-name descname"><span class="pre">job_applied</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.resume.resume_v1_document.ResumeV1Document.job_applied" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">job_applied</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.resume.resume_v1_document.ResumeV1Document.job_applied" title="Link to this definition"></a></dt>
 <dd><p>The position that the candidate is applying for.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_document.ResumeV1Document.languages">
-<span class="sig-name descname"><span class="pre">languages</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="#mindee.product.resume.resume_v1_language.ResumeV1Language" title="mindee.product.resume.resume_v1_language.ResumeV1Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">ResumeV1Language</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_document.ResumeV1Document.languages" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">languages</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="#mindee.product.resume.resume_v1_language.ResumeV1Language" title="mindee.product.resume.resume_v1_language.ResumeV1Language"><code class="xref py py-class docutils literal notranslate"><span class="pre">ResumeV1Language</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_document.ResumeV1Document.languages" title="Link to this definition"></a></dt>
 <dd><p>The list of languages that the candidate is proficient in.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_document.ResumeV1Document.nationality">
-<span class="sig-name descname"><span class="pre">nationality</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.resume.resume_v1_document.ResumeV1Document.nationality" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">nationality</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.resume.resume_v1_document.ResumeV1Document.nationality" title="Link to this definition"></a></dt>
 <dd><p>The ISO 3166 code for the country of citizenship of the candidate.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_document.ResumeV1Document.phone_number">
-<span class="sig-name descname"><span class="pre">phone_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.resume.resume_v1_document.ResumeV1Document.phone_number" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">phone_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.resume.resume_v1_document.ResumeV1Document.phone_number" title="Link to this definition"></a></dt>
 <dd><p>The phone number of the candidate.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_document.ResumeV1Document.profession">
-<span class="sig-name descname"><span class="pre">profession</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.resume.resume_v1_document.ResumeV1Document.profession" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">profession</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.resume.resume_v1_document.ResumeV1Document.profession" title="Link to this definition"></a></dt>
 <dd><p>The candidate’s current profession.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_document.ResumeV1Document.professional_experiences">
-<span class="sig-name descname"><span class="pre">professional_experiences</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="#mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience" title="mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience"><code class="xref py py-class docutils literal notranslate"><span class="pre">ResumeV1ProfessionalExperience</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_document.ResumeV1Document.professional_experiences" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">professional_experiences</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="#mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience" title="mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience"><code class="xref py py-class docutils literal notranslate"><span class="pre">ResumeV1ProfessionalExperience</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_document.ResumeV1Document.professional_experiences" title="Link to this definition"></a></dt>
 <dd><p>The list of the candidate’s professional experiences.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_document.ResumeV1Document.social_networks_urls">
-<span class="sig-name descname"><span class="pre">social_networks_urls</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="#mindee.product.resume.resume_v1_social_networks_url.ResumeV1SocialNetworksUrl" title="mindee.product.resume.resume_v1_social_networks_url.ResumeV1SocialNetworksUrl"><code class="xref py py-class docutils literal notranslate"><span class="pre">ResumeV1SocialNetworksUrl</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_document.ResumeV1Document.social_networks_urls" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">social_networks_urls</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="#mindee.product.resume.resume_v1_social_networks_url.ResumeV1SocialNetworksUrl" title="mindee.product.resume.resume_v1_social_networks_url.ResumeV1SocialNetworksUrl"><code class="xref py py-class docutils literal notranslate"><span class="pre">ResumeV1SocialNetworksUrl</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_document.ResumeV1Document.social_networks_urls" title="Link to this definition"></a></dt>
 <dd><p>The list of social network profiles of the candidate.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_document.ResumeV1Document.soft_skills">
-<span class="sig-name descname"><span class="pre">soft_skills</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_document.ResumeV1Document.soft_skills" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">soft_skills</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_document.ResumeV1Document.soft_skills" title="Link to this definition"></a></dt>
 <dd><p>The list of the candidate’s interpersonal and communication abilities.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_document.ResumeV1Document.surnames">
-<span class="sig-name descname"><span class="pre">surnames</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_document.ResumeV1Document.surnames" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">surnames</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_document.ResumeV1Document.surnames" title="Link to this definition"></a></dt>
 <dd><p>The candidate’s last names.</p>
 </dd></dl>
 
@@ -327,60 +328,60 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_social_networks_url.ResumeV1SocialNetworksUrl">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ResumeV1SocialNetworksUrl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.resume.resume_v1_social_networks_url.ResumeV1SocialNetworksUrl" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ResumeV1SocialNetworksUrl</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.resume.resume_v1_social_networks_url.ResumeV1SocialNetworksUrl" title="Link to this definition"></a></dt>
 <dd><p>The list of social network profiles of the candidate.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p></li>
-<li><p><strong>page_id</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – </p></li>
+<li><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>)</p></li>
+<li><p><strong>page_id</strong> (<em>int</em><em> | </em><em>None</em>)</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_social_networks_url.ResumeV1SocialNetworksUrl.to_table_line">
-<span class="sig-name descname"><span class="pre">to_table_line</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.resume.resume_v1_social_networks_url.ResumeV1SocialNetworksUrl.to_table_line" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">to_table_line</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.resume.resume_v1_social_networks_url.ResumeV1SocialNetworksUrl.to_table_line" title="Link to this definition"></a></dt>
 <dd><p>Output in a format suitable for inclusion in an rST table.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_social_networks_url.ResumeV1SocialNetworksUrl.bounding_box">
-<span class="sig-name descname"><span class="pre">bounding_box</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[Quadrilateral]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_social_networks_url.ResumeV1SocialNetworksUrl.bounding_box" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">bounding_box</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[Quadrilateral]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_social_networks_url.ResumeV1SocialNetworksUrl.bounding_box" title="Link to this definition"></a></dt>
 <dd><p>A right rectangle containing the word in the document.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_social_networks_url.ResumeV1SocialNetworksUrl.confidence">
-<span class="sig-name descname"><span class="pre">confidence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_social_networks_url.ResumeV1SocialNetworksUrl.confidence" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">confidence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_social_networks_url.ResumeV1SocialNetworksUrl.confidence" title="Link to this definition"></a></dt>
 <dd><p>The confidence score.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_social_networks_url.ResumeV1SocialNetworksUrl.name">
-<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_social_networks_url.ResumeV1SocialNetworksUrl.name" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_social_networks_url.ResumeV1SocialNetworksUrl.name" title="Link to this definition"></a></dt>
 <dd><p>The name of the social network.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_social_networks_url.ResumeV1SocialNetworksUrl.page_n">
-<span class="sig-name descname"><span class="pre">page_n</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.product.resume.resume_v1_social_networks_url.ResumeV1SocialNetworksUrl.page_n" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">page_n</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.product.resume.resume_v1_social_networks_url.ResumeV1SocialNetworksUrl.page_n" title="Link to this definition"></a></dt>
 <dd><p>The document page on which the information was found.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_social_networks_url.ResumeV1SocialNetworksUrl.polygon">
-<span class="sig-name descname"><span class="pre">polygon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Polygon</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_social_networks_url.ResumeV1SocialNetworksUrl.polygon" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">polygon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Polygon</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_social_networks_url.ResumeV1SocialNetworksUrl.polygon" title="Link to this definition"></a></dt>
 <dd><p>A polygon containing the word in the document.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_social_networks_url.ResumeV1SocialNetworksUrl.url">
-<span class="sig-name descname"><span class="pre">url</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_social_networks_url.ResumeV1SocialNetworksUrl.url" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">url</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_social_networks_url.ResumeV1SocialNetworksUrl.url" title="Link to this definition"></a></dt>
 <dd><p>The URL of the social network.</p>
 </dd></dl>
 
@@ -388,60 +389,60 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_language.ResumeV1Language">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ResumeV1Language</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.resume.resume_v1_language.ResumeV1Language" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ResumeV1Language</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.resume.resume_v1_language.ResumeV1Language" title="Link to this definition"></a></dt>
 <dd><p>The list of languages that the candidate is proficient in.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p></li>
-<li><p><strong>page_id</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – </p></li>
+<li><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>)</p></li>
+<li><p><strong>page_id</strong> (<em>int</em><em> | </em><em>None</em>)</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_language.ResumeV1Language.to_table_line">
-<span class="sig-name descname"><span class="pre">to_table_line</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.resume.resume_v1_language.ResumeV1Language.to_table_line" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">to_table_line</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.resume.resume_v1_language.ResumeV1Language.to_table_line" title="Link to this definition"></a></dt>
 <dd><p>Output in a format suitable for inclusion in an rST table.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_language.ResumeV1Language.bounding_box">
-<span class="sig-name descname"><span class="pre">bounding_box</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[Quadrilateral]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_language.ResumeV1Language.bounding_box" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">bounding_box</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[Quadrilateral]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_language.ResumeV1Language.bounding_box" title="Link to this definition"></a></dt>
 <dd><p>A right rectangle containing the word in the document.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_language.ResumeV1Language.confidence">
-<span class="sig-name descname"><span class="pre">confidence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_language.ResumeV1Language.confidence" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">confidence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_language.ResumeV1Language.confidence" title="Link to this definition"></a></dt>
 <dd><p>The confidence score.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_language.ResumeV1Language.language">
-<span class="sig-name descname"><span class="pre">language</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_language.ResumeV1Language.language" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">language</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_language.ResumeV1Language.language" title="Link to this definition"></a></dt>
 <dd><p>The language’s ISO 639 code.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_language.ResumeV1Language.level">
-<span class="sig-name descname"><span class="pre">level</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_language.ResumeV1Language.level" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">level</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_language.ResumeV1Language.level" title="Link to this definition"></a></dt>
 <dd><p>The candidate’s level for the language.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_language.ResumeV1Language.page_n">
-<span class="sig-name descname"><span class="pre">page_n</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.product.resume.resume_v1_language.ResumeV1Language.page_n" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">page_n</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.product.resume.resume_v1_language.ResumeV1Language.page_n" title="Link to this definition"></a></dt>
 <dd><p>The document page on which the information was found.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_language.ResumeV1Language.polygon">
-<span class="sig-name descname"><span class="pre">polygon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Polygon</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_language.ResumeV1Language.polygon" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">polygon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Polygon</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_language.ResumeV1Language.polygon" title="Link to this definition"></a></dt>
 <dd><p>A polygon containing the word in the document.</p>
 </dd></dl>
 
@@ -449,90 +450,90 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_education.ResumeV1Education">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ResumeV1Education</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.resume.resume_v1_education.ResumeV1Education" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ResumeV1Education</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.resume.resume_v1_education.ResumeV1Education" title="Link to this definition"></a></dt>
 <dd><p>The list of the candidate’s educational background.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p></li>
-<li><p><strong>page_id</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – </p></li>
+<li><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>)</p></li>
+<li><p><strong>page_id</strong> (<em>int</em><em> | </em><em>None</em>)</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_education.ResumeV1Education.to_table_line">
-<span class="sig-name descname"><span class="pre">to_table_line</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.resume.resume_v1_education.ResumeV1Education.to_table_line" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">to_table_line</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.resume.resume_v1_education.ResumeV1Education.to_table_line" title="Link to this definition"></a></dt>
 <dd><p>Output in a format suitable for inclusion in an rST table.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_education.ResumeV1Education.bounding_box">
-<span class="sig-name descname"><span class="pre">bounding_box</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[Quadrilateral]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_education.ResumeV1Education.bounding_box" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">bounding_box</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[Quadrilateral]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_education.ResumeV1Education.bounding_box" title="Link to this definition"></a></dt>
 <dd><p>A right rectangle containing the word in the document.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_education.ResumeV1Education.confidence">
-<span class="sig-name descname"><span class="pre">confidence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_education.ResumeV1Education.confidence" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">confidence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_education.ResumeV1Education.confidence" title="Link to this definition"></a></dt>
 <dd><p>The confidence score.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_education.ResumeV1Education.degree_domain">
-<span class="sig-name descname"><span class="pre">degree_domain</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_education.ResumeV1Education.degree_domain" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">degree_domain</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_education.ResumeV1Education.degree_domain" title="Link to this definition"></a></dt>
 <dd><p>The area of study or specialization.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_education.ResumeV1Education.degree_type">
-<span class="sig-name descname"><span class="pre">degree_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_education.ResumeV1Education.degree_type" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">degree_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_education.ResumeV1Education.degree_type" title="Link to this definition"></a></dt>
 <dd><p>The type of degree obtained, such as Bachelor’s, Master’s, or Doctorate.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_education.ResumeV1Education.end_month">
-<span class="sig-name descname"><span class="pre">end_month</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_education.ResumeV1Education.end_month" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">end_month</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_education.ResumeV1Education.end_month" title="Link to this definition"></a></dt>
 <dd><p>The month when the education program or course was completed.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_education.ResumeV1Education.end_year">
-<span class="sig-name descname"><span class="pre">end_year</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_education.ResumeV1Education.end_year" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">end_year</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_education.ResumeV1Education.end_year" title="Link to this definition"></a></dt>
 <dd><p>The year when the education program or course was completed.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_education.ResumeV1Education.page_n">
-<span class="sig-name descname"><span class="pre">page_n</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.product.resume.resume_v1_education.ResumeV1Education.page_n" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">page_n</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.product.resume.resume_v1_education.ResumeV1Education.page_n" title="Link to this definition"></a></dt>
 <dd><p>The document page on which the information was found.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_education.ResumeV1Education.polygon">
-<span class="sig-name descname"><span class="pre">polygon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Polygon</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_education.ResumeV1Education.polygon" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">polygon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Polygon</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_education.ResumeV1Education.polygon" title="Link to this definition"></a></dt>
 <dd><p>A polygon containing the word in the document.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_education.ResumeV1Education.school">
-<span class="sig-name descname"><span class="pre">school</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_education.ResumeV1Education.school" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">school</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_education.ResumeV1Education.school" title="Link to this definition"></a></dt>
 <dd><p>The name of the school.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_education.ResumeV1Education.start_month">
-<span class="sig-name descname"><span class="pre">start_month</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_education.ResumeV1Education.start_month" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">start_month</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_education.ResumeV1Education.start_month" title="Link to this definition"></a></dt>
 <dd><p>The month when the education program or course began.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_education.ResumeV1Education.start_year">
-<span class="sig-name descname"><span class="pre">start_year</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_education.ResumeV1Education.start_year" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">start_year</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_education.ResumeV1Education.start_year" title="Link to this definition"></a></dt>
 <dd><p>The year when the education program or course began.</p>
 </dd></dl>
 
@@ -540,102 +541,102 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ResumeV1ProfessionalExperience</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ResumeV1ProfessionalExperience</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience" title="Link to this definition"></a></dt>
 <dd><p>The list of the candidate’s professional experiences.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p></li>
-<li><p><strong>page_id</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – </p></li>
+<li><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>)</p></li>
+<li><p><strong>page_id</strong> (<em>int</em><em> | </em><em>None</em>)</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience.to_table_line">
-<span class="sig-name descname"><span class="pre">to_table_line</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience.to_table_line" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">to_table_line</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience.to_table_line" title="Link to this definition"></a></dt>
 <dd><p>Output in a format suitable for inclusion in an rST table.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience.bounding_box">
-<span class="sig-name descname"><span class="pre">bounding_box</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[Quadrilateral]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience.bounding_box" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">bounding_box</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[Quadrilateral]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience.bounding_box" title="Link to this definition"></a></dt>
 <dd><p>A right rectangle containing the word in the document.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience.confidence">
-<span class="sig-name descname"><span class="pre">confidence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience.confidence" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">confidence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience.confidence" title="Link to this definition"></a></dt>
 <dd><p>The confidence score.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience.contract_type">
-<span class="sig-name descname"><span class="pre">contract_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience.contract_type" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">contract_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience.contract_type" title="Link to this definition"></a></dt>
 <dd><p>The type of contract for the professional experience.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience.department">
-<span class="sig-name descname"><span class="pre">department</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience.department" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">department</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience.department" title="Link to this definition"></a></dt>
 <dd><p>The specific department or division within the company.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience.description">
-<span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience.description" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience.description" title="Link to this definition"></a></dt>
 <dd><p>The description of the professional experience as written in the document.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience.employer">
-<span class="sig-name descname"><span class="pre">employer</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience.employer" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">employer</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience.employer" title="Link to this definition"></a></dt>
 <dd><p>The name of the company or organization.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience.end_month">
-<span class="sig-name descname"><span class="pre">end_month</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience.end_month" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">end_month</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience.end_month" title="Link to this definition"></a></dt>
 <dd><p>The month when the professional experience ended.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience.end_year">
-<span class="sig-name descname"><span class="pre">end_year</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience.end_year" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">end_year</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience.end_year" title="Link to this definition"></a></dt>
 <dd><p>The year when the professional experience ended.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience.page_n">
-<span class="sig-name descname"><span class="pre">page_n</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience.page_n" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">page_n</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience.page_n" title="Link to this definition"></a></dt>
 <dd><p>The document page on which the information was found.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience.polygon">
-<span class="sig-name descname"><span class="pre">polygon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Polygon</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience.polygon" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">polygon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Polygon</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience.polygon" title="Link to this definition"></a></dt>
 <dd><p>A polygon containing the word in the document.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience.role">
-<span class="sig-name descname"><span class="pre">role</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience.role" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">role</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience.role" title="Link to this definition"></a></dt>
 <dd><p>The position or job title held by the candidate.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience.start_month">
-<span class="sig-name descname"><span class="pre">start_month</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience.start_month" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">start_month</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience.start_month" title="Link to this definition"></a></dt>
 <dd><p>The month when the professional experience began.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience.start_year">
-<span class="sig-name descname"><span class="pre">start_year</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience.start_year" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">start_year</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_professional_experience.ResumeV1ProfessionalExperience.start_year" title="Link to this definition"></a></dt>
 <dd><p>The year when the professional experience began.</p>
 </dd></dl>
 
@@ -643,72 +644,72 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_certificate.ResumeV1Certificate">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ResumeV1Certificate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.resume.resume_v1_certificate.ResumeV1Certificate" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ResumeV1Certificate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.resume.resume_v1_certificate.ResumeV1Certificate" title="Link to this definition"></a></dt>
 <dd><p>The list of certificates obtained by the candidate.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p></li>
-<li><p><strong>page_id</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – </p></li>
+<li><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>)</p></li>
+<li><p><strong>page_id</strong> (<em>int</em><em> | </em><em>None</em>)</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_certificate.ResumeV1Certificate.to_table_line">
-<span class="sig-name descname"><span class="pre">to_table_line</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.resume.resume_v1_certificate.ResumeV1Certificate.to_table_line" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">to_table_line</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.resume.resume_v1_certificate.ResumeV1Certificate.to_table_line" title="Link to this definition"></a></dt>
 <dd><p>Output in a format suitable for inclusion in an rST table.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_certificate.ResumeV1Certificate.bounding_box">
-<span class="sig-name descname"><span class="pre">bounding_box</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[Quadrilateral]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_certificate.ResumeV1Certificate.bounding_box" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">bounding_box</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[Quadrilateral]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_certificate.ResumeV1Certificate.bounding_box" title="Link to this definition"></a></dt>
 <dd><p>A right rectangle containing the word in the document.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_certificate.ResumeV1Certificate.confidence">
-<span class="sig-name descname"><span class="pre">confidence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_certificate.ResumeV1Certificate.confidence" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">confidence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_certificate.ResumeV1Certificate.confidence" title="Link to this definition"></a></dt>
 <dd><p>The confidence score.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_certificate.ResumeV1Certificate.grade">
-<span class="sig-name descname"><span class="pre">grade</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_certificate.ResumeV1Certificate.grade" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">grade</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_certificate.ResumeV1Certificate.grade" title="Link to this definition"></a></dt>
 <dd><p>The grade obtained for the certificate.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_certificate.ResumeV1Certificate.name">
-<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_certificate.ResumeV1Certificate.name" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_certificate.ResumeV1Certificate.name" title="Link to this definition"></a></dt>
 <dd><p>The name of certification.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_certificate.ResumeV1Certificate.page_n">
-<span class="sig-name descname"><span class="pre">page_n</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.product.resume.resume_v1_certificate.ResumeV1Certificate.page_n" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">page_n</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.product.resume.resume_v1_certificate.ResumeV1Certificate.page_n" title="Link to this definition"></a></dt>
 <dd><p>The document page on which the information was found.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_certificate.ResumeV1Certificate.polygon">
-<span class="sig-name descname"><span class="pre">polygon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Polygon</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_certificate.ResumeV1Certificate.polygon" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">polygon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Polygon</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_certificate.ResumeV1Certificate.polygon" title="Link to this definition"></a></dt>
 <dd><p>A polygon containing the word in the document.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_certificate.ResumeV1Certificate.provider">
-<span class="sig-name descname"><span class="pre">provider</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_certificate.ResumeV1Certificate.provider" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">provider</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_certificate.ResumeV1Certificate.provider" title="Link to this definition"></a></dt>
 <dd><p>The organization or institution that issued the certificate.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.resume.resume_v1_certificate.ResumeV1Certificate.year">
-<span class="sig-name descname"><span class="pre">year</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_certificate.ResumeV1Certificate.year" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">year</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.resume.resume_v1_certificate.ResumeV1Certificate.year" title="Link to this definition"></a></dt>
 <dd><p>The year when a certificate was issued or received.</p>
 </dd></dl>
 

@@ -1,22 +1,23 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Input &mdash; Mindee Python Client  documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -151,16 +152,16 @@
            <div itemprop="articleBody">
              
   <section id="module-mindee.input">
-<span id="input"></span><h1>Input<a class="headerlink" href="#module-mindee.input" title="Permalink to this heading"></a></h1>
+<span id="input"></span><h1>Input<a class="headerlink" href="#module-mindee.input" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.input.Base64Input">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Base64Input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base64_string</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.Base64Input" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Base64Input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">base64_string</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.Base64Input" title="Link to this definition"></a></dt>
 <dd><p>Base64-encoded text input.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>base64_string</strong> (<em>str</em>) – </p></li>
-<li><p><strong>filename</strong> (<em>str</em>) – </p></li>
+<li><p><strong>base64_string</strong> (<em>str</em>)</p></li>
+<li><p><strong>filename</strong> (<em>str</em>)</p></li>
 </ul>
 </dd>
 </dl>
@@ -168,13 +169,13 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.input.BytesInput">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BytesInput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.BytesInput" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BytesInput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.BytesInput" title="Link to this definition"></a></dt>
 <dd><p>Raw bytes input.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>raw_bytes</strong> (<em>bytes</em>) – </p></li>
-<li><p><strong>filename</strong> (<em>str</em>) – </p></li>
+<li><p><strong>raw_bytes</strong> (<em>bytes</em>)</p></li>
+<li><p><strong>filename</strong> (<em>str</em>)</p></li>
 </ul>
 </dd>
 </dl>
@@ -182,115 +183,115 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.input.FileInput">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">FileInput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.FileInput" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">FileInput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.FileInput" title="Link to this definition"></a></dt>
 <dd><p>A binary file input.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>file</strong> (<em>BinaryIO</em>) – </p>
+<dd class="field-odd"><p><strong>file</strong> (<em>BinaryIO</em>)</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.input.InputType">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">InputType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.InputType" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">InputType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">module</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">qualname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.InputType" title="Link to this definition"></a></dt>
 <dd><p>The input type, for internal use.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.input.InputType.BASE64">
-<span class="sig-name descname"><span class="pre">BASE64</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'base64'</span></em><a class="headerlink" href="#mindee.input.InputType.BASE64" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">BASE64</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'base64'</span></em><a class="headerlink" href="#mindee.input.InputType.BASE64" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.input.InputType.BYTES">
-<span class="sig-name descname"><span class="pre">BYTES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'bytes'</span></em><a class="headerlink" href="#mindee.input.InputType.BYTES" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">BYTES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'bytes'</span></em><a class="headerlink" href="#mindee.input.InputType.BYTES" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.input.InputType.FILE">
-<span class="sig-name descname"><span class="pre">FILE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'file'</span></em><a class="headerlink" href="#mindee.input.InputType.FILE" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">FILE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'file'</span></em><a class="headerlink" href="#mindee.input.InputType.FILE" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.input.InputType.PATH">
-<span class="sig-name descname"><span class="pre">PATH</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'path'</span></em><a class="headerlink" href="#mindee.input.InputType.PATH" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">PATH</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'path'</span></em><a class="headerlink" href="#mindee.input.InputType.PATH" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.input.InputType.URL">
-<span class="sig-name descname"><span class="pre">URL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'url'</span></em><a class="headerlink" href="#mindee.input.InputType.URL" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">URL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'url'</span></em><a class="headerlink" href="#mindee.input.InputType.URL" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.input.LocalInputSource">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">LocalInputSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalInputSource" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">LocalInputSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalInputSource" title="Link to this definition"></a></dt>
 <dd><p>Base class for all input sources coming from the local machine.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>input_type</strong> (<a class="reference internal" href="#mindee.input.InputType" title="mindee.input.sources.input_type.InputType"><em>InputType</em></a>) – </p>
+<dd class="field-odd"><p><strong>input_type</strong> (<a class="reference internal" href="#mindee.input.InputType" title="mindee.input.sources.input_type.InputType"><em>InputType</em></a>)</p>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.input.LocalInputSource.apply_page_options">
-<span class="sig-name descname"><span class="pre">apply_page_options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">page_options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalInputSource.apply_page_options" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">apply_page_options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">page_options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalInputSource.apply_page_options" title="Link to this definition"></a></dt>
 <dd><p>Apply cut and merge options on multipage documents.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>page_options</strong> (<a class="reference internal" href="#mindee.input.PageOptions" title="mindee.input.page_options.PageOptions"><em>PageOptions</em></a>) – </p>
+<dd class="field-even"><p><strong>page_options</strong> (<a class="reference internal" href="#mindee.input.PageOptions" title="mindee.input.page_options.PageOptions"><em>PageOptions</em></a>)</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.input.LocalInputSource.close">
-<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalInputSource.close" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalInputSource.close" title="Link to this definition"></a></dt>
 <dd><p>Close the file object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.input.LocalInputSource.compress">
-<span class="sig-name descname"><span class="pre">compress</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">quality</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">85</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_source_text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disable_source_text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalInputSource.compress" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">compress</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">quality</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">85</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_source_text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">disable_source_text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalInputSource.compress" title="Link to this definition"></a></dt>
 <dd><p>Compresses the file object, either as a PDF or an image.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>quality</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, default: <code class="docutils literal notranslate"><span class="pre">85</span></code>) – Quality of the compression. For images, this is the JPEG quality.
+<li><p><strong>quality</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">85</span></code>) – Quality of the compression. For images, this is the JPEG quality.
 For PDFs, this affects image quality within the PDF.</p></li>
-<li><p><strong>max_width</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>], default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Maximum width for image resizing. Ignored for PDFs.</p></li>
-<li><p><strong>max_height</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>], default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Maximum height for image resizing. Ignored for PDFs.</p></li>
-<li><p><strong>force_source_text</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – For PDFs, whether to force compression even if source text is present.</p></li>
-<li><p><strong>disable_source_text</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">True</span></code>) – For PDFs, whether to disable source text during compression.</p></li>
+<li><p><strong>max_width</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Maximum width for image resizing. Ignored for PDFs.</p></li>
+<li><p><strong>max_height</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Maximum height for image resizing. Ignored for PDFs.</p></li>
+<li><p><strong>force_source_text</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – For PDFs, whether to force compression even if source text is present.</p></li>
+<li><p><strong>disable_source_text</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">True</span></code>) – For PDFs, whether to disable source text during compression.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.input.LocalInputSource.count_doc_pages">
-<span class="sig-name descname"><span class="pre">count_doc_pages</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalInputSource.count_doc_pages" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">count_doc_pages</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalInputSource.count_doc_pages" title="Link to this definition"></a></dt>
 <dd><p>Deprecated. Use <code class="docutils literal notranslate"><span class="pre">page_count</span></code> instead.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.input.LocalInputSource.fix_pdf">
-<span class="sig-name descname"><span class="pre">fix_pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">maximum_offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">500</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalInputSource.fix_pdf" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">fix_pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">maximum_offset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">500</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalInputSource.fix_pdf" title="Link to this definition"></a></dt>
 <dd><p>Fix a potentially broken pdf file.</p>
 <p>WARNING: this feature alters the data of the enqueued file by removing unnecessary headers.</p>
 <p>Reads the bytes of a PDF file until a proper pdf tag is encountered,
@@ -298,22 +299,22 @@ or until the maximum offset has been reached.
 If a tag denoting a PDF file is found, deletes all bytes before it.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>maximum_offset</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, default: <code class="docutils literal notranslate"><span class="pre">500</span></code>) – maximum byte offset where superfluous headers will be removed.
+<dd class="field-odd"><p><strong>maximum_offset</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">500</span></code>) – maximum byte offset where superfluous headers will be removed.
 Cannot be less than 0.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.input.LocalInputSource.has_source_text">
-<span class="sig-name descname"><span class="pre">has_source_text</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalInputSource.has_source_text" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">has_source_text</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalInputSource.has_source_text" title="Link to this definition"></a></dt>
 <dd><p>If the file is a PDF, checks if it has source text.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span></p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>True if the file is a PDF and has source text. False otherwise.</p>
@@ -323,10 +324,10 @@ Cannot be less than 0.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.input.LocalInputSource.is_pdf">
-<span class="sig-name descname"><span class="pre">is_pdf</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalInputSource.is_pdf" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">is_pdf</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalInputSource.is_pdf" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span></p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>True if the file is a PDF.</p>
@@ -336,11 +337,11 @@ Cannot be less than 0.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.input.LocalInputSource.is_pdf_empty">
-<span class="sig-name descname"><span class="pre">is_pdf_empty</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalInputSource.is_pdf_empty" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">is_pdf_empty</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalInputSource.is_pdf_empty" title="Link to this definition"></a></dt>
 <dd><p>Check if the PDF is empty.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span></p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if the PDF is empty</p>
@@ -350,14 +351,14 @@ Cannot be less than 0.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.input.LocalInputSource.merge_pdf_pages">
-<span class="sig-name descname"><span class="pre">merge_pdf_pages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">page_numbers</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalInputSource.merge_pdf_pages" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">merge_pdf_pages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">page_numbers</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalInputSource.merge_pdf_pages" title="Link to this definition"></a></dt>
 <dd><p>Create a new PDF from pages and set it to <code class="docutils literal notranslate"><span class="pre">file_object</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>page_numbers</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">set</span></code>) – List of page numbers to use for merging in the original PDF.</p>
+<dd class="field-odd"><p><strong>page_numbers</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">set</span></code></span>) – List of page numbers to use for merging in the original PDF.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None</p>
@@ -367,17 +368,17 @@ Cannot be less than 0.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.input.LocalInputSource.process_pdf">
-<span class="sig-name descname"><span class="pre">process_pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">behavior</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_min_pages</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_indexes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalInputSource.process_pdf" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">process_pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">behavior</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_min_pages</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_indexes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalInputSource.process_pdf" title="Link to this definition"></a></dt>
 <dd><p>Run any required processing on a PDF file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>behavior</strong> (<em>str</em>) – </p></li>
-<li><p><strong>on_min_pages</strong> (<em>int</em>) – </p></li>
-<li><p><strong>page_indexes</strong> (<em>Sequence</em>) – </p></li>
+<li><p><strong>behavior</strong> (<em>str</em>)</p></li>
+<li><p><strong>on_min_pages</strong> (<em>int</em>)</p></li>
+<li><p><strong>page_indexes</strong> (<em>Sequence</em>)</p></li>
 </ul>
 </dd>
 </dl>
@@ -385,14 +386,14 @@ Cannot be less than 0.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.input.LocalInputSource.read_contents">
-<span class="sig-name descname"><span class="pre">read_contents</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">close_file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalInputSource.read_contents" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">read_contents</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">close_file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalInputSource.read_contents" title="Link to this definition"></a></dt>
 <dd><p>Read the contents of the input file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>close_file</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – whether to close the file after reading</p>
+<dd class="field-odd"><p><strong>close_file</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>) – whether to close the file after reading</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>]</p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>]</span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>a Tuple with the file name and binary data</p>
@@ -402,32 +403,32 @@ Cannot be less than 0.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.input.LocalInputSource.file_mimetype">
-<span class="sig-name descname"><span class="pre">file_mimetype</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#mindee.input.LocalInputSource.file_mimetype" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">file_mimetype</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#mindee.input.LocalInputSource.file_mimetype" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.input.LocalInputSource.file_object">
-<span class="sig-name descname"><span class="pre">file_object</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">BinaryIO</span></code></em><a class="headerlink" href="#mindee.input.LocalInputSource.file_object" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">file_object</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">BinaryIO</span></code></em><a class="headerlink" href="#mindee.input.LocalInputSource.file_object" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.input.LocalInputSource.filename">
-<span class="sig-name descname"><span class="pre">filename</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#mindee.input.LocalInputSource.filename" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">filename</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#mindee.input.LocalInputSource.filename" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.input.LocalInputSource.filepath">
-<span class="sig-name descname"><span class="pre">filepath</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.input.LocalInputSource.filepath" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">filepath</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.input.LocalInputSource.filepath" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.input.LocalInputSource.input_type">
-<span class="sig-name descname"><span class="pre">input_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.input.InputType" title="mindee.input.sources.input_type.InputType"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputType</span></code></a></em><a class="headerlink" href="#mindee.input.LocalInputSource.input_type" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">input_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.input.InputType" title="mindee.input.sources.input_type.InputType"><code class="xref py py-class docutils literal notranslate"><span class="pre">InputType</span></code></a></em><a class="headerlink" href="#mindee.input.LocalInputSource.input_type" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="mindee.input.LocalInputSource.page_count">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">page_count</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#mindee.input.LocalInputSource.page_count" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">page_count</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#mindee.input.LocalInputSource.page_count" title="Link to this definition"></a></dt>
 <dd><p>Count the pages in the document.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -440,35 +441,35 @@ Cannot be less than 0.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.input.LocalResponse">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">LocalResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalResponse" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">LocalResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalResponse" title="Link to this definition"></a></dt>
 <dd><p>Local response loaded from a file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>input_file</strong> (<em>Union</em><em>[</em><em>BinaryIO</em><em>, </em><em>str</em><em>, </em><em>Path</em><em>, </em><em>bytes</em><em>]</em>) – </p>
+<dd class="field-odd"><p><strong>input_file</strong> (<em>BinaryIO</em><em> | </em><em>str</em><em> | </em><em>Path</em><em> | </em><em>bytes</em>)</p>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.input.LocalResponse.deserialize_response">
-<span class="sig-name descname"><span class="pre">deserialize_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response_class</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalResponse.deserialize_response" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">deserialize_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response_class</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalResponse.deserialize_response" title="Link to this definition"></a></dt>
 <dd><p>Load a local inference.</p>
 <p>Typically used when wanting to load a V2 webhook callback.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">ResponseT</span></code>, bound= <code class="xref py py-class docutils literal notranslate"><span class="pre">CommonResponse</span></code>)</p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">ResponseT</span></code>, bound= <code class="xref py py-class docutils literal notranslate"><span class="pre">CommonResponse</span></code>)</span></p>
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>response_class</strong> (<em>Type</em><em>[</em><em>ResponseT</em><em>]</em>) – </p>
+<dd class="field-even"><p><strong>response_class</strong> (<em>Type</em><em>[</em><em>ResponseT</em><em>]</em>)</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.input.LocalResponse.get_hmac_signature">
-<span class="sig-name descname"><span class="pre">get_hmac_signature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">secret_key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalResponse.get_hmac_signature" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_hmac_signature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">secret_key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalResponse.get_hmac_signature" title="Link to this definition"></a></dt>
 <dd><p>Returns the hmac signature of the local response, from the secret key provided.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>secret_key</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">bytearray</span></code>]) – Secret key, either a string or a byte/byte array.</p>
+<dd class="field-odd"><p><strong>secret_key</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">bytearray</span></code>]</span>) – Secret key, either a string or a byte/byte array.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The hmac signature of the local response.</p>
@@ -478,13 +479,13 @@ Cannot be less than 0.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.input.LocalResponse.is_valid_hmac_signature">
-<span class="sig-name descname"><span class="pre">is_valid_hmac_signature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">secret_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signature</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalResponse.is_valid_hmac_signature" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">is_valid_hmac_signature</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">secret_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signature</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.LocalResponse.is_valid_hmac_signature" title="Link to this definition"></a></dt>
 <dd><p>Checks if the hmac signature of the local response is valid.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>secret_key</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">bytearray</span></code>]) – Secret key, given as a string.</p></li>
-<li><p><strong>signature</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – HMAC signature, given as a string.</p></li>
+<li><p><strong>secret_key</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">bytes</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">bytearray</span></code>]</span>) – Secret key, given as a string.</p></li>
+<li><p><strong>signature</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – HMAC signature, given as a string.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -495,13 +496,12 @@ Cannot be less than 0.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.input.LocalResponse.ResponseT">
-<span class="sig-name descname"><span class="pre">ResponseT</span></span><a class="headerlink" href="#mindee.input.LocalResponse.ResponseT" title="Permalink to this definition"></a></dt>
-<dd><p>alias of TypeVar(‘ResponseT’, bound=<code class="xref py py-class docutils literal notranslate"><span class="pre">CommonResponse</span></code>)</p>
-</dd></dl>
+<span class="sig-name descname"><span class="pre">ResponseT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">~ResponseT</span></em><a class="headerlink" href="#mindee.input.LocalResponse.ResponseT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="mindee.input.LocalResponse.as_dict">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">as_dict</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mindee.input.LocalResponse.as_dict" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">as_dict</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#mindee.input.LocalResponse.as_dict" title="Link to this definition"></a></dt>
 <dd><p>Returns the dictionary representation of the file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -514,27 +514,27 @@ Cannot be less than 0.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.input.PageOptions">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PageOptions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">page_indexes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'KEEP_ONLY'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_min_pages</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.PageOptions" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PageOptions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">page_indexes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'KEEP_ONLY'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_min_pages</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.PageOptions" title="Link to this definition"></a></dt>
 <dd><p>Options to pass to the <cite>parse</cite> method for cutting multipage documents.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>page_indexes</strong> (<em>Sequence</em><em>[</em><em>int</em><em>]</em>) – </p></li>
-<li><p><strong>operation</strong> (<em>str</em>) – </p></li>
-<li><p><strong>on_min_pages</strong> (<em>int</em>) – </p></li>
+<li><p><strong>page_indexes</strong> (<em>Sequence</em><em>[</em><em>int</em><em>]</em>)</p></li>
+<li><p><strong>operation</strong> (<em>str</em>)</p></li>
+<li><p><strong>on_min_pages</strong> (<em>int</em>)</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.input.PageOptions.on_min_pages">
-<span class="sig-name descname"><span class="pre">on_min_pages</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.input.PageOptions.on_min_pages" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">on_min_pages</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.input.PageOptions.on_min_pages" title="Link to this definition"></a></dt>
 <dd><p>Apply the operation only if document has at least this many pages.</p>
 <p>Default: <cite>0</cite> (apply on all documents)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.input.PageOptions.operation">
-<span class="sig-name descname"><span class="pre">operation</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#mindee.input.PageOptions.operation" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">operation</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#mindee.input.PageOptions.operation" title="Link to this definition"></a></dt>
 <dd><p>Operation to apply on the document, given the <code class="docutils literal notranslate"><span class="pre">page_indexes</span></code> specified:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">KEEP_ONLY</span></code> - keep only the specified pages, and remove all others.</p></li>
@@ -544,7 +544,7 @@ Cannot be less than 0.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.input.PageOptions.page_indexes">
-<span class="sig-name descname"><span class="pre">page_indexes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.input.PageOptions.page_indexes" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">page_indexes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.input.PageOptions.page_indexes" title="Link to this definition"></a></dt>
 <dd><p>Zero-based list of page indexes.
 A negative index can be used, indicating an offset from the end of the document.</p>
 <p><cite>[0, -1]</cite> represents the fist and last pages of the document.</p>
@@ -554,43 +554,43 @@ A negative index can be used, indicating an offset from the end of the document.
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.input.PathInput">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PathInput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.PathInput" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PathInput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.PathInput" title="Link to this definition"></a></dt>
 <dd><p>A local path input.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>filepath</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p>
+<dd class="field-odd"><p><strong>filepath</strong> (<em>str</em><em> | </em><em>None</em>)</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.input.PollingOptions">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PollingOptions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initial_delay_sec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay_sec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_retries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">80</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.PollingOptions" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PollingOptions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initial_delay_sec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay_sec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_retries</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">80</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.PollingOptions" title="Link to this definition"></a></dt>
 <dd><p>Options for asynchronous polling.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>initial_delay_sec</strong> (<em>float</em>) – </p></li>
-<li><p><strong>delay_sec</strong> (<em>float</em>) – </p></li>
-<li><p><strong>max_retries</strong> (<em>int</em>) – </p></li>
+<li><p><strong>initial_delay_sec</strong> (<em>float</em>)</p></li>
+<li><p><strong>delay_sec</strong> (<em>float</em>)</p></li>
+<li><p><strong>max_retries</strong> (<em>int</em>)</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.input.PollingOptions.delay_sec">
-<span class="sig-name descname"><span class="pre">delay_sec</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#mindee.input.PollingOptions.delay_sec" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">delay_sec</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#mindee.input.PollingOptions.delay_sec" title="Link to this definition"></a></dt>
 <dd><p>Delay between each polling attempt.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.input.PollingOptions.initial_delay_sec">
-<span class="sig-name descname"><span class="pre">initial_delay_sec</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#mindee.input.PollingOptions.initial_delay_sec" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">initial_delay_sec</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#mindee.input.PollingOptions.initial_delay_sec" title="Link to this definition"></a></dt>
 <dd><p>Initial delay before the first polling attempt.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.input.PollingOptions.max_retries">
-<span class="sig-name descname"><span class="pre">max_retries</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.input.PollingOptions.max_retries" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">max_retries</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.input.PollingOptions.max_retries" title="Link to this definition"></a></dt>
 <dd><p>Total number of polling attempts.</p>
 </dd></dl>
 
@@ -598,30 +598,30 @@ A negative index can be used, indicating an offset from the end of the document.
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.input.UrlInputSource">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">UrlInputSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.UrlInputSource" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">UrlInputSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.UrlInputSource" title="Link to this definition"></a></dt>
 <dd><p>A local or distant URL input.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>url</strong> (<em>str</em>) – </p>
+<dd class="field-odd"><p><strong>url</strong> (<em>str</em>)</p>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.input.UrlInputSource.as_local_input_source">
-<span class="sig-name descname"><span class="pre">as_local_input_source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_redirects</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.UrlInputSource.as_local_input_source" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">as_local_input_source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_redirects</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.UrlInputSource.as_local_input_source" title="Link to this definition"></a></dt>
 <dd><p>Convert the URL content to a BytesInput object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>filename</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>], default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Optional filename for the BytesInput.</p></li>
-<li><p><strong>username</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>], default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Optional username for authentication.</p></li>
-<li><p><strong>password</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>], default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Optional password for authentication.</p></li>
-<li><p><strong>token</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>], default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Optional token for authentication.</p></li>
-<li><p><strong>headers</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>], default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Optional additional headers for the request.</p></li>
-<li><p><strong>max_redirects</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, default: <code class="docutils literal notranslate"><span class="pre">3</span></code>) – Maximum number of redirects to follow.</p></li>
+<li><p><strong>filename</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Optional filename for the BytesInput.</p></li>
+<li><p><strong>username</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Optional username for authentication.</p></li>
+<li><p><strong>password</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Optional password for authentication.</p></li>
+<li><p><strong>token</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Optional token for authentication.</p></li>
+<li><p><strong>headers</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>]</span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Optional additional headers for the request.</p></li>
+<li><p><strong>max_redirects</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">3</span></code>) – Maximum number of redirects to follow.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="#mindee.input.BytesInput" title="mindee.input.sources.bytes_input.BytesInput"><code class="xref py py-class docutils literal notranslate"><span class="pre">BytesInput</span></code></a></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#mindee.input.BytesInput" title="mindee.input.sources.bytes_input.BytesInput"><code class="xref py py-class docutils literal notranslate"><span class="pre">BytesInput</span></code></a></span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>A BytesInput object containing the file content.</p>
@@ -631,22 +631,22 @@ A negative index can be used, indicating an offset from the end of the document.
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.input.UrlInputSource.save_to_file">
-<span class="sig-name descname"><span class="pre">save_to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_redirects</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.UrlInputSource.save_to_file" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">save_to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">username</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">headers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_redirects</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.UrlInputSource.save_to_file" title="Link to this definition"></a></dt>
 <dd><p>Save the content of the URL to a file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>filepath</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – Path to save the content to.</p></li>
-<li><p><strong>filename</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>], default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Optional filename to give to the file.</p></li>
-<li><p><strong>username</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>], default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Optional username for authentication.</p></li>
-<li><p><strong>password</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>], default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Optional password for authentication.</p></li>
-<li><p><strong>token</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>], default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Optional token for authentication.</p></li>
-<li><p><strong>headers</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>], default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Optional additional headers for the request.</p></li>
-<li><p><strong>max_redirects</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, default: <code class="docutils literal notranslate"><span class="pre">3</span></code>) – Maximum number of redirects to follow.</p></li>
+<li><p><strong>filepath</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>) – Path to save the content to.</p></li>
+<li><p><strong>filename</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Optional filename to give to the file.</p></li>
+<li><p><strong>username</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Optional username for authentication.</p></li>
+<li><p><strong>password</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Optional password for authentication.</p></li>
+<li><p><strong>token</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Optional token for authentication.</p></li>
+<li><p><strong>headers</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>]</span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Optional additional headers for the request.</p></li>
+<li><p><strong>max_redirects</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">3</span></code>) – Maximum number of redirects to follow.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The path to the saved file.</p>
@@ -656,7 +656,7 @@ A negative index can be used, indicating an offset from the end of the document.
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.input.UrlInputSource.url">
-<span class="sig-name descname"><span class="pre">url</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#mindee.input.UrlInputSource.url" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">url</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#mindee.input.UrlInputSource.url" title="Link to this definition"></a></dt>
 <dd><p>The Uniform Resource Locator.</p>
 </dd></dl>
 
@@ -664,46 +664,46 @@ A negative index can be used, indicating an offset from the end of the document.
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.input.WorkflowOptions">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">WorkflowOptions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">priority</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">public_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.WorkflowOptions" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">WorkflowOptions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">priority</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">public_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.WorkflowOptions" title="Link to this definition"></a></dt>
 <dd><p>Options to pass to a workflow execution.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>alias</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p></li>
-<li><p><strong>priority</strong> (<em>Optional</em><em>[</em><em>ExecutionPriority</em><em>]</em>) – </p></li>
-<li><p><strong>full_text</strong> (<em>bool</em>) – </p></li>
-<li><p><strong>public_url</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p></li>
-<li><p><strong>rag</strong> (<em>bool</em>) – </p></li>
+<li><p><strong>alias</strong> (<em>str</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>priority</strong> (<em>ExecutionPriority</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>full_text</strong> (<em>bool</em>)</p></li>
+<li><p><strong>public_url</strong> (<em>str</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>rag</strong> (<em>bool</em>)</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.input.WorkflowOptions.alias">
-<span class="sig-name descname"><span class="pre">alias</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.input.WorkflowOptions.alias" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">alias</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.input.WorkflowOptions.alias" title="Link to this definition"></a></dt>
 <dd><p>Alias for the document.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.input.WorkflowOptions.full_text">
-<span class="sig-name descname"><span class="pre">full_text</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><a class="headerlink" href="#mindee.input.WorkflowOptions.full_text" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">full_text</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><a class="headerlink" href="#mindee.input.WorkflowOptions.full_text" title="Link to this definition"></a></dt>
 <dd><p>Whether to include the full OCR text response in compatible APIs.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.input.WorkflowOptions.priority">
-<span class="sig-name descname"><span class="pre">priority</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">ExecutionPriority</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.input.WorkflowOptions.priority" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">priority</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">ExecutionPriority</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.input.WorkflowOptions.priority" title="Link to this definition"></a></dt>
 <dd><p>Priority of the document.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.input.WorkflowOptions.public_url">
-<span class="sig-name descname"><span class="pre">public_url</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.input.WorkflowOptions.public_url" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">public_url</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.input.WorkflowOptions.public_url" title="Link to this definition"></a></dt>
 <dd><p>A unique, encrypted URL for accessing the document validation interface without requiring authentication.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.input.WorkflowOptions.rag">
-<span class="sig-name descname"><span class="pre">rag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><a class="headerlink" href="#mindee.input.WorkflowOptions.rag" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">rag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><a class="headerlink" href="#mindee.input.WorkflowOptions.rag" title="Link to this definition"></a></dt>
 <dd><p>Whether to enable Retrieval-Augmented Generation.</p>
 </dd></dl>
 

@@ -1,22 +1,23 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mindee HTTP &mdash; Mindee Python Client  documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -115,43 +116,43 @@
            <div itemprop="articleBody">
              
   <section id="mindee-http">
-<h1>Mindee HTTP<a class="headerlink" href="#mindee-http" title="Permalink to this heading"></a></h1>
+<h1>Mindee HTTP<a class="headerlink" href="#mindee-http" title="Link to this heading"></a></h1>
 <p>Mindee-specific HTTP operations.</p>
-<span class="target" id="module-mindee.mindee_http"></span><dl class="py class">
+<dl class="py class" id="module-mindee.mindee_http">
 <dt class="sig sig-object py" id="mindee.mindee_http.BaseEndpoint">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BaseEndpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.BaseEndpoint" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BaseEndpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.BaseEndpoint" title="Link to this definition"></a></dt>
 <dd><p>Base endpoint class for the Mindee API.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>settings</strong> (<em>BaseSettings</em>) – </p>
+<dd class="field-odd"><p><strong>settings</strong> (<em>BaseSettings</em>)</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.mindee_http.CustomEndpoint">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">CustomEndpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">owner</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.CustomEndpoint" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">CustomEndpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">owner</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.CustomEndpoint" title="Link to this definition"></a></dt>
 <dd><p>Endpoint for all custom documents.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>url_name</strong> (<em>str</em>) – </p></li>
-<li><p><strong>owner</strong> (<em>str</em>) – </p></li>
-<li><p><strong>version</strong> (<em>str</em>) – </p></li>
-<li><p><strong>settings</strong> (<a class="reference internal" href="#mindee.mindee_http.MindeeApi" title="mindee.mindee_http.mindee_api.MindeeApi"><em>MindeeApi</em></a>) – </p></li>
+<li><p><strong>url_name</strong> (<em>str</em>)</p></li>
+<li><p><strong>owner</strong> (<em>str</em>)</p></li>
+<li><p><strong>version</strong> (<em>str</em>)</p></li>
+<li><p><strong>settings</strong> (<a class="reference internal" href="#mindee.mindee_http.MindeeApi" title="mindee.mindee_http.mindee_api.MindeeApi"><em>MindeeApi</em></a>)</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.mindee_http.CustomEndpoint.annotations_req_del">
-<span class="sig-name descname"><span class="pre">annotations_req_del</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">document_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.CustomEndpoint.annotations_req_del" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">annotations_req_del</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">document_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.CustomEndpoint.annotations_req_del" title="Link to this definition"></a></dt>
 <dd><p>Make a request to DELETE annotations for a document.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>document_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – ID of the document to annotate</p>
+<dd class="field-odd"><p><strong>document_id</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – ID of the document to annotate</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>requests response</p>
@@ -161,17 +162,17 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.mindee_http.CustomEndpoint.annotations_req_post">
-<span class="sig-name descname"><span class="pre">annotations_req_post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">document_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">annotations</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.CustomEndpoint.annotations_req_post" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">annotations_req_post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">document_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">annotations</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.CustomEndpoint.annotations_req_post" title="Link to this definition"></a></dt>
 <dd><p>Make a request to POST annotations for a document.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>document_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – ID of the document to annotate</p></li>
-<li><p><strong>annotations</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>) – Annotations object</p></li>
+<li><p><strong>document_id</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – ID of the document to annotate</p></li>
+<li><p><strong>annotations</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></span>) – Annotations object</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>requests response</p>
@@ -181,17 +182,17 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.mindee_http.CustomEndpoint.annotations_req_put">
-<span class="sig-name descname"><span class="pre">annotations_req_put</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">document_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">annotations</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.CustomEndpoint.annotations_req_put" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">annotations_req_put</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">document_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">annotations</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.CustomEndpoint.annotations_req_put" title="Link to this definition"></a></dt>
 <dd><p>Make a request to PUT annotations for a document.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>document_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – ID of the document to annotate</p></li>
-<li><p><strong>annotations</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>) – Annotations object</p></li>
+<li><p><strong>document_id</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – ID of the document to annotate</p></li>
+<li><p><strong>annotations</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></span>) – Annotations object</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>requests response</p>
@@ -201,59 +202,59 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.mindee_http.CustomEndpoint.document_req_del">
-<span class="sig-name descname"><span class="pre">document_req_del</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">document_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.CustomEndpoint.document_req_del" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">document_req_del</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">document_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.CustomEndpoint.document_req_del" title="Link to this definition"></a></dt>
 <dd><p>Make a request to DELETE a document.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>document_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – ID of the document</p>
+<dd class="field-odd"><p><strong>document_id</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – ID of the document</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.mindee_http.CustomEndpoint.document_req_get">
-<span class="sig-name descname"><span class="pre">document_req_get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">document_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.CustomEndpoint.document_req_get" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">document_req_get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">document_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.CustomEndpoint.document_req_get" title="Link to this definition"></a></dt>
 <dd><p>Make a request to GET annotations for a document.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>document_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – ID of the document</p>
+<dd class="field-odd"><p><strong>document_id</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – ID of the document</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.mindee_http.CustomEndpoint.documents_req_get">
-<span class="sig-name descname"><span class="pre">documents_req_get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.CustomEndpoint.documents_req_get" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">documents_req_get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.CustomEndpoint.documents_req_get" title="Link to this definition"></a></dt>
 <dd><p>Make a request to GET info on all documents.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>page_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, default: <code class="docutils literal notranslate"><span class="pre">1</span></code>) – Page number</p>
+<dd class="field-odd"><p><strong>page_id</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">1</span></code>) – Page number</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.mindee_http.CustomEndpoint.training_async_req_post">
-<span class="sig-name descname"><span class="pre">training_async_req_post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">close_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.CustomEndpoint.training_async_req_post" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">training_async_req_post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">close_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.CustomEndpoint.training_async_req_post" title="Link to this definition"></a></dt>
 <dd><p>Make a request to POST a document for training without processing.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>input_source</strong> (<a class="reference internal" href="input.html#mindee.input.LocalInputSource" title="mindee.input.sources.local_input_source.LocalInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalInputSource</span></code></a>) – Input object</p></li>
-<li><p><strong>close_file</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">True</span></code>) – Whether to <cite>close()</cite> the file after parsing it.</p></li>
+<li><p><strong>input_source</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="input.html#mindee.input.LocalInputSource" title="mindee.input.sources.local_input_source.LocalInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalInputSource</span></code></a></span>) – Input object</p></li>
+<li><p><strong>close_file</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">True</span></code>) – Whether to <cite>close()</cite> the file after parsing it.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>requests response</p>
@@ -263,17 +264,17 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.mindee_http.CustomEndpoint.training_req_post">
-<span class="sig-name descname"><span class="pre">training_req_post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">close_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.CustomEndpoint.training_req_post" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">training_req_post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">close_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.CustomEndpoint.training_req_post" title="Link to this definition"></a></dt>
 <dd><p>Make a request to POST a document for training.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>input_source</strong> (<a class="reference internal" href="input.html#mindee.input.LocalInputSource" title="mindee.input.sources.local_input_source.LocalInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalInputSource</span></code></a>) – Input object</p></li>
-<li><p><strong>close_file</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">True</span></code>) – Whether to <cite>close()</cite> the file after parsing it.</p></li>
+<li><p><strong>input_source</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="input.html#mindee.input.LocalInputSource" title="mindee.input.sources.local_input_source.LocalInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalInputSource</span></code></a></span>) – Input object</p></li>
+<li><p><strong>close_file</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">True</span></code>) – Whether to <cite>close()</cite> the file after parsing it.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>requests response</p>
@@ -285,78 +286,78 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.mindee_http.Endpoint">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Endpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">owner</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.Endpoint" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Endpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">owner</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.Endpoint" title="Link to this definition"></a></dt>
 <dd><p>Generic API endpoint for a product.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>url_name</strong> (<em>str</em>) – </p></li>
-<li><p><strong>owner</strong> (<em>str</em>) – </p></li>
-<li><p><strong>version</strong> (<em>str</em>) – </p></li>
-<li><p><strong>settings</strong> (<a class="reference internal" href="#mindee.mindee_http.MindeeApi" title="mindee.mindee_http.mindee_api.MindeeApi"><em>MindeeApi</em></a>) – </p></li>
+<li><p><strong>url_name</strong> (<em>str</em>)</p></li>
+<li><p><strong>owner</strong> (<em>str</em>)</p></li>
+<li><p><strong>version</strong> (<em>str</em>)</p></li>
+<li><p><strong>settings</strong> (<a class="reference internal" href="#mindee.mindee_http.MindeeApi" title="mindee.mindee_http.mindee_api.MindeeApi"><em>MindeeApi</em></a>)</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.mindee_http.Endpoint.document_feedback_req_put">
-<span class="sig-name descname"><span class="pre">document_feedback_req_put</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">document_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feedback</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.Endpoint.document_feedback_req_put" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">document_feedback_req_put</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">document_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feedback</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.Endpoint.document_feedback_req_put" title="Link to this definition"></a></dt>
 <dd><p>Send a feedback.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>document_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – ID of the document to send feedback to.</p></li>
-<li><p><strong>feedback</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]) – Feedback object to send.</p></li>
+<li><p><strong>document_id</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – ID of the document to send feedback to.</p></li>
+<li><p><strong>feedback</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]</span>) – Feedback object to send.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.mindee_http.Endpoint.document_queue_req_get">
-<span class="sig-name descname"><span class="pre">document_queue_req_get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">queue_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.Endpoint.document_queue_req_get" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">document_queue_req_get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">queue_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.Endpoint.document_queue_req_get" title="Link to this definition"></a></dt>
 <dd><p>Sends a request matching a given queue_id. Returns either a Job or a Document.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>queue_id</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – queue_id received from the API</p>
+<dd class="field-odd"><p><strong>queue_id</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – queue_id received from the API</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.mindee_http.Endpoint.openapi_get_req">
-<span class="sig-name descname"><span class="pre">openapi_get_req</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.Endpoint.openapi_get_req" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">openapi_get_req</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.Endpoint.openapi_get_req" title="Link to this definition"></a></dt>
 <dd><p>Get the OpenAPI specification of the product.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.mindee_http.Endpoint.predict_async_req_post">
-<span class="sig-name descname"><span class="pre">predict_async_req_post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_words</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">close_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cropper</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">workflow_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.Endpoint.predict_async_req_post" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">predict_async_req_post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_words</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">close_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cropper</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">workflow_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.Endpoint.predict_async_req_post" title="Link to this definition"></a></dt>
 <dd><p>Make an asynchronous request to POST a document for prediction.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>input_source</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference internal" href="input.html#mindee.input.LocalInputSource" title="mindee.input.sources.local_input_source.LocalInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalInputSource</span></code></a>, <a class="reference internal" href="input.html#mindee.input.UrlInputSource" title="mindee.input.sources.url_input_source.UrlInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">UrlInputSource</span></code></a>]) – Input object</p></li>
-<li><p><strong>include_words</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Include raw OCR words in the response</p></li>
-<li><p><strong>close_file</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">True</span></code>) – Whether to <cite>close()</cite> the file after parsing it.</p></li>
-<li><p><strong>cropper</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Including Mindee cropping results.</p></li>
-<li><p><strong>full_text</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Whether to include the full OCR text response in compatible APIs.</p></li>
-<li><p><strong>workflow_id</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>], default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Workflow ID.</p></li>
-<li><p><strong>rag</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – If set, will enable Retrieval-Augmented Generation.</p></li>
+<li><p><strong>input_source</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference internal" href="input.html#mindee.input.LocalInputSource" title="mindee.input.sources.local_input_source.LocalInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalInputSource</span></code></a>, <a class="reference internal" href="input.html#mindee.input.UrlInputSource" title="mindee.input.sources.url_input_source.UrlInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">UrlInputSource</span></code></a>]</span>) – Input object</p></li>
+<li><p><strong>include_words</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Include raw OCR words in the response</p></li>
+<li><p><strong>close_file</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">True</span></code>) – Whether to <cite>close()</cite> the file after parsing it.</p></li>
+<li><p><strong>cropper</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Including Mindee cropping results.</p></li>
+<li><p><strong>full_text</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Whether to include the full OCR text response in compatible APIs.</p></li>
+<li><p><strong>workflow_id</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Workflow ID.</p></li>
+<li><p><strong>rag</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – If set, will enable Retrieval-Augmented Generation.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>requests response</p>
@@ -366,20 +367,20 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.mindee_http.Endpoint.predict_req_post">
-<span class="sig-name descname"><span class="pre">predict_req_post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_words</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">close_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cropper</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.Endpoint.predict_req_post" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">predict_req_post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_words</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">close_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cropper</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.Endpoint.predict_req_post" title="Link to this definition"></a></dt>
 <dd><p>Make a request to POST a document for prediction.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>input_source</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference internal" href="input.html#mindee.input.LocalInputSource" title="mindee.input.sources.local_input_source.LocalInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalInputSource</span></code></a>, <a class="reference internal" href="input.html#mindee.input.UrlInputSource" title="mindee.input.sources.url_input_source.UrlInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">UrlInputSource</span></code></a>]) – Input object</p></li>
-<li><p><strong>include_words</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Include raw OCR words in the response</p></li>
-<li><p><strong>close_file</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">True</span></code>) – Whether to <cite>close()</cite> the file after parsing it.</p></li>
-<li><p><strong>cropper</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Including Mindee cropping results.</p></li>
-<li><p><strong>full_text</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Whether to include the full OCR text response in compatible APIs.</p></li>
+<li><p><strong>input_source</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference internal" href="input.html#mindee.input.LocalInputSource" title="mindee.input.sources.local_input_source.LocalInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalInputSource</span></code></a>, <a class="reference internal" href="input.html#mindee.input.UrlInputSource" title="mindee.input.sources.url_input_source.UrlInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">UrlInputSource</span></code></a>]</span>) – Input object</p></li>
+<li><p><strong>include_words</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Include raw OCR words in the response</p></li>
+<li><p><strong>close_file</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">True</span></code>) – Whether to <cite>close()</cite> the file after parsing it.</p></li>
+<li><p><strong>cropper</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Including Mindee cropping results.</p></li>
+<li><p><strong>full_text</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Whether to include the full OCR text response in compatible APIs.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>requests response</p>
@@ -389,22 +390,22 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.mindee_http.Endpoint.settings">
-<span class="sig-name descname"><span class="pre">settings</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.mindee_http.MindeeApi" title="mindee.mindee_http.mindee_api.MindeeApi"><code class="xref py py-class docutils literal notranslate"><span class="pre">MindeeApi</span></code></a></em><a class="headerlink" href="#mindee.mindee_http.Endpoint.settings" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">settings</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.mindee_http.MindeeApi" title="mindee.mindee_http.mindee_api.MindeeApi"><code class="xref py py-class docutils literal notranslate"><span class="pre">MindeeApi</span></code></a></em><a class="headerlink" href="#mindee.mindee_http.Endpoint.settings" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.mindee_http.MindeeApi">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MindeeApi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">account_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.MindeeApi" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MindeeApi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endpoint_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">account_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.MindeeApi" title="Link to this definition"></a></dt>
 <dd><p>Settings class relating to API requests.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>api_key</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p></li>
-<li><p><strong>endpoint_name</strong> (<em>str</em>) – </p></li>
-<li><p><strong>account_name</strong> (<em>str</em>) – </p></li>
-<li><p><strong>version</strong> (<em>str</em>) – </p></li>
+<li><p><strong>api_key</strong> (<em>str</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>endpoint_name</strong> (<em>str</em>)</p></li>
+<li><p><strong>account_name</strong> (<em>str</em>)</p></li>
+<li><p><strong>version</strong> (<em>str</em>)</p></li>
 </ul>
 </dd>
 </dl>
@@ -412,23 +413,23 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.mindee_http.WorkflowEndpoint">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">WorkflowEndpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.WorkflowEndpoint" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">WorkflowEndpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.WorkflowEndpoint" title="Link to this definition"></a></dt>
 <dd><p>Workflow endpoint.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>settings</strong> (<a class="reference internal" href="#mindee.mindee_http.WorkflowSettings" title="mindee.mindee_http.workflow_settings.WorkflowSettings"><em>WorkflowSettings</em></a>) – </p>
+<dd class="field-odd"><p><strong>settings</strong> (<a class="reference internal" href="#mindee.mindee_http.WorkflowSettings" title="mindee.mindee_http.workflow_settings.WorkflowSettings"><em>WorkflowSettings</em></a>)</p>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.mindee_http.WorkflowEndpoint.workflow_execution_post">
-<span class="sig-name descname"><span class="pre">workflow_execution_post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.WorkflowEndpoint.workflow_execution_post" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">workflow_execution_post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.WorkflowEndpoint.workflow_execution_post" title="Link to this definition"></a></dt>
 <dd><p>Sends the document to the workflow.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>input_source</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference internal" href="input.html#mindee.input.LocalInputSource" title="mindee.input.sources.local_input_source.LocalInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalInputSource</span></code></a>, <a class="reference internal" href="input.html#mindee.input.UrlInputSource" title="mindee.input.sources.url_input_source.UrlInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">UrlInputSource</span></code></a>]) – The document/source file to use.
+<li><p><strong>input_source</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference internal" href="input.html#mindee.input.LocalInputSource" title="mindee.input.sources.local_input_source.LocalInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalInputSource</span></code></a>, <a class="reference internal" href="input.html#mindee.input.UrlInputSource" title="mindee.input.sources.url_input_source.UrlInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">UrlInputSource</span></code></a>]</span>) – The document/source file to use.
 Has to be created beforehand.</p></li>
-<li><p><strong>options</strong> (<a class="reference internal" href="input.html#mindee.input.WorkflowOptions" title="mindee.input.workflow_options.WorkflowOptions"><code class="xref py py-class docutils literal notranslate"><span class="pre">WorkflowOptions</span></code></a>) – Options for the workflow.</p></li>
+<li><p><strong>options</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="input.html#mindee.input.WorkflowOptions" title="mindee.input.workflow_options.WorkflowOptions"><code class="xref py py-class docutils literal notranslate"><span class="pre">WorkflowOptions</span></code></a></span>) – Options for the workflow.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -439,20 +440,20 @@ Has to be created beforehand.</p></li>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.mindee_http.WorkflowEndpoint.settings">
-<span class="sig-name descname"><span class="pre">settings</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.mindee_http.WorkflowSettings" title="mindee.mindee_http.workflow_settings.WorkflowSettings"><code class="xref py py-class docutils literal notranslate"><span class="pre">WorkflowSettings</span></code></a></em><a class="headerlink" href="#mindee.mindee_http.WorkflowEndpoint.settings" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">settings</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.mindee_http.WorkflowSettings" title="mindee.mindee_http.workflow_settings.WorkflowSettings"><code class="xref py py-class docutils literal notranslate"><span class="pre">WorkflowSettings</span></code></a></em><a class="headerlink" href="#mindee.mindee_http.WorkflowEndpoint.settings" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.mindee_http.WorkflowSettings">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">WorkflowSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">workflow_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.WorkflowSettings" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">WorkflowSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">workflow_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.WorkflowSettings" title="Link to this definition"></a></dt>
 <dd><p>Settings class relating to workflow requests.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>api_key</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p></li>
-<li><p><strong>workflow_id</strong> (<em>str</em>) – </p></li>
+<li><p><strong>api_key</strong> (<em>str</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>workflow_id</strong> (<em>str</em>)</p></li>
 </ul>
 </dd>
 </dl>
@@ -460,14 +461,14 @@ Has to be created beforehand.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="mindee.mindee_http.clean_request_json">
-<span class="sig-name descname"><span class="pre">clean_request_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.clean_request_json" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">clean_request_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.clean_request_json" title="Link to this definition"></a></dt>
 <dd><p>Checks and correct the response error format depending on the two possible kind of returns.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>response</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code>) – Raw request response.</p>
+<dd class="field-odd"><p><strong>response</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span>) – Raw request response.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]</p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]</span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Returns the job error if the error is due to parsing, returns the http error otherwise.</p>
@@ -477,15 +478,15 @@ Has to be created beforehand.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="mindee.mindee_http.is_valid_async_response">
-<span class="sig-name descname"><span class="pre">is_valid_async_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.is_valid_async_response" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">is_valid_async_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.is_valid_async_response" title="Link to this definition"></a></dt>
 <dd><p>Checks if the asynchronous response is valid. Also checks if it is a valid synchronous response.</p>
 <p>Returns True if the response is valid.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>response</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code>) – a requests response object.</p>
+<dd class="field-odd"><p><strong>response</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span>) – a requests response object.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>bool</p>
@@ -495,14 +496,14 @@ Has to be created beforehand.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="mindee.mindee_http.is_valid_sync_response">
-<span class="sig-name descname"><span class="pre">is_valid_sync_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.is_valid_sync_response" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">is_valid_sync_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.is_valid_sync_response" title="Link to this definition"></a></dt>
 <dd><p>Checks if the synchronous response is valid. Returns True if the response is valid.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>response</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code>) – a requests response object.</p>
+<dd class="field-odd"><p><strong>response</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span>) – a requests response object.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>bool</p>

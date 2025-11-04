@@ -1,22 +1,23 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Financial Document V1 &mdash; Mindee Python Client  documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+        <script src="../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -106,7 +107,7 @@
            <div itemprop="articleBody">
              
   <section id="financial-document-v1">
-<h1>Financial Document V1<a class="headerlink" href="#financial-document-v1" title="Permalink to this heading"></a></h1>
+<h1>Financial Document V1<a class="headerlink" href="#financial-document-v1" title="Link to this heading"></a></h1>
 <p><strong>Sample Code:</strong></p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1">#</span>
 <span class="c1"># Install the Python client library by running:</span>
@@ -133,73 +134,73 @@
 </div>
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1.FinancialDocumentV1">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">FinancialDocumentV1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1.FinancialDocumentV1" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">FinancialDocumentV1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1.FinancialDocumentV1" title="Link to this definition"></a></dt>
 <dd><p>Financial Document API version 1 inference prediction.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p>
+<dd class="field-odd"><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>)</p>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1.FinancialDocumentV1.get_endpoint_info">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_endpoint_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">klass</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1.FinancialDocumentV1.get_endpoint_info" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_endpoint_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">klass</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1.FinancialDocumentV1.get_endpoint_info" title="Link to this definition"></a></dt>
 <dd><p>Retrieves the endpoint information for an Inference.</p>
 <p>Should never retrieve info for CustomV1, as a custom endpoint should be created to use CustomV1.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>klass</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Inference</span></code>]) – product subclass to access endpoint information.</p>
+<dd class="field-odd"><p><strong>klass</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Inference</span></code>]</span>) – product subclass to access endpoint information.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1.FinancialDocumentV1.endpoint_name">
-<span class="sig-name descname"><span class="pre">endpoint_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[str]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'financial_document'</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1.FinancialDocumentV1.endpoint_name" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">endpoint_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[str]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'financial_document'</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1.FinancialDocumentV1.endpoint_name" title="Link to this definition"></a></dt>
 <dd><p>Name of the endpoint.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1.FinancialDocumentV1.endpoint_version">
-<span class="sig-name descname"><span class="pre">endpoint_version</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[str]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'1'</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1.FinancialDocumentV1.endpoint_version" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">endpoint_version</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[str]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'1'</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1.FinancialDocumentV1.endpoint_version" title="Link to this definition"></a></dt>
 <dd><p>Version of the endpoint.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1.FinancialDocumentV1.extras">
-<span class="sig-name descname"><span class="pre">extras</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[Extras]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1.FinancialDocumentV1.extras" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">extras</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[Extras]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1.FinancialDocumentV1.extras" title="Link to this definition"></a></dt>
 <dd><p>Potential Extras fields sent back along with the prediction.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1.FinancialDocumentV1.is_rotation_applied">
-<span class="sig-name descname"><span class="pre">is_rotation_applied</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[bool]</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1.FinancialDocumentV1.is_rotation_applied" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">is_rotation_applied</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[bool]</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1.FinancialDocumentV1.is_rotation_applied" title="Link to this definition"></a></dt>
 <dd><p>Whether the document has had any rotation applied to it.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1.FinancialDocumentV1.page_id">
-<span class="sig-name descname"><span class="pre">page_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[int]</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1.FinancialDocumentV1.page_id" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">page_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[int]</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1.FinancialDocumentV1.page_id" title="Link to this definition"></a></dt>
 <dd><p>Optional page id for page-level predictions.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1.FinancialDocumentV1.pages">
-<span class="sig-name descname"><span class="pre">pages</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="../parsing/common.html#mindee.parsing.common.page.Page" title="mindee.parsing.common.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a><span class="pre">[</span><a class="reference internal" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document" title="mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document"><code class="xref py py-class docutils literal notranslate"><span class="pre">FinancialDocumentV1Document</span></code></a><span class="pre">]]</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1.FinancialDocumentV1.pages" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">pages</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="../parsing/common.html#mindee.parsing.common.page.Page" title="mindee.parsing.common.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a><span class="pre">[</span><a class="reference internal" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document" title="mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document"><code class="xref py py-class docutils literal notranslate"><span class="pre">FinancialDocumentV1Document</span></code></a><span class="pre">]]</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1.FinancialDocumentV1.pages" title="Link to this definition"></a></dt>
 <dd><p>Page-level prediction(s).</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1.FinancialDocumentV1.prediction">
-<span class="sig-name descname"><span class="pre">prediction</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document" title="mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document"><code class="xref py py-class docutils literal notranslate"><span class="pre">FinancialDocumentV1Document</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1.FinancialDocumentV1.prediction" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">prediction</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document" title="mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document"><code class="xref py py-class docutils literal notranslate"><span class="pre">FinancialDocumentV1Document</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1.FinancialDocumentV1.prediction" title="Link to this definition"></a></dt>
 <dd><p>Document-level prediction.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1.FinancialDocumentV1.product">
-<span class="sig-name descname"><span class="pre">product</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Product</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1.FinancialDocumentV1.product" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">product</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Product</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1.FinancialDocumentV1.product" title="Link to this definition"></a></dt>
 <dd><p>Name and version of a given product, as sent back by the API.</p>
 </dd></dl>
 
@@ -207,212 +208,212 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">FinancialDocumentV1Document</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">FinancialDocumentV1Document</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document" title="Link to this definition"></a></dt>
 <dd><p>Financial Document API version 1.14 document data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p></li>
-<li><p><strong>page_id</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – </p></li>
+<li><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>)</p></li>
+<li><p><strong>page_id</strong> (<em>int</em><em> | </em><em>None</em>)</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.billing_address">
-<span class="sig-name descname"><span class="pre">billing_address</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">AddressField</span></code></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.billing_address" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">billing_address</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">AddressField</span></code></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.billing_address" title="Link to this definition"></a></dt>
 <dd><p>The customer’s address used for billing.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.category">
-<span class="sig-name descname"><span class="pre">category</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.classification.ClassificationField" title="mindee.parsing.standard.classification.ClassificationField"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClassificationField</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.category" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">category</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.classification.ClassificationField" title="mindee.parsing.standard.classification.ClassificationField"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClassificationField</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.category" title="Link to this definition"></a></dt>
 <dd><p>The purchase category.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.customer_address">
-<span class="sig-name descname"><span class="pre">customer_address</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">AddressField</span></code></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.customer_address" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">customer_address</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">AddressField</span></code></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.customer_address" title="Link to this definition"></a></dt>
 <dd><p>The address of the customer.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.customer_company_registrations">
-<span class="sig-name descname"><span class="pre">customer_company_registrations</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.company_registration.CompanyRegistrationField" title="mindee.parsing.standard.company_registration.CompanyRegistrationField"><code class="xref py py-class docutils literal notranslate"><span class="pre">CompanyRegistrationField</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.customer_company_registrations" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">customer_company_registrations</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.company_registration.CompanyRegistrationField" title="mindee.parsing.standard.company_registration.CompanyRegistrationField"><code class="xref py py-class docutils literal notranslate"><span class="pre">CompanyRegistrationField</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.customer_company_registrations" title="Link to this definition"></a></dt>
 <dd><p>List of company registration numbers associated to the customer.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.customer_id">
-<span class="sig-name descname"><span class="pre">customer_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.customer_id" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">customer_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.customer_id" title="Link to this definition"></a></dt>
 <dd><p>The customer account number or identifier from the supplier.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.customer_name">
-<span class="sig-name descname"><span class="pre">customer_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.customer_name" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">customer_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.customer_name" title="Link to this definition"></a></dt>
 <dd><p>The name of the customer.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.date">
-<span class="sig-name descname"><span class="pre">date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.date.DateField" title="mindee.parsing.standard.date.DateField"><code class="xref py py-class docutils literal notranslate"><span class="pre">DateField</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.date" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.date.DateField" title="mindee.parsing.standard.date.DateField"><code class="xref py py-class docutils literal notranslate"><span class="pre">DateField</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.date" title="Link to this definition"></a></dt>
 <dd><p>The date the purchase was made.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.document_number">
-<span class="sig-name descname"><span class="pre">document_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.document_number" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">document_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.document_number" title="Link to this definition"></a></dt>
 <dd><p>The document number or identifier (invoice number or receipt number).</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.document_type">
-<span class="sig-name descname"><span class="pre">document_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.classification.ClassificationField" title="mindee.parsing.standard.classification.ClassificationField"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClassificationField</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.document_type" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">document_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.classification.ClassificationField" title="mindee.parsing.standard.classification.ClassificationField"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClassificationField</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.document_type" title="Link to this definition"></a></dt>
 <dd><p>The type of the document: INVOICE or CREDIT NOTE if it is an invoice, CREDIT CARD RECEIPT or EXPENSE
 RECEIPT if it is a receipt.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.document_type_extended">
-<span class="sig-name descname"><span class="pre">document_type_extended</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.classification.ClassificationField" title="mindee.parsing.standard.classification.ClassificationField"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClassificationField</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.document_type_extended" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">document_type_extended</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.classification.ClassificationField" title="mindee.parsing.standard.classification.ClassificationField"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClassificationField</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.document_type_extended" title="Link to this definition"></a></dt>
 <dd><p>Document type extended.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.due_date">
-<span class="sig-name descname"><span class="pre">due_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.date.DateField" title="mindee.parsing.standard.date.DateField"><code class="xref py py-class docutils literal notranslate"><span class="pre">DateField</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.due_date" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">due_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.date.DateField" title="mindee.parsing.standard.date.DateField"><code class="xref py py-class docutils literal notranslate"><span class="pre">DateField</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.due_date" title="Link to this definition"></a></dt>
 <dd><p>The date on which the payment is due.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.invoice_number">
-<span class="sig-name descname"><span class="pre">invoice_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.invoice_number" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">invoice_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.invoice_number" title="Link to this definition"></a></dt>
 <dd><p>The invoice number or identifier only if document is an invoice.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.line_items">
-<span class="sig-name descname"><span class="pre">line_items</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="#mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem" title="mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem"><code class="xref py py-class docutils literal notranslate"><span class="pre">FinancialDocumentV1LineItem</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.line_items" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">line_items</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="#mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem" title="mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem"><code class="xref py py-class docutils literal notranslate"><span class="pre">FinancialDocumentV1LineItem</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.line_items" title="Link to this definition"></a></dt>
 <dd><p>List of line item present on the document.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.locale">
-<span class="sig-name descname"><span class="pre">locale</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.locale.LocaleField" title="mindee.parsing.standard.locale.LocaleField"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocaleField</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.locale" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">locale</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.locale.LocaleField" title="mindee.parsing.standard.locale.LocaleField"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocaleField</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.locale" title="Link to this definition"></a></dt>
 <dd><p>The locale of the document.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.payment_date">
-<span class="sig-name descname"><span class="pre">payment_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.date.DateField" title="mindee.parsing.standard.date.DateField"><code class="xref py py-class docutils literal notranslate"><span class="pre">DateField</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.payment_date" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">payment_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.date.DateField" title="mindee.parsing.standard.date.DateField"><code class="xref py py-class docutils literal notranslate"><span class="pre">DateField</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.payment_date" title="Link to this definition"></a></dt>
 <dd><p>The date on which the payment is due / fullfilled.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.po_number">
-<span class="sig-name descname"><span class="pre">po_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.po_number" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">po_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.po_number" title="Link to this definition"></a></dt>
 <dd><p>The purchase order number, only if the document is an invoice.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.receipt_number">
-<span class="sig-name descname"><span class="pre">receipt_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.receipt_number" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">receipt_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.receipt_number" title="Link to this definition"></a></dt>
 <dd><p>The receipt number or identifier only if document is a receipt.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.reference_numbers">
-<span class="sig-name descname"><span class="pre">reference_numbers</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.reference_numbers" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">reference_numbers</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.reference_numbers" title="Link to this definition"></a></dt>
 <dd><p>List of Reference numbers, including PO number, only if the document is an invoice.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.shipping_address">
-<span class="sig-name descname"><span class="pre">shipping_address</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">AddressField</span></code></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.shipping_address" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">shipping_address</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">AddressField</span></code></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.shipping_address" title="Link to this definition"></a></dt>
 <dd><p>The customer’s address used for shipping.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.subcategory">
-<span class="sig-name descname"><span class="pre">subcategory</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.classification.ClassificationField" title="mindee.parsing.standard.classification.ClassificationField"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClassificationField</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.subcategory" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">subcategory</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.classification.ClassificationField" title="mindee.parsing.standard.classification.ClassificationField"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClassificationField</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.subcategory" title="Link to this definition"></a></dt>
 <dd><p>The purchase subcategory for transport, food and shooping.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.supplier_address">
-<span class="sig-name descname"><span class="pre">supplier_address</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">AddressField</span></code></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.supplier_address" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">supplier_address</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">AddressField</span></code></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.supplier_address" title="Link to this definition"></a></dt>
 <dd><p>The address of the supplier or merchant.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.supplier_company_registrations">
-<span class="sig-name descname"><span class="pre">supplier_company_registrations</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.company_registration.CompanyRegistrationField" title="mindee.parsing.standard.company_registration.CompanyRegistrationField"><code class="xref py py-class docutils literal notranslate"><span class="pre">CompanyRegistrationField</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.supplier_company_registrations" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">supplier_company_registrations</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.company_registration.CompanyRegistrationField" title="mindee.parsing.standard.company_registration.CompanyRegistrationField"><code class="xref py py-class docutils literal notranslate"><span class="pre">CompanyRegistrationField</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.supplier_company_registrations" title="Link to this definition"></a></dt>
 <dd><p>List of company registration numbers associated to the supplier.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.supplier_email">
-<span class="sig-name descname"><span class="pre">supplier_email</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.supplier_email" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">supplier_email</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.supplier_email" title="Link to this definition"></a></dt>
 <dd><p>The email of the supplier or merchant.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.supplier_name">
-<span class="sig-name descname"><span class="pre">supplier_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.supplier_name" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">supplier_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.supplier_name" title="Link to this definition"></a></dt>
 <dd><p>The name of the supplier or merchant.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.supplier_payment_details">
-<span class="sig-name descname"><span class="pre">supplier_payment_details</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.payment_details.PaymentDetailsField" title="mindee.parsing.standard.payment_details.PaymentDetailsField"><code class="xref py py-class docutils literal notranslate"><span class="pre">PaymentDetailsField</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.supplier_payment_details" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">supplier_payment_details</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.payment_details.PaymentDetailsField" title="mindee.parsing.standard.payment_details.PaymentDetailsField"><code class="xref py py-class docutils literal notranslate"><span class="pre">PaymentDetailsField</span></code></a><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.supplier_payment_details" title="Link to this definition"></a></dt>
 <dd><p>List of payment details associated to the supplier (only for invoices).</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.supplier_phone_number">
-<span class="sig-name descname"><span class="pre">supplier_phone_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.supplier_phone_number" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">supplier_phone_number</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.supplier_phone_number" title="Link to this definition"></a></dt>
 <dd><p>The phone number of the supplier or merchant.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.supplier_website">
-<span class="sig-name descname"><span class="pre">supplier_website</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.supplier_website" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">supplier_website</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.supplier_website" title="Link to this definition"></a></dt>
 <dd><p>The website URL of the supplier or merchant.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.taxes">
-<span class="sig-name descname"><span class="pre">taxes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.tax.Taxes" title="mindee.parsing.standard.tax.Taxes"><code class="xref py py-class docutils literal notranslate"><span class="pre">Taxes</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.taxes" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">taxes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.tax.Taxes" title="mindee.parsing.standard.tax.Taxes"><code class="xref py py-class docutils literal notranslate"><span class="pre">Taxes</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.taxes" title="Link to this definition"></a></dt>
 <dd><p>List of all taxes on the document.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.time">
-<span class="sig-name descname"><span class="pre">time</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.time" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">time</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.text.StringField" title="mindee.parsing.standard.text.StringField"><code class="xref py py-class docutils literal notranslate"><span class="pre">StringField</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.time" title="Link to this definition"></a></dt>
 <dd><p>The time the purchase was made (only for receipts).</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.tip">
-<span class="sig-name descname"><span class="pre">tip</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.amount.AmountField" title="mindee.parsing.standard.amount.AmountField"><code class="xref py py-class docutils literal notranslate"><span class="pre">AmountField</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.tip" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">tip</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.amount.AmountField" title="mindee.parsing.standard.amount.AmountField"><code class="xref py py-class docutils literal notranslate"><span class="pre">AmountField</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.tip" title="Link to this definition"></a></dt>
 <dd><p>The total amount of tip and gratuity</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.total_amount">
-<span class="sig-name descname"><span class="pre">total_amount</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.amount.AmountField" title="mindee.parsing.standard.amount.AmountField"><code class="xref py py-class docutils literal notranslate"><span class="pre">AmountField</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.total_amount" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">total_amount</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.amount.AmountField" title="mindee.parsing.standard.amount.AmountField"><code class="xref py py-class docutils literal notranslate"><span class="pre">AmountField</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.total_amount" title="Link to this definition"></a></dt>
 <dd><p>The total amount paid: includes taxes, tips, fees, and other charges.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.total_net">
-<span class="sig-name descname"><span class="pre">total_net</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.amount.AmountField" title="mindee.parsing.standard.amount.AmountField"><code class="xref py py-class docutils literal notranslate"><span class="pre">AmountField</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.total_net" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">total_net</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.amount.AmountField" title="mindee.parsing.standard.amount.AmountField"><code class="xref py py-class docutils literal notranslate"><span class="pre">AmountField</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.total_net" title="Link to this definition"></a></dt>
 <dd><p>The net amount paid: does not include taxes, fees, and discounts.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.total_tax">
-<span class="sig-name descname"><span class="pre">total_tax</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.amount.AmountField" title="mindee.parsing.standard.amount.AmountField"><code class="xref py py-class docutils literal notranslate"><span class="pre">AmountField</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.total_tax" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">total_tax</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../parsing/standard.html#mindee.parsing.standard.amount.AmountField" title="mindee.parsing.standard.amount.AmountField"><code class="xref py py-class docutils literal notranslate"><span class="pre">AmountField</span></code></a></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.total_tax" title="Link to this definition"></a></dt>
 <dd><p>The sum of all taxes present on the document.</p>
 </dd></dl>
 
@@ -420,96 +421,96 @@ RECEIPT if it is a receipt.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">FinancialDocumentV1LineItem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">FinancialDocumentV1LineItem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem" title="Link to this definition"></a></dt>
 <dd><p>List of line item present on the document.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p></li>
-<li><p><strong>page_id</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – </p></li>
+<li><p><strong>raw_prediction</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>)</p></li>
+<li><p><strong>page_id</strong> (<em>int</em><em> | </em><em>None</em>)</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.to_table_line">
-<span class="sig-name descname"><span class="pre">to_table_line</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.to_table_line" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">to_table_line</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.to_table_line" title="Link to this definition"></a></dt>
 <dd><p>Output in a format suitable for inclusion in an rST table.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.bounding_box">
-<span class="sig-name descname"><span class="pre">bounding_box</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[Quadrilateral]</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.bounding_box" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">bounding_box</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional[Quadrilateral]</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.bounding_box" title="Link to this definition"></a></dt>
 <dd><p>A right rectangle containing the word in the document.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.confidence">
-<span class="sig-name descname"><span class="pre">confidence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.confidence" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">confidence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.confidence" title="Link to this definition"></a></dt>
 <dd><p>The confidence score.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.description">
-<span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.description" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.description" title="Link to this definition"></a></dt>
 <dd><p>The item description.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.page_n">
-<span class="sig-name descname"><span class="pre">page_n</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.page_n" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">page_n</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.page_n" title="Link to this definition"></a></dt>
 <dd><p>The document page on which the information was found.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.polygon">
-<span class="sig-name descname"><span class="pre">polygon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Polygon</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.polygon" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">polygon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Polygon</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.polygon" title="Link to this definition"></a></dt>
 <dd><p>A polygon containing the word in the document.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.product_code">
-<span class="sig-name descname"><span class="pre">product_code</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.product_code" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">product_code</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.product_code" title="Link to this definition"></a></dt>
 <dd><p>The product code referring to the item.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.quantity">
-<span class="sig-name descname"><span class="pre">quantity</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.quantity" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">quantity</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.quantity" title="Link to this definition"></a></dt>
 <dd><p>The item quantity</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.tax_amount">
-<span class="sig-name descname"><span class="pre">tax_amount</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.tax_amount" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">tax_amount</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.tax_amount" title="Link to this definition"></a></dt>
 <dd><p>The item tax amount.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.tax_rate">
-<span class="sig-name descname"><span class="pre">tax_rate</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.tax_rate" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">tax_rate</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.tax_rate" title="Link to this definition"></a></dt>
 <dd><p>The item tax rate in percentage.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.total_amount">
-<span class="sig-name descname"><span class="pre">total_amount</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.total_amount" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">total_amount</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.total_amount" title="Link to this definition"></a></dt>
 <dd><p>The item total amount.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.unit_measure">
-<span class="sig-name descname"><span class="pre">unit_measure</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.unit_measure" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">unit_measure</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.unit_measure" title="Link to this definition"></a></dt>
 <dd><p>The item unit of measure.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.unit_price">
-<span class="sig-name descname"><span class="pre">unit_price</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.unit_price" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">unit_price</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code><span class="pre">]</span></em><a class="headerlink" href="#mindee.product.financial_document.financial_document_v1_line_item.FinancialDocumentV1LineItem.unit_price" title="Link to this definition"></a></dt>
 <dd><p>The item unit price.</p>
 </dd></dl>
 
