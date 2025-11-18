@@ -29,3 +29,5 @@ class InferenceParameters:
     """Options for polling. Set only if having timeout issues."""
     close_file: bool = True
     """Whether to close the file after parsing."""
+    text_context: Optional[str] = None
+    """Additional text context used by the model during inference. Not recommended, for specific use only."""

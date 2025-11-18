@@ -129,7 +129,8 @@ def test_enqueue_and_parse_path_with_env_token(custom_base_url_client):
     )
     with pytest.raises(MindeeHTTPErrorV2):
         custom_base_url_client.enqueue_and_get_inference(
-            input_doc, InferenceParameters("dummy-model")
+            input_doc,
+            InferenceParameters("dummy-model", text_context="ignore this message"),
         )
 
 
@@ -176,7 +177,7 @@ def test_error_handling(custom_base_url_client):
 
 
 @pytest.mark.v2
-def test_enqueue(custom_base_url_client):
+def test_queue_get(custom_base_url_client):
     response = custom_base_url_client.get_job("12345678-1234-1234-1234-123456789ABC")
     assert isinstance(response, JobResponse)
     assert isinstance(response.job, Job)
