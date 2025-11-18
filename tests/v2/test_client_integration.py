@@ -131,6 +131,7 @@ def test_parse_file_filled_single_page_must_succeed(
         polygon=None,
         confidence=None,
         alias="py_integration_filled_single",
+        text_context="this is an invoice.",
     )
 
     response: InferenceResponse = v2_client.enqueue_and_get_inference(
@@ -172,7 +173,9 @@ def test_invalid_uuid_must_throw_error(v2_client: ClientV2) -> None:
     input_path: Path = FILE_TYPES_DIR / "pdf" / "blank_1.pdf"
 
     input_source = PathInput(input_path)
-    params = InferenceParameters(model_id="INVALID MODEL ID")
+    params = InferenceParameters(
+        model_id="INVALID MODEL ID", text_context="ignore this message"
+    )
 
     with pytest.raises(MindeeHTTPErrorV2) as exc_info:
         v2_client.enqueue_inference(input_source, params)
