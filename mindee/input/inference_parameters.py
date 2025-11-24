@@ -1,7 +1,39 @@
+import json
 from dataclasses import dataclass
-from typing import List, Optional
+from typing import List, Optional, Union
 
 from mindee.input.polling_options import PollingOptions
+
+
+class DataSchema:
+    """Modify the Data Schema."""
+
+    _replace: Optional[dict] = None
+
+    def __init__(self, replace: Optional[dict] = None):
+        self._replace = replace
+
+    @property
+    def replace(self):
+        """If set, completely replaces the data schema of the model."""
+        return self._replace
+
+    @replace.setter
+    def replace(self, value: Optional[Union[dict, str]]) -> None:
+        if value is None:
+            _replace = None
+        elif isinstance(value, str):
+            _replace = json.loads(value)
+        elif isinstance(value, dict):
+            _replace = value
+        else:
+            raise TypeError("Invalid type for data schema")
+        if _replace is not None and _replace == {}:
+            raise ValueError("Empty override provided")
+        self._replace = _replace
+
+    def __str__(self) -> str:
+        return json.dumps({"replace": self.replace})
 
 
 @dataclass
@@ -30,4 +62,12 @@ class InferenceParameters:
     close_file: bool = True
     """Whether to close the file after parsing."""
     text_context: Optional[str] = None
-    """Additional text context used by the model during inference. Not recommended, for specific use only."""
+    """
+    Additional text context used by the model during inference.
+    Not recommended, for specific use only.
+    """
+    data_schema: Optional[DataSchema] = None
+    """
+    Dynamic changes to the data schema of the model for this inference.
+    Not recommended, for specific use only.
+    """

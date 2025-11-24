@@ -6,6 +6,7 @@ import pytest
 from mindee import ClientV2, InferenceParameters, PathInput, UrlInputSource
 from mindee.error.mindee_http_error_v2 import MindeeHTTPErrorV2
 from mindee.parsing.v2 import InferenceActiveOptions
+from mindee.input.inference_parameters import DataSchema
 from mindee.parsing.v2.inference_response import InferenceResponse
 from tests.utils import FILE_TYPES_DIR, V2_PRODUCT_DATA_DIR
 
@@ -24,6 +25,22 @@ def v2_client() -> ClientV2:
     """
     api_key = os.getenv("MINDEE_V2_API_KEY")
     return ClientV2(api_key)
+
+
+def _basic_assert_success(
+    response: InferenceResponse, page_count: int, model_id: str
+) -> None:
+    assert response is not None
+    assert response.inference is not None
+
+    assert response.inference.file is not None
+    assert response.inference.file.page_count == page_count
+
+    assert response.inference.model is not None
+    assert response.inference.model.id == model_id
+
+    assert response.inference.result is not None
+    assert response.inference.active_options is not None
 
 
 @pytest.mark.integration
@@ -50,12 +67,9 @@ def test_parse_file_empty_multiple_pages_must_succeed(
     response: InferenceResponse = v2_client.enqueue_and_get_inference(
         input_source, params
     )
-    assert response is not None
-    assert response.inference is not None
+    _basic_assert_success(response=response, page_count=2, model_id=findoc_model_id)
 
-    assert response.inference.file is not None
     assert response.inference.file.name == "multipage_cut-2.pdf"
-    assert response.inference.file.page_count == 2
 
     assert response.inference.model is not None
     assert response.inference.model.id == findoc_model_id
@@ -67,8 +81,6 @@ def test_parse_file_empty_multiple_pages_must_succeed(
     assert response.inference.active_options.polygon is False
     assert response.inference.active_options.confidence is False
     assert response.inference.active_options.text_context is False
-
-    assert response.inference.result is not None
 
     assert response.inference.result.raw_text is not None
     assert len(response.inference.result.raw_text.pages) == 2
@@ -96,15 +108,9 @@ def test_parse_file_empty_single_page_options_must_succeed(
     response: InferenceResponse = v2_client.enqueue_and_get_inference(
         input_source, params
     )
-    assert response is not None
-    assert response.inference is not None
+    _basic_assert_success(response=response, page_count=1, model_id=findoc_model_id)
 
-    assert response.inference.model is not None
-    assert response.inference.model.id == findoc_model_id
-
-    assert response.inference.file is not None
     assert response.inference.file.name == "blank_1.pdf"
-    assert response.inference.file.page_count == 1
 
     assert isinstance(response.inference.active_options, InferenceActiveOptions)
     assert response.inference.active_options is not None
@@ -113,8 +119,6 @@ def test_parse_file_empty_single_page_options_must_succeed(
     assert response.inference.active_options.polygon is True
     assert response.inference.active_options.confidence is True
     assert response.inference.active_options.text_context is False
-
-    assert response.inference.result is not None
 
 
 @pytest.mark.integration
@@ -142,13 +146,9 @@ def test_parse_file_filled_single_page_must_succeed(
     response: InferenceResponse = v2_client.enqueue_and_get_inference(
         input_source, params
     )
+    _basic_assert_success(response=response, page_count=1, model_id=findoc_model_id)
 
-    assert response is not None
-    assert response.inference is not None
-
-    assert response.inference.file is not None
     assert response.inference.file.name == "default_sample.jpg"
-    assert response.inference.file.page_count == 1
 
     assert response.inference.model is not None
     assert response.inference.model.id == findoc_model_id
@@ -163,7 +163,6 @@ def test_parse_file_filled_single_page_must_succeed(
 
     assert response.inference.result.raw_text is None
 
-    assert response.inference.result is not None
     supplier_name = response.inference.result.fields["supplier_name"]
     assert supplier_name is not None
     assert supplier_name.value == "John Smith"
@@ -273,15 +272,46 @@ def test_blank_url_input_source_must_succeed(
     response: InferenceResponse = v2_client.enqueue_and_get_inference(
         input_source, params
     )
-    assert response is not None
-    assert response.inference is not None
+    _basic_assert_success(response=response, page_count=1, model_id=findoc_model_id)
 
-    assert response.inference.file is not None
-    assert response.inference.file.page_count == 1
 
-    assert response.inference.model is not None
-    assert response.inference.model.id == findoc_model_id
+@pytest.mark.integration
+@pytest.mark.v2
+def test_data_schema_must_succeed(
+    v2_client: ClientV2,
+    findoc_model_id: str,
+) -> None:
+    """
+    Load a blank PDF from an HTTPS URL and make sure the inference call completes without raising any errors.
+    """
+    input_path: Path = FILE_TYPES_DIR / "pdf" / "blank_1.pdf"
 
-    assert response.inference.result is not None
-
-    assert response.inference.active_options is not None
+    input_source = PathInput(input_path)
+    params = InferenceParameters(
+        model_id=findoc_model_id,
+        rag=False,
+        raw_text=False,
+        polygon=False,
+        confidence=False,
+        webhook_ids=[],
+        data_schema=DataSchema(
+            replace={
+                "fields": [
+                    {
+                        "name": "test",
+                        "title": "Test",
+                        "is_array": False,
+                        "type": "string",
+                        "description": "A test field",
+                    }
+                ]
+            }
+        ),
+        alias="py_integration_data_schema_override",
+    )
+    response: InferenceResponse = v2_client.enqueue_and_get_inference(
+        input_source, params
+    )
+    _basic_assert_success(response=response, page_count=1, model_id=findoc_model_id)
+    assert response.inference.active_options.data_schema.replace is True
+    assert response.inference.result.fields["test"] is not None

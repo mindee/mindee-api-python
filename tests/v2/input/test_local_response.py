@@ -14,7 +14,7 @@ def file_path() -> Path:
 
 def _assert_local_response(local_response):
     fake_hmac_signing = "ogNjY44MhvKPGTtVsI8zG82JqWQa68woYQH"
-    signature = "b82a515c832fd2c4f4ce3a7e6f53c12e8d10e19223f6cf0e3a9809a7a3da26be"
+    signature = "1df388c992d87897fe61dfc56c444c58fc3c7369c31e2b5fd20d867695e93e85"
 
     assert local_response._file is not None
     assert not local_response.is_valid_hmac_signature(
