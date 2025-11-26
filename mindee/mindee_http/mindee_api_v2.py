@@ -32,8 +32,15 @@ class MindeeApiV2(SettingsMixin):
         self,
         api_key: Optional[str],
     ):
-        self.api_key = api_key
-        if not self.api_key or len(self.api_key) == 0:
+        self.api_key = (
+            api_key
+            if api_key
+            else os.environ.get(API_KEY_V2_ENV_NAME, API_KEY_V2_DEFAULT)
+        )
+        self.request_timeout = TIMEOUT_DEFAULT
+        self.set_base_url(BASE_URL_DEFAULT)
+        self.set_from_env()
+        if not self.api_key:
             raise MindeeApiV2Error(
                 (
                     f"Missing API key,"
@@ -42,9 +49,6 @@ class MindeeApiV2(SettingsMixin):
                     f"'{API_KEY_V2_ENV_NAME}' environment variable."
                 )
             )
-        self.request_timeout = TIMEOUT_DEFAULT
-        self.set_base_url(BASE_URL_DEFAULT)
-        self.set_from_env()
         self.url_root = f"{self.base_url.rstrip('/')}"
 
     @property
