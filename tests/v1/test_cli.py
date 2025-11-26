@@ -4,7 +4,7 @@ from argparse import Namespace
 import pytest
 
 from mindee.commands.cli_parser import MindeeParser
-from mindee.error.mindee_http_error import MindeeHTTPClientError, MindeeHTTPError
+from mindee.error.mindee_http_error import MindeeHTTPError
 from tests.utils import FILE_TYPES_DIR, V1_PRODUCT_DATA_DIR, clear_envvars
 
 
@@ -124,19 +124,19 @@ def ots_doc_feedback(monkeypatch):
 def test_cli_custom_doc(custom_doc):
     with pytest.raises(MindeeHTTPError):
         parser = MindeeParser(parsed_args=custom_doc)
-        parser.call_endpoint()
+        parser.call_parse()
 
 
 def test_cli_generated_doc_sync(generated_doc_sync):
     with pytest.raises(MindeeHTTPError):
         parser = MindeeParser(parsed_args=generated_doc_sync)
-        parser.call_endpoint()
+        parser.call_parse()
 
 
 def test_cli_generated_doc_async(generated_doc_async):
     with pytest.raises(MindeeHTTPError):
         parser = MindeeParser(parsed_args=generated_doc_async)
-        parser.call_endpoint()
+        parser.call_parse()
 
 
 def test_cli_invoice(ots_doc):
@@ -144,11 +144,11 @@ def test_cli_invoice(ots_doc):
     ots_doc.api_key = ""
     with pytest.raises(RuntimeError):
         parser = MindeeParser(parsed_args=ots_doc)
-        parser.call_endpoint()
+        parser.call_parse()
     ots_doc.api_key = "dummy"
     with pytest.raises(MindeeHTTPError):
         parser = MindeeParser(parsed_args=ots_doc)
-        parser.call_endpoint()
+        parser.call_parse()
 
 
 def test_cli_receipt(ots_doc):
@@ -156,11 +156,11 @@ def test_cli_receipt(ots_doc):
     ots_doc.api_key = ""
     with pytest.raises(RuntimeError):
         parser = MindeeParser(parsed_args=ots_doc)
-        parser.call_endpoint()
+        parser.call_parse()
     ots_doc.api_key = "dummy"
     with pytest.raises(MindeeHTTPError):
         parser = MindeeParser(parsed_args=ots_doc)
-        parser.call_endpoint()
+        parser.call_parse()
 
 
 def test_cli_financial_doc(ots_doc):
@@ -168,11 +168,11 @@ def test_cli_financial_doc(ots_doc):
     ots_doc.api_key = ""
     with pytest.raises(RuntimeError):
         parser = MindeeParser(parsed_args=ots_doc)
-        parser.call_endpoint()
+        parser.call_parse()
     ots_doc.api_key = "dummy"
     with pytest.raises(MindeeHTTPError):
         parser = MindeeParser(parsed_args=ots_doc)
-        parser.call_endpoint()
+        parser.call_parse()
 
 
 def test_cli_passport(ots_doc):
@@ -180,11 +180,11 @@ def test_cli_passport(ots_doc):
     ots_doc.api_key = ""
     with pytest.raises(RuntimeError):
         parser = MindeeParser(parsed_args=ots_doc)
-        parser.call_endpoint()
+        parser.call_parse()
     ots_doc.api_key = "dummy"
     with pytest.raises(MindeeHTTPError):
         parser = MindeeParser(parsed_args=ots_doc)
-        parser.call_endpoint()
+        parser.call_parse()
 
 
 def test_cli_us_bank_check(ots_doc):
@@ -192,11 +192,11 @@ def test_cli_us_bank_check(ots_doc):
     ots_doc.api_key = ""
     with pytest.raises(RuntimeError):
         parser = MindeeParser(parsed_args=ots_doc)
-        parser.call_endpoint()
+        parser.call_parse()
     ots_doc.api_key = "dummy"
     with pytest.raises(MindeeHTTPError):
         parser = MindeeParser(parsed_args=ots_doc)
-        parser.call_endpoint()
+        parser.call_parse()
 
 
 def test_cli_invoice_splitter_enqueue(ots_doc_enqueue_and_parse):
@@ -204,20 +204,8 @@ def test_cli_invoice_splitter_enqueue(ots_doc_enqueue_and_parse):
     ots_doc_enqueue_and_parse.api_key = ""
     with pytest.raises(RuntimeError):
         parser = MindeeParser(parsed_args=ots_doc_enqueue_and_parse)
-        parser.call_endpoint()
+        parser.call_parse()
     ots_doc_enqueue_and_parse.api_key = "dummy"
     with pytest.raises(MindeeHTTPError):
         parser = MindeeParser(parsed_args=ots_doc_enqueue_and_parse)
-        parser.call_endpoint()
-
-
-def test_cli_feedback(ots_doc_feedback):
-    ots_doc_feedback.document_id = "dummy-document-id"
-    ots_doc_feedback.api_key = ""
-    with pytest.raises(RuntimeError):
-        parser = MindeeParser(parsed_args=ots_doc_feedback)
-        parser.call_endpoint()
-    ots_doc_feedback.api_key = "dummy"
-    with pytest.raises(MindeeHTTPClientError):
-        parser = MindeeParser(parsed_args=ots_doc_feedback)
-        parser.call_endpoint()
+        parser.call_parse()
