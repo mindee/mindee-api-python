@@ -98,8 +98,10 @@ class MindeeApiV2(SettingsMixin):
             data["webhook_ids"] = params.webhook_ids
         if params.alias and len(params.alias):
             data["alias"] = params.alias
-        if params.text_context and (params.text_context):
+        if params.text_context and len(params.text_context):
             data["text_context"] = params.text_context
+        if params.data_schema is not None:
+            data["data_schema"] = str(params.data_schema)
 
         if isinstance(input_source, LocalInputSource):
             files = {"file": input_source.read_contents(params.close_file)}

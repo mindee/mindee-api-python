@@ -1,7 +1,39 @@
+import json
 from dataclasses import dataclass
-from typing import List, Optional
+from typing import List, Optional, Union
 
 from mindee.input.polling_options import PollingOptions
+
+
+class DataSchema:
+    """Modify the Data Schema."""
+
+    _override: Optional[list] = None
+
+    def __init__(self, override: Optional[list] = None):
+        self._override = override
+
+    @property
+    def override(self):
+        """Override the data schema."""
+        return self._override
+
+    @override.setter
+    def override(self, value: Optional[Union[str, list]]) -> None:
+        if value is None:
+            _override = None
+        elif isinstance(value, str):
+            _override = json.loads(value)
+        elif isinstance(value, list):
+            _override = value
+        else:
+            raise TypeError("Invalid type for data schema override")
+        if _override is not None and _override == {}:
+            raise ValueError("Empty override provided")
+        self._override = _override
+
+    def __str__(self) -> str:
+        return json.dumps({"override": self.override})
 
 
 @dataclass
@@ -31,3 +63,4 @@ class InferenceParameters:
     """Whether to close the file after parsing."""
     text_context: Optional[str] = None
     """Additional text context used by the model during inference. Not recommended, for specific use only."""
+    data_schema: Optional[DataSchema] = None
