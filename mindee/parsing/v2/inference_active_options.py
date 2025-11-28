@@ -5,15 +5,30 @@ class InferenceActiveOptions:
     """Active options for the inference."""
 
     raw_text: bool
-    """Whether raw text extraction is active or not."""
+    """
+    Whether the Raw Text feature was activated.
+    When this feature is activated, the raw text extracted from the document is returned in the result.
+    """
     polygon: bool
-    """Whether polygon extraction is active or not."""
+    """
+    Whether the polygon feature was activated.
+    When this feature is activated, the bounding-box polygon(s) for each field is returned in the result.
+    """
     confidence: bool
-    """Whether confidence scores are active or not."""
+    """
+    Whether the confidence feature was activated.
+    When this feature is activated, a confidence score for each field is returned in the result.
+    """
     rag: bool
-    """Whether RAG is active or not."""
+    """
+    Whether the Retrieval-Augmented Generation feature was activated.
+    When this feature is activated, the RAG pipeline is used to increase result accuracy.
+    """
     text_context: bool
-    """Whether text context is active or not."""
+    """
+    Whether the text context feature was activated.
+    When this feature is activated, the provided context is used to improve the accuracy of the inference.
+    """
 
     def __init__(self, raw_response: StringDict):
         self.raw_text = raw_response["raw_text"]
