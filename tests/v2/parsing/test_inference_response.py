@@ -5,6 +5,7 @@ from typing import Tuple
 import pytest
 
 from mindee import InferenceResponse
+from mindee.parsing.v2 import InferenceActiveOptions
 from mindee.parsing.v2.field import FieldConfidence, ListField, ObjectField, SimpleField
 from mindee.parsing.v2.field.inference_fields import InferenceFields
 from mindee.parsing.v2.inference import Inference
@@ -298,3 +299,20 @@ def test_field_locations_and_confidence() -> None:
     assert date_field.confidence > FieldConfidence.LOW
     assert date_field.confidence <= FieldConfidence.HIGH
     assert date_field.confidence < FieldConfidence.HIGH
+
+
+@pytest.mark.v2
+def test_text_context_field_is_false() -> None:
+    json_sample, _ = _get_product_samples("financial_document", "complete")
+    inference_result = InferenceResponse(json_sample)
+    assert isinstance(inference_result.inference.active_options, InferenceActiveOptions)
+    assert inference_result.inference.active_options.text_context is False
+
+
+@pytest.mark.v2
+def test_text_context_field_is_true() -> None:
+    with open(V2_DATA_DIR / "inference" / "text_context_enabled.json", "r") as file:
+        json_sample = json.load(file)
+    inference_result = InferenceResponse(json_sample)
+    assert isinstance(inference_result.inference.active_options, InferenceActiveOptions)
+    assert inference_result.inference.active_options.text_context is True
