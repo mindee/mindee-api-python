@@ -100,8 +100,13 @@ def custom_base_url_client(monkeypatch) -> ClientV2:
     return ClientV2("dummy")
 
 
+@pytest.fixture
+def env_no_key(monkeypatch):
+    monkeypatch.delenv("MINDEE_V2_API_KEY")
+
+
 @pytest.mark.v2
-def test_parse_path_without_token():
+def test_parse_path_without_token(env_no_key):
     with pytest.raises(MindeeApiV2Error):
         ClientV2()
 
