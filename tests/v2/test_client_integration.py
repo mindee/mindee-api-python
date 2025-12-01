@@ -5,6 +5,7 @@ import pytest
 
 from mindee import ClientV2, InferenceParameters, PathInput, UrlInputSource
 from mindee.error.mindee_http_error_v2 import MindeeHTTPErrorV2
+from mindee.parsing.v2 import InferenceActiveOptions
 from mindee.parsing.v2.inference_response import InferenceResponse
 from tests.utils import FILE_TYPES_DIR, V2_PRODUCT_DATA_DIR
 
@@ -59,11 +60,13 @@ def test_parse_file_empty_multiple_pages_must_succeed(
     assert response.inference.model is not None
     assert response.inference.model.id == findoc_model_id
 
+    assert isinstance(response.inference.active_options, InferenceActiveOptions)
     assert response.inference.active_options is not None
     assert response.inference.active_options.rag is False
     assert response.inference.active_options.raw_text is True
     assert response.inference.active_options.polygon is False
     assert response.inference.active_options.confidence is False
+    assert response.inference.active_options.text_context is False
 
     assert response.inference.result is not None
 
@@ -103,11 +106,13 @@ def test_parse_file_empty_single_page_options_must_succeed(
     assert response.inference.file.name == "blank_1.pdf"
     assert response.inference.file.page_count == 1
 
+    assert isinstance(response.inference.active_options, InferenceActiveOptions)
     assert response.inference.active_options is not None
     assert response.inference.active_options.rag is True
     assert response.inference.active_options.raw_text is True
     assert response.inference.active_options.polygon is True
     assert response.inference.active_options.confidence is True
+    assert response.inference.active_options.text_context is False
 
     assert response.inference.result is not None
 
@@ -148,11 +153,13 @@ def test_parse_file_filled_single_page_must_succeed(
     assert response.inference.model is not None
     assert response.inference.model.id == findoc_model_id
 
+    assert isinstance(response.inference.active_options, InferenceActiveOptions)
     assert response.inference.active_options is not None
     assert response.inference.active_options.rag is False
     assert response.inference.active_options.raw_text is False
     assert response.inference.active_options.polygon is False
     assert response.inference.active_options.confidence is False
+    assert response.inference.active_options.text_context is True
 
     assert response.inference.result.raw_text is None
 
