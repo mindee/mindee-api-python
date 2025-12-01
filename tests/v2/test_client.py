@@ -1,4 +1,5 @@
 import json
+import os
 
 import pytest
 
@@ -102,7 +103,8 @@ def custom_base_url_client(monkeypatch) -> ClientV2:
 
 @pytest.fixture
 def env_no_key(monkeypatch):
-    monkeypatch.delenv("MINDEE_V2_API_KEY")
+    if os.getenv("MINDEE_V2_API_KEY"):
+        monkeypatch.delenv("MINDEE_V2_API_KEY")
 
 
 @pytest.mark.v2
