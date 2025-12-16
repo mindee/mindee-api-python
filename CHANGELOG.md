@@ -1,5 +1,11 @@
 # Mindee Python Client Library Changelog
 
+## v4.32.0 - 2025-12-16
+### Changes
+* :sparkles: add support for text_context on v2
+* :sparkles: add support for data schema replace on v2
+* :coffin: remove unused feedback calls from CLI
+
 ## v4.31.0 - 2025-11-04
 ### Changes
 * :label: better field typing for v2
