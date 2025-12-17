@@ -1,5 +1,10 @@
 # Mindee Python Client Library Changelog
 
+## v4.32.1 - 2025-12-17
+### Changes
+* :sparkles: allow use of str, dict, or object to create a data schema replace
+
+
 ## v4.32.0 - 2025-12-16
 ### Changes
 * :sparkles: add support for text_context on v2
