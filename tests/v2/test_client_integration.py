@@ -6,9 +6,8 @@ import pytest
 from mindee import ClientV2, InferenceParameters, PathInput, UrlInputSource
 from mindee.error.mindee_http_error_v2 import MindeeHTTPErrorV2
 from mindee.parsing.v2 import InferenceActiveOptions
-from mindee.input.inference_parameters import DataSchema
 from mindee.parsing.v2.inference_response import InferenceResponse
-from tests.utils import FILE_TYPES_DIR, V2_PRODUCT_DATA_DIR
+from tests.utils import FILE_TYPES_DIR, V2_PRODUCT_DATA_DIR, V2_DATA_DIR
 
 
 @pytest.fixture(scope="session")
@@ -285,6 +284,9 @@ def test_data_schema_must_succeed(
     Load a blank PDF from an HTTPS URL and make sure the inference call completes without raising any errors.
     """
     input_path: Path = FILE_TYPES_DIR / "pdf" / "blank_1.pdf"
+    data_schema_replace_path = (
+        V2_DATA_DIR / "inference" / "data_schema_replace_param.json"
+    )
 
     input_source = PathInput(input_path)
     params = InferenceParameters(
@@ -294,24 +296,13 @@ def test_data_schema_must_succeed(
         polygon=False,
         confidence=False,
         webhook_ids=[],
-        data_schema=DataSchema(
-            replace={
-                "fields": [
-                    {
-                        "name": "test",
-                        "title": "Test",
-                        "is_array": False,
-                        "type": "string",
-                        "description": "A test field",
-                    }
-                ]
-            }
-        ),
-        alias="py_integration_data_schema_override",
+        data_schema=data_schema_replace_path.read_text(),
+        alias="py_integration_data_schema_replace",
     )
     response: InferenceResponse = v2_client.enqueue_and_get_inference(
         input_source, params
     )
     _basic_assert_success(response=response, page_count=1, model_id=findoc_model_id)
     assert response.inference.active_options.data_schema.replace is True
-    assert response.inference.result.fields["test"] is not None
+    assert response.inference.result.fields["test_replace"] is not None
+    assert response.inference.result.fields["test_replace"].value == "a test value"

@@ -6,6 +6,7 @@
 * :sparkles: add support for data schema replace on v2
 * :coffin: remove unused feedback calls from CLI
 
+
 ## v4.31.0 - 2025-11-04
 ### Changes
 * :label: better field typing for v2

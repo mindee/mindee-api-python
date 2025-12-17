@@ -7,7 +7,6 @@ from mindee import ClientV2, InferenceParameters, InferenceResponse, LocalRespon
 from mindee.error.mindee_error import MindeeApiV2Error, MindeeError
 from mindee.error.mindee_http_error_v2 import MindeeHTTPErrorV2
 from mindee.input import LocalInputSource, PathInput
-from mindee.input.inference_parameters import DataSchema
 from mindee.mindee_http.base_settings import USER_AGENT
 from mindee.parsing.v2.inference import Inference
 from mindee.parsing.v2.job import Job
@@ -141,7 +140,11 @@ def test_enqueue_and_parse_path_with_env_token(custom_base_url_client):
             InferenceParameters(
                 "dummy-model",
                 text_context="ignore this message",
-                data_schema=DataSchema(replace={"test_field": {}}),
+                data_schema=json.loads(
+                    (
+                        V2_DATA_DIR / "inference" / "data_schema_replace_param.json"
+                    ).read_text()
+                ),
             ),
         )
 

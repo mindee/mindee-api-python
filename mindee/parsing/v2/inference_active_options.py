@@ -60,4 +60,5 @@ class InferenceActiveOptions:
             f"\n:Confidence: {self.confidence}"
             f"\n:RAG: {self.rag}"
             f"\n:Text Context: {self.text_context}"
+            f"\n\n{self.data_schema}"
         )
