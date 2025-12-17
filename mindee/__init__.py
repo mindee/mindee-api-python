@@ -1,10 +1,13 @@
 from mindee import product
 from mindee.client import Client
 from mindee.client_v2 import ClientV2
-from mindee.input.inference_parameters import InferenceParameters
-from mindee.input.local_response import LocalResponse
-from mindee.input.page_options import PageOptions
-from mindee.input.polling_options import PollingOptions
+from mindee.input.inference_parameters import (
+    InferenceParameters,
+    DataSchemaField,
+    DataSchema,
+    DataSchemaReplace,
+)
+from mindee.input import LocalResponse, PageOptions, PollingOptions
 from mindee.input.sources import (
     Base64Input,
     BytesInput,
@@ -23,6 +26,9 @@ from mindee.parsing.v2 import InferenceResponse, JobResponse
 __all__ = [
     "Client",
     "ClientV2",
+    "DataSchema",
+    "DataSchemaField",
+    "DataSchemaReplace",
     "InferenceParameters",
     "FileInput",
     "PathInput",
