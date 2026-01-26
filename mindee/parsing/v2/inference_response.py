@@ -1,9 +1,13 @@
+from typing_extensions import override
+
 from mindee.parsing.common.string_dict import StringDict
-from mindee.parsing.v2.common_response import CommonResponse
 from mindee.parsing.v2.inference import Inference
+from mindee.v2.parsing.inference.base_inference_response import (
+    BaseInferenceResponse,
+)
 
 
-class InferenceResponse(CommonResponse):
+class InferenceResponse(BaseInferenceResponse[Inference]):
     """Represent an inference response from Mindee V2 API."""
 
     inference: Inference
@@ -15,3 +19,7 @@ class InferenceResponse(CommonResponse):
 
     def __str__(self) -> str:
         return str(self.inference)
+
+    @override
+    def _set_inference_type(self, inference_response: StringDict):
+        return Inference

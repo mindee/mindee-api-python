@@ -1,10 +1,10 @@
 from time import sleep
-from typing import Optional, Union
+from typing import Optional, Union, Type
 
 from mindee.client_mixin import ClientMixin
 from mindee.error.mindee_error import MindeeError
 from mindee.error.mindee_http_error_v2 import handle_error_v2
-from mindee.input import UrlInputSource
+from mindee.input import UrlInputSource, UtilityParameters
 from mindee.input.inference_parameters import InferenceParameters
 from mindee.input.polling_options import PollingOptions
 from mindee.input.sources.local_input_source import LocalInputSource
@@ -15,6 +15,7 @@ from mindee.mindee_http.response_validation_v2 import (
     is_valid_post_response,
 )
 from mindee.parsing.v2.common_response import CommonStatus
+from mindee.v2 import BaseInferenceResponse
 from mindee.parsing.v2.inference_response import InferenceResponse
 from mindee.parsing.v2.job_response import JobResponse
 
@@ -41,20 +42,21 @@ class ClientV2(ClientMixin):
     def enqueue_inference(
         self,
         input_source: Union[LocalInputSource, UrlInputSource],
-        params: InferenceParameters,
+        params: Union[InferenceParameters, UtilityParameters],
+        slug: Optional[str] = None,
     ) -> JobResponse:
         """
         Enqueues a document to a given model.
 
         :param input_source: The document/source file to use. Can be local or remote.
-
         :param params: Parameters to set when sending a file.
+        :param slug: Slug for the endpoint.
+
         :return: A valid inference response.
         """
         logger.debug("Enqueuing inference using model: %s", params.model_id)
-
         response = self.mindee_api.req_post_inference_enqueue(
-            input_source=input_source, params=params
+            input_source=input_source, params=params, slug=slug
         )
         dict_response = response.json()
 
@@ -79,13 +81,18 @@ class ClientV2(ClientMixin):
         dict_response = response.json()
         return JobResponse(dict_response)
 
-    def get_inference(self, inference_id: str) -> InferenceResponse:
+    def get_inference(
+        self,
+        inference_id: str,
+        inference_response_type: Type[InferenceResponse] = InferenceResponse,
+    ) -> BaseInferenceResponse:
         """
         Get the result of an inference that was previously enqueued.
 
         The inference will only be available after it has finished processing.
 
         :param inference_id: UUID of the inference to retrieve.
+        :param inference_response_type: Class of the product to instantiate.
         :return: An inference response.
         """
         logger.debug("Fetching inference: %s", inference_id)
@@ -94,7 +101,63 @@ class ClientV2(ClientMixin):
         if not is_valid_get_response(response):
             handle_error_v2(response.json())
         dict_response = response.json()
-        return InferenceResponse(dict_response)
+        return inference_response_type(dict_response)
+
+    def _enqueue_and_get(
+        self,
+        input_source: Union[LocalInputSource, UrlInputSource],
+        params: Union[InferenceParameters, UtilityParameters],
+        inference_response_type: Optional[Type[InferenceResponse]] = InferenceResponse,
+    ) -> InferenceResponse:
+        """
+        Enqueues to an asynchronous endpoint and automatically polls for a response.
+
+        :param input_source: The document/source file to use. Can be local or remote.
+        :param params: Parameters to set when sending a file.
+        :param inference_response_type: The product class to use for the response object.
+
+        :return: A valid inference response.
+        """
+        if not params.polling_options:
+            params.polling_options = PollingOptions()
+        self._validate_async_params(
+            params.polling_options.initial_delay_sec,
+            params.polling_options.delay_sec,
+            params.polling_options.max_retries,
+        )
+        slug = (
+            inference_response_type.inference.get_slug()
+            if inference_response_type
+            else None
+        )
+        enqueue_response = self.enqueue_inference(input_source, params, slug)
+        logger.debug(
+            "Successfully enqueued document with job id: %s", enqueue_response.job.id
+        )
+        sleep(params.polling_options.initial_delay_sec)
+        try_counter = 0
+        while try_counter < params.polling_options.max_retries:
+            job_response = self.get_job(enqueue_response.job.id)
+            if job_response.job.status == CommonStatus.FAILED.value:
+                if job_response.job.error:
+                    detail = job_response.job.error.detail
+                else:
+                    detail = "No error detail available."
+                raise MindeeError(
+                    f"Parsing failed for job {job_response.job.id}: {detail}"
+                )
+            if job_response.job.status == CommonStatus.PROCESSED.value:
+                result = self.get_inference(
+                    job_response.job.id, inference_response_type or InferenceResponse
+                )
+                assert isinstance(result, InferenceResponse), (
+                    f'Invalid response type "{type(result)}"'
+                )
+                return result
+            try_counter += 1
+            sleep(params.polling_options.delay_sec)
+
+        raise MindeeError(f"Couldn't retrieve document after {try_counter + 1} tries.")
 
     def enqueue_and_get_inference(
         self,
@@ -110,32 +173,31 @@ class ClientV2(ClientMixin):
 
         :return: A valid inference response.
         """
-        if not params.polling_options:
-            params.polling_options = PollingOptions()
-        self._validate_async_params(
-            params.polling_options.initial_delay_sec,
-            params.polling_options.delay_sec,
-            params.polling_options.max_retries,
+        response = self._enqueue_and_get(input_source, params)
+        assert isinstance(response, InferenceResponse), (
+            f'Invalid response type "{type(response)}"'
         )
-        enqueue_response = self.enqueue_inference(input_source, params)
-        logger.debug(
-            "Successfully enqueued inference with job id: %s", enqueue_response.job.id
-        )
-        sleep(params.polling_options.initial_delay_sec)
-        try_counter = 0
-        while try_counter < params.polling_options.max_retries:
-            job_response = self.get_job(enqueue_response.job.id)
-            if job_response.job.status == CommonStatus.FAILED.value:
-                if job_response.job.error:
-                    detail = job_response.job.error.detail
-                else:
-                    detail = "No error detail available."
-                raise MindeeError(
-                    f"Parsing failed for job {job_response.job.id}: {detail}"
-                )
-            if job_response.job.status == CommonStatus.PROCESSED.value:
-                return self.get_inference(job_response.job.id)
-            try_counter += 1
-            sleep(params.polling_options.delay_sec)
+        return response
 
-        raise MindeeError(f"Couldn't retrieve document after {try_counter + 1} tries.")
+    def enqueue_and_get_utility(
+        self,
+        inference_response_type: Type[InferenceResponse],
+        input_source: Union[LocalInputSource, UrlInputSource],
+        params: UtilityParameters,
+    ) -> InferenceResponse:
+        """
+        Enqueues to an asynchronous endpoint and automatically polls for a response.
+
+        :param input_source: The document/source file to use. Can be local or remote.
+
+        :param params: Parameters to set when sending a file.
+
+        :param inference_response_type: The product class to use for the response object.
+
+        :return: A valid inference response.
+        """
+        response = self._enqueue_and_get(input_source, params, inference_response_type)
+        assert isinstance(response, inference_response_type), (
+            f'Invalid response type "{type(response)}"'
+        )
+        return response

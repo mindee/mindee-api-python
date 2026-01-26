@@ -4,7 +4,7 @@ from typing import Dict, Optional, Union
 import requests
 
 from mindee.error.mindee_error import MindeeApiV2Error
-from mindee.input import LocalInputSource, UrlInputSource
+from mindee.input import LocalInputSource, UrlInputSource, UtilityParameters
 from mindee.input.inference_parameters import InferenceParameters
 from mindee.logger import logger
 from mindee.mindee_http.base_settings import USER_AGENT
@@ -74,34 +74,37 @@ class MindeeApiV2(SettingsMixin):
     def req_post_inference_enqueue(
         self,
         input_source: Union[LocalInputSource, UrlInputSource],
-        params: InferenceParameters,
+        params: Union[InferenceParameters, UtilityParameters],
+        slug: Optional[str] = None,
     ) -> requests.Response:
         """
         Make an asynchronous request to POST a document for prediction on the V2 API.
 
         :param input_source: Input object.
         :param params: Options for the enqueueing of the document.
+        :param slug: Slug to use for the enqueueing, defaults to 'inferences'.
         :return: requests response.
         """
+        slug = slug if slug else "inferences"
         data: Dict[str, Union[str, list]] = {"model_id": params.model_id}
-        url = f"{self.url_root}/inferences/enqueue"
-
-        if params.rag is not None:
-            data["rag"] = str(params.rag).lower()
-        if params.raw_text is not None:
-            data["raw_text"] = str(params.raw_text).lower()
-        if params.confidence is not None:
-            data["confidence"] = str(params.confidence).lower()
-        if params.polygon is not None:
-            data["polygon"] = str(params.polygon).lower()
+        url = f"{self.url_root}/{slug}/enqueue"
+        if isinstance(params, InferenceParameters):
+            if params.rag is not None:
+                data["rag"] = str(params.rag).lower()
+            if params.raw_text is not None:
+                data["raw_text"] = str(params.raw_text).lower()
+            if params.confidence is not None:
+                data["confidence"] = str(params.confidence).lower()
+            if params.polygon is not None:
+                data["polygon"] = str(params.polygon).lower()
+            if params.text_context and len(params.text_context):
+                data["text_context"] = params.text_context
+            if params.data_schema is not None:
+                data["data_schema"] = str(params.data_schema)
         if params.webhook_ids and len(params.webhook_ids) > 0:
             data["webhook_ids"] = params.webhook_ids
         if params.alias and len(params.alias):
             data["alias"] = params.alias
-        if params.text_context and len(params.text_context):
-            data["text_context"] = params.text_context
-        if params.data_schema is not None:
-            data["data_schema"] = str(params.data_schema)
 
         if isinstance(input_source, LocalInputSource):
             files = {"file": input_source.read_contents(params.close_file)}

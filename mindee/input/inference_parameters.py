@@ -2,7 +2,7 @@ import json
 from dataclasses import dataclass, asdict
 from typing import List, Optional, Union
 
-from mindee.input.polling_options import PollingOptions
+from mindee.input.base_parameters import BaseParameters
 
 
 @dataclass
@@ -44,7 +44,7 @@ class DataSchemaField(StringDataClass):
     guidelines: Optional[str] = None
     """Optional extraction guidelines."""
     nested_fields: Optional[dict] = None
-    """Subfields when type is `nested_object`. Leave empty for other types"""
+    """Subfields when type is `nested_object`. Leave empty for other types."""
 
 
 @dataclass
@@ -78,11 +78,9 @@ class DataSchema(StringDataClass):
 
 
 @dataclass
-class InferenceParameters:
+class InferenceParameters(BaseParameters):
     """Inference parameters to set when sending a file."""
 
-    model_id: str
-    """ID of the model, required."""
     rag: Optional[bool] = None
     """Enhance extraction accuracy with Retrieval-Augmented Generation."""
     raw_text: Optional[bool] = None
@@ -94,14 +92,6 @@ class InferenceParameters:
     Boost the precision and accuracy of all extractions.
     Calculate confidence scores for all fields, and fill their ``confidence`` attribute.
     """
-    alias: Optional[str] = None
-    """Use an alias to link the file to your own DB. If empty, no alias will be used."""
-    webhook_ids: Optional[List[str]] = None
-    """IDs of webhooks to propagate the API response to."""
-    polling_options: Optional[PollingOptions] = None
-    """Options for polling. Set only if having timeout issues."""
-    close_file: bool = True
-    """Whether to close the file after parsing."""
     text_context: Optional[str] = None
     """
     Additional text context used by the model during inference.
