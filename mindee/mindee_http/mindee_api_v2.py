@@ -1,5 +1,5 @@
 import os
-from typing import Dict, Optional, Union
+from typing import Dict, List, Optional, Union
 
 import requests
 
@@ -87,7 +87,7 @@ class MindeeApiV2(SettingsMixin):
         """
         if not slug:
             slug = "inferences"
-        data: Dict[str, Union[str, list]] = {"model_id": params.model_id}
+        data: Dict[str, Union[str, List[str]]] = {"model_id": params.model_id}
         url = f"{self.url_root}/{slug}/enqueue"
         if isinstance(params, InferenceParameters):
             self._set_inference_params(data, params)
@@ -118,7 +118,7 @@ class MindeeApiV2(SettingsMixin):
         return response
 
     def _set_inference_params(
-        self, data: dict[str, Union[str, list]], params: InferenceParameters
+        self, data: Dict[str, Union[str, List[str]]], params: InferenceParameters
     ) -> None:
         """
         Sets the inference-specific parameters.

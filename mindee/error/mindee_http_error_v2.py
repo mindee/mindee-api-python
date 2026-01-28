@@ -1,5 +1,5 @@
 import json
-from typing import Optional
+from typing import List, Optional
 
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.v2 import ErrorItem, ErrorResponse
@@ -18,7 +18,7 @@ class MindeeHTTPErrorV2(RuntimeError, ErrorResponse):
         self.title = response.title
         self.code = response.code
         self.detail = response.detail
-        self.errors: list[ErrorItem] = response.errors
+        self.errors: List[ErrorItem] = response.errors
         super().__init__(
             f"HTTP {self.status} - {self.title} :: {self.code} - {self.detail}"
         )
