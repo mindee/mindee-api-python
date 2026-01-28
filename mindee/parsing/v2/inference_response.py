@@ -1,5 +1,3 @@
-from typing import override
-
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.v2.inference import Inference
 from mindee.v2.parsing.inference.base_inference_response import (
@@ -20,6 +18,5 @@ class InferenceResponse(BaseInferenceResponse[Inference]):
     def __str__(self) -> str:
         return str(self.inference)
 
-    @override
     def _set_inference_type(self, inference_response: StringDict):
         return Inference
