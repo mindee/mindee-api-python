@@ -18,3 +18,12 @@ class Inference(BaseInference):
         super().__init__(raw_response)
         self.result = InferenceResult(raw_response["result"])
         self.active_options = InferenceActiveOptions(raw_response["active_options"])
+
+    def __str__(self) -> str:
+        return (
+            f"Inference\n#########"
+            f"\n{self.model}"
+            f"\n\n{self.file}"
+            f"\n\n{self.active_options}"
+            f"\n\n{self.result}\n"
+        )

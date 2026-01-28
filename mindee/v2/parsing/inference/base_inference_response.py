@@ -31,5 +31,8 @@ class BaseInferenceResponse(CommonResponse, Generic[TypeBaseInference]):
         """Getter for the inference slug."""
         return cls.inference_type.get_slug()
 
+    def __str__(self) -> str:
+        return str(self.inference)
+
 
 TypeInferenceResponse = TypeVar("TypeInferenceResponse", bound=BaseInferenceResponse)

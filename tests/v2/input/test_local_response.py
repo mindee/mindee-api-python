@@ -20,6 +20,7 @@ def _assert_local_response(local_response):
     assert not local_response.is_valid_hmac_signature(
         fake_hmac_signing, "invalid signature"
     )
+    print(local_response.get_hmac_signature(fake_hmac_signing))
     assert signature == local_response.get_hmac_signature(fake_hmac_signing)
     assert local_response.is_valid_hmac_signature(fake_hmac_signing, signature)
     reponse: InferenceResponse = local_response.deserialize_response(InferenceResponse)
