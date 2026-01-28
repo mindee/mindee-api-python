@@ -1,4 +1,4 @@
-from typing_extensions import override
+from typing import override
 
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.v2.inference import Inference
