@@ -14,13 +14,12 @@ def file_path() -> Path:
 
 def _assert_local_response(local_response):
     fake_hmac_signing = "ogNjY44MhvKPGTtVsI8zG82JqWQa68woYQH"
-    signature = "1df388c992d87897fe61dfc56c444c58fc3c7369c31e2b5fd20d867695e93e85"
+    signature = "f390d9f7f57ac04f47b6309d8a40236b0182610804fc20e91b1f6028aaca07a7"
 
     assert local_response._file is not None
     assert not local_response.is_valid_hmac_signature(
         fake_hmac_signing, "invalid signature"
     )
-    print(local_response.get_hmac_signature(fake_hmac_signing))
     assert signature == local_response.get_hmac_signature(fake_hmac_signing)
     assert local_response.is_valid_hmac_signature(fake_hmac_signing, signature)
     reponse: InferenceResponse = local_response.deserialize_response(InferenceResponse)
