@@ -1,5 +1,5 @@
 from time import sleep
-from typing import Optional, Union, Type
+from typing import Optional, Union, Type, TypeVar
 
 from mindee.client_mixin import ClientMixin
 from mindee.error.mindee_error import MindeeError
@@ -18,6 +18,10 @@ from mindee.parsing.v2.common_response import CommonStatus
 from mindee.v2 import BaseInferenceResponse
 from mindee.parsing.v2.inference_response import InferenceResponse
 from mindee.parsing.v2.job_response import JobResponse
+
+TypeBaseInferenceResponse = TypeVar(
+    "TypeBaseInferenceResponse", bound=BaseInferenceResponse
+)
 
 
 class ClientV2(ClientMixin):
@@ -84,7 +88,7 @@ class ClientV2(ClientMixin):
     def get_inference(
         self,
         inference_id: str,
-        inference_response_type: Type[InferenceResponse] = InferenceResponse,
+        inference_response_type: Type[BaseInferenceResponse] = InferenceResponse,
     ) -> BaseInferenceResponse:
         """
         Get the result of an inference that was previously enqueued.
@@ -96,8 +100,11 @@ class ClientV2(ClientMixin):
         :return: An inference response.
         """
         logger.debug("Fetching inference: %s", inference_id)
+        slug = None
+        if inference_response_type and inference_response_type is not InferenceResponse:
+            slug = "utilities/" + inference_response_type.get_inference_slug()
 
-        response = self.mindee_api.req_get_inference(inference_id)
+        response = self.mindee_api.req_get_inference(inference_id, slug)
         if not is_valid_get_response(response):
             handle_error_v2(response.json())
         dict_response = response.json()
@@ -107,8 +114,10 @@ class ClientV2(ClientMixin):
         self,
         input_source: Union[LocalInputSource, UrlInputSource],
         params: Union[InferenceParameters, UtilityParameters],
-        inference_response_type: Optional[Type[InferenceResponse]] = InferenceResponse,
-    ) -> InferenceResponse:
+        inference_response_type: Optional[
+            Type[BaseInferenceResponse]
+        ] = InferenceResponse,
+    ) -> BaseInferenceResponse:
         """
         Enqueues to an asynchronous endpoint and automatically polls for a response.
 
@@ -125,11 +134,9 @@ class ClientV2(ClientMixin):
             params.polling_options.delay_sec,
             params.polling_options.max_retries,
         )
-        slug = (
-            inference_response_type.inference.get_slug()
-            if inference_response_type
-            else None
-        )
+        slug = None
+        if inference_response_type and inference_response_type is not InferenceResponse:
+            slug = "utilities/" + inference_response_type.get_inference_slug()
         enqueue_response = self.enqueue_inference(input_source, params, slug)
         logger.debug(
             "Successfully enqueued document with job id: %s", enqueue_response.job.id
@@ -149,9 +156,6 @@ class ClientV2(ClientMixin):
             if job_response.job.status == CommonStatus.PROCESSED.value:
                 result = self.get_inference(
                     job_response.job.id, inference_response_type or InferenceResponse
-                )
-                assert isinstance(result, InferenceResponse), (
-                    f'Invalid response type "{type(result)}"'
                 )
                 return result
             try_counter += 1
@@ -181,10 +185,10 @@ class ClientV2(ClientMixin):
 
     def enqueue_and_get_utility(
         self,
-        inference_response_type: Type[InferenceResponse],
+        inference_response_type: Type[TypeBaseInferenceResponse],
         input_source: Union[LocalInputSource, UrlInputSource],
         params: UtilityParameters,
-    ) -> InferenceResponse:
+    ) -> TypeBaseInferenceResponse:
         """
         Enqueues to an asynchronous endpoint and automatically polls for a response.
 

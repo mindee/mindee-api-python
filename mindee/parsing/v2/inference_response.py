@@ -10,6 +10,7 @@ class InferenceResponse(BaseInferenceResponse[Inference]):
 
     inference: Inference
     """Inference result."""
+    inference_type = Inference
 
     def __init__(self, raw_response: StringDict) -> None:
         super().__init__(raw_response)

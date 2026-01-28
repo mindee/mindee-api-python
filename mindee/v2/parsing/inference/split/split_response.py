@@ -1,6 +1,3 @@
-from typing import override
-
-from mindee.parsing.common.string_dict import StringDict
 from mindee.v2.parsing.inference.base_inference_response import (
     BaseInferenceResponse,
 )
@@ -10,8 +7,10 @@ from mindee.v2.parsing.inference.split.split_inference import SplitInference
 class SplitResponse(BaseInferenceResponse[SplitInference]):
     """Represent a split inference response from Mindee V2 API."""
 
-    @override
-    def _set_inference_type(self, inference_response: StringDict):
+    inference: SplitInference
+    inference_type = SplitInference
+
+    def _set_inference_type(self, inference_response):
         """
         Sets the inference type.
 

@@ -9,14 +9,14 @@ from mindee.parsing.v2.inference_model import InferenceModel
 class BaseInference(ABC):
     """Base class for V2 inference objects."""
 
+    _slug: str
+    """Slug of the inference."""
     model: InferenceModel
     """Model info for the inference."""
     file: InferenceFile
     """File info for the inference."""
     id: str
     """ID of the inference."""
-    _slug: str
-    """Slug of the inference."""
 
     def __init__(self, raw_response: StringDict):
         self.id = raw_response["id"]

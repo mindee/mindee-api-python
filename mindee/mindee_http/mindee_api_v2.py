@@ -85,22 +85,12 @@ class MindeeApiV2(SettingsMixin):
         :param slug: Slug to use for the enqueueing, defaults to 'inferences'.
         :return: requests response.
         """
-        slug = slug if slug else "inferences"
+        if not slug:
+            slug = "inferences"
         data: Dict[str, Union[str, list]] = {"model_id": params.model_id}
         url = f"{self.url_root}/{slug}/enqueue"
         if isinstance(params, InferenceParameters):
-            if params.rag is not None:
-                data["rag"] = str(params.rag).lower()
-            if params.raw_text is not None:
-                data["raw_text"] = str(params.raw_text).lower()
-            if params.confidence is not None:
-                data["confidence"] = str(params.confidence).lower()
-            if params.polygon is not None:
-                data["polygon"] = str(params.polygon).lower()
-            if params.text_context and len(params.text_context):
-                data["text_context"] = params.text_context
-            if params.data_schema is not None:
-                data["data_schema"] = str(params.data_schema)
+            self._set_inference_params(data, params)
         if params.webhook_ids and len(params.webhook_ids) > 0:
             data["webhook_ids"] = params.webhook_ids
         if params.alias and len(params.alias):
@@ -127,6 +117,28 @@ class MindeeApiV2(SettingsMixin):
             raise MindeeApiV2Error("Invalid input source.")
         return response
 
+    def _set_inference_params(
+        self, data: dict[str, Union[str, list]], params: InferenceParameters
+    ) -> None:
+        """
+        Sets the inference-specific parameters.
+
+        :param data: Data dict to fill.
+        :param params: Parameters to add.
+        """
+        if params.rag is not None:
+            data["rag"] = str(params.rag).lower()
+        if params.raw_text is not None:
+            data["raw_text"] = str(params.raw_text).lower()
+        if params.confidence is not None:
+            data["confidence"] = str(params.confidence).lower()
+        if params.polygon is not None:
+            data["polygon"] = str(params.polygon).lower()
+        if params.text_context and len(params.text_context):
+            data["text_context"] = params.text_context
+        if params.data_schema is not None:
+            data["data_schema"] = str(params.data_schema)
+
     def req_get_job(self, job_id: str) -> requests.Response:
         """
         Sends a request matching a given queue_id. Returns either a Job or a Document.
@@ -140,14 +152,22 @@ class MindeeApiV2(SettingsMixin):
             allow_redirects=False,
         )
 
-    def req_get_inference(self, inference_id: str) -> requests.Response:
+    def req_get_inference(
+        self, inference_id: str, slug: Optional[str]
+    ) -> requests.Response:
         """
         Sends a request matching a given queue_id. Returns either a Job or a Document.
 
         :param inference_id: Inference ID, returned by the job request.
+        :param slug: Slug of the inference, defaults to nothing.
         """
+
+        if not slug:
+            url = f"{self.url_root}/inferences/{inference_id}"
+        else:
+            url = f"{self.url_root}/{slug}/{inference_id}"
         return requests.get(
-            f"{self.url_root}/inferences/{inference_id}",
+            url,
             headers=self.base_headers,
             timeout=self.request_timeout,
             allow_redirects=False,
