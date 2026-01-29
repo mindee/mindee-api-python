@@ -30,7 +30,7 @@ def test_split_blank(v2_client: ClientV2, split_model_id: str):
     input_source = PathInput(
         V1_PRODUCT_DATA_DIR / "invoice_splitter" / "default_sample.pdf"
     )
-    response = v2_client.enqueue_and_get_utility(
+    response = v2_client.enqueue_and_get_result(
         SplitResponse, input_source, SplitParameters(split_model_id)
     )  # Note: do not use blank_1.pdf for this.
     assert response.inference is not None
