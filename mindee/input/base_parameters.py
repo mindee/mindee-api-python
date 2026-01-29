@@ -1,5 +1,5 @@
 from abc import ABC
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Dict, Optional, List, Union
 
 from mindee.input.polling_options import PollingOptions
@@ -8,6 +8,9 @@ from mindee.input.polling_options import PollingOptions
 @dataclass
 class BaseParameters(ABC):
     """Base class for parameters accepted by all V2 endpoints."""
+
+    _slug: str = field(init=False)
+    """Slug of the endpoint."""
 
     model_id: str
     """ID of the model, required."""
@@ -34,3 +37,8 @@ class BaseParameters(ABC):
         if self.webhook_ids and len(self.webhook_ids) > 0:
             data["webhook_ids"] = self.webhook_ids
         return data
+
+    @classmethod
+    def get_enqueue_slug(cls) -> str:
+        """Getter for the enqueue slug."""
+        return cls._slug

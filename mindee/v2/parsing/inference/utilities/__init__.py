@@ -1,19 +1,15 @@
-from mindee.v2.parsing.inference.base_inference import BaseInference
-from mindee.v2.parsing.inference.base_response import (
-    BaseResponse,
-)
-from mindee.v2.parsing.inference.utilities.split.split_split import SplitSplit
-from mindee.v2.parsing.inference.utilities.split import SplitInference
+from mindee.v2.parsing.inference.utilities.split.split_inference import SplitInference
 from mindee.v2.parsing.inference.utilities.split.split_parameters import SplitParameters
 from mindee.v2.parsing.inference.utilities.split.split_response import SplitResponse
 from mindee.v2.parsing.inference.utilities.split.split_result import SplitResult
+from mindee.v2.parsing.inference.utilities.split.split_split import SplitSplit
+from mindee.v2.parsing.inference.utilities.utility_response import UtilityResponse
 
 __all__ = [
-    "BaseInference",
-    "BaseResponse",
-    "SplitSplit",
     "SplitInference",
     "SplitParameters",
     "SplitResponse",
     "SplitResult",
+    "SplitSplit",
+    "UtilityResponse",
 ]

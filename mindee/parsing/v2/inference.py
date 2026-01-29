@@ -11,8 +11,6 @@ class Inference(BaseInference):
     """Result of the inference."""
     active_options: InferenceActiveOptions
     """Active options for the inference."""
-    _slug: str = "inferences"
-    """Slug of the inference."""
 
     def __init__(self, raw_response: StringDict):
         super().__init__(raw_response)

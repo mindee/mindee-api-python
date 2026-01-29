@@ -1,5 +1,5 @@
 import json
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass, asdict, field
 from typing import Dict, List, Optional, Union
 
 from mindee.input.base_parameters import BaseParameters
@@ -80,6 +80,9 @@ class DataSchema(StringDataClass):
 @dataclass
 class InferenceParameters(BaseParameters):
     """Inference parameters to set when sending a file."""
+
+    _slug: str = field(init=False, default="inferences")
+    """Slug of the endpoint."""
 
     rag: Optional[bool] = None
     """Enhance extraction accuracy with Retrieval-Augmented Generation."""

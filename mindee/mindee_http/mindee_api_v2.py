@@ -74,7 +74,7 @@ class MindeeApiV2(SettingsMixin):
         self,
         input_source: Union[LocalInputSource, UrlInputSource],
         params: BaseParameters,
-        slug: Optional[str] = None,
+        slug: str,
     ) -> requests.Response:
         """
         Make an asynchronous request to POST a document for prediction on the V2 API.
@@ -84,8 +84,6 @@ class MindeeApiV2(SettingsMixin):
         :param slug: Slug to use for the enqueueing, defaults to 'inferences'.
         :return: requests response.
         """
-        if not slug:
-            slug = "inferences"
         data = params.get_config()
         url = f"{self.url_root}/{slug}/enqueue"
 
@@ -123,9 +121,7 @@ class MindeeApiV2(SettingsMixin):
             allow_redirects=False,
         )
 
-    def req_get_inference(
-        self, inference_id: str, slug: Optional[str]
-    ) -> requests.Response:
+    def req_get_inference(self, inference_id: str, slug: str) -> requests.Response:
         """
         Sends a request matching a given queue_id. Returns either a Job or a Document.
 
@@ -133,10 +129,7 @@ class MindeeApiV2(SettingsMixin):
         :param slug: Slug of the inference, defaults to nothing.
         """
 
-        if not slug:
-            url = f"{self.url_root}/inferences/{inference_id}"
-        else:
-            url = f"{self.url_root}/{slug}/{inference_id}"
+        url = f"{self.url_root}/{slug}/{inference_id}"
         return requests.get(
             url,
             headers=self.base_headers,

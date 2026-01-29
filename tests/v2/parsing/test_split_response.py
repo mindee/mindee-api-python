@@ -1,10 +1,10 @@
 import pytest
 
 from mindee import LocalResponse
-from mindee.v2.parsing.inference.split.split import Split
-from mindee.v2.parsing.inference.split.split_inference import SplitInference
-from mindee.v2.parsing.inference.split.split_response import SplitResponse
-from mindee.v2.parsing.inference.split.split_result import SplitResult
+from mindee.v2.parsing.inference.utilities.split.split_split import SplitSplit
+from mindee.v2.parsing.inference.utilities.split import SplitInference
+from mindee.v2.parsing.inference.utilities.split.split_response import SplitResponse
+from mindee.v2.parsing.inference.utilities.split.split_result import SplitResult
 from tests.utils import V2_UTILITIES_DATA_DIR
 
 
@@ -26,7 +26,7 @@ def test_split_multiple():
     split_response = input_inference.deserialize_response(SplitResponse)
     assert isinstance(split_response.inference, SplitInference)
     assert isinstance(split_response.inference.result, SplitResult)
-    assert isinstance(split_response.inference.result.split[0], Split)
+    assert isinstance(split_response.inference.result.split[0], SplitSplit)
     assert len(split_response.inference.result.split) == 3
 
     assert len(split_response.inference.result.split[0].page_range) == 2

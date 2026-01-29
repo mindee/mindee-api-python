@@ -3,7 +3,7 @@ from typing import List
 from mindee.parsing.common.string_dict import StringDict
 
 
-class Split:
+class SplitSplit:
     """Split inference result."""
 
     page_range: List[int]
