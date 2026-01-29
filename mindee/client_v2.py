@@ -4,7 +4,7 @@ from typing import Optional, Union, Type, TypeVar
 from mindee.client_mixin import ClientMixin
 from mindee.error.mindee_error import MindeeError
 from mindee.error.mindee_http_error_v2 import handle_error_v2
-from mindee.input import UrlInputSource, UtilityParameters
+from mindee.input import UrlInputSource, SplitParameters
 from mindee.input.inference_parameters import InferenceParameters
 from mindee.input.polling_options import PollingOptions
 from mindee.input.sources.local_input_source import LocalInputSource
@@ -46,7 +46,7 @@ class ClientV2(ClientMixin):
     def enqueue_inference(
         self,
         input_source: Union[LocalInputSource, UrlInputSource],
-        params: Union[InferenceParameters, UtilityParameters],
+        params: Union[InferenceParameters, SplitParameters],
         slug: Optional[str] = None,
     ) -> JobResponse:
         """
@@ -113,7 +113,7 @@ class ClientV2(ClientMixin):
     def _enqueue_and_get(
         self,
         input_source: Union[LocalInputSource, UrlInputSource],
-        params: Union[InferenceParameters, UtilityParameters],
+        params: Union[InferenceParameters, SplitParameters],
         inference_response_type: Optional[
             Type[BaseInferenceResponse]
         ] = InferenceResponse,
@@ -187,7 +187,7 @@ class ClientV2(ClientMixin):
         self,
         inference_response_type: Type[TypeBaseInferenceResponse],
         input_source: Union[LocalInputSource, UrlInputSource],
-        params: UtilityParameters,
+        params: SplitParameters,
     ) -> TypeBaseInferenceResponse:
         """
         Enqueues to an asynchronous endpoint and automatically polls for a response.

@@ -3,15 +3,15 @@ import os
 import pytest
 
 from mindee import ClientV2, PathInput
-from mindee.input import UtilityParameters
+from mindee.input import SplitParameters
 from mindee.v2 import SplitResponse
-from tests.utils import FILE_TYPES_DIR
+from tests.utils import V1_PRODUCT_DATA_DIR
 
 
 @pytest.fixture(scope="session")
 def split_model_id() -> str:
     """Identifier of the Financial Document model, supplied through an env var."""
-    return os.getenv("MINDEE_V2_SPLIT_UTILITY_MODEL_ID")
+    return os.getenv("MINDEE_V2_SE_TESTS_SPLIT_MODEL_ID")
 
 
 @pytest.fixture(scope="session")
@@ -27,11 +27,13 @@ def v2_client() -> ClientV2:
 @pytest.mark.integration
 @pytest.mark.v2
 def test_split_blank(v2_client: ClientV2, split_model_id: str):
-    input_source = PathInput(FILE_TYPES_DIR / "pdf" / "blank_1.pdf")
-    response = v2_client.enqueue_and_get_utility(
-        SplitResponse, input_source, UtilityParameters(split_model_id)
+    input_source = PathInput(
+        V1_PRODUCT_DATA_DIR / "invoice_splitter" / "default_sample.pdf"
     )
+    response = v2_client.enqueue_and_get_utility(
+        SplitResponse, input_source, SplitParameters(split_model_id)
+    )  # Note: do not use blank_1.pdf for this.
     assert response.inference is not None
-    assert response.inference.file.name == "blank_1.pdf"
+    assert response.inference.file.name == "default_sample.pdf"
     assert response.inference.result.get("split")
-    assert len(response.inference.result.get("split")) == 1
+    assert len(response.inference.result.get("split")) == 2

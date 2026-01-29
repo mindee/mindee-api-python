@@ -4,7 +4,7 @@ from typing import Dict, List, Optional, Union
 import requests
 
 from mindee.error.mindee_error import MindeeApiV2Error
-from mindee.input import LocalInputSource, UrlInputSource, UtilityParameters
+from mindee.input import LocalInputSource, UrlInputSource, SplitParameters
 from mindee.input.inference_parameters import InferenceParameters
 from mindee.logger import logger
 from mindee.mindee_http.base_settings import USER_AGENT
@@ -74,7 +74,7 @@ class MindeeApiV2(SettingsMixin):
     def req_post_inference_enqueue(
         self,
         input_source: Union[LocalInputSource, UrlInputSource],
-        params: Union[InferenceParameters, UtilityParameters],
+        params: Union[InferenceParameters, SplitParameters],
         slug: Optional[str] = None,
     ) -> requests.Response:
         """
