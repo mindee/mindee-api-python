@@ -1,6 +1,6 @@
 from abc import ABC
 from dataclasses import dataclass
-from typing import Optional, List
+from typing import Dict, Optional, List, Union
 
 from mindee.input.polling_options import PollingOptions
 
@@ -19,3 +19,18 @@ class BaseParameters(ABC):
     """Options for polling. Set only if having timeout issues."""
     close_file: bool = True
     """Whether to close the file after parsing."""
+
+    def get_config(self) -> Dict[str, Union[str, List[str]]]:
+        """
+        Return the parameters as a config dictionary.
+
+        :return: A dict of parameters.
+        """
+        data: Dict[str, Union[str, List[str]]] = {
+            "model_id": self.model_id,
+        }
+        if self.alias is not None:
+            data["alias"] = self.alias
+        if self.webhook_ids and len(self.webhook_ids) > 0:
+            data["webhook_ids"] = self.webhook_ids
+        return data

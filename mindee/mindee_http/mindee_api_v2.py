@@ -1,11 +1,10 @@
 import os
-from typing import Dict, List, Optional, Union
+from typing import Dict, Optional, Union
 
 import requests
 
 from mindee.error.mindee_error import MindeeApiV2Error
 from mindee.input import LocalInputSource, UrlInputSource, BaseParameters
-from mindee.input.inference_parameters import InferenceParameters
 from mindee.logger import logger
 from mindee.mindee_http.base_settings import USER_AGENT
 from mindee.mindee_http.settings_mixin import SettingsMixin
@@ -87,14 +86,8 @@ class MindeeApiV2(SettingsMixin):
         """
         if not slug:
             slug = "inferences"
-        data: Dict[str, Union[str, List[str]]] = {"model_id": params.model_id}
+        data = params.get_config()
         url = f"{self.url_root}/{slug}/enqueue"
-        if isinstance(params, InferenceParameters):
-            self._set_inference_params(data, params)
-        if params.webhook_ids and len(params.webhook_ids) > 0:
-            data["webhook_ids"] = params.webhook_ids
-        if params.alias and len(params.alias):
-            data["alias"] = params.alias
 
         if isinstance(input_source, LocalInputSource):
             files = {"file": input_source.read_contents(params.close_file)}
@@ -116,28 +109,6 @@ class MindeeApiV2(SettingsMixin):
         else:
             raise MindeeApiV2Error("Invalid input source.")
         return response
-
-    def _set_inference_params(
-        self, data: Dict[str, Union[str, List[str]]], params: InferenceParameters
-    ) -> None:
-        """
-        Sets the inference-specific parameters.
-
-        :param data: Data dict to fill.
-        :param params: Parameters to add.
-        """
-        if params.rag is not None:
-            data["rag"] = str(params.rag).lower()
-        if params.raw_text is not None:
-            data["raw_text"] = str(params.raw_text).lower()
-        if params.confidence is not None:
-            data["confidence"] = str(params.confidence).lower()
-        if params.polygon is not None:
-            data["polygon"] = str(params.polygon).lower()
-        if params.text_context and len(params.text_context):
-            data["text_context"] = params.text_context
-        if params.data_schema is not None:
-            data["data_schema"] = str(params.data_schema)
 
     def req_get_job(self, job_id: str) -> requests.Response:
         """
