@@ -13,5 +13,8 @@ class SplitResult:
         self.split = [SplitSplit(split) for split in raw_response["split"]]
 
     def __str__(self) -> str:
-        out_str = f"Splits\n======{self.split}"
+        splits = "\n"
+        if len(self.split) > 0:
+            splits += "\n\n".join([str(split) for split in self.split])
+        out_str = f"Splits\n======{splits}"
         return out_str

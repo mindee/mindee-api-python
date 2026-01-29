@@ -17,4 +17,4 @@ class SplitSplit:
 
     def __str__(self) -> str:
         page_range = ",".join([str(page_index) for page_index in self.page_range])
-        return f":Page Range: {page_range}\n:Document Type: {self.document_type}"
+        return f"* :Page Range: {page_range}\n  :Document Type: {self.document_type}"
