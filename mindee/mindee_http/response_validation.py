@@ -56,7 +56,7 @@ def clean_request_json(response: requests.Response) -> StringDict:
     Checks and correct the response error format depending on the two possible kind of returns.
 
     :param response: Raw request response.
-    :return: Returns the job error if the error is due to parsing, returns the http error otherwise.
+    :return: Returns the job error if the error is due to product, returns the http error otherwise.
     """
     response_json = response.json()
     if response.status_code < 200 or response.status_code > 302:

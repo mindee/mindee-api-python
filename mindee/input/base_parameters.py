@@ -21,7 +21,7 @@ class BaseParameters(ABC):
     polling_options: Optional[PollingOptions] = None
     """Options for polling. Set only if having timeout issues."""
     close_file: bool = True
-    """Whether to close the file after parsing."""
+    """Whether to close the file after product."""
 
     def get_config(self) -> Dict[str, Union[str, List[str]]]:
         """

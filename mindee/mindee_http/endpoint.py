@@ -44,7 +44,7 @@ class Endpoint(BaseEndpoint):
 
         :param input_source: Input object
         :param include_words: Include raw OCR words in the response
-        :param close_file: Whether to `close()` the file after parsing it.
+        :param close_file: Whether to `close()` the file after product it.
         :param cropper: Including Mindee cropping results.
         :param full_text: Whether to include the full OCR text response in compatible APIs.
         :return: requests response
@@ -68,7 +68,7 @@ class Endpoint(BaseEndpoint):
 
         :param input_source: Input object
         :param include_words: Include raw OCR words in the response
-        :param close_file: Whether to `close()` the file after parsing it.
+        :param close_file: Whether to `close()` the file after product it.
         :param cropper: Including Mindee cropping results.
         :param full_text: Whether to include the full OCR text response in compatible APIs.
         :param workflow_id: Workflow ID.
@@ -184,7 +184,7 @@ class CustomEndpoint(Endpoint):
 
         :param input_source: Input object
         :return: requests response
-        :param close_file: Whether to `close()` the file after parsing it.
+        :param close_file: Whether to `close()` the file after product it.
         """
         files = {"document": input_source.read_contents(close_file)}
         params = {"training": True, "with_candidates": True}
@@ -206,7 +206,7 @@ class CustomEndpoint(Endpoint):
 
         :param input_source: Input object
         :return: requests response
-        :param close_file: Whether to `close()` the file after parsing it.
+        :param close_file: Whether to `close()` the file after product it.
         """
         files = {"document": input_source.read_contents(close_file)}
         params = {"training": True, "async": True}

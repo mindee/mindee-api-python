@@ -19,4 +19,4 @@ class BaseResponse(ABC, CommonResponse):
     @classmethod
     def get_result_slug(cls) -> str:
         """Getter for the inference slug."""
-        raise NotImplementedError("Subclasses must implement get_result_slug method")
+        return cls._slug

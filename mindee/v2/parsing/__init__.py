@@ -1,7 +1,7 @@
-from mindee.v2.parsing.inference import SplitParameters
-from mindee.v2.parsing.inference.utilities.split.split_response import SplitResponse
+from mindee.v2.parsing.inference.base_inference import BaseInference
+from mindee.v2.parsing.inference.base_response import BaseResponse
 
 __all__ = [
-    "SplitResponse",
-    "SplitParameters",
+    "BaseInference",
+    "BaseResponse",
 ]

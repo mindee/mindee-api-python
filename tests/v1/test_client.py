@@ -97,7 +97,7 @@ def test_cut_options(dummy_client: Client):
         f"{FILE_TYPES_DIR}/pdf/multipage.pdf"
     )
     try:
-        # need to keep file open to count the pages after parsing
+        # need to keep file open to count the pages after product
         dummy_client.parse(
             ReceiptV5,
             input_doc,

@@ -1,15 +1,15 @@
 from mindee.parsing.common.string_dict import StringDict
-from mindee.v2.parsing.inference.utilities.split.split_inference import SplitInference
-from mindee.v2.parsing.inference.utilities.utility_response import UtilityResponse
+from mindee.v2.parsing.inference import BaseResponse
+from mindee.v2.product.split.split_inference import SplitInference
 
 
-class SplitResponse(UtilityResponse):
+class SplitResponse(BaseResponse):
     """Represent a split inference response from Mindee V2 API."""
 
     inference: SplitInference
     """Inference object for split inference."""
 
-    _slug: str = "split"
+    _slug: str = "utilities/split"
     """Slug of the inference."""
 
     def __init__(self, raw_response: StringDict) -> None:

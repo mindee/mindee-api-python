@@ -1,10 +1,10 @@
 import pytest
 
 from mindee import LocalResponse
-from mindee.v2.parsing.inference.utilities.split.split_split import SplitSplit
-from mindee.v2.parsing.inference.utilities.split import SplitInference
-from mindee.v2.parsing.inference.utilities.split.split_response import SplitResponse
-from mindee.v2.parsing.inference.utilities.split.split_result import SplitResult
+from mindee.v2.product.split.split_split import SplitSplit
+from mindee.v2.product.split import SplitInference
+from mindee.v2.product.split.split_response import SplitResponse
+from mindee.v2.product.split.split_result import SplitResult
 from tests.utils import V2_UTILITIES_DATA_DIR
 
 

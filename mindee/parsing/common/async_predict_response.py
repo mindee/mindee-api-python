@@ -23,7 +23,7 @@ class AsyncPredictResponse(Generic[TypeInference], ApiResponse):
         """
         Container wrapper for a raw API response.
 
-        Inherits and instantiates a normal PredictResponse if the parsing of
+        Inherits and instantiates a normal PredictResponse if the product of
         the current queue is both requested and done.
 
         :param inference_type: Type of the inference.

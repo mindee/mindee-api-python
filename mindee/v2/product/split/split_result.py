@@ -1,7 +1,7 @@
 from typing import List
 
 from mindee.parsing.common.string_dict import StringDict
-from mindee.v2.parsing.inference.utilities.split.split_split import SplitSplit
+from mindee.v2.product.split.split_split import SplitSplit
 
 
 class SplitResult:
