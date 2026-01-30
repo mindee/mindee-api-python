@@ -35,5 +35,5 @@ def test_split_blank(v2_client: ClientV2, split_model_id: str):
     )  # Note: do not use blank_1.pdf for this.
     assert response.inference is not None
     assert response.inference.file.name == "default_sample.pdf"
-    assert response.inference.result.split
-    assert len(response.inference.result.split) == 2
+    assert response.inference.result.splits
+    assert len(response.inference.result.splits) == 2
