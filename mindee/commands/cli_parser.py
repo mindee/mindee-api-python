@@ -104,7 +104,7 @@ class MindeeParser:
     parser: MindeeArgumentParser
     """Parser options."""
     parsed_args: Namespace
-    """Stores attributes relating to product."""
+    """Stores attributes relating to parsing."""
     client: Client
     """Mindee client"""
     document_info: CommandConfig
@@ -159,7 +159,7 @@ class MindeeParser:
             print(response.raw_http)
         else:
             if response.document is None:
-                raise MindeeClientError("Something went wrong during async product.")
+                raise MindeeClientError("Something went wrong during async parsing.")
             # print the OCR
             if self.parsed_args.include_words:
                 print("#############\nDocument Text\n#############\n::\n")

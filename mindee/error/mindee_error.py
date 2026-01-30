@@ -4,7 +4,7 @@ class MindeeError(RuntimeError):
 
 class MindeeClientError(MindeeError):
     """
-    An exception relating to document product errors.
+    An exception relating to document parsing errors.
 
     Not to be confused with `MindeeHTTPClientError`.
     """

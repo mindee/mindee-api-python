@@ -92,7 +92,7 @@ class Client(ClientMixin):
             This performs a full OCR operation on the server and will increase response time.
             Only available on financial document APIs.
 
-        :param close_file: Whether to ``close()`` the file after product it.
+        :param close_file: Whether to ``close()`` the file after parsing it.
           Set to ``False`` if you need to access the file after this operation.
 
         :param page_options: If set, remove pages from the document as specified.
@@ -154,7 +154,7 @@ class Client(ClientMixin):
         :param include_words: Whether to include the full text for each page.
             This performs a full OCR operation on the server and will increase response time.
 
-        :param close_file: Whether to ``close()`` the file after product it.
+        :param close_file: Whether to ``close()`` the file after parsing it.
           Set to ``False`` if you need to access the file after this operation.
 
         :param page_options: If set, remove pages from the document as specified.
@@ -299,7 +299,7 @@ class Client(ClientMixin):
         :param include_words: Whether to include the full text for each page.
             This performs a full OCR operation on the server and will increase response time.
 
-        :param close_file: Whether to ``close()`` the file after product it.
+        :param close_file: Whether to ``close()`` the file after parsing it.
             Set to ``False`` if you need to access the file after this operation.
 
         :param page_options: If set, remove pages from the document as specified.
