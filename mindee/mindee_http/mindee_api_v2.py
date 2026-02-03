@@ -84,7 +84,7 @@ class MindeeApiV2(SettingsMixin):
         :param slug: Slug to use for the enqueueing, defaults to 'inferences'.
         :return: requests response.
         """
-        data = params.get_config()
+        data = params.get_form_data()
         url = f"{self.url_root}/{slug}/enqueue"
 
         if isinstance(input_source, LocalInputSource):

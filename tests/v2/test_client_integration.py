@@ -18,12 +18,7 @@ def findoc_model_id() -> str:
 
 @pytest.fixture(scope="session")
 def v2_client() -> ClientV2:
-    """
-    Real V2 client configured with the user-supplied API key
-    (or skipped when the key is absent).
-    """
-    api_key = os.getenv("MINDEE_V2_API_KEY")
-    return ClientV2(api_key)
+    return ClientV2()
 
 
 def _basic_assert_success(

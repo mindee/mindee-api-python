@@ -67,7 +67,6 @@ class ClientV2(ClientMixin):
 
         :param input_source: The document/source file to use. Can be local or remote.
         :param params: Parameters to set when sending a file.
-        :param slug: Slug for the endpoint.
 
         :return: A valid inference response.
         """
@@ -114,6 +113,27 @@ class ClientV2(ClientMixin):
         return self.get_result(inference_id, response_type)
 
     def get_result(
+        self,
+        inference_id: str,
+        response_type: Optional[Type[BaseResponse]] = InferenceResponse,
+    ) -> BaseResponse:
+        """
+        Get the result of an inference that was previously enqueued.
+
+        The inference will only be available after it has finished processing.
+
+        :param inference_id: UUID of the inference to retrieve.
+        :param response_type: Class of the product to instantiate.
+        :return: An inference response.
+        """
+        response_type = response_type or InferenceResponse
+        response = self._get_result(inference_id, response_type)
+        assert isinstance(response, response_type), (
+            f'Invalid response type "{type(response)}"'
+        )
+        return response
+
+    def _get_result(
         self,
         inference_id: str,
         response_type: Type[BaseResponse] = InferenceResponse,

@@ -10,7 +10,9 @@ from tests.utils import V2_UTILITIES_DATA_DIR
 
 @pytest.mark.v2
 def test_split_single():
-    input_inference = LocalResponse(V2_UTILITIES_DATA_DIR / "split_single.json")
+    input_inference = LocalResponse(
+        V2_UTILITIES_DATA_DIR / "split" / "split_single.json"
+    )
     split_response = input_inference.deserialize_response(SplitResponse)
     assert isinstance(split_response.inference, SplitInference)
     assert split_response.inference.result.splits
@@ -22,7 +24,9 @@ def test_split_single():
 
 @pytest.mark.v2
 def test_split_multiple():
-    input_inference = LocalResponse(V2_UTILITIES_DATA_DIR / "split_multiple.json")
+    input_inference = LocalResponse(
+        V2_UTILITIES_DATA_DIR / "split" / "split_multiple.json"
+    )
     split_response = input_inference.deserialize_response(SplitResponse)
     assert isinstance(split_response.inference, SplitInference)
     assert isinstance(split_response.inference.result, SplitResult)

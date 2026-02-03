@@ -23,7 +23,7 @@ class BaseParameters(ABC):
     close_file: bool = True
     """Whether to close the file after product."""
 
-    def get_config(self) -> Dict[str, Union[str, List[str]]]:
+    def get_form_data(self) -> Dict[str, Union[str, List[str]]]:
         """
         Return the parameters as a config dictionary.
 

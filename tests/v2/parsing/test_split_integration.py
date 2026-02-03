@@ -5,7 +5,7 @@ import pytest
 from mindee import ClientV2, PathInput
 from mindee.input import SplitParameters
 from mindee.v2 import SplitResponse
-from tests.utils import V1_PRODUCT_DATA_DIR
+from tests.utils import V2_UTILITIES_DATA_DIR
 
 
 @pytest.fixture(scope="session")
@@ -16,20 +16,13 @@ def split_model_id() -> str:
 
 @pytest.fixture(scope="session")
 def v2_client() -> ClientV2:
-    """
-    Real V2 client configured with the user-supplied API key
-    (or skipped when the key is absent).
-    """
-    api_key = os.getenv("MINDEE_V2_API_KEY")
-    return ClientV2(api_key)
+    return ClientV2()
 
 
 @pytest.mark.integration
 @pytest.mark.v2
 def test_split_blank(v2_client: ClientV2, split_model_id: str):
-    input_source = PathInput(
-        V1_PRODUCT_DATA_DIR / "invoice_splitter" / "default_sample.pdf"
-    )
+    input_source = PathInput(V2_UTILITIES_DATA_DIR / "split" / "default_sample.pdf")
     response = v2_client.enqueue_and_get_result(
         SplitResponse, input_source, SplitParameters(split_model_id)
     )  # Note: do not use blank_1.pdf for this.

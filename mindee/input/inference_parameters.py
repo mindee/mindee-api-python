@@ -112,13 +112,13 @@ class InferenceParameters(BaseParameters):
         elif isinstance(self.data_schema, dict):
             self.data_schema = DataSchema(**self.data_schema)
 
-    def get_config(self) -> Dict[str, Union[str, List[str]]]:
+    def get_form_data(self) -> Dict[str, Union[str, List[str]]]:
         """
         Return the parameters as a config dictionary.
 
         :return: A dict of parameters.
         """
-        data = super().get_config()
+        data = super().get_form_data()
         if self.data_schema is not None:
             data["data_schema"] = str(self.data_schema)
         if self.rag is not None:
