@@ -10,7 +10,7 @@ class SplitResult:
     splits: List[SplitRange]
 
     def __init__(self, raw_response: StringDict) -> None:
-        self.splits = [SplitRange(split) for split in raw_response["split"]]
+        self.splits = [SplitRange(split) for split in raw_response["splits"]]
 
     def __str__(self) -> str:
         splits = "\n"
