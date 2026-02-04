@@ -3,8 +3,7 @@ import os
 import pytest
 
 from mindee import ClientV2, PathInput
-from mindee.input import SplitParameters
-from mindee.v2 import SplitResponse
+from mindee.v2 import SplitParameters, SplitResponse
 from tests.utils import V2_UTILITIES_DATA_DIR
 
 
@@ -25,7 +24,7 @@ def test_split_blank(v2_client: ClientV2, split_model_id: str):
     input_source = PathInput(V2_UTILITIES_DATA_DIR / "split" / "default_sample.pdf")
     response = v2_client.enqueue_and_get_result(
         SplitResponse, input_source, SplitParameters(split_model_id)
-    )  # Note: do not use blank_1.pdf for this.
+    )
     assert response.inference is not None
     assert response.inference.file.name == "default_sample.pdf"
     assert response.inference.result.splits

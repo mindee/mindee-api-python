@@ -1,7 +1,6 @@
 from mindee.input.local_response import LocalResponse
 from mindee.input.base_parameters import BaseParameters
 from mindee.input.inference_parameters import InferenceParameters
-from mindee.v2.product.split.split_parameters import SplitParameters
 from mindee.input.page_options import PageOptions
 from mindee.input.polling_options import PollingOptions
 from mindee.input.sources.base_64_input import Base64Input
@@ -26,6 +25,5 @@ __all__ = [
     "PathInput",
     "PollingOptions",
     "UrlInputSource",
-    "SplitParameters",
     "WorkflowOptions",
 ]
