@@ -9,8 +9,8 @@ API_KEY_V2=$4
 MODEL_ID=$5
 CLASSIFICATION_MODEL_ID=$6
 CROP_MODEL_ID=$7
-SPLIT_MODEL_ID=$8
-OCR_MODEL_ID=$9
+OCR_MODEL_ID=$8
+SPLIT_MODEL_ID=$9
 
 for f in $(find ./docs/extras/code_samples -maxdepth 1 -name "*.txt" -not -name "workflow_*.txt" | sort -h)
 do
