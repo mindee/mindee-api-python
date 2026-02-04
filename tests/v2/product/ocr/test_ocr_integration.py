@@ -31,4 +31,4 @@ def test_ocr_default_sample(v2_client: ClientV2, ocr_model_id: str):
     assert isinstance(response.inference, OCRInference)
     assert isinstance(response.inference.result, OCRResult)
     assert len(response.inference.result.pages) == 1
-    assert len(response.inference.result.pages[0].words) > 0
+    assert len(response.inference.result.pages[0].words) > 5
