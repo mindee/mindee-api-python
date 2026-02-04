@@ -1,8 +1,8 @@
 from mindee import (
     ClientV2,
+    PathInput,
     SplitParameters,
     SplitResponse,
-    PathInput,
 )
 
 input_path = "/path/to/the/file.ext"
