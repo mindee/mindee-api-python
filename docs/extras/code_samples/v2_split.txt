@@ -7,7 +7,7 @@ from mindee import (
 
 input_path = "/path/to/the/file.ext"
 api_key = "MY_API_KEY"
-model_id = "MY_MODEL_ID"
+model_id = "MY_SPLIT_MODEL_ID"
 
 # Init a new client
 mindee_client = ClientV2(api_key)
