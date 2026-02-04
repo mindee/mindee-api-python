@@ -1,0 +1,27 @@
+from mindee import ClientV2, SplitParameters, SplitResponse, PathInput
+
+input_path = "/path/to/the/file.ext"
+api_key = "MY_API_KEY"
+model_id = "MY_MODEL_ID"
+
+# Init a new client
+mindee_client = ClientV2(api_key)
+
+# Set inference parameters
+params = SplitParameters(
+    # ID of the model, required.
+    model_id=model_id,
+)
+
+# Load a file from disk
+input_source = PathInput(input_path)
+
+# Send for processing
+response = mindee_client.enqueue_and_get_result(
+    SplitResponse,
+    input_source,
+    params,
+)
+
+# Print a brief summary of the parsed data
+print(response.inference)

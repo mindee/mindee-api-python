@@ -20,7 +20,7 @@ from mindee.v2.parsing.inference.base_response import BaseResponse
 from mindee.parsing.v2.inference_response import InferenceResponse
 from mindee.parsing.v2.job_response import JobResponse
 
-TypeBaseInferenceResponse = TypeVar("TypeBaseInferenceResponse", bound=BaseResponse)
+TypeBaseResponse = TypeVar("TypeBaseResponse", bound=BaseResponse)
 
 
 class ClientV2(ClientMixin):
@@ -100,44 +100,15 @@ class ClientV2(ClientMixin):
     def get_inference(
         self,
         inference_id: str,
-        response_type: Type[BaseResponse] = InferenceResponse,
-        disable_redundant_warnings: bool = False,
     ) -> BaseResponse:
         """[Deprecated] Use `get_result` instead."""
-        if not disable_redundant_warnings:
-            warnings.warn(
-                "get_inference is deprecated; use get_result instead",
-                DeprecationWarning,
-                stacklevel=2,
-            )
-        return self.get_result(inference_id, response_type)
+        return self.get_result(InferenceResponse, inference_id)
 
     def get_result(
         self,
+        response_type: Type[TypeBaseResponse],
         inference_id: str,
-        response_type: Optional[Type[BaseResponse]] = InferenceResponse,
-    ) -> BaseResponse:
-        """
-        Get the result of an inference that was previously enqueued.
-
-        The inference will only be available after it has finished processing.
-
-        :param inference_id: UUID of the inference to retrieve.
-        :param response_type: Class of the product to instantiate.
-        :return: An inference response.
-        """
-        response_type = response_type or InferenceResponse
-        response = self._get_result(inference_id, response_type)
-        assert isinstance(response, response_type), (
-            f'Invalid response type "{type(response)}"'
-        )
-        return response
-
-    def _get_result(
-        self,
-        inference_id: str,
-        response_type: Type[BaseResponse] = InferenceResponse,
-    ) -> BaseResponse:
+    ) -> TypeBaseResponse:
         """
         Get the result of an inference that was previously enqueued.
 
@@ -157,12 +128,12 @@ class ClientV2(ClientMixin):
         dict_response = response.json()
         return response_type(dict_response)
 
-    def _enqueue_and_get(
+    def enqueue_and_get_result(
         self,
+        response_type: Type[TypeBaseResponse],
         input_source: Union[LocalInputSource, UrlInputSource],
         params: BaseParameters,
-        response_type: Optional[Type[BaseResponse]] = InferenceResponse,
-    ) -> BaseResponse:
+    ) -> TypeBaseResponse:
         """
         Enqueues to an asynchronous endpoint and automatically polls for a response.
 
@@ -187,6 +158,7 @@ class ClientV2(ClientMixin):
         try_counter = 0
         while try_counter < params.polling_options.max_retries:
             job_response = self.get_job(enqueue_response.job.id)
+            assert isinstance(job_response, JobResponse)
             if job_response.job.status == CommonStatus.FAILED.value:
                 if job_response.job.error:
                     detail = job_response.job.error.detail
@@ -196,8 +168,11 @@ class ClientV2(ClientMixin):
                     f"Parsing failed for job {job_response.job.id}: {detail}"
                 )
             if job_response.job.status == CommonStatus.PROCESSED.value:
-                result = self.get_inference(
-                    job_response.job.id, response_type or InferenceResponse, True
+                result = self.get_result(
+                    response_type or InferenceResponse, job_response.job.id
+                )
+                assert isinstance(result, response_type), (
+                    f'Invalid response type "{type(result)}"'
                 )
                 return result
             try_counter += 1
@@ -212,35 +187,12 @@ class ClientV2(ClientMixin):
     ) -> InferenceResponse:
         """[Deprecated] Use `enqueue_and_get_result` instead."""
         warnings.warn(
-            "enqueue_and_get_inference is deprecated; use enqueue_and_get_result",
+            "enqueue_and_get_inference is deprecated; use enqueue_and_get_result instead",
             DeprecationWarning,
             stacklevel=2,
         )
-        response = self._enqueue_and_get(input_source, params)
+        response = self.enqueue_and_get_result(InferenceResponse, input_source, params)
         assert isinstance(response, InferenceResponse), (
-            f'Invalid response type "{type(response)}"'
-        )
-        return response
-
-    def enqueue_and_get_result(
-        self,
-        response_type: Type[TypeBaseInferenceResponse],
-        input_source: Union[LocalInputSource, UrlInputSource],
-        params: BaseParameters,
-    ) -> TypeBaseInferenceResponse:
-        """
-        Enqueues to an asynchronous endpoint and automatically polls for a response.
-
-        :param input_source: The document/source file to use. Can be local or remote.
-
-        :param params: Parameters to set when sending a file.
-
-        :param response_type: The product class to use for the response object.
-
-        :return: A valid inference response.
-        """
-        response = self._enqueue_and_get(input_source, params, response_type)
-        assert isinstance(response, response_type), (
             f'Invalid response type "{type(response)}"'
         )
         return response
