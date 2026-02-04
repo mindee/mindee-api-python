@@ -32,4 +32,4 @@ response = mindee_client.enqueue_and_get_result(
 print(response.inference)
 
 # Access the classification result
-classifications: list = response.inference.result.classifications
+classification: list = response.inference.result.classification

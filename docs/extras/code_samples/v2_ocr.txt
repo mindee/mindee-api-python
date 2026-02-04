@@ -32,4 +32,4 @@ response = mindee_client.enqueue_and_get_result(
 print(response.inference)
 
 # Access the ocr result
-ocrs: list = response.inference.result.ocrs
+pages: list = response.inference.result.pages
