@@ -7,9 +7,12 @@ class SplitRange:
     """Split inference result."""
 
     page_range: List[int]
-    """Page range of the split inference."""
+    """
+    0-based page indexes, where the first integer indicates the start page and the
+    second integer indicates the end page.
+    """
     document_type: str
-    """Document type of the split inference."""
+    """The document type, as identified on given classification values."""
 
     def __init__(self, server_response: StringDict):
         self.page_range = server_response["page_range"]
