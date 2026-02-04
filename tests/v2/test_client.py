@@ -124,9 +124,7 @@ def test_enqueue_path_with_env_token(custom_base_url_client):
         f"{FILE_TYPES_DIR}/receipt.jpg"
     )
     with pytest.raises(MindeeHTTPErrorV2):
-        custom_base_url_client.enqueue_inference(
-            input_doc, InferenceParameters("dummy-model")
-        )
+        custom_base_url_client.enqueue(input_doc, InferenceParameters("dummy-model"))
 
 
 @pytest.mark.v2
@@ -135,7 +133,8 @@ def test_enqueue_and_parse_path_with_env_token(custom_base_url_client):
         f"{FILE_TYPES_DIR}/receipt.jpg"
     )
     with pytest.raises(MindeeHTTPErrorV2):
-        custom_base_url_client.enqueue_and_get_inference(
+        custom_base_url_client.enqueue_and_get_result(
+            InferenceResponse,
             input_doc,
             InferenceParameters(
                 "dummy-model",
@@ -172,8 +171,8 @@ def test_loads_from_prediction():
 
 @pytest.mark.v2
 def test_get_inference(custom_base_url_client):
-    response = custom_base_url_client.get_inference(
-        "12345678-1234-1234-1234-123456789ABC"
+    response = custom_base_url_client.get_result(
+        InferenceResponse, "12345678-1234-1234-1234-123456789ABC"
     )
     _assert_findoc_inference(response)
 
@@ -181,7 +180,7 @@ def test_get_inference(custom_base_url_client):
 @pytest.mark.v2
 def test_error_handling(custom_base_url_client):
     with pytest.raises(MindeeHTTPErrorV2) as e:
-        custom_base_url_client.enqueue_inference(
+        custom_base_url_client.enqueue(
             PathInput(
                 V2_DATA_DIR / "products" / "financial_document" / "default_sample.jpg"
             ),
