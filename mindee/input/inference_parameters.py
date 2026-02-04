@@ -1,8 +1,8 @@
 import json
-from dataclasses import dataclass, asdict
-from typing import List, Optional, Union
+from dataclasses import dataclass, asdict, field
+from typing import Dict, List, Optional, Union
 
-from mindee.input.polling_options import PollingOptions
+from mindee.input.base_parameters import BaseParameters
 
 
 @dataclass
@@ -44,7 +44,7 @@ class DataSchemaField(StringDataClass):
     guidelines: Optional[str] = None
     """Optional extraction guidelines."""
     nested_fields: Optional[dict] = None
-    """Subfields when type is `nested_object`. Leave empty for other types"""
+    """Subfields when type is `nested_object`. Leave empty for other types."""
 
 
 @dataclass
@@ -78,11 +78,12 @@ class DataSchema(StringDataClass):
 
 
 @dataclass
-class InferenceParameters:
+class InferenceParameters(BaseParameters):
     """Inference parameters to set when sending a file."""
 
-    model_id: str
-    """ID of the model, required."""
+    _slug: str = field(init=False, default="inferences")
+    """Slug of the endpoint."""
+
     rag: Optional[bool] = None
     """Enhance extraction accuracy with Retrieval-Augmented Generation."""
     raw_text: Optional[bool] = None
@@ -94,14 +95,6 @@ class InferenceParameters:
     Boost the precision and accuracy of all extractions.
     Calculate confidence scores for all fields, and fill their ``confidence`` attribute.
     """
-    alias: Optional[str] = None
-    """Use an alias to link the file to your own DB. If empty, no alias will be used."""
-    webhook_ids: Optional[List[str]] = None
-    """IDs of webhooks to propagate the API response to."""
-    polling_options: Optional[PollingOptions] = None
-    """Options for polling. Set only if having timeout issues."""
-    close_file: bool = True
-    """Whether to close the file after parsing."""
     text_context: Optional[str] = None
     """
     Additional text context used by the model during inference.
@@ -118,3 +111,24 @@ class InferenceParameters:
             self.data_schema = DataSchema(**json.loads(self.data_schema))
         elif isinstance(self.data_schema, dict):
             self.data_schema = DataSchema(**self.data_schema)
+
+    def get_form_data(self) -> Dict[str, Union[str, List[str]]]:
+        """
+        Return the parameters as a config dictionary.
+
+        :return: A dict of parameters.
+        """
+        data = super().get_form_data()
+        if self.data_schema is not None:
+            data["data_schema"] = str(self.data_schema)
+        if self.rag is not None:
+            data["rag"] = data["rag"] = str(self.rag).lower()
+        if self.raw_text is not None:
+            data["raw_text"] = data["raw_text"] = str(self.raw_text).lower()
+        if self.polygon is not None:
+            data["polygon"] = data["polygon"] = str(self.polygon).lower()
+        if self.confidence is not None:
+            data["confidence"] = data["confidence"] = str(self.confidence).lower()
+        if self.text_context is not None:
+            data["text_context"] = self.text_context
+        return data

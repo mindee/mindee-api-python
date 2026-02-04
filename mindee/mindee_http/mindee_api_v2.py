@@ -4,8 +4,7 @@ from typing import Dict, Optional, Union
 import requests
 
 from mindee.error.mindee_error import MindeeApiV2Error
-from mindee.input import LocalInputSource, UrlInputSource
-from mindee.input.inference_parameters import InferenceParameters
+from mindee.input import LocalInputSource, UrlInputSource, BaseParameters
 from mindee.logger import logger
 from mindee.mindee_http.base_settings import USER_AGENT
 from mindee.mindee_http.settings_mixin import SettingsMixin
@@ -74,34 +73,19 @@ class MindeeApiV2(SettingsMixin):
     def req_post_inference_enqueue(
         self,
         input_source: Union[LocalInputSource, UrlInputSource],
-        params: InferenceParameters,
+        params: BaseParameters,
+        slug: str,
     ) -> requests.Response:
         """
         Make an asynchronous request to POST a document for prediction on the V2 API.
 
         :param input_source: Input object.
         :param params: Options for the enqueueing of the document.
+        :param slug: Slug to use for the enqueueing, defaults to 'inferences'.
         :return: requests response.
         """
-        data: Dict[str, Union[str, list]] = {"model_id": params.model_id}
-        url = f"{self.url_root}/inferences/enqueue"
-
-        if params.rag is not None:
-            data["rag"] = str(params.rag).lower()
-        if params.raw_text is not None:
-            data["raw_text"] = str(params.raw_text).lower()
-        if params.confidence is not None:
-            data["confidence"] = str(params.confidence).lower()
-        if params.polygon is not None:
-            data["polygon"] = str(params.polygon).lower()
-        if params.webhook_ids and len(params.webhook_ids) > 0:
-            data["webhook_ids"] = params.webhook_ids
-        if params.alias and len(params.alias):
-            data["alias"] = params.alias
-        if params.text_context and len(params.text_context):
-            data["text_context"] = params.text_context
-        if params.data_schema is not None:
-            data["data_schema"] = str(params.data_schema)
+        data = params.get_form_data()
+        url = f"{self.url_root}/{slug}/enqueue"
 
         if isinstance(input_source, LocalInputSource):
             files = {"file": input_source.read_contents(params.close_file)}
@@ -137,14 +121,17 @@ class MindeeApiV2(SettingsMixin):
             allow_redirects=False,
         )
 
-    def req_get_inference(self, inference_id: str) -> requests.Response:
+    def req_get_inference(self, inference_id: str, slug: str) -> requests.Response:
         """
         Sends a request matching a given queue_id. Returns either a Job or a Document.
 
         :param inference_id: Inference ID, returned by the job request.
+        :param slug: Slug of the inference, defaults to nothing.
         """
+
+        url = f"{self.url_root}/{slug}/{inference_id}"
         return requests.get(
-            f"{self.url_root}/inferences/{inference_id}",
+            url,
             headers=self.base_headers,
             timeout=self.request_timeout,
             allow_redirects=False,

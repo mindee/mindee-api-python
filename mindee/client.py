@@ -353,7 +353,7 @@ class Client(ClientMixin):
             if poll_results.job.status == "failed":
                 raise MindeeError("Parsing failed for job {poll_results.job.id}")
             logger.debug(
-                "Polling server for parsing result with job id: %s", queue_result.job.id
+                "Polling server for product result with job id: %s", queue_result.job.id
             )
             retry_counter += 1
             sleep(delay_sec)
