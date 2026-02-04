@@ -6,9 +6,9 @@ class CropBox:
     """Crop inference result."""
 
     location: FieldLocation
-    """Page box of the crop inference."""
+    """Location which includes cropping coordinates for the detected object, within the source document."""
     object_type: str
-    """Document type of the crop inference."""
+    """Type or classification of the detected object."""
 
     def __init__(self, server_response: StringDict):
         self.location = FieldLocation(server_response["location"])
