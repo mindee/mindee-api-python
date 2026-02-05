@@ -7,7 +7,10 @@ ENDPOINT=$2
 API_KEY=$3
 API_KEY_V2=$4
 MODEL_ID=$5
-SPLIT_MODEL_ID=$6
+CLASSIFICATION_MODEL_ID=$6
+CROP_MODEL_ID=$7
+OCR_MODEL_ID=$8
+SPLIT_MODEL_ID=$9
 
 for f in $(find ./docs/extras/code_samples -maxdepth 1 -name "*.txt" -not -name "workflow_*.txt" | sort -h)
 do
@@ -37,10 +40,34 @@ do
     sed -i "s/my-api-key/$API_KEY/" $OUTPUT_FILE
   fi
 
+  if echo "${f}" | grep -q "v2_classification.txt"
+  then
+    sed -i "s/MY_API_KEY/$API_KEY_V2/" $OUTPUT_FILE
+    sed -i "s/MY_CLASSIFICATION_MODEL_ID/$CLASSIFICATION_MODEL_ID/" $OUTPUT_FILE
+  else
+    sed -i "s/my-api-key/$API_KEY/" $OUTPUT_FILE
+  fi
+
+  if echo "${f}" | grep -q "v2_crop.txt"
+  then
+    sed -i "s/MY_API_KEY/$API_KEY_V2/" $OUTPUT_FILE
+    sed -i "s/MY_CROP_MODEL_ID/$CROP_MODEL_ID/" $OUTPUT_FILE
+  else
+    sed -i "s/my-api-key/$API_KEY/" $OUTPUT_FILE
+  fi
+
   if echo "${f}" | grep -q "v2_split.txt"
   then
     sed -i "s/MY_API_KEY/$API_KEY_V2/" $OUTPUT_FILE
     sed -i "s/MY_SPLIT_MODEL_ID/$SPLIT_MODEL_ID/" $OUTPUT_FILE
+  else
+    sed -i "s/my-api-key/$API_KEY/" $OUTPUT_FILE
+  fi
+
+  if echo "${f}" | grep -q "v2_ocr.txt"
+  then
+    sed -i "s/MY_API_KEY/$API_KEY_V2/" $OUTPUT_FILE
+    sed -i "s/MY_OCR_MODEL_ID/$OCR_MODEL_ID/" $OUTPUT_FILE
   else
     sed -i "s/my-api-key/$API_KEY/" $OUTPUT_FILE
   fi

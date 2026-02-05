@@ -22,6 +22,16 @@ from mindee.parsing.common.job import Job
 from mindee.parsing.common.predict_response import PredictResponse
 from mindee.parsing.common.workflow_response import WorkflowResponse
 from mindee.parsing.v2 import InferenceResponse, JobResponse
+from mindee.v2.product.classification.classification_parameters import (
+    ClassificationParameters,
+)
+from mindee.v2.product.classification.classification_response import (
+    ClassificationResponse,
+)
+from mindee.v2.product.crop.crop_parameters import CropParameters
+from mindee.v2.product.crop.crop_response import CropResponse
+from mindee.v2.product.ocr.ocr_parameters import OCRParameters
+from mindee.v2.product.ocr.ocr_response import OCRResponse
 from mindee.v2.product.split.split_parameters import SplitParameters
 from mindee.v2.product.split.split_response import SplitResponse
 
@@ -30,8 +40,12 @@ __all__ = [
     "AsyncPredictResponse",
     "Base64Input",
     "BytesInput",
+    "ClassificationResponse",
+    "ClassificationParameters",
     "Client",
     "ClientV2",
+    "CropParameters",
+    "CropResponse",
     "DataSchema",
     "DataSchemaField",
     "DataSchemaReplace",
@@ -42,6 +56,8 @@ __all__ = [
     "Job",
     "JobResponse",
     "LocalResponse",
+    "OCRParameters",
+    "OCRResponse",
     "PageOptions",
     "PathInput",
     "PollingOptions",

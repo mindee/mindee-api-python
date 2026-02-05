@@ -40,7 +40,7 @@ jobs:
 
       - name: Tests code samples
         run: |
-            ./tests/test_code_samples.sh ${{ secrets.MINDEE_ACCOUNT_SE_TESTS }} ${{ secrets.MINDEE_ENDPOINT_SE_TESTS }} ${{ secrets.MINDEE_API_KEY_SE_TESTS }}  ${{ secrets.MINDEE_V2_SE_TESTS_API_KEY }}  ${{ secrets.MINDEE_V2_SE_TESTS_FINDOC_MODEL_ID }}  ${{ secrets.MINDEE_V2_SE_TESTS_SPLIT_MODEL_ID }}
+            ./tests/test_code_samples.sh ${{ secrets.MINDEE_ACCOUNT_SE_TESTS }} ${{ secrets.MINDEE_ENDPOINT_SE_TESTS }} ${{ secrets.MINDEE_API_KEY_SE_TESTS }}  ${{ secrets.MINDEE_V2_SE_TESTS_API_KEY }}  ${{ secrets.MINDEE_V2_SE_TESTS_FINDOC_MODEL_ID }} ${{ secrets.MINDEE_V2_SE_TESTS_CLASSIFICATION_MODEL_ID }} ${{ secrets.MINDEE_V2_SE_TESTS_CROP_MODEL_ID }} ${{ secrets.MINDEE_V2_SE_TESTS_OCR_MODEL_ID }} ${{ secrets.MINDEE_V2_SE_TESTS_SPLIT_MODEL_ID }}
 
       - name: Notify Slack Action on Failure
         uses: ravsamhq/notify-slack-action@2.3.0
