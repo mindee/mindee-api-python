@@ -11,7 +11,7 @@ from mindee.mindee_http.base_settings import USER_AGENT
 from mindee.parsing.v2.inference import Inference
 from mindee.parsing.v2.job import Job
 from mindee.parsing.v2.job_response import JobResponse
-from tests.utils import FILE_TYPES_DIR, V2_DATA_DIR, dummy_envvars
+from tests.utils import FILE_TYPES_DIR, V2_PRODUCT_DATA_DIR, V2_DATA_DIR, dummy_envvars
 
 
 @pytest.fixture
@@ -57,7 +57,10 @@ def custom_base_url_client(monkeypatch) -> ClientV2:
 
         def json(self):
             data_file = (
-                V2_DATA_DIR / "products" / "financial_document" / "complete.json"
+                V2_PRODUCT_DATA_DIR
+                / "extraction"
+                / "financial_document"
+                / "complete.json"
             )
             with data_file.open("r", encoding="utf-8") as fh:
                 return json.load(fh)
@@ -141,7 +144,9 @@ def test_enqueue_and_parse_path_with_env_token(custom_base_url_client):
                 text_context="ignore this message",
                 data_schema=json.loads(
                     (
-                        V2_DATA_DIR / "inference" / "data_schema_replace_param.json"
+                        V2_PRODUCT_DATA_DIR
+                        / "extraction"
+                        / "data_schema_replace_param.json"
                     ).read_text()
                 ),
             ),
@@ -161,7 +166,7 @@ def _assert_findoc_inference(response: InferenceResponse):
 @pytest.mark.v2
 def test_loads_from_prediction():
     input_inference = LocalResponse(
-        V2_DATA_DIR / "products" / "financial_document" / "complete.json"
+        V2_PRODUCT_DATA_DIR / "extraction" / "financial_document" / "complete.json"
     )
     response = input_inference.deserialize_response(InferenceResponse)
     _assert_findoc_inference(response)
@@ -182,7 +187,10 @@ def test_error_handling(custom_base_url_client):
     with pytest.raises(MindeeHTTPErrorV2) as e:
         custom_base_url_client.enqueue(
             PathInput(
-                V2_DATA_DIR / "products" / "financial_document" / "default_sample.jpg"
+                V2_PRODUCT_DATA_DIR
+                / "extraction"
+                / "financial_document"
+                / "default_sample.jpg"
             ),
             InferenceParameters("dummy-model"),
         )

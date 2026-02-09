@@ -9,13 +9,13 @@ from mindee.v2.product.classification.classification_response import (
     ClassificationResponse,
 )
 from mindee.v2.product.classification.classification_result import ClassificationResult
-from tests.utils import V2_UTILITIES_DATA_DIR
+from tests.utils import V2_PRODUCT_DATA_DIR
 
 
 @pytest.mark.v2
 def test_classification_single():
     input_inference = LocalResponse(
-        V2_UTILITIES_DATA_DIR / "classification" / "classification_single.json"
+        V2_PRODUCT_DATA_DIR / "classification" / "classification_single.json"
     )
     classification_response = input_inference.deserialize_response(
         ClassificationResponse

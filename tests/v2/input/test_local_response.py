@@ -4,17 +4,17 @@ import pytest
 
 from mindee import InferenceResponse
 from mindee.input import LocalResponse
-from tests.utils import V2_DATA_DIR
+from tests.utils import V2_PRODUCT_DATA_DIR
 
 
 @pytest.fixture
 def file_path() -> Path:
-    return V2_DATA_DIR / "inference" / "standard_field_types.json"
+    return V2_PRODUCT_DATA_DIR / "extraction" / "standard_field_types.json"
 
 
 def _assert_local_response(local_response):
     fake_hmac_signing = "ogNjY44MhvKPGTtVsI8zG82JqWQa68woYQH"
-    signature = "f390d9f7f57ac04f47b6309d8a40236b0182610804fc20e91b1f6028aaca07a7"
+    signature = "e51bdf80f1a08ed44ee161100fc30a25cb35b4ede671b0a575dc9064a3f5dbf1"
 
     assert local_response._file is not None
     assert not local_response.is_valid_hmac_signature(

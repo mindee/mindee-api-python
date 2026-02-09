@@ -8,10 +8,10 @@ from mindee.input.inference_parameters import (
     DataSchemaReplace,
     DataSchemaField,
 )
-from tests.utils import V2_DATA_DIR
+from tests.utils import V2_PRODUCT_DATA_DIR
 
 expected_data_schema_dict = json.loads(
-    (V2_DATA_DIR / "inference" / "data_schema_replace_param.json").read_text()
+    (V2_PRODUCT_DATA_DIR / "extraction" / "data_schema_replace_param.json").read_text()
 )
 expected_data_schema_str = json.dumps(
     expected_data_schema_dict, indent=None, sort_keys=True

@@ -6,4 +6,4 @@ class ClassificationParameters(BaseParameters):
     Parameters accepted by the classification utility v2 endpoint.
     """
 
-    _slug: str = "utilities/classification"
+    _slug: str = "products/classification"

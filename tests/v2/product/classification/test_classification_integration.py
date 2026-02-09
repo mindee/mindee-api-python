@@ -4,7 +4,7 @@ import pytest
 
 from mindee import ClientV2, PathInput
 from mindee.v2 import ClassificationParameters, ClassificationResponse
-from tests.utils import V2_UTILITIES_DATA_DIR
+from tests.utils import V2_PRODUCT_DATA_DIR
 
 
 @pytest.fixture(scope="session")
@@ -24,7 +24,7 @@ def test_classification_default_sample(
     v2_client: ClientV2, classification_model_id: str
 ):
     input_source = PathInput(
-        V2_UTILITIES_DATA_DIR / "classification" / "default_invoice.jpg"
+        V2_PRODUCT_DATA_DIR / "classification" / "default_invoice.jpg"
     )
     response = v2_client.enqueue_and_get_result(
         ClassificationResponse,

@@ -6,4 +6,4 @@ class OCRParameters(BaseParameters):
     Parameters accepted by the ocr utility v2 endpoint.
     """
 
-    _slug: str = "utilities/ocr"
+    _slug: str = "products/ocr"

@@ -5,12 +5,12 @@ from mindee.v2.product.ocr.ocr_page import OCRPage
 from mindee.v2.product.ocr import OCRInference
 from mindee.v2.product.ocr.ocr_response import OCRResponse
 from mindee.v2.product.ocr.ocr_result import OCRResult
-from tests.utils import V2_UTILITIES_DATA_DIR
+from tests.utils import V2_PRODUCT_DATA_DIR
 
 
 @pytest.mark.v2
 def test_ocr_single():
-    input_inference = LocalResponse(V2_UTILITIES_DATA_DIR / "ocr" / "ocr_single.json")
+    input_inference = LocalResponse(V2_PRODUCT_DATA_DIR / "ocr" / "ocr_single.json")
     ocr_response = input_inference.deserialize_response(OCRResponse)
     assert isinstance(ocr_response.inference, OCRInference)
     assert ocr_response.inference.result.pages
@@ -83,7 +83,7 @@ def test_ocr_single():
 
 @pytest.mark.v2
 def test_ocr_multiple():
-    input_inference = LocalResponse(V2_UTILITIES_DATA_DIR / "ocr" / "ocr_multiple.json")
+    input_inference = LocalResponse(V2_PRODUCT_DATA_DIR / "ocr" / "ocr_multiple.json")
     ocr_response = input_inference.deserialize_response(OCRResponse)
     assert isinstance(ocr_response.inference, OCRInference)
     assert isinstance(ocr_response.inference.result, OCRResult)

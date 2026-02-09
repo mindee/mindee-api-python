@@ -7,13 +7,13 @@ from mindee import ClientV2, InferenceParameters, PathInput, UrlInputSource
 from mindee.error.mindee_http_error_v2 import MindeeHTTPErrorV2
 from mindee.parsing.v2 import InferenceActiveOptions
 from mindee.parsing.v2.inference_response import InferenceResponse
-from tests.utils import FILE_TYPES_DIR, V2_PRODUCT_DATA_DIR, V2_DATA_DIR
+from tests.utils import FILE_TYPES_DIR, V2_PRODUCT_DATA_DIR
 
 
 @pytest.fixture(scope="session")
 def findoc_model_id() -> str:
     """Identifier of the Financial Document model, supplied through an env var."""
-    return os.getenv("MINDEE_V2_FINDOC_MODEL_ID")
+    return os.getenv("MINDEE_V2_SE_TESTS_FINDOC_MODEL_ID")
 
 
 @pytest.fixture(scope="session")
@@ -123,7 +123,9 @@ def test_parse_file_filled_single_page_must_succeed(
     """
     Upload a filled single-page JPEG and verify that common fields are present.
     """
-    input_path: Path = V2_PRODUCT_DATA_DIR / "financial_document" / "default_sample.jpg"
+    input_path: Path = (
+        V2_PRODUCT_DATA_DIR / "extraction" / "financial_document" / "default_sample.jpg"
+    )
 
     input_source = PathInput(input_path)
     params = InferenceParameters(
@@ -280,7 +282,7 @@ def test_data_schema_must_succeed(
     """
     input_path: Path = FILE_TYPES_DIR / "pdf" / "blank_1.pdf"
     data_schema_replace_path = (
-        V2_DATA_DIR / "inference" / "data_schema_replace_param.json"
+        V2_PRODUCT_DATA_DIR / "extraction" / "data_schema_replace_param.json"
     )
 
     input_source = PathInput(input_path)

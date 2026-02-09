@@ -10,7 +10,7 @@ class InferenceResponse(BaseResponse):
 
     inference: Inference
     """Inference result."""
-    _slug: str = "inferences"
+    _slug: str = "products/extraction/results"
     """Slug of the inference."""
 
     def __init__(self, raw_response: StringDict) -> None:

@@ -6,4 +6,4 @@ class SplitParameters(BaseParameters):
     Parameters accepted by the split utility v2 endpoint.
     """
 
-    _slug: str = "utilities/split"
+    _slug: str = "products/split"
