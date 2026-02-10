@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, cast
+from typing import TYPE_CHECKING, Dict, cast
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.v2.field.base_field import BaseField
 from mindee.parsing.v2.field.dynamic_field import FieldType
@@ -43,12 +43,11 @@ class ObjectField(BaseField):
         return out_str
 
     @property
-    def simple_fields(self) -> dict[str, "SimpleField"]:
+    def simple_fields(self) -> Dict[str, "SimpleField"]:
         """
         Extract and return all SimpleField fields from the `fields` attribute.
 
         :return: A dictionary containing all fields that have a type of `FieldType.SIMPLE`.
-        :rtype: dict[str, SimpleField]
         """
         simple_fields = {}
         for field_key, field_value in self.fields.items():
@@ -57,14 +56,13 @@ class ObjectField(BaseField):
         return simple_fields
 
     @property
-    def list_fields(self) -> dict[str, "ListField"]:
+    def list_fields(self) -> Dict[str, "ListField"]:
         """
         Retrieves all ListField fields from the `fields` attribute.
 
         :return: A dictionary containing all fields of type `LIST`, with keys
             representing field keys and values being the corresponding field
             objects.
-        :rtype: dict[str, ListField]
         """
         list_fields = {}
         for field_key, field_value in self.fields.items():
@@ -73,13 +71,12 @@ class ObjectField(BaseField):
         return list_fields
 
     @property
-    def object_fields(self) -> dict[str, "ObjectField"]:
+    def object_fields(self) -> Dict[str, "ObjectField"]:
         """
         Retrieves all ObjectField fields from the `fields` attribute of the instance.
 
         :returns: A dictionary containing fields of type `FieldType.OBJECT`. The keys represent
             the field names, and the values are corresponding ObjectField objects.
-        :rtype: dict[str, ObjectField]
         """
         object_fields = {}
         for field_key, field_value in self.fields.items():
@@ -94,7 +91,6 @@ class ObjectField(BaseField):
         :param field_name: The name of the field to retrieve.
         :type field_name: str
         :return: The SimpleField object corresponding to the given field name.
-        :rtype: SimpleField
         :raises ValueError: If the specified field is not of type SimpleField.
         """
         if self.fields[field_name].field_type != FieldType.SIMPLE:
@@ -108,7 +104,6 @@ class ObjectField(BaseField):
         :param field_name: The name of the field to retrieve.
         :type field_name: str
         :return: The corresponding ``ListField`` for the given field name.
-        :rtype: ListField
         :raises ValueError: If the field is not of type ``ListField``.
         """
         if self.fields[field_name].field_type != FieldType.LIST:
@@ -122,7 +117,6 @@ class ObjectField(BaseField):
         :param field_name: The name of the field to retrieve.
         :type field_name: str
         :return: The `ObjectField` associated with the given field name.
-        :rtype: ObjectField
         :raises ValueError: If the field specified by `field_name` is not an `ObjectField`.
         """
         if self.fields[field_name].field_type != FieldType.OBJECT:
