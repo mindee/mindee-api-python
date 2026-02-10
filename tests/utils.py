@@ -17,7 +17,6 @@ V1_EXTRAS_DIR = V1_DATA_DIR / "extras"
 
 V2_DATA_DIR = ROOT_DATA_DIR / "v2"
 V2_PRODUCT_DATA_DIR = V2_DATA_DIR / "products"
-V2_UTILITIES_DATA_DIR = V2_DATA_DIR / "utilities"
 
 
 def clear_envvars(monkeypatch) -> None:
