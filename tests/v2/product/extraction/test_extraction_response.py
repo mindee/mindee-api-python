@@ -6,7 +6,10 @@ import pytest
 
 from mindee import InferenceResponse
 from mindee.parsing.v2 import InferenceActiveOptions
-from mindee.parsing.v2.field import FieldConfidence, ListField, ObjectField, SimpleField
+from mindee.parsing.v2.field.field_confidence import FieldConfidence
+from mindee.parsing.v2.field.list_field import ListField
+from mindee.parsing.v2.field.object_field import ObjectField
+from mindee.parsing.v2.field.simple_field import SimpleField
 from mindee.parsing.v2.field.inference_fields import InferenceFields
 from mindee.parsing.v2.inference import Inference
 from mindee.parsing.v2.inference_file import InferenceFile
@@ -53,34 +56,46 @@ def test_deep_nested_fields():
         response.inference.result.fields["field_object"].fields["sub_object_object"],
         ObjectField,
     )
+    fields = response.inference.result.fields
+    assert isinstance(fields.get("field_object"), ObjectField)
     assert isinstance(
-        response.inference.result.fields["field_object"]
-        .fields["sub_object_object"]
-        .fields,
+        fields.get("field_object").get_simple_field("sub_object_simple"), SimpleField
+    )
+    assert isinstance(
+        fields.get("field_object").get_list_field("sub_object_list"), ListField
+    )
+    assert isinstance(
+        fields.get("field_object").get_object_field("sub_object_object"), ObjectField
+    )
+    assert len(fields.get("field_object").simple_fields) == 1
+    assert len(fields.get("field_object").list_fields) == 1
+    assert len(fields.get("field_object").object_fields) == 1
+    assert isinstance(
+        fields["field_object"].fields["sub_object_object"].fields,
         dict,
     )
     assert isinstance(
-        response.inference.result.fields["field_object"]
+        fields["field_object"]
         .fields["sub_object_object"]
         .fields["sub_object_object_sub_object_list"],
         ListField,
     )
     assert isinstance(
-        response.inference.result.fields["field_object"]
+        fields["field_object"]
         .fields["sub_object_object"]
         .fields["sub_object_object_sub_object_list"]
         .items,
         list,
     )
     assert isinstance(
-        response.inference.result.fields["field_object"]
+        fields["field_object"]
         .fields["sub_object_object"]
         .fields["sub_object_object_sub_object_list"]
         .items[0],
         ObjectField,
     )
     assert isinstance(
-        response.inference.result.fields["field_object"]
+        fields["field_object"]
         .fields["sub_object_object"]
         .fields["sub_object_object_sub_object_list"]
         .items[0]
@@ -88,7 +103,7 @@ def test_deep_nested_fields():
         SimpleField,
     )
     assert (
-        response.inference.result.fields["field_object"]
+        fields["field_object"]
         .fields["sub_object_object"]
         .fields["sub_object_object_sub_object_list"]
         .items[0]
@@ -103,6 +118,7 @@ def test_standard_field_types():
     json_sample, rst_sample = _get_inference_samples("standard_field_types")
     response = InferenceResponse(json_sample)
     assert isinstance(response.inference, Inference)
+
     field_simple_string = response.inference.result.fields["field_simple_string"]
     assert isinstance(field_simple_string, SimpleField)
     assert field_simple_string.value == "field_simple_string-value"
