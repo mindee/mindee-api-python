@@ -32,7 +32,7 @@ do
   sed -i 's/\/path\/to\/the\/file.ext/.\/tests\/data\/file_types\/pdf\/blank_1.pdf/' $OUTPUT_FILE
 
 
-  if echo "${f}" | grep -q "v2_default.txt"
+  if echo "${f}" | grep -q "v2_extraction.txt"
   then
     sed -i "s/MY_API_KEY/$API_KEY_V2/" $OUTPUT_FILE
     sed -i "s/MY_MODEL_ID/$MODEL_ID/" $OUTPUT_FILE

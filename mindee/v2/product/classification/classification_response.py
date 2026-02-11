@@ -11,7 +11,7 @@ class ClassificationResponse(BaseResponse):
     inference: ClassificationInference
     """Inference object for classification inference."""
 
-    _slug: str = "utilities/classification"
+    _slug: str = "products/classification/results"
     """Slug of the inference."""
 
     def __init__(self, raw_response: StringDict) -> None:

@@ -12,7 +12,7 @@ from mindee.parsing.v2.inference import Inference
 from mindee.parsing.v2.inference_file import InferenceFile
 from mindee.parsing.v2.inference_model import InferenceModel
 from mindee.parsing.v2.rag_metadata import RagMetadata
-from tests.utils import V2_DATA_DIR
+from tests.utils import V2_PRODUCT_DATA_DIR
 
 
 def _get_samples(json_path: Path, rst_path: Path) -> Tuple[dict, str]:
@@ -27,14 +27,14 @@ def _get_samples(json_path: Path, rst_path: Path) -> Tuple[dict, str]:
 
 
 def _get_inference_samples(name: str) -> Tuple[dict, str]:
-    json_path = V2_DATA_DIR / "inference" / f"{name}.json"
-    rst_path = V2_DATA_DIR / "inference" / f"{name}.rst"
+    json_path = V2_PRODUCT_DATA_DIR / "extraction" / f"{name}.json"
+    rst_path = V2_PRODUCT_DATA_DIR / "extraction" / f"{name}.rst"
     return _get_samples(json_path, rst_path)
 
 
 def _get_product_samples(product, name: str) -> Tuple[dict, str]:
-    json_path = V2_DATA_DIR / "products" / product / f"{name}.json"
-    rst_path = V2_DATA_DIR / "products" / product / f"{name}.rst"
+    json_path = V2_PRODUCT_DATA_DIR / "extraction" / product / f"{name}.json"
+    rst_path = V2_PRODUCT_DATA_DIR / "extraction" / product / f"{name}.rst"
     return _get_samples(json_path, rst_path)
 
 
@@ -299,7 +299,9 @@ def test_text_context_field_is_false() -> None:
 
 @pytest.mark.v2
 def test_text_context_field_is_true() -> None:
-    with open(V2_DATA_DIR / "inference" / "text_context_enabled.json", "r") as file:
+    with open(
+        V2_PRODUCT_DATA_DIR / "extraction" / "text_context_enabled.json", "r"
+    ) as file:
         json_sample = json.load(file)
     response = InferenceResponse(json_sample)
     assert isinstance(response.inference.active_options, InferenceActiveOptions)

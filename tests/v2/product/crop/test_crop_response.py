@@ -5,12 +5,12 @@ from mindee.v2.product.crop.crop_box import CropBox
 from mindee.v2.product.crop import CropInference
 from mindee.v2.product.crop.crop_response import CropResponse
 from mindee.v2.product.crop.crop_result import CropResult
-from tests.utils import V2_UTILITIES_DATA_DIR
+from tests.utils import V2_PRODUCT_DATA_DIR
 
 
 @pytest.mark.v2
 def test_crop_single():
-    input_inference = LocalResponse(V2_UTILITIES_DATA_DIR / "crop" / "crop_single.json")
+    input_inference = LocalResponse(V2_PRODUCT_DATA_DIR / "crop" / "crop_single.json")
     crop_response = input_inference.deserialize_response(CropResponse)
     assert isinstance(crop_response.inference, CropInference)
     assert crop_response.inference.result.crops
@@ -29,9 +29,7 @@ def test_crop_single():
 
 @pytest.mark.v2
 def test_crop_multiple():
-    input_inference = LocalResponse(
-        V2_UTILITIES_DATA_DIR / "crop" / "crop_multiple.json"
-    )
+    input_inference = LocalResponse(V2_PRODUCT_DATA_DIR / "crop" / "crop_multiple.json")
     crop_response = input_inference.deserialize_response(CropResponse)
     assert isinstance(crop_response.inference, CropInference)
     assert isinstance(crop_response.inference.result, CropResult)

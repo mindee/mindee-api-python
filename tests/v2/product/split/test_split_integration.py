@@ -4,7 +4,7 @@ import pytest
 
 from mindee import ClientV2, PathInput
 from mindee.v2 import SplitParameters, SplitResponse
-from tests.utils import V2_UTILITIES_DATA_DIR
+from tests.utils import V2_PRODUCT_DATA_DIR
 
 
 @pytest.fixture(scope="session")
@@ -21,7 +21,7 @@ def v2_client() -> ClientV2:
 @pytest.mark.integration
 @pytest.mark.v2
 def test_split_default_sample(v2_client: ClientV2, split_model_id: str):
-    input_source = PathInput(V2_UTILITIES_DATA_DIR / "split" / "default_sample.pdf")
+    input_source = PathInput(V2_PRODUCT_DATA_DIR / "split" / "default_sample.pdf")
     response = v2_client.enqueue_and_get_result(
         SplitResponse, input_source, SplitParameters(split_model_id)
     )

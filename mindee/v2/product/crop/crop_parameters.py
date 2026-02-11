@@ -6,4 +6,4 @@ class CropParameters(BaseParameters):
     Parameters accepted by the crop utility v2 endpoint.
     """
 
-    _slug: str = "utilities/crop"
+    _slug: str = "products/crop"

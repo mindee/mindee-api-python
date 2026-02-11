@@ -9,7 +9,7 @@ class CropResponse(BaseResponse):
     inference: CropInference
     """Inference object for crop inference."""
 
-    _slug: str = "utilities/crop"
+    _slug: str = "products/crop/results"
     """Slug of the inference."""
 
     def __init__(self, raw_response: StringDict) -> None:

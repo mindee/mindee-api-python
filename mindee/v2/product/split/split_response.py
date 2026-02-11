@@ -9,7 +9,7 @@ class SplitResponse(BaseResponse):
     inference: SplitInference
     """Inference object for split inference."""
 
-    _slug: str = "utilities/split"
+    _slug: str = "products/split/results"
     """Slug of the inference."""
 
     def __init__(self, raw_response: StringDict) -> None:

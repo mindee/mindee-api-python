@@ -9,7 +9,7 @@ class OCRResponse(BaseResponse):
     inference: OCRInference
     """Inference object for ocr inference."""
 
-    _slug: str = "utilities/ocr"
+    _slug: str = "products/ocr/results"
     """Slug of the inference."""
 
     def __init__(self, raw_response: StringDict) -> None:
