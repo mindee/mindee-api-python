@@ -54,8 +54,28 @@
 <li class="toctree-l2"><a class="reference internal" href="geometry.html">Geometry Helpers</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Input</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#mindee.input.Base64Input"><code class="docutils literal notranslate"><span class="pre">Base64Input</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.input.BaseParameters"><code class="docutils literal notranslate"><span class="pre">BaseParameters</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.BaseParameters.get_enqueue_slug"><code class="docutils literal notranslate"><span class="pre">BaseParameters.get_enqueue_slug()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.BaseParameters.get_form_data"><code class="docutils literal notranslate"><span class="pre">BaseParameters.get_form_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.BaseParameters.alias"><code class="docutils literal notranslate"><span class="pre">BaseParameters.alias</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.BaseParameters.close_file"><code class="docutils literal notranslate"><span class="pre">BaseParameters.close_file</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.BaseParameters.model_id"><code class="docutils literal notranslate"><span class="pre">BaseParameters.model_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.BaseParameters.polling_options"><code class="docutils literal notranslate"><span class="pre">BaseParameters.polling_options</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.BaseParameters.webhook_ids"><code class="docutils literal notranslate"><span class="pre">BaseParameters.webhook_ids</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#mindee.input.BytesInput"><code class="docutils literal notranslate"><span class="pre">BytesInput</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#mindee.input.FileInput"><code class="docutils literal notranslate"><span class="pre">FileInput</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.input.InferenceParameters"><code class="docutils literal notranslate"><span class="pre">InferenceParameters</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.InferenceParameters.get_form_data"><code class="docutils literal notranslate"><span class="pre">InferenceParameters.get_form_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.InferenceParameters.confidence"><code class="docutils literal notranslate"><span class="pre">InferenceParameters.confidence</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.InferenceParameters.data_schema"><code class="docutils literal notranslate"><span class="pre">InferenceParameters.data_schema</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.InferenceParameters.polygon"><code class="docutils literal notranslate"><span class="pre">InferenceParameters.polygon</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.InferenceParameters.rag"><code class="docutils literal notranslate"><span class="pre">InferenceParameters.rag</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.InferenceParameters.raw_text"><code class="docutils literal notranslate"><span class="pre">InferenceParameters.raw_text</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.input.InferenceParameters.text_context"><code class="docutils literal notranslate"><span class="pre">InferenceParameters.text_context</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#mindee.input.InputType"><code class="docutils literal notranslate"><span class="pre">InputType</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.input.InputType.BASE64"><code class="docutils literal notranslate"><span class="pre">InputType.BASE64</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.input.InputType.BYTES"><code class="docutils literal notranslate"><span class="pre">InputType.BYTES</span></code></a></li>
@@ -168,6 +188,78 @@
 </dd></dl>
 
 <dl class="py class">
+<dt class="sig sig-object py" id="mindee.input.BaseParameters">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BaseParameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">webhook_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">polling_options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">close_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.BaseParameters" title="Link to this definition"></a></dt>
+<dd><p>Base class for parameters accepted by all V2 endpoints.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model_id</strong> (<em>str</em>)</p></li>
+<li><p><strong>alias</strong> (<em>str</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>webhook_ids</strong> (<em>List</em><em>[</em><em>str</em><em>] </em><em>| </em><em>None</em>)</p></li>
+<li><p><strong>polling_options</strong> (<a class="reference internal" href="#mindee.input.PollingOptions" title="mindee.input.polling_options.PollingOptions"><em>PollingOptions</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>close_file</strong> (<em>bool</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.input.BaseParameters.get_enqueue_slug">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_enqueue_slug</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.BaseParameters.get_enqueue_slug" title="Link to this definition"></a></dt>
+<dd><p>Getter for the enqueue slug.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.input.BaseParameters.get_form_data">
+<span class="sig-name descname"><span class="pre">get_form_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.BaseParameters.get_form_data" title="Link to this definition"></a></dt>
+<dd><p>Return the parameters as a config dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]]</span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dict of parameters.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.BaseParameters.alias">
+<span class="sig-name descname"><span class="pre">alias</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.input.BaseParameters.alias" title="Link to this definition"></a></dt>
+<dd><p>Use an alias to link the file to your own DB. If empty, no alias will be used.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.BaseParameters.close_file">
+<span class="sig-name descname"><span class="pre">close_file</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#mindee.input.BaseParameters.close_file" title="Link to this definition"></a></dt>
+<dd><p>Whether to close the file after product.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.BaseParameters.model_id">
+<span class="sig-name descname"><span class="pre">model_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></em><a class="headerlink" href="#mindee.input.BaseParameters.model_id" title="Link to this definition"></a></dt>
+<dd><p>ID of the model, required.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.BaseParameters.polling_options">
+<span class="sig-name descname"><span class="pre">polling_options</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><a class="reference internal" href="#mindee.input.PollingOptions" title="mindee.input.polling_options.PollingOptions"><code class="xref py py-class docutils literal notranslate"><span class="pre">PollingOptions</span></code></a><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.input.BaseParameters.polling_options" title="Link to this definition"></a></dt>
+<dd><p>Options for polling. Set only if having timeout issues.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.BaseParameters.webhook_ids">
+<span class="sig-name descname"><span class="pre">webhook_ids</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.input.BaseParameters.webhook_ids" title="Link to this definition"></a></dt>
+<dd><p>IDs of webhooks to propagate the API response to.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="mindee.input.BytesInput">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BytesInput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.BytesInput" title="Link to this definition"></a></dt>
 <dd><p>Raw bytes input.</p>
@@ -190,6 +282,82 @@
 <dd class="field-odd"><p><strong>file</strong> (<em>BinaryIO</em>)</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.input.InferenceParameters">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">InferenceParameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">webhook_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">polling_options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">close_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw_text</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">polygon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">confidence</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text_context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_schema</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.InferenceParameters" title="Link to this definition"></a></dt>
+<dd><p>Inference parameters to set when sending a file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model_id</strong> (<em>str</em>)</p></li>
+<li><p><strong>alias</strong> (<em>str</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>webhook_ids</strong> (<em>List</em><em>[</em><em>str</em><em>] </em><em>| </em><em>None</em>)</p></li>
+<li><p><strong>polling_options</strong> (<a class="reference internal" href="#mindee.input.PollingOptions" title="mindee.input.polling_options.PollingOptions"><em>PollingOptions</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>close_file</strong> (<em>bool</em>)</p></li>
+<li><p><strong>rag</strong> (<em>bool</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>raw_text</strong> (<em>bool</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>polygon</strong> (<em>bool</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>confidence</strong> (<em>bool</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>text_context</strong> (<em>str</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>data_schema</strong> (<em>DataSchema</em><em> | </em><em>str</em><em> | </em><em>dict</em><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.input.InferenceParameters.get_form_data">
+<span class="sig-name descname"><span class="pre">get_form_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.input.InferenceParameters.get_form_data" title="Link to this definition"></a></dt>
+<dd><p>Return the parameters as a config dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]]</span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dict of parameters.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.InferenceParameters.confidence">
+<span class="sig-name descname"><span class="pre">confidence</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.input.InferenceParameters.confidence" title="Link to this definition"></a></dt>
+<dd><p>Boost the precision and accuracy of all extractions.
+Calculate confidence scores for all fields, and fill their <code class="docutils literal notranslate"><span class="pre">confidence</span></code> attribute.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.InferenceParameters.data_schema">
+<span class="sig-name descname"><span class="pre">data_schema</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">DataSchema</span></code><span class="pre">,</span> <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">,</span> <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code><span class="pre">,</span> <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.input.InferenceParameters.data_schema" title="Link to this definition"></a></dt>
+<dd><p>Dynamic changes to the data schema of the model for this inference.
+Not recommended, for specific use only.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.InferenceParameters.polygon">
+<span class="sig-name descname"><span class="pre">polygon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.input.InferenceParameters.polygon" title="Link to this definition"></a></dt>
+<dd><p>Calculate bounding box polygons for all fields, and fill their <code class="docutils literal notranslate"><span class="pre">locations</span></code> attribute.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.InferenceParameters.rag">
+<span class="sig-name descname"><span class="pre">rag</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.input.InferenceParameters.rag" title="Link to this definition"></a></dt>
+<dd><p>Enhance extraction accuracy with Retrieval-Augmented Generation.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.InferenceParameters.raw_text">
+<span class="sig-name descname"><span class="pre">raw_text</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.input.InferenceParameters.raw_text" title="Link to this definition"></a></dt>
+<dd><p>Extract the full text content from the document as strings, and fill the <code class="docutils literal notranslate"><span class="pre">raw_text</span></code> attribute.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.input.InferenceParameters.text_context">
+<span class="sig-name descname"><span class="pre">text_context</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code><span class="pre">[</span><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code><span class="pre">]</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#mindee.input.InferenceParameters.text_context" title="Link to this definition"></a></dt>
+<dd><p>Additional text context used by the model during inference.
+Not recommended, for specific use only.</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
