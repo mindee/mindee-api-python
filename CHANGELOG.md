@@ -1,5 +1,11 @@
 # Mindee Python Client Library Changelog
 
+## v4.33.0 - 2026-02-11
+### Changes
+* :sparkles: add support for V2 Split, Classification, Crop and OCR utilities
+* :sparkles: add object field convenience accessors
+
+
 ## v4.32.1 - 2025-12-17
 ### Changes
 * :sparkles: allow use of str, dict, or object to create a data schema replace
