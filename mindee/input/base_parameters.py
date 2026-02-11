@@ -9,9 +9,6 @@ from mindee.input.polling_options import PollingOptions
 class BaseParameters(ABC):
     """Base class for parameters accepted by all V2 endpoints."""
 
-    _slug: str = field(init=False)
-    """Slug of the endpoint."""
-
     model_id: str
     """ID of the model, required."""
     alias: Optional[str] = None
@@ -22,6 +19,9 @@ class BaseParameters(ABC):
     """Options for polling. Set only if having timeout issues."""
     close_file: bool = True
     """Whether to close the file after product."""
+
+    _slug: str = field(init=False)
+    """Slug of the endpoint."""
 
     def get_form_data(self) -> Dict[str, Union[str, List[str]]]:
         """
