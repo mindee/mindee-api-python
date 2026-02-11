@@ -7,7 +7,7 @@ from mindee import (
 
 input_path = "/path/to/the/file.ext"
 api_key = "MY_API_KEY"
-model_id = "MY_OCR_MODEL_ID"
+model_id = "MY_MODEL_ID"
 
 # Init a new client
 mindee_client = ClientV2(api_key)
@@ -31,5 +31,5 @@ response = mindee_client.enqueue_and_get_result(
 # Print a brief summary of the parsed data
 print(response.inference)
 
-# Access the ocr result
+# Access the OCR result
 pages: list = response.inference.result.pages
