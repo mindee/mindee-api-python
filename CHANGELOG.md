@@ -1,8 +1,13 @@
 # Mindee Python Client Library Changelog
 
+## v4.33.1 - 2026-02-11
+### Changes
+* :bug: fix missing class property
+
+
 ## v4.33.0 - 2026-02-11
 ### Changes
-* :sparkles: add support for V2 Split, Classification, Crop and OCR utilities
+* :sparkles: add support for V2 Split, Classification, Crop, and OCR utilities
 * :sparkles: add object field convenience accessors
 
 
