@@ -118,7 +118,7 @@ class ClientV2(ClientMixin):
         :param response_type: Class of the product to instantiate.
         :return: An inference response.
         """
-        logger.debug("Fetching inference: %s", inference_id)
+        logger.debug("Fetching result: %s", inference_id)
 
         response = self.mindee_api.req_get_inference(
             inference_id, response_type.get_result_slug()
@@ -152,7 +152,7 @@ class ClientV2(ClientMixin):
         )
         enqueue_response = self.enqueue_inference(input_source, params, True)
         logger.debug(
-            "Successfully enqueued document with job id: %s", enqueue_response.job.id
+            "Successfully enqueued document with job ID: %s", enqueue_response.job.id
         )
         sleep(params.polling_options.initial_delay_sec)
         try_counter = 0
@@ -168,6 +168,11 @@ class ClientV2(ClientMixin):
                     f"Parsing failed for job {job_response.job.id}: {detail}"
                 )
             if job_response.job.status == CommonStatus.PROCESSED.value:
+                logger.debug(
+                    "Job ID %s completed processing at: %s",
+                    job_response.job.id,
+                    job_response.job.completed_at,
+                )
                 result = self.get_result(
                     response_type or InferenceResponse, job_response.job.id
                 )

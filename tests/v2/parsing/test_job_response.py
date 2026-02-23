@@ -1,4 +1,5 @@
 import json
+from datetime import datetime
 
 import pytest
 
@@ -21,6 +22,20 @@ def test_should_load_when_status_is_processing():
     response = JobResponse(json_sample)
 
     assert response.job is not None
+    assert response.job.status == "Processing"
+    assert response.job.completed_at is None
+    assert response.job.error is None
+
+
+@pytest.mark.v2
+def test_should_load_when_status_is_processed():
+    """Should load when status is Processing."""
+    json_sample = _get_job_samples("ok_processed_webhooks_ok.json")
+    response = JobResponse(json_sample)
+
+    assert response.job is not None
+    assert response.job.status == "Processed"
+    assert isinstance(response.job.completed_at, datetime)
     assert response.job.error is None
 
 
@@ -31,6 +46,9 @@ def test_should_load_with_422_error():
     response = JobResponse(json_sample)
 
     assert response.job is not None
+    assert response.job.status == "Failed"
+    assert isinstance(response.job.completed_at, datetime)
+
     assert isinstance(response.job.error, ErrorResponse)
     assert response.job.error.status == 422
     assert response.job.error.code.startswith("422-")

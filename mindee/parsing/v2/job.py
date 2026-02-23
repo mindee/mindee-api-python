@@ -14,7 +14,9 @@ class Job:
     error: Optional[ErrorResponse]
     """Error response if any."""
     created_at: datetime
-    """Timestamp of the job creation."""
+    """Date and time of the Job creation."""
+    completed_at: Optional[datetime] = None
+    """Date and time of the Job completion. Filled once processing is finished."""
     model_id: str
     """ID of the model."""
     filename: str
@@ -39,6 +41,11 @@ class Job:
         self.created_at = datetime.fromisoformat(
             raw_response["created_at"].replace("Z", "+00:00")
         )
+        completed_at = raw_response.get("completed_at")
+        if completed_at:
+            self.completed_at = datetime.fromisoformat(
+                completed_at.replace("Z", "+00:00")
+            )
         self.model_id = raw_response["model_id"]
         self.polling_url = raw_response["polling_url"]
         self.filename = raw_response["filename"]
