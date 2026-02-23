@@ -1,6 +1,5 @@
 import pytest
 
-from mindee import LocalResponse
 from mindee.v2.product.classification.classification_classifier import (
     ClassificationClassifier,
 )
@@ -9,24 +8,19 @@ from mindee.v2.product.classification.classification_response import (
     ClassificationResponse,
 )
 from mindee.v2.product.classification.classification_result import ClassificationResult
-from tests.utils import V2_PRODUCT_DATA_DIR
+from tests.v2.product.utils import get_product_samples
 
 
 @pytest.mark.v2
 def test_classification_single():
-    input_inference = LocalResponse(
-        V2_PRODUCT_DATA_DIR / "classification" / "classification_single.json"
+    json_sample, _ = get_product_samples(
+        product="classification", file_name="classification_single"
     )
-    classification_response = input_inference.deserialize_response(
-        ClassificationResponse
-    )
-    assert isinstance(classification_response.inference, ClassificationInference)
-    assert isinstance(classification_response.inference.result, ClassificationResult)
+    response = ClassificationResponse(json_sample)
+    assert isinstance(response.inference, ClassificationInference)
+    assert isinstance(response.inference.result, ClassificationResult)
     assert isinstance(
-        classification_response.inference.result.classification,
+        response.inference.result.classification,
         ClassificationClassifier,
     )
-    assert (
-        classification_response.inference.result.classification.document_type
-        == "invoice"
-    )
+    assert response.inference.result.classification.document_type == "invoice"

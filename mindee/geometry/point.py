@@ -9,5 +9,8 @@ class Point(NamedTuple):
     y: float
     """Y coordinate"""
 
+    def __str__(self) -> str:
+        return f"({self.x},{self.y})"
+
 
 Points = Sequence[Point]

@@ -50,6 +50,9 @@ class Polygon(List[Point]):
         min_y, max_y = get_min_max_y(self)
         return is_point_in_y(point, min_y, max_y)
 
+    def __str__(self):
+        return "(" + ", ".join(str(p) for p in self) + ")"
+
 
 def is_point_in_polygon_x(point: Point, polygon: Polygon) -> bool:
     """

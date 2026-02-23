@@ -1,6 +1,4 @@
 import json
-from pathlib import Path
-from typing import Tuple
 
 import pytest
 
@@ -16,34 +14,14 @@ from mindee.parsing.v2.inference_file import InferenceFile
 from mindee.parsing.v2.inference_model import InferenceModel
 from mindee.parsing.v2.rag_metadata import RagMetadata
 from tests.utils import V2_PRODUCT_DATA_DIR
-
-
-def _get_samples(json_path: Path, rst_path: Path) -> Tuple[dict, str]:
-    with json_path.open("r", encoding="utf-8") as fh:
-        json_sample = json.load(fh)
-    try:
-        with rst_path.open("r", encoding="utf-8") as fh:
-            rst_sample = fh.read()
-    except FileNotFoundError:
-        rst_sample = ""
-    return json_sample, rst_sample
-
-
-def _get_inference_samples(name: str) -> Tuple[dict, str]:
-    json_path = V2_PRODUCT_DATA_DIR / "extraction" / f"{name}.json"
-    rst_path = V2_PRODUCT_DATA_DIR / "extraction" / f"{name}.rst"
-    return _get_samples(json_path, rst_path)
-
-
-def _get_product_samples(product, name: str) -> Tuple[dict, str]:
-    json_path = V2_PRODUCT_DATA_DIR / "extraction" / product / f"{name}.json"
-    rst_path = V2_PRODUCT_DATA_DIR / "extraction" / product / f"{name}.rst"
-    return _get_samples(json_path, rst_path)
+from tests.v2.product.utils import get_product_samples
 
 
 @pytest.mark.v2
 def test_deep_nested_fields():
-    json_sample, rst_sample = _get_inference_samples("deep_nested_fields")
+    json_sample, _ = get_product_samples(
+        product="extraction", file_name="deep_nested_fields"
+    )
     response = InferenceResponse(json_sample)
     assert isinstance(response.inference, Inference)
     assert isinstance(response.inference.result.fields["field_simple"], SimpleField)
@@ -115,7 +93,9 @@ def test_deep_nested_fields():
 
 @pytest.mark.v2
 def test_standard_field_types():
-    json_sample, rst_sample = _get_inference_samples("standard_field_types")
+    json_sample, rst_sample = get_product_samples(
+        product="extraction", file_name="standard_field_types"
+    )
     response = InferenceResponse(json_sample)
     assert isinstance(response.inference, Inference)
 
@@ -148,7 +128,9 @@ def test_standard_field_types():
 
 @pytest.mark.v2
 def test_standard_field_object():
-    json_sample, _ = _get_inference_samples("standard_field_types")
+    json_sample, _ = get_product_samples(
+        product="extraction", file_name="standard_field_types"
+    )
     response = InferenceResponse(json_sample)
 
     object_field = response.inference.result.fields["field_object"]
@@ -168,7 +150,9 @@ def test_standard_field_object():
 
 @pytest.mark.v2
 def test_standard_field_object_list():
-    json_sample, _ = _get_inference_samples("standard_field_types")
+    json_sample, _ = get_product_samples(
+        product="extraction", file_name="standard_field_types"
+    )
     response = InferenceResponse(json_sample)
     assert isinstance(response.inference, Inference)
 
@@ -181,7 +165,9 @@ def test_standard_field_object_list():
 
 @pytest.mark.v2
 def test_standard_field_simple_list():
-    json_sample, _ = _get_inference_samples("standard_field_types")
+    json_sample, _ = get_product_samples(
+        product="extraction", file_name="standard_field_types"
+    )
     response = InferenceResponse(json_sample)
     assert isinstance(response.inference, Inference)
 
@@ -194,7 +180,7 @@ def test_standard_field_simple_list():
 
 @pytest.mark.v2
 def test_raw_texts():
-    json_sample, _ = _get_inference_samples("raw_texts")
+    json_sample, _ = get_product_samples(product="extraction", file_name="raw_texts")
     response = InferenceResponse(json_sample)
     assert isinstance(response.inference, Inference)
 
@@ -210,7 +196,7 @@ def test_raw_texts():
 @pytest.mark.v2
 def test_rag_metadata_when_matched():
     """RAG metadata when matched."""
-    json_sample, _ = _get_inference_samples("rag_matched")
+    json_sample, _ = get_product_samples(product="extraction", file_name="rag_matched")
     response = InferenceResponse(json_sample)
     rag = response.inference.result.rag
     assert isinstance(rag, RagMetadata)
@@ -221,7 +207,9 @@ def test_rag_metadata_when_matched():
 @pytest.mark.v2
 def test_rag_metadata_when_not_matched():
     """RAG metadata when not matched."""
-    json_sample, _ = _get_inference_samples("rag_not_matched")
+    json_sample, _ = get_product_samples(
+        product="extraction", file_name="rag_not_matched"
+    )
     response = InferenceResponse(json_sample)
     rag = response.inference.result.rag
     assert isinstance(rag, RagMetadata)
@@ -231,7 +219,9 @@ def test_rag_metadata_when_not_matched():
 
 @pytest.mark.v2
 def test_full_inference_response():
-    json_sample, rst_sample = _get_product_samples("financial_document", "complete")
+    json_sample, _ = get_product_samples(
+        product="extraction/financial_document", file_name="complete"
+    )
     response = InferenceResponse(json_sample)
 
     assert isinstance(response.inference, Inference)
@@ -265,8 +255,8 @@ def test_field_locations_and_confidence() -> None:
     Validate that the first location polygon for the ``date`` field is correctly
     deserialized together with the associated confidence level.
     """
-    json_sample, _ = _get_product_samples(
-        "financial_document", "complete_with_coordinates"
+    json_sample, _ = get_product_samples(
+        product="extraction/financial_document", file_name="complete_with_coordinates"
     )
 
     response = InferenceResponse(json_sample)
@@ -307,7 +297,9 @@ def test_field_locations_and_confidence() -> None:
 
 @pytest.mark.v2
 def test_text_context_field_is_false() -> None:
-    json_sample, _ = _get_product_samples("financial_document", "complete")
+    json_sample, _ = get_product_samples(
+        product="extraction/financial_document", file_name="complete"
+    )
     response = InferenceResponse(json_sample)
     assert isinstance(response.inference.active_options, InferenceActiveOptions)
     assert response.inference.active_options.text_context is False
