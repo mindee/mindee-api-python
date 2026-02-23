@@ -20,7 +20,8 @@ class Inference(BaseInference):
     def __str__(self) -> str:
         return (
             f"Inference\n#########"
-            f"\n{self.model}"
+            f"\n{self.job}"
+            f"\n\n{self.model}"
             f"\n\n{self.file}"
             f"\n\n{self.active_options}"
             f"\n\n{self.result}\n"

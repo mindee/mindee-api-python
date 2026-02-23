@@ -15,6 +15,6 @@ class CropResult:
     def __str__(self) -> str:
         crops = "\n"
         if len(self.crops) > 0:
-            crops += "\n\n".join([str(crop) for crop in self.crops])
-        out_str = f"Crops\n======{crops}"
+            crops += "\n".join([str(crop) for crop in self.crops])
+        out_str = f"Crops\n====={crops}"
         return out_str
