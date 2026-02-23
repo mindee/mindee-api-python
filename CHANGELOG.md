@@ -1,5 +1,11 @@
 # Mindee Python Client Library Changelog
 
+## v4.34.0 - 2026-02-23
+### Changes
+* :sparkles: add job information to the inference object
+* :sparkles: add completed_at property to job
+
+
 ## v4.33.1 - 2026-02-11
 ### Changes
 * :bug: fix missing class property
