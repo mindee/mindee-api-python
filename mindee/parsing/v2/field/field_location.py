@@ -3,10 +3,12 @@ from mindee.parsing.common.string_dict import StringDict
 
 
 class FieldLocation:
-    """Location of a field."""
+    """A field's location on the document."""
 
     polygon: Polygon
+    """Position information as a list of points in clockwise order."""
     page: int
+    """0-based page index of where the polygon is located."""
 
     def __init__(self, server_response: StringDict) -> None:
         """

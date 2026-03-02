@@ -23,6 +23,7 @@ def test_should_load_when_status_is_processing():
 
     assert response.job is not None
     assert response.job.status == "Processing"
+    assert isinstance(response.job.created_at, datetime)
     assert response.job.completed_at is None
     assert response.job.error is None
 
@@ -35,6 +36,7 @@ def test_should_load_when_status_is_processed():
 
     assert response.job is not None
     assert response.job.status == "Processed"
+    assert isinstance(response.job.created_at, datetime)
     assert isinstance(response.job.completed_at, datetime)
     assert response.job.error is None
 
@@ -47,6 +49,7 @@ def test_should_load_with_422_error():
 
     assert response.job is not None
     assert response.job.status == "Failed"
+    assert isinstance(response.job.created_at, datetime)
     assert isinstance(response.job.completed_at, datetime)
 
     assert isinstance(response.job.error, ErrorResponse)
