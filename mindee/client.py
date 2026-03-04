@@ -55,7 +55,7 @@ class Client(ClientMixin):
     """
     Mindee API Client.
 
-    See: https://developers.mindee.com/docs/
+    See: https://docs.mindee.com/
     """
 
     api_key: str
