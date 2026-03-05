@@ -57,34 +57,6 @@ from mindee.product.fr.id_card.id_card_v2_document import (
 from mindee.product.fr.id_card.id_card_v2_page import (
     IdCardV2Page,
 )
-from mindee.product.fr.payslip.payslip_v2 import PayslipV2
-from mindee.product.fr.payslip.payslip_v2_bank_account_detail import (
-    PayslipV2BankAccountDetail,
-)
-from mindee.product.fr.payslip.payslip_v2_document import (
-    PayslipV2Document,
-)
-from mindee.product.fr.payslip.payslip_v2_employee import (
-    PayslipV2Employee,
-)
-from mindee.product.fr.payslip.payslip_v2_employer import (
-    PayslipV2Employer,
-)
-from mindee.product.fr.payslip.payslip_v2_employment import (
-    PayslipV2Employment,
-)
-from mindee.product.fr.payslip.payslip_v2_pay_detail import (
-    PayslipV2PayDetail,
-)
-from mindee.product.fr.payslip.payslip_v2_pay_period import (
-    PayslipV2PayPeriod,
-)
-from mindee.product.fr.payslip.payslip_v2_pto import (
-    PayslipV2Pto,
-)
-from mindee.product.fr.payslip.payslip_v2_salary_detail import (
-    PayslipV2SalaryDetail,
-)
 from mindee.product.fr.payslip.payslip_v3 import PayslipV3
 from mindee.product.fr.payslip.payslip_v3_bank_account_detail import (
     PayslipV3BankAccountDetail,
@@ -138,16 +110,6 @@ __all__ = [
     "IdCardV2",
     "IdCardV2Document",
     "IdCardV2Page",
-    "PayslipV2",
-    "PayslipV2BankAccountDetail",
-    "PayslipV2Document",
-    "PayslipV2Employee",
-    "PayslipV2Employer",
-    "PayslipV2Employment",
-    "PayslipV2PayDetail",
-    "PayslipV2PayPeriod",
-    "PayslipV2Pto",
-    "PayslipV2SalaryDetail",
     "PayslipV3",
     "PayslipV3BankAccountDetail",
     "PayslipV3Document",
