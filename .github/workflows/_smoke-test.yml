@@ -1,4 +1,4 @@
-name: Test Code Samples
+name: Smoke Test
 
 on:
   workflow_call:
