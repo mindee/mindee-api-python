@@ -9,5 +9,5 @@ jobs:
     uses: mindee/mindee-api-python/.github/workflows/_test-regressions.yml@main
     secrets: inherit
   test-code-samples:
-    uses: mindee/mindee-api-python/.github/workflows/_test-code-samples.yml@main
+    uses: mindee/mindee-api-python/.github/workflows/_smoke_test.yml@main
     secrets: inherit
