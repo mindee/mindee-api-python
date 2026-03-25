@@ -66,6 +66,7 @@ build = [
 
 [project.scripts]
 mindee = "mindee.cli:main"
+mindeeV2 = "mindee.v2.cli:main"
 
 
 [tool.setuptools.packages]
