@@ -31,7 +31,10 @@ def test_pdf_should_extract_splits():
     response = client.enqueue_and_get_result(
         SplitResponse,
         split_input,
-        SplitParameters(getenv("MINDEE_V2_SE_TESTS_SPLIT_MODEL_ID"), close_file=False),
+        SplitParameters(
+            getenv("MINDEE_V2_SE_TESTS_SPLIT_MODEL_ID"),
+            close_file=False,
+        ),
     )
     assert response.inference.file.page_count == 2
 
@@ -53,7 +56,11 @@ def test_pdf_should_extract_splits():
         extracted_pdf.save_to_file(OUTPUT_DIR / f"split_{i + 1:03d}.pdf")
     for i in range(len(extracted_pdfs)):
         local_input = PathInput(OUTPUT_DIR / f"split_{i + 1:03d}.pdf")
-        assert local_input.page_count == extracted_pdfs[i].get_page_count()
+        try:
+            assert local_input.page_count == extracted_pdfs[i].get_page_count()
+        finally:
+            local_input.close()
+    split_input.close()
 
 
 @pytest.fixture(scope="module", autouse=True)
