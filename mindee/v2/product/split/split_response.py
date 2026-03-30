@@ -1,9 +1,6 @@
-from typing import List
-
-from mindee.extraction import ExtractedPdf
 from mindee.input.sources.local_input_source import LocalInputSource
 from mindee.parsing.common.string_dict import StringDict
-from mindee.v2.file_operations.split import Split
+from mindee.v2.file_operations.split_files import SplitFiles
 from mindee.v2.parsing.inference import BaseResponse
 from mindee.v2.product.split.split_inference import SplitInference
 
@@ -21,11 +18,16 @@ class SplitResponse(BaseResponse):
         super().__init__(raw_response)
         self.inference = SplitInference(raw_response["inference"])
 
-    def apply_to_file(self, input_source: LocalInputSource) -> List[ExtractedPdf]:
+    def extract_from_file(self, input_source: LocalInputSource) -> SplitFiles:
         """
         Apply the split inference to a file and return a list of extracted PDFs.
 
         :param input_source: Local file to apply the inference to
         :return: List of extracted PDFs
         """
-        return Split.extract_splits(input_source, self.inference.result.splits)
+        return SplitFiles(
+            [
+                split.extract_from_file(input_source)
+                for split in self.inference.result.splits
+            ]
+        )

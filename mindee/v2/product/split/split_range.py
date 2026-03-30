@@ -25,7 +25,7 @@ class SplitRange:
         page_range = ",".join([str(page_index) for page_index in self.page_range])
         return f"* :Page Range: {page_range}\n  :Document Type: {self.document_type}"
 
-    def apply_to_file(self, input_source: LocalInputSource) -> ExtractedPdf:
+    def extract_from_file(self, input_source: LocalInputSource) -> ExtractedPdf:
         """
         Apply the split range inference to a file and return a single extracted PDF.
 

@@ -10,7 +10,7 @@ from mindee import (
     SplitResponse,
 )
 from mindee.input.sources.path_input import PathInput
-from mindee.v2 import Split
+from mindee.v2.file_operations.split import extract_splits
 from tests.utils import OUTPUT_DIR, V2_PRODUCT_DATA_DIR, cleanup_output_files
 
 
@@ -38,7 +38,7 @@ def test_pdf_should_extract_splits():
     )
     assert response.inference.file.page_count == 2
 
-    extracted_pdfs = Split.extract_splits(split_input, response.inference.result.splits)
+    extracted_pdfs = extract_splits(split_input, response.inference.result.splits)
 
     assert len(extracted_pdfs) == 2
     assert extracted_pdfs[0].filename == "default_sample_001-001.pdf"
@@ -52,8 +52,7 @@ def test_pdf_should_extract_splits():
         ),
     )
     check_findoc_return(invoice_0)
-    for i, extracted_pdf in enumerate(extracted_pdfs):
-        extracted_pdf.save_to_file(OUTPUT_DIR / f"split_{i + 1:03d}.pdf")
+    extracted_pdfs.save_all_to_disk(OUTPUT_DIR)
     for i in range(len(extracted_pdfs)):
         local_input = PathInput(OUTPUT_DIR / f"split_{i + 1:03d}.pdf")
         try:

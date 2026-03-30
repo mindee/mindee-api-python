@@ -19,7 +19,7 @@ class CropBox:
     def __str__(self) -> str:
         return f"* :Location: {self.location}\n  :Object Type: {self.object_type}"
 
-    def apply_to_file(self, input_source: LocalInputSource) -> ExtractedImage:
+    def extract_from_file(self, input_source: LocalInputSource) -> ExtractedImage:
         """
         Apply the split range inference to a file and return a single extracted PDF.
 

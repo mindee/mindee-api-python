@@ -116,7 +116,7 @@ def get_file_extension(file_format: str):
 def extract_multiple_images_from_source(
     input_source: LocalInputSource,
     page_id: int,
-    polygons: Union[List[Polygon], List[List[Point]]],
+    polygons: List[Union[Polygon, List[Point]]],
 ) -> List[ExtractedImage]:
     """
     Extracts elements from a page based on a list of bounding boxes.
