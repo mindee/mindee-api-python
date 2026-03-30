@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import BinaryIO
+from typing import BinaryIO, Union
 
 import pypdfium2 as pdfium
 
@@ -28,6 +28,10 @@ class ExtractedPdf:
             ) from exc
 
     def write_to_file(self, output_path: str):
+        """Deprecated. Use ``save_to_file`` instead."""
+        self.save_to_file(output_path)
+
+    def save_to_file(self, output_path: Union[Path, str]):
         """
         Writes the contents of the current PDF object to a file.
 
@@ -40,6 +44,7 @@ class ExtractedPdf:
             raise MindeeError("Invalid save path provided {}.")
         if out_path.suffix.lower() != "pdf":
             out_path = out_path.parent / (out_path.stem + "." + "pdf")
+        self.pdf_bytes.seek(0)
         with open(out_path, "wb") as out_file:
             out_file.write(self.pdf_bytes.read())
 

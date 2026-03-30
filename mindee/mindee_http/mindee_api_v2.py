@@ -4,7 +4,9 @@ from typing import Dict, Optional, Union
 import requests
 
 from mindee.error.mindee_error import MindeeApiV2Error
-from mindee.input import LocalInputSource, UrlInputSource, BaseParameters
+from mindee.input.base_parameters import BaseParameters
+from mindee.input.sources.local_input_source import LocalInputSource
+from mindee.input.sources.url_input_source import UrlInputSource
 from mindee.logger import logger
 from mindee.mindee_http.base_settings import USER_AGENT
 from mindee.mindee_http.settings_mixin import SettingsMixin

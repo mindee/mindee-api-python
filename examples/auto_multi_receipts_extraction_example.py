@@ -16,7 +16,9 @@ def parse_receipts(input_path):
     extracted_receipts = extract_receipts(input_doc, result_split.document.inference)
 
     for idx, receipt in enumerate(extracted_receipts, 1):
-        result_receipt = mindee_client.parse(product.ReceiptV5, receipt.as_source())
+        result_receipt = mindee_client.parse(
+            product.ReceiptV5, receipt.as_input_source()
+        )
         print(f"Receipt {idx}:")
         print(result_receipt.document)
         print("-" * 40)

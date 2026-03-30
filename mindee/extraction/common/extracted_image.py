@@ -1,6 +1,6 @@
 import io
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Union
 
 from PIL import Image
 
@@ -17,6 +17,8 @@ class ExtractedImage:
     """Id of the page the image was extracted from."""
     _element_id: int
     """Id of the element on a given page."""
+    filename: str
+    """Name of the file the image was extracted from."""
 
     def __init__(
         self, input_source: LocalInputSource, page_id: int, element_id: int
@@ -30,6 +32,7 @@ class ExtractedImage:
         """
         self.buffer = io.BytesIO(input_source.file_object.read())
         self.buffer.name = input_source.filename
+        self.filename = input_source.filename
         if input_source.is_pdf():
             extension = "jpg"
         else:
@@ -43,7 +46,9 @@ class ExtractedImage:
         self._page_id = page_id
         self._element_id = 0 if element_id is None else element_id
 
-    def save_to_file(self, output_path: str, file_format: Optional[str] = None):
+    def save_to_file(
+        self, output_path: Union[Path, str], file_format: Optional[str] = None
+    ):
         """
         Saves the document to a file.
 
@@ -56,20 +61,27 @@ class ExtractedImage:
             if not file_format:
                 if len(resolved_path.suffix) < 1:
                     raise ValueError("Invalid file format.")
-                file_format = (
-                    resolved_path.suffix.upper()
-                )  # technically redundant since PIL applies an upper operation
-                # to the parameter , but older versions may not do so.
+                # Let PIL infer format from filename extension
             self.buffer.seek(0)
             image = Image.open(self.buffer)
-            image.save(resolved_path, format=file_format)
+            if file_format:
+                image.save(resolved_path, format=file_format)
+            else:
+                image.save(resolved_path)
             logger.info("File saved successfully to '%s'.", resolved_path)
         except TypeError as exc:
             raise MindeeError("Invalid path/filename provided.") from exc
         except Exception as exc:
+            print(exc)
             raise MindeeError(f"Could not save file {Path(output_path).name}.") from exc
 
     def as_source(self) -> FileInput:
+        """
+        Deprecated. Use ``as_input_source`` instead.
+        """
+        return self.as_input_source()
+
+    def as_input_source(self) -> FileInput:
         """
         Return the file as a Mindee-compatible BufferInput source.
 

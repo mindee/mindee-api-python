@@ -1,3 +1,4 @@
+import os
 from difflib import SequenceMatcher
 from pathlib import Path
 
@@ -9,6 +10,7 @@ from mindee.mindee_http.base_settings import (
 
 ROOT_DATA_DIR = Path(__file__).parent / "data"
 FILE_TYPES_DIR = ROOT_DATA_DIR / "file_types"
+OUTPUT_DIR = ROOT_DATA_DIR / "output"
 
 V1_DATA_DIR = ROOT_DATA_DIR / "v1"
 V1_ERROR_DATA_DIR = V1_DATA_DIR / "errors"
@@ -44,3 +46,10 @@ def levenshtein_ratio(ref_str: str, target_str: str) -> float:
     :return: Ratio between the two strings
     """
     return SequenceMatcher(None, ref_str, target_str).ratio()
+
+
+def cleanup_output_files(created_files):
+    for file_path in created_files:
+        full_path = OUTPUT_DIR / file_path
+        if full_path.exists():
+            os.remove(full_path)

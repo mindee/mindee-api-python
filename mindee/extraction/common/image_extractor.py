@@ -1,5 +1,5 @@
 import io
-from typing import BinaryIO, List
+from typing import BinaryIO, List, Union
 
 import pypdfium2 as pdfium
 from PIL import Image
@@ -7,7 +7,7 @@ from PIL import Image
 from mindee.error.mindee_error import MindeeError
 from mindee.extraction.common.extracted_image import ExtractedImage
 from mindee.geometry.point import Point
-from mindee.geometry.polygon import get_min_max_x, get_min_max_y
+from mindee.geometry.polygon import Polygon, get_min_max_x, get_min_max_y
 from mindee.input.sources.bytes_input import BytesInput
 from mindee.input.sources.local_input_source import LocalInputSource
 
@@ -114,7 +114,9 @@ def get_file_extension(file_format: str):
 
 
 def extract_multiple_images_from_source(
-    input_source: LocalInputSource, page_id: int, polygons: List[List[Point]]
+    input_source: LocalInputSource,
+    page_id: int,
+    polygons: List[Union[Polygon, List[Point]]],
 ) -> List[ExtractedImage]:
     """
     Extracts elements from a page based on a list of bounding boxes.

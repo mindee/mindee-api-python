@@ -5,6 +5,7 @@ import pytest
 
 from mindee import Client
 from mindee.product.invoice import InvoiceV4
+from tests.utils import cleanup_output_files
 
 
 @pytest.fixture
@@ -55,14 +56,8 @@ def test_save_file_with_filename(client, reference_file_path, output_file_path):
 
 
 @pytest.fixture(autouse=True)
-def cleanup(request, output_file_path: Path):
+def cleanup(request):
     def remove_test_files():
-        generated_files = [
-            Path.resolve(output_file_path / "invoice_5p.pdf"),
-            Path.resolve(output_file_path / "customFileName.pdf"),
-        ]
-        for filepath in generated_files:
-            if os.path.exists(filepath):
-                os.remove(filepath)
+        cleanup_output_files(["invoice_5p.pdf", "customFileName.pdf"])
 
     request.addfinalizer(remove_test_files)

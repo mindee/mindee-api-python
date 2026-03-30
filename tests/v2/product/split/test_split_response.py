@@ -32,7 +32,7 @@ def test_split_multiple():
     assert len(response.inference.result.splits[0].page_range) == 2
     assert response.inference.result.splits[0].page_range[0] == 0
     assert response.inference.result.splits[0].page_range[1] == 0
-    assert response.inference.result.splits[0].document_type == "invoice"
+    assert response.inference.result.splits[0].document_type == "passport"
 
     assert len(response.inference.result.splits[1].page_range) == 2
     assert response.inference.result.splits[1].page_range[0] == 1
@@ -42,4 +42,4 @@ def test_split_multiple():
     assert len(response.inference.result.splits[2].page_range) == 2
     assert response.inference.result.splits[2].page_range[0] == 4
     assert response.inference.result.splits[2].page_range[1] == 4
-    assert response.inference.result.splits[2].document_type == "invoice"
+    assert response.inference.result.splits[2].document_type == "receipt"
