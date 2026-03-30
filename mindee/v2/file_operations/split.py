@@ -26,9 +26,12 @@ class Split:
         page_groups = []
         for split in splits:
             if isinstance(split, SplitRange):
-                page_groups.append(split.page_range)
+                lower_bound = split.page_range[0]
+                upper_bound = split.page_range[1]
             else:
-                page_groups.append(split)
+                lower_bound = split[0]
+                upper_bound = split[1]
+            page_groups.append(list(range(lower_bound, upper_bound + 1)))
         if len(splits) < 1:
             raise MindeeError("No indexes provided.")
         return pdf_extractor.extract_sub_documents(page_groups)

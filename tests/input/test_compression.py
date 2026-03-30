@@ -9,9 +9,14 @@ from mindee.image_operations.image_compressor import compress_image
 from mindee.input.sources import PathInput
 from mindee.pdf.pdf_compressor import compress_pdf
 from mindee.pdf.pdf_utils import extract_text_from_pdf
-from tests.utils import FILE_TYPES_DIR, ROOT_DATA_DIR, V1_DATA_DIR, V1_PRODUCT_DATA_DIR
+from tests.utils import (
+    FILE_TYPES_DIR,
+    OUTPUT_DIR,
+    V1_DATA_DIR,
+    V1_PRODUCT_DATA_DIR,
+    cleanup_output_files,
+)
 
-OUTPUT_DIR = ROOT_DATA_DIR / "output"
 RECEIPT_PATH = FILE_TYPES_DIR / "receipt.jpg"
 
 
@@ -202,26 +207,23 @@ def test_pdf_compress_with_text_does_not_compress():
 @pytest.fixture(scope="module", autouse=True)
 def cleanup():
     yield
-    created_files = [
-        "compress10.pdf",
-        "compress50.pdf",
-        "compress75.pdf",
-        "compress85.pdf",
-        "resize_indirect.pdf",
-        "compress1.jpg",
-        "compress10.jpg",
-        "compress50.jpg",
-        "compress75.jpg",
-        "compress100.jpg",
-        "compress_indirect.jpg",
-        "resize250x500.jpg",
-        "resize500x250.jpg",
-        "resize500xnull.jpg",
-        "resize_indirect.jpg",
-        "resizenullx250.jpg",
-    ]
-
-    for file_path in created_files:
-        full_path = OUTPUT_DIR / file_path
-        if full_path.exists():
-            os.remove(full_path)
+    cleanup_output_files(
+        [
+            "compress10.pdf",
+            "compress50.pdf",
+            "compress75.pdf",
+            "compress85.pdf",
+            "resize_indirect.pdf",
+            "compress1.jpg",
+            "compress10.jpg",
+            "compress50.jpg",
+            "compress75.jpg",
+            "compress100.jpg",
+            "compress_indirect.jpg",
+            "resize250x500.jpg",
+            "resize500x250.jpg",
+            "resize500xnull.jpg",
+            "resize_indirect.jpg",
+            "resizenullx250.jpg",
+        ]
+    )

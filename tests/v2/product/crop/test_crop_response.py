@@ -64,6 +64,6 @@ def test_crop_multiple():
     assert response.inference.result.crops[1].location.polygon[3][0] == 0.547
     assert response.inference.result.crops[1].location.polygon[3][1] == 0.97
     assert response.inference.result.crops[1].location.page == 0
-    assert response.inference.result.crops[1].object_type == "invoice"
+    assert response.inference.result.crops[1].object_type == "receipt"
 
     assert rst_sample == str(response)

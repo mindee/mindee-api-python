@@ -6,7 +6,8 @@ import pytest
 from mindee import ClientV2, InferenceParameters, InferenceResponse, LocalResponse
 from mindee.error.mindee_error import MindeeApiV2Error, MindeeError
 from mindee.error.mindee_http_error_v2 import MindeeHTTPErrorV2
-from mindee.input.sources.local_input_source import LocalInputSource, PathInput
+from mindee.input.sources.local_input_source import LocalInputSource
+from mindee.input.sources.path_input import PathInput
 from mindee.mindee_http.base_settings import USER_AGENT
 from mindee.parsing.v2.inference import Inference
 from mindee.parsing.v2.job import Job
