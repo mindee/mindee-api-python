@@ -1,4 +1,9 @@
+from typing import List
+
+from mindee.extraction.common.extracted_image import ExtractedImage
+from mindee.input.sources.local_input_source import LocalInputSource
 from mindee.parsing.common.string_dict import StringDict
+from mindee.v2.file_operations.crop import Crop
 from mindee.v2.parsing.inference import BaseResponse
 from mindee.v2.product.crop.crop_inference import CropInference
 
@@ -15,3 +20,12 @@ class CropResponse(BaseResponse):
     def __init__(self, raw_response: StringDict) -> None:
         super().__init__(raw_response)
         self.inference = CropInference(raw_response["inference"])
+
+    def apply_to_file(self, input_source: LocalInputSource) -> List[ExtractedImage]:
+        """
+        Apply the crop inference to a file and return a list of extracted images.
+
+        :param input_source: Local file to apply the inference to
+        :return: List of extracted PDFs
+        """
+        return Crop.extract_crops(input_source, self.inference.result.crops)

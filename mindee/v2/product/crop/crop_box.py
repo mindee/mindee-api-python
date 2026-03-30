@@ -1,3 +1,5 @@
+from mindee.extraction import ExtractedImage, extract_multiple_images_from_source
+from mindee.input.sources.local_input_source import LocalInputSource
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.v2.field.field_location import FieldLocation
 
@@ -16,3 +18,14 @@ class CropBox:
 
     def __str__(self) -> str:
         return f"* :Location: {self.location}\n  :Object Type: {self.object_type}"
+
+    def apply_to_file(self, input_source: LocalInputSource) -> ExtractedImage:
+        """
+        Apply the split range inference to a file and return a single extracted PDF.
+
+        :param input_source: Local file to apply the inference to
+        :return: Extracted PDF
+        """
+        return extract_multiple_images_from_source(
+            input_source, self.location.page, [self.location.polygon]
+        )[0]

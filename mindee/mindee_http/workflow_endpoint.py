@@ -2,7 +2,9 @@ from typing import Union
 
 import requests
 
-from mindee.input import LocalInputSource, UrlInputSource, WorkflowOptions
+from mindee.input.sources.local_input_source import LocalInputSource
+from mindee.input.sources.url_input_source import UrlInputSource
+from mindee.input.workflow_options import WorkflowOptions
 from mindee.mindee_http.base_endpoint import BaseEndpoint
 from mindee.mindee_http.workflow_settings import WorkflowSettings
 

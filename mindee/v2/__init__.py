@@ -1,3 +1,5 @@
+from mindee.v2.file_operations.split import Split
+from mindee.v2.file_operations.crop import Crop
 from mindee.v2.product.classification.classification_parameters import (
     ClassificationParameters,
 )
@@ -14,10 +16,12 @@ from mindee.v2.product.split.split_response import SplitResponse
 __all__ = [
     "ClassificationResponse",
     "ClassificationParameters",
+    "Crop",
     "CropResponse",
     "CropParameters",
     "OCRResponse",
     "OCRParameters",
+    "Split",
     "SplitResponse",
     "SplitParameters",
 ]
