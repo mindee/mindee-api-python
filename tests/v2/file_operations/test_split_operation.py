@@ -2,7 +2,6 @@ import json
 
 import pytest
 
-from mindee.v2.file_operations.split import extract_splits
 from mindee.input.sources.path_input import PathInput
 from mindee.v2.product.split.split_response import (
     SplitResponse,
@@ -37,7 +36,7 @@ def test_single_page_split_split(splits_default, splits_single_page_json_path):
     with open(splits_single_page_json_path, "rb") as f:
         response = json.load(f)
     doc = SplitResponse(response)
-    extracted_splits = extract_splits(input_sample, doc.inference.result.splits)
+    extracted_splits = doc.extract_from_file(input_sample)
     assert len(extracted_splits) == 1
 
     assert extracted_splits[0].get_page_count() == 1
@@ -48,7 +47,7 @@ def test_multi_page_receipt_split(splits_5p, splits_multi_page_json_path):
     with open(splits_multi_page_json_path, "rb") as f:
         response = json.load(f)
     doc = SplitResponse(response)
-    extracted_splits = extract_splits(input_sample, doc.inference.result.splits)
+    extracted_splits = doc.extract_from_file(input_sample)
     assert len(extracted_splits) == 3
 
     assert extracted_splits[0].get_page_count() == 1

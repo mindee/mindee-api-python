@@ -10,7 +10,6 @@ from mindee import (
     SplitResponse,
 )
 from mindee.input.sources.path_input import PathInput
-from mindee.v2.file_operations.split import extract_splits
 from tests.utils import OUTPUT_DIR, V2_PRODUCT_DATA_DIR, cleanup_output_files
 
 
@@ -38,7 +37,7 @@ def test_pdf_should_extract_splits():
     )
     assert response.inference.file.page_count == 2
 
-    extracted_pdfs = extract_splits(split_input, response.inference.result.splits)
+    extracted_pdfs = response.extract_from_file(split_input)
 
     assert len(extracted_pdfs) == 2
     assert extracted_pdfs[0].filename == "default_sample_001-001.pdf"

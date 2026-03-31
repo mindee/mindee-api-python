@@ -1,9 +1,9 @@
 from typing import List
 
 from mindee.extraction.pdf_extractor.extracted_pdf import ExtractedPdf
-from mindee.extraction.pdf_extractor.pdf_extractor import PdfExtractor
 from mindee.input.sources.local_input_source import LocalInputSource
 from mindee.parsing.common.string_dict import StringDict
+from mindee.v2.file_operations.split import extract_single_split
 
 
 class SplitRange:
@@ -32,5 +32,4 @@ class SplitRange:
         :param input_source: Local file to apply the inference to
         :return: Extracted PDF
         """
-        pdf_extractor = PdfExtractor(input_source)
-        return pdf_extractor.extract_sub_documents([self.page_range])[0]
+        return extract_single_split(input_source, self.page_range)

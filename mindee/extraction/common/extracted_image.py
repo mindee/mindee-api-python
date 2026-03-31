@@ -61,7 +61,6 @@ class ExtractedImage:
             if not file_format:
                 if len(resolved_path.suffix) < 1:
                     raise ValueError("Invalid file format.")
-                # Let PIL infer format from filename extension
             self.buffer.seek(0)
             image = Image.open(self.buffer)
             if file_format:
