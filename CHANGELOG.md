@@ -1,5 +1,15 @@
 # Mindee Python Client Library Changelog
 
+## v4.35.0 - 2026-03-01
+### Changes
+* :sparkles: add support for crop extraction
+* :sparkles: add support for split extraction
+* :sparkles: add support for minimal V2 CLI
+### Fixes
+* :bug: fix file saves from crop/split extractors breaking in some instances
+* :recycle: fix cron
+
+
 ## v4.34.0 - 2026-02-23
 ### Changes
 * :sparkles: add job information to the inference object
