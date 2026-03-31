@@ -1,6 +1,11 @@
 # Mindee Python Client Library Changelog
 
-## v4.35.0 - 2026-03-01
+## v4.35.1 - 2026-03-31
+### Fixes
+* :bug: fix split feature adding additional pages to output files
+
+
+## v4.35.0 - 2026-03-31
 ### Changes
 * :sparkles: add support for crop extraction
 * :sparkles: add support for split extraction
