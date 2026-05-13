@@ -10,8 +10,8 @@ from mindee.input.sources.local_input_source import LocalInputSource
 from mindee.input.sources.path_input import PathInput
 from mindee.mindee_http.base_settings import USER_AGENT
 from mindee.parsing.v2.inference import Inference
-from mindee.parsing.v2.job import Job
-from mindee.parsing.v2.job_response import JobResponse
+from mindee.v2.parsing.job.job import Job
+from mindee.v2.parsing.job.job_response import JobResponse
 from tests.utils import FILE_TYPES_DIR, V2_PRODUCT_DATA_DIR, V2_DATA_DIR, dummy_envvars
 
 

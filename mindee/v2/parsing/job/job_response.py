@@ -1,6 +1,6 @@
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.v2.common_response import CommonResponse
-from mindee.parsing.v2.job import Job
+from mindee.v2.parsing.job.job import Job
 
 
 class JobResponse(CommonResponse):

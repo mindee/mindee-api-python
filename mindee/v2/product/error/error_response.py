@@ -1,7 +1,7 @@
 from typing import List
 
 from mindee.parsing.common.string_dict import StringDict
-from mindee.parsing.v2.error_item import ErrorItem
+from mindee.v2.product.error.error_item import ErrorItem
 
 
 class ErrorResponse:

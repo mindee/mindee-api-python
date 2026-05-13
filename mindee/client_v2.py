@@ -18,7 +18,7 @@ from mindee.mindee_http.response_validation_v2 import (
 from mindee.parsing.v2.common_response import CommonStatus
 from mindee.v2.parsing.inference.base_response import BaseResponse
 from mindee.parsing.v2.inference_response import InferenceResponse
-from mindee.parsing.v2.job_response import JobResponse
+from mindee.v2.parsing.job.job_response import JobResponse
 
 TypeBaseResponse = TypeVar("TypeBaseResponse", bound=BaseResponse)
 

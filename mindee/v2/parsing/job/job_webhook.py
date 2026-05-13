@@ -2,7 +2,7 @@ from datetime import datetime
 from typing import Optional
 
 from mindee.parsing.common.string_dict import StringDict
-from mindee.parsing.v2.error_response import ErrorResponse
+from mindee.v2.product.error.error_response import ErrorResponse
 
 
 class JobWebhook:

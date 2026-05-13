@@ -2,8 +2,8 @@ from datetime import datetime
 from typing import List, Optional
 
 from mindee.parsing.common.string_dict import StringDict
-from mindee.parsing.v2.error_response import ErrorResponse
-from mindee.parsing.v2.job_webhook import JobWebhook
+from mindee.v2.product.error.error_response import ErrorResponse
+from mindee.v2.parsing.job.job_webhook import JobWebhook
 
 
 class Job:
