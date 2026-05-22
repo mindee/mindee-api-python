@@ -1,5 +1,6 @@
 import pytest
 
+from mindee import InferenceResponse
 from mindee.v2.product.crop.crop_box import CropBox
 from mindee.v2.product.crop import CropInference
 from mindee.v2.product.crop.crop_response import CropResponse
@@ -67,3 +68,31 @@ def test_crop_multiple():
     assert response.inference.result.crops[1].object_type == "receipt"
 
     assert rst_sample == str(response)
+
+
+@pytest.mark.v2
+def test_crop_with_extraction_result():
+    json_sample, _ = get_product_samples(
+        product="crop", file_name="default_sample_extraction"
+    )
+    response = CropResponse(json_sample)
+    assert isinstance(response.inference, CropInference)
+    assert isinstance(response.inference.result, CropResult)
+    assert isinstance(
+        response.inference.result.crops[0],
+        CropBox,
+    )
+    crops = response.inference.result.crops
+    assert crops[0].object_type == "receipt"
+    assert isinstance(crops[0].extraction_response, InferenceResponse)
+    assert (
+        crops[0].extraction_response.inference.result.fields.get("supplier_name").value
+        == "CHEZ ALAIN MIAM MIAM"
+    )
+
+    assert crops[1].object_type == "receipt"
+    assert isinstance(crops[1].extraction_response, InferenceResponse)
+    assert (
+        crops[1].extraction_response.inference.result.fields.get("supplier_name").value
+        == "La cerise sur la pizza"
+    )

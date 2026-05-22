@@ -1,5 +1,6 @@
 import pytest
 
+from mindee import InferenceResponse
 from mindee.v2.product.split.split_range import SplitRange
 from mindee.v2.product.split import SplitInference
 from mindee.v2.product.split.split_response import SplitResponse
@@ -43,3 +44,37 @@ def test_split_multiple():
     assert response.inference.result.splits[2].page_range[0] == 4
     assert response.inference.result.splits[2].page_range[1] == 4
     assert response.inference.result.splits[2].document_type == "receipt"
+
+
+@pytest.mark.v2
+def test_split_with_extraction_result():
+    json_sample, _ = get_product_samples(
+        product="split", file_name="default_sample_extraction"
+    )
+    response = SplitResponse(json_sample)
+    assert isinstance(response.inference, SplitInference)
+    assert isinstance(response.inference.result, SplitResult)
+    assert isinstance(
+        response.inference.result.splits[0],
+        SplitRange,
+    )
+    split = response.inference.result.splits
+    assert split[0].document_type == "invoice"
+    assert split[0].page_range[0] == 0
+    assert isinstance(split[0].extraction_response, InferenceResponse)
+    assert (
+        split[0]
+        .extraction_response.inference.result.fields.get("supplier_phone_number")
+        .value
+        == "05 05 44 44 90"
+    )
+
+    assert split[1].document_type == "invoice"
+    assert split[1].page_range[0] == 1
+    assert isinstance(split[1].extraction_response, InferenceResponse)
+    assert (
+        split[1]
+        .extraction_response.inference.result.fields.get("supplier_phone_number")
+        .value
+        == "416-555-1212"
+    )

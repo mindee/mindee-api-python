@@ -1,5 +1,5 @@
 from mindee.parsing.common.string_dict import StringDict
-from mindee.v2.parsing.inference import BaseInference
+from mindee.parsing.v2.base_inference import BaseInference
 from mindee.parsing.v2.inference_active_options import InferenceActiveOptions
 from mindee.parsing.v2.inference_result import InferenceResult
 

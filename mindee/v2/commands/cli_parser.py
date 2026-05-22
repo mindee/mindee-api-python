@@ -16,7 +16,7 @@ from mindee import (
 from mindee.input import BaseParameters
 
 from mindee.input.sources import PathInput, UrlInputSource
-from mindee.v2.parsing import BaseResponse
+from mindee.parsing.v2.base_response import BaseResponse
 
 
 @dataclass

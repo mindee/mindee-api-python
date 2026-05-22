@@ -3,7 +3,7 @@ import io
 import pypdfium2 as pdfium
 import pytest
 
-from mindee.error import MindeeError
+from mindee.error.mindee_error import MindeeError
 from mindee.input.page_options import KEEP_ONLY, REMOVE, PageOptions
 from mindee.input.sources import (
     Base64Input,

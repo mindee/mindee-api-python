@@ -1,8 +1,6 @@
 from mindee.parsing.common.string_dict import StringDict
+from mindee.parsing.v2.base_response import BaseResponse
 from mindee.parsing.v2.inference import Inference
-from mindee.v2.parsing.inference.base_response import (
-    BaseResponse,
-)
 
 
 class InferenceResponse(BaseResponse):
