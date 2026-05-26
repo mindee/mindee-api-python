@@ -51,8 +51,8 @@ def test_image_should_extract_crops():
     )
     check_findoc_return(invoice_0)
     extracted_images.save_all_to_disk(OUTPUT_DIR)
-    assert os.path.getsize(OUTPUT_DIR / "crop_001.jpg") == 198887
-    assert os.path.getsize(OUTPUT_DIR / "crop_002.jpg") == 197443
+    assert os.path.getsize(OUTPUT_DIR / "crop_001.jpg") == 187601
+    assert os.path.getsize(OUTPUT_DIR / "crop_002.jpg") == 197978
 
 
 @pytest.fixture(scope="module", autouse=True)

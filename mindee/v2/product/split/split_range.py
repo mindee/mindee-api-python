@@ -1,5 +1,6 @@
 from typing import List
 
+from mindee.parsing.v2.inference_response import InferenceResponse
 from mindee.extraction.pdf_extractor.extracted_pdf import ExtractedPdf
 from mindee.input.sources.local_input_source import LocalInputSource
 from mindee.parsing.common.string_dict import StringDict
@@ -16,10 +17,16 @@ class SplitRange:
     """
     document_type: str
     """The document type, as identified on given classification values."""
+    extraction_response: InferenceResponse
+    """The extraction response associated with the split."""
 
     def __init__(self, server_response: StringDict):
         self.page_range = server_response["page_range"]
         self.document_type = server_response["document_type"]
+        if server_response.get("extraction_response") is not None:
+            self.extraction_response = InferenceResponse(
+                server_response["extraction_response"]
+            )
 
     def __str__(self) -> str:
         page_range = ",".join([str(page_index) for page_index in self.page_range])

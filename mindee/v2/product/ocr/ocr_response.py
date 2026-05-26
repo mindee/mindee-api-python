@@ -1,5 +1,5 @@
 from mindee.parsing.common.string_dict import StringDict
-from mindee.v2.parsing.inference import BaseResponse
+from mindee.parsing.v2.base_response import BaseResponse
 from mindee.v2.product.ocr.ocr_inference import OCRInference
 
 

@@ -24,7 +24,7 @@ def test_classification_default_sample(
     v2_client: ClientV2, classification_model_id: str
 ):
     input_source = PathInput(
-        V2_PRODUCT_DATA_DIR / "classification" / "default_invoice.jpg"
+        V2_PRODUCT_DATA_DIR / "classification" / "default_sample.jpg"
     )
     response = v2_client.enqueue_and_get_result(
         ClassificationResponse,
@@ -32,6 +32,6 @@ def test_classification_default_sample(
         ClassificationParameters(classification_model_id),
     )
     assert response.inference is not None
-    assert response.inference.file.name == "default_invoice.jpg"
+    assert response.inference.file.name == "default_sample.jpg"
     assert response.inference.result.classification
     assert response.inference.result.classification.document_type == "invoice"

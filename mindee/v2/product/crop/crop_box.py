@@ -1,3 +1,4 @@
+from mindee.parsing.v2.inference_response import InferenceResponse
 from mindee.extraction import ExtractedImage, extract_multiple_images_from_source
 from mindee.input.sources.local_input_source import LocalInputSource
 from mindee.parsing.common.string_dict import StringDict
@@ -11,10 +12,16 @@ class CropBox:
     """Location which includes cropping coordinates for the detected object, within the source document."""
     object_type: str
     """Type or classification of the detected object."""
+    extraction_response: InferenceResponse
+    """The extraction response associated with the crop."""
 
     def __init__(self, server_response: StringDict):
         self.location = FieldLocation(server_response["location"])
         self.object_type = server_response["object_type"]
+        if server_response.get("extraction_response") is not None:
+            self.extraction_response = InferenceResponse(
+                server_response["extraction_response"]
+            )
 
     def __str__(self) -> str:
         return f"* :Location: {self.location}\n  :Object Type: {self.object_type}"

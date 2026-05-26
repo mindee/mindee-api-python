@@ -1,7 +1,7 @@
 from mindee.input.sources.local_input_source import LocalInputSource
 from mindee.parsing.common.string_dict import StringDict
 from mindee.v2.file_operations.crop_files import CropFiles
-from mindee.v2.parsing.inference import BaseResponse
+from mindee.parsing.v2.base_response import BaseResponse
 from mindee.v2.product.crop.crop_inference import CropInference
 
 
