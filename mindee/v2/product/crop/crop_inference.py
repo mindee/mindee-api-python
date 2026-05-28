@@ -8,6 +8,7 @@ class CropInference(BaseInference):
 
     result: CropResult
     """Result of a crop inference."""
+
     _slug: str = "crop"
     """Slug of the endpoint."""
 
