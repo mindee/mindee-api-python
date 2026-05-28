@@ -1,16 +1,16 @@
 from typing import List
 
 from mindee.parsing.common.string_dict import StringDict
-from mindee.v2.product.crop.crop_box import CropBox
+from mindee.v2.product.crop.crop_item import CropItem
 
 
 class CropResult:
     """Crop result info."""
 
-    crops: List[CropBox]
+    crops: List[CropItem]
 
     def __init__(self, raw_response: StringDict) -> None:
-        self.crops = [CropBox(crop) for crop in raw_response["crops"]]
+        self.crops = [CropItem(crop) for crop in raw_response["crops"]]
 
     def __str__(self) -> str:
         crops = "\n"

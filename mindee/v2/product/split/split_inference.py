@@ -8,6 +8,7 @@ class SplitInference(BaseInference):
 
     result: SplitResult
     """Result of a split inference."""
+
     _slug: str = "split"
     """Slug of the endpoint."""
 

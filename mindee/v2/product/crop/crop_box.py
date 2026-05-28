@@ -1,18 +1,22 @@
-from mindee.parsing.v2.inference_response import InferenceResponse
+from typing import Optional
+
 from mindee.extraction import ExtractedImage, extract_multiple_images_from_source
-from mindee.input.sources.local_input_source import LocalInputSource
+from mindee.input import LocalInputSource
 from mindee.parsing.common.string_dict import StringDict
-from mindee.parsing.v2.field.field_location import FieldLocation
+from mindee.parsing.v2.field import FieldLocation
+from mindee.parsing.v2.inference_response import InferenceResponse
 
 
 class CropBox:
-    """Crop inference result."""
+    """Deprecated class. Use CropItem instead."""
 
     location: FieldLocation
     """Location which includes cropping coordinates for the detected object, within the source document."""
+
     object_type: str
     """Type or classification of the detected object."""
-    extraction_response: InferenceResponse
+
+    extraction_response: Optional[InferenceResponse] = None
     """The extraction response associated with the crop."""
 
     def __init__(self, server_response: StringDict):

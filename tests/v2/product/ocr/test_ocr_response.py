@@ -13,35 +13,20 @@ def test_ocr_single():
     json_sample, _ = get_product_samples(product="ocr", file_name="ocr_single")
     response = OCRResponse(json_sample)
     assert isinstance(response.inference, OCRInference)
-    assert response.inference.result.pages
-    assert len(response.inference.result.pages) == 1
-    assert response.inference.result.pages[0].words[0].content == "Shipper:"
-    assert (
-        response.inference.result.pages[0].words[0].polygon[0][0] == 0.09742441209406495
-    )
-    assert (
-        response.inference.result.pages[0].words[0].polygon[0][1] == 0.07007125890736342
-    )
-    assert (
-        response.inference.result.pages[0].words[0].polygon[1][0] == 0.15621500559910415
-    )
-    assert (
-        response.inference.result.pages[0].words[0].polygon[1][1] == 0.07046714172604909
-    )
-    assert (
-        response.inference.result.pages[0].words[0].polygon[2][0] == 0.15621500559910415
-    )
-    assert (
-        response.inference.result.pages[0].words[0].polygon[2][1] == 0.08155186064924783
-    )
-    assert (
-        response.inference.result.pages[0].words[0].polygon[3][0] == 0.09742441209406495
-    )
-    assert (
-        response.inference.result.pages[0].words[0].polygon[3][1] == 0.08155186064924783
-    )
-    assert len(response.inference.result.pages[0].words) == 305
-    assert response.inference.result.pages[0].content == (
+    pages = response.inference.result.pages
+    assert pages
+    assert len(pages) == 1
+    assert pages[0].words[0].content == "Shipper:"
+    assert pages[0].words[0].polygon[0][0] == 0.09742441209406495
+    assert pages[0].words[0].polygon[0][1] == 0.07007125890736342
+    assert pages[0].words[0].polygon[1][0] == 0.15621500559910415
+    assert pages[0].words[0].polygon[1][1] == 0.07046714172604909
+    assert pages[0].words[0].polygon[2][0] == 0.15621500559910415
+    assert pages[0].words[0].polygon[2][1] == 0.08155186064924783
+    assert pages[0].words[0].polygon[3][0] == 0.09742441209406495
+    assert pages[0].words[0].polygon[3][1] == 0.08155186064924783
+    assert len(pages[0].words) == 305
+    assert pages[0].content == (
         "Shipper: GLOBAL FREIGHT SOLUTIONS INC. 123 OCEAN DRIVE SHANGHAI, CHINA TEL: "
         "86-21-12345678 FAX: 86-21-87654321\nConsignee: PACIFIC TRADING CO. 789 TRADE "
         "STREET SINGAPORE 567890 SINGAPORE TEL: 65-65432100 FAX: 65-65432101\nNotify "
@@ -81,37 +66,22 @@ def test_ocr_multiple():
     assert isinstance(response.inference, OCRInference)
     assert isinstance(response.inference.result, OCRResult)
     assert isinstance(response.inference.result.pages[0], OCRPage)
-    assert len(response.inference.result.pages) == 3
+    pages = response.inference.result.pages
+    assert len(pages) == 3
 
-    assert len(response.inference.result.pages[0].words) == 295
-    assert response.inference.result.pages[0].words[0].content == "FICTIOCORP"
-    assert (
-        response.inference.result.pages[0].words[0].polygon[0][0] == 0.06649402824332337
-    )
-    assert (
-        response.inference.result.pages[0].words[0].polygon[0][1] == 0.03957449719523875
-    )
-    assert (
-        response.inference.result.pages[0].words[0].polygon[1][0] == 0.23219061218068954
-    )
-    assert (
-        response.inference.result.pages[0].words[0].polygon[1][1] == 0.03960015049938432
-    )
-    assert (
-        response.inference.result.pages[0].words[0].polygon[2][0] == 0.23219061218068954
-    )
-    assert (
-        response.inference.result.pages[0].words[0].polygon[2][1] == 0.06770762074155151
-    )
-    assert (
-        response.inference.result.pages[0].words[0].polygon[3][0] == 0.06649402824332337
-    )
-    assert (
-        response.inference.result.pages[0].words[0].polygon[3][1] == 0.06770762074155151
-    )
+    assert len(pages[0].words) == 295
+    assert pages[0].words[0].content == "FICTIOCORP"
+    assert pages[0].words[0].polygon[0][0] == 0.06649402824332337
+    assert pages[0].words[0].polygon[0][1] == 0.03957449719523875
+    assert pages[0].words[0].polygon[1][0] == 0.23219061218068954
+    assert pages[0].words[0].polygon[1][1] == 0.03960015049938432
+    assert pages[0].words[0].polygon[2][0] == 0.23219061218068954
+    assert pages[0].words[0].polygon[2][1] == 0.06770762074155151
+    assert pages[0].words[0].polygon[3][0] == 0.06649402824332337
+    assert pages[0].words[0].polygon[3][1] == 0.06770762074155151
 
-    assert len(response.inference.result.pages[1].words) == 450
-    assert response.inference.result.pages[1].words[0].content == "KEOLIO"
+    assert len(pages[1].words) == 450
+    assert pages[1].words[0].content == "KEOLIO"
 
-    assert len(response.inference.result.pages[2].words) == 355
-    assert response.inference.result.pages[2].words[0].content == "KEOLIO"
+    assert len(pages[2].words) == 355
+    assert pages[2].words[0].content == "KEOLIO"
