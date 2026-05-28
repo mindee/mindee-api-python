@@ -1,5 +1,10 @@
 # Mindee Python Client Library Changelog
 
+## v4.36.1 - 2026-05-28
+### Fixes
+* :bug: fix typing of extraction response when chained
+
+
 ## v4.36.0 - 2026-05-26
 ### Changes
 * :sparkles: add support for extraction in crop, split, and classification
