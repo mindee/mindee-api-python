@@ -1,5 +1,3 @@
-from typing import List, Optional
-
 from mindee.parsing.common.prediction import Prediction
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string
@@ -27,7 +25,7 @@ class BusinessCardV1Document(Prediction):
     """The mobile number of the person."""
     phone_number: StringField
     """The phone number of the person."""
-    social_media: List[StringField]
+    social_media: list[StringField]
     """The social media profiles of the person or company."""
     website: StringField
     """The website of the person or company."""
@@ -35,7 +33,7 @@ class BusinessCardV1Document(Prediction):
     def __init__(
         self,
         raw_prediction: StringDict,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         """
         Business Card document.

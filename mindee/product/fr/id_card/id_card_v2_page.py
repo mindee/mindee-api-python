@@ -1,5 +1,3 @@
-from typing import Optional
-
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string
 from mindee.parsing.standard.classification import ClassificationField
@@ -19,7 +17,7 @@ class IdCardV2Page(IdCardV2Document):
     def __init__(
         self,
         raw_prediction: StringDict,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         """
         Carte Nationale d'Identité page.

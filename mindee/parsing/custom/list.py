@@ -1,5 +1,3 @@
-from typing import List, Optional
-
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.standard.base import FieldPositionMixin
 
@@ -11,12 +9,10 @@ class ListFieldValue(FieldPositionMixin):
     """The content text"""
     confidence: float
     """Confidence score"""
-    page_id: Optional[int]
+    page_id: int | None
     """Id of the page the field was found on."""
 
-    def __init__(
-        self, raw_prediction: StringDict, page_id: Optional[int] = None
-    ) -> None:
+    def __init__(self, raw_prediction: StringDict, page_id: int | None = None) -> None:
         self.content = raw_prediction["content"]
         self.confidence = raw_prediction["confidence"]
         self.page_id = page_id
@@ -33,14 +29,14 @@ class ListField:
     """Confidence score"""
     reconstructed: bool
     """Whether the field was reconstructed from other fields."""
-    values: List[ListFieldValue]
+    values: list[ListFieldValue]
     """List of word values"""
 
     def __init__(
         self,
         raw_prediction: StringDict,
         reconstructed: bool = False,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ) -> None:
         self.values = []
         self.reconstructed = reconstructed
@@ -52,7 +48,7 @@ class ListField:
         self.confidence = raw_prediction["confidence"]
 
     @property
-    def contents_list(self) -> List[str]:
+    def contents_list(self) -> list[str]:
         """Return a List of the contents of all values."""
         return [value.content for value in self.values]
 

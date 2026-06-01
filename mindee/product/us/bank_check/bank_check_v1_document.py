@@ -1,5 +1,3 @@
-from typing import List, Optional
-
 from mindee.parsing.common.prediction import Prediction
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string
@@ -19,7 +17,7 @@ class BankCheckV1Document(Prediction):
     """The issuer's check number."""
     date: DateField
     """The date the check was issued."""
-    payees: List[StringField]
+    payees: list[StringField]
     """List of the check's payees (recipients)."""
     routing_number: StringField
     """The check issuer's routing number."""
@@ -27,7 +25,7 @@ class BankCheckV1Document(Prediction):
     def __init__(
         self,
         raw_prediction: StringDict,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         """
         Bank Check document.

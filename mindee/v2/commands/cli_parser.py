@@ -1,6 +1,5 @@
 from argparse import ArgumentParser, Namespace
 from dataclasses import dataclass
-from typing import Optional, Type, Union
 
 from mindee import (
     ClientV2,
@@ -23,8 +22,8 @@ from mindee.parsing.v2.base_response import BaseResponse
 class ProductConfig:
     """Configuration for a command."""
 
-    response_class: Type[BaseResponse]
-    params_class: Type[BaseParameters]
+    response_class: type[BaseResponse]
+    params_class: type[BaseParameters]
 
 
 PRODUCTS = {
@@ -83,14 +82,14 @@ class MindeeParser:
     """Stores attributes relating to parsing."""
     client: ClientV2
     """Mindee client"""
-    input_source: Union[PathInput, UrlInputSource]
+    input_source: PathInput | UrlInputSource
     """Document to be parsed."""
 
     def __init__(
         self,
-        parser: Optional[MindeeArgumentParser] = None,
-        parsed_args: Optional[Namespace] = None,
-        client: Optional[ClientV2] = None,
+        parser: MindeeArgumentParser | None = None,
+        parsed_args: Namespace | None = None,
+        client: ClientV2 | None = None,
     ) -> None:
         self.parser = (
             parser if parser else MindeeArgumentParser(description="Mindee_API")
@@ -130,7 +129,7 @@ class MindeeParser:
         parsed_args = self.parser.parse_args()
         return parsed_args
 
-    def _get_input_source(self) -> Union[PathInput, UrlInputSource]:
+    def _get_input_source(self) -> PathInput | UrlInputSource:
         """Loads an input document."""
 
         if self.parsed_args.path.lower().startswith("http"):

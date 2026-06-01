@@ -1,5 +1,3 @@
-from typing import Optional
-
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.standard.base import BaseField
 
@@ -7,18 +5,18 @@ from mindee.parsing.standard.base import BaseField
 class LocaleField(BaseField):
     """The locale detected on the document."""
 
-    language: Optional[str]
+    language: str | None
     """The ISO 639-1 code of the language."""
-    country: Optional[str]
+    country: str | None
     """The ISO 3166-1 alpha-2 code of the country."""
-    currency: Optional[str]
+    currency: str | None
     """The ISO 4217 code of the currency."""
 
     def __init__(
         self,
         raw_prediction: StringDict,
         reconstructed: bool = False,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         """
         Locale field object.
@@ -44,7 +42,7 @@ class LocaleField(BaseField):
         self.currency = self._get_value(raw_prediction, "currency")
 
     @staticmethod
-    def _get_value(locale_prediction: dict, key: str) -> Optional[str]:
+    def _get_value(locale_prediction: dict, key: str) -> str | None:
         if key not in locale_prediction or locale_prediction[key] == "N/A":
             return None
         return locale_prediction[key]

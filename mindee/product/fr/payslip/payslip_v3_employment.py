@@ -1,5 +1,3 @@
-from typing import Dict, Optional
-
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string, format_for_display
 from mindee.parsing.standard.base import FieldConfidenceMixin, FieldPositionMixin
@@ -8,19 +6,19 @@ from mindee.parsing.standard.base import FieldConfidenceMixin, FieldPositionMixi
 class PayslipV3Employment(FieldPositionMixin, FieldConfidenceMixin):
     """Information about the employment."""
 
-    category: Optional[str]
+    category: str | None
     """The category of the employment."""
-    coefficient: Optional[str]
+    coefficient: str | None
     """The coefficient of the employment."""
-    collective_agreement: Optional[str]
+    collective_agreement: str | None
     """The collective agreement of the employment."""
-    job_title: Optional[str]
+    job_title: str | None
     """The job title of the employee."""
-    position_level: Optional[str]
+    position_level: str | None
     """The position level of the employment."""
-    seniority_date: Optional[str]
+    seniority_date: str | None
     """The seniority date of the employment."""
-    start_date: Optional[str]
+    start_date: str | None
     """The start date of the employment."""
     page_n: int
     """The document page on which the information was found."""
@@ -28,7 +26,7 @@ class PayslipV3Employment(FieldPositionMixin, FieldConfidenceMixin):
     def __init__(
         self,
         raw_prediction: StringDict,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         self._set_confidence(raw_prediction)
         self._set_position(raw_prediction)
@@ -49,9 +47,9 @@ class PayslipV3Employment(FieldPositionMixin, FieldConfidenceMixin):
         self.seniority_date = raw_prediction["seniority_date"]
         self.start_date = raw_prediction["start_date"]
 
-    def _printable_values(self) -> Dict[str, str]:
+    def _printable_values(self) -> dict[str, str]:
         """Return values for printing."""
-        out_dict: Dict[str, str] = {}
+        out_dict: dict[str, str] = {}
         out_dict["category"] = format_for_display(self.category)
         out_dict["coefficient"] = format_for_display(self.coefficient)
         out_dict["collective_agreement"] = format_for_display(self.collective_agreement)

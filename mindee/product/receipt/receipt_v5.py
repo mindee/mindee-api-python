@@ -1,5 +1,3 @@
-from typing import List
-
 from mindee.parsing.common.inference import Inference
 from mindee.parsing.common.page import Page
 from mindee.parsing.common.string_dict import StringDict
@@ -13,7 +11,7 @@ class ReceiptV5(Inference):
 
     prediction: ReceiptV5Document
     """Document-level prediction."""
-    pages: List[Page[ReceiptV5Document]]
+    pages: list[Page[ReceiptV5Document]]
     """Page-level prediction(s)."""
     endpoint_name = "expense_receipts"
     """Name of the endpoint."""

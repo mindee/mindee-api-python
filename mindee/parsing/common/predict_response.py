@@ -1,4 +1,4 @@
-from typing import Generic, Type
+from typing import Generic
 
 from mindee.parsing.common.api_response import ApiResponse, StringDict
 from mindee.parsing.common.document import Document
@@ -16,7 +16,7 @@ class PredictResponse(Generic[TypeInference], ApiResponse):
     """The document object, properly parsed after being retrieved from the server."""
 
     def __init__(
-        self, inference_type: Type[TypeInference], raw_response: StringDict
+        self, inference_type: type[TypeInference], raw_response: StringDict
     ) -> None:
         """
         Container for the raw API response and the parsed document.

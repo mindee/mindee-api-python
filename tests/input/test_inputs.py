@@ -86,7 +86,7 @@ def test_image_input_from_bytes(filename, mimetype):
 
 
 def test_image_input_from_base64():
-    base64_input = open(FILE_TYPES_DIR / "receipt.txt", "r").read()
+    base64_input = open(FILE_TYPES_DIR / "receipt.txt").read()
     input_source = Base64Input(base64_input, filename="receipt.jpg")
     _assert_image(input_source, mimetype="image/jpeg")
 

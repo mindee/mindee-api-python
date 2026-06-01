@@ -23,7 +23,7 @@ BankAccountDetailsV2DocumentType = Document[
 @pytest.fixture
 def complete_doc() -> BankAccountDetailsV2DocumentType:
     file_path = RESPONSE_DIR / "complete.json"
-    with open(file_path, "r", encoding="utf-8") as open_file:
+    with open(file_path, encoding="utf-8") as open_file:
         json_data = json.load(open_file)
     return Document(BankAccountDetailsV2, json_data["document"])
 
@@ -31,14 +31,14 @@ def complete_doc() -> BankAccountDetailsV2DocumentType:
 @pytest.fixture
 def empty_doc() -> BankAccountDetailsV2DocumentType:
     file_path = RESPONSE_DIR / "empty.json"
-    with open(file_path, "r", encoding="utf-8") as open_file:
+    with open(file_path, encoding="utf-8") as open_file:
         json_data = json.load(open_file)
     return Document(BankAccountDetailsV2, json_data["document"])
 
 
 def test_complete_doc(complete_doc: BankAccountDetailsV2DocumentType):
     file_path = RESPONSE_DIR / "summary_full.rst"
-    with open(file_path, "r", encoding="utf-8") as open_file:
+    with open(file_path, encoding="utf-8") as open_file:
         reference_str = open_file.read()
     assert str(complete_doc) == reference_str
 

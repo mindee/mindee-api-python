@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Dict, cast
+from typing import TYPE_CHECKING, cast
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.v2.field.base_field import BaseField
 from mindee.parsing.v2.field.dynamic_field import FieldType
@@ -43,7 +43,7 @@ class ObjectField(BaseField):
         return out_str
 
     @property
-    def simple_fields(self) -> Dict[str, "SimpleField"]:
+    def simple_fields(self) -> dict[str, "SimpleField"]:
         """
         Extract and return all SimpleField fields from the `fields` attribute.
 
@@ -56,7 +56,7 @@ class ObjectField(BaseField):
         return simple_fields
 
     @property
-    def list_fields(self) -> Dict[str, "ListField"]:
+    def list_fields(self) -> dict[str, "ListField"]:
         """
         Retrieves all ListField fields from the `fields` attribute.
 
@@ -71,7 +71,7 @@ class ObjectField(BaseField):
         return list_fields
 
     @property
-    def object_fields(self) -> Dict[str, "ObjectField"]:
+    def object_fields(self) -> dict[str, "ObjectField"]:
         """
         Retrieves all ObjectField fields from the `fields` attribute of the instance.
 

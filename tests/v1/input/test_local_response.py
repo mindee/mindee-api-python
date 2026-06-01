@@ -35,7 +35,7 @@ def test_valid_path_local_response(file_path):
 
 
 def test_valid_bytes_local_response(file_path):
-    with open(file_path, "r") as f:
+    with open(file_path) as f:
         str_response = f.read().replace("\r", "").replace("\n", "")
     file_bytes = str_response.encode("utf-8")
     local_response = LocalResponse(file_bytes)

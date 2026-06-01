@@ -1,5 +1,3 @@
-from typing import Dict, Optional
-
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string, format_for_display
 from mindee.parsing.standard.base import FieldConfidenceMixin, FieldPositionMixin
@@ -8,15 +6,15 @@ from mindee.parsing.standard.base import FieldConfidenceMixin, FieldPositionMixi
 class UsMailV3SenderAddress(FieldPositionMixin, FieldConfidenceMixin):
     """The address of the sender."""
 
-    city: Optional[str]
+    city: str | None
     """The city of the sender's address."""
-    complete: Optional[str]
+    complete: str | None
     """The complete address of the sender."""
-    postal_code: Optional[str]
+    postal_code: str | None
     """The postal code of the sender's address."""
-    state: Optional[str]
+    state: str | None
     """Second part of the ISO 3166-2 code, consisting of two letters indicating the US State."""
-    street: Optional[str]
+    street: str | None
     """The street of the sender's address."""
     page_n: int
     """The document page on which the information was found."""
@@ -24,7 +22,7 @@ class UsMailV3SenderAddress(FieldPositionMixin, FieldConfidenceMixin):
     def __init__(
         self,
         raw_prediction: StringDict,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         self._set_confidence(raw_prediction)
         self._set_position(raw_prediction)
@@ -43,9 +41,9 @@ class UsMailV3SenderAddress(FieldPositionMixin, FieldConfidenceMixin):
         self.state = raw_prediction["state"]
         self.street = raw_prediction["street"]
 
-    def _printable_values(self) -> Dict[str, str]:
+    def _printable_values(self) -> dict[str, str]:
         """Return values for printing."""
-        out_dict: Dict[str, str] = {}
+        out_dict: dict[str, str] = {}
         out_dict["city"] = format_for_display(self.city)
         out_dict["complete"] = format_for_display(self.complete)
         out_dict["postal_code"] = format_for_display(self.postal_code)

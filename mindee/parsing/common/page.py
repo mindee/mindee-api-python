@@ -1,4 +1,4 @@
-from typing import Generic, Optional, Type, TypeVar
+from typing import Generic, TypeVar
 
 from mindee.parsing.common.extras.extras import Extras
 from mindee.parsing.common.orientation import OrientationField
@@ -11,15 +11,15 @@ class Page(Generic[TypePrediction]):
 
     id: int
     """Id of the current page."""
-    orientation: Optional[OrientationField] = None
+    orientation: OrientationField | None = None
     """Orientation of the page"""
     prediction: TypePrediction
     """Type of Page prediction."""
-    extras: Optional[Extras] = None
+    extras: Extras | None = None
 
     def __init__(
         self,
-        prediction_type: Type[TypePrediction],
+        prediction_type: type[TypePrediction],
         raw_prediction: StringDict,
     ) -> None:
         self.id = raw_prediction["id"]

@@ -1,5 +1,3 @@
-from typing import List, Optional
-
 from mindee.parsing.common.prediction import Prediction
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string
@@ -42,7 +40,7 @@ class EnergyBillV1Document(Prediction):
     """The entity that consumes the energy."""
     energy_supplier: EnergyBillV1EnergySupplier
     """The company that supplies the energy."""
-    energy_usage: List[EnergyBillV1EnergyUsage]
+    energy_usage: list[EnergyBillV1EnergyUsage]
     """Details of energy consumption."""
     invoice_date: DateField
     """The date when the energy invoice was issued."""
@@ -50,9 +48,9 @@ class EnergyBillV1Document(Prediction):
     """The unique identifier of the energy invoice."""
     meter_details: EnergyBillV1MeterDetail
     """Information about the energy meter."""
-    subscription: List[EnergyBillV1Subscription]
+    subscription: list[EnergyBillV1Subscription]
     """The subscription details fee for the energy service."""
-    taxes_and_contributions: List[EnergyBillV1TaxesAndContribution]
+    taxes_and_contributions: list[EnergyBillV1TaxesAndContribution]
     """Details of Taxes and Contributions."""
     total_amount: AmountField
     """The total amount to be paid for the energy invoice."""
@@ -64,7 +62,7 @@ class EnergyBillV1Document(Prediction):
     def __init__(
         self,
         raw_prediction: StringDict,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         """
         Energy Bill document.

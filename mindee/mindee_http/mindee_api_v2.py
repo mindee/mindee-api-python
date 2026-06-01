@@ -1,5 +1,4 @@
 import os
-from typing import Dict, Optional, Union
 
 import requests
 
@@ -26,12 +25,12 @@ class MindeeApiV2(SettingsMixin):
 
     url_root: str
     """Root of the URL to use for polling."""
-    api_key: Optional[str]
+    api_key: str | None
     """API Key for the client."""
 
     def __init__(
         self,
-        api_key: Optional[str],
+        api_key: str | None,
     ):
         self.api_key = (
             api_key
@@ -43,17 +42,15 @@ class MindeeApiV2(SettingsMixin):
         self.set_from_env()
         if not self.api_key:
             raise MindeeApiV2Error(
-                (
-                    f"Missing API key,"
-                    " check your Client configuration.\n"
-                    "You can set this using the "
-                    f"'{API_KEY_V2_ENV_NAME}' environment variable."
-                )
+                f"Missing API key,"
+                " check your Client configuration.\n"
+                "You can set this using the "
+                f"'{API_KEY_V2_ENV_NAME}' environment variable."
             )
         self.url_root = f"{self.base_url.rstrip('/')}"
 
     @property
-    def base_headers(self) -> Dict[str, str]:
+    def base_headers(self) -> dict[str, str]:
         """Base headers to send with all API requests."""
         return {
             "Authorization": self.api_key or "",
@@ -74,7 +71,7 @@ class MindeeApiV2(SettingsMixin):
 
     def req_post_inference_enqueue(
         self,
-        input_source: Union[LocalInputSource, UrlInputSource],
+        input_source: LocalInputSource | UrlInputSource,
         params: BaseParameters,
         slug: str,
     ) -> requests.Response:

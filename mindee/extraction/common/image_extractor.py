@@ -1,5 +1,5 @@
 import io
-from typing import BinaryIO, List, Union
+from typing import BinaryIO
 
 import pypdfium2 as pdfium
 from PIL import Image
@@ -46,7 +46,7 @@ def attach_image_as_new_file(  # type: ignore
 
 def extract_image_from_polygon(
     page_content: Image.Image,
-    polygon: List[Point],
+    polygon: list[Point],
     width: float,
     height: float,
     file_format: str,
@@ -116,8 +116,8 @@ def get_file_extension(file_format: str):
 def extract_multiple_images_from_source(
     input_source: LocalInputSource,
     page_id: int,
-    polygons: List[Union[Polygon, List[Point]]],
-) -> List[ExtractedImage]:
+    polygons: list[Polygon | list[Point]],
+) -> list[ExtractedImage]:
     """
     Extracts elements from a page based on a list of bounding boxes.
 

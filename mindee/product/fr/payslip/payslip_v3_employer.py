@@ -1,5 +1,3 @@
-from typing import Dict, Optional
-
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string, format_for_display
 from mindee.parsing.standard.base import FieldConfidenceMixin, FieldPositionMixin
@@ -8,19 +6,19 @@ from mindee.parsing.standard.base import FieldConfidenceMixin, FieldPositionMixi
 class PayslipV3Employer(FieldPositionMixin, FieldConfidenceMixin):
     """Information about the employer."""
 
-    address: Optional[str]
+    address: str | None
     """The address of the employer."""
-    company_id: Optional[str]
+    company_id: str | None
     """The company ID of the employer."""
-    company_site: Optional[str]
+    company_site: str | None
     """The site of the company."""
-    naf_code: Optional[str]
+    naf_code: str | None
     """The NAF code of the employer."""
-    name: Optional[str]
+    name: str | None
     """The name of the employer."""
-    phone_number: Optional[str]
+    phone_number: str | None
     """The phone number of the employer."""
-    urssaf_number: Optional[str]
+    urssaf_number: str | None
     """The URSSAF number of the employer."""
     page_n: int
     """The document page on which the information was found."""
@@ -28,7 +26,7 @@ class PayslipV3Employer(FieldPositionMixin, FieldConfidenceMixin):
     def __init__(
         self,
         raw_prediction: StringDict,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         self._set_confidence(raw_prediction)
         self._set_position(raw_prediction)
@@ -49,9 +47,9 @@ class PayslipV3Employer(FieldPositionMixin, FieldConfidenceMixin):
         self.phone_number = raw_prediction["phone_number"]
         self.urssaf_number = raw_prediction["urssaf_number"]
 
-    def _printable_values(self) -> Dict[str, str]:
+    def _printable_values(self) -> dict[str, str]:
         """Return values for printing."""
-        out_dict: Dict[str, str] = {}
+        out_dict: dict[str, str] = {}
         out_dict["address"] = format_for_display(self.address)
         out_dict["company_id"] = format_for_display(self.company_id)
         out_dict["company_site"] = format_for_display(self.company_site)

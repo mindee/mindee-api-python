@@ -1,5 +1,3 @@
-from typing import Dict, Optional
-
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string, format_for_display
 from mindee.parsing.standard.base import (
@@ -13,21 +11,21 @@ from mindee.parsing.standard.base import (
 class UsMailV3RecipientAddress(FieldPositionMixin, FieldConfidenceMixin):
     """The addresses of the recipients."""
 
-    city: Optional[str]
+    city: str | None
     """The city of the recipient's address."""
-    complete: Optional[str]
+    complete: str | None
     """The complete address of the recipient."""
-    is_address_change: Optional[bool]
+    is_address_change: bool | None
     """Indicates if the recipient's address is a change of address."""
-    postal_code: Optional[str]
+    postal_code: str | None
     """The postal code of the recipient's address."""
-    private_mailbox_number: Optional[str]
+    private_mailbox_number: str | None
     """The private mailbox number of the recipient's address."""
-    state: Optional[str]
+    state: str | None
     """Second part of the ISO 3166-2 code, consisting of two letters indicating the US State."""
-    street: Optional[str]
+    street: str | None
     """The street of the recipient's address."""
-    unit: Optional[str]
+    unit: str | None
     """The unit number of the recipient's address."""
     page_n: int
     """The document page on which the information was found."""
@@ -35,7 +33,7 @@ class UsMailV3RecipientAddress(FieldPositionMixin, FieldConfidenceMixin):
     def __init__(
         self,
         raw_prediction: StringDict,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         self._set_confidence(raw_prediction)
         self._set_position(raw_prediction)
@@ -57,9 +55,9 @@ class UsMailV3RecipientAddress(FieldPositionMixin, FieldConfidenceMixin):
         self.street = raw_prediction["street"]
         self.unit = raw_prediction["unit"]
 
-    def _printable_values(self) -> Dict[str, str]:
+    def _printable_values(self) -> dict[str, str]:
         """Return values for printing."""
-        out_dict: Dict[str, str] = {}
+        out_dict: dict[str, str] = {}
         out_dict["city"] = format_for_display(self.city)
         out_dict["complete"] = format_for_display(self.complete)
         out_dict["is_address_change"] = bool_to_string(self.is_address_change)
@@ -72,9 +70,9 @@ class UsMailV3RecipientAddress(FieldPositionMixin, FieldConfidenceMixin):
         out_dict["unit"] = format_for_display(self.unit)
         return out_dict
 
-    def _table_printable_values(self) -> Dict[str, str]:
+    def _table_printable_values(self) -> dict[str, str]:
         """Return values for printing inside an RST table."""
-        out_dict: Dict[str, str] = {}
+        out_dict: dict[str, str] = {}
         out_dict["city"] = format_for_display(self.city, 15)
         out_dict["complete"] = format_for_display(self.complete, 35)
         out_dict["is_address_change"] = bool_to_string(self.is_address_change)

@@ -1,6 +1,6 @@
 import warnings
 from time import sleep
-from typing import Optional, Union, Type, TypeVar
+from typing import TypeVar
 
 from mindee.client_mixin import ClientMixin
 from mindee.error.mindee_error import MindeeError
@@ -30,10 +30,10 @@ class ClientV2(ClientMixin):
     See: https://docs.mindee.com/
     """
 
-    api_key: Optional[str]
+    api_key: str | None
     mindee_api: MindeeApiV2
 
-    def __init__(self, api_key: Optional[str] = None) -> None:
+    def __init__(self, api_key: str | None = None) -> None:
         """
         Mindee API Client.
 
@@ -44,7 +44,7 @@ class ClientV2(ClientMixin):
 
     def enqueue_inference(
         self,
-        input_source: Union[LocalInputSource, UrlInputSource],
+        input_source: LocalInputSource | UrlInputSource,
         params: BaseParameters,
         disable_redundant_warnings: bool = False,
     ) -> JobResponse:
@@ -59,7 +59,7 @@ class ClientV2(ClientMixin):
 
     def enqueue(
         self,
-        input_source: Union[LocalInputSource, UrlInputSource],
+        input_source: LocalInputSource | UrlInputSource,
         params: BaseParameters,
     ) -> JobResponse:
         """
@@ -106,7 +106,7 @@ class ClientV2(ClientMixin):
 
     def get_result(
         self,
-        response_type: Type[TypeBaseResponse],
+        response_type: type[TypeBaseResponse],
         inference_id: str,
     ) -> TypeBaseResponse:
         """
@@ -130,8 +130,8 @@ class ClientV2(ClientMixin):
 
     def enqueue_and_get_result(
         self,
-        response_type: Type[TypeBaseResponse],
-        input_source: Union[LocalInputSource, UrlInputSource],
+        response_type: type[TypeBaseResponse],
+        input_source: LocalInputSource | UrlInputSource,
         params: BaseParameters,
     ) -> TypeBaseResponse:
         """
@@ -187,7 +187,7 @@ class ClientV2(ClientMixin):
 
     def enqueue_and_get_inference(
         self,
-        input_source: Union[LocalInputSource, UrlInputSource],
+        input_source: LocalInputSource | UrlInputSource,
         params: InferenceParameters,
     ) -> InferenceResponse:
         """[Deprecated] Use `enqueue_and_get_result` instead."""

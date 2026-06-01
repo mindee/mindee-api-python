@@ -1,5 +1,3 @@
-from typing import List, Union
-
 from mindee.error import MindeeError
 from mindee.extraction import ExtractedImage, extract_multiple_images_from_source
 from mindee.geometry import Point, Polygon
@@ -20,11 +18,11 @@ def extract_single_crop(
     :return: ExtractedImage.
     """
 
-    polygons: List[Union[Polygon, List[Point]]] = [crop.polygon]
+    polygons: list[Polygon | list[Point]] = [crop.polygon]
     return extract_multiple_images_from_source(input_source, crop.page, polygons)[0]
 
 
-def extract_crops(input_source: LocalInputSource, crops: List[CropBox]) -> CropFiles:
+def extract_crops(input_source: LocalInputSource, crops: list[CropBox]) -> CropFiles:
     """
     Extracts individual receipts from multi-receipts documents.
 
@@ -32,10 +30,10 @@ def extract_crops(input_source: LocalInputSource, crops: List[CropBox]) -> CropF
     :param crops: List of crops.
     :return: Individual extracted receipts as an array of ExtractedImage.
     """
-    images: List[ExtractedImage] = []
+    images: list[ExtractedImage] = []
     if not crops:
         raise MindeeError("No possible candidates found for Crop extraction.")
-    polygons: List[List[Union[Polygon, List[Point]]]] = [
+    polygons: list[list[Polygon | list[Point]]] = [
         [] for _ in range(input_source.page_count)
     ]
     for i, crop in enumerate(crops):

@@ -1,5 +1,3 @@
-from typing import List, Optional
-
 from mindee.parsing.common.prediction import Prediction
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string
@@ -16,9 +14,9 @@ class UsMailV3Document(Prediction):
 
     is_return_to_sender: BooleanField
     """Whether the mailing is marked as return to sender."""
-    recipient_addresses: List[UsMailV3RecipientAddress]
+    recipient_addresses: list[UsMailV3RecipientAddress]
     """The addresses of the recipients."""
-    recipient_names: List[StringField]
+    recipient_names: list[StringField]
     """The names of the recipients."""
     sender_address: UsMailV3SenderAddress
     """The address of the sender."""
@@ -28,7 +26,7 @@ class UsMailV3Document(Prediction):
     def __init__(
         self,
         raw_prediction: StringDict,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         """
         US Mail document.

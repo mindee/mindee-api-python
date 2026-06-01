@@ -1,5 +1,4 @@
 import json
-from typing import Optional, Union
 
 import requests
 from requests import Response
@@ -33,7 +32,7 @@ class Endpoint(BaseEndpoint):
 
     def predict_req_post(
         self,
-        input_source: Union[LocalInputSource, UrlInputSource],
+        input_source: LocalInputSource | UrlInputSource,
         include_words: bool = False,
         close_file: bool = True,
         cropper: bool = False,
@@ -55,12 +54,12 @@ class Endpoint(BaseEndpoint):
 
     def predict_async_req_post(
         self,
-        input_source: Union[LocalInputSource, UrlInputSource],
+        input_source: LocalInputSource | UrlInputSource,
         include_words: bool = False,
         close_file: bool = True,
         cropper: bool = False,
         full_text: bool = False,
-        workflow_id: Optional[str] = None,
+        workflow_id: str | None = None,
         rag: bool = False,
     ) -> requests.Response:
         """
@@ -89,12 +88,12 @@ class Endpoint(BaseEndpoint):
     def _custom_request(
         self,
         route: str,
-        input_source: Union[LocalInputSource, UrlInputSource],
+        input_source: LocalInputSource | UrlInputSource,
         include_words: bool = False,
         close_file: bool = True,
         cropper: bool = False,
         full_text: bool = False,
-        workflow_id: Optional[str] = None,
+        workflow_id: str | None = None,
         rag: bool = False,
     ):
         data = {}

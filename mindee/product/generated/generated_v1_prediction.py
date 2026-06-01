@@ -1,5 +1,4 @@
 import re
-from typing import Dict, List, Union
 
 from mindee.parsing.common.prediction import Prediction
 from mindee.parsing.common.string_dict import StringDict
@@ -12,7 +11,7 @@ from mindee.parsing.standard.text import StringField
 class GeneratedV1Prediction(Prediction):
     """Generated V1 document prediction results."""
 
-    fields: Dict[str, Union[GeneratedListField, StringField, GeneratedObjectField]]
+    fields: dict[str, GeneratedListField | StringField | GeneratedObjectField]
     """Dictionary of all fields in the document"""
 
     def __init__(self, raw_prediction: StringDict) -> None:
@@ -50,7 +49,7 @@ class GeneratedV1Prediction(Prediction):
             out_str += f":{field_name}: {str_value}\n"
         return clean_out_string(out_str)
 
-    def get_single_fields(self) -> Dict[str, StringField]:
+    def get_single_fields(self) -> dict[str, StringField]:
         """Returns a dictionary of all fields that aren't a collection."""
         single_fields = {}
         for field_name, field_value in self.fields.items():
@@ -58,7 +57,7 @@ class GeneratedV1Prediction(Prediction):
                 single_fields[field_name] = field_value
         return single_fields
 
-    def get_list_fields(self) -> Dict[str, GeneratedListField]:
+    def get_list_fields(self) -> dict[str, GeneratedListField]:
         """Returns a dictionary of all list-like fields."""
         list_fields = {}
         for field_name, field_value in self.fields.items():
@@ -66,7 +65,7 @@ class GeneratedV1Prediction(Prediction):
                 list_fields[field_name] = field_value
         return list_fields
 
-    def get_object_fields(self) -> Dict[str, GeneratedObjectField]:
+    def get_object_fields(self) -> dict[str, GeneratedObjectField]:
         """Returns a dictionary of all object-like fields."""
         object_fields = {}
         for field_name, field_value in self.fields.items():
@@ -74,6 +73,6 @@ class GeneratedV1Prediction(Prediction):
                 object_fields[field_name] = field_value
         return object_fields
 
-    def list_field_names(self) -> List[str]:
+    def list_field_names(self) -> list[str]:
         """Lists names of all top-level field keys."""
         return list(self.fields.keys())

@@ -1,13 +1,11 @@
-from typing import Optional
-
 from mindee.parsing.common.string_dict import StringDict
 
 
 class FullTextOcrExtra:
     """Full Text OCR result."""
 
-    content: Optional[str]
-    language: Optional[str]
+    content: str | None
+    language: str | None
 
     def __init__(self, raw_prediction: StringDict) -> None:
         if raw_prediction and "content" in raw_prediction:

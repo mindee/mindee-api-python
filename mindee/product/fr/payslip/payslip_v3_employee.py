@@ -1,5 +1,3 @@
-from typing import Dict, Optional
-
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string, format_for_display
 from mindee.parsing.standard.base import FieldConfidenceMixin, FieldPositionMixin
@@ -8,19 +6,19 @@ from mindee.parsing.standard.base import FieldConfidenceMixin, FieldPositionMixi
 class PayslipV3Employee(FieldPositionMixin, FieldConfidenceMixin):
     """Information about the employee."""
 
-    address: Optional[str]
+    address: str | None
     """The address of the employee."""
-    date_of_birth: Optional[str]
+    date_of_birth: str | None
     """The date of birth of the employee."""
-    first_name: Optional[str]
+    first_name: str | None
     """The first name of the employee."""
-    last_name: Optional[str]
+    last_name: str | None
     """The last name of the employee."""
-    phone_number: Optional[str]
+    phone_number: str | None
     """The phone number of the employee."""
-    registration_number: Optional[str]
+    registration_number: str | None
     """The registration number of the employee."""
-    social_security_number: Optional[str]
+    social_security_number: str | None
     """The social security number of the employee."""
     page_n: int
     """The document page on which the information was found."""
@@ -28,7 +26,7 @@ class PayslipV3Employee(FieldPositionMixin, FieldConfidenceMixin):
     def __init__(
         self,
         raw_prediction: StringDict,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         self._set_confidence(raw_prediction)
         self._set_position(raw_prediction)
@@ -49,9 +47,9 @@ class PayslipV3Employee(FieldPositionMixin, FieldConfidenceMixin):
         self.registration_number = raw_prediction["registration_number"]
         self.social_security_number = raw_prediction["social_security_number"]
 
-    def _printable_values(self) -> Dict[str, str]:
+    def _printable_values(self) -> dict[str, str]:
         """Return values for printing."""
-        out_dict: Dict[str, str] = {}
+        out_dict: dict[str, str] = {}
         out_dict["address"] = format_for_display(self.address)
         out_dict["date_of_birth"] = format_for_display(self.date_of_birth)
         out_dict["first_name"] = format_for_display(self.first_name)

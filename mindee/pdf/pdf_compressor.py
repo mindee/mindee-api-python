@@ -2,7 +2,7 @@ import io
 import logging
 from ctypes import POINTER, c_char_p, c_ushort
 from threading import RLock
-from typing import BinaryIO, List, Optional, Tuple, Union
+from typing import BinaryIO
 
 import pypdfium2 as pdfium
 import pypdfium2.raw as pdfium_c
@@ -21,7 +21,7 @@ MIN_QUALITY = 1
 
 
 def compress_pdf(
-    pdf_data: Union[BinaryIO, bytes],
+    pdf_data: BinaryIO | bytes,
     image_quality: int = 85,
     force_source_text_compression: bool = False,
     disable_source_text: bool = True,
@@ -86,7 +86,7 @@ def compress_pdf(
 def _compress_pdf_pages(
     pdf_data: bytes,
     image_quality: int,
-) -> Optional[List[Tuple[bytes, int, int]]]:
+) -> list[tuple[bytes, int, int]] | None:
     """
     Compresses PDF pages and returns an array of compressed page buffers.
 
@@ -114,7 +114,7 @@ def _compress_pdf_pages(
 def add_text_to_pdf_page(  # type: ignore
     page: pdfium.PdfPage,
     page_id: int,
-    extracted_text: Optional[List[List[PDFCharData]]],
+    extracted_text: list[list[PDFCharData]] | None,
 ) -> None:
     """
     Adds text to a PDF page based on the extracted text data.
@@ -149,7 +149,7 @@ def add_text_to_pdf_page(  # type: ignore
 def _compress_pages_with_quality(
     pdf_data: bytes,
     image_quality: int,
-) -> List[Tuple[bytes, int, int]]:
+) -> list[tuple[bytes, int, int]]:
     """
     Compresses pages with a specific quality.
 
@@ -200,7 +200,7 @@ def _rasterize_page(  # type: ignore
     return buffer.getvalue()
 
 
-def _collect_images_as_pdf(image_list: List[bytes]) -> pdfium.PdfDocument:  # type: ignore
+def _collect_images_as_pdf(image_list: list[bytes]) -> pdfium.PdfDocument:  # type: ignore
     """
     Converts a list of JPEG images into pages in a PdfDocument.
 

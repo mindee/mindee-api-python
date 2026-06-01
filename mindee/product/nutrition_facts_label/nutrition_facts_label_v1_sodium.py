@@ -1,5 +1,3 @@
-from typing import Dict, Optional
-
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string, format_for_display
 from mindee.parsing.standard.base import (
@@ -13,13 +11,13 @@ from mindee.parsing.standard.base import (
 class NutritionFactsLabelV1Sodium(FieldPositionMixin, FieldConfidenceMixin):
     """The amount of sodium in the product."""
 
-    daily_value: Optional[float]
+    daily_value: float | None
     """DVs are the recommended amounts of sodium to consume or not to exceed each day."""
-    per_100g: Optional[float]
+    per_100g: float | None
     """The amount of sodium per 100g of the product."""
-    per_serving: Optional[float]
+    per_serving: float | None
     """The amount of sodium per serving of the product."""
-    unit: Optional[str]
+    unit: str | None
     """The unit of measurement for the amount of sodium."""
     page_n: int
     """The document page on which the information was found."""
@@ -27,7 +25,7 @@ class NutritionFactsLabelV1Sodium(FieldPositionMixin, FieldConfidenceMixin):
     def __init__(
         self,
         raw_prediction: StringDict,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         self._set_confidence(raw_prediction)
         self._set_position(raw_prediction)
@@ -45,9 +43,9 @@ class NutritionFactsLabelV1Sodium(FieldPositionMixin, FieldConfidenceMixin):
         self.per_serving = to_opt_float(raw_prediction, "per_serving")
         self.unit = raw_prediction["unit"]
 
-    def _printable_values(self) -> Dict[str, str]:
+    def _printable_values(self) -> dict[str, str]:
         """Return values for printing."""
-        out_dict: Dict[str, str] = {}
+        out_dict: dict[str, str] = {}
         out_dict["daily_value"] = float_to_string(self.daily_value)
         out_dict["per_100g"] = float_to_string(self.per_100g)
         out_dict["per_serving"] = float_to_string(self.per_serving)

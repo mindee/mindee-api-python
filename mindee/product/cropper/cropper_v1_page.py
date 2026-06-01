@@ -1,5 +1,3 @@
-from typing import List, Optional
-
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string
 from mindee.parsing.standard.position import PositionField
@@ -11,13 +9,13 @@ from mindee.product.cropper.cropper_v1_document import (
 class CropperV1Page(CropperV1Document):
     """Cropper API version 1.1 page data."""
 
-    cropping: List[PositionField]
+    cropping: list[PositionField]
     """List of documents found in the image."""
 
     def __init__(
         self,
         raw_prediction: StringDict,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         """
         Cropper page.

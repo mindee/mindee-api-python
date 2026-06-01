@@ -1,5 +1,3 @@
-from typing import List, Optional
-
 from mindee.parsing.common.prediction import Prediction
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string
@@ -26,7 +24,7 @@ class IdCardV2Document(Prediction):
     """The expiry date of the identification card."""
     gender: StringField
     """The gender of the card holder."""
-    given_names: List[StringField]
+    given_names: list[StringField]
     """The given name(s) of the card holder."""
     issue_date: DateField
     """The date of issue of the identification card."""
@@ -44,7 +42,7 @@ class IdCardV2Document(Prediction):
     def __init__(
         self,
         raw_prediction: StringDict,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         """
         Carte Nationale d'Identité document.

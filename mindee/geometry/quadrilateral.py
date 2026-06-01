@@ -1,4 +1,5 @@
-from typing import NamedTuple, Sequence
+from typing import NamedTuple
+from collections.abc import Sequence
 
 from mindee.error.geometry_error import GeometryError
 from mindee.geometry.bbox import get_bbox

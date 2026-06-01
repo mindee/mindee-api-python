@@ -1,5 +1,3 @@
-from typing import Optional
-
 from mindee.parsing.common.extras.cropper_extra import CropperExtra
 from mindee.parsing.common.extras.full_text_ocr_extra import FullTextOcrExtra
 from mindee.parsing.common.extras.rag_extra import RagExtra
@@ -13,9 +11,9 @@ class Extras:
     Is roughly equivalent to a dict of Extras, with a bit more utility.
     """
 
-    cropper: Optional[CropperExtra] = None
-    full_text_ocr: Optional[FullTextOcrExtra] = None
-    rag: Optional[RagExtra] = None
+    cropper: CropperExtra | None = None
+    full_text_ocr: FullTextOcrExtra | None = None
+    rag: RagExtra | None = None
 
     def __init__(self, raw_prediction: StringDict) -> None:
         if "cropper" in raw_prediction and raw_prediction["cropper"]:

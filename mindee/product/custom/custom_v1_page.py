@@ -1,5 +1,3 @@
-from typing import Dict, List, Optional
-
 from mindee.parsing.common.prediction import Prediction
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string
@@ -10,10 +8,10 @@ from mindee.parsing.custom.list import ListField
 class CustomV1Page(Prediction):
     """Custom V1 page prediction results."""
 
-    fields: Dict[str, ListField]
+    fields: dict[str, ListField]
     """Dictionary of all fields in the document"""
 
-    def __init__(self, raw_prediction: StringDict, page_id: Optional[int]) -> None:
+    def __init__(self, raw_prediction: StringDict, page_id: int | None) -> None:
         """
         Custom document object.
 
@@ -26,10 +24,10 @@ class CustomV1Page(Prediction):
 
     def columns_to_line_items(
         self,
-        anchor_names: List[str],
-        field_names: List[str],
+        anchor_names: list[str],
+        field_names: list[str],
         height_tolerance: float = 0.01,
-    ) -> List[CustomLine]:
+    ) -> list[CustomLine]:
         """
         Order column fields into line items.
 

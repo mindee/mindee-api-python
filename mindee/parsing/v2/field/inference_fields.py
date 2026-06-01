@@ -1,5 +1,3 @@
-from typing import Dict
-
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.v2.field.dynamic_field import (
     FieldType,
@@ -8,7 +6,7 @@ from mindee.parsing.v2.field.dynamic_field import (
 )
 
 
-class InferenceFields(Dict[str, FieldTypeAlias]):
+class InferenceFields(dict[str, FieldTypeAlias]):
     """Inference fields dict."""
 
     def __init__(self, raw_response: StringDict, indent_level: int = 0) -> None:

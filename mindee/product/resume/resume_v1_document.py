@@ -1,5 +1,3 @@
-from typing import List, Optional
-
 from mindee.parsing.common.prediction import Prediction
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string
@@ -21,23 +19,23 @@ class ResumeV1Document(Prediction):
 
     address: StringField
     """The location information of the candidate, including city, state, and country."""
-    certificates: List[ResumeV1Certificate]
+    certificates: list[ResumeV1Certificate]
     """The list of certificates obtained by the candidate."""
     document_language: StringField
     """The ISO 639 code of the language in which the document is written."""
     document_type: ClassificationField
     """The type of the document sent."""
-    education: List[ResumeV1Education]
+    education: list[ResumeV1Education]
     """The list of the candidate's educational background."""
     email_address: StringField
     """The email address of the candidate."""
-    given_names: List[StringField]
+    given_names: list[StringField]
     """The candidate's first or given names."""
-    hard_skills: List[StringField]
+    hard_skills: list[StringField]
     """The list of the candidate's technical abilities and knowledge."""
     job_applied: StringField
     """The position that the candidate is applying for."""
-    languages: List[ResumeV1Language]
+    languages: list[ResumeV1Language]
     """The list of languages that the candidate is proficient in."""
     nationality: StringField
     """The ISO 3166 code for the country of citizenship of the candidate."""
@@ -45,19 +43,19 @@ class ResumeV1Document(Prediction):
     """The phone number of the candidate."""
     profession: StringField
     """The candidate's current profession."""
-    professional_experiences: List[ResumeV1ProfessionalExperience]
+    professional_experiences: list[ResumeV1ProfessionalExperience]
     """The list of the candidate's professional experiences."""
-    social_networks_urls: List[ResumeV1SocialNetworksUrl]
+    social_networks_urls: list[ResumeV1SocialNetworksUrl]
     """The list of social network profiles of the candidate."""
-    soft_skills: List[StringField]
+    soft_skills: list[StringField]
     """The list of the candidate's interpersonal and communication abilities."""
-    surnames: List[StringField]
+    surnames: list[StringField]
     """The candidate's last names."""
 
     def __init__(
         self,
         raw_prediction: StringDict,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         """
         Resume document.

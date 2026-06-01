@@ -1,5 +1,3 @@
-from typing import Dict, Optional
-
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string, format_for_display
 from mindee.parsing.standard.base import FieldConfidenceMixin, FieldPositionMixin
@@ -8,11 +6,11 @@ from mindee.parsing.standard.base import FieldConfidenceMixin, FieldPositionMixi
 class PayslipV3BankAccountDetail(FieldPositionMixin, FieldConfidenceMixin):
     """Information about the employee's bank account."""
 
-    bank_name: Optional[str]
+    bank_name: str | None
     """The name of the bank."""
-    iban: Optional[str]
+    iban: str | None
     """The IBAN of the bank account."""
-    swift: Optional[str]
+    swift: str | None
     """The SWIFT code of the bank."""
     page_n: int
     """The document page on which the information was found."""
@@ -20,7 +18,7 @@ class PayslipV3BankAccountDetail(FieldPositionMixin, FieldConfidenceMixin):
     def __init__(
         self,
         raw_prediction: StringDict,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         self._set_confidence(raw_prediction)
         self._set_position(raw_prediction)
@@ -37,9 +35,9 @@ class PayslipV3BankAccountDetail(FieldPositionMixin, FieldConfidenceMixin):
         self.iban = raw_prediction["iban"]
         self.swift = raw_prediction["swift"]
 
-    def _printable_values(self) -> Dict[str, str]:
+    def _printable_values(self) -> dict[str, str]:
         """Return values for printing."""
-        out_dict: Dict[str, str] = {}
+        out_dict: dict[str, str] = {}
         out_dict["bank_name"] = format_for_display(self.bank_name)
         out_dict["iban"] = format_for_display(self.iban)
         out_dict["swift"] = format_for_display(self.swift)

@@ -16,7 +16,7 @@ class Execution(Generic[TypePrediction]):
     batch_name: str
     """Identifier for the batch to which the execution belongs."""
 
-    created_at: Optional[datetime] = None
+    created_at: datetime | None = None
     """The time at which the execution started."""
 
     file: ExecutionFile
@@ -25,16 +25,16 @@ class Execution(Generic[TypePrediction]):
     id: str
     """Identifier for the execution."""
 
-    inference: Optional[Inference[TypePrediction, Page[TypePrediction]]]
+    inference: Inference[TypePrediction, Page[TypePrediction]] | None
     """Deserialized inference object."""
 
     priority: Optional["ExecutionPriority"] = None
     """Priority of the execution."""
 
-    reviewed_at: Optional[datetime]
+    reviewed_at: datetime | None
     """The time at which the file was tagged as reviewed."""
 
-    available_at: Optional[datetime]
+    available_at: datetime | None
     """The time at which the file was uploaded to a workflow."""
 
     reviewed_prediction: Optional["GeneratedV1Document"] = None
@@ -43,16 +43,20 @@ class Execution(Generic[TypePrediction]):
     status: str
     """Execution Status."""
 
-    type: Optional[str]
+    type: str | None
     """Execution type."""
 
-    uploaded_at: Optional[datetime] = None
+    uploaded_at: datetime | None = None
     """The time at which the file was uploaded to a workflow."""
 
     workflow_id: str
     """Identifier for the workflow."""
 
-    def __init__(self, inference_type: Type[Inference], json_response: StringDict):
+    def __init__(
+        self,
+        inference_type: Type[Inference[TypePrediction, Page[TypePrediction]]],
+        json_response: StringDict,
+    ):
         self.batch_name = json_response["batch_name"]
         self.created_at = self.parse_date(json_response.get("created_at", None))
         self.file = ExecutionFile(json_response["file"])
@@ -76,7 +80,7 @@ class Execution(Generic[TypePrediction]):
         self.workflow_id = json_response["workflow_id"]
 
     @staticmethod
-    def parse_date(date_string: Optional[str]) -> Optional[datetime]:
+    def parse_date(date_string: str | None) -> datetime | None:
         """Shorthand to parse the date, if present."""
         if not date_string:
             return None

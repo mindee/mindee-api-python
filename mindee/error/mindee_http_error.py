@@ -1,5 +1,3 @@
-from typing import Optional, Union
-
 from mindee.error.mindee_error import MindeeError
 from mindee.parsing.common.string_dict import StringDict
 
@@ -8,9 +6,9 @@ class MindeeHTTPError(RuntimeError):
     """An exception relating to HTTP calls."""
 
     status_code: int
-    api_code: Optional[str]
-    api_details: Optional[str]
-    api_message: Optional[str]
+    api_code: str | None
+    api_details: str | None
+    api_message: str | None
 
     def __init__(self, http_error: StringDict, url: str, code: int) -> None:
         """
@@ -29,7 +27,7 @@ class MindeeHTTPError(RuntimeError):
         )
 
 
-def create_error_obj(response: Union[StringDict, str]) -> StringDict:
+def create_error_obj(response: StringDict | str) -> StringDict:
     """
     Creates an error object based on a requests' payload.
 

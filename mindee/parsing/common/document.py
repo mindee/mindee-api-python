@@ -1,5 +1,5 @@
 import datetime
-from typing import Any, Generic, Optional, Type
+from typing import Any, Generic
 
 from mindee.parsing.common.extras.extras import Extras
 from mindee.parsing.common.inference import Inference
@@ -29,16 +29,16 @@ class Document(Generic[TypePrediction, TypePage]):
     """Result of the base inference"""
     id: str
     """Id of the document as sent back by the server"""
-    extras: Optional[Extras] = None
+    extras: Extras | None = None
     """Potential Extras fields sent back along the prediction"""
-    ocr: Optional[Ocr] = None
+    ocr: Ocr | None = None
     """Potential raw text results read by the OCR (limited feature)"""
     n_pages: int
     """Amount of pages in the document"""
 
     def __init__(
         self,
-        inference_type: Type[Inference],
+        inference_type: type[Inference],
         raw_response: StringDict,
     ):
         self.id = raw_response.get("id", "")

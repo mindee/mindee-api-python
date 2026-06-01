@@ -1,5 +1,3 @@
-from typing import Union
-
 import requests
 
 from mindee.input.sources.local_input_source import LocalInputSource
@@ -24,7 +22,7 @@ class WorkflowEndpoint(BaseEndpoint):
 
     def workflow_execution_post(
         self,
-        input_source: Union[LocalInputSource, UrlInputSource],
+        input_source: LocalInputSource | UrlInputSource,
         options: WorkflowOptions,
     ):
         """

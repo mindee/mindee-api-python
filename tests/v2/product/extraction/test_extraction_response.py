@@ -307,9 +307,7 @@ def test_text_context_field_is_false() -> None:
 
 @pytest.mark.v2
 def test_text_context_field_is_true() -> None:
-    with open(
-        V2_PRODUCT_DATA_DIR / "extraction" / "text_context_enabled.json", "r"
-    ) as file:
+    with open(V2_PRODUCT_DATA_DIR / "extraction" / "text_context_enabled.json") as file:
         json_sample = json.load(file)
     response = InferenceResponse(json_sample)
     assert isinstance(response.inference.active_options, InferenceActiveOptions)

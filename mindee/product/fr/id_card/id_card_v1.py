@@ -1,5 +1,3 @@
-from typing import List
-
 from mindee.parsing.common.inference import Inference
 from mindee.parsing.common.page import Page
 from mindee.parsing.common.string_dict import StringDict
@@ -16,7 +14,7 @@ class IdCardV1(Inference):
 
     prediction: IdCardV1Document
     """Document-level prediction."""
-    pages: List[Page[IdCardV1Page]]
+    pages: list[Page[IdCardV1Page]]
     """Page-level prediction(s)."""
     endpoint_name = "idcard_fr"
     """Name of the endpoint."""

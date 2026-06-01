@@ -1,5 +1,3 @@
-from typing import List, Optional, Union
-
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.generated.generated_object import (
     GeneratedObjectField,
@@ -11,15 +9,15 @@ from mindee.parsing.standard.text import StringField
 class GeneratedListField:
     """A list of values or objects, used in generated APIs."""
 
-    page_id: Optional[int]
+    page_id: int | None
     """Id of the page the object was found on"""
-    values: List[Union[GeneratedObjectField, StringField]]
+    values: list[GeneratedObjectField | StringField]
     """List of word values"""
 
     def __init__(
         self,
-        raw_prediction: List[StringDict],
-        page_id: Optional[int] = None,
+        raw_prediction: list[StringDict],
+        page_id: int | None = None,
     ) -> None:
         self.values = []
 
@@ -40,7 +38,7 @@ class GeneratedListField:
                 )
 
     @property
-    def contents_list(self) -> List[str]:
+    def contents_list(self) -> list[str]:
         """Return a List of the contents of all values."""
         return [str(v or "") for v in self.values]
 

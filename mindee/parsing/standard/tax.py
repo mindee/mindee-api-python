@@ -1,5 +1,3 @@
-from typing import Dict, List, Optional
-
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.standard.base import BaseField, FieldPositionMixin, float_to_string
 
@@ -7,13 +5,13 @@ from mindee.parsing.standard.base import BaseField, FieldPositionMixin, float_to
 class TaxField(FieldPositionMixin, BaseField):
     """Tax line information."""
 
-    value: Optional[float]
+    value: float | None
     """The amount of the tax line."""
-    rate: Optional[float]
+    rate: float | None
     """The tax rate."""
-    code: Optional[str]
+    code: str | None
     "The tax code (HST, GST... for Canadian; City Tax, State tax for US, etc..)."
-    basis: Optional[float]
+    basis: float | None
     "The tax base."
 
     def __init__(
@@ -21,7 +19,7 @@ class TaxField(FieldPositionMixin, BaseField):
         raw_prediction: StringDict,
         value_key: str = "value",
         reconstructed: bool = False,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         """
         Tax field object.
@@ -63,7 +61,7 @@ class TaxField(FieldPositionMixin, BaseField):
             self.value = None
             self.confidence = 0.0
 
-    def _printable_values(self) -> Dict[str, str]:
+    def _printable_values(self) -> dict[str, str]:
         """Return values for printing."""
         return {
             "code": self.code if self.code is not None else "",
@@ -94,7 +92,7 @@ class TaxField(FieldPositionMixin, BaseField):
         ).strip()
 
 
-class Taxes(List[TaxField]):
+class Taxes(list[TaxField]):
     """List of tax lines information."""
 
     @staticmethod
@@ -106,9 +104,7 @@ class Taxes(List[TaxField]):
         out_str += f"+{char * 15}"
         return out_str + "+"
 
-    def __init__(
-        self, api_prediction: List[StringDict], page_id: Optional[int]
-    ) -> None:
+    def __init__(self, api_prediction: list[StringDict], page_id: int | None) -> None:
         super().__init__()
         for entry in api_prediction:
             tax = TaxField(entry, page_id=page_id)

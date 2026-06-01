@@ -1,5 +1,3 @@
-from typing import Dict, Optional
-
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string
 from mindee.parsing.standard.base import (
@@ -13,25 +11,25 @@ from mindee.parsing.standard.base import (
 class PayslipV3PayDetail(FieldPositionMixin, FieldConfidenceMixin):
     """Detailed information about the pay."""
 
-    gross_salary: Optional[float]
+    gross_salary: float | None
     """The gross salary of the employee."""
-    gross_salary_ytd: Optional[float]
+    gross_salary_ytd: float | None
     """The year-to-date gross salary of the employee."""
-    income_tax_rate: Optional[float]
+    income_tax_rate: float | None
     """The income tax rate of the employee."""
-    income_tax_withheld: Optional[float]
+    income_tax_withheld: float | None
     """The income tax withheld from the employee's pay."""
-    net_paid: Optional[float]
+    net_paid: float | None
     """The net paid amount of the employee."""
-    net_paid_before_tax: Optional[float]
+    net_paid_before_tax: float | None
     """The net paid amount before tax of the employee."""
-    net_taxable: Optional[float]
+    net_taxable: float | None
     """The net taxable amount of the employee."""
-    net_taxable_ytd: Optional[float]
+    net_taxable_ytd: float | None
     """The year-to-date net taxable amount of the employee."""
-    total_cost_employer: Optional[float]
+    total_cost_employer: float | None
     """The total cost to the employer."""
-    total_taxes_and_deductions: Optional[float]
+    total_taxes_and_deductions: float | None
     """The total taxes and deductions of the employee."""
     page_n: int
     """The document page on which the information was found."""
@@ -39,7 +37,7 @@ class PayslipV3PayDetail(FieldPositionMixin, FieldConfidenceMixin):
     def __init__(
         self,
         raw_prediction: StringDict,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         self._set_confidence(raw_prediction)
         self._set_position(raw_prediction)
@@ -65,9 +63,9 @@ class PayslipV3PayDetail(FieldPositionMixin, FieldConfidenceMixin):
             raw_prediction, "total_taxes_and_deductions"
         )
 
-    def _printable_values(self) -> Dict[str, str]:
+    def _printable_values(self) -> dict[str, str]:
         """Return values for printing."""
-        out_dict: Dict[str, str] = {}
+        out_dict: dict[str, str] = {}
         out_dict["gross_salary"] = float_to_string(self.gross_salary)
         out_dict["gross_salary_ytd"] = float_to_string(self.gross_salary_ytd)
         out_dict["income_tax_rate"] = float_to_string(self.income_tax_rate)

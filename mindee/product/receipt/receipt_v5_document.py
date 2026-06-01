@@ -1,5 +1,3 @@
-from typing import List, Optional
-
 from mindee.parsing.common.prediction import Prediction
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string
@@ -22,7 +20,7 @@ class ReceiptV5Document(Prediction):
     """The date the purchase was made."""
     document_type: ClassificationField
     """The type of receipt: EXPENSE RECEIPT or CREDIT CARD RECEIPT."""
-    line_items: List[ReceiptV5LineItem]
+    line_items: list[ReceiptV5LineItem]
     """List of all line items on the receipt."""
     locale: LocaleField
     """The locale of the document."""
@@ -32,7 +30,7 @@ class ReceiptV5Document(Prediction):
     """The purchase subcategory of the receipt for transport and food."""
     supplier_address: StringField
     """The address of the supplier or merchant."""
-    supplier_company_registrations: List[CompanyRegistrationField]
+    supplier_company_registrations: list[CompanyRegistrationField]
     """List of company registration numbers associated to the supplier."""
     supplier_name: StringField
     """The name of the supplier or merchant."""
@@ -54,7 +52,7 @@ class ReceiptV5Document(Prediction):
     def __init__(
         self,
         raw_prediction: StringDict,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         """
         Receipt document.

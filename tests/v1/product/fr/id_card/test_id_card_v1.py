@@ -24,7 +24,7 @@ IdCardV1DocumentType = Document[
 @pytest.fixture
 def complete_doc() -> IdCardV1DocumentType:
     file_path = RESPONSE_DIR / "complete.json"
-    with open(file_path, "r", encoding="utf-8") as open_file:
+    with open(file_path, encoding="utf-8") as open_file:
         json_data = json.load(open_file)
     return Document(IdCardV1, json_data["document"])
 
@@ -32,7 +32,7 @@ def complete_doc() -> IdCardV1DocumentType:
 @pytest.fixture
 def empty_doc() -> IdCardV1DocumentType:
     file_path = RESPONSE_DIR / "empty.json"
-    with open(file_path, "r", encoding="utf-8") as open_file:
+    with open(file_path, encoding="utf-8") as open_file:
         json_data = json.load(open_file)
     return Document(IdCardV1, json_data["document"])
 
@@ -40,7 +40,7 @@ def empty_doc() -> IdCardV1DocumentType:
 @pytest.fixture
 def complete_page0() -> Page[IdCardV1Page]:
     file_path = RESPONSE_DIR / "complete.json"
-    with open(file_path, "r", encoding="utf-8") as open_file:
+    with open(file_path, encoding="utf-8") as open_file:
         json_data = json.load(open_file)
     page0 = json_data["document"]["inference"]["pages"][0]
     return Page(IdCardV1Page, page0)
@@ -48,7 +48,7 @@ def complete_page0() -> Page[IdCardV1Page]:
 
 def test_complete_doc(complete_doc: IdCardV1DocumentType):
     file_path = RESPONSE_DIR / "summary_full.rst"
-    with open(file_path, "r", encoding="utf-8") as open_file:
+    with open(file_path, encoding="utf-8") as open_file:
         reference_str = open_file.read()
     assert str(complete_doc) == reference_str
 
@@ -69,7 +69,7 @@ def test_empty_doc(empty_doc: IdCardV1DocumentType):
 
 def test_complete_page0(complete_page0: Page[IdCardV1Page]):
     file_path = RESPONSE_DIR / "summary_page0.rst"
-    with open(file_path, "r", encoding="utf-8") as open_file:
+    with open(file_path, encoding="utf-8") as open_file:
         reference_str = open_file.read()
     assert complete_page0.id == 0
     assert str(complete_page0) == reference_str

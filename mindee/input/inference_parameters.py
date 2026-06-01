@@ -1,6 +1,5 @@
 import json
 from dataclasses import dataclass, asdict
-from typing import Dict, List, Optional, Union
 
 from mindee.input.base_parameters import BaseParameters
 
@@ -32,18 +31,18 @@ class DataSchemaField(StringDataClass):
     """Whether this field can contain multiple values."""
     type: str
     """Data type of the field."""
-    classification_values: Optional[List[str]] = None
+    classification_values: list[str] | None = None
     """Allowed values when type is `classification`. Leave empty for other types."""
-    unique_values: Optional[bool] = None
+    unique_values: bool | None = None
     """
     Whether to remove duplicate values in the array.
     Only applicable if `is_array` is True.
     """
-    description: Optional[str] = None
+    description: str | None = None
     """Detailed description of what this field represents."""
-    guidelines: Optional[str] = None
+    guidelines: str | None = None
     """Optional extraction guidelines."""
-    nested_fields: Optional[dict] = None
+    nested_fields: dict | None = None
     """Subfields when type is `nested_object`. Leave empty for other types."""
 
 
@@ -51,7 +50,7 @@ class DataSchemaField(StringDataClass):
 class DataSchemaReplace(StringDataClass):
     """The structure to completely replace the data schema of the model."""
 
-    fields: List[Union[DataSchemaField, dict]]
+    fields: list[DataSchemaField | dict]
 
     def __post_init__(self) -> None:
         if not self.fields:
@@ -67,7 +66,7 @@ class DataSchemaReplace(StringDataClass):
 class DataSchema(StringDataClass):
     """Modify the Data Schema."""
 
-    replace: Optional[Union[DataSchemaReplace, dict, str]] = None
+    replace: DataSchemaReplace | dict | str | None = None
     """If set, completely replaces the data schema of the model."""
 
     def __post_init__(self) -> None:
@@ -81,23 +80,23 @@ class DataSchema(StringDataClass):
 class InferenceParameters(BaseParameters):
     """Inference parameters to set when sending a file."""
 
-    rag: Optional[bool] = None
+    rag: bool | None = None
     """Enhance extraction accuracy with Retrieval-Augmented Generation."""
-    raw_text: Optional[bool] = None
+    raw_text: bool | None = None
     """Extract the full text content from the document as strings, and fill the ``raw_text`` attribute."""
-    polygon: Optional[bool] = None
+    polygon: bool | None = None
     """Calculate bounding box polygons for all fields, and fill their ``locations`` attribute."""
-    confidence: Optional[bool] = None
+    confidence: bool | None = None
     """
     Boost the precision and accuracy of all extractions.
     Calculate confidence scores for all fields, and fill their ``confidence`` attribute.
     """
-    text_context: Optional[str] = None
+    text_context: str | None = None
     """
     Additional text context used by the model during inference.
     Not recommended, for specific use only.
     """
-    data_schema: Optional[Union[DataSchema, str, dict]] = None
+    data_schema: DataSchema | str | dict | None = None
     """
     Dynamic changes to the data schema of the model for this inference.
     Not recommended, for specific use only.
@@ -112,7 +111,7 @@ class InferenceParameters(BaseParameters):
         elif isinstance(self.data_schema, dict):
             self.data_schema = DataSchema(**self.data_schema)
 
-    def get_form_data(self) -> Dict[str, Union[str, List[str]]]:
+    def get_form_data(self) -> dict[str, str | list[str]]:
         """
         Return the parameters as a config dictionary.
 

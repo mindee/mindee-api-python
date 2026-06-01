@@ -1,5 +1,3 @@
-from typing import Dict, Optional
-
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string, format_for_display
 from mindee.parsing.standard.base import FieldConfidenceMixin, FieldPositionMixin
@@ -8,23 +6,23 @@ from mindee.parsing.standard.base import FieldConfidenceMixin, FieldPositionMixi
 class ResumeV1ProfessionalExperience(FieldPositionMixin, FieldConfidenceMixin):
     """The list of the candidate's professional experiences."""
 
-    contract_type: Optional[str]
+    contract_type: str | None
     """The type of contract for the professional experience."""
-    department: Optional[str]
+    department: str | None
     """The specific department or division within the company."""
-    description: Optional[str]
+    description: str | None
     """The description of the professional experience as written in the document."""
-    employer: Optional[str]
+    employer: str | None
     """The name of the company or organization."""
-    end_month: Optional[str]
+    end_month: str | None
     """The month when the professional experience ended."""
-    end_year: Optional[str]
+    end_year: str | None
     """The year when the professional experience ended."""
-    role: Optional[str]
+    role: str | None
     """The position or job title held by the candidate."""
-    start_month: Optional[str]
+    start_month: str | None
     """The month when the professional experience began."""
-    start_year: Optional[str]
+    start_year: str | None
     """The year when the professional experience began."""
     page_n: int
     """The document page on which the information was found."""
@@ -32,7 +30,7 @@ class ResumeV1ProfessionalExperience(FieldPositionMixin, FieldConfidenceMixin):
     def __init__(
         self,
         raw_prediction: StringDict,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         self._set_confidence(raw_prediction)
         self._set_position(raw_prediction)
@@ -55,9 +53,9 @@ class ResumeV1ProfessionalExperience(FieldPositionMixin, FieldConfidenceMixin):
         self.start_month = raw_prediction["start_month"]
         self.start_year = raw_prediction["start_year"]
 
-    def _printable_values(self) -> Dict[str, str]:
+    def _printable_values(self) -> dict[str, str]:
         """Return values for printing."""
-        out_dict: Dict[str, str] = {}
+        out_dict: dict[str, str] = {}
         out_dict["contract_type"] = format_for_display(self.contract_type)
         out_dict["department"] = format_for_display(self.department)
         out_dict["description"] = format_for_display(self.description)
@@ -69,9 +67,9 @@ class ResumeV1ProfessionalExperience(FieldPositionMixin, FieldConfidenceMixin):
         out_dict["start_year"] = format_for_display(self.start_year)
         return out_dict
 
-    def _table_printable_values(self) -> Dict[str, str]:
+    def _table_printable_values(self) -> dict[str, str]:
         """Return values for printing inside an RST table."""
-        out_dict: Dict[str, str] = {}
+        out_dict: dict[str, str] = {}
         out_dict["contract_type"] = format_for_display(self.contract_type, 15)
         out_dict["department"] = format_for_display(self.department, 10)
         out_dict["description"] = format_for_display(self.description, 36)

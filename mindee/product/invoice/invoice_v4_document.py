@@ -1,5 +1,3 @@
-from typing import List, Optional
-
 from mindee.parsing.common.prediction import Prediction
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string
@@ -24,7 +22,7 @@ class InvoiceV4Document(Prediction):
     """The purchase category."""
     customer_address: AddressField
     """The address of the customer."""
-    customer_company_registrations: List[CompanyRegistrationField]
+    customer_company_registrations: list[CompanyRegistrationField]
     """List of company registration numbers associated to the customer."""
     customer_id: StringField
     """The customer account number or identifier from the supplier."""
@@ -40,7 +38,7 @@ class InvoiceV4Document(Prediction):
     """The date on which the payment is due."""
     invoice_number: StringField
     """The invoice number or identifier."""
-    line_items: List[InvoiceV4LineItem]
+    line_items: list[InvoiceV4LineItem]
     """List of all the line items present on the invoice."""
     locale: LocaleField
     """The locale of the document."""
@@ -48,7 +46,7 @@ class InvoiceV4Document(Prediction):
     """The date on which the payment is due / was full-filled."""
     po_number: StringField
     """The purchase order number."""
-    reference_numbers: List[StringField]
+    reference_numbers: list[StringField]
     """List of all reference numbers on the invoice, including the purchase order number."""
     shipping_address: AddressField
     """Customer's delivery address."""
@@ -56,13 +54,13 @@ class InvoiceV4Document(Prediction):
     """The purchase subcategory for transport, food and shopping."""
     supplier_address: AddressField
     """The address of the supplier or merchant."""
-    supplier_company_registrations: List[CompanyRegistrationField]
+    supplier_company_registrations: list[CompanyRegistrationField]
     """List of company registration numbers associated to the supplier."""
     supplier_email: StringField
     """The email address of the supplier or merchant."""
     supplier_name: StringField
     """The name of the supplier or merchant."""
-    supplier_payment_details: List[PaymentDetailsField]
+    supplier_payment_details: list[PaymentDetailsField]
     """List of payment details associated to the supplier of the invoice."""
     supplier_phone_number: StringField
     """The phone number of the supplier or merchant."""
@@ -80,7 +78,7 @@ class InvoiceV4Document(Prediction):
     def __init__(
         self,
         raw_prediction: StringDict,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         """
         Invoice document.

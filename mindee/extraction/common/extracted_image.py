@@ -1,6 +1,5 @@
 import io
 from pathlib import Path
-from typing import Optional, Union
 
 from PIL import Image
 
@@ -46,9 +45,7 @@ class ExtractedImage:
         self._page_id = page_id
         self._element_id = 0 if element_id is None else element_id
 
-    def save_to_file(
-        self, output_path: Union[Path, str], file_format: Optional[str] = None
-    ):
+    def save_to_file(self, output_path: Path | str, file_format: str | None = None):
         """
         Saves the document to a file.
 

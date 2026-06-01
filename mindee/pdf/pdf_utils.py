@@ -1,7 +1,6 @@
 import ctypes
 from ctypes import byref, c_double, c_int, create_string_buffer
 from threading import RLock
-from typing import List, Tuple
 
 import pypdfium2 as pdfium
 import pypdfium2.raw as pdfium_c
@@ -25,7 +24,7 @@ def has_source_text(pdf_bytes: bytes) -> bool:
     return False
 
 
-def extract_text_from_pdf(pdf_bytes: bytes) -> List[List[PDFCharData]]:
+def extract_text_from_pdf(pdf_bytes: bytes) -> list[list[PDFCharData]]:
     """
     Extracts the raw text from a given PDF's bytes along with font data.
 
@@ -34,7 +33,7 @@ def extract_text_from_pdf(pdf_bytes: bytes) -> List[List[PDFCharData]]:
     """
     pdfium_lock = RLock()
     pdf = pdfium.PdfDocument(pdf_bytes)
-    char_data_list: List[List[PDFCharData]] = []
+    char_data_list: list[list[PDFCharData]] = []
 
     for i, page in enumerate(pdf):
         char_data_list.append(_process_page(page, i, pdfium_lock))
@@ -42,7 +41,7 @@ def extract_text_from_pdf(pdf_bytes: bytes) -> List[List[PDFCharData]]:
     return char_data_list
 
 
-def _process_page(page, page_id: int, pdfium_lock: RLock) -> List[PDFCharData]:
+def _process_page(page, page_id: int, pdfium_lock: RLock) -> list[PDFCharData]:
     """
     Processes a single page of the PDF.
 
@@ -50,7 +49,7 @@ def _process_page(page, page_id: int, pdfium_lock: RLock) -> List[PDFCharData]:
     :param page_id: ID of the page.
     :param pdfium_lock: Lock for thread-safe operations.
     """
-    char_data_list: List[PDFCharData] = []
+    char_data_list: list[PDFCharData] = []
     internal_height = page.get_height()
     internal_width = page.get_width()
 
@@ -78,7 +77,7 @@ def _process_char(
     internal_height: float,
     internal_width: float,
     page_id: int,
-) -> List[PDFCharData]:
+) -> list[PDFCharData]:
     """
     Processes a single character from the PDF.
 
@@ -98,7 +97,7 @@ def _process_char(
     rotation = _get_page_rotation(page, pdfium_lock)
 
     adjusted_box = _adjust_char_box(char_box, rotation, internal_height, internal_width)
-    char_data_list: List[PDFCharData] = []
+    char_data_list: list[PDFCharData] = []
     for c in char_info["char"] or " ":
         if c in (
             "\n",
@@ -201,7 +200,7 @@ def _get_font_flags(text_handler, i: int) -> int:
 
 def _get_char_box(
     i: int, text_handler, pdfium_lock: RLock
-) -> Tuple[float, float, float, float]:
+) -> tuple[float, float, float, float]:
     """
     Retrieves the bounding box for a specific character.
 
@@ -233,11 +232,11 @@ def _get_page_rotation(page, pdfium_lock: RLock) -> int:
 
 
 def _adjust_char_box(
-    char_box: Tuple[float, float, float, float],
+    char_box: tuple[float, float, float, float],
     rotation: int,
     internal_height: float,
     internal_width: float,
-) -> Tuple[float, float, float, float]:
+) -> tuple[float, float, float, float]:
     """
     Adjusts the character bounding box based on page rotation.
 

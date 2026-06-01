@@ -1,5 +1,3 @@
-from typing import Dict, Optional
-
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string, format_for_display
 from mindee.parsing.standard.base import (
@@ -13,15 +11,15 @@ from mindee.parsing.standard.base import (
 class PayslipV3PaidTimeOff(FieldPositionMixin, FieldConfidenceMixin):
     """Information about paid time off."""
 
-    accrued: Optional[float]
+    accrued: float | None
     """The amount of paid time off accrued in the period."""
-    period: Optional[str]
+    period: str | None
     """The paid time off period."""
-    pto_type: Optional[str]
+    pto_type: str | None
     """The type of paid time off."""
-    remaining: Optional[float]
+    remaining: float | None
     """The remaining amount of paid time off at the end of the period."""
-    used: Optional[float]
+    used: float | None
     """The amount of paid time off used in the period."""
     page_n: int
     """The document page on which the information was found."""
@@ -29,7 +27,7 @@ class PayslipV3PaidTimeOff(FieldPositionMixin, FieldConfidenceMixin):
     def __init__(
         self,
         raw_prediction: StringDict,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         self._set_confidence(raw_prediction)
         self._set_position(raw_prediction)
@@ -48,9 +46,9 @@ class PayslipV3PaidTimeOff(FieldPositionMixin, FieldConfidenceMixin):
         self.remaining = to_opt_float(raw_prediction, "remaining")
         self.used = to_opt_float(raw_prediction, "used")
 
-    def _printable_values(self) -> Dict[str, str]:
+    def _printable_values(self) -> dict[str, str]:
         """Return values for printing."""
-        out_dict: Dict[str, str] = {}
+        out_dict: dict[str, str] = {}
         out_dict["accrued"] = float_to_string(self.accrued)
         out_dict["period"] = format_for_display(self.period)
         out_dict["pto_type"] = format_for_display(self.pto_type)
@@ -58,9 +56,9 @@ class PayslipV3PaidTimeOff(FieldPositionMixin, FieldConfidenceMixin):
         out_dict["used"] = float_to_string(self.used)
         return out_dict
 
-    def _table_printable_values(self) -> Dict[str, str]:
+    def _table_printable_values(self) -> dict[str, str]:
         """Return values for printing inside an RST table."""
-        out_dict: Dict[str, str] = {}
+        out_dict: dict[str, str] = {}
         out_dict["accrued"] = float_to_string(self.accrued)
         out_dict["period"] = format_for_display(self.period, 6)
         out_dict["pto_type"] = format_for_display(self.pto_type, 11)

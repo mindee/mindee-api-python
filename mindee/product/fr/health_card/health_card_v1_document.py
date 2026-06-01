@@ -1,5 +1,3 @@
-from typing import List, Optional
-
 from mindee.parsing.common.prediction import Prediction
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string
@@ -10,7 +8,7 @@ from mindee.parsing.standard.text import StringField
 class HealthCardV1Document(Prediction):
     """Health Card API version 1.0 document data."""
 
-    given_names: List[StringField]
+    given_names: list[StringField]
     """The given names of the card holder."""
     issuance_date: DateField
     """The date when the carte vitale document was issued."""
@@ -22,7 +20,7 @@ class HealthCardV1Document(Prediction):
     def __init__(
         self,
         raw_prediction: StringDict,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         """
         Health Card document.

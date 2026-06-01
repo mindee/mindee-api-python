@@ -1,6 +1,5 @@
 import os
 from pathlib import Path
-from typing import Union
 
 from mindee.input.sources.input_type import InputType
 from mindee.input.sources.local_input_source import LocalInputSource
@@ -9,7 +8,7 @@ from mindee.input.sources.local_input_source import LocalInputSource
 class PathInput(LocalInputSource):
     """A local path input."""
 
-    def __init__(self, filepath: Union[Path, str]) -> None:
+    def __init__(self, filepath: Path | str) -> None:
         """
         Input document from a path.
 

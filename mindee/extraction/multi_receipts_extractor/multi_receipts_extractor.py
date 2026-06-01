@@ -1,5 +1,3 @@
-from typing import List
-
 from mindee.error.mindee_error import MindeeError
 from mindee.extraction.common.extracted_image import ExtractedImage
 from mindee.extraction.common.image_extractor import (
@@ -11,7 +9,7 @@ from mindee.parsing.common.inference import Inference
 
 def extract_receipts(
     input_source: LocalInputSource, inference: Inference
-) -> List[ExtractedImage]:
+) -> list[ExtractedImage]:
     """
     Extracts individual receipts from multi-receipts documents.
 
@@ -19,7 +17,7 @@ def extract_receipts(
     :param inference: Results of the inference.
     :return: Individual extracted receipts as an array of ExtractedMultiReceiptsImage.
     """
-    images: List[ExtractedImage] = []
+    images: list[ExtractedImage] = []
     if not inference.prediction.receipts:
         raise MindeeError(
             "No possible receipts candidates found for MultiReceipts extraction."

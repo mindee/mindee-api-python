@@ -1,5 +1,3 @@
-from typing import Optional
-
 from mindee.extraction import ExtractedImage, extract_multiple_images_from_source
 from mindee.input import LocalInputSource
 from mindee.parsing.common.string_dict import StringDict
@@ -16,7 +14,7 @@ class CropBox:
     object_type: str
     """Type or classification of the detected object."""
 
-    extraction_response: Optional[InferenceResponse] = None
+    extraction_response: InferenceResponse | None = None
     """The extraction response associated with the crop."""
 
     def __init__(self, server_response: StringDict):

@@ -1,5 +1,3 @@
-from typing import Optional
-
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.standard.base import BaseField, FieldPositionMixin
 
@@ -7,9 +5,9 @@ from mindee.parsing.standard.base import BaseField, FieldPositionMixin
 class StringField(FieldPositionMixin, BaseField):
     """A field containing a text value."""
 
-    value: Optional[str]
+    value: str | None
     """Value of the string."""
-    raw_value: Optional[str]
+    raw_value: str | None
     """The value as it appears on the document."""
 
     def __init__(
@@ -17,7 +15,7 @@ class StringField(FieldPositionMixin, BaseField):
         raw_prediction: StringDict,
         value_key: str = "value",
         reconstructed: bool = False,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         """
         Text field object.

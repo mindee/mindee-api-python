@@ -1,5 +1,3 @@
-from typing import Dict, Optional
-
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string, format_for_display
 from mindee.parsing.standard.base import FieldConfidenceMixin, FieldPositionMixin
@@ -8,13 +6,13 @@ from mindee.parsing.standard.base import FieldConfidenceMixin, FieldPositionMixi
 class BillOfLadingV1Consignee(FieldPositionMixin, FieldConfidenceMixin):
     """The party to whom the goods are being shipped."""
 
-    address: Optional[str]
+    address: str | None
     """The address of the consignee."""
-    email: Optional[str]
+    email: str | None
     """The  email of the shipper."""
-    name: Optional[str]
+    name: str | None
     """The name of the consignee."""
-    phone: Optional[str]
+    phone: str | None
     """The phone number of the consignee."""
     page_n: int
     """The document page on which the information was found."""
@@ -22,7 +20,7 @@ class BillOfLadingV1Consignee(FieldPositionMixin, FieldConfidenceMixin):
     def __init__(
         self,
         raw_prediction: StringDict,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         self._set_confidence(raw_prediction)
         self._set_position(raw_prediction)
@@ -40,9 +38,9 @@ class BillOfLadingV1Consignee(FieldPositionMixin, FieldConfidenceMixin):
         self.name = raw_prediction["name"]
         self.phone = raw_prediction["phone"]
 
-    def _printable_values(self) -> Dict[str, str]:
+    def _printable_values(self) -> dict[str, str]:
         """Return values for printing."""
-        out_dict: Dict[str, str] = {}
+        out_dict: dict[str, str] = {}
         out_dict["address"] = format_for_display(self.address)
         out_dict["email"] = format_for_display(self.email)
         out_dict["name"] = format_for_display(self.name)

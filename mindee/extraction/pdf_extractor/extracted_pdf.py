@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import BinaryIO, Union
+from typing import BinaryIO
 
 import pypdfium2 as pdfium
 
@@ -31,7 +31,7 @@ class ExtractedPdf:
         """Deprecated. Use ``save_to_file`` instead."""
         self.save_to_file(output_path)
 
-    def save_to_file(self, output_path: Union[Path, str]):
+    def save_to_file(self, output_path: Path | str):
         """
         Writes the contents of the current PDF object to a file.
 

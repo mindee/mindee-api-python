@@ -1,5 +1,3 @@
-from typing import Dict, Optional, Union
-
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.generated.generated_list import GeneratedListField
 from mindee.parsing.generated.generated_object import (
@@ -13,12 +11,10 @@ from mindee.product.generated.generated_v1_prediction import GeneratedV1Predicti
 class GeneratedV1Page(GeneratedV1Prediction):
     """Generated V1 page prediction results."""
 
-    fields: Dict[str, Union[GeneratedListField, StringField, GeneratedObjectField]]
+    fields: dict[str, GeneratedListField | StringField | GeneratedObjectField]
     """Dictionary of all fields in the document"""
 
-    def __init__(
-        self, raw_prediction: StringDict, page_id: Optional[int] = None
-    ) -> None:
+    def __init__(self, raw_prediction: StringDict, page_id: int | None = None) -> None:
         """
         Generated document object.
 

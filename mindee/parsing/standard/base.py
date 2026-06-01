@@ -1,4 +1,4 @@
-from typing import Any, List, Optional, Type
+from typing import Any
 
 from mindee.geometry.polygon import Polygon
 from mindee.geometry.quadrilateral import Quadrilateral, get_bounding_box
@@ -8,7 +8,7 @@ from mindee.parsing.common.string_dict import StringDict
 class FieldPositionMixin:
     """Mixin class to add position information."""
 
-    bounding_box: Optional[Quadrilateral]
+    bounding_box: Quadrilateral | None
     """A right rectangle containing the word in the document."""
     polygon: Polygon
     """A polygon containing the word in the document."""
@@ -41,11 +41,11 @@ class FieldConfidenceMixin:
 class BaseField(FieldConfidenceMixin):
     """Base class for most fields."""
 
-    value: Optional[Any]
+    value: Any | None
     """Raw field value"""
     reconstructed: bool
     """Whether the field was reconstructed from other fields."""
-    page_id: Optional[int]
+    page_id: int | None
     """The document page on which the information was found."""
 
     def __init__(
@@ -53,7 +53,7 @@ class BaseField(FieldConfidenceMixin):
         raw_prediction: StringDict,
         value_key: str = "value",
         reconstructed: bool = False,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         self.value = None
         self.confidence = 0.0
@@ -99,7 +99,7 @@ class BaseField(FieldConfidenceMixin):
 
 
 def compare_field_arrays(
-    array1: List[Type[BaseField]], array2: List[Type[BaseField]], attr: str = "value"
+    array1: list[type[BaseField]], array2: list[type[BaseField]], attr: str = "value"
 ) -> bool:
     """
     Check that all elements are present in both arrays.
@@ -114,7 +114,7 @@ def compare_field_arrays(
     return set1 == set2
 
 
-def field_array_confidence(array: List[Type[BaseField]]) -> float:
+def field_array_confidence(array: list[type[BaseField]]) -> float:
     """
     Multiply all Field's confidence in the array.
 
@@ -130,7 +130,7 @@ def field_array_confidence(array: List[Type[BaseField]]) -> float:
     return float(product)
 
 
-def field_array_sum(array: List[Type[BaseField]]) -> float:
+def field_array_sum(array: list[type[BaseField]]) -> float:
     """
     Add all the Field values in the array.
 
@@ -148,7 +148,7 @@ def field_array_sum(array: List[Type[BaseField]]) -> float:
     return arr_sum
 
 
-def float_to_string(value: Optional[float], min_precision=2) -> str:
+def float_to_string(value: float | None, min_precision=2) -> str:
     """Print a float with a specified minimum precision, but allowing greater precision."""
     if value is None:
         return ""
@@ -158,7 +158,7 @@ def float_to_string(value: Optional[float], min_precision=2) -> str:
     return f"{value:.{precision}f}"
 
 
-def int_to_string(value: Optional[int]) -> str:
+def int_to_string(value: int | None) -> str:
     """Print an integer as a string."""
     if value is None:
         return ""
@@ -166,7 +166,7 @@ def int_to_string(value: Optional[int]) -> str:
     return f"{value}"
 
 
-def bool_to_string(value: Optional[bool]) -> str:
+def bool_to_string(value: bool | None) -> str:
     """Print a boolean as a string."""
     if value is None:
         return ""
@@ -174,7 +174,7 @@ def bool_to_string(value: Optional[bool]) -> str:
     return f"{value}"
 
 
-def to_opt_float(raw_prediction: StringDict, key: str) -> Optional[float]:
+def to_opt_float(raw_prediction: StringDict, key: str) -> float | None:
     """Make sure a prediction value is either a ``float`` or ``None``."""
     try:
         return float(raw_prediction[key])
@@ -182,7 +182,7 @@ def to_opt_float(raw_prediction: StringDict, key: str) -> Optional[float]:
         return None
 
 
-def to_opt_int(raw_prediction: StringDict, key: str) -> Optional[int]:
+def to_opt_int(raw_prediction: StringDict, key: str) -> int | None:
     """Make sure a prediction value is either an ``int`` or ``None``."""
     try:
         return int(raw_prediction[key])
@@ -190,7 +190,7 @@ def to_opt_int(raw_prediction: StringDict, key: str) -> Optional[int]:
         return None
 
 
-def to_opt_bool(raw_prediction: StringDict, key: str) -> Optional[bool]:
+def to_opt_bool(raw_prediction: StringDict, key: str) -> bool | None:
     """Make sure a prediction value is either a ``bool`` or ``None``."""
     try:
         return bool(raw_prediction[key])

@@ -1,5 +1,3 @@
-from typing import List, Optional
-
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string
 from mindee.parsing.standard.position import PositionField
@@ -13,13 +11,13 @@ class BankCheckV1Page(BankCheckV1Document):
 
     check_position: PositionField
     """The position of the check on the document."""
-    signatures_positions: List[PositionField]
+    signatures_positions: list[PositionField]
     """List of signature positions"""
 
     def __init__(
         self,
         raw_prediction: StringDict,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         """
         Bank Check page.

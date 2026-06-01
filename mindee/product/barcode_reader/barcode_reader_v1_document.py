@@ -1,5 +1,3 @@
-from typing import List, Optional
-
 from mindee.parsing.common.prediction import Prediction
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string
@@ -9,15 +7,15 @@ from mindee.parsing.standard.text import StringField
 class BarcodeReaderV1Document(Prediction):
     """Barcode Reader API version 1.0 document data."""
 
-    codes_1d: List[StringField]
+    codes_1d: list[StringField]
     """List of decoded 1D barcodes."""
-    codes_2d: List[StringField]
+    codes_2d: list[StringField]
     """List of decoded 2D barcodes."""
 
     def __init__(
         self,
         raw_prediction: StringDict,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         """
         Barcode Reader document.

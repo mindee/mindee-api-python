@@ -1,5 +1,3 @@
-from typing import List, Optional
-
 from mindee.parsing.v2.inference_response import InferenceResponse
 from mindee.extraction.pdf_extractor.extracted_pdf import ExtractedPdf
 from mindee.input.sources.local_input_source import LocalInputSource
@@ -10,7 +8,7 @@ from mindee.v2.file_operations.split import extract_single_split
 class SplitRange:
     """Split inference result."""
 
-    page_range: List[int]
+    page_range: list[int]
     """
     0-based page indexes, where the first integer indicates the start page and the
     second integer indicates the end page.
@@ -19,7 +17,7 @@ class SplitRange:
     document_type: str
     """The document type, as identified on given classification values."""
 
-    extraction_response: Optional[InferenceResponse] = None
+    extraction_response: InferenceResponse | None = None
     """The extraction response associated with the split."""
 
     def __init__(self, server_response: StringDict):

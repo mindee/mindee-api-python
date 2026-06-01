@@ -1,14 +1,14 @@
 import io
-from typing import BinaryIO, Union
+from typing import BinaryIO
 
 from PIL import Image
 
 
 def compress_image(
-    image_buffer: Union[BinaryIO, bytes],
+    image_buffer: BinaryIO | bytes,
     quality: int = 85,
-    max_width: Union[int, float, None] = None,
-    max_height: Union[int, float, None] = None,
+    max_width: int | float | None = None,
+    max_height: int | float | None = None,
 ) -> bytes:
     """
     Compresses an image with the given parameters.

@@ -1,5 +1,3 @@
-from typing import List, Optional
-
 from mindee.parsing.common.prediction import Prediction
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string
@@ -29,7 +27,7 @@ class BillOfLadingV1Document(Prediction):
     """A unique identifier assigned to a Bill of Lading document."""
     carrier: BillOfLadingV1Carrier
     """The shipping company responsible for transporting the goods."""
-    carrier_items: List[BillOfLadingV1CarrierItem]
+    carrier_items: list[BillOfLadingV1CarrierItem]
     """The goods being shipped."""
     consignee: BillOfLadingV1Consignee
     """The party to whom the goods are being shipped."""
@@ -51,7 +49,7 @@ class BillOfLadingV1Document(Prediction):
     def __init__(
         self,
         raw_prediction: StringDict,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         """
         Bill of Lading document.

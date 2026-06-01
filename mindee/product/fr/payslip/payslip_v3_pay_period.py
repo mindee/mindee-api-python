@@ -1,5 +1,3 @@
-from typing import Dict, Optional
-
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string, format_for_display
 from mindee.parsing.standard.base import FieldConfidenceMixin, FieldPositionMixin
@@ -8,15 +6,15 @@ from mindee.parsing.standard.base import FieldConfidenceMixin, FieldPositionMixi
 class PayslipV3PayPeriod(FieldPositionMixin, FieldConfidenceMixin):
     """Information about the pay period."""
 
-    end_date: Optional[str]
+    end_date: str | None
     """The end date of the pay period."""
-    month: Optional[str]
+    month: str | None
     """The month of the pay period."""
-    payment_date: Optional[str]
+    payment_date: str | None
     """The date of payment for the pay period."""
-    start_date: Optional[str]
+    start_date: str | None
     """The start date of the pay period."""
-    year: Optional[str]
+    year: str | None
     """The year of the pay period."""
     page_n: int
     """The document page on which the information was found."""
@@ -24,7 +22,7 @@ class PayslipV3PayPeriod(FieldPositionMixin, FieldConfidenceMixin):
     def __init__(
         self,
         raw_prediction: StringDict,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         self._set_confidence(raw_prediction)
         self._set_position(raw_prediction)
@@ -43,9 +41,9 @@ class PayslipV3PayPeriod(FieldPositionMixin, FieldConfidenceMixin):
         self.start_date = raw_prediction["start_date"]
         self.year = raw_prediction["year"]
 
-    def _printable_values(self) -> Dict[str, str]:
+    def _printable_values(self) -> dict[str, str]:
         """Return values for printing."""
-        out_dict: Dict[str, str] = {}
+        out_dict: dict[str, str] = {}
         out_dict["end_date"] = format_for_display(self.end_date)
         out_dict["month"] = format_for_display(self.month)
         out_dict["payment_date"] = format_for_display(self.payment_date)

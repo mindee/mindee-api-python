@@ -1,4 +1,5 @@
-from typing import NamedTuple, Sequence
+from typing import NamedTuple
+from collections.abc import Sequence
 
 
 class Point(NamedTuple):

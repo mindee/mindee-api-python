@@ -1,6 +1,5 @@
 import json
 from argparse import ArgumentParser, Namespace
-from typing import Optional, Type, Union
 
 from mindee.client import Client, Endpoint
 from mindee.commands.cli_products import PRODUCTS, CommandConfig
@@ -109,17 +108,17 @@ class MindeeParser:
     """Mindee client"""
     document_info: CommandConfig
     """Config of the document."""
-    input_doc: Union[LocalInputSource, UrlInputSource]
+    input_doc: LocalInputSource | UrlInputSource
     """Document to be parsed."""
-    product_class: Type[Inference]
+    product_class: type[Inference]
     """Product to parse."""
 
     def __init__(
         self,
-        parser: Optional[MindeeArgumentParser] = None,
-        parsed_args: Optional[Namespace] = None,
-        client: Optional[Client] = None,
-        document_info: Optional[CommandConfig] = None,
+        parser: MindeeArgumentParser | None = None,
+        parsed_args: Namespace | None = None,
+        client: Client | None = None,
+        document_info: CommandConfig | None = None,
     ) -> None:
         self.parser = (
             parser if parser else MindeeArgumentParser(description="Mindee_API")
@@ -137,7 +136,7 @@ class MindeeParser:
 
     def call_parse(self) -> None:
         """Calls an endpoint with the appropriate method, and displays the results."""
-        response: Union[PredictResponse, AsyncPredictResponse]
+        response: PredictResponse | AsyncPredictResponse
         if self.document_info.is_sync:
             if self.document_info.is_async:
                 if (
@@ -169,12 +168,12 @@ class MindeeParser:
 
     def _parse_sync(self) -> PredictResponse:
         """Processes the results of a synchronous request."""
-        page_options: Optional[PageOptions] = None
+        page_options: PageOptions | None = None
         if self.parsed_args.cut_doc and self.parsed_args.doc_pages:
             page_options = PageOptions(
                 range(self.parsed_args.doc_pages), on_min_pages=0
             )
-        custom_endpoint: Optional[Endpoint] = None
+        custom_endpoint: Endpoint | None = None
         if self.parsed_args.product_name in ("custom", "generated"):
             include_words = False
             custom_endpoint = self.client.create_endpoint(
@@ -194,12 +193,12 @@ class MindeeParser:
 
     def _parse_async(self) -> AsyncPredictResponse:
         """Enqueues and processes the results of an asynchronous request."""
-        page_options: Optional[PageOptions] = None
+        page_options: PageOptions | None = None
         if self.parsed_args.cut_doc and self.parsed_args.doc_pages:
             page_options = PageOptions(
                 range(self.parsed_args.doc_pages), on_min_pages=0
             )
-        custom_endpoint: Optional[Endpoint] = None
+        custom_endpoint: Endpoint | None = None
         if self.parsed_args.product_name in ("custom", "generated"):
             include_words = False
             custom_endpoint = self.client.create_endpoint(
@@ -261,13 +260,13 @@ class MindeeParser:
         parsed_args = self.parser.parse_args()
         return parsed_args
 
-    def _get_input_doc(self) -> Union[LocalInputSource, UrlInputSource]:
+    def _get_input_doc(self) -> LocalInputSource | UrlInputSource:
         """Loads an input document."""
         if self.parsed_args.input_type == "file":
             with open(self.parsed_args.path, "rb", buffering=30) as file_handle:
                 return self.client.source_from_file(file_handle)
         elif self.parsed_args.input_type == "base64":
-            with open(self.parsed_args.path, "rt", encoding="ascii") as base64_handle:
+            with open(self.parsed_args.path, encoding="ascii") as base64_handle:
                 return self.client.source_from_b64string(
                     base64_handle.read(), "test.jpg"
                 )

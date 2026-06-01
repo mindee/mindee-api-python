@@ -1,5 +1,3 @@
-from typing import List
-
 from mindee.parsing.common.string_dict import StringDict
 from mindee.v2.product.crop.crop_item import CropItem
 
@@ -7,7 +5,7 @@ from mindee.v2.product.crop.crop_item import CropItem
 class CropResult:
     """Crop result info."""
 
-    crops: List[CropItem]
+    crops: list[CropItem]
 
     def __init__(self, raw_response: StringDict) -> None:
         self.crops = [CropItem(crop) for crop in raw_response["crops"]]

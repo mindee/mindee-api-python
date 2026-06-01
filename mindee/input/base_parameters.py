@@ -1,6 +1,5 @@
 from abc import ABC
 from dataclasses import dataclass, field
-from typing import Dict, Optional, List, Union
 
 from mindee.input.polling_options import PollingOptions
 
@@ -11,11 +10,11 @@ class BaseParameters(ABC):
 
     model_id: str
     """ID of the model, required."""
-    alias: Optional[str] = None
+    alias: str | None = None
     """Use an alias to link the file to your own DB. If empty, no alias will be used."""
-    webhook_ids: Optional[List[str]] = None
+    webhook_ids: list[str] | None = None
     """IDs of webhooks to propagate the API response to."""
-    polling_options: Optional[PollingOptions] = None
+    polling_options: PollingOptions | None = None
     """Options for polling. Set only if having timeout issues."""
     close_file: bool = True
     """Whether to close the file after product."""
@@ -23,13 +22,13 @@ class BaseParameters(ABC):
     _slug: str = field(init=False)
     """Slug of the endpoint."""
 
-    def get_form_data(self) -> Dict[str, Union[str, List[str]]]:
+    def get_form_data(self) -> dict[str, str | list[str]]:
         """
         Return the parameters as a config dictionary.
 
         :return: A dict of parameters.
         """
-        data: Dict[str, Union[str, List[str]]] = {
+        data: dict[str, str | list[str]] = {
             "model_id": self.model_id,
         }
         if self.alias is not None:

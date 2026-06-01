@@ -18,7 +18,7 @@ def invoice_splitter_5p_path():
 
 
 def prepare_invoice_return(rst_file_path: Path, invoice_prediction: Document):
-    with open(rst_file_path, "r") as rst_file:
+    with open(rst_file_path) as rst_file:
         rst_content = rst_file.read()
     parsing_version = invoice_prediction.inference.product.version
     parsing_id = invoice_prediction.id

@@ -1,6 +1,6 @@
 import io
 from pathlib import Path
-from typing import BinaryIO, List, Optional, Union
+from typing import BinaryIO
 
 import pypdfium2 as pdfium
 from PIL import Image
@@ -31,7 +31,7 @@ class PdfExtractor:
         pdf = pdfium.PdfDocument(self._source_pdf)
         return len(pdf)
 
-    def cut_pages(self, page_indexes: List) -> BinaryIO:
+    def cut_pages(self, page_indexes: list) -> BinaryIO:
         """
         Create a new PDF from pages and save it into a buffer.
 
@@ -47,15 +47,15 @@ class PdfExtractor:
         return bytes_io
 
     def extract_sub_documents(
-        self, page_indexes: List[List[int]]
-    ) -> List[ExtractedPdf]:
+        self, page_indexes: list[list[int]]
+    ) -> list[ExtractedPdf]:
         """
         Extract the sub-documents from the main pdf, based on the given list of page indexes.
 
         :param page_indexes: List of list of numbers, representing page indexes.
         :return: A list of created PDFS.
         """
-        extracted_pdfs: List[ExtractedPdf] = []
+        extracted_pdfs: list[ExtractedPdf] = []
         extension = Path(self._filename).suffix
         stem = Path(self._filename).stem
         for page_index_elem in page_indexes:
@@ -74,9 +74,9 @@ class PdfExtractor:
 
     def extract_invoices(
         self,
-        page_indexes: List[Union[InvoiceSplitterV1InvoicePageGroup, List[int]]],
+        page_indexes: list[InvoiceSplitterV1InvoicePageGroup | list[int]],
         strict: bool = False,
-    ) -> List[ExtractedPdf]:
+    ) -> list[ExtractedPdf]:
         """
         Extracts invoices as complete PDFs from the document.
 
@@ -91,9 +91,9 @@ class PdfExtractor:
         if not strict:
             indexes_as_list = [page_index.page_indexes for page_index in page_indexes]  # type: ignore
             return self.extract_sub_documents(indexes_as_list)
-        correct_page_indexes: List[List[int]] = []
-        current_list: List[int] = []
-        previous_confidence: Optional[float] = None
+        correct_page_indexes: list[list[int]] = []
+        current_list: list[int] = []
+        previous_confidence: float | None = None
         for i, page_index in enumerate(page_indexes):
             assert isinstance(page_index, InvoiceSplitterV1InvoicePageGroup)
             confidence = page_index.confidence

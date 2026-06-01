@@ -1,5 +1,3 @@
-from typing import Optional
-
 from mindee.error.geometry_error import GeometryError
 from mindee.geometry.polygon import Polygon
 from mindee.geometry.quadrilateral import Quadrilateral, quadrilateral_from_prediction
@@ -10,15 +8,15 @@ from mindee.parsing.standard.base import BaseField
 class PositionField(BaseField):
     """A field indicating a position or area on the document."""
 
-    value: Optional[Polygon]
+    value: Polygon | None
     """Polygon of cropped area, identical to the ``polygon`` property."""
-    polygon: Optional[Polygon]
+    polygon: Polygon | None
     """Polygon of cropped area"""
-    quadrangle: Optional[Quadrilateral]
+    quadrangle: Quadrilateral | None
     """Quadrangle of cropped area (does not exceed the canvas)"""
-    rectangle: Optional[Quadrilateral]
+    rectangle: Quadrilateral | None
     """Oriented rectangle of cropped area (may exceed the canvas)"""
-    bounding_box: Optional[Quadrilateral]
+    bounding_box: Quadrilateral | None
     """Straight rectangle of cropped area (does not exceed the canvas)"""
 
     def __init__(
@@ -26,7 +24,7 @@ class PositionField(BaseField):
         raw_prediction: StringDict,
         value_key: str = "polygon",
         reconstructed: bool = False,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         """
         Position field object.
@@ -43,13 +41,13 @@ class PositionField(BaseField):
             page_id=page_id,
         )
 
-        def get_quadrilateral(key: str) -> Optional[Quadrilateral]:
+        def get_quadrilateral(key: str) -> Quadrilateral | None:
             try:
                 return quadrilateral_from_prediction(raw_prediction[key])
             except (KeyError, GeometryError):
                 return None
 
-        def get_polygon(key: str) -> Optional[Polygon]:
+        def get_polygon(key: str) -> Polygon | None:
             try:
                 polygon = raw_prediction[key]
             except KeyError:

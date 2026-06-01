@@ -1,5 +1,3 @@
-from typing import List, Optional
-
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.standard.position import PositionField
 
@@ -7,19 +5,19 @@ from mindee.parsing.standard.position import PositionField
 class GeneratedObjectField:
     """A JSON-like object, with miscellaneous values."""
 
-    page_id: Optional[int]
+    page_id: int | None
     """Id of the page the object was found on."""
-    confidence: Optional[float]
+    confidence: float | None
     """Confidence with which the value was assessed."""
-    raw_value: Optional[str]
+    raw_value: str | None
     """Raw unprocessed value, as it was sent by the server."""
-    __printable_values: List[str]
+    __printable_values: list[str]
     """List of all printable field names."""
 
     def __init__(
         self,
         raw_prediction: StringDict,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ) -> None:
         item_page_id = None
         self.__printable_values = []

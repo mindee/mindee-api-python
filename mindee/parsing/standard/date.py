@@ -1,5 +1,4 @@
 from datetime import date, datetime
-from typing import Optional
 
 import pytz
 
@@ -13,18 +12,18 @@ ISO8601_DATETIME_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
 class DateField(FieldPositionMixin, BaseField):
     """A field containing a date value."""
 
-    date_object: Optional[date]
+    date_object: date | None
     """Date as a standard Python ``datetime.date`` object."""
-    value: Optional[str]
+    value: str | None
     """The raw field value."""
-    is_computed: Optional[bool]
+    is_computed: bool | None
     """Whether the field was computed or retrieved directly from the document."""
 
     def __init__(
         self,
         raw_prediction: StringDict,
         reconstructed: bool = False,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         """
         Date field object.

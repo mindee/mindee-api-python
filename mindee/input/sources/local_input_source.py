@@ -1,7 +1,8 @@
 import io
 import mimetypes
 import tempfile
-from typing import BinaryIO, Optional, Sequence, Tuple
+from typing import BinaryIO
+from collections.abc import Sequence
 
 import pypdfium2 as pdfium
 
@@ -35,8 +36,8 @@ class LocalInputSource:
     filename: str
     file_mimetype: str
     input_type: InputType
-    filepath: Optional[str]
-    _page_count: Optional[int] = None
+    filepath: str | None
+    _page_count: int | None = None
 
     def __init__(self, input_type: InputType):
         self.input_type = input_type
@@ -196,7 +197,7 @@ class LocalInputSource:
                 return False
         return True
 
-    def read_contents(self, close_file: bool) -> Tuple[str, bytes]:
+    def read_contents(self, close_file: bool) -> tuple[str, bytes]:
         """
         Read the contents of the input file.
 
@@ -229,8 +230,8 @@ class LocalInputSource:
     def compress(
         self,
         quality: int = 85,
-        max_width: Optional[int] = None,
-        max_height: Optional[int] = None,
+        max_width: int | None = None,
+        max_height: int | None = None,
         force_source_text: bool = False,
         disable_source_text: bool = True,
     ) -> None:

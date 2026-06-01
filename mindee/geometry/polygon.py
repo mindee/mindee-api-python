@@ -1,18 +1,18 @@
-from typing import List, Optional, Sequence
+from collections.abc import Sequence
 
 from mindee.geometry.minmax import get_min_max_x, get_min_max_y
 from mindee.geometry.point import Point
 from mindee.geometry.polygon_utils import get_centroid, is_point_in_x, is_point_in_y
 
 
-class Polygon(List[Point]):
+class Polygon(list[Point]):
     """
     Contains any number of vertex coordinates (Points).
 
     Inherits from base class ``list`` so is compatible with type ``Points``.
     """
 
-    def __init__(self, vertices: Optional[list] = None):
+    def __init__(self, vertices: list | None = None):
         # we should NOT allow the creation of invalid polygons, but it would be a breaking change
         if not vertices:
             vertices = []
@@ -80,7 +80,7 @@ def is_point_in_polygon_y(point: Point, polygon: Polygon) -> bool:
     return is_point_in_y(point, min_y, max_y)
 
 
-def polygon_from_prediction(prediction: Sequence[List[float]]) -> Polygon:
+def polygon_from_prediction(prediction: Sequence[list[float]]) -> Polygon:
     """
     Deprecated, init ``Polygon`` class directly instead.
 

@@ -1,5 +1,3 @@
-from typing import List, Optional
-
 from mindee.parsing.common.prediction import Prediction
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string
@@ -15,9 +13,9 @@ class HealthcareCardV1Document(Prediction):
 
     company_name: StringField
     """The name of the company that provides the healthcare plan."""
-    copays: List[HealthcareCardV1Copay]
+    copays: list[HealthcareCardV1Copay]
     """Copayments for covered services."""
-    dependents: List[StringField]
+    dependents: list[StringField]
     """The list of dependents covered by the healthcare plan."""
     enrollment_date: DateField
     """The date when the member enrolled in the healthcare plan."""
@@ -45,7 +43,7 @@ class HealthcareCardV1Document(Prediction):
     def __init__(
         self,
         raw_prediction: StringDict,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         """
         Healthcare Card document.

@@ -1,5 +1,3 @@
-from typing import Optional
-
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.v2.field.inference_fields import InferenceFields
 from mindee.parsing.v2.rag_metadata import RagMetadata
@@ -11,9 +9,9 @@ class InferenceResult:
 
     fields: InferenceFields
     """Fields contained in the inference."""
-    raw_text: Optional[RawText] = None
+    raw_text: RawText | None = None
     """Potential options retrieved alongside the inference."""
-    rag: Optional[RagMetadata] = None
+    rag: RagMetadata | None = None
     """RAG metadata."""
 
     def __init__(self, raw_response: StringDict) -> None:

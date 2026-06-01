@@ -1,4 +1,4 @@
-from typing import Dict, List, Sequence
+from collections.abc import Sequence
 
 from mindee.error.mindee_error import MindeeError
 from mindee.geometry.bbox import BBox, extend_bbox, get_bbox
@@ -7,7 +7,7 @@ from mindee.geometry.quadrilateral import get_bounding_box
 from mindee.parsing.custom.list import ListField, ListFieldValue
 
 
-def _find_best_anchor(anchors: Sequence[str], fields: Dict[str, ListField]) -> str:
+def _find_best_anchor(anchors: Sequence[str], fields: dict[str, ListField]) -> str:
     """
     Find the anchor with the most rows, in the order specified by `anchors`.
 
@@ -28,7 +28,7 @@ class CustomLine:
 
     row_number: int
     """Index of the row of a given line."""
-    fields: Dict[str, ListFieldValue]
+    fields: dict[str, ListFieldValue]
     """Fields contained in the line."""
     bbox: BBox
     """Simplified bounding box of the line."""
@@ -84,8 +84,8 @@ def is_box_in_line(line: CustomLine, bbox: BBox, height_line_tolerance: float) -
 
 
 def prepare(
-    anchor_name: str, fields: Dict[str, ListField], height_line_tolerance: float
-) -> List[CustomLine]:
+    anchor_name: str, fields: dict[str, ListField], height_line_tolerance: float
+) -> list[CustomLine]:
     """
     Prepares lines before filling them.
 
@@ -93,7 +93,7 @@ def prepare(
     :param fields: fields to build lines from.
     :param height_line_tolerance: line height tolerance for custom line reconstruction.
     """
-    lines_prepared: List[CustomLine] = []
+    lines_prepared: list[CustomLine] = []
     try:
         anchor_field: ListField = fields[anchor_name]
     except KeyError as exc:
@@ -138,9 +138,9 @@ def prepare(
 def get_line_items(
     anchors: Sequence[str],
     field_names: Sequence[str],
-    fields: Dict[str, ListField],
+    fields: dict[str, ListField],
     height_line_tolerance: float = 0.01,
-) -> List[CustomLine]:
+) -> list[CustomLine]:
     """
     Reconstruct line items from fields.
 
@@ -148,8 +148,8 @@ def get_line_items(
     :columns: All fields which are columns
     :fields: List of field names to reconstruct table with
     """
-    line_items: List[CustomLine] = []
-    fields_to_transform: Dict[str, ListField] = {}
+    line_items: list[CustomLine] = []
+    fields_to_transform: dict[str, ListField] = {}
     for field_name, field_value in fields.items():
         if field_name in field_names:
             fields_to_transform[field_name] = field_value
@@ -157,7 +157,7 @@ def get_line_items(
     if not anchor:
         print(Warning("Could not find an anchor!"))
         return line_items
-    lines_prepared: List[CustomLine] = prepare(
+    lines_prepared: list[CustomLine] = prepare(
         anchor, fields_to_transform, height_line_tolerance
     )
 

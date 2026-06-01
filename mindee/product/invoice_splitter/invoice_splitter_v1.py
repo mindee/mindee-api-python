@@ -1,5 +1,3 @@
-from typing import List
-
 from mindee.parsing.common.inference import Inference
 from mindee.parsing.common.page import Page
 from mindee.parsing.common.string_dict import StringDict
@@ -13,7 +11,7 @@ class InvoiceSplitterV1(Inference):
 
     prediction: InvoiceSplitterV1Document
     """Document-level prediction."""
-    pages: List[Page[InvoiceSplitterV1Document]]
+    pages: list[Page[InvoiceSplitterV1Document]]
     """Page-level prediction(s)."""
     endpoint_name = "invoice_splitter"
     """Name of the endpoint."""

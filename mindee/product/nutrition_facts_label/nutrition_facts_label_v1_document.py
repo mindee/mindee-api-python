@@ -1,5 +1,3 @@
-from typing import List, Optional
-
 from mindee.parsing.common.prediction import Prediction
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string
@@ -56,7 +54,7 @@ class NutritionFactsLabelV1Document(Prediction):
     """The amount of cholesterol in the product."""
     dietary_fiber: NutritionFactsLabelV1DietaryFiber
     """The amount of dietary fiber in the product."""
-    nutrients: List[NutritionFactsLabelV1Nutrient]
+    nutrients: list[NutritionFactsLabelV1Nutrient]
     """The amount of nutrients in the product."""
     protein: NutritionFactsLabelV1Protein
     """The amount of protein in the product."""
@@ -80,7 +78,7 @@ class NutritionFactsLabelV1Document(Prediction):
     def __init__(
         self,
         raw_prediction: StringDict,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         """
         Nutrition Facts Label document.

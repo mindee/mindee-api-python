@@ -1,4 +1,4 @@
-from typing import Any, Dict
+from typing import Any
 
-StringDict = Dict[str, Any]
+StringDict = dict[str, Any]
 """Basic JSON-compliant python dictionary."""

@@ -1,29 +1,27 @@
-from typing import Optional
-
 from mindee.parsing.common import ExecutionPriority
 
 
 class WorkflowOptions:
     """Options to pass to a workflow execution."""
 
-    alias: Optional[str]
+    alias: str | None
     """Alias for the document."""
-    priority: Optional[ExecutionPriority]
+    priority: ExecutionPriority | None
     """Priority of the document."""
     full_text: bool
     """Whether to include the full OCR text response in compatible APIs."""
-    public_url: Optional[str]
+    public_url: str | None
     """A unique, encrypted URL for accessing the document validation interface without requiring authentication."""
     rag: bool
     """Whether to enable Retrieval-Augmented Generation."""
 
     def __init__(
         self,
-        alias: Optional[str] = None,
-        priority: Optional[ExecutionPriority] = None,
-        full_text: Optional[bool] = False,
-        public_url: Optional[str] = None,
-        rag: Optional[bool] = False,
+        alias: str | None = None,
+        priority: ExecutionPriority | None = None,
+        full_text: bool | None = False,
+        public_url: str | None = None,
+        rag: bool | None = False,
     ):
         self.alias = alias
         self.priority = priority

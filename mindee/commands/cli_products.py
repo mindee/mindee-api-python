@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Dict, Generic, Type
+from typing import Generic
 
 from mindee import product
 from mindee.parsing.common import TypeInference
@@ -10,12 +10,12 @@ class CommandConfig(Generic[TypeInference]):
     """Configuration for a command."""
 
     help: str
-    doc_class: Type[TypeInference]
+    doc_class: type[TypeInference]
     is_sync: bool
     is_async: bool
 
 
-PRODUCTS: Dict[str, CommandConfig] = {
+PRODUCTS: dict[str, CommandConfig] = {
     "custom": CommandConfig(
         help="Custom document type from API builder",
         doc_class=product.CustomV1,

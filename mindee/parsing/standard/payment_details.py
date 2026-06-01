@@ -1,5 +1,3 @@
-from typing import Optional
-
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.standard.base import BaseField, FieldPositionMixin
 
@@ -7,13 +5,13 @@ from mindee.parsing.standard.base import BaseField, FieldPositionMixin
 class PaymentDetailsField(FieldPositionMixin, BaseField):
     """Information on a single payment."""
 
-    account_number: Optional[str]
+    account_number: str | None
     """Account number"""
-    iban: Optional[str]
+    iban: str | None
     """Account IBAN"""
-    routing_number: Optional[str]
+    routing_number: str | None
     """Account routing number"""
-    swift: Optional[str]
+    swift: str | None
     """Bank's SWIFT code"""
 
     def __init__(
@@ -25,7 +23,7 @@ class PaymentDetailsField(FieldPositionMixin, BaseField):
         routing_number_key: str = "routing_number",
         swift_key: str = "swift",
         reconstructed: bool = False,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         """
         Payment details field object.

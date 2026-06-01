@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import BinaryIO, Union
+from typing import BinaryIO
 
 from mindee.error import MindeeClientError
 from mindee.input.sources.base_64_input import Base64Input
@@ -13,9 +13,7 @@ class ClientMixin:
     """Mixin for clients V1 & V2 common static methods."""
 
     @staticmethod
-    def source_from_path(
-        input_path: Union[Path, str], fix_pdf: bool = False
-    ) -> PathInput:
+    def source_from_path(input_path: Path | str, fix_pdf: bool = False) -> PathInput:
         """
         Load a document from a path, as a string or a `Path` object.
 

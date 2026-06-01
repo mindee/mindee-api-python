@@ -1,5 +1,3 @@
-from typing import List, Optional
-
 from mindee.parsing.common.prediction import Prediction
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string
@@ -9,13 +7,13 @@ from mindee.parsing.standard.position import PositionField
 class MultiReceiptsDetectorV1Document(Prediction):
     """Multi Receipts Detector API version 1.1 document data."""
 
-    receipts: List[PositionField]
+    receipts: list[PositionField]
     """Positions of the receipts on the document."""
 
     def __init__(
         self,
         raw_prediction: StringDict,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         """
         Multi Receipts Detector document.

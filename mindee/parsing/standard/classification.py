@@ -1,5 +1,3 @@
-from typing import Optional
-
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.standard.base import BaseField
 
@@ -15,7 +13,7 @@ class ClassificationField(BaseField):
         raw_prediction: StringDict,
         value_key: str = "value",
         reconstructed: bool = False,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         """
         Text field object.

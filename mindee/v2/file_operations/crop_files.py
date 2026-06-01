@@ -1,13 +1,12 @@
 from pathlib import Path
-from typing import List, Union
 
 from mindee.extraction import ExtractedImage
 
 
-class CropFiles(List[ExtractedImage]):
+class CropFiles(list[ExtractedImage]):
     """Crop files."""
 
-    def save_all_to_disk(self, path: Union[Path, str], prefix: str = "crop"):
+    def save_all_to_disk(self, path: Path | str, prefix: str = "crop"):
         """
         Save all extracted crops to disk.
 

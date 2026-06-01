@@ -1,4 +1,4 @@
-from typing import Generic, Type
+from typing import Generic
 
 from mindee.parsing.common.api_response import ApiResponse
 from mindee.parsing.common.execution import Execution
@@ -16,6 +16,6 @@ class WorkflowResponse(Generic[TypePrediction], ApiResponse):
     The response object will be instantiated based on this parameter.
     """
 
-    def __init__(self, inference_type: Type[Inference], raw_response: StringDict):
+    def __init__(self, inference_type: type[Inference], raw_response: StringDict):
         super().__init__(raw_response)
         self.execution = Execution(inference_type, raw_response["execution"])

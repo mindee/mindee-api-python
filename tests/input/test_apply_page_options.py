@@ -135,7 +135,7 @@ def test_pdf_input_from_file():
 
 
 def test_pdf_input_from_base64():
-    with open(V1_PRODUCT_DATA_DIR / "invoices" / "invoice_10p.txt", "rt") as fp:
+    with open(V1_PRODUCT_DATA_DIR / "invoices" / "invoice_10p.txt") as fp:
         input_source = Base64Input(fp.read(), filename="invoice_10p.pdf")
     assert input_source.is_pdf() is True
     input_source.process_pdf(behavior=KEEP_ONLY, on_min_pages=2, page_indexes=[0])

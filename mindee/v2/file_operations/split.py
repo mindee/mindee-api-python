@@ -1,5 +1,3 @@
-from typing import List, Union
-
 from mindee.error import MindeeError
 from mindee.extraction.pdf_extractor.extracted_pdf import ExtractedPdf
 from mindee.extraction.pdf_extractor.pdf_extractor import PdfExtractor
@@ -8,7 +6,7 @@ from mindee.v2.file_operations.split_files import SplitFiles
 
 
 def extract_single_split(
-    input_source: LocalInputSource, split: List[int]
+    input_source: LocalInputSource, split: list[int]
 ) -> ExtractedPdf:
     """
     Extracts a single split as a complete PDF from the document.
@@ -22,7 +20,7 @@ def extract_single_split(
 
 def extract_splits(
     input_source: LocalInputSource,
-    splits: Union[List[List[int]]],
+    splits: list[list[int]],
 ) -> SplitFiles:
     """
     Extracts splits as complete PDFs from the document.

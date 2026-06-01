@@ -1,5 +1,3 @@
-from typing import Dict, Optional
-
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string, format_for_display
 from mindee.parsing.standard.base import FieldConfidenceMixin, FieldPositionMixin
@@ -8,13 +6,13 @@ from mindee.parsing.standard.base import FieldConfidenceMixin, FieldPositionMixi
 class BankAccountDetailsV2Bban(FieldPositionMixin, FieldConfidenceMixin):
     """Full extraction of BBAN, including: branch code, bank code, account and key."""
 
-    bban_bank_code: Optional[str]
+    bban_bank_code: str | None
     """The BBAN bank code outputted as a string."""
-    bban_branch_code: Optional[str]
+    bban_branch_code: str | None
     """The BBAN branch code outputted as a string."""
-    bban_key: Optional[str]
+    bban_key: str | None
     """The BBAN key outputted as a string."""
-    bban_number: Optional[str]
+    bban_number: str | None
     """The BBAN Account number outputted as a string."""
     page_n: int
     """The document page on which the information was found."""
@@ -22,7 +20,7 @@ class BankAccountDetailsV2Bban(FieldPositionMixin, FieldConfidenceMixin):
     def __init__(
         self,
         raw_prediction: StringDict,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         self._set_confidence(raw_prediction)
         self._set_position(raw_prediction)
@@ -40,9 +38,9 @@ class BankAccountDetailsV2Bban(FieldPositionMixin, FieldConfidenceMixin):
         self.bban_key = raw_prediction["bban_key"]
         self.bban_number = raw_prediction["bban_number"]
 
-    def _printable_values(self) -> Dict[str, str]:
+    def _printable_values(self) -> dict[str, str]:
         """Return values for printing."""
-        out_dict: Dict[str, str] = {}
+        out_dict: dict[str, str] = {}
         out_dict["bban_bank_code"] = format_for_display(self.bban_bank_code)
         out_dict["bban_branch_code"] = format_for_display(self.bban_branch_code)
         out_dict["bban_key"] = format_for_display(self.bban_key)

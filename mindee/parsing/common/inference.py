@@ -1,4 +1,4 @@
-from typing import Dict, Generic, List, Optional, Type, TypeVar
+from typing import Generic, TypeVar
 
 from mindee.error.mindee_error import MindeeError
 from mindee.parsing.common.extras import Extras
@@ -13,22 +13,22 @@ class Inference(Generic[TypePrediction, TypePage]):
 
     product: Product
     """Name and version of a given product, as sent back by the API."""
-    endpoint_name: Optional[str]
+    endpoint_name: str | None
     """Name of the endpoint for OTS APIs"""
-    endpoint_version: Optional[str]
+    endpoint_version: str | None
     """Version of the endpoint for OTS APIs"""
     prediction: TypePrediction
     """A document's top-level Prediction."""
-    pages: List[TypePage]
+    pages: list[TypePage]
     """A document's pages."""
-    is_rotation_applied: Optional[bool]
+    is_rotation_applied: bool | None
     """Whether the document has had any rotation applied to it."""
-    page_id: Optional[int]
+    page_id: int | None
     """Optional page id for page-level predictions."""
-    extras: Optional[Extras] = None
+    extras: Extras | None = None
     """Potential Extras fields sent back along with the prediction."""
 
-    def __init__(self, raw_prediction: StringDict, page_id: Optional[int] = None):
+    def __init__(self, raw_prediction: StringDict, page_id: int | None = None):
         self.is_rotation_applied = None
         if "is_rotation_applied" in raw_prediction:
             self.is_rotation_applied = raw_prediction["is_rotation_applied"]
@@ -61,7 +61,7 @@ class Inference(Generic[TypePrediction, TypePage]):
         )
 
     @staticmethod
-    def get_endpoint_info(klass: Type["Inference"]) -> Dict[str, str]:
+    def get_endpoint_info(klass: type["Inference"]) -> dict[str, str]:
         """
         Retrieves the endpoint information for an Inference.
 

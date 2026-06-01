@@ -1,5 +1,3 @@
-from typing import Optional
-
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.standard.text import StringField
 
@@ -7,28 +5,28 @@ from mindee.parsing.standard.text import StringField
 class AddressField(StringField):
     """A field containing an address value."""
 
-    street_number: Optional[str]
+    street_number: str | None
     """Street number."""
-    street_name: Optional[str]
+    street_name: str | None
     """Street name."""
-    po_box: Optional[str]
+    po_box: str | None
     """PO Box number."""
-    address_complement: Optional[str]
+    address_complement: str | None
     """Address complement."""
-    city: Optional[str]
+    city: str | None
     """City name."""
-    postal_code: Optional[str]
+    postal_code: str | None
     """Postal code."""
-    state: Optional[str]
+    state: str | None
     """State name."""
-    country: Optional[str]
+    country: str | None
     """Country name."""
 
     def __init__(
         self,
         raw_prediction: StringDict,
         reconstructed: bool = False,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         """
         Text field object.

@@ -3,7 +3,6 @@ import random
 import string
 from datetime import datetime
 from pathlib import Path
-from typing import Optional, Union
 from urllib.parse import urlparse
 
 import requests
@@ -37,10 +36,10 @@ class UrlInputSource:
 
     def __fetch_file_content(
         self,
-        username: Optional[str] = None,
-        password: Optional[str] = None,
-        token: Optional[str] = None,
-        headers: Optional[dict] = None,
+        username: str | None = None,
+        password: str | None = None,
+        token: str | None = None,
+        headers: dict | None = None,
         max_redirects: int = 3,
     ) -> bytes:
         """
@@ -67,12 +66,12 @@ class UrlInputSource:
 
     def save_to_file(
         self,
-        filepath: Union[Path, str],
-        filename: Optional[str] = None,
-        username: Optional[str] = None,
-        password: Optional[str] = None,
-        token: Optional[str] = None,
-        headers: Optional[dict] = None,
+        filepath: Path | str,
+        filename: str | None = None,
+        username: str | None = None,
+        password: str | None = None,
+        token: str | None = None,
+        headers: dict | None = None,
         max_redirects: int = 3,
     ) -> Path:
         """
@@ -98,11 +97,11 @@ class UrlInputSource:
 
     def as_local_input_source(
         self,
-        filename: Optional[str] = None,
-        username: Optional[str] = None,
-        password: Optional[str] = None,
-        token: Optional[str] = None,
-        headers: Optional[dict] = None,
+        filename: str | None = None,
+        username: str | None = None,
+        password: str | None = None,
+        token: str | None = None,
+        headers: dict | None = None,
         max_redirects: int = 3,
     ) -> BytesInput:
         """
@@ -149,7 +148,7 @@ class UrlInputSource:
         return f"mindee_temp_{timestamp}_{random_string}{extension}"
 
     @staticmethod
-    def __get_file_extension(filename) -> Optional[str]:
+    def __get_file_extension(filename) -> str | None:
         """
         Get the extension from a filename.
 

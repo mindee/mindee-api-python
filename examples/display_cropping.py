@@ -10,8 +10,6 @@ Run as follows from project root::
   python examples/display_cropping.py
 """
 
-from typing import List, Tuple
-
 import cv2
 import numpy as np
 
@@ -19,7 +17,7 @@ from mindee import Client, product
 from mindee.parsing.common.predict_response import PredictResponse
 
 
-def relative_to_pixel_pos(polygon, image_h: int, image_w: int) -> List[Tuple[int, int]]:
+def relative_to_pixel_pos(polygon, image_h: int, image_w: int) -> list[tuple[int, int]]:
     """Convert from Mindee's relative format to an absolute pixel format as used by OpenCV."""
     return [(int(point[0] * image_w), int(point[1] * image_h)) for point in polygon]
 

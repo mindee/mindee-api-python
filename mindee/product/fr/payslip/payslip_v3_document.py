@@ -1,5 +1,3 @@
-from typing import List, Optional
-
 from mindee.parsing.common.prediction import Prediction
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string
@@ -26,19 +24,19 @@ class PayslipV3Document(Prediction):
     """Information about the employer."""
     employment: PayslipV3Employment
     """Information about the employment."""
-    paid_time_off: List[PayslipV3PaidTimeOff]
+    paid_time_off: list[PayslipV3PaidTimeOff]
     """Information about paid time off."""
     pay_detail: PayslipV3PayDetail
     """Detailed information about the pay."""
     pay_period: PayslipV3PayPeriod
     """Information about the pay period."""
-    salary_details: List[PayslipV3SalaryDetail]
+    salary_details: list[PayslipV3SalaryDetail]
     """Detailed information about the earnings."""
 
     def __init__(
         self,
         raw_prediction: StringDict,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         """
         Payslip document.

@@ -1,5 +1,3 @@
-from typing import List
-
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.v2.field.base_field import BaseField
 from mindee.parsing.v2.field.dynamic_field import (
@@ -14,7 +12,7 @@ from mindee.parsing.v2.field.simple_field import SimpleField
 class ListField(BaseField):
     """List field containing multiple fields."""
 
-    items: List[DynamicField]
+    items: list[DynamicField]
     """Items contained in the list."""
 
     def __init__(self, raw_response: StringDict, indent_level: int = 0):
@@ -25,7 +23,7 @@ class ListField(BaseField):
             self.items.append(get_field_type(item))
 
     @property
-    def simple_items(self) -> List[SimpleField]:
+    def simple_items(self) -> list[SimpleField]:
         """List of items as ``SimpleField``."""
         simple_items = []
         for item in self.items:
@@ -36,7 +34,7 @@ class ListField(BaseField):
         return simple_items
 
     @property
-    def object_items(self) -> List[ObjectField]:
+    def object_items(self) -> list[ObjectField]:
         """List of items as ``ObjectField``."""
         object_items = []
         for item in self.items:

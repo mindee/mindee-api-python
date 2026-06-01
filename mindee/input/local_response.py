@@ -4,7 +4,7 @@ import io
 import json
 import os
 from pathlib import Path
-from typing import Any, BinaryIO, Dict, Type, TypeVar, Union
+from typing import Any, BinaryIO, TypeVar
 
 from mindee.error.mindee_error import MindeeError
 from mindee.parsing.v2.common_response import CommonResponse
@@ -16,7 +16,7 @@ class LocalResponse:
     _file: BinaryIO
     """File object of the local response."""
 
-    def __init__(self, input_file: Union[BinaryIO, str, Path, bytes]):
+    def __init__(self, input_file: BinaryIO | str | Path | bytes):
         if isinstance(input_file, (BinaryIO, io.BufferedReader)):
             str_stripped = (
                 input_file.read().decode("utf-8").replace("\r", "").replace("\n", "")
@@ -26,7 +26,7 @@ class LocalResponse:
         elif isinstance(input_file, Path) or (
             isinstance(input_file, str) and os.path.exists(input_file)
         ):
-            with open(input_file, "r", encoding="utf-8") as file:
+            with open(input_file, encoding="utf-8") as file:
                 self._file = io.BytesIO(
                     file.read().replace("\r", "").replace("\n", "").encode()
                 )
@@ -44,7 +44,7 @@ class LocalResponse:
             raise MindeeError(f"Incompatible type for input '{type(input_file)}'.")
 
     @property
-    def as_dict(self) -> Dict[str, Any]:
+    def as_dict(self) -> dict[str, Any]:
         """
         Returns the dictionary representation of the file.
 
@@ -59,8 +59,8 @@ class LocalResponse:
 
     @staticmethod
     def _process_secret_key(
-        secret_key: Union[str, bytes, bytearray],
-    ) -> Union[bytes, bytearray]:
+        secret_key: str | bytes | bytearray,
+    ) -> bytes | bytearray:
         """
         Processes the secret key as a byte array.
 
@@ -71,7 +71,7 @@ class LocalResponse:
             return secret_key
         return secret_key.encode("utf-8")
 
-    def get_hmac_signature(self, secret_key: Union[str, bytes, bytearray]):
+    def get_hmac_signature(self, secret_key: str | bytes | bytearray):
         """
         Returns the hmac signature of the local response, from the secret key provided.
 
@@ -93,7 +93,7 @@ class LocalResponse:
         return mac.hexdigest()
 
     def is_valid_hmac_signature(
-        self, secret_key: Union[str, bytes, bytearray], signature: str
+        self, secret_key: str | bytes | bytearray, signature: str
     ):
         """
         Checks if the hmac signature of the local response is valid.
@@ -106,7 +106,7 @@ class LocalResponse:
 
     ResponseT = TypeVar("ResponseT", bound=CommonResponse)
 
-    def deserialize_response(self, response_class: Type[ResponseT]) -> ResponseT:
+    def deserialize_response(self, response_class: type[ResponseT]) -> ResponseT:
         """
         Load a local inference.
 

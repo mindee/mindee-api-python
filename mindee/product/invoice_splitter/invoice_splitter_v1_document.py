@@ -1,5 +1,3 @@
-from typing import List, Optional
-
 from mindee.parsing.common.prediction import Prediction
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string
@@ -11,13 +9,13 @@ from mindee.product.invoice_splitter.invoice_splitter_v1_invoice_page_group impo
 class InvoiceSplitterV1Document(Prediction):
     """Invoice Splitter API version 1.4 document data."""
 
-    invoice_page_groups: List[InvoiceSplitterV1InvoicePageGroup]
+    invoice_page_groups: list[InvoiceSplitterV1InvoicePageGroup]
     """List of page groups. Each group represents a single invoice within a multi-invoice document."""
 
     def __init__(
         self,
         raw_prediction: StringDict,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         """
         Invoice Splitter document.

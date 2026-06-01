@@ -1,5 +1,3 @@
-from typing import Optional
-
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.standard.base import BaseField, FieldPositionMixin
 
@@ -7,7 +5,7 @@ from mindee.parsing.standard.base import BaseField, FieldPositionMixin
 class BooleanField(FieldPositionMixin, BaseField):
     """A field containing a boolean value."""
 
-    value: Optional[bool]
+    value: bool | None
     """The value as it appears on the document."""
 
     def __init__(
@@ -15,7 +13,7 @@ class BooleanField(FieldPositionMixin, BaseField):
         raw_prediction: StringDict,
         value_key: str = "value",
         reconstructed: bool = False,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         """
         Boolean field object.

@@ -1,5 +1,4 @@
 from time import sleep
-from typing import Dict, Optional, Type, Union
 
 from mindee.client_mixin import ClientMixin
 from mindee.error.mindee_error import MindeeClientError, MindeeError
@@ -70,13 +69,13 @@ class Client(ClientMixin):
 
     def parse(
         self,
-        product_class: Type[Inference],
-        input_source: Union[LocalInputSource, UrlInputSource],
+        product_class: type[Inference],
+        input_source: LocalInputSource | UrlInputSource,
         include_words: bool = False,
         close_file: bool = True,
-        page_options: Optional[PageOptions] = None,
+        page_options: PageOptions | None = None,
         cropper: bool = False,
-        endpoint: Optional[Endpoint] = None,
+        endpoint: Endpoint | None = None,
         full_text: bool = False,
     ) -> PredictResponse:
         """
@@ -131,15 +130,15 @@ class Client(ClientMixin):
 
     def enqueue(
         self,
-        product_class: Type[Inference],
-        input_source: Union[LocalInputSource, UrlInputSource],
+        product_class: type[Inference],
+        input_source: LocalInputSource | UrlInputSource,
         include_words: bool = False,
         close_file: bool = True,
-        page_options: Optional[PageOptions] = None,
+        page_options: PageOptions | None = None,
         cropper: bool = False,
-        endpoint: Optional[Endpoint] = None,
+        endpoint: Endpoint | None = None,
         full_text: bool = False,
-        workflow_id: Optional[str] = None,
+        workflow_id: str | None = None,
         rag: bool = False,
     ) -> AsyncPredictResponse:
         """
@@ -200,8 +199,8 @@ class Client(ClientMixin):
         )
 
     def load_prediction(
-        self, product_class: Type[Inference], local_response: LocalResponse
-    ) -> Union[AsyncPredictResponse, PredictResponse]:
+        self, product_class: type[Inference], local_response: LocalResponse
+    ) -> AsyncPredictResponse | PredictResponse:
         """
         Load a prediction.
 
@@ -218,9 +217,9 @@ class Client(ClientMixin):
 
     def parse_queued(
         self,
-        product_class: Type[Inference],
+        product_class: type[Inference],
         queue_id: str,
-        endpoint: Optional[Endpoint] = None,
+        endpoint: Endpoint | None = None,
     ) -> AsyncPredictResponse:
         """
         Parses a queued document.
@@ -239,10 +238,10 @@ class Client(ClientMixin):
 
     def execute_workflow(
         self,
-        input_source: Union[LocalInputSource, UrlInputSource],
+        input_source: LocalInputSource | UrlInputSource,
         workflow_id: str,
-        options: Optional[WorkflowOptions] = None,
-        page_options: Optional[PageOptions] = None,
+        options: WorkflowOptions | None = None,
+        page_options: PageOptions | None = None,
     ) -> WorkflowResponse:
         """
         Send the document to a workflow execution.
@@ -273,18 +272,18 @@ class Client(ClientMixin):
 
     def enqueue_and_parse(  # pylint: disable=too-many-locals
         self,
-        product_class: Type[Inference],
-        input_source: Union[LocalInputSource, UrlInputSource],
+        product_class: type[Inference],
+        input_source: LocalInputSource | UrlInputSource,
         include_words: bool = False,
         close_file: bool = True,
-        page_options: Optional[PageOptions] = None,
+        page_options: PageOptions | None = None,
         cropper: bool = False,
-        endpoint: Optional[Endpoint] = None,
+        endpoint: Endpoint | None = None,
         initial_delay_sec: float = 2,
         delay_sec: float = 1.5,
         max_retries: int = 80,
         full_text: bool = False,
-        workflow_id: Optional[str] = None,
+        workflow_id: str | None = None,
         rag: bool = False,
     ) -> AsyncPredictResponse:
         """
@@ -370,10 +369,10 @@ class Client(ClientMixin):
 
     def send_feedback(
         self,
-        product_class: Type[Inference],
+        product_class: type[Inference],
         document_id: str,
         feedback: StringDict,
-        endpoint: Optional[Endpoint] = None,
+        endpoint: Endpoint | None = None,
     ) -> FeedbackResponse:
         """
         Send a feedback for a document.
@@ -402,8 +401,8 @@ class Client(ClientMixin):
 
     def _make_request(
         self,
-        product_class: Type[Inference],
-        input_source: Union[LocalInputSource, UrlInputSource],
+        product_class: type[Inference],
+        input_source: LocalInputSource | UrlInputSource,
         endpoint: Endpoint,
         options: PredictOptions,
         close_file: bool,
@@ -427,10 +426,10 @@ class Client(ClientMixin):
 
     def _predict_async(
         self,
-        product_class: Type[Inference],
-        input_source: Union[LocalInputSource, UrlInputSource],
+        product_class: type[Inference],
+        input_source: LocalInputSource | UrlInputSource,
         options: AsyncPredictOptions,
-        endpoint: Optional[Endpoint] = None,
+        endpoint: Endpoint | None = None,
         close_file: bool = True,
     ) -> AsyncPredictResponse:
         """Sends a document to the queue, and sends back an asynchronous predict response."""
@@ -460,7 +459,7 @@ class Client(ClientMixin):
 
     def _get_queued_document(
         self,
-        product_class: Type[Inference],
+        product_class: type[Inference],
         endpoint: Endpoint,
         queue_id: str,
     ) -> AsyncPredictResponse:
@@ -482,8 +481,8 @@ class Client(ClientMixin):
 
     def _send_to_workflow(
         self,
-        product_class: Type[Inference],
-        input_source: Union[LocalInputSource, UrlInputSource],
+        product_class: type[Inference],
+        input_source: LocalInputSource | UrlInputSource,
         workflow_id: str,
         options: WorkflowOptions,
     ) -> WorkflowResponse:
@@ -518,10 +517,10 @@ class Client(ClientMixin):
             )
         return WorkflowResponse(product_class, dict_response)
 
-    def _initialize_ots_endpoint(self, product_class: Type[Inference]) -> Endpoint:
+    def _initialize_ots_endpoint(self, product_class: type[Inference]) -> Endpoint:
         if product_class.__name__ == "CustomV1":
             raise MindeeClientError("Missing endpoint specifications for custom build.")
-        endpoint_info: Dict[str, str] = product_class.get_endpoint_info(product_class)
+        endpoint_info: dict[str, str] = product_class.get_endpoint_info(product_class)
         return self._build_endpoint(
             endpoint_info["name"], OTS_OWNER, endpoint_info["version"]
         )
@@ -543,7 +542,7 @@ class Client(ClientMixin):
         self,
         endpoint_name: str,
         account_name: str = "mindee",
-        version: Optional[str] = None,
+        version: str | None = None,
     ) -> Endpoint:
         """
         Add a custom endpoint, created using the Mindee API Builder.
