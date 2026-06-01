@@ -7,7 +7,6 @@ from mindee.error.mindee_error import MindeeError
 from mindee.error.v2.mindee_http_error_v2 import handle_error_v2
 from mindee.input import UrlInputSource
 from mindee.v2.input.base_parameters import BaseParameters
-from mindee.v2.product.extraction.params.inference_parameters import InferenceParameters
 from mindee.input.polling_options import PollingOptions
 from mindee.input.sources.local_input_source import LocalInputSource
 from mindee.logger import logger
@@ -18,7 +17,7 @@ from mindee.mindee_http.response_validation_v2 import (
 )
 from mindee.parsing.common.common_response import CommonStatus
 from mindee.v2.parsing.inference.base_response import BaseResponse
-from mindee.v2.product.extraction.inference_response import InferenceResponse
+from mindee.v2.product.extraction.extraction_response import ExtractionResponse
 from mindee.v2.parsing.inference.job_response import JobResponse
 
 TypeBaseResponse = TypeVar("TypeBaseResponse", bound=BaseResponse)
@@ -38,7 +37,7 @@ class Client(ClientMixin):
         """
         Mindee API Client.
 
-        :param api_key: Your API key for all endpoints
+        :params api_key: Your API key for all endpoints
         """
         self.api_key = api_key
         self.mindee_api = MindeeApiV2(api_key)
@@ -66,8 +65,8 @@ class Client(ClientMixin):
         """
         Enqueues a document to a given model.
 
-        :param input_source: The document/source file to use. Can be local or remote.
-        :param params: Parameters to set when sending a file.
+        :params input_source: The document/source file to use. Can be local or remote.
+        :params params: Parameters to set when sending a file.
 
         :return: A valid inference response.
         """
@@ -87,7 +86,7 @@ class Client(ClientMixin):
 
         Can be used for polling.
 
-        :param job_id: UUID of the job to retrieve.
+        :params job_id: UUID of the job to retrieve.
         :return: A job response.
         """
         logger.debug("Fetching job: %s", job_id)
@@ -103,7 +102,7 @@ class Client(ClientMixin):
         inference_id: str,
     ) -> BaseResponse:
         """[Deprecated] Use `get_result` instead."""
-        return self.get_result(InferenceResponse, inference_id)
+        return self.get_result(ExtractionResponse, inference_id)
 
     def get_result(
         self,
@@ -115,8 +114,8 @@ class Client(ClientMixin):
 
         The inference will only be available after it has finished processing.
 
-        :param inference_id: UUID of the inference to retrieve.
-        :param response_type: Class of the product to instantiate.
+        :params inference_id: UUID of the inference to retrieve.
+        :params response_type: Class of the product to instantiate.
         :return: An inference response.
         """
         logger.debug("Fetching result: %s", inference_id)
@@ -138,9 +137,9 @@ class Client(ClientMixin):
         """
         Enqueues to an asynchronous endpoint and automatically polls for a response.
 
-        :param input_source: The document/source file to use. Can be local or remote.
-        :param params: Parameters to set when sending a file.
-        :param response_type: The product class to use for the response object.
+        :params input_source: The document/source file to use. Can be local or remote.
+        :params params: Parameters to set when sending a file.
+        :params response_type: The product class to use for the response object.
 
         :return: A valid inference response.
         """
@@ -175,7 +174,7 @@ class Client(ClientMixin):
                     job_response.job.completed_at,
                 )
                 result = self.get_result(
-                    response_type or InferenceResponse, job_response.job.id
+                    response_type or ExtractionResponse, job_response.job.id
                 )
                 assert isinstance(result, response_type), (
                     f'Invalid response type "{type(result)}"'
@@ -185,20 +184,3 @@ class Client(ClientMixin):
             sleep(params.polling_options.delay_sec)
 
         raise MindeeError(f"Couldn't retrieve document after {try_counter + 1} tries.")
-
-    def enqueue_and_get_inference(
-        self,
-        input_source: Union[LocalInputSource, UrlInputSource],
-        params: InferenceParameters,
-    ) -> InferenceResponse:
-        """[Deprecated] Use `enqueue_and_get_result` instead."""
-        warnings.warn(
-            "enqueue_and_get_inference is deprecated; use enqueue_and_get_result instead",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-        response = self.enqueue_and_get_result(InferenceResponse, input_source, params)
-        assert isinstance(response, InferenceResponse), (
-            f'Invalid response type "{type(response)}"'
-        )
-        return response

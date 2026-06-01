@@ -7,7 +7,7 @@ from mindee.v2.product.extraction.params.data_schema import DataSchema
 
 
 @dataclass
-class InferenceParameters(BaseParameters):
+class ExtractionParameters(BaseParameters):
     """Inference parameters to set when sending a file."""
 
     rag: Optional[bool] = None

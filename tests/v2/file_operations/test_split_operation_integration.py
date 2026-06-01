@@ -3,8 +3,8 @@ from os import getenv
 import pytest
 
 from mindee import (
-    InferenceParameters,
-    InferenceResponse,
+    ExtractionParameters,
+    ExtractionResponse,
     SplitParameters,
     SplitResponse,
 )
@@ -18,7 +18,7 @@ def invoice_splitter_5p_path():
     return V2_PRODUCT_DATA_DIR / "split" / "invoice_5p.pdf"
 
 
-def check_findoc_return(findoc_response: InferenceResponse):
+def check_findoc_return(findoc_response: ExtractionResponse):
     assert len(findoc_response.inference.model.id) > 0
     assert findoc_response.inference.result.fields.get("total_amount").value > 0
 
@@ -44,9 +44,9 @@ def test_pdf_should_extract_splits():
     assert extracted_pdfs[1].filename == "default_sample_002-002.pdf"
 
     invoice_0 = client.enqueue_and_get_result(
-        InferenceResponse,
+        ExtractionResponse,
         extracted_pdfs[0].as_input_source(),
-        InferenceParameters(
+        ExtractionParameters(
             getenv("MINDEE_V2_SE_TESTS_FINDOC_MODEL_ID"), close_file=False
         ),
     )

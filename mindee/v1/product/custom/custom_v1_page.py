@@ -17,7 +17,7 @@ class CustomV1Page(Prediction):
         """
         Custom document object.
 
-        :param raw_prediction: Dictionary containing the JSON document response
+        :params raw_prediction: Dictionary containing the JSON document response
         """
         super().__init__(raw_prediction, page_id)
         self.fields = {}
@@ -33,9 +33,9 @@ class CustomV1Page(Prediction):
         """
         Order column fields into line items.
 
-        :param anchor_names: list of possible anchor fields.
-        :param field_names: list of all column fields.
-        :param height_tolerance: height tolerance to apply to lines.
+        :params anchor_names: list of possible anchor fields.
+        :params field_names: list of all column fields.
+        :params height_tolerance: height tolerance to apply to lines.
         """
         return get_line_items(
             anchor_names,

@@ -1,6 +1,6 @@
 import pytest
 
-from mindee import InferenceResponse
+from mindee import ExtractionResponse
 from mindee.v2.product.crop.crop_box import CropBox
 from mindee.v2.product.crop import CropInference
 from mindee.v2.product.crop.crop_response import CropResponse
@@ -84,14 +84,14 @@ def test_crop_with_extraction_result():
     )
     crops = response.inference.result.crops
     assert crops[0].object_type == "receipt"
-    assert isinstance(crops[0].extraction_response, InferenceResponse)
+    assert isinstance(crops[0].extraction_response, ExtractionResponse)
     assert (
         crops[0].extraction_response.inference.result.fields.get("supplier_name").value
         == "CHEZ ALAIN MIAM MIAM"
     )
 
     assert crops[1].object_type == "receipt"
-    assert isinstance(crops[1].extraction_response, InferenceResponse)
+    assert isinstance(crops[1].extraction_response, ExtractionResponse)
     assert (
         crops[1].extraction_response.inference.result.fields.get("supplier_name").value
         == "La cerise sur la pizza"

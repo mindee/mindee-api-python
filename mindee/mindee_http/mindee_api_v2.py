@@ -81,9 +81,9 @@ class MindeeApiV2(SettingsMixin):
         """
         Make an asynchronous request to POST a document for prediction on the V2 API.
 
-        :param input_source: Input object.
-        :param params: Options for the enqueueing of the document.
-        :param slug: Slug to use for the enqueueing, defaults to 'inferences'.
+        :params input_source: Input object.
+        :params params: Options for the enqueueing of the document.
+        :params slug: Slug to use for the enqueueing, defaults to 'inferences'.
         :return: requests response.
         """
         data = params.get_form_data()
@@ -114,7 +114,7 @@ class MindeeApiV2(SettingsMixin):
         """
         Sends a request matching a given queue_id. Returns either a Job or a Document.
 
-        :param job_id: Job ID, returned by the enqueue request.
+        :params job_id: Job ID, returned by the enqueue request.
         """
         return requests.get(
             f"{self.url_root}/jobs/{job_id}",
@@ -127,8 +127,8 @@ class MindeeApiV2(SettingsMixin):
         """
         Sends a request matching a given queue_id. Returns either a Job or a Document.
 
-        :param inference_id: Inference ID, returned by the job request.
-        :param slug: Slug of the inference, defaults to nothing.
+        :params inference_id: Inference ID, returned by the job request.
+        :params slug: Slug of the inference, defaults to nothing.
         """
 
         url = f"{self.url_root}/{slug}/{inference_id}"

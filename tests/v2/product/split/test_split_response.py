@@ -1,6 +1,6 @@
 import pytest
 
-from mindee import InferenceResponse
+from mindee import ExtractionResponse
 from mindee.v2.product.split.split_range import SplitRange
 from mindee.v2.product.split import SplitInference
 from mindee.v2.product.split.split_response import SplitResponse
@@ -61,7 +61,7 @@ def test_split_with_extraction_result():
     split = response.inference.result.splits
     assert split[0].document_type == "invoice"
     assert split[0].page_range[0] == 0
-    assert isinstance(split[0].extraction_response, InferenceResponse)
+    assert isinstance(split[0].extraction_response, ExtractionResponse)
     assert (
         split[0]
         .extraction_response.inference.result.fields.get("supplier_phone_number")
@@ -71,7 +71,7 @@ def test_split_with_extraction_result():
 
     assert split[1].document_type == "invoice"
     assert split[1].page_range[0] == 1
-    assert isinstance(split[1].extraction_response, InferenceResponse)
+    assert isinstance(split[1].extraction_response, ExtractionResponse)
     assert (
         split[1]
         .extraction_response.inference.result.fields.get("supplier_phone_number")

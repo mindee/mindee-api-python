@@ -50,7 +50,7 @@ class GeneratedObjectField:
 
         Takes into account level of indentation & displays elements as list elements.
 
-        :param level: level of indent (times 2 spaces).
+        :params level: level of indent (times 2 spaces).
         """
         indent = "  " + "  " * level
         out_str = ""
@@ -68,7 +68,7 @@ def is_generated_object(str_dict: StringDict) -> bool:
     """
     Checks whether an field is a custom object or not.
 
-    :param str_dict: input dictionary to check.
+    :params str_dict: input dictionary to check.
     """
     common_keys = [
         "value",

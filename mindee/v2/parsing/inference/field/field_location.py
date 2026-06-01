@@ -14,7 +14,7 @@ class FieldLocation:
         """
         Initialize FieldLocation from the server response.
 
-        :param server_response: Raw server response.
+        :params server_response: Raw server response.
         """
         self.polygon = Polygon(server_response["polygon"])
         self.page = int(server_response["page"])

@@ -6,7 +6,7 @@ from mindee.v2.parsing.inference.rag_metadata import RagMetadata
 from mindee.v2.parsing.inference.raw_text import RawText
 
 
-class InferenceResult:
+class ExtractionResult:
     """Inference result info."""
 
     fields: InferenceFields

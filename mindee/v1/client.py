@@ -40,7 +40,7 @@ def _clean_account_name(account_name: str) -> str:
     """
     Checks that an account name is provided for custom products, and sets the default one otherwise.
 
-    :param account_name: name of the account's holder. Only needed for custom products.
+    :params account_name: name of the account's holder. Only needed for custom products.
     """
     if not account_name or len(account_name) < 1:
         logger.warning(
@@ -64,7 +64,7 @@ class Client(ClientMixin):
         """
         Mindee API Client.
 
-        :param api_key: Your API key for all endpoints
+        :params api_key: Your API key for all endpoints
         """
         self.api_key = api_key
 
@@ -82,28 +82,28 @@ class Client(ClientMixin):
         """
         Call prediction API on the document and parse the results.
 
-        :param product_class: The document class to use.
+        :params product_class: The document class to use.
             The response object will be instantiated based on this parameter.
 
-        :param input_source: The document/source file to use.
+        :params input_source: The document/source file to use.
             Has to be created beforehand.
 
-        :param include_words: Whether to include the full text for each page.
+        :params include_words: Whether to include the full text for each page.
             This performs a full OCR operation on the server and will increase response time.
             Only available on financial document APIs.
 
-        :param close_file: Whether to ``close()`` the file after parsing it.
+        :params close_file: Whether to ``close()`` the file after parsing it.
           Set to ``False`` if you need to access the file after this operation.
 
-        :param page_options: If set, remove pages from the document as specified.
+        :params page_options: If set, remove pages from the document as specified.
             This is done before sending the file to the server.
             It is useful to avoid page limitations.
 
-        :param cropper: Whether to include cropper results for each page.
+        :params cropper: Whether to include cropper results for each page.
             This performs a cropping operation on the server and will increase response time.
 
-        :param endpoint: For custom endpoints, an endpoint has to be given.
-        :param full_text: Whether to include the full OCR text response in compatible APIs.
+        :params endpoint: For custom endpoints, an endpoint has to be given.
+        :params full_text: Whether to include the full OCR text response in compatible APIs.
         """
         if input_source is None:
             raise MindeeClientError("No input document provided.")
@@ -145,32 +145,32 @@ class Client(ClientMixin):
         """
         Enqueues a document to an asynchronous endpoint.
 
-        :param product_class: The document class to use.
+        :params product_class: The document class to use.
             The response object will be instantiated based on this parameter.
 
-        :param input_source: The document/source file to use.
+        :params input_source: The document/source file to use.
             Has to be created beforehand.
 
-        :param include_words: Whether to include the full text for each page.
+        :params include_words: Whether to include the full text for each page.
             This performs a full OCR operation on the server and will increase response time.
 
-        :param close_file: Whether to ``close()`` the file after parsing it.
+        :params close_file: Whether to ``close()`` the file after parsing it.
           Set to ``False`` if you need to access the file after this operation.
 
-        :param page_options: If set, remove pages from the document as specified.
+        :params page_options: If set, remove pages from the document as specified.
             This is done before sending the file to the server.
             It is useful to avoid page limitations.
 
-        :param cropper: Whether to include cropper results for each page.
+        :params cropper: Whether to include cropper results for each page.
             This performs a cropping operation on the server and will increase response time.
 
-        :param endpoint: For custom endpoints, an endpoint has to be given.
+        :params endpoint: For custom endpoints, an endpoint has to be given.
 
-        :param full_text: Whether to include the full OCR text response in compatible APIs.
+        :params full_text: Whether to include the full OCR text response in compatible APIs.
 
-        :param workflow_id: Workflow ID.
+        :params workflow_id: Workflow ID.
 
-        :param rag: If set, will enable Retrieval-Augmented Generation.
+        :params rag: If set, will enable Retrieval-Augmented Generation.
             Only works if a valid ``workflow_id`` is set.
         """
         if input_source is None:
@@ -205,8 +205,8 @@ class Client(ClientMixin):
         """
         Load a prediction.
 
-        :param product_class: Class of the product to use.
-        :param local_response: Local response to load.
+        :params product_class: Class of the product to use.
+        :params local_response: Local response to load.
         :return: A valid prediction.
         """
         try:
@@ -225,10 +225,10 @@ class Client(ClientMixin):
         """
         Parses a queued document.
 
-        :param product_class: The document class to use.
+        :params product_class: The document class to use.
             The response object will be instantiated based on this parameter.
-        :param queue_id: queue_id received from the API.
-        :param endpoint: For custom endpoints, an endpoint has to be given.
+        :params queue_id: queue_id received from the API.
+        :params endpoint: For custom endpoints, an endpoint has to be given.
         """
         if not endpoint:
             endpoint = self._initialize_ots_endpoint(product_class)
@@ -247,13 +247,13 @@ class Client(ClientMixin):
         """
         Send the document to a workflow execution.
 
-        :param input_source: The document/source file to use.
+        :params input_source: The document/source file to use.
             Has to be created beforehand.
-        :param workflow_id: ID of the workflow.
-        :param page_options: If set, remove pages from the document as specified.
+        :params workflow_id: ID of the workflow.
+        :params page_options: If set, remove pages from the document as specified.
             This is done before sending the file to the server.
             It is useful to avoid page limitations.
-        :param options: Options for the workflow.
+        :params options: Options for the workflow.
         :return:
         """
         if isinstance(input_source, LocalInputSource):
@@ -290,40 +290,40 @@ class Client(ClientMixin):
         """
         Enqueues to an asynchronous endpoint and automatically polls for a response.
 
-        :param product_class: The document class to use.
+        :params product_class: The document class to use.
             The response object will be instantiated based on this parameter.
 
-        :param input_source: The document/source file to use.
+        :params input_source: The document/source file to use.
             Has to be created beforehand.
 
-        :param include_words: Whether to include the full text for each page.
+        :params include_words: Whether to include the full text for each page.
             This performs a full OCR operation on the server and will increase response time.
 
-        :param close_file: Whether to ``close()`` the file after parsing it.
+        :params close_file: Whether to ``close()`` the file after parsing it.
             Set to ``False`` if you need to access the file after this operation.
 
-        :param page_options: If set, remove pages from the document as specified.
+        :params page_options: If set, remove pages from the document as specified.
             This is done before sending the file to the server.
             It is useful to avoid page limitations.
 
-        :param cropper: Whether to include cropper results for each page.
+        :params cropper: Whether to include cropper results for each page.
             This performs a cropping operation on the server and will increase response time.
 
-        :param endpoint: For custom endpoints, an endpoint has to be given.
+        :params endpoint: For custom endpoints, an endpoint has to be given.
 
-        :param initial_delay_sec: Delay between each polling attempts.
+        :params initial_delay_sec: Delay between each polling attempts.
             This should not be shorter than 1 second.
 
-        :param delay_sec: Delay between each polling attempts.
+        :params delay_sec: Delay between each polling attempts.
             This should not be shorter than 1 second.
 
-        :param max_retries: Total amount of polling attempts.
+        :params max_retries: Total amount of polling attempts.
 
-        :param full_text: Whether to include the full OCR text response in compatible APIs.
+        :params full_text: Whether to include the full OCR text response in compatible APIs.
 
-        :param workflow_id: Workflow ID.
+        :params workflow_id: Workflow ID.
 
-        :param rag: If set, will enable Retrieval-Augmented Generation.
+        :params rag: If set, will enable Retrieval-Augmented Generation.
             Only works if a valid ``workflow_id`` is set.
         """
         self._validate_async_params(initial_delay_sec, delay_sec, max_retries)
@@ -378,12 +378,12 @@ class Client(ClientMixin):
         """
         Send a feedback for a document.
 
-        :param product_class: The document class to use.
+        :params product_class: The document class to use.
             The response object will be instantiated based on this parameter.
 
-        :param document_id: The id of the document to send feedback to.
-        :param feedback: Feedback to send.
-        :param endpoint: For custom endpoints, an endpoint has to be given.
+        :params document_id: The id of the document to send feedback to.
+        :params feedback: Feedback to send.
+        :params endpoint: For custom endpoints, an endpoint has to be given.
         """
         if not document_id or len(document_id) == 0:
             raise MindeeClientError("Invalid document_id.")
@@ -467,7 +467,7 @@ class Client(ClientMixin):
         """
         Fetches a document or a Job from a given queue.
 
-        :param queue_id: Queue_id received from the API
+        :params queue_id: Queue_id received from the API
         """
         queue_response = endpoint.document_queue_req_get(queue_id=queue_id)
 
@@ -490,13 +490,13 @@ class Client(ClientMixin):
         """
         Sends a document to a workflow.
 
-        :param product_class: The document class to use.
+        :params product_class: The document class to use.
             The response object will be instantiated based on this parameter.
 
-        :param input_source: The document/source file to use.
+        :params input_source: The document/source file to use.
             Has to be created beforehand.
-        :param workflow_id: ID of the workflow.
-        :param options: Optional options for the workflow.
+        :params workflow_id: ID of the workflow.
+        :params options: Optional options for the workflow.
         :return:
         """
         if input_source is None:
@@ -548,9 +548,9 @@ class Client(ClientMixin):
         """
         Add a custom endpoint, created using the Mindee API Builder.
 
-        :param endpoint_name: The "API name" field in the "Settings" page of the API Builder
-        :param account_name: Your organization's username on the API Builder
-        :param version: If set, locks the version of the model to use.
+        :params endpoint_name: The "API name" field in the "Settings" page of the API Builder
+        :params account_name: Your organization's username on the API Builder
+        :params version: If set, locks the version of the model to use.
             If not set, use the latest version of the model.
         """
         if len(endpoint_name) == 0:

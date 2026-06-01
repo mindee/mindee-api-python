@@ -10,8 +10,8 @@ class Prediction:
         """
         Base prediction.
 
-        :param raw_prediction: a json-equivalent dictionary containing prediction results.
-        :param page_id: an optional page number for page-level predictions.
+        :params raw_prediction: a json-equivalent dictionary containing prediction results.
+        :params page_id: an optional page number for page-level predictions.
         """
 
 

@@ -16,9 +16,9 @@ class MindeeHTTPError(RuntimeError):
         """
         Base exception for HTTP calls.
 
-        :param http_error: formatted & parsed error
-        :param url: url/endpoint the exception was raised on
-        :param code: HTTP code for the error
+        :params http_error: formatted & parsed error
+        :params url: url/endpoint the exception was raised on
+        :params code: HTTP code for the error
         """
         self.status_code = code
         self.api_code = http_error["code"] if "code" in http_error else None
@@ -33,7 +33,7 @@ def create_error_obj(response: Union[StringDict, str]) -> StringDict:
     """
     Creates an error object based on a requests' payload.
 
-    :param response: response as sent by the server, as a dict.
+    :params response: response as sent by the server, as a dict.
         In _very_ rare instances, this can be an html string.
     """
     if not isinstance(response, str):
@@ -92,8 +92,8 @@ def handle_error(url: str, response: StringDict) -> MindeeHTTPError:
     """
     Creates an appropriate HTTP error exception, based on retrieved HTTP error code.
 
-    :param url: url of the product
-    :param response: StringDict
+    :params url: url of the product
+    :params response: StringDict
     """
     error_obj = create_error_obj(response)
     if not isinstance(response, str) and (  # type: ignore

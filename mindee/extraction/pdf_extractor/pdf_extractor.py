@@ -35,7 +35,7 @@ class PdfExtractor:
         """
         Create a new PDF from pages and save it into a buffer.
 
-        :param page_indexes: List of pages number to use for merging in the original PDF.
+        :params page_indexes: List of pages number to use for merging in the original PDF.
         :return: The buffer containing the new PDF.
         """
         self._source_pdf.seek(0)
@@ -52,7 +52,7 @@ class PdfExtractor:
         """
         Extract the sub-documents from the main pdf, based on the given list of page indexes.
 
-        :param page_indexes: List of list of numbers, representing page indexes.
+        :params page_indexes: List of list of numbers, representing page indexes.
         :return: A list of created PDFS.
         """
         extracted_pdfs: List[ExtractedPdf] = []
@@ -80,8 +80,8 @@ class PdfExtractor:
         """
         Extracts invoices as complete PDFs from the document.
 
-        :param page_indexes: List of sub-lists of pages to keep.
-        :param strict: Whether to trust confidence scores above 0.5 (included) or not.
+        :params page_indexes: List of sub-lists of pages to keep.
+        :params strict: Whether to trust confidence scores above 0.5 (included) or not.
         :return: A list of extracted invoices.
         """
         if len(page_indexes) < 1:

@@ -54,8 +54,8 @@ class InternationalIdV2Document(Prediction):
         """
         International ID document.
 
-        :param raw_prediction: Raw prediction from HTTP response
-        :param page_id: Page number for multi pages pdf input
+        :params raw_prediction: Raw prediction from HTTP response
+        :params page_id: Page number for multi pages pdf input
         """
         super().__init__(raw_prediction, page_id)
         self.address = StringField(

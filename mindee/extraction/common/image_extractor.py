@@ -18,7 +18,7 @@ def attach_image_as_new_file(  # type: ignore
     """
     Attaches an image as a new page in a PdfDocument object.
 
-    :param input_buffer: Input buffer.
+    :params input_buffer: Input buffer.
     :return: A PdfDocument handle.
     """
     # Create a new page in the PdfDocument
@@ -54,11 +54,11 @@ def extract_image_from_polygon(
     """
     Crops the image from the given polygon.
 
-    :param page_content: Contents of the page as a Pillow object.
-    :param polygon: Polygon coordinates for the image.
-    :param width: Width of the generated image.
-    :param height: Height of the generated image.
-    :param file_format: Format for the generated file.
+    :params page_content: Contents of the page as a Pillow object.
+    :params polygon: Polygon coordinates for the image.
+    :params width: Width of the generated image.
+    :params height: Height of the generated image.
+    :params file_format: Format for the generated file.
     :return: A generated image as a buffer.
     """
     min_max_x = get_min_max_x(polygon)
@@ -78,8 +78,8 @@ def save_image_to_buffer(image: Image.Image, file_format: str) -> bytes:
     """
     Saves an image as a buffer.
 
-    :param image: Pillow wrapper for the image.
-    :param file_format: Format to save the file as.
+    :params image: Pillow wrapper for the image.
+    :params file_format: Format to save the file as.
     :return: A valid buffer.
     """
     buffer = io.BytesIO()
@@ -92,7 +92,7 @@ def determine_file_format(input_source: LocalInputSource) -> str:
     """
     Retrieves the file format from an input source.
 
-    :param input_source: Local input source to retrieve the format from.
+    :params input_source: Local input source to retrieve the format from.
     :return: A valid pillow file format.
     """
     if input_source.is_pdf():
@@ -107,7 +107,7 @@ def get_file_extension(file_format: str):
     """
     Extract the correct file extension.
 
-    :param file_format: Format of the file.
+    :params file_format: Format of the file.
     :return: A valid file extension.
     """
     return file_format.lower() if file_format != "JPEG" else "jpg"
@@ -121,9 +121,9 @@ def extract_multiple_images_from_source(
     """
     Extracts elements from a page based on a list of bounding boxes.
 
-    :param input_source: Local Input source to extract elements from.
-    :param page_id: id of the page to extract from.
-    :param polygons: List of coordinates to pull the elements from.
+    :params input_source: Local Input source to extract elements from.
+    :params page_id: id of the page to extract from.
+    :params polygons: List of coordinates to pull the elements from.
     :return: List of byte arrays representing the extracted elements.
     """
     page = load_pdf_doc(input_source).get_page(page_id)
@@ -156,7 +156,7 @@ def load_pdf_doc(input_file: LocalInputSource) -> pdfium.PdfDocument:  # type: i
     """
     Loads a PDF document from a local input source.
 
-    :param input_file: Local input.
+    :params input_file: Local input.
     :return: A valid PdfDocument handle.
     """
     if input_file.is_pdf():
