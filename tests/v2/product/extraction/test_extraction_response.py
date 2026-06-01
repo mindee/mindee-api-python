@@ -3,16 +3,16 @@ import json
 import pytest
 
 from mindee import InferenceResponse
-from mindee.parsing.v2 import InferenceActiveOptions
-from mindee.parsing.v2.field.field_confidence import FieldConfidence
-from mindee.parsing.v2.field.list_field import ListField
-from mindee.parsing.v2.field.object_field import ObjectField
-from mindee.parsing.v2.field.simple_field import SimpleField
-from mindee.parsing.v2.field.inference_fields import InferenceFields
-from mindee.parsing.v2.inference import Inference
-from mindee.parsing.v2.inference_file import InferenceFile
-from mindee.parsing.v2.inference_model import InferenceModel
-from mindee.parsing.v2.rag_metadata import RagMetadata
+from mindee.v2.parsing.inference.inference_active_options import InferenceActiveOptions
+from mindee.v2.parsing.inference.field import FieldConfidence
+from mindee.v2.parsing.inference.field import ListField
+from mindee.v2.parsing.inference.field.object_field import ObjectField
+from mindee.v2.parsing.inference.field.simple_field import SimpleField
+from mindee.v2.parsing.inference.field import InferenceFields
+from mindee.v2.product.extraction.inference import Inference
+from mindee.v2.parsing.inference.inference_file import InferenceFile
+from mindee.v2.parsing.inference.inference_model import InferenceModel
+from mindee.v2.parsing.inference.rag_metadata import RagMetadata
 from tests.utils import V2_PRODUCT_DATA_DIR
 from tests.v2.product.utils import get_product_samples
 

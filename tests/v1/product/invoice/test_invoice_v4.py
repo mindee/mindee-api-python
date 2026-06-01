@@ -2,10 +2,10 @@ import json
 
 import pytest
 
-from mindee.parsing.common.document import Document
-from mindee.parsing.common.page import Page
-from mindee.product.invoice.invoice_v4 import InvoiceV4
-from mindee.product.invoice.invoice_v4_document import (
+from mindee.v1.parsing.common import Document
+from mindee.v1.parsing.common.page import Page
+from mindee.v1.product.invoice.invoice_v4 import InvoiceV4
+from mindee.v1.product.invoice.invoice_v4_document import (
     InvoiceV4Document,
 )
 from tests.utils import V1_PRODUCT_DATA_DIR

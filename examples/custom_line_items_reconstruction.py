@@ -1,7 +1,8 @@
 import os
 
-from mindee import Client, product
-from mindee.parsing.common.predict_response import PredictResponse
+from mindee.v1.client import Client
+from mindee.v1 import product
+from mindee.v1.parsing.common import PredictResponse
 
 CUSTOM_ENDPOINT_NAME = os.getenv("CUSTOM_ENDPOINT_NAME", "my-endpoint-name")
 CUSTOM_ACCOUNT_NAME = os.getenv("CUSTOM_ACCOUNT_NAME", "my-account-name")

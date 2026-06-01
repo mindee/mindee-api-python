@@ -1,19 +1,21 @@
 import json
 
-from mindee.parsing.common.predict_response import PredictResponse
-from mindee.product.financial_document.financial_document_v1 import FinancialDocumentV1
-from mindee.product.financial_document.financial_document_v1_document import (
+from mindee.v1.parsing.common import PredictResponse
+from mindee.v1.product.financial_document.financial_document_v1 import (
+    FinancialDocumentV1,
+)
+from mindee.v1.product.financial_document.financial_document_v1_document import (
     FinancialDocumentV1Document,
 )
-from mindee.product.fr.id_card.id_card_v2 import IdCardV2
-from mindee.product.fr.id_card.id_card_v2_document import IdCardV2Document
-from mindee.product.fr.id_card.id_card_v2_page import IdCardV2Page
-from mindee.product.invoice.invoice_v4 import InvoiceV4
-from mindee.product.invoice.invoice_v4_document import InvoiceV4Document
-from mindee.product.passport.passport_v1 import PassportV1
-from mindee.product.passport.passport_v1_document import PassportV1Document
-from mindee.product.receipt.receipt_v5 import ReceiptV5
-from mindee.product.receipt.receipt_v5_document import ReceiptV5Document
+from mindee.v1.product.fr.id_card.id_card_v2 import IdCardV2
+from mindee.v1.product.fr.id_card.id_card_v2_document import IdCardV2Document
+from mindee.v1.product.fr.id_card.id_card_v2_page import IdCardV2Page
+from mindee.v1.product.invoice.invoice_v4 import InvoiceV4
+from mindee.v1.product.invoice.invoice_v4_document import InvoiceV4Document
+from mindee.v1.product.passport import PassportV1
+from mindee.v1.product.passport.passport_v1_document import PassportV1Document
+from mindee.v1.product.receipt.receipt_v5 import ReceiptV5
+from mindee.v1.product.receipt.receipt_v5_document import ReceiptV5Document
 from tests.utils import V1_PRODUCT_DATA_DIR
 
 

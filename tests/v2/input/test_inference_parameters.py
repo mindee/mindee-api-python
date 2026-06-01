@@ -3,11 +3,9 @@ import json
 import pytest
 
 from mindee import InferenceParameters
-from mindee.input.inference_parameters import (
-    DataSchema,
-    DataSchemaReplace,
-    DataSchemaField,
-)
+from mindee.v2.product.extraction.params.data_schema import DataSchema
+from mindee.v2.product.extraction.params.data_schema_field import DataSchemaField
+from mindee.v2.product.extraction.params.data_schema_replace import DataSchemaReplace
 from tests.utils import V2_PRODUCT_DATA_DIR
 
 expected_data_schema_dict = json.loads(

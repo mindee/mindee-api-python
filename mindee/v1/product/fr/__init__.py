@@ -1,0 +1,49 @@
+from mindee.v1.product.fr.bank_account_details.bank_account_details_v1 import (
+    BankAccountDetailsV1,
+)
+from mindee.v1.product.fr.bank_account_details.bank_account_details_v1_document import (
+    BankAccountDetailsV1Document,
+)
+from mindee.v1.product.fr.bank_account_details.bank_account_details_v2 import (
+    BankAccountDetailsV2,
+)
+from mindee.v1.product.fr.bank_account_details.bank_account_details_v2_bban import (
+    BankAccountDetailsV2Bban,
+)
+from mindee.v1.product.fr.bank_account_details.bank_account_details_v2_document import (
+    BankAccountDetailsV2Document,
+)
+from mindee.v1.product.fr.carte_grise.carte_grise_v1 import CarteGriseV1
+from mindee.v1.product.fr.carte_grise.carte_grise_v1_document import (
+    CarteGriseV1Document,
+)
+from mindee.v1.product.fr.id_card.id_card_v1 import IdCardV1
+from mindee.v1.product.fr.id_card.id_card_v1_document import (
+    IdCardV1Document,
+)
+from mindee.v1.product.fr.id_card.id_card_v1_page import (
+    IdCardV1Page,
+)
+from mindee.v1.product.fr.id_card.id_card_v2 import IdCardV2
+from mindee.v1.product.fr.id_card.id_card_v2_document import (
+    IdCardV2Document,
+)
+from mindee.v1.product.fr.id_card.id_card_v2_page import (
+    IdCardV2Page,
+)
+
+__all__ = [
+    "BankAccountDetailsV1",
+    "BankAccountDetailsV1Document",
+    "BankAccountDetailsV2",
+    "BankAccountDetailsV2Bban",
+    "BankAccountDetailsV2Document",
+    "CarteGriseV1",
+    "CarteGriseV1Document",
+    "IdCardV1",
+    "IdCardV1Document",
+    "IdCardV1Page",
+    "IdCardV2",
+    "IdCardV2Document",
+    "IdCardV2Page",
+]

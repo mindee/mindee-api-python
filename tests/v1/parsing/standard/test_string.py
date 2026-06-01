@@ -1,4 +1,4 @@
-from mindee.parsing.standard.text import StringField
+from mindee.v1.parsing.standard.text import StringField
 
 
 def test_constructor_no_raw_value():

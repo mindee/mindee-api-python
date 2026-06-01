@@ -8,7 +8,7 @@ from mindee.input.sources.local_input_source import LocalInputSource
 from mindee.input.sources.url_input_source import UrlInputSource
 from mindee.mindee_http.base_endpoint import BaseEndpoint
 from mindee.mindee_http.mindee_api import MindeeApi
-from mindee.parsing.common.string_dict import StringDict
+from mindee.parsing.common import StringDict
 
 
 class Endpoint(BaseEndpoint):

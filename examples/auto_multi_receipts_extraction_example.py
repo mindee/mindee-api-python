@@ -1,4 +1,5 @@
-from mindee import Client, product
+from mindee.v1.client import Client
+from mindee.v1 import product
 from mindee.extraction.multi_receipts_extractor.multi_receipts_extractor import (
     extract_receipts,
 )

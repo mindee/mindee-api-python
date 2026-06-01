@@ -1,6 +1,6 @@
 from mindee.input.sources.local_input_source import LocalInputSource
-from mindee.parsing.common.string_dict import StringDict
-from mindee.parsing.v2.base_response import BaseResponse
+from mindee.parsing.common import StringDict
+from mindee.v2.parsing.inference.base_response import BaseResponse
 from mindee.v2.file_operations.split_files import SplitFiles
 from mindee.v2.product.split.split_inference import SplitInference
 

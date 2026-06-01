@@ -1,6 +1,5 @@
 import io
 
-from mindee.input.sources.input_type import InputType
 from mindee.input.sources.local_input_source import LocalInputSource
 
 
@@ -17,4 +16,4 @@ class BytesInput(LocalInputSource):
         self.file_object = io.BytesIO(raw_bytes)
         self.filename = filename
         self.filepath = None
-        super().__init__(input_type=InputType.BYTES)
+        super().__init__()

@@ -2,7 +2,8 @@ import os
 
 import pytest
 
-from mindee import ClientV2, PathInput
+from mindee.v1.client import Client
+from mindee.input.sources.path_input import PathInput
 from mindee.v2 import CropParameters, CropResponse
 from tests.utils import V2_PRODUCT_DATA_DIR
 
@@ -14,13 +15,13 @@ def crop_model_id() -> str:
 
 
 @pytest.fixture(scope="session")
-def v2_client() -> ClientV2:
-    return ClientV2()
+def v2_client() -> Client:
+    return Client()
 
 
 @pytest.mark.integration
 @pytest.mark.v2
-def test_crop_default_sample(v2_client: ClientV2, crop_model_id: str):
+def test_crop_default_sample(v2_client: Client, crop_model_id: str):
     input_source = PathInput(V2_PRODUCT_DATA_DIR / "crop" / "default_sample.jpg")
     response = v2_client.enqueue_and_get_result(
         CropResponse, input_source, CropParameters(crop_model_id)

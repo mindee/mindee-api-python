@@ -6,7 +6,7 @@ from mindee.extraction.common.image_extractor import (
     extract_multiple_images_from_source,
 )
 from mindee.input.sources.local_input_source import LocalInputSource
-from mindee.parsing.common.inference import Inference
+from mindee.v1.parsing.common.inference import Inference
 
 
 def extract_receipts(
