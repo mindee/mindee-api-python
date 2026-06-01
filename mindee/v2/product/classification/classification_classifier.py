@@ -1,7 +1,7 @@
 from typing import Optional
 
-from mindee.parsing.common.string_dict import StringDict
-from mindee.parsing.v2.inference_response import InferenceResponse
+from mindee.parsing.common import StringDict
+from mindee.v2.product.extraction.inference_response import InferenceResponse
 
 
 class ClassificationClassifier:

@@ -2,8 +2,8 @@ import json
 
 import pytest
 
-from mindee.parsing.common.workflow_response import WorkflowResponse
-from mindee.product.generated.generated_v1 import GeneratedV1
+from mindee.v1.parsing.common import WorkflowResponse
+from mindee.v1.product.generated import GeneratedV1
 from tests.utils import V1_DATA_DIR
 
 WORKFLOW_DIR = V1_DATA_DIR / "workflows"

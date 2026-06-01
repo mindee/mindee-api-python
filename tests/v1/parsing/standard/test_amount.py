@@ -1,4 +1,4 @@
-from mindee.parsing.standard.amount import AmountField
+from mindee.v1.parsing.standard import AmountField
 
 
 def test_constructor():

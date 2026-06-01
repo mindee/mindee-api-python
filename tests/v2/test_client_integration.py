@@ -3,10 +3,13 @@ from pathlib import Path
 
 import pytest
 
-from mindee import ClientV2, InferenceParameters, PathInput, UrlInputSource
-from mindee.error.mindee_http_error_v2 import MindeeHTTPErrorV2
-from mindee.parsing.v2 import InferenceActiveOptions
-from mindee.parsing.v2.inference_response import InferenceResponse
+from mindee import InferenceParameters
+from mindee.v1.client import Client
+from mindee.input.sources.path_input import PathInput
+from mindee.input.sources.url_input_source import UrlInputSource
+from mindee.error.v2.mindee_http_error_v2 import MindeeHTTPErrorV2
+from mindee.v2.parsing import InferenceActiveOptions
+from mindee.v2.product.extraction.inference_response import InferenceResponse
 from tests.utils import FILE_TYPES_DIR, V2_PRODUCT_DATA_DIR
 
 
@@ -17,8 +20,8 @@ def findoc_model_id() -> str:
 
 
 @pytest.fixture(scope="session")
-def v2_client() -> ClientV2:
-    return ClientV2()
+def v2_client() -> Client:
+    return Client()
 
 
 def _basic_assert_success(
@@ -40,7 +43,7 @@ def _basic_assert_success(
 @pytest.mark.integration
 @pytest.mark.v2
 def test_parse_file_empty_multiple_pages_must_succeed(
-    v2_client: ClientV2, findoc_model_id: str
+    v2_client: Client, findoc_model_id: str
 ) -> None:
     """
     Upload a 2-page almost blank PDF and make sure the returned inference contains the
@@ -83,7 +86,7 @@ def test_parse_file_empty_multiple_pages_must_succeed(
 @pytest.mark.integration
 @pytest.mark.v2
 def test_parse_file_empty_single_page_options_must_succeed(
-    v2_client: ClientV2, findoc_model_id: str
+    v2_client: Client, findoc_model_id: str
 ) -> None:
     """
     Upload a blank PDF and make sure the options are set correctly.
@@ -118,7 +121,7 @@ def test_parse_file_empty_single_page_options_must_succeed(
 @pytest.mark.integration
 @pytest.mark.v2
 def test_parse_file_filled_single_page_must_succeed(
-    v2_client: ClientV2, findoc_model_id: str
+    v2_client: Client, findoc_model_id: str
 ) -> None:
     """
     Upload a filled single-page JPEG and verify that common fields are present.
@@ -168,7 +171,7 @@ def test_parse_file_filled_single_page_must_succeed(
 
 @pytest.mark.integration
 @pytest.mark.v2
-def test_invalid_uuid_must_throw_error(v2_client: ClientV2) -> None:
+def test_invalid_uuid_must_throw_error(v2_client: Client) -> None:
     """
     Using an invalid model identifier must trigger a 422 HTTP error.
     """
@@ -191,7 +194,7 @@ def test_invalid_uuid_must_throw_error(v2_client: ClientV2) -> None:
 
 @pytest.mark.integration
 @pytest.mark.v2
-def test_unknown_model_must_throw_error(v2_client: ClientV2) -> None:
+def test_unknown_model_must_throw_error(v2_client: Client) -> None:
     """
     Using an unknown model identifier must trigger a 404 HTTP error.
     """
@@ -213,7 +216,7 @@ def test_unknown_model_must_throw_error(v2_client: ClientV2) -> None:
 @pytest.mark.integration
 @pytest.mark.v2
 def test_unknown_webhook_ids_must_throw_error(
-    v2_client: ClientV2, findoc_model_id: str
+    v2_client: Client, findoc_model_id: str
 ) -> None:
     """
     Using an unknown webhook identifier must trigger an error.
@@ -247,7 +250,7 @@ def test_unknown_webhook_ids_must_throw_error(
 @pytest.mark.integration
 @pytest.mark.v2
 def test_blank_url_input_source_must_succeed(
-    v2_client: ClientV2,
+    v2_client: Client,
     findoc_model_id: str,
 ) -> None:
     """
@@ -274,7 +277,7 @@ def test_blank_url_input_source_must_succeed(
 @pytest.mark.integration
 @pytest.mark.v2
 def test_data_schema_must_succeed(
-    v2_client: ClientV2,
+    v2_client: Client,
     findoc_model_id: str,
 ) -> None:
     """

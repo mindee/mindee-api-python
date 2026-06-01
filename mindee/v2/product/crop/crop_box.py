@@ -1,10 +1,10 @@
 from typing import Optional
 
 from mindee.extraction import ExtractedImage, extract_multiple_images_from_source
-from mindee.input import LocalInputSource
-from mindee.parsing.common.string_dict import StringDict
-from mindee.parsing.v2.field import FieldLocation
-from mindee.parsing.v2.inference_response import InferenceResponse
+from mindee.input.sources.local_input_source import LocalInputSource
+from mindee.parsing.common import StringDict
+from mindee.v2.parsing.inference.field import FieldLocation
+from mindee.v2.product.extraction.inference_response import InferenceResponse
 
 
 class CropBox:

@@ -3,7 +3,6 @@ from dataclasses import dataclass
 from typing import Optional, Type, Union
 
 from mindee import (
-    ClientV2,
     InferenceResponse,
     CropResponse,
     SplitResponse,
@@ -13,10 +12,11 @@ from mindee import (
     CropParameters,
     SplitParameters,
 )
-from mindee.input import BaseParameters
+from mindee.v2.client import Client
 
 from mindee.input.sources import PathInput, UrlInputSource
-from mindee.parsing.v2.base_response import BaseResponse
+from mindee.v2.input.base_parameters import BaseParameters
+from mindee.v2.parsing.inference.base_response import BaseResponse
 
 
 @dataclass
@@ -81,7 +81,7 @@ class MindeeParser:
     """Parser options."""
     parsed_args: Namespace
     """Stores attributes relating to parsing."""
-    client: ClientV2
+    client: Client
     """Mindee client"""
     input_source: Union[PathInput, UrlInputSource]
     """Document to be parsed."""
@@ -90,7 +90,7 @@ class MindeeParser:
         self,
         parser: Optional[MindeeArgumentParser] = None,
         parsed_args: Optional[Namespace] = None,
-        client: Optional[ClientV2] = None,
+        client: Optional[Client] = None,
     ) -> None:
         self.parser = (
             parser if parser else MindeeArgumentParser(description="Mindee_API")
@@ -100,7 +100,7 @@ class MindeeParser:
             self.client = client
         else:
             api_key = self.parsed_args.api_key if "api_key" in self.parsed_args else ""
-            self.client = ClientV2(api_key=api_key)
+            self.client = Client(api_key=api_key)
         self.input_source = self._get_input_source()
 
     def call_parse(self) -> None:

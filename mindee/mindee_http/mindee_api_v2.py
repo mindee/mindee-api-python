@@ -4,7 +4,7 @@ from typing import Dict, Optional, Union
 import requests
 
 from mindee.error.mindee_error import MindeeApiV2Error
-from mindee.input.base_parameters import BaseParameters
+from mindee.v2.input.base_parameters import BaseParameters
 from mindee.input.sources.local_input_source import LocalInputSource
 from mindee.input.sources.url_input_source import UrlInputSource
 from mindee.logger import logger

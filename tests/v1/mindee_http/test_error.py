@@ -2,7 +2,8 @@ import json
 
 import pytest
 
-from mindee import Client, product
+from mindee.v1.client import Client
+from mindee.v1 import product
 from mindee.error.mindee_http_error import (
     MindeeHTTPClientError,
     MindeeHTTPServerError,

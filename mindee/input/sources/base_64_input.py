@@ -1,7 +1,6 @@
 import base64
 import io
 
-from mindee.input.sources.input_type import InputType
 from mindee.input.sources.local_input_source import LocalInputSource
 
 
@@ -18,4 +17,4 @@ class Base64Input(LocalInputSource):
         self.file_object = io.BytesIO(base64.standard_b64decode(base64_string))
         self.filename = filename
         self.filepath = None
-        super().__init__(input_type=InputType.BASE64)
+        super().__init__()

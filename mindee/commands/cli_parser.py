@@ -2,15 +2,15 @@ import json
 from argparse import ArgumentParser, Namespace
 from typing import Optional, Type, Union
 
-from mindee.client import Client, Endpoint
+from mindee.v1.client import Client, Endpoint
 from mindee.commands.cli_products import PRODUCTS, CommandConfig
 from mindee.error.mindee_error import MindeeClientError
 from mindee.input.page_options import PageOptions
 from mindee.input.sources import LocalInputSource, UrlInputSource
-from mindee.parsing.common.async_predict_response import AsyncPredictResponse
-from mindee.parsing.common.document import Document, serialize_for_json
-from mindee.parsing.common.inference import Inference
-from mindee.parsing.common.predict_response import PredictResponse
+from mindee.v1.parsing.common.async_predict_response import AsyncPredictResponse
+from mindee.v1.parsing.common import Document, serialize_for_json
+from mindee.v1.parsing.common.inference import Inference
+from mindee.v1.parsing.common import PredictResponse
 
 
 class MindeeArgumentParser(ArgumentParser):

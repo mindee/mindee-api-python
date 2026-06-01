@@ -4,7 +4,8 @@ from datetime import datetime
 import pytest
 
 from mindee import JobResponse
-from mindee.parsing.v2 import ErrorItem, ErrorResponse
+from mindee.v2.parsing.inference.error_item import ErrorItem
+from mindee.v2.parsing.inference.error_response import ErrorResponse
 from tests.utils import V2_DATA_DIR
 
 

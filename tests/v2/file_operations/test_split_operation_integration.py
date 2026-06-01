@@ -3,12 +3,12 @@ from os import getenv
 import pytest
 
 from mindee import (
-    ClientV2,
     InferenceParameters,
     InferenceResponse,
     SplitParameters,
     SplitResponse,
 )
+from mindee.v1.client import Client
 from mindee.input.sources.path_input import PathInput
 from tests.utils import OUTPUT_DIR, V2_PRODUCT_DATA_DIR, cleanup_output_files
 
@@ -25,7 +25,7 @@ def check_findoc_return(findoc_response: InferenceResponse):
 
 @pytest.mark.integration
 def test_pdf_should_extract_splits():
-    client = ClientV2()
+    client = Client()
     split_input = PathInput(V2_PRODUCT_DATA_DIR / "split" / "default_sample.pdf")
     response = client.enqueue_and_get_result(
         SplitResponse,

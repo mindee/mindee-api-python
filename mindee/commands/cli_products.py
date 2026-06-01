@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 from typing import Dict, Generic, Type
 
-from mindee import product
-from mindee.parsing.common import TypeInference
+from mindee.v1 import product
+from mindee.v1.parsing.common import TypeInference
 
 
 @dataclass

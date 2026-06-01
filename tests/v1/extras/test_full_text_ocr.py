@@ -2,8 +2,8 @@ import json
 
 import pytest
 
-from mindee.parsing.common.async_predict_response import AsyncPredictResponse
-from mindee.product.international_id.international_id_v2 import InternationalIdV2
+from mindee.v1.parsing.common.async_predict_response import AsyncPredictResponse
+from mindee.v1.product.international_id import InternationalIdV2
 from tests.utils import V1_EXTRAS_DIR
 
 # NOTE: Implementing extras per pages without content (like the Java library)

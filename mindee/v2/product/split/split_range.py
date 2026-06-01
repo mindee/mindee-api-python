@@ -1,9 +1,9 @@
 from typing import List, Optional
 
-from mindee.parsing.v2.inference_response import InferenceResponse
+from mindee.v2.product.extraction.inference_response import InferenceResponse
 from mindee.extraction.pdf_extractor.extracted_pdf import ExtractedPdf
 from mindee.input.sources.local_input_source import LocalInputSource
-from mindee.parsing.common.string_dict import StringDict
+from mindee.parsing.common import StringDict
 from mindee.v2.file_operations.split import extract_single_split
 
 

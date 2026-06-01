@@ -1,6 +1,6 @@
 import datetime
 
-from mindee.parsing.standard.date import DateField
+from mindee.v1.parsing.standard import DateField
 
 
 def test_constructor():
