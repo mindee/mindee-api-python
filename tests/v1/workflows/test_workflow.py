@@ -1,4 +1,5 @@
 import json
+from datetime import timezone
 
 import pytest
 
@@ -78,4 +79,86 @@ def test_deserialize_workflow_with_priority_and_alias(
     assert (
         success_low_priority_workflow.execution.workflow_id
         == "07ebf237-ff27-4eee-b6a2-425df4a5cca6"
+    )
+
+
+def test_deserialize_workflow_with_inference_and_reviewed_prediction():
+    raw_response = {
+        "api_request": {
+            "error": {},
+            "resources": ["execution"],
+            "status": "success",
+            "status_code": 200,
+            "url": "https://api.mindee.net/v1/workflows/workflow-id/executions",
+        },
+        "execution": {
+            "available_at": "2024-11-13T13:04:31.699190Z",
+            "batch_name": "batch-name",
+            "created_at": "2024-11-13T13:02:31.699190Z",
+            "file": {
+                "alias": "sample-alias",
+                "name": "default_sample.jpg",
+            },
+            "id": "execution-id",
+            "inference": {
+                "product": {
+                    "name": "custom",
+                    "version": "1",
+                },
+                "prediction": {
+                    "customer_name": {
+                        "confidence": 0.98,
+                        "value": "Jane Doe",
+                    },
+                },
+                "pages": [
+                    {
+                        "id": 0,
+                        "prediction": {
+                            "customer_name": {
+                                "confidence": 0.98,
+                                "value": "Jane Doe",
+                            },
+                        },
+                    },
+                ],
+            },
+            "priority": "high",
+            "reviewed_at": "2024-11-13T13:05:31.699190Z",
+            "reviewed_prediction": {
+                "customer_name": {
+                    "confidence": 1,
+                    "value": "Jane Doe",
+                },
+            },
+            "status": "completed",
+            "type": "manual",
+            "uploaded_at": "2024-11-13T13:03:31.699190Z",
+            "workflow_id": "workflow-id",
+        },
+    }
+
+    response = WorkflowResponse(GeneratedV1, raw_response)
+
+    assert response.execution.available_at.tzinfo == timezone.utc
+    assert response.execution.created_at.isoformat() == (
+        "2024-11-13T13:02:31.699190+00:00"
+    )
+    assert response.execution.reviewed_at.isoformat() == (
+        "2024-11-13T13:05:31.699190+00:00"
+    )
+    assert response.execution.uploaded_at.isoformat() == (
+        "2024-11-13T13:03:31.699190+00:00"
+    )
+    assert response.execution.inference is not None
+    assert response.execution.inference.prediction.fields["customer_name"].value == (
+        "Jane Doe"
+    )
+    assert (
+        response.execution.inference.pages[0].prediction.fields["customer_name"].value
+        == "Jane Doe"
+    )
+    assert response.execution.reviewed_prediction is not None
+    assert response.execution.reviewed_prediction.fields["customer_name"].value == (
+        "Jane Doe"
     )
