@@ -18,7 +18,7 @@ class WorkflowEndpoint(BaseEndpoint):
         """
         Workflow Endpoint.
 
-        :param settings: Settings object.
+        :params settings: Settings object.
         """
         super().__init__(settings)
 
@@ -30,9 +30,9 @@ class WorkflowEndpoint(BaseEndpoint):
         """
         Sends the document to the workflow.
 
-        :param input_source: The document/source file to use.
+        :params input_source: The document/source file to use.
             Has to be created beforehand.
-        :param options: Options for the workflow.
+        :params options: Options for the workflow.
         :return:
         """
         data = {}

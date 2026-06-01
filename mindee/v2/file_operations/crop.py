@@ -15,8 +15,8 @@ def extract_single_crop(
     """
     Extracts a single crop as complete PDFs from the document.
 
-    :param input_source: Local Input Source to extract sub-receipts from.
-    :param crop: Crop to extract.
+    :params input_source: Local Input Source to extract sub-receipts from.
+    :params crop: Crop to extract.
     :return: ExtractedImage.
     """
 
@@ -28,8 +28,8 @@ def extract_crops(input_source: LocalInputSource, crops: List[CropBox]) -> CropF
     """
     Extracts individual receipts from multi-receipts documents.
 
-    :param input_source: Local Input Source to extract sub-receipts from.
-    :param crops: List of crops.
+    :params input_source: Local Input Source to extract sub-receipts from.
+    :params crops: List of crops.
     :return: Individual extracted receipts as an array of ExtractedImage.
     """
     images: List[ExtractedImage] = []

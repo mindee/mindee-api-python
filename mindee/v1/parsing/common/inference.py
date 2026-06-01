@@ -67,7 +67,7 @@ class Inference(Generic[TypePrediction, TypePage]):
 
         Should never retrieve info for CustomV1, as a custom endpoint should be created to use CustomV1.
 
-        :param klass: product subclass to access endpoint information.
+        :params klass: product subclass to access endpoint information.
         """
         if klass.endpoint_name and klass.endpoint_version:
             return {"name": klass.endpoint_name, "version": klass.endpoint_version}

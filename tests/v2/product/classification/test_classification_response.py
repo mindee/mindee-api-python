@@ -1,6 +1,6 @@
 import pytest
 
-from mindee import InferenceResponse
+from mindee import ExtractionResponse
 from mindee.v2.product.classification.classification_classifier import (
     ClassificationClassifier,
 )
@@ -41,7 +41,7 @@ def test_classification_with_extraction_result():
     )
     classification = response.inference.result.classification
     assert classification.document_type == "invoice"
-    assert isinstance(classification.extraction_response, InferenceResponse)
+    assert isinstance(classification.extraction_response, ExtractionResponse)
     assert (
         classification.extraction_response.inference.result.fields.get(
             "customer_name"

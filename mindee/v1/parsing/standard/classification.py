@@ -20,10 +20,10 @@ class ClassificationField(BaseField):
         """
         Text field object.
 
-        :param raw_prediction: Amount prediction object from HTTP response
-        :param value_key: Key to use in the amount_prediction dict
-        :param reconstructed: Bool for reconstructed object (not extracted in the API)
-        :param page_id: Page number for multi-page document
+        :params raw_prediction: Amount prediction object from HTTP response
+        :params value_key: Key to use in the amount_prediction dict
+        :params reconstructed: Bool for reconstructed object (not extracted in the API)
+        :params page_id: Page number for multi-page document
         """
         super().__init__(
             raw_prediction,

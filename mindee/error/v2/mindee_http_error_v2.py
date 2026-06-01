@@ -12,7 +12,7 @@ class MindeeHTTPErrorV2(RuntimeError, ErrorResponse):
         """
         Base exception for HTTP calls.
 
-        :param response:
+        :params response:
         """
         self.status = response.status
         self.title = response.title

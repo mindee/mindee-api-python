@@ -3,14 +3,14 @@ import os
 
 import pytest
 
-from mindee import InferenceParameters, InferenceResponse, LocalResponse
+from mindee import ExtractionParameters, ExtractionResponse, LocalResponse
 from mindee.v2.client import Client
 from mindee.error.mindee_error import MindeeApiV2Error, MindeeError
 from mindee.error.v2.mindee_http_error_v2 import MindeeHTTPErrorV2
 from mindee.input.sources.local_input_source import LocalInputSource
 from mindee.input.sources.path_input import PathInput
 from mindee.mindee_http.base_settings import USER_AGENT
-from mindee.v2.product.extraction.inference import Inference
+from mindee.v2.product.extraction.extraction_inference import ExtractionInference
 from mindee.v2.parsing.inference.job import Job
 from mindee.v2.parsing.inference.job_response import JobResponse
 from tests.utils import FILE_TYPES_DIR, V2_PRODUCT_DATA_DIR, V2_DATA_DIR, dummy_envvars
@@ -129,7 +129,7 @@ def test_enqueue_path_with_env_token(custom_base_url_client):
         f"{FILE_TYPES_DIR}/receipt.jpg"
     )
     with pytest.raises(MindeeHTTPErrorV2):
-        custom_base_url_client.enqueue(input_doc, InferenceParameters("dummy-model"))
+        custom_base_url_client.enqueue(input_doc, ExtractionParameters("dummy-model"))
 
 
 @pytest.mark.v2
@@ -139,9 +139,9 @@ def test_enqueue_and_parse_path_with_env_token(custom_base_url_client):
     )
     with pytest.raises(MindeeHTTPErrorV2):
         custom_base_url_client.enqueue_and_get_result(
-            InferenceResponse,
+            ExtractionResponse,
             input_doc,
-            InferenceParameters(
+            ExtractionParameters(
                 "dummy-model",
                 text_context="ignore this message",
                 data_schema=json.loads(
@@ -155,11 +155,11 @@ def test_enqueue_and_parse_path_with_env_token(custom_base_url_client):
         )
 
 
-def _assert_findoc_inference(response: InferenceResponse):
+def _assert_findoc_inference(response: ExtractionResponse):
     # There are already detailed tests of the inference object.
     # Here we are just testing whether the client can load OK.
-    assert isinstance(response, InferenceResponse)
-    assert isinstance(response.inference, Inference)
+    assert isinstance(response, ExtractionResponse)
+    assert isinstance(response.inference, ExtractionInference)
     assert response.inference.id
     assert response.inference.model.id
     assert len(response.inference.result.fields) > 1
@@ -170,7 +170,7 @@ def test_loads_from_prediction():
     input_inference = LocalResponse(
         V2_PRODUCT_DATA_DIR / "extraction" / "financial_document" / "complete.json"
     )
-    response = input_inference.deserialize_response(InferenceResponse)
+    response = input_inference.deserialize_response(ExtractionResponse)
     _assert_findoc_inference(response)
     with pytest.raises(MindeeError):
         input_inference.deserialize_response(JobResponse)
@@ -179,7 +179,7 @@ def test_loads_from_prediction():
 @pytest.mark.v2
 def test_get_inference(custom_base_url_client):
     response = custom_base_url_client.get_result(
-        InferenceResponse, "12345678-1234-1234-1234-123456789ABC"
+        ExtractionResponse, "12345678-1234-1234-1234-123456789ABC"
     )
     _assert_findoc_inference(response)
 
@@ -194,7 +194,7 @@ def test_error_handling(custom_base_url_client):
                 / "financial_document"
                 / "default_sample.jpg"
             ),
-            InferenceParameters("dummy-model"),
+            ExtractionParameters("dummy-model"),
         )
         assert e.status_code == -1
         assert e.detail == "forced failure from test"

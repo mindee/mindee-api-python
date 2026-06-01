@@ -30,16 +30,16 @@ class PaymentDetailsField(FieldPositionMixin, BaseField):
         """
         Payment details field object.
 
-        :param raw_prediction: Payment detail prediction object from HTTP response
-        :param value_key: Corresponds to iban
-        :param account_number_key: Key to use for getting the account number in the
+        :params raw_prediction: Payment detail prediction object from HTTP response
+        :params value_key: Corresponds to iban
+        :params account_number_key: Key to use for getting the account number in the
             payment_details_prediction dict
-        :param iban_key: Key to use for getting the IBAN in the payment_details_prediction dict
-        :param routing_number_key: Key to use for getting the Routing number in the
+        :params iban_key: Key to use for getting the IBAN in the payment_details_prediction dict
+        :params routing_number_key: Key to use for getting the Routing number in the
             payment_details_prediction dict
-        :param swift_key: Key to use for getting the SWIFT  in the payment_details_prediction dict
-        :param reconstructed: Bool for reconstructed object (not extracted in the API)
-        :param page_id: Page number for multi-page document
+        :params swift_key: Key to use for getting the SWIFT  in the payment_details_prediction dict
+        :params reconstructed: Bool for reconstructed object (not extracted in the API)
+        :params page_id: Page number for multi-page document
         """
         super().__init__(
             raw_prediction,

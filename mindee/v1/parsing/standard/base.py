@@ -60,10 +60,10 @@ class BaseField(FieldConfidenceMixin):
         """
         Base field object.
 
-        :param raw_prediction: Prediction object from HTTP response
-        :param value_key: Key to use in the abstract_prediction dict
-        :param reconstructed: Bool for reconstructed object (not extracted in the API)
-        :param page_id: Page number for multi-page PDF
+        :params raw_prediction: Prediction object from HTTP response
+        :params value_key: Key to use in the abstract_prediction dict
+        :params reconstructed: Bool for reconstructed object (not extracted in the API)
+        :params page_id: Page number for multi-page PDF
         """
         if page_id is None:
             try:
@@ -104,9 +104,9 @@ def compare_field_arrays(
     """
     Check that all elements are present in both arrays.
 
-    :param array1: Array of Fields
-    :param array2: Array of Fields
-    :param attr: Attribute to compare
+    :params array1: Array of Fields
+    :params array2: Array of Fields
+    :params attr: Attribute to compare
     :return: True if all elements in array1 exist in array2, False otherwise
     """
     set1 = {getattr(f1, attr) for f1 in array1}
@@ -118,7 +118,7 @@ def field_array_confidence(array: List[Type[BaseField]]) -> float:
     """
     Multiply all Field's confidence in the array.
 
-    :param array: Array of fields
+    :params array: Array of fields
     :return: Product as float
     """
     product: float = 1
@@ -134,7 +134,7 @@ def field_array_sum(array: List[Type[BaseField]]) -> float:
     """
     Add all the Field values in the array.
 
-    :param array: Array of fields
+    :params array: Array of fields
     :return: Sum as `float`.
     """
     arr_sum = 0

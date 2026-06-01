@@ -3,11 +3,11 @@ from dataclasses import dataclass
 from typing import Optional, Type, Union
 
 from mindee import (
-    InferenceResponse,
+    ExtractionResponse,
     CropResponse,
     SplitResponse,
     ClassificationResponse,
-    InferenceParameters,
+    ExtractionParameters,
     ClassificationParameters,
     CropParameters,
     SplitParameters,
@@ -37,8 +37,8 @@ PRODUCTS = {
         params_class=CropParameters,
     ),
     "extraction": ProductConfig(
-        response_class=InferenceResponse,
-        params_class=InferenceParameters,
+        response_class=ExtractionResponse,
+        params_class=ExtractionParameters,
     ),
     "split": ProductConfig(
         response_class=SplitResponse,

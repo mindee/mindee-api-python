@@ -1,6 +1,6 @@
 from typing import List, Optional
 
-from mindee.v2.product.extraction.inference_response import InferenceResponse
+from mindee.v2.product.extraction.extraction_response import ExtractionResponse
 from mindee.extraction.pdf_extractor.extracted_pdf import ExtractedPdf
 from mindee.input.sources.local_input_source import LocalInputSource
 from mindee.parsing.common import StringDict
@@ -19,14 +19,14 @@ class SplitRange:
     document_type: str
     """The document type, as identified on given classification values."""
 
-    extraction_response: Optional[InferenceResponse] = None
+    extraction_response: Optional[ExtractionResponse] = None
     """The extraction response associated with the split."""
 
     def __init__(self, server_response: StringDict):
         self.page_range = server_response["page_range"]
         self.document_type = server_response["document_type"]
         if server_response.get("extraction_response") is not None:
-            self.extraction_response = InferenceResponse(
+            self.extraction_response = ExtractionResponse(
                 server_response["extraction_response"]
             )
 
@@ -38,7 +38,7 @@ class SplitRange:
         """
         Apply the split range inference to a file and return a single extracted PDF.
 
-        :param input_source: Local file to apply the inference to
+        :params input_source: Local file to apply the inference to
         :return: Extracted PDF
         """
         return extract_single_split(input_source, self.page_range)

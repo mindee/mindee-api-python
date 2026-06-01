@@ -42,8 +42,8 @@ class CustomLine:
         """
         Updates a field value if it exists.
 
-        :param field_name: name of the field to update.
-        :param field_value: value of the field to set.
+        :params field_name: name of the field to update.
+        :params field_value: value of the field to set.
         """
         if field_name in self.fields:
             existing_field = self.fields[field_name]
@@ -74,9 +74,9 @@ def is_box_in_line(line: CustomLine, bbox: BBox, height_line_tolerance: float) -
     """
     Checks if the bbox fits inside the given line.
 
-    :param line: Line to check.
-    :param bbox: Bbox to check.
-    :param height_line_tolerance: line height tolerance for custom line reconstruction.
+    :params line: Line to check.
+    :params bbox: Bbox to check.
+    :params height_line_tolerance: line height tolerance for custom line reconstruction.
     """
     if abs(bbox.y_min - line.bbox.y_min) <= height_line_tolerance:
         return True
@@ -89,9 +89,9 @@ def prepare(
     """
     Prepares lines before filling them.
 
-    :param anchor_name: name of the anchor.
-    :param fields: fields to build lines from.
-    :param height_line_tolerance: line height tolerance for custom line reconstruction.
+    :params anchor_name: name of the anchor.
+    :params fields: fields to build lines from.
+    :params height_line_tolerance: line height tolerance for custom line reconstruction.
     """
     lines_prepared: List[CustomLine] = []
     try:

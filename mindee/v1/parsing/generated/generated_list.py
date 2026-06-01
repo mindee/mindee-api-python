@@ -48,7 +48,7 @@ class GeneratedListField:
         """
         Return a string representation of all values.
 
-        :param separator: Character(s) to use when concatenating fields.
+        :params separator: Character(s) to use when concatenating fields.
         """
         return separator.join(self.contents_list)
 

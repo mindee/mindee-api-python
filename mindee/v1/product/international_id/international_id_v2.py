@@ -24,7 +24,7 @@ class InternationalIdV2(Inference):
         """
         International ID v2 inference.
 
-        :param raw_prediction: Raw prediction from the HTTP response.
+        :params raw_prediction: Raw prediction from the HTTP response.
         """
         super().__init__(raw_prediction)
 

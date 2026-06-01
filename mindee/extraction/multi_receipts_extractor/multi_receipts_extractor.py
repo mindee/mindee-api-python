@@ -15,8 +15,8 @@ def extract_receipts(
     """
     Extracts individual receipts from multi-receipts documents.
 
-    :param input_source: Local Input Source to extract sub-receipts from.
-    :param inference: Results of the inference.
+    :params input_source: Local Input Source to extract sub-receipts from.
+    :params inference: Results of the inference.
     :return: Individual extracted receipts as an array of ExtractedMultiReceiptsImage.
     """
     images: List[ExtractedImage] = []
