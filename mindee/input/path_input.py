@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 from typing import Union
 
-from mindee.input.sources.local_input_source import LocalInputSource
+from mindee.input.local_input_source import LocalInputSource
 
 
 class PathInput(LocalInputSource):

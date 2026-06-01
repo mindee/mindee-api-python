@@ -9,8 +9,8 @@ from mindee import (
     CropParameters,
     CropResponse,
 )
-from mindee.v1.client import Client
-from mindee.input.sources.path_input import PathInput
+from mindee.v2.client import Client
+from mindee.input.path_input import PathInput
 from mindee.v2.file_operations.crop import extract_crops
 from tests.utils import OUTPUT_DIR, V2_PRODUCT_DATA_DIR, cleanup_output_files
 

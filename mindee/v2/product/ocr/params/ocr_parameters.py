@@ -1,4 +1,4 @@
-from mindee.v2.input.base_parameters import BaseParameters
+from mindee.v2.client_options.base_parameters import BaseParameters
 
 
 class OCRParameters(BaseParameters):

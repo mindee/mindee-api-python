@@ -8,7 +8,7 @@ import pypdfium2 as pdfium
 import pypdfium2.raw as pdfium_c
 from PIL import Image
 
-from mindee.image_operations.image_compressor import compress_image
+from mindee.image import compress_image
 from mindee.pdf.pdf_char_data import PDFCharData
 from mindee.pdf.pdf_utils import (
     extract_text_from_pdf,

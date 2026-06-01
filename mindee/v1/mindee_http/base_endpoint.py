@@ -1,6 +1,6 @@
 from abc import ABC
 
-from mindee.mindee_http.base_settings import BaseSettings
+from mindee.v1.mindee_http.base_settings import BaseSettings
 
 
 class BaseEndpoint(ABC):

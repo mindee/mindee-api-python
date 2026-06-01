@@ -1,3 +1,5 @@
-from mindee.parsing import common
+from mindee.parsing import (
+    common,
+)
 
 __all__ = ["common"]

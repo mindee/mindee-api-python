@@ -5,11 +5,12 @@ import pytest
 
 from mindee import ExtractionParameters, ExtractionResponse, LocalResponse
 from mindee.v2.client import Client
-from mindee.error.mindee_error import MindeeApiV2Error, MindeeError
-from mindee.error.v2.mindee_http_error_v2 import MindeeHTTPErrorV2
-from mindee.input.sources.local_input_source import LocalInputSource
-from mindee.input.sources.path_input import PathInput
-from mindee.mindee_http.base_settings import USER_AGENT
+from mindee.error.mindee_error import MindeeError
+from mindee.v2.error.mindee_api_v2_error import MindeeAPIV2Error
+from mindee.v2.error.mindee_http_error_v2 import MindeeHTTPErrorV2
+from mindee.input.local_input_source import LocalInputSource
+from mindee.input.path_input import PathInput
+from mindee.v1.mindee_http.base_settings import USER_AGENT
 from mindee.v2.product.extraction.extraction_inference import ExtractionInference
 from mindee.v2.parsing.inference.job import Job
 from mindee.v2.parsing.inference.job_response import JobResponse
@@ -86,19 +87,19 @@ def custom_base_url_client(monkeypatch) -> Client:
         return _FakeOkGetInferenceResp()
 
     monkeypatch.setattr(
-        "mindee.mindee_http.mindee_api_v2.MindeeApiV2.req_post_inference_enqueue",
+        "mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.req_post_inference_enqueue",
         _fake_error_post_inference_enqueue,
         raising=True,
     )
 
     monkeypatch.setattr(
-        "mindee.mindee_http.mindee_api_v2.MindeeApiV2.req_get_job",
+        "mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.req_get_job",
         _fake_ok_get_job,
         raising=True,
     )
 
     monkeypatch.setattr(
-        "mindee.mindee_http.mindee_api_v2.MindeeApiV2.req_get_inference",
+        "mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.req_get_inference",
         _fake_ok_get_inference,
         raising=True,
     )
@@ -114,7 +115,7 @@ def env_no_key(monkeypatch):
 
 @pytest.mark.v2
 def test_parse_path_without_token(env_no_key):
-    with pytest.raises(MindeeApiV2Error):
+    with pytest.raises(MindeeAPIV2Error):
         Client()
 
 

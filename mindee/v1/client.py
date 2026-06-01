@@ -4,22 +4,22 @@ from typing import Dict, Optional, Type, Union
 from mindee.client_mixin import ClientMixin
 from mindee.error.mindee_error import MindeeClientError, MindeeError
 from mindee.error.mindee_http_error import handle_error
-from mindee.input import WorkflowOptions
 from mindee.input.local_response import LocalResponse
 from mindee.input.page_options import PageOptions
-from mindee.input.predict_options import AsyncPredictOptions, PredictOptions
-from mindee.input.sources.local_input_source import LocalInputSource
-from mindee.input.sources.url_input_source import UrlInputSource
+from mindee.v1.client_options.predict_options import AsyncPredictOptions, PredictOptions
+from mindee.input.local_input_source import LocalInputSource
+from mindee.input.url_input_source import URLInputSource
 from mindee.logger import logger
-from mindee.mindee_http.endpoint import CustomEndpoint, Endpoint
-from mindee.mindee_http.mindee_api import MindeeApi
+from mindee.v1.mindee_http.endpoint import CustomEndpoint, Endpoint
+from mindee.v1.mindee_http.mindee_api import MindeeAPI
 from mindee.mindee_http.response_validation import (
     clean_request_json,
     is_valid_async_response,
     is_valid_sync_response,
 )
-from mindee.mindee_http.workflow_endpoint import WorkflowEndpoint
-from mindee.mindee_http.workflow_settings import WorkflowSettings
+from mindee.v1.mindee_http.workflow_endpoint import WorkflowEndpoint
+from mindee.v1.mindee_http.workflow_settings import WorkflowSettings
+from mindee.v1.client_options.workflow_options import WorkflowOptions
 from mindee.v1.parsing.common.async_predict_response import AsyncPredictResponse
 from mindee.v1.parsing.common.feedback_response import FeedbackResponse
 from mindee.v1.parsing.common.inference import Inference
@@ -71,7 +71,7 @@ class Client(ClientMixin):
     def parse(
         self,
         product_class: Type[Inference],
-        input_source: Union[LocalInputSource, UrlInputSource],
+        input_source: Union[LocalInputSource, URLInputSource],
         include_words: bool = False,
         close_file: bool = True,
         page_options: Optional[PageOptions] = None,
@@ -132,7 +132,7 @@ class Client(ClientMixin):
     def enqueue(
         self,
         product_class: Type[Inference],
-        input_source: Union[LocalInputSource, UrlInputSource],
+        input_source: Union[LocalInputSource, URLInputSource],
         include_words: bool = False,
         close_file: bool = True,
         page_options: Optional[PageOptions] = None,
@@ -239,7 +239,7 @@ class Client(ClientMixin):
 
     def execute_workflow(
         self,
-        input_source: Union[LocalInputSource, UrlInputSource],
+        input_source: Union[LocalInputSource, URLInputSource],
         workflow_id: str,
         options: Optional[WorkflowOptions] = None,
         page_options: Optional[PageOptions] = None,
@@ -274,7 +274,7 @@ class Client(ClientMixin):
     def enqueue_and_parse(  # pylint: disable=too-many-locals
         self,
         product_class: Type[Inference],
-        input_source: Union[LocalInputSource, UrlInputSource],
+        input_source: Union[LocalInputSource, URLInputSource],
         include_words: bool = False,
         close_file: bool = True,
         page_options: Optional[PageOptions] = None,
@@ -403,7 +403,7 @@ class Client(ClientMixin):
     def _make_request(
         self,
         product_class: Type[Inference],
-        input_source: Union[LocalInputSource, UrlInputSource],
+        input_source: Union[LocalInputSource, URLInputSource],
         endpoint: Endpoint,
         options: PredictOptions,
         close_file: bool,
@@ -428,7 +428,7 @@ class Client(ClientMixin):
     def _predict_async(
         self,
         product_class: Type[Inference],
-        input_source: Union[LocalInputSource, UrlInputSource],
+        input_source: Union[LocalInputSource, URLInputSource],
         options: AsyncPredictOptions,
         endpoint: Optional[Endpoint] = None,
         close_file: bool = True,
@@ -483,7 +483,7 @@ class Client(ClientMixin):
     def _send_to_workflow(
         self,
         product_class: Type[Inference],
-        input_source: Union[LocalInputSource, UrlInputSource],
+        input_source: Union[LocalInputSource, URLInputSource],
         workflow_id: str,
         options: WorkflowOptions,
     ) -> WorkflowResponse:
@@ -529,7 +529,7 @@ class Client(ClientMixin):
     def _build_endpoint(
         self, endpoint_name: str, account_name: str, version: str
     ) -> Endpoint:
-        api_settings = MindeeApi(
+        api_settings = MindeeAPI(
             api_key=self.api_key,
             endpoint_name=endpoint_name,
             account_name=account_name,

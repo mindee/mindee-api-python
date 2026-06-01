@@ -2,11 +2,11 @@ from pathlib import Path
 from typing import BinaryIO, Union
 
 from mindee.error import MindeeClientError
-from mindee.input.sources.base_64_input import Base64Input
-from mindee.input.sources.bytes_input import BytesInput
-from mindee.input.sources.file_input import FileInput
-from mindee.input.sources.path_input import PathInput
-from mindee.input.sources.url_input_source import UrlInputSource
+from mindee.input.base_64_input import Base64Input
+from mindee.input.bytes_input import BytesInput
+from mindee.input.file_input import FileInput
+from mindee.input.path_input import PathInput
+from mindee.input.url_input_source import URLInputSource
 
 
 class ClientMixin:
@@ -97,12 +97,12 @@ class ClientMixin:
     @staticmethod
     def source_from_url(
         url: str,
-    ) -> UrlInputSource:
+    ) -> URLInputSource:
         """
         Load a document from a URL.
 
         :params url: Raw byte input
         """
-        return UrlInputSource(
+        return URLInputSource(
             url,
         )

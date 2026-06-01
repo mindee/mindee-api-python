@@ -3,7 +3,7 @@
 # pip install mindee
 #
 
-from mindee import Client, product, AsyncPredictResponse
+from mindee.v1 import Client, product, AsyncPredictResponse
 
 # Init a new client
 mindee_client = Client(api_key="my-api-key")

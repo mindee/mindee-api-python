@@ -4,7 +4,7 @@ from typing import BinaryIO, Union
 import pypdfium2 as pdfium
 
 from mindee.error.mindee_error import MindeeError
-from mindee.input.sources.bytes_input import BytesInput
+from mindee.input.bytes_input import BytesInput
 
 
 class ExtractedPdf:

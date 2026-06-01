@@ -1,16 +1,17 @@
+from mindee.client_options.polling_options import PollingOptions
+from mindee.input import PageOptions
 from mindee.v1 import product
-from mindee.input import LocalResponse, PageOptions, PollingOptions
 from mindee.v2.parsing.inference.job_response import JobResponse
 from mindee.v2.product.extraction.params.extraction_parameters import (
     ExtractionParameters,
 )
-from mindee.input.sources import (
-    Base64Input,
-    BytesInput,
-    FileInput,
-    PathInput,
-    UrlInputSource,
-)
+from mindee.input.base_64_input import Base64Input
+from mindee.input.bytes_input import BytesInput
+from mindee.input.file_input import FileInput
+from mindee.input.path_input import PathInput
+from mindee.input.url_input_source import URLInputSource
+from mindee.input.local_response import LocalResponse
+from mindee.input.local_input_source import LocalInputSource
 from mindee.v2.product.classification.params.classification_parameters import (
     ClassificationParameters,
 )
@@ -39,6 +40,7 @@ __all__ = [
     "ExtractionResult",
     "JobResponse",
     "LocalResponse",
+    "LocalInputSource",
     "OCRParameters",
     "OCRResponse",
     "PageOptions",
@@ -46,6 +48,6 @@ __all__ = [
     "PollingOptions",
     "SplitParameters",
     "SplitResponse",
-    "UrlInputSource",
+    "URLInputSource",
     "product",
 ]

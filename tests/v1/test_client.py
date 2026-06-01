@@ -12,7 +12,7 @@ from mindee.v1 import (
 from mindee.error.mindee_error import MindeeClientError, MindeeError
 from mindee.error.mindee_http_error import MindeeHTTPError
 from mindee.input.local_response import LocalResponse
-from mindee.input.sources.local_input_source import LocalInputSource
+from mindee.input.local_input_source import LocalInputSource
 from mindee.v1.product import MultiReceiptsDetectorV1
 from mindee.v1.product.international_id import InternationalIdV2
 from mindee.v1.product.invoice.invoice_v4 import InvoiceV4

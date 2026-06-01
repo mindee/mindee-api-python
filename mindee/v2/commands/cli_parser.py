@@ -12,10 +12,10 @@ from mindee import (
     CropParameters,
     SplitParameters,
 )
+from mindee.input import PathInput, URLInputSource
 from mindee.v2.client import Client
 
-from mindee.input.sources import PathInput, UrlInputSource
-from mindee.v2.input.base_parameters import BaseParameters
+from mindee.v2.client_options.base_parameters import BaseParameters
 from mindee.v2.parsing.inference.base_response import BaseResponse
 
 
@@ -83,7 +83,7 @@ class MindeeParser:
     """Stores attributes relating to parsing."""
     client: Client
     """Mindee client"""
-    input_source: Union[PathInput, UrlInputSource]
+    input_source: Union[PathInput, URLInputSource]
     """Document to be parsed."""
 
     def __init__(
@@ -130,9 +130,9 @@ class MindeeParser:
         parsed_args = self.parser.parse_args()
         return parsed_args
 
-    def _get_input_source(self) -> Union[PathInput, UrlInputSource]:
+    def _get_input_source(self) -> Union[PathInput, URLInputSource]:
         """Loads an input document."""
 
         if self.parsed_args.path.lower().startswith("http"):
-            return UrlInputSource(self.parsed_args.path)
+            return URLInputSource(self.parsed_args.path)
         return PathInput(self.parsed_args.path)

@@ -1,13 +1,12 @@
 from mindee.input.local_response import LocalResponse
 from mindee.input.page_options import PageOptions
-from mindee.input.polling_options import PollingOptions
-from mindee.input.sources.base_64_input import Base64Input
-from mindee.input.sources.bytes_input import BytesInput
-from mindee.input.sources.file_input import FileInput
-from mindee.input.sources.local_input_source import LocalInputSource
-from mindee.input.sources.path_input import PathInput
-from mindee.input.sources.url_input_source import UrlInputSource
-from mindee.v1.input.workflow_options import WorkflowOptions
+from mindee.client_options.polling_options import PollingOptions
+from mindee.input.base_64_input import Base64Input
+from mindee.input.bytes_input import BytesInput
+from mindee.input.file_input import FileInput
+from mindee.input.local_input_source import LocalInputSource
+from mindee.input.path_input import PathInput
+from mindee.input.url_input_source import URLInputSource
 
 __all__ = [
     "Base64Input",
@@ -18,6 +17,5 @@ __all__ = [
     "PageOptions",
     "PathInput",
     "PollingOptions",
-    "UrlInputSource",
-    "WorkflowOptions",
+    "URLInputSource",
 ]

@@ -2,8 +2,8 @@ import os
 
 import pytest
 
-from mindee.v1.client import Client
-from mindee.input.sources.path_input import PathInput
+from mindee.v2.client import Client
+from mindee.input.path_input import PathInput
 from mindee.v2 import CropParameters, CropResponse
 from tests.utils import V2_PRODUCT_DATA_DIR
 

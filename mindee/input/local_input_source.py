@@ -7,7 +7,7 @@ import pypdfium2 as pdfium
 
 from mindee.error.mimetype_error import MimeTypeError
 from mindee.error.mindee_error import MindeeError, MindeeSourceError
-from mindee.image_operations.image_compressor import compress_image
+from mindee.image import compress_image
 from mindee.input.page_options import KEEP_ONLY, REMOVE, PageOptions
 from mindee.logger import logger
 from mindee.pdf.pdf_compressor import compress_pdf
