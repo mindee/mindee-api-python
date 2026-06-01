@@ -22,7 +22,7 @@ class GeneratedV1Page(GeneratedV1Prediction):
         """
         Generated document object.
 
-        :param raw_prediction: Dictionary containing the JSON document response
+        :params raw_prediction: Dictionary containing the JSON document response
         """
         super().__init__(raw_prediction)
         for field_name, field_contents in raw_prediction.items():

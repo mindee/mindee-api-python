@@ -13,7 +13,7 @@ class FileInput(LocalInputSource):
 
         Note: the calling function is responsible for closing the file.
 
-        :param file: FileIO object
+        :params file: FileIO object
         """
         assert file.name, "File name must be set"
 

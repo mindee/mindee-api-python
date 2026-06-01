@@ -39,7 +39,7 @@ class Extras:
         """
         Adds artificial extra data for reconstructed extras. Currently only used for full_text_ocr.
 
-        :param raw_prediction: Raw prediction used by the document.
+        :params raw_prediction: Raw prediction used by the document.
         """
         if "full_text_ocr" in raw_prediction and raw_prediction["full_text_ocr"]:
             self.full_text_ocr = FullTextOcrExtra(raw_prediction["full_text_ocr"])

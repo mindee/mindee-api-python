@@ -13,10 +13,10 @@ def compress_image(
     """
     Compresses an image with the given parameters.
 
-    :param image_buffer: Buffer representation of an image, also accepts BinaryIO.
-    :param quality: Quality to apply to the image (JPEG compression).
-    :param max_width: Maximum bound for the width.
-    :param max_height: Maximum bound for the height.
+    :params image_buffer: Buffer representation of an image, also accepts BinaryIO.
+    :params quality: Quality to apply to the image (JPEG compression).
+    :params max_width: Maximum bound for the width.
+    :params max_height: Maximum bound for the height.
     :return:
     """
     if isinstance(image_buffer, bytes):

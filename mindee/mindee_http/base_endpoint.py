@@ -10,6 +10,6 @@ class BaseEndpoint(ABC):
         """
         Base API endpoint class for all endpoints.
 
-        :param settings: Settings relating to all endpoints.
+        :params settings: Settings relating to all endpoints.
         """
         self.settings = settings

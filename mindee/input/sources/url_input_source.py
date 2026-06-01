@@ -23,7 +23,7 @@ class UrlInputSource:
         """
         Input document from a base64 encoded string.
 
-        :param url: URL to send, must be HTTPS.
+        :params url: URL to send, must be HTTPS.
         """
         if not url.lower().startswith("https"):
             raise MindeeSourceError("URL must be HTTPS")
@@ -43,11 +43,11 @@ class UrlInputSource:
         """
         Fetch the content of the file from the URL.
 
-        :param username: Optional username for authentication.
-        :param password: Optional password for authentication.
-        :param token: Optional token for authentication.
-        :param headers: Optional additional headers for the request.
-        :param max_redirects: Maximum number of redirects to follow.
+        :params username: Optional username for authentication.
+        :params password: Optional password for authentication.
+        :params token: Optional token for authentication.
+        :params headers: Optional additional headers for the request.
+        :params max_redirects: Maximum number of redirects to follow.
         :return: The content of the file as bytes.
         """
         if not headers:
@@ -75,13 +75,13 @@ class UrlInputSource:
         """
         Save the content of the URL to a file.
 
-        :param filepath: Path to save the content to.
-        :param filename: Optional filename to give to the file.
-        :param username: Optional username for authentication.
-        :param password: Optional password for authentication.
-        :param token: Optional token for authentication.
-        :param headers: Optional additional headers for the request.
-        :param max_redirects: Maximum number of redirects to follow.
+        :params filepath: Path to save the content to.
+        :params filename: Optional filename to give to the file.
+        :params username: Optional username for authentication.
+        :params password: Optional password for authentication.
+        :params token: Optional token for authentication.
+        :params headers: Optional additional headers for the request.
+        :params max_redirects: Maximum number of redirects to follow.
         :return: The path to the saved file.
         """
         response = self.__fetch_file_content(
@@ -105,12 +105,12 @@ class UrlInputSource:
         """
         Convert the URL content to a BytesInput object.
 
-        :param filename: Optional filename for the BytesInput.
-        :param username: Optional username for authentication.
-        :param password: Optional password for authentication.
-        :param token: Optional token for authentication.
-        :param headers: Optional additional headers for the request.
-        :param max_redirects: Maximum number of redirects to follow.
+        :params filename: Optional filename for the BytesInput.
+        :params username: Optional username for authentication.
+        :params password: Optional password for authentication.
+        :params token: Optional token for authentication.
+        :params headers: Optional additional headers for the request.
+        :params max_redirects: Maximum number of redirects to follow.
         :return: A BytesInput object containing the file content.
         """
         response = self.__fetch_file_content(
@@ -125,7 +125,7 @@ class UrlInputSource:
         """
         Extract the filename from a given URL.
 
-        :param uri: The URL to extract the filename from.
+        :params uri: The URL to extract the filename from.
         :return: The extracted filename or an empty string if not found.
         """
         filename = os.path.basename(urlparse(uri).path)
@@ -136,7 +136,7 @@ class UrlInputSource:
         """
         Generate a unique filename with a timestamp and random string.
 
-        :param extension: The file extension to use (default is '.tmp').
+        :params extension: The file extension to use (default is '.tmp').
         :return: A generated filename.
         """
         random_string = "".join(
@@ -150,7 +150,7 @@ class UrlInputSource:
         """
         Get the extension from a filename.
 
-        :param filename: The filename to extract the extension from.
+        :params filename: The filename to extract the extension from.
         :return: The lowercase file extension or None if not found.
         """
         ext = os.path.splitext(filename)[1]
@@ -160,7 +160,7 @@ class UrlInputSource:
         """
         Fill in a filename if not provided or incomplete.
 
-        :param filename: Optional filename to use.
+        :params filename: Optional filename to use.
         :return: A complete filename.
         """
         if filename is None:
@@ -178,11 +178,11 @@ class UrlInputSource:
         """
         Makes an HTTP request to the given URL, while following redirections.
 
-        :param url: The URL to request.
-        :param auth: Authentication tuple (username, password).
-        :param headers: Headers for the request.
-        :param redirects: Current number of redirects.
-        :param max_redirects: Maximum number of redirects to follow.
+        :params url: The URL to request.
+        :params auth: Authentication tuple (username, password).
+        :params headers: Headers for the request.
+        :params redirects: Current number of redirects.
+        :params max_redirects: Maximum number of redirects to follow.
         :return: The content of the response.
         :raises MindeeSourceError: If max redirects are exceeded or the request fails.
         """

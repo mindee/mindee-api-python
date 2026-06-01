@@ -30,10 +30,10 @@ class TaxField(FieldPositionMixin, BaseField):
         """
         Tax field object.
 
-        :param raw_prediction: Tax prediction object from HTTP response
-        :param value_key: Key to use in the tax_prediction dict
-        :param reconstructed: Bool for reconstructed object (not extracted in the API)
-        :param page_id: Page number for multi pages document
+        :params raw_prediction: Tax prediction object from HTTP response
+        :params value_key: Key to use in the tax_prediction dict
+        :params reconstructed: Bool for reconstructed object (not extracted in the API)
+        :params page_id: Page number for multi pages document
         """
         super().__init__(
             raw_prediction,

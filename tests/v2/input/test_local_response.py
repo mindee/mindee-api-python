@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pytest
 
-from mindee import InferenceResponse
+from mindee import ExtractionResponse
 from mindee.input import LocalResponse
 from tests.utils import V2_PRODUCT_DATA_DIR
 
@@ -22,8 +22,10 @@ def _assert_local_response(local_response):
     )
     assert signature == local_response.get_hmac_signature(fake_hmac_signing)
     assert local_response.is_valid_hmac_signature(fake_hmac_signing, signature)
-    reponse: InferenceResponse = local_response.deserialize_response(InferenceResponse)
-    assert isinstance(reponse, InferenceResponse)
+    reponse: ExtractionResponse = local_response.deserialize_response(
+        ExtractionResponse
+    )
+    assert isinstance(reponse, ExtractionResponse)
     assert reponse.inference is not None
     assert reponse.inference.result is not None
     assert reponse.inference.result.fields is not None

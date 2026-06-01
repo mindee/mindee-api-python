@@ -11,8 +11,8 @@ class CropFiles(List[ExtractedImage]):
         """
         Save all extracted crops to disk.
 
-        :param path: Path to save the extracted splits to.
-        :param prefix: Prefix to add to the filename, defaults to 'crop'.
+        :params path: Path to save the extracted splits to.
+        :params prefix: Prefix to add to the filename, defaults to 'crop'.
         """
         if isinstance(path, str):
             path = Path(path)

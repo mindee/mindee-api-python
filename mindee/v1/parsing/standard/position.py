@@ -31,10 +31,10 @@ class PositionField(BaseField):
         """
         Position field object.
 
-        :param raw_prediction: Position prediction object from HTTP response
-        :param value_key: Key to use in the position_prediction dict
-        :param reconstructed: Bool for reconstructed object (not extracted in the API)
-        :param page_id: Page number for multi-page document
+        :params raw_prediction: Position prediction object from HTTP response
+        :params value_key: Key to use in the position_prediction dict
+        :params reconstructed: Bool for reconstructed object (not extracted in the API)
+        :params page_id: Page number for multi-page document
         """
         super().__init__(
             raw_prediction,

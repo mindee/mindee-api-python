@@ -19,8 +19,8 @@ class ClientMixin:
         """
         Load a document from a path, as a string or a `Path` object.
 
-        :param input_path: Path of file to open
-        :param fix_pdf: Whether to attempt fixing PDF files before sending.
+        :params input_path: Path of file to open
+        :params fix_pdf: Whether to attempt fixing PDF files before sending.
             Setting this to `True` can modify the data sent to Mindee.
         """
         input_doc = PathInput(input_path)
@@ -33,8 +33,8 @@ class ClientMixin:
         """
         Load a document from a normal Python file object/handle.
 
-        :param input_file: Input file handle
-        :param fix_pdf: Whether to attempt fixing PDF files before sending.
+        :params input_file: Input file handle
+        :params fix_pdf: Whether to attempt fixing PDF files before sending.
             Setting this to `True` can modify the data sent to Mindee.
         """
         input_doc = FileInput(input_file)
@@ -49,9 +49,9 @@ class ClientMixin:
         """
         Load a document from a base64 encoded string.
 
-        :param input_string: Input to parse as base64 string
-        :param filename: The name of the file (without the path)
-        :param fix_pdf: Whether to attempt fixing PDF files before sending.
+        :params input_string: Input to parse as base64 string
+        :params filename: The name of the file (without the path)
+        :params fix_pdf: Whether to attempt fixing PDF files before sending.
             Setting this to `True` can modify the data sent to Mindee.
         """
         input_doc = Base64Input(input_string, filename)
@@ -66,9 +66,9 @@ class ClientMixin:
         """
         Load a document from raw bytes.
 
-        :param input_bytes: Raw byte input
-        :param filename: The name of the file (without the path)
-        :param fix_pdf: Whether to attempt fixing PDF files before sending.
+        :params input_bytes: Raw byte input
+        :params filename: The name of the file (without the path)
+        :params fix_pdf: Whether to attempt fixing PDF files before sending.
             Setting this to `True` can modify the data sent to Mindee.
         """
         input_doc = BytesInput(input_bytes, filename)
@@ -101,7 +101,7 @@ class ClientMixin:
         """
         Load a document from a URL.
 
-        :param url: Raw byte input
+        :params url: Raw byte input
         """
         return UrlInputSource(
             url,

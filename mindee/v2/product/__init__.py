@@ -1,4 +1,4 @@
-from mindee.v2.product.classification.param.classification_parameters import (
+from mindee.v2.product.classification.params.classification_parameters import (
     ClassificationParameters,
 )
 from mindee.v2.product.classification.classification_response import (

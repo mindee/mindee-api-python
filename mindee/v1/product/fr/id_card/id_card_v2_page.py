@@ -24,8 +24,8 @@ class IdCardV2Page(IdCardV2Document):
         """
         Carte Nationale d'Identité page.
 
-        :param raw_prediction: Raw prediction from HTTP response
-        :param page_id: Page number for multi pages pdf input
+        :params raw_prediction: Raw prediction from HTTP response
+        :params page_id: Page number for multi pages pdf input
         """
         super().__init__(raw_prediction=raw_prediction, page_id=page_id)
         self.document_side = ClassificationField(

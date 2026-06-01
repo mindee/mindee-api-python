@@ -12,7 +12,7 @@ class PathInput(LocalInputSource):
         """
         Input document from a path.
 
-        :param filepath: Path to open
+        :params filepath: Path to open
         """
         self.file_object = open(filepath, "rb")  # pylint: disable=consider-using-with
         self.filename = os.path.basename(filepath)

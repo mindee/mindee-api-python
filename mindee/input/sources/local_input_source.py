@@ -67,7 +67,7 @@ class LocalInputSource:
         or until the maximum offset has been reached.
         If a tag denoting a PDF file is found, deletes all bytes before it.
 
-        :param maximum_offset: maximum byte offset where superfluous headers will be removed.
+        :params maximum_offset: maximum byte offset where superfluous headers will be removed.
             Cannot be less than 0.
         """
         if maximum_offset < 0:
@@ -172,7 +172,7 @@ class LocalInputSource:
         """
         Create a new PDF from pages and set it to ``file_object``.
 
-        :param page_numbers: List of page numbers to use for merging in the original PDF.
+        :params page_numbers: List of page numbers to use for merging in the original PDF.
         :return: None
         """
         self.file_object.seek(0)
@@ -202,7 +202,7 @@ class LocalInputSource:
         """
         Read the contents of the input file.
 
-        :param close_file: whether to close the file after reading
+        :params close_file: whether to close the file after reading
         :return: a Tuple with the file name and binary data
         """
         logger.debug("Reading data from: %s", self.filename)
@@ -239,12 +239,12 @@ class LocalInputSource:
         """
         Compresses the file object, either as a PDF or an image.
 
-        :param quality: Quality of the compression. For images, this is the JPEG quality.
+        :params quality: Quality of the compression. For images, this is the JPEG quality.
             For PDFs, this affects image quality within the PDF.
-        :param max_width: Maximum width for image resizing. Ignored for PDFs.
-        :param max_height: Maximum height for image resizing. Ignored for PDFs.
-        :param force_source_text: For PDFs, whether to force compression even if source text is present.
-        :param disable_source_text: For PDFs, whether to disable source text during compression.
+        :params max_width: Maximum width for image resizing. Ignored for PDFs.
+        :params max_height: Maximum height for image resizing. Ignored for PDFs.
+        :params force_source_text: For PDFs, whether to force compression even if source text is present.
+        :params disable_source_text: For PDFs, whether to disable source text during compression.
         """
         new_file_bytes: bytes
         if self.is_pdf():

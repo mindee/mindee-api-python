@@ -4,8 +4,8 @@ from os import getenv
 import pytest
 
 from mindee import (
-    InferenceParameters,
-    InferenceResponse,
+    ExtractionParameters,
+    ExtractionResponse,
     CropParameters,
     CropResponse,
 )
@@ -20,7 +20,7 @@ def crop_sample():
     return V2_PRODUCT_DATA_DIR / "crop" / "default_sample.jpg"
 
 
-def check_findoc_return(findoc_response: InferenceResponse):
+def check_findoc_return(findoc_response: ExtractionResponse):
     assert len(findoc_response.inference.model.id) > 0
     assert findoc_response.inference.result.fields.get("total_amount").value > 0
 
@@ -43,9 +43,9 @@ def test_image_should_extract_crops():
     assert extracted_images[1].filename == "default_sample.jpg_page1-1.jpg"
 
     invoice_0 = client.enqueue_and_get_result(
-        InferenceResponse,
+        ExtractionResponse,
         extracted_images[0].as_input_source(),
-        InferenceParameters(
+        ExtractionParameters(
             getenv("MINDEE_V2_SE_TESTS_FINDOC_MODEL_ID"), close_file=False
         ),
     )

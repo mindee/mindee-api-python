@@ -26,8 +26,8 @@ class AsyncPredictResponse(Generic[TypeInference], ApiResponse):
         Inherits and instantiates a normal PredictResponse if the product of
         the current queue is both requested and done.
 
-        :param inference_type: Type of the inference.
-        :param raw_response: json response from HTTP call.
+        :params inference_type: Type of the inference.
+        :params raw_response: json response from HTTP call.
         """
         super().__init__(raw_response)
         self.job = Job(raw_response["job"])

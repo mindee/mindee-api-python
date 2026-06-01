@@ -35,7 +35,8 @@ class ExtractedPdf:
         """
         Writes the contents of the current PDF object to a file.
 
-        :param output_path: Path of the destination file. If not extension is provided, pdf will be appended by default.
+        :params output_path: Path of the destination file. If
+         not extension is provided, pdf will be appended by default.
         """
         out_path = Path(output_path)
         if out_path.resolve().is_dir():

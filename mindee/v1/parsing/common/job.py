@@ -29,7 +29,7 @@ class Job:
         """
         Wrapper for the HTTP response sent from the API when a document is enqueued.
 
-        :param json_response: JSON response sent by the server
+        :params json_response: JSON response sent by the server
         """
         self.issued_at = datetime.fromisoformat(json_response["issued_at"])
         if json_response.get("available_at"):

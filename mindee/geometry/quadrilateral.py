@@ -28,7 +28,7 @@ def quadrilateral_from_prediction(prediction: Sequence[list]) -> Quadrilateral:
     """
     Transform a prediction into a Quadrilateral.
 
-    :param prediction: API prediction.
+    :params prediction: API prediction.
     """
     if len(prediction) != 4:
         raise GeometryError("Prediction must have exactly 4 points")
@@ -44,7 +44,7 @@ def get_bounding_box(points: Points) -> Quadrilateral:
     """
     Given a sequence of points, calculate a bounding box that encompasses all points.
 
-    :param points: Polygon to process.
+    :params points: Polygon to process.
     :return: A bounding box that encompasses all points.
     """
     x_min, y_min, x_max, y_max = get_bbox(points)

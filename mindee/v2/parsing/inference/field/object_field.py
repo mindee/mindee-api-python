@@ -88,7 +88,7 @@ class ObjectField(BaseField):
         """
         Retrieves a SimpleField from the provided field name.
 
-        :param field_name: The name of the field to retrieve.
+        :params field_name: The name of the field to retrieve.
         :type field_name: str
         :return: The SimpleField object corresponding to the given field name.
         :raises ValueError: If the specified field is not of type SimpleField.
@@ -101,7 +101,7 @@ class ObjectField(BaseField):
         """
         Retrieves the ``ListField`` for the specified field name.
 
-        :param field_name: The name of the field to retrieve.
+        :params field_name: The name of the field to retrieve.
         :type field_name: str
         :return: The corresponding ``ListField`` for the given field name.
         :raises ValueError: If the field is not of type ``ListField``.
@@ -114,7 +114,7 @@ class ObjectField(BaseField):
         """
         Retrieves the `ObjectField` associated with the specified field name.
 
-        :param field_name: The name of the field to retrieve.
+        :params field_name: The name of the field to retrieve.
         :type field_name: str
         :return: The `ObjectField` associated with the given field name.
         :raises ValueError: If the field specified by `field_name` is not an `ObjectField`.

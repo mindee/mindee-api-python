@@ -29,9 +29,9 @@ class DateField(FieldPositionMixin, BaseField):
         """
         Date field object.
 
-        :param raw_prediction: Date prediction object from HTTP response
-        :param reconstructed: Bool for reconstructed object (not extracted in the API)
-        :param page_id: Page number for multi-page document
+        :params raw_prediction: Date prediction object from HTTP response
+        :params reconstructed: Bool for reconstructed object (not extracted in the API)
+        :params page_id: Page number for multi-page document
         """
         super().__init__(
             raw_prediction,
