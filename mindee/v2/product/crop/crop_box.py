@@ -1,6 +1,7 @@
 from typing import Optional
 
-from mindee.extraction import ExtractedImage, extract_multiple_images_from_source
+from mindee.image.extracted_image import ExtractedImage
+from mindee.image.image_extractor import extract_multiple_images_from_source
 from mindee.input.local_input_source import LocalInputSource
 from mindee.parsing.common import StringDict
 from mindee.v2.parsing.inference.field import FieldLocation

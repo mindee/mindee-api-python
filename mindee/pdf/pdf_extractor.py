@@ -6,7 +6,7 @@ import pypdfium2 as pdfium
 from PIL import Image
 
 from mindee.error.mindee_error import MindeeError
-from mindee.extraction.pdf_extractor.extracted_pdf import ExtractedPdf
+from mindee.pdf.extracted_pdf import ExtractedPdf
 from mindee.input.local_input_source import LocalInputSource
 from mindee.v1.product.invoice_splitter import InvoiceSplitterV1InvoicePageGroup
 
