@@ -3,8 +3,8 @@
 # pip install mindee
 #
 
-from mindee import Client, WorkflowResponse
-from mindee.parsing.common import ExecutionPriority
+from mindee.v1 import Client, WorkflowResponse
+from mindee.v1.parsing.common import ExecutionPriority
 
 # Init a new client
 mindee_client = Client(api_key="my-api-key")

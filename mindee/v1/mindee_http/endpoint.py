@@ -4,20 +4,20 @@ from typing import Optional, Union
 import requests
 from requests import Response
 
-from mindee.input.sources.local_input_source import LocalInputSource
-from mindee.input.sources.url_input_source import UrlInputSource
-from mindee.mindee_http.base_endpoint import BaseEndpoint
-from mindee.mindee_http.mindee_api import MindeeApi
+from mindee.input.local_input_source import LocalInputSource
+from mindee.input.url_input_source import URLInputSource
+from mindee.v1.mindee_http.base_endpoint import BaseEndpoint
+from mindee.v1.mindee_http.mindee_api import MindeeAPI
 from mindee.parsing.common import StringDict
 
 
 class Endpoint(BaseEndpoint):
     """Generic API endpoint for a product."""
 
-    settings: MindeeApi
+    settings: MindeeAPI
 
     def __init__(
-        self, url_name: str, owner: str, version: str, settings: MindeeApi
+        self, url_name: str, owner: str, version: str, settings: MindeeAPI
     ) -> None:
         """
         Generic API endpoint for a product.
@@ -33,7 +33,7 @@ class Endpoint(BaseEndpoint):
 
     def predict_req_post(
         self,
-        input_source: Union[LocalInputSource, UrlInputSource],
+        input_source: Union[LocalInputSource, URLInputSource],
         include_words: bool = False,
         close_file: bool = True,
         cropper: bool = False,
@@ -55,7 +55,7 @@ class Endpoint(BaseEndpoint):
 
     def predict_async_req_post(
         self,
-        input_source: Union[LocalInputSource, UrlInputSource],
+        input_source: Union[LocalInputSource, URLInputSource],
         include_words: bool = False,
         close_file: bool = True,
         cropper: bool = False,
@@ -89,7 +89,7 @@ class Endpoint(BaseEndpoint):
     def _custom_request(
         self,
         route: str,
-        input_source: Union[LocalInputSource, UrlInputSource],
+        input_source: Union[LocalInputSource, URLInputSource],
         include_words: bool = False,
         close_file: bool = True,
         cropper: bool = False,
@@ -114,7 +114,7 @@ class Endpoint(BaseEndpoint):
         else:
             url = f"{self.settings.url_root}/{route}"
 
-        if isinstance(input_source, UrlInputSource):
+        if isinstance(input_source, URLInputSource):
             data["document"] = input_source.url
             response = requests.post(
                 url=url,

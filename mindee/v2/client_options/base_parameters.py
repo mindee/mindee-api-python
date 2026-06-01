@@ -2,7 +2,7 @@ from abc import ABC
 from dataclasses import dataclass, field
 from typing import Dict, Optional, List, Union
 
-from mindee.input.polling_options import PollingOptions
+from mindee.client_options.polling_options import PollingOptions
 
 
 @dataclass

@@ -5,7 +5,7 @@ import pytest
 
 from mindee.error.mindee_error import MindeeError
 from mindee.input.page_options import KEEP_ONLY, REMOVE, PageOptions
-from mindee.input.sources import (
+from mindee.input import (
     Base64Input,
     BytesInput,
     FileInput,

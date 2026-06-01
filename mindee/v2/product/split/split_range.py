@@ -2,7 +2,7 @@ from typing import List, Optional
 
 from mindee.v2.product.extraction.extraction_response import ExtractionResponse
 from mindee.extraction.pdf_extractor.extracted_pdf import ExtractedPdf
-from mindee.input.sources.local_input_source import LocalInputSource
+from mindee.input.local_input_source import LocalInputSource
 from mindee.parsing.common import StringDict
 from mindee.v2.file_operations.split import extract_single_split
 

@@ -5,8 +5,8 @@ from typing import Optional, Union
 from PIL import Image
 
 from mindee.error.mindee_error import MindeeError
-from mindee.input.sources.file_input import FileInput
-from mindee.input.sources.local_input_source import LocalInputSource
+from mindee.input.file_input import FileInput
+from mindee.input.local_input_source import LocalInputSource
 from mindee.logger import logger
 
 

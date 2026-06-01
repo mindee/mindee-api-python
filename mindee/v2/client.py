@@ -4,14 +4,14 @@ from typing import Optional, Union, Type, TypeVar
 
 from mindee.client_mixin import ClientMixin
 from mindee.error.mindee_error import MindeeError
-from mindee.error.v2.mindee_http_error_v2 import handle_error_v2
-from mindee.input import UrlInputSource
-from mindee.v2.input.base_parameters import BaseParameters
-from mindee.input.polling_options import PollingOptions
-from mindee.input.sources.local_input_source import LocalInputSource
+from mindee.v2.error.mindee_http_error_v2 import handle_error_v2
+from mindee.input import URLInputSource
+from mindee.v2.client_options.base_parameters import BaseParameters
+from mindee.client_options.polling_options import PollingOptions
+from mindee.input.local_input_source import LocalInputSource
 from mindee.logger import logger
-from mindee.mindee_http.mindee_api_v2 import MindeeApiV2
-from mindee.mindee_http.response_validation_v2 import (
+from mindee.v2.mindee_http.mindee_api_v2 import MindeeAPIV2
+from mindee.v2.mindee_http.response_validation_v2 import (
     is_valid_get_response,
     is_valid_post_response,
 )
@@ -31,7 +31,7 @@ class Client(ClientMixin):
     """
 
     api_key: Optional[str]
-    mindee_api: MindeeApiV2
+    mindee_api: MindeeAPIV2
 
     def __init__(self, api_key: Optional[str] = None) -> None:
         """
@@ -40,11 +40,11 @@ class Client(ClientMixin):
         :params api_key: Your API key for all endpoints
         """
         self.api_key = api_key
-        self.mindee_api = MindeeApiV2(api_key)
+        self.mindee_api = MindeeAPIV2(api_key)
 
     def enqueue_inference(
         self,
-        input_source: Union[LocalInputSource, UrlInputSource],
+        input_source: Union[LocalInputSource, URLInputSource],
         params: BaseParameters,
         disable_redundant_warnings: bool = False,
     ) -> JobResponse:
@@ -59,7 +59,7 @@ class Client(ClientMixin):
 
     def enqueue(
         self,
-        input_source: Union[LocalInputSource, UrlInputSource],
+        input_source: Union[LocalInputSource, URLInputSource],
         params: BaseParameters,
     ) -> JobResponse:
         """
@@ -131,7 +131,7 @@ class Client(ClientMixin):
     def enqueue_and_get_result(
         self,
         response_type: Type[TypeBaseResponse],
-        input_source: Union[LocalInputSource, UrlInputSource],
+        input_source: Union[LocalInputSource, URLInputSource],
         params: BaseParameters,
     ) -> TypeBaseResponse:
         """

@@ -2,11 +2,11 @@ import json
 from argparse import ArgumentParser, Namespace
 from typing import Optional, Type, Union
 
+from mindee import LocalInputSource, URLInputSource
 from mindee.v1.client import Client, Endpoint
 from mindee.commands.cli_products import PRODUCTS, CommandConfig
 from mindee.error.mindee_error import MindeeClientError
 from mindee.input.page_options import PageOptions
-from mindee.input.sources import LocalInputSource, UrlInputSource
 from mindee.v1.parsing.common.async_predict_response import AsyncPredictResponse
 from mindee.v1.parsing.common import Document, serialize_for_json
 from mindee.v1.parsing.common.inference import Inference
@@ -109,7 +109,7 @@ class MindeeParser:
     """Mindee client"""
     document_info: CommandConfig
     """Config of the document."""
-    input_doc: Union[LocalInputSource, UrlInputSource]
+    input_doc: Union[LocalInputSource, URLInputSource]
     """Document to be parsed."""
     product_class: Type[Inference]
     """Product to parse."""
@@ -261,7 +261,7 @@ class MindeeParser:
         parsed_args = self.parser.parse_args()
         return parsed_args
 
-    def _get_input_doc(self) -> Union[LocalInputSource, UrlInputSource]:
+    def _get_input_doc(self) -> Union[LocalInputSource, URLInputSource]:
         """Loads an input document."""
         if self.parsed_args.input_type == "file":
             with open(self.parsed_args.path, "rb", buffering=30) as file_handle:
