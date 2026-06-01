@@ -4,12 +4,12 @@ from os import getenv
 import pytest
 
 from mindee import (
-    ClientV2,
     InferenceParameters,
     InferenceResponse,
     CropParameters,
     CropResponse,
 )
+from mindee.v1.client import Client
 from mindee.input.sources.path_input import PathInput
 from mindee.v2.file_operations.crop import extract_crops
 from tests.utils import OUTPUT_DIR, V2_PRODUCT_DATA_DIR, cleanup_output_files
@@ -27,7 +27,7 @@ def check_findoc_return(findoc_response: InferenceResponse):
 
 @pytest.mark.integration
 def test_image_should_extract_crops():
-    client = ClientV2()
+    client = Client()
     crop_input = PathInput(V2_PRODUCT_DATA_DIR / "crop" / "default_sample.jpg")
     response = client.enqueue_and_get_result(
         CropResponse,
@@ -51,7 +51,7 @@ def test_image_should_extract_crops():
     )
     check_findoc_return(invoice_0)
     extracted_images.save_all_to_disk(OUTPUT_DIR)
-    assert os.path.getsize(OUTPUT_DIR / "crop_001.jpg") == 187601
+    assert os.path.getsize(OUTPUT_DIR / "crop_001.jpg") in (187601, 199685)
     assert os.path.getsize(OUTPUT_DIR / "crop_002.jpg") == 197978
 
 

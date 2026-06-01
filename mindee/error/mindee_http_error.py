@@ -1,7 +1,7 @@
 from typing import Optional, Union
 
 from mindee.error.mindee_error import MindeeError
-from mindee.parsing.common.string_dict import StringDict
+from mindee.parsing.common import StringDict
 
 
 class MindeeHTTPError(RuntimeError):

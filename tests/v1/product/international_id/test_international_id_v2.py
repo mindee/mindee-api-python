@@ -2,10 +2,10 @@ import json
 
 import pytest
 
-from mindee.parsing.common.document import Document
-from mindee.parsing.common.page import Page
-from mindee.product.international_id.international_id_v2 import InternationalIdV2
-from mindee.product.international_id.international_id_v2_document import (
+from mindee.v1.parsing.common import Document
+from mindee.v1.parsing.common.page import Page
+from mindee.v1.product.international_id import InternationalIdV2
+from mindee.v1.product.international_id.international_id_v2_document import (
     InternationalIdV2Document,
 )
 from tests.utils import V1_PRODUCT_DATA_DIR

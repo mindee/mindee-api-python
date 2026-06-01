@@ -1,0 +1,9 @@
+from mindee.v1.product.barcode_reader.barcode_reader_v1 import BarcodeReaderV1
+from mindee.v1.product.barcode_reader.barcode_reader_v1_document import (
+    BarcodeReaderV1Document,
+)
+
+__all__ = [
+    "BarcodeReaderV1",
+    "BarcodeReaderV1Document",
+]

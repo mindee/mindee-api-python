@@ -2,13 +2,13 @@ import json
 
 import pytest
 
-from mindee.parsing.common.document import Document
-from mindee.parsing.common.page import Page
-from mindee.product.fr.id_card.id_card_v2 import IdCardV2
-from mindee.product.fr.id_card.id_card_v2_document import (
+from mindee.v1.parsing.common import Document
+from mindee.v1.parsing.common.page import Page
+from mindee.v1.product.fr.id_card.id_card_v2 import IdCardV2
+from mindee.v1.product.fr.id_card.id_card_v2_document import (
     IdCardV2Document,
 )
-from mindee.product.fr.id_card.id_card_v2_page import (
+from mindee.v1.product.fr.id_card.id_card_v2_page import (
     IdCardV2Page,
 )
 from tests.utils import V1_PRODUCT_DATA_DIR

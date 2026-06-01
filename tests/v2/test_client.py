@@ -3,26 +3,27 @@ import os
 
 import pytest
 
-from mindee import ClientV2, InferenceParameters, InferenceResponse, LocalResponse
+from mindee import InferenceParameters, InferenceResponse, LocalResponse
+from mindee.v2.client import Client
 from mindee.error.mindee_error import MindeeApiV2Error, MindeeError
-from mindee.error.mindee_http_error_v2 import MindeeHTTPErrorV2
+from mindee.error.v2.mindee_http_error_v2 import MindeeHTTPErrorV2
 from mindee.input.sources.local_input_source import LocalInputSource
 from mindee.input.sources.path_input import PathInput
 from mindee.mindee_http.base_settings import USER_AGENT
-from mindee.parsing.v2.inference import Inference
-from mindee.parsing.v2.job import Job
-from mindee.parsing.v2.job_response import JobResponse
+from mindee.v2.product.extraction.inference import Inference
+from mindee.v2.parsing.inference.job import Job
+from mindee.v2.parsing.inference.job_response import JobResponse
 from tests.utils import FILE_TYPES_DIR, V2_PRODUCT_DATA_DIR, V2_DATA_DIR, dummy_envvars
 
 
 @pytest.fixture
-def env_client(monkeypatch) -> ClientV2:
+def env_client(monkeypatch) -> Client:
     dummy_envvars(monkeypatch)
-    return ClientV2("dummy")
+    return Client("dummy")
 
 
 @pytest.fixture
-def custom_base_url_client(monkeypatch) -> ClientV2:
+def custom_base_url_client(monkeypatch) -> Client:
     class _FakePostRespError:
         status_code = 400  # any non-2xx will do
         ok = False
@@ -102,7 +103,7 @@ def custom_base_url_client(monkeypatch) -> ClientV2:
         raising=True,
     )
 
-    return ClientV2("dummy")
+    return Client("dummy")
 
 
 @pytest.fixture
@@ -114,7 +115,7 @@ def env_no_key(monkeypatch):
 @pytest.mark.v2
 def test_parse_path_without_token(env_no_key):
     with pytest.raises(MindeeApiV2Error):
-        ClientV2()
+        Client()
 
 
 @pytest.mark.v2

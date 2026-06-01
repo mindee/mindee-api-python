@@ -3,8 +3,8 @@ from pathlib import Path
 
 import pytest
 
-from mindee import Client
-from mindee.product.invoice import InvoiceV4
+from mindee.v1.client import Client
+from mindee.v1.product.invoice import InvoiceV4
 from tests.utils import cleanup_output_files
 
 

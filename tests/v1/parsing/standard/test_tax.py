@@ -1,4 +1,4 @@
-from mindee.parsing.standard.tax import TaxField
+from mindee.v1.parsing.standard import TaxField
 
 
 def test_constructor():

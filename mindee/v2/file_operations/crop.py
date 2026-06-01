@@ -4,7 +4,7 @@ from mindee.error import MindeeError
 from mindee.extraction import ExtractedImage, extract_multiple_images_from_source
 from mindee.geometry import Point, Polygon
 from mindee.input.sources.local_input_source import LocalInputSource
-from mindee.parsing.v2.field import FieldLocation
+from mindee.v2.parsing.inference.field import FieldLocation
 from mindee.v2.file_operations.crop_files import CropFiles
 from mindee.v2.product.crop.crop_box import CropBox
 

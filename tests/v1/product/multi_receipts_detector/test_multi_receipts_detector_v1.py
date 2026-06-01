@@ -2,12 +2,12 @@ import json
 
 import pytest
 
-from mindee.parsing.common.document import Document
-from mindee.parsing.common.page import Page
-from mindee.product.multi_receipts_detector.multi_receipts_detector_v1 import (
+from mindee.v1.parsing.common import Document
+from mindee.v1.parsing.common.page import Page
+from mindee.v1.product.multi_receipts_detector.multi_receipts_detector_v1 import (
     MultiReceiptsDetectorV1,
 )
-from mindee.product.multi_receipts_detector.multi_receipts_detector_v1_document import (
+from mindee.v1.product.multi_receipts_detector.multi_receipts_detector_v1_document import (
     MultiReceiptsDetectorV1Document,
 )
 from tests.utils import V1_PRODUCT_DATA_DIR

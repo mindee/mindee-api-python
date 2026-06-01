@@ -9,7 +9,6 @@ from mindee.error.mimetype_error import MimeTypeError
 from mindee.error.mindee_error import MindeeError, MindeeSourceError
 from mindee.image_operations.image_compressor import compress_image
 from mindee.input.page_options import KEEP_ONLY, REMOVE, PageOptions
-from mindee.input.sources.input_type import InputType
 from mindee.logger import logger
 from mindee.pdf.pdf_compressor import compress_pdf
 from mindee.pdf.pdf_utils import has_source_text
@@ -34,15 +33,18 @@ class LocalInputSource:
     file_object: BinaryIO
     filename: str
     file_mimetype: str
-    input_type: InputType
     filepath: Optional[str]
     _page_count: Optional[int] = None
 
-    def __init__(self, input_type: InputType):
-        self.input_type = input_type
+    def __init__(self) -> None:
+        """
+        Initialize a LocalInputSource object.
+        """
         self._check_mimetype()
 
-        logger.debug("Loaded new input '%s' from %s", self.filename, self.input_type)
+        logger.debug(
+            "Loaded new input '%s' from %s", self.filename, {type(self).__name__}
+        )
 
     def _check_mimetype(self) -> None:
         file_mimetype = mimetypes.guess_type(self.filename)[0]

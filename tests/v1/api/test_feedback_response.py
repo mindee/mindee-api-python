@@ -1,6 +1,6 @@
 import json
 
-from mindee.parsing.common.feedback_response import FeedbackResponse
+from mindee.v1.parsing.common.feedback_response import FeedbackResponse
 from tests.utils import V1_PRODUCT_DATA_DIR
 
 

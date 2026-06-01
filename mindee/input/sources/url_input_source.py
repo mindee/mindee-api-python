@@ -10,7 +10,6 @@ import requests
 
 from mindee.error.mindee_error import MindeeSourceError
 from mindee.input.sources.bytes_input import BytesInput
-from mindee.input.sources.input_type import InputType
 from mindee.logger import logger
 
 
@@ -28,8 +27,6 @@ class UrlInputSource:
         """
         if not url.lower().startswith("https"):
             raise MindeeSourceError("URL must be HTTPS")
-
-        self.input_type = InputType.URL
 
         logger.debug("URL input: %s", url)
 

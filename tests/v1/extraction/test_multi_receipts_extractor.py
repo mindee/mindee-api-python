@@ -7,7 +7,7 @@ from mindee.extraction.multi_receipts_extractor.multi_receipts_extractor import 
     extract_receipts,
 )
 from mindee.input.sources.path_input import PathInput
-from mindee.product.multi_receipts_detector.multi_receipts_detector_v1 import (
+from mindee.v1.product.multi_receipts_detector.multi_receipts_detector_v1 import (
     MultiReceiptsDetectorV1,
 )
 from tests.utils import V1_PRODUCT_DATA_DIR

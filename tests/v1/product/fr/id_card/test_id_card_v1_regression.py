@@ -1,7 +1,7 @@
 import pytest
 
-from mindee.client import Client
-from mindee.product.fr.id_card.id_card_v1 import IdCardV1
+from mindee.v1.client import Client
+from mindee.v1.product.fr.id_card.id_card_v1 import IdCardV1
 from tests.utils import V1_PRODUCT_DATA_DIR
 from tests.v1.product import get_id, get_version
 

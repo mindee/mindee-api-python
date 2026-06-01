@@ -15,8 +15,9 @@ from typing import List, Tuple
 import cv2
 import numpy as np
 
-from mindee import Client, product
-from mindee.parsing.common.predict_response import PredictResponse
+from mindee.v1.client import Client
+from mindee.v1 import product
+from mindee.v1.parsing.common import PredictResponse
 
 
 def relative_to_pixel_pos(polygon, image_h: int, image_w: int) -> List[Tuple[int, int]]:

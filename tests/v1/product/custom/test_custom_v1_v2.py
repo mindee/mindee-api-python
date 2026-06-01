@@ -3,13 +3,13 @@ import json
 import pytest
 
 from mindee.geometry.quadrilateral import Quadrilateral
-from mindee.parsing.common.document import Document
-from mindee.parsing.common.page import Page
-from mindee.parsing.custom.classification import ClassificationField
-from mindee.parsing.custom.list import ListField, ListFieldValue
-from mindee.product.custom.custom_v1 import CustomV1
-from mindee.product.custom.custom_v1_document import CustomV1Document
-from mindee.product.custom.custom_v1_page import CustomV1Page
+from mindee.v1.parsing.common import Document
+from mindee.v1.parsing.common.page import Page
+from mindee.v1.parsing.custom import ClassificationField
+from mindee.v1.parsing.custom import ListField, ListFieldValue
+from mindee.v1.product.custom.custom_v1 import CustomV1
+from mindee.v1.product.custom.custom_v1_document import CustomV1Document
+from mindee.v1.product.custom.custom_v1_page import CustomV1Page
 from tests.utils import V1_PRODUCT_DATA_DIR
 
 

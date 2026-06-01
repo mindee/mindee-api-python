@@ -1,6 +1,6 @@
 import json
 
-from mindee.parsing.common.ocr.ocr import Ocr
+from mindee.v1.parsing.common import Ocr
 from tests.utils import V1_DATA_DIR
 
 

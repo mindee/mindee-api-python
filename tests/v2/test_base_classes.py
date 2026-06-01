@@ -1,8 +1,8 @@
-from mindee.parsing.v2.base_inference import BaseInference
-from mindee.parsing.v2.base_response import BaseResponse
-from mindee.parsing.v2.inference_file import InferenceFile
-from mindee.parsing.v2.inference_job import InferenceJob
-from mindee.parsing.v2.inference_model import InferenceModel
+from mindee.v2.parsing.inference.base_inference import BaseInference
+from mindee.v2.parsing.inference.base_response import BaseResponse
+from mindee.v2.parsing.inference.inference_file import InferenceFile
+from mindee.v2.parsing.inference.inference_job import InferenceJob
+from mindee.v2.parsing.inference.inference_model import InferenceModel
 
 
 def test_inference_job():
