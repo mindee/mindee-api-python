@@ -4,13 +4,13 @@ import pytest
 
 from mindee.error.mimetype_error import MimeTypeError
 from mindee.error.mindee_error import MindeeSourceError
-from mindee.input.sources import (
+from mindee.input import (
     Base64Input,
     BytesInput,
     FileInput,
     LocalInputSource,
     PathInput,
-    UrlInputSource,
+    URLInputSource,
 )
 from tests.utils import FILE_TYPES_DIR
 
@@ -44,7 +44,7 @@ def test_pdf_input_from_path(filename, page_count):
 
 def test_pdf_input_from_url():
     with pytest.raises(MindeeSourceError):
-        UrlInputSource(url="http://example.com/invoice.pdf")
+        URLInputSource(url="http://example.com/invoice.pdf")
 
 
 TEST_IMAGES = (

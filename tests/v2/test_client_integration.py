@@ -4,10 +4,10 @@ from pathlib import Path
 import pytest
 
 from mindee import ExtractionParameters
-from mindee.v1.client import Client
-from mindee.input.sources.path_input import PathInput
-from mindee.input.sources.url_input_source import UrlInputSource
-from mindee.error.v2.mindee_http_error_v2 import MindeeHTTPErrorV2
+from mindee.v2.client import Client
+from mindee.input.path_input import PathInput
+from mindee.input.url_input_source import URLInputSource
+from mindee.v2.error.mindee_http_error_v2 import MindeeHTTPErrorV2
 from mindee.v2.parsing import InferenceActiveOptions
 from mindee.v2.product.extraction.extraction_response import ExtractionResponse
 from tests.utils import FILE_TYPES_DIR, V2_PRODUCT_DATA_DIR
@@ -258,7 +258,7 @@ def test_blank_url_input_source_must_succeed(
     """
     url = os.getenv("MINDEE_V2_SE_TESTS_BLANK_PDF_URL")
 
-    input_source = UrlInputSource(url)
+    input_source = URLInputSource(url)
     params = ExtractionParameters(
         model_id=findoc_model_id,
         rag=False,

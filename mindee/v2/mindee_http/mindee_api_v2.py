@@ -3,12 +3,12 @@ from typing import Dict, Optional, Union
 
 import requests
 
-from mindee.error.mindee_error import MindeeApiV2Error
-from mindee.v2.input.base_parameters import BaseParameters
-from mindee.input.sources.local_input_source import LocalInputSource
-from mindee.input.sources.url_input_source import UrlInputSource
+from mindee.v2.error.mindee_api_v2_error import MindeeAPIV2Error
+from mindee.v2.client_options.base_parameters import BaseParameters
+from mindee.input.local_input_source import LocalInputSource
+from mindee.input.url_input_source import URLInputSource
 from mindee.logger import logger
-from mindee.mindee_http.base_settings import USER_AGENT
+from mindee.v1.mindee_http.base_settings import USER_AGENT
 from mindee.mindee_http.settings_mixin import SettingsMixin
 
 API_KEY_V2_ENV_NAME = "MINDEE_V2_API_KEY"
@@ -21,7 +21,7 @@ REQUEST_TIMEOUT_ENV_NAME = "MINDEE_REQUEST_TIMEOUT"
 TIMEOUT_DEFAULT = 120
 
 
-class MindeeApiV2(SettingsMixin):
+class MindeeAPIV2(SettingsMixin):
     """Settings class relating to API V2 requests."""
 
     url_root: str
@@ -42,7 +42,7 @@ class MindeeApiV2(SettingsMixin):
         self.set_base_url(BASE_URL_DEFAULT)
         self.set_from_env()
         if not self.api_key:
-            raise MindeeApiV2Error(
+            raise MindeeAPIV2Error(
                 (
                     f"Missing API key,"
                     " check your Client configuration.\n"
@@ -74,7 +74,7 @@ class MindeeApiV2(SettingsMixin):
 
     def req_post_inference_enqueue(
         self,
-        input_source: Union[LocalInputSource, UrlInputSource],
+        input_source: Union[LocalInputSource, URLInputSource],
         params: BaseParameters,
         slug: str,
     ) -> requests.Response:
@@ -98,7 +98,7 @@ class MindeeApiV2(SettingsMixin):
                 data=data,
                 timeout=self.request_timeout,
             )
-        elif isinstance(input_source, UrlInputSource):
+        elif isinstance(input_source, URLInputSource):
             data["url"] = input_source.url
             response = requests.post(
                 url=url,
@@ -107,7 +107,7 @@ class MindeeApiV2(SettingsMixin):
                 timeout=self.request_timeout,
             )
         else:
-            raise MindeeApiV2Error("Invalid input source.")
+            raise MindeeAPIV2Error("Invalid input source.")
         return response
 
     def req_get_job(self, job_id: str) -> requests.Response:

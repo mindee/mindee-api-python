@@ -2,7 +2,7 @@ from enum import Enum
 from importlib import import_module
 from typing import TYPE_CHECKING, Union
 
-from mindee.error import MindeeApiV2Error
+from mindee.v2.error.mindee_api_v2_error import MindeeAPIV2Error
 from mindee.parsing.common import StringDict
 
 if TYPE_CHECKING:
@@ -55,7 +55,7 @@ def get_field_type(
             field_file = import_module("mindee.v2.parsing.inference.field.object_field")
             field_class = getattr(field_file, FieldType.OBJECT.value)
         else:
-            raise MindeeApiV2Error(f"Unrecognized field type in {raw_response}.")
+            raise MindeeAPIV2Error(f"Unrecognized field type in {raw_response}.")
         return field_class(raw_response, indent_level)
 
-    raise MindeeApiV2Error(f"Unrecognized field format {raw_response}.")
+    raise MindeeAPIV2Error(f"Unrecognized field format {raw_response}.")

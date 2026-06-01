@@ -2,7 +2,7 @@ import json
 from dataclasses import dataclass
 from typing import Dict, List, Optional, Union
 
-from mindee.v2.input.base_parameters import BaseParameters
+from mindee.v2.client_options.base_parameters import BaseParameters
 from mindee.v2.product.extraction.params.data_schema import DataSchema
 
 

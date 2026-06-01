@@ -2,11 +2,11 @@ from typing import Union
 
 import requests
 
-from mindee.input.sources.local_input_source import LocalInputSource
-from mindee.input.sources.url_input_source import UrlInputSource
-from mindee.v1.input.workflow_options import WorkflowOptions
-from mindee.mindee_http.base_endpoint import BaseEndpoint
-from mindee.mindee_http.workflow_settings import WorkflowSettings
+from mindee.input.local_input_source import LocalInputSource
+from mindee.input.url_input_source import URLInputSource
+from mindee.v1.client_options.workflow_options import WorkflowOptions
+from mindee.v1.mindee_http.base_endpoint import BaseEndpoint
+from mindee.v1.mindee_http.workflow_settings import WorkflowSettings
 
 
 class WorkflowEndpoint(BaseEndpoint):
@@ -24,7 +24,7 @@ class WorkflowEndpoint(BaseEndpoint):
 
     def workflow_execution_post(
         self,
-        input_source: Union[LocalInputSource, UrlInputSource],
+        input_source: Union[LocalInputSource, URLInputSource],
         options: WorkflowOptions,
     ):
         """
@@ -50,7 +50,7 @@ class WorkflowEndpoint(BaseEndpoint):
         if options.rag:
             params["rag"] = "true"
 
-        if isinstance(input_source, UrlInputSource):
+        if isinstance(input_source, URLInputSource):
             data["document"] = input_source.url
             response = requests.post(
                 self.settings.url_root,

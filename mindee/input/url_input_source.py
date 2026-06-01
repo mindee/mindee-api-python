@@ -9,11 +9,11 @@ from urllib.parse import urlparse
 import requests
 
 from mindee.error.mindee_error import MindeeSourceError
-from mindee.input.sources.bytes_input import BytesInput
+from mindee.input.bytes_input import BytesInput
 from mindee.logger import logger
 
 
-class UrlInputSource:
+class URLInputSource:
     """A local or distant URL input."""
 
     url: str
@@ -56,7 +56,7 @@ class UrlInputSource:
             headers["Authorization"] = f"Bearer {token}"
         auth = None if not username or not password else (username, password)
 
-        response = UrlInputSource.__make_request(
+        response = URLInputSource.__make_request(
             self.url, auth, headers, 0, max_redirects=max_redirects
         )
 
@@ -164,11 +164,11 @@ class UrlInputSource:
         :return: A complete filename.
         """
         if filename is None:
-            filename = UrlInputSource.__extract_filename_from_url(self.url)
+            filename = URLInputSource.__extract_filename_from_url(self.url)
 
         if not filename or not os.path.splitext(filename)[1]:
             filename = self.__generate_file_name(
-                extension=UrlInputSource.__get_file_extension(filename)
+                extension=URLInputSource.__get_file_extension(filename)
             )
 
         return filename
@@ -193,7 +193,7 @@ class UrlInputSource:
                     f"Can't reach URL after {redirects} out of {max_redirects} redirects, "
                     f"aborting operation."
                 )
-            return UrlInputSource.__make_request(
+            return URLInputSource.__make_request(
                 redirects.location, auth, headers, redirects + 1, max_redirects
             )
 

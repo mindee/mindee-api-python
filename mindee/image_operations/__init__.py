@@ -1,3 +1,0 @@
-from mindee.image_operations.image_compressor import compress_image
-
-__all__ = ["compress_image"]

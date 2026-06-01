@@ -4,7 +4,7 @@ import pytest
 
 from mindee.v1.client import Client
 from mindee.extraction.pdf_extractor.pdf_extractor import PdfExtractor
-from mindee.input.sources.path_input import PathInput
+from mindee.input.path_input import PathInput
 from mindee.v1.parsing.common import Document
 from mindee.v1.product.invoice.invoice_v4 import InvoiceV4
 from mindee.v1.product.invoice_splitter.invoice_splitter_v1 import InvoiceSplitterV1

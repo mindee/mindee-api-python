@@ -4,7 +4,7 @@ import pytest
 import requests
 
 from mindee.v1.client import Client
-from mindee.input.sources.path_input import PathInput
+from mindee.input.path_input import PathInput
 from mindee.mindee_http.response_validation import is_valid_async_response
 from mindee.v1.parsing.common import RequestStatus
 from mindee.v1.parsing.common.async_predict_response import AsyncPredictResponse

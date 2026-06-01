@@ -2,7 +2,7 @@ import os
 from difflib import SequenceMatcher
 from pathlib import Path
 
-from mindee.mindee_http.base_settings import (
+from mindee.v1.mindee_http.base_settings import (
     API_KEY_ENV_NAME,
     BASE_URL_ENV_NAME,
     REQUEST_TIMEOUT_ENV_NAME,
