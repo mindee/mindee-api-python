@@ -3,10 +3,10 @@ from datetime import datetime
 
 import pytest
 
-from mindee import Client
-from mindee.input import WorkflowOptions
-from mindee.parsing.common.execution_priority import ExecutionPriority
-from mindee.product import FinancialDocumentV1, GeneratedV1
+from mindee.v1.client import Client
+from mindee.v1.client_options.workflow_options import WorkflowOptions
+from mindee.v1.parsing.common import ExecutionPriority
+from mindee.v1.product import FinancialDocumentV1, GeneratedV1
 from tests.utils import V1_PRODUCT_DATA_DIR
 
 

@@ -1,7 +1,7 @@
 import pytest
 
-from mindee.client import Client
-from mindee.product.fr.bank_account_details.bank_account_details_v1 import (
+from mindee.v1.client import Client
+from mindee.v1.product.fr.bank_account_details.bank_account_details_v1 import (
     BankAccountDetailsV1,
 )
 from tests.utils import V1_PRODUCT_DATA_DIR

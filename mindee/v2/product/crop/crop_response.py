@@ -1,7 +1,7 @@
-from mindee.input.sources.local_input_source import LocalInputSource
-from mindee.parsing.common.string_dict import StringDict
+from mindee.input.local_input_source import LocalInputSource
+from mindee.parsing.common import StringDict
 from mindee.v2.file_operations.crop_files import CropFiles
-from mindee.parsing.v2.base_response import BaseResponse
+from mindee.v2.parsing.inference.base_response import BaseResponse
 from mindee.v2.product.crop.crop_inference import CropInference
 
 
@@ -22,7 +22,7 @@ class CropResponse(BaseResponse):
         """
         Apply the crop inference to a file and return a list of extracted images.
 
-        :param input_source: Local file to apply the inference to
+        :params input_source: Local file to apply the inference to
         :return: List of extracted PDFs
         """
         return CropFiles(

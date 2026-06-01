@@ -2,15 +2,15 @@ import json
 
 import pytest
 
-from mindee.parsing.common.document import Document
-from mindee.parsing.common.page import Page
-from mindee.parsing.generated.generated_list import GeneratedListField
-from mindee.parsing.generated.generated_object import GeneratedObjectField
-from mindee.parsing.standard.position import PositionField
-from mindee.parsing.standard.text import StringField
-from mindee.product.generated.generated_v1 import GeneratedV1
-from mindee.product.generated.generated_v1_document import GeneratedV1Document
-from mindee.product.generated.generated_v1_page import GeneratedV1Page
+from mindee.v1.parsing.common import Document
+from mindee.v1.parsing.common.page import Page
+from mindee.v1.parsing.generated import GeneratedListField
+from mindee.v1.parsing.generated import GeneratedObjectField
+from mindee.v1.parsing.standard import PositionField
+from mindee.v1.parsing.standard.text import StringField
+from mindee.v1.product.generated import GeneratedV1
+from mindee.v1.product.generated import GeneratedV1Document
+from mindee.v1.product.generated.generated_v1_page import GeneratedV1Page
 from tests.utils import V1_PRODUCT_DATA_DIR
 
 

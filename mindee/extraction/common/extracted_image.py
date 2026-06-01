@@ -5,8 +5,8 @@ from typing import Optional, Union
 from PIL import Image
 
 from mindee.error.mindee_error import MindeeError
-from mindee.input.sources.file_input import FileInput
-from mindee.input.sources.local_input_source import LocalInputSource
+from mindee.input.file_input import FileInput
+from mindee.input.local_input_source import LocalInputSource
 from mindee.logger import logger
 
 
@@ -26,9 +26,9 @@ class ExtractedImage:
         """
         Initialize the ExtractedImage with a buffer and an internal file name.
 
-        :param input_source: Local source for input.
-        :param page_id: ID of the page the element was found on.
-        :param element_id: ID of the element in a page.
+        :params input_source: Local source for input.
+        :params page_id: ID of the page the element was found on.
+        :params element_id: ID of the element in a page.
         """
         self.buffer = io.BytesIO(input_source.file_object.read())
         self.buffer.name = input_source.filename
@@ -52,8 +52,8 @@ class ExtractedImage:
         """
         Saves the document to a file.
 
-        :param output_path: Path to save the file to.
-        :param file_format: Optional PIL-compatible format for the file. Inferred from file extension if not provided.
+        :params output_path: Path to save the file to.
+        :params file_format: Optional PIL-compatible format for the file. Inferred from file extension if not provided.
         :raises MindeeError: If an invalid path or filename is provided.
         """
         try:

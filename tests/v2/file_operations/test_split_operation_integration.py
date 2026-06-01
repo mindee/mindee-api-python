@@ -3,13 +3,13 @@ from os import getenv
 import pytest
 
 from mindee import (
-    ClientV2,
-    InferenceParameters,
-    InferenceResponse,
+    ExtractionParameters,
+    ExtractionResponse,
     SplitParameters,
     SplitResponse,
 )
-from mindee.input.sources.path_input import PathInput
+from mindee.v2.client import Client
+from mindee.input.path_input import PathInput
 from tests.utils import OUTPUT_DIR, V2_PRODUCT_DATA_DIR, cleanup_output_files
 
 
@@ -18,14 +18,14 @@ def invoice_splitter_5p_path():
     return V2_PRODUCT_DATA_DIR / "split" / "invoice_5p.pdf"
 
 
-def check_findoc_return(findoc_response: InferenceResponse):
+def check_findoc_return(findoc_response: ExtractionResponse):
     assert len(findoc_response.inference.model.id) > 0
     assert findoc_response.inference.result.fields.get("total_amount").value > 0
 
 
 @pytest.mark.integration
 def test_pdf_should_extract_splits():
-    client = ClientV2()
+    client = Client()
     split_input = PathInput(V2_PRODUCT_DATA_DIR / "split" / "default_sample.pdf")
     response = client.enqueue_and_get_result(
         SplitResponse,
@@ -44,9 +44,9 @@ def test_pdf_should_extract_splits():
     assert extracted_pdfs[1].filename == "default_sample_002-002.pdf"
 
     invoice_0 = client.enqueue_and_get_result(
-        InferenceResponse,
+        ExtractionResponse,
         extracted_pdfs[0].as_input_source(),
-        InferenceParameters(
+        ExtractionParameters(
             getenv("MINDEE_V2_SE_TESTS_FINDOC_MODEL_ID"), close_file=False
         ),
     )

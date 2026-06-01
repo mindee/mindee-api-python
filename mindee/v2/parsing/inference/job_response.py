@@ -1,0 +1,14 @@
+from mindee.parsing.common import StringDict
+from mindee.parsing.common.common_response import CommonResponse
+from mindee.v2.parsing.inference.job import Job
+
+
+class JobResponse(CommonResponse):
+    """Represent an inference response from Mindee V2 API."""
+
+    job: Job
+    """Job for the polling."""
+
+    def __init__(self, raw_response: StringDict) -> None:
+        super().__init__(raw_response)
+        self.job = Job(raw_response["job"])

@@ -2,14 +2,14 @@ import json
 
 import requests
 
-from mindee.parsing.common.string_dict import StringDict
+from mindee.parsing.common import StringDict
 
 
 def is_valid_sync_response(response: requests.Response) -> bool:
     """
     Checks if the synchronous response is valid. Returns True if the response is valid.
 
-    :param response: a requests response object.
+    :params response: a requests response object.
     :return: bool
     """
     if not response or not response.ok:
@@ -27,7 +27,7 @@ def is_valid_async_response(response: requests.Response) -> bool:
 
     Returns True if the response is valid.
 
-    :param response: a requests response object.
+    :params response: a requests response object.
     :return: bool
     """
     if not is_valid_sync_response(response):
@@ -55,7 +55,7 @@ def clean_request_json(response: requests.Response) -> StringDict:
     """
     Checks and correct the response error format depending on the two possible kind of returns.
 
-    :param response: Raw request response.
+    :params response: Raw request response.
     :return: Returns the job error if the error is due to parsing, returns the http error otherwise.
     """
     response_json = response.json()

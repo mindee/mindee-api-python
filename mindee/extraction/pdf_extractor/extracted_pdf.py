@@ -4,7 +4,7 @@ from typing import BinaryIO, Union
 import pypdfium2 as pdfium
 
 from mindee.error.mindee_error import MindeeError
-from mindee.input.sources.bytes_input import BytesInput
+from mindee.input.bytes_input import BytesInput
 
 
 class ExtractedPdf:
@@ -35,7 +35,8 @@ class ExtractedPdf:
         """
         Writes the contents of the current PDF object to a file.
 
-        :param output_path: Path of the destination file. If not extension is provided, pdf will be appended by default.
+        :params output_path: Path of the destination file. If
+         not extension is provided, pdf will be appended by default.
         """
         out_path = Path(output_path)
         if out_path.resolve().is_dir():

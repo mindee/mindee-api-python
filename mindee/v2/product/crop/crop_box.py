@@ -1,10 +1,10 @@
 from typing import Optional
 
 from mindee.extraction import ExtractedImage, extract_multiple_images_from_source
-from mindee.input import LocalInputSource
-from mindee.parsing.common.string_dict import StringDict
-from mindee.parsing.v2.field import FieldLocation
-from mindee.parsing.v2.inference_response import InferenceResponse
+from mindee.input.local_input_source import LocalInputSource
+from mindee.parsing.common import StringDict
+from mindee.v2.parsing.inference.field import FieldLocation
+from mindee.v2.product.extraction.extraction_response import ExtractionResponse
 
 
 class CropBox:
@@ -16,14 +16,14 @@ class CropBox:
     object_type: str
     """Type or classification of the detected object."""
 
-    extraction_response: Optional[InferenceResponse] = None
+    extraction_response: Optional[ExtractionResponse] = None
     """The extraction response associated with the crop."""
 
     def __init__(self, server_response: StringDict):
         self.location = FieldLocation(server_response["location"])
         self.object_type = server_response["object_type"]
         if server_response.get("extraction_response") is not None:
-            self.extraction_response = InferenceResponse(
+            self.extraction_response = ExtractionResponse(
                 server_response["extraction_response"]
             )
 
@@ -34,7 +34,7 @@ class CropBox:
         """
         Apply the split range inference to a file and return a single extracted PDF.
 
-        :param input_source: Local file to apply the inference to
+        :params input_source: Local file to apply the inference to
         :return: Extracted PDF
         """
         return extract_multiple_images_from_source(

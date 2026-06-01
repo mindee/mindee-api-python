@@ -2,13 +2,13 @@ import json
 
 import pytest
 
-from mindee.parsing.common.document import Document
-from mindee.parsing.common.page import Page
-from mindee.product.us.bank_check.bank_check_v1 import BankCheckV1
-from mindee.product.us.bank_check.bank_check_v1_document import (
+from mindee.v1.parsing.common import Document
+from mindee.v1.parsing.common.page import Page
+from mindee.v1.product.us.bank_check.bank_check_v1 import BankCheckV1
+from mindee.v1.product.us.bank_check import (
     BankCheckV1Document,
 )
-from mindee.product.us.bank_check.bank_check_v1_page import (
+from mindee.v1.product.us.bank_check.bank_check_v1_page import (
     BankCheckV1Page,
 )
 from tests.utils import V1_PRODUCT_DATA_DIR

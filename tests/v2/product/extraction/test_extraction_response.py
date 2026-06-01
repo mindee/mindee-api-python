@@ -2,17 +2,17 @@ import json
 
 import pytest
 
-from mindee import InferenceResponse
-from mindee.parsing.v2 import InferenceActiveOptions
-from mindee.parsing.v2.field.field_confidence import FieldConfidence
-from mindee.parsing.v2.field.list_field import ListField
-from mindee.parsing.v2.field.object_field import ObjectField
-from mindee.parsing.v2.field.simple_field import SimpleField
-from mindee.parsing.v2.field.inference_fields import InferenceFields
-from mindee.parsing.v2.inference import Inference
-from mindee.parsing.v2.inference_file import InferenceFile
-from mindee.parsing.v2.inference_model import InferenceModel
-from mindee.parsing.v2.rag_metadata import RagMetadata
+from mindee import ExtractionResponse
+from mindee.v2.parsing.inference.inference_active_options import InferenceActiveOptions
+from mindee.v2.parsing.inference.field import FieldConfidence
+from mindee.v2.parsing.inference.field import ListField
+from mindee.v2.parsing.inference.field.object_field import ObjectField
+from mindee.v2.parsing.inference.field.simple_field import SimpleField
+from mindee.v2.parsing.inference.field import InferenceFields
+from mindee.v2.product.extraction.extraction_inference import ExtractionInference
+from mindee.v2.parsing.inference.inference_file import InferenceFile
+from mindee.v2.parsing.inference.inference_model import InferenceModel
+from mindee.v2.parsing.inference.rag_metadata import RagMetadata
 from tests.utils import V2_PRODUCT_DATA_DIR
 from tests.v2.product.utils import get_product_samples
 
@@ -22,8 +22,8 @@ def test_deep_nested_fields():
     json_sample, _ = get_product_samples(
         product="extraction", file_name="deep_nested_fields"
     )
-    response = InferenceResponse(json_sample)
-    assert isinstance(response.inference, Inference)
+    response = ExtractionResponse(json_sample)
+    assert isinstance(response.inference, ExtractionInference)
     assert isinstance(response.inference.result.fields["field_simple"], SimpleField)
     assert isinstance(response.inference.result.fields["field_object"], ObjectField)
     assert isinstance(
@@ -96,8 +96,8 @@ def test_standard_field_types():
     json_sample, rst_sample = get_product_samples(
         product="extraction", file_name="standard_field_types"
     )
-    response = InferenceResponse(json_sample)
-    assert isinstance(response.inference, Inference)
+    response = ExtractionResponse(json_sample)
+    assert isinstance(response.inference, ExtractionInference)
 
     field_simple_string = response.inference.result.fields["field_simple_string"]
     assert isinstance(field_simple_string, SimpleField)
@@ -131,7 +131,7 @@ def test_standard_field_object():
     json_sample, _ = get_product_samples(
         product="extraction", file_name="standard_field_types"
     )
-    response = InferenceResponse(json_sample)
+    response = ExtractionResponse(json_sample)
 
     object_field = response.inference.result.fields["field_object"]
     assert isinstance(object_field, ObjectField)
@@ -153,8 +153,8 @@ def test_standard_field_object_list():
     json_sample, _ = get_product_samples(
         product="extraction", file_name="standard_field_types"
     )
-    response = InferenceResponse(json_sample)
-    assert isinstance(response.inference, Inference)
+    response = ExtractionResponse(json_sample)
+    assert isinstance(response.inference, ExtractionInference)
 
     field_object_list = response.inference.result.fields["field_object_list"]
     assert isinstance(field_object_list, ListField)
@@ -168,8 +168,8 @@ def test_standard_field_simple_list():
     json_sample, _ = get_product_samples(
         product="extraction", file_name="standard_field_types"
     )
-    response = InferenceResponse(json_sample)
-    assert isinstance(response.inference, Inference)
+    response = ExtractionResponse(json_sample)
+    assert isinstance(response.inference, ExtractionInference)
 
     field_simple_list = response.inference.result.fields["field_simple_list"]
     assert isinstance(field_simple_list, ListField)
@@ -181,8 +181,8 @@ def test_standard_field_simple_list():
 @pytest.mark.v2
 def test_raw_texts():
     json_sample, _ = get_product_samples(product="extraction", file_name="raw_texts")
-    response = InferenceResponse(json_sample)
-    assert isinstance(response.inference, Inference)
+    response = ExtractionResponse(json_sample)
+    assert isinstance(response.inference, ExtractionInference)
 
     assert response.inference.result.raw_text
     assert len(response.inference.result.raw_text.pages) == 2
@@ -197,7 +197,7 @@ def test_raw_texts():
 def test_rag_metadata_when_matched():
     """RAG metadata when matched."""
     json_sample, _ = get_product_samples(product="extraction", file_name="rag_matched")
-    response = InferenceResponse(json_sample)
+    response = ExtractionResponse(json_sample)
     rag = response.inference.result.rag
     assert isinstance(rag, RagMetadata)
     assert rag.retrieved_document_id == "12345abc-1234-1234-1234-123456789abc"
@@ -210,7 +210,7 @@ def test_rag_metadata_when_not_matched():
     json_sample, _ = get_product_samples(
         product="extraction", file_name="rag_not_matched"
     )
-    response = InferenceResponse(json_sample)
+    response = ExtractionResponse(json_sample)
     rag = response.inference.result.rag
     assert isinstance(rag, RagMetadata)
     assert rag.retrieved_document_id is None
@@ -222,9 +222,9 @@ def test_full_inference_response():
     json_sample, _ = get_product_samples(
         product="extraction/financial_document", file_name="complete"
     )
-    response = InferenceResponse(json_sample)
+    response = ExtractionResponse(json_sample)
 
-    assert isinstance(response.inference, Inference)
+    assert isinstance(response.inference, ExtractionInference)
     assert response.inference.id == "12345678-1234-1234-1234-123456789abc"
     assert isinstance(response.inference.result.fields["date"], SimpleField)
     assert response.inference.result.fields["date"].value == "2019-11-02"
@@ -259,7 +259,7 @@ def test_field_locations_and_confidence() -> None:
         product="extraction/financial_document", file_name="complete_with_coordinates"
     )
 
-    response = InferenceResponse(json_sample)
+    response = ExtractionResponse(json_sample)
 
     date_field: SimpleField = response.inference.result.fields["date"]
 
@@ -300,7 +300,7 @@ def test_text_context_field_is_false() -> None:
     json_sample, _ = get_product_samples(
         product="extraction/financial_document", file_name="complete"
     )
-    response = InferenceResponse(json_sample)
+    response = ExtractionResponse(json_sample)
     assert isinstance(response.inference.active_options, InferenceActiveOptions)
     assert response.inference.active_options.text_context is False
 
@@ -311,6 +311,6 @@ def test_text_context_field_is_true() -> None:
         V2_PRODUCT_DATA_DIR / "extraction" / "text_context_enabled.json", "r"
     ) as file:
         json_sample = json.load(file)
-    response = InferenceResponse(json_sample)
+    response = ExtractionResponse(json_sample)
     assert isinstance(response.inference.active_options, InferenceActiveOptions)
     assert response.inference.active_options.text_context is True

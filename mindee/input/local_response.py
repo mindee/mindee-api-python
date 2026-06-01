@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import Any, BinaryIO, Dict, Type, TypeVar, Union
 
 from mindee.error.mindee_error import MindeeError
-from mindee.parsing.v2.common_response import CommonResponse
+from mindee.parsing.common.common_response import CommonResponse
 
 
 class LocalResponse:
@@ -64,7 +64,7 @@ class LocalResponse:
         """
         Processes the secret key as a byte array.
 
-        :param secret_key: Secret key, either a string or a byte/byte array.
+        :params secret_key: Secret key, either a string or a byte/byte array.
         :return: a byte/byte array secret key.
         """
         if isinstance(secret_key, (bytes, bytearray)):
@@ -75,7 +75,7 @@ class LocalResponse:
         """
         Returns the hmac signature of the local response, from the secret key provided.
 
-        :param secret_key: Secret key, either a string or a byte/byte array.
+        :params secret_key: Secret key, either a string or a byte/byte array.
         :return: The hmac signature of the local response.
         """
         algorithm = hashlib.sha256
@@ -98,8 +98,8 @@ class LocalResponse:
         """
         Checks if the hmac signature of the local response is valid.
 
-        :param secret_key: Secret key, given as a string.
-        :param signature: HMAC signature, given as a string.
+        :params secret_key: Secret key, given as a string.
+        :params signature: HMAC signature, given as a string.
         :return: True if the HMAC signature is valid.
         """
         return signature == self.get_hmac_signature(secret_key)

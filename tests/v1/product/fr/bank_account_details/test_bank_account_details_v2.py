@@ -2,12 +2,12 @@ import json
 
 import pytest
 
-from mindee.parsing.common.document import Document
-from mindee.parsing.common.page import Page
-from mindee.product.fr.bank_account_details.bank_account_details_v2 import (
+from mindee.v1.parsing.common import Document
+from mindee.v1.parsing.common.page import Page
+from mindee.v1.product.fr.bank_account_details.bank_account_details_v2 import (
     BankAccountDetailsV2,
 )
-from mindee.product.fr.bank_account_details.bank_account_details_v2_document import (
+from mindee.v1.product.fr.bank_account_details.bank_account_details_v2_document import (
     BankAccountDetailsV2Document,
 )
 from tests.utils import V1_PRODUCT_DATA_DIR

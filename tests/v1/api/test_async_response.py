@@ -3,12 +3,12 @@ import json
 import pytest
 import requests
 
-from mindee.client import Client
-from mindee.input.sources.path_input import PathInput
+from mindee.v1.client import Client
+from mindee.input.path_input import PathInput
 from mindee.mindee_http.response_validation import is_valid_async_response
-from mindee.parsing.common.api_request import RequestStatus
-from mindee.parsing.common.async_predict_response import AsyncPredictResponse
-from mindee.product.invoice_splitter.invoice_splitter_v1 import InvoiceSplitterV1
+from mindee.v1.parsing.common import RequestStatus
+from mindee.v1.parsing.common.async_predict_response import AsyncPredictResponse
+from mindee.v1.product.invoice_splitter.invoice_splitter_v1 import InvoiceSplitterV1
 from tests.utils import V1_DATA_DIR, V1_PRODUCT_DATA_DIR
 
 ASYNC_DIR = V1_DATA_DIR / "async"

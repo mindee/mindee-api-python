@@ -11,8 +11,8 @@ class SplitFiles(List[ExtractedPdf]):
         """
         Save all extracted splits to disk.
 
-        :param path: Path to save the extracted splits to.
-        :param prefix: Prefix to add to the filename, defaults to 'split'.
+        :params path: Path to save the extracted splits to.
+        :params prefix: Prefix to add to the filename, defaults to 'split'.
         """
         if isinstance(path, str):
             path = Path(path)

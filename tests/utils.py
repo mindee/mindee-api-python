@@ -2,7 +2,7 @@ import os
 from difflib import SequenceMatcher
 from pathlib import Path
 
-from mindee.mindee_http.base_settings import (
+from mindee.v1.mindee_http.base_settings import (
     API_KEY_ENV_NAME,
     BASE_URL_ENV_NAME,
     REQUEST_TIMEOUT_ENV_NAME,
@@ -41,8 +41,8 @@ def dummy_envvars(monkeypatch) -> None:
 def levenshtein_ratio(ref_str: str, target_str: str) -> float:
     """
     Calculates the Levenshtein ratio between two strings.
-    :param ref_str: Reference string.
-    :param target_str: Target String.
+    :params ref_str: Reference string.
+    :params target_str: Target String.
     :return: Ratio between the two strings
     """
     return SequenceMatcher(None, ref_str, target_str).ratio()

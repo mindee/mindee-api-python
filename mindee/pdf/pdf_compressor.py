@@ -8,7 +8,7 @@ import pypdfium2 as pdfium
 import pypdfium2.raw as pdfium_c
 from PIL import Image
 
-from mindee.image_operations.image_compressor import compress_image
+from mindee.image import compress_image
 from mindee.pdf.pdf_char_data import PDFCharData
 from mindee.pdf.pdf_utils import (
     extract_text_from_pdf,
@@ -29,10 +29,10 @@ def compress_pdf(
     """
     Compresses each page of a provided PDF buffer.
 
-    :param pdf_data: The input PDF as bytes.
-    :param image_quality: Compression quality (70-100 for most JPG images).
-    :param force_source_text_compression: If true, attempts to re-write detected text.
-    :param disable_source_text: If true, doesn't re-apply source text to the output PDF.
+    :params pdf_data: The input PDF as bytes.
+    :params image_quality: Compression quality (70-100 for most JPG images).
+    :params force_source_text_compression: If true, attempts to re-write detected text.
+    :params disable_source_text: If true, doesn't re-apply source text to the output PDF.
     :return: Compressed PDF as bytes.
     """
     if not isinstance(pdf_data, bytes):
@@ -90,8 +90,8 @@ def _compress_pdf_pages(
     """
     Compresses PDF pages and returns an array of compressed page buffers.
 
-    :param pdf_data: The input PDF as bytes.
-    :param image_quality: Initial compression quality.
+    :params pdf_data: The input PDF as bytes.
+    :params image_quality: Initial compression quality.
     :return: List of compressed page buffers, or None if compression fails.
     """
     original_size = len(pdf_data)
@@ -119,9 +119,9 @@ def add_text_to_pdf_page(  # type: ignore
     """
     Adds text to a PDF page based on the extracted text data.
 
-    :param page: The PDFDocument object.
-    :param page_id: The ID of the page.
-    :param extracted_text: List of PDFCharData objects containing text and positioning information.
+    :params page: The PDFDocument object.
+    :params page_id: The ID of the page.
+    :params extracted_text: List of PDFCharData objects containing text and positioning information.
     """
     if not extracted_text or not extracted_text[page_id]:
         return
@@ -153,8 +153,8 @@ def _compress_pages_with_quality(
     """
     Compresses pages with a specific quality.
 
-    :param pdf_data: The input PDF as bytes.
-    :param image_quality: Compression quality.
+    :params pdf_data: The input PDF as bytes.
+    :params image_quality: Compression quality.
     :return: List of compressed page buffers.
     """
     pdf_document = pdfium.PdfDocument(pdf_data)
@@ -174,9 +174,9 @@ def _is_compression_successful(
     """
     Checks if the compression was successful based on the compressed size and original size.
 
-    :param total_compressed_size: Total size of compressed pages.
-    :param original_size: Original PDF size.
-    :param image_quality: Compression quality.
+    :params total_compressed_size: Total size of compressed pages.
+    :params original_size: Original PDF size.
+    :params image_quality: Compression quality.
     :return: True if compression was successful, false otherwise.
     """
     overhead = lerp(0.54, 0.18, image_quality / 100)
@@ -190,8 +190,8 @@ def _rasterize_page(  # type: ignore
     """
     Rasterizes a PDF page.
 
-    :param page: PdfPage object to rasterize.
-    :param quality: Quality to apply during rasterization.
+    :params page: PdfPage object to rasterize.
+    :params quality: Quality to apply during rasterization.
     :return: Rasterized page as bytes.
     """
     image = page.render().to_pil()
@@ -204,7 +204,7 @@ def _collect_images_as_pdf(image_list: List[bytes]) -> pdfium.PdfDocument:  # ty
     """
     Converts a list of JPEG images into pages in a PdfDocument.
 
-    :param image_list: A list of bytes representing JPEG images.
+    :params image_list: A list of bytes representing JPEG images.
     :return: A PdfDocument handle containing the images as pages.
     """
     out_pdf = pdfium.PdfDocument.new()

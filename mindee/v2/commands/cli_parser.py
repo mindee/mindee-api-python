@@ -3,20 +3,20 @@ from dataclasses import dataclass
 from typing import Optional, Type, Union
 
 from mindee import (
-    ClientV2,
-    InferenceResponse,
+    ExtractionResponse,
     CropResponse,
     SplitResponse,
     ClassificationResponse,
-    InferenceParameters,
+    ExtractionParameters,
     ClassificationParameters,
     CropParameters,
     SplitParameters,
 )
-from mindee.input import BaseParameters
+from mindee.input import PathInput, URLInputSource
+from mindee.v2.client import Client
 
-from mindee.input.sources import PathInput, UrlInputSource
-from mindee.parsing.v2.base_response import BaseResponse
+from mindee.v2.client_options.base_parameters import BaseParameters
+from mindee.v2.parsing.inference.base_response import BaseResponse
 
 
 @dataclass
@@ -37,8 +37,8 @@ PRODUCTS = {
         params_class=CropParameters,
     ),
     "extraction": ProductConfig(
-        response_class=InferenceResponse,
-        params_class=InferenceParameters,
+        response_class=ExtractionResponse,
+        params_class=ExtractionParameters,
     ),
     "split": ProductConfig(
         response_class=SplitResponse,
@@ -81,16 +81,16 @@ class MindeeParser:
     """Parser options."""
     parsed_args: Namespace
     """Stores attributes relating to parsing."""
-    client: ClientV2
+    client: Client
     """Mindee client"""
-    input_source: Union[PathInput, UrlInputSource]
+    input_source: Union[PathInput, URLInputSource]
     """Document to be parsed."""
 
     def __init__(
         self,
         parser: Optional[MindeeArgumentParser] = None,
         parsed_args: Optional[Namespace] = None,
-        client: Optional[ClientV2] = None,
+        client: Optional[Client] = None,
     ) -> None:
         self.parser = (
             parser if parser else MindeeArgumentParser(description="Mindee_API")
@@ -100,7 +100,7 @@ class MindeeParser:
             self.client = client
         else:
             api_key = self.parsed_args.api_key if "api_key" in self.parsed_args else ""
-            self.client = ClientV2(api_key=api_key)
+            self.client = Client(api_key=api_key)
         self.input_source = self._get_input_source()
 
     def call_parse(self) -> None:
@@ -130,9 +130,9 @@ class MindeeParser:
         parsed_args = self.parser.parse_args()
         return parsed_args
 
-    def _get_input_source(self) -> Union[PathInput, UrlInputSource]:
+    def _get_input_source(self) -> Union[PathInput, URLInputSource]:
         """Loads an input document."""
 
         if self.parsed_args.path.lower().startswith("http"):
-            return UrlInputSource(self.parsed_args.path)
+            return URLInputSource(self.parsed_args.path)
         return PathInput(self.parsed_args.path)

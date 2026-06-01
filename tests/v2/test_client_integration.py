@@ -3,10 +3,13 @@ from pathlib import Path
 
 import pytest
 
-from mindee import ClientV2, InferenceParameters, PathInput, UrlInputSource
-from mindee.error.mindee_http_error_v2 import MindeeHTTPErrorV2
-from mindee.parsing.v2 import InferenceActiveOptions
-from mindee.parsing.v2.inference_response import InferenceResponse
+from mindee import ExtractionParameters
+from mindee.v2.client import Client
+from mindee.input.path_input import PathInput
+from mindee.input.url_input_source import URLInputSource
+from mindee.v2.error.mindee_http_error_v2 import MindeeHTTPErrorV2
+from mindee.v2.parsing import InferenceActiveOptions
+from mindee.v2.product.extraction.extraction_response import ExtractionResponse
 from tests.utils import FILE_TYPES_DIR, V2_PRODUCT_DATA_DIR
 
 
@@ -17,12 +20,12 @@ def findoc_model_id() -> str:
 
 
 @pytest.fixture(scope="session")
-def v2_client() -> ClientV2:
-    return ClientV2()
+def v2_client() -> Client:
+    return Client()
 
 
 def _basic_assert_success(
-    response: InferenceResponse, page_count: int, model_id: str
+    response: ExtractionResponse, page_count: int, model_id: str
 ) -> None:
     assert response is not None
     assert response.inference is not None
@@ -40,7 +43,7 @@ def _basic_assert_success(
 @pytest.mark.integration
 @pytest.mark.v2
 def test_parse_file_empty_multiple_pages_must_succeed(
-    v2_client: ClientV2, findoc_model_id: str
+    v2_client: Client, findoc_model_id: str
 ) -> None:
     """
     Upload a 2-page almost blank PDF and make sure the returned inference contains the
@@ -49,7 +52,7 @@ def test_parse_file_empty_multiple_pages_must_succeed(
     input_path: Path = FILE_TYPES_DIR / "pdf" / "multipage_cut-2.pdf"
 
     input_source = PathInput(input_path)
-    params = InferenceParameters(
+    params = ExtractionParameters(
         model_id=findoc_model_id,
         rag=False,
         raw_text=True,
@@ -58,8 +61,8 @@ def test_parse_file_empty_multiple_pages_must_succeed(
         alias="py_integration_empty_multiple",
     )
 
-    response: InferenceResponse = v2_client.enqueue_and_get_result(
-        InferenceResponse, input_source, params
+    response: ExtractionResponse = v2_client.enqueue_and_get_result(
+        ExtractionResponse, input_source, params
     )
     _basic_assert_success(response=response, page_count=2, model_id=findoc_model_id)
 
@@ -83,7 +86,7 @@ def test_parse_file_empty_multiple_pages_must_succeed(
 @pytest.mark.integration
 @pytest.mark.v2
 def test_parse_file_empty_single_page_options_must_succeed(
-    v2_client: ClientV2, findoc_model_id: str
+    v2_client: Client, findoc_model_id: str
 ) -> None:
     """
     Upload a blank PDF and make sure the options are set correctly.
@@ -91,7 +94,7 @@ def test_parse_file_empty_single_page_options_must_succeed(
     input_path: Path = FILE_TYPES_DIR / "pdf" / "blank_1.pdf"
 
     input_source = PathInput(input_path)
-    params = InferenceParameters(
+    params = ExtractionParameters(
         model_id=findoc_model_id,
         rag=True,
         raw_text=True,
@@ -99,8 +102,8 @@ def test_parse_file_empty_single_page_options_must_succeed(
         confidence=True,
         alias="py_integration_empty_page_options",
     )
-    response: InferenceResponse = v2_client.enqueue_and_get_result(
-        InferenceResponse, input_source, params
+    response: ExtractionResponse = v2_client.enqueue_and_get_result(
+        ExtractionResponse, input_source, params
     )
     _basic_assert_success(response=response, page_count=1, model_id=findoc_model_id)
 
@@ -118,7 +121,7 @@ def test_parse_file_empty_single_page_options_must_succeed(
 @pytest.mark.integration
 @pytest.mark.v2
 def test_parse_file_filled_single_page_must_succeed(
-    v2_client: ClientV2, findoc_model_id: str
+    v2_client: Client, findoc_model_id: str
 ) -> None:
     """
     Upload a filled single-page JPEG and verify that common fields are present.
@@ -128,7 +131,7 @@ def test_parse_file_filled_single_page_must_succeed(
     )
 
     input_source = PathInput(input_path)
-    params = InferenceParameters(
+    params = ExtractionParameters(
         model_id=findoc_model_id,
         webhook_ids=[],
         rag=None,
@@ -139,8 +142,8 @@ def test_parse_file_filled_single_page_must_succeed(
         text_context="this is an invoice.",
     )
 
-    response: InferenceResponse = v2_client.enqueue_and_get_result(
-        InferenceResponse, input_source, params
+    response: ExtractionResponse = v2_client.enqueue_and_get_result(
+        ExtractionResponse, input_source, params
     )
     _basic_assert_success(response=response, page_count=1, model_id=findoc_model_id)
 
@@ -168,14 +171,14 @@ def test_parse_file_filled_single_page_must_succeed(
 
 @pytest.mark.integration
 @pytest.mark.v2
-def test_invalid_uuid_must_throw_error(v2_client: ClientV2) -> None:
+def test_invalid_uuid_must_throw_error(v2_client: Client) -> None:
     """
     Using an invalid model identifier must trigger a 422 HTTP error.
     """
     input_path: Path = FILE_TYPES_DIR / "pdf" / "blank_1.pdf"
 
     input_source = PathInput(input_path)
-    params = InferenceParameters(
+    params = ExtractionParameters(
         model_id="INVALID MODEL ID", text_context="ignore this message"
     )
 
@@ -191,14 +194,14 @@ def test_invalid_uuid_must_throw_error(v2_client: ClientV2) -> None:
 
 @pytest.mark.integration
 @pytest.mark.v2
-def test_unknown_model_must_throw_error(v2_client: ClientV2) -> None:
+def test_unknown_model_must_throw_error(v2_client: Client) -> None:
     """
     Using an unknown model identifier must trigger a 404 HTTP error.
     """
     input_path: Path = FILE_TYPES_DIR / "pdf" / "blank_1.pdf"
 
     input_source = PathInput(input_path)
-    params = InferenceParameters(model_id="fc405e37-4ba4-4d03-aeba-533a8d1f0f21")
+    params = ExtractionParameters(model_id="fc405e37-4ba4-4d03-aeba-533a8d1f0f21")
 
     with pytest.raises(MindeeHTTPErrorV2) as exc_info:
         v2_client.enqueue(input_source, params)
@@ -213,7 +216,7 @@ def test_unknown_model_must_throw_error(v2_client: ClientV2) -> None:
 @pytest.mark.integration
 @pytest.mark.v2
 def test_unknown_webhook_ids_must_throw_error(
-    v2_client: ClientV2, findoc_model_id: str
+    v2_client: Client, findoc_model_id: str
 ) -> None:
     """
     Using an unknown webhook identifier must trigger an error.
@@ -221,7 +224,7 @@ def test_unknown_webhook_ids_must_throw_error(
     input_path: Path = FILE_TYPES_DIR / "pdf" / "blank_1.pdf"
 
     input_source = PathInput(input_path)
-    params = InferenceParameters(
+    params = ExtractionParameters(
         model_id=findoc_model_id,
         webhook_ids=[
             "fc405e37-4ba4-4d03-aeba-533a8d1f0f21",
@@ -247,7 +250,7 @@ def test_unknown_webhook_ids_must_throw_error(
 @pytest.mark.integration
 @pytest.mark.v2
 def test_blank_url_input_source_must_succeed(
-    v2_client: ClientV2,
+    v2_client: Client,
     findoc_model_id: str,
 ) -> None:
     """
@@ -255,8 +258,8 @@ def test_blank_url_input_source_must_succeed(
     """
     url = os.getenv("MINDEE_V2_SE_TESTS_BLANK_PDF_URL")
 
-    input_source = UrlInputSource(url)
-    params = InferenceParameters(
+    input_source = URLInputSource(url)
+    params = ExtractionParameters(
         model_id=findoc_model_id,
         rag=False,
         raw_text=False,
@@ -265,8 +268,8 @@ def test_blank_url_input_source_must_succeed(
         webhook_ids=[],
         alias="py_integration_url_source",
     )
-    response: InferenceResponse = v2_client.enqueue_and_get_result(
-        InferenceResponse, input_source, params
+    response: ExtractionResponse = v2_client.enqueue_and_get_result(
+        ExtractionResponse, input_source, params
     )
     _basic_assert_success(response=response, page_count=1, model_id=findoc_model_id)
 
@@ -274,7 +277,7 @@ def test_blank_url_input_source_must_succeed(
 @pytest.mark.integration
 @pytest.mark.v2
 def test_data_schema_must_succeed(
-    v2_client: ClientV2,
+    v2_client: Client,
     findoc_model_id: str,
 ) -> None:
     """
@@ -286,7 +289,7 @@ def test_data_schema_must_succeed(
     )
 
     input_source = PathInput(input_path)
-    params = InferenceParameters(
+    params = ExtractionParameters(
         model_id=findoc_model_id,
         rag=False,
         raw_text=False,
@@ -296,8 +299,8 @@ def test_data_schema_must_succeed(
         data_schema=data_schema_replace_path.read_text(),
         alias="py_integration_data_schema_replace",
     )
-    response: InferenceResponse = v2_client.enqueue_and_get_result(
-        InferenceResponse, input_source, params
+    response: ExtractionResponse = v2_client.enqueue_and_get_result(
+        ExtractionResponse, input_source, params
     )
     _basic_assert_success(response=response, page_count=1, model_id=findoc_model_id)
     assert response.inference.active_options.data_schema.replace is True

@@ -10,7 +10,6 @@ Region-Specific
    :maxdepth: 1
 
    ./fr/index
-   ./ind/index
    ./us/index
 
 International

@@ -3,7 +3,7 @@ from typing import List, Union
 from mindee.error import MindeeError
 from mindee.extraction.pdf_extractor.extracted_pdf import ExtractedPdf
 from mindee.extraction.pdf_extractor.pdf_extractor import PdfExtractor
-from mindee.input.sources.local_input_source import LocalInputSource
+from mindee.input.local_input_source import LocalInputSource
 from mindee.v2.file_operations.split_files import SplitFiles
 
 
@@ -13,8 +13,8 @@ def extract_single_split(
     """
     Extracts a single split as a complete PDF from the document.
 
-    :param input_source: Input source to split.
-    :param split: List of pages to keep.
+    :params input_source: Input source to split.
+    :params split: List of pages to keep.
     :return: Extracted PDF
     """
     return extract_splits(input_source, [split])[0]
@@ -27,8 +27,8 @@ def extract_splits(
     """
     Extracts splits as complete PDFs from the document.
 
-    :param input_source: Input source to split.
-    :param splits: List of sub-lists of pages to keep.
+    :params input_source: Input source to split.
+    :params splits: List of sub-lists of pages to keep.
     :return: A list of extracted invoices.
     """
     pdf_extractor = PdfExtractor(input_source)

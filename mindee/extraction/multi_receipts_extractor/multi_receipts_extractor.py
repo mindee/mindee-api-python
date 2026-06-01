@@ -5,8 +5,8 @@ from mindee.extraction.common.extracted_image import ExtractedImage
 from mindee.extraction.common.image_extractor import (
     extract_multiple_images_from_source,
 )
-from mindee.input.sources.local_input_source import LocalInputSource
-from mindee.parsing.common.inference import Inference
+from mindee.input.local_input_source import LocalInputSource
+from mindee.v1.parsing.common.inference import Inference
 
 
 def extract_receipts(
@@ -15,8 +15,8 @@ def extract_receipts(
     """
     Extracts individual receipts from multi-receipts documents.
 
-    :param input_source: Local Input Source to extract sub-receipts from.
-    :param inference: Results of the inference.
+    :params input_source: Local Input Source to extract sub-receipts from.
+    :params inference: Results of the inference.
     :return: Individual extracted receipts as an array of ExtractedMultiReceiptsImage.
     """
     images: List[ExtractedImage] = []

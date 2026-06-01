@@ -5,8 +5,8 @@ from functools import reduce
 import pytest
 from PIL import Image
 
-from mindee.image_operations.image_compressor import compress_image
-from mindee.input.sources import PathInput
+from mindee.image import compress_image
+from mindee.input import PathInput
 from mindee.pdf.pdf_compressor import compress_pdf
 from mindee.pdf.pdf_utils import extract_text_from_pdf
 from tests.utils import (

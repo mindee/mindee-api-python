@@ -2,13 +2,14 @@ import json
 
 import pytest
 
-from mindee import Client, product
+from mindee.v1.client import Client
+from mindee.v1 import product
 from mindee.error.mindee_http_error import (
     MindeeHTTPClientError,
     MindeeHTTPServerError,
     handle_error,
 )
-from mindee.input.sources.path_input import PathInput
+from mindee.input.path_input import PathInput
 from tests.utils import FILE_TYPES_DIR, clear_envvars, dummy_envvars, V1_ERROR_DATA_DIR
 
 

@@ -1,4 +1,4 @@
-from mindee.parsing.common.orientation import OrientationField
+from mindee.v1.parsing.common import OrientationField
 
 
 def test_constructor():

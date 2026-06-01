@@ -4,7 +4,7 @@ from mindee.v2.product.classification.classification_classifier import (
 from mindee.v2.product.classification.classification_inference import (
     ClassificationInference,
 )
-from mindee.v2.product.classification.classification_parameters import (
+from mindee.v2.product.classification.params.classification_parameters import (
     ClassificationParameters,
 )
 from mindee.v2.product.classification.classification_response import (

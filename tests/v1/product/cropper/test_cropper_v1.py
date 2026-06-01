@@ -2,13 +2,13 @@ import json
 
 import pytest
 
-from mindee.parsing.common.document import Document
-from mindee.parsing.common.page import Page
-from mindee.product.cropper.cropper_v1 import CropperV1
-from mindee.product.cropper.cropper_v1_document import (
+from mindee.v1.parsing.common import Document
+from mindee.v1.parsing.common.page import Page
+from mindee.v1.product.cropper.cropper_v1 import CropperV1
+from mindee.v1.product.cropper import (
     CropperV1Document,
 )
-from mindee.product.cropper.cropper_v1_page import (
+from mindee.v1.product.cropper.cropper_v1_page import (
     CropperV1Page,
 )
 from tests.utils import V1_PRODUCT_DATA_DIR

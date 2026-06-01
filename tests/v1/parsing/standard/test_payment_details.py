@@ -1,4 +1,4 @@
-from mindee.parsing.standard.payment_details import PaymentDetailsField
+from mindee.v1.parsing.standard import PaymentDetailsField
 
 
 def test_constructor():

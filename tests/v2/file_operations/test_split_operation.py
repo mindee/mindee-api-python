@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from mindee.input.sources.path_input import PathInput
+from mindee.input.path_input import PathInput
 from mindee.v2.product.split.split_response import (
     SplitResponse,
 )

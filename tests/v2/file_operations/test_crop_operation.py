@@ -4,7 +4,7 @@ import pytest
 from PIL import Image
 
 from mindee.v2.file_operations.crop import extract_crops
-from mindee.input.sources.path_input import PathInput
+from mindee.input.path_input import PathInput
 from mindee.v2.product.crop.crop_response import (
     CropResponse,
 )

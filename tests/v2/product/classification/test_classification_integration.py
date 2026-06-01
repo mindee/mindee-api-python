@@ -2,7 +2,8 @@ import os
 
 import pytest
 
-from mindee import ClientV2, PathInput
+from mindee.v2.client import Client
+from mindee.input.path_input import PathInput
 from mindee.v2 import ClassificationParameters, ClassificationResponse
 from tests.utils import V2_PRODUCT_DATA_DIR
 
@@ -14,15 +15,13 @@ def classification_model_id() -> str:
 
 
 @pytest.fixture(scope="session")
-def v2_client() -> ClientV2:
-    return ClientV2()
+def v2_client() -> Client:
+    return Client()
 
 
 @pytest.mark.integration
 @pytest.mark.v2
-def test_classification_default_sample(
-    v2_client: ClientV2, classification_model_id: str
-):
+def test_classification_default_sample(v2_client: Client, classification_model_id: str):
     input_source = PathInput(
         V2_PRODUCT_DATA_DIR / "classification" / "default_sample.jpg"
     )

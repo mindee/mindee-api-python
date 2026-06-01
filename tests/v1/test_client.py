@@ -2,16 +2,22 @@ import binascii
 
 import pytest
 
-from mindee import AsyncPredictResponse, Client, PageOptions, PredictResponse, product
+from mindee.v1 import (
+    AsyncPredictResponse,
+    Client,
+    PageOptions,
+    PredictResponse,
+    product,
+)
 from mindee.error.mindee_error import MindeeClientError, MindeeError
 from mindee.error.mindee_http_error import MindeeHTTPError
 from mindee.input.local_response import LocalResponse
-from mindee.input.sources.local_input_source import LocalInputSource
-from mindee.product import MultiReceiptsDetectorV1
-from mindee.product.international_id.international_id_v2 import InternationalIdV2
-from mindee.product.invoice.invoice_v4 import InvoiceV4
-from mindee.product.invoice_splitter.invoice_splitter_v1 import InvoiceSplitterV1
-from mindee.product.receipt.receipt_v5 import ReceiptV5
+from mindee.input.local_input_source import LocalInputSource
+from mindee.v1.product import MultiReceiptsDetectorV1
+from mindee.v1.product.international_id import InternationalIdV2
+from mindee.v1.product.invoice.invoice_v4 import InvoiceV4
+from mindee.v1.product.invoice_splitter.invoice_splitter_v1 import InvoiceSplitterV1
+from mindee.v1.product.receipt.receipt_v5 import ReceiptV5
 from tests.utils import (
     FILE_TYPES_DIR,
     V1_PRODUCT_DATA_DIR,

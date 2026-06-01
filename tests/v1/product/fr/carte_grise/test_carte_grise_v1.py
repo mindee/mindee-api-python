@@ -2,10 +2,10 @@ import json
 
 import pytest
 
-from mindee.parsing.common.document import Document
-from mindee.parsing.common.page import Page
-from mindee.product.fr.carte_grise.carte_grise_v1 import CarteGriseV1
-from mindee.product.fr.carte_grise.carte_grise_v1_document import (
+from mindee.v1.parsing.common import Document
+from mindee.v1.parsing.common.page import Page
+from mindee.v1.product.fr.carte_grise.carte_grise_v1 import CarteGriseV1
+from mindee.v1.product.fr.carte_grise.carte_grise_v1_document import (
     CarteGriseV1Document,
 )
 from tests.utils import V1_PRODUCT_DATA_DIR
