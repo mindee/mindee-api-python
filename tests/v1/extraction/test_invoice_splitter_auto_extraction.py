@@ -40,19 +40,26 @@ def test_pdf_should_extract_invoices_strict():
     pdf_extractor = PdfExtractor(invoice_splitter_input)
     assert pdf_extractor.get_page_count() == 2
 
+    extracted_pdfs_not_strict = pdf_extractor.extract_invoices(
+        inference.prediction.invoice_page_groups
+    )
     extracted_pdfs_strict = pdf_extractor.extract_invoices(
         inference.prediction.invoice_page_groups
     )
     extracted_base_pdfs = pdf_extractor.extract_documents(
-        inference.prediction.invoice_page_groups
+        [int_list.page_indexes for int_list in inference.prediction.invoice_page_groups]
     )
-    assert extracted_base_pdfs[0].pdf_bytes == extracted_pdfs_strict[0].pdf_bytes
+    for i, extracted_pdf in enumerate(extracted_base_pdfs):
+        assert extracted_pdf.filename == extracted_pdfs_strict[i].filename
+        assert (
+            extracted_pdf.pdf_bytes.read() == extracted_pdfs_strict[i].pdf_bytes.read()
+        )
 
-    assert len(extracted_pdfs_strict) == 2
-    assert extracted_pdfs_strict[0].filename == "default_sample_001-001.pdf"
-    assert extracted_pdfs_strict[1].filename == "default_sample_002-002.pdf"
+    assert len(extracted_pdfs_not_strict) == 2
+    assert extracted_pdfs_not_strict[0].filename == "default_sample_001-001.pdf"
+    assert extracted_pdfs_not_strict[1].filename == "default_sample_002-002.pdf"
 
-    invoice_0 = client.parse(InvoiceV4, extracted_pdfs_strict[0].as_input_source())
+    invoice_0 = client.parse(InvoiceV4, extracted_pdfs_not_strict[0].as_input_source())
     test_string_rst_invoice_0 = prepare_invoice_return(
         V1_PRODUCT_DATA_DIR
         / "invoices"
