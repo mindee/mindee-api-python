@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from typing import List, Union
 
 from mindee.v2.product.extraction.params.data_schema_field import DataSchemaField
 from mindee.v2.product.extraction.params.string_data_class import StringDataClass
@@ -9,7 +8,7 @@ from mindee.v2.product.extraction.params.string_data_class import StringDataClas
 class DataSchemaReplace(StringDataClass):
     """The structure to completely replace the data schema of the model."""
 
-    fields: List[Union[DataSchemaField, dict]]
+    fields: list[DataSchemaField | dict]
 
     def __post_init__(self) -> None:
         if not self.fields:

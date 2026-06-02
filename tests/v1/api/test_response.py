@@ -20,9 +20,10 @@ from tests.utils import V1_PRODUCT_DATA_DIR
 
 
 def test_invoice_receipt_v5():
-    response = json.load(
-        open(V1_PRODUCT_DATA_DIR / "invoices" / "response_v4" / "complete.json")
-    )
+    with open(
+        V1_PRODUCT_DATA_DIR / "invoices" / "response_v4" / "complete.json"
+    ) as json_file:
+        response = json.load(json_file)
     parsed_response = PredictResponse(InvoiceV4, response)
     assert isinstance(parsed_response.document.inference, InvoiceV4)
     for page in parsed_response.document.inference.pages:
@@ -31,9 +32,10 @@ def test_invoice_receipt_v5():
 
 
 def test_response_receipt_v5():
-    response = json.load(
-        open(V1_PRODUCT_DATA_DIR / "expense_receipts" / "response_v5" / "complete.json")
-    )
+    with open(
+        V1_PRODUCT_DATA_DIR / "expense_receipts" / "response_v5" / "complete.json"
+    ) as json_file:
+        response = json.load(json_file)
     parsed_response = PredictResponse(ReceiptV5, response)
     assert isinstance(parsed_response.document.inference, ReceiptV5)
     for page in parsed_response.document.inference.pages:
@@ -42,14 +44,13 @@ def test_response_receipt_v5():
 
 
 def test_response_financial_doc_with_receipt():
-    response = json.load(
-        open(
-            V1_PRODUCT_DATA_DIR
-            / "financial_document"
-            / "response_v1"
-            / "complete_receipt.json"
-        )
-    )
+    with open(
+        V1_PRODUCT_DATA_DIR
+        / "financial_document"
+        / "response_v1"
+        / "complete_receipt.json"
+    ) as json_file:
+        response = json.load(json_file)
     parsed_response = PredictResponse(FinancialDocumentV1, response)
     assert isinstance(parsed_response.document.inference, FinancialDocumentV1)
     assert isinstance(
@@ -60,9 +61,10 @@ def test_response_financial_doc_with_receipt():
 
 
 def test_response_passport_v1():
-    response = json.load(
-        open(V1_PRODUCT_DATA_DIR / "passport" / "response_v1" / "complete.json")
-    )
+    with open(
+        V1_PRODUCT_DATA_DIR / "passport" / "response_v1" / "complete.json"
+    ) as json_file:
+        response = json.load(json_file)
     parsed_response = PredictResponse(PassportV1, response)
     assert isinstance(parsed_response.document.inference, PassportV1)
     assert isinstance(parsed_response.document.inference.prediction, PassportV1Document)
@@ -72,9 +74,10 @@ def test_response_passport_v1():
 
 
 def test_response_fr_idcard_v2():
-    response = json.load(
-        open(V1_PRODUCT_DATA_DIR / "idcard_fr" / "response_v2" / "complete.json")
-    )
+    with open(
+        V1_PRODUCT_DATA_DIR / "idcard_fr" / "response_v2" / "complete.json"
+    ) as json_file:
+        response = json.load(json_file)
     parsed_response = PredictResponse(IdCardV2, response)
     assert isinstance(parsed_response.document.inference, IdCardV2)
     assert isinstance(parsed_response.document.inference.prediction, IdCardV2Document)

@@ -1,5 +1,3 @@
-from typing import List
-
 from mindee.parsing.common import StringDict
 from mindee.v2.product.ocr.ocr_word import OCRWord
 
@@ -7,7 +5,7 @@ from mindee.v2.product.ocr.ocr_word import OCRWord
 class OCRPage:
     """OCR result for a single page."""
 
-    words: List[OCRWord]
+    words: list[OCRWord]
     """List of words extracted from the document page."""
     content: str
     """Full text content extracted from the document page."""

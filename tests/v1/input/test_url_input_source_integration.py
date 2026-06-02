@@ -57,8 +57,6 @@ def test_save_file_with_filename(client, reference_file_path, output_file_path):
 
 
 @pytest.fixture(autouse=True)
-def cleanup(request):
-    def remove_test_files():
-        cleanup_output_files(["invoice_5p.pdf", "customFileName.pdf"])
-
-    request.addfinalizer(remove_test_files)
+def cleanup():
+    yield
+    cleanup_output_files(["invoice_5p.pdf", "customFileName.pdf"])

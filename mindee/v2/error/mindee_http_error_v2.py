@@ -1,5 +1,4 @@
 import json
-from typing import List, Optional
 
 from mindee.parsing.common import StringDict
 from mindee.v2.parsing import ErrorItem, ErrorResponse
@@ -12,13 +11,13 @@ class MindeeHTTPErrorV2(RuntimeError, ErrorResponse):
         """
         Base exception for HTTP calls.
 
-        :params response:
+        :param response:
         """
         self.status = response.status
         self.title = response.title
         self.code = response.code
         self.detail = response.detail
-        self.errors: List[ErrorItem] = response.errors
+        self.errors: list[ErrorItem] = response.errors
         super().__init__(
             f"HTTP {self.status} - {self.title} :: {self.code} - {self.detail}"
         )
@@ -27,7 +26,7 @@ class MindeeHTTPErrorV2(RuntimeError, ErrorResponse):
 class MindeeHTTPUnknownErrorV2(MindeeHTTPErrorV2):
     """HTTP error with unknown status code."""
 
-    def __init__(self, detail: Optional[str]) -> None:
+    def __init__(self, detail: str | None) -> None:
         super().__init__(
             ErrorResponse(
                 {

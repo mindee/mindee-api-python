@@ -1,5 +1,3 @@
-from typing import List, Optional
-
 from mindee.parsing.common import StringDict
 from mindee.v2.parsing.inference.field.dynamic_field import DynamicField, FieldType
 from mindee.v2.parsing.inference.field.field_confidence import FieldConfidence
@@ -9,8 +7,8 @@ from mindee.v2.parsing.inference.field.field_location import FieldLocation
 class BaseField(DynamicField):
     """Field with base information."""
 
-    locations: List[FieldLocation]
-    confidence: Optional[FieldConfidence]
+    locations: list[FieldLocation]
+    confidence: FieldConfidence | None
 
     def __init__(
         self, field_type: FieldType, raw_response: StringDict, indent_level: int = 0

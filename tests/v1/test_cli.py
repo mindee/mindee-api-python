@@ -3,8 +3,8 @@ from argparse import Namespace
 
 import pytest
 
-from mindee.v1.commands import MindeeParser
 from mindee.error.mindee_http_error import MindeeHTTPError
+from mindee.v1.commands import MindeeParser
 from tests.utils import FILE_TYPES_DIR, V1_PRODUCT_DATA_DIR, clear_envvars
 
 
@@ -122,90 +122,90 @@ def ots_doc_feedback(monkeypatch):
 
 
 def test_cli_custom_doc(custom_doc):
+    parser = MindeeParser(parsed_args=custom_doc)
     with pytest.raises(MindeeHTTPError):
-        parser = MindeeParser(parsed_args=custom_doc)
         parser.call_parse()
 
 
 def test_cli_generated_doc_sync(generated_doc_sync):
+    parser = MindeeParser(parsed_args=generated_doc_sync)
     with pytest.raises(MindeeHTTPError):
-        parser = MindeeParser(parsed_args=generated_doc_sync)
         parser.call_parse()
 
 
 def test_cli_generated_doc_async(generated_doc_async):
+    parser = MindeeParser(parsed_args=generated_doc_async)
     with pytest.raises(MindeeHTTPError):
-        parser = MindeeParser(parsed_args=generated_doc_async)
         parser.call_parse()
 
 
 def test_cli_invoice(ots_doc):
     ots_doc.product_name = "invoice"
     ots_doc.api_key = ""
+    parser = MindeeParser(parsed_args=ots_doc)
     with pytest.raises(RuntimeError):
-        parser = MindeeParser(parsed_args=ots_doc)
         parser.call_parse()
     ots_doc.api_key = "dummy"
+    parser = MindeeParser(parsed_args=ots_doc)
     with pytest.raises(MindeeHTTPError):
-        parser = MindeeParser(parsed_args=ots_doc)
         parser.call_parse()
 
 
 def test_cli_receipt(ots_doc):
     ots_doc.product_name = "receipt"
     ots_doc.api_key = ""
+    parser = MindeeParser(parsed_args=ots_doc)
     with pytest.raises(RuntimeError):
-        parser = MindeeParser(parsed_args=ots_doc)
         parser.call_parse()
     ots_doc.api_key = "dummy"
+    parser = MindeeParser(parsed_args=ots_doc)
     with pytest.raises(MindeeHTTPError):
-        parser = MindeeParser(parsed_args=ots_doc)
         parser.call_parse()
 
 
 def test_cli_financial_doc(ots_doc):
     ots_doc.product_name = "financial-document"
     ots_doc.api_key = ""
+    parser = MindeeParser(parsed_args=ots_doc)
     with pytest.raises(RuntimeError):
-        parser = MindeeParser(parsed_args=ots_doc)
         parser.call_parse()
     ots_doc.api_key = "dummy"
+    parser = MindeeParser(parsed_args=ots_doc)
     with pytest.raises(MindeeHTTPError):
-        parser = MindeeParser(parsed_args=ots_doc)
         parser.call_parse()
 
 
 def test_cli_passport(ots_doc):
     ots_doc.product_name = "passport"
     ots_doc.api_key = ""
+    parser = MindeeParser(parsed_args=ots_doc)
     with pytest.raises(RuntimeError):
-        parser = MindeeParser(parsed_args=ots_doc)
         parser.call_parse()
     ots_doc.api_key = "dummy"
+    parser = MindeeParser(parsed_args=ots_doc)
     with pytest.raises(MindeeHTTPError):
-        parser = MindeeParser(parsed_args=ots_doc)
         parser.call_parse()
 
 
 def test_cli_us_bank_check(ots_doc):
     ots_doc.product_name = "us-bank-check"
     ots_doc.api_key = ""
+    parser = MindeeParser(parsed_args=ots_doc)
     with pytest.raises(RuntimeError):
-        parser = MindeeParser(parsed_args=ots_doc)
         parser.call_parse()
     ots_doc.api_key = "dummy"
+    parser = MindeeParser(parsed_args=ots_doc)
     with pytest.raises(MindeeHTTPError):
-        parser = MindeeParser(parsed_args=ots_doc)
         parser.call_parse()
 
 
 def test_cli_invoice_splitter_enqueue(ots_doc_enqueue_and_parse):
     ots_doc_enqueue_and_parse.product_name = "invoice-splitter"
     ots_doc_enqueue_and_parse.api_key = ""
+    parser = MindeeParser(parsed_args=ots_doc_enqueue_and_parse)
     with pytest.raises(RuntimeError):
-        parser = MindeeParser(parsed_args=ots_doc_enqueue_and_parse)
         parser.call_parse()
     ots_doc_enqueue_and_parse.api_key = "dummy"
+    parser = MindeeParser(parsed_args=ots_doc_enqueue_and_parse)
     with pytest.raises(MindeeHTTPError):
-        parser = MindeeParser(parsed_args=ots_doc_enqueue_and_parse)
         parser.call_parse()

@@ -2,9 +2,9 @@ import os
 
 import pytest
 
-from mindee.v2.client import Client
 from mindee.input.path_input import PathInput
 from mindee.v2 import SplitParameters, SplitResponse
+from mindee.v2.client import Client
 from tests.utils import V2_PRODUCT_DATA_DIR
 
 

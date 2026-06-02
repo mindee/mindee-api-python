@@ -35,7 +35,7 @@ def get_bbox(points: Points) -> BBox:
     """
     Given a sequence of points, calculate a bbox that encompasses all points.
 
-    :params points: Polygon to process.
+    :param points: Polygon to process.
     :return: A bbox that encompasses all points
     """
     y_min = min(v[1] for v in points)
@@ -59,8 +59,8 @@ def extend_bbox(bbox: BBox, points: Points) -> BBox:
     """
     Given a BBox and a sequence of points, calculate the surrounding bbox that encompasses all.
 
-    :params bbox: initial BBox to extend.
-    :params points: Sequence of points to process. Accepts polygons and similar
+    :param bbox: initial BBox to extend.
+    :param points: Sequence of points to process. Accepts polygons and similar
     """
     all_points = []
     for point in points:

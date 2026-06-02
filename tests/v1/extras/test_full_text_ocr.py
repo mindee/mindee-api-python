@@ -19,7 +19,7 @@ from tests.utils import V1_EXTRAS_DIR
 
 @pytest.fixture
 def load_document():
-    with open(V1_EXTRAS_DIR / "full_text_ocr/complete.json", "r") as file:
+    with open(V1_EXTRAS_DIR / "full_text_ocr/complete.json") as file:
         prediction_data = json.load(file)
 
     return AsyncPredictResponse(InternationalIdV2, prediction_data).document

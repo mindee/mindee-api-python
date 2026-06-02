@@ -1,13 +1,13 @@
 import io
 from pathlib import Path
-from typing import BinaryIO, List
+from typing import BinaryIO
 
 import pypdfium2 as pdfium
 from PIL import Image
 
 from mindee.error.mindee_error import MindeeError
-from mindee.pdf.extracted_pdf import ExtractedPDF
 from mindee.input.local_input_source import LocalInputSource
+from mindee.pdf.extracted_pdf import ExtractedPDF
 
 
 class PDFExtractor:
@@ -30,11 +30,11 @@ class PDFExtractor:
         pdf = pdfium.PdfDocument(self._source_pdf)
         return len(pdf)
 
-    def cut_pages(self, page_indexes: List) -> BinaryIO:
+    def cut_pages(self, page_indexes: list) -> BinaryIO:
         """
         Create a new PDF from pages and save it into a buffer.
 
-        :params page_indexes: List of pages number to use for merging in the original PDF.
+        :param page_indexes: List of pages number to use for merging in the original PDF.
         :return: The buffer containing the new PDF.
         """
         self._source_pdf.seek(0)
@@ -46,15 +46,15 @@ class PDFExtractor:
         return bytes_io
 
     def extract_sub_documents(
-        self, page_indexes: List[List[int]]
-    ) -> List[ExtractedPDF]:
+        self, page_indexes: list[list[int]]
+    ) -> list[ExtractedPDF]:
         """
         Extract the sub-documents from the main pdf, based on the given list of page indexes.
 
-        :params page_indexes: List of list of numbers, representing page indexes.
+        :param page_indexes: List of list of numbers, representing page indexes.
         :return: A list of created PDFS.
         """
-        extracted_pdfs: List[ExtractedPDF] = []
+        extracted_pdfs: list[ExtractedPDF] = []
         extension = Path(self._filename).suffix
         stem = Path(self._filename).stem
         for page_index_elem in page_indexes:
@@ -73,8 +73,8 @@ class PDFExtractor:
 
     def extract_documents(
         self,
-        page_indexes: List[List[int]],
-    ) -> List[ExtractedPDF]:
+        page_indexes: list[list[int]],
+    ) -> list[ExtractedPDF]:
         """
         Extracts complete PDFs from the document.
 

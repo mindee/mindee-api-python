@@ -1,7 +1,4 @@
-from typing import Optional
-
-from mindee.parsing.common import StringDict
-from mindee.parsing.common import format_for_display
+from mindee.parsing.common import StringDict, format_for_display
 from mindee.v1.parsing.standard.base import BaseField, FieldPositionMixin
 
 
@@ -16,7 +13,7 @@ class CompanyRegistrationField(FieldPositionMixin, BaseField):
         raw_prediction: StringDict,
         value_key: str = "value",
         reconstructed: bool = False,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         super().__init__(raw_prediction, value_key, reconstructed, page_id)
         self.type = raw_prediction["type"]

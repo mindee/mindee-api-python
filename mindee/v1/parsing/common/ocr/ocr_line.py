@@ -1,10 +1,8 @@
-from typing import List
-
 from mindee.geometry.minmax import get_min_max_x
 from mindee.v1.parsing.common.ocr.ocr_word import OCRWord
 
 
-class OCRLine(List[OCRWord]):
+class OCRLine(list[OCRWord]):
     """A list of words which are on the same line."""
 
     def sort_on_x(self) -> None:

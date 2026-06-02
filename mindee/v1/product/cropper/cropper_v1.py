@@ -1,8 +1,6 @@
-from typing import List
-
+from mindee.parsing.common.string_dict import StringDict
 from mindee.v1.parsing.common.inference import Inference
 from mindee.v1.parsing.common.page import Page
-from mindee.parsing.common.string_dict import StringDict
 from mindee.v1.product.cropper.cropper_v1_document import (
     CropperV1Document,
 )
@@ -16,7 +14,7 @@ class CropperV1(Inference):
 
     prediction: CropperV1Document
     """Document-level prediction."""
-    pages: List[Page[CropperV1Page]]
+    pages: list[Page[CropperV1Page]]
     """Page-level prediction(s)."""
     endpoint_name = "cropper"
     """Name of the endpoint."""
@@ -27,7 +25,7 @@ class CropperV1(Inference):
         """
         Cropper v1 inference.
 
-        :params raw_prediction: Raw prediction from the HTTP response.
+        :param raw_prediction: Raw prediction from the HTTP response.
         """
         super().__init__(raw_prediction)
 

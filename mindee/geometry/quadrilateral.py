@@ -1,6 +1,7 @@
-from typing import NamedTuple, Sequence
+from collections.abc import Sequence
+from typing import NamedTuple
 
-from mindee.error.geometry_error import GeometryError
+from mindee.error.geometry_error import MindeeGeometryError
 from mindee.geometry.bbox import get_bbox
 from mindee.geometry.point import Point, Points
 from mindee.geometry.polygon_utils import get_centroid
@@ -28,10 +29,10 @@ def quadrilateral_from_prediction(prediction: Sequence[list]) -> Quadrilateral:
     """
     Transform a prediction into a Quadrilateral.
 
-    :params prediction: API prediction.
+    :param prediction: API prediction.
     """
     if len(prediction) != 4:
-        raise GeometryError("Prediction must have exactly 4 points")
+        raise MindeeGeometryError("Prediction must have exactly 4 points")
     return Quadrilateral(
         Point(prediction[0][0], prediction[0][1]),
         Point(prediction[1][0], prediction[1][1]),
@@ -44,7 +45,7 @@ def get_bounding_box(points: Points) -> Quadrilateral:
     """
     Given a sequence of points, calculate a bounding box that encompasses all points.
 
-    :params points: Polygon to process.
+    :param points: Polygon to process.
     :return: A bounding box that encompasses all points.
     """
     x_min, y_min, x_max, y_max = get_bbox(points)

@@ -1,5 +1,3 @@
-from typing import List, Optional, Union
-
 from mindee.error import MindeeError
 from mindee.pdf.extracted_pdf import ExtractedPDF
 from mindee.pdf.pdf_extractor import PDFExtractor as BasePDFExtractor
@@ -11,15 +9,15 @@ class PDFExtractor(BasePDFExtractor):
 
     def extract_invoices(
         self,
-        page_indexes: List[Union[InvoiceSplitterV1InvoicePageGroup, List[int]]],
+        page_indexes: list[InvoiceSplitterV1InvoicePageGroup | list[int]],
         strict: bool = False,
-    ) -> List[ExtractedPDF]:
+    ) -> list[ExtractedPDF]:
         """
         Extracts invoices as complete PDFs from the document from either a list of pages
         or a list of page groups.
 
-        :params page_indexes: List of sub-lists of pages to keep.
-        :params strict: Whether to trust confidence scores above 0.5 (included) or not.
+        :param page_indexes: List of sub-lists of pages to keep.
+        :param strict: Whether to trust confidence scores above 0.5 (included) or not.
         :return: A list of extracted invoices.
         """
 
@@ -31,9 +29,9 @@ class PDFExtractor(BasePDFExtractor):
         if not strict:
             indexes_as_list = [page_index.page_indexes for page_index in page_indexes]  # type: ignore
             return self.extract_sub_documents(indexes_as_list)
-        correct_page_indexes: List[List[int]] = []
-        current_list: List[int] = []
-        previous_confidence: Optional[float] = None
+        correct_page_indexes: list[list[int]] = []
+        current_list: list[int] = []
+        previous_confidence: float | None = None
         for i, page_index in enumerate(page_indexes):
             assert isinstance(page_index, InvoiceSplitterV1InvoicePageGroup)
             confidence = page_index.confidence

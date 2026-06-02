@@ -8,8 +8,8 @@ from mindee import (
     SplitParameters,
     SplitResponse,
 )
-from mindee.v2.client import Client
 from mindee.input.path_input import PathInput
+from mindee.v2.client import Client
 from tests.utils import OUTPUT_DIR, V2_PRODUCT_DATA_DIR, cleanup_output_files
 
 

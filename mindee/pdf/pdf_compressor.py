@@ -2,7 +2,7 @@ import io
 import logging
 from ctypes import POINTER, c_char_p, c_ushort
 from threading import RLock
-from typing import BinaryIO, List, Optional, Tuple, Union
+from typing import BinaryIO
 
 import pypdfium2 as pdfium
 import pypdfium2.raw as pdfium_c
@@ -21,7 +21,7 @@ MIN_QUALITY = 1
 
 
 def compress_pdf(
-    pdf_data: Union[BinaryIO, bytes],
+    pdf_data: BinaryIO | bytes,
     image_quality: int = 85,
     force_source_text_compression: bool = False,
     disable_source_text: bool = True,
@@ -29,10 +29,10 @@ def compress_pdf(
     """
     Compresses each page of a provided PDF buffer.
 
-    :params pdf_data: The input PDF as bytes.
-    :params image_quality: Compression quality (70-100 for most JPG images).
-    :params force_source_text_compression: If true, attempts to re-write detected text.
-    :params disable_source_text: If true, doesn't re-apply source text to the output PDF.
+    :param pdf_data: The input PDF as bytes.
+    :param image_quality: Compression quality (70-100 for most JPG images).
+    :param force_source_text_compression: If true, attempts to re-write detected text.
+    :param disable_source_text: If true, doesn't re-apply source text to the output PDF.
     :return: Compressed PDF as bytes.
     """
     if not isinstance(pdf_data, bytes):
@@ -86,12 +86,12 @@ def compress_pdf(
 def _compress_pdf_pages(
     pdf_data: bytes,
     image_quality: int,
-) -> Optional[List[Tuple[bytes, int, int]]]:
+) -> list[tuple[bytes, int, int]] | None:
     """
     Compresses PDF pages and returns an array of compressed page buffers.
 
-    :params pdf_data: The input PDF as bytes.
-    :params image_quality: Initial compression quality.
+    :param pdf_data: The input PDF as bytes.
+    :param image_quality: Initial compression quality.
     :return: List of compressed page buffers, or None if compression fails.
     """
     original_size = len(pdf_data)
@@ -114,14 +114,14 @@ def _compress_pdf_pages(
 def add_text_to_pdf_page(  # type: ignore
     page: pdfium.PdfPage,
     page_id: int,
-    extracted_text: Optional[List[List[PDFCharData]]],
+    extracted_text: list[list[PDFCharData]] | None,
 ) -> None:
     """
     Adds text to a PDF page based on the extracted text data.
 
-    :params page: The PDFDocument object.
-    :params page_id: The ID of the page.
-    :params extracted_text: List of PDFCharData objects containing text and positioning information.
+    :param page: The PDFDocument object.
+    :param page_id: The ID of the page.
+    :param extracted_text: List of PDFCharData objects containing text and positioning information.
     """
     if not extracted_text or not extracted_text[page_id]:
         return
@@ -149,12 +149,12 @@ def add_text_to_pdf_page(  # type: ignore
 def _compress_pages_with_quality(
     pdf_data: bytes,
     image_quality: int,
-) -> List[Tuple[bytes, int, int]]:
+) -> list[tuple[bytes, int, int]]:
     """
     Compresses pages with a specific quality.
 
-    :params pdf_data: The input PDF as bytes.
-    :params image_quality: Compression quality.
+    :param pdf_data: The input PDF as bytes.
+    :param image_quality: Compression quality.
     :return: List of compressed page buffers.
     """
     pdf_document = pdfium.PdfDocument(pdf_data)
@@ -174,9 +174,9 @@ def _is_compression_successful(
     """
     Checks if the compression was successful based on the compressed size and original size.
 
-    :params total_compressed_size: Total size of compressed pages.
-    :params original_size: Original PDF size.
-    :params image_quality: Compression quality.
+    :param total_compressed_size: Total size of compressed pages.
+    :param original_size: Original PDF size.
+    :param image_quality: Compression quality.
     :return: True if compression was successful, false otherwise.
     """
     overhead = lerp(0.54, 0.18, image_quality / 100)
@@ -190,8 +190,8 @@ def _rasterize_page(  # type: ignore
     """
     Rasterizes a PDF page.
 
-    :params page: PdfPage object to rasterize.
-    :params quality: Quality to apply during rasterization.
+    :param page: PdfPage object to rasterize.
+    :param quality: Quality to apply during rasterization.
     :return: Rasterized page as bytes.
     """
     image = page.render().to_pil()
@@ -200,11 +200,11 @@ def _rasterize_page(  # type: ignore
     return buffer.getvalue()
 
 
-def _collect_images_as_pdf(image_list: List[bytes]) -> pdfium.PdfDocument:  # type: ignore
+def _collect_images_as_pdf(image_list: list[bytes]) -> pdfium.PdfDocument:  # type: ignore
     """
     Converts a list of JPEG images into pages in a PdfDocument.
 
-    :params image_list: A list of bytes representing JPEG images.
+    :param image_list: A list of bytes representing JPEG images.
     :return: A PdfDocument handle containing the images as pages.
     """
     out_pdf = pdfium.PdfDocument.new()

@@ -1,5 +1,3 @@
-from typing import Optional, Union
-
 from mindee.error.mindee_error import MindeeError
 from mindee.parsing.common import StringDict
 
@@ -8,32 +6,36 @@ class MindeeHTTPError(RuntimeError):
     """An exception relating to HTTP calls."""
 
     status_code: int
-    api_code: Optional[str]
-    api_details: Optional[str]
-    api_message: Optional[str]
+    api_code: str | None
+    api_details: str | None
+    api_message: str | None
 
     def __init__(self, http_error: StringDict, url: str, code: int) -> None:
         """
         Base exception for HTTP calls.
 
-        :params http_error: formatted & parsed error
-        :params url: url/endpoint the exception was raised on
-        :params code: HTTP code for the error
+        :param http_error: formatted & parsed error
+        :param url: url/endpoint the exception was raised on
+        :param code: HTTP code for the error
         """
         self.status_code = code
-        self.api_code = http_error["code"] if "code" in http_error else None
-        self.api_details = http_error["details"] if "details" in http_error else None
-        self.api_message = http_error["message"] if "message" in http_error else None
+        self.api_code = http_error.get("code", None) if "code" in http_error else None
+        self.api_details = (
+            http_error.get("details", None) if "details" in http_error else None
+        )
+        self.api_message = (
+            http_error.get("message", None) if "message" in http_error else None
+        )
         super().__init__(
             f"{url} {self.status_code} HTTP error: {self.api_details} - {self.api_message}"
         )
 
 
-def create_error_obj(response: Union[StringDict, str]) -> StringDict:
+def create_error_obj(response: StringDict | str) -> StringDict:
     """
     Creates an error object based on a requests' payload.
 
-    :params response: response as sent by the server, as a dict.
+    :param response: response as sent by the server, as a dict.
         In _very_ rare instances, this can be an html string.
     """
     if not isinstance(response, str):
@@ -92,8 +94,8 @@ def handle_error(url: str, response: StringDict) -> MindeeHTTPError:
     """
     Creates an appropriate HTTP error exception, based on retrieved HTTP error code.
 
-    :params url: url of the product
-    :params response: StringDict
+    :param url: url of the product
+    :param response: StringDict
     """
     error_obj = create_error_obj(response)
     if not isinstance(response, str) and (  # type: ignore

@@ -1,4 +1,5 @@
-from typing import NamedTuple, Sequence
+from collections.abc import Sequence
+from typing import NamedTuple
 
 KEEP_ONLY = "KEEP_ONLY"
 REMOVE = "REMOVE"

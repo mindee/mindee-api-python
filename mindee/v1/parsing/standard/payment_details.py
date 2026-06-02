@@ -1,5 +1,3 @@
-from typing import Optional
-
 from mindee.parsing.common import StringDict
 from mindee.v1.parsing.standard.base import BaseField, FieldPositionMixin
 
@@ -7,13 +5,13 @@ from mindee.v1.parsing.standard.base import BaseField, FieldPositionMixin
 class PaymentDetailsField(FieldPositionMixin, BaseField):
     """Information on a single payment."""
 
-    account_number: Optional[str]
+    account_number: str | None
     """Account number"""
-    iban: Optional[str]
+    iban: str | None
     """Account IBAN"""
-    routing_number: Optional[str]
+    routing_number: str | None
     """Account routing number"""
-    swift: Optional[str]
+    swift: str | None
     """Bank's SWIFT code"""
 
     def __init__(
@@ -25,21 +23,21 @@ class PaymentDetailsField(FieldPositionMixin, BaseField):
         routing_number_key: str = "routing_number",
         swift_key: str = "swift",
         reconstructed: bool = False,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         """
         Payment details field object.
 
-        :params raw_prediction: Payment detail prediction object from HTTP response
-        :params value_key: Corresponds to iban
-        :params account_number_key: Key to use for getting the account number in the
+        :param raw_prediction: Payment detail prediction object from HTTP response
+        :param value_key: Corresponds to iban
+        :param account_number_key: Key to use for getting the account number in the
             payment_details_prediction dict
-        :params iban_key: Key to use for getting the IBAN in the payment_details_prediction dict
-        :params routing_number_key: Key to use for getting the Routing number in the
+        :param iban_key: Key to use for getting the IBAN in the payment_details_prediction dict
+        :param routing_number_key: Key to use for getting the Routing number in the
             payment_details_prediction dict
-        :params swift_key: Key to use for getting the SWIFT  in the payment_details_prediction dict
-        :params reconstructed: Bool for reconstructed object (not extracted in the API)
-        :params page_id: Page number for multi-page document
+        :param swift_key: Key to use for getting the SWIFT  in the payment_details_prediction dict
+        :param reconstructed: Bool for reconstructed object (not extracted in the API)
+        :param page_id: Page number for multi-page document
         """
         super().__init__(
             raw_prediction,

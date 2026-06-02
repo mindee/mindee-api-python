@@ -1,9 +1,9 @@
-from typing import Generic, Optional, Type, TypeVar
+from typing import Generic, TypeVar
 
+from mindee.parsing.common.string_dict import StringDict
 from mindee.v1.parsing.common.extras.extras import Extras
 from mindee.v1.parsing.common.orientation import OrientationField
 from mindee.v1.parsing.common.prediction import TypePrediction
-from mindee.parsing.common.string_dict import StringDict
 
 
 class Page(Generic[TypePrediction]):
@@ -11,15 +11,15 @@ class Page(Generic[TypePrediction]):
 
     id: int
     """Id of the current page."""
-    orientation: Optional[OrientationField] = None
+    orientation: OrientationField | None = None
     """Orientation of the page"""
     prediction: TypePrediction
     """Type of Page prediction."""
-    extras: Optional[Extras] = None
+    extras: Extras | None = None
 
     def __init__(
         self,
-        prediction_type: Type[TypePrediction],
+        prediction_type: type[TypePrediction],
         raw_prediction: StringDict,
     ) -> None:
         self.id = raw_prediction["id"]
@@ -35,7 +35,7 @@ class Page(Generic[TypePrediction]):
         except TypeError:
             self.prediction = prediction_type(raw_prediction["prediction"])
 
-        if "extras" in raw_prediction and raw_prediction["extras"]:
+        if raw_prediction.get("extras"):
             self.extras = Extras(raw_prediction["extras"])
 
     def __str__(self) -> str:

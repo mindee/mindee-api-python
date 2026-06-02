@@ -10,8 +10,8 @@ __all__ = [
     "BaseField",
     "FieldConfidence",
     "FieldLocation",
+    "InferenceFields",
     "ListField",
     "ObjectField",
     "SimpleField",
-    "InferenceFields",
 ]

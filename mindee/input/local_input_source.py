@@ -1,7 +1,8 @@
 import io
 import mimetypes
 import tempfile
-from typing import BinaryIO, Optional, Sequence, Tuple
+from collections.abc import Sequence
+from typing import BinaryIO
 
 import pypdfium2 as pdfium
 
@@ -33,8 +34,8 @@ class LocalInputSource:
     file_object: BinaryIO
     filename: str
     file_mimetype: str
-    filepath: Optional[str]
-    _page_count: Optional[int] = None
+    filepath: str | None
+    _page_count: int | None = None
 
     def __init__(self) -> None:
         """
@@ -67,7 +68,7 @@ class LocalInputSource:
         or until the maximum offset has been reached.
         If a tag denoting a PDF file is found, deletes all bytes before it.
 
-        :params maximum_offset: maximum byte offset where superfluous headers will be removed.
+        :param maximum_offset: maximum byte offset where superfluous headers will be removed.
             Cannot be less than 0.
         """
         if maximum_offset < 0:
@@ -79,11 +80,10 @@ class LocalInputSource:
             if pos != -1 and pos < maximum_offset:
                 self.file_object.seek(pos)
                 raw_bytes = self.file_object.read()
-                temp_file = tempfile.TemporaryFile()
-                temp_file.write(raw_bytes)
-                temp_file.seek(0)
-                self.file_object = io.BytesIO(temp_file.read())
-                temp_file.close()
+                with tempfile.TemporaryFile() as temp_file:
+                    temp_file.write(raw_bytes)
+                    temp_file.seek(0)
+                    self.file_object = io.BytesIO(temp_file.read())
             else:
                 if pos < 0:
                     raise MimeTypeError(
@@ -172,7 +172,7 @@ class LocalInputSource:
         """
         Create a new PDF from pages and set it to ``file_object``.
 
-        :params page_numbers: List of page numbers to use for merging in the original PDF.
+        :param page_numbers: List of page numbers to use for merging in the original PDF.
         :return: None
         """
         self.file_object.seek(0)
@@ -198,11 +198,11 @@ class LocalInputSource:
                 return False
         return True
 
-    def read_contents(self, close_file: bool) -> Tuple[str, bytes]:
+    def read_contents(self, close_file: bool) -> tuple[str, bytes]:
         """
         Read the contents of the input file.
 
-        :params close_file: whether to close the file after reading
+        :param close_file: whether to close the file after reading
         :return: a Tuple with the file name and binary data
         """
         logger.debug("Reading data from: %s", self.filename)
@@ -214,9 +214,10 @@ class LocalInputSource:
             self.file_object.seek(0)
         return self.filename, data
 
-    def close(self) -> None:
-        """Close the file object."""
-        self.file_object.close()
+    def close(self):
+        """Allow explicit closing for users not using a context manager."""
+        if self.file_object and not self.file_object.closed:
+            self.file_object.close()
 
     def has_source_text(self) -> bool:
         """
@@ -231,20 +232,20 @@ class LocalInputSource:
     def compress(
         self,
         quality: int = 85,
-        max_width: Optional[int] = None,
-        max_height: Optional[int] = None,
+        max_width: int | None = None,
+        max_height: int | None = None,
         force_source_text: bool = False,
         disable_source_text: bool = True,
     ) -> None:
         """
         Compresses the file object, either as a PDF or an image.
 
-        :params quality: Quality of the compression. For images, this is the JPEG quality.
+        :param quality: Quality of the compression. For images, this is the JPEG quality.
             For PDFs, this affects image quality within the PDF.
-        :params max_width: Maximum width for image resizing. Ignored for PDFs.
-        :params max_height: Maximum height for image resizing. Ignored for PDFs.
-        :params force_source_text: For PDFs, whether to force compression even if source text is present.
-        :params disable_source_text: For PDFs, whether to disable source text during compression.
+        :param max_width: Maximum width for image resizing. Ignored for PDFs.
+        :param max_height: Maximum height for image resizing. Ignored for PDFs.
+        :param force_source_text: For PDFs, whether to force compression even if source text is present.
+        :param disable_source_text: For PDFs, whether to disable source text during compression.
         """
         new_file_bytes: bytes
         if self.is_pdf():
@@ -257,3 +258,12 @@ class LocalInputSource:
             )
 
         self.file_object = io.BytesIO(new_file_bytes)
+
+    def __enter__(self):
+        """Allows the class to be used as a context manager."""
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        """Ensures the file is closed when the context block exits."""
+        if self.file_object and not self.file_object.closed:
+            self.file_object.close()

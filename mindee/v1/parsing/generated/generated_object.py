@@ -1,5 +1,3 @@
-from typing import List, Optional
-
 from mindee.parsing.common import StringDict
 from mindee.v1.parsing.standard.position import PositionField
 
@@ -7,19 +5,19 @@ from mindee.v1.parsing.standard.position import PositionField
 class GeneratedObjectField:
     """A JSON-like object, with miscellaneous values."""
 
-    page_id: Optional[int]
+    page_id: int | None
     """Id of the page the object was found on."""
-    confidence: Optional[float]
+    confidence: float | None
     """Confidence with which the value was assessed."""
-    raw_value: Optional[str]
+    raw_value: str | None
     """Raw unprocessed value, as it was sent by the server."""
-    __printable_values: List[str]
+    __printable_values: list[str]
     """List of all printable field names."""
 
     def __init__(
         self,
         raw_prediction: StringDict,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ) -> None:
         item_page_id = None
         self.__printable_values = []
@@ -50,7 +48,7 @@ class GeneratedObjectField:
 
         Takes into account level of indentation & displays elements as list elements.
 
-        :params level: level of indent (times 2 spaces).
+        :param level: level of indent (times 2 spaces).
         """
         indent = "  " + "  " * level
         out_str = ""
@@ -68,7 +66,7 @@ def is_generated_object(str_dict: StringDict) -> bool:
     """
     Checks whether an field is a custom object or not.
 
-    :params str_dict: input dictionary to check.
+    :param str_dict: input dictionary to check.
     """
     common_keys = [
         "value",
@@ -80,7 +78,4 @@ def is_generated_object(str_dict: StringDict) -> bool:
         "values",
         "raw_value",
     ]
-    for key in str_dict.keys():
-        if key not in common_keys:
-            return True
-    return False
+    return any(key not in common_keys for key in str_dict)

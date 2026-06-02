@@ -1,5 +1,3 @@
-from typing import Union
-
 import requests
 
 from mindee.input.local_input_source import LocalInputSource
@@ -18,21 +16,21 @@ class WorkflowEndpoint(BaseEndpoint):
         """
         Workflow Endpoint.
 
-        :params settings: Settings object.
+        :param settings: Settings object.
         """
         super().__init__(settings)
 
     def workflow_execution_post(
         self,
-        input_source: Union[LocalInputSource, URLInputSource],
+        input_source: LocalInputSource | URLInputSource,
         options: WorkflowOptions,
     ):
         """
         Sends the document to the workflow.
 
-        :params input_source: The document/source file to use.
+        :param input_source: The document/source file to use.
             Has to be created beforehand.
-        :params options: Options for the workflow.
+        :param options: Options for the workflow.
         :return:
         """
         data = {}

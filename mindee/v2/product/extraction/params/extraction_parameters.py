@@ -1,6 +1,5 @@
 import json
 from dataclasses import dataclass
-from typing import Dict, List, Optional, Union
 
 from mindee.v2.client_options.base_parameters import BaseParameters
 from mindee.v2.product.extraction.params.data_schema import DataSchema
@@ -10,23 +9,23 @@ from mindee.v2.product.extraction.params.data_schema import DataSchema
 class ExtractionParameters(BaseParameters):
     """Inference parameters to set when sending a file."""
 
-    rag: Optional[bool] = None
+    rag: bool | None = None
     """Enhance extraction accuracy with Retrieval-Augmented Generation."""
-    raw_text: Optional[bool] = None
+    raw_text: bool | None = None
     """Extract the full text content from the document as strings, and fill the ``raw_text`` attribute."""
-    polygon: Optional[bool] = None
+    polygon: bool | None = None
     """Calculate bounding box polygons for all fields, and fill their ``locations`` attribute."""
-    confidence: Optional[bool] = None
+    confidence: bool | None = None
     """
     Boost the precision and accuracy of all extractions.
     Calculate confidence scores for all fields, and fill their ``confidence`` attribute.
     """
-    text_context: Optional[str] = None
+    text_context: str | None = None
     """
     Additional text context used by the model during inference.
     Not recommended, for specific use only.
     """
-    data_schema: Optional[Union[DataSchema, str, dict]] = None
+    data_schema: DataSchema | str | dict | None = None
     """
     Dynamic changes to the data schema of the model for this inference.
     Not recommended, for specific use only.
@@ -41,7 +40,7 @@ class ExtractionParameters(BaseParameters):
         elif isinstance(self.data_schema, dict):
             self.data_schema = DataSchema(**self.data_schema)
 
-    def get_form_data(self) -> Dict[str, Union[str, List[str]]]:
+    def get_form_data(self) -> dict[str, str | list[str]]:
         """
         Return the parameters as a config dictionary.
 

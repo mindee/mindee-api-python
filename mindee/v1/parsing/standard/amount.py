@@ -1,5 +1,3 @@
-from typing import Optional
-
 from mindee.parsing.common import StringDict
 from mindee.v1.parsing.standard.base import (
     BaseField,
@@ -11,21 +9,21 @@ from mindee.v1.parsing.standard.base import (
 class AmountField(FieldPositionMixin, BaseField):
     """A field containing an amount value."""
 
-    value: Optional[float]
+    value: float | None
     """The amount value as a float."""
 
     def __init__(
         self,
         raw_prediction: StringDict,
         reconstructed: bool = False,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         """
         Amount field object.
 
-        :params raw_prediction: Amount prediction object from HTTP response
-        :params reconstructed: Bool for reconstructed object (not extracted in the API)
-        :params page_id: Page number for multi-page document
+        :param raw_prediction: Amount prediction object from HTTP response
+        :param reconstructed: Bool for reconstructed object (not extracted in the API)
+        :param page_id: Page number for multi-page document
         """
         self.value = None
         super().__init__(

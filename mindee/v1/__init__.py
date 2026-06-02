@@ -1,17 +1,17 @@
 from mindee.v1.client import (
-    Client,
     AsyncPredictOptions,
     AsyncPredictResponse,
+    Client,
     PageOptions,
-    PredictResponse,
     PredictOptions,
+    PredictResponse,
 )
 
 __all__ = [
-    "Client",
     "AsyncPredictOptions",
     "AsyncPredictResponse",
+    "Client",
     "PageOptions",
-    "PredictResponse",
     "PredictOptions",
+    "PredictResponse",
 ]

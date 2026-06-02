@@ -1,11 +1,10 @@
 import pytest
 
 from mindee import ExtractionResponse
-from mindee.v2.product.crop.crop_box import CropBox
 from mindee.v2.product.crop import CropInference
+from mindee.v2.product.crop.crop_box import CropBox
 from mindee.v2.product.crop.crop_response import CropResponse
 from mindee.v2.product.crop.crop_result import CropResult
-
 from tests.v2.product.utils import get_product_samples
 
 

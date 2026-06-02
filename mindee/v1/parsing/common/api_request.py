@@ -1,5 +1,4 @@
 from enum import Enum
-from typing import List
 
 from mindee.parsing.common.string_dict import StringDict
 
@@ -15,7 +14,7 @@ class ApiRequest:
     """Information on the API request made to the server."""
 
     error: StringDict
-    resources: List[str]
+    resources: list[str]
     status: RequestStatus
     status_code: int
     """HTTP status code."""

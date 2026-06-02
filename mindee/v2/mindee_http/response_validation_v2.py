@@ -9,7 +9,7 @@ def is_valid_post_response(response: requests.Response) -> bool:
     """
     Checks if the POST response is valid and of the expected format.
 
-    :params response: HTTP response object.
+    :param response: HTTP response object.
     :return: True if the response is valid.
     """
     if not is_valid_sync_response(response):
@@ -17,25 +17,17 @@ def is_valid_post_response(response: requests.Response) -> bool:
     response_json = json.loads(response.content)
     if "job" not in response_json:
         return False
-    if (
-        "job" in response_json
-        and "error" in response_json["job"]
-        and response_json["job"]["error"] is not None
-    ):
-        return False
-    return True
+    return "job" in response_json and not response_json["job"].get("error")
 
 
 def is_valid_get_response(response: requests.Response) -> bool:
     """
     Checks if the GET response is valid and of the expected format.
 
-    :params response: HTTP response object.
+    :param response: HTTP response object.
     :return: True if the response is valid.
     """
     if not is_valid_sync_response(response):
         return False
     response_json = json.loads(response.content)
-    if "inference" not in response_json and "job" not in response_json:
-        return False
-    return True
+    return "inference" in response_json or "job" in response_json

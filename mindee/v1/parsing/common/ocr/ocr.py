@@ -1,5 +1,5 @@
-from mindee.v1.parsing.common.ocr.mvision_v1 import MVisionV1
 from mindee.parsing.common.string_dict import StringDict
+from mindee.v1.parsing.common.ocr.mvision_v1 import MVisionV1
 
 
 class OCR:

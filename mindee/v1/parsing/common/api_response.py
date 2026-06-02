@@ -2,8 +2,8 @@ import json
 from abc import ABC
 
 from mindee.logger import logger
-from mindee.v1.parsing.common.api_request import ApiRequest
 from mindee.parsing.common.string_dict import StringDict
+from mindee.v1.parsing.common.api_request import ApiRequest
 
 
 class ApiResponse(ABC):

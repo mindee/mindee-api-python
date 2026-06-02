@@ -1,29 +1,27 @@
-from typing import List, Optional
-
-from mindee.v1.parsing.common.prediction import Prediction
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string
+from mindee.v1.parsing.common.prediction import Prediction
 from mindee.v1.parsing.standard.text import StringField
 
 
 class BarcodeReaderV1Document(Prediction):
     """Barcode Reader API version 1.0 document data."""
 
-    codes_1d: List[StringField]
+    codes_1d: list[StringField]
     """List of decoded 1D barcodes."""
-    codes_2d: List[StringField]
+    codes_2d: list[StringField]
     """List of decoded 2D barcodes."""
 
     def __init__(
         self,
         raw_prediction: StringDict,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         """
         Barcode Reader document.
 
-        :params raw_prediction: Raw prediction from HTTP response
-        :params page_id: Page number for multi pages pdf input
+        :param raw_prediction: Raw prediction from HTTP response
+        :param page_id: Page number for multi pages pdf input
         """
         super().__init__(raw_prediction, page_id)
         self.codes_1d = [

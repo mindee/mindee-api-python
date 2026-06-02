@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from typing import Tuple
 
 
 @dataclass
@@ -24,9 +23,9 @@ class PDFCharData:
     """The font weight."""
     font_flags: int
     """The font flags."""
-    font_stroke_color: Tuple[int, int, int, int]
+    font_stroke_color: tuple[int, int, int, int]
     """RGBA representation of the font's stroke color."""
-    font_fill_color: Tuple[int, int, int, int]
+    font_fill_color: tuple[int, int, int, int]
     """RGBA representation of the font's fill color."""
     page_id: int
     """ID of the page the character was found on."""

@@ -3,16 +3,18 @@ import json
 import pytest
 
 from mindee import ExtractionResponse
-from mindee.v2.parsing.inference.inference_active_options import InferenceActiveOptions
-from mindee.v2.parsing.inference.field import FieldConfidence
-from mindee.v2.parsing.inference.field import ListField
+from mindee.v2.parsing.inference.field import (
+    FieldConfidence,
+    InferenceFields,
+    ListField,
+)
 from mindee.v2.parsing.inference.field.object_field import ObjectField
 from mindee.v2.parsing.inference.field.simple_field import SimpleField
-from mindee.v2.parsing.inference.field import InferenceFields
-from mindee.v2.product.extraction.extraction_inference import ExtractionInference
+from mindee.v2.parsing.inference.inference_active_options import InferenceActiveOptions
 from mindee.v2.parsing.inference.inference_file import InferenceFile
 from mindee.v2.parsing.inference.inference_model import InferenceModel
 from mindee.v2.parsing.inference.rag_metadata import RAGMetadata
+from mindee.v2.product.extraction.extraction_inference import ExtractionInference
 from tests.utils import V2_PRODUCT_DATA_DIR
 from tests.v2.product.utils import get_product_samples
 
@@ -307,9 +309,7 @@ def test_text_context_field_is_false() -> None:
 
 @pytest.mark.v2
 def test_text_context_field_is_true() -> None:
-    with open(
-        V2_PRODUCT_DATA_DIR / "extraction" / "text_context_enabled.json", "r"
-    ) as file:
+    with open(V2_PRODUCT_DATA_DIR / "extraction" / "text_context_enabled.json") as file:
         json_sample = json.load(file)
     response = ExtractionResponse(json_sample)
     assert isinstance(response.inference.active_options, InferenceActiveOptions)

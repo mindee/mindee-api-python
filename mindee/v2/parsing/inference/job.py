@@ -1,5 +1,4 @@
 from datetime import datetime
-from typing import List, Optional
 
 from mindee.parsing.common import StringDict
 from mindee.v2.parsing.inference.error_response import ErrorResponse
@@ -11,11 +10,11 @@ class Job:
 
     id: str
     """Job ID."""
-    error: Optional[ErrorResponse]
+    error: ErrorResponse | None
     """Error response if any."""
     created_at: datetime
     """Date and time of the Job creation."""
-    completed_at: Optional[datetime] = None
+    completed_at: datetime | None = None
     """Date and time of the Job completion. Filled once processing is finished."""
     model_id: str
     """ID of the model."""
@@ -27,9 +26,9 @@ class Job:
     """Status of the job."""
     polling_url: str
     """URL to poll for the job status."""
-    result_url: Optional[str]
+    result_url: str | None
     """URL to poll for the job result, redirects to the result if available."""
-    webhooks: List[JobWebhook]
+    webhooks: list[JobWebhook]
     """ID of webhooks associated with the job."""
 
     def __init__(self, raw_response: StringDict) -> None:

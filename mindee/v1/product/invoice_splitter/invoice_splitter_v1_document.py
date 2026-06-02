@@ -1,8 +1,6 @@
-from typing import List, Optional
-
-from mindee.v1.parsing.common.prediction import Prediction
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string
+from mindee.v1.parsing.common.prediction import Prediction
 from mindee.v1.product.invoice_splitter.invoice_splitter_v1_invoice_page_group import (
     InvoiceSplitterV1InvoicePageGroup,
 )
@@ -11,19 +9,19 @@ from mindee.v1.product.invoice_splitter.invoice_splitter_v1_invoice_page_group i
 class InvoiceSplitterV1Document(Prediction):
     """Invoice Splitter API version 1.4 document data."""
 
-    invoice_page_groups: List[InvoiceSplitterV1InvoicePageGroup]
+    invoice_page_groups: list[InvoiceSplitterV1InvoicePageGroup]
     """List of page groups. Each group represents a single invoice within a multi-invoice document."""
 
     def __init__(
         self,
         raw_prediction: StringDict,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         """
         Invoice Splitter document.
 
-        :params raw_prediction: Raw prediction from HTTP response
-        :params page_id: Page number for multi pages pdf input
+        :param raw_prediction: Raw prediction from HTTP response
+        :param page_id: Page number for multi pages pdf input
         """
         super().__init__(raw_prediction, page_id)
         self.invoice_page_groups = [
