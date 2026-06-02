@@ -3,7 +3,7 @@ from typing import Any, Generic, Optional, Type
 
 from mindee.v1.parsing.common.extras.extras import Extras
 from mindee.v1.parsing.common.inference import Inference
-from mindee.v1.parsing.common.ocr.ocr import Ocr
+from mindee.v1.parsing.common.ocr.ocr import OCR
 from mindee.v1.parsing.common.page import TypePage
 from mindee.v1.parsing.common.prediction import TypePrediction
 from mindee.parsing.common.string_dict import StringDict
@@ -31,7 +31,7 @@ class Document(Generic[TypePrediction, TypePage]):
     """Id of the document as sent back by the server"""
     extras: Optional[Extras] = None
     """Potential Extras fields sent back along the prediction"""
-    ocr: Optional[Ocr] = None
+    ocr: Optional[OCR] = None
     """Potential raw text results read by the OCR (limited feature)"""
     n_pages: int
     """Amount of pages in the document"""
@@ -44,7 +44,7 @@ class Document(Generic[TypePrediction, TypePage]):
         self.id = raw_response.get("id", "")
         self.filename = raw_response.get("name", "")
         if "ocr" in raw_response and raw_response["ocr"]:
-            self.ocr = Ocr(raw_response["ocr"])
+            self.ocr = OCR(raw_response["ocr"])
         if "extras" in raw_response and raw_response["inference"]["extras"]:
             self.extras = Extras(raw_response["extras"])
         self._inject_full_text_ocr(raw_response)

@@ -2,7 +2,7 @@ from mindee.parsing.common.string_dict import StringDict
 from mindee.v1.parsing.standard.base import FieldPositionMixin
 
 
-class OcrWord(FieldPositionMixin):
+class OCRWord(FieldPositionMixin):
     """A single word."""
 
     confidence: float

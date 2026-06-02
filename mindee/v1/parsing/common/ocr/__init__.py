@@ -1,3 +1,3 @@
-from mindee.v1.parsing.common.ocr.ocr import Ocr
+from mindee.v1.parsing.common.ocr.ocr import OCR
 
-__all__ = ["Ocr"]
+__all__ = ["OCR"]

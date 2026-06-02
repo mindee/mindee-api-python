@@ -1,10 +1,10 @@
 from pathlib import Path
 from typing import List, Union
 
-from mindee.pdf.extracted_pdf import ExtractedPdf
+from mindee.pdf.extracted_pdf import ExtractedPDF
 
 
-class SplitFiles(List[ExtractedPdf]):
+class SplitFiles(List[ExtractedPDF]):
     """Split files."""
 
     def save_all_to_disk(self, path: Union[str, Path], prefix: str = "split"):

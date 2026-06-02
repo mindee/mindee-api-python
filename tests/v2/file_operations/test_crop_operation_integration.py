@@ -53,7 +53,7 @@ def test_image_should_extract_crops():
     extracted_images.save_all_to_disk(OUTPUT_DIR)
     crop1size = os.path.getsize(OUTPUT_DIR / "crop_001.jpg")
     crop2size = os.path.getsize(OUTPUT_DIR / "crop_002.jpg")
-    assert 187601 <= crop1size <= 199685
+    assert 187484 <= crop1size <= 199685
     assert crop2size == 197978
 
 

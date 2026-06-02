@@ -1,19 +1,19 @@
 from typing import List, Optional, Union
 
 from mindee.error import MindeeError
-from mindee.pdf.extracted_pdf import ExtractedPdf
-from mindee.pdf.pdf_extractor import PdfExtractor as BasePdfExtractor
+from mindee.pdf.extracted_pdf import ExtractedPDF
+from mindee.pdf.pdf_extractor import PDFExtractor as BasePDFExtractor
 from mindee.v1.product import InvoiceSplitterV1InvoicePageGroup
 
 
-class PdfExtractor(BasePdfExtractor):
+class PDFExtractor(BasePDFExtractor):
     """V1-specific PDF extractor."""
 
     def extract_invoices(
         self,
         page_indexes: List[Union[InvoiceSplitterV1InvoicePageGroup, List[int]]],
         strict: bool = False,
-    ) -> List[ExtractedPdf]:
+    ) -> List[ExtractedPDF]:
         """
         Extracts invoices as complete PDFs from the document from either a list of pages
         or a list of page groups.

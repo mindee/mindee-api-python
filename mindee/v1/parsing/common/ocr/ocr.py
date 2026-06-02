@@ -2,7 +2,7 @@ from mindee.v1.parsing.common.ocr.mvision_v1 import MVisionV1
 from mindee.parsing.common.string_dict import StringDict
 
 
-class Ocr:
+class OCR:
     """OCR extraction from the entire document."""
 
     mvision_v1: MVisionV1
