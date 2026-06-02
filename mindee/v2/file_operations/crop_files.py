@@ -1,7 +1,7 @@
 from pathlib import Path
 from typing import List, Union
 
-from mindee.extraction import ExtractedImage
+from mindee.image.extracted_image import ExtractedImage
 
 
 class CropFiles(List[ExtractedImage]):
