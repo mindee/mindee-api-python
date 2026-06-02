@@ -39,8 +39,14 @@ jobs:
         cd ./docs
         make html
 
+    - name: Sphinx make linkcheck
+      run: |
+        cd ./docs
+        make linkcheck
+
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v4
+      if: success()
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./docs/_build/html
