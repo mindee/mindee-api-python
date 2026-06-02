@@ -26,10 +26,8 @@ def dummy_client(monkeypatch) -> Client:
 
 
 @pytest.fixture
-def dummy_file(monkeypatch) -> PathInput:
-    clear_envvars(monkeypatch)
-    c = Client(api_key="dummy-client")
-    return c.source_from_path(FILE_TYPES_DIR / "pdf" / "blank.pdf")
+def dummy_file() -> PathInput:
+    return PathInput(FILE_TYPES_DIR / "pdf" / "blank.pdf")
 
 
 def test_http_client_error(dummy_client: Client, dummy_file: PathInput):
@@ -60,11 +58,11 @@ def test_http_400_error():
     error_obj["status_code"] = 400
     error_400 = handle_error("dummy-url", error_obj)
     with pytest.raises(MindeeHTTPClientError):
+        assert error_400.status_code == 400
+        assert error_400.api_code == "SomeCode"
+        assert error_400.api_message == "Some scary message here"
+        assert error_400.api_details is None
         raise error_400
-    assert error_400.status_code == 400
-    assert error_400.api_code == "SomeCode"
-    assert error_400.api_message == "Some scary message here"
-    assert error_400.api_details is None
 
 
 def test_http_401_error():

@@ -2,7 +2,14 @@ import json
 from argparse import ArgumentParser, Namespace
 from typing import Optional, Type, Union
 
-from mindee import LocalInputSource, URLInputSource
+from mindee import (
+    Base64Input,
+    BytesInput,
+    FileInput,
+    LocalInputSource,
+    PathInput,
+    URLInputSource,
+)
 from mindee.v1.client import Client, Endpoint
 from mindee.commands.cli_products import PRODUCTS, CommandConfig
 from mindee.error.mindee_error import MindeeClientError
@@ -265,17 +272,13 @@ class MindeeParser:
         """Loads an input document."""
         if self.parsed_args.input_type == "file":
             with open(self.parsed_args.path, "rb", buffering=30) as file_handle:
-                return self.client.source_from_file(file_handle)
+                return FileInput(file_handle)
         elif self.parsed_args.input_type == "base64":
             with open(self.parsed_args.path, "rt", encoding="ascii") as base64_handle:
-                return self.client.source_from_b64string(
-                    base64_handle.read(), "test.jpg"
-                )
+                return Base64Input(base64_handle.read(), "test.jpg")
         elif self.parsed_args.input_type == "bytes":
             with open(self.parsed_args.path, "rb") as bytes_handle:
-                return self.client.source_from_bytes(
-                    bytes_handle.read(), bytes_handle.name
-                )
+                return BytesInput(bytes_handle.read(), bytes_handle.name)
         elif self.parsed_args.input_type == "url":
-            return self.client.source_from_url(self.parsed_args.path)
-        return self.client.source_from_path(self.parsed_args.path)
+            return URLInputSource(self.parsed_args.path)
+        return PathInput(self.parsed_args.path)

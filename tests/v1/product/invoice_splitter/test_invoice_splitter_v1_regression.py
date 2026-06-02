@@ -1,5 +1,6 @@
 import pytest
 
+from mindee import PathInput
 from mindee.v1.client import Client
 from mindee.v1.product.invoice_splitter.invoice_splitter_v1 import InvoiceSplitterV1
 from tests.utils import V1_PRODUCT_DATA_DIR
@@ -15,9 +16,7 @@ def test_default_sample():
     ) as rst_file:
         rst_ref = rst_file.read()
 
-    sample = client.source_from_path(
-        V1_PRODUCT_DATA_DIR / "invoice_splitter" / "default_sample.pdf"
-    )
+    sample = PathInput(V1_PRODUCT_DATA_DIR / "invoice_splitter" / "default_sample.pdf")
 
     response = client.enqueue_and_parse(InvoiceSplitterV1, sample)
     doc_response = response.document

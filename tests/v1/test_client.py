@@ -2,6 +2,7 @@ import binascii
 
 import pytest
 
+from mindee import Base64Input, PathInput
 from mindee.v1 import (
     AsyncPredictResponse,
     Client,
@@ -46,32 +47,32 @@ def dummy_client() -> Client:
 
 def test_parse_path_without_token(empty_client: Client):
     with pytest.raises(RuntimeError):
-        input_doc = empty_client.source_from_path(FILE_TYPES_DIR / "pdf" / "blank.pdf")
+        input_doc = PathInput(FILE_TYPES_DIR / "pdf" / "blank.pdf")
         empty_client.parse(product.ReceiptV5, input_doc)
 
 
 def test_parse_path_with_env_token(env_client: Client):
     with pytest.raises(MindeeHTTPError):
-        input_doc = env_client.source_from_path(FILE_TYPES_DIR / "pdf" / "blank.pdf")
+        input_doc = PathInput(FILE_TYPES_DIR / "pdf" / "blank.pdf")
         env_client.parse(product.ReceiptV5, input_doc)
 
 
 def test_parse_path_with_wrong_filetype(dummy_client: Client):
     with pytest.raises(AssertionError):
-        dummy_client.source_from_path(FILE_TYPES_DIR / "receipt.jpga")
+        PathInput(FILE_TYPES_DIR / "receipt.jpga")
 
 
 def test_parse_path_with_wrong_token(dummy_client: Client):
     with pytest.raises(MindeeHTTPError):
-        input_doc = dummy_client.source_from_path(FILE_TYPES_DIR / "pdf" / "blank.pdf")
+        input_doc = PathInput(FILE_TYPES_DIR / "pdf" / "blank.pdf")
         dummy_client.parse(product.ReceiptV5, input_doc)
 
 
 def test_request_with_wrong_type(dummy_client: Client):
     with pytest.raises(FileNotFoundError):
-        dummy_client.source_from_path(open("./tests/data/test.txt").read())
+        PathInput(open("./tests/data/test.txt").read())
     with pytest.raises(binascii.Error):
-        dummy_client.source_from_b64string("./tests/data/test.txt", "test.jpg")
+        Base64Input("./tests/data/test.txt", "test.jpg")
 
 
 def test_interface_version(dummy_client: Client):
@@ -81,14 +82,12 @@ def test_interface_version(dummy_client: Client):
         version="1.1",
     )
     with pytest.raises(MindeeHTTPError):
-        input_doc = dummy_client.source_from_path(FILE_TYPES_DIR / "receipt.jpg")
+        input_doc = PathInput(FILE_TYPES_DIR / "receipt.jpg")
         dummy_client.parse(product.CustomV1, input_doc, endpoint=dummy_endpoint)
 
 
 def test_keep_file_open(dummy_client: Client):
-    input_doc: LocalInputSource = dummy_client.source_from_path(
-        f"{FILE_TYPES_DIR}/receipt.jpg"
-    )
+    input_doc: LocalInputSource = PathInput(f"{FILE_TYPES_DIR}/receipt.jpg")
     try:
         dummy_client.parse(product.ReceiptV5, input_doc, close_file=False)
     except MindeeHTTPError:
@@ -99,9 +98,7 @@ def test_keep_file_open(dummy_client: Client):
 
 
 def test_cut_options(dummy_client: Client):
-    input_doc: LocalInputSource = dummy_client.source_from_path(
-        f"{FILE_TYPES_DIR}/pdf/multipage.pdf"
-    )
+    input_doc: LocalInputSource = PathInput(f"{FILE_TYPES_DIR}/pdf/multipage.pdf")
     try:
         # need to keep file open to count the pages after parsing
         dummy_client.parse(
@@ -117,7 +114,7 @@ def test_cut_options(dummy_client: Client):
 
 
 def test_async_wrong_initial_delay(dummy_client: Client):
-    input_doc = dummy_client.source_from_path(FILE_TYPES_DIR / "pdf" / "blank.pdf")
+    input_doc = PathInput(FILE_TYPES_DIR / "pdf" / "blank.pdf")
     with pytest.raises(MindeeClientError):
         dummy_client.enqueue_and_parse(
             InvoiceSplitterV1, input_doc, initial_delay_sec=0
@@ -125,7 +122,7 @@ def test_async_wrong_initial_delay(dummy_client: Client):
 
 
 def test_async_wrong_polling_delay(dummy_client: Client):
-    input_doc = dummy_client.source_from_path(FILE_TYPES_DIR / "pdf" / "blank.pdf")
+    input_doc = PathInput(FILE_TYPES_DIR / "pdf" / "blank.pdf")
     with pytest.raises(MindeeClientError):
         dummy_client.enqueue_and_parse(InvoiceSplitterV1, input_doc, delay_sec=0)
 

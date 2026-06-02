@@ -3,6 +3,7 @@ from datetime import datetime
 
 import pytest
 
+from mindee import PathInput
 from mindee.v1.client import Client
 from mindee.v1.client_options.workflow_options import WorkflowOptions
 from mindee.v1.parsing.common import ExecutionPriority
@@ -27,7 +28,7 @@ def input_path():
 
 @pytest.mark.integration
 def test_workflow_execution(mindee_client: Client, workflow_id: str, input_path: str):
-    input_source = mindee_client.source_from_path(str(input_path))
+    input_source = PathInput(str(input_path))
     current_date_time = datetime.now().strftime("%Y-%m-%d-%H:%M:%S")
     alias = f"python-{current_date_time}"
     priority = ExecutionPriority.LOW
@@ -44,7 +45,7 @@ def test_workflow_execution(mindee_client: Client, workflow_id: str, input_path:
 def test_workflow_predict_ots_rag(
     mindee_client: Client, workflow_id: str, input_path: str
 ):
-    input_source = mindee_client.source_from_path(str(input_path))
+    input_source = PathInput(str(input_path))
 
     response = mindee_client.enqueue_and_parse(
         FinancialDocumentV1,
@@ -59,7 +60,7 @@ def test_workflow_predict_ots_rag(
 def test_workflow_predict_ots_no_rag(
     mindee_client: Client, workflow_id: str, input_path: str
 ):
-    input_source = mindee_client.source_from_path(str(input_path))
+    input_source = PathInput(str(input_path))
 
     response = mindee_client.enqueue_and_parse(
         FinancialDocumentV1,
@@ -78,7 +79,7 @@ def test_workflow_predict_custom_rag(
         endpoint_name="financial_document",
     )
 
-    input_source = mindee_client.source_from_path(str(input_path))
+    input_source = PathInput(str(input_path))
 
     response = mindee_client.enqueue_and_parse(
         GeneratedV1,
@@ -99,7 +100,7 @@ def test_workflow_predict_custom_no_rag(
         endpoint_name="financial_document",
     )
 
-    input_source = mindee_client.source_from_path(str(input_path))
+    input_source = PathInput(str(input_path))
 
     response = mindee_client.enqueue_and_parse(
         GeneratedV1,
