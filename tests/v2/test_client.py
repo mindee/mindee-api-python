@@ -126,18 +126,14 @@ def test_enqueue_path_with_env_token(custom_base_url_client):
     assert custom_base_url_client.mindee_api.api_key == "dummy"
     assert custom_base_url_client.mindee_api.base_headers["Authorization"] == "dummy"
     assert custom_base_url_client.mindee_api.base_headers["User-Agent"] == USER_AGENT
-    input_doc: LocalInputSource = custom_base_url_client.source_from_path(
-        f"{FILE_TYPES_DIR}/receipt.jpg"
-    )
+    input_doc: LocalInputSource = PathInput(f"{FILE_TYPES_DIR}/receipt.jpg")
     with pytest.raises(MindeeHTTPErrorV2):
         custom_base_url_client.enqueue(input_doc, ExtractionParameters("dummy-model"))
 
 
 @pytest.mark.v2
 def test_enqueue_and_parse_path_with_env_token(custom_base_url_client):
-    input_doc: LocalInputSource = custom_base_url_client.source_from_path(
-        f"{FILE_TYPES_DIR}/receipt.jpg"
-    )
+    input_doc: LocalInputSource = PathInput(f"{FILE_TYPES_DIR}/receipt.jpg")
     with pytest.raises(MindeeHTTPErrorV2):
         custom_base_url_client.enqueue_and_get_result(
             ExtractionResponse,

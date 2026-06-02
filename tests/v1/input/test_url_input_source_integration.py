@@ -3,6 +3,7 @@ from pathlib import Path
 
 import pytest
 
+from mindee import URLInputSource
 from mindee.v1.client import Client
 from mindee.v1.product.invoice import InvoiceV4
 from tests.utils import cleanup_output_files
@@ -25,7 +26,7 @@ def reference_file_path():
 
 @pytest.mark.integration
 def test_load_local_file(client, reference_file_path):
-    url_source = client.source_from_url(reference_file_path)
+    url_source = URLInputSource(reference_file_path)
     local_source = url_source.as_local_input_source()
     result = client.parse(InvoiceV4, local_source)
     assert result.document.n_pages == 5
@@ -34,7 +35,7 @@ def test_load_local_file(client, reference_file_path):
 
 @pytest.mark.integration
 def test_custom_file_name(client, reference_file_path):
-    url_source = client.source_from_url(reference_file_path)
+    url_source = URLInputSource(reference_file_path)
     local_source = url_source.as_local_input_source("customName.pdf")
     result = client.parse(InvoiceV4, local_source)
     assert result.document.n_pages == 5
@@ -43,14 +44,14 @@ def test_custom_file_name(client, reference_file_path):
 
 @pytest.mark.integration
 def test_save_file(client, reference_file_path, output_file_path):
-    url_source = client.source_from_url(reference_file_path)
+    url_source = URLInputSource(reference_file_path)
     url_source.save_to_file(output_file_path)
     assert os.path.exists(os.path.join(output_file_path, "invoice_5p.pdf"))
 
 
 @pytest.mark.integration
 def test_save_file_with_filename(client, reference_file_path, output_file_path):
-    url_source = client.source_from_url(reference_file_path)
+    url_source = URLInputSource(reference_file_path)
     url_source.save_to_file(output_file_path, "customFileName.pdf")
     assert os.path.exists(os.path.join(output_file_path, "customFileName.pdf"))
 
