@@ -1,0 +1,70 @@
+version: 2
+
+updates:
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Europe/Paris"
+    open-pull-requests-limit: 8
+    commit-message:
+      prefix: "chore(deps)"
+    groups:
+      runtime-dependencies:
+        patterns:
+          - "pytz"
+          - "requests"
+      optional-dependencies:
+        patterns:
+          - "pypdfium2"
+          - "Pillow"
+      test-dependencies:
+        patterns:
+          - "pytest"
+          - "pytest-cov"
+          - "toml"
+      lint-dependencies:
+        patterns:
+          - "pylint"
+          - "pre-commit"
+          - "types-*"
+      docs-dependencies:
+        patterns:
+          - "sphinx"
+          - "sphinx-*"
+      build-dependencies:
+        patterns:
+          - "build"
+          - "twine"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:30"
+      timezone: "Europe/Paris"
+    open-pull-requests-limit: 3
+    commit-message:
+      prefix: "chore(ci)"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+
+  - package-ecosystem: "pre-commit"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "10:00"
+      timezone: "Europe/Paris"
+    open-pull-requests-limit: 3
+    commit-message:
+      prefix: "chore(pre-commit)"
+    groups:
+      pre-commit-hooks:
+        patterns:
+          - "*"
