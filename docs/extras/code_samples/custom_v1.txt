@@ -1,4 +1,5 @@
 from mindee.v1 import Client, PredictResponse, product
+from mindee import PathInput
 
 # Init a new client
 mindee_client = Client(api_key="my-api-key")
@@ -10,7 +11,7 @@ my_endpoint = mindee_client.create_endpoint(
 )
 
 # Load a file from disk
-input_doc = mindee_client.source_from_path("/path/to/the/file.ext")
+input_doc = PathInput("/path/to/the/file.ext")
 
 # Parse the file.
 # The endpoint must be specified since it cannot be determined from the class.

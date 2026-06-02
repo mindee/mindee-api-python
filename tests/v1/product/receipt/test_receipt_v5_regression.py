@@ -1,5 +1,6 @@
 import pytest
 
+from mindee import PathInput
 from mindee.v1.client import Client
 from mindee.v1.product.receipt.receipt_v5 import ReceiptV5
 from tests.utils import V1_PRODUCT_DATA_DIR
@@ -15,7 +16,7 @@ def test_default_sample():
     ) as rst_file:
         rst_ref = rst_file.read()
 
-    sample = client.source_from_path(
+    sample = PathInput(
         V1_PRODUCT_DATA_DIR / "expense_receipts" / "default_sample.jpg",
     )
     response = client.parse(ReceiptV5, sample)
