@@ -1,7 +1,7 @@
 from pathlib import Path
 from typing import List, Union
 
-from mindee.extraction.pdf_extractor.extracted_pdf import ExtractedPdf
+from mindee.pdf.extracted_pdf import ExtractedPdf
 
 
 class SplitFiles(List[ExtractedPdf]):

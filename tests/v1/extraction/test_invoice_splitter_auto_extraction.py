@@ -3,7 +3,7 @@ from pathlib import Path
 import pytest
 
 from mindee.v1.client import Client
-from mindee.extraction.pdf_extractor.pdf_extractor import PdfExtractor
+from mindee.v1.pdf.pdf_extractor import PdfExtractor
 from mindee.input.path_input import PathInput
 from mindee.v1.parsing.common import Document
 from mindee.v1.product.invoice.invoice_v4 import InvoiceV4
@@ -40,15 +40,26 @@ def test_pdf_should_extract_invoices_strict():
     pdf_extractor = PdfExtractor(invoice_splitter_input)
     assert pdf_extractor.get_page_count() == 2
 
+    extracted_pdfs_not_strict = pdf_extractor.extract_invoices(
+        inference.prediction.invoice_page_groups
+    )
     extracted_pdfs_strict = pdf_extractor.extract_invoices(
         inference.prediction.invoice_page_groups
     )
+    extracted_base_pdfs = pdf_extractor.extract_documents(
+        [int_list.page_indexes for int_list in inference.prediction.invoice_page_groups]
+    )
+    for i, extracted_pdf in enumerate(extracted_base_pdfs):
+        assert extracted_pdf.filename == extracted_pdfs_strict[i].filename
+        assert (
+            extracted_pdf.pdf_bytes.read() == extracted_pdfs_strict[i].pdf_bytes.read()
+        )
 
-    assert len(extracted_pdfs_strict) == 2
-    assert extracted_pdfs_strict[0].filename == "default_sample_001-001.pdf"
-    assert extracted_pdfs_strict[1].filename == "default_sample_002-002.pdf"
+    assert len(extracted_pdfs_not_strict) == 2
+    assert extracted_pdfs_not_strict[0].filename == "default_sample_001-001.pdf"
+    assert extracted_pdfs_not_strict[1].filename == "default_sample_002-002.pdf"
 
-    invoice_0 = client.parse(InvoiceV4, extracted_pdfs_strict[0].as_input_source())
+    invoice_0 = client.parse(InvoiceV4, extracted_pdfs_not_strict[0].as_input_source())
     test_string_rst_invoice_0 = prepare_invoice_return(
         V1_PRODUCT_DATA_DIR
         / "invoices"

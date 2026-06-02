@@ -1,8 +1,8 @@
 from typing import List, Union
 
 from mindee.error import MindeeError
-from mindee.extraction.pdf_extractor.extracted_pdf import ExtractedPdf
-from mindee.extraction.pdf_extractor.pdf_extractor import PdfExtractor
+from mindee.pdf.extracted_pdf import ExtractedPdf
+from mindee.pdf.pdf_extractor import PdfExtractor
 from mindee.input.local_input_source import LocalInputSource
 from mindee.v2.file_operations.split_files import SplitFiles
 

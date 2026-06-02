@@ -5,7 +5,7 @@ import pypdfium2 as pdfium
 from PIL import Image
 
 from mindee.error.mindee_error import MindeeError
-from mindee.extraction.common.extracted_image import ExtractedImage
+from mindee.image.extracted_image import ExtractedImage
 from mindee.geometry.point import Point
 from mindee.geometry.polygon import Polygon, get_min_max_x, get_min_max_y
 from mindee.input.bytes_input import BytesInput
