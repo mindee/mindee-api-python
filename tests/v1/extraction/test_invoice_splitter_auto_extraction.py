@@ -44,7 +44,7 @@ def test_pdf_should_extract_invoices_strict():
         inference.prediction.invoice_page_groups
     )
     extracted_base_pdfs = pdf_extractor.extract_documents(
-        inference.prediction.documents
+        inference.prediction.invoice_page_groups
     )
     assert extracted_base_pdfs[0].pdf_bytes == extracted_pdfs_strict[0].pdf_bytes
 
