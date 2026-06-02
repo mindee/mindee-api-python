@@ -3,7 +3,7 @@ from typing import Optional
 from mindee.parsing.common import StringDict
 
 
-class RagMetadata:
+class RAGMetadata:
     """Metadata about the RAG operation."""
 
     retrieved_document_id: Optional[str]

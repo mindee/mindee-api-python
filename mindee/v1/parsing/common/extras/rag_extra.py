@@ -3,7 +3,7 @@ from typing import Optional
 from mindee.parsing.common.string_dict import StringDict
 
 
-class RagExtra:
+class RAGExtra:
     """Contains information on the Retrieval-Augmented-Generation of a prediction."""
 
     matching_document_id: Optional[str] = None

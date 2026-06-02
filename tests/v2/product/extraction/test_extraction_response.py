@@ -12,7 +12,7 @@ from mindee.v2.parsing.inference.field import InferenceFields
 from mindee.v2.product.extraction.extraction_inference import ExtractionInference
 from mindee.v2.parsing.inference.inference_file import InferenceFile
 from mindee.v2.parsing.inference.inference_model import InferenceModel
-from mindee.v2.parsing.inference.rag_metadata import RagMetadata
+from mindee.v2.parsing.inference.rag_metadata import RAGMetadata
 from tests.utils import V2_PRODUCT_DATA_DIR
 from tests.v2.product.utils import get_product_samples
 
@@ -199,7 +199,7 @@ def test_rag_metadata_when_matched():
     json_sample, _ = get_product_samples(product="extraction", file_name="rag_matched")
     response = ExtractionResponse(json_sample)
     rag = response.inference.result.rag
-    assert isinstance(rag, RagMetadata)
+    assert isinstance(rag, RAGMetadata)
     assert rag.retrieved_document_id == "12345abc-1234-1234-1234-123456789abc"
     assert response.inference.active_options.rag is True
 
@@ -212,7 +212,7 @@ def test_rag_metadata_when_not_matched():
     )
     response = ExtractionResponse(json_sample)
     rag = response.inference.result.rag
-    assert isinstance(rag, RagMetadata)
+    assert isinstance(rag, RAGMetadata)
     assert rag.retrieved_document_id is None
     assert response.inference.active_options.rag is True
 

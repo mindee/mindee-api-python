@@ -1,4 +1,4 @@
-from mindee.commands.cli_parser import MindeeParser
+from mindee.v1.commands.cli_parser import MindeeParser
 
 
 def main() -> None:

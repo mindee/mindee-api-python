@@ -1,7 +1,7 @@
 import pytest
 
 from mindee.v1.client import Client
-from mindee.v1.pdf.pdf_extractor import PdfExtractor
+from mindee.v1.pdf.pdf_extractor import PDFExtractor
 from mindee.input.local_response import LocalResponse
 from mindee.input.path_input import PathInput
 from mindee.v1.product.invoice_splitter.invoice_splitter_v1 import InvoiceSplitterV1
@@ -36,7 +36,7 @@ def loaded_prediction():
 def test_image_should_extract_pdf(invoice_default_sample_path):
     jpg_input = PathInput(invoice_default_sample_path)
     assert not jpg_input.is_pdf()
-    extractor = PdfExtractor(jpg_input)
+    extractor = PDFExtractor(jpg_input)
     assert extractor.get_page_count() == 1
 
 
@@ -44,7 +44,7 @@ def test_pdf_should_extract_invoices_no_strict(
     invoice_splitter_5p_path, loaded_prediction
 ):
     pdf_input = PathInput(invoice_splitter_5p_path)
-    extractor = PdfExtractor(pdf_input)
+    extractor = PDFExtractor(pdf_input)
     assert extractor.get_page_count() == 5
     extracted_pdfs_no_strict = extractor.extract_invoices(
         loaded_prediction.invoice_page_groups
@@ -65,7 +65,7 @@ def test_pdf_should_extract_invoices_strict(
     invoice_splitter_5p_path, loaded_prediction
 ):
     pdf_input = PathInput(invoice_splitter_5p_path)
-    extractor = PdfExtractor(pdf_input)
+    extractor = PDFExtractor(pdf_input)
     assert extractor.get_page_count() == 5
     extracted_pdfs_strict = extractor.extract_invoices(
         loaded_prediction.invoice_page_groups, True

@@ -10,7 +10,7 @@ from mindee.v1.parsing.common.feedback_response import FeedbackResponse
 from mindee.v1.parsing.common.inference import Inference, TypeInference
 from mindee.v1.parsing.common.job import Job
 from mindee.v1.parsing.common.ocr.mvision_v1 import MVisionV1
-from mindee.v1.parsing.common.ocr.ocr import Ocr
+from mindee.v1.parsing.common.ocr.ocr import OCR
 from mindee.v1.parsing.common.orientation import OrientationField
 from mindee.v1.parsing.common.page import Page
 from mindee.v1.parsing.common.predict_response import PredictResponse
@@ -37,7 +37,7 @@ __all__ = [
     "Page",
     "PredictResponse",
     "MVisionV1",
-    "Ocr",
+    "OCR",
     "RequestStatus",
     "serialize_for_json",
 ]

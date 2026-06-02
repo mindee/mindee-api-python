@@ -3,7 +3,7 @@ from typing import Optional
 from mindee.parsing.common.string_dict import StringDict
 
 
-class FullTextOcrExtra:
+class FullTextOCRExtra:
     """Full Text OCR result."""
 
     content: Optional[str]

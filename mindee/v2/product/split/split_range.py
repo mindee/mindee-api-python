@@ -1,7 +1,7 @@
 from typing import List, Optional
 
 from mindee.v2.product.extraction.extraction_response import ExtractionResponse
-from mindee.pdf.extracted_pdf import ExtractedPdf
+from mindee.pdf.extracted_pdf import ExtractedPDF
 from mindee.input.local_input_source import LocalInputSource
 from mindee.parsing.common import StringDict
 from mindee.v2.file_operations.split import extract_single_split
@@ -34,7 +34,7 @@ class SplitRange:
         page_range = ",".join([str(page_index) for page_index in self.page_range])
         return f"* :Page Range: {page_range}\n  :Document Type: {self.document_type}"
 
-    def extract_from_file(self, input_source: LocalInputSource) -> ExtractedPdf:
+    def extract_from_file(self, input_source: LocalInputSource) -> ExtractedPDF:
         """
         Apply the split range inference to a file and return a single extracted PDF.
 

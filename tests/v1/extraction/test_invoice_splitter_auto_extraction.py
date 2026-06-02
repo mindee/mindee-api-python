@@ -3,7 +3,7 @@ from pathlib import Path
 import pytest
 
 from mindee.v1.client import Client
-from mindee.v1.pdf.pdf_extractor import PdfExtractor
+from mindee.v1.pdf.pdf_extractor import PDFExtractor
 from mindee.input.path_input import PathInput
 from mindee.v1.parsing.common import Document
 from mindee.v1.product.invoice.invoice_v4 import InvoiceV4
@@ -37,7 +37,7 @@ def test_pdf_should_extract_invoices_strict():
         InvoiceSplitterV1, invoice_splitter_input, close_file=False
     )
     inference = response.document.inference
-    pdf_extractor = PdfExtractor(invoice_splitter_input)
+    pdf_extractor = PDFExtractor(invoice_splitter_input)
     assert pdf_extractor.get_page_count() == 2
 
     extracted_pdfs_not_strict = pdf_extractor.extract_invoices(

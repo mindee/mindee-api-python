@@ -7,7 +7,7 @@ from mindee.error.mindee_error import MindeeError
 from mindee.input.bytes_input import BytesInput
 
 
-class ExtractedPdf:
+class ExtractedPDF:
     """An extracted sub-Pdf."""
 
     pdf_bytes: BinaryIO
