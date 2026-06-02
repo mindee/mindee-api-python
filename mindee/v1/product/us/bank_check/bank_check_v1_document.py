@@ -1,8 +1,6 @@
-from typing import List, Optional
-
-from mindee.v1.parsing.common.prediction import Prediction
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string
+from mindee.v1.parsing.common.prediction import Prediction
 from mindee.v1.parsing.standard.amount import AmountField
 from mindee.v1.parsing.standard.date import DateField
 from mindee.v1.parsing.standard.text import StringField
@@ -19,7 +17,7 @@ class BankCheckV1Document(Prediction):
     """The issuer's check number."""
     date: DateField
     """The date the check was issued."""
-    payees: List[StringField]
+    payees: list[StringField]
     """List of the check's payees (recipients)."""
     routing_number: StringField
     """The check issuer's routing number."""
@@ -27,13 +25,13 @@ class BankCheckV1Document(Prediction):
     def __init__(
         self,
         raw_prediction: StringDict,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         """
         Bank Check document.
 
-        :params raw_prediction: Raw prediction from HTTP response
-        :params page_id: Page number for multi pages pdf input
+        :param raw_prediction: Raw prediction from HTTP response
+        :param page_id: Page number for multi pages pdf input
         """
         super().__init__(raw_prediction, page_id)
         self.account_number = StringField(

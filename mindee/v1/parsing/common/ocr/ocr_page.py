@@ -1,18 +1,16 @@
-from typing import List, Optional
-
 from mindee.geometry.minmax import get_min_max_y
 from mindee.geometry.polygon import is_point_in_polygon_y
 from mindee.geometry.polygon_utils import get_centroid
+from mindee.parsing.common.string_dict import StringDict
 from mindee.v1.parsing.common.ocr.ocr_line import OCRLine
 from mindee.v1.parsing.common.ocr.ocr_word import OCRWord
-from mindee.parsing.common.string_dict import StringDict
 
 
 class OCRPage:
     """OCR extraction for a single page."""
 
-    _all_words: List[OCRWord]
-    _lines: List[OCRLine]
+    _all_words: list[OCRWord]
+    _lines: list[OCRLine]
 
     def __init__(self, raw_prediction: StringDict) -> None:
         self._all_words = [
@@ -37,11 +35,11 @@ class OCRPage:
         # We need to check both to eliminate any issues due to word order.
         return current_in_next or next_in_current
 
-    def _to_lines(self) -> List[OCRLine]:
+    def _to_lines(self) -> list[OCRLine]:
         """Order all the words on the page into lines."""
-        current: Optional[OCRWord] = None
-        indexes: List[int] = []
-        lines: List[OCRLine] = []
+        current: OCRWord | None = None
+        indexes: list[int] = []
+        lines: list[OCRLine] = []
 
         for _ in self._all_words:
             line: OCRLine = OCRLine()
@@ -64,14 +62,14 @@ class OCRPage:
         return lines
 
     @property
-    def all_lines(self) -> List[OCRLine]:
+    def all_lines(self) -> list[OCRLine]:
         """All the words on the page, ordered in lines."""
         if not self._lines:
             self._lines = self._to_lines()
         return self._lines
 
     @property
-    def all_words(self) -> List[OCRWord]:
+    def all_words(self) -> list[OCRWord]:
         """All the words on the page, in semi-random order."""
         return self._all_words
 

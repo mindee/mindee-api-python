@@ -2,10 +2,10 @@ from pathlib import Path
 
 import pytest
 
-from mindee.v1.client import Client
-from mindee.v1.pdf.pdf_extractor import PDFExtractor
 from mindee.input.path_input import PathInput
+from mindee.v1.client import Client
 from mindee.v1.parsing.common import Document
+from mindee.v1.pdf.pdf_extractor import PDFExtractor
 from mindee.v1.product.invoice.invoice_v4 import InvoiceV4
 from mindee.v1.product.invoice_splitter.invoice_splitter_v1 import InvoiceSplitterV1
 from tests.utils import V1_PRODUCT_DATA_DIR, levenshtein_ratio
@@ -18,7 +18,7 @@ def invoice_splitter_5p_path():
 
 
 def prepare_invoice_return(rst_file_path: Path, invoice_prediction: Document):
-    with open(rst_file_path, "r") as rst_file:
+    with open(rst_file_path) as rst_file:
         rst_content = rst_file.read()
     parsing_version = invoice_prediction.inference.product.version
     parsing_id = invoice_prediction.id

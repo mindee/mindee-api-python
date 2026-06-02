@@ -1,24 +1,26 @@
 import pytest
 
 from mindee import geometry
+from mindee.error import MindeeGeometryError
+from mindee.geometry import Point, Polygon
 
 
 @pytest.fixture
 def rectangle_a():
     """90° rectangle, overlaps polygon_b"""
-    return [(0.123, 0.53), (0.175, 0.53), (0.175, 0.546), (0.123, 0.546)]
+    return Polygon([(0.123, 0.53), (0.175, 0.53), (0.175, 0.546), (0.123, 0.546)])
 
 
 @pytest.fixture
 def rectangle_b():
     """90° rectangle, overlaps polygon_a"""
-    return [(0.124, 0.535), (0.190, 0.535), (0.190, 0.546), (0.124, 0.546)]
+    return Polygon([(0.124, 0.535), (0.190, 0.535), (0.190, 0.546), (0.124, 0.546)])
 
 
 @pytest.fixture
 def quadrangle_a():
     """not 90° rectangle, doesn't overlap any polygons"""
-    return [(0.205, 0.407), (0.379, 0.407), (0.381, 0.43), (0.207, 0.43)]
+    return Polygon([(0.205, 0.407), (0.379, 0.407), (0.381, 0.43), (0.207, 0.43)])
 
 
 def test_bbox(rectangle_a, rectangle_b, quadrangle_a):
@@ -108,12 +110,12 @@ def test_get_centroid(rectangle_a):
 
 def test_empty_polygon():
     empty = geometry.Polygon()
-    with pytest.raises(ValueError):
-        empty.is_point_in_y([0.5, 0.5])
-    with pytest.raises(ValueError):
-        empty.is_point_in_x([0.5, 0.5])
-    with pytest.raises(ValueError):
-        empty.centroid
+    with pytest.raises(MindeeGeometryError):
+        empty.is_point_in_y(Point(0.5, 0.5))
+    with pytest.raises(MindeeGeometryError):
+        empty.is_point_in_x(Point(0.5, 0.5))
+    with pytest.raises(MindeeGeometryError):
+        _ = empty.centroid
 
 
 def test_bounding_box_several_polygons(rectangle_b, quadrangle_a):

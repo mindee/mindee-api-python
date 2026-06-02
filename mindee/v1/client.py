@@ -1,30 +1,29 @@
 from time import sleep
-from typing import Dict, Optional, Type, Union
 
 from mindee.client_mixin import ClientMixin
 from mindee.error.mindee_error import MindeeClientError, MindeeError
 from mindee.error.mindee_http_error import handle_error
+from mindee.input.local_input_source import LocalInputSource
 from mindee.input.local_response import LocalResponse
 from mindee.input.page_options import PageOptions
-from mindee.v1.client_options.predict_options import AsyncPredictOptions, PredictOptions
-from mindee.input.local_input_source import LocalInputSource
 from mindee.input.url_input_source import URLInputSource
 from mindee.logger import logger
-from mindee.v1.mindee_http.endpoint import CustomEndpoint, Endpoint
-from mindee.v1.mindee_http.mindee_api import MindeeAPI
 from mindee.mindee_http.response_validation import (
     clean_request_json,
     is_valid_async_response,
     is_valid_sync_response,
 )
+from mindee.parsing.common.string_dict import StringDict
+from mindee.v1.client_options.predict_options import AsyncPredictOptions, PredictOptions
+from mindee.v1.client_options.workflow_options import WorkflowOptions
+from mindee.v1.mindee_http.endpoint import CustomEndpoint, Endpoint
+from mindee.v1.mindee_http.mindee_api import MindeeAPI
 from mindee.v1.mindee_http.workflow_endpoint import WorkflowEndpoint
 from mindee.v1.mindee_http.workflow_settings import WorkflowSettings
-from mindee.v1.client_options.workflow_options import WorkflowOptions
 from mindee.v1.parsing.common.async_predict_response import AsyncPredictResponse
 from mindee.v1.parsing.common.feedback_response import FeedbackResponse
 from mindee.v1.parsing.common.inference import Inference
 from mindee.v1.parsing.common.predict_response import PredictResponse
-from mindee.parsing.common.string_dict import StringDict
 from mindee.v1.parsing.common.workflow_response import WorkflowResponse
 from mindee.v1.product import GeneratedV1
 
@@ -38,9 +37,10 @@ def get_bound_classname(type_var) -> str:
 
 def _clean_account_name(account_name: str) -> str:
     """
-    Checks that an account name is provided for custom products, and sets the default one otherwise.
+    Checks that an account name is provided for custom products, and sets the default
+    one otherwise.
 
-    :params account_name: name of the account's holder. Only needed for custom products.
+    :param account_name: name of the account's holder. Only needed for custom products.
     """
     if not account_name or len(account_name) < 1:
         logger.warning(
@@ -64,46 +64,49 @@ class Client(ClientMixin):
         """
         Mindee API Client.
 
-        :params api_key: Your API key for all endpoints
+        :param api_key: Your API key for all endpoints
         """
         self.api_key = api_key
 
     def parse(
         self,
-        product_class: Type[Inference],
-        input_source: Union[LocalInputSource, URLInputSource],
+        product_class: type[Inference],
+        input_source: LocalInputSource | URLInputSource,
         include_words: bool = False,
         close_file: bool = True,
-        page_options: Optional[PageOptions] = None,
+        page_options: PageOptions | None = None,
         cropper: bool = False,
-        endpoint: Optional[Endpoint] = None,
+        endpoint: Endpoint | None = None,
         full_text: bool = False,
     ) -> PredictResponse:
         """
         Call prediction API on the document and parse the results.
 
-        :params product_class: The document class to use.
+        :param product_class: The document class to use.
             The response object will be instantiated based on this parameter.
 
-        :params input_source: The document/source file to use.
+        :param input_source: The document/source file to use.
             Has to be created beforehand.
 
-        :params include_words: Whether to include the full text for each page.
-            This performs a full OCR operation on the server and will increase response time.
+        :param include_words: Whether to include the full text for each page.
+            This performs a full OCR operation on the server and will increase
+            response time.
             Only available on financial document APIs.
 
-        :params close_file: Whether to ``close()`` the file after parsing it.
+        :param close_file: Whether to ``close()`` the file after parsing it.
           Set to ``False`` if you need to access the file after this operation.
 
-        :params page_options: If set, remove pages from the document as specified.
+        :param page_options: If set, remove pages from the document as specified.
             This is done before sending the file to the server.
             It is useful to avoid page limitations.
 
-        :params cropper: Whether to include cropper results for each page.
-            This performs a cropping operation on the server and will increase response time.
+        :param cropper: Whether to include cropper results for each page.
+            This performs a cropping operation on the server and will increase
+            response time.
 
-        :params endpoint: For custom endpoints, an endpoint has to be given.
-        :params full_text: Whether to include the full OCR text response in compatible APIs.
+        :param endpoint: For custom endpoints, an endpoint has to be given.
+        :param full_text: Whether to include the full OCR text response in
+        compatible APIs.
         """
         if input_source is None:
             raise MindeeClientError("No input document provided.")
@@ -113,13 +116,16 @@ class Client(ClientMixin):
 
         logger.debug("Parsing document as '%s'", endpoint.url_name)
 
-        if isinstance(input_source, LocalInputSource):
-            if page_options and input_source.is_pdf():
-                input_source.process_pdf(
-                    page_options.operation,
-                    page_options.on_min_pages,
-                    page_options.page_indexes,
-                )
+        if (
+            isinstance(input_source, LocalInputSource)
+            and page_options
+            and input_source.is_pdf()
+        ):
+            input_source.process_pdf(
+                page_options.operation,
+                page_options.on_min_pages,
+                page_options.page_indexes,
+            )
         options = PredictOptions(cropper, full_text, include_words)
         return self._make_request(
             product_class,
@@ -131,46 +137,49 @@ class Client(ClientMixin):
 
     def enqueue(
         self,
-        product_class: Type[Inference],
-        input_source: Union[LocalInputSource, URLInputSource],
+        product_class: type[Inference],
+        input_source: LocalInputSource | URLInputSource,
         include_words: bool = False,
         close_file: bool = True,
-        page_options: Optional[PageOptions] = None,
+        page_options: PageOptions | None = None,
         cropper: bool = False,
-        endpoint: Optional[Endpoint] = None,
+        endpoint: Endpoint | None = None,
         full_text: bool = False,
-        workflow_id: Optional[str] = None,
+        workflow_id: str | None = None,
         rag: bool = False,
     ) -> AsyncPredictResponse:
         """
         Enqueues a document to an asynchronous endpoint.
 
-        :params product_class: The document class to use.
+        :param product_class: The document class to use.
             The response object will be instantiated based on this parameter.
 
-        :params input_source: The document/source file to use.
+        :param input_source: The document/source file to use.
             Has to be created beforehand.
 
-        :params include_words: Whether to include the full text for each page.
-            This performs a full OCR operation on the server and will increase response time.
+        :param include_words: Whether to include the full text for each page.
+            This performs a full OCR operation on the server and will increase
+            response time.
 
-        :params close_file: Whether to ``close()`` the file after parsing it.
+        :param close_file: Whether to ``close()`` the file after parsing it.
           Set to ``False`` if you need to access the file after this operation.
 
-        :params page_options: If set, remove pages from the document as specified.
+        :param page_options: If set, remove pages from the document as specified.
             This is done before sending the file to the server.
             It is useful to avoid page limitations.
 
-        :params cropper: Whether to include cropper results for each page.
-            This performs a cropping operation on the server and will increase response time.
+        :param cropper: Whether to include cropper results for each page.
+            This performs a cropping operation on the server and will increase
+            response time.
 
-        :params endpoint: For custom endpoints, an endpoint has to be given.
+        :param endpoint: For custom endpoints, an endpoint has to be given.
 
-        :params full_text: Whether to include the full OCR text response in compatible APIs.
+        :param full_text: Whether to include the full OCR text response in
+        compatible APIs.
 
-        :params workflow_id: Workflow ID.
+        :param workflow_id: Workflow ID.
 
-        :params rag: If set, will enable Retrieval-Augmented Generation.
+        :param rag: If set, will enable Retrieval-Augmented Generation.
             Only works if a valid ``workflow_id`` is set.
         """
         if input_source is None:
@@ -181,13 +190,16 @@ class Client(ClientMixin):
 
         logger.debug("Enqueuing document as '%s'", endpoint.url_name)
 
-        if isinstance(input_source, LocalInputSource):
-            if page_options and input_source.is_pdf():
-                input_source.process_pdf(
-                    page_options.operation,
-                    page_options.on_min_pages,
-                    page_options.page_indexes,
-                )
+        if (
+            isinstance(input_source, LocalInputSource)
+            and page_options
+            and input_source.is_pdf()
+        ):
+            input_source.process_pdf(
+                page_options.operation,
+                page_options.on_min_pages,
+                page_options.page_indexes,
+            )
         options = AsyncPredictOptions(
             cropper, full_text, include_words, workflow_id, rag
         )
@@ -200,13 +212,13 @@ class Client(ClientMixin):
         )
 
     def load_prediction(
-        self, product_class: Type[Inference], local_response: LocalResponse
-    ) -> Union[AsyncPredictResponse, PredictResponse]:
+        self, product_class: type[Inference], local_response: LocalResponse
+    ) -> AsyncPredictResponse | PredictResponse:
         """
         Load a prediction.
 
-        :params product_class: Class of the product to use.
-        :params local_response: Local response to load.
+        :param product_class: Class of the product to use.
+        :param local_response: Local response to load.
         :return: A valid prediction.
         """
         try:
@@ -218,17 +230,17 @@ class Client(ClientMixin):
 
     def parse_queued(
         self,
-        product_class: Type[Inference],
+        product_class: type[Inference],
         queue_id: str,
-        endpoint: Optional[Endpoint] = None,
+        endpoint: Endpoint | None = None,
     ) -> AsyncPredictResponse:
         """
         Parses a queued document.
 
-        :params product_class: The document class to use.
+        :param product_class: The document class to use.
             The response object will be instantiated based on this parameter.
-        :params queue_id: queue_id received from the API.
-        :params endpoint: For custom endpoints, an endpoint has to be given.
+        :param queue_id: queue_id received from the API.
+        :param endpoint: For custom endpoints, an endpoint has to be given.
         """
         if not endpoint:
             endpoint = self._initialize_ots_endpoint(product_class)
@@ -239,30 +251,33 @@ class Client(ClientMixin):
 
     def execute_workflow(
         self,
-        input_source: Union[LocalInputSource, URLInputSource],
+        input_source: LocalInputSource | URLInputSource,
         workflow_id: str,
-        options: Optional[WorkflowOptions] = None,
-        page_options: Optional[PageOptions] = None,
+        options: WorkflowOptions | None = None,
+        page_options: PageOptions | None = None,
     ) -> WorkflowResponse:
         """
         Send the document to a workflow execution.
 
-        :params input_source: The document/source file to use.
+        :param input_source: The document/source file to use.
             Has to be created beforehand.
-        :params workflow_id: ID of the workflow.
-        :params page_options: If set, remove pages from the document as specified.
+        :param workflow_id: ID of the workflow.
+        :param page_options: If set, remove pages from the document as specified.
             This is done before sending the file to the server.
             It is useful to avoid page limitations.
-        :params options: Options for the workflow.
+        :param options: Options for the workflow.
         :return:
         """
-        if isinstance(input_source, LocalInputSource):
-            if page_options and input_source.is_pdf():
-                input_source.process_pdf(
-                    page_options.operation,
-                    page_options.on_min_pages,
-                    page_options.page_indexes,
-                )
+        if (
+            isinstance(input_source, LocalInputSource)
+            and page_options
+            and input_source.is_pdf()
+        ):
+            input_source.process_pdf(
+                page_options.operation,
+                page_options.on_min_pages,
+                page_options.page_indexes,
+            )
 
         if not options:
             options = WorkflowOptions(
@@ -273,57 +288,60 @@ class Client(ClientMixin):
 
     def enqueue_and_parse(  # pylint: disable=too-many-locals
         self,
-        product_class: Type[Inference],
-        input_source: Union[LocalInputSource, URLInputSource],
+        product_class: type[Inference],
+        input_source: LocalInputSource | URLInputSource,
         include_words: bool = False,
         close_file: bool = True,
-        page_options: Optional[PageOptions] = None,
+        page_options: PageOptions | None = None,
         cropper: bool = False,
-        endpoint: Optional[Endpoint] = None,
+        endpoint: Endpoint | None = None,
         initial_delay_sec: float = 2,
         delay_sec: float = 1.5,
         max_retries: int = 80,
         full_text: bool = False,
-        workflow_id: Optional[str] = None,
+        workflow_id: str | None = None,
         rag: bool = False,
     ) -> AsyncPredictResponse:
         """
         Enqueues to an asynchronous endpoint and automatically polls for a response.
 
-        :params product_class: The document class to use.
+        :param product_class: The document class to use.
             The response object will be instantiated based on this parameter.
 
-        :params input_source: The document/source file to use.
+        :param input_source: The document/source file to use.
             Has to be created beforehand.
 
-        :params include_words: Whether to include the full text for each page.
-            This performs a full OCR operation on the server and will increase response time.
+        :param include_words: Whether to include the full text for each page.
+            This performs a full OCR operation on the server and will increase
+            response time.
 
-        :params close_file: Whether to ``close()`` the file after parsing it.
+        :param close_file: Whether to ``close()`` the file after parsing it.
             Set to ``False`` if you need to access the file after this operation.
 
-        :params page_options: If set, remove pages from the document as specified.
+        :param page_options: If set, remove pages from the document as specified.
             This is done before sending the file to the server.
             It is useful to avoid page limitations.
 
-        :params cropper: Whether to include cropper results for each page.
-            This performs a cropping operation on the server and will increase response time.
+        :param cropper: Whether to include cropper results for each page.
+            This performs a cropping operation on the server and will increase
+            response time.
 
-        :params endpoint: For custom endpoints, an endpoint has to be given.
+        :param endpoint: For custom endpoints, an endpoint has to be given.
 
-        :params initial_delay_sec: Delay between each polling attempts.
+        :param initial_delay_sec: Delay between each polling attempts.
             This should not be shorter than 1 second.
 
-        :params delay_sec: Delay between each polling attempts.
+        :param delay_sec: Delay between each polling attempts.
             This should not be shorter than 1 second.
 
-        :params max_retries: Total amount of polling attempts.
+        :param max_retries: Total amount of polling attempts.
 
-        :params full_text: Whether to include the full OCR text response in compatible APIs.
+        :param full_text: Whether to include the full OCR text response in
+        compatible APIs.
 
-        :params workflow_id: Workflow ID.
+        :param workflow_id: Workflow ID.
 
-        :params rag: If set, will enable Retrieval-Augmented Generation.
+        :param rag: If set, will enable Retrieval-Augmented Generation.
             Only works if a valid ``workflow_id`` is set.
         """
         self._validate_async_params(initial_delay_sec, delay_sec, max_retries)
@@ -370,20 +388,20 @@ class Client(ClientMixin):
 
     def send_feedback(
         self,
-        product_class: Type[Inference],
+        product_class: type[Inference],
         document_id: str,
         feedback: StringDict,
-        endpoint: Optional[Endpoint] = None,
+        endpoint: Endpoint | None = None,
     ) -> FeedbackResponse:
         """
         Send a feedback for a document.
 
-        :params product_class: The document class to use.
+        :param product_class: The document class to use.
             The response object will be instantiated based on this parameter.
 
-        :params document_id: The id of the document to send feedback to.
-        :params feedback: Feedback to send.
-        :params endpoint: For custom endpoints, an endpoint has to be given.
+        :param document_id: The id of the document to send feedback to.
+        :param feedback: Feedback to send.
+        :param endpoint: For custom endpoints, an endpoint has to be given.
         """
         if not document_id or len(document_id) == 0:
             raise MindeeClientError("Invalid document_id.")
@@ -402,8 +420,8 @@ class Client(ClientMixin):
 
     def _make_request(
         self,
-        product_class: Type[Inference],
-        input_source: Union[LocalInputSource, URLInputSource],
+        product_class: type[Inference],
+        input_source: LocalInputSource | URLInputSource,
         endpoint: Endpoint,
         options: PredictOptions,
         close_file: bool,
@@ -427,13 +445,14 @@ class Client(ClientMixin):
 
     def _predict_async(
         self,
-        product_class: Type[Inference],
-        input_source: Union[LocalInputSource, URLInputSource],
+        product_class: type[Inference],
+        input_source: LocalInputSource | URLInputSource,
         options: AsyncPredictOptions,
-        endpoint: Optional[Endpoint] = None,
+        endpoint: Endpoint | None = None,
         close_file: bool = True,
     ) -> AsyncPredictResponse:
-        """Sends a document to the queue, and sends back an asynchronous predict response."""
+        """Sends a document to the queue, and sends back an asynchronous predict
+        response."""
         if input_source is None:
             raise MindeeClientError("No input document provided")
         if not endpoint:
@@ -460,14 +479,14 @@ class Client(ClientMixin):
 
     def _get_queued_document(
         self,
-        product_class: Type[Inference],
+        product_class: type[Inference],
         endpoint: Endpoint,
         queue_id: str,
     ) -> AsyncPredictResponse:
         """
         Fetches a document or a Job from a given queue.
 
-        :params queue_id: Queue_id received from the API
+        :param queue_id: Queue_id received from the API
         """
         queue_response = endpoint.document_queue_req_get(queue_id=queue_id)
 
@@ -482,21 +501,21 @@ class Client(ClientMixin):
 
     def _send_to_workflow(
         self,
-        product_class: Type[Inference],
-        input_source: Union[LocalInputSource, URLInputSource],
+        product_class: type[Inference],
+        input_source: LocalInputSource | URLInputSource,
         workflow_id: str,
         options: WorkflowOptions,
     ) -> WorkflowResponse:
         """
         Sends a document to a workflow.
 
-        :params product_class: The document class to use.
+        :param product_class: The document class to use.
             The response object will be instantiated based on this parameter.
 
-        :params input_source: The document/source file to use.
+        :param input_source: The document/source file to use.
             Has to be created beforehand.
-        :params workflow_id: ID of the workflow.
-        :params options: Optional options for the workflow.
+        :param workflow_id: ID of the workflow.
+        :param options: Optional options for the workflow.
         :return:
         """
         if input_source is None:
@@ -518,10 +537,10 @@ class Client(ClientMixin):
             )
         return WorkflowResponse(product_class, dict_response)
 
-    def _initialize_ots_endpoint(self, product_class: Type[Inference]) -> Endpoint:
+    def _initialize_ots_endpoint(self, product_class: type[Inference]) -> Endpoint:
         if product_class.__name__ == "CustomV1":
             raise MindeeClientError("Missing endpoint specifications for custom build.")
-        endpoint_info: Dict[str, str] = product_class.get_endpoint_info(product_class)
+        endpoint_info: dict[str, str] = product_class.get_endpoint_info(product_class)
         return self._build_endpoint(
             endpoint_info["name"], OTS_OWNER, endpoint_info["version"]
         )
@@ -543,14 +562,15 @@ class Client(ClientMixin):
         self,
         endpoint_name: str,
         account_name: str = "mindee",
-        version: Optional[str] = None,
+        version: str | None = None,
     ) -> Endpoint:
         """
         Add a custom endpoint, created using the Mindee API Builder.
 
-        :params endpoint_name: The "API name" field in the "Settings" page of the API Builder
-        :params account_name: Your organization's username on the API Builder
-        :params version: If set, locks the version of the model to use.
+        :param endpoint_name: The "API name" field in the "Settings" page of the API
+        Builder
+        :param account_name: Your organization's username on the API Builder
+        :param version: If set, locks the version of the model to use.
             If not set, use the latest version of the model.
         """
         if len(endpoint_name) == 0:
@@ -558,7 +578,8 @@ class Client(ClientMixin):
         account_name = _clean_account_name(account_name)
         if not version or len(version) < 1:
             logger.debug(
-                "No version provided for a custom build, will attempt to poll version 1 by default."
+                "No version provided for a custom build, will attempt to poll version "
+                "1 by default."
             )
             version = "1"
         return self._build_endpoint(endpoint_name, account_name, version)

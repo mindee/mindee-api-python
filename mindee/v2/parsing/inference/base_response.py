@@ -1,7 +1,7 @@
 from abc import ABC
 
-from mindee.v2.parsing.inference.base_inference import BaseInference
 from mindee.parsing.common.common_response import CommonResponse
+from mindee.v2.parsing.inference.base_inference import BaseInference
 
 
 class BaseResponse(ABC, CommonResponse):

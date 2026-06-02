@@ -1,8 +1,6 @@
-from typing import Optional
-
-from mindee.v1.parsing.common.prediction import Prediction
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string
+from mindee.v1.parsing.common.prediction import Prediction
 from mindee.v1.parsing.standard.text import StringField
 from mindee.v1.product.fr.bank_account_details.bank_account_details_v2_bban import (
     BankAccountDetailsV2Bban,
@@ -24,13 +22,13 @@ class BankAccountDetailsV2Document(Prediction):
     def __init__(
         self,
         raw_prediction: StringDict,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         """
         Bank Account Details document.
 
-        :params raw_prediction: Raw prediction from HTTP response
-        :params page_id: Page number for multi pages pdf input
+        :param raw_prediction: Raw prediction from HTTP response
+        :param page_id: Page number for multi pages pdf input
         """
         super().__init__(raw_prediction, page_id)
         self.account_holders_names = StringField(

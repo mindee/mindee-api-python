@@ -12,7 +12,7 @@ WORKFLOW_DIR = V1_DATA_DIR / "workflows"
 @pytest.fixture
 def success_workflow() -> WorkflowResponse:
     file_path = WORKFLOW_DIR / "success.json"
-    with open(file_path, "r", encoding="utf-8") as open_file:
+    with open(file_path, encoding="utf-8") as open_file:
         json_data = json.load(open_file)
     return WorkflowResponse(GeneratedV1, json_data)
 
@@ -20,7 +20,7 @@ def success_workflow() -> WorkflowResponse:
 @pytest.fixture
 def success_low_priority_workflow() -> WorkflowResponse:
     file_path = WORKFLOW_DIR / "success_low_priority.json"
-    with open(file_path, "r", encoding="utf-8") as open_file:
+    with open(file_path, encoding="utf-8") as open_file:
         json_data = json.load(open_file)
     return WorkflowResponse(GeneratedV1, json_data)
 

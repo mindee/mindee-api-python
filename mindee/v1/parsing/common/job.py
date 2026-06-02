@@ -1,6 +1,5 @@
 import json
 from datetime import datetime
-from typing import Optional
 
 from mindee.parsing.common.string_dict import StringDict
 
@@ -14,11 +13,11 @@ class Job:
 
     id: str
     """ID of the job sent by the API in response to an enqueue request."""
-    error: Optional[StringDict] = None
+    error: StringDict | None = None
     """Information about an error that occurred during the job processing."""
     issued_at: datetime
     """Timestamp of the request reception by the API."""
-    available_at: Optional[datetime] = None
+    available_at: datetime | None = None
     """Timestamp of the request after it has been completed."""
     status: str
     """Status of the request, as seen by the API."""
@@ -29,7 +28,7 @@ class Job:
         """
         Wrapper for the HTTP response sent from the API when a document is enqueued.
 
-        :params json_response: JSON response sent by the server
+        :param json_response: JSON response sent by the server
         """
         self.issued_at = datetime.fromisoformat(json_response["issued_at"])
         if json_response.get("available_at"):

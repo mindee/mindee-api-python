@@ -1,6 +1,5 @@
 import io
 from pathlib import Path
-from typing import Optional, Union
 
 from PIL import Image
 
@@ -26,9 +25,9 @@ class ExtractedImage:
         """
         Initialize the ExtractedImage with a buffer and an internal file name.
 
-        :params input_source: Local source for input.
-        :params page_id: ID of the page the element was found on.
-        :params element_id: ID of the element in a page.
+        :param input_source: Local source for input.
+        :param page_id: ID of the page the element was found on.
+        :param element_id: ID of the element in a page.
         """
         self.buffer = io.BytesIO(input_source.file_object.read())
         self.buffer.name = input_source.filename
@@ -46,21 +45,18 @@ class ExtractedImage:
         self._page_id = page_id
         self._element_id = 0 if element_id is None else element_id
 
-    def save_to_file(
-        self, output_path: Union[Path, str], file_format: Optional[str] = None
-    ):
+    def save_to_file(self, output_path: Path | str, file_format: str | None = None):
         """
         Saves the document to a file.
 
-        :params output_path: Path to save the file to.
-        :params file_format: Optional PIL-compatible format for the file. Inferred from file extension if not provided.
+        :param output_path: Path to save the file to.
+        :param file_format: Optional PIL-compatible format for the file. Inferred from file extension if not provided.
         :raises MindeeError: If an invalid path or filename is provided.
         """
         try:
             resolved_path = Path(output_path).resolve()
-            if not file_format:
-                if len(resolved_path.suffix) < 1:
-                    raise ValueError("Invalid file format.")
+            if not file_format and len(resolved_path.suffix) < 1:
+                raise ValueError("Invalid file format.")
             self.buffer.seek(0)
             image = Image.open(self.buffer)
             if file_format:

@@ -2,15 +2,15 @@ import json
 
 import pytest
 
-from mindee.v1.client import Client
-from mindee.v1 import product
 from mindee.error.mindee_http_error import (
     MindeeHTTPClientError,
     MindeeHTTPServerError,
     handle_error,
 )
 from mindee.input.path_input import PathInput
-from tests.utils import FILE_TYPES_DIR, clear_envvars, dummy_envvars, V1_ERROR_DATA_DIR
+from mindee.v1 import product
+from mindee.v1.client import Client
+from tests.utils import FILE_TYPES_DIR, V1_ERROR_DATA_DIR, clear_envvars, dummy_envvars
 
 
 @pytest.fixture
@@ -53,21 +53,21 @@ def test_http_enqueue_and_parse_client_error(
 
 
 def test_http_400_error():
-    error_ref = open(V1_ERROR_DATA_DIR / "error_400_no_details.json")
-    error_obj = json.load(error_ref)
+    with open(V1_ERROR_DATA_DIR / "error_400_no_details.json") as error_ref:
+        error_obj = json.load(error_ref)
     error_obj["status_code"] = 400
     error_400 = handle_error("dummy-url", error_obj)
     with pytest.raises(MindeeHTTPClientError):
-        assert error_400.status_code == 400
-        assert error_400.api_code == "SomeCode"
-        assert error_400.api_message == "Some scary message here"
-        assert error_400.api_details is None
         raise error_400
+    assert error_400.status_code == 400
+    assert error_400.api_code == "SomeCode"
+    assert error_400.api_message == "Some scary message here"
+    assert error_400.api_details is None
 
 
 def test_http_401_error():
-    error_ref = open(V1_ERROR_DATA_DIR / "error_401_invalid_token.json")
-    error_obj = json.load(error_ref)
+    with open(V1_ERROR_DATA_DIR / "error_401_invalid_token.json") as error_ref:
+        error_obj = json.load(error_ref)
     error_obj["status_code"] = 401
     error_401 = handle_error("dummy-url", error_obj)
     with pytest.raises(MindeeHTTPClientError):
@@ -79,8 +79,8 @@ def test_http_401_error():
 
 
 def test_http_429_error():
-    error_ref = open(V1_ERROR_DATA_DIR / "error_429_too_many_requests.json")
-    error_obj = json.load(error_ref)
+    with open(V1_ERROR_DATA_DIR / "error_429_too_many_requests.json") as error_ref:
+        error_obj = json.load(error_ref)
     error_obj["status_code"] = 429
     error_429 = handle_error("dummy-url", error_obj)
     with pytest.raises(MindeeHTTPClientError):
@@ -92,8 +92,8 @@ def test_http_429_error():
 
 
 def test_http_500_error():
-    error_ref = open(V1_ERROR_DATA_DIR / "error_500_inference_fail.json")
-    error_obj = json.load(error_ref)
+    with open(V1_ERROR_DATA_DIR / "error_500_inference_fail.json") as error_ref:
+        error_obj = json.load(error_ref)
     error_obj["status_code"] = 500
     error_500 = handle_error("dummy-url", error_obj)
     with pytest.raises(MindeeHTTPServerError):
@@ -105,7 +105,8 @@ def test_http_500_error():
 
 
 def test_http_500_html_error():
-    error_ref_contents = open(V1_ERROR_DATA_DIR / "error_50x.html").read()
+    with open(V1_ERROR_DATA_DIR / "error_50x.html") as error_ref:
+        error_ref_contents = error_ref.read()
     error_500 = handle_error("dummy-url", error_ref_contents)
     with pytest.raises(MindeeHTTPServerError):
         raise error_500

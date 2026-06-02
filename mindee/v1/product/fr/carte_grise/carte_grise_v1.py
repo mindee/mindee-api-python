@@ -1,8 +1,6 @@
-from typing import List
-
+from mindee.parsing.common.string_dict import StringDict
 from mindee.v1.parsing.common.inference import Inference
 from mindee.v1.parsing.common.page import Page
-from mindee.parsing.common.string_dict import StringDict
 from mindee.v1.product.fr.carte_grise.carte_grise_v1_document import (
     CarteGriseV1Document,
 )
@@ -13,7 +11,7 @@ class CarteGriseV1(Inference):
 
     prediction: CarteGriseV1Document
     """Document-level prediction."""
-    pages: List[Page[CarteGriseV1Document]]
+    pages: list[Page[CarteGriseV1Document]]
     """Page-level prediction(s)."""
     endpoint_name = "carte_grise"
     """Name of the endpoint."""
@@ -24,7 +22,7 @@ class CarteGriseV1(Inference):
         """
         Carte Grise v1 inference.
 
-        :params raw_prediction: Raw prediction from the HTTP response.
+        :param raw_prediction: Raw prediction from the HTTP response.
         """
         super().__init__(raw_prediction)
 

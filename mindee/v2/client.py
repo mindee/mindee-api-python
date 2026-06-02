@@ -1,26 +1,40 @@
-import warnings
 from time import sleep
-from typing import Optional, Union, Type, TypeVar
+from typing import TypeVar
+
+import requests
 
 from mindee.client_mixin import ClientMixin
-from mindee.error.mindee_error import MindeeError
-from mindee.v2.error.mindee_http_error_v2 import handle_error_v2
-from mindee.input import URLInputSource
-from mindee.v2.client_options.base_parameters import BaseParameters
 from mindee.client_options.polling_options import PollingOptions
+from mindee.error.mindee_error import MindeeError
+from mindee.input import URLInputSource
 from mindee.input.local_input_source import LocalInputSource
 from mindee.logger import logger
+from mindee.parsing.common import StringDict
+from mindee.parsing.common.common_response import CommonStatus
+from mindee.v2.client_options.base_parameters import BaseParameters
+from mindee.v2.error.mindee_http_error_v2 import (
+    MindeeHTTPUnknownErrorV2,
+    handle_error_v2,
+)
 from mindee.v2.mindee_http.mindee_api_v2 import MindeeAPIV2
 from mindee.v2.mindee_http.response_validation_v2 import (
     is_valid_get_response,
     is_valid_post_response,
 )
-from mindee.parsing.common.common_response import CommonStatus
 from mindee.v2.parsing.inference.base_response import BaseResponse
-from mindee.v2.product.extraction.extraction_response import ExtractionResponse
 from mindee.v2.parsing.inference.job_response import JobResponse
+from mindee.v2.product.extraction.extraction_response import ExtractionResponse
 
 TypeBaseResponse = TypeVar("TypeBaseResponse", bound=BaseResponse)
+
+
+def _response_json(response: requests.Response) -> StringDict:
+    try:
+        return response.json()
+    except ValueError as exc:
+        raise MindeeHTTPUnknownErrorV2(
+            f"HTTP {response.status_code} response is not valid JSON: {response.text}"
+        ) from exc
 
 
 class Client(ClientMixin):
@@ -30,43 +44,28 @@ class Client(ClientMixin):
     See: https://docs.mindee.com/
     """
 
-    api_key: Optional[str]
+    api_key: str | None
     mindee_api: MindeeAPIV2
 
-    def __init__(self, api_key: Optional[str] = None) -> None:
+    def __init__(self, api_key: str | None = None) -> None:
         """
         Mindee API Client.
 
-        :params api_key: Your API key for all endpoints
+        :param api_key: Your API key for all endpoints
         """
         self.api_key = api_key
         self.mindee_api = MindeeAPIV2(api_key)
 
-    def enqueue_inference(
-        self,
-        input_source: Union[LocalInputSource, URLInputSource],
-        params: BaseParameters,
-        disable_redundant_warnings: bool = False,
-    ) -> JobResponse:
-        """[Deprecated] Use `enqueue` instead."""
-        if not disable_redundant_warnings:
-            warnings.warn(
-                "enqueue_inference is deprecated; use enqueue instead",
-                DeprecationWarning,
-                stacklevel=2,
-            )
-        return self.enqueue(input_source, params)
-
     def enqueue(
         self,
-        input_source: Union[LocalInputSource, URLInputSource],
+        input_source: LocalInputSource | URLInputSource,
         params: BaseParameters,
     ) -> JobResponse:
         """
         Enqueues a document to a given model.
 
-        :params input_source: The document/source file to use. Can be local or remote.
-        :params params: Parameters to set when sending a file.
+        :param input_source: The document/source file to use. Can be local or remote.
+        :param params: Parameters to set when sending a file.
 
         :return: A valid inference response.
         """
@@ -74,7 +73,7 @@ class Client(ClientMixin):
         response = self.mindee_api.req_post_inference_enqueue(
             input_source=input_source, params=params, slug=params.get_enqueue_slug()
         )
-        dict_response = response.json()
+        dict_response = _response_json(response)
 
         if not is_valid_post_response(response):
             handle_error_v2(dict_response)
@@ -86,15 +85,15 @@ class Client(ClientMixin):
 
         Can be used for polling.
 
-        :params job_id: UUID of the job to retrieve.
+        :param job_id: UUID of the job to retrieve.
         :return: A job response.
         """
         logger.debug("Fetching job: %s", job_id)
 
         response = self.mindee_api.req_get_job(job_id)
+        dict_response = _response_json(response)
         if not is_valid_get_response(response):
-            handle_error_v2(response.json())
-        dict_response = response.json()
+            handle_error_v2(dict_response)
         return JobResponse(dict_response)
 
     def get_inference(
@@ -106,7 +105,7 @@ class Client(ClientMixin):
 
     def get_result(
         self,
-        response_type: Type[TypeBaseResponse],
+        response_type: type[TypeBaseResponse],
         inference_id: str,
     ) -> TypeBaseResponse:
         """
@@ -114,8 +113,8 @@ class Client(ClientMixin):
 
         The inference will only be available after it has finished processing.
 
-        :params inference_id: UUID of the inference to retrieve.
-        :params response_type: Class of the product to instantiate.
+        :param inference_id: UUID of the inference to retrieve.
+        :param response_type: Class of the product to instantiate.
         :return: An inference response.
         """
         logger.debug("Fetching result: %s", inference_id)
@@ -123,23 +122,23 @@ class Client(ClientMixin):
         response = self.mindee_api.req_get_inference(
             inference_id, response_type.get_result_slug()
         )
+        dict_response = _response_json(response)
         if not is_valid_get_response(response):
-            handle_error_v2(response.json())
-        dict_response = response.json()
+            handle_error_v2(dict_response)
         return response_type(dict_response)
 
     def enqueue_and_get_result(
         self,
-        response_type: Type[TypeBaseResponse],
-        input_source: Union[LocalInputSource, URLInputSource],
+        response_type: type[TypeBaseResponse],
+        input_source: LocalInputSource | URLInputSource,
         params: BaseParameters,
     ) -> TypeBaseResponse:
         """
         Enqueues to an asynchronous endpoint and automatically polls for a response.
 
-        :params input_source: The document/source file to use. Can be local or remote.
-        :params params: Parameters to set when sending a file.
-        :params response_type: The product class to use for the response object.
+        :param input_source: The document/source file to use. Can be local or remote.
+        :param params: Parameters to set when sending a file.
+        :param response_type: The product class to use for the response object.
 
         :return: A valid inference response.
         """
@@ -150,7 +149,7 @@ class Client(ClientMixin):
             params.polling_options.delay_sec,
             params.polling_options.max_retries,
         )
-        enqueue_response = self.enqueue_inference(input_source, params, True)
+        enqueue_response = self.enqueue(input_source, params)
         logger.debug(
             "Successfully enqueued document with job ID: %s", enqueue_response.job.id
         )

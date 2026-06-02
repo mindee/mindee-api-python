@@ -1,15 +1,14 @@
 import os
-from typing import Dict, Optional, Union
 
 import requests
 
-from mindee.v2.error.mindee_api_v2_error import MindeeAPIV2Error
-from mindee.v2.client_options.base_parameters import BaseParameters
 from mindee.input.local_input_source import LocalInputSource
 from mindee.input.url_input_source import URLInputSource
 from mindee.logger import logger
-from mindee.v1.mindee_http.base_settings import USER_AGENT
 from mindee.mindee_http.settings_mixin import SettingsMixin
+from mindee.v1.mindee_http.base_settings import USER_AGENT
+from mindee.v2.client_options.base_parameters import BaseParameters
+from mindee.v2.error.mindee_api_v2_error import MindeeAPIV2Error
 
 API_KEY_V2_ENV_NAME = "MINDEE_V2_API_KEY"
 API_KEY_V2_DEFAULT = ""
@@ -26,12 +25,12 @@ class MindeeAPIV2(SettingsMixin):
 
     url_root: str
     """Root of the URL to use for polling."""
-    api_key: Optional[str]
+    api_key: str | None
     """API Key for the client."""
 
     def __init__(
         self,
-        api_key: Optional[str],
+        api_key: str | None,
     ):
         self.api_key = (
             api_key
@@ -43,17 +42,15 @@ class MindeeAPIV2(SettingsMixin):
         self.set_from_env()
         if not self.api_key:
             raise MindeeAPIV2Error(
-                (
-                    f"Missing API key,"
-                    " check your Client configuration.\n"
-                    "You can set this using the "
-                    f"'{API_KEY_V2_ENV_NAME}' environment variable."
-                )
+                f"Missing API key,"
+                " check your Client configuration.\n"
+                "You can set this using the "
+                f"'{API_KEY_V2_ENV_NAME}' environment variable."
             )
         self.url_root = f"{self.base_url.rstrip('/')}"
 
     @property
-    def base_headers(self) -> Dict[str, str]:
+    def base_headers(self) -> dict[str, str]:
         """Base headers to send with all API requests."""
         return {
             "Authorization": self.api_key or "",
@@ -74,16 +71,16 @@ class MindeeAPIV2(SettingsMixin):
 
     def req_post_inference_enqueue(
         self,
-        input_source: Union[LocalInputSource, URLInputSource],
+        input_source: LocalInputSource | URLInputSource,
         params: BaseParameters,
         slug: str,
     ) -> requests.Response:
         """
         Make an asynchronous request to POST a document for prediction on the V2 API.
 
-        :params input_source: Input object.
-        :params params: Options for the enqueueing of the document.
-        :params slug: Slug to use for the enqueueing, defaults to 'inferences'.
+        :param input_source: Input object.
+        :param params: Options for the enqueueing of the document.
+        :param slug: Slug to use for the enqueueing, defaults to 'inferences'.
         :return: requests response.
         """
         data = params.get_form_data()
@@ -114,7 +111,7 @@ class MindeeAPIV2(SettingsMixin):
         """
         Sends a request matching a given queue_id. Returns either a Job or a Document.
 
-        :params job_id: Job ID, returned by the enqueue request.
+        :param job_id: Job ID, returned by the enqueue request.
         """
         return requests.get(
             f"{self.url_root}/jobs/{job_id}",
@@ -127,8 +124,8 @@ class MindeeAPIV2(SettingsMixin):
         """
         Sends a request matching a given queue_id. Returns either a Job or a Document.
 
-        :params inference_id: Inference ID, returned by the job request.
-        :params slug: Slug of the inference, defaults to nothing.
+        :param inference_id: Inference ID, returned by the job request.
+        :param slug: Slug of the inference, defaults to nothing.
         """
 
         url = f"{self.url_root}/{slug}/{inference_id}"

@@ -1,8 +1,6 @@
-from typing import List
-
+from mindee.parsing.common.string_dict import StringDict
 from mindee.v1.parsing.common.inference import Inference
 from mindee.v1.parsing.common.page import Page
-from mindee.parsing.common.string_dict import StringDict
 from mindee.v1.product.barcode_reader.barcode_reader_v1_document import (
     BarcodeReaderV1Document,
 )
@@ -13,7 +11,7 @@ class BarcodeReaderV1(Inference):
 
     prediction: BarcodeReaderV1Document
     """Document-level prediction."""
-    pages: List[Page[BarcodeReaderV1Document]]
+    pages: list[Page[BarcodeReaderV1Document]]
     """Page-level prediction(s)."""
     endpoint_name = "barcode_reader"
     """Name of the endpoint."""
@@ -24,7 +22,7 @@ class BarcodeReaderV1(Inference):
         """
         Barcode Reader v1 inference.
 
-        :params raw_prediction: Raw prediction from the HTTP response.
+        :param raw_prediction: Raw prediction from the HTTP response.
         """
         super().__init__(raw_prediction)
 

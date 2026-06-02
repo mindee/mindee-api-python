@@ -5,7 +5,8 @@ from tests.utils import V1_DATA_DIR
 
 
 def test_response():
-    json_data = json.load(open(V1_DATA_DIR / "extras" / "ocr" / "complete.json"))
+    with open(V1_DATA_DIR / "extras" / "ocr" / "complete.json") as json_file:
+        json_data = json.load(json_file)
     with open(V1_DATA_DIR / "extras" / "ocr" / "ocr.txt") as file_handle:
         expected_text = file_handle.read()
     ocr = OCR(json_data["document"]["ocr"])

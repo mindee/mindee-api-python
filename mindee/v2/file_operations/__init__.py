@@ -4,4 +4,4 @@ from mindee.v2.file_operations.crop import (
 )
 from mindee.v2.file_operations.split import extract_splits
 
-__all__ = ["extract_crops", "extract_splits", "extract_crops", "extract_single_crop"]
+__all__ = ["extract_crops", "extract_crops", "extract_single_crop", "extract_splits"]

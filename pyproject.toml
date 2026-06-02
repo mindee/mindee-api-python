@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "mindee"
 authors = [
-  {name = "Mindee", email = "opensource@mindee.com"},
+    { name = "Mindee", email = "opensource@mindee.com" },
 ]
 dynamic = ["version"]
 description = "Mindee API helper library for Python"
@@ -13,25 +13,25 @@ readme = "README.md"
 license = "MIT"
 license-files = ["LICENSE"]
 classifiers = [
-  "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.10",
-  "Programming Language :: Python :: 3.11",
-  "Programming Language :: Python :: 3.12",
-  "Programming Language :: Python :: 3.13",
-  "Programming Language :: Python :: 3.14",
-  "Operating System :: OS Independent",
-  "Development Status :: 5 - Production/Stable",
-  "Intended Audience :: Developers",
-  "Topic :: Software Development :: Libraries",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Operating System :: OS Independent",
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Libraries",
 ]
 
 requires-python = ">=3.10"
 
 dependencies = [
-  "pypdfium2>=4.0,<6.0",
-  "Pillow>=12.2.0",
-  "pytz>=2026.2",
-  "requests>=2.34.2",
+    "pypdfium2>=4.0,<6.0",
+    "Pillow>=12.2.0",
+    "pytz>=2026.2",
+    "requests>=2.34.2",
 ]
 
 [project.urls]
@@ -43,25 +43,25 @@ Changelog = "https://github.com/mindee/mindee-api-python/blob/main/CHANGELOG.md"
 
 [project.optional-dependencies]
 lint = [
-  "pylint==4.0.5",
-  "pre-commit~=4.6.0",
-  "types-pytz>=2026.2.0.20260518",
-  "types-requests>=2.33.0.20260518",
-  "pip-audit>=2.10.0",
+    "pylint==4.0.5",
+    "pre-commit~=4.6.0",
+    "types-pytz>=2026.2.0.20260518",
+    "types-requests>=2.33.0.20260518",
+    "pip-audit>=2.10.0",
 ]
 test = [
-  "toml~=0.10.2",
-  "pytest~=9.0.3",
-  "pytest-cov~=7.1.0",
+    "toml~=0.10.2",
+    "pytest~=9.0.3",
+    "pytest-cov~=7.1.0",
 ]
 docs = [
-  "sphinx~=9.1.0",
-  "sphinx_rtd_theme~=3.1.0",
-  "sphinx-autodoc-typehints~=3.10.4",
+    "sphinx~=9.1.0",
+    "sphinx_rtd_theme~=3.1.0",
+    "sphinx-autodoc-typehints~=3.10.4",
 ]
 build = [
-  "build",
-  "twine",
+    "build",
+    "twine",
 ]
 
 [project.scripts]
@@ -70,10 +70,10 @@ mindeeV2 = "mindee.v2.cli:main"
 
 
 [tool.setuptools.packages]
-find = {}
+find = { }
 
 [tool.setuptools.dynamic]
-version = {attr = "mindee.versions.__version__"}
+version = { attr = "mindee.versions.__version__" }
 
 [tool.setuptools.package-data]
 "mindee" = ["py.typed"]
@@ -90,7 +90,7 @@ indent-style = "space"
 skip-magic-trailing-comma = false
 
 [tool.ruff.lint]
-select = ["E", "F"]
+select = ["E", "F", "I", "UP", "B", "SIM", "C4", "RUF", "PT"]
 ignore = ["E501"]
 
 [tool.mypy]
@@ -110,13 +110,13 @@ ignore_missing_imports = true
 
 [tool.pylic]
 safe_licenses = [
-  "Apache Software License",
-  "MIT License",
-  "Mozilla Public License 2.0 (MPL 2.0)",
-  "BSD License",
-  "BSD-3-Clause, Apache-2.0, PdfiumThirdParty",
-  "Historical Permission Notice and Disclaimer (HPND)",
-  "CMU License (MIT-CMU)",
+    "Apache Software License",
+    "MIT License",
+    "Mozilla Public License 2.0 (MPL 2.0)",
+    "BSD License",
+    "BSD-3-Clause, Apache-2.0, PdfiumThirdParty",
+    "Historical Permission Notice and Disclaimer (HPND)",
+    "CMU License (MIT-CMU)",
 ]
 
 
@@ -125,11 +125,11 @@ addopts = "--pyargs --cov-report term:skip-covered --cov-report term-missing -m 
 python_files = "test*.py"
 junit_family = "xunit2"
 markers = [
-  "regression: marks tests as regression tests - select with '-m regression'",
-  "lineitems: debug line items",
-  "integration: integration tests that send calls to the API - select with '-m integration'",
-  "v2: Tests specific to version 2 of the API"
+    "regression: marks tests as regression tests - select with '-m regression'",
+    "lineitems: debug line items",
+    "integration: integration tests that send calls to the API - select with '-m integration'",
+    "v2: Tests specific to version 2 of the API"
 ]
 testpaths = [
-  "tests",
+    "tests",
 ]

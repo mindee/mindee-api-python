@@ -1,5 +1,3 @@
-from typing import List
-
 from mindee.parsing.common import StringDict
 from mindee.v2.product.ocr.ocr_page import OCRPage
 
@@ -7,7 +5,7 @@ from mindee.v2.product.ocr.ocr_page import OCRPage
 class OCRResult:
     """OCR result info."""
 
-    pages: List[OCRPage]
+    pages: list[OCRPage]
     """List of OCR results for each page in the document."""
 
     def __init__(self, raw_response: StringDict) -> None:

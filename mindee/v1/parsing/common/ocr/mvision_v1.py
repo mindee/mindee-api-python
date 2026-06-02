@@ -1,13 +1,11 @@
-from typing import List
-
-from mindee.v1.parsing.common.ocr.ocr_page import OCRPage
 from mindee.parsing.common.string_dict import StringDict
+from mindee.v1.parsing.common.ocr.ocr_page import OCRPage
 
 
 class MVisionV1:
     """Mindee Vision V1."""
 
-    pages: List[OCRPage]
+    pages: list[OCRPage]
     """List of pages."""
 
     def __init__(self, raw_prediction: StringDict) -> None:

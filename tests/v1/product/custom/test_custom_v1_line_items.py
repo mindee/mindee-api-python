@@ -32,7 +32,8 @@ def test_single_table_01():
         / "line_items"
         / "single_table_01.json"
     )
-    json_data = json.load(open(json_data_path, "r"))
+    with open(json_data_path) as json_file:
+        json_data = json.load(json_file)
     doc = Document(CustomV1, json_data["document"]).inference.prediction
     page = Page(CustomV1Page, json_data["document"]["inference"]["pages"][0])
     anchors = ["beneficiary_name"]
@@ -57,7 +58,8 @@ def test_single_table_02():
         / "line_items"
         / "single_table_01.json"
     )
-    json_data = json.load(open(json_data_path, "r"))
+    with open(json_data_path) as json_file:
+        json_data = json.load(json_file)
     doc = Document(CustomV1, json_data["document"]).inference.prediction
     page = Page(CustomV1Page, json_data["document"]["inference"]["pages"][0])
     anchors = ["beneficiary_name"]

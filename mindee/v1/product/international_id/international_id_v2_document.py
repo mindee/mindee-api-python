@@ -1,8 +1,6 @@
-from typing import List, Optional
-
-from mindee.v1.parsing.common.prediction import Prediction
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string
+from mindee.v1.parsing.common.prediction import Prediction
 from mindee.v1.parsing.standard.classification import ClassificationField
 from mindee.v1.parsing.standard.date import DateField
 from mindee.v1.parsing.standard.text import StringField
@@ -25,7 +23,7 @@ class InternationalIdV2Document(Prediction):
     """The type of personal identification document."""
     expiry_date: DateField
     """The date when the document becomes invalid."""
-    given_names: List[StringField]
+    given_names: list[StringField]
     """The list of the document holder's given names."""
     issue_date: DateField
     """The date when the document was issued."""
@@ -43,19 +41,19 @@ class InternationalIdV2Document(Prediction):
     """The biological sex of the document holder."""
     state_of_issue: StringField
     """The state or territory where the document was issued."""
-    surnames: List[StringField]
+    surnames: list[StringField]
     """The list of the document holder's family names."""
 
     def __init__(
         self,
         raw_prediction: StringDict,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         """
         International ID document.
 
-        :params raw_prediction: Raw prediction from HTTP response
-        :params page_id: Page number for multi pages pdf input
+        :param raw_prediction: Raw prediction from HTTP response
+        :param page_id: Page number for multi pages pdf input
         """
         super().__init__(raw_prediction, page_id)
         self.address = StringField(

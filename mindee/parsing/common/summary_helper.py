@@ -1,8 +1,7 @@
 import re
-from typing import List, Optional
 
 
-def line_separator(column_sizes: List[int], separator: str) -> str:
+def line_separator(column_sizes: list[int], separator: str) -> str:
     """Adds custom separators for console display in line-items-like fields."""
     out_str = "  +"
     for size in column_sizes:
@@ -17,7 +16,7 @@ def clean_out_string(out_string: str) -> str:
 
 
 def format_for_display(
-    out_string: Optional[str] = None, max_col_size: Optional[int] = None
+    out_string: str | None = None, max_col_size: int | None = None
 ) -> str:
     """Truncates line-items to the max width of their corresponding column."""
     if not out_string or len(out_string) == 0:

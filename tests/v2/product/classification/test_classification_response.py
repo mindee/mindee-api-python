@@ -1,10 +1,10 @@
 import pytest
 
 from mindee import ExtractionResponse
+from mindee.v2.product.classification import ClassificationInference
 from mindee.v2.product.classification.classification_classifier import (
     ClassificationClassifier,
 )
-from mindee.v2.product.classification import ClassificationInference
 from mindee.v2.product.classification.classification_response import (
     ClassificationResponse,
 )

@@ -10,8 +10,8 @@ class BytesInput(LocalInputSource):
         """
         Input document from raw bytes (no buffer).
 
-        :params raw_bytes: Raw data as bytes
-        :params filename: File name of the input
+        :param raw_bytes: Raw data as bytes
+        :param filename: File name of the input
         """
         self.file_object = io.BytesIO(raw_bytes)
         self.filename = filename

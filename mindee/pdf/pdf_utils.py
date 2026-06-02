@@ -1,7 +1,6 @@
 import ctypes
 from ctypes import byref, c_double, c_int, create_string_buffer
 from threading import RLock
-from typing import List, Tuple
 
 import pypdfium2 as pdfium
 import pypdfium2.raw as pdfium_c
@@ -15,26 +14,23 @@ def has_source_text(pdf_bytes: bytes) -> bool:
     """
     Checks if the provided PDF bytes contain source text.
 
-    :params pdf_bytes: Raw bytes representation of a PDF file
+    :param pdf_bytes: Raw bytes representation of a PDF file
     :return:
     """
     pdf = pdfium.PdfDocument(pdf_bytes)
-    for page in pdf:
-        if len(page.get_textpage().get_text_bounded().strip()) > 0:
-            return True
-    return False
+    return any(len(page.get_textpage().get_text_bounded().strip()) > 0 for page in pdf)
 
 
-def extract_text_from_pdf(pdf_bytes: bytes) -> List[List[PDFCharData]]:
+def extract_text_from_pdf(pdf_bytes: bytes) -> list[list[PDFCharData]]:
     """
     Extracts the raw text from a given PDF's bytes along with font data.
 
-    :params pdf_bytes: Raw bytes representation of a PDF file.
+    :param pdf_bytes: Raw bytes representation of a PDF file.
     :return: A list of info regarding each read character.
     """
     pdfium_lock = RLock()
     pdf = pdfium.PdfDocument(pdf_bytes)
-    char_data_list: List[List[PDFCharData]] = []
+    char_data_list: list[list[PDFCharData]] = []
 
     for i, page in enumerate(pdf):
         char_data_list.append(_process_page(page, i, pdfium_lock))
@@ -42,15 +38,15 @@ def extract_text_from_pdf(pdf_bytes: bytes) -> List[List[PDFCharData]]:
     return char_data_list
 
 
-def _process_page(page, page_id: int, pdfium_lock: RLock) -> List[PDFCharData]:
+def _process_page(page, page_id: int, pdfium_lock: RLock) -> list[PDFCharData]:
     """
     Processes a single page of the PDF.
 
-    :params page: The PDF page to process.
-    :params page_id: ID of the page.
-    :params pdfium_lock: Lock for thread-safe operations.
+    :param page: The PDF page to process.
+    :param page_id: ID of the page.
+    :param pdfium_lock: Lock for thread-safe operations.
     """
-    char_data_list: List[PDFCharData] = []
+    char_data_list: list[PDFCharData] = []
     internal_height = page.get_height()
     internal_width = page.get_width()
 
@@ -78,17 +74,17 @@ def _process_char(
     internal_height: float,
     internal_width: float,
     page_id: int,
-) -> List[PDFCharData]:
+) -> list[PDFCharData]:
     """
     Processes a single character from the PDF.
 
-    :params i: The index of the character.
-    :params text_handler: The text handler for the current page.
-    :params page: The current page being processed.
-    :params pdfium_lock: Lock for thread-safe operations.
-    :params internal_height: The height of the page.
-    :params internal_width: The width of the page.
-    :params page_id: ID of the page the character was found on.
+    :param i: The index of the character.
+    :param text_handler: The text handler for the current page.
+    :param page: The current page being processed.
+    :param pdfium_lock: Lock for thread-safe operations.
+    :param internal_height: The height of the page.
+    :param internal_width: The width of the page.
+    :param page_id: ID of the page the character was found on.
     :return: List of character data for a page.
     """
     char_info = _get_char_info(i, text_handler, pdfium_lock)
@@ -98,7 +94,7 @@ def _process_char(
     rotation = _get_page_rotation(page, pdfium_lock)
 
     adjusted_box = _adjust_char_box(char_box, rotation, internal_height, internal_width)
-    char_data_list: List[PDFCharData] = []
+    char_data_list: list[PDFCharData] = []
     for c in char_info["char"] or " ":
         if c in (
             "\n",
@@ -132,9 +128,9 @@ def _get_char_info(i: int, text_handler, pdfium_lock: RLock) -> dict:
     """
     Retrieves information about a specific character.
 
-    :params i: The index of the character.
-    :params text_handler: The text handler for the current page.
-    :params pdfium_lock: Lock for thread-safe operations.
+    :param i: The index of the character.
+    :param text_handler: The text handler for the current page.
+    :param pdfium_lock: Lock for thread-safe operations.
     :return: A dictionary containing character information.
     """
     stroke = (ctypes.c_uint(), ctypes.c_uint(), ctypes.c_uint(), ctypes.c_uint())
@@ -171,8 +167,8 @@ def _get_font_name(text_handler, i: int) -> str:
     """
     Retrieves the font name for a specific character.
 
-    :params text_handler: The text handler for the current page.
-    :params i: The index of the character.
+    :param text_handler: The text handler for the current page.
+    :param i: The index of the character.
     :return: The font name as a string.
     """
     buffer_length = 128
@@ -190,8 +186,8 @@ def _get_font_flags(text_handler, i: int) -> int:
     """
     Retrieves the font flags for a specific character.
 
-    :params text_handler: The text handler for the current page.
-    :params i: The index of the character.
+    :param text_handler: The text handler for the current page.
+    :param i: The index of the character.
     :return: The font flags as an integer.
     """
     flags = c_int(0)
@@ -201,13 +197,13 @@ def _get_font_flags(text_handler, i: int) -> int:
 
 def _get_char_box(
     i: int, text_handler, pdfium_lock: RLock
-) -> Tuple[float, float, float, float]:
+) -> tuple[float, float, float, float]:
     """
     Retrieves the bounding box for a specific character.
 
-    :params i: The index of the character.
-    :params text_handler: The text handler for the current page.
-    :params pdfium_lock: Lock for thread-safe operations.
+    :param i: The index of the character.
+    :param text_handler: The text handler for the current page.
+    :param pdfium_lock: Lock for thread-safe operations.
     :return: A tuple containing left, right, bottom, and top coordinates.
     """
     left, right, bottom, top = (c_double(0), c_double(0), c_double(0), c_double(0))
@@ -222,8 +218,8 @@ def _get_page_rotation(page, pdfium_lock: RLock) -> int:
     """
     Retrieves the rotation value for a specific page.
 
-    :params page: The page to get the rotation for.
-    :params pdfium_lock: Lock for thread-safe operations.
+    :param page: The page to get the rotation for.
+    :param pdfium_lock: Lock for thread-safe operations.
     :return: The rotation value in degrees.
     """
     with pdfium_lock:
@@ -233,18 +229,18 @@ def _get_page_rotation(page, pdfium_lock: RLock) -> int:
 
 
 def _adjust_char_box(
-    char_box: Tuple[float, float, float, float],
+    char_box: tuple[float, float, float, float],
     rotation: int,
     internal_height: float,
     internal_width: float,
-) -> Tuple[float, float, float, float]:
+) -> tuple[float, float, float, float]:
     """
     Adjusts the character bounding box based on page rotation.
 
-    :params char_box: The original character bounding box.
-    :params rotation: The page rotation in degrees.
-    :params internal_height: The height of the page.
-    :params internal_width: The width of the page.
+    :param char_box: The original character bounding box.
+    :param rotation: The page rotation in degrees.
+    :param internal_height: The height of the page.
+    :param internal_width: The width of the page.
     :return: The adjusted character bounding box.
     """
     left, right, bottom, top = char_box
@@ -269,9 +265,9 @@ def lerp(start: float, end: float, t: float) -> float:
     """
     Performs linear interpolation between two numbers.
 
-    :params start: The starting value.
-    :params end: The ending value.
-    :params t: The interpolation factor (0 to 1).
+    :param start: The starting value.
+    :param end: The ending value.
+    :param t: The interpolation factor (0 to 1).
     :return: The interpolated value.
     """
     return start * (1 - t) + end * t

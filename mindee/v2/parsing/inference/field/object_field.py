@@ -1,4 +1,5 @@
-from typing import TYPE_CHECKING, Dict, cast
+from typing import TYPE_CHECKING, cast
+
 from mindee.parsing.common import StringDict
 from mindee.v2.parsing.inference.field.base_field import BaseField
 from mindee.v2.parsing.inference.field.dynamic_field import FieldType
@@ -43,7 +44,7 @@ class ObjectField(BaseField):
         return out_str
 
     @property
-    def simple_fields(self) -> Dict[str, "SimpleField"]:
+    def simple_fields(self) -> dict[str, "SimpleField"]:
         """
         Extract and return all SimpleField fields from the `fields` attribute.
 
@@ -56,7 +57,7 @@ class ObjectField(BaseField):
         return simple_fields
 
     @property
-    def list_fields(self) -> Dict[str, "ListField"]:
+    def list_fields(self) -> dict[str, "ListField"]:
         """
         Retrieves all ListField fields from the `fields` attribute.
 
@@ -71,7 +72,7 @@ class ObjectField(BaseField):
         return list_fields
 
     @property
-    def object_fields(self) -> Dict[str, "ObjectField"]:
+    def object_fields(self) -> dict[str, "ObjectField"]:
         """
         Retrieves all ObjectField fields from the `fields` attribute of the instance.
 
@@ -88,7 +89,7 @@ class ObjectField(BaseField):
         """
         Retrieves a SimpleField from the provided field name.
 
-        :params field_name: The name of the field to retrieve.
+        :param field_name: The name of the field to retrieve.
         :type field_name: str
         :return: The SimpleField object corresponding to the given field name.
         :raises ValueError: If the specified field is not of type SimpleField.
@@ -101,7 +102,7 @@ class ObjectField(BaseField):
         """
         Retrieves the ``ListField`` for the specified field name.
 
-        :params field_name: The name of the field to retrieve.
+        :param field_name: The name of the field to retrieve.
         :type field_name: str
         :return: The corresponding ``ListField`` for the given field name.
         :raises ValueError: If the field is not of type ``ListField``.
@@ -114,7 +115,7 @@ class ObjectField(BaseField):
         """
         Retrieves the `ObjectField` associated with the specified field name.
 
-        :params field_name: The name of the field to retrieve.
+        :param field_name: The name of the field to retrieve.
         :type field_name: str
         :return: The `ObjectField` associated with the given field name.
         :raises ValueError: If the field specified by `field_name` is not an `ObjectField`.

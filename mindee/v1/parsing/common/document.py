@@ -1,12 +1,12 @@
 import datetime
-from typing import Any, Generic, Optional, Type
+from typing import Any, Generic
 
+from mindee.parsing.common.string_dict import StringDict
 from mindee.v1.parsing.common.extras.extras import Extras
 from mindee.v1.parsing.common.inference import Inference
 from mindee.v1.parsing.common.ocr.ocr import OCR
 from mindee.v1.parsing.common.page import TypePage
 from mindee.v1.parsing.common.prediction import TypePrediction
-from mindee.parsing.common.string_dict import StringDict
 
 
 def serialize_for_json(obj: Any) -> Any:
@@ -29,21 +29,21 @@ class Document(Generic[TypePrediction, TypePage]):
     """Result of the base inference"""
     id: str
     """Id of the document as sent back by the server"""
-    extras: Optional[Extras] = None
+    extras: Extras | None = None
     """Potential Extras fields sent back along the prediction"""
-    ocr: Optional[OCR] = None
+    ocr: OCR | None = None
     """Potential raw text results read by the OCR (limited feature)"""
     n_pages: int
     """Amount of pages in the document"""
 
     def __init__(
         self,
-        inference_type: Type[Inference],
+        inference_type: type[Inference],
         raw_response: StringDict,
     ):
         self.id = raw_response.get("id", "")
         self.filename = raw_response.get("name", "")
-        if "ocr" in raw_response and raw_response["ocr"]:
+        if raw_response.get("ocr"):
             self.ocr = OCR(raw_response["ocr"])
         if "extras" in raw_response and raw_response["inference"]["extras"]:
             self.extras = Extras(raw_response["extras"])

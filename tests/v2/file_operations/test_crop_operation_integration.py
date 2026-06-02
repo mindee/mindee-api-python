@@ -4,13 +4,13 @@ from os import getenv
 import pytest
 
 from mindee import (
-    ExtractionParameters,
-    ExtractionResponse,
     CropParameters,
     CropResponse,
+    ExtractionParameters,
+    ExtractionResponse,
 )
-from mindee.v2.client import Client
 from mindee.input.path_input import PathInput
+from mindee.v2.client import Client
 from mindee.v2.file_operations.crop import extract_crops
 from tests.utils import OUTPUT_DIR, V2_PRODUCT_DATA_DIR, cleanup_output_files
 

@@ -4,17 +4,20 @@ import os
 import pytest
 
 from mindee import ExtractionParameters, ExtractionResponse, LocalResponse
-from mindee.v2.client import Client
 from mindee.error.mindee_error import MindeeError
-from mindee.v2.error.mindee_api_v2_error import MindeeAPIV2Error
-from mindee.v2.error.mindee_http_error_v2 import MindeeHTTPErrorV2
 from mindee.input.local_input_source import LocalInputSource
 from mindee.input.path_input import PathInput
 from mindee.v1.mindee_http.base_settings import USER_AGENT
-from mindee.v2.product.extraction.extraction_inference import ExtractionInference
+from mindee.v2.client import Client
+from mindee.v2.error.mindee_api_v2_error import MindeeAPIV2Error
+from mindee.v2.error.mindee_http_error_v2 import (
+    MindeeHTTPErrorV2,
+    MindeeHTTPUnknownErrorV2,
+)
 from mindee.v2.parsing.inference.job import Job
 from mindee.v2.parsing.inference.job_response import JobResponse
-from tests.utils import FILE_TYPES_DIR, V2_PRODUCT_DATA_DIR, V2_DATA_DIR, dummy_envvars
+from mindee.v2.product.extraction.extraction_inference import ExtractionInference
+from tests.utils import FILE_TYPES_DIR, V2_DATA_DIR, V2_PRODUCT_DATA_DIR, dummy_envvars
 
 
 @pytest.fixture
@@ -193,8 +196,41 @@ def test_error_handling(custom_base_url_client):
             ),
             ExtractionParameters("dummy-model"),
         )
-        assert e.status_code == -1
-        assert e.detail == "forced failure from test"
+    assert e.value.status == 0
+    assert e.value.detail == "forced failure from test"
+
+
+@pytest.mark.v2
+def test_error_handling_non_json_response(env_client, monkeypatch):
+    class _FakeHtmlRespError:
+        status_code = 502
+        ok = False
+        text = "<html><head><title>502 Bad Gateway</title></head></html>"
+
+        def json(self):
+            raise ValueError("Expecting value")
+
+    def _fake_error_post_inference_enqueue(*args, **kwargs):
+        return _FakeHtmlRespError()
+
+    monkeypatch.setattr(
+        "mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.req_post_inference_enqueue",
+        _fake_error_post_inference_enqueue,
+        raising=True,
+    )
+
+    with pytest.raises(MindeeHTTPUnknownErrorV2) as e:
+        env_client.enqueue(
+            PathInput(
+                V2_PRODUCT_DATA_DIR
+                / "extraction"
+                / "financial_document"
+                / "default_sample.jpg"
+            ),
+            ExtractionParameters("dummy-model"),
+        )
+    assert e.value.status == -1
+    assert "HTTP 502 response is not valid JSON" in e.value.detail
 
 
 @pytest.mark.v2
