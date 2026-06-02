@@ -6,11 +6,11 @@ import pypdfium2 as pdfium
 from PIL import Image
 
 from mindee.error.mindee_error import MindeeError
-from mindee.pdf.extracted_pdf import ExtractedPdf
+from mindee.pdf.extracted_pdf import ExtractedPDF
 from mindee.input.local_input_source import LocalInputSource
 
 
-class PdfExtractor:
+class PDFExtractor:
     """PDF extraction class."""
 
     _source_pdf: BinaryIO
@@ -47,14 +47,14 @@ class PdfExtractor:
 
     def extract_sub_documents(
         self, page_indexes: List[List[int]]
-    ) -> List[ExtractedPdf]:
+    ) -> List[ExtractedPDF]:
         """
         Extract the sub-documents from the main pdf, based on the given list of page indexes.
 
         :params page_indexes: List of list of numbers, representing page indexes.
         :return: A list of created PDFS.
         """
-        extracted_pdfs: List[ExtractedPdf] = []
+        extracted_pdfs: List[ExtractedPDF] = []
         extension = Path(self._filename).suffix
         stem = Path(self._filename).stem
         for page_index_elem in page_indexes:
@@ -65,7 +65,7 @@ class PdfExtractor:
                     raise MindeeError(f"Index {page_index} is out of range.")
             formatted_max_index = f"{page_index_elem[len(page_index_elem) - 1] + 1:03d}"
             field_filename = f"{stem}_{(page_index_elem[0] + 1):03d}-{formatted_max_index}{extension}"
-            extracted_pdf = ExtractedPdf(
+            extracted_pdf = ExtractedPDF(
                 self.cut_pages(page_index_elem), field_filename
             )
             extracted_pdfs.append(extracted_pdf)
@@ -74,7 +74,7 @@ class PdfExtractor:
     def extract_documents(
         self,
         page_indexes: List[List[int]],
-    ) -> List[ExtractedPdf]:
+    ) -> List[ExtractedPDF]:
         """
         Extracts complete PDFs from the document.
 

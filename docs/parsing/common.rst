@@ -1,95 +1,20 @@
--------------
-Common Fields
--------------
+Common Parsing Utilities
+========================
 
-Documents
-=========
-
-Document
---------
-.. autoclass:: mindee.parsing.common.document.Document
+Common Response
+---------------
+.. autoclass:: mindee.parsing.common.common_response.CommonResponse
     :members:
+    :inherited-members:
 
-Page
-----
-.. autoclass:: mindee.parsing.common.page.Page
-    :members:
-
-Page Fields
-===========
-
-Orientation
+String Dict
 -----------
-.. autoclass:: mindee.parsing.common.orientation.OrientationField
+.. autoclass:: mindee.parsing.common.string_dict.StringDict
     :members:
+    :inherited-members:
 
-
-API
-===
-
-ApiRequest
-----------
-.. autoclass:: mindee.parsing.common.api_request.ApiRequest
-    :members:
-
-ApiResponse
------------
-.. autoclass:: mindee.parsing.common.api_response.ApiResponse
-    :members:
-
-Prediction
-----------
-.. autoclass:: mindee.parsing.common.prediction.Prediction
-    :members:
-
-Asynchronous Parsing
-====================
-
-AsyncPredictResponse
---------------------
-.. autoclass:: mindee.parsing.common.async_predict_response.AsyncPredictResponse
-    :members:
-
-Job
----
-.. autoclass:: mindee.parsing.common.job.Job
-    :members:
-
-
-Miscellaneous Parsing
-=====================
-
-FeedbackResponse
-----------------
-.. autoclass:: mindee.parsing.common.feedback_response.FeedbackResponse
-    :members:
-
-
-OCR Extraction
-==============
-
-OCR
----
-.. autoclass:: mindee.parsing.common.ocr.ocr.Ocr
-    :members:
-
-MVisionV1
----------
-.. autoclass:: mindee.parsing.common.ocr.mvision_v1.MVisionV1
-    :members:
-
-OcrPage
--------
-.. autoclass:: mindee.parsing.common.ocr.ocr_page.OcrPage
-    :members:
-
-OcrLine
--------
-.. autoclass:: mindee.parsing.common.ocr.ocr_line.OcrLine
-    :members:
-
-OcrWord
--------
-.. autoclass:: mindee.parsing.common.ocr.ocr_word.OcrWord
+Summary Helper
+--------------
+.. automodule:: mindee.parsing.common.summary_helper
     :members:
     :inherited-members:

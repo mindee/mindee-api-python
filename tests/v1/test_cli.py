@@ -3,7 +3,7 @@ from argparse import Namespace
 
 import pytest
 
-from mindee.commands.cli_parser import MindeeParser
+from mindee.v1.commands import MindeeParser
 from mindee.error.mindee_http_error import MindeeHTTPError
 from tests.utils import FILE_TYPES_DIR, V1_PRODUCT_DATA_DIR, clear_envvars
 
