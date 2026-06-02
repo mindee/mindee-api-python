@@ -1,6 +1,5 @@
 import os
 from dataclasses import dataclass
-from typing import Dict, Optional
 
 from mindee.logger import logger
 from mindee.mindee_http.settings_mixin import SettingsMixin
@@ -23,26 +22,26 @@ USER_AGENT = f"mindee-api-python@v{__version__} python-v{PYTHON_VERSION} {PLATFO
 class BaseSettings(SettingsMixin):
     """Settings class relating to API requests."""
 
-    api_key: Optional[str]
+    api_key: str | None
     """API Key for the client."""
     base_url: str
     request_timeout: int
 
-    def __init__(self, api_key: Optional[str]):
+    def __init__(self, api_key: str | None):
         self._set_api_key(api_key)
         self.request_timeout = TIMEOUT_DEFAULT
         self.set_base_url(BASE_URL_DEFAULT)
         self.set_from_env()
 
     @property
-    def base_headers(self) -> Dict[str, str]:
+    def base_headers(self) -> dict[str, str]:
         """Base headers to send with all API requests."""
         return {
             "Authorization": f"Token {self.api_key}",
             "User-Agent": USER_AGENT,
         }
 
-    def _set_api_key(self, api_key: Optional[str]) -> None:
+    def _set_api_key(self, api_key: str | None) -> None:
         """Set the endpoint's API key from an environment variable, if present."""
         env_val = os.getenv(API_KEY_ENV_NAME, "")
         if env_val and (not api_key or len(api_key) == 0):

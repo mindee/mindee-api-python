@@ -23,7 +23,7 @@ FinancialDocumentV1DocumentType = Document[
 @pytest.fixture
 def complete_doc_invoice() -> FinancialDocumentV1DocumentType:
     file_path = RESPONSE_DIR / "complete_invoice.json"
-    with open(file_path, "r", encoding="utf-8") as open_file:
+    with open(file_path, encoding="utf-8") as open_file:
         json_data = json.load(open_file)
     return Document(FinancialDocumentV1, json_data["document"])
 
@@ -31,7 +31,7 @@ def complete_doc_invoice() -> FinancialDocumentV1DocumentType:
 @pytest.fixture
 def complete_doc_receipt() -> FinancialDocumentV1DocumentType:
     file_path = RESPONSE_DIR / "complete_receipt.json"
-    with open(file_path, "r", encoding="utf-8") as open_file:
+    with open(file_path, encoding="utf-8") as open_file:
         json_data = json.load(open_file)
     return Document(FinancialDocumentV1, json_data["document"])
 
@@ -39,7 +39,7 @@ def complete_doc_receipt() -> FinancialDocumentV1DocumentType:
 @pytest.fixture
 def empty_doc() -> FinancialDocumentV1DocumentType:
     file_path = RESPONSE_DIR / "empty.json"
-    with open(file_path, "r", encoding="utf-8") as open_file:
+    with open(file_path, encoding="utf-8") as open_file:
         json_data = json.load(open_file)
     return Document(FinancialDocumentV1, json_data["document"])
 
@@ -47,7 +47,7 @@ def empty_doc() -> FinancialDocumentV1DocumentType:
 @pytest.fixture
 def complete_page0_invoice() -> Page[FinancialDocumentV1Document]:
     file_path = RESPONSE_DIR / "complete_invoice.json"
-    with open(file_path, "r", encoding="utf-8") as open_file:
+    with open(file_path, encoding="utf-8") as open_file:
         json_data = json.load(open_file)
     page_0 = json_data["document"]["inference"]["pages"][0]
     return Page(FinancialDocumentV1Document, page_0)
@@ -56,7 +56,7 @@ def complete_page0_invoice() -> Page[FinancialDocumentV1Document]:
 @pytest.fixture
 def complete_page0_receipt() -> Page[FinancialDocumentV1Document]:
     file_path = RESPONSE_DIR / "complete_receipt.json"
-    with open(file_path, "r", encoding="utf-8") as open_file:
+    with open(file_path, encoding="utf-8") as open_file:
         json_data = json.load(open_file)
     page_0 = json_data["document"]["inference"]["pages"][0]
     return Page(FinancialDocumentV1Document, page_0)
@@ -64,7 +64,7 @@ def complete_page0_receipt() -> Page[FinancialDocumentV1Document]:
 
 def test_complete_invoice(complete_doc_invoice: FinancialDocumentV1DocumentType):
     file_path = RESPONSE_DIR / "summary_full_invoice.rst"
-    with open(file_path, "r", encoding="utf-8") as open_file:
+    with open(file_path, encoding="utf-8") as open_file:
         reference_str = open_file.read()
     assert str(complete_doc_invoice) == reference_str
 
@@ -73,7 +73,7 @@ def test_complete_receipt(
     complete_doc_receipt: FinancialDocumentV1DocumentType,
 ):
     file_path = RESPONSE_DIR / "summary_full_receipt.rst"
-    with open(file_path, "r", encoding="utf-8") as open_file:
+    with open(file_path, encoding="utf-8") as open_file:
         reference_str = open_file.read()
     assert str(complete_doc_receipt) == reference_str
 
@@ -107,7 +107,7 @@ def test_empty_doc(empty_doc: FinancialDocumentV1DocumentType):
 
 def test_page0_invoice(complete_page0_invoice: Page[FinancialDocumentV1Document]):
     file_path = RESPONSE_DIR / "summary_page0_invoice.rst"
-    with open(file_path, "r", encoding="utf-8") as open_file:
+    with open(file_path, encoding="utf-8") as open_file:
         reference_str = open_file.read()
     assert complete_page0_invoice.id == 0
     assert str(complete_page0_invoice) == reference_str
@@ -115,7 +115,7 @@ def test_page0_invoice(complete_page0_invoice: Page[FinancialDocumentV1Document]
 
 def test_page0_receipt(complete_page0_receipt: Page[FinancialDocumentV1Document]):
     file_path = RESPONSE_DIR / "summary_page0_receipt.rst"
-    with open(file_path, "r", encoding="utf-8") as open_file:
+    with open(file_path, encoding="utf-8") as open_file:
         reference_str = open_file.read()
     assert complete_page0_receipt.id == 0
     assert str(complete_page0_receipt) == reference_str

@@ -9,16 +9,14 @@ def is_valid_sync_response(response: requests.Response) -> bool:
     """
     Checks if the synchronous response is valid. Returns True if the response is valid.
 
-    :params response: a requests response object.
+    :param response: a requests response object.
     :return: bool
     """
     if not response or not response.ok:
         return False
     response_json = json.loads(response.content)
-    # VERY rare edge case where raw html is sent instead of json.
-    if not isinstance(response_json, dict):
-        return False
-    return True
+    # EXTREMELY rare edge case where raw html is sent instead of json.
+    return isinstance(response_json, dict)
 
 
 def is_valid_async_response(response: requests.Response) -> bool:
@@ -27,7 +25,7 @@ def is_valid_async_response(response: requests.Response) -> bool:
 
     Returns True if the response is valid.
 
-    :params response: a requests response object.
+    :param response: a requests response object.
     :return: bool
     """
     if not is_valid_sync_response(response):
@@ -38,24 +36,18 @@ def is_valid_async_response(response: requests.Response) -> bool:
         response.status_code < 200 or response.status_code > 302
     ):
         return False
-    # Async errors.
-    if "job" not in response_json and "execution" not in response_json:
-        return False
-    if (
-        "job" in response_json
-        and "error" in response_json["job"]
-        and response_json["job"]["error"]
-    ):
-        return False
-
-    return True
+    if "job" in response_json:
+        return not response_json["job"].get("error")
+    if "execution" in response_json:
+        return not response_json["execution"].get("error")
+    return False
 
 
 def clean_request_json(response: requests.Response) -> StringDict:
     """
     Checks and correct the response error format depending on the two possible kind of returns.
 
-    :params response: Raw request response.
+    :param response: Raw request response.
     :return: Returns the job error if the error is due to parsing, returns the http error otherwise.
     """
     response_json = response.json()

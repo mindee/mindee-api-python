@@ -1,8 +1,6 @@
-from typing import List
-
+from mindee.parsing.common.string_dict import StringDict
 from mindee.v1.parsing.common.inference import Inference
 from mindee.v1.parsing.common.page import Page
-from mindee.parsing.common.string_dict import StringDict
 from mindee.v1.product.receipt.receipt_v5_document import (
     ReceiptV5Document,
 )
@@ -13,7 +11,7 @@ class ReceiptV5(Inference):
 
     prediction: ReceiptV5Document
     """Document-level prediction."""
-    pages: List[Page[ReceiptV5Document]]
+    pages: list[Page[ReceiptV5Document]]
     """Page-level prediction(s)."""
     endpoint_name = "expense_receipts"
     """Name of the endpoint."""
@@ -24,7 +22,7 @@ class ReceiptV5(Inference):
         """
         Receipt v5 inference.
 
-        :params raw_prediction: Raw prediction from the HTTP response.
+        :param raw_prediction: Raw prediction from the HTTP response.
         """
         super().__init__(raw_prediction)
 

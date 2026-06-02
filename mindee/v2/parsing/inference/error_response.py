@@ -1,5 +1,3 @@
-from typing import List
-
 from mindee.parsing.common import StringDict
 from mindee.v2.parsing.inference.error_item import ErrorItem
 
@@ -15,7 +13,7 @@ class ErrorResponse:
     """A short, human-readable summary of the problem."""
     code: str
     """A machine-readable code specific to the occurrence of the problem."""
-    errors: List[ErrorItem]
+    errors: list[ErrorItem]
     """A list of explicit error details."""
 
     def __init__(self, raw_response: StringDict):

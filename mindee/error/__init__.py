@@ -1,4 +1,4 @@
-from mindee.error.geometry_error import GeometryError
+from mindee.error.geometry_error import MindeeGeometryError
 from mindee.error.mimetype_error import MimeTypeError
 from mindee.error.mindee_error import (
     MindeeClientError,
@@ -14,14 +14,14 @@ from mindee.error.mindee_image_error import MindeeImageError
 from mindee.error.mindee_pdf_error import MindeePDFError
 
 __all__ = [
-    "MindeeError",
+    "MimeTypeError",
     "MindeeClientError",
-    "MindeeHTTPError",
+    "MindeeError",
+    "MindeeGeometryError",
     "MindeeHTTPClientError",
+    "MindeeHTTPError",
     "MindeeHTTPServerError",
-    "handle_error",
     "MindeeImageError",
     "MindeePDFError",
-    "GeometryError",
-    "MimeTypeError",
+    "handle_error",
 ]

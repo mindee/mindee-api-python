@@ -1,4 +1,4 @@
-from mindee.v1.client_options.workflow_options import WorkflowOptions
 from mindee.v1.client_options.predict_options import PredictOptions
+from mindee.v1.client_options.workflow_options import WorkflowOptions
 
-__all__ = ["WorkflowOptions", "PredictOptions"]
+__all__ = ["PredictOptions", "WorkflowOptions"]

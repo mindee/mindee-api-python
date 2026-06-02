@@ -1,18 +1,17 @@
 from pathlib import Path
-from typing import List, Union
 
 from mindee.pdf.extracted_pdf import ExtractedPDF
 
 
-class SplitFiles(List[ExtractedPDF]):
+class SplitFiles(list[ExtractedPDF]):
     """Split files."""
 
-    def save_all_to_disk(self, path: Union[str, Path], prefix: str = "split"):
+    def save_all_to_disk(self, path: str | Path, prefix: str = "split"):
         """
         Save all extracted splits to disk.
 
-        :params path: Path to save the extracted splits to.
-        :params prefix: Prefix to add to the filename, defaults to 'split'.
+        :param path: Path to save the extracted splits to.
+        :param prefix: Prefix to add to the filename, defaults to 'split'.
         """
         if isinstance(path, str):
             path = Path(path)

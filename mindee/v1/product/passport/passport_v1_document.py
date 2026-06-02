@@ -1,8 +1,6 @@
-from typing import List, Optional
-
-from mindee.v1.parsing.common.prediction import Prediction
 from mindee.parsing.common.string_dict import StringDict
 from mindee.parsing.common.summary_helper import clean_out_string
+from mindee.v1.parsing.common.prediction import Prediction
 from mindee.v1.parsing.standard.date import DateField
 from mindee.v1.parsing.standard.text import StringField
 
@@ -20,7 +18,7 @@ class PassportV1Document(Prediction):
     """The expiry date of the passport."""
     gender: StringField
     """The gender of the passport holder."""
-    given_names: List[StringField]
+    given_names: list[StringField]
     """The given name(s) of the passport holder."""
     id_number: StringField
     """The passport's identification number."""
@@ -36,13 +34,13 @@ class PassportV1Document(Prediction):
     def __init__(
         self,
         raw_prediction: StringDict,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         """
         Passport document.
 
-        :params raw_prediction: Raw prediction from HTTP response
-        :params page_id: Page number for multi pages pdf input
+        :param raw_prediction: Raw prediction from HTTP response
+        :param page_id: Page number for multi pages pdf input
         """
         super().__init__(raw_prediction, page_id)
         self.birth_date = DateField(

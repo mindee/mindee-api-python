@@ -1,12 +1,10 @@
-from typing import Optional
-
 from mindee.parsing.common import StringDict
 
 
 class ErrorItem:
     """Explicit details on a problem."""
 
-    pointer: Optional[str]
+    pointer: str | None
     """A JSON Pointer to the location of the body property."""
     detail: str
     """Explicit information on the issue."""

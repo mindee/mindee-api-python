@@ -1,5 +1,4 @@
 from datetime import datetime
-from typing import Optional
 
 from mindee.parsing.common import StringDict
 from mindee.v2.parsing.inference.error_response import ErrorResponse
@@ -10,11 +9,11 @@ class JobWebhook:
 
     id: str
     """JobWebhook ID."""
-    created_at: Optional[datetime]
+    created_at: datetime | None
     """Created at date."""
     status: str
     """Status of the webhook."""
-    error: Optional[ErrorResponse]
+    error: ErrorResponse | None
     """Error response, if any."""
 
     def __init__(self, server_response: StringDict) -> None:
@@ -28,7 +27,7 @@ class JobWebhook:
         )
 
     @staticmethod
-    def parse_date(date_string: Optional[str]) -> Optional[datetime]:
+    def parse_date(date_string: str | None) -> datetime | None:
         """Parse the date, if present."""
         if not date_string:
             return None

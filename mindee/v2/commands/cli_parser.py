@@ -1,20 +1,18 @@
 from argparse import ArgumentParser, Namespace
 from dataclasses import dataclass
-from typing import Optional, Type, Union
 
 from mindee import (
-    ExtractionResponse,
-    CropResponse,
-    SplitResponse,
-    ClassificationResponse,
-    ExtractionParameters,
     ClassificationParameters,
+    ClassificationResponse,
     CropParameters,
+    CropResponse,
+    ExtractionParameters,
+    ExtractionResponse,
     SplitParameters,
+    SplitResponse,
 )
 from mindee.input import PathInput, URLInputSource
 from mindee.v2.client import Client
-
 from mindee.v2.client_options.base_parameters import BaseParameters
 from mindee.v2.parsing.inference.base_response import BaseResponse
 
@@ -23,8 +21,8 @@ from mindee.v2.parsing.inference.base_response import BaseResponse
 class ProductConfig:
     """Configuration for a command."""
 
-    response_class: Type[BaseResponse]
-    params_class: Type[BaseParameters]
+    response_class: type[BaseResponse]
+    params_class: type[BaseParameters]
 
 
 PRODUCTS = {
@@ -83,14 +81,14 @@ class MindeeParser:
     """Stores attributes relating to parsing."""
     client: Client
     """Mindee client"""
-    input_source: Union[PathInput, URLInputSource]
+    input_source: PathInput | URLInputSource
     """Document to be parsed."""
 
     def __init__(
         self,
-        parser: Optional[MindeeArgumentParser] = None,
-        parsed_args: Optional[Namespace] = None,
-        client: Optional[Client] = None,
+        parser: MindeeArgumentParser | None = None,
+        parsed_args: Namespace | None = None,
+        client: Client | None = None,
     ) -> None:
         self.parser = (
             parser if parser else MindeeArgumentParser(description="Mindee_API")
@@ -130,7 +128,7 @@ class MindeeParser:
         parsed_args = self.parser.parse_args()
         return parsed_args
 
-    def _get_input_source(self) -> Union[PathInput, URLInputSource]:
+    def _get_input_source(self) -> PathInput | URLInputSource:
         """Loads an input document."""
 
         if self.parsed_args.path.lower().startswith("http"):

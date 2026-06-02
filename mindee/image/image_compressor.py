@@ -1,22 +1,22 @@
 import io
-from typing import BinaryIO, Union
+from typing import BinaryIO
 
 from PIL import Image
 
 
 def compress_image(
-    image_buffer: Union[BinaryIO, bytes],
+    image_buffer: BinaryIO | bytes,
     quality: int = 85,
-    max_width: Union[int, float, None] = None,
-    max_height: Union[int, float, None] = None,
+    max_width: int | float | None = None,
+    max_height: int | float | None = None,
 ) -> bytes:
     """
     Compresses an image with the given parameters.
 
-    :params image_buffer: Buffer representation of an image, also accepts BinaryIO.
-    :params quality: Quality to apply to the image (JPEG compression).
-    :params max_width: Maximum bound for the width.
-    :params max_height: Maximum bound for the height.
+    :param image_buffer: Buffer representation of an image, also accepts BinaryIO.
+    :param quality: Quality to apply to the image (JPEG compression).
+    :param max_width: Maximum bound for the width.
+    :param max_height: Maximum bound for the height.
     :return:
     """
     if isinstance(image_buffer, bytes):

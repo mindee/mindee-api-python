@@ -1,8 +1,13 @@
 import binascii
+import contextlib
 
 import pytest
 
 from mindee import Base64Input, PathInput
+from mindee.error.mindee_error import MindeeClientError, MindeeError
+from mindee.error.mindee_http_error import MindeeHTTPError
+from mindee.input.local_input_source import LocalInputSource
+from mindee.input.local_response import LocalResponse
 from mindee.v1 import (
     AsyncPredictResponse,
     Client,
@@ -10,10 +15,6 @@ from mindee.v1 import (
     PredictResponse,
     product,
 )
-from mindee.error.mindee_error import MindeeClientError, MindeeError
-from mindee.error.mindee_http_error import MindeeHTTPError
-from mindee.input.local_response import LocalResponse
-from mindee.input.local_input_source import LocalInputSource
 from mindee.v1.product import MultiReceiptsDetectorV1
 from mindee.v1.product.international_id import InternationalIdV2
 from mindee.v1.product.invoice.invoice_v4 import InvoiceV4
@@ -21,10 +22,10 @@ from mindee.v1.product.invoice_splitter.invoice_splitter_v1 import InvoiceSplitt
 from mindee.v1.product.receipt.receipt_v5 import ReceiptV5
 from tests.utils import (
     FILE_TYPES_DIR,
+    V1_ERROR_DATA_DIR,
     V1_PRODUCT_DATA_DIR,
     clear_envvars,
     dummy_envvars,
-    V1_ERROR_DATA_DIR,
 )
 
 
@@ -46,14 +47,14 @@ def dummy_client() -> Client:
 
 
 def test_parse_path_without_token(empty_client: Client):
+    input_doc = PathInput(FILE_TYPES_DIR / "pdf" / "blank.pdf")
     with pytest.raises(RuntimeError):
-        input_doc = PathInput(FILE_TYPES_DIR / "pdf" / "blank.pdf")
         empty_client.parse(product.ReceiptV5, input_doc)
 
 
 def test_parse_path_with_env_token(env_client: Client):
+    input_doc = PathInput(FILE_TYPES_DIR / "pdf" / "blank.pdf")
     with pytest.raises(MindeeHTTPError):
-        input_doc = PathInput(FILE_TYPES_DIR / "pdf" / "blank.pdf")
         env_client.parse(product.ReceiptV5, input_doc)
 
 
@@ -63,14 +64,17 @@ def test_parse_path_with_wrong_filetype(dummy_client: Client):
 
 
 def test_parse_path_with_wrong_token(dummy_client: Client):
+    input_doc = PathInput(FILE_TYPES_DIR / "pdf" / "blank.pdf")
     with pytest.raises(MindeeHTTPError):
-        input_doc = PathInput(FILE_TYPES_DIR / "pdf" / "blank.pdf")
         dummy_client.parse(product.ReceiptV5, input_doc)
 
 
 def test_request_with_wrong_type(dummy_client: Client):
-    with pytest.raises(FileNotFoundError):
-        PathInput(open("./tests/data/test.txt").read())
+    with pytest.raises(FileNotFoundError), open("./tests/data/test.txt") as path_input:
+        PathInput(path_input.read())
+
+
+def test_request_with_wrong_type_b64(dummy_client: Client):
     with pytest.raises(binascii.Error):
         Base64Input("./tests/data/test.txt", "test.jpg")
 
@@ -81,17 +85,15 @@ def test_interface_version(dummy_client: Client):
         account_name="dummy",
         version="1.1",
     )
+    input_doc = PathInput(FILE_TYPES_DIR / "receipt.jpg")
     with pytest.raises(MindeeHTTPError):
-        input_doc = PathInput(FILE_TYPES_DIR / "receipt.jpg")
         dummy_client.parse(product.CustomV1, input_doc, endpoint=dummy_endpoint)
 
 
 def test_keep_file_open(dummy_client: Client):
     input_doc: LocalInputSource = PathInput(f"{FILE_TYPES_DIR}/receipt.jpg")
-    try:
+    with contextlib.suppress(MindeeHTTPError):
         dummy_client.parse(product.ReceiptV5, input_doc, close_file=False)
-    except MindeeHTTPError:
-        pass
     assert not input_doc.file_object.closed
     input_doc.close()
     assert input_doc.file_object.closed
@@ -99,18 +101,14 @@ def test_keep_file_open(dummy_client: Client):
 
 def test_cut_options(dummy_client: Client):
     input_doc: LocalInputSource = PathInput(f"{FILE_TYPES_DIR}/pdf/multipage.pdf")
-    try:
-        # need to keep file open to count the pages after parsing
+    with contextlib.suppress(MindeeHTTPError):
         dummy_client.parse(
             ReceiptV5,
             input_doc,
             close_file=False,
             page_options=PageOptions(page_indexes=range(5)),
         )
-    except MindeeHTTPError:
-        pass
     assert input_doc.page_count == 5
-    input_doc.close()
 
 
 def test_async_wrong_initial_delay(dummy_client: Client):

@@ -1,4 +1,4 @@
-from typing import Generic, Optional, Type
+from typing import Generic
 
 from mindee.v1.parsing.common.api_response import ApiResponse, StringDict
 from mindee.v1.parsing.common.document import Document
@@ -15,10 +15,10 @@ class AsyncPredictResponse(Generic[TypeInference], ApiResponse):
 
     job: Job
     """Job object link to the prediction. As long as it isn't complete, the prediction doesn't exist."""
-    document: Optional[Document] = None
+    document: Document | None = None
 
     def __init__(
-        self, inference_type: Type[TypeInference], raw_response: StringDict
+        self, inference_type: type[TypeInference], raw_response: StringDict
     ) -> None:
         """
         Container wrapper for a raw API response.
@@ -26,10 +26,10 @@ class AsyncPredictResponse(Generic[TypeInference], ApiResponse):
         Inherits and instantiates a normal PredictResponse if the product of
         the current queue is both requested and done.
 
-        :params inference_type: Type of the inference.
-        :params raw_response: json response from HTTP call.
+        :param inference_type: Type of the inference.
+        :param raw_response: json response from HTTP call.
         """
         super().__init__(raw_response)
         self.job = Job(raw_response["job"])
-        if "document" in raw_response and raw_response["document"]:
+        if raw_response.get("document"):
             self.document = Document(inference_type, raw_response["document"])

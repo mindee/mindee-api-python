@@ -1,8 +1,6 @@
-from typing import List
-
+from mindee.parsing.common.string_dict import StringDict
 from mindee.v1.parsing.common.inference import Inference
 from mindee.v1.parsing.common.page import Page
-from mindee.parsing.common.string_dict import StringDict
 from mindee.v1.product.international_id.international_id_v2_document import (
     InternationalIdV2Document,
 )
@@ -13,7 +11,7 @@ class InternationalIdV2(Inference):
 
     prediction: InternationalIdV2Document
     """Document-level prediction."""
-    pages: List[Page[InternationalIdV2Document]]
+    pages: list[Page[InternationalIdV2Document]]
     """Page-level prediction(s)."""
     endpoint_name = "international_id"
     """Name of the endpoint."""
@@ -24,7 +22,7 @@ class InternationalIdV2(Inference):
         """
         International ID v2 inference.
 
-        :params raw_prediction: Raw prediction from the HTTP response.
+        :param raw_prediction: Raw prediction from the HTTP response.
         """
         super().__init__(raw_prediction)
 

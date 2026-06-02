@@ -6,8 +6,8 @@ from tests.utils import FILE_TYPES_DIR
 
 
 def test_broken_unfixable_pdf():
+    input_source = PathInput(FILE_TYPES_DIR / "pdf" / "broken_unfixable.pdf")
     with pytest.raises(MimeTypeError):
-        input_source = PathInput(FILE_TYPES_DIR / "pdf" / "broken_unfixable.pdf")
         input_source.fix_pdf()
 
 

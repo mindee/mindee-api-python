@@ -1,14 +1,13 @@
 import json
-from typing import Optional, Union
 
 import requests
 from requests import Response
 
 from mindee.input.local_input_source import LocalInputSource
 from mindee.input.url_input_source import URLInputSource
+from mindee.parsing.common import StringDict
 from mindee.v1.mindee_http.base_endpoint import BaseEndpoint
 from mindee.v1.mindee_http.mindee_api import MindeeAPI
-from mindee.parsing.common import StringDict
 
 
 class Endpoint(BaseEndpoint):
@@ -22,9 +21,9 @@ class Endpoint(BaseEndpoint):
         """
         Generic API endpoint for a product.
 
-        :params owner: owner of the product
-        :params url_name: name of the product as it appears in the URL
-        :params version: interface version
+        :param owner: owner of the product
+        :param url_name: name of the product as it appears in the URL
+        :param version: interface version
         """
         super().__init__(settings)
         self.owner = owner
@@ -33,7 +32,7 @@ class Endpoint(BaseEndpoint):
 
     def predict_req_post(
         self,
-        input_source: Union[LocalInputSource, URLInputSource],
+        input_source: LocalInputSource | URLInputSource,
         include_words: bool = False,
         close_file: bool = True,
         cropper: bool = False,
@@ -42,11 +41,11 @@ class Endpoint(BaseEndpoint):
         """
         Make a request to POST a document for prediction.
 
-        :params input_source: Input object
-        :params include_words: Include raw OCR words in the response
-        :params close_file: Whether to `close()` the file after parsing it.
-        :params cropper: Including Mindee cropping results.
-        :params full_text: Whether to include the full OCR text response in compatible APIs.
+        :param input_source: Input object
+        :param include_words: Include raw OCR words in the response
+        :param close_file: Whether to `close()` the file after parsing it.
+        :param cropper: Including Mindee cropping results.
+        :param full_text: Whether to include the full OCR text response in compatible APIs.
         :return: requests response
         """
         return self._custom_request(
@@ -55,24 +54,24 @@ class Endpoint(BaseEndpoint):
 
     def predict_async_req_post(
         self,
-        input_source: Union[LocalInputSource, URLInputSource],
+        input_source: LocalInputSource | URLInputSource,
         include_words: bool = False,
         close_file: bool = True,
         cropper: bool = False,
         full_text: bool = False,
-        workflow_id: Optional[str] = None,
+        workflow_id: str | None = None,
         rag: bool = False,
     ) -> requests.Response:
         """
         Make an asynchronous request to POST a document for prediction.
 
-        :params input_source: Input object
-        :params include_words: Include raw OCR words in the response
-        :params close_file: Whether to `close()` the file after parsing it.
-        :params cropper: Including Mindee cropping results.
-        :params full_text: Whether to include the full OCR text response in compatible APIs.
-        :params workflow_id: Workflow ID.
-        :params rag: If set, will enable Retrieval-Augmented Generation.
+        :param input_source: Input object
+        :param include_words: Include raw OCR words in the response
+        :param close_file: Whether to `close()` the file after parsing it.
+        :param cropper: Including Mindee cropping results.
+        :param full_text: Whether to include the full OCR text response in compatible APIs.
+        :param workflow_id: Workflow ID.
+        :param rag: If set, will enable Retrieval-Augmented Generation.
         :return: requests response
         """
         return self._custom_request(
@@ -89,12 +88,12 @@ class Endpoint(BaseEndpoint):
     def _custom_request(
         self,
         route: str,
-        input_source: Union[LocalInputSource, URLInputSource],
+        input_source: LocalInputSource | URLInputSource,
         include_words: bool = False,
         close_file: bool = True,
         cropper: bool = False,
         full_text: bool = False,
-        workflow_id: Optional[str] = None,
+        workflow_id: str | None = None,
         rag: bool = False,
     ):
         data = {}
@@ -140,7 +139,7 @@ class Endpoint(BaseEndpoint):
         """
         Sends a request matching a given queue_id. Returns either a Job or a Document.
 
-        :params queue_id: queue_id received from the API
+        :param queue_id: queue_id received from the API
         """
         return requests.get(
             f"{self.settings.url_root}/documents/queue/{queue_id}",
@@ -162,8 +161,8 @@ class Endpoint(BaseEndpoint):
         """
         Send a feedback.
 
-        :params document_id: ID of the document to send feedback to.
-        :params feedback: Feedback object to send.
+        :param document_id: ID of the document to send feedback to.
+        :param feedback: Feedback object to send.
         """
         return requests.put(
             f"{self.settings.base_url}/documents/{document_id}/feedback",
@@ -182,9 +181,9 @@ class CustomEndpoint(Endpoint):
         """
         Make a request to POST a document for training.
 
-        :params input_source: Input object
+        :param input_source: Input object
         :return: requests response
-        :params close_file: Whether to `close()` the file after parsing it.
+        :param close_file: Whether to `close()` the file after parsing it.
         """
         files = {"document": input_source.read_contents(close_file)}
         params = {"training": True, "with_candidates": True}
@@ -204,9 +203,9 @@ class CustomEndpoint(Endpoint):
         """
         Make a request to POST a document for training without processing.
 
-        :params input_source: Input object
+        :param input_source: Input object
         :return: requests response
-        :params close_file: Whether to `close()` the file after parsing it.
+        :param close_file: Whether to `close()` the file after parsing it.
         """
         files = {"document": input_source.read_contents(close_file)}
         params = {"training": True, "async": True}
@@ -224,7 +223,7 @@ class CustomEndpoint(Endpoint):
         """
         Make a request to DELETE a document.
 
-        :params document_id: ID of the document
+        :param document_id: ID of the document
         """
         response = requests.delete(
             f"{self.settings.url_root}/documents/{document_id}",
@@ -237,7 +236,7 @@ class CustomEndpoint(Endpoint):
         """
         Make a request to GET info on all documents.
 
-        :params page_id: Page number
+        :param page_id: Page number
         """
         params = {
             "page": page_id,
@@ -254,7 +253,7 @@ class CustomEndpoint(Endpoint):
         """
         Make a request to GET annotations for a document.
 
-        :params document_id: ID of the document
+        :param document_id: ID of the document
         """
         params = {
             "include_annotations": True,
@@ -275,8 +274,8 @@ class CustomEndpoint(Endpoint):
         """
         Make a request to POST annotations for a document.
 
-        :params document_id: ID of the document to annotate
-        :params annotations: Annotations object
+        :param document_id: ID of the document to annotate
+        :param annotations: Annotations object
         :return: requests response
         """
         response = requests.post(
@@ -293,8 +292,8 @@ class CustomEndpoint(Endpoint):
         """
         Make a request to PUT annotations for a document.
 
-        :params document_id: ID of the document to annotate
-        :params annotations: Annotations object
+        :param document_id: ID of the document to annotate
+        :param annotations: Annotations object
         :return: requests response
         """
         response = requests.put(
@@ -309,7 +308,7 @@ class CustomEndpoint(Endpoint):
         """
         Make a request to DELETE annotations for a document.
 
-        :params document_id: ID of the document to annotate
+        :param document_id: ID of the document to annotate
         :return: requests response
         """
         response = requests.delete(

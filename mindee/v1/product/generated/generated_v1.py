@@ -1,8 +1,6 @@
-from typing import List
-
+from mindee.parsing.common.string_dict import StringDict
 from mindee.v1.parsing.common.inference import Inference
 from mindee.v1.parsing.common.page import Page
-from mindee.parsing.common.string_dict import StringDict
 from mindee.v1.product.generated.generated_v1_document import GeneratedV1Document
 from mindee.v1.product.generated.generated_v1_page import GeneratedV1Page
 
@@ -12,7 +10,7 @@ class GeneratedV1(Inference):
 
     prediction: GeneratedV1Document
     """Document-level prediction."""
-    pages: List[Page[GeneratedV1Page]]
+    pages: list[Page[GeneratedV1Page]]
     """Page-level prediction(s)."""
     endpoint_name = "custom"
     """Name of the endpoint (placeholder)."""
@@ -23,7 +21,7 @@ class GeneratedV1(Inference):
         """
         Invoice Splitter v1 inference.
 
-        :params raw_prediction: Raw prediction from the HTTP response.
+        :param raw_prediction: Raw prediction from the HTTP response.
         """
         super().__init__(raw_prediction)
         self.prediction = GeneratedV1Document(raw_prediction["prediction"])

@@ -1,5 +1,4 @@
-from mindee.v1.product import us
-from mindee.v1.product import fr
+from mindee.v1.product import fr, us
 from mindee.v1.product.barcode_reader.barcode_reader_v1 import BarcodeReaderV1
 from mindee.v1.product.barcode_reader.barcode_reader_v1_document import (
     BarcodeReaderV1Document,
@@ -63,8 +62,6 @@ from mindee.v1.product.receipt.receipt_v5_line_item import (
 )
 
 __all__ = [
-    "fr",
-    "us",
     "BarcodeReaderV1",
     "BarcodeReaderV1Document",
     "CropperV1",
@@ -81,12 +78,12 @@ __all__ = [
     "GeneratedV1Page",
     "InternationalIdV2",
     "InternationalIdV2Document",
-    "InvoiceV4",
-    "InvoiceV4Document",
-    "InvoiceV4LineItem",
     "InvoiceSplitterV1",
     "InvoiceSplitterV1Document",
     "InvoiceSplitterV1InvoicePageGroup",
+    "InvoiceV4",
+    "InvoiceV4Document",
+    "InvoiceV4LineItem",
     "MultiReceiptsDetectorV1",
     "MultiReceiptsDetectorV1Document",
     "PassportV1",
@@ -94,4 +91,6 @@ __all__ = [
     "ReceiptV5",
     "ReceiptV5Document",
     "ReceiptV5LineItem",
+    "fr",
+    "us",
 ]

@@ -5,7 +5,7 @@ from mindee.v1.parsing.custom.list import ListField, ListFieldValue
 __all__ = [
     "ClassificationField",
     "CustomLine",
-    "get_line_items",
     "ListField",
     "ListFieldValue",
+    "get_line_items",
 ]

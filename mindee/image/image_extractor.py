@@ -1,13 +1,13 @@
 import io
-from typing import BinaryIO, List, Union
+from typing import BinaryIO
 
 import pypdfium2 as pdfium
 from PIL import Image
 
 from mindee.error.mindee_error import MindeeError
-from mindee.image.extracted_image import ExtractedImage
 from mindee.geometry.point import Point
 from mindee.geometry.polygon import Polygon, get_min_max_x, get_min_max_y
+from mindee.image.extracted_image import ExtractedImage
 from mindee.input.bytes_input import BytesInput
 from mindee.input.local_input_source import LocalInputSource
 
@@ -18,7 +18,7 @@ def attach_image_as_new_file(  # type: ignore
     """
     Attaches an image as a new page in a PdfDocument object.
 
-    :params input_buffer: Input buffer.
+    :param input_buffer: Input buffer.
     :return: A PdfDocument handle.
     """
     input_buffer.seek(0)
@@ -44,7 +44,7 @@ def attach_image_as_new_file(  # type: ignore
 
 def extract_image_from_polygon(
     page_content: Image.Image,
-    polygon: List[Point],
+    polygon: list[Point],
     width: float,
     height: float,
     file_format: str,
@@ -52,11 +52,11 @@ def extract_image_from_polygon(
     """
     Crops the image from the given polygon.
 
-    :params page_content: Contents of the page as a Pillow object.
-    :params polygon: Polygon coordinates for the image.
-    :params width: Width of the generated image.
-    :params height: Height of the generated image.
-    :params file_format: Format for the generated file.
+    :param page_content: Contents of the page as a Pillow object.
+    :param polygon: Polygon coordinates for the image.
+    :param width: Width of the generated image.
+    :param height: Height of the generated image.
+    :param file_format: Format for the generated file.
     :return: A generated image as a buffer.
     """
     min_max_x = get_min_max_x(polygon)
@@ -76,8 +76,8 @@ def save_image_to_buffer(image: Image.Image, file_format: str) -> bytes:
     """
     Saves an image as a buffer.
 
-    :params image: Pillow wrapper for the image.
-    :params file_format: Format to save the file as.
+    :param image: Pillow wrapper for the image.
+    :param file_format: Format to save the file as.
     :return: A valid buffer.
     """
     buffer = io.BytesIO()
@@ -90,7 +90,7 @@ def determine_file_format(input_source: LocalInputSource) -> str:
     """
     Retrieves the file format from an input source.
 
-    :params input_source: Local input source to retrieve the format from.
+    :param input_source: Local input source to retrieve the format from.
     :return: A valid pillow file format.
     """
     if input_source.is_pdf():
@@ -105,7 +105,7 @@ def get_file_extension(file_format: str):
     """
     Extract the correct file extension.
 
-    :params file_format: Format of the file.
+    :param file_format: Format of the file.
     :return: A valid file extension.
     """
     return file_format.lower() if file_format != "JPEG" else "jpg"
@@ -114,14 +114,14 @@ def get_file_extension(file_format: str):
 def extract_multiple_images_from_source(
     input_source: LocalInputSource,
     page_id: int,
-    polygons: List[Union[Polygon, List[Point]]],
-) -> List[ExtractedImage]:
+    polygons: list[Polygon | list[Point]],
+) -> list[ExtractedImage]:
     """
     Extracts elements from a page based on a list of bounding boxes.
 
-    :params input_source: Local Input source to extract elements from.
-    :params page_id: id of the page to extract from.
-    :params polygons: List of coordinates to pull the elements from.
+    :param input_source: Local Input source to extract elements from.
+    :param page_id: id of the page to extract from.
+    :param polygons: List of coordinates to pull the elements from.
     :return: List of byte arrays representing the extracted elements.
     """
     page = load_pdf_doc(input_source).get_page(page_id)
@@ -154,7 +154,7 @@ def load_pdf_doc(input_file: LocalInputSource) -> pdfium.PdfDocument:  # type: i
     """
     Loads a PDF document from a local input source.
 
-    :params input_file: Local input.
+    :param input_file: Local input.
     :return: A valid PdfDocument handle.
     """
     if input_file.is_pdf():

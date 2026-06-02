@@ -2,12 +2,12 @@ from enum import Enum
 from importlib import import_module
 from typing import TYPE_CHECKING, Union
 
-from mindee.v2.error.mindee_api_v2_error import MindeeAPIV2Error
 from mindee.parsing.common import StringDict
+from mindee.v2.error.mindee_api_v2_error import MindeeAPIV2Error
 
 if TYPE_CHECKING:
-    from mindee.v2.parsing.inference.field.object_field import ObjectField
     from mindee.v2.parsing.inference.field.list_field import ListField
+    from mindee.v2.parsing.inference.field.object_field import ObjectField
     from mindee.v2.parsing.inference.field.simple_field import SimpleField
 
 

@@ -1,5 +1,3 @@
-from typing import List
-
 from mindee.parsing.common import StringDict
 from mindee.v2.parsing.inference.raw_text_page import RawTextPage
 
@@ -7,7 +5,7 @@ from mindee.v2.parsing.inference.raw_text_page import RawTextPage
 class RawText:
     """Raw text extracted from the document."""
 
-    pages: List[RawTextPage]
+    pages: list[RawTextPage]
     """Pages of raw text content."""
 
     def __init__(self, raw_response: StringDict):

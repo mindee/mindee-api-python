@@ -1,4 +1,4 @@
-from typing import Optional, TypeVar
+from typing import TypeVar
 
 from mindee.parsing.common.string_dict import StringDict
 
@@ -6,12 +6,12 @@ from mindee.parsing.common.string_dict import StringDict
 class Prediction:
     """Base Prediction class."""
 
-    def __init__(self, raw_prediction: StringDict, page_id: Optional[int] = None):
+    def __init__(self, raw_prediction: StringDict, page_id: int | None = None):
         """
         Base prediction.
 
-        :params raw_prediction: a json-equivalent dictionary containing prediction results.
-        :params page_id: an optional page number for page-level predictions.
+        :param raw_prediction: a json-equivalent dictionary containing prediction results.
+        :param page_id: an optional page number for page-level predictions.
         """
 
 

@@ -4,7 +4,6 @@ import pypdfium2 as pdfium
 import pytest
 
 from mindee.error.mindee_error import MindeeError
-from mindee.input.page_options import KEEP_ONLY, REMOVE, PageOptions
 from mindee.input import (
     Base64Input,
     BytesInput,
@@ -12,6 +11,7 @@ from mindee.input import (
     LocalInputSource,
     PathInput,
 )
+from mindee.input.page_options import KEEP_ONLY, REMOVE, PageOptions
 from tests.utils import FILE_TYPES_DIR, V1_PRODUCT_DATA_DIR
 
 
@@ -135,7 +135,7 @@ def test_pdf_input_from_file():
 
 
 def test_pdf_input_from_base64():
-    with open(V1_PRODUCT_DATA_DIR / "invoices" / "invoice_10p.txt", "rt") as fp:
+    with open(V1_PRODUCT_DATA_DIR / "invoices" / "invoice_10p.txt") as fp:
         input_source = Base64Input(fp.read(), filename="invoice_10p.pdf")
     assert input_source.is_pdf() is True
     input_source.process_pdf(behavior=KEEP_ONLY, on_min_pages=2, page_indexes=[0])
@@ -151,12 +151,12 @@ def test_pdf_input_from_bytes():
 
 
 def test_pdf_blank_check():
+    input_source = PathInput(FILE_TYPES_DIR / "pdf" / "blank.pdf")
     with pytest.raises(MindeeError):
-        input_source = PathInput(FILE_TYPES_DIR / "pdf" / "blank.pdf")
         input_source.process_pdf(behavior=KEEP_ONLY, on_min_pages=2, page_indexes=[0])
 
+    input_source = PathInput(FILE_TYPES_DIR / "pdf" / "blank_1.pdf")
     with pytest.raises(MindeeError):
-        input_source = PathInput(FILE_TYPES_DIR / "pdf" / "blank_1.pdf")
         input_source.process_pdf(behavior=KEEP_ONLY, on_min_pages=2, page_indexes=[0])
 
     input_not_blank = PathInput(FILE_TYPES_DIR / "pdf" / "not_blank_image_only.pdf")

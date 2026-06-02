@@ -1,8 +1,6 @@
-from typing import List
-
+from mindee.parsing.common.string_dict import StringDict
 from mindee.v1.parsing.common.inference import Inference
 from mindee.v1.parsing.common.page import Page
-from mindee.parsing.common.string_dict import StringDict
 from mindee.v1.product.fr.bank_account_details.bank_account_details_v1_document import (
     BankAccountDetailsV1Document,
 )
@@ -13,7 +11,7 @@ class BankAccountDetailsV1(Inference):
 
     prediction: BankAccountDetailsV1Document
     """Document-level prediction."""
-    pages: List[Page[BankAccountDetailsV1Document]]
+    pages: list[Page[BankAccountDetailsV1Document]]
     """Page-level prediction(s)."""
     endpoint_name = "bank_account_details"
     """Name of the endpoint."""
@@ -24,7 +22,7 @@ class BankAccountDetailsV1(Inference):
         """
         Bank Account Details v1 inference.
 
-        :params raw_prediction: Raw prediction from the HTTP response.
+        :param raw_prediction: Raw prediction from the HTTP response.
         """
         super().__init__(raw_prediction)
 

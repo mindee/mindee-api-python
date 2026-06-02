@@ -1,5 +1,3 @@
-from typing import Optional
-
 from mindee.parsing.common import StringDict
 from mindee.v1.parsing.standard.base import BaseField
 
@@ -7,31 +5,27 @@ from mindee.v1.parsing.standard.base import BaseField
 class LocaleField(BaseField):
     """The locale detected on the document."""
 
-    language: Optional[str]
+    language: str | None
     """The ISO 639-1 code of the language."""
-    country: Optional[str]
+    country: str | None
     """The ISO 3166-1 alpha-2 code of the country."""
-    currency: Optional[str]
+    currency: str | None
     """The ISO 4217 code of the currency."""
 
     def __init__(
         self,
         raw_prediction: StringDict,
         reconstructed: bool = False,
-        page_id: Optional[int] = None,
+        page_id: int | None = None,
     ):
         """
         Locale field object.
 
-        :params raw_prediction: Locale prediction object from HTTP response
-        :params reconstructed: Bool for reconstructed object (not extracted in the API)
-        :params page_id: Page number for multi-page document
+        :param raw_prediction: Locale prediction object from HTTP response
+        :param reconstructed: Bool for reconstructed object (not extracted in the API)
+        :param page_id: Page number for multi-page document
         """
-        value_key = (
-            "value"
-            if ("value" in raw_prediction and raw_prediction["value"])
-            else "language"
-        )
+        value_key = "value" if (raw_prediction.get("value")) else "language"
 
         super().__init__(
             raw_prediction,
@@ -44,7 +38,7 @@ class LocaleField(BaseField):
         self.currency = self._get_value(raw_prediction, "currency")
 
     @staticmethod
-    def _get_value(locale_prediction: dict, key: str) -> Optional[str]:
+    def _get_value(locale_prediction: dict, key: str) -> str | None:
         if key not in locale_prediction or locale_prediction[key] == "N/A":
             return None
         return locale_prediction[key]

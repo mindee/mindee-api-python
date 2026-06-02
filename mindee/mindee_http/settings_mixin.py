@@ -1,6 +1,3 @@
-from typing import Union
-
-
 class SettingsMixin:
     """Settings mixin for V2 & V2 common methods & attributes."""
 
@@ -9,7 +6,7 @@ class SettingsMixin:
     request_timeout: int
     """Timeout for all requests."""
 
-    def set_timeout(self, value: Union[str, int]) -> None:
+    def set_timeout(self, value: str | int) -> None:
         """Set the timeout for all requests."""
         self.request_timeout = int(value)
 

@@ -11,8 +11,8 @@ class Base64Input(LocalInputSource):
         """
         Input document from a base64 encoded string.
 
-        :params base64_string: Raw data as a base64 encoded string
-        :params filename: File name of the input
+        :param base64_string: Raw data as a base64 encoded string
+        :param filename: File name of the input
         """
         self.file_object = io.BytesIO(base64.standard_b64decode(base64_string))
         self.filename = filename

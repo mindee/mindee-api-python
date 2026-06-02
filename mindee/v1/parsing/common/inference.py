@@ -1,11 +1,11 @@
-from typing import Dict, Generic, List, Optional, Type, TypeVar
+from typing import Generic, TypeVar
 
 from mindee.error.mindee_error import MindeeError
+from mindee.parsing.common.string_dict import StringDict
 from mindee.v1.parsing.common.extras import Extras
 from mindee.v1.parsing.common.page import TypePage
 from mindee.v1.parsing.common.prediction import TypePrediction
 from mindee.v1.parsing.common.product import Product
-from mindee.parsing.common.string_dict import StringDict
 
 
 class Inference(Generic[TypePrediction, TypePage]):
@@ -13,22 +13,22 @@ class Inference(Generic[TypePrediction, TypePage]):
 
     product: Product
     """Name and version of a given product, as sent back by the API."""
-    endpoint_name: Optional[str]
+    endpoint_name: str | None
     """Name of the endpoint for OTS APIs"""
-    endpoint_version: Optional[str]
+    endpoint_version: str | None
     """Version of the endpoint for OTS APIs"""
     prediction: TypePrediction
     """A document's top-level Prediction."""
-    pages: List[TypePage]
+    pages: list[TypePage]
     """A document's pages."""
-    is_rotation_applied: Optional[bool]
+    is_rotation_applied: bool | None
     """Whether the document has had any rotation applied to it."""
-    page_id: Optional[int]
+    page_id: int | None
     """Optional page id for page-level predictions."""
-    extras: Optional[Extras] = None
+    extras: Extras | None = None
     """Potential Extras fields sent back along with the prediction."""
 
-    def __init__(self, raw_prediction: StringDict, page_id: Optional[int] = None):
+    def __init__(self, raw_prediction: StringDict, page_id: int | None = None):
         self.is_rotation_applied = None
         if "is_rotation_applied" in raw_prediction:
             self.is_rotation_applied = raw_prediction["is_rotation_applied"]
@@ -36,7 +36,7 @@ class Inference(Generic[TypePrediction, TypePage]):
         if page_id:
             self.page_id = page_id
 
-        if "extras" in raw_prediction and raw_prediction["extras"]:
+        if raw_prediction.get("extras"):
             self.extras = Extras(raw_prediction["extras"])
 
     def __str__(self) -> str:
@@ -44,7 +44,7 @@ class Inference(Generic[TypePrediction, TypePage]):
         prediction_str = ""
         pages_str = ""
         if self.prediction and len(str(self.prediction)) > 0:
-            prediction_str = f"{str(self.prediction)}\n"
+            prediction_str = f"{self.prediction!s}\n"
         if len(self.pages) > 0:
             pages_str = "\nPage Predictions\n================\n\n" + "\n".join(
                 [str(page) for page in self.pages]
@@ -61,13 +61,13 @@ class Inference(Generic[TypePrediction, TypePage]):
         )
 
     @staticmethod
-    def get_endpoint_info(klass: Type["Inference"]) -> Dict[str, str]:
+    def get_endpoint_info(klass: type["Inference"]) -> dict[str, str]:
         """
         Retrieves the endpoint information for an Inference.
 
         Should never retrieve info for CustomV1, as a custom endpoint should be created to use CustomV1.
 
-        :params klass: product subclass to access endpoint information.
+        :param klass: product subclass to access endpoint information.
         """
         if klass.endpoint_name and klass.endpoint_version:
             return {"name": klass.endpoint_name, "version": klass.endpoint_version}

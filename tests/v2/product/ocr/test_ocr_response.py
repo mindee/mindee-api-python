@@ -1,10 +1,9 @@
 import pytest
 
-from mindee.v2.product.ocr.ocr_page import OCRPage
 from mindee.v2.product.ocr import OCRInference
+from mindee.v2.product.ocr.ocr_page import OCRPage
 from mindee.v2.product.ocr.ocr_response import OCRResponse
 from mindee.v2.product.ocr.ocr_result import OCRResult
-
 from tests.v2.product.utils import get_product_samples
 
 

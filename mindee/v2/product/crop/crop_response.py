@@ -22,7 +22,7 @@ class CropResponse(BaseResponse):
         """
         Apply the crop inference to a file and return a list of extracted images.
 
-        :params input_source: Local file to apply the inference to
+        :param input_source: Local file to apply the inference to
         :return: List of extracted PDFs
         """
         return CropFiles(

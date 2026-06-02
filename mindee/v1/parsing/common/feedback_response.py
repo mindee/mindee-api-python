@@ -1,5 +1,5 @@
-from mindee.v1.parsing.common.api_response import ApiResponse
 from mindee.parsing.common.string_dict import StringDict
+from mindee.v1.parsing.common.api_response import ApiResponse
 
 
 class FeedbackResponse(ApiResponse):

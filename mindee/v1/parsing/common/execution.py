@@ -1,12 +1,12 @@
 from datetime import datetime
-from typing import Generic, Optional, Type
+from typing import Generic, Optional
 
+from mindee.parsing.common.string_dict import StringDict
 from mindee.v1.parsing.common.execution_file import ExecutionFile
 from mindee.v1.parsing.common.execution_priority import ExecutionPriority
 from mindee.v1.parsing.common.inference import Inference
 from mindee.v1.parsing.common.page import Page
 from mindee.v1.parsing.common.prediction import TypePrediction
-from mindee.parsing.common.string_dict import StringDict
 from mindee.v1.product.generated import GeneratedV1Document
 
 
@@ -16,7 +16,7 @@ class Execution(Generic[TypePrediction]):
     batch_name: str
     """Identifier for the batch to which the execution belongs."""
 
-    created_at: Optional[datetime] = None
+    created_at: datetime | None = None
     """The time at which the execution started."""
 
     file: ExecutionFile
@@ -25,16 +25,16 @@ class Execution(Generic[TypePrediction]):
     id: str
     """Identifier for the execution."""
 
-    inference: Optional[Inference[TypePrediction, Page[TypePrediction]]]
+    inference: Inference[TypePrediction, Page[TypePrediction]] | None
     """Deserialized inference object."""
 
     priority: Optional["ExecutionPriority"] = None
     """Priority of the execution."""
 
-    reviewed_at: Optional[datetime]
+    reviewed_at: datetime | None
     """The time at which the file was tagged as reviewed."""
 
-    available_at: Optional[datetime]
+    available_at: datetime | None
     """The time at which the file was uploaded to a workflow."""
 
     reviewed_prediction: Optional["GeneratedV1Document"] = None
@@ -43,16 +43,13 @@ class Execution(Generic[TypePrediction]):
     status: str
     """Execution Status."""
 
-    type: Optional[str]
-    """Execution type."""
-
-    uploaded_at: Optional[datetime] = None
+    uploaded_at: datetime | None = None
     """The time at which the file was uploaded to a workflow."""
 
     workflow_id: str
     """Identifier for the workflow."""
 
-    def __init__(self, inference_type: Type[Inference], json_response: StringDict):
+    def __init__(self, inference_type: type[Inference], json_response: StringDict):
         self.batch_name = json_response["batch_name"]
         self.created_at = self.parse_date(json_response.get("created_at", None))
         self.file = ExecutionFile(json_response["file"])
@@ -75,8 +72,11 @@ class Execution(Generic[TypePrediction]):
         self.uploaded_at = self.parse_date(json_response.get("uploaded_at", None))
         self.workflow_id = json_response["workflow_id"]
 
+    type: str | None
+    """Execution type."""
+
     @staticmethod
-    def parse_date(date_string: Optional[str]) -> Optional[datetime]:
+    def parse_date(date_string: str | None) -> datetime | None:
         """Shorthand to parse the date, if present."""
         if not date_string:
             return None

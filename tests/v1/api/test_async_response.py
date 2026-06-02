@@ -3,9 +3,9 @@ import json
 import pytest
 import requests
 
-from mindee.v1.client import Client
 from mindee.input.path_input import PathInput
 from mindee.mindee_http.response_validation import is_valid_async_response
+from mindee.v1.client import Client
 from mindee.v1.parsing.common import RequestStatus
 from mindee.v1.parsing.common.async_predict_response import AsyncPredictResponse
 from mindee.v1.product.invoice_splitter.invoice_splitter_v1 import InvoiceSplitterV1
@@ -53,7 +53,8 @@ def dummy_client() -> Client:
 
 
 def test_async_response_post_success():
-    response = json.load(open(FILE_PATH_POST_SUCCESS))
+    with open(FILE_PATH_POST_SUCCESS) as json_file:
+        response = json.load(json_file)
     parsed_response = AsyncPredictResponse(InvoiceSplitterV1, response)
     fake_response = FakeResponse(response)
     fake_response.set_ok_status(True)
@@ -69,14 +70,16 @@ def test_async_response_post_success():
 
 
 def test_async_response_post_fail():
-    response = json.load(open(FILE_PATH_POST_FAIL))
+    with open(FILE_PATH_POST_FAIL) as json_file:
+        response = json.load(json_file)
     fake_response = FakeResponse(response)
     fake_response.set_ok_status(False)
     assert is_valid_async_response(fake_response) is False
 
 
 def test_async_get_processing():
-    response = json.load(open(FILE_PATH_GET_PROCESSING))
+    with open(FILE_PATH_GET_PROCESSING) as json_file:
+        response = json.load(json_file)
     parsed_response = AsyncPredictResponse(InvoiceSplitterV1, response)
     fake_response = FakeResponse(response)
     fake_response.set_ok_status(True)
@@ -90,7 +93,8 @@ def test_async_get_processing():
 
 
 def test_async_response_get_completed():
-    response = json.load(open(FILE_PATH_GET_COMPLETED))
+    with open(FILE_PATH_GET_COMPLETED) as json_file:
+        response = json.load(json_file)
     parsed_response = AsyncPredictResponse(InvoiceSplitterV1, response)
     fake_response = FakeResponse(response)
     fake_response.set_ok_status(True)
@@ -103,7 +107,8 @@ def test_async_response_get_completed():
 
 
 def test_async_get_failed_job():
-    response = json.load(open(FILE_PATH_GET_FAILED_JOB))
+    with open(FILE_PATH_GET_FAILED_JOB) as json_file:
+        response = json.load(json_file)
     parsed_response = AsyncPredictResponse(InvoiceSplitterV1, response)
     fake_response = FakeResponse(response)
     fake_response.set_ok_status(False)

@@ -1,5 +1,3 @@
-from typing import Optional
-
 from mindee.parsing.common import StringDict
 from mindee.v2.product.extraction.extraction_response import ExtractionResponse
 
@@ -10,7 +8,7 @@ class ClassificationClassifier:
     document_type: str
     """The document type, as identified on given classification values."""
 
-    extraction_response: Optional[ExtractionResponse] = None
+    extraction_response: ExtractionResponse | None = None
     """The extraction response associated with the classification."""
 
     def __init__(self, server_response: StringDict):

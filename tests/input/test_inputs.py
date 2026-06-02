@@ -28,11 +28,11 @@ def test_pdf_read_contents():
 
 @pytest.mark.parametrize(
     ("filename", "page_count"),
-    (
+    [
         ("multipage_cut-1.pdf", 1),
         ("multipage_cut-3.pdf", 3),
         ("multipage.pdf", 12),
-    ),
+    ],
 )
 def test_pdf_input_from_path(filename, page_count):
     input_source = PathInput(FILE_TYPES_DIR / "pdf" / filename)
@@ -80,14 +80,14 @@ def test_image_input_from_file(filename, mimetype):
 
 @pytest.mark.parametrize(("filename", "mimetype"), TEST_IMAGES)
 def test_image_input_from_bytes(filename, mimetype):
-    file_bytes = open(FILE_TYPES_DIR / filename, "rb").read()
-    input_source = BytesInput(file_bytes, filename=filename)
+    with open(FILE_TYPES_DIR / filename, "rb") as file_bytes:
+        input_source = BytesInput(file_bytes.read(), filename=filename)
     _assert_image(input_source, mimetype)
 
 
 def test_image_input_from_base64():
-    base64_input = open(FILE_TYPES_DIR / "receipt.txt", "r").read()
-    input_source = Base64Input(base64_input, filename="receipt.jpg")
+    with open(FILE_TYPES_DIR / "receipt.txt") as fp:
+        input_source = Base64Input(fp.read(), filename="receipt.jpg")
     _assert_image(input_source, mimetype="image/jpeg")
 
 

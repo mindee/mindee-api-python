@@ -4,9 +4,9 @@ from pathlib import Path
 import pytest
 
 from mindee import ExtractionParameters
-from mindee.v2.client import Client
 from mindee.input.path_input import PathInput
 from mindee.input.url_input_source import URLInputSource
+from mindee.v2.client import Client
 from mindee.v2.error.mindee_http_error_v2 import MindeeHTTPErrorV2
 from mindee.v2.parsing import InferenceActiveOptions
 from mindee.v2.product.extraction.extraction_response import ExtractionResponse

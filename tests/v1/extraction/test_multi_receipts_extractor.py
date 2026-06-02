@@ -3,8 +3,8 @@ import json
 import pytest
 from PIL import Image
 
-from mindee.v1.pdf.multi_receipts_extractor import extract_receipts
 from mindee.input.path_input import PathInput
+from mindee.v1.pdf.multi_receipts_extractor import extract_receipts
 from mindee.v1.product.multi_receipts_detector.multi_receipts_detector_v1 import (
     MultiReceiptsDetectorV1,
 )

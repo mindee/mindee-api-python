@@ -1,9 +1,9 @@
-from mindee.v1.commands.cli_products import CommandConfig, PRODUCTS
-from mindee.v1.commands.cli_parser import MindeeParser, MindeeArgumentParser
+from mindee.v1.commands.cli_parser import MindeeArgumentParser, MindeeParser
+from mindee.v1.commands.cli_products import PRODUCTS, CommandConfig
 
 __all__ = [
+    "PRODUCTS",
     "CommandConfig",
     "MindeeArgumentParser",
     "MindeeParser",
-    "PRODUCTS",
 ]

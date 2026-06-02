@@ -1,8 +1,8 @@
 import pytest
 
 from mindee import ExtractionResponse
-from mindee.v2.product.split.split_range import SplitRange
 from mindee.v2.product.split import SplitInference
+from mindee.v2.product.split.split_range import SplitRange
 from mindee.v2.product.split.split_response import SplitResponse
 from mindee.v2.product.split.split_result import SplitResult
 from tests.v2.product.utils import get_product_samples

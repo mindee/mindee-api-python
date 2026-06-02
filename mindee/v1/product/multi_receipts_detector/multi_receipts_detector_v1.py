@@ -1,8 +1,6 @@
-from typing import List
-
+from mindee.parsing.common.string_dict import StringDict
 from mindee.v1.parsing.common.inference import Inference
 from mindee.v1.parsing.common.page import Page
-from mindee.parsing.common.string_dict import StringDict
 from mindee.v1.product.multi_receipts_detector.multi_receipts_detector_v1_document import (
     MultiReceiptsDetectorV1Document,
 )
@@ -13,7 +11,7 @@ class MultiReceiptsDetectorV1(Inference):
 
     prediction: MultiReceiptsDetectorV1Document
     """Document-level prediction."""
-    pages: List[Page[MultiReceiptsDetectorV1Document]]
+    pages: list[Page[MultiReceiptsDetectorV1Document]]
     """Page-level prediction(s)."""
     endpoint_name = "multi_receipts_detector"
     """Name of the endpoint."""
@@ -24,7 +22,7 @@ class MultiReceiptsDetectorV1(Inference):
         """
         Multi Receipts Detector v1 inference.
 
-        :params raw_prediction: Raw prediction from the HTTP response.
+        :param raw_prediction: Raw prediction from the HTTP response.
         """
         super().__init__(raw_prediction)
 
