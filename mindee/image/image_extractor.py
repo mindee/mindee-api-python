@@ -21,7 +21,6 @@ def attach_image_as_new_file(  # type: ignore
     :params input_buffer: Input buffer.
     :return: A PdfDocument handle.
     """
-    # Create a new page in the PdfDocument
     input_buffer.seek(0)
     image = Image.open(input_buffer)
     image.convert("RGB")
@@ -32,8 +31,7 @@ def attach_image_as_new_file(  # type: ignore
 
     image_pdf = pdfium.PdfImage.new(pdf)
     image_pdf.load_jpeg(image_buffer)
-    width, height = image_pdf.get_size()
-
+    width, height = image.width, image.height
     matrix = pdfium.PdfMatrix().scale(width, height)
     image_pdf.set_matrix(matrix)
 

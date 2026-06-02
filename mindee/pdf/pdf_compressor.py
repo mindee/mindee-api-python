@@ -213,7 +213,8 @@ def _collect_images_as_pdf(image_list: List[bytes]) -> pdfium.PdfDocument:  # ty
         pdf_image = pdfium.PdfImage.new(out_pdf)
         pdf_image.load_jpeg(io.BytesIO(image_bytes))
 
-        width, height = pdf_image.get_size()
+        metadata = pdf_image.get_metadata()
+        width, height = metadata.width, metadata.height
         page = out_pdf.new_page(width, height)
         page.insert_obj(pdf_image)
         page.gen_content()

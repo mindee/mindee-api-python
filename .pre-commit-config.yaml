@@ -6,13 +6,13 @@ repos:
         args: [ --fix, --exit-non-zero-on-fix]
       - id: ruff-format
 
-  - repo: https://github.com/gitleaks/gitleaks
-    rev: v8.30.0
+  - repo: https://github.com/betterleaks/betterleaks
+    rev: v1.3.1
     hooks:
-      - id: gitleaks
+      - id: betterleaks
 
   - repo: https://github.com/PyCQA/pylint
-    rev: v3.3.9
+    rev: v4.0.5
     hooks:
       - id: pylint
         name: pylint
@@ -22,6 +22,11 @@ repos:
         args: [
           "-j2"
         ]
+  - repo: https://github.com/pypa/pip-audit
+    rev: v2.10.0
+    hooks:
+      - id: pip-audit
+        args: ["."]
 
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.18.2
