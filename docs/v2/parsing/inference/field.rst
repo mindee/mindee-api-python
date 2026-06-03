@@ -7,12 +7,6 @@ Base Field
     :members:
     :inherited-members:
 
-Dynamic Field
--------------
-.. autoclass:: mindee.v2.parsing.inference.field.base_field.DynamicField
-    :members:
-    :inherited-members:
-
 Field Confidence
 ----------------
 .. autoclass:: mindee.v2.parsing.inference.field.field_confidence.FieldConfidence

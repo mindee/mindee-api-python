@@ -73,3 +73,4 @@ autodoc_default_options = {"exclude-members": "__init__"}
 # -- autodoc-typehints -------------------------------------------------------
 
 typehints_defaults = "comma"
+suppress_warnings = ["ref.python"]

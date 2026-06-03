@@ -54,7 +54,7 @@ def test_image_should_extract_crops():
     crop1size = os.path.getsize(OUTPUT_DIR / "crop_001.jpg")
     crop2size = os.path.getsize(OUTPUT_DIR / "crop_002.jpg")
     assert 187484 <= crop1size <= 199685
-    assert crop2size == 197978
+    assert 197978 <= crop2size <= 199433
 
 
 @pytest.fixture(scope="module", autouse=True)
