@@ -11,7 +11,7 @@ from mindee import (
 )
 from mindee.input.path_input import PathInput
 from mindee.v2.client import Client
-from mindee.v2.file_operations.crop import extract_crops
+from mindee.v2.file_operations.crop import extract_multiple_crops
 from tests.utils import OUTPUT_DIR, V2_PRODUCT_DATA_DIR, cleanup_output_files
 
 
@@ -36,7 +36,9 @@ def test_image_should_extract_crops():
     )
     assert len(response.inference.result.crops) == 2
 
-    extracted_images = extract_crops(crop_input, response.inference.result.crops)
+    extracted_images = extract_multiple_crops(
+        crop_input, response.inference.result.crops
+    )
 
     assert len(extracted_images) == 2
     assert extracted_images[0].filename == "default_sample.jpg_page1-0.jpg"

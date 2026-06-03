@@ -1,4 +1,7 @@
+from mindee.input.local_input_source import LocalInputSource
 from mindee.parsing.common import StringDict
+from mindee.v2.file_operations.split import extract_multiple_splits
+from mindee.v2.file_operations.split_files import SplitFiles
 from mindee.v2.product.split.split_range import SplitRange
 
 
@@ -16,3 +19,13 @@ class SplitResult:
             splits += "\n\n".join([str(split) for split in self.splits])
         out_str = f"Splits\n======{splits}"
         return out_str
+
+    def extract_from_input_source(self, input_source: LocalInputSource) -> SplitFiles:
+        """
+        Apply all the crops to a file and return a single extracted PDF.
+
+        :param input_source: Input file
+        """
+        return extract_multiple_splits(
+            input_source, [split.page_range for split in self.splits]
+        )

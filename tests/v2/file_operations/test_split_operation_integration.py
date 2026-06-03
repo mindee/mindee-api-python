@@ -37,7 +37,7 @@ def test_pdf_should_extract_splits():
     )
     assert response.inference.file.page_count == 2
 
-    extracted_pdfs = response.extract_from_file(split_input)
+    extracted_pdfs = response.inference.result.extract_from_input_source(split_input)
 
     assert len(extracted_pdfs) == 2
     assert extracted_pdfs[0].filename == "default_sample_001-001.pdf"

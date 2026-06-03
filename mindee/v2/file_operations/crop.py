@@ -5,7 +5,7 @@ from mindee.image.image_extractor import extract_multiple_images_from_source
 from mindee.input.local_input_source import LocalInputSource
 from mindee.v2.file_operations.crop_files import CropFiles
 from mindee.v2.parsing.inference.field import FieldLocation
-from mindee.v2.product.crop.crop_box import CropBox
+from mindee.v2.product.crop.crop_item import CropItem
 
 
 def extract_single_crop(
@@ -23,7 +23,9 @@ def extract_single_crop(
     return extract_multiple_images_from_source(input_source, crop.page, polygons)[0]
 
 
-def extract_crops(input_source: LocalInputSource, crops: list[CropBox]) -> CropFiles:
+def extract_multiple_crops(
+    input_source: LocalInputSource, crops: list[CropItem]
+) -> CropFiles:
     """
     Extracts individual receipts from multi-receipts documents.
 

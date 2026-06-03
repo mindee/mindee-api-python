@@ -15,10 +15,10 @@ def extract_single_split(
     :param split: List of pages to keep.
     :return: Extracted PDF
     """
-    return extract_splits(input_source, [split])[0]
+    return extract_multiple_splits(input_source, [split])[0]
 
 
-def extract_splits(
+def extract_multiple_splits(
     input_source: LocalInputSource,
     splits: list[list[int]],
 ) -> SplitFiles:
