@@ -29,65 +29,74 @@ def test_deep_nested_fields():
     assert isinstance(response.inference.result.fields["field_simple"], SimpleField)
     assert isinstance(response.inference.result.fields["field_object"], ObjectField)
     assert isinstance(
-        response.inference.result.fields["field_object"].fields["sub_object_list"],
+        response.inference.result.fields.get_object_field(
+            "field_object"
+        ).get_list_field("sub_object_list"),
         ListField,
     )
     assert isinstance(
-        response.inference.result.fields["field_object"].fields["sub_object_object"],
+        response.inference.result.fields.get_object_field(
+            "field_object"
+        ).get_object_field("sub_object_object"),
         ObjectField,
     )
     fields = response.inference.result.fields
-    assert isinstance(fields.get("field_object"), ObjectField)
+    assert isinstance(fields.get_object_field("field_object"), ObjectField)
     assert isinstance(
-        fields.get("field_object").get_simple_field("sub_object_simple"), SimpleField
+        fields.get_object_field("field_object").get_simple_field("sub_object_simple"),
+        SimpleField,
     )
     assert isinstance(
-        fields.get("field_object").get_list_field("sub_object_list"), ListField
-    )
-    assert isinstance(
-        fields.get("field_object").get_object_field("sub_object_object"), ObjectField
-    )
-    assert len(fields.get("field_object").simple_fields) == 1
-    assert len(fields.get("field_object").list_fields) == 1
-    assert len(fields.get("field_object").object_fields) == 1
-    assert isinstance(
-        fields["field_object"].fields["sub_object_object"].fields,
-        dict,
-    )
-    assert isinstance(
-        fields["field_object"]
-        .fields["sub_object_object"]
-        .fields["sub_object_object_sub_object_list"],
+        fields.get_object_field("field_object").get_list_field("sub_object_list"),
         ListField,
     )
     assert isinstance(
-        fields["field_object"]
-        .fields["sub_object_object"]
-        .fields["sub_object_object_sub_object_list"]
+        fields.get_object_field("field_object").get_object_field("sub_object_object"),
+        ObjectField,
+    )
+    assert len(fields.get_object_field("field_object").simple_fields) == 1
+    assert len(fields.get_object_field("field_object").list_fields) == 1
+    assert len(fields.get_object_field("field_object").object_fields) == 1
+    assert isinstance(
+        fields.get_object_field("field_object")
+        .fields.get_object_field("sub_object_object")
+        .fields,
+        dict,
+    )
+    assert isinstance(
+        fields.get_object_field("field_object")
+        .fields.get_object_field("sub_object_object")
+        .fields.get_list_field("sub_object_object_sub_object_list"),
+        ListField,
+    )
+    assert isinstance(
+        fields.get_object_field("field_object")
+        .fields.get_object_field("sub_object_object")
+        .fields.get_list_field("sub_object_object_sub_object_list")
         .items,
         list,
     )
     assert isinstance(
-        fields["field_object"]
-        .fields["sub_object_object"]
-        .fields["sub_object_object_sub_object_list"]
+        fields.get_object_field("field_object")
+        .fields.get_object_field("sub_object_object")
+        .fields.get_list_field("sub_object_object_sub_object_list")
         .items[0],
         ObjectField,
     )
     assert isinstance(
-        fields["field_object"]
-        .fields["sub_object_object"]
-        .fields["sub_object_object_sub_object_list"]
+        fields.get_object_field("field_object")
+        .fields.get_object_field("sub_object_object")
+        .fields.get_list_field("sub_object_object_sub_object_list")
         .items[0]
-        .fields["sub_object_object_sub_object_list_simple"],
+        .fields.get_simple_field("sub_object_object_sub_object_list_simple"),
         SimpleField,
     )
     assert (
-        fields["field_object"]
-        .fields["sub_object_object"]
-        .fields["sub_object_object_sub_object_list"]
+        fields.get_object_field("field_object")
+        .fields.get_object_field("sub_object_object")
+        .fields.get_list_field("sub_object_object_sub_object_list")
         .items[0]
-        .fields["sub_object_object_sub_object_list_simple"]
+        .fields.get_simple_field("sub_object_object_sub_object_list_simple")
         .value
         == "value_9"
     )
@@ -101,7 +110,9 @@ def test_standard_field_types():
     response = ExtractionResponse(json_sample)
     assert isinstance(response.inference, ExtractionInference)
 
-    field_simple_string = response.inference.result.fields["field_simple_string"]
+    field_simple_string = response.inference.result.fields.get_simple_field(
+        "field_simple_string"
+    )
     assert isinstance(field_simple_string, SimpleField)
     assert field_simple_string.value == "field_simple_string-value"
     assert field_simple_string.confidence == FieldConfidence.CERTAIN
@@ -228,16 +239,30 @@ def test_full_inference_response():
 
     assert isinstance(response.inference, ExtractionInference)
     assert response.inference.id == "12345678-1234-1234-1234-123456789abc"
-    assert isinstance(response.inference.result.fields["date"], SimpleField)
-    assert response.inference.result.fields["date"].value == "2019-11-02"
-    assert isinstance(response.inference.result.fields["taxes"], ListField)
-    assert isinstance(response.inference.result.fields["taxes"].items[0], ObjectField)
+    assert isinstance(
+        response.inference.result.fields.get_simple_field("date"), SimpleField
+    )
     assert (
-        response.inference.result.fields["customer_address"].fields["city"].value
+        response.inference.result.fields.get_simple_field("date").value == "2019-11-02"
+    )
+    assert isinstance(
+        response.inference.result.fields.get_list_field("taxes"), ListField
+    )
+    assert isinstance(
+        response.inference.result.fields.get_list_field("taxes").items[0], ObjectField
+    )
+    assert (
+        response.inference.result.fields.get_object_field("customer_address")
+        .fields.get_simple_field("city")
+        .value
         == "New York"
     )
     assert (
-        response.inference.result.fields["taxes"].items[0].fields["base"].value == 31.5
+        response.inference.result.fields.get_list_field("taxes")
+        .items[0]
+        .fields.get_simple_field("base")
+        .value
+        == 31.5
     )
 
     assert isinstance(response.inference.model, InferenceModel)
@@ -263,7 +288,7 @@ def test_field_locations_and_confidence() -> None:
 
     response = ExtractionResponse(json_sample)
 
-    date_field: SimpleField = response.inference.result.fields["date"]
+    date_field: SimpleField = response.inference.result.fields.get_simple_field("date")
 
     assert date_field.locations, "date field should expose locations"
     location = date_field.locations[0]
