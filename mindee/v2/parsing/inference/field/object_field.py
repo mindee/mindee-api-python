@@ -1,7 +1,7 @@
 from collections.abc import Callable
 from typing import TYPE_CHECKING, cast
 
-from mindee.parsing.common import StringDict
+from mindee.parsing.common.string_dict import StringDict
 from mindee.v2.parsing.inference.field.base_field import BaseField, FieldType
 from mindee.v2.parsing.inference.field.inference_fields import InferenceFields
 
@@ -51,7 +51,7 @@ class ObjectField(BaseField):
         Extract and return all SimpleField fields from the `fields` attribute.
 
         :return: A dictionary containing all fields that have a type of
-        `FieldType.SIMPLE`.
+            `FieldType.SIMPLE`.
         """
         simple_fields = {}
         for field_key, field_value in self.fields.items():
@@ -80,8 +80,8 @@ class ObjectField(BaseField):
         Retrieves all ObjectField fields from the `fields` attribute of the instance.
 
         :returns: A dictionary containing fields of type `FieldType.OBJECT`. The keys
-        represent
-            the field names, and the values are corresponding ObjectField objects.
+            represent the field names, and the values are corresponding ObjectField
+            objects.
         """
         object_fields = {}
         for field_key, field_value in self.fields.items():
@@ -123,7 +123,7 @@ class ObjectField(BaseField):
         :type field_name: str
         :return: The `ObjectField` associated with the given field name.
         :raises ValueError: If the field specified by `field_name` is not an
-        `ObjectField`.
+            `ObjectField`.
         """
         if self.fields[field_name].field_type != FieldType.OBJECT:
             raise ValueError(f"Field {field_name} is not an ObjectField.")
