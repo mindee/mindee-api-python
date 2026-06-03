@@ -4,7 +4,7 @@ import pytest
 from PIL import Image
 
 from mindee.input.path_input import PathInput
-from mindee.v2.file_operations.crop import extract_crops
+from mindee.v2.file_operations.crop import extract_multiple_crops
 from mindee.v2.product.crop.crop_response import (
     CropResponse,
 )
@@ -36,7 +36,7 @@ def test_single_page_crop_split(crops_single_page_path, crops_single_page_json_p
     with open(crops_single_page_json_path, "rb") as f:
         response = json.load(f)
     doc = CropResponse(response)
-    extracted_crops = extract_crops(input_sample, doc.inference.result.crops)
+    extracted_crops = extract_multiple_crops(input_sample, doc.inference.result.crops)
     assert len(extracted_crops) == 1
 
     assert extracted_crops[0].page_id == 0
@@ -50,7 +50,7 @@ def test_multi_page_receipt_split(crops_multi_page_path, crops_multi_page_json_p
     with open(crops_multi_page_json_path, "rb") as f:
         response = json.load(f)
     doc = CropResponse(response)
-    extracted_crops = extract_crops(input_sample, doc.inference.result.crops)
+    extracted_crops = extract_multiple_crops(input_sample, doc.inference.result.crops)
     assert len(extracted_crops) == 2
 
     assert extracted_crops[0].page_id == 0

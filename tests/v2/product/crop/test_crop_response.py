@@ -2,7 +2,7 @@ import pytest
 
 from mindee import ExtractionResponse
 from mindee.v2.product.crop import CropInference
-from mindee.v2.product.crop.crop_box import CropBox
+from mindee.v2.product.crop.crop_item import CropItem
 from mindee.v2.product.crop.crop_response import CropResponse
 from mindee.v2.product.crop.crop_result import CropResult
 from tests.v2.product.utils import get_product_samples
@@ -39,7 +39,7 @@ def test_crop_multiple():
     response = CropResponse(json_sample)
     assert isinstance(response.inference, CropInference)
     assert isinstance(response.inference.result, CropResult)
-    assert isinstance(response.inference.result.crops[0], CropBox)
+    assert isinstance(response.inference.result.crops[0], CropItem)
     assert len(response.inference.result.crops) == 2
 
     assert len(response.inference.result.crops[0].location.polygon) == 4
@@ -79,7 +79,7 @@ def test_crop_with_extraction_result():
     assert isinstance(response.inference.result, CropResult)
     assert isinstance(
         response.inference.result.crops[0],
-        CropBox,
+        CropItem,
     )
     crops = response.inference.result.crops
     assert crops[0].object_type == "receipt"
