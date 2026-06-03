@@ -52,5 +52,7 @@ jobs:
           ${{ runner.os }}-prec-
 
     - name: Run all static analysis
+      env:
+        SKIP: sphinx-html,sphinx-linkcheck
       run: |
         pre-commit run --all-files

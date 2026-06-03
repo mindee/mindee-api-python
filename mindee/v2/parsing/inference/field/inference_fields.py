@@ -42,21 +42,21 @@ class InferenceFields(dict[str, BaseField]):
         return str_fields
 
     def get_simple_field(self, field_name: str) -> "SimpleField":
-        """Retrieve the value of a simple field by its name."""
+        """Retrieve a simple field by its name."""
         field = self.get(field_name)
         if field and field.field_type == FieldType.SIMPLE:
             return cast("SimpleField", field)
         raise ValueError(f"Field {field_name} is not a SimpleField.")
 
     def get_object_field(self, field_name: str) -> "ObjectField":
-        """Retrieve the value of an object field by its name."""
+        """Retrieve an object field by its name."""
         field = self.get(field_name)
         if field and field.field_type == FieldType.OBJECT:
             return cast("ObjectField", field)
         raise ValueError(f"Field {field_name} is not an ObjectField.")
 
     def get_list_field(self, field_name: str) -> "ListField":
-        """Retrieve the value of a list field by its name."""
+        """Retrieve a list field by its name."""
         field = self.get(field_name)
         if field and field.field_type == FieldType.LIST:
             return cast("ListField", field)
