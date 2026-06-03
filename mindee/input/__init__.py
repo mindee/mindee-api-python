@@ -1,4 +1,3 @@
-from mindee.client_options.polling_options import PollingOptions
 from mindee.input.base_64_input import Base64Input
 from mindee.input.bytes_input import BytesInput
 from mindee.input.file_input import FileInput
@@ -16,6 +15,5 @@ __all__ = [
     "LocalResponse",
     "PageOptions",
     "PathInput",
-    "PollingOptions",
     "URLInputSource",
 ]

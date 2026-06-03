@@ -1,5 +1,6 @@
 from mindee.parsing.common import StringDict
 from mindee.v2.parsing.inference.field import InferenceFields
+from mindee.v2.parsing.inference.field.factory import parse_field
 from mindee.v2.parsing.inference.rag_metadata import RAGMetadata
 from mindee.v2.parsing.inference.raw_text import RawText
 
@@ -15,7 +16,7 @@ class ExtractionResult:
     """RAG metadata."""
 
     def __init__(self, raw_response: StringDict) -> None:
-        self.fields = InferenceFields(raw_response["fields"])
+        self.fields = InferenceFields(raw_response["fields"], parse_field)
         if raw_response.get("raw_text"):
             self.raw_text = RawText(raw_response["raw_text"])
         if raw_response.get("rag"):

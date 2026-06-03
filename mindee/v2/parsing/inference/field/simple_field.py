@@ -1,6 +1,5 @@
 from mindee.parsing.common import StringDict
-from mindee.v2.parsing.inference.field.base_field import BaseField
-from mindee.v2.parsing.inference.field.dynamic_field import FieldType
+from mindee.v2.parsing.inference.field.base_field import BaseField, FieldType
 
 
 class SimpleField(BaseField):

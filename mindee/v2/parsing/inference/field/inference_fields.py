@@ -1,19 +1,21 @@
+from collections.abc import Callable
+
 from mindee.parsing.common import StringDict
-from mindee.v2.parsing.inference.field.dynamic_field import (
-    FieldType,
-    FieldTypeAlias,
-    get_field_type,
-)
+from mindee.v2.parsing.inference.field.base_field import BaseField, FieldType
 
 
-class InferenceFields(dict[str, FieldTypeAlias]):
+class InferenceFields(dict[str, BaseField]):
     """Inference fields dict."""
 
-    def __init__(self, raw_response: StringDict, indent_level: int = 0) -> None:
+    def __init__(
+        self,
+        raw_response: StringDict,
+        parser_func: Callable[[StringDict, int], BaseField],
+        indent_level: int = 0,
+    ) -> None:
         super().__init__()
         for key, value in raw_response.items():
-            field_obj = get_field_type(value, indent_level)
-            self[key] = field_obj
+            self[key] = parser_func(value, indent_level)
 
     def __getattr__(self, item):
         try:
