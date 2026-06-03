@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from mindee.parsing.common import StringDict
-from mindee.v2.parsing.inference.error_response import ErrorResponse
+from mindee.v2.parsing.error.error_response import ErrorResponse
 
 
 class JobWebhook:
