@@ -20,19 +20,6 @@ Base Response
     :members:
     :inherited-members:
 
-
-Error Item
-==========
-.. autoclass:: mindee.v2.parsing.inference.error_item.ErrorItem
-    :members:
-    :inherited-members:
-
-Error Response
-==============
-.. autoclass:: mindee.v2.parsing.inference.error_response.ErrorResponse
-    :members:
-    :inherited-members:
-
 Inference Active Options
 ========================
 .. autoclass:: mindee.v2.parsing.inference.inference_active_options.InferenceActiveOptions
@@ -45,33 +32,9 @@ Inference File
     :members:
     :inherited-members:
 
-Inference Job
-=============
-.. autoclass:: mindee.v2.parsing.inference.inference_job.InferenceJob
-    :members:
-    :inherited-members:
-
 Inference Model
 =================
 .. autoclass:: mindee.v2.parsing.inference.inference_model.InferenceModel
-    :members:
-    :inherited-members:
-
-Job
-===
-.. autoclass:: mindee.v2.parsing.inference.job.Job
-    :members:
-    :inherited-members:
-
-Job Response
-============
-.. autoclass:: mindee.v2.parsing.inference.job_response.JobResponse
-    :members:
-    :inherited-members:
-
-Job Webhook
-===========
-.. autoclass:: mindee.v2.parsing.inference.job_webhook.JobWebhook
     :members:
     :inherited-members:
 

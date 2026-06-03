@@ -1,8 +1,8 @@
+from collections.abc import Callable
 from typing import TYPE_CHECKING, cast
 
 from mindee.parsing.common import StringDict
-from mindee.v2.parsing.inference.field.base_field import BaseField
-from mindee.v2.parsing.inference.field.dynamic_field import FieldType
+from mindee.v2.parsing.inference.field.base_field import BaseField, FieldType
 from mindee.v2.parsing.inference.field.inference_fields import InferenceFields
 
 if TYPE_CHECKING:
@@ -16,11 +16,13 @@ class ObjectField(BaseField):
     fields: InferenceFields
     """Fields contained in the object."""
 
-    def __init__(self, raw_response: StringDict, indent_level: int = 0):
+    def __init__(
+        self, raw_response: StringDict, parser_func: Callable, indent_level: int = 0
+    ):
         super().__init__(FieldType.OBJECT, raw_response, indent_level)
         inner_fields = raw_response.get("fields", raw_response)
 
-        self.fields = InferenceFields(inner_fields, self._indent_level + 1)
+        self.fields = InferenceFields(inner_fields, parser_func, self._indent_level + 1)
 
     def single_str(self) -> str:
         """String representation of a single object field."""
@@ -48,7 +50,8 @@ class ObjectField(BaseField):
         """
         Extract and return all SimpleField fields from the `fields` attribute.
 
-        :return: A dictionary containing all fields that have a type of `FieldType.SIMPLE`.
+        :return: A dictionary containing all fields that have a type of
+        `FieldType.SIMPLE`.
         """
         simple_fields = {}
         for field_key, field_value in self.fields.items():
@@ -76,7 +79,8 @@ class ObjectField(BaseField):
         """
         Retrieves all ObjectField fields from the `fields` attribute of the instance.
 
-        :returns: A dictionary containing fields of type `FieldType.OBJECT`. The keys represent
+        :returns: A dictionary containing fields of type `FieldType.OBJECT`. The keys
+        represent
             the field names, and the values are corresponding ObjectField objects.
         """
         object_fields = {}
@@ -118,7 +122,8 @@ class ObjectField(BaseField):
         :param field_name: The name of the field to retrieve.
         :type field_name: str
         :return: The `ObjectField` associated with the given field name.
-        :raises ValueError: If the field specified by `field_name` is not an `ObjectField`.
+        :raises ValueError: If the field specified by `field_name` is not an
+        `ObjectField`.
         """
         if self.fields[field_name].field_type != FieldType.OBJECT:
             raise ValueError(f"Field {field_name} is not an ObjectField.")
