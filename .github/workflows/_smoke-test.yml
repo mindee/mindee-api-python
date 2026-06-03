@@ -56,7 +56,7 @@ jobs:
           ./tests/test_v1_code_samples.sh ${{ secrets.MINDEE_ACCOUNT_SE_TESTS }} ${{ secrets.MINDEE_ENDPOINT_SE_TESTS }}
 
       - name: Notify Slack Action on Failure
-        uses: ravsamhq/notify-slack-action@2.3.0
+        uses: ravsamhq/notify-slack-action@2.5.0
         if: ${{ always() && github.ref_name == 'main' }}
         with:
           status: ${{ job.status }}

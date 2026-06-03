@@ -14,8 +14,8 @@ from mindee.v2.error.mindee_http_error_v2 import (
     MindeeHTTPErrorV2,
     MindeeHTTPUnknownErrorV2,
 )
-from mindee.v2.parsing.inference.job import Job
-from mindee.v2.parsing.inference.job_response import JobResponse
+from mindee.v2.parsing.job.job import Job
+from mindee.v2.parsing.job.job_response import JobResponse
 from mindee.v2.product.extraction.extraction_inference import ExtractionInference
 from tests.utils import FILE_TYPES_DIR, V2_DATA_DIR, V2_PRODUCT_DATA_DIR, dummy_envvars
 

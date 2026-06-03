@@ -1,5 +1,5 @@
 from mindee.parsing.common import StringDict
-from mindee.v2.parsing.inference.error_item import ErrorItem
+from mindee.v2.parsing.error.error_item import ErrorItem
 
 
 class ErrorResponse:
