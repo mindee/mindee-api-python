@@ -8,7 +8,7 @@ from mindee.input.local_response import LocalResponse
 from mindee.input.path_input import PathInput
 from mindee.input.url_input_source import URLInputSource
 from mindee.v1 import product
-from mindee.v2.parsing.inference.job_response import JobResponse
+from mindee.v2.parsing.job.job_response import JobResponse
 from mindee.v2.product.classification.classification_response import (
     ClassificationResponse,
 )

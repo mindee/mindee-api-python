@@ -22,7 +22,7 @@ from mindee.v2.mindee_http.response_validation_v2 import (
     is_valid_post_response,
 )
 from mindee.v2.parsing.inference.base_response import BaseResponse
-from mindee.v2.parsing.inference.job_response import JobResponse
+from mindee.v2.parsing.job.job_response import JobResponse
 from mindee.v2.product.extraction.extraction_response import ExtractionResponse
 
 TypeBaseResponse = TypeVar("TypeBaseResponse", bound=BaseResponse)
