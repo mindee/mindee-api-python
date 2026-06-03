@@ -1,7 +1,13 @@
 from collections.abc import Callable
+from typing import TYPE_CHECKING, cast
 
 from mindee.parsing.common import StringDict
 from mindee.v2.parsing.inference.field.base_field import BaseField, FieldType
+
+if TYPE_CHECKING:
+    from mindee.v2.parsing.inference.field.list_field import ListField
+    from mindee.v2.parsing.inference.field.object_field import ObjectField
+    from mindee.v2.parsing.inference.field.simple_field import SimpleField
 
 
 class InferenceFields(dict[str, BaseField]):
@@ -34,3 +40,24 @@ class InferenceFields(dict[str, BaseField]):
             else:
                 str_fields += f"\n:{field_key}:{field_value}"
         return str_fields
+
+    def get_simple_field(self, field_name: str) -> "SimpleField":
+        """Retrieve the value of a simple field by its name."""
+        field = self.get(field_name)
+        if field and field.field_type == FieldType.SIMPLE:
+            return cast("SimpleField", field)
+        raise ValueError(f"Field {field_name} is not a SimpleField.")
+
+    def get_object_field(self, field_name: str) -> "ObjectField":
+        """Retrieve the value of an object field by its name."""
+        field = self.get(field_name)
+        if field and field.field_type == FieldType.OBJECT:
+            return cast("ObjectField", field)
+        raise ValueError(f"Field {field_name} is not an ObjectField.")
+
+    def get_list_field(self, field_name: str) -> "ListField":
+        """Retrieve the value of a list field by its name."""
+        field = self.get(field_name)
+        if field and field.field_type == FieldType.LIST:
+            return cast("ListField", field)
+        raise ValueError(f"Field {field_name} is not a ListField.")
