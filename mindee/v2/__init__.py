@@ -1,9 +1,9 @@
 from mindee.v2.client import Client
 from mindee.v2.file_operations.crop import (
-    extract_crops,
+    extract_multiple_crops,
     extract_single_crop,
 )
-from mindee.v2.file_operations.split import extract_splits
+from mindee.v2.file_operations.split import extract_multiple_splits
 from mindee.v2.product.classification.classification_response import (
     ClassificationResponse,
 )
@@ -33,8 +33,8 @@ __all__ = [
     "OCRResponse",
     "SplitParameters",
     "SplitResponse",
-    "extract_crops",
-    "extract_crops",
+    "extract_multiple_crops",
+    "extract_multiple_crops",
+    "extract_multiple_splits",
     "extract_single_crop",
-    "extract_splits",
 ]

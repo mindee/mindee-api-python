@@ -8,12 +8,6 @@ Crop
 
     ./params
 
-Crop Box
-========
-.. autoclass:: mindee.v2.product.crop.crop_box.CropBox
-    :members:
-    :inherited-members:
-
 Crop Item
 =========
 .. autoclass:: mindee.v2.product.crop.crop_item.CropItem
