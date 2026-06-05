@@ -7,7 +7,7 @@ from mindee.v2.product.extraction.extraction_response import ExtractionResponse
 
 
 class CropItem:
-    """Deprecated class. Use CropItem instead."""
+    """Result of a cropped document region."""
 
     location: FieldLocation
     """Location which includes cropping coordinates for the detected object, within the source document."""
