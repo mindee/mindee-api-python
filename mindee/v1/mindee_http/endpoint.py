@@ -109,7 +109,7 @@ class Endpoint(BaseEndpoint):
             params["rag"] = "true"
 
         if workflow_id:
-            url = f"{self.settings.base_url}/workflows/{workflow_id}/{route}"
+            url = f"{self.settings.base_url}/v1/workflows/{workflow_id}/{route}"
         else:
             url = f"{self.settings.url_root}/{route}"
 
@@ -165,7 +165,7 @@ class Endpoint(BaseEndpoint):
         :param feedback: Feedback object to send.
         """
         return requests.put(
-            f"{self.settings.base_url}/documents/{document_id}/feedback",
+            f"{self.settings.base_url}/v1/documents/{document_id}/feedback",
             headers=self.settings.base_headers,
             data=json.dumps(feedback, indent=0),
             timeout=self.settings.request_timeout,
