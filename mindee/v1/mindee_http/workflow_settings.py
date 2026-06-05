@@ -21,4 +21,4 @@ class WorkflowSettings(BaseSettings):
                 "You can set this using the "
                 f"'{API_KEY_ENV_NAME}' environment variable."
             )
-        self.url_root = f"{self.base_url}/workflows/{workflow_id}/executions"
+        self.url_root = f"{self.base_url}/v1/workflows/{workflow_id}/executions"
