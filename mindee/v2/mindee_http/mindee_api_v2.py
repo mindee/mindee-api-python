@@ -6,9 +6,16 @@ from mindee.input.local_input_source import LocalInputSource
 from mindee.input.url_input_source import URLInputSource
 from mindee.logger import logger
 from mindee.mindee_http.settings_mixin import SettingsMixin
+from mindee.parsing.common.string_dict import StringDict
 from mindee.v1.mindee_http.base_settings import USER_AGENT
 from mindee.v2.client_options.base_parameters import BaseParameters
 from mindee.v2.error.mindee_api_v2_error import MindeeAPIV2Error
+from mindee.v2.error.mindee_http_error_v2 import (
+    MindeeHTTPUnknownErrorV2,
+    handle_error_v2,
+)
+from mindee.v2.mindee_http.response_validation_v2 import is_valid_get_response
+from mindee.v2.parsing.search.search_response import SearchResponse
 
 API_KEY_V2_ENV_NAME = "MINDEE_V2_API_KEY"
 API_KEY_V2_DEFAULT = ""
@@ -135,3 +142,44 @@ class MindeeAPIV2(SettingsMixin):
             timeout=self.request_timeout,
             allow_redirects=False,
         )
+
+    def req_get_search_models(
+        self, model_name: str | None, model_type: str | None
+    ) -> requests.Response:
+        """
+        Searches for a list of models matching criteria.
+        :param model_name: Name pattern to search for.
+        :param model_type: Type of model to search for (exact match).
+        :return: Response object containing search results.
+        """
+        url = f"{self.url_root}/search/models"
+        return requests.get(
+            url,
+            headers=self.base_headers,
+            params={"name": model_name, "model_type": model_type},
+            timeout=self.request_timeout,
+        )
+
+    def get_models(self, name: str | None, model_type: str | None):
+        """
+        Get a list of models matching the provided name and type.
+
+        :param name: Name of the model to filter by.
+        :param model_type: Type of the model to filter by.
+        :return: A list of models matching the provided criteria.
+        """
+        logger.debug("Fetching models matching: name=%s and type=%s", name, model_type)
+        response = self.req_get_search_models(name, model_type)
+        dict_response = self._response_json(response)
+        if not is_valid_get_response(response):
+            handle_error_v2(dict_response)
+        return SearchResponse(dict_response)
+
+    @staticmethod
+    def _response_json(response: requests.Response) -> StringDict:
+        try:
+            return response.json()
+        except ValueError as exc:
+            raise MindeeHTTPUnknownErrorV2(
+                f"HTTP {response.status_code} response is not valid JSON: {response.text}"
+            ) from exc

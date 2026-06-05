@@ -8,3 +8,4 @@ V2 Parsing
     ./inference/index
     ./error
     ./job
+    ./search
