@@ -1,41 +1,21 @@
 from time import sleep
 from typing import TypeVar
 
-import requests
-
 from mindee.client_mixin import ClientMixin
 from mindee.client_options.polling_options import PollingOptions
 from mindee.error.mindee_error import MindeeError
 from mindee.input import URLInputSource
 from mindee.input.local_input_source import LocalInputSource
 from mindee.logger import logger
-from mindee.parsing.common import StringDict
 from mindee.parsing.common.common_response import CommonStatus
 from mindee.v2.client_options.base_parameters import BaseParameters
-from mindee.v2.error.mindee_http_error_v2 import (
-    MindeeHTTPUnknownErrorV2,
-    handle_error_v2,
-)
 from mindee.v2.mindee_http.mindee_api_v2 import MindeeAPIV2
-from mindee.v2.mindee_http.response_validation_v2 import (
-    is_valid_get_response,
-    is_valid_post_response,
-)
 from mindee.v2.parsing.inference.base_response import BaseResponse
 from mindee.v2.parsing.job.job_response import JobResponse
 from mindee.v2.parsing.search.search_response import SearchResponse
 from mindee.v2.product.extraction.extraction_response import ExtractionResponse
 
 TypeBaseResponse = TypeVar("TypeBaseResponse", bound=BaseResponse)
-
-
-def _response_json(response: requests.Response) -> StringDict:
-    try:
-        return response.json()
-    except ValueError as exc:
-        raise MindeeHTTPUnknownErrorV2(
-            f"HTTP {response.status_code} response is not valid JSON: {response.text}"
-        ) from exc
 
 
 class Client(ClientMixin):
@@ -71,14 +51,7 @@ class Client(ClientMixin):
         :return: A valid inference response.
         """
         logger.debug("Enqueuing inference using model: %s", params.model_id)
-        response = self.mindee_api.req_post_inference_enqueue(
-            input_source=input_source, params=params, slug=params.get_enqueue_slug()
-        )
-        dict_response = _response_json(response)
-
-        if not is_valid_post_response(response):
-            handle_error_v2(dict_response)
-        return JobResponse(dict_response)
+        return self.mindee_api.enqueue(input_source, params)
 
     def get_job(self, job_id: str) -> JobResponse:
         """
@@ -91,11 +64,7 @@ class Client(ClientMixin):
         """
         logger.debug("Fetching job: %s", job_id)
 
-        response = self.mindee_api.req_get_job(job_id)
-        dict_response = _response_json(response)
-        if not is_valid_get_response(response):
-            handle_error_v2(dict_response)
-        return JobResponse(dict_response)
+        return self.mindee_api.get_job(job_id)
 
     def get_result(
         self,
@@ -113,13 +82,7 @@ class Client(ClientMixin):
         """
         logger.debug("Fetching result: %s", inference_id)
 
-        response = self.mindee_api.req_get_inference(
-            inference_id, response_type.get_result_slug()
-        )
-        dict_response = _response_json(response)
-        if not is_valid_get_response(response):
-            handle_error_v2(dict_response)
-        return response_type(dict_response)
+        return self.mindee_api.get_result(response_type, inference_id)
 
     def enqueue_and_get_result(
         self,
@@ -178,7 +141,9 @@ class Client(ClientMixin):
 
         raise MindeeError(f"Couldn't retrieve document after {try_counter + 1} tries.")
 
-    def search_models(self, name: str | None, model_type: str | None) -> SearchResponse:
+    def search_models(
+        self, name: str | None = None, model_type: str | None = None
+    ) -> SearchResponse:
         """
         Get a list of models matching the provided name and type.
 
