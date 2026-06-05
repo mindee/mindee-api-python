@@ -14,7 +14,11 @@ from mindee.v2.error.mindee_http_error_v2 import (
     MindeeHTTPUnknownErrorV2,
     handle_error_v2,
 )
-from mindee.v2.mindee_http.response_validation_v2 import is_valid_get_response
+from mindee.v2.mindee_http.response_validation_v2 import (
+    is_valid_get_response,
+    is_valid_post_response,
+)
+from mindee.v2.parsing.job.job_response import JobResponse
 from mindee.v2.parsing.search.search_response import SearchResponse
 
 API_KEY_V2_ENV_NAME = "MINDEE_V2_API_KEY"
@@ -152,13 +156,61 @@ class MindeeAPIV2(SettingsMixin):
         :param model_type: Type of model to search for (exact match).
         :return: Response object containing search results.
         """
-        url = f"{self.url_root}/search/models"
+        url = f"{self.url_root}/v2/search/models"
         return requests.get(
             url,
             headers=self.base_headers,
             params={"name": model_name, "model_type": model_type},
             timeout=self.request_timeout,
         )
+
+    def enqueue(
+        self, input_source: LocalInputSource | URLInputSource, params: BaseParameters
+    ) -> JobResponse:
+        """
+        Enqueues a document to a given model.
+        :param input_source: Input object.
+        :param params: Parameters
+        :return: A valid inference Response.
+        """
+
+        response = self.req_post_inference_enqueue(
+            input_source=input_source, params=params, slug=params.get_enqueue_slug()
+        )
+        dict_response = self._response_json(response)
+
+        if not is_valid_post_response(response):
+            handle_error_v2(dict_response)
+        return JobResponse(dict_response)
+
+    def get_job(self, job_id: str) -> JobResponse:
+        """
+        Get the status of an inference that was previously enqueued.
+
+        Can be used for polling.
+
+        :param job_id: UUID of the job to retrieve.
+        :return: A job response.
+        """
+        response = self.req_get_job(job_id)
+        dict_response = self._response_json(response)
+        if not is_valid_get_response(response):
+            handle_error_v2(dict_response)
+        return JobResponse(dict_response)
+
+    def get_result(self, response_type, inference_id: str):
+        """
+        Get the result of an inference that was previously enqueued.
+
+        :param response_type: Type of the response to return.
+        :param inference_id: UUID of the inference to retrieve.
+        :return: The result of the inference.
+        """
+        response = self.req_get_inference(inference_id, response_type.get_result_slug())
+        dict_response = self._response_json(response)
+        if not is_valid_get_response(response):
+            handle_error_v2(dict_response)
+        return response_type(dict_response)
 
     def get_models(self, name: str | None, model_type: str | None):
         """

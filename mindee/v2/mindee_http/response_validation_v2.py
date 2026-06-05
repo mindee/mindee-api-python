@@ -30,4 +30,8 @@ def is_valid_get_response(response: requests.Response) -> bool:
     if not is_valid_sync_response(response):
         return False
     response_json = json.loads(response.content)
-    return "inference" in response_json or "job" in response_json
+    return (
+        "inference" in response_json
+        or "job" in response_json
+        or "models" in response_json
+    )
