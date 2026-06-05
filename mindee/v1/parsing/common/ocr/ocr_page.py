@@ -1,5 +1,4 @@
 from mindee.geometry.minmax import get_min_max_y
-from mindee.geometry.polygon import is_point_in_polygon_y
 from mindee.geometry.polygon_utils import get_centroid
 from mindee.parsing.common.string_dict import StringDict
 from mindee.v1.parsing.common.ocr.ocr_line import OCRLine
@@ -25,12 +24,11 @@ class OCRPage:
     @staticmethod
     def _are_words_on_same_line(current_word: OCRWord, next_word: OCRWord) -> bool:
         """Determine if two words are on the same line."""
-        current_in_next = is_point_in_polygon_y(
-            get_centroid(current_word.polygon),
-            next_word.polygon,
+        current_in_next = current_word.polygon.is_point_in_y(
+            get_centroid(next_word.polygon),
         )
-        next_in_current = is_point_in_polygon_y(
-            get_centroid(next_word.polygon), current_word.polygon
+        next_in_current = current_word.polygon.is_point_in_y(
+            get_centroid(next_word.polygon)
         )
         # We need to check both to eliminate any issues due to word order.
         return current_in_next or next_in_current
