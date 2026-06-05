@@ -26,4 +26,4 @@ class MindeeAPI(BaseSettings):
         self.endpoint_name = endpoint_name
         self.account_name = account_name
         self.version = version
-        self.url_root = f"{self.base_url}/products/{self.account_name}/{self.endpoint_name}/v{self.version}"
+        self.url_root = f"{self.base_url}/v1/products/{self.account_name}/{self.endpoint_name}/v{self.version}"

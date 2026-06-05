@@ -14,7 +14,7 @@ API_KEY_V2_ENV_NAME = "MINDEE_V2_API_KEY"
 API_KEY_V2_DEFAULT = ""
 
 BASE_URL_ENV_NAME = "MINDEE_V2_BASE_URL"
-BASE_URL_DEFAULT = "https://api-v2.mindee.net/v2"
+BASE_URL_DEFAULT = "https://api-v2.mindee.net"
 
 REQUEST_TIMEOUT_ENV_NAME = "MINDEE_REQUEST_TIMEOUT"
 TIMEOUT_DEFAULT = 120
@@ -84,7 +84,7 @@ class MindeeAPIV2(SettingsMixin):
         :return: requests response.
         """
         data = params.get_form_data()
-        url = f"{self.url_root}/{slug}/enqueue"
+        url = f"{self.url_root}/v2/{slug}/enqueue"
 
         if isinstance(input_source, LocalInputSource):
             files = {"file": input_source.read_contents(params.close_file)}
@@ -114,7 +114,7 @@ class MindeeAPIV2(SettingsMixin):
         :param job_id: Job ID, returned by the enqueue request.
         """
         return requests.get(
-            f"{self.url_root}/jobs/{job_id}",
+            f"{self.url_root}/v2/jobs/{job_id}",
             headers=self.base_headers,
             timeout=self.request_timeout,
             allow_redirects=False,
@@ -128,7 +128,7 @@ class MindeeAPIV2(SettingsMixin):
         :param slug: Slug of the inference, defaults to nothing.
         """
 
-        url = f"{self.url_root}/{slug}/{inference_id}"
+        url = f"{self.url_root}/v2/{slug}/{inference_id}"
         return requests.get(
             url,
             headers=self.base_headers,
