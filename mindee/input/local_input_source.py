@@ -35,7 +35,7 @@ class LocalInputSource:
     filename: str
     file_mimetype: str
     filepath: str | None
-    _page_count: int | None = None
+    page_count: int
 
     def __init__(self) -> None:
         """
@@ -43,6 +43,19 @@ class LocalInputSource:
         """
         self._check_mimetype()
 
+        if self.is_pdf():
+            self.file_object.seek(0)
+            try:
+                pdf = pdfium.PdfDocument(self.file_object)
+                self.page_count = len(pdf)
+            except pdfium.PdfiumError as exc:
+                logger.warning(
+                    "Could not open PDF file: %s due to %s", self.filename, exc
+                )
+                self.page_count = 0
+            self.file_object.seek(0)
+        else:
+            self.page_count = 1
         logger.debug(
             "Loaded new input '%s' from %s", self.filename, {type(self).__name__}
         )
@@ -103,26 +116,6 @@ class LocalInputSource:
         """:return: True if the file is a PDF."""
         return self.file_mimetype == "application/pdf"
 
-    @property
-    def page_count(self) -> int:
-        """
-        Count the pages in the document.
-
-        :return: The number of pages.
-        """
-        if self._page_count is None:
-            if self.is_pdf():
-                self.file_object.seek(0)
-                pdf = pdfium.PdfDocument(self.file_object)
-                self._page_count = len(pdf)
-            else:
-                self._page_count = 1
-        if self._page_count is None:
-            raise MindeeSourceError(
-                f"Failed to determine page count for {self.filename}"
-            )
-        return self._page_count
-
     def apply_page_options(self, page_options: PageOptions) -> None:
         """Apply cut and merge options on multipage documents."""
         if not self.is_pdf():
@@ -132,6 +125,10 @@ class LocalInputSource:
             page_options.on_min_pages,
             page_options.page_indexes,
         )
+        self.file_object.seek(0)
+        pdf = pdfium.PdfDocument(self.file_object)
+        self.page_count = len(pdf)
+        pdf.close()
 
     def process_pdf(
         self,
@@ -183,7 +180,9 @@ class LocalInputSource:
         bytes_io = io.BytesIO()
         new_pdf.save(bytes_io)
         self.file_object = bytes_io
-        self._page_count = len(new_pdf)
+        self.page_count = len(new_pdf)
+        new_pdf.close()
+        pdf.close()
 
     def is_pdf_empty(self) -> bool:
         """

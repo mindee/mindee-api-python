@@ -41,7 +41,6 @@ def test_workflow_execution(mindee_client: Client, workflow_id: str, input_path:
     assert response.execution.priority == "low"
 
 
-@pytest.mark.skip(reason="Currently not working")
 @pytest.mark.integration
 def test_workflow_predict_ots_rag(
     mindee_client: Client, workflow_id: str, input_path: str
@@ -71,7 +70,6 @@ def test_workflow_predict_ots_no_rag(
     assert response.document.inference.extras is None
 
 
-@pytest.mark.skip(reason="Currently not working")
 @pytest.mark.integration
 def test_workflow_predict_custom_rag(
     mindee_client: Client, workflow_id: str, input_path: str
