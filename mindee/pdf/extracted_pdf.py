@@ -27,10 +27,6 @@ class ExtractedPDF:
                 "Could not retrieve page count from Extracted PDF object."
             ) from exc
 
-    def write_to_file(self, output_path: str):
-        """Deprecated. Use ``save_to_file`` instead."""
-        self.save_to_file(output_path)
-
     def save_to_file(self, output_path: Path | str):
         """
         Writes the contents of the current PDF object to a file.

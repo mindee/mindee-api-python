@@ -117,11 +117,11 @@ class LocalInputSource:
                 self._page_count = len(pdf)
             else:
                 self._page_count = 1
+        if self._page_count is None:
+            raise MindeeSourceError(
+                f"Failed to determine page count for {self.filename}"
+            )
         return self._page_count
-
-    def count_doc_pages(self) -> int:
-        """Deprecated. Use ``page_count`` instead."""
-        return self.page_count
 
     def apply_page_options(self, page_options: PageOptions) -> None:
         """Apply cut and merge options on multipage documents."""
@@ -137,7 +137,7 @@ class LocalInputSource:
         self,
         behavior: str,
         on_min_pages: int,
-        page_indexes: Sequence,
+        page_indexes: Sequence[int],
     ) -> None:
         """Run any required processing on a PDF file."""
         if self.is_pdf_empty():

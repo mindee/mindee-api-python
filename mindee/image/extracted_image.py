@@ -70,12 +70,6 @@ class ExtractedImage:
             print(exc)
             raise MindeeError(f"Could not save file {Path(output_path).name}.") from exc
 
-    def as_source(self) -> FileInput:
-        """
-        Deprecated. Use ``as_input_source`` instead.
-        """
-        return self.as_input_source()
-
     def as_input_source(self) -> FileInput:
         """
         Return the file as a Mindee-compatible BufferInput source.

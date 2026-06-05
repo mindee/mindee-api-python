@@ -96,13 +96,6 @@ class Client(ClientMixin):
             handle_error_v2(dict_response)
         return JobResponse(dict_response)
 
-    def get_inference(
-        self,
-        inference_id: str,
-    ) -> BaseResponse:
-        """[Deprecated] Use `get_result` instead."""
-        return self.get_result(ExtractionResponse, inference_id)
-
     def get_result(
         self,
         response_type: type[TypeBaseResponse],

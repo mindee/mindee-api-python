@@ -15,10 +15,17 @@ def has_source_text(pdf_bytes: bytes) -> bool:
     Checks if the provided PDF bytes contain source text.
 
     :param pdf_bytes: Raw bytes representation of a PDF file
-    :return:
+    :return: True if source text is found, False otherwise.
     """
     pdf = pdfium.PdfDocument(pdf_bytes)
-    return any(len(page.get_textpage().get_text_bounded().strip()) > 0 for page in pdf)
+
+    try:
+        return any(
+            len(page.get_textpage().get_text_bounded().strip()) > 0 for page in pdf
+        )
+    finally:
+        if hasattr(pdf, "close"):
+            pdf.close()
 
 
 def extract_text_from_pdf(pdf_bytes: bytes) -> list[list[PDFCharData]]:

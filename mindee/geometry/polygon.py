@@ -55,43 +55,6 @@ class Polygon(list[Point]):
         return "(" + ", ".join(str(p) for p in self) + ")"
 
 
-def is_point_in_polygon_x(point: Point, polygon: Polygon) -> bool:
-    """
-    Deprecated, use ``is_point_in_x`` from ``Polygon`` class instead.
-
-    Determine if the Point is in the Polygon's X-axis.
-
-    :param point: Point to compare
-    :param polygon: Polygon to look into
-    """
-    min_x, max_x = get_min_max_x(polygon)
-    return is_point_in_x(point, min_x, max_x)
-
-
-def is_point_in_polygon_y(point: Point, polygon: Polygon) -> bool:
-    """
-    Deprecated, use ``is_point_in_y`` from ``Polygon`` class instead.
-
-    Determine if the Point is in the Polygon's Y-axis.
-
-    :param point: Point to compare
-    :param polygon: Polygon to look into
-    """
-    min_y, max_y = get_min_max_y(polygon)
-    return is_point_in_y(point, min_y, max_y)
-
-
-def polygon_from_prediction(prediction: Sequence[list[float]]) -> Polygon:
-    """
-    Deprecated, init ``Polygon`` class directly instead.
-
-    Transform a prediction into a Polygon.
-
-    :param prediction: API prediction.
-    """
-    return Polygon([Point(point[0], point[1]) for point in prediction])
-
-
 def merge_polygons(vertices: Sequence[Polygon]) -> Polygon:
     """
     Given a sequence of polygons, calculate a polygon box that encompasses all polygons.

@@ -1,7 +1,5 @@
 from datetime import date, datetime
 
-import pytz
-
 from mindee.parsing.common import StringDict
 from mindee.v1.parsing.standard.base import BaseField, FieldPositionMixin
 
@@ -44,11 +42,9 @@ class DateField(FieldPositionMixin, BaseField):
             self.is_computed = raw_prediction["is_computed"]
         if self.value:
             try:
-                self.date_object = (
-                    datetime.strptime(self.value, ISO8601_DATE_FORMAT)
-                    .replace(tzinfo=pytz.utc)
-                    .date()
-                )
+                self.date_object = datetime.strptime(
+                    self.value, ISO8601_DATE_FORMAT
+                ).date()
             except (TypeError, ValueError):
                 self.date_object = None
                 self.confidence = 0.0
