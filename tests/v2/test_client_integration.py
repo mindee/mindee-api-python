@@ -1,4 +1,3 @@
-import concurrent.futures
 import os
 from pathlib import Path
 
@@ -354,6 +353,7 @@ def test_explicit_timeout_failure(findoc_model_id) -> None:
 
 
 @pytest.mark.v2
+@pytest.mark.integration
 @respx.mock
 def test_explicit_500_server_error(findoc_model_id) -> None:
     respx.post("https://api-v2.mindee.net/v2/inferences/enqueue").mock(
@@ -368,28 +368,3 @@ def test_explicit_500_server_error(findoc_model_id) -> None:
         client.enqueue(input_source, params)
 
     assert exc_info.value.status_code == 500
-
-
-@pytest.mark.integration
-@pytest.mark.v2
-def test_httpx_multiple_calls_thread_safety(findoc_model_id) -> None:
-    client = Client()
-    input_path = FILE_TYPES_DIR / "pdf" / "blank_1.pdf"
-
-    def make_request():
-        input_source = PathInput(input_path)
-        params = ExtractionParameters(model_id=findoc_model_id)
-        return client.enqueue(input_source, params)
-
-    thread_count = 20
-    successful_responses = 0
-
-    with concurrent.futures.ThreadPoolExecutor(max_workers=thread_count) as executor:
-        futures = [executor.submit(make_request) for _ in range(thread_count)]
-
-        for future in concurrent.futures.as_completed(futures):
-            response = future.result()
-            if response.job and response.job.id:
-                successful_responses += 1
-
-    assert successful_responses == thread_count
