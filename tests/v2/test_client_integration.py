@@ -3,21 +3,17 @@ from pathlib import Path
 
 import httpx
 import pytest
+import respx
 
 from mindee import ExtractionParameters
 from mindee.input.path_input import PathInput
 from mindee.input.url_input_source import URLInputSource
 from mindee.v2.client import Client
+from mindee.v2.error import MindeeAPIV2Error
 from mindee.v2.error.mindee_http_error_v2 import MindeeHTTPErrorV2
 from mindee.v2.parsing import InferenceActiveOptions
 from mindee.v2.product.extraction.extraction_response import ExtractionResponse
 from tests.utils import FILE_TYPES_DIR, V2_PRODUCT_DATA_DIR
-
-
-@pytest.fixture(scope="session")
-def findoc_model_id() -> str:
-    """Identifier of the Financial Document model, supplied through an env var."""
-    return os.getenv("MINDEE_V2_SE_TESTS_FINDOC_MODEL_ID")
 
 
 @pytest.fixture(scope="session")
@@ -339,3 +335,35 @@ def test_custom_httpx_client_event_hook(
 
     assert len(request_urls) > 0
     assert any("enqueue" in url for url in request_urls)
+
+
+@pytest.mark.v2
+@respx.mock
+def test_explicit_timeout_failure(findoc_model_id) -> None:
+    respx.post("https://api-v2.mindee.net/v2/inferences/enqueue").mock(
+        side_effect=httpx.ReadTimeout("Simulated Read Timeout")
+    )
+
+    client = Client(api_key="dummy")
+    input_source = PathInput(FILE_TYPES_DIR / "pdf" / "blank_1.pdf")
+    params = ExtractionParameters(model_id=findoc_model_id)
+
+    with pytest.raises(httpx.ReadTimeout):
+        client.enqueue(input_source, params)
+
+
+@pytest.mark.v2
+@respx.mock
+def test_explicit_500_server_error(findoc_model_id) -> None:
+    respx.post("https://api-v2.mindee.net/v2/inferences/enqueue").mock(
+        return_value=httpx.Response(500, json={"message": "Internal Server Error"})
+    )
+
+    client = Client(api_key="dummy")
+    input_source = PathInput(FILE_TYPES_DIR / "pdf" / "blank_1.pdf")
+    params = ExtractionParameters(model_id=findoc_model_id)
+
+    with pytest.raises(MindeeAPIV2Error) as exc_info:
+        client.enqueue(input_source, params)
+
+    assert exc_info.value.status_code == 500

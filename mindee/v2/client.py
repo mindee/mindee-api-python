@@ -170,3 +170,13 @@ class Client(ClientMixin):
         :return: A list of models matching the provided criteria.
         """
         return self.mindee_api.get_models(name, model_type)
+
+    def close(self) -> None:
+        """Closes the underlying HTTP client."""
+        self.mindee_api.http_client.close()
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.close()

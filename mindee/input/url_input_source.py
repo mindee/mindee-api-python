@@ -212,4 +212,5 @@ class URLInputSource:
                 f"Couldn't retrieve file from server, error code {result.status_code}."
             )
 
+        http_client.close()
         return result.content

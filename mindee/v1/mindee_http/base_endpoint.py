@@ -20,3 +20,13 @@ class BaseEndpoint:
         """
         self.settings = settings
         self.http_client = http_client or httpx.Client()
+
+    def close(self) -> None:
+        """Closes the underlying HTTP client."""
+        self.http_client.close()
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.close()

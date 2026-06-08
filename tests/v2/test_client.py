@@ -30,11 +30,10 @@ def env_client(monkeypatch) -> Client:
 @pytest.fixture
 def custom_base_url_client(monkeypatch) -> Client:
     class _FakePostRespError:
-        status_code = 400  # any non-2xx will do
+        status_code = 400
         is_error = True
 
         def json(self):
-            # Shape must match what handle_error_v2 expects
             return {
                 "status": 0,
                 "code": "000-000",
@@ -157,8 +156,6 @@ def test_enqueue_and_parse_path_with_env_token(custom_base_url_client):
 
 
 def _assert_findoc_inference(response: ExtractionResponse):
-    # There are already detailed tests of the inference object.
-    # Here we are just testing whether the client can load OK.
     assert isinstance(response, ExtractionResponse)
     assert isinstance(response.inference, ExtractionInference)
     assert response.inference.id

@@ -50,6 +50,7 @@ test = [
     "toml~=0.10.2",
     "pytest~=9.0.3",
     "pytest-cov~=7.1.0",
+    "respx~=0.23.1"
 ]
 docs = [
     "sphinx~=9.1.0",
