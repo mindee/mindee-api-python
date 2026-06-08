@@ -38,8 +38,9 @@ class MindeeAPIV2(SettingsMixin):
     """Root of the URL to use for polling."""
     api_key: str | None
     """API Key for the client."""
+    http_client: httpx.Client
 
-    def __init__(self, api_key: str | None):
+    def __init__(self, api_key: str | None, http_client: httpx.Client | None = None):
         self.api_key = (
             api_key
             if api_key
@@ -56,6 +57,7 @@ class MindeeAPIV2(SettingsMixin):
                 f"'{API_KEY_V2_ENV_NAME}' environment variable."
             )
         self.url_root = f"{self.base_url.rstrip('/')}"
+        self.http_client = http_client or httpx.Client()
 
     @property
     def base_headers(self) -> dict[str, str]:
@@ -96,7 +98,7 @@ class MindeeAPIV2(SettingsMixin):
 
         if isinstance(input_source, LocalInputSource):
             files = {"file": input_source.read_contents(params.close_file)}
-            response = httpx.post(
+            response = self.http_client.post(
                 url=url,
                 files=files,
                 headers=self.base_headers,
@@ -105,7 +107,7 @@ class MindeeAPIV2(SettingsMixin):
             )
         elif isinstance(input_source, URLInputSource):
             data["url"] = input_source.url
-            response = httpx.post(
+            response = self.http_client.post(
                 url=url,
                 headers=self.base_headers,
                 data=data,
@@ -121,7 +123,7 @@ class MindeeAPIV2(SettingsMixin):
 
         :param job_id: Job ID, returned by the enqueue request.
         """
-        return httpx.get(
+        return self.http_client.get(
             f"{self.url_root}/v2/jobs/{job_id}",
             headers=self.base_headers,
             timeout=self.request_timeout,
@@ -130,12 +132,13 @@ class MindeeAPIV2(SettingsMixin):
 
     def req_get_inference_by_url(self, url) -> httpx.Response:
         """
-        Sends a request matching a given inference_id. Returns either a Job or a Document.
+        Sends a request matching a given inference_id. Returns either a Job or a
+        Document.
 
         :param url: URL to use for the request.
         :return: Response object from the request.
         """
-        return httpx.get(
+        return self.http_client.get(
             url,
             headers=self.base_headers,
             timeout=self.request_timeout,
@@ -151,7 +154,7 @@ class MindeeAPIV2(SettingsMixin):
         """
 
         url = f"{self.url_root}/v2/{slug}/{inference_id}"
-        return httpx.get(
+        return self.http_client.get(
             url,
             headers=self.base_headers,
             timeout=self.request_timeout,
@@ -168,7 +171,7 @@ class MindeeAPIV2(SettingsMixin):
         :return: Response object containing search results.
         """
         url = f"{self.url_root}/v2/search/models"
-        return httpx.get(
+        return self.http_client.get(
             url,
             headers=self.base_headers,
             params={"name": model_name, "model_type": model_type},
@@ -258,5 +261,6 @@ class MindeeAPIV2(SettingsMixin):
             return response.json()
         except httpx.DecodingError as e:
             raise MindeeHTTPUnknownErrorV2(
-                f"HTTP {response.status_code} response is not valid JSON: {response.text}"
+                f"HTTP {response.status_code} response is not valid JSON: "
+                f"{response.text}"
             ) from e

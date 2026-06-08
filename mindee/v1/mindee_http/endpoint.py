@@ -13,7 +13,12 @@ class Endpoint(BaseEndpoint):
     settings: MindeeAPI
 
     def __init__(
-        self, url_name: str, owner: str, version: str, settings: MindeeAPI
+        self,
+        url_name: str,
+        owner: str,
+        version: str,
+        settings: MindeeAPI,
+        http_client: httpx.Client | None = None,
     ) -> None:
         """
         Generic API endpoint for a product.
@@ -21,8 +26,10 @@ class Endpoint(BaseEndpoint):
         :param owner: owner of the product
         :param url_name: name of the product as it appears in the URL
         :param version: interface version
+        :param settings: settings for the API
+        :param http_client: HTTP client for making requests.
         """
-        super().__init__(settings)
+        super().__init__(settings, http_client)
         self.owner = owner
         self.url_name = url_name
         self.version = version
@@ -42,7 +49,8 @@ class Endpoint(BaseEndpoint):
         :param include_words: Include raw OCR words in the response
         :param close_file: Whether to `close()` the file after parsing it.
         :param cropper: Including Mindee cropping results.
-        :param full_text: Whether to include the full OCR text response in compatible APIs.
+        :param full_text: Whether to include the full OCR text response in compatible
+        APIs.
         :return: httpx response
         """
         return self._custom_request(
@@ -66,7 +74,8 @@ class Endpoint(BaseEndpoint):
         :param include_words: Include raw OCR words in the response
         :param close_file: Whether to `close()` the file after parsing it.
         :param cropper: Including Mindee cropping results.
-        :param full_text: Whether to include the full OCR text response in compatible APIs.
+        :param full_text: Whether to include the full OCR text response in compatible
+        APIs.
         :param workflow_id: Workflow ID.
         :param rag: If set, will enable Retrieval-Augmented Generation.
         :return: httpx response
@@ -112,7 +121,7 @@ class Endpoint(BaseEndpoint):
 
         if isinstance(input_source, URLInputSource):
             data["document"] = input_source.url
-            response = httpx.post(
+            response = self.http_client.post(
                 url=url,
                 headers=self.settings.base_headers,
                 data=data,
@@ -121,7 +130,7 @@ class Endpoint(BaseEndpoint):
             )
         else:
             files = {"document": input_source.read_contents(close_file)}
-            response = httpx.post(
+            response = self.http_client.post(
                 url=url,
                 files=files,
                 headers=self.settings.base_headers,
@@ -138,7 +147,7 @@ class Endpoint(BaseEndpoint):
 
         :param queue_id: queue_id received from the API
         """
-        return httpx.get(
+        return self.http_client.get(
             f"{self.settings.url_root}/documents/queue/{queue_id}",
             headers=self.settings.base_headers,
             timeout=self.settings.request_timeout,
@@ -147,7 +156,7 @@ class Endpoint(BaseEndpoint):
 
     def openapi_get_req(self) -> httpx.Response:
         """Get the OpenAPI specification of the product."""
-        return httpx.get(
+        return self.http_client.get(
             f"{self.settings.url_root}/openapi.json",
             headers=self.settings.base_headers,
             timeout=self.settings.request_timeout,
@@ -163,7 +172,7 @@ class Endpoint(BaseEndpoint):
         :param document_id: ID of the document to send feedback to.
         :param feedback: Feedback object to send.
         """
-        return httpx.put(
+        return self.http_client.put(
             f"{self.settings.base_url}/v1/documents/{document_id}/feedback",
             headers=self.settings.base_headers,
             data=feedback,
@@ -187,7 +196,7 @@ class CustomEndpoint(Endpoint):
         files = {"document": input_source.read_contents(close_file)}
         params = {"training": True, "with_candidates": True}
 
-        response = httpx.post(
+        response = self.http_client.post(
             f"{self.settings.url_root}/predict",
             files=files,
             headers=self.settings.base_headers,
@@ -209,7 +218,7 @@ class CustomEndpoint(Endpoint):
         files = {"document": input_source.read_contents(close_file)}
         params = {"training": True, "async": True}
 
-        response = httpx.post(
+        response = self.http_client.post(
             f"{self.settings.url_root}/predict",
             files=files,
             headers=self.settings.base_headers,
@@ -240,7 +249,7 @@ class CustomEndpoint(Endpoint):
         params = {
             "page": page_id,
         }
-        response = httpx.get(
+        response = self.http_client.get(
             f"{self.settings.url_root}/documents",
             headers=self.settings.base_headers,
             params=params,
@@ -260,7 +269,7 @@ class CustomEndpoint(Endpoint):
             "include_candidates": True,
             "global_orientation": True,
         }
-        response = httpx.get(
+        response = self.http_client.get(
             f"{self.settings.url_root}/documents/{document_id}",
             headers=self.settings.base_headers,
             params=params,
@@ -279,7 +288,7 @@ class CustomEndpoint(Endpoint):
         :param annotations: Annotations object
         :return: httpx response
         """
-        response = httpx.post(
+        response = self.http_client.post(
             f"{self.settings.url_root}/documents/{document_id}/annotations",
             headers=self.settings.base_headers,
             json=annotations,
@@ -297,7 +306,7 @@ class CustomEndpoint(Endpoint):
         :param annotations: Annotations object
         :return: httpx response
         """
-        response = httpx.put(
+        response = self.http_client.put(
             f"{self.settings.url_root}/documents/{document_id}/annotations",
             headers=self.settings.base_headers,
             json=annotations,
@@ -312,7 +321,7 @@ class CustomEndpoint(Endpoint):
         :param document_id: ID of the document to annotate
         :return: httpx response
         """
-        response = httpx.delete(
+        response = self.http_client.delete(
             f"{self.settings.url_root}/documents/{document_id}/annotations",
             headers=self.settings.base_headers,
             timeout=self.settings.request_timeout,

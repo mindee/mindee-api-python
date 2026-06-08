@@ -173,7 +173,14 @@ class URLInputSource:
         return filename
 
     @staticmethod
-    def __make_request(url, auth, headers, redirects, max_redirects) -> bytes:
+    def __make_request(
+        url,
+        auth,
+        headers,
+        redirects,
+        max_redirects,
+        http_client: httpx.Client | None = None,
+    ) -> bytes:
         """
         Makes an HTTP request to the given URL, while following redirections.
 
@@ -185,11 +192,15 @@ class URLInputSource:
         :return: The content of the response.
         :raises MindeeSourceError: If max redirects are exceeded or the request fails.
         """
-        result = httpx.get(url, headers=headers, timeout=120, auth=auth)
+        http_client = http_client or httpx.Client()
+        result = http_client.get(
+            url, headers=headers, timeout=120, auth=auth, follow_redirects=True
+        )
         if 299 < result.status_code < 400:
             if redirects == max_redirects:
                 raise MindeeSourceError(
-                    f"Can't reach URL after {redirects} out of {max_redirects} redirects, "
+                    f"Can't reach URL after {redirects} out of {max_redirects} "
+                    f"redirects, "
                     f"aborting operation."
                 )
             return URLInputSource.__make_request(

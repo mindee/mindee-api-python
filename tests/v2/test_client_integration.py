@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 
+import httpx
 import pytest
 
 from mindee import ExtractionParameters
@@ -306,3 +307,35 @@ def test_data_schema_must_succeed(
     assert response.inference.active_options.data_schema.replace is True
     assert response.inference.result.fields["test_replace"] is not None
     assert response.inference.result.fields["test_replace"].value == "a test value"
+
+
+@pytest.mark.integration
+@pytest.mark.v2
+def test_custom_httpx_client_event_hook(
+    findoc_model_id: str,
+) -> None:
+    request_urls = []
+
+    def log_request(request: httpx.Request):
+        request_urls.append(str(request.url))
+
+    httpx_client = httpx.Client(event_hooks={"request": [log_request]})
+    client = Client(http_client=httpx_client)
+
+    input_path = FILE_TYPES_DIR / "pdf" / "blank_1.pdf"
+    input_source = PathInput(input_path)
+
+    params = ExtractionParameters(
+        model_id=findoc_model_id,
+        rag=False,
+        raw_text=False,
+        polygon=False,
+        confidence=False,
+        webhook_ids=[],
+        alias="py_integration_custom_httpx_client",
+    )
+
+    client.enqueue(input_source, params)
+
+    assert len(request_urls) > 0
+    assert any("enqueue" in url for url in request_urls)

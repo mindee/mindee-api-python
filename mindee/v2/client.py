@@ -1,6 +1,8 @@
 from time import sleep
 from typing import TypeVar
 
+import httpx
+
 from mindee.client_mixin import ClientMixin
 from mindee.client_options.polling_options import PollingOptions
 from mindee.error.mindee_error import MindeeError
@@ -27,14 +29,16 @@ class Client(ClientMixin):
     api_key: str | None
     mindee_api: MindeeAPIV2
 
-    def __init__(self, api_key: str | None = None) -> None:
+    def __init__(
+        self, api_key: str | None = None, http_client: httpx.Client | None = None
+    ) -> None:
         """
         Mindee API Client.
 
         :param api_key: Your API key for all endpoints
         """
         self.api_key = api_key
-        self.mindee_api = MindeeAPIV2(api_key)
+        self.mindee_api = MindeeAPIV2(api_key, http_client)
 
     def enqueue(
         self,

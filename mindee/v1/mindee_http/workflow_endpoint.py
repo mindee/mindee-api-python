@@ -11,14 +11,17 @@ class WorkflowEndpoint(BaseEndpoint):
     """Workflow endpoint."""
 
     settings: WorkflowSettings
+    """Settings object."""
 
-    def __init__(self, settings: WorkflowSettings) -> None:
+    def __init__(
+        self, settings: WorkflowSettings, http_client: httpx.Client | None = None
+    ) -> None:
         """
         Workflow Endpoint.
 
         :param settings: Settings object.
         """
-        super().__init__(settings)
+        super().__init__(settings, http_client)
 
     def workflow_execution_post(
         self,
@@ -50,7 +53,7 @@ class WorkflowEndpoint(BaseEndpoint):
 
         if isinstance(input_source, URLInputSource):
             data["document"] = input_source.url
-            response = httpx.post(
+            response = self.http_client.post(
                 self.settings.url_root,
                 headers=self.settings.base_headers,
                 data=data,
@@ -59,7 +62,7 @@ class WorkflowEndpoint(BaseEndpoint):
             )
         else:
             files = {"document": input_source.read_contents(True)}
-            response = httpx.post(
+            response = self.http_client.post(
                 self.settings.url_root,
                 files=files,
                 headers=self.settings.base_headers,
