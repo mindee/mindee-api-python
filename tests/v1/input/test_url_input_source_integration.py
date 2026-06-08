@@ -21,7 +21,10 @@ def output_file_path():
 
 @pytest.fixture
 def reference_file_path():
-    return "https://github.com/mindee/client-lib-test-data/blob/main/v1/products/invoice_splitter/invoice_5p.pdf?raw=true"
+    ref_path = os.getenv("MINDEE_V2_SE_TESTS_BLANK_PDF_URL")
+    if ref_path is None:
+        raise ValueError("MINDEE_V2_SE_TESTS_BLANK_PDF_URL not set")
+    return ref_path
 
 
 @pytest.mark.integration
@@ -29,8 +32,8 @@ def test_load_local_file(client, reference_file_path):
     url_source = URLInputSource(reference_file_path)
     local_source = url_source.as_local_input_source()
     result = client.parse(InvoiceV4, local_source)
-    assert result.document.n_pages == 5
-    assert result.document.filename == "invoice_5p.pdf"
+    assert result.document.n_pages == 1
+    assert result.document.filename == "blank_1.pdf"
 
 
 @pytest.mark.integration
@@ -38,7 +41,7 @@ def test_custom_file_name(client, reference_file_path):
     url_source = URLInputSource(reference_file_path)
     local_source = url_source.as_local_input_source("customName.pdf")
     result = client.parse(InvoiceV4, local_source)
-    assert result.document.n_pages == 5
+    assert result.document.n_pages == 1
     assert result.document.filename == "customName.pdf"
 
 
@@ -46,7 +49,7 @@ def test_custom_file_name(client, reference_file_path):
 def test_save_file(client, reference_file_path, output_file_path):
     url_source = URLInputSource(reference_file_path)
     url_source.save_to_file(output_file_path)
-    assert os.path.exists(os.path.join(output_file_path, "invoice_5p.pdf"))
+    assert os.path.exists(os.path.join(output_file_path, "blank_1.pdf"))
 
 
 @pytest.mark.integration
@@ -59,4 +62,4 @@ def test_save_file_with_filename(client, reference_file_path, output_file_path):
 @pytest.fixture(autouse=True)
 def cleanup():
     yield
-    cleanup_output_files(["invoice_5p.pdf", "customFileName.pdf"])
+    cleanup_output_files(["blank_1.pdf", "customFileName.pdf"])

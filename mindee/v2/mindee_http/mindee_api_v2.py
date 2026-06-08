@@ -131,6 +131,20 @@ class MindeeAPIV2(SettingsMixin):
             allow_redirects=False,
         )
 
+    def req_get_inference_by_url(self, url) -> requests.Response:
+        """
+        Sends a request matching a given inference_id. Returns either a Job or a Document.
+
+        :param url: URL to use for the request.
+        :return: Response object from the request.
+        """
+        return requests.get(
+            url,
+            headers=self.base_headers,
+            timeout=self.request_timeout,
+            allow_redirects=False,
+        )
+
     def req_get_inference(self, inference_id: str, slug: str) -> requests.Response:
         """
         Sends a request matching a given queue_id. Returns either a Job or a Document.
@@ -207,6 +221,20 @@ class MindeeAPIV2(SettingsMixin):
         :return: The result of the inference.
         """
         response = self.req_get_inference(inference_id, response_type.get_result_slug())
+        dict_response = self._response_json(response)
+        if not is_valid_get_response(response):
+            handle_error_v2(dict_response)
+        return response_type(dict_response)
+
+    def get_result_by_url(self, response_type, url: str):
+        """
+        Get the result of an inference that was previously enqueued by its URL.
+
+        :param response_type: Type of the response to return.
+        :param url: URL of the inference to retrieve.
+        :return: The result of the inference.
+        """
+        response = self.req_get_inference_by_url(url)
         dict_response = self._response_json(response)
         if not is_valid_get_response(response):
             handle_error_v2(dict_response)

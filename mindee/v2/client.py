@@ -13,7 +13,6 @@ from mindee.v2.mindee_http.mindee_api_v2 import MindeeAPIV2
 from mindee.v2.parsing.inference.base_response import BaseResponse
 from mindee.v2.parsing.job.job_response import JobResponse
 from mindee.v2.parsing.search.search_response import SearchResponse
-from mindee.v2.product.extraction.extraction_response import ExtractionResponse
 
 TypeBaseResponse = TypeVar("TypeBaseResponse", bound=BaseResponse)
 
@@ -84,6 +83,18 @@ class Client(ClientMixin):
 
         return self.mindee_api.get_result(response_type, inference_id)
 
+    def get_result_from_url(
+        self, response_type: type[TypeBaseResponse], url: str
+    ) -> TypeBaseResponse:
+        """
+        Get the result of an inference that was previously enqueued by its URL.
+
+        :param response_type: Type of the response to return.
+        :param url: URL of the inference to retrieve.
+        :return: The result of the inference.
+        """
+        return self.mindee_api.get_result_by_url(response_type, url)
+
     def enqueue_and_get_result(
         self,
         response_type: type[TypeBaseResponse],
@@ -123,14 +134,17 @@ class Client(ClientMixin):
                 raise MindeeError(
                     f"Parsing failed for job {job_response.job.id}: {detail}"
                 )
-            if job_response.job.status == CommonStatus.PROCESSED.value:
+            if (
+                job_response.job.status == CommonStatus.PROCESSED.value
+                and job_response.job.result_url
+            ):
                 logger.debug(
                     "Job ID %s completed processing at: %s",
                     job_response.job.id,
                     job_response.job.completed_at,
                 )
-                result = self.get_result(
-                    response_type or ExtractionResponse, job_response.job.id
+                result = self.get_result_from_url(
+                    response_type, job_response.job.result_url
                 )
                 assert isinstance(result, response_type), (
                     f'Invalid response type "{type(result)}"'
