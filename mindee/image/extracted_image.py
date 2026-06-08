@@ -64,11 +64,11 @@ class ExtractedImage:
             else:
                 image.save(resolved_path)
             logger.info("File saved successfully to '%s'.", resolved_path)
-        except TypeError as exc:
-            raise MindeeError("Invalid path/filename provided.") from exc
-        except Exception as exc:
-            print(exc)
-            raise MindeeError(f"Could not save file {Path(output_path).name}.") from exc
+        except TypeError as e:
+            raise MindeeError("Invalid path/filename provided.") from e
+        except Exception as e:
+            print(e)
+            raise MindeeError(f"Could not save file {Path(output_path).name}.") from e
 
     def as_input_source(self) -> FileInput:
         """

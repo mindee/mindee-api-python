@@ -225,8 +225,8 @@ class Client(ClientMixin):
             if local_response.as_dict.get("job"):
                 return AsyncPredictResponse(product_class, local_response.as_dict)
             return PredictResponse(product_class, local_response.as_dict)
-        except KeyError as exc:
-            raise MindeeError("No prediction found in local response.") from exc
+        except KeyError as e:
+            raise MindeeError("No prediction found in local response.") from e
 
     def parse_queued(
         self,

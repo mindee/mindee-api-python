@@ -22,10 +22,10 @@ class ExtractedPDF:
         try:
             pdf = pdfium.PdfDocument(self.pdf_bytes)
             return len(pdf)
-        except Exception as exc:
+        except Exception as e:
             raise MindeeError(
                 "Could not retrieve page count from Extracted PDF object."
-            ) from exc
+            ) from e
 
     def save_to_file(self, output_path: Path | str):
         """

@@ -48,9 +48,9 @@ class LocalInputSource:
             try:
                 pdf = pdfium.PdfDocument(self.file_object)
                 self.page_count = len(pdf)
-            except pdfium.PdfiumError as exc:
+            except pdfium.PdfiumError as e:
                 logger.warning(
-                    "Could not open PDF file: %s due to %s", self.filename, exc
+                    "Could not open PDF file: %s due to %s", self.filename, e
                 )
                 self.page_count = 0
             self.file_object.seek(0)
@@ -106,11 +106,11 @@ class LocalInputSource:
                     f"PDF couldn't be fixed. PDF tag was found at position {pos}."
                 )
             self.file_mimetype = "application/pdf"
-        except MimeTypeError as exc:
-            raise exc
-        except Exception as exc:
-            logger.error("Attempt to fix pdf raised exception %s.", exc)
-            raise exc
+        except MimeTypeError as e:
+            raise e
+        except Exception as e:
+            logger.error("Attempt to fix pdf raised exception %s.", e)
+            raise e
 
     def is_pdf(self) -> bool:
         """:return: True if the file is a PDF."""

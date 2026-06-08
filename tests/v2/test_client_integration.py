@@ -182,10 +182,10 @@ def test_invalid_uuid_must_throw_error(v2_client: Client) -> None:
         model_id="INVALID MODEL ID", text_context="ignore this message"
     )
 
-    with pytest.raises(MindeeHTTPErrorV2) as exc_info:
+    with pytest.raises(MindeeHTTPErrorV2) as e:
         v2_client.enqueue(input_source, params)
 
-    exc: MindeeHTTPErrorV2 = exc_info.value
+    exc: MindeeHTTPErrorV2 = e.value
     assert exc.status == 422
     assert exc.title is not None
     assert exc.code.startswith("422-")
@@ -203,10 +203,10 @@ def test_unknown_model_must_throw_error(v2_client: Client) -> None:
     input_source = PathInput(input_path)
     params = ExtractionParameters(model_id="fc405e37-4ba4-4d03-aeba-533a8d1f0f21")
 
-    with pytest.raises(MindeeHTTPErrorV2) as exc_info:
+    with pytest.raises(MindeeHTTPErrorV2) as e:
         v2_client.enqueue(input_source, params)
 
-    exc: MindeeHTTPErrorV2 = exc_info.value
+    exc: MindeeHTTPErrorV2 = e.value
     assert exc.status == 404
     assert exc.title is not None
     assert exc.code.startswith("404-")
@@ -236,10 +236,10 @@ def test_unknown_webhook_ids_must_throw_error(
         confidence=None,
     )
 
-    with pytest.raises(MindeeHTTPErrorV2) as exc_info:
+    with pytest.raises(MindeeHTTPErrorV2) as e:
         v2_client.enqueue(input_source, params)
 
-    exc: MindeeHTTPErrorV2 = exc_info.value
+    exc: MindeeHTTPErrorV2 = e.value
     assert exc.status == 422
     assert exc.title is not None
     assert exc.code.startswith("422-")

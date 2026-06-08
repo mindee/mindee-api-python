@@ -39,10 +39,7 @@ class MindeeAPIV2(SettingsMixin):
     api_key: str | None
     """API Key for the client."""
 
-    def __init__(
-        self,
-        api_key: str | None,
-    ):
+    def __init__(self, api_key: str | None):
         self.api_key = (
             api_key
             if api_key
@@ -259,7 +256,7 @@ class MindeeAPIV2(SettingsMixin):
     def _response_json(response: httpx.Response) -> StringDict:
         try:
             return response.json()
-        except httpx.DecodingError as exc:
+        except httpx.DecodingError as e:
             raise MindeeHTTPUnknownErrorV2(
                 f"HTTP {response.status_code} response is not valid JSON: {response.text}"
-            ) from exc
+            ) from e
