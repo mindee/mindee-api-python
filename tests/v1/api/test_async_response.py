@@ -1,7 +1,7 @@
 import json
 
+import httpx
 import pytest
-import requests
 
 from mindee.input.path_input import PathInput
 from mindee.mindee_http.response_validation import is_valid_async_response
@@ -20,9 +20,9 @@ FILE_PATH_GET_COMPLETED = ASYNC_DIR / "get_completed.json"
 FILE_PATH_GET_FAILED_JOB = ASYNC_DIR / "get_failed_job_error.json"
 
 
-class FakeResponse(requests.Response):
+class FakeResponse(httpx.Response):
     def __init__(self, json_data, _status_code=200):
-        super().__init__()
+        super().__init__(status_code=_status_code)
         self._json_data = json_data
         self.status_code = _status_code
         self._ok = True

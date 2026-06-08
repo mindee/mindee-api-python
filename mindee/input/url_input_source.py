@@ -5,7 +5,7 @@ from datetime import datetime
 from pathlib import Path
 from urllib.parse import urlparse
 
-import requests
+import httpx
 
 from mindee.error.mindee_error import MindeeSourceError
 from mindee.input.bytes_input import BytesInput
@@ -153,7 +153,7 @@ class URLInputSource:
         :return: The lowercase file extension or None if not found.
         """
         ext = os.path.splitext(filename)[1]
-        return ext.lower() if ext else None
+        return str(ext).lower() if ext else None
 
     def __fill_filename(self, filename=None) -> str:
         """
@@ -167,7 +167,7 @@ class URLInputSource:
 
         if not filename or not os.path.splitext(filename)[1]:
             filename = self.__generate_file_name(
-                extension=URLInputSource.__get_file_extension(filename)
+                extension=URLInputSource.__get_file_extension(filename) or ""
             )
 
         return filename
@@ -185,7 +185,7 @@ class URLInputSource:
         :return: The content of the response.
         :raises MindeeSourceError: If max redirects are exceeded or the request fails.
         """
-        result = requests.get(url, headers=headers, timeout=120, auth=auth)
+        result = httpx.get(url, headers=headers, timeout=120, auth=auth)
         if 299 < result.status_code < 400:
             if redirects == max_redirects:
                 raise MindeeSourceError(
@@ -193,7 +193,7 @@ class URLInputSource:
                     f"aborting operation."
                 )
             return URLInputSource.__make_request(
-                redirects.location, auth, headers, redirects + 1, max_redirects
+                result.headers["Location"], auth, headers, redirects + 1, max_redirects
             )
 
         if result.status_code >= 400 or result.status_code < 200:

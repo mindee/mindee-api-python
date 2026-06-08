@@ -1,4 +1,4 @@
-import requests
+import httpx
 
 from mindee.input.local_input_source import LocalInputSource
 from mindee.input.url_input_source import URLInputSource
@@ -50,7 +50,7 @@ class WorkflowEndpoint(BaseEndpoint):
 
         if isinstance(input_source, URLInputSource):
             data["document"] = input_source.url
-            response = requests.post(
+            response = httpx.post(
                 self.settings.url_root,
                 headers=self.settings.base_headers,
                 data=data,
@@ -59,7 +59,7 @@ class WorkflowEndpoint(BaseEndpoint):
             )
         else:
             files = {"document": input_source.read_contents(True)}
-            response = requests.post(
+            response = httpx.post(
                 self.settings.url_root,
                 files=files,
                 headers=self.settings.base_headers,

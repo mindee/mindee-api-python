@@ -53,8 +53,8 @@ class LocalResponse:
         try:
             self._file.seek(0)
             out_json = json.loads(self._file.read())
-        except json.decoder.JSONDecodeError as exc:
-            raise MindeeError("File is not a valid dictionary.") from exc
+        except json.decoder.JSONDecodeError as e:
+            raise MindeeError("File is not a valid dictionary.") from e
         return out_json
 
     @staticmethod
@@ -87,8 +87,8 @@ class LocalResponse:
                 self._file.read(),
                 algorithm,
             )
-        except (TypeError, ValueError) as exc:
-            raise MindeeError("Could not get HMAC signature from payload.") from exc
+        except (TypeError, ValueError) as e:
+            raise MindeeError("Could not get HMAC signature from payload.") from e
 
         return mac.hexdigest()
 
@@ -114,5 +114,5 @@ class LocalResponse:
         """
         try:
             return response_class(self.as_dict)
-        except KeyError as exc:
-            raise MindeeError("Invalid class specified for deserialization.") from exc
+        except KeyError as e:
+            raise MindeeError("Invalid class specified for deserialization.") from e

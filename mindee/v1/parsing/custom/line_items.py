@@ -96,8 +96,8 @@ def prepare(
     lines_prepared: list[CustomLine] = []
     try:
         anchor_field: ListField = fields[anchor_name]
-    except KeyError as exc:
-        raise MindeeError("No lines have been detected.") from exc
+    except KeyError as e:
+        raise MindeeError("No lines have been detected.") from e
 
     current_line_number: int = 1
     current_line = CustomLine(current_line_number)
