@@ -1,6 +1,7 @@
 import json
 import os
 
+import httpx
 import pytest
 
 from mindee import ExtractionParameters, ExtractionResponse, LocalResponse
@@ -30,7 +31,7 @@ def env_client(monkeypatch) -> Client:
 def custom_base_url_client(monkeypatch) -> Client:
     class _FakePostRespError:
         status_code = 400  # any non-2xx will do
-        ok = False
+        is_error = True
 
         def json(self):
             # Shape must match what handle_error_v2 expects
@@ -43,7 +44,7 @@ def custom_base_url_client(monkeypatch) -> Client:
 
     class _FakeOkProcessingJobResp:
         status_code = 200
-        ok = True
+        is_error = False
 
         def json(self):
             data_file = V2_DATA_DIR / "job" / "ok_processing.json"
@@ -59,7 +60,7 @@ def custom_base_url_client(monkeypatch) -> Client:
 
     class _FakeOkGetInferenceResp:
         status_code = 200
-        ok = True
+        is_error = False
 
         def json(self):
             data_file = (
@@ -213,11 +214,11 @@ def test_error_handling(custom_base_url_client):
 def test_error_handling_non_json_response(env_client, monkeypatch):
     class _FakeHtmlRespError:
         status_code = 502
-        ok = False
+        is_error = True
         text = "<html><head><title>502 Bad Gateway</title></head></html>"
 
         def json(self):
-            raise ValueError("Expecting value")
+            raise httpx.DecodingError("Expecting value")
 
     def _fake_error_post_inference_enqueue(*args, **kwargs):
         return _FakeHtmlRespError()

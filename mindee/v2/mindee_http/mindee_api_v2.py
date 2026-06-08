@@ -1,6 +1,6 @@
 import os
 
-import requests
+import httpx
 
 from mindee.input.local_input_source import LocalInputSource
 from mindee.input.url_input_source import URLInputSource
@@ -85,21 +85,21 @@ class MindeeAPIV2(SettingsMixin):
         input_source: LocalInputSource | URLInputSource,
         params: BaseParameters,
         slug: str,
-    ) -> requests.Response:
+    ) -> httpx.Response:
         """
         Make an asynchronous request to POST a document for prediction on the V2 API.
 
         :param input_source: Input object.
         :param params: Options for the enqueueing of the document.
         :param slug: Slug to use for the enqueueing, defaults to 'inferences'.
-        :return: requests response.
+        :return: httpx response.
         """
         data = params.get_form_data()
         url = f"{self.url_root}/v2/{slug}/enqueue"
 
         if isinstance(input_source, LocalInputSource):
             files = {"file": input_source.read_contents(params.close_file)}
-            response = requests.post(
+            response = httpx.post(
                 url=url,
                 files=files,
                 headers=self.base_headers,
@@ -108,7 +108,7 @@ class MindeeAPIV2(SettingsMixin):
             )
         elif isinstance(input_source, URLInputSource):
             data["url"] = input_source.url
-            response = requests.post(
+            response = httpx.post(
                 url=url,
                 headers=self.base_headers,
                 data=data,
@@ -118,34 +118,34 @@ class MindeeAPIV2(SettingsMixin):
             raise MindeeAPIV2Error("Invalid input source.")
         return response
 
-    def req_get_job(self, job_id: str) -> requests.Response:
+    def req_get_job(self, job_id: str) -> httpx.Response:
         """
         Sends a request matching a given queue_id. Returns either a Job or a Document.
 
         :param job_id: Job ID, returned by the enqueue request.
         """
-        return requests.get(
+        return httpx.get(
             f"{self.url_root}/v2/jobs/{job_id}",
             headers=self.base_headers,
             timeout=self.request_timeout,
-            allow_redirects=False,
+            follow_redirects=False,
         )
 
-    def req_get_inference_by_url(self, url) -> requests.Response:
+    def req_get_inference_by_url(self, url) -> httpx.Response:
         """
         Sends a request matching a given inference_id. Returns either a Job or a Document.
 
         :param url: URL to use for the request.
         :return: Response object from the request.
         """
-        return requests.get(
+        return httpx.get(
             url,
             headers=self.base_headers,
             timeout=self.request_timeout,
-            allow_redirects=False,
+            follow_redirects=False,
         )
 
-    def req_get_inference(self, inference_id: str, slug: str) -> requests.Response:
+    def req_get_inference(self, inference_id: str, slug: str) -> httpx.Response:
         """
         Sends a request matching a given queue_id. Returns either a Job or a Document.
 
@@ -154,16 +154,16 @@ class MindeeAPIV2(SettingsMixin):
         """
 
         url = f"{self.url_root}/v2/{slug}/{inference_id}"
-        return requests.get(
+        return httpx.get(
             url,
             headers=self.base_headers,
             timeout=self.request_timeout,
-            allow_redirects=False,
+            follow_redirects=False,
         )
 
     def req_get_search_models(
         self, model_name: str | None, model_type: str | None
-    ) -> requests.Response:
+    ) -> httpx.Response:
         """
         Searches for a list of models matching criteria.
         :param model_name: Name pattern to search for.
@@ -171,7 +171,7 @@ class MindeeAPIV2(SettingsMixin):
         :return: Response object containing search results.
         """
         url = f"{self.url_root}/v2/search/models"
-        return requests.get(
+        return httpx.get(
             url,
             headers=self.base_headers,
             params={"name": model_name, "model_type": model_type},
@@ -256,10 +256,10 @@ class MindeeAPIV2(SettingsMixin):
         return SearchResponse(dict_response)
 
     @staticmethod
-    def _response_json(response: requests.Response) -> StringDict:
+    def _response_json(response: httpx.Response) -> StringDict:
         try:
             return response.json()
-        except ValueError as exc:
+        except httpx.DecodingError as exc:
             raise MindeeHTTPUnknownErrorV2(
                 f"HTTP {response.status_code} response is not valid JSON: {response.text}"
             ) from exc

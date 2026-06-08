@@ -35,8 +35,7 @@ repos:
         args: []
         exclude: "tests/|examples/|docs/"
         additional_dependencies:
-          - toml
-          - types-requests
+          - httpx
           - types-setuptools
           - importlib-metadata
           - types-Pillow

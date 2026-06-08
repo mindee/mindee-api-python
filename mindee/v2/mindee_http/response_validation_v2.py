@@ -1,11 +1,9 @@
-import json
-
-import requests
+import httpx
 
 from mindee.mindee_http import is_valid_sync_response
 
 
-def is_valid_post_response(response: requests.Response) -> bool:
+def is_valid_post_response(response: httpx.Response) -> bool:
     """
     Checks if the POST response is valid and of the expected format.
 
@@ -14,13 +12,13 @@ def is_valid_post_response(response: requests.Response) -> bool:
     """
     if not is_valid_sync_response(response):
         return False
-    response_json = json.loads(response.content)
+    response_json = response.json()
     if "job" not in response_json:
         return False
     return "job" in response_json and not response_json["job"].get("error")
 
 
-def is_valid_get_response(response: requests.Response) -> bool:
+def is_valid_get_response(response: httpx.Response) -> bool:
     """
     Checks if the GET response is valid and of the expected format.
 
@@ -29,7 +27,7 @@ def is_valid_get_response(response: requests.Response) -> bool:
     """
     if not is_valid_sync_response(response):
         return False
-    response_json = json.loads(response.content)
+    response_json = response.json()
     return (
         "inference" in response_json
         or "job" in response_json

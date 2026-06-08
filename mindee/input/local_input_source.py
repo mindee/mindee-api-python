@@ -109,7 +109,7 @@ class LocalInputSource:
         except MimeTypeError as exc:
             raise exc
         except Exception as exc:
-            print(f"Attempt to fix pdf raised exception {exc}.")
+            logger.error("Attempt to fix pdf raised exception %s.", exc)
             raise exc
 
     def is_pdf(self) -> bool:

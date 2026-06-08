@@ -1,31 +1,34 @@
 import json
 
-import requests
+import httpx
 
 from mindee.parsing.common import StringDict
 
 
-def is_valid_sync_response(response: requests.Response) -> bool:
+def is_valid_sync_response(response: httpx.Response) -> bool:
     """
     Checks if the synchronous response is valid. Returns True if the response is valid.
 
     :param response: a requests response object.
     :return: bool
     """
-    if not response or not response.ok:
+    if not response or response.is_error:
         return False
-    response_json = json.loads(response.content)
+    try:
+        response_json = response.json()
+    except httpx.DecodingError:
+        return False
     # EXTREMELY rare edge case where raw html is sent instead of json.
     return isinstance(response_json, dict)
 
 
-def is_valid_async_response(response: requests.Response) -> bool:
+def is_valid_async_response(response: httpx.Response) -> bool:
     """
     Checks if the asynchronous response is valid. Also checks if it is a valid synchronous response.
 
     Returns True if the response is valid.
 
-    :param response: a requests response object.
+    :param response: an httpx response object.
     :return: bool
     """
     if not is_valid_sync_response(response):
@@ -43,7 +46,7 @@ def is_valid_async_response(response: requests.Response) -> bool:
     return False
 
 
-def clean_request_json(response: requests.Response) -> StringDict:
+def clean_request_json(response: httpx.Response) -> StringDict:
     """
     Checks and correct the response error format depending on the two possible kind of returns.
 
@@ -51,7 +54,7 @@ def clean_request_json(response: requests.Response) -> StringDict:
     :return: Returns the job error if the error is due to parsing, returns the http error otherwise.
     """
     response_json = response.json()
-    if response.status_code < 200 or response.status_code > 302:
+    if response.is_error:
         response_json["status_code"] = response.status_code
         return response_json
     corrected_json = response_json
