@@ -185,6 +185,15 @@ def test_get_inference(custom_base_url_client):
 
 
 @pytest.mark.v2
+def test_get_inference_by_url(custom_base_url_client):
+    response = custom_base_url_client.get_result(
+        ExtractionResponse,
+        "https://api-v2.mindee.net/v2/inference/12345678-1234-1234-1234-123456789ABC",
+    )
+    _assert_findoc_inference(response)
+
+
+@pytest.mark.v2
 def test_error_handling(custom_base_url_client):
     with pytest.raises(MindeeHTTPErrorV2) as e:
         custom_base_url_client.enqueue(
