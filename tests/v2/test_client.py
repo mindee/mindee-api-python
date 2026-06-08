@@ -258,3 +258,13 @@ def test_queue_get(custom_base_url_client):
     assert not response.job.result_url
     assert len(response.job.webhooks) == 0
     assert not response.job.error
+
+
+@pytest.mark.v2
+def test_client_closes_httpx_connections() -> None:
+    client = Client(api_key="dummy_key")
+    client.close()
+    with pytest.raises(
+        RuntimeError, match=r"Cannot send a request, as the client has been closed\."
+    ):
+        client.mindee_api.http_client.get("https://google.com")
