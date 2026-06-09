@@ -3,7 +3,7 @@ class SettingsMixin:
 
     base_url: str
     """Base URL for all V2 requests."""
-    request_timeout: int
+    request_timeout: float
     """Timeout for all requests."""
 
     def set_timeout(self, value: str | int) -> None:

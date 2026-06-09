@@ -1,3 +1,5 @@
+from collections.abc import Callable
+
 import httpx
 
 from mindee.input.local_input_source import LocalInputSource
@@ -51,17 +53,23 @@ class WorkflowEndpoint(BaseEndpoint):
             params["full_text_ocr"] = "true"
         if options.rag:
             params["rag"] = "true"
-        post_kwargs: StringDict = {
-            "headers": self.settings.base_headers,
-            "params": params,
-            "timeout": self.settings.request_timeout,
-        }
-
+        post_kwargs: StringDict = {}
+        files = None
         if isinstance(input_source, URLInputSource):
             data["document"] = input_source.url
         else:
-            post_kwargs["files"] = {"document": input_source.read_contents(True)}
-        post_kwargs["data"] = data
+            files = {"document": input_source.read_contents(True)}
+        post_caller: Callable
         if self.http_client is None or self.http_client.is_closed:
-            return httpx.post(self.settings.url_root, **post_kwargs)
-        return self.http_client.post(self.settings.url_root, **post_kwargs)
+            post_caller = httpx.post
+            post_kwargs["timeout"] = self.settings.request_timeout
+        else:
+            post_caller = self.http_client.post
+        return post_caller(
+            self.settings.url_root,
+            headers=self.settings.base_headers,
+            data=data,
+            params=params,
+            files=files,
+            **post_kwargs,
+        )

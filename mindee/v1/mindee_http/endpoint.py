@@ -1,3 +1,5 @@
+from collections.abc import Callable
+
 import httpx
 
 from mindee.input.local_input_source import LocalInputSource
@@ -114,12 +116,7 @@ class Endpoint(BaseEndpoint):
         if rag:
             params["rag"] = "true"
 
-        post_kwargs: StringDict = {
-            "headers": self.settings.base_headers,
-            "data": data,
-            "params": params,
-            "timeout": self.settings.request_timeout,
-        }
+        post_kwargs: StringDict = {}
 
         if workflow_id:
             url = f"{self.settings.base_url}/v1/workflows/{workflow_id}/{route}"
@@ -130,9 +127,19 @@ class Endpoint(BaseEndpoint):
             data["document"] = input_source.url
         else:
             post_kwargs["files"] = {"document": input_source.read_contents(close_file)}
+        post_caller: Callable
         if self.http_client is None or self.http_client.is_closed:
-            return httpx.post(url, **post_kwargs)
-        return self.http_client.post(url, **post_kwargs)
+            post_caller = httpx.post
+            post_kwargs["timeout"] = self.settings.request_timeout
+        else:
+            post_caller = self.http_client.post
+        return post_caller(
+            url,
+            headers=self.settings.base_headers,
+            data=data,
+            params=params,
+            **post_kwargs,
+        )
 
     def document_queue_req_get(self, queue_id: str) -> httpx.Response:
         """
@@ -140,27 +147,30 @@ class Endpoint(BaseEndpoint):
 
         :param queue_id: queue_id received from the API
         """
-        url = f"{self.settings.url_root}/documents/queue/{queue_id}"
-        get_kwargs: StringDict = {
-            "headers": self.settings.base_headers,
-            "timeout": self.settings.request_timeout,
-            "follow_redirects": True,
-        }
+        get_kwargs: StringDict = {"follow_redirects": True}
+        get_caller: Callable
         if self.http_client is None or self.http_client.is_closed:
-            return httpx.get(url, **get_kwargs)
-        return self.http_client.get(url, **get_kwargs)
+            get_caller = httpx.get
+            get_kwargs["timeout"] = self.settings.request_timeout
+        else:
+            get_caller = self.http_client.get
+        return get_caller(
+            url=f"{self.settings.url_root}/documents/queue/{queue_id}",
+            headers=self.settings.base_headers,
+            **get_kwargs,
+        )
 
     def openapi_get_req(self) -> httpx.Response:
         """Get the OpenAPI specification of the product."""
         url = f"{self.settings.url_root}/openapi.json"
-        get_kwargs: StringDict = {
-            "headers": self.settings.base_headers,
-            "timeout": self.settings.request_timeout,
-            "follow_redirects": True,
-        }
+        get_kwargs: StringDict = {}
+        get_caller: Callable
         if self.http_client is None or self.http_client.is_closed:
-            return httpx.get(url, **get_kwargs)
-        return self.http_client.get(url, **get_kwargs)
+            get_caller = httpx.get
+            get_kwargs["timeout"] = self.settings.request_timeout
+        else:
+            get_caller = self.http_client.get
+        return get_caller(url, headers=self.settings.base_headers, **get_kwargs)
 
     def document_feedback_req_put(
         self, document_id: str, feedback: StringDict
@@ -171,15 +181,19 @@ class Endpoint(BaseEndpoint):
         :param document_id: ID of the document to send feedback to.
         :param feedback: Feedback object to send.
         """
-        url = f"{self.settings.url_root}/documents/{document_id}/feedback"
-        put_kwargs: StringDict = {
-            "headers": self.settings.base_headers,
-            "data": feedback,
-            "timeout": self.settings.request_timeout,
-        }
+        put_kwargs: StringDict = {"follow_redirects": True}
+        put_caller: Callable
         if self.http_client is None or self.http_client.is_closed:
-            return httpx.put(url, **put_kwargs)
-        return self.http_client.put(url, **put_kwargs)
+            put_caller = httpx.put
+            put_kwargs["timeout"] = self.settings.request_timeout
+        else:
+            put_caller = self.http_client.put
+        return put_caller(
+            url=f"{self.settings.url_root}/documents/{document_id}/feedback",
+            headers=self.settings.base_headers,
+            data=feedback,
+            **put_kwargs,
+        )
 
 
 class CustomEndpoint(Endpoint):
@@ -195,16 +209,20 @@ class CustomEndpoint(Endpoint):
         :return: httpx response
         :param close_file: Whether to `close()` the file after parsing it.
         """
-        url = f"{self.settings.url_root}/predict"
-        post_kwargs: StringDict = {
-            "files": {"document": input_source.read_contents(close_file)},
-            "headers": self.settings.base_headers,
-            "params": {"training": True, "with_candidates": True},
-            "timeout": self.settings.request_timeout,
-        }
+        post_kwargs: StringDict = {"follow_redirects": True}
+        post_caller: Callable
         if self.http_client is None or self.http_client.is_closed:
-            return httpx.post(url, **post_kwargs)
-        return self.http_client.post(url, **post_kwargs)
+            post_caller = httpx.post
+            post_kwargs["timeout"] = self.settings.request_timeout
+        else:
+            post_caller = self.http_client.post
+        return post_caller(
+            url=f"{self.settings.url_root}/predict",
+            headers=self.settings.base_headers,
+            files={"document": input_source.read_contents(close_file)},
+            params={"training": True, "with_candidates": True},
+            **post_kwargs,
+        )
 
     def training_async_req_post(
         self, input_source: LocalInputSource, close_file: bool = True
@@ -216,16 +234,20 @@ class CustomEndpoint(Endpoint):
         :return: httpx response
         :param close_file: Whether to `close()` the file after parsing it.
         """
-        url = f"{self.settings.url_root}/predict"
-        post_kwargs: StringDict = {
-            "files": {"document": input_source.read_contents(close_file)},
-            "headers": self.settings.base_headers,
-            "params": {"training": True, "async": True},
-            "timeout": self.settings.request_timeout,
-        }
+        post_kwargs: StringDict = {"follow_redirects": True}
+        post_caller: Callable
         if self.http_client is None or self.http_client.is_closed:
-            return httpx.post(url, **post_kwargs)
-        return self.http_client.post(url, **post_kwargs)
+            post_caller = httpx.post
+            post_kwargs["timeout"] = self.settings.request_timeout
+        else:
+            post_caller = self.http_client.post
+        return post_caller(
+            url=f"{self.settings.url_root}/predict",
+            headers=self.settings.base_headers,
+            files={"document": input_source.read_contents(close_file)},
+            params={"training": True, "async": True},
+            **post_kwargs,
+        )
 
     def document_req_del(self, document_id: str) -> httpx.Response:
         """
@@ -233,14 +255,19 @@ class CustomEndpoint(Endpoint):
 
         :param document_id: ID of the document
         """
-        url = f"{self.settings.url_root}/documents/{document_id}"
-        delete_kwargs: StringDict = {
-            "headers": self.settings.base_headers,
-            "timeout": self.settings.request_timeout,
-        }
+
+        delete_kwargs: StringDict = {"follow_redirects": True}
+        delete_caller: Callable
         if self.http_client is None or self.http_client.is_closed:
-            return httpx.delete(url, **delete_kwargs)
-        return httpx.delete(url, **delete_kwargs)
+            delete_caller = httpx.delete
+            delete_kwargs["timeout"] = self.settings.request_timeout
+        else:
+            delete_caller = self.http_client.delete
+        return delete_caller(
+            url=f"{self.settings.url_root}/documents/{document_id}",
+            headers=self.settings.base_headers,
+            **delete_kwargs,
+        )
 
     def documents_req_get(self, page_id: int = 1) -> httpx.Response:
         """
@@ -248,18 +275,21 @@ class CustomEndpoint(Endpoint):
 
         :param page_id: Page number
         """
-        url = f"{self.settings.url_root}/documents"
-        get_kwargs: StringDict = {
-            "headers": self.settings.base_headers,
-            "params": {
+        get_kwargs: StringDict = {"follow_redirects": True}
+        get_caller: Callable
+        if self.http_client is None or self.http_client.is_closed:
+            get_caller = httpx.get
+            get_kwargs["timeout"] = self.settings.request_timeout
+        else:
+            get_caller = self.http_client.get
+        return get_caller(
+            url=f"{self.settings.url_root}/documents",
+            headers=self.settings.base_headers,
+            params={
                 "page": page_id,
             },
-            "timeout": self.settings.request_timeout,
-            "follow_redirects": True,
-        }
-        if self.http_client is None or self.http_client.is_closed:
-            return httpx.get(url, **get_kwargs)
-        return self.http_client.get(url, **get_kwargs)
+            **get_kwargs,
+        )
 
     def document_req_get(self, document_id: str) -> httpx.Response:
         """
@@ -267,20 +297,25 @@ class CustomEndpoint(Endpoint):
 
         :param document_id: ID of the document
         """
-        url = f"{self.settings.url_root}/documents/{document_id}"
         get_kwargs: StringDict = {
-            "headers": self.settings.base_headers,
-            "params": {
+            "follow_redirects": True,
+        }
+        get_caller: Callable
+        if self.http_client is None or self.http_client.is_closed:
+            get_caller = httpx.get
+            get_kwargs["timeout"] = self.settings.request_timeout
+        else:
+            get_caller = self.http_client.get
+        return get_caller(
+            url=f"{self.settings.url_root}/documents/{document_id}",
+            headers=self.settings.base_headers,
+            params={
                 "include_annotations": True,
                 "include_candidates": True,
                 "global_orientation": True,
             },
-            "timeout": self.settings.request_timeout,
-            "follow_redirects": True,
-        }
-        if self.http_client is None or self.http_client.is_closed:
-            return httpx.get(url, **get_kwargs)
-        return self.http_client.get(url, **get_kwargs)
+            **get_kwargs,
+        )
 
     def annotations_req_post(
         self, document_id: str, annotations: dict
@@ -292,15 +327,21 @@ class CustomEndpoint(Endpoint):
         :param annotations: Annotations object
         :return: httpx response
         """
-        url = f"{self.settings.url_root}/documents/{document_id}/annotations"
         post_kwargs: StringDict = {
-            "headers": self.settings.base_headers,
-            "json": annotations,
-            "timeout": self.settings.request_timeout,
+            "follow_redirects": True,
         }
+        post_caller: Callable
         if self.http_client is None or self.http_client.is_closed:
-            return httpx.post(url, **post_kwargs)
-        return self.http_client.post(url, **post_kwargs)
+            post_caller = httpx.post
+            post_kwargs["timeout"] = self.settings.request_timeout
+        else:
+            post_caller = self.http_client.post
+        return post_caller(
+            url=f"{self.settings.url_root}/documents/{document_id}/annotations",
+            headers=self.settings.base_headers,
+            json=annotations,
+            **post_kwargs,
+        )
 
     def annotations_req_put(
         self, document_id: str, annotations: dict
@@ -312,15 +353,19 @@ class CustomEndpoint(Endpoint):
         :param annotations: Annotations object
         :return: httpx response
         """
-        url = f"{self.settings.url_root}/documents/{document_id}/annotations"
-        put_kwargs: StringDict = {
-            "headers": self.settings.base_headers,
-            "json": annotations,
-            "timeout": self.settings.request_timeout,
-        }
+        put_kwargs: StringDict = {"follow_redirects": True}
+        put_caller: Callable
         if self.http_client is None or self.http_client.is_closed:
-            return httpx.put(url, **put_kwargs)
-        return self.http_client.put(url, **put_kwargs)
+            put_caller = httpx.put
+            put_kwargs["timeout"] = self.settings.request_timeout
+        else:
+            put_caller = self.http_client.put
+        return put_caller(
+            url=f"{self.settings.url_root}/documents/{document_id}/annotations",
+            headers=self.settings.base_headers,
+            json=annotations,
+            **put_kwargs,
+        )
 
     def annotations_req_del(self, document_id: str) -> httpx.Response:
         """
@@ -329,11 +374,15 @@ class CustomEndpoint(Endpoint):
         :param document_id: ID of the document to annotate
         :return: httpx response
         """
-        url = f"{self.settings.url_root}/documents/{document_id}/annotations"
-        delete_kwargs: StringDict = {
-            "headers": self.settings.base_headers,
-            "timeout": self.settings.request_timeout,
-        }
+        delete_kwargs: StringDict = {"follow_redirects": True}
+        delete_caller: Callable
         if self.http_client is None or self.http_client.is_closed:
-            return httpx.delete(url, **delete_kwargs)
-        return self.http_client.delete(url, **delete_kwargs)
+            delete_caller = httpx.delete
+            delete_kwargs["timeout"] = self.settings.request_timeout
+        else:
+            delete_caller = self.http_client.delete
+        return delete_caller(
+            url=f"{self.settings.url_root}/documents/{document_id}/annotations",
+            headers=self.settings.base_headers,
+            **delete_kwargs,
+        )

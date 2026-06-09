@@ -307,3 +307,34 @@ def test_httpx_multiple_calls_thread_safety() -> None:
                 successful_responses += 1
 
     assert successful_responses == thread_count
+
+
+@pytest.mark.v2
+@respx.mock
+def test_explicit_timeout_failure(findoc_model_id) -> None:
+    respx.post("https://api-v2.mindee.net/v2/inferences/enqueue").mock(
+        side_effect=httpx.ReadTimeout("Simulated Read Timeout")
+    )
+
+    client = Client(api_key="dummy")
+    input_source = PathInput(FILE_TYPES_DIR / "pdf" / "blank_1.pdf")
+    params = ExtractionParameters(model_id=findoc_model_id)
+
+    with pytest.raises(httpx.ReadTimeout):
+        client.enqueue(input_source, params)
+
+
+@pytest.mark.v2
+@respx.mock
+def test_explicit_500_server_error(findoc_model_id: str) -> None:
+    respx.post(re.compile(r"https://api-v2\.mindee\.net/v2/.+/enqueue")).mock(
+        return_value=httpx.Response(500, json={"message": "Internal Server Error"})
+    )
+
+    client = Client(api_key="dummy")
+    input_source = PathInput(FILE_TYPES_DIR / "pdf" / "blank_1.pdf")
+    params = ExtractionParameters(model_id=findoc_model_id)
+    with pytest.raises(MindeeHTTPUnknownErrorV2) as exc_info:
+        client.enqueue(input_source, params)
+
+    assert "Couldn't deserialize server error" in str(exc_info.value)

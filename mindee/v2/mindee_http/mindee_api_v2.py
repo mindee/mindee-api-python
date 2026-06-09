@@ -1,4 +1,6 @@
 import os
+from collections.abc import Callable
+from typing import TypeVar
 
 import httpx
 
@@ -18,6 +20,7 @@ from mindee.v2.mindee_http.response_validation_v2 import (
     is_valid_get_response,
     is_valid_post_response,
 )
+from mindee.v2.parsing import BaseResponse
 from mindee.v2.parsing.job.job_response import JobResponse
 from mindee.v2.parsing.search.search_response import SearchResponse
 
@@ -30,6 +33,8 @@ BASE_URL_DEFAULT = "https://api-v2.mindee.net"
 REQUEST_TIMEOUT_ENV_NAME = "MINDEE_REQUEST_TIMEOUT"
 TIMEOUT_DEFAULT = 120
 
+ResponseT = TypeVar("ResponseT", bound=BaseResponse)
+
 
 class MindeeAPIV2(SettingsMixin):
     """Settings class relating to API V2 requests."""
@@ -40,6 +45,7 @@ class MindeeAPIV2(SettingsMixin):
     """API Key for the client."""
     http_client: httpx.Client | None
     """HTTP client for making requests."""
+    request_timeout: float
 
     def __init__(self, api_key: str | None, http_client: httpx.Client | None = None):
         self.api_key = (
@@ -47,7 +53,6 @@ class MindeeAPIV2(SettingsMixin):
             if api_key
             else os.environ.get(API_KEY_V2_ENV_NAME, API_KEY_V2_DEFAULT)
         )
-        self.request_timeout = TIMEOUT_DEFAULT
         self.set_base_url(BASE_URL_DEFAULT)
         self.set_from_env()
         if not self.api_key:
@@ -59,6 +64,9 @@ class MindeeAPIV2(SettingsMixin):
             )
         self.url_root = f"{self.base_url.rstrip('/')}"
         self.http_client = http_client
+        self.request_timeout = float(
+            os.environ.get(REQUEST_TIMEOUT_ENV_NAME, TIMEOUT_DEFAULT)
+        )
 
     @property
     def base_headers(self) -> dict[str, str]:
@@ -87,7 +95,7 @@ class MindeeAPIV2(SettingsMixin):
         slug: str,
     ) -> httpx.Response:
         """
-        Make an asynchronous request to POST a document for prediction on the V2 API.
+        Make a request to POST a document for enqueue on the V2 API.
 
         :param input_source: Input object.
         :param params: Options for the enqueueing of the document.
@@ -96,24 +104,26 @@ class MindeeAPIV2(SettingsMixin):
         """
         data = params.get_form_data()
         url = f"{self.url_root}/v2/{slug}/enqueue"
-        post_kwargs: StringDict = {
-            "headers": self.base_headers,
-            "timeout": self.request_timeout,
-        }
-
+        post_kwargs: StringDict = {}
         if isinstance(input_source, LocalInputSource):
             post_kwargs["files"] = {
                 "file": input_source.read_contents(params.close_file)
             }
         elif isinstance(input_source, URLInputSource):
             data["url"] = input_source.url
-        post_kwargs["data"] = data
 
+        post_caller: Callable
         if self.http_client is None or self.http_client.is_closed:
-            response = httpx.post(url, **post_kwargs)
+            post_caller = httpx.post
+            post_kwargs["timeout"] = self.request_timeout
         else:
-            response = self.http_client.post(url, **post_kwargs)
-        return response
+            post_caller = self.http_client.post
+        return post_caller(
+            url,
+            headers=self.base_headers,
+            data=data,
+            **post_kwargs,
+        )
 
     def req_get_job(self, job_id: str) -> httpx.Response:
         """
@@ -121,17 +131,21 @@ class MindeeAPIV2(SettingsMixin):
 
         :param job_id: Job ID, returned by the enqueue request.
         """
-        url = f"{self.url_root}/v2/jobs/{job_id}"
-        get_kwargs: StringDict = {
-            "headers": self.base_headers,
-            "timeout": self.request_timeout,
-            "follow_redirects": False,
-        }
+        get_caller: Callable
+        get_kwargs: StringDict = {}
         if self.http_client is None or self.http_client.is_closed:
-            return httpx.get(url, **get_kwargs)
-        return self.http_client.get(url, **get_kwargs)
+            get_caller = httpx.get
+            get_kwargs["timeout"] = self.request_timeout
+        else:
+            get_caller = self.http_client.get
+        return get_caller(
+            url=f"{self.url_root}/v2/jobs/{job_id}",
+            headers=self.base_headers,
+            follow_redirects=False,
+            **get_kwargs,
+        )
 
-    def req_get_inference_by_url(self, url) -> httpx.Response:
+    def req_get_inference_by_url(self, url: str) -> httpx.Response:
         """
         Sends a request matching a given inference_id. Returns either a Job or a
         Document.
@@ -139,14 +153,19 @@ class MindeeAPIV2(SettingsMixin):
         :param url: URL to use for the request.
         :return: Response object from the request.
         """
-        get_kwargs: StringDict = {
-            "headers": self.base_headers,
-            "timeout": self.request_timeout,
-            "follow_redirects": False,
-        }
+        get_caller: Callable
+        get_kwargs: StringDict = {}
         if self.http_client is None or self.http_client.is_closed:
-            return httpx.get(url, **get_kwargs)
-        return self.http_client.get(url, **get_kwargs)
+            get_caller = httpx.get
+            get_kwargs["timeout"] = self.request_timeout
+        else:
+            get_caller = self.http_client.get
+        return get_caller(
+            url=url,
+            headers=self.base_headers,
+            follow_redirects=False,
+            **get_kwargs,
+        )
 
     def req_get_inference(self, inference_id: str, slug: str) -> httpx.Response:
         """
@@ -155,34 +174,43 @@ class MindeeAPIV2(SettingsMixin):
         :param inference_id: Inference ID, returned by the job request.
         :param slug: Slug of the inference, defaults to nothing.
         """
-        url = f"{self.url_root}/v2/{slug}/{inference_id}"
-        get_kwargs: StringDict = {
-            "headers": self.base_headers,
-            "timeout": self.request_timeout,
-            "follow_redirects": False,
-        }
+        get_caller: Callable
+        get_kwargs: StringDict = {}
         if self.http_client is None or self.http_client.is_closed:
-            return httpx.get(url, **get_kwargs)
-        return self.http_client.get(url, **get_kwargs)
+            get_caller = httpx.get
+            get_kwargs["timeout"] = self.request_timeout
+        else:
+            get_caller = self.http_client.get
+        return get_caller(
+            url=f"{self.url_root}/v2/{slug}/{inference_id}",
+            headers=self.base_headers,
+            follow_redirects=False,
+            **get_kwargs,
+        )
 
     def req_get_search_models(
-        self, model_name: str | None, model_type: str | None
+        self, name: str | None, model_type: str | None
     ) -> httpx.Response:
         """
         Searches for a list of models matching criteria.
-        :param model_name: Name pattern to search for.
+        :param name: Name pattern to search for.
         :param model_type: Type of model to search for (exact match).
         :return: Response object containing search results.
         """
-        url = f"{self.url_root}/v2/search/models"
-        get_kwargs: StringDict = {
-            "headers": self.base_headers,
-            "params": {"name": model_name, "model_type": model_type},
-            "timeout": self.request_timeout,
-        }
+        get_caller: Callable
+        get_kwargs: StringDict = {}
         if self.http_client is None or self.http_client.is_closed:
-            return httpx.get(url, **get_kwargs)
-        return self.http_client.get(url, **get_kwargs)
+            get_caller = httpx.get
+            get_kwargs["timeout"] = self.request_timeout
+        else:
+            get_caller = self.http_client.get
+        return get_caller(
+            url=f"{self.url_root}/v2/search/models",
+            headers=self.base_headers,
+            params={"name": name, "model_type": model_type},
+            follow_redirects=False,
+            **get_kwargs,
+        )
 
     def enqueue(
         self, input_source: LocalInputSource | URLInputSource, params: BaseParameters
@@ -193,7 +221,6 @@ class MindeeAPIV2(SettingsMixin):
         :param params: Parameters
         :return: A valid inference Response.
         """
-
         response = self.req_post_inference_enqueue(
             input_source=input_source, params=params, slug=params.get_enqueue_slug()
         )
@@ -218,7 +245,7 @@ class MindeeAPIV2(SettingsMixin):
             handle_error_v2(dict_response)
         return JobResponse(dict_response)
 
-    def get_result(self, response_type, inference_id: str):
+    def get_result(self, response_type: type[ResponseT], inference_id: str):
         """
         Get the result of an inference that was previously enqueued.
 
@@ -232,7 +259,7 @@ class MindeeAPIV2(SettingsMixin):
             handle_error_v2(dict_response)
         return response_type(dict_response)
 
-    def get_result_by_url(self, response_type, url: str):
+    def get_result_by_url(self, response_type: type[ResponseT], url: str):
         """
         Get the result of an inference that was previously enqueued by its URL.
 
