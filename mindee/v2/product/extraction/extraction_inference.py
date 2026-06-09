@@ -1,4 +1,4 @@
-from mindee.parsing.common import StringDict
+from mindee.parsing.common.string_dict import StringDict
 from mindee.v2.parsing.inference.base_inference import BaseInference
 from mindee.v2.parsing.inference.inference_active_options import InferenceActiveOptions
 from mindee.v2.product.extraction.extraction_result import ExtractionResult

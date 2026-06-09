@@ -1,8 +1,12 @@
+import concurrent.futures
 import json
 import os
+import re
+import time
 
 import httpx
 import pytest
+import respx
 
 from mindee import ExtractionParameters, ExtractionResponse, LocalResponse
 from mindee.error.mindee_error import MindeeError
@@ -30,11 +34,10 @@ def env_client(monkeypatch) -> Client:
 @pytest.fixture
 def custom_base_url_client(monkeypatch) -> Client:
     class _FakePostRespError:
-        status_code = 400  # any non-2xx will do
+        status_code = 400
         is_error = True
 
         def json(self):
-            # Shape must match what handle_error_v2 expects
             return {
                 "status": 0,
                 "code": "000-000",
@@ -157,8 +160,6 @@ def test_enqueue_and_parse_path_with_env_token(custom_base_url_client):
 
 
 def _assert_findoc_inference(response: ExtractionResponse):
-    # There are already detailed tests of the inference object.
-    # Here we are just testing whether the client can load OK.
     assert isinstance(response, ExtractionResponse)
     assert isinstance(response.inference, ExtractionInference)
     assert response.inference.id
@@ -261,3 +262,79 @@ def test_queue_get(custom_base_url_client):
     assert not response.job.result_url
     assert len(response.job.webhooks) == 0
     assert not response.job.error
+
+
+@pytest.mark.v2
+def test_client_closes_httpx_connections() -> None:
+    client = Client(api_key="dummy_key")
+    client.close()
+    with pytest.raises(
+        AttributeError, match=r"NoneType' object has no attribute 'get'"
+    ):
+        client.mindee_api.http_client.get("https://google.com")
+
+
+@pytest.mark.v2
+@respx.mock
+def test_httpx_multiple_calls_thread_safety() -> None:
+    client = Client(api_key="dummy_key")
+    input_path = FILE_TYPES_DIR / "pdf" / "blank_1.pdf"
+
+    def delayed_response(_: httpx.Request) -> httpx.Response:
+        job_json = json.loads((V2_DATA_DIR / "job" / "ok_processing.json").read_text())
+        time.sleep(0.1)
+        return httpx.Response(201, json=job_json)
+
+    url_pattern = re.compile(r"https://api-v2\.mindee\.net/v2/.+/enqueue")
+    respx.post(url_pattern).mock(side_effect=delayed_response)
+
+    def make_request():
+        input_source = PathInput(input_path)
+        params = ExtractionParameters(model_id="dummy-model-id")
+        return client.enqueue(input_source, params)
+
+    thread_count = 20
+    successful_responses = 0
+    with concurrent.futures.ThreadPoolExecutor(max_workers=thread_count) as executor:
+        futures = [executor.submit(make_request) for _ in range(thread_count)]
+
+        for future in concurrent.futures.as_completed(futures):
+            response = future.result()
+            if (
+                response.job
+                and response.job.id == "12345678-1234-1234-1234-123456789ABC"
+            ):
+                successful_responses += 1
+
+    assert successful_responses == thread_count
+
+
+@pytest.mark.v2
+@respx.mock
+def test_explicit_timeout_failure(findoc_model_id) -> None:
+    respx.post("https://api-v2.mindee.net/v2/inferences/enqueue").mock(
+        side_effect=httpx.ReadTimeout("Simulated Read Timeout")
+    )
+
+    client = Client(api_key="dummy")
+    input_source = PathInput(FILE_TYPES_DIR / "pdf" / "blank_1.pdf")
+    params = ExtractionParameters(model_id=findoc_model_id)
+
+    with pytest.raises(httpx.ReadTimeout):
+        client.enqueue(input_source, params)
+
+
+@pytest.mark.v2
+@respx.mock
+def test_explicit_500_server_error(findoc_model_id: str) -> None:
+    respx.post(re.compile(r"https://api-v2\.mindee\.net/v2/.+/enqueue")).mock(
+        return_value=httpx.Response(500, json={"message": "Internal Server Error"})
+    )
+
+    client = Client(api_key="dummy")
+    input_source = PathInput(FILE_TYPES_DIR / "pdf" / "blank_1.pdf")
+    params = ExtractionParameters(model_id=findoc_model_id)
+    with pytest.raises(MindeeHTTPUnknownErrorV2) as exc_info:
+        client.enqueue(input_source, params)
+
+    assert "Couldn't deserialize server error" in str(exc_info.value)

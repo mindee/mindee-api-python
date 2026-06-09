@@ -1,22 +1,19 @@
 import os
 from pathlib import Path
 
+import httpx
 import pytest
 
 from mindee import ExtractionParameters
 from mindee.input.path_input import PathInput
 from mindee.input.url_input_source import URLInputSource
 from mindee.v2.client import Client
-from mindee.v2.error.mindee_http_error_v2 import MindeeHTTPErrorV2
+from mindee.v2.error.mindee_http_error_v2 import (
+    MindeeHTTPErrorV2,
+)
 from mindee.v2.parsing import InferenceActiveOptions
 from mindee.v2.product.extraction.extraction_response import ExtractionResponse
 from tests.utils import FILE_TYPES_DIR, V2_PRODUCT_DATA_DIR
-
-
-@pytest.fixture(scope="session")
-def findoc_model_id() -> str:
-    """Identifier of the Financial Document model, supplied through an env var."""
-    return os.getenv("MINDEE_V2_SE_TESTS_FINDOC_MODEL_ID")
 
 
 @pytest.fixture(scope="session")
@@ -306,3 +303,53 @@ def test_data_schema_must_succeed(
     assert response.inference.active_options.data_schema.replace is True
     assert response.inference.result.fields["test_replace"] is not None
     assert response.inference.result.fields["test_replace"].value == "a test value"
+
+
+@pytest.mark.integration
+@pytest.mark.v2
+def test_custom_httpx_client_event_hook(
+    findoc_model_id: str,
+) -> None:
+    request_urls = []
+
+    def log_request(request: httpx.Request):
+        request_urls.append(str(request.url))
+
+    httpx_client = httpx.Client(event_hooks={"request": [log_request]})
+    client = Client(http_client=httpx_client)
+
+    input_path = FILE_TYPES_DIR / "pdf" / "blank_1.pdf"
+    input_source = PathInput(input_path)
+
+    params = ExtractionParameters(
+        model_id=findoc_model_id,
+        rag=False,
+        raw_text=False,
+        polygon=False,
+        confidence=False,
+        webhook_ids=[],
+        alias="py_integration_custom_httpx_client",
+    )
+
+    client.enqueue(input_source, params)
+
+    assert len(request_urls) > 0
+    assert any("enqueue" in url for url in request_urls)
+
+
+@pytest.mark.v2
+@pytest.mark.integration
+def test_http2_client(findoc_model_id) -> None:
+    httpx_client = httpx.Client(http2=True)
+    with Client(http_client=httpx_client) as client:
+        input_source = PathInput(
+            V2_PRODUCT_DATA_DIR
+            / "extraction"
+            / "financial_document"
+            / "default_sample.jpg"
+        )
+        params = ExtractionParameters(model_id=findoc_model_id)
+        response = client.enqueue_and_get_result(
+            ExtractionResponse, input_source, params
+        )
+        _basic_assert_success(response, page_count=1, model_id=findoc_model_id)

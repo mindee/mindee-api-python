@@ -1,5 +1,7 @@
 from time import sleep
 
+import httpx
+
 from mindee.client_mixin import ClientMixin
 from mindee.error.mindee_error import MindeeClientError, MindeeError
 from mindee.error.mindee_http_error import handle_error
@@ -59,14 +61,21 @@ class Client(ClientMixin):
     """
 
     api_key: str
+    """API key for all endpoints."""
+    http_client: httpx.Client | None
+    """HTTP client for making requests."""
 
-    def __init__(self, api_key: str = "") -> None:
+    def __init__(
+        self, api_key: str = "", http_client: httpx.Client | None = None
+    ) -> None:
         """
         Mindee API Client.
 
         :param api_key: Your API key for all endpoints
+        :param http_client: HTTP client for making requests.
         """
         self.api_key = api_key
+        self.http_client = http_client
 
     def parse(
         self,
@@ -522,7 +531,8 @@ class Client(ClientMixin):
             raise MindeeClientError("No input document provided")
 
         workflow_endpoint = WorkflowEndpoint(
-            WorkflowSettings(api_key=self.api_key, workflow_id=workflow_id)
+            WorkflowSettings(api_key=self.api_key, workflow_id=workflow_id),
+            self.http_client,
         )
 
         response = workflow_endpoint.workflow_execution_post(input_source, options)
@@ -555,8 +565,12 @@ class Client(ClientMixin):
             version=version,
         )
         if account_name and len(account_name) > 0 and account_name != "mindee":
-            return CustomEndpoint(endpoint_name, account_name, version, api_settings)
-        return Endpoint(endpoint_name, account_name, version, api_settings)
+            return CustomEndpoint(
+                endpoint_name, account_name, version, api_settings, self.http_client
+            )
+        return Endpoint(
+            endpoint_name, account_name, version, api_settings, self.http_client
+        )
 
     def create_endpoint(
         self,
@@ -583,3 +597,20 @@ class Client(ClientMixin):
             )
             version = "1"
         return self._build_endpoint(endpoint_name, account_name, version)
+
+    def close(self):
+        """Close the HTTP client."""
+        if self.http_client and not self.http_client.is_closed:
+            self.http_client.close()
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.close()
+
+    def __del__(self):
+        """Ensure the HTTP client is closed when the object is garbage collected."""
+        if self.http_client and self.http_client and not self.http_client.is_closed:
+            logger.info("Force-closing unclosed Mindee Client (V1) %s.", str(self))
+            self.close()

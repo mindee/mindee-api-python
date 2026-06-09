@@ -1,6 +1,6 @@
 from collections.abc import Callable
 
-from mindee.parsing.common import StringDict
+from mindee.parsing.common.string_dict import StringDict
 from mindee.v2.parsing.inference.field.base_field import BaseField, FieldType
 from mindee.v2.parsing.inference.field.object_field import ObjectField
 from mindee.v2.parsing.inference.field.simple_field import SimpleField

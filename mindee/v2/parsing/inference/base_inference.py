@@ -1,7 +1,7 @@
 from abc import ABC
 from typing import TypeVar
 
-from mindee.parsing.common import StringDict
+from mindee.parsing.common.string_dict import StringDict
 from mindee.v2.parsing.inference.inference_file import InferenceFile
 from mindee.v2.parsing.inference.inference_job import InferenceJob
 from mindee.v2.parsing.inference.inference_model import InferenceModel

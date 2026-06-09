@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from mindee.parsing.common import StringDict
+from mindee.parsing.common.string_dict import StringDict
 from mindee.v2.parsing.error.error_response import ErrorResponse
 
 

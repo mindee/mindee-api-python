@@ -1,7 +1,10 @@
+from collections.abc import Callable
+
 import httpx
 
 from mindee.input.local_input_source import LocalInputSource
 from mindee.input.url_input_source import URLInputSource
+from mindee.parsing.common.string_dict import StringDict
 from mindee.v1.client_options.workflow_options import WorkflowOptions
 from mindee.v1.mindee_http.base_endpoint import BaseEndpoint
 from mindee.v1.mindee_http.workflow_settings import WorkflowSettings
@@ -11,14 +14,17 @@ class WorkflowEndpoint(BaseEndpoint):
     """Workflow endpoint."""
 
     settings: WorkflowSettings
+    """Settings object."""
 
-    def __init__(self, settings: WorkflowSettings) -> None:
+    def __init__(
+        self, settings: WorkflowSettings, http_client: httpx.Client | None = None
+    ) -> None:
         """
         Workflow Endpoint.
 
         :param settings: Settings object.
         """
-        super().__init__(settings)
+        super().__init__(settings, http_client)
 
     def workflow_execution_post(
         self,
@@ -47,25 +53,23 @@ class WorkflowEndpoint(BaseEndpoint):
             params["full_text_ocr"] = "true"
         if options.rag:
             params["rag"] = "true"
-
+        post_kwargs: StringDict = {}
+        files = None
         if isinstance(input_source, URLInputSource):
             data["document"] = input_source.url
-            response = httpx.post(
-                self.settings.url_root,
-                headers=self.settings.base_headers,
-                data=data,
-                params=params,
-                timeout=self.settings.request_timeout,
-            )
         else:
             files = {"document": input_source.read_contents(True)}
-            response = httpx.post(
-                self.settings.url_root,
-                files=files,
-                headers=self.settings.base_headers,
-                data=data,
-                params=params,
-                timeout=self.settings.request_timeout,
-            )
-
-        return response
+        post_caller: Callable
+        if self.http_client is None or self.http_client.is_closed:
+            post_caller = httpx.post
+            post_kwargs["timeout"] = self.settings.request_timeout
+        else:
+            post_caller = self.http_client.post
+        return post_caller(
+            self.settings.url_root,
+            headers=self.settings.base_headers,
+            data=data,
+            params=params,
+            files=files,
+            **post_kwargs,
+        )

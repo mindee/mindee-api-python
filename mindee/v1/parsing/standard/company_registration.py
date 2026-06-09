@@ -1,4 +1,5 @@
-from mindee.parsing.common import StringDict, format_for_display
+from mindee.parsing.common.string_dict import StringDict
+from mindee.parsing.common.summary_helper import format_for_display
 from mindee.v1.parsing.standard.base import BaseField, FieldPositionMixin
 
 
