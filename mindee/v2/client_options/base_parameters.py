@@ -1,5 +1,6 @@
 from abc import ABC
-from dataclasses import dataclass, field
+from dataclasses import dataclass
+from typing import ClassVar
 
 from mindee.client_options.polling_options import PollingOptions
 
@@ -19,7 +20,7 @@ class BaseParameters(ABC):
     close_file: bool = True
     """Whether to close the file after product."""
 
-    _slug: str = field(init=False)
+    _slug: ClassVar[str]
     """Slug of the endpoint."""
 
     def get_form_data(self) -> dict[str, str | list[str]]:

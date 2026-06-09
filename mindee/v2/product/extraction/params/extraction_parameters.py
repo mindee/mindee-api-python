@@ -1,5 +1,6 @@
 import json
 from dataclasses import dataclass
+from typing import ClassVar
 
 from mindee.v2.client_options.base_parameters import BaseParameters
 from mindee.v2.product.extraction.params.data_schema import DataSchema
@@ -31,7 +32,7 @@ class ExtractionParameters(BaseParameters):
     Not recommended, for specific use only.
     """
 
-    _slug: str = "inferences"
+    _slug: ClassVar[str] = "inferences"
     """Slug of the endpoint."""
 
     def __post_init__(self):

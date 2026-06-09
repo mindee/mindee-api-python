@@ -1,3 +1,5 @@
+from typing import ClassVar
+
 from mindee.parsing.common.string_dict import StringDict
 from mindee.v2.parsing.inference.base_response import BaseResponse
 from mindee.v2.product.ocr.ocr_inference import OCRInference
@@ -9,7 +11,7 @@ class OCRResponse(BaseResponse):
     inference: OCRInference
     """Inference object for ocr inference."""
 
-    _slug: str = "products/ocr/results"
+    _slug: ClassVar[str] = "products/ocr/results"
     """Slug of the inference."""
 
     def __init__(self, raw_response: StringDict) -> None:
