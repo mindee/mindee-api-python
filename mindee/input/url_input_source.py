@@ -10,6 +10,7 @@ import httpx
 from mindee.error.mindee_error import MindeeSourceError
 from mindee.input.bytes_input import BytesInput
 from mindee.logger import logger
+from mindee.parsing.common.string_dict import StringDict
 
 
 class URLInputSource:
@@ -192,10 +193,16 @@ class URLInputSource:
         :return: The content of the response.
         :raises MindeeSourceError: If max redirects are exceeded or the request fails.
         """
-        http_client = http_client or httpx.Client()
-        result = http_client.get(
-            url, headers=headers, timeout=120, auth=auth, follow_redirects=True
-        )
+        get_kwargs: StringDict = {
+            "headers": headers,
+            "timeout": 120,
+            "auth": auth,
+            "follow_redirects": True,
+        }
+        if http_client is None:
+            result = httpx.get(url, **get_kwargs)
+        else:
+            result = http_client.get(url, **get_kwargs)
         if 299 < result.status_code < 400:
             if redirects == max_redirects:
                 raise MindeeSourceError(
@@ -204,13 +211,18 @@ class URLInputSource:
                     f"aborting operation."
                 )
             return URLInputSource.__make_request(
-                result.headers["Location"], auth, headers, redirects + 1, max_redirects
+                result.headers["Location"],
+                auth,
+                headers,
+                redirects + 1,
+                max_redirects,
+                http_client,
             )
 
         if result.status_code >= 400 or result.status_code < 200:
             raise MindeeSourceError(
                 f"Couldn't retrieve file from server, error code {result.status_code}."
             )
-
-        http_client.close()
+        if http_client is not None and not http_client.is_closed:
+            http_client.close()
         return result.content

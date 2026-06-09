@@ -1,5 +1,5 @@
 from mindee.input.local_input_source import LocalInputSource
-from mindee.parsing.common import StringDict
+from mindee.parsing.common.string_dict import StringDict
 from mindee.pdf.extracted_pdf import ExtractedPDF
 from mindee.v2.file_operations.split import extract_single_split
 from mindee.v2.product.extraction.extraction_response import ExtractionResponse

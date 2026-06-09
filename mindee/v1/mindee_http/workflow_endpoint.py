@@ -2,6 +2,7 @@ import httpx
 
 from mindee.input.local_input_source import LocalInputSource
 from mindee.input.url_input_source import URLInputSource
+from mindee.parsing.common.string_dict import StringDict
 from mindee.v1.client_options.workflow_options import WorkflowOptions
 from mindee.v1.mindee_http.base_endpoint import BaseEndpoint
 from mindee.v1.mindee_http.workflow_settings import WorkflowSettings
@@ -50,25 +51,17 @@ class WorkflowEndpoint(BaseEndpoint):
             params["full_text_ocr"] = "true"
         if options.rag:
             params["rag"] = "true"
+        post_kwargs: StringDict = {
+            "headers": self.settings.base_headers,
+            "params": params,
+            "timeout": self.settings.request_timeout,
+        }
 
         if isinstance(input_source, URLInputSource):
             data["document"] = input_source.url
-            response = self.http_client.post(
-                self.settings.url_root,
-                headers=self.settings.base_headers,
-                data=data,
-                params=params,
-                timeout=self.settings.request_timeout,
-            )
         else:
-            files = {"document": input_source.read_contents(True)}
-            response = self.http_client.post(
-                self.settings.url_root,
-                files=files,
-                headers=self.settings.base_headers,
-                data=data,
-                params=params,
-                timeout=self.settings.request_timeout,
-            )
-
-        return response
+            post_kwargs["files"] = {"document": input_source.read_contents(True)}
+        post_kwargs["data"] = data
+        if self.http_client is None or self.http_client.is_closed:
+            return httpx.post(self.settings.url_root, **post_kwargs)
+        return self.http_client.post(self.settings.url_root, **post_kwargs)

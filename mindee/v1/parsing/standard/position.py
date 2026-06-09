@@ -1,7 +1,7 @@
 from mindee.error.geometry_error import MindeeGeometryError
 from mindee.geometry.polygon import Polygon
 from mindee.geometry.quadrilateral import Quadrilateral, quadrilateral_from_prediction
-from mindee.parsing.common import StringDict
+from mindee.parsing.common.string_dict import StringDict
 from mindee.v1.parsing.standard.base import BaseField
 
 

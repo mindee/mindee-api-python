@@ -341,6 +341,20 @@ def test_custom_httpx_client_event_hook(
 
 
 @pytest.mark.v2
+@pytest.mark.integration
+def test_http2_client(findoc_model_id) -> None:
+    httpx_client = httpx.Client(http2=True)
+    client = Client(http_client=httpx_client)
+    input_source = PathInput(
+        V2_PRODUCT_DATA_DIR / "extraction" / "financial_document" / "default_sample.jpg"
+    )
+    params = ExtractionParameters(model_id=findoc_model_id)
+    response = client.enqueue_and_get_result(ExtractionResponse, input_source, params)
+    _basic_assert_success(response, page_count=1, model_id=findoc_model_id)
+
+
+@pytest.mark.v2
+@pytest.mark.integration
 @respx.mock
 def test_explicit_timeout_failure(findoc_model_id) -> None:
     respx.post("https://api-v2.mindee.net/v2/inferences/enqueue").mock(

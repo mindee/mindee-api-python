@@ -7,7 +7,9 @@ class BaseEndpoint:
     """Base endpoint class for the Mindee API."""
 
     settings: BaseSettings
-    http_client: httpx.Client
+    """Settings relating to all endpoints."""
+    http_client: httpx.Client | None
+    """HTTP client for making requests."""
 
     def __init__(
         self, settings: BaseSettings, http_client: httpx.Client | None = None
@@ -19,14 +21,4 @@ class BaseEndpoint:
         :param http_client: HTTP client for making requests.
         """
         self.settings = settings
-        self.http_client = http_client or httpx.Client()
-
-    def close(self) -> None:
-        """Closes the underlying HTTP client."""
-        self.http_client.close()
-
-    def __enter__(self):
-        return self
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        self.close()
+        self.http_client = http_client

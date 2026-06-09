@@ -1,6 +1,6 @@
 from datetime import date, datetime
 
-from mindee.parsing.common import StringDict
+from mindee.parsing.common.string_dict import StringDict
 from mindee.v1.parsing.standard.base import BaseField, FieldPositionMixin
 
 ISO8601_DATE_FORMAT = "%Y-%m-%d"

@@ -1,4 +1,4 @@
-from mindee.parsing.common import StringDict
+from mindee.parsing.common.string_dict import StringDict
 from mindee.v2.parsing.inference.field import InferenceFields
 from mindee.v2.parsing.inference.field.factory import parse_field
 from mindee.v2.parsing.inference.rag_metadata import RAGMetadata

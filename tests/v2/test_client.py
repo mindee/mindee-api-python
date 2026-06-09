@@ -269,7 +269,7 @@ def test_client_closes_httpx_connections() -> None:
     client = Client(api_key="dummy_key")
     client.close()
     with pytest.raises(
-        RuntimeError, match=r"Cannot send a request, as the client has been closed\."
+        AttributeError, match=r"NoneType' object has no attribute 'get'"
     ):
         client.mindee_api.http_client.get("https://google.com")
 
@@ -280,7 +280,7 @@ def test_httpx_multiple_calls_thread_safety() -> None:
     client = Client(api_key="dummy_key")
     input_path = FILE_TYPES_DIR / "pdf" / "blank_1.pdf"
 
-    def delayed_response(request: httpx.Request) -> httpx.Response:
+    def delayed_response(_: httpx.Request) -> httpx.Response:
         job_json = json.loads((V2_DATA_DIR / "job" / "ok_processing.json").read_text())
         time.sleep(0.1)
         return httpx.Response(201, json=job_json)

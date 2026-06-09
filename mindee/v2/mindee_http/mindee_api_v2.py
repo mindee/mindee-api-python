@@ -38,7 +38,8 @@ class MindeeAPIV2(SettingsMixin):
     """Root of the URL to use for polling."""
     api_key: str | None
     """API Key for the client."""
-    http_client: httpx.Client
+    http_client: httpx.Client | None
+    """HTTP client for making requests."""
 
     def __init__(self, api_key: str | None, http_client: httpx.Client | None = None):
         self.api_key = (
@@ -57,7 +58,7 @@ class MindeeAPIV2(SettingsMixin):
                 f"'{API_KEY_V2_ENV_NAME}' environment variable."
             )
         self.url_root = f"{self.base_url.rstrip('/')}"
-        self.http_client = http_client or httpx.Client()
+        self.http_client = http_client
 
     @property
     def base_headers(self) -> dict[str, str]:
@@ -95,26 +96,23 @@ class MindeeAPIV2(SettingsMixin):
         """
         data = params.get_form_data()
         url = f"{self.url_root}/v2/{slug}/enqueue"
+        post_kwargs: StringDict = {
+            "headers": self.base_headers,
+            "timeout": self.request_timeout,
+        }
 
         if isinstance(input_source, LocalInputSource):
-            files = {"file": input_source.read_contents(params.close_file)}
-            response = self.http_client.post(
-                url=url,
-                files=files,
-                headers=self.base_headers,
-                data=data,
-                timeout=self.request_timeout,
-            )
+            post_kwargs["files"] = {
+                "file": input_source.read_contents(params.close_file)
+            }
         elif isinstance(input_source, URLInputSource):
             data["url"] = input_source.url
-            response = self.http_client.post(
-                url=url,
-                headers=self.base_headers,
-                data=data,
-                timeout=self.request_timeout,
-            )
+        post_kwargs["data"] = data
+
+        if self.http_client is None or self.http_client.is_closed:
+            response = httpx.post(url, **post_kwargs)
         else:
-            raise MindeeAPIV2Error("Invalid input source.")
+            response = self.http_client.post(url, **post_kwargs)
         return response
 
     def req_get_job(self, job_id: str) -> httpx.Response:
@@ -123,12 +121,15 @@ class MindeeAPIV2(SettingsMixin):
 
         :param job_id: Job ID, returned by the enqueue request.
         """
-        return self.http_client.get(
-            f"{self.url_root}/v2/jobs/{job_id}",
-            headers=self.base_headers,
-            timeout=self.request_timeout,
-            follow_redirects=False,
-        )
+        url = f"{self.url_root}/v2/jobs/{job_id}"
+        get_kwargs: StringDict = {
+            "headers": self.base_headers,
+            "timeout": self.request_timeout,
+            "follow_redirects": False,
+        }
+        if self.http_client is None or self.http_client.is_closed:
+            return httpx.get(url, **get_kwargs)
+        return self.http_client.get(url, **get_kwargs)
 
     def req_get_inference_by_url(self, url) -> httpx.Response:
         """
@@ -138,12 +139,14 @@ class MindeeAPIV2(SettingsMixin):
         :param url: URL to use for the request.
         :return: Response object from the request.
         """
-        return self.http_client.get(
-            url,
-            headers=self.base_headers,
-            timeout=self.request_timeout,
-            follow_redirects=False,
-        )
+        get_kwargs: StringDict = {
+            "headers": self.base_headers,
+            "timeout": self.request_timeout,
+            "follow_redirects": False,
+        }
+        if self.http_client is None or self.http_client.is_closed:
+            return httpx.get(url, **get_kwargs)
+        return self.http_client.get(url, **get_kwargs)
 
     def req_get_inference(self, inference_id: str, slug: str) -> httpx.Response:
         """
@@ -152,14 +155,15 @@ class MindeeAPIV2(SettingsMixin):
         :param inference_id: Inference ID, returned by the job request.
         :param slug: Slug of the inference, defaults to nothing.
         """
-
         url = f"{self.url_root}/v2/{slug}/{inference_id}"
-        return self.http_client.get(
-            url,
-            headers=self.base_headers,
-            timeout=self.request_timeout,
-            follow_redirects=False,
-        )
+        get_kwargs: StringDict = {
+            "headers": self.base_headers,
+            "timeout": self.request_timeout,
+            "follow_redirects": False,
+        }
+        if self.http_client is None or self.http_client.is_closed:
+            return httpx.get(url, **get_kwargs)
+        return self.http_client.get(url, **get_kwargs)
 
     def req_get_search_models(
         self, model_name: str | None, model_type: str | None
@@ -171,12 +175,14 @@ class MindeeAPIV2(SettingsMixin):
         :return: Response object containing search results.
         """
         url = f"{self.url_root}/v2/search/models"
-        return self.http_client.get(
-            url,
-            headers=self.base_headers,
-            params={"name": model_name, "model_type": model_type},
-            timeout=self.request_timeout,
-        )
+        get_kwargs: StringDict = {
+            "headers": self.base_headers,
+            "params": {"name": model_name, "model_type": model_type},
+            "timeout": self.request_timeout,
+        }
+        if self.http_client is None or self.http_client.is_closed:
+            return httpx.get(url, **get_kwargs)
+        return self.http_client.get(url, **get_kwargs)
 
     def enqueue(
         self, input_source: LocalInputSource | URLInputSource, params: BaseParameters
@@ -264,3 +270,26 @@ class MindeeAPIV2(SettingsMixin):
                 f"HTTP {response.status_code} response is not valid JSON: "
                 f"{response.text}"
             ) from e
+
+    def close(self) -> None:
+        """Closes the underlying HTTP client."""
+        if self.http_client and not self.http_client.is_closed:
+            self.http_client.close()
+
+    def __enter__(self):
+        self.http_client = httpx.Client()
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.close()
+
+    def delete_http_client(self):
+        """Delete the underlying HTTP client."""
+        httpx_client = getattr(self, "http_client", None)
+        if httpx_client and not self.http_client.is_closed:
+            logger.info("Force-closing unclosed Mindee Client (V2) %s.", str(self))
+            self.close()
+
+    def __del__(self):
+        """Ensure the HTTP client is closed when the object is garbage collected."""
+        self.delete_http_client()

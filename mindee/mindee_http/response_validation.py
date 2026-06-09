@@ -2,7 +2,7 @@ import json
 
 import httpx
 
-from mindee.parsing.common import StringDict
+from mindee.parsing.common.string_dict import StringDict
 
 
 def is_valid_sync_response(response: httpx.Response) -> bool:

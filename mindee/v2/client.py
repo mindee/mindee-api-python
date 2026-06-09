@@ -173,10 +173,18 @@ class Client(ClientMixin):
 
     def close(self) -> None:
         """Closes the underlying HTTP client."""
-        self.mindee_api.http_client.close()
+        self.mindee_api.close()
 
     def __enter__(self):
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.close()
+
+    def __del__(self):
+        """Ensure the HTTP client is closed when the object is garbage collected."""
+        mindee_api = getattr(self, "mindee_api", None)
+        if mindee_api:
+            httpx_client = getattr(self.mindee_api, "http_client", None)
+            if httpx_client and self.mindee_api:
+                self.mindee_api.delete_http_client()

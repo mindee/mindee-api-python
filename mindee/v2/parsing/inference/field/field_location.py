@@ -1,5 +1,5 @@
 from mindee.geometry.polygon import Polygon
-from mindee.parsing.common import StringDict
+from mindee.parsing.common.string_dict import StringDict
 
 
 class FieldLocation:

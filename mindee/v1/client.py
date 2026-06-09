@@ -62,7 +62,7 @@ class Client(ClientMixin):
 
     api_key: str
     """API key for all endpoints."""
-    http_client: httpx.Client
+    http_client: httpx.Client | None
     """HTTP client for making requests."""
 
     def __init__(
@@ -75,7 +75,7 @@ class Client(ClientMixin):
         :param http_client: HTTP client for making requests.
         """
         self.api_key = api_key
-        self.http_client = http_client or httpx.Client()
+        self.http_client = http_client
 
     def parse(
         self,
@@ -597,3 +597,20 @@ class Client(ClientMixin):
             )
             version = "1"
         return self._build_endpoint(endpoint_name, account_name, version)
+
+    def close(self):
+        """Close the HTTP client."""
+        if self.http_client and not self.http_client.is_closed:
+            self.http_client.close()
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.close()
+
+    def __del__(self):
+        """Ensure the HTTP client is closed when the object is garbage collected."""
+        if self.http_client and self.http_client and not self.http_client.is_closed:
+            logger.info("Force-closing unclosed Mindee Client (V1) %s.", str(self))
+            self.close()

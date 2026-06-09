@@ -1,6 +1,6 @@
 import json
 
-from mindee.parsing.common import StringDict
+from mindee.parsing.common.string_dict import StringDict
 from mindee.v2.parsing import ErrorItem, ErrorResponse
 
 
