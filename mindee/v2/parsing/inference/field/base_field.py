@@ -1,6 +1,6 @@
 from enum import Enum
 
-from mindee.parsing.common import StringDict
+from mindee.parsing.common.string_dict import StringDict
 from mindee.v2.parsing.inference.field.field_confidence import FieldConfidence
 from mindee.v2.parsing.inference.field.field_location import FieldLocation
 

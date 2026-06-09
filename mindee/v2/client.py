@@ -1,6 +1,8 @@
 from time import sleep
 from typing import TypeVar
 
+import httpx
+
 from mindee.client_mixin import ClientMixin
 from mindee.client_options.polling_options import PollingOptions
 from mindee.error.mindee_error import MindeeError
@@ -27,14 +29,16 @@ class Client(ClientMixin):
     api_key: str | None
     mindee_api: MindeeAPIV2
 
-    def __init__(self, api_key: str | None = None) -> None:
+    def __init__(
+        self, api_key: str | None = None, http_client: httpx.Client | None = None
+    ) -> None:
         """
         Mindee API Client.
 
         :param api_key: Your API key for all endpoints
         """
         self.api_key = api_key
-        self.mindee_api = MindeeAPIV2(api_key)
+        self.mindee_api = MindeeAPIV2(api_key, http_client)
 
     def enqueue(
         self,
@@ -166,3 +170,21 @@ class Client(ClientMixin):
         :return: A list of models matching the provided criteria.
         """
         return self.mindee_api.get_models(name, model_type)
+
+    def close(self) -> None:
+        """Closes the underlying HTTP client."""
+        self.mindee_api.close()
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.close()
+
+    def __del__(self):
+        """Ensure the HTTP client is closed when the object is garbage collected."""
+        mindee_api = getattr(self, "mindee_api", None)
+        if mindee_api:
+            httpx_client = getattr(self.mindee_api, "http_client", None)
+            if httpx_client and self.mindee_api:
+                self.mindee_api.delete_http_client()

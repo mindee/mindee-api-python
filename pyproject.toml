@@ -30,7 +30,7 @@ requires-python = ">=3.10"
 dependencies = [
     "pypdfium2>=4.0,<6.0",
     "Pillow>=12.2.0",
-    "httpx>=0.28.1,<1.0",
+    "httpx[http2]>=0.28.1,<1.0",
 ]
 
 [project.urls]
@@ -50,6 +50,7 @@ test = [
     "toml~=0.10.2",
     "pytest~=9.0.3",
     "pytest-cov~=7.1.0",
+    "respx~=0.23.1"
 ]
 docs = [
     "sphinx~=9.1.0",

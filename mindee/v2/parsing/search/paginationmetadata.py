@@ -1,4 +1,4 @@
-class Pagination:
+class PaginationMetadata:
     """Pagination metadata."""
 
     per_page: int

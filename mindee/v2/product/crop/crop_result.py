@@ -1,5 +1,5 @@
 from mindee.input.local_input_source import LocalInputSource
-from mindee.parsing.common import StringDict
+from mindee.parsing.common.string_dict import StringDict
 from mindee.v2.file_operations.crop import extract_multiple_crops
 from mindee.v2.file_operations.crop_files import CropFiles
 from mindee.v2.product.crop.crop_item import CropItem

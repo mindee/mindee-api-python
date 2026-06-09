@@ -3,7 +3,7 @@ from typing import Any
 
 from mindee.geometry.polygon import Polygon
 from mindee.geometry.quadrilateral import Quadrilateral, get_bounding_box
-from mindee.parsing.common import StringDict
+from mindee.parsing.common.string_dict import StringDict
 
 
 class FieldPositionMixin:

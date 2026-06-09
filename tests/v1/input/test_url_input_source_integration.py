@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 
-from mindee import URLInputSource
+from mindee.input.url_input_source import URLInputSource
 from mindee.v1.client import Client
 from mindee.v1.product.invoice import InvoiceV4
 from tests.utils import cleanup_output_files

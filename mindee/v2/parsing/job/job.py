@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from mindee.parsing.common import StringDict
+from mindee.parsing.common.string_dict import StringDict
 from mindee.v2.parsing.error.error_response import ErrorResponse
 from mindee.v2.parsing.job.job_webhook import JobWebhook
 
@@ -35,7 +35,7 @@ class Job:
         self.id = raw_response["id"]
         self.status = raw_response["status"]
         self.error = (
-            ErrorResponse(raw_response["error"]) if raw_response["error"] else None
+            ErrorResponse(raw_response["error"]) if raw_response.get("error") else None
         )
         self.created_at = datetime.fromisoformat(
             raw_response["created_at"].replace("Z", "+00:00")
