@@ -27,6 +27,7 @@ repos:
     hooks:
       - id: pip-audit
         args: ["."]
+        files: ^(requirements.*\.txt|setup\.cfg|setup\.py|pyproject\.toml)$
         stages: [pre-push]
 
   - repo: https://github.com/pre-commit/mirrors-mypy
