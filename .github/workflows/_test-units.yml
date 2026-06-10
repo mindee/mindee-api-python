@@ -43,7 +43,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install pip
-        pip install -e .[test]
+        pip install -e '.[test]'
 
     - name: Unit testing with pytest
       run: |
@@ -85,7 +85,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install pip
-        pip install -e .[test]
+        pip install -e '.[test]'
         pip uninstall -y pypdfium2 pillow
 
     - name: Unit testing with pytest

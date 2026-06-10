@@ -33,7 +33,7 @@ jobs:
       run: |
         python -m pip install pip
         pip install pylic~=3.6.1
-        pip install -e .
+        pip install -e '.'
 
     - name: License check
       run: |
@@ -41,7 +41,7 @@ jobs:
 
     - name: Install lint dependencies
       run: |
-        pip install -e .[lint]
+        pip install -e '.[lint]'
 
     - name: Cache pre-commit
       uses: actions/cache@v5
