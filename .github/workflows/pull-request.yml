@@ -8,8 +8,11 @@ permissions:
   pull-requests: read
 
 jobs:
+  workflow-lint:
+    uses: ./.github/workflows/_workflow_lint.yml
   static-analysis:
     uses: ./.github/workflows/_static-analysis.yml
+    needs: workflow-lint
   test-units:
     uses: ./.github/workflows/_test-units.yml
     needs: static-analysis
