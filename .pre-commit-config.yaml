@@ -27,6 +27,7 @@ repos:
     hooks:
       - id: pip-audit
         args: ["."]
+        stages: [pre-push]
 
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v2.1.0
@@ -48,6 +49,7 @@ repos:
         language: system
         pass_filenames: false
         files: ^docs/.*$|^mindee/.*\.py$
+        stages: [pre-push]
 
       - id: sphinx-linkcheck
         name: Sphinx Linkcheck
@@ -55,3 +57,4 @@ repos:
         language: system
         pass_filenames: false
         files: ^docs/.*$|^mindee/.*\.py$
+        stages: [pre-push]

@@ -126,9 +126,10 @@ junit_family = "xunit2"
 markers = [
     "lineitems: debug line items",
     "integration: integration tests that send calls to the API - select with '-m integration'",
+    "lite: tests for mindee-lite",
     "v2: tests specific to version 2 of the API",
     "pillow: tests that require the use of the Pillow (PIL) library",
-    "pypdfium2: tests that require the usage of the pypdfium2 library"
+    "pypdfium2: tests that require the usage of the pypdfium2 library",
 ]
 testpaths = [
     "tests",
