@@ -103,6 +103,7 @@ jobs:
         python scripts/generate_lite_toml.py
         mv -f pyproject-lite.toml pyproject.toml
         pip install -e '.[test]'
+      shell: bash
     - name: Run Integration Testing
       env:
           MINDEE_API_KEY: ${{ secrets.MINDEE_API_KEY_SE_TESTS }}
