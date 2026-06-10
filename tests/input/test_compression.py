@@ -3,11 +3,9 @@ from __future__ import annotations
 import operator
 import os
 from functools import reduce
-from typing import Any
 
 import pytest
 
-from mindee.dependencies.checkers import PILLOW_AVAILABLE
 from mindee.image import compress_image
 from mindee.input import PathInput
 from mindee.pdf.pdf_compressor import compress_pdf
@@ -20,11 +18,7 @@ from tests.utils import (
     cleanup_output_files,
 )
 
-if PILLOW_AVAILABLE:
-    from PIL import Image
-else:
-    Image: Any = None  # type: ignore[no-redef] # pylint: disable=invalid-name
-
+Image = pytest.importorskip("PIL.Image")
 
 RECEIPT_PATH = FILE_TYPES_DIR / "receipt.jpg"
 

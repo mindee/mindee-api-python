@@ -1,20 +1,15 @@
 from __future__ import annotations
 
 import json
-from typing import Any
 
 import pytest
 
-from mindee.dependencies.checkers import PILLOW_AVAILABLE
 from mindee.image.image_extractor import extract_multiple_images_from_source
 from mindee.input.path_input import PathInput
 from mindee.v1.product.barcode_reader import BarcodeReaderV1
 from tests.utils import V1_PRODUCT_DATA_DIR
 
-if PILLOW_AVAILABLE:
-    from PIL import Image
-else:
-    Image: Any = None  # type: ignore[no-redef] # pylint: disable=invalid-name
+Image = pytest.importorskip("PIL.Image")
 
 
 @pytest.fixture
