@@ -86,10 +86,10 @@ jobs:
       run: |
         pip install toml
         python scripts/generate_lite_toml.py
-        cp pyproject-lite.toml pyproject.toml
+        mv pyproject-lite.toml pyproject.toml
         pip install -e '.[test]'
 
     - name: Unit testing with pytest
       run: |
-        pytest --override-ini="addopts=" --config-file=pyproject-lite.toml
+        pytest
 
