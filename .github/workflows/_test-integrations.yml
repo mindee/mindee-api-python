@@ -65,3 +65,50 @@ jobs:
         notification_title: "[Python] Integration test '{workflow}' is failing"
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.PRODUCTION_ISSUES_SLACK_HOOK_URL }}
+
+  pytest-lite:
+    name: Run Integration Tests
+    timeout-minutes: 30
+    strategy:
+      matrix:
+        os:
+          - "ubuntu-22.04"
+        python-version:
+          - "3.10"
+    runs-on: ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@v6
+      with:
+        submodules: recursive
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v6
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Cache dependencies
+      uses: actions/cache@v5
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-test-${{ hashFiles('pyproject.toml') }}
+        restore-keys: |
+          ${{ runner.os }}-test-
+
+    - name: Install dependencies
+      run: |
+        python scripts/generate_lite_toml.py
+        cp pyproject-lite.toml pyproject.toml
+        pip install -e '.[test]'
+    - name: Run Integration Testing
+      env:
+          MINDEE_API_KEY: ${{ secrets.MINDEE_API_KEY_SE_TESTS }}
+          WORKFLOW_ID: ${{ secrets.WORKFLOW_ID_SE_TESTS }}
+          MINDEE_V2_API_KEY: ${{ secrets.MINDEE_V2_SE_TESTS_API_KEY }}
+          MINDEE_V2_SE_TESTS_FINDOC_MODEL_ID: ${{ secrets.MINDEE_V2_SE_TESTS_FINDOC_MODEL_ID }}
+          MINDEE_V2_SE_TESTS_BLANK_PDF_URL: ${{ secrets.MINDEE_V2_SE_TESTS_BLANK_PDF_URL }}
+          MINDEE_V2_SE_TESTS_CLASSIFICATION_MODEL_ID: ${{ secrets.MINDEE_V2_SE_TESTS_CLASSIFICATION_MODEL_ID }}
+          MINDEE_V2_SE_TESTS_CROP_MODEL_ID: ${{ secrets.MINDEE_V2_SE_TESTS_CROP_MODEL_ID }}
+          MINDEE_V2_SE_TESTS_SPLIT_MODEL_ID: ${{ secrets.MINDEE_V2_SE_TESTS_SPLIT_MODEL_ID }}
+          MINDEE_V2_SE_TESTS_OCR_MODEL_ID: ${{ secrets.MINDEE_V2_SE_TESTS_OCR_MODEL_ID }}
+      run: |
+        pytest --override-ini="addopts=..." --config-file=pyproject-lite.toml -m integration
