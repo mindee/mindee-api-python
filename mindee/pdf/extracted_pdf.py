@@ -1,10 +1,15 @@
 from pathlib import Path
 from typing import BinaryIO
 
-import pypdfium2 as pdfium
-
+from mindee.dependencies.checkers import PYPDFIUM2_AVAILABLE
+from mindee.dependencies.decorators import requires_pypdfium2
 from mindee.error.mindee_error import MindeeError
 from mindee.input.bytes_input import BytesInput
+
+if PYPDFIUM2_AVAILABLE:
+    import pypdfium2 as pdfium
+else:
+    pdfium = None  # pylint: disable=invalid-name
 
 
 class ExtractedPDF:
@@ -17,6 +22,7 @@ class ExtractedPDF:
         self.pdf_bytes = pdf_bytes
         self.filename = filename
 
+    @requires_pypdfium2
     def get_page_count(self) -> int:
         """Get the number of pages in the PDF file."""
         try:

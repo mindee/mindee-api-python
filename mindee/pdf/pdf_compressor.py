@@ -4,7 +4,7 @@ import io
 import logging
 from ctypes import POINTER, c_char_p, c_ushort
 from threading import RLock
-from typing import TYPE_CHECKING, Any, BinaryIO
+from typing import Any, BinaryIO
 
 from mindee.dependencies.checkers import PILLOW_AVAILABLE, PYPDFIUM2_AVAILABLE
 from mindee.dependencies.decorators import requires_pillow, requires_pypdfium2
@@ -12,8 +12,8 @@ from mindee.image.image_compressor import compress_image
 from mindee.pdf.pdf_char_data import PDFCharData
 from mindee.pdf.pdf_utils import (
     extract_text_from_pdf,
-    has_source_text,
     lerp,
+    pdf_has_source_text,
 )
 
 if PYPDFIUM2_AVAILABLE:
@@ -27,9 +27,6 @@ if PILLOW_AVAILABLE:
     from PIL import Image
 else:
     Image: Any = None  # type: ignore[no-redef] # pylint: disable=invalid-name
-
-if TYPE_CHECKING:
-    from PIL import Image
 
 logger = logging.getLogger(__name__)
 MIN_QUALITY = 1
@@ -57,7 +54,7 @@ def compress_pdf(
     else:
         pdf_bytes = pdf_data
 
-    if has_source_text(pdf_bytes):
+    if pdf_has_source_text(pdf_bytes):
         if force_source_text_compression:
             if not disable_source_text:
                 logger.warning("Re-writing PDF source-text is an EXPERIMENTAL feature.")

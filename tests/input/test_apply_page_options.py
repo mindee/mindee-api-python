@@ -1,6 +1,11 @@
 import io
 
-import pypdfium2 as pdfium
+from mindee.dependencies.checkers import PYPDFIUM2_AVAILABLE
+
+if PYPDFIUM2_AVAILABLE:
+    import pypdfium2 as pdfium
+else:
+    pdfium = None  # pylint: disable=invalid-name
 import pytest
 
 from mindee.error.mindee_error import MindeeError

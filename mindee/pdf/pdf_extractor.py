@@ -1,13 +1,22 @@
 import io
 from pathlib import Path
-from typing import BinaryIO
+from typing import Any, BinaryIO
 
-import pypdfium2 as pdfium
-from PIL import Image
-
+from mindee.dependencies.checkers import PILLOW_AVAILABLE, PYPDFIUM2_AVAILABLE
+from mindee.dependencies.decorators import requires_pillow, requires_pypdfium2
 from mindee.error.mindee_error import MindeeError
 from mindee.input.local_input_source import LocalInputSource
 from mindee.pdf.extracted_pdf import ExtractedPDF
+
+if PYPDFIUM2_AVAILABLE:
+    import pypdfium2 as pdfium
+else:
+    pdfium = None  # pylint: disable=invalid-name
+
+if PILLOW_AVAILABLE:
+    from PIL import Image
+else:
+    Image: Any = None  # type: ignore[no-redef] # pylint: disable=invalid-name
 
 
 class PDFExtractor:
@@ -16,6 +25,7 @@ class PDFExtractor:
     _source_pdf: BinaryIO
     _filename: str
 
+    @requires_pillow
     def __init__(self, local_input: LocalInputSource):
         self._filename = local_input.filename
         if local_input.is_pdf():
@@ -25,11 +35,13 @@ class PDFExtractor:
             self._source_pdf = io.BytesIO()
             pdf_image.save(self._source_pdf, format="PDF")
 
+    @requires_pypdfium2
     def get_page_count(self) -> int:
         """Get the number of pages in the PDF file."""
         pdf = pdfium.PdfDocument(self._source_pdf)
         return len(pdf)
 
+    @requires_pypdfium2
     def cut_pages(self, page_indexes: list) -> BinaryIO:
         """
         Create a new PDF from pages and save it into a buffer.
@@ -45,6 +57,7 @@ class PDFExtractor:
         new_pdf.save(bytes_io)
         return bytes_io
 
+    @requires_pypdfium2
     def extract_sub_documents(
         self, page_indexes: list[list[int]]
     ) -> list[ExtractedPDF]:

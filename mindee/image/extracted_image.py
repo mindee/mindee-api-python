@@ -1,12 +1,18 @@
 import io
 from pathlib import Path
+from typing import Any
 
-from PIL import Image
-
+from mindee.dependencies.checkers import PILLOW_AVAILABLE
+from mindee.dependencies.decorators import requires_pillow
 from mindee.error.mindee_error import MindeeError
 from mindee.input.file_input import FileInput
 from mindee.input.local_input_source import LocalInputSource
 from mindee.logger import logger
+
+if PILLOW_AVAILABLE:
+    from PIL import Image
+else:
+    Image: Any = None  # type: ignore[no-redef] # pylint: disable=invalid-name
 
 
 class ExtractedImage:
@@ -45,6 +51,7 @@ class ExtractedImage:
         self._page_id = page_id
         self._element_id = 0 if element_id is None else element_id
 
+    @requires_pillow
     def save_to_file(self, output_path: Path | str, file_format: str | None = None):
         """
         Saves the document to a file.

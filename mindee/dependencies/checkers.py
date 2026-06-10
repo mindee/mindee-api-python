@@ -1,7 +1,7 @@
 from mindee.error.mindee_dependency_error import MindeeDependencyError
 
 try:
-    from PIL import Image  # noqa: F401 #pylint: disable=unused-import
+    import PIL  # noqa: F401 #pylint: disable=unused-import
 
     PILLOW_AVAILABLE = True
 except ImportError:

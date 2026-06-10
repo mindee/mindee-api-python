@@ -1,16 +1,25 @@
 import ctypes
 from ctypes import byref, c_double, c_int, create_string_buffer
 from threading import RLock
+from typing import Any
 
-import pypdfium2 as pdfium
-import pypdfium2.raw as pdfium_c
-
+from mindee.dependencies.checkers import PYPDFIUM2_AVAILABLE
+from mindee.dependencies.decorators import requires_pypdfium2
 from mindee.pdf.pdf_char_data import PDFCharData
+
+if PYPDFIUM2_AVAILABLE:
+    import pypdfium2 as pdfium
+    import pypdfium2.raw as pdfium_c
+else:
+    pdfium: Any = None  # type: ignore[no-redef] # pylint: disable=invalid-name
+    pdfium_c: Any = None  # type: ignore[no-redef] # pylint: disable=invalid-name
+
 
 FALLBACK_FONT = "Helvetica"
 
 
-def has_source_text(pdf_bytes: bytes) -> bool:
+@requires_pypdfium2
+def pdf_has_source_text(pdf_bytes: bytes) -> bool:
     """
     Checks if the provided PDF bytes contain source text.
 
@@ -28,6 +37,7 @@ def has_source_text(pdf_bytes: bytes) -> bool:
             pdf.close()
 
 
+@requires_pypdfium2
 def extract_text_from_pdf(pdf_bytes: bytes) -> list[list[PDFCharData]]:
     """
     Extracts the raw text from a given PDF's bytes along with font data.
@@ -45,6 +55,7 @@ def extract_text_from_pdf(pdf_bytes: bytes) -> list[list[PDFCharData]]:
     return char_data_list
 
 
+@requires_pypdfium2
 def _process_page(page, page_id: int, pdfium_lock: RLock) -> list[PDFCharData]:
     """
     Processes a single page of the PDF.
@@ -73,6 +84,7 @@ def _process_page(page, page_id: int, pdfium_lock: RLock) -> list[PDFCharData]:
     return char_data_list
 
 
+@requires_pypdfium2
 def _process_char(
     i: int,
     text_handler,
@@ -131,6 +143,7 @@ def _process_char(
     return char_data_list
 
 
+@requires_pypdfium2
 def _get_char_info(i: int, text_handler, pdfium_lock: RLock) -> dict:
     """
     Retrieves information about a specific character.
@@ -170,6 +183,7 @@ def _get_char_info(i: int, text_handler, pdfium_lock: RLock) -> dict:
     }
 
 
+@requires_pypdfium2
 def _get_font_name(text_handler, i: int) -> str:
     """
     Retrieves the font name for a specific character.
@@ -189,6 +203,7 @@ def _get_font_name(text_handler, i: int) -> str:
     )
 
 
+@requires_pypdfium2
 def _get_font_flags(text_handler, i: int) -> int:
     """
     Retrieves the font flags for a specific character.
@@ -202,6 +217,7 @@ def _get_font_flags(text_handler, i: int) -> int:
     return flags.value
 
 
+@requires_pypdfium2
 def _get_char_box(
     i: int, text_handler, pdfium_lock: RLock
 ) -> tuple[float, float, float, float]:
@@ -221,6 +237,7 @@ def _get_char_box(
     return left.value, right.value, bottom.value, top.value
 
 
+@requires_pypdfium2
 def _get_page_rotation(page, pdfium_lock: RLock) -> int:
     """
     Retrieves the rotation value for a specific page.

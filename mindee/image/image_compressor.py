@@ -1,9 +1,16 @@
 import io
-from typing import BinaryIO
+from typing import Any, BinaryIO
 
-from PIL import Image
+from mindee.dependencies.checkers import PILLOW_AVAILABLE
+from mindee.dependencies.decorators import requires_pillow
+
+if PILLOW_AVAILABLE:
+    from PIL import Image
+else:
+    Image: Any = None  # type: ignore[no-redef] # pylint: disable=invalid-name
 
 
+@requires_pillow
 def compress_image(
     image_buffer: BinaryIO | bytes,
     quality: int = 85,
