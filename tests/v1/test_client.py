@@ -99,6 +99,7 @@ def test_keep_file_open(dummy_client: Client):
     assert input_doc.file_object.closed
 
 
+@pytest.mark.pypdfium2
 def test_cut_options(dummy_client: Client):
     input_doc: LocalInputSource = PathInput(f"{FILE_TYPES_DIR}/pdf/multipage.pdf")
     with contextlib.suppress(MindeeHTTPError):
