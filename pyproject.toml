@@ -120,7 +120,7 @@ safe_licenses = [
 
 
 [tool.pytest.ini_options]
-addopts = "--pyargs --cov-report term:skip-covered --cov-report term-missing -m 'not integration'"
+addopts = "--pyargs --cov-report term:skip-covered --cov-report term-missing -m 'not integration and not regression'"
 python_files = "test*.py"
 junit_family = "xunit2"
 markers = [
@@ -130,6 +130,7 @@ markers = [
     "v2: tests specific to version 2 of the API",
     "pillow: tests that require the use of the Pillow (PIL) library",
     "pypdfium2: tests that require the usage of the pypdfium2 library",
+    "regression: marks tests as regression tests - select with '-m regression'",
 ]
 testpaths = [
     "tests",

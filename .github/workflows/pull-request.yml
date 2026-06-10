@@ -17,6 +17,10 @@ jobs:
     uses: ./.github/workflows/_test-units.yml
     needs: static-analysis
     secrets: inherit
+  test-regressions:
+    uses: ./.github/workflows/_test-regressions.yml
+    needs: test-units
+    secrets: inherit
   test-integrations:
     uses: ./.github/workflows/_test-integrations.yml
     needs: test-units
