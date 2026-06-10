@@ -1,14 +1,22 @@
+from __future__ import annotations
+
 import json
+from typing import Any
 
 import pytest
-from PIL import Image
 
+from mindee.dependencies.checkers import PILLOW_AVAILABLE
 from mindee.input.path_input import PathInput
 from mindee.v1.pdf.multi_receipts_extractor import extract_receipts
 from mindee.v1.product.multi_receipts_detector.multi_receipts_detector_v1 import (
     MultiReceiptsDetectorV1,
 )
 from tests.utils import V1_PRODUCT_DATA_DIR
+
+if PILLOW_AVAILABLE:
+    from PIL import Image
+else:
+    Image: Any = None  # type: ignore[no-redef] # pylint: disable=invalid-name
 
 
 @pytest.fixture

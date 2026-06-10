@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import io
 from pathlib import Path
 from typing import Any, BinaryIO
@@ -9,11 +11,13 @@ from mindee.input.local_input_source import LocalInputSource
 from mindee.pdf.extracted_pdf import ExtractedPDF
 
 if PYPDFIUM2_AVAILABLE:
+    # pylint: disable=import-error
     import pypdfium2 as pdfium
 else:
     pdfium = None  # pylint: disable=invalid-name
 
 if PILLOW_AVAILABLE:
+    # pylint: disable=import-error
     from PIL import Image
 else:
     Image: Any = None  # type: ignore[no-redef] # pylint: disable=invalid-name

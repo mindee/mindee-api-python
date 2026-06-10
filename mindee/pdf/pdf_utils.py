@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import ctypes
 from ctypes import byref, c_double, c_int, create_string_buffer
 from threading import RLock
@@ -8,6 +10,7 @@ from mindee.dependencies.decorators import requires_pypdfium2
 from mindee.pdf.pdf_char_data import PDFCharData
 
 if PYPDFIUM2_AVAILABLE:
+    # pylint: disable=import-error
     import pypdfium2 as pdfium
     import pypdfium2.raw as pdfium_c
 else:

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from pathlib import Path
 from typing import BinaryIO
 
@@ -7,6 +9,7 @@ from mindee.error.mindee_error import MindeeError
 from mindee.input.bytes_input import BytesInput
 
 if PYPDFIUM2_AVAILABLE:
+    # pylint: disable=import-error
     import pypdfium2 as pdfium
 else:
     pdfium = None  # pylint: disable=invalid-name

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import io
 import mimetypes
 import tempfile
@@ -15,6 +17,7 @@ from mindee.pdf.pdf_compressor import compress_pdf
 from mindee.pdf.pdf_utils import pdf_has_source_text
 
 if PYPDFIUM2_AVAILABLE:
+    # pylint: disable=import-error
     import pypdfium2 as pdfium
 else:
     pdfium = None  # pylint: disable=invalid-name

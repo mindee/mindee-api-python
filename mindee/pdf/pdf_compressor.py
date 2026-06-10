@@ -17,6 +17,7 @@ from mindee.pdf.pdf_utils import (
 )
 
 if PYPDFIUM2_AVAILABLE:
+    # pylint: disable=import-error
     import pypdfium2 as pdfium
     import pypdfium2.raw as pdfium_c
 else:
@@ -24,6 +25,7 @@ else:
     pdfium_c: Any = None  # type: ignore[no-redef] # pylint: disable=invalid-name
 
 if PILLOW_AVAILABLE:
+    # pylint: disable=import-error
     from PIL import Image
 else:
     Image: Any = None  # type: ignore[no-redef] # pylint: disable=invalid-name

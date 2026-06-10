@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import io
 from pathlib import Path
 from typing import Any
@@ -10,6 +12,7 @@ from mindee.input.local_input_source import LocalInputSource
 from mindee.logger import logger
 
 if PILLOW_AVAILABLE:
+    # pylint: disable=import-error
     from PIL import Image
 else:
     Image: Any = None  # type: ignore[no-redef] # pylint: disable=invalid-name

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import io
 from typing import Any, BinaryIO
 
@@ -5,6 +7,7 @@ from mindee.dependencies.checkers import PILLOW_AVAILABLE
 from mindee.dependencies.decorators import requires_pillow
 
 if PILLOW_AVAILABLE:
+    # pylint: disable=import-error
     from PIL import Image
 else:
     Image: Any = None  # type: ignore[no-redef] # pylint: disable=invalid-name
