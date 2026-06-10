@@ -7,6 +7,9 @@ on:
   workflow_call:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   pytest:
     name: Run Integration Tests
@@ -96,6 +99,7 @@ jobs:
 
     - name: Install dependencies
       run: |
+        pip install toml
         python scripts/generate_lite_toml.py
         cp pyproject-lite.toml pyproject.toml
         pip install -e '.[test]'
