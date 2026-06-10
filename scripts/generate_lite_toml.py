@@ -17,12 +17,12 @@ def generate_lite() -> None:
     lite_deps = [
         dep
         for dep in original_deps
-        if not str(dep).lower().startswith("Pillow")
+        if not str(dep).lower().startswith("pillow")
         and not str(dep).lower().startswith("pypdfium2")
     ]
     data["project"]["dependencies"] = lite_deps
 
-    with open("pyproject-lite.toml", encoding="utf-8") as f:
+    with open("pyproject-lite.toml", "w", encoding="utf-8") as f:
         toml.dump(data, f)
 
     print("Successfully generated pyproject-lite.toml")
