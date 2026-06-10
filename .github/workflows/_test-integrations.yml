@@ -101,7 +101,7 @@ jobs:
       run: |
         pip install toml
         python scripts/generate_lite_toml.py
-        cp pyproject-lite.toml pyproject.toml
+        mv -f pyproject-lite.toml pyproject.toml
         pip install -e '.[test]'
     - name: Run Integration Testing
       env:

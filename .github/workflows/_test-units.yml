@@ -86,7 +86,7 @@ jobs:
       run: |
         pip install toml
         python scripts/generate_lite_toml.py
-        mv pyproject-lite.toml pyproject.toml
+        mv -f pyproject-lite.toml pyproject.toml
         pip install -e '.[test]'
 
     - name: Unit testing with pytest
