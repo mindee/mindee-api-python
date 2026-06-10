@@ -91,5 +91,5 @@ jobs:
 
     - name: Unit testing with pytest
       run: |
-        pytest --override-ini="addopts=..." --config-file=pyproject-lite.toml
+        pytest --override-ini="addopts=" --config-file=pyproject-lite.toml
 
