@@ -90,5 +90,5 @@ jobs:
 
     - name: Unit testing with pytest
       run: |
-        pytest -m lite
+        pytest -m "lite and not pypdfium2 and not pillow"
 
