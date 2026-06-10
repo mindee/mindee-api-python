@@ -21,6 +21,9 @@ def generate_lite() -> None:
         and not str(dep).lower().startswith("pypdfium2")
     ]
     data["project"]["dependencies"] = lite_deps
+    data["tool"]["pytest"]["ini_options"]["addopts"] = data["tool"]["pytest"][
+        "ini_options"
+    ]["addopts"].replace(" lite", " pypdfium2 and not pillow")
 
     with open("pyproject-lite.toml", "w", encoding="utf-8") as f:
         toml.dump(data, f)

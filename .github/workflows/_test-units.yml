@@ -84,6 +84,7 @@ jobs:
 
     - name: Install dependencies
       run: |
+        python scripts/generate_lite_toml.py
         cp pyproject-lite.toml pyproject.toml
         pip install -e '.[test]'
 
