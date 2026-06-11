@@ -1,5 +1,10 @@
 # Mindee Python Client Library Changelog
 
+## v5.0.0.alpha2 - 2026-06-11
+### Changes
+* :wrench: auto-publish mindee-lite
+
+
 ## v5.0.0.alpha1 - 2026-06-11
 ### ¡Breaking Changes!
 * :boom: :recycle: update V1 & V2 syntaxes to match other SDKs
