@@ -1,6 +1,5 @@
 import io
 
-import pypdfium2 as pdfium
 import pytest
 
 from mindee.error.mindee_error import MindeeError
@@ -13,6 +12,8 @@ from mindee.input import (
 )
 from mindee.input.page_options import KEEP_ONLY, REMOVE, PageOptions
 from tests.utils import FILE_TYPES_DIR, V1_PRODUCT_DATA_DIR
+
+pdfium = pytest.importorskip("pypdfium2")
 
 
 def _assert_page_options(input_source: LocalInputSource, numb_pages: int):

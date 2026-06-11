@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: v0.14.9
+    rev: v0.15.16
     hooks:
       - id: ruff-check
         args: [ --fix, --exit-non-zero-on-fix]
@@ -27,9 +27,11 @@ repos:
     hooks:
       - id: pip-audit
         args: ["."]
+        files: ^(requirements.*\.txt|setup\.cfg|setup\.py|pyproject\.toml)$
+        stages: [pre-push]
 
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.18.2
+    rev: v2.1.0
     hooks:
       - id: mypy
         args: []
@@ -39,6 +41,7 @@ repos:
           - types-setuptools
           - importlib-metadata
           - types-Pillow
+          - types-toml
   - repo: local
     hooks:
       - id: sphinx-html
@@ -47,6 +50,7 @@ repos:
         language: system
         pass_filenames: false
         files: ^docs/.*$|^mindee/.*\.py$
+        stages: [pre-push]
 
       - id: sphinx-linkcheck
         name: Sphinx Linkcheck
@@ -54,3 +58,4 @@ repos:
         language: system
         pass_filenames: false
         files: ^docs/.*$|^mindee/.*\.py$
+        stages: [pre-push]

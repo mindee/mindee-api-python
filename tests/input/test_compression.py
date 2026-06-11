@@ -1,9 +1,10 @@
+from __future__ import annotations
+
 import operator
 import os
 from functools import reduce
 
 import pytest
-from PIL import Image
 
 from mindee.image import compress_image
 from mindee.input import PathInput
@@ -16,6 +17,8 @@ from tests.utils import (
     V1_PRODUCT_DATA_DIR,
     cleanup_output_files,
 )
+
+Image = pytest.importorskip("PIL.Image")
 
 RECEIPT_PATH = FILE_TYPES_DIR / "receipt.jpg"
 

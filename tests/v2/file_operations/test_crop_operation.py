@@ -1,7 +1,8 @@
+from __future__ import annotations
+
 import json
 
 import pytest
-from PIL import Image
 
 from mindee.input.path_input import PathInput
 from mindee.v2.file_operations.crop import extract_multiple_crops
@@ -9,6 +10,8 @@ from mindee.v2.product.crop.crop_response import (
     CropResponse,
 )
 from tests.utils import V2_PRODUCT_DATA_DIR
+
+Image = pytest.importorskip("PIL.Image")
 
 
 @pytest.fixture
@@ -31,6 +34,8 @@ def crops_multi_page_json_path():
     return V2_PRODUCT_DATA_DIR / "crop" / "crop_multiple.json"
 
 
+@pytest.mark.pillow
+@pytest.mark.pypdfium2
 def test_single_page_crop_split(crops_single_page_path, crops_single_page_json_path):
     input_sample = PathInput(crops_single_page_path)
     with open(crops_single_page_json_path, "rb") as f:
@@ -45,7 +50,9 @@ def test_single_page_crop_split(crops_single_page_path, crops_single_page_json_p
     assert image_buffer_0.size == (2823, 1571)
 
 
-def test_multi_page_receipt_split(crops_multi_page_path, crops_multi_page_json_path):
+@pytest.mark.pillow
+@pytest.mark.pypdfium2
+def test_multi_page_receipt_crop(crops_multi_page_path, crops_multi_page_json_path):
     input_sample = PathInput(crops_multi_page_path)
     with open(crops_multi_page_json_path, "rb") as f:
         response = json.load(f)

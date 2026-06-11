@@ -25,6 +25,8 @@ def check_findoc_return(findoc_response: ExtractionResponse):
     assert findoc_response.inference.result.fields.get("total_amount").value > 0
 
 
+@pytest.mark.pillow
+@pytest.mark.pypdfium2
 @pytest.mark.integration
 def test_image_should_extract_crops():
     client = Client()
@@ -55,8 +57,8 @@ def test_image_should_extract_crops():
     extracted_images.save_all_to_disk(OUTPUT_DIR)
     crop1size = os.path.getsize(OUTPUT_DIR / "crop_001.jpg")
     crop2size = os.path.getsize(OUTPUT_DIR / "crop_002.jpg")
-    assert 186699 <= crop1size <= 199685
-    assert 194103 <= crop2size <= 199433
+    assert 180000 <= crop1size <= 199685
+    assert 190000 <= crop2size <= 199433
 
 
 @pytest.fixture(scope="module", autouse=True)

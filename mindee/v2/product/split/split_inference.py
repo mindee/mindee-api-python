@@ -1,3 +1,5 @@
+from typing import ClassVar
+
 from mindee.parsing.common.string_dict import StringDict
 from mindee.v2.parsing.inference.base_inference import BaseInference
 from mindee.v2.product.split.split_result import SplitResult
@@ -9,7 +11,7 @@ class SplitInference(BaseInference):
     result: SplitResult
     """Result of a split inference."""
 
-    _slug: str = "split"
+    _slug: ClassVar[str] = "split"
     """Slug of the endpoint."""
 
     def __init__(self, raw_response: StringDict) -> None:

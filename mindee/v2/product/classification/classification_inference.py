@@ -1,3 +1,5 @@
+from typing import ClassVar
+
 from mindee.parsing.common.string_dict import StringDict
 from mindee.v2.parsing.inference.base_inference import BaseInference
 from mindee.v2.product.classification.classification_result import ClassificationResult
@@ -8,7 +10,7 @@ class ClassificationInference(BaseInference):
 
     result: ClassificationResult
     """Result of a classification inference."""
-    _slug: str = "classification"
+    _slug: ClassVar[str] = "classification"
     """Slug of the endpoint."""
 
     def __init__(self, raw_response: StringDict) -> None:

@@ -1,18 +1,26 @@
+from __future__ import annotations
+
 import io
 import mimetypes
 import tempfile
 from collections.abc import Sequence
 from typing import BinaryIO
 
-import pypdfium2 as pdfium
-
+from mindee.dependencies import requires_pypdfium2
+from mindee.dependencies.checkers import PYPDFIUM2_AVAILABLE
 from mindee.error.mimetype_error import MimeTypeError
 from mindee.error.mindee_error import MindeeError, MindeeSourceError
 from mindee.image import compress_image
 from mindee.input.page_options import KEEP_ONLY, REMOVE, PageOptions
 from mindee.logger import logger
 from mindee.pdf.pdf_compressor import compress_pdf
-from mindee.pdf.pdf_utils import has_source_text
+from mindee.pdf.pdf_utils import pdf_has_source_text
+
+if PYPDFIUM2_AVAILABLE:
+    # pylint: disable=import-error
+    import pypdfium2 as pdfium
+else:
+    pdfium = None  # pylint: disable=invalid-name
 
 mimetypes.add_type("image/heic", ".heic")
 mimetypes.add_type("image/heic", ".heif")
@@ -42,18 +50,21 @@ class LocalInputSource:
         Initialize a LocalInputSource object.
         """
         self._check_mimetype()
-
         if self.is_pdf():
             self.file_object.seek(0)
-            try:
-                pdf = pdfium.PdfDocument(self.file_object)
-                self.page_count = len(pdf)
-            except pdfium.PdfiumError as e:
-                logger.warning(
-                    "Could not open PDF file: %s due to %s", self.filename, e
-                )
+            # Some broken (yet fixable) PDFs can cause pdfium to crash on open.
+            if PYPDFIUM2_AVAILABLE:
+                try:
+                    pdf = pdfium.PdfDocument(self.file_object)
+                    self.page_count = len(pdf)
+                except pdfium.PdfiumError as e:
+                    logger.warning(
+                        "Could not open PDF file: %s due to %s", self.filename, e
+                    )
+                    self.page_count = 0
+                self.file_object.seek(0)
+            else:
                 self.page_count = 0
-            self.file_object.seek(0)
         else:
             self.page_count = 1
         logger.debug(
@@ -116,6 +127,7 @@ class LocalInputSource:
         """:return: True if the file is a PDF."""
         return self.file_mimetype == "application/pdf"
 
+    @requires_pypdfium2
     def apply_page_options(self, page_options: PageOptions) -> None:
         """Apply cut and merge options on multipage documents."""
         if not self.is_pdf():
@@ -165,6 +177,7 @@ class LocalInputSource:
             raise MindeeSourceError("Resulting PDF would have no pages left.")
         self.merge_pdf_pages(pages_to_keep)
 
+    @requires_pypdfium2
     def merge_pdf_pages(self, page_numbers: set) -> None:
         """
         Create a new PDF from pages and set it to ``file_object``.
@@ -184,6 +197,7 @@ class LocalInputSource:
         new_pdf.close()
         pdf.close()
 
+    @requires_pypdfium2
     def is_pdf_empty(self) -> bool:
         """
         Check if the PDF is empty.
@@ -226,8 +240,9 @@ class LocalInputSource:
         """
         if not self.is_pdf():
             return False
-        return has_source_text(self.file_object.read())
+        return pdf_has_source_text(self.file_object.read())
 
+    @requires_pypdfium2
     def compress(
         self,
         quality: int = 85,

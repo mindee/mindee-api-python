@@ -1,12 +1,15 @@
+from __future__ import annotations
+
 import json
 
 import pytest
-from PIL import Image
 
 from mindee.image.image_extractor import extract_multiple_images_from_source
 from mindee.input.path_input import PathInput
 from mindee.v1.product.barcode_reader import BarcodeReaderV1
 from tests.utils import V1_PRODUCT_DATA_DIR
+
+Image = pytest.importorskip("PIL.Image")
 
 
 @pytest.fixture

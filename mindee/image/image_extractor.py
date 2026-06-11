@@ -1,9 +1,11 @@
+from __future__ import annotations
+
 import io
-from typing import BinaryIO
+from typing import Any, BinaryIO
 
-import pypdfium2 as pdfium
-from PIL import Image
-
+from mindee.dependencies import requires_pypdfium2
+from mindee.dependencies.checkers import PILLOW_AVAILABLE, PYPDFIUM2_AVAILABLE
+from mindee.dependencies.decorators import requires_pillow
 from mindee.error.mindee_error import MindeeError
 from mindee.geometry.point import Point
 from mindee.geometry.polygon import Polygon, get_min_max_x, get_min_max_y
@@ -11,7 +13,22 @@ from mindee.image.extracted_image import ExtractedImage
 from mindee.input.bytes_input import BytesInput
 from mindee.input.local_input_source import LocalInputSource
 
+if PYPDFIUM2_AVAILABLE:
+    # pylint: disable=import-error
+    import pypdfium2 as pdfium
+else:
+    pdfium = None  # pylint: disable=invalid-name
 
+
+if PILLOW_AVAILABLE:
+    # pylint: disable=import-error
+    from PIL import Image
+else:
+    Image: Any = None  # type: ignore[no-redef] # pylint: disable=invalid-name
+
+
+@requires_pillow
+@requires_pypdfium2
 def attach_image_as_new_file(  # type: ignore
     input_buffer: BinaryIO,
 ) -> pdfium.PdfDocument:
@@ -42,6 +59,7 @@ def attach_image_as_new_file(  # type: ignore
     return pdf
 
 
+@requires_pillow
 def extract_image_from_polygon(
     page_content: Image.Image,
     polygon: list[Point],
@@ -72,6 +90,7 @@ def extract_image_from_polygon(
     return save_image_to_buffer(cropped_image, file_format)
 
 
+@requires_pillow
 def save_image_to_buffer(image: Image.Image, file_format: str) -> bytes:
     """
     Saves an image as a buffer.
@@ -86,6 +105,7 @@ def save_image_to_buffer(image: Image.Image, file_format: str) -> bytes:
     return buffer.read()
 
 
+@requires_pillow
 def determine_file_format(input_source: LocalInputSource) -> str:
     """
     Retrieves the file format from an input source.
@@ -111,6 +131,7 @@ def get_file_extension(file_format: str):
     return file_format.lower() if file_format != "JPEG" else "jpg"
 
 
+@requires_pillow
 def extract_multiple_images_from_source(
     input_source: LocalInputSource,
     page_id: int,
@@ -150,6 +171,7 @@ def extract_multiple_images_from_source(
     return extracted_elements
 
 
+@requires_pypdfium2
 def load_pdf_doc(input_file: LocalInputSource) -> pdfium.PdfDocument:  # type: ignore
     """
     Loads a PDF document from a local input source.

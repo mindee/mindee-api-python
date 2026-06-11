@@ -1,4 +1,5 @@
 from abc import ABC
+from typing import ClassVar
 
 from mindee.parsing.common.common_response import CommonResponse
 from mindee.v2.parsing.inference.base_inference import BaseInference
@@ -9,7 +10,7 @@ class BaseResponse(ABC, CommonResponse):
 
     inference: BaseInference
     """The inference result for a split utility request"""
-    _slug: str
+    _slug: ClassVar[str]
     """Slug of the inference."""
 
     def __str__(self) -> str:

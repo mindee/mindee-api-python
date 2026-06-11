@@ -23,6 +23,7 @@ def check_findoc_return(findoc_response: ExtractionResponse):
     assert findoc_response.inference.result.fields.get("total_amount").value > 0
 
 
+@pytest.mark.pypdfium2
 @pytest.mark.integration
 def test_pdf_should_extract_splits():
     client = Client()

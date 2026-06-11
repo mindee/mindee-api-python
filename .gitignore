@@ -140,3 +140,4 @@ _test.py
 _test*.py
 _test.json
 local_test
+pyproject-lite.toml

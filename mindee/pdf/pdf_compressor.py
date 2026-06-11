@@ -1,25 +1,40 @@
+from __future__ import annotations
+
 import io
 import logging
 from ctypes import POINTER, c_char_p, c_ushort
 from threading import RLock
-from typing import BinaryIO
+from typing import Any, BinaryIO
 
-import pypdfium2 as pdfium
-import pypdfium2.raw as pdfium_c
-from PIL import Image
-
-from mindee.image import compress_image
+from mindee.dependencies.checkers import PILLOW_AVAILABLE, PYPDFIUM2_AVAILABLE
+from mindee.dependencies.decorators import requires_pillow, requires_pypdfium2
+from mindee.image.image_compressor import compress_image
 from mindee.pdf.pdf_char_data import PDFCharData
 from mindee.pdf.pdf_utils import (
     extract_text_from_pdf,
-    has_source_text,
     lerp,
+    pdf_has_source_text,
 )
+
+if PYPDFIUM2_AVAILABLE:
+    # pylint: disable=import-error
+    import pypdfium2 as pdfium
+    import pypdfium2.raw as pdfium_c
+else:
+    pdfium: Any = None  # type: ignore[no-redef] # pylint: disable=invalid-name
+    pdfium_c: Any = None  # type: ignore[no-redef] # pylint: disable=invalid-name
+
+if PILLOW_AVAILABLE:
+    # pylint: disable=import-error
+    from PIL import Image
+else:
+    Image: Any = None  # type: ignore[no-redef] # pylint: disable=invalid-name
 
 logger = logging.getLogger(__name__)
 MIN_QUALITY = 1
 
 
+@requires_pypdfium2
 def compress_pdf(
     pdf_data: BinaryIO | bytes,
     image_quality: int = 85,
@@ -41,7 +56,7 @@ def compress_pdf(
     else:
         pdf_bytes = pdf_data
 
-    if has_source_text(pdf_bytes):
+    if pdf_has_source_text(pdf_bytes):
         if force_source_text_compression:
             if not disable_source_text:
                 logger.warning("Re-writing PDF source-text is an EXPERIMENTAL feature.")
@@ -111,6 +126,7 @@ def _compress_pdf_pages(
     return None
 
 
+@requires_pypdfium2
 def add_text_to_pdf_page(  # type: ignore
     page: pdfium.PdfPage,
     page_id: int,
@@ -146,6 +162,8 @@ def add_text_to_pdf_page(  # type: ignore
         pdfium_c.FPDFPage_GenerateContent(page.raw)
 
 
+@requires_pypdfium2
+@requires_pillow
 def _compress_pages_with_quality(
     pdf_data: bytes,
     image_quality: int,
@@ -183,6 +201,7 @@ def _is_compression_successful(
     return total_compressed_size + total_compressed_size * overhead < original_size
 
 
+@requires_pypdfium2
 def _rasterize_page(  # type: ignore
     page: pdfium.PdfPage,
     quality: int = 85,
@@ -200,6 +219,7 @@ def _rasterize_page(  # type: ignore
     return buffer.getvalue()
 
 
+@requires_pypdfium2
 def _collect_images_as_pdf(image_list: list[bytes]) -> pdfium.PdfDocument:  # type: ignore
     """
     Converts a list of JPEG images into pages in a PdfDocument.

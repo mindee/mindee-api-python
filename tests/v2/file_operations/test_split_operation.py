@@ -31,7 +31,8 @@ def splits_multi_page_json_path():
     return V2_PRODUCT_DATA_DIR / "split" / "split_multiple.json"
 
 
-def test_single_page_split_split(splits_default, splits_single_page_json_path):
+@pytest.mark.pypdfium2
+def test_single_page_split(splits_default, splits_single_page_json_path):
     input_sample = PathInput(splits_default)
     with open(splits_single_page_json_path, "rb") as f:
         response = json.load(f)
@@ -42,6 +43,7 @@ def test_single_page_split_split(splits_default, splits_single_page_json_path):
     assert extracted_splits[0].get_page_count() == 1
 
 
+@pytest.mark.pypdfium2
 def test_multi_page_receipt_split(splits_5p, splits_multi_page_json_path):
     input_sample = PathInput(splits_5p)
     with open(splits_multi_page_json_path, "rb") as f:

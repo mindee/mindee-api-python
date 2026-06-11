@@ -55,11 +55,12 @@ test = [
 docs = [
     "sphinx~=9.1.0",
     "sphinx_rtd_theme~=3.1.0",
-    "sphinx-autodoc-typehints~=3.10.4",
+    "sphinx-autodoc-typehints>=3.10.4,<4.0.0",
 ]
 build = [
     "build",
     "twine",
+    "toml"
 ]
 
 [project.scripts]
@@ -119,14 +120,17 @@ safe_licenses = [
 
 
 [tool.pytest.ini_options]
-addopts = "--pyargs --cov-report term:skip-covered --cov-report term-missing -m 'not regression and not integration'"
+addopts = "--pyargs --cov-report term:skip-covered --cov-report term-missing -m 'not integration and not regression and not lite'"
 python_files = "test*.py"
 junit_family = "xunit2"
 markers = [
-    "regression: marks tests as regression tests - select with '-m regression'",
     "lineitems: debug line items",
     "integration: integration tests that send calls to the API - select with '-m integration'",
-    "v2: Tests specific to version 2 of the API"
+    "lite: tests for mindee-lite",
+    "v2: tests specific to version 2 of the API",
+    "pillow: tests that require the use of the Pillow (PIL) library",
+    "pypdfium2: tests that require the usage of the pypdfium2 library",
+    "regression: marks tests as regression tests - select with '-m regression'",
 ]
 testpaths = [
     "tests",

@@ -1,3 +1,5 @@
+from typing import ClassVar
+
 from mindee.parsing.common.string_dict import StringDict
 from mindee.v2.parsing.inference.base_response import BaseResponse
 from mindee.v2.product.classification.classification_inference import (
@@ -11,7 +13,7 @@ class ClassificationResponse(BaseResponse):
     inference: ClassificationInference
     """Inference object for classification inference."""
 
-    _slug: str = "products/classification/results"
+    _slug: ClassVar[str] = "products/classification/results"
     """Slug of the inference."""
 
     def __init__(self, raw_response: StringDict) -> None:
