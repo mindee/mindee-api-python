@@ -52,9 +52,16 @@ class LocalInputSource:
         self._check_mimetype()
         if self.is_pdf():
             self.file_object.seek(0)
+            # Some broken (yet fixable) PDFs can cause pdfium to crash on open.
             if PYPDFIUM2_AVAILABLE:
-                pdf = pdfium.PdfDocument(self.file_object)
-                self.page_count = len(pdf)
+                try:
+                    pdf = pdfium.PdfDocument(self.file_object)
+                    self.page_count = len(pdf)
+                except pdfium.PdfiumError as e:
+                    logger.warning(
+                        "Could not open PDF file: %s due to %s", self.filename, e
+                    )
+                    self.page_count = 0
                 self.file_object.seek(0)
             else:
                 self.page_count = 0
