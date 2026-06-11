@@ -50,22 +50,16 @@ class LocalInputSource:
         Initialize a LocalInputSource object.
         """
         self._check_mimetype()
-        if PYPDFIUM2_AVAILABLE:
-            if self.is_pdf():
-                self.file_object.seek(0)
-                try:
-                    pdf = pdfium.PdfDocument(self.file_object)
-                    self.page_count = len(pdf)
-                except pdfium.PdfiumError as e:
-                    logger.warning(
-                        "Could not open PDF file: %s due to %s", self.filename, e
-                    )
-                    self.page_count = 0
+        if self.is_pdf():
+            self.file_object.seek(0)
+            if PYPDFIUM2_AVAILABLE:
+                pdf = pdfium.PdfDocument(self.file_object)
+                self.page_count = len(pdf)
                 self.file_object.seek(0)
             else:
-                self.page_count = 1
+                self.page_count = 0
         else:
-            self.page_count = 0
+            self.page_count = 1
         logger.debug(
             "Loaded new input '%s' from %s", self.filename, {type(self).__name__}
         )
