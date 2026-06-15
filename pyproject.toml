@@ -42,7 +42,7 @@ Changelog = "https://github.com/mindee/mindee-api-python/blob/main/CHANGELOG.md"
 
 [project.optional-dependencies]
 lint = [
-    "pylint==4.0.5",
+    "pylint==4.0.6",
     "pre-commit~=4.6.0",
     "pip-audit>=2.10.0",
 ]
