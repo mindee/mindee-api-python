@@ -56,6 +56,7 @@ TEST_IMAGES = (
     # ("receipt.jpga", "image/jpeg"),
     ("receipt.png", "image/png"),
     ("receipt.heic", "image/heic"),
+    ("receipt.heif", "image/heif"),
 )
 
 

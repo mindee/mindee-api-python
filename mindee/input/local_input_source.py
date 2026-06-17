@@ -23,11 +23,12 @@ else:
     pdfium = None  # pylint: disable=invalid-name
 
 mimetypes.add_type("image/heic", ".heic")
-mimetypes.add_type("image/heic", ".heif")
+mimetypes.add_type("image/heif", ".heif")
 
 ALLOWED_MIME_TYPES = [
     "application/pdf",
     "image/heic",
+    "image/heif",
     "image/png",
     "image/jpg",
     "image/jpeg",
