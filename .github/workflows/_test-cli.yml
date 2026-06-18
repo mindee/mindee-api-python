@@ -1,0 +1,74 @@
+name: Test Command Line Interface
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+env:
+  MINDEE_API_KEY: ${{ secrets.MINDEE_API_KEY_SE_TESTS }}
+  MINDEE_V2_API_KEY: ${{ secrets.MINDEE_V2_SE_TESTS_API_KEY }}
+  MINDEE_V2_SE_TESTS_FINDOC_MODEL_ID: ${{ secrets.MINDEE_V2_SE_TESTS_FINDOC_MODEL_ID }}
+  MINDEE_V2_SE_TESTS_CLASSIFICATION_MODEL_ID: ${{ secrets.MINDEE_V2_SE_TESTS_CLASSIFICATION_MODEL_ID }}
+  MINDEE_V2_SE_TESTS_CROP_MODEL_ID: ${{ secrets.MINDEE_V2_SE_TESTS_CROP_MODEL_ID }}
+  MINDEE_V2_SE_TESTS_SPLIT_MODEL_ID: ${{ secrets.MINDEE_V2_SE_TESTS_SPLIT_MODEL_ID }}
+  MINDEE_V2_SE_TESTS_OCR_MODEL_ID: ${{ secrets.MINDEE_V2_SE_TESTS_OCR_MODEL_ID }}
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Run CLI tests
+    timeout-minutes: 30
+    strategy:
+      max-parallel: 4
+      matrix:
+        os:
+          - "ubuntu-22.04"
+          - "macos-latest"
+          - "windows-2022"
+        python-version:
+          - "3.10"
+          - "3.14"
+    runs-on: ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@v6
+      with:
+        submodules: recursive
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v6
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Cache dependencies
+      uses: actions/cache@v5
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-cli-${{ hashFiles('**/pyproject.toml') }}
+        restore-keys: |
+          ${{ runner.os }}-cli-
+
+    - name: Install dependencies
+      run: |
+        python -m pip install pip
+        pip install -e '.'
+
+    - name: Test V1 CLI
+      shell: sh
+      run: |
+        ./tests/test_v1_cli.sh ./tests/data/file_types/pdf/blank_1.pdf python
+
+    - name: Test V2 CLI
+      shell: sh
+      run: |
+        ./tests/test_v2_cli.sh ./tests/data/file_types/pdf/blank_1.pdf python
+
+    - name: Notify Slack Action on Failure
+      uses: ravsamhq/notify-slack-action@2.5.0
+      if: ${{ always() && github.ref_name == 'main' }}
+      with:
+        status: ${{ job.status }}
+        notify_when: "failure"
+        notification_title: "[Python] CLI test '{workflow}' is failing"
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.PRODUCTION_ISSUES_SLACK_HOOK_URL }}

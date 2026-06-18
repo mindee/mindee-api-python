@@ -204,10 +204,15 @@ class MindeeAPIV2(SettingsMixin):
             get_kwargs["timeout"] = self.request_timeout
         else:
             get_caller = self.http_client.get
+        params = {}
+        if name:
+            params["name"] = name
+        if model_type:
+            params["model_type"] = model_type
         return get_caller(
             url=f"{self.url_root}/v2/search/models",
             headers=self.base_headers,
-            params={"name": name, "model_type": model_type},
+            params=params,
             follow_redirects=False,
             **get_kwargs,
         )
