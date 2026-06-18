@@ -11,3 +11,6 @@ jobs:
   test-code-samples:
     uses: mindee/mindee-api-python/.github/workflows/_smoke-test.yml@main
     secrets: inherit
+  test-cli:
+    uses: mindee/mindee-api-python/.github/workflows/_test-cli.yml@main
+    secrets: inherit

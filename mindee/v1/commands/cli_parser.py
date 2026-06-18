@@ -103,11 +103,54 @@ class MindeeArgumentParser(ArgumentParser):
         )
 
 
+def register_v1_product_subparsers(parser: ArgumentParser) -> None:
+    """
+    Register V1 product subparsers under the given ``parser``.
+
+    Used both by the legacy ``mindee`` binary and by the ``v1`` group of
+    the unified ``mindeeV2`` CLI.
+    """
+    parse_product_subparsers = parser.add_subparsers(
+        dest="product_name",
+        required=True,
+        parser_class=MindeeArgumentParser,
+    )
+
+    for name, info in PRODUCTS.items():
+        parse_subparser = parse_product_subparsers.add_parser(name, help=info.help)
+
+        parse_subparser.add_main_options()
+        parse_subparser.add_sending_options()
+        parse_subparser.add_display_options()
+        if name in ("custom", "generated"):
+            parse_subparser.add_custom_options()
+        else:
+            parse_subparser.add_argument(
+                "-t",
+                "--full-text",
+                dest="include_words",
+                action="store_true",
+                help="include full document text in response",
+            )
+
+        if info.is_async and info.is_sync:
+            parse_subparser.add_argument(
+                "-A",
+                "--asynchronous",
+                dest="async_parse",
+                help="Parse asynchronously",
+                action="store_true",
+                required=False,
+                default=False,
+            )
+
+
 class MindeeParser:
     """Custom parser for the Mindee CLI."""
 
     parser: MindeeArgumentParser
     """Parser options."""
+
     parsed_args: Namespace
     """Stores attributes relating to parsing."""
     client: Client
@@ -230,39 +273,7 @@ class MindeeParser:
 
     def _set_args(self) -> Namespace:
         """Parse command line arguments."""
-        parse_product_subparsers = self.parser.add_subparsers(
-            dest="product_name",
-            required=True,
-        )
-
-        for name, info in PRODUCTS.items():
-            parse_subparser = parse_product_subparsers.add_parser(name, help=info.help)
-
-            parse_subparser.add_main_options()
-            parse_subparser.add_sending_options()
-            parse_subparser.add_display_options()
-            if name in ("custom", "generated"):
-                parse_subparser.add_custom_options()
-            else:
-                parse_subparser.add_argument(
-                    "-t",
-                    "--full-text",
-                    dest="include_words",
-                    action="store_true",
-                    help="include full document text in response",
-                )
-
-            if info.is_async and info.is_sync:
-                parse_subparser.add_argument(
-                    "-A",
-                    "--asynchronous",
-                    dest="async_parse",
-                    help="Parse asynchronously",
-                    action="store_true",
-                    required=False,
-                    default=False,
-                )
-
+        register_v1_product_subparsers(self.parser)
         parsed_args = self.parser.parse_args()
         return parsed_args
 
