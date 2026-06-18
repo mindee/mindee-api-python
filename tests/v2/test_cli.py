@@ -1,6 +1,16 @@
 import pytest
 
-from mindee.v2.commands import MindeeArgumentParser, MindeeParser, OutputType
+from mindee.v2.commands import (
+    BaseInferenceCommand,
+    ClassificationCommand,
+    CropCommand,
+    ExtractionCommand,
+    MindeeArgumentParser,
+    MindeeParser,
+    OcrCommand,
+    OutputType,
+    SplitCommand,
+)
 from tests.utils import V2_PRODUCT_DATA_DIR, clear_envvars
 
 
@@ -10,14 +20,14 @@ def parser() -> MindeeParser:
     p = MindeeParser.__new__(MindeeParser)
     p.parser = MindeeArgumentParser(description="Mindee_API")
     from mindee.v2.commands.cli_parser import (
-        _INFERENCE_COMMANDS,
+        _build_inference_commands,
         _default_client_factory,
     )
     from mindee.v2.commands.search_models_command import (
         SearchModelsCommand,
     )
 
-    p._inference_commands = {cmd.options.name: cmd for cmd in _INFERENCE_COMMANDS}
+    p._inference_commands = {cmd.name: cmd for cmd in _build_inference_commands()}
     p._search_models_command = SearchModelsCommand()
     p._client_factory = _default_client_factory
     p._build_parser()
@@ -227,3 +237,25 @@ def test_v1_group_delegates_to_v1_mindee_parser(monkeypatch, parser: MindeeParse
     assert seen["called"] is True
     assert seen["args"].product_name == "invoice"
     assert seen["args"].api_key == "dummy"
+
+
+def test_each_inference_command_is_self_contained(parser: MindeeParser):
+    """Every V2 inference command is its own subclass of BaseInferenceCommand.
+
+    Locks in the per-product class architecture: the dispatcher must hold
+    distinct ``BaseInferenceCommand`` instances rather than a single
+    config-driven command, so future products that don't fit the
+    document-extraction shape can simply not extend this base.
+    """
+    expected = {
+        "classification": ClassificationCommand,
+        "crop": CropCommand,
+        "extraction": ExtractionCommand,
+        "ocr": OcrCommand,
+        "split": SplitCommand,
+    }
+    for name, cls in expected.items():
+        cmd = parser._inference_commands[name]
+        assert isinstance(cmd, BaseInferenceCommand)
+        assert isinstance(cmd, cls)
+        assert cmd.name == name

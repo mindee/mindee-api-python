@@ -10,11 +10,13 @@ from mindee.v1.commands.cli_parser import (
 )
 from mindee.v1.error.mindee_api_error import MindeeAPIError
 from mindee.v2.client import Client
-from mindee.v2.commands.inference_command import (
-    InferenceCommand,
-    InferenceCommandOptions,
-)
+from mindee.v2.commands.base_inference_command import BaseInferenceCommand
+from mindee.v2.commands.classification_command import ClassificationCommand
+from mindee.v2.commands.crop_command import CropCommand
+from mindee.v2.commands.extraction_command import ExtractionCommand
+from mindee.v2.commands.ocr_command import OcrCommand
 from mindee.v2.commands.search_models_command import SearchModelsCommand
+from mindee.v2.commands.split_command import SplitCommand
 from mindee.v2.error.mindee_api_v2_error import MindeeAPIV2Error
 
 PROG_NAME = "mindee"
@@ -25,43 +27,20 @@ class MindeeArgumentParser(ArgumentParser):
     """Top-level argument parser for the unified ``mindee`` CLI."""
 
 
-_INFERENCE_COMMANDS: list[InferenceCommand] = [
-    InferenceCommand(
-        InferenceCommandOptions(
-            name="classification",
-            description="Classification utility.",
-        )
-    ),
-    InferenceCommand(
-        InferenceCommandOptions(
-            name="crop",
-            description="Crop utility.",
-        )
-    ),
-    InferenceCommand(
-        InferenceCommandOptions(
-            name="extraction",
-            description="Generic all-purpose extraction.",
-            rag=True,
-            raw_text=True,
-            confidence=True,
-            polygon=True,
-            text_context=True,
-        )
-    ),
-    InferenceCommand(
-        InferenceCommandOptions(
-            name="ocr",
-            description="OCR utility.",
-        )
-    ),
-    InferenceCommand(
-        InferenceCommandOptions(
-            name="split",
-            description="Split utility.",
-        )
-    ),
-]
+def _build_inference_commands() -> list[BaseInferenceCommand]:
+    """Return a fresh list of V2 inference command instances.
+
+    Add a new product by appending its command class here. Each command
+    owns its own options, parameters and output formatting; there is no
+    central registry to keep in sync.
+    """
+    return [
+        ClassificationCommand(),
+        CropCommand(),
+        ExtractionCommand(),
+        OcrCommand(),
+        SplitCommand(),
+    ]
 
 
 class MindeeParser:
@@ -79,7 +58,7 @@ class MindeeParser:
     parser: MindeeArgumentParser
     parsed_args: Namespace
     _client_factory: Callable[[str | None], Client]
-    _inference_commands: dict[str, InferenceCommand]
+    _inference_commands: dict[str, BaseInferenceCommand]
     _search_models_command: SearchModelsCommand
 
     def __init__(
@@ -94,7 +73,7 @@ class MindeeParser:
             else MindeeArgumentParser(prog=PROG_NAME, description="Mindee CLI")
         )
         self._inference_commands = {
-            cmd.options.name: cmd for cmd in _INFERENCE_COMMANDS
+            cmd.name: cmd for cmd in _build_inference_commands()
         }
         self._search_models_command = SearchModelsCommand()
         if parsed_args is None:
