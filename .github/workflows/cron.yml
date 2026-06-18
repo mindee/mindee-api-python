@@ -4,6 +4,11 @@ on:
   schedule:
   - cron: '32 0 * * *'
 
+permissions:
+  contents: read
+  packages: read
+  actions: read
+
 jobs:
   test-regressions:
     uses: mindee/mindee-api-python/.github/workflows/_test-regressions.yml@main
