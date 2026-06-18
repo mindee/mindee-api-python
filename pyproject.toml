@@ -75,7 +75,14 @@ version = { attr = "mindee.versions.__version__" }
 
 [tool.setuptools.package-data]
 "mindee" = ["py.typed"]
-
+[tool.coverage.run]
+omit = [
+    "examples/*",
+    "scripts/*",
+    "mindee/cli.py",
+    "mindee/v1/commands/*",
+    "mindee/v2/commands/*",
+]
 
 [tool.ruff]
 line-length = 88
