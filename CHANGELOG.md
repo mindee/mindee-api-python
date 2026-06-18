@@ -1,5 +1,53 @@
 # Mindee Python Client Library Changelog
 
+## v5.0.0 - 2026-06-17
+### ¡Breaking Changes!
+* :boom: :recycle: update V1 & V2 syntaxes to match other SDKs
+    * :recycle: move V1 client to V1 module
+    * :recycle: move V2 client to V2 module
+    * :recycle: move legacy products to 'V1' module
+    * :recycle: add parsing and extraction to V1 module
+    * :recycle: move V1 Http, error, image, PDF to V1 namespace
+    * :recycle: move V2 Http, error, image, PDF to V2 namespace
+    * :recycle: move data schema to extraction parameters namespace
+* :boom: :recycle: remove `/v1` and `/v2` from base URLs to match other SDKs
+* :boom: :recycle: remove deprecated methods and classes
+* :boom: :wrench: move LocalInputSource page_count to an attribute
+* :boom: :recycle: Remove V2 Inference in favor of extraction
+* :boom: :recycle: Move PDF & Image operations to their respective namespaces and remove `Extraction` namespace
+* :boom: :recycle: Harmonize all acronyms as proper camelCase & PascalCase
+* :boom: :arrow_up: bump minimal supported version to python 3.10
+* :boom: :recycle: remove sourceFrom initializers in favor of direct InputSource initialization
+* :boom: remove support for the following V1 products:
+  * :coffin: Bill of Lading V1
+  * :coffin: Business Card V1
+  * :coffin: Delivery Notes V1
+  * :coffin: Driver License V1
+  * :coffin: (FR) Energy Bill V1
+  * :coffin: (FR) Healthcare Card V1
+  * :coffin: (IND) Passeport V1
+  * :coffin: Material Certificate V1
+  * :coffin: Nutrition Fact V1
+  * :coffin: (FR) Payslip V3
+  * :coffin: Resume V1
+  * :coffin: (US) Healthcare Cards V1
+  * :coffin: (US) Mail V3
+* :boom: :recycle: switch to httpx from requests
+* :boom: :sparkles: add support for mindee-lite package without heavier dependencies
+### Changes
+* :sparkles: add support for model search from the V2 client
+* :sparkles: add crop and split extractors from product classes
+* :sparkles: add support for direct url GET inference
+* :sparkles: add support for custom HTTPx client
+* :wrench: add support for better tooling
+* :arrow_down: remove pytz dependency
+* :recycle: move V2 API-specific internals to their own file
+* :white_check_mark: ensure support for HEIF files
+### Fixes
+* :bug: fix some circular import shenanigans
+* :bug: fix memory leak issues when altering PDF pages
+
+
 ## v5.0.0.alpha2 - 2026-06-11
 ### Changes
 * :wrench: auto-publish mindee-lite
@@ -12,8 +60,8 @@
     * :recycle: move V2 client to V2 module
     * :recycle: move legacy products to 'V1' module
     * :recycle: add parsing and extraction to V1 module
-    * :recycle: move V1 Http, error, image, pdf to V1 namespace
-    * :recycle: move V2 Http, error, image, pdf  to V2 namespace
+    * :recycle: move V1 Http, error, image, PDF to V1 namespace
+    * :recycle: move V2 Http, error, image, PDF to V2 namespace
     * :recycle: move data schema to extraction parameters namespace
 * :boom: :recycle: remove `/v1` and `/v2` from base URLs to match other SDKs
 * :boom: :recycle: remove deprecated methods and classes
