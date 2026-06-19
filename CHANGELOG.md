@@ -1,5 +1,11 @@
 # Mindee Python Client Library Changelog
 
+## v5.1.1 - 2026-06-19
+### Fixes
+* :bug: fix building docs
+* :bug: fix search imports
+
+
 ## v5.1.0 - 2026-06-19
 ### Changes
 * :boom: :sparkles: unify the `mindee` CLI to mirror the .NET reference: V2 inference commands (`classification`, `crop`, `extraction`, `ocr`, `split`) and `search-models` at the root, V1 product commands wrapped under a `v1` subcommand
