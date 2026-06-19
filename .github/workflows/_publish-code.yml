@@ -20,7 +20,7 @@ jobs:
       matrix:
         variant: [ full, lite ]
     env:
-      PYTHON_VERSION: "3.13"
+      PYTHON_VERSION: "3.12"
     steps:
       - uses: actions/checkout@v6
 

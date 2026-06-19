@@ -11,7 +11,7 @@ Model Webhook
 
 Pagination
 ##########
-.. autoclass:: mindee.v2.parsing.search.pagination.Pagination
+.. autoclass:: mindee.v2.parsing.search.pagination_metadata.PaginationMetadata
     :members:
     :inherited-members:
 

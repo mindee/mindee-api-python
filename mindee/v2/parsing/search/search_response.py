@@ -1,6 +1,6 @@
 from mindee.parsing.common.common_response import CommonResponse
 from mindee.parsing.common.string_dict import StringDict
-from mindee.v2.parsing.search.paginationmetadata import PaginationMetadata
+from mindee.v2.parsing.search.pagination_metadata import PaginationMetadata
 from mindee.v2.parsing.search.search_models import SearchModels
 
 
