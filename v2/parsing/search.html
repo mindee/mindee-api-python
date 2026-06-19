@@ -1,0 +1,378 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>V2 Search &mdash; Mindee Python Client  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="V2 Products" href="../product/index.html" />
+    <link rel="prev" title="V2 Parsing Job" href="job.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Mindee Python Client
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../client_options.html">Client Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../error.html">Mindee Errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../geometry.html">Geometry Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../image.html">Image Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../input.html">Mindee Input</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../mindee_http.html">Mindee HTTP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parsing/index.html">Parsing Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pdf.html">PDF Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../v1/index.html">V1 Utilities</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">V2 Utilities</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../client_options.html">V2 Client Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error.html">V2 Error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../file_operations.html">File Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mindee_http.html">V2 Mindee HTTP</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">V2 Parsing</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="inference/index.html">Inference V2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="error.html">V2 Parsing Error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="job.html">V2 Parsing Job</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">V2 Search</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#model-webhook">Model Webhook</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pagination">Pagination</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#search-model">Search Model</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#search-models">Search Models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#search-response">Search Response</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../product/index.html">V2 Products</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#client-v2">Client V2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../client_mixin.html">Client Mixin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../logger.html">Mindee Logger</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Mindee Python Client</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">V2 Utilities</a></li>
+          <li class="breadcrumb-item"><a href="index.html">V2 Parsing</a></li>
+      <li class="breadcrumb-item active">V2 Search</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/v2/parsing/search.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="v2-search">
+<h1>V2 Search<a class="headerlink" href="#v2-search" title="Link to this heading"></a></h1>
+<section id="model-webhook">
+<h2>Model Webhook<a class="headerlink" href="#model-webhook" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.model_webhook.ModelWebhook">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">ModelWebhook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">server_response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.parsing.search.model_webhook.ModelWebhook" title="Link to this definition"></a></dt>
+<dd><p>Model webhook information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>server_response</strong> (<em>dict</em>)</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.model_webhook.ModelWebhook.id">
+<span class="sig-name descname"><span class="pre">id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#mindee.v2.parsing.search.model_webhook.ModelWebhook.id" title="Link to this definition"></a></dt>
+<dd><p>ID of the webhook.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.model_webhook.ModelWebhook.name">
+<span class="sig-name descname"><span class="pre">name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#mindee.v2.parsing.search.model_webhook.ModelWebhook.name" title="Link to this definition"></a></dt>
+<dd><p>Name of the webhook.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.model_webhook.ModelWebhook.url">
+<span class="sig-name descname"><span class="pre">url</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#mindee.v2.parsing.search.model_webhook.ModelWebhook.url" title="Link to this definition"></a></dt>
+<dd><p>URL of the webhook.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="pagination">
+<h2>Pagination<a class="headerlink" href="#pagination" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.pagination_metadata.PaginationMetadata">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">PaginationMetadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">server_response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.parsing.search.pagination_metadata.PaginationMetadata" title="Link to this definition"></a></dt>
+<dd><p>Pagination metadata.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>server_response</strong> (<em>dict</em>)</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.pagination_metadata.PaginationMetadata.page">
+<span class="sig-name descname"><span class="pre">page</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="headerlink" href="#mindee.v2.parsing.search.pagination_metadata.PaginationMetadata.page" title="Link to this definition"></a></dt>
+<dd><p>1-indexed page number.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.pagination_metadata.PaginationMetadata.per_page">
+<span class="sig-name descname"><span class="pre">per_page</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="headerlink" href="#mindee.v2.parsing.search.pagination_metadata.PaginationMetadata.per_page" title="Link to this definition"></a></dt>
+<dd><p>Number of results per page.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.pagination_metadata.PaginationMetadata.total_items">
+<span class="sig-name descname"><span class="pre">total_items</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="headerlink" href="#mindee.v2.parsing.search.pagination_metadata.PaginationMetadata.total_items" title="Link to this definition"></a></dt>
+<dd><p>Total number of items.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.pagination_metadata.PaginationMetadata.total_items_unfiltered">
+<span class="sig-name descname"><span class="pre">total_items_unfiltered</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#mindee.v2.parsing.search.pagination_metadata.PaginationMetadata.total_items_unfiltered" title="Link to this definition"></a></dt>
+<dd><p>Total number of items, including unfiltered results.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.pagination_metadata.PaginationMetadata.total_pages">
+<span class="sig-name descname"><span class="pre">total_pages</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="headerlink" href="#mindee.v2.parsing.search.pagination_metadata.PaginationMetadata.total_pages" title="Link to this definition"></a></dt>
+<dd><p>Total number of pages.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="search-model">
+<h2>Search Model<a class="headerlink" href="#search-model" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.search_model.SearchModel">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">SearchModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">server_response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.parsing.search.search_model.SearchModel" title="Link to this definition"></a></dt>
+<dd><p>Individual model information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>server_response</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>)</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.search_model.SearchModel.id">
+<span class="sig-name descname"><span class="pre">id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#mindee.v2.parsing.search.search_model.SearchModel.id" title="Link to this definition"></a></dt>
+<dd><p>Model ID.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.search_model.SearchModel.model_type">
+<span class="sig-name descname"><span class="pre">model_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#mindee.v2.parsing.search.search_model.SearchModel.model_type" title="Link to this definition"></a></dt>
+<dd><p>Model type.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.search_model.SearchModel.name">
+<span class="sig-name descname"><span class="pre">name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#mindee.v2.parsing.search.search_model.SearchModel.name" title="Link to this definition"></a></dt>
+<dd><p>Model name.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.search_model.SearchModel.webhooks">
+<span class="sig-name descname"><span class="pre">webhooks</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mindee.v2.parsing.search.model_webhook.ModelWebhook" title="mindee.v2.parsing.search.model_webhook.ModelWebhook"><span class="pre">ModelWebhook</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#mindee.v2.parsing.search.search_model.SearchModel.webhooks" title="Link to this definition"></a></dt>
+<dd><p>Webhooks associated with the model.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="search-models">
+<h2>Search Models<a class="headerlink" href="#search-models" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.search_models.SearchModels">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">SearchModels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.parsing.search.search_models.SearchModels" title="Link to this definition"></a></dt>
+<dd><p>List of models.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>raw_response</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>)</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.search_models.SearchModels.append">
+<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.parsing.search.search_models.SearchModels.append" title="Link to this definition"></a></dt>
+<dd><p>Append object to the end of the list.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.search_models.SearchModels.clear">
+<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.parsing.search.search_models.SearchModels.clear" title="Link to this definition"></a></dt>
+<dd><p>Remove all items from list.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.search_models.SearchModels.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.parsing.search.search_models.SearchModels.copy" title="Link to this definition"></a></dt>
+<dd><p>Return a shallow copy of the list.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.search_models.SearchModels.count">
+<span class="sig-name descname"><span class="pre">count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.parsing.search.search_models.SearchModels.count" title="Link to this definition"></a></dt>
+<dd><p>Return number of occurrences of value.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.search_models.SearchModels.extend">
+<span class="sig-name descname"><span class="pre">extend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterable</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.parsing.search.search_models.SearchModels.extend" title="Link to this definition"></a></dt>
+<dd><p>Extend list by appending elements from the iterable.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.search_models.SearchModels.index">
+<span class="sig-name descname"><span class="pre">index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9223372036854775807</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.parsing.search.search_models.SearchModels.index" title="Link to this definition"></a></dt>
+<dd><p>Return first index of value.</p>
+<p>Raises ValueError if the value is not present.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.search_models.SearchModels.insert">
+<span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.parsing.search.search_models.SearchModels.insert" title="Link to this definition"></a></dt>
+<dd><p>Insert object before index.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.search_models.SearchModels.pop">
+<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.parsing.search.search_models.SearchModels.pop" title="Link to this definition"></a></dt>
+<dd><p>Remove and return item at index (default last).</p>
+<p>Raises IndexError if list is empty or index is out of range.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.search_models.SearchModels.remove">
+<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.parsing.search.search_models.SearchModels.remove" title="Link to this definition"></a></dt>
+<dd><p>Remove first occurrence of value.</p>
+<p>Raises ValueError if the value is not present.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.search_models.SearchModels.reverse">
+<span class="sig-name descname"><span class="pre">reverse</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.parsing.search.search_models.SearchModels.reverse" title="Link to this definition"></a></dt>
+<dd><p>Reverse <em>IN PLACE</em>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.search_models.SearchModels.sort">
+<span class="sig-name descname"><span class="pre">sort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reverse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.parsing.search.search_models.SearchModels.sort" title="Link to this definition"></a></dt>
+<dd><p>Sort the list in ascending order and return None.</p>
+<p>The sort is in-place (i.e. the list itself is modified) and stable (i.e. the
+order of two equal elements is maintained).</p>
+<p>If a key function is given, apply it once to each list item and sort them,
+ascending or descending, according to their function values.</p>
+<p>The reverse flag can be set to sort in descending order.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="search-response">
+<h2>Search Response<a class="headerlink" href="#search-response" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.search_response.SearchResponse">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">SearchResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.parsing.search.search_response.SearchResponse" title="Link to this definition"></a></dt>
+<dd><p>Models search response.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>raw_response</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>)</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.search_response.SearchResponse.models">
+<span class="sig-name descname"><span class="pre">models</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.v2.parsing.search.search_models.SearchModels" title="mindee.v2.parsing.search.search_models.SearchModels"><span class="pre">SearchModels</span></a></span><a class="headerlink" href="#mindee.v2.parsing.search.search_response.SearchResponse.models" title="Link to this definition"></a></dt>
+<dd><p>Parsed search payload.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.search_response.SearchResponse.pagination">
+<span class="sig-name descname"><span class="pre">pagination</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.v2.parsing.search.pagination_metadata.PaginationMetadata" title="mindee.v2.parsing.search.pagination_metadata.PaginationMetadata"><span class="pre">PaginationMetadata</span></a></span><a class="headerlink" href="#mindee.v2.parsing.search.search_response.SearchResponse.pagination" title="Link to this definition"></a></dt>
+<dd><p>Pagination metadata for the search results.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.search_response.SearchResponse.raw_http">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">raw_http</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#mindee.v2.parsing.search.search_response.SearchResponse.raw_http" title="Link to this definition"></a></dt>
+<dd><p>Displays the result of the raw response as json string.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="job.html" class="btn btn-neutral float-left" title="V2 Parsing Job" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../product/index.html" class="btn btn-neutral float-right" title="V2 Products" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Mindee.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

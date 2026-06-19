@@ -1,0 +1,836 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>V1 Common Fields &mdash; Mindee Python Client  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="V1 Custom Fields" href="custom.html" />
+    <link rel="prev" title="V1 Standard Fields" href="standard.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Mindee Python Client
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../client_options.html">Client Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../error.html">Mindee Errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../geometry.html">Geometry Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../image.html">Image Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../input.html">Mindee Input</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../mindee_http.html">Mindee HTTP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parsing/index.html">Parsing Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pdf.html">PDF Helpers</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">V1 Utilities</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../client.html">V1 Client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../client_options.html">V1 Client Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error.html">V1 Error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mindee_http.html">V1 Mindee HTTP</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">V1 Parsing Utilities</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="standard.html">V1 Standard Fields</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">V1 Common Fields</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#documents">Documents</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#page-fields">Page Fields</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#api">API</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#asynchronous-parsing">Asynchronous Parsing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#miscellaneous-parsing">Miscellaneous Parsing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#workflow-parsing">Workflow Parsing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ocr-extraction">OCR Extraction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#extras">Extras</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="custom.html">V1 Custom Fields</a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated.html">V1 Generated Fields</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../pdf.html">V1 PDF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../product/index.html">V1 Products</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../v2/index.html">V2 Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../v2/index.html#client-v2">Client V2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../client_mixin.html">Client Mixin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../logger.html">Mindee Logger</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Mindee Python Client</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">V1 Utilities</a></li>
+          <li class="breadcrumb-item"><a href="index.html">V1 Parsing Utilities</a></li>
+      <li class="breadcrumb-item active">V1 Common Fields</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/v1/parsing/common.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="v1-common-fields">
+<h1>V1 Common Fields<a class="headerlink" href="#v1-common-fields" title="Link to this heading"></a></h1>
+<section id="documents">
+<h2>Documents<a class="headerlink" href="#documents" title="Link to this heading"></a></h2>
+<section id="document">
+<h3>Document<a class="headerlink" href="#document" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.document.Document">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Document</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inference_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw_response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v1.parsing.common.document.Document" title="Link to this definition"></a></dt>
+<dd><p>Base class for all predictions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inference_type</strong> (<a class="reference internal" href="#mindee.v1.parsing.common.execution.Execution.type" title="mindee.v1.parsing.common.execution.Execution.type"><em>type</em></a><em>[</em><em>Inference</em><em>]</em>)</p></li>
+<li><p><strong>raw_response</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.document.Document.extras">
+<span class="sig-name descname"><span class="pre">extras</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.v1.parsing.common.extras.extras.Extras" title="mindee.v1.parsing.common.extras.extras.Extras"><span class="pre">Extras</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#mindee.v1.parsing.common.document.Document.extras" title="Link to this definition"></a></dt>
+<dd><p>Potential Extras fields sent back along the prediction</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.document.Document.filename">
+<span class="sig-name descname"><span class="pre">filename</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#mindee.v1.parsing.common.document.Document.filename" title="Link to this definition"></a></dt>
+<dd><p>Name of the input document</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.document.Document.id">
+<span class="sig-name descname"><span class="pre">id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#mindee.v1.parsing.common.document.Document.id" title="Link to this definition"></a></dt>
+<dd><p>Id of the document as sent back by the server</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.document.Document.inference">
+<span class="sig-name descname"><span class="pre">inference</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Inference</span><span class="p"><span class="pre">[</span></span><span class="pre">TypePrediction</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">TypePage</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#mindee.v1.parsing.common.document.Document.inference" title="Link to this definition"></a></dt>
+<dd><p>Result of the base inference</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.document.Document.n_pages">
+<span class="sig-name descname"><span class="pre">n_pages</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="headerlink" href="#mindee.v1.parsing.common.document.Document.n_pages" title="Link to this definition"></a></dt>
+<dd><p>Amount of pages in the document</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.document.Document.ocr">
+<span class="sig-name descname"><span class="pre">ocr</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.v1.parsing.common.ocr.ocr.OCR" title="mindee.v1.parsing.common.ocr.ocr.OCR"><span class="pre">OCR</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#mindee.v1.parsing.common.document.Document.ocr" title="Link to this definition"></a></dt>
+<dd><p>Potential raw text results read by the OCR (limited feature)</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="page">
+<h3>Page<a class="headerlink" href="#page" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.page.Page">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Page</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prediction_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v1.parsing.common.page.Page" title="Link to this definition"></a></dt>
+<dd><p>Base Page object for predictions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>prediction_type</strong> (<a class="reference internal" href="#mindee.v1.parsing.common.execution.Execution.type" title="mindee.v1.parsing.common.execution.Execution.type"><em>type</em></a><em>[</em><em>TypePrediction</em><em>]</em>)</p></li>
+<li><p><strong>raw_prediction</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.page.Page.id">
+<span class="sig-name descname"><span class="pre">id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="headerlink" href="#mindee.v1.parsing.common.page.Page.id" title="Link to this definition"></a></dt>
+<dd><p>Id of the current page.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.page.Page.orientation">
+<span class="sig-name descname"><span class="pre">orientation</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.v1.parsing.common.orientation.OrientationField" title="mindee.v1.parsing.common.orientation.OrientationField"><span class="pre">OrientationField</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#mindee.v1.parsing.common.page.Page.orientation" title="Link to this definition"></a></dt>
+<dd><p>Orientation of the page</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.page.Page.prediction">
+<span class="sig-name descname"><span class="pre">prediction</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">TypePrediction</span></span><a class="headerlink" href="#mindee.v1.parsing.common.page.Page.prediction" title="Link to this definition"></a></dt>
+<dd><p>Type of Page prediction.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+<section id="page-fields">
+<h2>Page Fields<a class="headerlink" href="#page-fields" title="Link to this heading"></a></h2>
+<section id="orientation">
+<h3>Orientation<a class="headerlink" href="#orientation" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.orientation.OrientationField">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">OrientationField</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'value'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reconstructed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v1.parsing.common.orientation.OrientationField" title="Link to this definition"></a></dt>
+<dd><p>The clockwise rotation to apply (in degrees) to make the image upright.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>raw_prediction</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>)</p></li>
+<li><p><strong>value_key</strong> (<em>str</em>)</p></li>
+<li><p><strong>reconstructed</strong> (<em>bool</em>)</p></li>
+<li><p><strong>page_id</strong> (<em>int</em><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.orientation.OrientationField.value">
+<span class="sig-name descname"><span class="pre">value</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="headerlink" href="#mindee.v1.parsing.common.orientation.OrientationField.value" title="Link to this definition"></a></dt>
+<dd><p>Degrees as an integer.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+<section id="api">
+<h2>API<a class="headerlink" href="#api" title="Link to this heading"></a></h2>
+<section id="apirequest">
+<h3>ApiRequest<a class="headerlink" href="#apirequest" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.api_request.ApiRequest">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">ApiRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v1.parsing.common.api_request.ApiRequest" title="Link to this definition"></a></dt>
+<dd><p>Information on the API request made to the server.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>raw_response</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>)</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.api_request.ApiRequest.status_code">
+<span class="sig-name descname"><span class="pre">status_code</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="headerlink" href="#mindee.v1.parsing.common.api_request.ApiRequest.status_code" title="Link to this definition"></a></dt>
+<dd><p>HTTP status code.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="apiresponse">
+<h3>ApiResponse<a class="headerlink" href="#apiresponse" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.api_response.ApiResponse">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">ApiResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v1.parsing.common.api_response.ApiResponse" title="Link to this definition"></a></dt>
+<dd><p>Base class for responses sent by the server.</p>
+<p>Serves as a base class for responses to both synchronous and asynchronous calls.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>raw_response</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>)</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.api_response.ApiResponse.api_request">
+<span class="sig-name descname"><span class="pre">api_request</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.v1.parsing.common.api_request.ApiRequest" title="mindee.v1.parsing.common.api_request.ApiRequest"><span class="pre">ApiRequest</span></a></span><a class="headerlink" href="#mindee.v1.parsing.common.api_response.ApiResponse.api_request" title="Link to this definition"></a></dt>
+<dd><p>Results of the request sent to the API.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.api_response.ApiResponse.raw_http">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">raw_http</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#mindee.v1.parsing.common.api_response.ApiResponse.raw_http" title="Link to this definition"></a></dt>
+<dd><p>Displays the result of the raw response as json string.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="prediction">
+<h3>Prediction<a class="headerlink" href="#prediction" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.prediction.Prediction">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Prediction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v1.parsing.common.prediction.Prediction" title="Link to this definition"></a></dt>
+<dd><p>Base Prediction class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>raw_prediction</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>)</p></li>
+<li><p><strong>page_id</strong> (<em>int</em><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+<section id="asynchronous-parsing">
+<h2>Asynchronous Parsing<a class="headerlink" href="#asynchronous-parsing" title="Link to this heading"></a></h2>
+<section id="asyncpredictresponse">
+<h3>AsyncPredictResponse<a class="headerlink" href="#asyncpredictresponse" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.async_predict_response.AsyncPredictResponse">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">AsyncPredictResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inference_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw_response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v1.parsing.common.async_predict_response.AsyncPredictResponse" title="Link to this definition"></a></dt>
+<dd><p>Async Response Wrapper class for a Predict response.</p>
+<p>Links a Job to a future PredictResponse.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inference_type</strong> (<a class="reference internal" href="#mindee.v1.parsing.common.execution.Execution.type" title="mindee.v1.parsing.common.execution.Execution.type"><em>type</em></a><em>[</em><em>TypeInference</em><em>]</em>)</p></li>
+<li><p><strong>raw_response</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.async_predict_response.AsyncPredictResponse.job">
+<span class="sig-name descname"><span class="pre">job</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.v1.parsing.common.job.Job" title="mindee.v1.parsing.common.job.Job"><span class="pre">Job</span></a></span><a class="headerlink" href="#mindee.v1.parsing.common.async_predict_response.AsyncPredictResponse.job" title="Link to this definition"></a></dt>
+<dd><p>Job object link to the prediction. As long as it isn’t complete, the prediction doesn’t exist.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="job">
+<h3>Job<a class="headerlink" href="#job" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.job.Job">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Job</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v1.parsing.common.job.Job" title="Link to this definition"></a></dt>
+<dd><p>Job class for asynchronous requests.</p>
+<p>Will hold information on the queue a document has been submitted to.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>json_response</strong> (<em>dict</em>)</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.job.Job.available_at">
+<span class="sig-name descname"><span class="pre">available_at</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#mindee.v1.parsing.common.job.Job.available_at" title="Link to this definition"></a></dt>
+<dd><p>Timestamp of the request after it has been completed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.job.Job.error">
+<span class="sig-name descname"><span class="pre">error</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#mindee.v1.parsing.common.job.Job.error" title="Link to this definition"></a></dt>
+<dd><p>Information about an error that occurred during the job processing.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.job.Job.id">
+<span class="sig-name descname"><span class="pre">id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#mindee.v1.parsing.common.job.Job.id" title="Link to this definition"></a></dt>
+<dd><p>ID of the job sent by the API in response to an enqueue request.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.job.Job.issued_at">
+<span class="sig-name descname"><span class="pre">issued_at</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span></span><a class="headerlink" href="#mindee.v1.parsing.common.job.Job.issued_at" title="Link to this definition"></a></dt>
+<dd><p>Timestamp of the request reception by the API.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.job.Job.millisecs_taken">
+<span class="sig-name descname"><span class="pre">millisecs_taken</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="headerlink" href="#mindee.v1.parsing.common.job.Job.millisecs_taken" title="Link to this definition"></a></dt>
+<dd><p>Time (ms) taken for the request to be processed by the API.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.job.Job.status">
+<span class="sig-name descname"><span class="pre">status</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#mindee.v1.parsing.common.job.Job.status" title="Link to this definition"></a></dt>
+<dd><p>Status of the request, as seen by the API.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+<section id="miscellaneous-parsing">
+<h2>Miscellaneous Parsing<a class="headerlink" href="#miscellaneous-parsing" title="Link to this heading"></a></h2>
+<section id="predictresponse">
+<h3>PredictResponse<a class="headerlink" href="#predictresponse" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.predict_response.PredictResponse">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">PredictResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inference_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw_response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v1.parsing.common.predict_response.PredictResponse" title="Link to this definition"></a></dt>
+<dd><p>Response of a prediction request.</p>
+<p>This is a generic class, so certain class properties depend on the document type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inference_type</strong> (<a class="reference internal" href="#mindee.v1.parsing.common.execution.Execution.type" title="mindee.v1.parsing.common.execution.Execution.type"><em>type</em></a><em>[</em><em>TypeInference</em><em>]</em>)</p></li>
+<li><p><strong>raw_response</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.predict_response.PredictResponse.document">
+<span class="sig-name descname"><span class="pre">document</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.v1.parsing.common.document.Document" title="mindee.v1.parsing.common.document.Document"><span class="pre">Document</span></a></span><a class="headerlink" href="#mindee.v1.parsing.common.predict_response.PredictResponse.document" title="Link to this definition"></a></dt>
+<dd><p>The document object, properly parsed after being retrieved from the server.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="product">
+<h3>Product<a class="headerlink" href="#product" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.product.Product">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Product</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v1.parsing.common.product.Product" title="Link to this definition"></a></dt>
+<dd><p>Class for keeping track of a product’s info.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>raw_prediction</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="feedbackresponse">
+<h3>FeedbackResponse<a class="headerlink" href="#feedbackresponse" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.feedback_response.FeedbackResponse">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">FeedbackResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">server_response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v1.parsing.common.feedback_response.FeedbackResponse" title="Link to this definition"></a></dt>
+<dd><p>Wrapper for feedback response.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>server_response</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+<section id="workflow-parsing">
+<h2>Workflow Parsing<a class="headerlink" href="#workflow-parsing" title="Link to this heading"></a></h2>
+<section id="execution">
+<h3>Execution<a class="headerlink" href="#execution" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.execution.Execution">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Execution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inference_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">json_response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v1.parsing.common.execution.Execution" title="Link to this definition"></a></dt>
+<dd><p>Workflow execution class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inference_type</strong> (<a class="reference internal" href="#mindee.v1.parsing.common.execution.Execution.type" title="mindee.v1.parsing.common.execution.Execution.type"><em>type</em></a><em>[</em><em>Inference</em><em>]</em>)</p></li>
+<li><p><strong>json_response</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.execution.Execution.parse_date">
+<span class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">parse_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date_string</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v1.parsing.common.execution.Execution.parse_date" title="Link to this definition"></a></dt>
+<dd><p>Shorthand to parse the date, if present.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code> | <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>date_string</strong> (<em>str</em><em> | </em><em>None</em>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.execution.Execution.available_at">
+<span class="sig-name descname"><span class="pre">available_at</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#mindee.v1.parsing.common.execution.Execution.available_at" title="Link to this definition"></a></dt>
+<dd><p>The time at which the file was uploaded to a workflow.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.execution.Execution.batch_name">
+<span class="sig-name descname"><span class="pre">batch_name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#mindee.v1.parsing.common.execution.Execution.batch_name" title="Link to this definition"></a></dt>
+<dd><p>Identifier for the batch to which the execution belongs.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.execution.Execution.created_at">
+<span class="sig-name descname"><span class="pre">created_at</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#mindee.v1.parsing.common.execution.Execution.created_at" title="Link to this definition"></a></dt>
+<dd><p>The time at which the execution started.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.execution.Execution.file">
+<span class="sig-name descname"><span class="pre">file</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.v1.parsing.common.execution_file.ExecutionFile" title="mindee.v1.parsing.common.execution_file.ExecutionFile"><span class="pre">ExecutionFile</span></a></span><a class="headerlink" href="#mindee.v1.parsing.common.execution.Execution.file" title="Link to this definition"></a></dt>
+<dd><p>File representation within a workflow execution.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.execution.Execution.id">
+<span class="sig-name descname"><span class="pre">id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#mindee.v1.parsing.common.execution.Execution.id" title="Link to this definition"></a></dt>
+<dd><p>Identifier for the execution.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.execution.Execution.inference">
+<span class="sig-name descname"><span class="pre">inference</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Inference</span><span class="p"><span class="pre">[</span></span><span class="pre">TypePrediction</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#mindee.v1.parsing.common.page.Page" title="mindee.v1.parsing.common.page.Page"><span class="pre">Page</span></a><span class="p"><span class="pre">[</span></span><span class="pre">TypePrediction</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#mindee.v1.parsing.common.execution.Execution.inference" title="Link to this definition"></a></dt>
+<dd><p>Deserialized inference object.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.execution.Execution.priority">
+<span class="sig-name descname"><span class="pre">priority</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ExecutionPriority</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#mindee.v1.parsing.common.execution.Execution.priority" title="Link to this definition"></a></dt>
+<dd><p>Priority of the execution.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.execution.Execution.reviewed_at">
+<span class="sig-name descname"><span class="pre">reviewed_at</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#mindee.v1.parsing.common.execution.Execution.reviewed_at" title="Link to this definition"></a></dt>
+<dd><p>The time at which the file was tagged as reviewed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.execution.Execution.reviewed_prediction">
+<span class="sig-name descname"><span class="pre">reviewed_prediction</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../product/generated_v1.html#mindee.v1.product.generated.generated_v1.GeneratedV1Document" title="mindee.v1.product.generated.generated_v1_document.GeneratedV1Document"><span class="pre">GeneratedV1Document</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#mindee.v1.parsing.common.execution.Execution.reviewed_prediction" title="Link to this definition"></a></dt>
+<dd><p>Reviewed fields and values.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.execution.Execution.status">
+<span class="sig-name descname"><span class="pre">status</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#mindee.v1.parsing.common.execution.Execution.status" title="Link to this definition"></a></dt>
+<dd><p>Execution Status.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.execution.Execution.type">
+<span class="sig-name descname"><span class="pre">type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#mindee.v1.parsing.common.execution.Execution.type" title="Link to this definition"></a></dt>
+<dd><p>Execution type.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.execution.Execution.uploaded_at">
+<span class="sig-name descname"><span class="pre">uploaded_at</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#mindee.v1.parsing.common.execution.Execution.uploaded_at" title="Link to this definition"></a></dt>
+<dd><p>The time at which the file was uploaded to a workflow.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.execution.Execution.workflow_id">
+<span class="sig-name descname"><span class="pre">workflow_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#mindee.v1.parsing.common.execution.Execution.workflow_id" title="Link to this definition"></a></dt>
+<dd><p>Identifier for the workflow.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="execution-file">
+<h3>Execution File<a class="headerlink" href="#execution-file" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.execution_file.ExecutionFile">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">ExecutionFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v1.parsing.common.execution_file.ExecutionFile" title="Link to this definition"></a></dt>
+<dd><p>Execution File class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>raw_response</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>)</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.execution_file.ExecutionFile.alias">
+<span class="sig-name descname"><span class="pre">alias</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#mindee.v1.parsing.common.execution_file.ExecutionFile.alias" title="Link to this definition"></a></dt>
+<dd><p>File name.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.execution_file.ExecutionFile.name">
+<span class="sig-name descname"><span class="pre">name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#mindee.v1.parsing.common.execution_file.ExecutionFile.name" title="Link to this definition"></a></dt>
+<dd><p>File name.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="workflowresponse">
+<h3>WorkflowResponse<a class="headerlink" href="#workflowresponse" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.workflow_response.WorkflowResponse">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">WorkflowResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inference_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raw_response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v1.parsing.common.workflow_response.WorkflowResponse" title="Link to this definition"></a></dt>
+<dd><p>Base wrapper for API requests.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inference_type</strong> (<a class="reference internal" href="#mindee.v1.parsing.common.execution.Execution.type" title="mindee.v1.parsing.common.execution.Execution.type"><em>type</em></a><em>[</em><em>Inference</em><em>]</em>)</p></li>
+<li><p><strong>raw_response</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.workflow_response.WorkflowResponse.execution">
+<span class="sig-name descname"><span class="pre">execution</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.v1.parsing.common.execution.Execution" title="mindee.v1.parsing.common.execution.Execution"><span class="pre">Execution</span></a></span><a class="headerlink" href="#mindee.v1.parsing.common.workflow_response.WorkflowResponse.execution" title="Link to this definition"></a></dt>
+<dd><p>Set the prediction model used to parse the document.
+The response object will be instantiated based on this parameter.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+<section id="ocr-extraction">
+<h2>OCR Extraction<a class="headerlink" href="#ocr-extraction" title="Link to this heading"></a></h2>
+<section id="ocr">
+<h3>OCR<a class="headerlink" href="#ocr" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.ocr.ocr.OCR">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">OCR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v1.parsing.common.ocr.ocr.OCR" title="Link to this definition"></a></dt>
+<dd><p>OCR extraction from the entire document.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>raw_prediction</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>)</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.ocr.ocr.OCR.mvision_v1">
+<span class="sig-name descname"><span class="pre">mvision_v1</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.v1.parsing.common.ocr.mvision_v1.MVisionV1" title="mindee.v1.parsing.common.ocr.mvision_v1.MVisionV1"><span class="pre">MVisionV1</span></a></span><a class="headerlink" href="#mindee.v1.parsing.common.ocr.ocr.OCR.mvision_v1" title="Link to this definition"></a></dt>
+<dd><p>Mindee Vision v1 results.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="mvisionv1">
+<h3>MVisionV1<a class="headerlink" href="#mvisionv1" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.ocr.mvision_v1.MVisionV1">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">MVisionV1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v1.parsing.common.ocr.mvision_v1.MVisionV1" title="Link to this definition"></a></dt>
+<dd><p>Mindee Vision V1.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>raw_prediction</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>)</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.ocr.mvision_v1.MVisionV1.pages">
+<span class="sig-name descname"><span class="pre">pages</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mindee.v1.parsing.common.ocr.ocr_page.OCRPage" title="mindee.v1.parsing.common.ocr.ocr_page.OCRPage"><span class="pre">OCRPage</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#mindee.v1.parsing.common.ocr.mvision_v1.MVisionV1.pages" title="Link to this definition"></a></dt>
+<dd><p>List of pages.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="ocrpage">
+<h3>OCRPage<a class="headerlink" href="#ocrpage" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.ocr.ocr_page.OCRPage">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">OCRPage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v1.parsing.common.ocr.ocr_page.OCRPage" title="Link to this definition"></a></dt>
+<dd><p>OCR extraction for a single page.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>raw_prediction</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>)</p>
+</dd>
+</dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.ocr.ocr_page.OCRPage.all_lines">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">all_lines</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mindee.v1.parsing.common.ocr.ocr_line.OCRLine" title="mindee.v1.parsing.common.ocr.ocr_line.OCRLine"><span class="pre">OCRLine</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#mindee.v1.parsing.common.ocr.ocr_page.OCRPage.all_lines" title="Link to this definition"></a></dt>
+<dd><p>All the words on the page, ordered in lines.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.ocr.ocr_page.OCRPage.all_words">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">all_words</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mindee.v1.parsing.common.ocr.ocr_word.OCRWord" title="mindee.v1.parsing.common.ocr.ocr_word.OCRWord"><span class="pre">OCRWord</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#mindee.v1.parsing.common.ocr.ocr_page.OCRPage.all_words" title="Link to this definition"></a></dt>
+<dd><p>All the words on the page, in semi-random order.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="ocrline">
+<h3>OCRLine<a class="headerlink" href="#ocrline" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.ocr.ocr_line.OCRLine">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">OCRLine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v1.parsing.common.ocr.ocr_line.OCRLine" title="Link to this definition"></a></dt>
+<dd><p>A list of words which are on the same line.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.ocr.ocr_line.OCRLine.sort_on_x">
+<span class="sig-name descname"><span class="pre">sort_on_x</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v1.parsing.common.ocr.ocr_line.OCRLine.sort_on_x" title="Link to this definition"></a></dt>
+<dd><p>Sort the words on the line from left to right.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="ocrword">
+<h3>OCRWord<a class="headerlink" href="#ocrword" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.ocr.ocr_word.OCRWord">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">OCRWord</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v1.parsing.common.ocr.ocr_word.OCRWord" title="Link to this definition"></a></dt>
+<dd><p>A single word.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>raw_prediction</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>)</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.ocr.ocr_word.OCRWord.bounding_box">
+<span class="sig-name descname"><span class="pre">bounding_box</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../../geometry.html#mindee.geometry.Quadrilateral" title="mindee.geometry.quadrilateral.Quadrilateral"><span class="pre">Quadrilateral</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#mindee.v1.parsing.common.ocr.ocr_word.OCRWord.bounding_box" title="Link to this definition"></a></dt>
+<dd><p>A right rectangle containing the word in the document.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.ocr.ocr_word.OCRWord.confidence">
+<span class="sig-name descname"><span class="pre">confidence</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></span><a class="headerlink" href="#mindee.v1.parsing.common.ocr.ocr_word.OCRWord.confidence" title="Link to this definition"></a></dt>
+<dd><p>The confidence score.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.ocr.ocr_word.OCRWord.polygon">
+<span class="sig-name descname"><span class="pre">polygon</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../../geometry.html#mindee.geometry.Polygon" title="mindee.geometry.polygon.Polygon"><span class="pre">Polygon</span></a></span><a class="headerlink" href="#mindee.v1.parsing.common.ocr.ocr_word.OCRWord.polygon" title="Link to this definition"></a></dt>
+<dd><p>A polygon containing the word in the document.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.ocr.ocr_word.OCRWord.text">
+<span class="sig-name descname"><span class="pre">text</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#mindee.v1.parsing.common.ocr.ocr_word.OCRWord.text" title="Link to this definition"></a></dt>
+<dd><p>The extracted text.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+<section id="extras">
+<h2>Extras<a class="headerlink" href="#extras" title="Link to this heading"></a></h2>
+<section id="id1">
+<h3>Extras<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.extras.extras.Extras">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Extras</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v1.parsing.common.extras.extras.Extras" title="Link to this definition"></a></dt>
+<dd><p>Extras collection wrapper class.</p>
+<p>Is roughly equivalent to a dict of Extras, with a bit more utility.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>raw_prediction</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>)</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.extras.extras.Extras.add_artificial_extra">
+<span class="sig-name descname"><span class="pre">add_artificial_extra</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v1.parsing.common.extras.extras.Extras.add_artificial_extra" title="Link to this definition"></a></dt>
+<dd><p>Adds artificial extra data for reconstructed extras. Currently only used for full_text_ocr.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>raw_prediction</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]</span>) – Raw prediction used by the document.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="cropper-extra">
+<h3>Cropper Extra<a class="headerlink" href="#cropper-extra" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.extras.cropper_extra.CropperExtra">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">CropperExtra</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v1.parsing.common.extras.cropper_extra.CropperExtra" title="Link to this definition"></a></dt>
+<dd><p>Contains information on the cropping of a prediction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>raw_prediction</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>)</p></li>
+<li><p><strong>page_id</strong> (<em>int</em><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.extras.cropper_extra.CropperExtra.croppings">
+<span class="sig-name descname"><span class="pre">croppings</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="standard.html#mindee.v1.parsing.standard.position.PositionField" title="mindee.v1.parsing.standard.position.PositionField"><span class="pre">PositionField</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#mindee.v1.parsing.common.extras.cropper_extra.CropperExtra.croppings" title="Link to this definition"></a></dt>
+<dd><p>List of all cropping coordinates.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="full-text-ocr-extra">
+<h3>Full-Text OCR Extra<a class="headerlink" href="#full-text-ocr-extra" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.extras.full_text_ocr_extra.FullTextOCRExtra">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">FullTextOCRExtra</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v1.parsing.common.extras.full_text_ocr_extra.FullTextOCRExtra" title="Link to this definition"></a></dt>
+<dd><p>Full Text OCR result.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>raw_prediction</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="rag-extra">
+<h3>RAG Extra<a class="headerlink" href="#rag-extra" title="Link to this heading"></a></h3>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.v1.parsing.common.extras.rag_extra.RAGExtra">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">RAGExtra</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_prediction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v1.parsing.common.extras.rag_extra.RAGExtra" title="Link to this definition"></a></dt>
+<dd><p>Contains information on the Retrieval-Augmented-Generation of a prediction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>raw_prediction</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="standard.html" class="btn btn-neutral float-left" title="V1 Standard Fields" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="custom.html" class="btn btn-neutral float-right" title="V1 Custom Fields" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Mindee.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

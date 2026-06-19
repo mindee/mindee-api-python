@@ -1,6 +1,6 @@
-=======================
-Python Client Reference
-=======================
+===========================
+Mindee Python SDK Reference
+===========================
 
 This is purely a reference manual.
 
@@ -10,10 +10,18 @@ the client.
 https://developers.mindee.com/docs/python-sdk
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contents:
 
-   client
+   client_options
+   error
+   geometry
+   image
+   input
+   mindee_http
    parsing/index
-   product/index
-   misc/index
+   pdf
+   v1/index
+   v2/index
+   client_mixin
+   logger

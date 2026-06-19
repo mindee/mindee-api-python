@@ -1,0 +1,260 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>V2 Products &mdash; Mindee Python Client  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Classification" href="classification/index.html" />
+    <link rel="prev" title="V2 Search" href="../parsing/search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Mindee Python Client
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../client_options.html">Client Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../error.html">Mindee Errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../geometry.html">Geometry Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../image.html">Image Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../input.html">Mindee Input</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../mindee_http.html">Mindee HTTP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../parsing/index.html">Parsing Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pdf.html">PDF Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../v1/index.html">V1 Utilities</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">V2 Utilities</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../client_options.html">V2 Client Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../error.html">V2 Error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../file_operations.html">File Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mindee_http.html">V2 Mindee HTTP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../parsing/index.html">V2 Parsing</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">V2 Products</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="classification/index.html">Classification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="crop/index.html">Crop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="extraction/index.html">Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ocr/index.html">OCR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="split/index.html">Split</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html#client-v2">Client V2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../client_mixin.html">Client Mixin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../logger.html">Mindee Logger</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Mindee Python Client</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">V2 Utilities</a></li>
+      <li class="breadcrumb-item active">V2 Products</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/v2/product/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="v2-products">
+<h1>V2 Products<a class="headerlink" href="#v2-products" title="Link to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="classification/index.html">Classification</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="classification/params.html">Classification Params</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="classification/params.html#classification-parameters">Classification Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="classification/index.html#classification-classifier">Classification Classifier</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="classification/index.html#mindee.v2.product.classification.classification_classifier.ClassificationClassifier"><code class="docutils literal notranslate"><span class="pre">ClassificationClassifier</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="classification/index.html#classification-inference">Classification Inference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="classification/index.html#mindee.v2.product.classification.classification_inference.ClassificationInference"><code class="docutils literal notranslate"><span class="pre">ClassificationInference</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="classification/index.html#classification-response">Classification Response</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="classification/index.html#mindee.v2.product.classification.classification_response.ClassificationResponse"><code class="docutils literal notranslate"><span class="pre">ClassificationResponse</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="classification/index.html#classification-result">Classification Result</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="classification/index.html#mindee.v2.product.classification.classification_result.ClassificationResult"><code class="docutils literal notranslate"><span class="pre">ClassificationResult</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="crop/index.html">Crop</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="crop/params.html">Crop Params</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="crop/params.html#crop-parameters">Crop Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="crop/index.html#crop-item">Crop Item</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="crop/index.html#mindee.v2.product.crop.crop_item.CropItem"><code class="docutils literal notranslate"><span class="pre">CropItem</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="crop/index.html#crop-inference">Crop Inference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="crop/index.html#mindee.v2.product.crop.crop_inference.CropInference"><code class="docutils literal notranslate"><span class="pre">CropInference</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="crop/index.html#crop-response">Crop Response</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="crop/index.html#mindee.v2.product.crop.crop_response.CropResponse"><code class="docutils literal notranslate"><span class="pre">CropResponse</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="crop/index.html#crop-result">Crop Result</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="crop/index.html#mindee.v2.product.crop.crop_result.CropResult"><code class="docutils literal notranslate"><span class="pre">CropResult</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="extraction/index.html">Extraction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="extraction/params.html">Extraction Params</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="extraction/params.html#extraction-parameters">Extraction Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="extraction/params.html#data-schema">Data Schema</a></li>
+<li class="toctree-l3"><a class="reference internal" href="extraction/params.html#data-schema-field">Data Schema Field</a></li>
+<li class="toctree-l3"><a class="reference internal" href="extraction/params.html#data-schema-replace">Data Schema Replace</a></li>
+<li class="toctree-l3"><a class="reference internal" href="extraction/params.html#string-data-class">String Data Class</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="extraction/index.html#extraction-inference">Extraction Inference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="extraction/index.html#mindee.v2.product.extraction.extraction_inference.ExtractionInference"><code class="docutils literal notranslate"><span class="pre">ExtractionInference</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="extraction/index.html#extraction-response">Extraction Response</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="extraction/index.html#mindee.v2.product.extraction.extraction_response.ExtractionResponse"><code class="docutils literal notranslate"><span class="pre">ExtractionResponse</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="extraction/index.html#extraction-result">Extraction Result</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="extraction/index.html#mindee.v2.product.extraction.extraction_result.ExtractionResult"><code class="docutils literal notranslate"><span class="pre">ExtractionResult</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ocr/index.html">OCR</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ocr/params.html">OCR Params</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ocr/params.html#ocr-parameters">OCR Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ocr/index.html#ocr-page">OCR Page</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ocr/index.html#mindee.v2.product.ocr.ocr_page.OCRPage"><code class="docutils literal notranslate"><span class="pre">OCRPage</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ocr/index.html#ocr-word">OCR Word</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ocr/index.html#mindee.v2.product.ocr.ocr_word.OCRWord"><code class="docutils literal notranslate"><span class="pre">OCRWord</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ocr/index.html#ocr-inference">Ocr Inference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ocr/index.html#mindee.v2.product.ocr.ocr_inference.OCRInference"><code class="docutils literal notranslate"><span class="pre">OCRInference</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ocr/index.html#ocr-response">OCR Response</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ocr/index.html#mindee.v2.product.ocr.ocr_response.OCRResponse"><code class="docutils literal notranslate"><span class="pre">OCRResponse</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ocr/index.html#ocr-result">OCR Result</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ocr/index.html#mindee.v2.product.ocr.ocr_result.OCRResult"><code class="docutils literal notranslate"><span class="pre">OCRResult</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="split/index.html">Split</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="split/params.html">Split Params</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="split/params.html#split-parameters">Split Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="split/index.html#split-range">Split Range</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="split/index.html#mindee.v2.product.split.split_range.SplitRange"><code class="docutils literal notranslate"><span class="pre">SplitRange</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="split/index.html#split-inference">Split Inference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="split/index.html#mindee.v2.product.split.split_inference.SplitInference"><code class="docutils literal notranslate"><span class="pre">SplitInference</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="split/index.html#split-response">Split Response</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="split/index.html#mindee.v2.product.split.split_response.SplitResponse"><code class="docutils literal notranslate"><span class="pre">SplitResponse</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="split/index.html#split-result">Split Result</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="split/index.html#mindee.v2.product.split.split_result.SplitResult"><code class="docutils literal notranslate"><span class="pre">SplitResult</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../parsing/search.html" class="btn btn-neutral float-left" title="V2 Search" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="classification/index.html" class="btn btn-neutral float-right" title="Classification" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Mindee.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

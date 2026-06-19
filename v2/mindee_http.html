@@ -1,0 +1,474 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>V2 Mindee HTTP &mdash; Mindee Python Client  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="V2 Parsing" href="parsing/index.html" />
+    <link rel="prev" title="File Operations" href="file_operations.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Mindee Python Client
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../client_options.html">Client Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../error.html">Mindee Errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../geometry.html">Geometry Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../image.html">Image Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../input.html">Mindee Input</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mindee_http.html">Mindee HTTP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parsing/index.html">Parsing Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pdf.html">PDF Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../v1/index.html">V1 Utilities</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">V2 Utilities</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="client_options.html">V2 Client Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="error.html">V2 Error</a></li>
+<li class="toctree-l2"><a class="reference internal" href="file_operations.html">File Operations</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">V2 Mindee HTTP</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#mindee-api-v2">Mindee API V2</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2"><code class="docutils literal notranslate"><span class="pre">MindeeAPIV2</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-mindee.v2.mindee_http.response_validation_v2">Response Validation V2</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.v2.mindee_http.response_validation_v2.is_valid_get_response"><code class="docutils literal notranslate"><span class="pre">is_valid_get_response()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.v2.mindee_http.response_validation_v2.is_valid_post_response"><code class="docutils literal notranslate"><span class="pre">is_valid_post_response()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="parsing/index.html">V2 Parsing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="product/index.html">V2 Products</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#client-v2">Client V2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../client_mixin.html">Client Mixin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../logger.html">Mindee Logger</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Mindee Python Client</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">V2 Utilities</a></li>
+      <li class="breadcrumb-item active">V2 Mindee HTTP</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/v2/mindee_http.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="v2-mindee-http">
+<h1>V2 Mindee HTTP<a class="headerlink" href="#v2-mindee-http" title="Link to this heading"></a></h1>
+<section id="mindee-api-v2">
+<h2>Mindee API V2<a class="headerlink" href="#mindee-api-v2" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">MindeeAPIV2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">http_client</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2" title="Link to this definition"></a></dt>
+<dd><p>Settings class relating to API V2 requests.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>api_key</strong> (<em>str</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>http_client</strong> (<em>Client</em><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.close" title="Link to this definition"></a></dt>
+<dd><p>Closes the underlying HTTP client.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.delete_http_client">
+<span class="sig-name descname"><span class="pre">delete_http_client</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.delete_http_client" title="Link to this definition"></a></dt>
+<dd><p>Delete the underlying HTTP client.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.enqueue">
+<span class="sig-name descname"><span class="pre">enqueue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.enqueue" title="Link to this definition"></a></dt>
+<dd><p>Enqueues a document to a given model.
+:type input_source: <span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="../input.html#mindee.input.LocalInputSource" title="mindee.input.local_input_source.LocalInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalInputSource</span></code></a> | <a class="reference internal" href="../input.html#mindee.input.URLInputSource" title="mindee.input.url_input_source.URLInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">URLInputSource</span></code></a></span>
+:param input_source: Input object.
+:type params: <span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="client_options.html#mindee.v2.client_options.base_parameters.BaseParameters" title="mindee.v2.client_options.base_parameters.BaseParameters"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseParameters</span></code></a></span>
+:param params: Parameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="parsing/job.html#mindee.v2.parsing.job.job_response.JobResponse" title="mindee.v2.parsing.job.job_response.JobResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">JobResponse</span></code></a></span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A valid inference Response.</p>
+</dd>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_source</strong> (<a class="reference internal" href="../input.html#mindee.input.LocalInputSource" title="mindee.input.local_input_source.LocalInputSource"><em>LocalInputSource</em></a><em> | </em><a class="reference internal" href="../input.html#mindee.input.URLInputSource" title="mindee.input.url_input_source.URLInputSource"><em>URLInputSource</em></a>)</p></li>
+<li><p><strong>params</strong> (<a class="reference internal" href="client_options.html#mindee.v2.client_options.base_parameters.BaseParameters" title="mindee.v2.client_options.base_parameters.BaseParameters"><em>BaseParameters</em></a>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.get_job">
+<span class="sig-name descname"><span class="pre">get_job</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">job_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.get_job" title="Link to this definition"></a></dt>
+<dd><p>Get the status of an inference that was previously enqueued.</p>
+<p>Can be used for polling.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>job_id</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – UUID of the job to retrieve.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="parsing/job.html#mindee.v2.parsing.job.job_response.JobResponse" title="mindee.v2.parsing.job.job_response.JobResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">JobResponse</span></code></a></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A job response.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.get_models">
+<span class="sig-name descname"><span class="pre">get_models</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.get_models" title="Link to this definition"></a></dt>
+<dd><p>Get a list of models matching the provided name and type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code> | <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span>) – Name of the model to filter by.</p></li>
+<li><p><strong>model_type</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code> | <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span>) – Type of the model to filter by.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of models matching the provided criteria.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.get_result">
+<span class="sig-name descname"><span class="pre">get_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inference_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.get_result" title="Link to this definition"></a></dt>
+<dd><p>Get the result of an inference that was previously enqueued.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>response_type</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">ResponseT</span></code>, bound= <a class="reference internal" href="parsing/inference/index.html#mindee.v2.parsing.inference.base_response.BaseResponse" title="mindee.v2.parsing.inference.base_response.BaseResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseResponse</span></code></a>)]</span>) – Type of the response to return.</p></li>
+<li><p><strong>inference_id</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – UUID of the inference to retrieve.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The result of the inference.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.get_result_by_url">
+<span class="sig-name descname"><span class="pre">get_result_by_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.get_result_by_url" title="Link to this definition"></a></dt>
+<dd><p>Get the result of an inference that was previously enqueued by its URL.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>response_type</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">ResponseT</span></code>, bound= <a class="reference internal" href="parsing/inference/index.html#mindee.v2.parsing.inference.base_response.BaseResponse" title="mindee.v2.parsing.inference.base_response.BaseResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseResponse</span></code></a>)]</span>) – Type of the response to return.</p></li>
+<li><p><strong>url</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – URL of the inference to retrieve.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The result of the inference.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.req_get_inference">
+<span class="sig-name descname"><span class="pre">req_get_inference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inference_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slug</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.req_get_inference" title="Link to this definition"></a></dt>
+<dd><p>Sends a request matching a given queue_id. Returns either a Job or a Document.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inference_id</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – Inference ID, returned by the job request.</p></li>
+<li><p><strong>slug</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – Slug of the inference, defaults to nothing.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.req_get_inference_by_url">
+<span class="sig-name descname"><span class="pre">req_get_inference_by_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.req_get_inference_by_url" title="Link to this definition"></a></dt>
+<dd><p>Sends a request matching a given inference_id. Returns either a Job or a
+Document.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>url</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – URL to use for the request.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Response object from the request.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.req_get_job">
+<span class="sig-name descname"><span class="pre">req_get_job</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">job_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.req_get_job" title="Link to this definition"></a></dt>
+<dd><p>Sends a request matching a given queue_id. Returns either a Job or a Document.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>job_id</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – Job ID, returned by the enqueue request.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.req_get_search_models">
+<span class="sig-name descname"><span class="pre">req_get_search_models</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.req_get_search_models" title="Link to this definition"></a></dt>
+<dd><p>Searches for a list of models matching criteria.
+:type name: <span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code> | <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span>
+:param name: Name pattern to search for.
+:type model_type: <span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code> | <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span>
+:param model_type: Type of model to search for (exact match).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Response object containing search results.</p>
+</dd>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>model_type</strong> (<em>str</em><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.req_post_inference_enqueue">
+<span class="sig-name descname"><span class="pre">req_post_inference_enqueue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slug</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.req_post_inference_enqueue" title="Link to this definition"></a></dt>
+<dd><p>Make a request to POST a document for enqueue on the V2 API.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_source</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="../input.html#mindee.input.LocalInputSource" title="mindee.input.local_input_source.LocalInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalInputSource</span></code></a> | <a class="reference internal" href="../input.html#mindee.input.URLInputSource" title="mindee.input.url_input_source.URLInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">URLInputSource</span></code></a></span>) – Input object.</p></li>
+<li><p><strong>params</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="client_options.html#mindee.v2.client_options.base_parameters.BaseParameters" title="mindee.v2.client_options.base_parameters.BaseParameters"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseParameters</span></code></a></span>) – Options for the enqueueing of the document.</p></li>
+<li><p><strong>slug</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – Slug to use for the enqueueing, defaults to ‘inferences’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>httpx response.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.set_base_url">
+<span class="sig-name descname"><span class="pre">set_base_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.set_base_url" title="Link to this definition"></a></dt>
+<dd><p>Set the base URL for all requests.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>value</strong> (<em>str</em>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.set_from_env">
+<span class="sig-name descname"><span class="pre">set_from_env</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.set_from_env" title="Link to this definition"></a></dt>
+<dd><p>Set various parameters from environment variables, if present.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.set_timeout">
+<span class="sig-name descname"><span class="pre">set_timeout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.set_timeout" title="Link to this definition"></a></dt>
+<dd><p>Set the timeout for all requests.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>value</strong> (<em>str</em><em> | </em><em>int</em>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.api_key">
+<span class="sig-name descname"><span class="pre">api_key</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.api_key" title="Link to this definition"></a></dt>
+<dd><p>API Key for the client.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.base_headers">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">base_headers</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.base_headers" title="Link to this definition"></a></dt>
+<dd><p>Base headers to send with all API requests.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.base_url">
+<span class="sig-name descname"><span class="pre">base_url</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.base_url" title="Link to this definition"></a></dt>
+<dd><p>Base URL for all V2 requests.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.http_client">
+<span class="sig-name descname"><span class="pre">http_client</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Client</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.http_client" title="Link to this definition"></a></dt>
+<dd><p>HTTP client for making requests.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.request_timeout">
+<span class="sig-name descname"><span class="pre">request_timeout</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></span><a class="headerlink" href="#mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.request_timeout" title="Link to this definition"></a></dt>
+<dd><p>Timeout for all requests.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.url_root">
+<span class="sig-name descname"><span class="pre">url_root</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.url_root" title="Link to this definition"></a></dt>
+<dd><p>Root of the URL to use for polling.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-mindee.v2.mindee_http.response_validation_v2">
+<span id="response-validation-v2"></span><h2>Response Validation V2<a class="headerlink" href="#module-mindee.v2.mindee_http.response_validation_v2" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="mindee.v2.mindee_http.response_validation_v2.is_valid_get_response">
+<span class="sig-name descname"><span class="pre">is_valid_get_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.mindee_http.response_validation_v2.is_valid_get_response" title="Link to this definition"></a></dt>
+<dd><p>Checks if the GET response is valid and of the expected format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>response</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span>) – HTTP response object.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if the response is valid.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mindee.v2.mindee_http.response_validation_v2.is_valid_post_response">
+<span class="sig-name descname"><span class="pre">is_valid_post_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.mindee_http.response_validation_v2.is_valid_post_response" title="Link to this definition"></a></dt>
+<dd><p>Checks if the POST response is valid and of the expected format.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>response</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></span>) – HTTP response object.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if the response is valid.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="file_operations.html" class="btn btn-neutral float-left" title="File Operations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="parsing/index.html" class="btn btn-neutral float-right" title="V2 Parsing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Mindee.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

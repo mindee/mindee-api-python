@@ -1,0 +1,430 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>File Operations &mdash; Mindee Python Client  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="V2 Mindee HTTP" href="mindee_http.html" />
+    <link rel="prev" title="V2 Error" href="error.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Mindee Python Client
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../client_options.html">Client Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../error.html">Mindee Errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../geometry.html">Geometry Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../image.html">Image Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../input.html">Mindee Input</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mindee_http.html">Mindee HTTP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../parsing/index.html">Parsing Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pdf.html">PDF Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../v1/index.html">V1 Utilities</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">V2 Utilities</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="client_options.html">V2 Client Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="error.html">V2 Error</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">File Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#module-mindee.v2.file_operations.crop">Crop</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.v2.file_operations.crop.extract_multiple_crops"><code class="docutils literal notranslate"><span class="pre">extract_multiple_crops()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.v2.file_operations.crop.extract_single_crop"><code class="docutils literal notranslate"><span class="pre">extract_single_crop()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#crop-files">Crop Files</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.v2.file_operations.crop_files.CropFiles"><code class="docutils literal notranslate"><span class="pre">CropFiles</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-mindee.v2.file_operations.split">Split</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.v2.file_operations.split.extract_multiple_splits"><code class="docutils literal notranslate"><span class="pre">extract_multiple_splits()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.v2.file_operations.split.extract_single_split"><code class="docutils literal notranslate"><span class="pre">extract_single_split()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#split-files">Split Files</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.v2.file_operations.split_files.SplitFiles"><code class="docutils literal notranslate"><span class="pre">SplitFiles</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mindee_http.html">V2 Mindee HTTP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parsing/index.html">V2 Parsing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="product/index.html">V2 Products</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#client-v2">Client V2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../client_mixin.html">Client Mixin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../logger.html">Mindee Logger</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Mindee Python Client</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">V2 Utilities</a></li>
+      <li class="breadcrumb-item active">File Operations</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/v2/file_operations.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="file-operations">
+<h1>File Operations<a class="headerlink" href="#file-operations" title="Link to this heading"></a></h1>
+<section id="module-mindee.v2.file_operations.crop">
+<span id="crop"></span><h2>Crop<a class="headerlink" href="#module-mindee.v2.file_operations.crop" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="mindee.v2.file_operations.crop.extract_multiple_crops">
+<span class="sig-name descname"><span class="pre">extract_multiple_crops</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crops</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.file_operations.crop.extract_multiple_crops" title="Link to this definition"></a></dt>
+<dd><p>Extracts individual receipts from multi-receipts documents.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_source</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="../input.html#mindee.input.LocalInputSource" title="mindee.input.local_input_source.LocalInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalInputSource</span></code></a></span>) – Local Input Source to extract sub-receipts from.</p></li>
+<li><p><strong>crops</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<a class="reference internal" href="product/crop/index.html#mindee.v2.product.crop.crop_item.CropItem" title="mindee.v2.product.crop.crop_item.CropItem"><code class="xref py py-class docutils literal notranslate"><span class="pre">CropItem</span></code></a>]</span>) – List of crops.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#mindee.v2.file_operations.crop_files.CropFiles" title="mindee.v2.file_operations.crop_files.CropFiles"><code class="xref py py-class docutils literal notranslate"><span class="pre">CropFiles</span></code></a></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Individual extracted receipts as an array of ExtractedImage.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mindee.v2.file_operations.crop.extract_single_crop">
+<span class="sig-name descname"><span class="pre">extract_single_crop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crop</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.file_operations.crop.extract_single_crop" title="Link to this definition"></a></dt>
+<dd><p>Extracts a single crop as complete PDFs from the document.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_source</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="../input.html#mindee.input.LocalInputSource" title="mindee.input.local_input_source.LocalInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalInputSource</span></code></a></span>) – Local Input Source to extract sub-receipts from.</p></li>
+<li><p><strong>crop</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="parsing/inference/field.html#mindee.v2.parsing.inference.field.field_location.FieldLocation" title="mindee.v2.parsing.inference.field.field_location.FieldLocation"><code class="xref py py-class docutils literal notranslate"><span class="pre">FieldLocation</span></code></a></span>) – Crop to extract.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExtractedImage</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ExtractedImage.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="crop-files">
+<h2>Crop Files<a class="headerlink" href="#crop-files" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.v2.file_operations.crop_files.CropFiles">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">CropFiles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.file_operations.crop_files.CropFiles" title="Link to this definition"></a></dt>
+<dd><p>Crop files.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.file_operations.crop_files.CropFiles.append">
+<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.file_operations.crop_files.CropFiles.append" title="Link to this definition"></a></dt>
+<dd><p>Append object to the end of the list.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.file_operations.crop_files.CropFiles.clear">
+<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.file_operations.crop_files.CropFiles.clear" title="Link to this definition"></a></dt>
+<dd><p>Remove all items from list.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.file_operations.crop_files.CropFiles.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.file_operations.crop_files.CropFiles.copy" title="Link to this definition"></a></dt>
+<dd><p>Return a shallow copy of the list.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.file_operations.crop_files.CropFiles.count">
+<span class="sig-name descname"><span class="pre">count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.file_operations.crop_files.CropFiles.count" title="Link to this definition"></a></dt>
+<dd><p>Return number of occurrences of value.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.file_operations.crop_files.CropFiles.extend">
+<span class="sig-name descname"><span class="pre">extend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterable</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.file_operations.crop_files.CropFiles.extend" title="Link to this definition"></a></dt>
+<dd><p>Extend list by appending elements from the iterable.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.file_operations.crop_files.CropFiles.index">
+<span class="sig-name descname"><span class="pre">index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9223372036854775807</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.file_operations.crop_files.CropFiles.index" title="Link to this definition"></a></dt>
+<dd><p>Return first index of value.</p>
+<p>Raises ValueError if the value is not present.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.file_operations.crop_files.CropFiles.insert">
+<span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.file_operations.crop_files.CropFiles.insert" title="Link to this definition"></a></dt>
+<dd><p>Insert object before index.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.file_operations.crop_files.CropFiles.pop">
+<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.file_operations.crop_files.CropFiles.pop" title="Link to this definition"></a></dt>
+<dd><p>Remove and return item at index (default last).</p>
+<p>Raises IndexError if list is empty or index is out of range.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.file_operations.crop_files.CropFiles.remove">
+<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.file_operations.crop_files.CropFiles.remove" title="Link to this definition"></a></dt>
+<dd><p>Remove first occurrence of value.</p>
+<p>Raises ValueError if the value is not present.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.file_operations.crop_files.CropFiles.reverse">
+<span class="sig-name descname"><span class="pre">reverse</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.file_operations.crop_files.CropFiles.reverse" title="Link to this definition"></a></dt>
+<dd><p>Reverse <em>IN PLACE</em>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.file_operations.crop_files.CropFiles.save_all_to_disk">
+<span class="sig-name descname"><span class="pre">save_all_to_disk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'crop'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.file_operations.crop_files.CropFiles.save_all_to_disk" title="Link to this definition"></a></dt>
+<dd><p>Save all extracted crops to disk.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code> | <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – Path to save the extracted splits to.</p></li>
+<li><p><strong>prefix</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">'crop'</span></code>) – Prefix to add to the filename, defaults to ‘crop’.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.file_operations.crop_files.CropFiles.sort">
+<span class="sig-name descname"><span class="pre">sort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reverse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.file_operations.crop_files.CropFiles.sort" title="Link to this definition"></a></dt>
+<dd><p>Sort the list in ascending order and return None.</p>
+<p>The sort is in-place (i.e. the list itself is modified) and stable (i.e. the
+order of two equal elements is maintained).</p>
+<p>If a key function is given, apply it once to each list item and sort them,
+ascending or descending, according to their function values.</p>
+<p>The reverse flag can be set to sort in descending order.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-mindee.v2.file_operations.split">
+<span id="split"></span><h2>Split<a class="headerlink" href="#module-mindee.v2.file_operations.split" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="mindee.v2.file_operations.split.extract_multiple_splits">
+<span class="sig-name descname"><span class="pre">extract_multiple_splits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">splits</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.file_operations.split.extract_multiple_splits" title="Link to this definition"></a></dt>
+<dd><p>Extracts splits as complete PDFs from the document.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_source</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="../input.html#mindee.input.LocalInputSource" title="mindee.input.local_input_source.LocalInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalInputSource</span></code></a></span>) – Input source to split.</p></li>
+<li><p><strong>splits</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]]</span>) – List of sub-lists of pages to keep.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#mindee.v2.file_operations.split_files.SplitFiles" title="mindee.v2.file_operations.split_files.SplitFiles"><code class="xref py py-class docutils literal notranslate"><span class="pre">SplitFiles</span></code></a></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A list of extracted invoices.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="mindee.v2.file_operations.split.extract_single_split">
+<span class="sig-name descname"><span class="pre">extract_single_split</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.file_operations.split.extract_single_split" title="Link to this definition"></a></dt>
+<dd><p>Extracts a single split as a complete PDF from the document.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_source</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="../input.html#mindee.input.LocalInputSource" title="mindee.input.local_input_source.LocalInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalInputSource</span></code></a></span>) – Input source to split.</p></li>
+<li><p><strong>split</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]</span>) – List of pages to keep.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExtractedPDF</span></code></span></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Extracted PDF</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="split-files">
+<h2>Split Files<a class="headerlink" href="#split-files" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.v2.file_operations.split_files.SplitFiles">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">SplitFiles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.file_operations.split_files.SplitFiles" title="Link to this definition"></a></dt>
+<dd><p>Split files.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.file_operations.split_files.SplitFiles.append">
+<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.file_operations.split_files.SplitFiles.append" title="Link to this definition"></a></dt>
+<dd><p>Append object to the end of the list.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.file_operations.split_files.SplitFiles.clear">
+<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.file_operations.split_files.SplitFiles.clear" title="Link to this definition"></a></dt>
+<dd><p>Remove all items from list.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.file_operations.split_files.SplitFiles.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.file_operations.split_files.SplitFiles.copy" title="Link to this definition"></a></dt>
+<dd><p>Return a shallow copy of the list.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.file_operations.split_files.SplitFiles.count">
+<span class="sig-name descname"><span class="pre">count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.file_operations.split_files.SplitFiles.count" title="Link to this definition"></a></dt>
+<dd><p>Return number of occurrences of value.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.file_operations.split_files.SplitFiles.extend">
+<span class="sig-name descname"><span class="pre">extend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterable</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.file_operations.split_files.SplitFiles.extend" title="Link to this definition"></a></dt>
+<dd><p>Extend list by appending elements from the iterable.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.file_operations.split_files.SplitFiles.index">
+<span class="sig-name descname"><span class="pre">index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9223372036854775807</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.file_operations.split_files.SplitFiles.index" title="Link to this definition"></a></dt>
+<dd><p>Return first index of value.</p>
+<p>Raises ValueError if the value is not present.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.file_operations.split_files.SplitFiles.insert">
+<span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.file_operations.split_files.SplitFiles.insert" title="Link to this definition"></a></dt>
+<dd><p>Insert object before index.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.file_operations.split_files.SplitFiles.pop">
+<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.file_operations.split_files.SplitFiles.pop" title="Link to this definition"></a></dt>
+<dd><p>Remove and return item at index (default last).</p>
+<p>Raises IndexError if list is empty or index is out of range.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.file_operations.split_files.SplitFiles.remove">
+<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.file_operations.split_files.SplitFiles.remove" title="Link to this definition"></a></dt>
+<dd><p>Remove first occurrence of value.</p>
+<p>Raises ValueError if the value is not present.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.file_operations.split_files.SplitFiles.reverse">
+<span class="sig-name descname"><span class="pre">reverse</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.file_operations.split_files.SplitFiles.reverse" title="Link to this definition"></a></dt>
+<dd><p>Reverse <em>IN PLACE</em>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.file_operations.split_files.SplitFiles.save_all_to_disk">
+<span class="sig-name descname"><span class="pre">save_all_to_disk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'split'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.file_operations.split_files.SplitFiles.save_all_to_disk" title="Link to this definition"></a></dt>
+<dd><p>Save all extracted splits to disk.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code> | <code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></span>) – Path to save the extracted splits to.</p></li>
+<li><p><strong>prefix</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">'split'</span></code>) – Prefix to add to the filename, defaults to ‘split’.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.file_operations.split_files.SplitFiles.sort">
+<span class="sig-name descname"><span class="pre">sort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reverse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.file_operations.split_files.SplitFiles.sort" title="Link to this definition"></a></dt>
+<dd><p>Sort the list in ascending order and return None.</p>
+<p>The sort is in-place (i.e. the list itself is modified) and stable (i.e. the
+order of two equal elements is maintained).</p>
+<p>If a key function is given, apply it once to each list item and sort them,
+ascending or descending, according to their function values.</p>
+<p>The reverse flag can be set to sort in descending order.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="error.html" class="btn btn-neutral float-left" title="V2 Error" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="mindee_http.html" class="btn btn-neutral float-right" title="V2 Mindee HTTP" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Mindee.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,27 +1,25 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="./">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Python Client Reference &mdash; Mindee Python Client  documentation</title>
+  <title>Mindee Python SDK Reference &mdash; Mindee Python Client  documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
 
   
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="_static/jquery.js?v=5d32c60e"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=5929fcd5"></script>
-        <script src="_static/doctools.js?v=9a2dae69"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Mindee Client" href="client.html" /> 
+    <link rel="next" title="Client Options" href="client_options.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -45,10 +43,19 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="client.html">Mindee Client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="client_options.html">Client Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="error.html">Mindee Errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geometry.html">Geometry Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image.html">Image Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="input.html">Mindee Input</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mindee_http.html">Mindee HTTP</a></li>
 <li class="toctree-l1"><a class="reference internal" href="parsing/index.html">Parsing Utilities</a></li>
-<li class="toctree-l1"><a class="reference internal" href="product/index.html">Product</a></li>
-<li class="toctree-l1"><a class="reference internal" href="misc/index.html">Misc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pdf.html">PDF Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="v1/index.html">V1 Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="v2/index.html">V2 Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="v2/index.html#client-v2">Client V2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="client_mixin.html">Client Mixin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="logger.html">Mindee Logger</a></li>
 </ul>
 
         </div>
@@ -65,7 +72,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Python Client Reference</li>
+      <li class="breadcrumb-item active">Mindee Python SDK Reference</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -75,8 +82,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="python-client-reference">
-<h1>Python Client Reference<a class="headerlink" href="#python-client-reference" title="Link to this heading"></a></h1>
+  <section id="mindee-python-sdk-reference">
+<h1>Mindee Python SDK Reference<a class="headerlink" href="#mindee-python-sdk-reference" title="Link to this heading"></a></h1>
 <p>This is purely a reference manual.</p>
 <p>Please refer to the documentation to learn how to actually use
 the client.</p>
@@ -84,29 +91,412 @@ the client.</p>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="client.html">Mindee Client</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="client.html#client">Client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="client_options.html">Client Options</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="client_options.html#polling-options">Polling Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="client_options.html#mindee.client_options.polling_options.PollingOptions"><code class="docutils literal notranslate"><span class="pre">PollingOptions</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="error.html">Mindee Errors</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="error.html#mindee.error.MimeTypeError"><code class="docutils literal notranslate"><span class="pre">MimeTypeError</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="error.html#mindee.error.MimeTypeError.add_note"><code class="docutils literal notranslate"><span class="pre">MimeTypeError.add_note()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="error.html#mindee.error.MimeTypeError.with_traceback"><code class="docutils literal notranslate"><span class="pre">MimeTypeError.with_traceback()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="error.html#mindee.error.MimeTypeError.args"><code class="docutils literal notranslate"><span class="pre">MimeTypeError.args</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="error.html#mindee.error.MindeeClientError"><code class="docutils literal notranslate"><span class="pre">MindeeClientError</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="error.html#mindee.error.MindeeClientError.add_note"><code class="docutils literal notranslate"><span class="pre">MindeeClientError.add_note()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="error.html#mindee.error.MindeeClientError.with_traceback"><code class="docutils literal notranslate"><span class="pre">MindeeClientError.with_traceback()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="error.html#mindee.error.MindeeClientError.args"><code class="docutils literal notranslate"><span class="pre">MindeeClientError.args</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="error.html#mindee.error.MindeeError"><code class="docutils literal notranslate"><span class="pre">MindeeError</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="error.html#mindee.error.MindeeError.add_note"><code class="docutils literal notranslate"><span class="pre">MindeeError.add_note()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="error.html#mindee.error.MindeeError.with_traceback"><code class="docutils literal notranslate"><span class="pre">MindeeError.with_traceback()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="error.html#mindee.error.MindeeError.args"><code class="docutils literal notranslate"><span class="pre">MindeeError.args</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="error.html#mindee.error.MindeeGeometryError"><code class="docutils literal notranslate"><span class="pre">MindeeGeometryError</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="error.html#mindee.error.MindeeGeometryError.add_note"><code class="docutils literal notranslate"><span class="pre">MindeeGeometryError.add_note()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="error.html#mindee.error.MindeeGeometryError.with_traceback"><code class="docutils literal notranslate"><span class="pre">MindeeGeometryError.with_traceback()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="error.html#mindee.error.MindeeGeometryError.args"><code class="docutils literal notranslate"><span class="pre">MindeeGeometryError.args</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="error.html#mindee.error.MindeeHTTPClientError"><code class="docutils literal notranslate"><span class="pre">MindeeHTTPClientError</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="error.html#mindee.error.MindeeHTTPClientError.add_note"><code class="docutils literal notranslate"><span class="pre">MindeeHTTPClientError.add_note()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="error.html#mindee.error.MindeeHTTPClientError.with_traceback"><code class="docutils literal notranslate"><span class="pre">MindeeHTTPClientError.with_traceback()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="error.html#mindee.error.MindeeHTTPClientError.api_code"><code class="docutils literal notranslate"><span class="pre">MindeeHTTPClientError.api_code</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="error.html#mindee.error.MindeeHTTPClientError.api_details"><code class="docutils literal notranslate"><span class="pre">MindeeHTTPClientError.api_details</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="error.html#mindee.error.MindeeHTTPClientError.api_message"><code class="docutils literal notranslate"><span class="pre">MindeeHTTPClientError.api_message</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="error.html#mindee.error.MindeeHTTPClientError.args"><code class="docutils literal notranslate"><span class="pre">MindeeHTTPClientError.args</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="error.html#mindee.error.MindeeHTTPClientError.status_code"><code class="docutils literal notranslate"><span class="pre">MindeeHTTPClientError.status_code</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="error.html#mindee.error.MindeeHTTPError"><code class="docutils literal notranslate"><span class="pre">MindeeHTTPError</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="error.html#mindee.error.MindeeHTTPError.add_note"><code class="docutils literal notranslate"><span class="pre">MindeeHTTPError.add_note()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="error.html#mindee.error.MindeeHTTPError.with_traceback"><code class="docutils literal notranslate"><span class="pre">MindeeHTTPError.with_traceback()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="error.html#mindee.error.MindeeHTTPError.api_code"><code class="docutils literal notranslate"><span class="pre">MindeeHTTPError.api_code</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="error.html#mindee.error.MindeeHTTPError.api_details"><code class="docutils literal notranslate"><span class="pre">MindeeHTTPError.api_details</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="error.html#mindee.error.MindeeHTTPError.api_message"><code class="docutils literal notranslate"><span class="pre">MindeeHTTPError.api_message</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="error.html#mindee.error.MindeeHTTPError.args"><code class="docutils literal notranslate"><span class="pre">MindeeHTTPError.args</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="error.html#mindee.error.MindeeHTTPError.status_code"><code class="docutils literal notranslate"><span class="pre">MindeeHTTPError.status_code</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="error.html#mindee.error.MindeeHTTPServerError"><code class="docutils literal notranslate"><span class="pre">MindeeHTTPServerError</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="error.html#mindee.error.MindeeHTTPServerError.add_note"><code class="docutils literal notranslate"><span class="pre">MindeeHTTPServerError.add_note()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="error.html#mindee.error.MindeeHTTPServerError.with_traceback"><code class="docutils literal notranslate"><span class="pre">MindeeHTTPServerError.with_traceback()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="error.html#mindee.error.MindeeHTTPServerError.api_code"><code class="docutils literal notranslate"><span class="pre">MindeeHTTPServerError.api_code</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="error.html#mindee.error.MindeeHTTPServerError.api_details"><code class="docutils literal notranslate"><span class="pre">MindeeHTTPServerError.api_details</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="error.html#mindee.error.MindeeHTTPServerError.api_message"><code class="docutils literal notranslate"><span class="pre">MindeeHTTPServerError.api_message</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="error.html#mindee.error.MindeeHTTPServerError.args"><code class="docutils literal notranslate"><span class="pre">MindeeHTTPServerError.args</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="error.html#mindee.error.MindeeHTTPServerError.status_code"><code class="docutils literal notranslate"><span class="pre">MindeeHTTPServerError.status_code</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="error.html#mindee.error.MindeeImageError"><code class="docutils literal notranslate"><span class="pre">MindeeImageError</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="error.html#mindee.error.MindeeImageError.add_note"><code class="docutils literal notranslate"><span class="pre">MindeeImageError.add_note()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="error.html#mindee.error.MindeeImageError.with_traceback"><code class="docutils literal notranslate"><span class="pre">MindeeImageError.with_traceback()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="error.html#mindee.error.MindeeImageError.args"><code class="docutils literal notranslate"><span class="pre">MindeeImageError.args</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="error.html#mindee.error.MindeePDFError"><code class="docutils literal notranslate"><span class="pre">MindeePDFError</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="error.html#mindee.error.MindeePDFError.add_note"><code class="docutils literal notranslate"><span class="pre">MindeePDFError.add_note()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="error.html#mindee.error.MindeePDFError.with_traceback"><code class="docutils literal notranslate"><span class="pre">MindeePDFError.with_traceback()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="error.html#mindee.error.MindeePDFError.args"><code class="docutils literal notranslate"><span class="pre">MindeePDFError.args</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="error.html#mindee.error.handle_error"><code class="docutils literal notranslate"><span class="pre">handle_error()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="geometry.html">Geometry Helpers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html#mindee.geometry.BBox"><code class="docutils literal notranslate"><span class="pre">BBox</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="geometry.html#mindee.geometry.BBox.count"><code class="docutils literal notranslate"><span class="pre">BBox.count()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="geometry.html#mindee.geometry.BBox.index"><code class="docutils literal notranslate"><span class="pre">BBox.index()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="geometry.html#mindee.geometry.BBox.area"><code class="docutils literal notranslate"><span class="pre">BBox.area</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="geometry.html#mindee.geometry.BBox.height"><code class="docutils literal notranslate"><span class="pre">BBox.height</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="geometry.html#mindee.geometry.BBox.width"><code class="docutils literal notranslate"><span class="pre">BBox.width</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="geometry.html#mindee.geometry.BBox.x_max"><code class="docutils literal notranslate"><span class="pre">BBox.x_max</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="geometry.html#mindee.geometry.BBox.x_min"><code class="docutils literal notranslate"><span class="pre">BBox.x_min</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="geometry.html#mindee.geometry.BBox.y_max"><code class="docutils literal notranslate"><span class="pre">BBox.y_max</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="geometry.html#mindee.geometry.BBox.y_min"><code class="docutils literal notranslate"><span class="pre">BBox.y_min</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html#mindee.geometry.MinMax"><code class="docutils literal notranslate"><span class="pre">MinMax</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="geometry.html#mindee.geometry.MinMax.count"><code class="docutils literal notranslate"><span class="pre">MinMax.count()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="geometry.html#mindee.geometry.MinMax.index"><code class="docutils literal notranslate"><span class="pre">MinMax.index()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="geometry.html#mindee.geometry.MinMax.max"><code class="docutils literal notranslate"><span class="pre">MinMax.max</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="geometry.html#mindee.geometry.MinMax.min"><code class="docutils literal notranslate"><span class="pre">MinMax.min</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html#mindee.geometry.Point"><code class="docutils literal notranslate"><span class="pre">Point</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="geometry.html#mindee.geometry.Point.count"><code class="docutils literal notranslate"><span class="pre">Point.count()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="geometry.html#mindee.geometry.Point.index"><code class="docutils literal notranslate"><span class="pre">Point.index()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="geometry.html#mindee.geometry.Point.x"><code class="docutils literal notranslate"><span class="pre">Point.x</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="geometry.html#mindee.geometry.Point.y"><code class="docutils literal notranslate"><span class="pre">Point.y</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html#mindee.geometry.Polygon"><code class="docutils literal notranslate"><span class="pre">Polygon</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="geometry.html#mindee.geometry.Polygon.append"><code class="docutils literal notranslate"><span class="pre">Polygon.append()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="geometry.html#mindee.geometry.Polygon.clear"><code class="docutils literal notranslate"><span class="pre">Polygon.clear()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="geometry.html#mindee.geometry.Polygon.copy"><code class="docutils literal notranslate"><span class="pre">Polygon.copy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="geometry.html#mindee.geometry.Polygon.count"><code class="docutils literal notranslate"><span class="pre">Polygon.count()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="geometry.html#mindee.geometry.Polygon.extend"><code class="docutils literal notranslate"><span class="pre">Polygon.extend()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="geometry.html#mindee.geometry.Polygon.index"><code class="docutils literal notranslate"><span class="pre">Polygon.index()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="geometry.html#mindee.geometry.Polygon.insert"><code class="docutils literal notranslate"><span class="pre">Polygon.insert()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="geometry.html#mindee.geometry.Polygon.is_point_in_x"><code class="docutils literal notranslate"><span class="pre">Polygon.is_point_in_x()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="geometry.html#mindee.geometry.Polygon.is_point_in_y"><code class="docutils literal notranslate"><span class="pre">Polygon.is_point_in_y()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="geometry.html#mindee.geometry.Polygon.pop"><code class="docutils literal notranslate"><span class="pre">Polygon.pop()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="geometry.html#mindee.geometry.Polygon.remove"><code class="docutils literal notranslate"><span class="pre">Polygon.remove()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="geometry.html#mindee.geometry.Polygon.reverse"><code class="docutils literal notranslate"><span class="pre">Polygon.reverse()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="geometry.html#mindee.geometry.Polygon.sort"><code class="docutils literal notranslate"><span class="pre">Polygon.sort()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="geometry.html#mindee.geometry.Polygon.centroid"><code class="docutils literal notranslate"><span class="pre">Polygon.centroid</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html#mindee.geometry.Quadrilateral"><code class="docutils literal notranslate"><span class="pre">Quadrilateral</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="geometry.html#mindee.geometry.Quadrilateral.count"><code class="docutils literal notranslate"><span class="pre">Quadrilateral.count()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="geometry.html#mindee.geometry.Quadrilateral.index"><code class="docutils literal notranslate"><span class="pre">Quadrilateral.index()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="geometry.html#mindee.geometry.Quadrilateral.bottom_left"><code class="docutils literal notranslate"><span class="pre">Quadrilateral.bottom_left</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="geometry.html#mindee.geometry.Quadrilateral.bottom_right"><code class="docutils literal notranslate"><span class="pre">Quadrilateral.bottom_right</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="geometry.html#mindee.geometry.Quadrilateral.centroid"><code class="docutils literal notranslate"><span class="pre">Quadrilateral.centroid</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="geometry.html#mindee.geometry.Quadrilateral.top_left"><code class="docutils literal notranslate"><span class="pre">Quadrilateral.top_left</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="geometry.html#mindee.geometry.Quadrilateral.top_right"><code class="docutils literal notranslate"><span class="pre">Quadrilateral.top_right</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html#mindee.geometry.get_bbox"><code class="docutils literal notranslate"><span class="pre">get_bbox()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html#mindee.geometry.get_bounding_box"><code class="docutils literal notranslate"><span class="pre">get_bounding_box()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html#mindee.geometry.get_centroid"><code class="docutils literal notranslate"><span class="pre">get_centroid()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html#mindee.geometry.get_min_max_x"><code class="docutils literal notranslate"><span class="pre">get_min_max_x()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html#mindee.geometry.get_min_max_y"><code class="docutils literal notranslate"><span class="pre">get_min_max_y()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html#mindee.geometry.is_point_in_x"><code class="docutils literal notranslate"><span class="pre">is_point_in_x()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html#mindee.geometry.is_point_in_y"><code class="docutils literal notranslate"><span class="pre">is_point_in_y()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html#mindee.geometry.merge_polygons"><code class="docutils literal notranslate"><span class="pre">merge_polygons()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="geometry.html#mindee.geometry.quadrilateral_from_prediction"><code class="docutils literal notranslate"><span class="pre">quadrilateral_from_prediction()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="image.html">Image Helpers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="image.html#mindee.image.compress_image"><code class="docutils literal notranslate"><span class="pre">compress_image()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="input.html">Mindee Input</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="input.html#mindee.input.Base64Input"><code class="docutils literal notranslate"><span class="pre">Base64Input</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.Base64Input.apply_page_options"><code class="docutils literal notranslate"><span class="pre">Base64Input.apply_page_options()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.Base64Input.close"><code class="docutils literal notranslate"><span class="pre">Base64Input.close()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.Base64Input.compress"><code class="docutils literal notranslate"><span class="pre">Base64Input.compress()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.Base64Input.fix_pdf"><code class="docutils literal notranslate"><span class="pre">Base64Input.fix_pdf()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.Base64Input.has_source_text"><code class="docutils literal notranslate"><span class="pre">Base64Input.has_source_text()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.Base64Input.is_pdf"><code class="docutils literal notranslate"><span class="pre">Base64Input.is_pdf()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.Base64Input.is_pdf_empty"><code class="docutils literal notranslate"><span class="pre">Base64Input.is_pdf_empty()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.Base64Input.merge_pdf_pages"><code class="docutils literal notranslate"><span class="pre">Base64Input.merge_pdf_pages()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.Base64Input.process_pdf"><code class="docutils literal notranslate"><span class="pre">Base64Input.process_pdf()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.Base64Input.read_contents"><code class="docutils literal notranslate"><span class="pre">Base64Input.read_contents()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.Base64Input.file_mimetype"><code class="docutils literal notranslate"><span class="pre">Base64Input.file_mimetype</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.Base64Input.file_object"><code class="docutils literal notranslate"><span class="pre">Base64Input.file_object</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.Base64Input.filename"><code class="docutils literal notranslate"><span class="pre">Base64Input.filename</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.Base64Input.filepath"><code class="docutils literal notranslate"><span class="pre">Base64Input.filepath</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.Base64Input.page_count"><code class="docutils literal notranslate"><span class="pre">Base64Input.page_count</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="input.html#mindee.input.BytesInput"><code class="docutils literal notranslate"><span class="pre">BytesInput</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.BytesInput.apply_page_options"><code class="docutils literal notranslate"><span class="pre">BytesInput.apply_page_options()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.BytesInput.close"><code class="docutils literal notranslate"><span class="pre">BytesInput.close()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.BytesInput.compress"><code class="docutils literal notranslate"><span class="pre">BytesInput.compress()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.BytesInput.fix_pdf"><code class="docutils literal notranslate"><span class="pre">BytesInput.fix_pdf()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.BytesInput.has_source_text"><code class="docutils literal notranslate"><span class="pre">BytesInput.has_source_text()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.BytesInput.is_pdf"><code class="docutils literal notranslate"><span class="pre">BytesInput.is_pdf()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.BytesInput.is_pdf_empty"><code class="docutils literal notranslate"><span class="pre">BytesInput.is_pdf_empty()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.BytesInput.merge_pdf_pages"><code class="docutils literal notranslate"><span class="pre">BytesInput.merge_pdf_pages()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.BytesInput.process_pdf"><code class="docutils literal notranslate"><span class="pre">BytesInput.process_pdf()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.BytesInput.read_contents"><code class="docutils literal notranslate"><span class="pre">BytesInput.read_contents()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.BytesInput.file_mimetype"><code class="docutils literal notranslate"><span class="pre">BytesInput.file_mimetype</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.BytesInput.file_object"><code class="docutils literal notranslate"><span class="pre">BytesInput.file_object</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.BytesInput.filename"><code class="docutils literal notranslate"><span class="pre">BytesInput.filename</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.BytesInput.filepath"><code class="docutils literal notranslate"><span class="pre">BytesInput.filepath</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.BytesInput.page_count"><code class="docutils literal notranslate"><span class="pre">BytesInput.page_count</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="input.html#mindee.input.FileInput"><code class="docutils literal notranslate"><span class="pre">FileInput</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.FileInput.apply_page_options"><code class="docutils literal notranslate"><span class="pre">FileInput.apply_page_options()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.FileInput.close"><code class="docutils literal notranslate"><span class="pre">FileInput.close()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.FileInput.compress"><code class="docutils literal notranslate"><span class="pre">FileInput.compress()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.FileInput.fix_pdf"><code class="docutils literal notranslate"><span class="pre">FileInput.fix_pdf()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.FileInput.has_source_text"><code class="docutils literal notranslate"><span class="pre">FileInput.has_source_text()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.FileInput.is_pdf"><code class="docutils literal notranslate"><span class="pre">FileInput.is_pdf()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.FileInput.is_pdf_empty"><code class="docutils literal notranslate"><span class="pre">FileInput.is_pdf_empty()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.FileInput.merge_pdf_pages"><code class="docutils literal notranslate"><span class="pre">FileInput.merge_pdf_pages()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.FileInput.process_pdf"><code class="docutils literal notranslate"><span class="pre">FileInput.process_pdf()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.FileInput.read_contents"><code class="docutils literal notranslate"><span class="pre">FileInput.read_contents()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.FileInput.file_mimetype"><code class="docutils literal notranslate"><span class="pre">FileInput.file_mimetype</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.FileInput.file_object"><code class="docutils literal notranslate"><span class="pre">FileInput.file_object</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.FileInput.filename"><code class="docutils literal notranslate"><span class="pre">FileInput.filename</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.FileInput.filepath"><code class="docutils literal notranslate"><span class="pre">FileInput.filepath</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.FileInput.page_count"><code class="docutils literal notranslate"><span class="pre">FileInput.page_count</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="input.html#mindee.input.LocalInputSource"><code class="docutils literal notranslate"><span class="pre">LocalInputSource</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.LocalInputSource.apply_page_options"><code class="docutils literal notranslate"><span class="pre">LocalInputSource.apply_page_options()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.LocalInputSource.close"><code class="docutils literal notranslate"><span class="pre">LocalInputSource.close()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.LocalInputSource.compress"><code class="docutils literal notranslate"><span class="pre">LocalInputSource.compress()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.LocalInputSource.fix_pdf"><code class="docutils literal notranslate"><span class="pre">LocalInputSource.fix_pdf()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.LocalInputSource.has_source_text"><code class="docutils literal notranslate"><span class="pre">LocalInputSource.has_source_text()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.LocalInputSource.is_pdf"><code class="docutils literal notranslate"><span class="pre">LocalInputSource.is_pdf()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.LocalInputSource.is_pdf_empty"><code class="docutils literal notranslate"><span class="pre">LocalInputSource.is_pdf_empty()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.LocalInputSource.merge_pdf_pages"><code class="docutils literal notranslate"><span class="pre">LocalInputSource.merge_pdf_pages()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.LocalInputSource.process_pdf"><code class="docutils literal notranslate"><span class="pre">LocalInputSource.process_pdf()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.LocalInputSource.read_contents"><code class="docutils literal notranslate"><span class="pre">LocalInputSource.read_contents()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.LocalInputSource.file_mimetype"><code class="docutils literal notranslate"><span class="pre">LocalInputSource.file_mimetype</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.LocalInputSource.file_object"><code class="docutils literal notranslate"><span class="pre">LocalInputSource.file_object</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.LocalInputSource.filename"><code class="docutils literal notranslate"><span class="pre">LocalInputSource.filename</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.LocalInputSource.filepath"><code class="docutils literal notranslate"><span class="pre">LocalInputSource.filepath</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.LocalInputSource.page_count"><code class="docutils literal notranslate"><span class="pre">LocalInputSource.page_count</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="input.html#mindee.input.LocalResponse"><code class="docutils literal notranslate"><span class="pre">LocalResponse</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.LocalResponse.deserialize_response"><code class="docutils literal notranslate"><span class="pre">LocalResponse.deserialize_response()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.LocalResponse.get_hmac_signature"><code class="docutils literal notranslate"><span class="pre">LocalResponse.get_hmac_signature()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.LocalResponse.is_valid_hmac_signature"><code class="docutils literal notranslate"><span class="pre">LocalResponse.is_valid_hmac_signature()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.LocalResponse.ResponseT"><code class="docutils literal notranslate"><span class="pre">LocalResponse.ResponseT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.LocalResponse.as_dict"><code class="docutils literal notranslate"><span class="pre">LocalResponse.as_dict</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="input.html#mindee.input.PageOptions"><code class="docutils literal notranslate"><span class="pre">PageOptions</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.PageOptions.count"><code class="docutils literal notranslate"><span class="pre">PageOptions.count()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.PageOptions.index"><code class="docutils literal notranslate"><span class="pre">PageOptions.index()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.PageOptions.on_min_pages"><code class="docutils literal notranslate"><span class="pre">PageOptions.on_min_pages</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.PageOptions.operation"><code class="docutils literal notranslate"><span class="pre">PageOptions.operation</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.PageOptions.page_indexes"><code class="docutils literal notranslate"><span class="pre">PageOptions.page_indexes</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="input.html#mindee.input.PathInput"><code class="docutils literal notranslate"><span class="pre">PathInput</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.PathInput.apply_page_options"><code class="docutils literal notranslate"><span class="pre">PathInput.apply_page_options()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.PathInput.close"><code class="docutils literal notranslate"><span class="pre">PathInput.close()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.PathInput.compress"><code class="docutils literal notranslate"><span class="pre">PathInput.compress()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.PathInput.fix_pdf"><code class="docutils literal notranslate"><span class="pre">PathInput.fix_pdf()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.PathInput.has_source_text"><code class="docutils literal notranslate"><span class="pre">PathInput.has_source_text()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.PathInput.is_pdf"><code class="docutils literal notranslate"><span class="pre">PathInput.is_pdf()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.PathInput.is_pdf_empty"><code class="docutils literal notranslate"><span class="pre">PathInput.is_pdf_empty()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.PathInput.merge_pdf_pages"><code class="docutils literal notranslate"><span class="pre">PathInput.merge_pdf_pages()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.PathInput.process_pdf"><code class="docutils literal notranslate"><span class="pre">PathInput.process_pdf()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.PathInput.read_contents"><code class="docutils literal notranslate"><span class="pre">PathInput.read_contents()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.PathInput.file_mimetype"><code class="docutils literal notranslate"><span class="pre">PathInput.file_mimetype</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.PathInput.file_object"><code class="docutils literal notranslate"><span class="pre">PathInput.file_object</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.PathInput.filename"><code class="docutils literal notranslate"><span class="pre">PathInput.filename</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.PathInput.filepath"><code class="docutils literal notranslate"><span class="pre">PathInput.filepath</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.PathInput.page_count"><code class="docutils literal notranslate"><span class="pre">PathInput.page_count</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="input.html#mindee.input.URLInputSource"><code class="docutils literal notranslate"><span class="pre">URLInputSource</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.URLInputSource.as_local_input_source"><code class="docutils literal notranslate"><span class="pre">URLInputSource.as_local_input_source()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.URLInputSource.save_to_file"><code class="docutils literal notranslate"><span class="pre">URLInputSource.save_to_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="input.html#mindee.input.URLInputSource.url"><code class="docutils literal notranslate"><span class="pre">URLInputSource.url</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="mindee_http.html">Mindee HTTP</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="mindee_http.html#module-mindee.mindee_http.response_validation">Response Validation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mindee_http.html#mindee.mindee_http.response_validation.clean_request_json"><code class="docutils literal notranslate"><span class="pre">clean_request_json()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="mindee_http.html#mindee.mindee_http.response_validation.is_valid_async_response"><code class="docutils literal notranslate"><span class="pre">is_valid_async_response()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="mindee_http.html#mindee.mindee_http.response_validation.is_valid_sync_response"><code class="docutils literal notranslate"><span class="pre">is_valid_sync_response()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="mindee_http.html#settings-mixin">Settings Mixin</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="mindee_http.html#mindee.mindee_http.settings_mixin.SettingsMixin"><code class="docutils literal notranslate"><span class="pre">SettingsMixin</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="parsing/index.html">Parsing Utilities</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="parsing/standard.html">Standard Fields</a></li>
-<li class="toctree-l2"><a class="reference internal" href="parsing/common.html">Common Fields</a></li>
-<li class="toctree-l2"><a class="reference internal" href="parsing/custom.html">Custom Fields</a></li>
-<li class="toctree-l2"><a class="reference internal" href="parsing/generated.html">Generated Fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parsing/common.html">Common Parsing Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="parsing/common.html#common-response">Common Response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="parsing/common.html#string-dict">String Dict</a></li>
+<li class="toctree-l3"><a class="reference internal" href="parsing/common.html#module-mindee.parsing.common.summary_helper">Summary Helper</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="product/index.html">Product</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="product/index.html#region-specific">Region-Specific</a></li>
-<li class="toctree-l2"><a class="reference internal" href="product/index.html#international">International</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="misc/index.html">Misc</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="misc/error.html">Mindee Errors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="misc/geometry.html">Geometry Helpers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="misc/input.html">Input</a></li>
-<li class="toctree-l2"><a class="reference internal" href="misc/mindee_http.html">Mindee HTTP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pdf.html">PDF Helpers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pdf.html#mindee.pdf.PDFCharData"><code class="docutils literal notranslate"><span class="pre">PDFCharData</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pdf.html#mindee.pdf.PDFCharData.bottom"><code class="docutils literal notranslate"><span class="pre">PDFCharData.bottom</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pdf.html#mindee.pdf.PDFCharData.char"><code class="docutils literal notranslate"><span class="pre">PDFCharData.char</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pdf.html#mindee.pdf.PDFCharData.font_fill_color"><code class="docutils literal notranslate"><span class="pre">PDFCharData.font_fill_color</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pdf.html#mindee.pdf.PDFCharData.font_flags"><code class="docutils literal notranslate"><span class="pre">PDFCharData.font_flags</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pdf.html#mindee.pdf.PDFCharData.font_name"><code class="docutils literal notranslate"><span class="pre">PDFCharData.font_name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pdf.html#mindee.pdf.PDFCharData.font_size"><code class="docutils literal notranslate"><span class="pre">PDFCharData.font_size</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pdf.html#mindee.pdf.PDFCharData.font_stroke_color"><code class="docutils literal notranslate"><span class="pre">PDFCharData.font_stroke_color</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pdf.html#mindee.pdf.PDFCharData.font_weight"><code class="docutils literal notranslate"><span class="pre">PDFCharData.font_weight</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pdf.html#mindee.pdf.PDFCharData.left"><code class="docutils literal notranslate"><span class="pre">PDFCharData.left</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pdf.html#mindee.pdf.PDFCharData.page_id"><code class="docutils literal notranslate"><span class="pre">PDFCharData.page_id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pdf.html#mindee.pdf.PDFCharData.right"><code class="docutils literal notranslate"><span class="pre">PDFCharData.right</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="pdf.html#mindee.pdf.PDFCharData.top"><code class="docutils literal notranslate"><span class="pre">PDFCharData.top</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="pdf.html#mindee.pdf.compress_pdf"><code class="docutils literal notranslate"><span class="pre">compress_pdf()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pdf.html#mindee.pdf.extract_text_from_pdf"><code class="docutils literal notranslate"><span class="pre">extract_text_from_pdf()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pdf.html#mindee.pdf.lerp"><code class="docutils literal notranslate"><span class="pre">lerp()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="pdf.html#mindee.pdf.pdf_has_source_text"><code class="docutils literal notranslate"><span class="pre">pdf_has_source_text()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="v1/index.html">V1 Utilities</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="v1/client.html">V1 Client</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="v1/client.html#mindee.v1.client.Client"><code class="docutils literal notranslate"><span class="pre">Client</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="v1/client.html#mindee.v1.client.get_bound_classname"><code class="docutils literal notranslate"><span class="pre">get_bound_classname()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="v1/client_options.html">V1 Client Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="v1/client_options.html#predict-options">Predict Options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="v1/client_options.html#workflow-options">Workflow Options</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="v1/error.html">V1 Error</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="v1/error.html#mindee-api-error">Mindee API Error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="v1/error.html#mindee-product-error">Mindee Product Error</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="v1/mindee_http.html">V1 Mindee HTTP</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="v1/mindee_http.html#base-endpoint">Base Endpoint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="v1/mindee_http.html#base-settings">Base Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="v1/mindee_http.html#endpoint">Endpoint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="v1/mindee_http.html#mindeeapi">MindeeAPI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="v1/mindee_http.html#workflow-endpoint">Workflow Endpoint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="v1/mindee_http.html#workflow-settings">Workflow Settings</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="v1/parsing/index.html">V1 Parsing Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="v1/parsing/standard.html">V1 Standard Fields</a></li>
+<li class="toctree-l3"><a class="reference internal" href="v1/parsing/common.html">V1 Common Fields</a></li>
+<li class="toctree-l3"><a class="reference internal" href="v1/parsing/custom.html">V1 Custom Fields</a></li>
+<li class="toctree-l3"><a class="reference internal" href="v1/parsing/generated.html">V1 Generated Fields</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="v1/pdf.html">V1 PDF</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="v1/pdf.html#module-mindee.v1.pdf.multi_receipts_extractor">Multi-Receipts Extractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="v1/pdf.html#pdf-extractor">PDF Extractor</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="v1/product/index.html">V1 Products</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="v1/product/index.html#region-specific">Region-Specific</a></li>
+<li class="toctree-l3"><a class="reference internal" href="v1/product/index.html#international">International</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="v2/index.html">V2 Utilities</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="v2/client_options.html">V2 Client Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="v2/client_options.html#base-parameters">Base Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="v2/error.html">V2 Error</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="v2/error.html#mindee-api-v2-error">Mindee API V2 Error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="v2/error.html#mindee-http-error-v2">Mindee HTTP Error V2</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="v2/file_operations.html">File Operations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="v2/file_operations.html#module-mindee.v2.file_operations.crop">Crop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="v2/file_operations.html#crop-files">Crop Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="v2/file_operations.html#module-mindee.v2.file_operations.split">Split</a></li>
+<li class="toctree-l3"><a class="reference internal" href="v2/file_operations.html#split-files">Split Files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="v2/mindee_http.html">V2 Mindee HTTP</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="v2/mindee_http.html#mindee-api-v2">Mindee API V2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="v2/mindee_http.html#module-mindee.v2.mindee_http.response_validation_v2">Response Validation V2</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="v2/parsing/index.html">V2 Parsing</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="v2/parsing/inference/index.html">Inference V2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="v2/parsing/error.html">V2 Parsing Error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="v2/parsing/job.html">V2 Parsing Job</a></li>
+<li class="toctree-l3"><a class="reference internal" href="v2/parsing/search.html">V2 Search</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="v2/product/index.html">V2 Products</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="v2/product/classification/index.html">Classification</a></li>
+<li class="toctree-l3"><a class="reference internal" href="v2/product/crop/index.html">Crop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="v2/product/extraction/index.html">Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="v2/product/ocr/index.html">OCR</a></li>
+<li class="toctree-l3"><a class="reference internal" href="v2/product/split/index.html">Split</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="v2/index.html#client-v2">Client V2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="v2/index.html#mindee.v2.client.Client"><code class="docutils literal notranslate"><span class="pre">Client</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="v2/index.html#mindee.v2.client.Client.close"><code class="docutils literal notranslate"><span class="pre">Client.close()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="v2/index.html#mindee.v2.client.Client.enqueue"><code class="docutils literal notranslate"><span class="pre">Client.enqueue()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="v2/index.html#mindee.v2.client.Client.enqueue_and_get_result"><code class="docutils literal notranslate"><span class="pre">Client.enqueue_and_get_result()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="v2/index.html#mindee.v2.client.Client.get_job"><code class="docutils literal notranslate"><span class="pre">Client.get_job()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="v2/index.html#mindee.v2.client.Client.get_result"><code class="docutils literal notranslate"><span class="pre">Client.get_result()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="v2/index.html#mindee.v2.client.Client.get_result_from_url"><code class="docutils literal notranslate"><span class="pre">Client.get_result_from_url()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="v2/index.html#mindee.v2.client.Client.search_models"><code class="docutils literal notranslate"><span class="pre">Client.search_models()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="client_mixin.html">Client Mixin</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="client_mixin.html#mindee.client_mixin"><code class="docutils literal notranslate"><span class="pre">client_mixin</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="logger.html">Mindee Logger</a></li>
 </ul>
 </div>
 </section>
@@ -115,7 +505,7 @@ the client.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="client.html" class="btn btn-neutral float-right" title="Mindee Client" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="client_options.html" class="btn btn-neutral float-right" title="Client Options" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

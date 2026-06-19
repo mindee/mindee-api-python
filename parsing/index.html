@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="../">
 <head>
@@ -6,23 +8,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Parsing Utilities &mdash; Mindee Python Client  documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
 
   
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=5929fcd5"></script>
-        <script src="../_static/doctools.js?v=9a2dae69"></script>
-        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Standard Fields" href="standard.html" />
-    <link rel="prev" title="Mindee Client" href="../client.html" /> 
+    <link rel="next" title="Common Parsing Utilities" href="common.html" />
+    <link rel="prev" title="Mindee HTTP" href="../mindee_http.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -46,16 +44,22 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../client.html">Mindee Client</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../client_options.html">Client Options</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../error.html">Mindee Errors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../geometry.html">Geometry Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../image.html">Image Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../input.html">Mindee Input</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mindee_http.html">Mindee HTTP</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Parsing Utilities</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="standard.html">Standard Fields</a></li>
-<li class="toctree-l2"><a class="reference internal" href="common.html">Common Fields</a></li>
-<li class="toctree-l2"><a class="reference internal" href="custom.html">Custom Fields</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated.html">Generated Fields</a></li>
+<li class="toctree-l2"><a class="reference internal" href="common.html">Common Parsing Utilities</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../product/index.html">Product</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../misc/index.html">Misc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pdf.html">PDF Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../v1/index.html">V1 Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../v2/index.html">V2 Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../v2/index.html#client-v2">Client V2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../client_mixin.html">Client Mixin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../logger.html">Mindee Logger</a></li>
 </ul>
 
         </div>
@@ -86,38 +90,10 @@
 <h1>Parsing Utilities<a class="headerlink" href="#parsing-utilities" title="Link to this heading"></a></h1>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="standard.html">Standard Fields</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="standard.html#base-field">Base Field</a></li>
-<li class="toctree-l2"><a class="reference internal" href="standard.html#text-field">Text Field</a></li>
-<li class="toctree-l2"><a class="reference internal" href="standard.html#classification-field">Classification Field</a></li>
-<li class="toctree-l2"><a class="reference internal" href="standard.html#company-registration-field">Company Registration Field</a></li>
-<li class="toctree-l2"><a class="reference internal" href="standard.html#amount-field">Amount Field</a></li>
-<li class="toctree-l2"><a class="reference internal" href="standard.html#date-field">Date Field</a></li>
-<li class="toctree-l2"><a class="reference internal" href="standard.html#list-of-taxes">List of Taxes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="standard.html#tax-line">Tax Line</a></li>
-<li class="toctree-l2"><a class="reference internal" href="standard.html#locale-field">Locale Field</a></li>
-<li class="toctree-l2"><a class="reference internal" href="standard.html#payment-details">Payment Details</a></li>
-<li class="toctree-l2"><a class="reference internal" href="standard.html#position">Position</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="common.html">Common Fields</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="common.html#documents">Documents</a></li>
-<li class="toctree-l2"><a class="reference internal" href="common.html#page-fields">Page Fields</a></li>
-<li class="toctree-l2"><a class="reference internal" href="common.html#api">API</a></li>
-<li class="toctree-l2"><a class="reference internal" href="common.html#asynchronous-parsing">Asynchronous Parsing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="common.html#miscellaneous-parsing">Miscellaneous Parsing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="common.html#ocr-extraction">OCR Extraction</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="custom.html">Custom Fields</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="custom.html#classification">Classification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="custom.html#line-items">Line Items</a></li>
-<li class="toctree-l2"><a class="reference internal" href="custom.html#lists">Lists</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="generated.html">Generated Fields</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="generated.html#generated-lists">Generated Lists</a></li>
-<li class="toctree-l2"><a class="reference internal" href="generated.html#generated-objects">Generated Objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="common.html">Common Parsing Utilities</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="common.html#common-response">Common Response</a></li>
+<li class="toctree-l2"><a class="reference internal" href="common.html#string-dict">String Dict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="common.html#module-mindee.parsing.common.summary_helper">Summary Helper</a></li>
 </ul>
 </li>
 </ul>
@@ -128,8 +104,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../client.html" class="btn btn-neutral float-left" title="Mindee Client" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="standard.html" class="btn btn-neutral float-right" title="Standard Fields" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../mindee_http.html" class="btn btn-neutral float-left" title="Mindee HTTP" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="common.html" class="btn btn-neutral float-right" title="Common Parsing Utilities" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
