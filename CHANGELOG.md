@@ -1,16 +1,16 @@
 # Mindee Python Client Library Changelog
 
-## Unreleased
-### ¡Breaking Changes!
+## v5.1.0 - 2026-06-19
+### Changes
 * :boom: :sparkles: unify the `mindee` CLI to mirror the .NET reference: V2 inference commands (`classification`, `crop`, `extraction`, `ocr`, `split`) and `search-models` at the root, V1 product commands wrapped under a `v1` subcommand
 * :boom: :coffin: remove the separate `mindeeV2` script entry point; use `mindee` for both V1 (via `mindee v1 …`) and V2
 * :boom: :recycle: refactor the V2 CLI from a central `InferenceCommand` config to one class per command (`ClassificationCommand`, `CropCommand`, `ExtractionCommand`, `OcrCommand`, `SplitCommand`) extending a new `BaseInferenceCommand`. `InferenceCommand` and `InferenceCommandOptions` are no longer exported from `mindee.v2.commands`.
-### Changes
 * :sparkles: add `--output/-o` (`summary` / `full` / `raw`) plus per-product `--api-key/-k`, `--model-id/-m`, `--alias/-a` flags; expose extraction-only `--rag/-g`, `--raw-text/-r`, `--confidence/-c`, `--polygon/-p`, `--text-context/-t`
 * :sparkles: add `ocr` subcommand to the V2 CLI
 * :sparkles: add `--verbose/-v` flag on the CLI (repeat for debug-level output)
 * :sparkles: `SearchResponse` now extends `CommonResponse` and exposes `raw_http`
 * :white_check_mark: add `tests/test_v1_cli.sh` and `tests/test_v2_cli.sh` integration scripts and a `_test-cli.yml` workflow mirroring the .NET CLI test setup
+
 
 ## v5.0.0 - 2026-06-17
 ### ¡Breaking Changes!
