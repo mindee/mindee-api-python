@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from mindee import ExtractionResponse
+from mindee.v2 import ExtractionResponse
 from mindee.v2.parsing.inference.field import (
     FieldConfidence,
     InferenceFields,
