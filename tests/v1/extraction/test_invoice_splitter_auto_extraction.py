@@ -53,9 +53,7 @@ def test_pdf_should_extract_invoices_strict():
     )
     for i, extracted_pdf in enumerate(extracted_base_pdfs):
         assert extracted_pdf.filename == extracted_pdfs_strict[i].filename
-        assert (
-            extracted_pdf.pdf_bytes.read() == extracted_pdfs_strict[i].pdf_bytes.read()
-        )
+        assert extracted_pdf.buffer.read() == extracted_pdfs_strict[i].buffer.read()
 
     assert len(extracted_pdfs_not_strict) == 2
     assert extracted_pdfs_not_strict[0].filename == "default_sample_001-001.pdf"

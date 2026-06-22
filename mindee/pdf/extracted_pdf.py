@@ -18,18 +18,18 @@ else:
 class ExtractedPDF:
     """An extracted sub-Pdf."""
 
-    pdf_bytes: BinaryIO
+    buffer: BinaryIO
     filename: str
 
-    def __init__(self, pdf_bytes: BinaryIO, filename: str):
-        self.pdf_bytes = pdf_bytes
+    def __init__(self, pdf_byte_stream: BinaryIO, filename: str):
+        self.buffer = pdf_byte_stream
         self.filename = filename
 
     @requires_pypdfium2
     def get_page_count(self) -> int:
         """Get the number of pages in the PDF file."""
         try:
-            pdf = pdfium.PdfDocument(self.pdf_bytes)
+            pdf = pdfium.PdfDocument(self.buffer)
             return len(pdf)
         except Exception as e:
             raise MindeeError(
@@ -50,11 +50,11 @@ class ExtractedPDF:
             raise MindeeError("Invalid save path provided {}.")
         if out_path.suffix.lower() != "pdf":
             out_path = out_path.parent / (out_path.stem + "." + "pdf")
-        self.pdf_bytes.seek(0)
+        self.buffer.seek(0)
         with open(out_path, "wb") as out_file:
-            out_file.write(self.pdf_bytes.read())
+            out_file.write(self.buffer.read())
 
     def as_input_source(self) -> BytesInput:
         """Returns the current PDF object as a usable BytesInput source."""
-        self.pdf_bytes.seek(0)
-        return BytesInput(self.pdf_bytes.read(), self.filename)
+        self.buffer.seek(0)
+        return BytesInput(self.buffer.read(), self.filename)

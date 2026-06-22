@@ -10,7 +10,6 @@ from mindee.error.mindee_error import MindeeError
 from mindee.geometry.point import Point
 from mindee.geometry.polygon import Polygon, get_min_max_x, get_min_max_y
 from mindee.image.extracted_image import ExtractedImage
-from mindee.input.bytes_input import BytesInput
 from mindee.input.local_input_source import LocalInputSource
 
 if PYPDFIUM2_AVAILABLE:
@@ -66,7 +65,7 @@ def extract_image_from_polygon(
     width: float,
     height: float,
     file_format: str,
-) -> bytes:
+) -> BinaryIO:
     """
     Crops the image from the given polygon.
 
@@ -91,7 +90,7 @@ def extract_image_from_polygon(
 
 
 @requires_pillow
-def save_image_to_buffer(image: Image.Image, file_format: str) -> bytes:
+def save_image_to_buffer(image: Image.Image, file_format: str) -> BinaryIO:
     """
     Saves an image as a buffer.
 
@@ -102,7 +101,7 @@ def save_image_to_buffer(image: Image.Image, file_format: str) -> bytes:
     buffer = io.BytesIO()
     image.save(buffer, format=file_format)
     buffer.seek(0)
-    return buffer.read()
+    return buffer
 
 
 @requires_pillow
@@ -159,10 +158,9 @@ def extract_multiple_images_from_source(
         )
         extracted_elements.append(
             ExtractedImage(
-                BytesInput(
-                    image_data,
-                    f"{input_source.filename}_page{page_id + 1}-{element_id}.{file_extension}",
-                ),
+                image_data,
+                input_source.filename,
+                file_extension,
                 page_id,
                 element_id,
             )
