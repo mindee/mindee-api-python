@@ -55,24 +55,20 @@ class ExtractedImage:
         self._element_id = 0 if element_id is None else element_id
 
     @requires_pillow
-    def save_to_file(self, output_path: Path | str, file_format: str | None = None):
+    def save_to_file(self, output_path: Path | str):
         """
         Saves the document to a file.
 
         :param output_path: Path to save the file to.
-        :param file_format: Optional PIL-compatible format for the file. Inferred from file extension if not provided.
         :raises MindeeError: If an invalid path or filename is provided.
         """
         try:
             resolved_path = Path(output_path).resolve()
-            if not file_format and len(resolved_path.suffix) < 1:
+            if not len(resolved_path.suffix) < 1:
                 raise ValueError("Invalid file format.")
             self.buffer.seek(0)
             image = Image.open(self.buffer)
-            if file_format:
-                image.save(resolved_path, format=file_format)
-            else:
-                image.save(resolved_path)
+            image.save(resolved_path)
             logger.info("File saved successfully to '%s'.", resolved_path)
         except TypeError as e:
             raise MindeeError("Invalid path/filename provided.") from e
@@ -92,7 +88,7 @@ class ExtractedImage:
     @property
     def page_id(self):
         """
-        ID of the page the receipt was found on.
+        ID of the page the image was found on.
 
         :return: A valid page ID.
         """

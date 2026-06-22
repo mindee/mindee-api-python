@@ -5,7 +5,6 @@ import json
 import pytest
 
 from mindee.input.path_input import PathInput
-from mindee.v2.file_operations.crop import extract_multiple_crops
 from mindee.v2.product.crop.crop_response import (
     CropResponse,
 )
@@ -39,9 +38,8 @@ def crops_multi_page_json_path():
 def test_single_page_crop_split(crops_single_page_path, crops_single_page_json_path):
     input_sample = PathInput(crops_single_page_path)
     with open(crops_single_page_json_path, "rb") as f:
-        response = json.load(f)
-    doc = CropResponse(response)
-    extracted_crops = extract_multiple_crops(input_sample, doc.inference.result.crops)
+        response = CropResponse(json.load(f))
+    extracted_crops = response.inference.result.extract_from_input_source(input_sample)
     assert len(extracted_crops) == 1
 
     assert extracted_crops[0].page_id == 0
@@ -55,9 +53,8 @@ def test_single_page_crop_split(crops_single_page_path, crops_single_page_json_p
 def test_multi_page_receipt_crop(crops_multi_page_path, crops_multi_page_json_path):
     input_sample = PathInput(crops_multi_page_path)
     with open(crops_multi_page_json_path, "rb") as f:
-        response = json.load(f)
-    doc = CropResponse(response)
-    extracted_crops = extract_multiple_crops(input_sample, doc.inference.result.crops)
+        response = CropResponse(json.load(f))
+    extracted_crops = response.inference.result.extract_from_input_source(input_sample)
     assert len(extracted_crops) == 2
 
     assert extracted_crops[0].page_id == 0

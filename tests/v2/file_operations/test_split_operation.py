@@ -35,9 +35,8 @@ def splits_multi_page_json_path():
 def test_single_page_split(splits_default, splits_single_page_json_path):
     input_sample = PathInput(splits_default)
     with open(splits_single_page_json_path, "rb") as f:
-        response = json.load(f)
-    doc = SplitResponse(response)
-    extracted_splits = doc.inference.result.extract_from_input_source(input_sample)
+        response = SplitResponse(json.load(f))
+    extracted_splits = response.inference.result.extract_from_input_source(input_sample)
     assert len(extracted_splits) == 1
 
     assert extracted_splits[0].get_page_count() == 1
@@ -47,9 +46,8 @@ def test_single_page_split(splits_default, splits_single_page_json_path):
 def test_multi_page_receipt_split(splits_5p, splits_multi_page_json_path):
     input_sample = PathInput(splits_5p)
     with open(splits_multi_page_json_path, "rb") as f:
-        response = json.load(f)
-    doc = SplitResponse(response)
-    extracted_splits = doc.inference.result.extract_from_input_source(input_sample)
+        response = SplitResponse(json.load(f))
+    extracted_splits = response.inference.result.extract_from_input_source(input_sample)
     assert len(extracted_splits) == 3
 
     assert extracted_splits[0].get_page_count() == 1
