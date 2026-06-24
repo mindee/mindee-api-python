@@ -56,8 +56,8 @@ def test_pdf_should_extract_invoices_strict():
         assert extracted_pdf.buffer.read() == extracted_pdfs_strict[i].buffer.read()
 
     assert len(extracted_pdfs_not_strict) == 2
-    assert extracted_pdfs_not_strict[0].filename == "default_sample_001-001.pdf"
-    assert extracted_pdfs_not_strict[1].filename == "default_sample_002-002.pdf"
+    assert extracted_pdfs_not_strict[0].filename == "default_sample_pages-001-001.pdf"
+    assert extracted_pdfs_not_strict[1].filename == "default_sample_pages-002-002.pdf"
 
     invoice_0 = client.parse(InvoiceV4, extracted_pdfs_not_strict[0].as_input_source())
     test_string_rst_invoice_0 = prepare_invoice_return(

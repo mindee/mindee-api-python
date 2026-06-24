@@ -20,10 +20,14 @@ class ExtractedPDF:
 
     buffer: BinaryIO
     filename: str
+    _page_indexes: tuple[int, int]
 
-    def __init__(self, pdf_byte_stream: BinaryIO, filename: str):
+    def __init__(
+        self, pdf_byte_stream: BinaryIO, filename: str, page_indexes: tuple[int, int]
+    ):
         self.buffer = pdf_byte_stream
         self.filename = filename
+        self._page_indexes = page_indexes
 
     @requires_pypdfium2
     def get_page_count(self) -> int:
@@ -40,21 +44,28 @@ class ExtractedPDF:
         """
         Writes the contents of the current PDF object to a file.
 
-        :param output_path: Path of the destination file. If
-         not extension is provided, pdf will be appended by default.
+        :param output_path: Path of the destination file.
+        If no extension is provided, '.pdf' will be appended by default.
         """
         out_path = Path(output_path)
-        if out_path.resolve().is_dir():
-            raise MindeeError("Provided path is not a file.")
-        if not output_path or not out_path.parent.exists():
-            raise MindeeError("Invalid save path provided {}.")
-        if out_path.suffix.lower() != "pdf":
-            out_path = out_path.parent / (out_path.stem + "." + "pdf")
-        self.buffer.seek(0)
-        with open(out_path, "wb") as out_file:
-            out_file.write(self.buffer.read())
+        if not out_path.resolve().is_dir():
+            raise MindeeError("Provided path is not a directory.")
+        out_file_path = out_path / self.filename
+
+        try:
+            self.buffer.seek(0)
+            with open(out_file_path, "wb") as out_file:
+                out_file.write(self.buffer.read())
+        except Exception as e:
+            print(e)
+            raise MindeeError(f"Could not save file {out_file_path}.") from e
 
     def as_input_source(self) -> BytesInput:
         """Returns the current PDF object as a usable BytesInput source."""
         self.buffer.seek(0)
         return BytesInput(self.buffer.read(), self.filename)
+
+    @property
+    def page_indexes(self) -> tuple[int, int]:
+        """This PDF was extracted from this page range of the original PDF."""
+        return self._page_indexes

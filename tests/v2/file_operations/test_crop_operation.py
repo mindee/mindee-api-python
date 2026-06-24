@@ -13,56 +13,51 @@ from tests.utils import V2_PRODUCT_DATA_DIR
 Image = pytest.importorskip("PIL.Image")
 
 
-@pytest.fixture
-def crops_single_page_path():
-    return V2_PRODUCT_DATA_DIR / "crop" / "default_sample.jpg"
-
-
-@pytest.fixture
-def crops_multi_page_path():
-    return V2_PRODUCT_DATA_DIR / "crop" / "multipage_sample.pdf"
-
-
-@pytest.fixture
-def crops_single_page_json_path():
-    return V2_PRODUCT_DATA_DIR / "crop" / "crop_single.json"
-
-
-@pytest.fixture
-def crops_multi_page_json_path():
-    return V2_PRODUCT_DATA_DIR / "crop" / "crop_multiple.json"
-
-
 @pytest.mark.pillow
 @pytest.mark.pypdfium2
-def test_single_page_crop_split(crops_single_page_path, crops_single_page_json_path):
-    input_sample = PathInput(crops_single_page_path)
-    with open(crops_single_page_json_path, "rb") as f:
-        response = CropResponse(json.load(f))
-    extracted_crops = response.inference.result.extract_from_input_source(input_sample)
-    assert len(extracted_crops) == 1
-
-    assert extracted_crops[0].page_id == 0
-    assert extracted_crops[0].element_id == 0
-    image_buffer_0 = Image.open(extracted_crops[0].buffer)
-    assert image_buffer_0.size == (2823, 1571)
-
-
-@pytest.mark.pillow
-@pytest.mark.pypdfium2
-def test_multi_page_receipt_crop(crops_multi_page_path, crops_multi_page_json_path):
-    input_sample = PathInput(crops_multi_page_path)
-    with open(crops_multi_page_json_path, "rb") as f:
+def test_single_page_crop():
+    input_sample = PathInput(V2_PRODUCT_DATA_DIR / "crop" / "default_sample.jpg")
+    with open(V2_PRODUCT_DATA_DIR / "crop" / "default_sample.json", "rb") as f:
         response = CropResponse(json.load(f))
     extracted_crops = response.inference.result.extract_from_input_source(input_sample)
     assert len(extracted_crops) == 2
 
-    assert extracted_crops[0].page_id == 0
-    assert extracted_crops[0].element_id == 0
-    image_buffer_0 = Image.open(extracted_crops[0].buffer)
-    assert image_buffer_0.size == (156, 758)
+    crop0 = extracted_crops[0]
+    assert crop0.page_id == 0
+    assert crop0.element_id == 0
+    assert crop0.filename == "default_sample_page-001-item-001.jpg"
+    assert Image.open(crop0.buffer).size == (1057, 2071)
 
-    assert extracted_crops[1].page_id == 0
-    assert extracted_crops[1].element_id == 1
-    image_buffer_1 = Image.open(extracted_crops[1].buffer)
-    assert image_buffer_1.size == (187, 690)
+    crop1 = extracted_crops[1]
+    assert crop1.page_id == 0
+    assert crop1.element_id == 1
+    assert crop1.filename == "default_sample_page-001-item-002.jpg"
+    assert Image.open(crop1.buffer).size == (1298, 1869)
+
+
+@pytest.mark.pillow
+@pytest.mark.pypdfium2
+def test_multi_page_crop():
+    input_sample = PathInput(V2_PRODUCT_DATA_DIR / "crop" / "multipage_sample.pdf")
+    with open(V2_PRODUCT_DATA_DIR / "crop" / "multipage_sample.json", "rb") as f:
+        response = CropResponse(json.load(f))
+    extracted_crops = response.inference.result.extract_from_input_source(input_sample)
+    assert len(extracted_crops) == 5
+
+    crop0 = extracted_crops[0]
+    assert crop0.page_id == 0
+    assert crop0.element_id == 0
+    assert crop0.filename == "multipage_sample_page-001-item-001.jpg"
+    assert Image.open(crop0.buffer).size == (200, 553)
+
+    crop1 = extracted_crops[1]
+    assert crop1.page_id == 0
+    assert crop1.element_id == 1
+    assert crop1.filename == "multipage_sample_page-001-item-002.jpg"
+    assert Image.open(crop1.buffer).size == (203, 333)
+
+    crop4 = extracted_crops[4]
+    assert crop4.page_id == 1
+    assert crop4.element_id == 1
+    assert crop4.filename == "multipage_sample_page-002-item-002.jpg"
+    assert Image.open(crop4.buffer).size == (197, 520)

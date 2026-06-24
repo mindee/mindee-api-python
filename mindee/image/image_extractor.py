@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import io
+from pathlib import Path
 from typing import Any, BinaryIO
 
 from mindee.dependencies import requires_pypdfium2
@@ -28,7 +29,7 @@ else:
 
 @requires_pillow
 @requires_pypdfium2
-def attach_image_as_new_file(  # type: ignore
+def _attach_image_as_new_file(  # type: ignore
     input_buffer: BinaryIO,
 ) -> pdfium.PdfDocument:
     """
@@ -86,11 +87,11 @@ def extract_image_from_polygon(
             int(min_max_y.max * height),
         )
     )
-    return save_image_to_buffer(cropped_image, file_format)
+    return _save_image_to_buffer(cropped_image, file_format)
 
 
 @requires_pillow
-def save_image_to_buffer(image: Image.Image, file_format: str) -> BinaryIO:
+def _save_image_to_buffer(image: Image.Image, file_format: str) -> BinaryIO:
     """
     Saves an image as a buffer.
 
@@ -144,7 +145,8 @@ def extract_multiple_images_from_source(
     :param polygons: List of coordinates to pull the elements from.
     :return: List of byte arrays representing the extracted elements.
     """
-    page = load_pdf_doc(input_source).get_page(page_id)
+    stem = Path(input_source.filename).stem
+    page = _load_pdf_doc(input_source).get_page(page_id)
     page_content = page.render().to_pil()
     width, height = page.get_size()
 
@@ -159,18 +161,16 @@ def extract_multiple_images_from_source(
         extracted_elements.append(
             ExtractedImage(
                 image_data,
-                input_source.filename,
-                file_extension,
+                f"{stem}_page-{(page_id + 1):03d}-item-{(element_id + 1):03d}.{file_extension}",
                 page_id,
                 element_id,
             )
         )
-
     return extracted_elements
 
 
 @requires_pypdfium2
-def load_pdf_doc(input_file: LocalInputSource) -> pdfium.PdfDocument:  # type: ignore
+def _load_pdf_doc(input_file: LocalInputSource) -> pdfium.PdfDocument:  # type: ignore
     """
     Loads a PDF document from a local input source.
 
@@ -181,4 +181,4 @@ def load_pdf_doc(input_file: LocalInputSource) -> pdfium.PdfDocument:  # type: i
         input_file.file_object.seek(0)
         return pdfium.PdfDocument(input_file.file_object.read())
 
-    return attach_image_as_new_file(input_file.file_object)
+    return _attach_image_as_new_file(input_file.file_object)
