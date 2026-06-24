@@ -1,7 +1,7 @@
+from mindee.image.extracted_images import ExtractedImages
 from mindee.input.local_input_source import LocalInputSource
 from mindee.parsing.common.string_dict import StringDict
 from mindee.v2.file_operations.crop import extract_multiple_crops
-from mindee.v2.file_operations.crop_files import CropFiles
 from mindee.v2.product.crop.crop_item import CropItem
 
 
@@ -20,7 +20,9 @@ class CropResult:
         out_str = f"Crops\n====={crops}"
         return out_str
 
-    def extract_from_input_source(self, input_source: LocalInputSource) -> CropFiles:
+    def extract_from_input_source(
+        self, input_source: LocalInputSource
+    ) -> ExtractedImages:
         """
         Apply all the crops to a file and return a single extracted PDF.
 

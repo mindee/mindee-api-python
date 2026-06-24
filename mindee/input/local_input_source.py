@@ -10,7 +10,7 @@ from mindee.dependencies import requires_pypdfium2
 from mindee.dependencies.checkers import PYPDFIUM2_AVAILABLE
 from mindee.error.mimetype_error import MimeTypeError
 from mindee.error.mindee_error import MindeeError, MindeeSourceError
-from mindee.image import compress_image
+from mindee.image.image_compressor import compress_image
 from mindee.input.page_options import KEEP_ONLY, REMOVE, PageOptions
 from mindee.logger import logger
 from mindee.pdf.pdf_compressor import compress_pdf

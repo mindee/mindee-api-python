@@ -15,14 +15,15 @@ from mindee.v2.file_operations.crop import extract_multiple_crops
 from tests.utils import OUTPUT_DIR, V2_PRODUCT_DATA_DIR, cleanup_output_files
 
 
-@pytest.fixture
-def crop_sample():
-    return V2_PRODUCT_DATA_DIR / "crop" / "default_sample.jpg"
-
-
 def check_findoc_return(findoc_response: ExtractionResponse):
     assert len(findoc_response.inference.model.id) > 0
     assert findoc_response.inference.result.fields.get("total_amount").value > 0
+
+
+output_files = [
+    "default_sample_page-001-item-001.jpg",
+    "default_sample_page-001-item-002.jpg",
+]
 
 
 @pytest.mark.pillow
@@ -38,30 +39,30 @@ def test_image_should_extract_crops():
     )
     assert len(response.inference.result.crops) == 2
 
-    extracted_images = extract_multiple_crops(
+    extracted_crops = extract_multiple_crops(
         crop_input, response.inference.result.crops
     )
 
-    assert len(extracted_images) == 2
-    assert extracted_images[0].filename == "default_sample.jpg_page1-0.jpg"
-    assert extracted_images[1].filename == "default_sample.jpg_page1-1.jpg"
+    assert len(extracted_crops) == 2
+    assert extracted_crops[0].filename == output_files[0]
+    assert extracted_crops[1].filename == output_files[1]
 
     invoice_0 = client.enqueue_and_get_result(
         ExtractionResponse,
-        extracted_images[0].as_input_source(),
+        extracted_crops[0].as_input_source(),
         ExtractionParameters(
             getenv("MINDEE_V2_SE_TESTS_FINDOC_MODEL_ID"), close_file=False
         ),
     )
     check_findoc_return(invoice_0)
-    extracted_images.save_all_to_disk(OUTPUT_DIR)
-    crop1size = os.path.getsize(OUTPUT_DIR / "crop_001.jpg")
-    crop2size = os.path.getsize(OUTPUT_DIR / "crop_002.jpg")
-    assert 180000 <= crop1size <= 199685
-    assert 190000 <= crop2size <= 199433
+    extracted_crops.save_all_to_disk(OUTPUT_DIR)
+    crop0_size = os.path.getsize(OUTPUT_DIR / output_files[0])
+    crop1_size = os.path.getsize(OUTPUT_DIR / output_files[1])
+    assert 180000 <= crop0_size <= 199685
+    assert 190000 <= crop1_size <= 199433
 
 
 @pytest.fixture(scope="module", autouse=True)
 def cleanup():
     yield
-    cleanup_output_files(["crop_001.jpg", "crop_002.jpg"])
+    cleanup_output_files(output_files)

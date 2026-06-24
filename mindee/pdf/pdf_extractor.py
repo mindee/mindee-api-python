@@ -68,7 +68,7 @@ class PDFExtractor:
         """
         Extract the sub-documents from the main pdf, based on the given list of page indexes.
 
-        :param page_indexes: List of list of numbers, representing page indexes.
+        :param page_indexes: 2D list of numbers, representing page indexes.
         :return: A list of created PDFS.
         """
         extracted_pdfs: list[ExtractedPDF] = []
@@ -80,10 +80,12 @@ class PDFExtractor:
             for page_index in page_index_elem:
                 if page_index > self.get_page_count():
                     raise MindeeError(f"Index {page_index} is out of range.")
-            formatted_max_index = f"{page_index_elem[len(page_index_elem) - 1] + 1:03d}"
-            field_filename = f"{stem}_{(page_index_elem[0] + 1):03d}-{formatted_max_index}{extension}"
+            first_page = page_index_elem[0]
+            last_page = page_index_elem[len(page_index_elem) - 1]
             extracted_pdf = ExtractedPDF(
-                self.cut_pages(page_index_elem), field_filename
+                self.cut_pages(page_index_elem),
+                f"{stem}_pages-{(first_page + 1):03d}-{(last_page + 1):03d}{extension}",
+                (first_page, last_page),
             )
             extracted_pdfs.append(extracted_pdf)
         return extracted_pdfs

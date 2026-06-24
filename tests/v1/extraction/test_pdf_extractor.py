@@ -56,13 +56,13 @@ def test_pdf_should_extract_invoices_no_strict(
 
     assert len(extracted_pdfs_no_strict) == 3
     assert extracted_pdfs_no_strict[0].get_page_count() == 1
-    assert extracted_pdfs_no_strict[0].filename == "invoice_5p_001-001.pdf"
+    assert extracted_pdfs_no_strict[0].filename == "invoice_5p_pages-001-001.pdf"
 
     assert extracted_pdfs_no_strict[1].get_page_count() == 3
-    assert extracted_pdfs_no_strict[1].filename == "invoice_5p_002-004.pdf"
+    assert extracted_pdfs_no_strict[1].filename == "invoice_5p_pages-002-004.pdf"
 
     assert extracted_pdfs_no_strict[2].get_page_count() == 1
-    assert extracted_pdfs_no_strict[2].filename == "invoice_5p_005-005.pdf"
+    assert extracted_pdfs_no_strict[2].filename == "invoice_5p_pages-005-005.pdf"
 
 
 @pytest.mark.pillow
@@ -79,7 +79,7 @@ def test_pdf_should_extract_invoices_strict(
 
     assert len(extracted_pdfs_strict) == 2
     assert extracted_pdfs_strict[0].get_page_count() == 1
-    assert extracted_pdfs_strict[0].filename == "invoice_5p_001-001.pdf"
+    assert extracted_pdfs_strict[0].filename == "invoice_5p_pages-001-001.pdf"
 
     assert extracted_pdfs_strict[1].get_page_count() == 4
-    assert extracted_pdfs_strict[1].filename == "invoice_5p_002-005.pdf"
+    assert extracted_pdfs_strict[1].filename == "invoice_5p_pages-002-005.pdf"

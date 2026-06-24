@@ -1,8 +1,8 @@
 from mindee.error import MindeeError
 from mindee.input.local_input_source import LocalInputSource
 from mindee.pdf.extracted_pdf import ExtractedPDF
+from mindee.pdf.extracted_pdfs import ExtractedPDFs
 from mindee.pdf.pdf_extractor import PDFExtractor
-from mindee.v2.file_operations.split_files import SplitFiles
 
 
 def extract_single_split(
@@ -21,7 +21,7 @@ def extract_single_split(
 def extract_multiple_splits(
     input_source: LocalInputSource,
     splits: list[list[int]],
-) -> SplitFiles:
+) -> ExtractedPDFs:
     """
     Extracts splits as complete PDFs from the document.
 
@@ -35,4 +35,4 @@ def extract_multiple_splits(
         page_groups.append(list(range(split[0], split[1] + 1)))
     if len(splits) < 1:
         raise MindeeError("No indexes provided.")
-    return SplitFiles(pdf_extractor.extract_sub_documents(page_groups))
+    return ExtractedPDFs(pdf_extractor.extract_sub_documents(page_groups))

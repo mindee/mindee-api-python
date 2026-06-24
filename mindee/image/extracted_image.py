@@ -1,14 +1,12 @@
 from __future__ import annotations
 
-import io
 from pathlib import Path
-from typing import Any
+from typing import Any, BinaryIO
 
 from mindee.dependencies.checkers import PILLOW_AVAILABLE
 from mindee.dependencies.decorators import requires_pillow
 from mindee.error.mindee_error import MindeeError
-from mindee.input.file_input import FileInput
-from mindee.input.local_input_source import LocalInputSource
+from mindee.input.bytes_input import BytesInput
 from mindee.logger import logger
 
 if PILLOW_AVAILABLE:
@@ -21,78 +19,68 @@ else:
 class ExtractedImage:
     """Generic class for image extraction."""
 
+    buffer: BinaryIO
+    filename: str
     _page_id: int
     """Id of the page the image was extracted from."""
     _element_id: int
     """Id of the element on a given page."""
-    filename: str
-    """Name of the file the image was extracted from."""
 
     def __init__(
-        self, input_source: LocalInputSource, page_id: int, element_id: int
+        self,
+        img_byte_stream: BinaryIO,
+        filename: str,
+        page_id: int,
+        element_id: int,
     ) -> None:
         """
         Initialize the ExtractedImage with a buffer and an internal file name.
 
-        :param input_source: Local source for input.
+        :param img_byte_stream: The raw image bytes.
+        :param filename: Name of the file.
         :param page_id: ID of the page the element was found on.
         :param element_id: ID of the element in a page.
         """
-        self.buffer = io.BytesIO(input_source.file_object.read())
-        self.buffer.name = input_source.filename
-        self.filename = input_source.filename
-        if input_source.is_pdf():
-            extension = "jpg"
-        else:
-            extension = Path(input_source.filename).resolve().suffix
+        self.buffer = img_byte_stream
         self.buffer.seek(0)
-        pg_number = str(page_id).zfill(3)
-        elem_number = str(element_id).zfill(3)
-        self.internal_file_name = (
-            f"{input_source.filename}_page{pg_number}-{elem_number}.{extension}"
-        )
+        self.filename = filename
         self._page_id = page_id
         self._element_id = 0 if element_id is None else element_id
 
     @requires_pillow
-    def save_to_file(self, output_path: Path | str, file_format: str | None = None):
+    def save_to_file(self, output_path: Path | str):
         """
         Saves the document to a file.
 
         :param output_path: Path to save the file to.
-        :param file_format: Optional PIL-compatible format for the file. Inferred from file extension if not provided.
         :raises MindeeError: If an invalid path or filename is provided.
         """
+        out_path = Path(output_path)
+        if not out_path.resolve().is_dir():
+            raise MindeeError("Provided path is not a directory.")
+        out_file_path = out_path / self.filename
         try:
-            resolved_path = Path(output_path).resolve()
-            if not file_format and len(resolved_path.suffix) < 1:
-                raise ValueError("Invalid file format.")
             self.buffer.seek(0)
             image = Image.open(self.buffer)
-            if file_format:
-                image.save(resolved_path, format=file_format)
-            else:
-                image.save(resolved_path)
-            logger.info("File saved successfully to '%s'.", resolved_path)
-        except TypeError as e:
-            raise MindeeError("Invalid path/filename provided.") from e
+            image.save(out_file_path)
+            logger.info("File saved successfully to '%s'.", out_file_path)
         except Exception as e:
             print(e)
             raise MindeeError(f"Could not save file {Path(output_path).name}.") from e
 
-    def as_input_source(self) -> FileInput:
+    def as_input_source(self) -> BytesInput:
         """
         Return the file as a Mindee-compatible BufferInput source.
 
         :returns: A BufferInput source.
         """
         self.buffer.seek(0)
-        return FileInput(self.buffer)
+        return BytesInput(self.buffer.read(), self.filename)
 
     @property
     def page_id(self):
         """
-        ID of the page the receipt was found on.
+        ID of the page the image was found on.
 
         :return: A valid page ID.
         """

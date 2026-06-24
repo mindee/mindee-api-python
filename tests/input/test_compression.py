@@ -6,7 +6,7 @@ from functools import reduce
 
 import pytest
 
-from mindee.image import compress_image
+from mindee.image.image_compressor import compress_image
 from mindee.input import PathInput
 from mindee.pdf.pdf_compressor import compress_pdf
 from mindee.pdf.pdf_utils import extract_text_from_pdf
