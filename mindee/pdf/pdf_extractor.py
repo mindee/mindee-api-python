@@ -4,18 +4,18 @@ import io
 from pathlib import Path
 from typing import Any, BinaryIO
 
-from mindee.dependencies.checkers import PILLOW_AVAILABLE, PYPDFIUM2_AVAILABLE
-from mindee.dependencies.decorators import requires_pillow, requires_pypdfium2
+from mindee.dependencies.checkers import PILLOW_AVAILABLE, BERNARD_LEDIT_AVAILABLE
+from mindee.dependencies.decorators import requires_pillow, requires_bernard_ledit
 from mindee.error.mindee_error import MindeeError
 from mindee.input.local_input_source import LocalInputSource
 from mindee.pdf.extracted_pdf import ExtractedPDF
 from mindee.pdf.extracted_pdfs import ExtractedPDFs
 
-if PYPDFIUM2_AVAILABLE:
+if BERNARD_LEDIT_AVAILABLE:
     # pylint: disable=import-error
-    import pypdfium2 as pdfium
+    import bernard.pdf as bernard_pdf
 else:
-    pdfium = None  # pylint: disable=invalid-name
+    bernard_pdf = None  # pylint: disable=invalid-name
 
 if PILLOW_AVAILABLE:
     # pylint: disable=import-error
@@ -42,7 +42,7 @@ class PDFExtractor:
             self._source_pdf = io.BytesIO()
             pdf_image.save(self._source_pdf, format="PDF")
 
-    @requires_pypdfium2
+    @requires_bernard_ledit
     def extract_single_document(self, page_indexes: list[int]) -> ExtractedPDF:
         """
         Create a new PDF from pages and save it into a buffer.
@@ -57,8 +57,8 @@ class PDFExtractor:
                 raise MindeeError(f"Index {page_index} is out of range.")
 
         self._source_pdf.seek(0)
-        new_pdf = pdfium.PdfDocument.new()
-        pdf = pdfium.PdfDocument(self._source_pdf)
+        new_pdf = bernard_pdf.PdfDocument.new()
+        pdf = bernard_pdf.PdfDocument(self._source_pdf)
         new_pdf.import_pages(pdf, page_indexes)
         bytes_io = io.BytesIO()
         new_pdf.save(bytes_io)
@@ -71,7 +71,7 @@ class PDFExtractor:
             page_indexes=page_indexes,
         )
 
-    @requires_pypdfium2
+    @requires_bernard_ledit
     def extract_multiple_documents(
         self, page_indexes: list[list[int]]
     ) -> ExtractedPDFs:

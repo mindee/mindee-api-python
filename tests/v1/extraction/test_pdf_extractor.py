@@ -34,7 +34,7 @@ def loaded_prediction():
 
 
 @pytest.mark.pillow
-@pytest.mark.pypdfium2
+@pytest.mark.bernard_ledit
 def test_image_should_extract_pdf(invoice_default_sample_path):
     jpg_input = PathInput(invoice_default_sample_path)
     assert not jpg_input.is_pdf()
@@ -48,7 +48,7 @@ def test_image_should_extract_pdf(invoice_default_sample_path):
 
 
 @pytest.mark.pillow
-@pytest.mark.pypdfium2
+@pytest.mark.bernard_ledit
 def test_pdf_should_extract_invoices_no_strict(
     invoice_splitter_5p_path, loaded_prediction
 ):
@@ -71,7 +71,7 @@ def test_pdf_should_extract_invoices_no_strict(
 
 
 @pytest.mark.pillow
-@pytest.mark.pypdfium2
+@pytest.mark.bernard_ledit
 def test_pdf_should_extract_invoices_strict(
     invoice_splitter_5p_path, loaded_prediction
 ):

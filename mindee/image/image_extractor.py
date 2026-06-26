@@ -4,8 +4,8 @@ import io
 from pathlib import Path
 from typing import Any, BinaryIO
 
-from mindee.dependencies import requires_pypdfium2
-from mindee.dependencies.checkers import PILLOW_AVAILABLE, PYPDFIUM2_AVAILABLE
+from mindee.dependencies import requires_bernard_ledit
+from mindee.dependencies.checkers import PILLOW_AVAILABLE, BERNARD_LEDIT_AVAILABLE
 from mindee.dependencies.decorators import requires_pillow
 from mindee.error.mindee_error import MindeeError
 from mindee.geometry.point import Point
@@ -13,7 +13,7 @@ from mindee.geometry.polygon import Polygon, get_min_max_x, get_min_max_y
 from mindee.image.extracted_image import ExtractedImage
 from mindee.input.local_input_source import LocalInputSource
 
-if PYPDFIUM2_AVAILABLE:
+if BERNARD_LEDIT_AVAILABLE:
     # pylint: disable=import-error
     import pypdfium2 as pdfium
 else:
@@ -28,7 +28,7 @@ else:
 
 
 @requires_pillow
-@requires_pypdfium2
+@requires_bernard_ledit
 def _attach_image_as_new_file(  # type: ignore
     input_buffer: BinaryIO,
 ) -> pdfium.PdfDocument:
@@ -169,7 +169,7 @@ def extract_multiple_images_from_source(
     return extracted_elements
 
 
-@requires_pypdfium2
+@requires_bernard_ledit
 def _load_pdf_doc(input_file: LocalInputSource) -> pdfium.PdfDocument:  # type: ignore
     """
     Loads a PDF document from a local input source.

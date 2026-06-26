@@ -27,7 +27,7 @@ output_files = [
 
 
 @pytest.mark.pillow
-@pytest.mark.pypdfium2
+@pytest.mark.bernard_ledit
 @pytest.mark.integration
 def test_image_should_extract_crops():
     client = Client()

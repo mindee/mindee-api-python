@@ -24,10 +24,9 @@ output_files = [
 ]
 
 
-@pytest.mark.pypdfium2
+@pytest.mark.bernard_ledit
 @pytest.mark.integration
 def test_pdf_should_extract_splits():
-
     client = Client()
     split_input = PathInput(V2_PRODUCT_DATA_DIR / "split" / "default_sample.pdf")
     response = client.enqueue_and_get_result(

@@ -19,7 +19,7 @@ def requires_pillow(func: Callable[P, R]) -> Callable[P, R]:
     return wrapper
 
 
-def requires_pypdfium2(func: Callable[P, R]) -> Callable[P, R]:
+def requires_bernard_ledit(func: Callable[P, R]) -> Callable[P, R]:
     """Decorator to enforce PyPDFium2 availability on a function/method."""
 
     @functools.wraps(func)
