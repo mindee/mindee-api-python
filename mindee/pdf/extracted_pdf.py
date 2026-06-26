@@ -3,44 +3,27 @@ from __future__ import annotations
 from pathlib import Path
 from typing import BinaryIO
 
-from mindee.dependencies.checkers import PYPDFIUM2_AVAILABLE
-from mindee.dependencies.decorators import requires_pypdfium2
 from mindee.error.mindee_error import MindeeError
 from mindee.input.bytes_input import BytesInput
-
-if PYPDFIUM2_AVAILABLE:
-    # pylint: disable=import-error
-    import pypdfium2 as pdfium
-else:
-    pdfium = None  # pylint: disable=invalid-name
 
 
 class ExtractedPDF:
     """An extracted sub-Pdf."""
 
     buffer: BinaryIO
+    """PDF content as a byte stream."""
     filename: str
-    _page_indexes: tuple[int, int]
+    """Name of the file when writing to disk."""
+    _page_range: tuple[int, int]
 
     def __init__(
-        self, pdf_byte_stream: BinaryIO, filename: str, page_indexes: tuple[int, int]
+        self, pdf_byte_stream: BinaryIO, filename: str, page_range: tuple[int, int]
     ):
         self.buffer = pdf_byte_stream
         self.filename = filename
-        self._page_indexes = page_indexes
+        self._page_range = page_range
 
-    @requires_pypdfium2
-    def get_page_count(self) -> int:
-        """Get the number of pages in the PDF file."""
-        try:
-            pdf = pdfium.PdfDocument(self.buffer)
-            return len(pdf)
-        except Exception as e:
-            raise MindeeError(
-                "Could not retrieve page count from Extracted PDF object."
-            ) from e
-
-    def save_to_file(self, output_path: Path | str):
+    def write_to_file(self, output_path: Path | str):
         """
         Writes the contents of the current PDF object to a file.
 
@@ -66,6 +49,15 @@ class ExtractedPDF:
         return BytesInput(self.buffer.read(), self.filename)
 
     @property
-    def page_indexes(self) -> tuple[int, int]:
-        """This PDF was extracted from this page range of the original PDF."""
-        return self._page_indexes
+    def page_range(self) -> tuple[int, int]:
+        """
+        This PDF was extracted from this page range of the original PDF.
+        The first number is the index of the first page.
+        The second number is the index of the last page.
+        """
+        return self._page_range
+
+    @property
+    def page_count(self) -> int:
+        """The number of pages in this PDF file."""
+        return self._page_range[1] - self._page_range[0] + 1

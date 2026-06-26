@@ -48,7 +48,7 @@ class ExtractedImage:
         self._element_id = 0 if element_id is None else element_id
 
     @requires_pillow
-    def save_to_file(self, output_path: Path | str):
+    def write_to_file(self, output_path: Path | str):
         """
         Saves the document to a file.
 

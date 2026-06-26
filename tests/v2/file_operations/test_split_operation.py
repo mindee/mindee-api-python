@@ -32,9 +32,9 @@ def test_default_split():
     extracted_splits = response.inference.result.extract_from_input_source(input_sample)
     assert len(extracted_splits) == 2
 
-    assert extracted_splits[0].get_page_count() == 1
+    assert extracted_splits[0].page_count == 1
     assert extracted_splits[0].filename == "default_sample_pages-001-001.pdf"
-    assert extracted_splits[1].get_page_count() == 1
+    assert extracted_splits[1].page_count == 1
     assert extracted_splits[1].filename == "default_sample_pages-002-002.pdf"
 
 
@@ -46,11 +46,11 @@ def test_multi_page_receipt_split(splits_5p, splits_multi_page_json_path):
     extracted_splits = response.inference.result.extract_from_input_source(input_sample)
     assert len(extracted_splits) == 3
 
-    assert extracted_splits[0].get_page_count() == 1
+    assert extracted_splits[0].page_count == 1
     assert extracted_splits[0].filename == "invoice_5p_pages-001-001.pdf"
-    assert extracted_splits[1].get_page_count() == 3
+    assert extracted_splits[1].page_count == 3
     assert extracted_splits[1].filename == "invoice_5p_pages-002-004.pdf"
-    assert extracted_splits[2].get_page_count() == 1
+    assert extracted_splits[2].page_count == 1
     assert extracted_splits[2].filename == "invoice_5p_pages-005-005.pdf"
 
 
@@ -62,4 +62,4 @@ def test_multi_page_receipt_single_split(splits_5p, splits_multi_page_json_path)
     split = response.inference.result.splits[1]
     extracted_split = split.extract_from_input_source(input_sample)
 
-    assert extracted_split.get_page_count() == 3
+    assert extracted_split.page_count == 3

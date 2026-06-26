@@ -28,22 +28,18 @@ class PDFExtractor:
 
     _source_pdf: BinaryIO
     _filename: str
+    _page_count: int
 
     @requires_pillow
     def __init__(self, local_input: LocalInputSource):
         self._filename = local_input.filename
+        self._page_count = local_input.page_count
         if local_input.is_pdf():
             self._source_pdf = local_input.file_object
         else:
             pdf_image = Image.open(local_input.file_object)
             self._source_pdf = io.BytesIO()
             pdf_image.save(self._source_pdf, format="PDF")
-
-    @requires_pypdfium2
-    def get_page_count(self) -> int:
-        """Get the number of pages in the PDF file."""
-        pdf = pdfium.PdfDocument(self._source_pdf)
-        return len(pdf)
 
     @requires_pypdfium2
     def cut_pages(self, page_indexes: list) -> BinaryIO:
@@ -78,7 +74,7 @@ class PDFExtractor:
             if not page_index_elem or len(page_index_elem) == 0:
                 raise MindeeError("Empty indexes aren't allowed for extraction.")
             for page_index in page_index_elem:
-                if page_index > self.get_page_count():
+                if page_index > self._page_count:
                     raise MindeeError(f"Index {page_index} is out of range.")
             first_page = page_index_elem[0]
             last_page = page_index_elem[len(page_index_elem) - 1]

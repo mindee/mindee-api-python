@@ -39,7 +39,8 @@ def test_image_should_extract_pdf(invoice_default_sample_path):
     jpg_input = PathInput(invoice_default_sample_path)
     assert not jpg_input.is_pdf()
     extractor = PDFExtractor(jpg_input)
-    assert extractor.get_page_count() == 1
+    extracted_pdfs = extractor.extract_documents([[0]])
+    assert len(extracted_pdfs) == 1
 
 
 @pytest.mark.pillow
@@ -48,20 +49,20 @@ def test_pdf_should_extract_invoices_no_strict(
     invoice_splitter_5p_path, loaded_prediction
 ):
     pdf_input = PathInput(invoice_splitter_5p_path)
+    assert pdf_input.page_count == 5
     extractor = PDFExtractor(pdf_input)
-    assert extractor.get_page_count() == 5
     extracted_pdfs_no_strict = extractor.extract_invoices(
         loaded_prediction.invoice_page_groups
     )
 
     assert len(extracted_pdfs_no_strict) == 3
-    assert extracted_pdfs_no_strict[0].get_page_count() == 1
+    assert extracted_pdfs_no_strict[0].page_count == 1
     assert extracted_pdfs_no_strict[0].filename == "invoice_5p_pages-001-001.pdf"
 
-    assert extracted_pdfs_no_strict[1].get_page_count() == 3
+    assert extracted_pdfs_no_strict[1].page_count == 3
     assert extracted_pdfs_no_strict[1].filename == "invoice_5p_pages-002-004.pdf"
 
-    assert extracted_pdfs_no_strict[2].get_page_count() == 1
+    assert extracted_pdfs_no_strict[2].page_count == 1
     assert extracted_pdfs_no_strict[2].filename == "invoice_5p_pages-005-005.pdf"
 
 
@@ -71,15 +72,16 @@ def test_pdf_should_extract_invoices_strict(
     invoice_splitter_5p_path, loaded_prediction
 ):
     pdf_input = PathInput(invoice_splitter_5p_path)
+    assert pdf_input.page_count == 5
+
     extractor = PDFExtractor(pdf_input)
-    assert extractor.get_page_count() == 5
     extracted_pdfs_strict = extractor.extract_invoices(
         loaded_prediction.invoice_page_groups, True
     )
 
     assert len(extracted_pdfs_strict) == 2
-    assert extracted_pdfs_strict[0].get_page_count() == 1
+    assert extracted_pdfs_strict[0].page_count == 1
     assert extracted_pdfs_strict[0].filename == "invoice_5p_pages-001-001.pdf"
 
-    assert extracted_pdfs_strict[1].get_page_count() == 4
+    assert extracted_pdfs_strict[1].page_count == 4
     assert extracted_pdfs_strict[1].filename == "invoice_5p_pages-002-005.pdf"
