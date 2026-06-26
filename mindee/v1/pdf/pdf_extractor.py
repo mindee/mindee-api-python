@@ -24,11 +24,11 @@ class PDFExtractor(BasePDFExtractor):
         if len(page_indexes) < 1:
             raise MindeeError("No indexes provided.")
         if not isinstance(page_indexes[0], InvoiceSplitterV1InvoicePageGroup):
-            return self.extract_sub_documents(page_indexes)  # type: ignore
+            return self.extract_multiple_documents(page_indexes)  # type: ignore
 
         if not strict:
             indexes_as_list = [page_index.page_indexes for page_index in page_indexes]  # type: ignore
-            return self.extract_sub_documents(indexes_as_list)
+            return self.extract_multiple_documents(indexes_as_list)
         correct_page_indexes: list[list[int]] = []
         current_list: list[int] = []
         previous_confidence: float | None = None
@@ -49,4 +49,4 @@ class PDFExtractor(BasePDFExtractor):
                 correct_page_indexes.append(current_list)
                 correct_page_indexes.append(page_list)
             previous_confidence = confidence
-        return self.extract_sub_documents(correct_page_indexes)
+        return self.extract_multiple_documents(correct_page_indexes)

@@ -10,4 +10,4 @@ class ExtractedPDFs(list[ExtractedPDF]):
         """Save all extracted images to disk."""
 
         for image in self:
-            image.save_to_file(output_path)
+            image.write_to_file(output_path)

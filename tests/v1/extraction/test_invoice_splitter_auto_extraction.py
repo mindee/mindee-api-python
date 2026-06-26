@@ -40,7 +40,7 @@ def test_pdf_should_extract_invoices_strict():
     )
     inference = response.document.inference
     pdf_extractor = PDFExtractor(invoice_splitter_input)
-    assert pdf_extractor.get_page_count() == 2
+    assert invoice_splitter_input.page_count == 2
 
     extracted_pdfs_not_strict = pdf_extractor.extract_invoices(
         inference.prediction.invoice_page_groups
@@ -48,7 +48,7 @@ def test_pdf_should_extract_invoices_strict():
     extracted_pdfs_strict = pdf_extractor.extract_invoices(
         inference.prediction.invoice_page_groups
     )
-    extracted_base_pdfs = pdf_extractor.extract_documents(
+    extracted_base_pdfs = pdf_extractor.extract_multiple_documents(
         [int_list.page_indexes for int_list in inference.prediction.invoice_page_groups]
     )
     for i, extracted_pdf in enumerate(extracted_base_pdfs):
