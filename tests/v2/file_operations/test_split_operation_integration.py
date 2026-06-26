@@ -58,7 +58,7 @@ def test_pdf_should_extract_splits():
     for i in range(len(extracted_splits)):
         local_input = PathInput(OUTPUT_DIR / output_files[i])
         try:
-            assert local_input.page_count == extracted_splits[i].get_page_count()
+            assert local_input.page_count == extracted_splits[i].page_count
         finally:
             local_input.close()
     split_input.close()

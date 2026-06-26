@@ -8,7 +8,7 @@ from mindee.v1.product.invoice_splitter.invoice_splitter_v1 import InvoiceSplitt
 from mindee.v1.product.invoice_splitter.invoice_splitter_v1_document import (
     InvoiceSplitterV1Document,
 )
-from tests.utils import V1_PRODUCT_DATA_DIR
+from tests.utils import OUTPUT_DIR, V1_PRODUCT_DATA_DIR
 
 
 @pytest.fixture
@@ -39,8 +39,12 @@ def test_image_should_extract_pdf(invoice_default_sample_path):
     jpg_input = PathInput(invoice_default_sample_path)
     assert not jpg_input.is_pdf()
     extractor = PDFExtractor(jpg_input)
-    extracted_pdfs = extractor.extract_documents([[0]])
-    assert len(extracted_pdfs) == 1
+    extracted_pdf = extractor.extract_single_document([0])
+    assert extracted_pdf.page_count == 1
+    assert extracted_pdf.page_indexes == [0]
+    assert extracted_pdf.filename == "default_sample_pages-001-001.pdf"
+    extracted_pdf.write_to_file(OUTPUT_DIR)
+    assert (OUTPUT_DIR / extracted_pdf.filename).exists()
 
 
 @pytest.mark.pillow

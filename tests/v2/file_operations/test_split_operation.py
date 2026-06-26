@@ -47,10 +47,13 @@ def test_multi_page_receipt_split(splits_5p, splits_multi_page_json_path):
     assert len(extracted_splits) == 3
 
     assert extracted_splits[0].page_count == 1
+    assert extracted_splits[0].page_indexes == [0]
     assert extracted_splits[0].filename == "invoice_5p_pages-001-001.pdf"
     assert extracted_splits[1].page_count == 3
+    assert extracted_splits[1].page_indexes == [1, 2, 3]
     assert extracted_splits[1].filename == "invoice_5p_pages-002-004.pdf"
     assert extracted_splits[2].page_count == 1
+    assert extracted_splits[2].page_indexes == [4]
     assert extracted_splits[2].filename == "invoice_5p_pages-005-005.pdf"
 
 

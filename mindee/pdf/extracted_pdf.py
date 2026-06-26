@@ -14,14 +14,14 @@ class ExtractedPDF:
     """PDF content as a byte stream."""
     filename: str
     """Name of the file when writing to disk."""
-    _page_range: tuple[int, int]
+    _page_indexes: list[int]
 
     def __init__(
-        self, pdf_byte_stream: BinaryIO, filename: str, page_range: tuple[int, int]
+        self, pdf_byte_stream: BinaryIO, filename: str, page_indexes: list[int]
     ):
         self.buffer = pdf_byte_stream
         self.filename = filename
-        self._page_range = page_range
+        self._page_indexes = page_indexes
 
     def write_to_file(self, output_path: Path | str):
         """
@@ -49,15 +49,13 @@ class ExtractedPDF:
         return BytesInput(self.buffer.read(), self.filename)
 
     @property
-    def page_range(self) -> tuple[int, int]:
+    def page_indexes(self) -> list[int]:
         """
-        This PDF was extracted from this page range of the original PDF.
-        The first number is the index of the first page.
-        The second number is the index of the last page.
+        0-based indexes of all pages taken from the original PDF.
         """
-        return self._page_range
+        return self._page_indexes
 
     @property
     def page_count(self) -> int:
         """The number of pages in this PDF file."""
-        return self._page_range[1] - self._page_range[0] + 1
+        return len(self._page_indexes)

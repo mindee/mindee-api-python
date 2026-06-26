@@ -15,7 +15,8 @@ def extract_single_split(
     :param split: List of pages to keep.
     :return: Extracted PDF
     """
-    return extract_multiple_splits(input_source, [split])[0]
+    pdf_extractor = PDFExtractor(input_source)
+    return pdf_extractor.extract_single_document(_range_to_indexes(split))
 
 
 def extract_multiple_splits(
@@ -32,7 +33,11 @@ def extract_multiple_splits(
     pdf_extractor = PDFExtractor(input_source)
     page_groups = []
     for split in splits:
-        page_groups.append(list(range(split[0], split[1] + 1)))
+        page_groups.append(_range_to_indexes(split))
     if len(splits) < 1:
         raise MindeeError("No indexes provided.")
-    return ExtractedPDFs(pdf_extractor.extract_sub_documents(page_groups))
+    return pdf_extractor.extract_multiple_documents(page_groups)
+
+
+def _range_to_indexes(split: list[int]) -> list[int]:
+    return list(range(split[0], split[1] + 1))
