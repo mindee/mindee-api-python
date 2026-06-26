@@ -28,7 +28,7 @@ def prepare_invoice_return(rst_file_path: Path, invoice_prediction: Document):
 
 
 @pytest.mark.pillow
-@pytest.mark.pypdfium2
+@pytest.mark.bernard_ledit
 @pytest.mark.integration
 def test_pdf_should_extract_invoices_strict():
     client = Client()

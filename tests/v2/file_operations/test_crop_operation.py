@@ -14,7 +14,7 @@ Image = pytest.importorskip("PIL.Image")
 
 
 @pytest.mark.pillow
-@pytest.mark.pypdfium2
+@pytest.mark.bernard_ledit
 def test_single_page_crop():
     input_sample = PathInput(V2_PRODUCT_DATA_DIR / "crop" / "default_sample.jpg")
     with open(V2_PRODUCT_DATA_DIR / "crop" / "default_sample.json", "rb") as f:
@@ -36,7 +36,7 @@ def test_single_page_crop():
 
 
 @pytest.mark.pillow
-@pytest.mark.pypdfium2
+@pytest.mark.bernard_ledit
 def test_multi_page_crop():
     input_sample = PathInput(V2_PRODUCT_DATA_DIR / "crop" / "multipage_sample.pdf")
     with open(V2_PRODUCT_DATA_DIR / "crop" / "multipage_sample.json", "rb") as f:
