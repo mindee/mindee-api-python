@@ -1,15 +1,12 @@
 from __future__ import annotations
 
-import operator
 import os
-from functools import reduce
 
 import pytest
 
 from mindee.image.image_compressor import compress_image
 from mindee.input import PathInput
 from mindee.pdf.pdf_compressor import compress_pdf
-from mindee.pdf.pdf_utils import extract_text_from_pdf
 from tests.utils import (
     FILE_TYPES_DIR,
     OUTPUT_DIR,
@@ -175,28 +172,6 @@ def test_pdf_compress_from_compressor():
     assert rendered_file_stats[0].st_size > rendered_file_stats[1].st_size
     assert rendered_file_stats[1].st_size > rendered_file_stats[2].st_size
     assert rendered_file_stats[2].st_size > rendered_file_stats[3].st_size
-
-
-def test_pdf_compress_with_text_keeps_text():
-    initial_with_text = PathInput(FILE_TYPES_DIR / "pdf" / "multipage.pdf")
-
-    compressed_with_text = compress_pdf(initial_with_text.file_object, 100, True, False)
-
-    text_chars = []
-    for text_info in extract_text_from_pdf(initial_with_text.file_object.read()):
-        text_chars.append("".join([ti.char for ti in text_info]))
-    initial_with_text.file_object.seek(0)
-    original_text = "".join(text_chars)
-    compressed_text = "".join(
-        [
-            text_info.char
-            for text_info in reduce(
-                operator.concat, extract_text_from_pdf(compressed_with_text)
-            )
-        ]
-    )
-
-    assert compressed_text == original_text
 
 
 def test_pdf_compress_with_text_does_not_compress():

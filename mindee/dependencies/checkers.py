@@ -24,8 +24,8 @@ def require_pillow() -> None:
         )
 
 
-def require_pypdfium2() -> None:
-    """Raises a clear error if PyPDFium2 is not installed."""
+def requires_bernard() -> None:
+    """Raises a clear error if Bernard L'Édit is not installed."""
     if not BERNARD_LEDIT_AVAILABLE:
         raise MindeeDependencyError(
             "This feature requires the 'Bernard L'Édit' library. "

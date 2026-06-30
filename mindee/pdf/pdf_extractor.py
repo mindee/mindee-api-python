@@ -13,7 +13,7 @@ from mindee.pdf.extracted_pdfs import ExtractedPDFs
 
 if BERNARD_LEDIT_AVAILABLE:
     # pylint: disable=import-error
-    import bernard.pdf as bernard_pdf
+    import bernard_ledit.pdf as bernard_pdf
 else:
     bernard_pdf = None  # pylint: disable=invalid-name
 

@@ -15,9 +15,9 @@ from mindee.input.local_input_source import LocalInputSource
 
 if BERNARD_LEDIT_AVAILABLE:
     # pylint: disable=import-error
-    import pypdfium2 as pdfium
+    import bernard_ledit.pdf as bernard_pdf
 else:
-    pdfium = None  # pylint: disable=invalid-name
+    bernard_pdf = None  # pylint: disable=invalid-name
 
 
 if PILLOW_AVAILABLE:
@@ -31,7 +31,7 @@ else:
 @requires_bernard_ledit
 def _attach_image_as_new_file(  # type: ignore
     input_buffer: BinaryIO,
-) -> pdfium.PdfDocument:
+) -> bernard_pdf.PdfDocument:
     """
     Attaches an image as a new page in a PdfDocument object.
 
@@ -39,23 +39,8 @@ def _attach_image_as_new_file(  # type: ignore
     :return: A PdfDocument handle.
     """
     input_buffer.seek(0)
-    image = Image.open(input_buffer)
-    image.convert("RGB")
-    image_buffer = io.BytesIO()
-    image.save(image_buffer, format="JPEG")
-
-    pdf = pdfium.PdfDocument.new()
-
-    image_pdf = pdfium.PdfImage.new(pdf)
-    image_pdf.load_jpeg(image_buffer)
-    width, height = image.width, image.height
-    matrix = pdfium.PdfMatrix().scale(width, height)
-    image_pdf.set_matrix(matrix)
-
-    page = pdf.new_page(width, height)
-    page.insert_obj(image_pdf)
-    page.gen_content()
-    image.close()
+    pdf = bernard_pdf.PdfDocument.new()
+    pdf.append_jpeg_page(input_buffer.read())
     return pdf
 
 
@@ -146,9 +131,11 @@ def extract_multiple_images_from_source(
     :return: List of byte arrays representing the extracted elements.
     """
     stem = Path(input_source.filename).stem
-    page = _load_pdf_doc(input_source).get_page(page_id)
-    page_content = page.render().to_pil()
-    width, height = page.get_size()
+    doc = _load_pdf_doc(input_source)
+    page = doc.get_page(page_id)
+    page_content = doc.rasterize_page(page_id, 100)
+    size = page.get_size()
+    width, height = size.width, size.height
 
     file_format = determine_file_format(input_source)
     file_extension = get_file_extension(file_format)
@@ -156,7 +143,11 @@ def extract_multiple_images_from_source(
     extracted_elements = []
     for element_id, polygon in enumerate(polygons):
         image_data = extract_image_from_polygon(
-            page_content, polygon, width, height, file_format
+            Image.open(io.BytesIO(page_content)),
+            polygon,
+            width,
+            height,
+            file_format,
         )
         extracted_elements.append(
             ExtractedImage(
@@ -170,7 +161,7 @@ def extract_multiple_images_from_source(
 
 
 @requires_bernard_ledit
-def _load_pdf_doc(input_file: LocalInputSource) -> pdfium.PdfDocument:  # type: ignore
+def _load_pdf_doc(input_file: LocalInputSource) -> bernard_pdf.PdfDocument:  # type: ignore
     """
     Loads a PDF document from a local input source.
 
@@ -179,6 +170,6 @@ def _load_pdf_doc(input_file: LocalInputSource) -> pdfium.PdfDocument:  # type: 
     """
     if input_file.is_pdf():
         input_file.file_object.seek(0)
-        return pdfium.PdfDocument(input_file.file_object.read())
+        return bernard_pdf.PdfDocument(input_file.file_object.read())
 
     return _attach_image_as_new_file(input_file.file_object)

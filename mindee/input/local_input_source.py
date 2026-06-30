@@ -18,9 +18,9 @@ from mindee.pdf.pdf_utils import pdf_has_source_text
 
 if BERNARD_LEDIT_AVAILABLE:
     # pylint: disable=import-error
-    import pypdfium2 as pdfium
+    import bernard_ledit.pdf as bernard_pdf
 else:
-    pdfium = None  # pylint: disable=invalid-name
+    bernard_pdf = None  # pylint: disable=invalid-name
 
 mimetypes.add_type("image/heic", ".heic")
 mimetypes.add_type("image/heif", ".heif")
@@ -53,12 +53,12 @@ class LocalInputSource:
         self._check_mimetype()
         if self.is_pdf():
             self.file_object.seek(0)
-            # Some broken (yet fixable) PDFs can cause pdfium to crash on open.
+            # Some broken (yet fixable) PDFs can cause Bernard to crash on open.
             if BERNARD_LEDIT_AVAILABLE:
                 try:
-                    pdf = pdfium.PdfDocument(self.file_object)
+                    pdf = bernard_pdf.PdfDocument(self.file_object)
                     self.page_count = len(pdf)
-                except pdfium.PdfiumError as e:
+                except bernard_pdf.PdfiumError as e:
                     logger.warning(
                         "Could not open PDF file: %s due to %s", self.filename, e
                     )
@@ -139,7 +139,7 @@ class LocalInputSource:
             page_options.page_indexes,
         )
         self.file_object.seek(0)
-        pdf = pdfium.PdfDocument(self.file_object)
+        pdf = bernard_pdf.PdfDocument(self.file_object)
         self.page_count = len(pdf)
         pdf.close()
 
@@ -187,12 +187,13 @@ class LocalInputSource:
         :return: None
         """
         self.file_object.seek(0)
-        new_pdf = pdfium.PdfDocument.new()
-        pdf = pdfium.PdfDocument(self.file_object)
+        new_pdf = bernard_pdf.PdfDocument.new()
+        pdf = bernard_pdf.PdfDocument(self.file_object)
         new_pdf.import_pages(pdf, list(page_numbers))
         self.file_object.close()
         bytes_io = io.BytesIO()
         new_pdf.save(bytes_io)
+        bytes_io.seek(0)
         self.file_object = bytes_io
         self.page_count = len(new_pdf)
         new_pdf.close()
@@ -206,11 +207,9 @@ class LocalInputSource:
         :return: ``True`` if the PDF is empty
         """
         self.file_object.seek(0)
-        pdf = pdfium.PdfDocument(self.file_object)
-        for page in pdf:
-            for _ in page.get_objects():
-                return False
-        return True
+        with bernard_pdf.PdfDocument(self.file_object) as pdf:
+            return pdf.has_no_content()
+        raise MindeeSourceError(f"PDF couldn't be accessed: {self.filename}")
 
     def read_contents(self, close_file: bool) -> tuple[str, bytes]:
         """
