@@ -9,7 +9,7 @@ def test_pillow_installed():
 
 
 @pytest.mark.bernard_ledit
-def test_pypdfium2_installed():
+def test_bernard_installed():
     assert BERNARD_LEDIT_AVAILABLE
 
 
@@ -19,5 +19,5 @@ def test_pillow_missing():
 
 
 @pytest.mark.lite
-def test_pypdfium2_missing():
+def test_bernard_missing():
     assert not BERNARD_LEDIT_AVAILABLE

@@ -13,23 +13,25 @@ from mindee.input import (
 from mindee.input.page_options import KEEP_ONLY, REMOVE, PageOptions
 from tests.utils import FILE_TYPES_DIR, V1_PRODUCT_DATA_DIR
 
-pdfium = pytest.importorskip("pypdfium2")
+bernard_ledit = pytest.importorskip("bernard_ledit")
+bernard_pdf = bernard_ledit.pdf
 
 
 def _assert_page_options(input_source: LocalInputSource, numb_pages: int):
     assert input_source.is_pdf() is True
-    # Currently the least verbose way of comparing pages with pypdfium2
+    # Currently the least verbose way of comparing pages with pdfium
     # I.e., each page is read and rendered as a rasterized image.
     # These images are then compared as raw byte sequences.
-    cut_pdf = pdfium.PdfDocument(input_source.file_object)
-    pdf = pdfium.PdfDocument(FILE_TYPES_DIR / "pdf" / f"multipage_cut-{numb_pages}.pdf")
+    input_source.file_object.seek(0)
+    cut_pdf = bernard_pdf.PdfDocument(input_source.file_object)
+    pdf = bernard_pdf.PdfDocument(
+        FILE_TYPES_DIR / "pdf" / f"multipage_cut-{numb_pages}.pdf"
+    )
     for idx in range(len(pdf)):
-        pdf_page = pdf.get_page(idx)
-        pdf_page_render = pdfium.PdfPage.render(pdf_page)
-        cut_pdf_page = cut_pdf.get_page(idx)
-        cut_pdf_page_render = pdfium.PdfPage.render(cut_pdf_page)
+        pdf_page_render = pdf.rasterize_page(idx, 100)
+        cut_pdf_page_render = cut_pdf.rasterize_page(idx, 100)
 
-        assert bytes(pdf_page_render.buffer) == bytes(cut_pdf_page_render.buffer)
+        assert bytes(pdf_page_render) == bytes(cut_pdf_page_render)
     cut_pdf.close()
     pdf.close()
 

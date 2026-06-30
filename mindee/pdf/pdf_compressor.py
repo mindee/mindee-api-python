@@ -2,27 +2,21 @@ from __future__ import annotations
 
 import io
 import logging
-from ctypes import POINTER, c_char_p, c_ushort
-from threading import RLock
 from typing import Any, BinaryIO
 
 from mindee.dependencies.checkers import PILLOW_AVAILABLE, BERNARD_LEDIT_AVAILABLE
 from mindee.dependencies.decorators import requires_pillow, requires_bernard_ledit
 from mindee.image.image_compressor import compress_image
-from mindee.pdf.pdf_char_data import PDFCharData
 from mindee.pdf.pdf_utils import (
-    extract_text_from_pdf,
     lerp,
     pdf_has_source_text,
 )
 
 if BERNARD_LEDIT_AVAILABLE:
     # pylint: disable=import-error
-    import pypdfium2 as pdfium
-    import pypdfium2.raw as pdfium_c
+    import bernard_ledit.pdf as bernard_pdf
 else:
-    pdfium: Any = None  # type: ignore[no-redef] # pylint: disable=invalid-name
-    pdfium_c: Any = None  # type: ignore[no-redef] # pylint: disable=invalid-name
+    bernard_pdf: Any = None  # type: ignore[no-redef] # pylint: disable=invalid-name
 
 if PILLOW_AVAILABLE:
     # pylint: disable=import-error
@@ -72,9 +66,11 @@ def compress_pdf(
             )
             return pdf_bytes
 
-    extracted_text = (
-        extract_text_from_pdf(pdf_bytes) if not disable_source_text else None
-    )
+    if not disable_source_text:
+        doc = bernard_pdf.PdfDocument.new(pdf_bytes)
+        extracted_text = doc.text_as_chars()
+    else:
+        extracted_text = None
 
     compressed_pages = _compress_pdf_pages(pdf_bytes, image_quality)
 
@@ -84,13 +80,14 @@ def compress_pdf(
         )
         return pdf_bytes
 
-    out_pdf = _collect_images_as_pdf(
+    out_pdf = bernard_pdf.PdfDocument.new()
+    out_pdf.append_multiple_jpeg_pages(
         [compressed_page_image[0] for compressed_page_image in compressed_pages]
     )
 
-    if not disable_source_text:
+    if extracted_text:
         for i, page in enumerate(out_pdf):
-            add_text_to_pdf_page(page, i, extracted_text)
+            out_pdf.add_text(page, i, extracted_text)
 
     out_buffer = io.BytesIO()
     out_pdf.save(out_buffer)
@@ -127,42 +124,6 @@ def _compress_pdf_pages(
 
 
 @requires_bernard_ledit
-def add_text_to_pdf_page(  # type: ignore
-    page: pdfium.PdfPage,
-    page_id: int,
-    extracted_text: list[list[PDFCharData]] | None,
-) -> None:
-    """
-    Adds text to a PDF page based on the extracted text data.
-
-    :param page: The PDFDocument object.
-    :param page_id: The ID of the page.
-    :param extracted_text: List of PDFCharData objects containing text and positioning information.
-    """
-    if not extracted_text or not extracted_text[page_id]:
-        return
-
-    height = page.get_height()
-    pdfium_lock = RLock()
-
-    with pdfium_lock:
-        for char_data in extracted_text[page_id]:
-            font_name = c_char_p(char_data.font_name.encode("utf-8"))
-            text_handler = pdfium_c.FPDFPageObj_NewTextObj(
-                page.pdf.raw, font_name, char_data.font_size
-            )
-            char_code = ord(char_data.char)
-            char_code_c_char = c_ushort(char_code)
-            char_ptr = POINTER(c_ushort)(char_code_c_char)
-            pdfium_c.FPDFText_SetText(text_handler, char_ptr)
-            pdfium_c.FPDFPageObj_Transform(
-                text_handler, 1, 0, 0, 1, char_data.left, height - char_data.top
-            )
-            pdfium_c.FPDFPage_InsertObject(page.raw, text_handler)
-        pdfium_c.FPDFPage_GenerateContent(page.raw)
-
-
-@requires_bernard_ledit
 @requires_pillow
 def _compress_pages_with_quality(
     pdf_data: bytes,
@@ -175,10 +136,10 @@ def _compress_pages_with_quality(
     :param image_quality: Compression quality.
     :return: List of compressed page buffers.
     """
-    pdf_document = pdfium.PdfDocument(pdf_data)
+    pdf_document = bernard_pdf.PdfDocument(pdf_data)
     compressed_pages = []
-    for page in pdf_document:
-        rasterized_page = _rasterize_page(page, image_quality)
+    for index, page in enumerate(pdf_document):
+        rasterized_page = pdf_document.rasterize_page(index, image_quality)
         compressed_image = compress_image(rasterized_page, image_quality)
         image = Image.open(io.BytesIO(compressed_image))
         compressed_pages.append((compressed_image, image.size[0], image.size[1]))
@@ -199,44 +160,3 @@ def _is_compression_successful(
     """
     overhead = lerp(0.54, 0.18, image_quality / 100)
     return total_compressed_size + total_compressed_size * overhead < original_size
-
-
-@requires_bernard_ledit
-def _rasterize_page(  # type: ignore
-    page: pdfium.PdfPage,
-    quality: int = 85,
-) -> bytes:
-    """
-    Rasterizes a PDF page.
-
-    :param page: PdfPage object to rasterize.
-    :param quality: Quality to apply during rasterization.
-    :return: Rasterized page as bytes.
-    """
-    image = page.render().to_pil()
-    buffer = io.BytesIO()
-    image.save(buffer, format="JPEG", quality=quality)
-    return buffer.getvalue()
-
-
-@requires_bernard_ledit
-def _collect_images_as_pdf(image_list: list[bytes]) -> pdfium.PdfDocument:  # type: ignore
-    """
-    Converts a list of JPEG images into pages in a PdfDocument.
-
-    :param image_list: A list of bytes representing JPEG images.
-    :return: A PdfDocument handle containing the images as pages.
-    """
-    out_pdf = pdfium.PdfDocument.new()
-
-    for image_bytes in image_list:
-        pdf_image = pdfium.PdfImage.new(out_pdf)
-        pdf_image.load_jpeg(io.BytesIO(image_bytes))
-
-        metadata = pdf_image.get_metadata()
-        width, height = metadata.width, metadata.height
-        page = out_pdf.new_page(width, height)
-        page.insert_obj(pdf_image)
-        page.gen_content()
-
-    return out_pdf
