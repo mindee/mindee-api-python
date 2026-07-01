@@ -4,8 +4,8 @@ import io
 from pathlib import Path
 from typing import Any, BinaryIO
 
-from mindee.dependencies.checkers import PILLOW_AVAILABLE, BERNARD_LEDIT_AVAILABLE
-from mindee.dependencies.decorators import requires_pillow, requires_bernard_ledit
+from mindee.dependencies.checkers import BERNARD_LEDIT_AVAILABLE, PILLOW_AVAILABLE
+from mindee.dependencies.decorators import requires_bernard_ledit, requires_pillow
 from mindee.error.mindee_error import MindeeError
 from mindee.input.local_input_source import LocalInputSource
 from mindee.pdf.extracted_pdf import ExtractedPDF
@@ -13,7 +13,7 @@ from mindee.pdf.extracted_pdfs import ExtractedPDFs
 
 if BERNARD_LEDIT_AVAILABLE:
     # pylint: disable=import-error
-    import bernard_ledit.pdf as bernard_pdf
+    import bernard_ledit.pdf as bernard_pdf  # type: ignore[import-not-found]
 else:
     bernard_pdf = None  # pylint: disable=invalid-name
 

@@ -18,7 +18,7 @@ from mindee.pdf.pdf_utils import pdf_has_source_text
 
 if BERNARD_LEDIT_AVAILABLE:
     # pylint: disable=import-error
-    import bernard_ledit.pdf as bernard_pdf
+    import bernard_ledit.pdf as bernard_pdf  # type: ignore[import-not-found]
 else:
     bernard_pdf = None  # pylint: disable=invalid-name
 

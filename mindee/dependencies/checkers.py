@@ -8,7 +8,7 @@ except ImportError:
     PILLOW_AVAILABLE = False
 
 try:
-    import bernard_ledit  # noqa: F401 #pylint: disable=unused-import
+    import bernard_ledit  # type: ignore[import-not-found] # noqa: F401 #pylint: disable=unused-import
 
     BERNARD_LEDIT_AVAILABLE = True
 except ImportError:

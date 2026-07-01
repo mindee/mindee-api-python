@@ -7,7 +7,7 @@ from mindee.dependencies.decorators import requires_bernard_ledit
 
 if BERNARD_LEDIT_AVAILABLE:
     # pylint: disable=import-error
-    import bernard_ledit.pdf as bernard_pdf
+    import bernard_ledit.pdf as bernard_pdf  # type: ignore[import-not-found]
 else:
     bernard_pdf: Any = None  # type: ignore[no-redef] # pylint: disable=invalid-name
 
