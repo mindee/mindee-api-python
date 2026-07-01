@@ -28,7 +28,7 @@ classifiers = [
 requires-python = ">=3.10"
 
 dependencies = [
-    "bernard-ledit",
+    "bernard-ledit @ git+https://github.com/mindee/bernard-ledit.git#subdirectory=bindings/python",
     "Pillow>=12.2.0",
     "httpx[http2]>=0.28.1,<1.0",
 ]
