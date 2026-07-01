@@ -41,6 +41,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install pip
+        pip install bernard-ledit/bindings/python/
         pip install -e '.[test]'
     - name: Run Regression Testing
       env:
