@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import Any, BinaryIO
 
 from mindee.dependencies import requires_bernard_ledit
-from mindee.dependencies.checkers import PILLOW_AVAILABLE, BERNARD_LEDIT_AVAILABLE
+from mindee.dependencies.checkers import BERNARD_LEDIT_AVAILABLE, PILLOW_AVAILABLE
 from mindee.dependencies.decorators import requires_pillow
 from mindee.error.mindee_error import MindeeError
 from mindee.geometry.point import Point
@@ -15,7 +15,7 @@ from mindee.input.local_input_source import LocalInputSource
 
 if BERNARD_LEDIT_AVAILABLE:
     # pylint: disable=import-error
-    import bernard_ledit.pdf as bernard_pdf
+    import bernard_ledit.pdf as bernard_pdf  # type: ignore[import-not-found]
 else:
     bernard_pdf = None  # pylint: disable=invalid-name
 
@@ -132,9 +132,8 @@ def extract_multiple_images_from_source(
     """
     stem = Path(input_source.filename).stem
     doc = _load_pdf_doc(input_source)
-    page = doc.get_page(page_id)
     page_content = doc.rasterize_page(page_id, 100)
-    size = page.get_size()
+    size = doc.get_page(page_id).get_size()
     width, height = size.width, size.height
 
     file_format = determine_file_format(input_source)

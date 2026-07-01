@@ -1,9 +1,9 @@
-from mindee.dependencies.checkers import PILLOW_AVAILABLE, BERNARD_LEDIT_AVAILABLE
-from mindee.dependencies.decorators import requires_pillow, requires_bernard_ledit
+from mindee.dependencies.checkers import BERNARD_LEDIT_AVAILABLE, PILLOW_AVAILABLE
+from mindee.dependencies.decorators import requires_bernard_ledit, requires_pillow
 
 __all__ = [
-    "PILLOW_AVAILABLE",
     "BERNARD_LEDIT_AVAILABLE",
-    "requires_pillow",
+    "PILLOW_AVAILABLE",
     "requires_bernard_ledit",
+    "requires_pillow",
 ]

@@ -4,8 +4,8 @@ import io
 import logging
 from typing import Any, BinaryIO
 
-from mindee.dependencies.checkers import PILLOW_AVAILABLE, BERNARD_LEDIT_AVAILABLE
-from mindee.dependencies.decorators import requires_pillow, requires_bernard_ledit
+from mindee.dependencies.checkers import BERNARD_LEDIT_AVAILABLE, PILLOW_AVAILABLE
+from mindee.dependencies.decorators import requires_bernard_ledit, requires_pillow
 from mindee.image.image_compressor import compress_image
 from mindee.pdf.pdf_utils import (
     lerp,
@@ -14,7 +14,7 @@ from mindee.pdf.pdf_utils import (
 
 if BERNARD_LEDIT_AVAILABLE:
     # pylint: disable=import-error
-    import bernard_ledit.pdf as bernard_pdf
+    import bernard_ledit.pdf as bernard_pdf  # type: ignore[import-not-found]
 else:
     bernard_pdf: Any = None  # type: ignore[no-redef] # pylint: disable=invalid-name
 
@@ -67,8 +67,8 @@ def compress_pdf(
             return pdf_bytes
 
     if not disable_source_text:
-        doc = bernard_pdf.PdfDocument.new(pdf_bytes)
-        extracted_text = doc.text_as_chars()
+        doc = bernard_pdf.PdfDocument(pdf_bytes)
+        extracted_text = [page.chars() for page in doc]
     else:
         extracted_text = None
 
@@ -86,8 +86,8 @@ def compress_pdf(
     )
 
     if extracted_text:
-        for i, page in enumerate(out_pdf):
-            out_pdf.add_text(page, i, extracted_text)
+        for i in range(len(out_pdf)):
+            out_pdf.add_text(i, extracted_text[i])
 
     out_buffer = io.BytesIO()
     out_pdf.save(out_buffer)
@@ -138,7 +138,7 @@ def _compress_pages_with_quality(
     """
     pdf_document = bernard_pdf.PdfDocument(pdf_data)
     compressed_pages = []
-    for index, page in enumerate(pdf_document):
+    for index in range(len(pdf_document)):
         rasterized_page = pdf_document.rasterize_page(index, image_quality)
         compressed_image = compress_image(rasterized_page, image_quality)
         image = Image.open(io.BytesIO(compressed_image))

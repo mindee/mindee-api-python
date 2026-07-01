@@ -1,6 +1,6 @@
 import pytest
 
-from mindee.dependencies import PILLOW_AVAILABLE, BERNARD_LEDIT_AVAILABLE
+from mindee.dependencies import BERNARD_LEDIT_AVAILABLE, PILLOW_AVAILABLE
 
 
 @pytest.mark.pillow
