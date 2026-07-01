@@ -28,7 +28,7 @@ classifiers = [
 requires-python = ">=3.10"
 
 dependencies = [
-    "pypdfium2>=4.0,<6.0",
+    "bernard-ledit",
     "Pillow>=12.2.0",
     "httpx[http2]>=0.28.1,<1.0",
 ]
@@ -108,10 +108,6 @@ strict_equality = true
 warn_unused_ignores = true
 warn_unreachable = true
 
-[[tool.mypy.overrides]]
-module = "pypdfium2.*"
-ignore_missing_imports = true
-
 
 [tool.pylic]
 safe_licenses = [
@@ -135,7 +131,7 @@ markers = [
     "lite: tests for mindee-lite",
     "v2: tests specific to version 2 of the API",
     "pillow: tests that require the use of the Pillow (PIL) library",
-    "pypdfium2: tests that require the usage of the pypdfium2 library",
+    "bernard_ledit: tests that require the usage of the Bernard L'Édit library",
     "regression: marks tests as regression tests - select with '-m regression'",
 ]
 testpaths = [

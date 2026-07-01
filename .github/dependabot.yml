@@ -17,7 +17,7 @@ updates:
           - "requests"
       optional-dependencies:
         patterns:
-          - "pypdfium2"
+          - "bernard_ledit"
           - "Pillow"
       test-dependencies:
         patterns:

@@ -6,8 +6,8 @@ import tempfile
 from collections.abc import Sequence
 from typing import BinaryIO
 
-from mindee.dependencies import requires_pypdfium2
-from mindee.dependencies.checkers import PYPDFIUM2_AVAILABLE
+from mindee.dependencies import requires_bernard_ledit
+from mindee.dependencies.checkers import BERNARD_LEDIT_AVAILABLE
 from mindee.error.mimetype_error import MimeTypeError
 from mindee.error.mindee_error import MindeeError, MindeeSourceError
 from mindee.image.image_compressor import compress_image
@@ -16,11 +16,11 @@ from mindee.logger import logger
 from mindee.pdf.pdf_compressor import compress_pdf
 from mindee.pdf.pdf_utils import pdf_has_source_text
 
-if PYPDFIUM2_AVAILABLE:
+if BERNARD_LEDIT_AVAILABLE:
     # pylint: disable=import-error
-    import pypdfium2 as pdfium
+    import bernard_ledit.pdf as bernard_pdf  # type: ignore[import-not-found]
 else:
-    pdfium = None  # pylint: disable=invalid-name
+    bernard_pdf = None  # pylint: disable=invalid-name
 
 mimetypes.add_type("image/heic", ".heic")
 mimetypes.add_type("image/heif", ".heif")
@@ -53,12 +53,12 @@ class LocalInputSource:
         self._check_mimetype()
         if self.is_pdf():
             self.file_object.seek(0)
-            # Some broken (yet fixable) PDFs can cause pdfium to crash on open.
-            if PYPDFIUM2_AVAILABLE:
+            # Some broken (yet fixable) PDFs can cause Bernard to crash on open.
+            if BERNARD_LEDIT_AVAILABLE:
                 try:
-                    pdf = pdfium.PdfDocument(self.file_object)
+                    pdf = bernard_pdf.PdfDocument(self.file_object)
                     self.page_count = len(pdf)
-                except pdfium.PdfiumError as e:
+                except bernard_pdf.PdfiumError as e:
                     logger.warning(
                         "Could not open PDF file: %s due to %s", self.filename, e
                     )
@@ -128,7 +128,7 @@ class LocalInputSource:
         """:return: True if the file is a PDF."""
         return self.file_mimetype == "application/pdf"
 
-    @requires_pypdfium2
+    @requires_bernard_ledit
     def apply_page_options(self, page_options: PageOptions) -> None:
         """Apply cut and merge options on multipage documents."""
         if not self.is_pdf():
@@ -139,7 +139,7 @@ class LocalInputSource:
             page_options.page_indexes,
         )
         self.file_object.seek(0)
-        pdf = pdfium.PdfDocument(self.file_object)
+        pdf = bernard_pdf.PdfDocument(self.file_object)
         self.page_count = len(pdf)
         pdf.close()
 
@@ -178,7 +178,7 @@ class LocalInputSource:
             raise MindeeSourceError("Resulting PDF would have no pages left.")
         self.merge_pdf_pages(pages_to_keep)
 
-    @requires_pypdfium2
+    @requires_bernard_ledit
     def merge_pdf_pages(self, page_numbers: set) -> None:
         """
         Create a new PDF from pages and set it to ``file_object``.
@@ -187,18 +187,19 @@ class LocalInputSource:
         :return: None
         """
         self.file_object.seek(0)
-        new_pdf = pdfium.PdfDocument.new()
-        pdf = pdfium.PdfDocument(self.file_object)
+        new_pdf = bernard_pdf.PdfDocument.new()
+        pdf = bernard_pdf.PdfDocument(self.file_object)
         new_pdf.import_pages(pdf, list(page_numbers))
         self.file_object.close()
         bytes_io = io.BytesIO()
         new_pdf.save(bytes_io)
+        bytes_io.seek(0)
         self.file_object = bytes_io
         self.page_count = len(new_pdf)
         new_pdf.close()
         pdf.close()
 
-    @requires_pypdfium2
+    @requires_bernard_ledit
     def is_pdf_empty(self) -> bool:
         """
         Check if the PDF is empty.
@@ -206,11 +207,9 @@ class LocalInputSource:
         :return: ``True`` if the PDF is empty
         """
         self.file_object.seek(0)
-        pdf = pdfium.PdfDocument(self.file_object)
-        for page in pdf:
-            for _ in page.get_objects():
-                return False
-        return True
+        with bernard_pdf.PdfDocument(self.file_object) as pdf:
+            return pdf.has_no_content()
+        raise MindeeSourceError(f"PDF couldn't be accessed: {self.filename}")
 
     def read_contents(self, close_file: bool) -> tuple[str, bytes]:
         """
@@ -243,7 +242,7 @@ class LocalInputSource:
             return False
         return pdf_has_source_text(self.file_object.read())
 
-    @requires_pypdfium2
+    @requires_bernard_ledit
     def compress(
         self,
         quality: int = 85,

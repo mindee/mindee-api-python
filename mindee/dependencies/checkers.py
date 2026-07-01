@@ -8,11 +8,11 @@ except ImportError:
     PILLOW_AVAILABLE = False
 
 try:
-    import pypdfium2  # noqa: F401 #pylint: disable=unused-import
+    import bernard_ledit  # type: ignore[import-not-found] # noqa: F401 #pylint: disable=unused-import
 
-    PYPDFIUM2_AVAILABLE = True
+    BERNARD_LEDIT_AVAILABLE = True
 except ImportError:
-    PYPDFIUM2_AVAILABLE = False
+    BERNARD_LEDIT_AVAILABLE = False
 
 
 def require_pillow() -> None:
@@ -24,10 +24,10 @@ def require_pillow() -> None:
         )
 
 
-def require_pypdfium2() -> None:
-    """Raises a clear error if PyPDFium2 is not installed."""
-    if not PYPDFIUM2_AVAILABLE:
+def requires_bernard() -> None:
+    """Raises a clear error if Bernard L'Édit is not installed."""
+    if not BERNARD_LEDIT_AVAILABLE:
         raise MindeeDependencyError(
-            "This feature requires the 'PyPDFium2' library. "
-            "Install it directly or run `pip install mindee` instead of `mindee-lite`."
+            "This feature requires the 'Bernard L'Édit' library. "
+            "Install it directly or run `pip install bernard-ledit` instead of `mindee-lite`."
         )

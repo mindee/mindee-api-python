@@ -26,7 +26,7 @@ def test_pdf_read_contents():
     assert input_source.file_object.closed
 
 
-@pytest.mark.pypdfium2
+@pytest.mark.bernard_ledit
 @pytest.mark.parametrize(
     ("filename", "page_count"),
     [
@@ -67,14 +67,14 @@ def _assert_image(input_source: LocalInputSource, mimetype: str) -> None:
     assert isinstance(input_source.file_object.read(15), bytes)
 
 
-@pytest.mark.pypdfium2
+@pytest.mark.bernard_ledit
 @pytest.mark.parametrize(("filename", "mimetype"), TEST_IMAGES)
 def test_image_input_from_path(filename, mimetype):
     input_source = PathInput(FILE_TYPES_DIR / filename)
     _assert_image(input_source, mimetype)
 
 
-@pytest.mark.pypdfium2
+@pytest.mark.bernard_ledit
 @pytest.mark.parametrize(("filename", "mimetype"), TEST_IMAGES)
 def test_image_input_from_file(filename, mimetype):
     with open(FILE_TYPES_DIR / filename, "rb") as fp:
@@ -82,7 +82,7 @@ def test_image_input_from_file(filename, mimetype):
         _assert_image(input_source, mimetype)
 
 
-@pytest.mark.pypdfium2
+@pytest.mark.bernard_ledit
 @pytest.mark.parametrize(("filename", "mimetype"), TEST_IMAGES)
 def test_image_input_from_bytes(filename, mimetype):
     with open(FILE_TYPES_DIR / filename, "rb") as file_bytes:
@@ -90,14 +90,14 @@ def test_image_input_from_bytes(filename, mimetype):
     _assert_image(input_source, mimetype)
 
 
-@pytest.mark.pypdfium2
+@pytest.mark.bernard_ledit
 def test_image_input_from_base64():
     with open(FILE_TYPES_DIR / "receipt.txt") as fp:
         input_source = Base64Input(fp.read(), filename="receipt.jpg")
     _assert_image(input_source, mimetype="image/jpeg")
 
 
-@pytest.mark.pypdfium2
+@pytest.mark.bernard_ledit
 def test_txt_input_from_path():
     with pytest.raises(MimeTypeError):
         PathInput(FILE_TYPES_DIR / "receipt.txt")
