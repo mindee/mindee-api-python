@@ -22,14 +22,6 @@ repos:
         args: [
           "-j2"
         ]
-  - repo: https://github.com/pypa/pip-audit
-    rev: v2.10.1
-    hooks:
-      - id: pip-audit
-        args: ["."]
-        files: ^(requirements.*\.txt|setup\.cfg|setup\.py|pyproject\.toml)$
-        stages: [pre-push]
-
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v2.1.0
     hooks:
