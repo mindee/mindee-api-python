@@ -116,4 +116,4 @@ jobs:
           MINDEE_V2_SE_TESTS_SPLIT_MODEL_ID: ${{ secrets.MINDEE_V2_SE_TESTS_SPLIT_MODEL_ID }}
           MINDEE_V2_SE_TESTS_OCR_MODEL_ID: ${{ secrets.MINDEE_V2_SE_TESTS_OCR_MODEL_ID }}
       run: |
-        pytest -m "integration and not pypdfium2 and not pillow"
+        pytest -m "integration and not bernard_ledit and not pillow"
