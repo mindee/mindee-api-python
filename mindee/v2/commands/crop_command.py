@@ -19,6 +19,7 @@ class CropCommand(BaseInferenceCommand):
         parsed_args: Namespace,
         model_id: str,
         alias: str | None,
+        webhook_ids: list[str] | None,
     ) -> BaseParameters:
         del parsed_args
-        return CropParameters(model_id=model_id, alias=alias)
+        return CropParameters(model_id=model_id, alias=alias, webhook_ids=webhook_ids)
