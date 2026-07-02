@@ -4,3 +4,4 @@
 [submodule "bernard-ledit"]
 	path = bernard-ledit
 	url = https://github.com/mindee/bernard-ledit.git
+	branch = main
