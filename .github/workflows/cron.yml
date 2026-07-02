@@ -10,12 +10,19 @@ permissions:
   actions: read
 
 jobs:
+  build-bernard-ledit:
+    uses: mindee/mindee-api-python/.github/workflows/_build-bernard-ledit.yml@main
+    with:
+      include_macos: true
   test-regressions:
     uses: mindee/mindee-api-python/.github/workflows/_test-regressions.yml@main
+    needs: build-bernard-ledit
     secrets: inherit
   test-code-samples:
     uses: mindee/mindee-api-python/.github/workflows/_smoke-test.yml@main
+    needs: build-bernard-ledit
     secrets: inherit
   test-cli:
     uses: mindee/mindee-api-python/.github/workflows/_test-cli.yml@main
+    needs: build-bernard-ledit
     secrets: inherit
