@@ -8,8 +8,6 @@ on:
 jobs:
   build-bernard-ledit:
     uses: mindee/mindee-api-python/.github/workflows/_build-bernard-ledit.yml@main
-    with:
-      include_macos: false
   static-analysis:
     uses: mindee/mindee-api-python/.github/workflows/_static-analysis.yml@main
     needs: build-bernard-ledit

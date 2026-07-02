@@ -2,32 +2,22 @@ name: Build bernard-ledit Wheel
 
 on:
   workflow_call:
-    inputs:
-      include_macos:
-        required: false
-        type: boolean
-        default: false
   workflow_dispatch:
-    inputs:
-      include_macos:
-        required: false
-        type: boolean
-        default: false
+
+permissions:
+  contents: read
 
 jobs:
   build-wheel:
     name: Build bernard-ledit wheel
     timeout-minutes: 30
     strategy:
+      fail-fast: false
       matrix:
-        include:
-          - os: "ubuntu-22.04"
-            requires_macos: false
-          - os: "windows-2022"
-            requires_macos: false
-          - os: "macos-latest"
-            requires_macos: true
-    if: ${{ !matrix.requires_macos || inputs.include_macos }}
+        os:
+          - "ubuntu-22.04"
+          - "windows-2022"
+          - "macos-latest"
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v6

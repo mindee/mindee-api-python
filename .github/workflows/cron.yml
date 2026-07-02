@@ -12,8 +12,6 @@ permissions:
 jobs:
   build-bernard-ledit:
     uses: mindee/mindee-api-python/.github/workflows/_build-bernard-ledit.yml@main
-    with:
-      include_macos: true
   test-regressions:
     uses: mindee/mindee-api-python/.github/workflows/_test-regressions.yml@main
     needs: build-bernard-ledit

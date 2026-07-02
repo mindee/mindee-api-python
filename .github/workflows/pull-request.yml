@@ -12,8 +12,6 @@ jobs:
     uses: ./.github/workflows/_workflow_lint.yml
   build-bernard-ledit:
     uses: ./.github/workflows/_build-bernard-ledit.yml
-    with:
-      include_macos: true
   static-analysis:
     uses: ./.github/workflows/_static-analysis.yml
     needs:
