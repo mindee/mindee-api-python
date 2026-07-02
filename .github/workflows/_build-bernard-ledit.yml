@@ -29,14 +29,61 @@ jobs:
         with:
           python-version: "3.10"
 
+      - name: Resolve bernard-ledit submodule commit
+        id: bernard
+        shell: bash
+        run: echo "sha=$(git -C bernard-ledit rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      # Skip the whole Rust/maturin build when the submodule pointer is unchanged.
+      - name: Restore cached bernard-ledit build
+        id: cache
+        uses: actions/cache@v5
+        with:
+          path: ./.github/artifacts/bernard-ledit
+          key: bernard-ledit-${{ runner.os }}-${{ steps.bernard.outputs.sha }}
+
+      - name: Cache downloaded PDFium binary
+        if: steps.cache.outputs.cache-hit != 'true'
+        uses: actions/cache@v5
+        with:
+          path: bernard-ledit/core/.pdfium_cache
+          key: pdfium-${{ runner.os }}-${{ hashFiles('bernard-ledit/core/build.rs') }}
+          restore-keys: |
+            pdfium-${{ runner.os }}-
+
+      - name: Cache Rust build
+        if: steps.cache.outputs.cache-hit != 'true'
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: bernard-ledit
+          key: ${{ steps.bernard.outputs.sha }}
+
       - name: Build bernard-ledit wheel
+        if: steps.cache.outputs.cache-hit != 'true'
+        shell: bash
         run: |
           python -m pip install --upgrade pip
           pip wheel --no-deps --wheel-dir ./.github/artifacts/bernard-ledit bernard-ledit/bindings/python/
 
-      - name: Upload bernard-ledit wheel
+      # The wheel does not embed PDFium; ship the library so consumers can set PDFIUM_PATH.
+      - name: Collect bundled PDFium library
+        if: steps.cache.outputs.cache-hit != 'true'
+        shell: bash
+        run: |
+          lib=$(find bernard-ledit/core/.pdfium_cache \( -name 'libpdfium.*' -o -name 'pdfium.dll' \) -print | head -n 1)
+          if [ -z "$lib" ]; then
+            echo "::error::PDFium library not found under bernard-ledit/core/.pdfium_cache after build"
+            exit 1
+          fi
+          cp "$lib" ./.github/artifacts/bernard-ledit/
+          echo "Bundled PDFium library: $(basename "$lib")"
+
+      - name: Upload bernard-ledit build
         uses: actions/upload-artifact@v4
         with:
           name: bernard-ledit-wheel-${{ runner.os }}
-          path: ./.github/artifacts/bernard-ledit/*.whl
+          path: |
+            ./.github/artifacts/bernard-ledit/*.whl
+            ./.github/artifacts/bernard-ledit/libpdfium.*
+            ./.github/artifacts/bernard-ledit/pdfium.dll
           if-no-files-found: error

@@ -55,6 +55,14 @@ jobs:
         name: bernard-ledit-wheel-${{ runner.os }}
         path: ./.github/artifacts/bernard-ledit
 
+    - name: Locate bundled PDFium
+      shell: bash
+      run: |
+        lib=$(find .github/artifacts/bernard-ledit \( -name 'libpdfium.*' -o -name 'pdfium.dll' \) -print 2>/dev/null | head -n 1)
+        if [ -n "$lib" ]; then
+          echo "PDFIUM_PATH=$(python -c 'import os,sys;print(os.path.abspath(sys.argv[1]))' "$lib")" >> "$GITHUB_ENV"
+        fi
+
     - name: Install dependencies
       run: |
         python -m pip install pip

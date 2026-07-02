@@ -19,7 +19,7 @@ jobs:
       - build-bernard-ledit
   test-units:
     uses: ./.github/workflows/_test-units.yml
-    needs: static-analysis
+    needs: build-bernard-ledit
     secrets: inherit
   test-regressions:
     uses: ./.github/workflows/_test-regressions.yml
