@@ -64,6 +64,7 @@ class ExtractionCommand(BaseInferenceCommand):
         parsed_args: Namespace,
         model_id: str,
         alias: str | None,
+        webhook_ids: list[str] | None,
     ) -> BaseParameters:
         return ExtractionParameters(
             model_id=model_id,
@@ -73,6 +74,7 @@ class ExtractionCommand(BaseInferenceCommand):
             polygon=True if getattr(parsed_args, "polygon", False) else None,
             confidence=(True if getattr(parsed_args, "confidence", False) else None),
             text_context=getattr(parsed_args, "text_context", None),
+            webhook_ids=webhook_ids,
         )
 
     def get_full_output(self, parsed_args: Namespace, response) -> str:

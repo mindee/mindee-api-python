@@ -78,6 +78,15 @@ class BaseInferenceCommand:
                 "- raw: full JSON object\n"
             ),
         )
+        parser.add_argument(
+            "-w",
+            "--webhook-id",
+            dest="webhook_ids",
+            action="append",
+            help="Specify a webhook by ID. May be used multiple times.",
+            required=False,
+            default=None,
+        )
         self.configure_product_options(parser)
         parser.add_argument("path", help="The path of the file to parse.")
         return parser
@@ -98,13 +107,14 @@ class BaseInferenceCommand:
         """Run the inference for ``parsed_args`` using ``client_factory``."""
         api_key = getattr(parsed_args, "api_key", None)
         model_id = parsed_args.model_id
+        webhook_ids = getattr(parsed_args, "webhook_ids", None)
         alias = getattr(parsed_args, "alias", None)
         output_type = OutputType(
             getattr(parsed_args, "output", OutputType.SUMMARY.value)
         )
 
         client = client_factory(api_key)
-        params = self.build_parameters(parsed_args, model_id, alias)
+        params = self.build_parameters(parsed_args, model_id, alias, webhook_ids)
         input_source = _build_input_source(parsed_args.path)
         response: (
             ExtractionResponse
@@ -126,6 +136,7 @@ class BaseInferenceCommand:
         parsed_args: Namespace,
         model_id: str,
         alias: str | None,
+        webhook_ids: list[str] | None,
     ) -> BaseParameters:
         """Build the V2 inference parameters for this product."""
 
