@@ -15,7 +15,9 @@ from tests.utils import (
     cleanup_output_files,
 )
 
-Image = pytest.importorskip("PIL.Image")
+bernard_ledit = pytest.importorskip("bernard_ledit")
+
+bernard_image = bernard_ledit.image
 
 RECEIPT_PATH = FILE_TYPES_DIR / "receipt.jpg"
 
@@ -76,9 +78,9 @@ def test_image_resize_from_input_source():
     rendered_file_stats = os.stat(OUTPUT_DIR / "resize_indirect.jpg")
     assert rendered_file_stats.st_size < initial_file_stats.st_size
 
-    image = Image.open(image_resize_input.file_object)
-    assert image.width == 250
-    assert image.height == 333
+    image = bernard_image.decode(image_resize_input.file_object.read())
+    assert image.size[0] == 250
+    assert image.size[1] == 333
 
 
 def test_image_resize_from_compressor():

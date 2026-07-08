@@ -2,12 +2,10 @@ from __future__ import annotations
 
 import io
 from pathlib import Path
-from typing import Any, BinaryIO
+from typing import BinaryIO
 
 from mindee.dependencies import requires_bernard_ledit
-from mindee.dependencies.checkers import BERNARD_LEDIT_AVAILABLE, PILLOW_AVAILABLE
-from mindee.dependencies.decorators import requires_pillow
-from mindee.error.mindee_error import MindeeError
+from mindee.dependencies.checkers import BERNARD_LEDIT_AVAILABLE
 from mindee.geometry.point import Point
 from mindee.geometry.polygon import Polygon, get_min_max_x, get_min_max_y
 from mindee.image.extracted_image import ExtractedImage
@@ -15,21 +13,15 @@ from mindee.input.local_input_source import LocalInputSource
 
 if BERNARD_LEDIT_AVAILABLE:
     # pylint: disable=import-error
-    import bernard_ledit.pdf as bernard_pdf  # type: ignore[import-not-found]
+    import bernard_ledit.image as bernard_image
+    import bernard_ledit.pdf as bernard_pdf
 else:
-    bernard_pdf = None  # pylint: disable=invalid-name
+    bernard_pdf = None  # type: ignore[assignment]  # pylint: disable=invalid-name
+    bernard_image = None  # type: ignore[assignment]  # pylint: disable=invalid-name
 
 
-if PILLOW_AVAILABLE:
-    # pylint: disable=import-error
-    from PIL import Image
-else:
-    Image: Any = None  # type: ignore[no-redef] # pylint: disable=invalid-name
-
-
-@requires_pillow
 @requires_bernard_ledit
-def _attach_image_as_new_file(  # type: ignore
+def _attach_image_as_new_file(
     input_buffer: BinaryIO,
 ) -> bernard_pdf.PdfDocument:
     """
@@ -44,66 +36,53 @@ def _attach_image_as_new_file(  # type: ignore
     return pdf
 
 
-@requires_pillow
+@requires_bernard_ledit
 def extract_image_from_polygon(
-    page_content: Image.Image,
+    page_content: bernard_image.Image,
     polygon: list[Point],
     width: float,
     height: float,
     file_format: str,
+    quality: int = 70,
 ) -> BinaryIO:
     """
     Crops the image from the given polygon.
 
-    :param page_content: Contents of the page as a Pillow object.
+    :param page_content: Contents of the page as a Bernard L'Édit Image object.
     :param polygon: Polygon coordinates for the image.
     :param width: Width of the generated image.
     :param height: Height of the generated image.
     :param file_format: Format for the generated file.
+    :param quality: JPEG quality for the output (default 70 — sufficient for OCR).
     :return: A generated image as a buffer.
     """
     min_max_x = get_min_max_x(polygon)
     min_max_y = get_min_max_y(polygon)
     cropped_image = page_content.crop(
-        (
-            int(min_max_x.min * width),
-            int(min_max_y.min * height),
-            int(min_max_x.max * width),
-            int(min_max_y.max * height),
-        )
+        left=int(min_max_x.min * width),
+        top=int(min_max_y.min * height),
+        right=int(min_max_x.max * width),
+        bottom=int(min_max_y.max * height),
     )
-    return _save_image_to_buffer(cropped_image, file_format)
+    return _save_image_to_buffer(cropped_image, file_format, quality)
 
 
-@requires_pillow
-def _save_image_to_buffer(image: Image.Image, file_format: str) -> BinaryIO:
+@requires_bernard_ledit
+def _save_image_to_buffer(
+    image: bernard_image.Image, file_format: str, quality: int = 70
+) -> BinaryIO:
     """
     Saves an image as a buffer.
 
-    :param image: Pillow wrapper for the image.
+    :param image: Bernard L'Édit wrapper for the image.
     :param file_format: Format to save the file as.
+    :param quality: JPEG quality (default 70 — sufficient for OCR).
     :return: A valid buffer.
     """
     buffer = io.BytesIO()
-    image.save(buffer, format=file_format)
+    image.save(buffer, format=file_format, quality=quality)
     buffer.seek(0)
     return buffer
-
-
-@requires_pillow
-def determine_file_format(input_source: LocalInputSource) -> str:
-    """
-    Retrieves the file format from an input source.
-
-    :param input_source: Local input source to retrieve the format from.
-    :return: A valid pillow file format.
-    """
-    if input_source.is_pdf():
-        return "JPEG"
-    img = Image.open(input_source.file_object)
-    if img.format is None:
-        raise MindeeError("Image format was not found.")
-    return img.format
 
 
 def get_file_extension(file_format: str):
@@ -116,11 +95,12 @@ def get_file_extension(file_format: str):
     return file_format.lower() if file_format != "JPEG" else "jpg"
 
 
-@requires_pillow
+@requires_bernard_ledit
 def extract_multiple_images_from_source(
     input_source: LocalInputSource,
     page_id: int,
     polygons: list[Polygon | list[Point]],
+    quality: int = 70,
 ) -> list[ExtractedImage]:
     """
     Extracts elements from a page based on a list of bounding boxes.
@@ -128,30 +108,37 @@ def extract_multiple_images_from_source(
     :param input_source: Local Input source to extract elements from.
     :param page_id: id of the page to extract from.
     :param polygons: List of coordinates to pull the elements from.
+    :param quality: JPEG quality for extracted images (default 70).
     :return: List of byte arrays representing the extracted elements.
     """
     stem = Path(input_source.filename).stem
     doc = _load_pdf_doc(input_source)
     page_content = doc.rasterize_page(page_id, 100)
-    size = doc.get_page(page_id).get_size()
-    width, height = size.width, size.height
+    width = doc.get_page(page_id).get_size().width
+    height = doc.get_page(page_id).get_size().height
 
-    file_format = determine_file_format(input_source)
-    file_extension = get_file_extension(file_format)
+    if input_source.is_pdf():
+        file_format = "JPEG"
+    else:
+        input_source.file_object.seek(0)
+        file_format = bernard_image.guess_format(input_source.file_object)
 
     extracted_elements = []
+    decoded_page = bernard_image.decode(page_content)
     for element_id, polygon in enumerate(polygons):
         image_data = extract_image_from_polygon(
-            Image.open(io.BytesIO(page_content)),
+            decoded_page,
             polygon,
             width,
             height,
             file_format,
+            quality,
         )
         extracted_elements.append(
             ExtractedImage(
                 image_data,
-                f"{stem}_page-{(page_id + 1):03d}-item-{(element_id + 1):03d}.{file_extension}",
+                f"{stem}_page-{(page_id + 1):03d}-item-{(element_id + 1):03d}."
+                f"{get_file_extension(file_format)}",
                 page_id,
                 element_id,
             )
@@ -160,7 +147,7 @@ def extract_multiple_images_from_source(
 
 
 @requires_bernard_ledit
-def _load_pdf_doc(input_file: LocalInputSource) -> bernard_pdf.PdfDocument:  # type: ignore
+def _load_pdf_doc(input_file: LocalInputSource) -> bernard_pdf.PdfDocument:
     """
     Loads a PDF document from a local input source.
 

@@ -29,7 +29,6 @@ requires-python = ">=3.10"
 
 dependencies = [
     "bernard-ledit",
-    "Pillow>=12.2.0",
     "httpx[http2]>=0.28.1,<1.0",
 ]
 
@@ -98,6 +97,7 @@ select = ["E", "F", "I", "UP", "B", "SIM", "C4", "RUF", "PT"]
 ignore = ["E501"]
 
 [tool.mypy]
+mypy_path = "bernard-ledit/bindings/python"
 disallow_any_unimported = true
 disallow_subclassing_any = true
 disallow_untyped_calls = true
@@ -129,7 +129,6 @@ markers = [
     "integration: integration tests that send calls to the API - select with '-m integration'",
     "lite: tests for mindee-lite",
     "v2: tests specific to version 2 of the API",
-    "pillow: tests that require the use of the Pillow (PIL) library",
     "bernard_ledit: tests that require the usage of the Bernard L'Édit library",
     "regression: marks tests as regression tests - select with '-m regression'",
 ]

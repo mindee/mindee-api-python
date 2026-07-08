@@ -18,7 +18,6 @@ updates:
       optional-dependencies:
         patterns:
           - "bernard_ledit"
-          - "Pillow"
       test-dependencies:
         patterns:
           - "pytest"

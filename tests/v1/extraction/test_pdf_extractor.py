@@ -33,7 +33,6 @@ def loaded_prediction():
     return prediction
 
 
-@pytest.mark.pillow
 @pytest.mark.bernard_ledit
 def test_image_should_extract_pdf(invoice_default_sample_path):
     jpg_input = PathInput(invoice_default_sample_path)
@@ -47,7 +46,6 @@ def test_image_should_extract_pdf(invoice_default_sample_path):
     assert (OUTPUT_DIR / extracted_pdf.filename).exists()
 
 
-@pytest.mark.pillow
 @pytest.mark.bernard_ledit
 def test_pdf_should_extract_invoices_no_strict(
     invoice_splitter_5p_path, loaded_prediction
@@ -70,7 +68,6 @@ def test_pdf_should_extract_invoices_no_strict(
     assert extracted_pdfs_no_strict[2].filename == "invoice_5p_pages-005-005.pdf"
 
 
-@pytest.mark.pillow
 @pytest.mark.bernard_ledit
 def test_pdf_should_extract_invoices_strict(
     invoice_splitter_5p_path, loaded_prediction

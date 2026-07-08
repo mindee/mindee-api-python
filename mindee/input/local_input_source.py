@@ -18,9 +18,9 @@ from mindee.pdf.pdf_utils import pdf_has_source_text
 
 if BERNARD_LEDIT_AVAILABLE:
     # pylint: disable=import-error
-    import bernard_ledit.pdf as bernard_pdf  # type: ignore[import-not-found]
+    import bernard_ledit.pdf as bernard_pdf
 else:
-    bernard_pdf = None  # pylint: disable=invalid-name
+    bernard_pdf = None  # type: ignore[assignment]  # pylint: disable=invalid-name
 
 mimetypes.add_type("image/heic", ".heic")
 mimetypes.add_type("image/heif", ".heif")

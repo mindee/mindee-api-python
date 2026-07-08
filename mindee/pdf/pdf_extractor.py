@@ -2,10 +2,10 @@ from __future__ import annotations
 
 import io
 from pathlib import Path
-from typing import Any, BinaryIO
+from typing import BinaryIO
 
-from mindee.dependencies.checkers import BERNARD_LEDIT_AVAILABLE, PILLOW_AVAILABLE
-from mindee.dependencies.decorators import requires_bernard_ledit, requires_pillow
+from mindee.dependencies.checkers import BERNARD_LEDIT_AVAILABLE
+from mindee.dependencies.decorators import requires_bernard_ledit
 from mindee.error.mindee_error import MindeeError
 from mindee.input.local_input_source import LocalInputSource
 from mindee.pdf.extracted_pdf import ExtractedPDF
@@ -13,15 +13,11 @@ from mindee.pdf.extracted_pdfs import ExtractedPDFs
 
 if BERNARD_LEDIT_AVAILABLE:
     # pylint: disable=import-error
-    import bernard_ledit.pdf as bernard_pdf  # type: ignore[import-not-found]
+    import bernard_ledit.image as bernard_image
+    import bernard_ledit.pdf as bernard_pdf
 else:
-    bernard_pdf = None  # pylint: disable=invalid-name
-
-if PILLOW_AVAILABLE:
-    # pylint: disable=import-error
-    from PIL import Image
-else:
-    Image: Any = None  # type: ignore[no-redef] # pylint: disable=invalid-name
+    bernard_pdf = None  # type: ignore[assignment]  # pylint: disable=invalid-name
+    bernard_image = None  # type: ignore[assignment]  # pylint: disable=invalid-name
 
 
 class PDFExtractor:
@@ -31,14 +27,14 @@ class PDFExtractor:
     _filename: str
     _page_count: int
 
-    @requires_pillow
+    @requires_bernard_ledit
     def __init__(self, local_input: LocalInputSource):
         self._filename = local_input.filename
         self._page_count = local_input.page_count
         if local_input.is_pdf():
             self._source_pdf = local_input.file_object
         else:
-            pdf_image = Image.open(local_input.file_object)
+            pdf_image = bernard_image.decode(local_input.file_object)
             self._source_pdf = io.BytesIO()
             pdf_image.save(self._source_pdf, format="PDF")
 
