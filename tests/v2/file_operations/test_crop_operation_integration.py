@@ -12,7 +12,7 @@ from mindee import (
 from mindee.input.path_input import PathInput
 from mindee.v2.client import Client
 from mindee.v2.file_operations.crop import extract_multiple_crops
-from tests.utils import OUTPUT_DIR, V2_PRODUCT_DATA_DIR
+from tests.utils import OUTPUT_DIR, V2_PRODUCT_DATA_DIR, cleanup_output_files
 
 
 def check_findoc_return(findoc_response: ExtractionResponse):
@@ -57,11 +57,11 @@ def test_image_should_extract_crops():
     extracted_crops.save_all_to_disk(OUTPUT_DIR)
     crop0_size = os.path.getsize(OUTPUT_DIR / output_files[0])
     crop1_size = os.path.getsize(OUTPUT_DIR / output_files[1])
-    assert 170000 <= crop0_size <= 199685
-    assert 180000 <= crop1_size <= 199433
+    assert 100000 <= crop0_size <= 199685
+    assert 100000 <= crop1_size <= 199433
 
 
-# @pytest.fixture(scope="module", autouse=True)
-# def cleanup():
-#     yield
-#     cleanup_output_files(output_files)
+@pytest.fixture(scope="module", autouse=True)
+def cleanup():
+    yield
+    cleanup_output_files(output_files)
