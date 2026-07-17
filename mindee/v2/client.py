@@ -129,6 +129,8 @@ class Client(ClientMixin):
         logger.debug(
             "Successfully enqueued document with job ID: %s", enqueue_response.job.id
         )
+        if cancellation_token and cancellation_token.is_canceled:
+            raise MindeeError("Request canceled through cancellation token.")
         sleep(params.polling_options.initial_delay_sec)
         try_counter = 0
         while try_counter < params.polling_options.max_retries:
