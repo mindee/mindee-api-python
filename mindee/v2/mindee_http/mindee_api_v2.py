@@ -1,3 +1,4 @@
+import json
 import os
 from collections.abc import Callable
 from typing import TypeVar
@@ -297,7 +298,7 @@ class MindeeAPIV2(SettingsMixin):
     def _response_json(response: httpx.Response) -> StringDict:
         try:
             return response.json()
-        except httpx.DecodingError as e:
+        except (httpx.DecodingError, json.JSONDecodeError) as e:
             raise MindeeHTTPUnknownErrorV2(
                 f"HTTP {response.status_code} response is not valid JSON: "
                 f"{response.text}"
