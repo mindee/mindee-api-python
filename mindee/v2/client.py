@@ -9,6 +9,7 @@ from mindee.error.mindee_error import MindeeError
 from mindee.input import URLInputSource
 from mindee.input.local_input_source import LocalInputSource
 from mindee.logger import logger
+from mindee.mindee_http.cancellation_token import CancellationToken
 from mindee.parsing.common.common_response import CommonStatus
 from mindee.v2.client_options.base_parameters import BaseParameters
 from mindee.v2.mindee_http.mindee_api_v2 import MindeeAPIV2
@@ -104,6 +105,7 @@ class Client(ClientMixin):
         response_type: type[TypeBaseResponse],
         input_source: LocalInputSource | URLInputSource,
         params: BaseParameters,
+        cancellation_token: CancellationToken | None = None,
     ) -> TypeBaseResponse:
         """
         Enqueues to an asynchronous endpoint and automatically polls for a response.
@@ -111,6 +113,8 @@ class Client(ClientMixin):
         :param input_source: The document/source file to use. Can be local or remote.
         :param params: Parameters to set when sending a file.
         :param response_type: The product class to use for the response object.
+        :param cancellation_token: A cancellation token that can be used to cancel the
+        request.
 
         :return: A valid inference response.
         """
@@ -128,6 +132,8 @@ class Client(ClientMixin):
         sleep(params.polling_options.initial_delay_sec)
         try_counter = 0
         while try_counter < params.polling_options.max_retries:
+            if cancellation_token and cancellation_token.is_canceled:
+                raise MindeeError("Request canceled through cancellation token.")
             job_response = self.get_job(enqueue_response.job.id)
             assert isinstance(job_response, JobResponse)
             if job_response.job.status == CommonStatus.FAILED.value:

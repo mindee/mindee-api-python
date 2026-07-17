@@ -10,6 +10,7 @@ import httpx
 from mindee.error.mindee_error import MindeeSourceError
 from mindee.input.bytes_input import BytesInput
 from mindee.logger import logger
+from mindee.mindee_http.response_validation import validate_url_for_source
 from mindee.parsing.common.string_dict import StringDict
 
 
@@ -25,8 +26,7 @@ class URLInputSource:
 
         :param url: URL to send, must be HTTPS.
         """
-        if not url.lower().startswith("https"):
-            raise MindeeSourceError("URL must be HTTPS")
+        validate_url_for_source(url)
 
         logger.debug("URL input: %s", url)
 
