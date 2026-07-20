@@ -1,5 +1,7 @@
+import io
 import logging
 import sys
+from typing import cast
 
 from mindee.v2.commands.cli_parser import MindeeParser
 
@@ -68,6 +70,11 @@ def main() -> None:
     Pass ``--verbose`` (or ``-v``) to enable diagnostic logging; repeat
     the flag (``--verbose --verbose``) for debug-level output.
     """
+
+    stdout = cast(io.TextIOWrapper, sys.stdout)
+    stdout_encoding = str(stdout.encoding)
+    if stdout_encoding and stdout_encoding.lower() != "utf-8":
+        stdout.reconfigure(encoding="utf-8")
     verbose_level, argv = _extract_verbose_level(sys.argv[1:])
     _configure_logging(verbose_level)
     sys.argv = [sys.argv[0], *argv]
