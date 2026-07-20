@@ -28,4 +28,6 @@ class FailedInferenceResponse(CommonResponse):
         self.file_name = raw_prediction["file_name"]
         self.file_alias = raw_prediction["file_alias"]
         self.error = ErrorResponse(raw_prediction["error"])
-        self.created_at = datetime.fromisoformat(raw_prediction["created_at"])
+        self.created_at = datetime.fromisoformat(
+            raw_prediction["created_at"].replace("Z", "+00:00")
+        )
