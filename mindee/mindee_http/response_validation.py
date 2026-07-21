@@ -1,4 +1,3 @@
-import ipaddress
 import json
 from urllib.parse import urlparse
 
@@ -7,25 +6,12 @@ import httpx
 from mindee.error.mindee_error import MindeeSourceError
 from mindee.parsing.common.string_dict import StringDict
 
-_CGNAT_BLOCK = ipaddress.IPv4Network("100.64.0.0/10")
-_IPV6_UNIQUE_LOCAL = ipaddress.IPv6Network("fc00::/7")
-
 
 def validate_url_for_source(url: str) -> None:
     """
     Validates that a URL is safe to send to the Mindee server.
 
-    Rejects any URL that could be used for Server-Side Request Forgery (SSRF):
-
-    - non-HTTPS schemes,
-    - embedded userinfo (e.g. ``https://user:pass@host``),
-    - loopback hostnames (``localhost``, ``*.localhost``),
-    - literal IP addresses that are loopback, link-local, private (RFC 1918),
-      any-local (``0.0.0.0``), multicast, IPv6 unique-local (``fc00::/7``),
-      or carrier-grade NAT (``100.64.0.0/10``).
-
-    Note: DNS resolution is not performed. A hostname that resolves to a
-    private IP will not be caught here.
+    Rejects any URL that follow non-HTTPS schemes.
 
     :param url: The URL string to validate.
     :raises MindeeSourceError: If the URL fails any security check.
@@ -37,42 +23,6 @@ def validate_url_for_source(url: str) -> None:
 
     if parsed.scheme.lower() != "https":
         raise MindeeSourceError("URL must be HTTPS")
-
-    if parsed.username or parsed.password:
-        raise MindeeSourceError("Source URLs must not embed user credentials")
-
-    host = parsed.hostname
-    if not host:
-        raise MindeeSourceError("Source URL is missing a host")
-
-    lower_host = host.lower()
-    if (
-        lower_host == "localhost"
-        or lower_host.endswith(".localhost")
-        or lower_host == "ip6-localhost"
-        or lower_host == "ip6-loopback"
-    ):
-        raise MindeeSourceError(f"Loopback hostnames are not allowed: {host}")
-
-    try:
-        addr = ipaddress.ip_address(lower_host)
-    except ValueError:
-        return
-
-    if (
-        addr.is_loopback
-        or addr.is_link_local
-        or addr.is_private
-        or addr.is_unspecified
-        or addr.is_multicast
-    ):
-        raise MindeeSourceError(f"URL host resolves to a disallowed address: {addr}")
-
-    if isinstance(addr, ipaddress.IPv4Address) and addr in _CGNAT_BLOCK:
-        raise MindeeSourceError(f"URL host resolves to a disallowed address: {addr}")
-
-    if isinstance(addr, ipaddress.IPv6Address) and addr in _IPV6_UNIQUE_LOCAL:
-        raise MindeeSourceError(f"URL host resolves to a disallowed address: {addr}")
 
 
 def is_valid_sync_response(response: httpx.Response) -> bool:
