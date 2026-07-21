@@ -3,7 +3,7 @@ from datetime import datetime
 
 import pytest
 
-from mindee.v2.parsing.failed_inference_response import FailedInferenceResponse
+from mindee.v2.parsing import FailedInferenceResponse
 from tests.utils import V2_DATA_DIR
 
 

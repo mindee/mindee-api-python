@@ -32,27 +32,27 @@ class TestSimpleFieldStringValue:
 class TestSimpleFieldNumberValue:
     def test_returns_float_when_value_is_float(self):
         field = _make_field(3.14)
-        assert field.number_value == 3.14
+        assert field.float_value == 3.14
 
     def test_returns_float_when_value_is_int(self):
         # Integers are coerced to float in the constructor
         field = SimpleField({"value": 42})
-        assert field.number_value == 42.0
-        assert isinstance(field.number_value, float)
+        assert field.float_value == 42.0
+        assert isinstance(field.float_value, float)
 
     def test_returns_none_when_value_is_none(self):
         field = _make_field(None)
-        assert field.number_value is None
+        assert field.float_value is None
 
     def test_raises_when_value_is_string(self):
         field = _make_field("42")
         with pytest.raises(ValueError, match="Value is not a number"):
-            _ = field.number_value
+            _ = field.float_value
 
     def test_raises_when_value_is_boolean(self):
         field = _make_field(True)
         with pytest.raises(ValueError, match="Value is not a number"):
-            _ = field.number_value
+            _ = field.float_value
 
 
 @pytest.mark.v2

@@ -2,7 +2,7 @@ from datetime import datetime
 
 from mindee.parsing.common.common_response import CommonResponse
 from mindee.parsing.common.string_dict import StringDict
-from mindee.v2.parsing import ErrorResponse
+from mindee.v2.parsing.error.error_response import ErrorResponse
 
 
 class FailedInferenceResponse(CommonResponse):

@@ -23,7 +23,7 @@ class SimpleField(BaseField):
         return self.value
 
     @property
-    def number_value(self) -> float | None:
+    def float_value(self) -> float | None:
         """Retrieves a number field value as a float."""
         if self.value is not None and not isinstance(self.value, float):
             raise ValueError("Value is not a number")
