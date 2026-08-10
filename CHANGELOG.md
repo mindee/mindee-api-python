@@ -1,5 +1,18 @@
 # Mindee Python Client Library Changelog
 
+## v5.2.0 - 2026-07-20
+### Changes
+* :sparkles: add webhook error response
+* :sparkles: add simple fields typed accessors
+* :sparkles: allow passing a webhook to the CLI
+* :recycle: update internals and bump dependencies
+
+### Fixes
+* :bug: :boom: rework extraction methods
+* :bug: :boom: harmonize Crop and Split
+* :bug: fix issues with tests and add better tests for URL input source
+
+
 ## v5.1.1 - 2026-06-19
 ### Fixes
 * :bug: fix building docs
