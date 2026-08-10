@@ -131,19 +131,13 @@
 <li class="toctree-l3"><a class="reference internal" href="file_operations.html#mindee.v2.file_operations.crop.extract_single_crop"><code class="docutils literal notranslate"><span class="pre">extract_single_crop()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="file_operations.html#crop-files">Crop Files</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="file_operations.html#mindee.v2.file_operations.crop_files.CropFiles"><code class="docutils literal notranslate"><span class="pre">CropFiles</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="file_operations.html#crop-files">Crop Files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="file_operations.html#module-mindee.v2.file_operations.split">Split</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="file_operations.html#mindee.v2.file_operations.split.extract_multiple_splits"><code class="docutils literal notranslate"><span class="pre">extract_multiple_splits()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="file_operations.html#mindee.v2.file_operations.split.extract_single_split"><code class="docutils literal notranslate"><span class="pre">extract_single_split()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="file_operations.html#split-files">Split Files</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="file_operations.html#mindee.v2.file_operations.split_files.SplitFiles"><code class="docutils literal notranslate"><span class="pre">SplitFiles</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="file_operations.html#split-files">Split Files</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="mindee_http.html">V2 Mindee HTTP</a><ul>
@@ -286,7 +280,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.v2.client.Client.enqueue_and_get_result">
-<span class="sig-name descname"><span class="pre">enqueue_and_get_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.client.Client.enqueue_and_get_result" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">enqueue_and_get_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cancellation_token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.client.Client.enqueue_and_get_result" title="Link to this definition"></a></dt>
 <dd><p>Enqueues to an asynchronous endpoint and automatically polls for a response.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -294,13 +288,28 @@
 <li><p><strong>input_source</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="../input.html#mindee.input.LocalInputSource" title="mindee.input.local_input_source.LocalInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalInputSource</span></code></a> | <a class="reference internal" href="../input.html#mindee.input.URLInputSource" title="mindee.input.url_input_source.URLInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">URLInputSource</span></code></a></span>) – The document/source file to use. Can be local or remote.</p></li>
 <li><p><strong>params</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="client_options.html#mindee.v2.client_options.base_parameters.BaseParameters" title="mindee.v2.client_options.base_parameters.BaseParameters"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseParameters</span></code></a></span>) – Parameters to set when sending a file.</p></li>
 <li><p><strong>response_type</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">TypeBaseResponse</span></code>, bound= <a class="reference internal" href="parsing/inference/index.html#mindee.v2.parsing.inference.base_response.BaseResponse" title="mindee.v2.parsing.inference.base_response.BaseResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseResponse</span></code></a>)]</span>) – The product class to use for the response object.</p></li>
+<li><p><strong>cancellation_token</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">CancellationToken</span></code> | <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – A cancellation token that can be used to cancel the</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">TypeBaseResponse</span></code>, bound= <a class="reference internal" href="parsing/inference/index.html#mindee.v2.parsing.inference.base_response.BaseResponse" title="mindee.v2.parsing.inference.base_response.BaseResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseResponse</span></code></a>)</span></p>
+<dd class="field-even"><p><em>TypeBaseResponse</em></p>
 </dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A valid inference response.</p>
+</dl>
+<p>request.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">TypeBaseResponse</span></code>, bound= <a class="reference internal" href="parsing/inference/index.html#mindee.v2.parsing.inference.base_response.BaseResponse" title="mindee.v2.parsing.inference.base_response.BaseResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseResponse</span></code></a>)</span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A valid inference response.</p>
+</dd>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>response_type</strong> (<a class="reference internal" href="../v1/parsing/common.html#mindee.v1.parsing.common.execution.Execution.type" title="mindee.v1.parsing.common.execution.Execution.type"><em>type</em></a><em>[</em><em>TypeBaseResponse</em><em>]</em>)</p></li>
+<li><p><strong>input_source</strong> (<a class="reference internal" href="../input.html#mindee.input.LocalInputSource" title="mindee.input.local_input_source.LocalInputSource"><em>LocalInputSource</em></a><em> | </em><a class="reference internal" href="../input.html#mindee.input.URLInputSource" title="mindee.input.url_input_source.URLInputSource"><em>URLInputSource</em></a>)</p></li>
+<li><p><strong>params</strong> (<a class="reference internal" href="client_options.html#mindee.v2.client_options.base_parameters.BaseParameters" title="mindee.v2.client_options.base_parameters.BaseParameters"><em>BaseParameters</em></a>)</p></li>
+<li><p><strong>cancellation_token</strong> (<em>CancellationToken</em><em> | </em><em>None</em>)</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
