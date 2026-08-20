@@ -228,10 +228,7 @@ class MindeeAPIV2(SettingsMixin):
         self, name: str | None, model_type: str | None
     ) -> SearchResponse:
         """
-        Searches for a list of models matching criteria.
-        :param name: Name pattern to search for.
-        :param model_type: Type of model to search for (exact match).
-        :return: Response object containing search results.
+        Deprecated. Use `search` instead.
         """
         get_caller: Callable
         if self.http_client is None or self.http_client.is_closed:

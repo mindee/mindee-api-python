@@ -187,11 +187,7 @@ class Client(ClientMixin):
         self, name: str | None = None, model_type: str | None = None
     ) -> SearchResponse:
         """
-        Get a list of models matching the provided name and type.
-
-        :param name: Name of the model to filter by.
-        :param model_type: Type of the model to filter by.
-        :return: A list of models matching the provided criteria.
+        Deprecated. Use `search` instead.
         """
         return self.mindee_api.req_get_search_models(name, model_type)
 
