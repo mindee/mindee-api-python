@@ -5,11 +5,12 @@ from mindee.parsing.common.common_response import CommonResponse
 from mindee.v2.parsing.inference.base_inference import BaseInference
 
 
-class BaseResponse(ABC, CommonResponse):
+class BaseInferenceResponse(ABC, CommonResponse):
     """Base class for V2 inference responses."""
 
     inference: BaseInference
     """The inference result for a split utility request"""
+
     _slug: ClassVar[str]
     """Slug of the inference."""
 

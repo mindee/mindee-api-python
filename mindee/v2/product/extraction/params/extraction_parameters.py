@@ -2,12 +2,12 @@ import json
 from dataclasses import dataclass
 from typing import ClassVar
 
-from mindee.v2.client_options.base_parameters import BaseParameters
+from mindee.v2.client_options.base_product_parameters import BaseProductParameters
 from mindee.v2.product.extraction.params.data_schema import DataSchema
 
 
 @dataclass
-class ExtractionParameters(BaseParameters):
+class ExtractionParameters(BaseProductParameters):
     """Inference parameters to set when sending a file."""
 
     rag: bool | None = None
@@ -41,13 +41,13 @@ class ExtractionParameters(BaseParameters):
         elif isinstance(self.data_schema, dict):
             self.data_schema = DataSchema(**self.data_schema)
 
-    def get_form_data(self) -> dict[str, str | list[str]]:
+    def get_request_parameters(self) -> dict[str, str | list[str]]:
         """
         Return the parameters as a config dictionary.
 
         :return: A dict of parameters.
         """
-        data = super().get_form_data()
+        data = super().get_request_parameters()
         if self.data_schema is not None:
             data["data_schema"] = str(self.data_schema)
         if self.rag is not None:
