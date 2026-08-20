@@ -1,7 +1,7 @@
 from mindee.v2.parsing.error.error_item import ErrorItem
 from mindee.v2.parsing.error.error_response import ErrorResponse
 from mindee.v2.parsing.inference.base_inference import BaseInference
-from mindee.v2.parsing.inference.base_response import BaseResponse
+from mindee.v2.parsing.inference.base_inference_response import BaseInferenceResponse
 from mindee.v2.parsing.inference.failed_inference_response import (
     FailedInferenceResponse,
 )
@@ -15,7 +15,7 @@ from mindee.v2.product.extraction.extraction_result import ExtractionResult
 
 __all__ = [
     "BaseInference",
-    "BaseResponse",
+    "BaseInferenceResponse",
     "ErrorItem",
     "ErrorResponse",
     "ExtractionInference",

@@ -6,24 +6,35 @@ from mindee.client_options.polling_options import PollingOptions
 
 
 @dataclass
-class BaseParameters(ABC):
-    """Base class for parameters accepted by all V2 endpoints."""
+class BaseProductParameters(ABC):
+    """Base parameters for sending a document to a product."""
 
     model_id: str
-    """ID of the model, required."""
+    """Model ID to use for the inference. Required."""
+
     alias: str | None = None
-    """Use an alias to link the file to your own DB. If empty, no alias will be used."""
+    """
+    Optional: a free-form string to tag the request with your own identifier.
+    For example, an internal document ID, reference number, or database key.
+    If set, it will be included in the job and result responses.
+    """
+
     webhook_ids: list[str] | None = None
-    """IDs of webhooks to propagate the API response to."""
+    """
+    Webhook IDs to call after all processing is finished.
+    If empty, no webhooks will be used.
+    """
+
     polling_options: PollingOptions | None = None
     """Options for polling. Set only if having timeout issues."""
+
     close_file: bool = True
     """Whether to close the file after product."""
 
     _slug: ClassVar[str]
     """Slug of the endpoint."""
 
-    def get_form_data(self) -> dict[str, str | list[str]]:
+    def get_request_parameters(self) -> dict[str, str | list[str]]:
         """
         Return the parameters as a config dictionary.
 

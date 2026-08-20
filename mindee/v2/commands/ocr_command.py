@@ -1,7 +1,7 @@
 from argparse import Namespace
 
 from mindee import OCRParameters, OCRResponse
-from mindee.v2.client_options.base_parameters import BaseParameters
+from mindee.v2.client_options.base_product_parameters import BaseProductParameters
 from mindee.v2.commands.base_inference_command import BaseInferenceCommand
 
 
@@ -20,6 +20,6 @@ class OcrCommand(BaseInferenceCommand):
         model_id: str,
         alias: str | None,
         webhook_ids: list[str] | None,
-    ) -> BaseParameters:
+    ) -> BaseProductParameters:
         del parsed_args
         return OCRParameters(model_id=model_id, alias=alias, webhook_ids=webhook_ids)

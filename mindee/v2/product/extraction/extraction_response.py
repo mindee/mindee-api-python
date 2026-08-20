@@ -1,11 +1,11 @@
 from typing import ClassVar
 
 from mindee.parsing.common.string_dict import StringDict
-from mindee.v2.parsing.inference.base_response import BaseResponse
+from mindee.v2.parsing.inference.base_inference_response import BaseInferenceResponse
 from mindee.v2.product.extraction.extraction_inference import ExtractionInference
 
 
-class ExtractionResponse(BaseResponse):
+class ExtractionResponse(BaseInferenceResponse):
     """Represent an inference response from Mindee V2 API."""
 
     inference: ExtractionInference

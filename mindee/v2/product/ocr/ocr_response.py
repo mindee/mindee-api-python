@@ -1,11 +1,11 @@
 from typing import ClassVar
 
 from mindee.parsing.common.string_dict import StringDict
-from mindee.v2.parsing.inference.base_response import BaseResponse
+from mindee.v2.parsing.inference.base_inference_response import BaseInferenceResponse
 from mindee.v2.product.ocr.ocr_inference import OCRInference
 
 
-class OCRResponse(BaseResponse):
+class OCRResponse(BaseInferenceResponse):
     """Represent an OCR inference response from Mindee V2 API."""
 
     inference: OCRInference
