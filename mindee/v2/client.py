@@ -12,6 +12,10 @@ from mindee.logger import logger
 from mindee.mindee_http.cancellation_token import CancellationToken
 from mindee.parsing.common.common_response import CommonStatus
 from mindee.v2.client_options.base_product_parameters import BaseProductParameters
+from mindee.v2.client_options.base_search_parameters import (
+    BaseSearchParameters,
+    TypeSearchResponse,
+)
 from mindee.v2.mindee_http.mindee_api_v2 import MindeeAPIV2
 from mindee.v2.parsing.inference.base_inference_response import BaseInferenceResponse
 from mindee.v2.parsing.job.job_response import JobResponse
@@ -57,7 +61,7 @@ class Client(ClientMixin):
         :return: A valid inference response.
         """
         logger.debug("Enqueuing inference using model: %s", params.model_id)
-        return self.mindee_api.enqueue(input_source, params)
+        return self.mindee_api.req_post_product_enqueue(input_source, params)
 
     def get_job(self, job_id: str) -> JobResponse:
         """
@@ -70,7 +74,7 @@ class Client(ClientMixin):
         """
         logger.debug("Fetching job: %s", job_id)
 
-        return self.mindee_api.get_job(job_id)
+        return self.mindee_api.req_get_job_by_id(job_id)
 
     def get_result(
         self,
@@ -78,7 +82,7 @@ class Client(ClientMixin):
         inference_id: str,
     ) -> TypeBaseInferenceResponse:
         """
-        Get the result of an inference that was previously enqueued.
+        Get the result of an inference that was previously enqueued by its ID.
 
         The inference will only be available after it has finished processing.
 
@@ -88,7 +92,7 @@ class Client(ClientMixin):
         """
         logger.debug("Fetching result: %s", inference_id)
 
-        return self.mindee_api.get_result(response_type, inference_id)
+        return self.mindee_api.req_get_product_result_by_id(response_type, inference_id)
 
     def get_result_from_url(
         self, response_type: type[TypeBaseInferenceResponse], url: str
@@ -100,7 +104,7 @@ class Client(ClientMixin):
         :param url: URL of the inference to retrieve.
         :return: The result of the inference.
         """
-        return self.mindee_api.get_result_by_url(response_type, url)
+        return self.mindee_api.req_get_product_result_by_url(response_type, url)
 
     def enqueue_and_get_result(
         self,
@@ -169,17 +173,23 @@ class Client(ClientMixin):
 
         raise MindeeError(f"Couldn't retrieve document after {try_counter + 1} tries.")
 
+    def search(
+        self, params: BaseSearchParameters[TypeSearchResponse]
+    ) -> TypeSearchResponse:
+        """
+        Search for resources matching the given criteria.
+        :param params: Search parameters
+        :return: A search response containing the matching resources
+        """
+        return self.mindee_api.req_search(params)
+
     def search_models(
         self, name: str | None = None, model_type: str | None = None
     ) -> SearchResponse:
         """
-        Get a list of models matching the provided name and type.
-
-        :param name: Name of the model to filter by.
-        :param model_type: Type of the model to filter by.
-        :return: A list of models matching the provided criteria.
+        Deprecated. Use `search` instead.
         """
-        return self.mindee_api.get_models(name, model_type)
+        return self.mindee_api.req_get_search_models(name, model_type)
 
     def close(self) -> None:
         """Closes the underlying HTTP client."""

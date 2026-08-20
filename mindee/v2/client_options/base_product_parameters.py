@@ -7,7 +7,7 @@ from mindee.client_options.polling_options import PollingOptions
 
 @dataclass
 class BaseProductParameters(ABC):
-    """Base parameters for sending a document to a product."""
+    """Base parameters for sending a file to a Mindee V2 product."""
 
     model_id: str
     """Model ID to use for the inference. Required."""
@@ -32,7 +32,7 @@ class BaseProductParameters(ABC):
     """Whether to close the file after product."""
 
     _slug: ClassVar[str]
-    """Slug of the endpoint."""
+    """Slug of the product."""
 
     def get_request_parameters(self) -> dict[str, str | list[str]]:
         """
