@@ -24,93 +24,12 @@ from mindee.v2.parsing.job.job_response import JobResponse
 from mindee.v2.product.extraction.extraction_inference import ExtractionInference
 from tests.utils import FILE_TYPES_DIR, V2_DATA_DIR, V2_PRODUCT_DATA_DIR, dummy_envvars
 
+# --- Fixtures & Helper Utilities ---
+
 
 @pytest.fixture
 def env_client(monkeypatch) -> Client:
     dummy_envvars(monkeypatch)
-    return Client("dummy")
-
-
-@pytest.fixture
-def custom_base_url_client(monkeypatch) -> Client:
-    class _FakePostRespError:
-        status_code = 400
-        is_error = True
-
-        def json(self):
-            return {
-                "status": 0,
-                "code": "000-000",
-                "title": "From Test",
-                "detail": "forced failure from test",
-            }
-
-    class _FakeOkProcessingJobResp:
-        status_code = 200
-        is_error = False
-
-        def json(self):
-            data_file = V2_DATA_DIR / "job" / "ok_processing.json"
-            with data_file.open("r", encoding="utf-8") as fh:
-                return json.load(fh)
-
-        @property
-        def content(self) -> bytes:
-            """
-            Raw (bytes) payload, mimicking `requests.Response.content`.
-            """
-            return json.dumps(self.json()).encode("utf-8")
-
-    class _FakeOkGetInferenceResp:
-        status_code = 200
-        is_error = False
-
-        def json(self):
-            data_file = (
-                V2_PRODUCT_DATA_DIR
-                / "extraction"
-                / "financial_document"
-                / "complete.json"
-            )
-            with data_file.open("r", encoding="utf-8") as fh:
-                return json.load(fh)
-
-        @property
-        def content(self) -> bytes:
-            """
-            Raw (bytes) payload, mimicking `requests.Response.content`.
-            """
-            return json.dumps(self.json()).encode("utf-8")
-
-    monkeypatch.setenv("MINDEE_V2_BASE_URL", "https://dummy-url")
-
-    def _fake_error_post_inference_enqueue(*args, **kwargs):
-        return _FakePostRespError()
-
-    def _fake_ok_get_job(*args, **kwargs):
-        return _FakeOkProcessingJobResp()
-
-    def _fake_ok_get_inference(*args, **kwargs):
-        return _FakeOkGetInferenceResp()
-
-    monkeypatch.setattr(
-        "mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.req_post_inference_enqueue",
-        _fake_error_post_inference_enqueue,
-        raising=True,
-    )
-
-    monkeypatch.setattr(
-        "mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.req_get_job",
-        _fake_ok_get_job,
-        raising=True,
-    )
-
-    monkeypatch.setattr(
-        "mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.req_get_inference",
-        _fake_ok_get_inference,
-        raising=True,
-    )
-
     return Client("dummy")
 
 
@@ -120,6 +39,43 @@ def env_no_key(monkeypatch):
         monkeypatch.delenv("MINDEE_V2_API_KEY")
 
 
+@pytest.fixture
+def dummy_url_client(monkeypatch) -> Client:
+    monkeypatch.setenv("MINDEE_V2_BASE_URL", "https://dummy-url")
+    return Client("dummy")
+
+
+@pytest.fixture
+def findoc_json() -> dict:
+    data_file = (
+        V2_PRODUCT_DATA_DIR / "extraction" / "financial_document" / "complete.json"
+    )
+    return json.loads(data_file.read_text(encoding="utf-8"))
+
+
+@pytest.fixture
+def job_processing_json() -> dict:
+    data_file = V2_DATA_DIR / "job" / "ok_processing.json"
+    return json.loads(data_file.read_text(encoding="utf-8"))
+
+
+@pytest.fixture
+def job_fail_422_json() -> dict:
+    data_file = V2_DATA_DIR / "job" / "fail_422.json"
+    return json.loads(data_file.read_text(encoding="utf-8"))
+
+
+def _assert_findoc_inference(response: ExtractionResponse):
+    assert isinstance(response, ExtractionResponse)
+    assert isinstance(response.inference, ExtractionInference)
+    assert response.inference.id
+    assert response.inference.model.id
+    assert len(response.inference.result.fields) > 1
+
+
+# --- Tests ---
+
+
 @pytest.mark.v2
 def test_parse_path_without_token(env_no_key):
     with pytest.raises(MindeeAPIV2Error):
@@ -127,22 +83,35 @@ def test_parse_path_without_token(env_no_key):
 
 
 @pytest.mark.v2
-def test_enqueue_path_with_env_token(custom_base_url_client):
-    assert custom_base_url_client.mindee_api.base_url == "https://dummy-url"
-    assert custom_base_url_client.mindee_api.url_root == "https://dummy-url"
-    assert custom_base_url_client.mindee_api.api_key == "dummy"
-    assert custom_base_url_client.mindee_api.base_headers["Authorization"] == "dummy"
-    assert custom_base_url_client.mindee_api.base_headers["User-Agent"] == USER_AGENT
+@respx.mock
+def test_enqueue_path_with_env_token(dummy_url_client, job_fail_422_json):
+    respx.post(re.compile(r"https://dummy-url/.*")).respond(
+        status_code=422,
+        json=job_fail_422_json,
+    )
+
+    assert dummy_url_client.mindee_api.base_url == "https://dummy-url"
+    assert dummy_url_client.mindee_api.url_root == "https://dummy-url"
+    assert dummy_url_client.mindee_api.api_key == "dummy"
+    assert dummy_url_client.mindee_api.base_headers["Authorization"] == "dummy"
+    assert dummy_url_client.mindee_api.base_headers["User-Agent"] == USER_AGENT
+
     input_doc: LocalInputSource = PathInput(f"{FILE_TYPES_DIR}/receipt.jpg")
     with pytest.raises(MindeeHTTPErrorV2):
-        custom_base_url_client.enqueue(input_doc, ExtractionParameters("dummy-model"))
+        dummy_url_client.enqueue(input_doc, ExtractionParameters("dummy-model"))
 
 
 @pytest.mark.v2
-def test_enqueue_and_parse_path_with_env_token(custom_base_url_client):
+@respx.mock
+def test_enqueue_and_parse_path_with_env_token(dummy_url_client, job_fail_422_json):
+    respx.post(re.compile(r"https://dummy-url/.*")).respond(
+        status_code=422,
+        json=job_fail_422_json,
+    )
+
     input_doc: LocalInputSource = PathInput(f"{FILE_TYPES_DIR}/receipt.jpg")
     with pytest.raises(MindeeHTTPErrorV2):
-        custom_base_url_client.enqueue_and_get_result(
+        dummy_url_client.enqueue_and_get_result(
             ExtractionResponse,
             input_doc,
             ExtractionParameters(
@@ -159,14 +128,6 @@ def test_enqueue_and_parse_path_with_env_token(custom_base_url_client):
         )
 
 
-def _assert_findoc_inference(response: ExtractionResponse):
-    assert isinstance(response, ExtractionResponse)
-    assert isinstance(response.inference, ExtractionInference)
-    assert response.inference.id
-    assert response.inference.model.id
-    assert len(response.inference.result.fields) > 1
-
-
 @pytest.mark.v2
 def test_loads_from_prediction():
     input_inference = LocalResponse(
@@ -179,26 +140,51 @@ def test_loads_from_prediction():
 
 
 @pytest.mark.v2
-def test_get_inference(custom_base_url_client):
-    response = custom_base_url_client.get_result(
+@respx.mock
+def test_get_inference_by_id(dummy_url_client, findoc_json):
+    respx.get(
+        re.compile(r"https://dummy-url/v2/products/extraction/results/.*")
+    ).respond(
+        status_code=200,
+        json=findoc_json,
+    )
+    response = dummy_url_client.get_result(
         ExtractionResponse, "12345678-1234-1234-1234-123456789ABC"
     )
     _assert_findoc_inference(response)
 
 
 @pytest.mark.v2
-def test_get_inference_by_url(custom_base_url_client):
-    response = custom_base_url_client.get_result(
+@respx.mock
+def test_get_inference_by_url(dummy_url_client, findoc_json):
+    respx.get(
+        "https://api-v2.mindee.net/v2/products/extraction/results/12345678-1234-1234-1234-123456789ABC"
+    ).respond(
+        status_code=200,
+        json=findoc_json,
+    )
+    response = dummy_url_client.get_result_from_url(
         ExtractionResponse,
-        "https://api-v2.mindee.net/v2/inference/12345678-1234-1234-1234-123456789ABC",
+        "https://api-v2.mindee.net/v2/products/extraction/results/12345678-1234-1234-1234-123456789ABC",
     )
     _assert_findoc_inference(response)
 
 
 @pytest.mark.v2
-def test_error_handling(custom_base_url_client):
+@respx.mock
+def test_error_handling(dummy_url_client):
+    respx.post(re.compile(r"https://dummy-url/.*")).respond(
+        status_code=400,
+        json={
+            "status": 0,
+            "code": "000-000",
+            "title": "From Test",
+            "detail": "forced failure from test",
+        },
+    )
+
     with pytest.raises(MindeeHTTPErrorV2) as e:
-        custom_base_url_client.enqueue(
+        dummy_url_client.enqueue(
             PathInput(
                 V2_PRODUCT_DATA_DIR
                 / "extraction"
@@ -212,22 +198,11 @@ def test_error_handling(custom_base_url_client):
 
 
 @pytest.mark.v2
-def test_error_handling_non_json_response(env_client, monkeypatch):
-    class _FakeHtmlRespError:
-        status_code = 502
-        is_error = True
-        text = "<html><head><title>502 Bad Gateway</title></head></html>"
-
-        def json(self):
-            raise httpx.DecodingError("Expecting value")
-
-    def _fake_error_post_inference_enqueue(*args, **kwargs):
-        return _FakeHtmlRespError()
-
-    monkeypatch.setattr(
-        "mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.req_post_inference_enqueue",
-        _fake_error_post_inference_enqueue,
-        raising=True,
+@respx.mock
+def test_error_handling_non_json_response(env_client):
+    respx.post(re.compile(r"https://api-v2\.mindee\.net/.*")).respond(
+        status_code=502,
+        text="<html><head><title>502 Bad Gateway</title></head></html>",
     )
 
     with pytest.raises(MindeeHTTPUnknownErrorV2) as e:
@@ -245,8 +220,13 @@ def test_error_handling_non_json_response(env_client, monkeypatch):
 
 
 @pytest.mark.v2
-def test_queue_get(custom_base_url_client):
-    response = custom_base_url_client.get_job("12345678-1234-1234-1234-123456789ABC")
+@respx.mock
+def test_get_job_by_id(dummy_url_client, job_processing_json):
+    respx.get(re.compile(r"https://dummy-url/v2/jobs/.*")).respond(
+        status_code=200, json=job_processing_json
+    )
+
+    response = dummy_url_client.get_job("12345678-1234-1234-1234-123456789ABC")
     assert isinstance(response, JobResponse)
     assert isinstance(response.job, Job)
     assert response.job.id == "12345678-1234-1234-1234-123456789ABC"
@@ -269,7 +249,7 @@ def test_client_closes_httpx_connections() -> None:
     client = Client(api_key="dummy_key")
     client.close()
     with pytest.raises(
-        AttributeError, match=r"NoneType' object has no attribute 'get'"
+        AttributeError, match=r"'NoneType' object has no attribute 'get'"
     ):
         client.mindee_api.http_client.get("https://google.com")
 
@@ -312,7 +292,7 @@ def test_httpx_multiple_calls_thread_safety() -> None:
 @pytest.mark.v2
 @respx.mock
 def test_explicit_timeout_failure(findoc_model_id) -> None:
-    respx.post("https://api-v2.mindee.net/v2/inferences/enqueue").mock(
+    respx.post("https://api-v2.mindee.net/v2/products/extraction/enqueue").mock(
         side_effect=httpx.ReadTimeout("Simulated Read Timeout")
     )
 
@@ -328,7 +308,10 @@ def test_explicit_timeout_failure(findoc_model_id) -> None:
 @respx.mock
 def test_explicit_500_server_error(findoc_model_id: str) -> None:
     respx.post(re.compile(r"https://api-v2\.mindee\.net/v2/.+/enqueue")).mock(
-        return_value=httpx.Response(500, json={"message": "Internal Server Error"})
+        return_value=httpx.Response(
+            500,
+            json={"message": "Internal Server Error"},
+        )
     )
 
     client = Client(api_key="dummy")
@@ -338,3 +321,24 @@ def test_explicit_500_server_error(findoc_model_id: str) -> None:
         client.enqueue(input_source, params)
 
     assert "Couldn't deserialize server error" in str(exc_info.value)
+
+
+@pytest.mark.v2
+def test_client_accepts_custom_http_client(job_processing_json):
+    def mock_handler(request: httpx.Request) -> httpx.Response:
+        return httpx.Response(
+            200,
+            json=job_processing_json,
+        )
+
+    # 1. Create a custom injected transport
+    custom_http_client = httpx.Client(
+        transport=httpx.MockTransport(mock_handler), base_url="https://dummy-url"
+    )
+
+    # 2. Pass it directly to the Mindee Client
+    client = Client(api_key="dummy", http_client=custom_http_client)
+
+    # 3. Assert the injected transport handled the call
+    response = client.get_job("12345678-1234-1234-1234-123456789ABC")
+    assert response.job.status == "Processing"

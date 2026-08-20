@@ -4,8 +4,6 @@ from mindee.v2.client_options.base_product_parameters import BaseProductParamete
 
 
 class CropParameters(BaseProductParameters):
-    """
-    Parameters accepted by the crop utility v2 endpoint.
-    """
+    """Parameters for sending a file to a Crop product."""
 
-    _slug: ClassVar[str] = "products/crop"
+    _slug: ClassVar[str] = "crop"

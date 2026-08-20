@@ -8,7 +8,7 @@ from mindee.v2.product.extraction.params.data_schema import DataSchema
 
 @dataclass
 class ExtractionParameters(BaseProductParameters):
-    """Inference parameters to set when sending a file."""
+    """Parameters for sending a file to an Extraction product."""
 
     rag: bool | None = None
     """Enhance extraction accuracy with Retrieval-Augmented Generation."""
@@ -32,7 +32,7 @@ class ExtractionParameters(BaseProductParameters):
     Not recommended, for specific use only.
     """
 
-    _slug: ClassVar[str] = "inferences"
+    _slug: ClassVar[str] = "extraction"
     """Slug of the endpoint."""
 
     def __post_init__(self):

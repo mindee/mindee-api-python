@@ -13,8 +13,7 @@ class ClassificationResponse(BaseInferenceResponse):
     inference: ClassificationInference
     """Inference object for classification inference."""
 
-    _slug: ClassVar[str] = "products/classification/results"
-    """Slug of the inference."""
+    _slug: ClassVar[str] = "classification"
 
     def __init__(self, raw_response: StringDict) -> None:
         super().__init__(raw_response)

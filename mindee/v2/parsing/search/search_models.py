@@ -5,7 +5,7 @@ class SearchModels(list[SearchModel]):
     """List of models."""
 
     def __init__(self, raw_response: list[dict]) -> None:
-        super().__init__([SearchModel(model) for model in raw_response])
+        super().__init__([SearchModel(item) for item in raw_response])
 
     def __str__(self) -> str:
         """
