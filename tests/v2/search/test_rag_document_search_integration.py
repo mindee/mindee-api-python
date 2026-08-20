@@ -16,7 +16,8 @@ def v2_client() -> Client:
 @pytest.mark.integration
 @pytest.mark.v2
 def test_must_have_results(v2_client: Client):
-    findoc_model_id = os.getenv("MINDEE_V2_SE_TESTS_FINDOC_MODEL_ID", "")
+    findoc_model_id = os.getenv("MINDEE_V2_SE_TESTS_FINDOC_MODEL_ID")
+    assert findoc_model_id, "MINDEE_V2_SE_TESTS_FINDOC_MODEL_ID must be set"
     response = v2_client.search(RagDocumentSearchParameters(model_id=findoc_model_id))
 
     assert response is not None
