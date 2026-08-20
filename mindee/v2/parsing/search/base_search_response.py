@@ -5,7 +5,7 @@ from mindee.parsing.common.common_response import CommonResponse
 from mindee.v2.parsing.search.pagination_metadata import PaginationMetadata
 
 
-class BaseSearchResponse(ABC, CommonResponse):
+class BaseSearchResponse(CommonResponse, ABC):
     """Base class for search responses."""
 
     pagination: PaginationMetadata
