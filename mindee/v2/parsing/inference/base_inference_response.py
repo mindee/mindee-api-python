@@ -12,7 +12,7 @@ class BaseInferenceResponse(ABC, CommonResponse):
     """The inference result for a split utility request"""
 
     _slug: ClassVar[str]
-    """Slug of the inference."""
+    """Slug of the product."""
 
     def __str__(self) -> str:
         return str(self.inference)

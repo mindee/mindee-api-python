@@ -4,8 +4,6 @@ from mindee.v2.client_options.base_product_parameters import BaseProductParamete
 
 
 class ClassificationParameters(BaseProductParameters):
-    """
-    Parameters accepted by the classification utility v2 endpoint.
-    """
+    """Parameters for sending a file to a Classification product."""
 
-    _slug: ClassVar[str] = "products/classification"
+    _slug: ClassVar[str] = "classification"

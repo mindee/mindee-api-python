@@ -8,18 +8,19 @@ import httpx
 from mindee.input.local_input_source import LocalInputSource
 from mindee.input.url_input_source import URLInputSource
 from mindee.logger import logger
+from mindee.mindee_http.response_validation import is_valid_sync_response
 from mindee.mindee_http.settings_mixin import SettingsMixin
 from mindee.parsing.common.string_dict import StringDict
 from mindee.v1.mindee_http.base_settings import USER_AGENT
 from mindee.v2.client_options.base_product_parameters import BaseProductParameters
+from mindee.v2.client_options.base_search_parameters import (
+    BaseSearchParameters,
+    TypeSearchResponse,
+)
 from mindee.v2.error.mindee_api_v2_error import MindeeAPIV2Error
 from mindee.v2.error.mindee_http_error_v2 import (
     MindeeHTTPUnknownErrorV2,
     handle_error_v2,
-)
-from mindee.v2.mindee_http.response_validation_v2 import (
-    is_valid_get_response,
-    is_valid_post_response,
 )
 from mindee.v2.parsing import BaseInferenceResponse
 from mindee.v2.parsing.job.job_response import JobResponse
@@ -55,7 +56,7 @@ class MindeeAPIV2(SettingsMixin):
             else os.environ.get(API_KEY_V2_ENV_NAME, API_KEY_V2_DEFAULT)
         )
         self.set_base_url(BASE_URL_DEFAULT)
-        self.set_from_env()
+        self._set_from_env()
         if not self.api_key:
             raise MindeeAPIV2Error(
                 f"Missing API key,"
@@ -77,7 +78,7 @@ class MindeeAPIV2(SettingsMixin):
             "User-Agent": USER_AGENT,
         }
 
-    def set_from_env(self) -> None:
+    def _set_from_env(self) -> None:
         """Set various parameters from environment variables, if present."""
         env_vars = {
             BASE_URL_ENV_NAME: self.set_base_url,
@@ -89,22 +90,21 @@ class MindeeAPIV2(SettingsMixin):
                 func(env_val)
                 logger.debug("Value was set from env: %s", name)
 
-    def req_post_inference_enqueue(
+    def req_post_product_enqueue(
         self,
         input_source: LocalInputSource | URLInputSource,
         params: BaseProductParameters,
-        slug: str,
-    ) -> httpx.Response:
+    ) -> JobResponse:
         """
-        Make a request to POST a document for enqueue on the V2 API.
+        Send a file to the asynchronous processing queue for inference processing.
 
         :param input_source: Input object.
         :param params: Options for the enqueueing of the document.
-        :param slug: Slug to use for the enqueueing, defaults to 'inferences'.
-        :return: httpx response.
+        :return: A `JobResponse` containing the enqueued job.
         """
         data = params.get_request_parameters()
-        url = f"{self.url_root}/v2/{slug}/enqueue"
+        slug = params.get_enqueue_slug()
+        url = f"{self.url_root}/v2/products/{slug}/enqueue"
         post_kwargs: StringDict = {}
         if isinstance(input_source, LocalInputSource):
             post_kwargs["files"] = {
@@ -116,93 +116,123 @@ class MindeeAPIV2(SettingsMixin):
         post_caller: Callable
         if self.http_client is None or self.http_client.is_closed:
             post_caller = httpx.post
-            post_kwargs["timeout"] = self.request_timeout
         else:
             post_caller = self.http_client.post
-        return post_caller(
+
+        response = post_caller(
             url,
             headers=self.base_headers,
             data=data,
+            timeout=self.request_timeout,
             **post_kwargs,
         )
+        dict_response = self._response_json(response)
 
-    def req_get_job(self, job_id: str) -> httpx.Response:
+        if not is_valid_sync_response(response):
+            handle_error_v2(dict_response)
+        return JobResponse(dict_response)
+
+    def req_get_job_by_id(self, job_id: str) -> JobResponse:
         """
-        Sends a request matching a given queue_id. Returns either a Job or a Document.
+        Get the result of an inference that was previously enqueued.
 
         :param job_id: Job ID, returned by the enqueue request.
         """
         get_caller: Callable
-        get_kwargs: StringDict = {}
         if self.http_client is None or self.http_client.is_closed:
             get_caller = httpx.get
-            get_kwargs["timeout"] = self.request_timeout
         else:
             get_caller = self.http_client.get
-        return get_caller(
+
+        response = get_caller(
             url=f"{self.url_root}/v2/jobs/{job_id}",
             headers=self.base_headers,
             follow_redirects=False,
-            **get_kwargs,
+            timeout=self.request_timeout,
         )
+        dict_response = self._response_json(response)
+        if not is_valid_sync_response(response):
+            handle_error_v2(dict_response)
+        return JobResponse(dict_response)
 
-    def req_get_inference_by_url(self, url: str) -> httpx.Response:
+    def req_get_product_result_by_url(
+        self, response_type: type[ResponseT], url: str
+    ) -> ResponseT:
         """
-        Sends a request matching a given inference_id. Returns either a Job or a
-        Document.
+        Get the result of an inference that was previously enqueued.
 
         :param url: URL to use for the request.
+        :param response_type: Type of the response to return.
         :return: Response object from the request.
         """
         get_caller: Callable
-        get_kwargs: StringDict = {}
         if self.http_client is None or self.http_client.is_closed:
             get_caller = httpx.get
-            get_kwargs["timeout"] = self.request_timeout
         else:
             get_caller = self.http_client.get
-        return get_caller(
+
+        response = get_caller(
             url=url,
             headers=self.base_headers,
             follow_redirects=False,
-            **get_kwargs,
+            timeout=self.request_timeout,
         )
+        dict_response = self._response_json(response)
+        if not is_valid_sync_response(response):
+            handle_error_v2(dict_response)
+        return response_type(dict_response)
 
-    def req_get_inference(self, inference_id: str, slug: str) -> httpx.Response:
+    def req_get_product_result_by_id(
+        self, response_type: type[ResponseT], inference_id: str
+    ) -> ResponseT:
         """
         Sends a request matching a given queue_id. Returns either a Job or a Document.
 
         :param inference_id: Inference ID, returned by the job request.
-        :param slug: Slug of the inference, defaults to nothing.
+        :param response_type: Type of the response to return.
+        """
+        slug = response_type.get_result_slug()
+        return self.req_get_product_result_by_url(
+            response_type=response_type,
+            url=f"{self.url_root}/v2/products/{slug}/results/{inference_id}",
+        )
+
+    def req_search(
+        self, params: BaseSearchParameters[TypeSearchResponse]
+    ) -> TypeSearchResponse:
+        """
+        Search for resources matching the given criteria.
+        :param params: Search parameters
+        :return: A search response containing the matching resources
         """
         get_caller: Callable
-        get_kwargs: StringDict = {}
         if self.http_client is None or self.http_client.is_closed:
             get_caller = httpx.get
-            get_kwargs["timeout"] = self.request_timeout
         else:
             get_caller = self.http_client.get
-        return get_caller(
-            url=f"{self.url_root}/v2/{slug}/{inference_id}",
+        slug = params.get_slug()
+        response_class = params.get_response_class()
+        response = get_caller(
+            url=f"{self.url_root}/v2/search/{slug}",
             headers=self.base_headers,
+            params=params.get_request_parameters(),
             follow_redirects=False,
-            **get_kwargs,
+            timeout=self.request_timeout,
         )
+        dict_response = self._response_json(response)
+        if not is_valid_sync_response(response):
+            handle_error_v2(dict_response)
+        return response_class(dict_response)
 
     def req_get_search_models(
         self, name: str | None, model_type: str | None
-    ) -> httpx.Response:
+    ) -> SearchResponse:
         """
-        Searches for a list of models matching criteria.
-        :param name: Name pattern to search for.
-        :param model_type: Type of model to search for (exact match).
-        :return: Response object containing search results.
+        Deprecated. Use `search` instead.
         """
         get_caller: Callable
-        get_kwargs: StringDict = {}
         if self.http_client is None or self.http_client.is_closed:
             get_caller = httpx.get
-            get_kwargs["timeout"] = self.request_timeout
         else:
             get_caller = self.http_client.get
         params = {}
@@ -210,89 +240,16 @@ class MindeeAPIV2(SettingsMixin):
             params["name"] = name
         if model_type:
             params["model_type"] = model_type
-        return get_caller(
+
+        response = get_caller(
             url=f"{self.url_root}/v2/search/models",
             headers=self.base_headers,
             params=params,
             follow_redirects=False,
-            **get_kwargs,
-        )
-
-    def enqueue(
-        self,
-        input_source: LocalInputSource | URLInputSource,
-        params: BaseProductParameters,
-    ) -> JobResponse:
-        """
-        Enqueues a document to a given model.
-        :param input_source: Input object.
-        :param params: Parameters
-        :return: A valid inference Response.
-        """
-        response = self.req_post_inference_enqueue(
-            input_source=input_source, params=params, slug=params.get_enqueue_slug()
+            timeout=self.request_timeout,
         )
         dict_response = self._response_json(response)
-
-        if not is_valid_post_response(response):
-            handle_error_v2(dict_response)
-        return JobResponse(dict_response)
-
-    def get_job(self, job_id: str) -> JobResponse:
-        """
-        Get the status of an inference that was previously enqueued.
-
-        Can be used for polling.
-
-        :param job_id: UUID of the job to retrieve.
-        :return: A job response.
-        """
-        response = self.req_get_job(job_id)
-        dict_response = self._response_json(response)
-        if not is_valid_get_response(response):
-            handle_error_v2(dict_response)
-        return JobResponse(dict_response)
-
-    def get_result(self, response_type: type[ResponseT], inference_id: str):
-        """
-        Get the result of an inference that was previously enqueued.
-
-        :param response_type: Type of the response to return.
-        :param inference_id: UUID of the inference to retrieve.
-        :return: The result of the inference.
-        """
-        response = self.req_get_inference(inference_id, response_type.get_result_slug())
-        dict_response = self._response_json(response)
-        if not is_valid_get_response(response):
-            handle_error_v2(dict_response)
-        return response_type(dict_response)
-
-    def get_result_by_url(self, response_type: type[ResponseT], url: str):
-        """
-        Get the result of an inference that was previously enqueued by its URL.
-
-        :param response_type: Type of the response to return.
-        :param url: URL of the inference to retrieve.
-        :return: The result of the inference.
-        """
-        response = self.req_get_inference_by_url(url)
-        dict_response = self._response_json(response)
-        if not is_valid_get_response(response):
-            handle_error_v2(dict_response)
-        return response_type(dict_response)
-
-    def get_models(self, name: str | None, model_type: str | None):
-        """
-        Get a list of models matching the provided name and type.
-
-        :param name: Name of the model to filter by.
-        :param model_type: Type of the model to filter by.
-        :return: A list of models matching the provided criteria.
-        """
-        logger.debug("Fetching models matching: name=%s and type=%s", name, model_type)
-        response = self.req_get_search_models(name, model_type)
-        dict_response = self._response_json(response)
-        if not is_valid_get_response(response):
+        if not is_valid_sync_response(response):
             handle_error_v2(dict_response)
         return SearchResponse(dict_response)
 

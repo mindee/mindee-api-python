@@ -11,8 +11,7 @@ class OCRResponse(BaseInferenceResponse):
     inference: OCRInference
     """Inference object for ocr inference."""
 
-    _slug: ClassVar[str] = "products/ocr/results"
-    """Slug of the inference."""
+    _slug: ClassVar[str] = "ocr"
 
     def __init__(self, raw_response: StringDict) -> None:
         super().__init__(raw_response)

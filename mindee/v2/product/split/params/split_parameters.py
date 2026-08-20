@@ -8,4 +8,4 @@ class SplitParameters(BaseProductParameters):
     Parameters accepted by the split utility v2 endpoint.
     """
 
-    _slug: ClassVar[str] = "products/split"
+    _slug: ClassVar[str] = "split"

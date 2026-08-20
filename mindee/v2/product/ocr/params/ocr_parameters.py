@@ -4,8 +4,6 @@ from mindee.v2.client_options.base_product_parameters import BaseProductParamete
 
 
 class OCRParameters(BaseProductParameters):
-    """
-    Parameters accepted by the ocr utility v2 endpoint.
-    """
+    """Parameters for sending a file to a Raw Text (OCR) product."""
 
-    _slug: ClassVar[str] = "products/ocr"
+    _slug: ClassVar[str] = "ocr"

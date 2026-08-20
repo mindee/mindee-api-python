@@ -11,8 +11,7 @@ class CropResponse(BaseInferenceResponse):
     inference: CropInference
     """Inference object for crop inference."""
 
-    _slug: ClassVar[str] = "products/crop/results"
-    """Slug of the inference."""
+    _slug: ClassVar[str] = "crop"
 
     def __init__(self, raw_response: StringDict) -> None:
         super().__init__(raw_response)
