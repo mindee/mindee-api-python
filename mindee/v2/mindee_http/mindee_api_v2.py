@@ -11,7 +11,7 @@ from mindee.logger import logger
 from mindee.mindee_http.settings_mixin import SettingsMixin
 from mindee.parsing.common.string_dict import StringDict
 from mindee.v1.mindee_http.base_settings import USER_AGENT
-from mindee.v2.client_options.base_parameters import BaseParameters
+from mindee.v2.client_options.base_product_parameters import BaseProductParameters
 from mindee.v2.error.mindee_api_v2_error import MindeeAPIV2Error
 from mindee.v2.error.mindee_http_error_v2 import (
     MindeeHTTPUnknownErrorV2,
@@ -21,7 +21,7 @@ from mindee.v2.mindee_http.response_validation_v2 import (
     is_valid_get_response,
     is_valid_post_response,
 )
-from mindee.v2.parsing import BaseResponse
+from mindee.v2.parsing import BaseInferenceResponse
 from mindee.v2.parsing.job.job_response import JobResponse
 from mindee.v2.parsing.search.search_response import SearchResponse
 
@@ -34,7 +34,7 @@ BASE_URL_DEFAULT = "https://api-v2.mindee.net"
 REQUEST_TIMEOUT_ENV_NAME = "MINDEE_REQUEST_TIMEOUT"
 TIMEOUT_DEFAULT = 120
 
-ResponseT = TypeVar("ResponseT", bound=BaseResponse)
+ResponseT = TypeVar("ResponseT", bound=BaseInferenceResponse)
 
 
 class MindeeAPIV2(SettingsMixin):
@@ -92,7 +92,7 @@ class MindeeAPIV2(SettingsMixin):
     def req_post_inference_enqueue(
         self,
         input_source: LocalInputSource | URLInputSource,
-        params: BaseParameters,
+        params: BaseProductParameters,
         slug: str,
     ) -> httpx.Response:
         """
@@ -103,7 +103,7 @@ class MindeeAPIV2(SettingsMixin):
         :param slug: Slug to use for the enqueueing, defaults to 'inferences'.
         :return: httpx response.
         """
-        data = params.get_form_data()
+        data = params.get_request_parameters()
         url = f"{self.url_root}/v2/{slug}/enqueue"
         post_kwargs: StringDict = {}
         if isinstance(input_source, LocalInputSource):
@@ -219,7 +219,9 @@ class MindeeAPIV2(SettingsMixin):
         )
 
     def enqueue(
-        self, input_source: LocalInputSource | URLInputSource, params: BaseParameters
+        self,
+        input_source: LocalInputSource | URLInputSource,
+        params: BaseProductParameters,
     ) -> JobResponse:
         """
         Enqueues a document to a given model.

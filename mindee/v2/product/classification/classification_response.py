@@ -1,13 +1,13 @@
 from typing import ClassVar
 
 from mindee.parsing.common.string_dict import StringDict
-from mindee.v2.parsing.inference.base_response import BaseResponse
+from mindee.v2.parsing.inference.base_inference_response import BaseInferenceResponse
 from mindee.v2.product.classification.classification_inference import (
     ClassificationInference,
 )
 
 
-class ClassificationResponse(BaseResponse):
+class ClassificationResponse(BaseInferenceResponse):
     """Represent a classification inference response from Mindee V2 API."""
 
     inference: ClassificationInference

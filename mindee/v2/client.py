@@ -11,13 +11,15 @@ from mindee.input.local_input_source import LocalInputSource
 from mindee.logger import logger
 from mindee.mindee_http.cancellation_token import CancellationToken
 from mindee.parsing.common.common_response import CommonStatus
-from mindee.v2.client_options.base_parameters import BaseParameters
+from mindee.v2.client_options.base_product_parameters import BaseProductParameters
 from mindee.v2.mindee_http.mindee_api_v2 import MindeeAPIV2
-from mindee.v2.parsing.inference.base_response import BaseResponse
+from mindee.v2.parsing.inference.base_inference_response import BaseInferenceResponse
 from mindee.v2.parsing.job.job_response import JobResponse
 from mindee.v2.parsing.search.search_response import SearchResponse
 
-TypeBaseResponse = TypeVar("TypeBaseResponse", bound=BaseResponse)
+TypeBaseInferenceResponse = TypeVar(
+    "TypeBaseInferenceResponse", bound=BaseInferenceResponse
+)
 
 
 class Client(ClientMixin):
@@ -44,7 +46,7 @@ class Client(ClientMixin):
     def enqueue(
         self,
         input_source: LocalInputSource | URLInputSource,
-        params: BaseParameters,
+        params: BaseProductParameters,
     ) -> JobResponse:
         """
         Enqueues a document to a given model.
@@ -72,9 +74,9 @@ class Client(ClientMixin):
 
     def get_result(
         self,
-        response_type: type[TypeBaseResponse],
+        response_type: type[TypeBaseInferenceResponse],
         inference_id: str,
-    ) -> TypeBaseResponse:
+    ) -> TypeBaseInferenceResponse:
         """
         Get the result of an inference that was previously enqueued.
 
@@ -89,8 +91,8 @@ class Client(ClientMixin):
         return self.mindee_api.get_result(response_type, inference_id)
 
     def get_result_from_url(
-        self, response_type: type[TypeBaseResponse], url: str
-    ) -> TypeBaseResponse:
+        self, response_type: type[TypeBaseInferenceResponse], url: str
+    ) -> TypeBaseInferenceResponse:
         """
         Get the result of an inference that was previously enqueued by its URL.
 
@@ -102,11 +104,11 @@ class Client(ClientMixin):
 
     def enqueue_and_get_result(
         self,
-        response_type: type[TypeBaseResponse],
+        response_type: type[TypeBaseInferenceResponse],
         input_source: LocalInputSource | URLInputSource,
-        params: BaseParameters,
+        params: BaseProductParameters,
         cancellation_token: CancellationToken | None = None,
-    ) -> TypeBaseResponse:
+    ) -> TypeBaseInferenceResponse:
         """
         Enqueues to an asynchronous endpoint and automatically polls for a response.
 

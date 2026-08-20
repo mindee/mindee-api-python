@@ -1,5 +1,5 @@
 from mindee.v2.parsing.inference.base_inference import BaseInference
-from mindee.v2.parsing.inference.base_response import BaseResponse
+from mindee.v2.parsing.inference.base_inference_response import BaseInferenceResponse
 from mindee.v2.parsing.inference.inference_file import InferenceFile
 from mindee.v2.parsing.inference.inference_job import InferenceJob
 from mindee.v2.parsing.inference.inference_model import InferenceModel
@@ -37,7 +37,7 @@ def test_base_inference():
 
 
 def test_base_response():
-    class DummyResponse(BaseResponse):
+    class DummyResponse(BaseInferenceResponse):
         _slug = "dummy/results"
 
         def __init__(self):

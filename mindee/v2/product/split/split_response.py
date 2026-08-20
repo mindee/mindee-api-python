@@ -1,11 +1,11 @@
 from typing import ClassVar
 
 from mindee.parsing.common.string_dict import StringDict
-from mindee.v2.parsing.inference.base_response import BaseResponse
+from mindee.v2.parsing.inference.base_inference_response import BaseInferenceResponse
 from mindee.v2.product.split.split_inference import SplitInference
 
 
-class SplitResponse(BaseResponse):
+class SplitResponse(BaseInferenceResponse):
     """Represent a split inference response from Mindee V2 API."""
 
     inference: SplitInference

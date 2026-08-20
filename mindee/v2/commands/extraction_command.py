@@ -1,7 +1,7 @@
 from argparse import ArgumentParser, Namespace
 
 from mindee import ExtractionParameters, ExtractionResponse
-from mindee.v2.client_options.base_parameters import BaseParameters
+from mindee.v2.client_options.base_product_parameters import BaseProductParameters
 from mindee.v2.commands.base_inference_command import BaseInferenceCommand
 
 
@@ -65,7 +65,7 @@ class ExtractionCommand(BaseInferenceCommand):
         model_id: str,
         alias: str | None,
         webhook_ids: list[str] | None,
-    ) -> BaseParameters:
+    ) -> BaseProductParameters:
         return ExtractionParameters(
             model_id=model_id,
             alias=alias,

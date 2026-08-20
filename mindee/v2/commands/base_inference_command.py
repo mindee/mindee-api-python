@@ -11,7 +11,7 @@ from mindee import (
 )
 from mindee.input import PathInput, URLInputSource
 from mindee.v2.client import Client
-from mindee.v2.client_options.base_parameters import BaseParameters
+from mindee.v2.client_options.base_product_parameters import BaseProductParameters
 from mindee.v2.commands.output_type import OutputType
 
 
@@ -137,7 +137,7 @@ class BaseInferenceCommand:
         model_id: str,
         alias: str | None,
         webhook_ids: list[str] | None,
-    ) -> BaseParameters:
+    ) -> BaseProductParameters:
         """Build the V2 inference parameters for this product."""
 
     @abstractmethod
