@@ -100,7 +100,7 @@ class MindeeAPIV2(SettingsMixin):
 
         :param input_source: Input object.
         :param params: Options for the enqueueing of the document.
-        :return: httpx response.
+        :return: A `JobResponse` containing the enqueued job.
         """
         data = params.get_request_parameters()
         slug = params.get_enqueue_slug()
