@@ -7,7 +7,7 @@ class ModelSearchResponse(BaseSearchResponse):
     """Models search response."""
 
     models: SearchModels
-    """List of all models matching the search query."""
+    """Paginated list of matching models."""
 
     def __init__(self, raw_response: StringDict) -> None:
         super().__init__(raw_response)

@@ -29,7 +29,7 @@ class SearchModel:
         return f":Name: {self.name}\n:ID: {self.id}\n:Model Type: {self.model_type}"
 
     def to_list_string(self) -> list[str]:
-        """String representation of the model."""
+        """Return a list of display lines for multi-line rendering."""
         return [
             f":Name: {self.name}",
             f":ID: {self.id}",

@@ -22,7 +22,7 @@ class RagDocumentSearchParameters(BaseSearchParameters[RagDocumentSearchResponse
 
     def __post_init__(self) -> None:
         if not self.model_id:
-            raise ValueError("ModelId is required in RagDocumentSearchParameters")
+            raise ValueError("model_id is required in RagDocumentSearchParameters")
 
     def get_request_parameters(self) -> dict[str, str | list[str]]:
         params = super().get_request_parameters()
