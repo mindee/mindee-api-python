@@ -4,7 +4,7 @@ from mindee.v2.parsing.search.search_rag_documents import SearchRagDocuments
 
 
 class RagDocumentSearchResponse(BaseSearchResponse):
-    """RAG documents search response."""
+    """RAG Documents search response."""
 
     rag_documents: SearchRagDocuments
     """Paginated list of matching RAG documents."""
@@ -14,5 +14,5 @@ class RagDocumentSearchResponse(BaseSearchResponse):
         self.rag_documents = SearchRagDocuments(raw_response["rag_documents"])
 
     def body_lines(self) -> list[str]:
-        """List of strings representing the search response."""
-        return ["RAG Documents", "################", str(self.rag_documents)]
+        """Lines composing the response-specific body (header + items)."""
+        return ["RAG Documents", "#############", str(self.rag_documents)]

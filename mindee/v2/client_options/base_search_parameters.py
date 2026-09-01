@@ -31,9 +31,9 @@ class BaseSearchParameters(ABC, Generic[TypeSearchResponse]):
         """
         data: dict[str, str | list[str]] = {}
 
-        if self.page is not None:
+        if self.page is not None and self.page > 0:
             data["page"] = str(self.page)
-        if self.per_page is not None:
+        if self.per_page is not None and self.per_page > 0:
             data["per_page"] = str(self.per_page)
 
         return data

@@ -23,9 +23,9 @@ class ModelSearchParameters(BaseSearchParameters[ModelSearchResponse]):
 
         params = super().get_request_parameters()
 
-        if self.name is not None:
+        if self.name:
             params["name"] = self.name
-        if self.model_type is not None:
+        if self.model_type:
             params["model_type"] = self.model_type
 
         return params

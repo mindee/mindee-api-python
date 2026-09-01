@@ -7,12 +7,12 @@ class ModelSearchResponse(BaseSearchResponse):
     """Models search response."""
 
     models: SearchModels
-    """Paginated list of matching models."""
+    """List of all models matching the search query."""
 
     def __init__(self, raw_response: StringDict) -> None:
         super().__init__(raw_response)
         self.models = SearchModels(raw_response["models"])
 
     def body_lines(self) -> list[str]:
-        """List of strings representing the search response."""
+        """Lines composing the response-specific body (header + items)."""
         return ["Models", "######", str(self.models)]

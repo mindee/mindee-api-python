@@ -26,16 +26,20 @@ def parser() -> MindeeParser:
     from mindee.v2.commands.search_models_command import (
         SearchModelsCommand,
     )
+    from mindee.v2.commands.search_rag_documents_command import (
+        SearchRagDocumentsCommand,
+    )
 
     p._inference_commands = {cmd.name: cmd for cmd in _build_inference_commands()}
     p._search_models_command = SearchModelsCommand()
+    p._search_rag_documents_command = SearchRagDocumentsCommand()
     p._client_factory = _default_client_factory
     p._build_parser()
     return p
 
 
 def test_top_level_subcommands_registered(parser: MindeeParser):
-    """All V2 inference subcommands + search-models + v1 are reachable."""
+    """All V2 inference subcommands + search commands + v1 are reachable."""
     expected = {
         "classification",
         "crop",
@@ -43,6 +47,7 @@ def test_top_level_subcommands_registered(parser: MindeeParser):
         "ocr",
         "split",
         "search-models",
+        "search-rag-docs",
         "v1",
     }
     actions = [a for a in parser.parser._actions if a.dest == "cmd"]
@@ -154,6 +159,26 @@ def test_search_models_rejects_invalid_model_type(parser: MindeeParser):
         parser.parser.parse_args(["search-models", "--model-type", "nope"])
 
 
+def test_search_rag_documents_flags(parser: MindeeParser):
+    ns = parser.parser.parse_args(
+        [
+            "search-rag-docs",
+            "--api-key",
+            "dummy",
+            "--model-id",
+            "model-1",
+            "--filename",
+            "invoice",
+            "--raw-json",
+        ]
+    )
+    assert ns.cmd == "search-rag-docs"
+    assert ns.api_key == "dummy"
+    assert ns.model_id == "model-1"
+    assert ns.filename == "invoice"
+    assert ns.raw_json is True
+
+
 def test_v1_group_dispatches_to_v1_product(parser: MindeeParser):
     """The `v1` group preserves the existing V1 product subcommand shape."""
     ns = parser.parser.parse_args(
@@ -211,6 +236,24 @@ def test_search_models_dispatches_to_search_command(monkeypatch, parser: MindeeP
     )
     parser.call_parse()
     assert captured == {"name": "inv", "model_type": "extraction"}
+
+
+def test_search_rag_documents_dispatches_to_search_command(
+    monkeypatch, parser: MindeeParser
+):
+    captured = {}
+
+    def fake_execute(args, factory):
+        captured["model_id"] = args.model_id
+        captured["filename"] = args.filename
+        return 0
+
+    monkeypatch.setattr(parser._search_rag_documents_command, "execute", fake_execute)
+    parser.parsed_args = parser.parser.parse_args(
+        ["search-rag-docs", "-m", "model-1", "-f", "invoice"]
+    )
+    parser.call_parse()
+    assert captured == {"model_id": "model-1", "filename": "invoice"}
 
 
 def test_v1_group_delegates_to_v1_mindee_parser(monkeypatch, parser: MindeeParser):

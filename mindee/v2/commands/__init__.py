@@ -6,6 +6,7 @@ from mindee.v2.commands.extraction_command import ExtractionCommand
 from mindee.v2.commands.ocr_command import OcrCommand
 from mindee.v2.commands.output_type import OutputType
 from mindee.v2.commands.search_models_command import SearchModelsCommand
+from mindee.v2.commands.search_rag_documents_command import SearchRagDocumentsCommand
 from mindee.v2.commands.split_command import SplitCommand
 
 __all__ = [
@@ -18,5 +19,6 @@ __all__ = [
     "OcrCommand",
     "OutputType",
     "SearchModelsCommand",
+    "SearchRagDocumentsCommand",
     "SplitCommand",
 ]

@@ -1,5 +1,5 @@
 class ModelWebhook:
-    """Model webhook information."""
+    """Information about a model's webhook."""
 
     id: str
     """ID of the webhook."""

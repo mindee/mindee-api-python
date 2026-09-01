@@ -63,9 +63,9 @@ def main() -> None:
     """Run the Command Line Interface.
 
     The unified ``mindee`` binary exposes V2 inference commands and the
-    ``search-models`` utility at the root, with all V1 product commands
-    wrapped under a ``v1`` subcommand — mirroring the canonical
-    ``mindee-api-dotnet`` CLI.
+    ``search-models`` and ``search-rag-docs`` utilities at the root, with
+    all V1 product commands wrapped under a ``v1`` subcommand — mirroring
+    the canonical ``mindee-api-dotnet`` CLI.
 
     Pass ``--verbose`` (or ``-v``) to enable diagnostic logging; repeat
     the flag (``--verbose --verbose``) for debug-level output.

@@ -16,6 +16,7 @@ from mindee.v2.commands.crop_command import CropCommand
 from mindee.v2.commands.extraction_command import ExtractionCommand
 from mindee.v2.commands.ocr_command import OcrCommand
 from mindee.v2.commands.search_models_command import SearchModelsCommand
+from mindee.v2.commands.search_rag_documents_command import SearchRagDocumentsCommand
 from mindee.v2.commands.split_command import SplitCommand
 from mindee.v2.error.mindee_api_v2_error import MindeeAPIV2Error
 
@@ -51,7 +52,7 @@ class MindeeParser:
 
     * V2 inference commands are exposed at the root level
       (``classification``, ``crop``, ``extraction``, ``ocr``, ``split``).
-    * The ``search-models`` utility is also at the root.
+    * The ``search-models`` and ``search-rag-docs`` utilities are also at the root.
     * V1 product commands are wrapped under a ``v1`` subcommand.
     """
 
@@ -60,6 +61,7 @@ class MindeeParser:
     _client_factory: Callable[[str | None], Client]
     _inference_commands: dict[str, BaseInferenceCommand]
     _search_models_command: SearchModelsCommand
+    _search_rag_documents_command: SearchRagDocumentsCommand
 
     def __init__(
         self,
@@ -76,6 +78,7 @@ class MindeeParser:
             cmd.name: cmd for cmd in _build_inference_commands()
         }
         self._search_models_command = SearchModelsCommand()
+        self._search_rag_documents_command = SearchRagDocumentsCommand()
         if parsed_args is None:
             self._build_parser()
             self.parsed_args = self.parser.parse_args()
@@ -95,27 +98,33 @@ class MindeeParser:
             self.parser.print_help()
             return 1
         try:
-            if cmd == "v1":
-                v1_parser = V1MindeeParser(parsed_args=self.parsed_args)
-                v1_parser.call_parse()
-                return 0
-            if cmd == self._search_models_command.name:
-                return self._search_models_command.execute(
-                    self.parsed_args, self._client_factory
-                )
-            inference_command = self._inference_commands.get(cmd)
-            if inference_command is None:
-                raise ValueError(f"Unknown command: {cmd}")
-            return inference_command.execute(self.parsed_args, self._client_factory)
+            return self._execute_command(cmd)
         except MindeeAPIV2Error as exc:
             return _report_api_key_error(exc, "V2", "MINDEE_V2_API_KEY")
         except MindeeAPIError as exc:
             return _report_api_key_error(exc, "V1", "MINDEE_API_KEY")
 
+    def _execute_command(self, cmd: str) -> int:
+        """Execute a parsed subcommand."""
+        if cmd == "v1":
+            v1_parser = V1MindeeParser(parsed_args=self.parsed_args)
+            v1_parser.call_parse()
+            return 0
+        if cmd == self._search_models_command.name:
+            return self._search_models_command.execute(
+                self.parsed_args, self._client_factory
+            )
+        if cmd == self._search_rag_documents_command.name:
+            return self._search_rag_documents_command.execute(
+                self.parsed_args, self._client_factory
+            )
+
+        inference_command = self._inference_commands.get(cmd)
+        if inference_command is None:
+            raise ValueError(f"Unknown command: {cmd}")
+        return inference_command.execute(self.parsed_args, self._client_factory)
+
     def _build_parser(self) -> None:
-        # ``--verbose`` / ``-v`` are pre-consumed in ``mindee.cli.main``
-        # (mirroring the .NET ``args.Contains("--verbose")`` pattern); we
-        # still register them here for ``--help`` discoverability.
         self.parser.add_argument(
             "-v",
             "--verbose",
@@ -129,6 +138,7 @@ class MindeeParser:
             cmd.register(subparsers)
 
         self._search_models_command.register(subparsers)
+        self._search_rag_documents_command.register(subparsers)
 
         v1_parser = subparsers.add_parser(
             "v1",

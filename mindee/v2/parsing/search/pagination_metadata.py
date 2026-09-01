@@ -1,12 +1,12 @@
 class PaginationMetadata:
-    """Pagination metadata."""
+    """Pagination metadata associated with model search."""
 
     per_page: int
     """Number of results per page."""
     page: int
     """1-indexed page number."""
     total_items: int
-    """Total number of items."""
+    """Total items."""
     total_pages: int
     """Total number of pages."""
     total_items_unfiltered: int | None
