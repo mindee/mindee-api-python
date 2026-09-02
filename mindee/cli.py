@@ -9,12 +9,7 @@ _V1_DASHV_PRODUCTS = ("custom", "generated")
 
 
 def _find_v1_dashv_boundary(argv: list[str]) -> int | None:
-    """Locate the position after which ``-v`` belongs to V1 ``custom`` /
-    ``generated``.
-
-    These two V1 products register ``-v/--version``; tokens at or beyond
-    the returned index must be left alone by the verbose pre-scan.
-    """
+    """Find the index after which -v means --version for V1 custom/generated."""
     for i, token in enumerate(argv):
         if token == "v1" and i + 1 < len(argv) and argv[i + 1] in _V1_DASHV_PRODUCTS:
             return i + 2
@@ -22,19 +17,10 @@ def _find_v1_dashv_boundary(argv: list[str]) -> int | None:
 
 
 def _extract_verbose_level(argv: list[str]) -> tuple[int, list[str]]:
-    """Pre-scan ``argv`` for ``--verbose`` / ``-v`` flags.
+    """
+    Consume --verbose / -v flags before argparse runs.
 
-    Mirrors ``mindee-api-dotnet``'s ``args.Contains("--verbose")`` check:
-    the flag is consumed before argparse runs so it can appear anywhere
-    on the command line.
-
-    * ``--verbose`` is consumed at any position (no conflict).
-    * ``-v`` is consumed at any position *except* after a ``v1 custom``
-      or ``v1 generated`` invocation, where it is the V1 product's own
-      ``--version`` option.
-
-    :returns: ``(level, remaining_argv)`` where ``level`` counts the number
-        of recognized verbose-flag occurrences.
+    :return: The verbose level and the remaining arguments.
     """
     level = 0
     remaining: list[str] = []
@@ -51,7 +37,7 @@ def _extract_verbose_level(argv: list[str]) -> tuple[int, list[str]]:
 
 
 def _configure_logging(verbose_level: int) -> None:
-    """Set the ``mindee`` logger level based on the verbose count."""
+    """Set the Mindee logger level based on the verbose count."""
     if verbose_level <= 0:
         return
     target = logging.INFO if verbose_level == 1 else logging.DEBUG
@@ -60,16 +46,7 @@ def _configure_logging(verbose_level: int) -> None:
 
 
 def main() -> None:
-    """Run the Command Line Interface.
-
-    The unified ``mindee`` binary exposes V2 inference commands and the
-    ``search-models`` and ``search-rag-docs`` utilities at the root, with
-    all V1 product commands wrapped under a ``v1`` subcommand — mirroring
-    the canonical ``mindee-api-dotnet`` CLI.
-
-    Pass ``--verbose`` (or ``-v``) to enable diagnostic logging; repeat
-    the flag (``--verbose --verbose``) for debug-level output.
-    """
+    """Run the Command Line Interface."""
 
     stdout = cast(io.TextIOWrapper, sys.stdout)
     stdout_encoding = str(stdout.encoding)

@@ -8,11 +8,7 @@ from mindee.v2.search.rag_documents.rag_document_search_parameters import (
 
 
 class SearchRagDocumentsCommand:
-    """Builder + handler for the V2 ``search-rag-docs`` subcommand.
-
-    Mirrors ``Mindee.Cli.Commands.V2.SearchRagDocumentsCommand`` from the
-    .NET SDK.
-    """
+    """CLI command for searching available RAG documents for a given model."""
 
     name = "search-rag-docs"
     description = "Search available RAG documents for a given model."

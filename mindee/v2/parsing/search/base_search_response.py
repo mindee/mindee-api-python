@@ -21,7 +21,7 @@ class BaseSearchResponse(CommonResponse, ABC):
 
     def __str__(self) -> str:
         """
-        String representation.
+        String representation of the search response.
         """
         lines: list[str] = self.body_lines()
         lines += ["Pagination Metadata", "###################", str(self.pagination)]

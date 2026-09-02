@@ -14,4 +14,5 @@ class ModelWebhook:
         self.url = server_response["url"]
 
     def __str__(self) -> str:
+        """String representation of the webhook."""
         return f":Name: {self.name}\n:ID: {self.id}\n:URL: {self.url}"

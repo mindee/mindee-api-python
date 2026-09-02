@@ -25,16 +25,11 @@ PROG_NAME = "mindee"
 
 
 class MindeeArgumentParser(ArgumentParser):
-    """Top-level argument parser for the unified ``mindee`` CLI."""
+    """Top-level argument parser for the unified Mindee CLI."""
 
 
 def _build_inference_commands() -> list[BaseInferenceCommand]:
-    """Return a fresh list of V2 inference command instances.
-
-    Add a new product by appending its command class here. Each command
-    owns its own options, parameters and output formatting; there is no
-    central registry to keep in sync.
-    """
+    """Return a fresh list of V2 inference command instances."""
     return [
         ClassificationCommand(),
         CropCommand(),
@@ -45,16 +40,7 @@ def _build_inference_commands() -> list[BaseInferenceCommand]:
 
 
 class MindeeParser:
-    """
-    Top-level parser for the unified ``mindee`` CLI.
-
-    The shape mirrors the .NET ``Mindee.Cli`` binary:
-
-    * V2 inference commands are exposed at the root level
-      (``classification``, ``crop``, ``extraction``, ``ocr``, ``split``).
-    * The ``search-models`` and ``search-rag-docs`` utilities are also at the root.
-    * V1 product commands are wrapped under a ``v1`` subcommand.
-    """
+    """Top-level parser for the unified Mindee CLI."""
 
     parser: MindeeArgumentParser
     parsed_args: Namespace
@@ -87,11 +73,7 @@ class MindeeParser:
         self._client_factory = client_factory or _default_client_factory
 
     def call_parse(self) -> int:
-        """Dispatch the parsed command to its handler.
-
-        :returns: The exit code (``0`` on success, ``1`` on a recoverable
-            CLI error such as a missing API key).
-        """
+        """Dispatch the parsed command to its handler and return the exit code."""
         cmd = getattr(self.parsed_args, "cmd", None)
         if cmd is None:
             print("Please specify a subcommand.\n")
@@ -105,7 +87,6 @@ class MindeeParser:
             return _report_api_key_error(exc, "V1", "MINDEE_API_KEY")
 
     def _execute_command(self, cmd: str) -> int:
-        """Execute a parsed subcommand."""
         if cmd == "v1":
             v1_parser = V1MindeeParser(parsed_args=self.parsed_args)
             v1_parser.call_parse()
@@ -153,11 +134,7 @@ def _default_client_factory(api_key: str | None) -> Client:
 
 
 def _report_api_key_error(exc: Exception, version: str, env_var: str) -> int:
-    """Print a friendly missing-key message to stderr and return exit code 1.
-
-    Mirrors the .NET CLI's handling of ``OptionsValidationException`` when
-    the API key cannot be resolved from the command line or the environment.
-    """
+    """Print a friendly missing-key message to stderr and return exit code 1."""
     message = str(exc) or "API key is missing."
     if "Missing API key" in message or "api key" in message.lower():
         message = (

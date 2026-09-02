@@ -2,7 +2,7 @@ class PaginationMetadata:
     """Pagination metadata associated with searches."""
 
     per_page: int
-    """Number of results per page."""
+    """Number of items per page."""
     page: int
     """1-indexed page number."""
     total_items: int
@@ -17,6 +17,7 @@ class PaginationMetadata:
         self.total_pages = server_response["total_pages"]
 
     def __str__(self) -> str:
+        """String representation of the pagination metadata."""
         return (
             f":Per Page: {self.per_page}\n"
             f":Page: {self.page}\n"

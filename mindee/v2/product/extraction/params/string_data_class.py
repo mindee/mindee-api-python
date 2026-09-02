@@ -7,9 +7,9 @@ class StringDataClass:
     """Base class for dataclasses that can be serialized to JSON."""
 
     @staticmethod
-    def _no_none_values(x) -> dict:
+    def _no_none_values(items) -> dict:
         """Don't include None values in the JSON output."""
-        return {k: v for (k, v) in x if v is not None}
+        return {k: v for (k, v) in items if v is not None}
 
     def __str__(self) -> str:
         return json.dumps(

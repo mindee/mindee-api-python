@@ -14,11 +14,7 @@ _AVAILABLE_MODEL_TYPES: list[str] = [
 
 
 class SearchModelsCommand:
-    """Builder + handler for the V2 ``search-models`` subcommand.
-
-    Mirrors ``Mindee.Cli.Commands.V2.SearchModelsCommand`` from the .NET
-    SDK.
-    """
+    """CLI command for searching available models."""
 
     name = "search-models"
     description = "Search available models."
@@ -47,7 +43,7 @@ class SearchModelsCommand:
             default=None,
         )
         model_type_help = (
-            "Filter by exact model type (case sensitive).\nAvailable options:\n - "
+            "Filter by exact model type.\nAvailable options:\n - "
             + "\n - ".join(_AVAILABLE_MODEL_TYPES)
         )
         parser.add_argument(

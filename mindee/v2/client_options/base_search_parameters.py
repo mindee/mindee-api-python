@@ -32,15 +32,13 @@ class BaseSearchParameters(ABC, Generic[TypeSearchResponse]):
         data: dict[str, str | list[str]] = {}
 
         if self.page is not None:
-            if self.page > 0:
-                data["page"] = str(self.page)
-            else:
+            if self.page <= 0:
                 raise ValueError("page must be a positive integer")
+            data["page"] = str(self.page)
         if self.per_page is not None:
-            if self.per_page > 0:
-                data["per_page"] = str(self.per_page)
-            else:
+            if self.per_page <= 0:
                 raise ValueError("per_page must be a positive integer")
+            data["per_page"] = str(self.per_page)
 
         return data
 
