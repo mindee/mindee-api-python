@@ -105,10 +105,7 @@ class MindeeArgumentParser(ArgumentParser):
 
 def register_v1_product_subparsers(parser: ArgumentParser) -> None:
     """
-    Register V1 product subparsers under the given ``parser``.
-
-    Used both by the legacy ``mindee`` binary and by the ``v1`` group of
-    the unified ``mindeeV2`` CLI.
+    Register V1 product subparsers under the given parser.
     """
     parse_product_subparsers = parser.add_subparsers(
         dest="product_name",

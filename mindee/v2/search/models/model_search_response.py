@@ -14,5 +14,5 @@ class ModelSearchResponse(BaseSearchResponse):
         self.models = SearchModels(raw_response["models"])
 
     def body_lines(self) -> list[str]:
-        """List of strings representing the search response."""
+        """Lines composing the response-specific body (header + items)."""
         return ["Models", "######", str(self.models)]

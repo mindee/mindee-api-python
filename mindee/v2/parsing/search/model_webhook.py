@@ -1,5 +1,5 @@
 class ModelWebhook:
-    """Model webhook information."""
+    """Information about a model's webhook."""
 
     id: str
     """ID of the webhook."""
@@ -14,4 +14,5 @@ class ModelWebhook:
         self.url = server_response["url"]
 
     def __str__(self) -> str:
+        """String representation of the webhook."""
         return f":Name: {self.name}\n:ID: {self.id}\n:URL: {self.url}"

@@ -9,7 +9,7 @@ class BaseSearchResponse(CommonResponse, ABC):
     """Base class for search responses."""
 
     pagination: PaginationMetadata
-    """Pagination metadata for the search results."""
+    """Pagination metadata."""
 
     def __init__(self, raw_response: StringDict) -> None:
         super().__init__(raw_response)
@@ -17,11 +17,11 @@ class BaseSearchResponse(CommonResponse, ABC):
 
     @abstractmethod
     def body_lines(self) -> list[str]:
-        """List of strings representing the search response."""
+        """Lines composing the response-specific body (header + items)."""
 
     def __str__(self) -> str:
         """
-        String representation.
+        String representation of the search response.
         """
         lines: list[str] = self.body_lines()
         lines += ["Pagination Metadata", "###################", str(self.pagination)]

@@ -28,9 +28,20 @@ Search Models
     :members:
     :inherited-members:
 
+Search RAG Document
+###################
+.. autoclass:: mindee.v2.parsing.search.search_rag_document.SearchRagDocument
+    :members:
+    :inherited-members:
+
+Search RAG Documents
+####################
+.. autoclass:: mindee.v2.parsing.search.search_rag_documents.SearchRagDocuments
+    :members:
+    :inherited-members:
+
 Search Response
 ###############
 .. autoclass:: mindee.v2.parsing.search.search_response.SearchResponse
     :members:
     :inherited-members:
-
