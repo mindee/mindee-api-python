@@ -24,7 +24,7 @@ def splits_multi_page_json_path():
     return V2_PRODUCT_DATA_DIR / "split" / "split_multiple.json"
 
 
-@pytest.mark.pypdfium2
+@pytest.mark.bernard_ledit
 def test_default_split():
     input_sample = PathInput(V2_PRODUCT_DATA_DIR / "split" / "default_sample.pdf")
     with open(V2_PRODUCT_DATA_DIR / "split" / "default_sample.json", "rb") as f:
@@ -38,7 +38,7 @@ def test_default_split():
     assert extracted_splits[1].filename == "default_sample_pages-002-002.pdf"
 
 
-@pytest.mark.pypdfium2
+@pytest.mark.bernard_ledit
 def test_multi_page_receipt_split(splits_5p, splits_multi_page_json_path):
     input_sample = PathInput(splits_5p)
     with open(splits_multi_page_json_path, "rb") as f:
@@ -57,7 +57,7 @@ def test_multi_page_receipt_split(splits_5p, splits_multi_page_json_path):
     assert extracted_splits[2].filename == "invoice_5p_pages-005-005.pdf"
 
 
-@pytest.mark.pypdfium2
+@pytest.mark.bernard_ledit
 def test_multi_page_receipt_single_split(splits_5p, splits_multi_page_json_path):
     input_sample = PathInput(splits_5p)
     with open(splits_multi_page_json_path, "rb") as f:

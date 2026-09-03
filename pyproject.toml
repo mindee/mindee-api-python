@@ -28,8 +28,7 @@ classifiers = [
 requires-python = ">=3.10"
 
 dependencies = [
-    "pypdfium2>=4.0,<6.0",
-    "Pillow>=12.2.0",
+    "bernard-ledit",
     "httpx[http2]>=0.28.1,<1.0",
 ]
 
@@ -98,6 +97,7 @@ select = ["E", "F", "I", "UP", "B", "SIM", "C4", "RUF", "PT"]
 ignore = ["E501"]
 
 [tool.mypy]
+mypy_path = "bernard-ledit/bindings/python"
 disallow_any_unimported = true
 disallow_subclassing_any = true
 disallow_untyped_calls = true
@@ -106,10 +106,6 @@ no_implicit_optional = true
 strict_equality = true
 warn_unused_ignores = true
 warn_unreachable = true
-
-[[tool.mypy.overrides]]
-module = "pypdfium2.*"
-ignore_missing_imports = true
 
 
 [tool.pylic]
@@ -133,8 +129,7 @@ markers = [
     "integration: integration tests that send calls to the API - select with '-m integration'",
     "lite: tests for mindee-lite",
     "v2: tests specific to version 2 of the API",
-    "pillow: tests that require the use of the Pillow (PIL) library",
-    "pypdfium2: tests that require the usage of the pypdfium2 library",
+    "bernard_ledit: tests that require the usage of the Bernard L'Édit library",
     "regression: marks tests as regression tests - select with '-m regression'",
 ]
 testpaths = [

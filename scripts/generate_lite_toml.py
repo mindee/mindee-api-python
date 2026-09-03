@@ -15,22 +15,16 @@ def generate_lite() -> None:
 
     original_deps = data["project"]["dependencies"]
     heavy_deps = [
-        dep
-        for dep in original_deps
-        if str(dep).lower().startswith("pillow")
-        or str(dep).lower().startswith("pypdfium2")
+        dep for dep in original_deps if str(dep).lower().startswith("bernard-ledit")
     ]
     lite_deps = [
-        dep
-        for dep in original_deps
-        if not str(dep).lower().startswith("pillow")
-        and not str(dep).lower().startswith("pypdfium2")
+        dep for dep in original_deps if not str(dep).lower().startswith("bernard-ledit")
     ]
     data["project"]["optional-dependencies"]["heavy"] = heavy_deps
     data["project"]["dependencies"] = lite_deps
     data["tool"]["pytest"]["ini_options"]["addopts"] = data["tool"]["pytest"][
         "ini_options"
-    ]["addopts"].replace(" lite", " pypdfium2 and not pillow")
+    ]["addopts"].replace("not lite", "not bernard_ledit")
 
     with open("pyproject-lite.toml", "w", encoding="utf-8") as file_data:
         toml.dump(data, file_data)
