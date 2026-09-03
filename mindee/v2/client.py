@@ -1,3 +1,4 @@
+import warnings
 from time import sleep
 from typing import TypeVar
 
@@ -189,6 +190,11 @@ class Client(ClientMixin):
         """
         Deprecated. Use `search` instead.
         """
+        warnings.warn(
+            "search_models is deprecated, use search instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         return self.mindee_api.req_get_search_models(name, model_type)
 
     def close(self) -> None:

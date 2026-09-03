@@ -6,13 +6,13 @@ class SearchModel:
     """Individual model information."""
 
     id: str
-    """Model ID."""
+    """ID of the model."""
     name: str
-    """Model name."""
+    """Name of the model."""
     model_type: str
-    """Model type."""
+    """Type of the model."""
     webhooks: list[ModelWebhook]
-    """Webhooks associated with the model."""
+    """List of webhooks associated with the model."""
 
     def __init__(self, server_response: StringDict) -> None:
         self.id = server_response["id"]
@@ -23,3 +23,15 @@ class SearchModel:
             if "webhooks" in server_response
             else []
         )
+
+    def __str__(self) -> str:
+        """String representation of the model."""
+        return f":Name: {self.name}\n:ID: {self.id}\n:Model Type: {self.model_type}"
+
+    def to_list_string(self) -> list[str]:
+        """String representation of the model as a list of lines."""
+        return [
+            f":Name: {self.name}",
+            f":ID: {self.id}",
+            f":Model Type: {self.model_type}",
+        ]

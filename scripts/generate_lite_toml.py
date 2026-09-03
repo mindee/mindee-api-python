@@ -5,8 +5,8 @@ import toml
 
 def generate_lite() -> None:
     """Generates the mindee-lite version of pyproject.toml"""
-    with open("pyproject.toml", encoding="utf-8") as f:
-        data: dict[str, Any] = toml.load(f)
+    with open("pyproject.toml", encoding="utf-8") as file_data:
+        data: dict[str, Any] = toml.load(file_data)
 
     data["project"]["name"] = "mindee-lite"
     data["project"]["description"] = (
@@ -32,8 +32,8 @@ def generate_lite() -> None:
         "ini_options"
     ]["addopts"].replace(" lite", " pypdfium2 and not pillow")
 
-    with open("pyproject-lite.toml", "w", encoding="utf-8") as f:
-        toml.dump(data, f)
+    with open("pyproject-lite.toml", "w", encoding="utf-8") as file_data:
+        toml.dump(data, file_data)
 
     print("Successfully generated pyproject-lite.toml")
 

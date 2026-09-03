@@ -16,24 +16,13 @@ from mindee.v2.commands.output_type import OutputType
 
 
 class BaseInferenceCommand:
-    """Abstract base class for V2 inference CLI commands.
-
-    Owns the options shared by every V2 inference product
-    (``path``, ``--model-id``, ``--api-key``, ``--alias``, ``--output``),
-    the input-source resolution, the client invocation, and the output
-    formatting. Each concrete subclass owns its own product-specific
-    options, builds the right :class:`BaseParameters` instance, and may
-    customize the human-readable output.
-
-    Mirrors the canonical PHP implementation in
-    ``mindee-api-php/bin/V2/BaseInferenceCommand.php``.
-    """
+    """Abstract base class for V2 inference CLI commands."""
 
     name: str
     """Name of the subcommand (also used as product key)."""
 
     description: str
-    """Human-readable description shown in ``--help``."""
+    """Human-readable description shown in the help."""
 
     def register(self, subparsers: _SubParsersAction) -> ArgumentParser:
         """Register this command on the given subparsers action."""
@@ -92,19 +81,14 @@ class BaseInferenceCommand:
         return parser
 
     def configure_product_options(self, parser: ArgumentParser) -> None:
-        """Hook for subclasses to add product-specific options.
-
-        No-op by default. Override (for example in
-        :class:`~mindee.v2.commands.extraction_command.ExtractionCommand`)
-        to add flags only relevant to a single product.
-        """
+        """Hook for subclasses to add product-specific options."""
 
     def execute(
         self,
         parsed_args: Namespace,
         client_factory: Callable[[str | None], Client],
     ) -> int:
-        """Run the inference for ``parsed_args`` using ``client_factory``."""
+        """Run the inference and print the result."""
         api_key = getattr(parsed_args, "api_key", None)
         model_id = parsed_args.model_id
         webhook_ids = getattr(parsed_args, "webhook_ids", None)
@@ -152,11 +136,7 @@ class BaseInferenceCommand:
         return str(inference.result)
 
     def get_full_output(self, parsed_args: Namespace, response) -> str:
-        """Detailed representation of an inference response.
-
-        Defaults to the full inference dump; override to add
-        product-specific sections (raw text, RAG, ...).
-        """
+        """Detailed representation of an inference response."""
         del parsed_args
         inference = getattr(response, "inference", None)
         if inference is None:

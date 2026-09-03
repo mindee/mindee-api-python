@@ -20,12 +20,16 @@ class RagDocumentSearchParameters(BaseSearchParameters[RagDocumentSearchResponse
     _slug: ClassVar[str] = "rag-documents"
     _response_class: type[RagDocumentSearchResponse] = RagDocumentSearchResponse
 
+    def __post_init__(self) -> None:
+        if not self.model_id:
+            raise ValueError("model_id is required in RagDocumentSearchParameters")
+
     def get_request_parameters(self) -> dict[str, str | list[str]]:
         params = super().get_request_parameters()
 
         params["model_id"] = self.model_id
 
-        if self.filename is not None:
+        if self.filename:
             params["filename"] = self.filename
 
         return params

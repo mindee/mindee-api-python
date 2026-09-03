@@ -17,25 +17,16 @@ class InferenceActiveOptions:
     """Active options for the inference."""
 
     raw_text: bool
-    """
-    Whether the Raw Text feature was activated.
-    When this feature is activated, the raw text extracted from the document is returned in the result.
-    """
+    """Extract the full text content from the document as strings, and fill the ``raw_text`` attribute."""
     polygon: bool
-    """
-    Whether the polygon feature was activated.
-    When this feature is activated, the bounding-box polygon(s) for each field is returned in the result.
-    """
+    """Calculate bounding box polygons for all fields, and fill their ``locations`` attribute."""
     confidence: bool
     """
-    Whether the confidence feature was activated.
-    When this feature is activated, a confidence score for each field is returned in the result.
+    Boost the precision and accuracy of all extractions.
+    Calculate confidence scores for all fields, and fill their ``confidence`` attribute.
     """
     rag: bool
-    """
-    Whether the Retrieval-Augmented Generation feature was activated.
-    When this feature is activated, the RAG pipeline is used to increase result accuracy.
-    """
+    """Enhance extraction accuracy with Retrieval-Augmented Generation."""
     text_context: bool
     """
     Whether the text context feature was activated.

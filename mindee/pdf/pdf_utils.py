@@ -117,8 +117,8 @@ def _process_char(
 
     adjusted_box = _adjust_char_box(char_box, rotation, internal_height, internal_width)
     char_data_list: list[PDFCharData] = []
-    for c in char_info["char"] or " ":
-        if c in (
+    for char in char_info["char"] or " ":
+        if char in (
             "\n",
             "\r",
         ):  # Removes duplicated carriage returns in the PDF due to weird extraction.
@@ -129,7 +129,7 @@ def _process_char(
 
         char_data_list.append(
             PDFCharData(
-                char=c,
+                char=char,
                 left=int(adjusted_box[0]),
                 right=int(adjusted_box[1]),
                 top=int(adjusted_box[2]),
@@ -288,13 +288,13 @@ def _adjust_char_box(
     return left, right, top, bottom
 
 
-def lerp(start: float, end: float, t: float) -> float:
+def lerp(start: float, end: float, factor: float) -> float:
     """
     Performs linear interpolation between two numbers.
 
     :param start: The starting value.
     :param end: The ending value.
-    :param t: The interpolation factor (0 to 1).
+    :param factor: The interpolation factor (0 to 1).
     :return: The interpolated value.
     """
-    return start * (1 - t) + end * t
+    return start * (1 - factor) + end * factor

@@ -10,22 +10,20 @@ class ModelSearchParameters(BaseSearchParameters[ModelSearchResponse]):
     """Search parameters for models."""
 
     name: str | None = None
-    """Case-insensitive search term for the model name"""
+    """Case-insensitive search term for the model name."""
 
     model_type: str | None = None
-    """Case-insensitive search term for the model type"""
+    """Case-insensitive search term for the model type."""
 
     _slug: ClassVar[str] = "models"
     _response_class: type[ModelSearchResponse] = ModelSearchResponse
 
     def get_request_parameters(self) -> dict[str, str | list[str]]:
-        """Return the parameters for the request."""
-
         params = super().get_request_parameters()
 
-        if self.name is not None:
+        if self.name:
             params["name"] = self.name
-        if self.model_type is not None:
+        if self.model_type:
             params["model_type"] = self.model_type
 
         return params

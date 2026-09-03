@@ -10,6 +10,7 @@ V2 Utilities
     ./mindee_http
     ./parsing/index
     ./product/index
+    ./search
 
 
 

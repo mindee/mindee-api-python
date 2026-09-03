@@ -26,16 +26,20 @@ def parser() -> MindeeParser:
     from mindee.v2.commands.search_models_command import (
         SearchModelsCommand,
     )
+    from mindee.v2.commands.search_rag_documents_command import (
+        SearchRagDocumentsCommand,
+    )
 
     p._inference_commands = {cmd.name: cmd for cmd in _build_inference_commands()}
     p._search_models_command = SearchModelsCommand()
+    p._search_rag_documents_command = SearchRagDocumentsCommand()
     p._client_factory = _default_client_factory
     p._build_parser()
     return p
 
 
 def test_top_level_subcommands_registered(parser: MindeeParser):
-    """All V2 inference subcommands + search-models + v1 are reachable."""
+    """All V2 inference subcommands + search commands + v1 are reachable."""
     expected = {
         "classification",
         "crop",
@@ -43,6 +47,7 @@ def test_top_level_subcommands_registered(parser: MindeeParser):
         "ocr",
         "split",
         "search-models",
+        "search-rag-docs",
         "v1",
     }
     actions = [a for a in parser.parser._actions if a.dest == "cmd"]
@@ -52,7 +57,7 @@ def test_top_level_subcommands_registered(parser: MindeeParser):
 
 def test_extraction_command_exposes_full_flag_set(parser: MindeeParser):
     """Extraction must expose --rag, --raw-text, --confidence, --polygon, --text-context."""
-    ns = parser.parser.parse_args(
+    parsed_args = parser.parser.parse_args(
         [
             "extraction",
             "--api-key",
@@ -72,22 +77,22 @@ def test_extraction_command_exposes_full_flag_set(parser: MindeeParser):
             "path/to/file.pdf",
         ]
     )
-    assert ns.cmd == "extraction"
-    assert ns.api_key == "dummy"
-    assert ns.model_id == "model-1"
-    assert ns.alias == "my-alias"
-    assert ns.rag is True
-    assert ns.raw_text is True
-    assert ns.confidence is True
-    assert ns.polygon is True
-    assert ns.text_context == "ctx"
-    assert ns.output == OutputType.FULL.value
-    assert ns.path == "path/to/file.pdf"
+    assert parsed_args.cmd == "extraction"
+    assert parsed_args.api_key == "dummy"
+    assert parsed_args.model_id == "model-1"
+    assert parsed_args.alias == "my-alias"
+    assert parsed_args.rag is True
+    assert parsed_args.raw_text is True
+    assert parsed_args.confidence is True
+    assert parsed_args.polygon is True
+    assert parsed_args.text_context == "ctx"
+    assert parsed_args.output == OutputType.FULL.value
+    assert parsed_args.path == "path/to/file.pdf"
 
 
 def test_extraction_short_flags(parser: MindeeParser):
     """Extraction must accept the short form of every documented flag."""
-    ns = parser.parser.parse_args(
+    parsed_args = parser.parser.parse_args(
         [
             "extraction",
             "-k",
@@ -107,12 +112,12 @@ def test_extraction_short_flags(parser: MindeeParser):
             "path/to/file.pdf",
         ]
     )
-    assert ns.rag is True
-    assert ns.raw_text is True
-    assert ns.confidence is True
-    assert ns.polygon is True
-    assert ns.text_context == "ctx"
-    assert ns.output == OutputType.RAW.value
+    assert parsed_args.rag is True
+    assert parsed_args.raw_text is True
+    assert parsed_args.confidence is True
+    assert parsed_args.polygon is True
+    assert parsed_args.text_context == "ctx"
+    assert parsed_args.output == OutputType.RAW.value
 
 
 @pytest.mark.parametrize(
@@ -130,7 +135,7 @@ def test_non_extraction_commands_omit_extraction_only_flags(
 
 
 def test_search_models_flags(parser: MindeeParser):
-    ns = parser.parser.parse_args(
+    parsed_args = parser.parser.parse_args(
         [
             "search-models",
             "--api-key",
@@ -142,11 +147,11 @@ def test_search_models_flags(parser: MindeeParser):
             "--raw-json",
         ]
     )
-    assert ns.cmd == "search-models"
-    assert ns.api_key == "dummy"
-    assert ns.name == "invoice"
-    assert ns.model_type == "extraction"
-    assert ns.raw_json is True
+    assert parsed_args.cmd == "search-models"
+    assert parsed_args.api_key == "dummy"
+    assert parsed_args.name == "invoice"
+    assert parsed_args.model_type == "extraction"
+    assert parsed_args.raw_json is True
 
 
 def test_search_models_rejects_invalid_model_type(parser: MindeeParser):
@@ -154,9 +159,29 @@ def test_search_models_rejects_invalid_model_type(parser: MindeeParser):
         parser.parser.parse_args(["search-models", "--model-type", "nope"])
 
 
+def test_search_rag_documents_flags(parser: MindeeParser):
+    parsed_args = parser.parser.parse_args(
+        [
+            "search-rag-docs",
+            "--api-key",
+            "dummy",
+            "--model-id",
+            "model-1",
+            "--filename",
+            "invoice",
+            "--raw-json",
+        ]
+    )
+    assert parsed_args.cmd == "search-rag-docs"
+    assert parsed_args.api_key == "dummy"
+    assert parsed_args.model_id == "model-1"
+    assert parsed_args.filename == "invoice"
+    assert parsed_args.raw_json is True
+
+
 def test_v1_group_dispatches_to_v1_product(parser: MindeeParser):
     """The `v1` group preserves the existing V1 product subcommand shape."""
-    ns = parser.parser.parse_args(
+    parsed_args = parser.parser.parse_args(
         [
             "v1",
             "invoice",
@@ -172,10 +197,10 @@ def test_v1_group_dispatches_to_v1_product(parser: MindeeParser):
             ),
         ]
     )
-    assert ns.cmd == "v1"
-    assert ns.product_name == "invoice"
-    assert ns.api_key == "dummy"
-    assert ns.output_type == "summary"
+    assert parsed_args.cmd == "v1"
+    assert parsed_args.product_name == "invoice"
+    assert parsed_args.api_key == "dummy"
+    assert parsed_args.output_type == "summary"
 
 
 def test_extraction_dispatches_to_inference_command(monkeypatch, parser: MindeeParser):
@@ -213,6 +238,24 @@ def test_search_models_dispatches_to_search_command(monkeypatch, parser: MindeeP
     assert captured == {"name": "inv", "model_type": "extraction"}
 
 
+def test_search_rag_documents_dispatches_to_search_command(
+    monkeypatch, parser: MindeeParser
+):
+    captured = {}
+
+    def fake_execute(args, factory):
+        captured["model_id"] = args.model_id
+        captured["filename"] = args.filename
+        return 0
+
+    monkeypatch.setattr(parser._search_rag_documents_command, "execute", fake_execute)
+    parser.parsed_args = parser.parser.parse_args(
+        ["search-rag-docs", "-m", "model-1", "-f", "invoice"]
+    )
+    parser.call_parse()
+    assert captured == {"model_id": "model-1", "filename": "invoice"}
+
+
 def test_v1_group_delegates_to_v1_mindee_parser(monkeypatch, parser: MindeeParser):
     """`v1` command instantiates the V1 MindeeParser with the parsed args."""
     seen = {}
@@ -240,13 +283,7 @@ def test_v1_group_delegates_to_v1_mindee_parser(monkeypatch, parser: MindeeParse
 
 
 def test_each_inference_command_is_self_contained(parser: MindeeParser):
-    """Every V2 inference command is its own subclass of BaseInferenceCommand.
-
-    Locks in the per-product class architecture: the dispatcher must hold
-    distinct ``BaseInferenceCommand`` instances rather than a single
-    config-driven command, so future products that don't fit the
-    document-extraction shape can simply not extend this base.
-    """
+    """Every V2 inference command is its own subclass of BaseInferenceCommand."""
     expected = {
         "classification": ClassificationCommand,
         "crop": CropCommand,

@@ -2,7 +2,7 @@ from mindee.v2.parsing.search.search_model import SearchModel
 
 
 class SearchModels(list[SearchModel]):
-    """List of models."""
+    """List of search models."""
 
     def __init__(self, raw_response: list[dict]) -> None:
         super().__init__([SearchModel(item) for item in raw_response])
@@ -19,6 +19,5 @@ class SearchModels(list[SearchModel]):
             lines.append(f"* :Name: {model.name}")
             lines.append(f"  :ID: {model.id}")
             lines.append(f"  :Model Type: {model.model_type}")
-            lines.append(f"  :Webhooks: {len(model.webhooks)}")
 
         return "\n".join(lines) + "\n"

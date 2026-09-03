@@ -2,22 +2,16 @@ from argparse import ArgumentParser, Namespace, _SubParsersAction
 from collections.abc import Callable
 
 from mindee.v2.client import Client
-from mindee.v2.search.models.model_search_parameters import ModelSearchParameters
-
-_AVAILABLE_MODEL_TYPES: list[str] = [
-    "extraction",
-    "crop",
-    "classification",
-    "ocr",
-    "split",
-]
+from mindee.v2.search.rag_documents.rag_document_search_parameters import (
+    RagDocumentSearchParameters,
+)
 
 
-class SearchModelsCommand:
-    """CLI command for searching available models."""
+class SearchRagDocumentsCommand:
+    """CLI command for searching available RAG documents for a given model."""
 
-    name = "search-models"
-    description = "Search available models."
+    name = "search-rag-docs"
+    description = "Search available RAG documents for a given model."
 
     def register(self, subparsers: _SubParsersAction) -> ArgumentParser:
         """Register this command on the given subparsers action."""
@@ -35,23 +29,17 @@ class SearchModelsCommand:
             default=None,
         )
         parser.add_argument(
-            "-n",
-            "--name",
-            dest="name",
-            help="Filter by model name partial match (case insensitive).",
-            required=False,
-            default=None,
-        )
-        model_type_help = (
-            "Filter by exact model type.\nAvailable options:\n - "
-            + "\n - ".join(_AVAILABLE_MODEL_TYPES)
+            "-m",
+            "--model-id",
+            dest="model_id",
+            help="Filter by model ID",
+            required=True,
         )
         parser.add_argument(
-            "-m",
-            "--model-type",
-            dest="model_type",
-            help=model_type_help,
-            choices=_AVAILABLE_MODEL_TYPES,
+            "-f",
+            "--filename",
+            dest="filename",
+            help="Filter by file name partial match (case insensitive).",
             required=False,
             default=None,
         )
@@ -72,9 +60,9 @@ class SearchModelsCommand:
         """Run the search and print the result."""
         client = client_factory(getattr(parsed_args, "api_key", None))
         response = client.search(
-            ModelSearchParameters(
-                name=getattr(parsed_args, "name", None),
-                model_type=getattr(parsed_args, "model_type", None),
+            RagDocumentSearchParameters(
+                model_id=parsed_args.model_id,
+                filename=getattr(parsed_args, "filename", None),
             )
         )
         if getattr(parsed_args, "raw_json", False):

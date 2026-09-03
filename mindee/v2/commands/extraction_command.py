@@ -6,12 +6,7 @@ from mindee.v2.commands.base_inference_command import BaseInferenceCommand
 
 
 class ExtractionCommand(BaseInferenceCommand):
-    """V2 CLI command for the generic all-purpose extraction utility.
-
-    Owns the extraction-only flags (``--rag``, ``--raw-text``,
-    ``--confidence``, ``--polygon``, ``--text-context``) and prepends the
-    optional Raw Text / RAG sections to the ``full`` output.
-    """
+    """V2 CLI command for the generic all-purpose extraction utility."""
 
     name = "extraction"
     description = "Generic all-purpose extraction."

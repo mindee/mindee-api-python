@@ -51,13 +51,13 @@ class ExtractionParameters(BaseProductParameters):
         if self.data_schema is not None:
             data["data_schema"] = str(self.data_schema)
         if self.rag is not None:
-            data["rag"] = data["rag"] = str(self.rag).lower()
+            data["rag"] = str(self.rag).lower()
         if self.raw_text is not None:
-            data["raw_text"] = data["raw_text"] = str(self.raw_text).lower()
+            data["raw_text"] = str(self.raw_text).lower()
         if self.polygon is not None:
-            data["polygon"] = data["polygon"] = str(self.polygon).lower()
+            data["polygon"] = str(self.polygon).lower()
         if self.confidence is not None:
-            data["confidence"] = data["confidence"] = str(self.confidence).lower()
+            data["confidence"] = str(self.confidence).lower()
         if self.text_context is not None:
             data["text_context"] = self.text_context
         return data
