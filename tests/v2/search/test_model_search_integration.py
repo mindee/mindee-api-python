@@ -17,9 +17,9 @@ def test_must_have_results(v2_client: Client):
     assert response is not None
     assert len(response.models) > 0
     for model in response.models:
-        assert model.id is not None
-        assert model.name is not None
-        assert model.model_type is not None
+        assert model.id
+        assert model.name
+        assert model.model_type
     assert response.pagination is not None
     assert response.pagination.total_items >= 1
     assert response.pagination.page == 1
