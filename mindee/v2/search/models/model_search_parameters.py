@@ -7,13 +7,20 @@ from mindee.v2.search.models.model_search_response import ModelSearchResponse
 
 @dataclass(kw_only=True)
 class ModelSearchParameters(BaseSearchParameters[ModelSearchResponse]):
-    """Search parameters for models."""
+    """
+    Search for models within the organization linked to the API key.
+
+    All search filters are optional.
+    If no search filters are given, all models belonging to the organization are returned.
+
+    Results are paginated.
+    """
 
     name: str | None = None
-    """Case-insensitive search term for the model name."""
+    """Filter models by partial name match, case-insensitive."""
 
     model_type: str | None = None
-    """Case-insensitive search term for the model type."""
+    """Filter by an exact model type."""
 
     _slug: ClassVar[str] = "models"
     _response_class: type[ModelSearchResponse] = ModelSearchResponse
