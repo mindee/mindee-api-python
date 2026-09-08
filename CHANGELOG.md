@@ -1,5 +1,11 @@
 # Mindee Python Client Library Changelog
 
+### v5.3.0 - 2026-09-08
+### Changes
+* :sparkles: add RAG search API
+* :recycle: cleanup and uniformize search implementation
+
+
 ## v5.2.0 - 2026-07-20
 ### Changes
 * :sparkles: add webhook error response
