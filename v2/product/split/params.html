@@ -19,7 +19,7 @@
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="Client Mixin" href="../../../client_mixin.html" />
+    <link rel="next" title="V2 Search" href="../../search.html" />
     <link rel="prev" title="Split" href="index.html" /> 
 </head>
 
@@ -74,6 +74,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../search.html">V2 Search</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../index.html#client-v2">Client V2</a></li>
@@ -139,8 +140,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="mindee.v2.product.split.params.split_parameters.SplitParameters.get_form_data">
-<span class="sig-name descname"><span class="pre">get_form_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.product.split.params.split_parameters.SplitParameters.get_form_data" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="mindee.v2.product.split.params.split_parameters.SplitParameters.get_request_parameters">
+<span class="sig-name descname"><span class="pre">get_request_parameters</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.product.split.params.split_parameters.SplitParameters.get_request_parameters" title="Link to this definition"></a></dt>
 <dd><p>Return the parameters as a config dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -155,7 +156,9 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.v2.product.split.params.split_parameters.SplitParameters.alias">
 <span class="sig-name descname"><span class="pre">alias</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#mindee.v2.product.split.params.split_parameters.SplitParameters.alias" title="Link to this definition"></a></dt>
-<dd><p>Use an alias to link the file to your own DB. If empty, no alias will be used.</p>
+<dd><p>Optional: a free-form string to tag the request with your own identifier.
+For example, an internal document ID, reference number, or database key.
+If set, it will be included in the job and result responses.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -167,7 +170,7 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.v2.product.split.params.split_parameters.SplitParameters.model_id">
 <span class="sig-name descname"><span class="pre">model_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#mindee.v2.product.split.params.split_parameters.SplitParameters.model_id" title="Link to this definition"></a></dt>
-<dd><p>ID of the model, required.</p>
+<dd><p>Model ID to use for the inference. Required.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -179,7 +182,8 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.v2.product.split.params.split_parameters.SplitParameters.webhook_ids">
 <span class="sig-name descname"><span class="pre">webhook_ids</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#mindee.v2.product.split.params.split_parameters.SplitParameters.webhook_ids" title="Link to this definition"></a></dt>
-<dd><p>IDs of webhooks to propagate the API response to.</p>
+<dd><p>Webhook IDs to call after all processing is finished.
+If empty, no webhooks will be used.</p>
 </dd></dl>
 
 </dd></dl>
@@ -192,7 +196,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="index.html" class="btn btn-neutral float-left" title="Split" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../../../client_mixin.html" class="btn btn-neutral float-right" title="Client Mixin" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../../search.html" class="btn btn-neutral float-right" title="V2 Search" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

@@ -55,8 +55,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../v1/index.html">V1 Utilities</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">V2 Utilities</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">V2 Client Options</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#base-parameters">Base Parameters</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#mindee.v2.client_options.base_parameters.BaseParameters"><code class="docutils literal notranslate"><span class="pre">BaseParameters</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#base-product-parameters">Base Product Parameters</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.v2.client_options.base_product_parameters.BaseProductParameters"><code class="docutils literal notranslate"><span class="pre">BaseProductParameters</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#base-search-parameters">Base Search Parameters</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mindee.v2.client_options.base_search_parameters.BaseSearchParameters"><code class="docutils literal notranslate"><span class="pre">BaseSearchParameters</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -66,6 +70,7 @@
 <li class="toctree-l2"><a class="reference internal" href="mindee_http.html">V2 Mindee HTTP</a></li>
 <li class="toctree-l2"><a class="reference internal" href="parsing/index.html">V2 Parsing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="product/index.html">V2 Products</a></li>
+<li class="toctree-l2"><a class="reference internal" href="search.html">V2 Search</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="index.html#client-v2">Client V2</a></li>
@@ -100,12 +105,12 @@
              
   <section id="v2-client-options">
 <h1>V2 Client Options<a class="headerlink" href="#v2-client-options" title="Link to this heading"></a></h1>
-<section id="base-parameters">
-<h2>Base Parameters<a class="headerlink" href="#base-parameters" title="Link to this heading"></a></h2>
+<section id="base-product-parameters">
+<h2>Base Product Parameters<a class="headerlink" href="#base-product-parameters" title="Link to this heading"></a></h2>
 <dl class="py class">
-<dt class="sig sig-object py" id="mindee.v2.client_options.base_parameters.BaseParameters">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">BaseParameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">webhook_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">polling_options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">close_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.client_options.base_parameters.BaseParameters" title="Link to this definition"></a></dt>
-<dd><p>Base class for parameters accepted by all V2 endpoints.</p>
+<dt class="sig sig-object py" id="mindee.v2.client_options.base_product_parameters.BaseProductParameters">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">BaseProductParameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">webhook_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">polling_options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">close_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.client_options.base_product_parameters.BaseProductParameters" title="Link to this definition"></a></dt>
+<dd><p>Base parameters for sending a file to a Mindee V2 product.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -118,8 +123,8 @@
 </dd>
 </dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="mindee.v2.client_options.base_parameters.BaseParameters.get_enqueue_slug">
-<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_enqueue_slug</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.client_options.base_parameters.BaseParameters.get_enqueue_slug" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="mindee.v2.client_options.base_product_parameters.BaseProductParameters.get_enqueue_slug">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_enqueue_slug</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.client_options.base_product_parameters.BaseProductParameters.get_enqueue_slug" title="Link to this definition"></a></dt>
 <dd><p>Getter for the enqueue slug.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -129,8 +134,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="mindee.v2.client_options.base_parameters.BaseParameters.get_form_data">
-<span class="sig-name descname"><span class="pre">get_form_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.client_options.base_parameters.BaseParameters.get_form_data" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="mindee.v2.client_options.base_product_parameters.BaseProductParameters.get_request_parameters">
+<span class="sig-name descname"><span class="pre">get_request_parameters</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.client_options.base_product_parameters.BaseProductParameters.get_request_parameters" title="Link to this definition"></a></dt>
 <dd><p>Return the parameters as a config dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -143,33 +148,102 @@
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.v2.client_options.base_parameters.BaseParameters.alias">
-<span class="sig-name descname"><span class="pre">alias</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#mindee.v2.client_options.base_parameters.BaseParameters.alias" title="Link to this definition"></a></dt>
-<dd><p>Use an alias to link the file to your own DB. If empty, no alias will be used.</p>
+<dt class="sig sig-object py" id="mindee.v2.client_options.base_product_parameters.BaseProductParameters.alias">
+<span class="sig-name descname"><span class="pre">alias</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#mindee.v2.client_options.base_product_parameters.BaseProductParameters.alias" title="Link to this definition"></a></dt>
+<dd><p>Optional: a free-form string to tag the request with your own identifier.
+For example, an internal document ID, reference number, or database key.
+If set, it will be included in the job and result responses.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.v2.client_options.base_parameters.BaseParameters.close_file">
-<span class="sig-name descname"><span class="pre">close_file</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></span><a class="headerlink" href="#mindee.v2.client_options.base_parameters.BaseParameters.close_file" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="mindee.v2.client_options.base_product_parameters.BaseProductParameters.close_file">
+<span class="sig-name descname"><span class="pre">close_file</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></span><a class="headerlink" href="#mindee.v2.client_options.base_product_parameters.BaseProductParameters.close_file" title="Link to this definition"></a></dt>
 <dd><p>Whether to close the file after product.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.v2.client_options.base_parameters.BaseParameters.model_id">
-<span class="sig-name descname"><span class="pre">model_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#mindee.v2.client_options.base_parameters.BaseParameters.model_id" title="Link to this definition"></a></dt>
-<dd><p>ID of the model, required.</p>
+<dt class="sig sig-object py" id="mindee.v2.client_options.base_product_parameters.BaseProductParameters.model_id">
+<span class="sig-name descname"><span class="pre">model_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#mindee.v2.client_options.base_product_parameters.BaseProductParameters.model_id" title="Link to this definition"></a></dt>
+<dd><p>Model ID to use for the inference. Required.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.v2.client_options.base_parameters.BaseParameters.polling_options">
-<span class="sig-name descname"><span class="pre">polling_options</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../client_options.html#mindee.client_options.polling_options.PollingOptions" title="mindee.client_options.polling_options.PollingOptions"><span class="pre">PollingOptions</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#mindee.v2.client_options.base_parameters.BaseParameters.polling_options" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="mindee.v2.client_options.base_product_parameters.BaseProductParameters.polling_options">
+<span class="sig-name descname"><span class="pre">polling_options</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../client_options.html#mindee.client_options.polling_options.PollingOptions" title="mindee.client_options.polling_options.PollingOptions"><span class="pre">PollingOptions</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#mindee.v2.client_options.base_product_parameters.BaseProductParameters.polling_options" title="Link to this definition"></a></dt>
 <dd><p>Options for polling. Set only if having timeout issues.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.v2.client_options.base_parameters.BaseParameters.webhook_ids">
-<span class="sig-name descname"><span class="pre">webhook_ids</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#mindee.v2.client_options.base_parameters.BaseParameters.webhook_ids" title="Link to this definition"></a></dt>
-<dd><p>IDs of webhooks to propagate the API response to.</p>
+<dt class="sig sig-object py" id="mindee.v2.client_options.base_product_parameters.BaseProductParameters.webhook_ids">
+<span class="sig-name descname"><span class="pre">webhook_ids</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#mindee.v2.client_options.base_product_parameters.BaseProductParameters.webhook_ids" title="Link to this definition"></a></dt>
+<dd><p>Webhook IDs to call after all processing is finished.
+If empty, no webhooks will be used.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="base-search-parameters">
+<h2>Base Search Parameters<a class="headerlink" href="#base-search-parameters" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.v2.client_options.base_search_parameters.BaseSearchParameters">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">BaseSearchParameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">per_page</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_response_class</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.client_options.base_search_parameters.BaseSearchParameters" title="Link to this definition"></a></dt>
+<dd><p>Base parameters for searches.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>page</strong> (<em>int</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>per_page</strong> (<em>int</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>_response_class</strong> (<a class="reference internal" href="../v1/parsing/common.html#mindee.v1.parsing.common.execution.Execution.type" title="mindee.v1.parsing.common.execution.Execution.type"><em>type</em></a><em>[</em><em>TypeSearchResponse</em><em>]</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.client_options.base_search_parameters.BaseSearchParameters.get_request_parameters">
+<span class="sig-name descname"><span class="pre">get_request_parameters</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.client_options.base_search_parameters.BaseSearchParameters.get_request_parameters" title="Link to this definition"></a></dt>
+<dd><p>Gets the request parameters for the search request.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code> | <code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]</span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dict of parameters.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.client_options.base_search_parameters.BaseSearchParameters.get_response_class">
+<span class="sig-name descname"><span class="pre">get_response_class</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.client_options.base_search_parameters.BaseSearchParameters.get_response_class" title="Link to this definition"></a></dt>
+<dd><p>Gets the response class for the search.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">TypeSearchResponse</span></code>, bound= <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseSearchResponse</span></code>)]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.client_options.base_search_parameters.BaseSearchParameters.get_slug">
+<span class="sig-name descname"><span class="pre">get_slug</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.client_options.base_search_parameters.BaseSearchParameters.get_slug" title="Link to this definition"></a></dt>
+<dd><p>Gets the slug of the resource.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v2.client_options.base_search_parameters.BaseSearchParameters.page">
+<span class="sig-name descname"><span class="pre">page</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#mindee.v2.client_options.base_search_parameters.BaseSearchParameters.page" title="Link to this definition"></a></dt>
+<dd><p>1-based page index.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v2.client_options.base_search_parameters.BaseSearchParameters.per_page">
+<span class="sig-name descname"><span class="pre">per_page</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#mindee.v2.client_options.base_search_parameters.BaseSearchParameters.per_page" title="Link to this definition"></a></dt>
+<dd><p>Number of items per page.</p>
 </dd></dl>
 
 </dd></dl>

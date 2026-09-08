@@ -60,6 +60,7 @@
 <li class="toctree-l2"><a class="reference internal" href="mindee_http.html">V2 Mindee HTTP</a></li>
 <li class="toctree-l2"><a class="reference internal" href="parsing/index.html">V2 Parsing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="product/index.html">V2 Products</a></li>
+<li class="toctree-l2"><a class="reference internal" href="search.html">V2 Search</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="#client-v2">Client V2</a><ul>
@@ -70,6 +71,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#mindee.v2.client.Client.get_job"><code class="docutils literal notranslate"><span class="pre">Client.get_job()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#mindee.v2.client.Client.get_result"><code class="docutils literal notranslate"><span class="pre">Client.get_result()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#mindee.v2.client.Client.get_result_from_url"><code class="docutils literal notranslate"><span class="pre">Client.get_result_from_url()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mindee.v2.client.Client.search"><code class="docutils literal notranslate"><span class="pre">Client.search()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#mindee.v2.client.Client.search_models"><code class="docutils literal notranslate"><span class="pre">Client.search_models()</span></code></a></li>
 </ul>
 </li>
@@ -108,8 +110,12 @@
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="client_options.html">V2 Client Options</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="client_options.html#base-parameters">Base Parameters</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="client_options.html#mindee.v2.client_options.base_parameters.BaseParameters"><code class="docutils literal notranslate"><span class="pre">BaseParameters</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="client_options.html#base-product-parameters">Base Product Parameters</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="client_options.html#mindee.v2.client_options.base_product_parameters.BaseProductParameters"><code class="docutils literal notranslate"><span class="pre">BaseProductParameters</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="client_options.html#base-search-parameters">Base Search Parameters</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="client_options.html#mindee.v2.client_options.base_search_parameters.BaseSearchParameters"><code class="docutils literal notranslate"><span class="pre">BaseSearchParameters</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -145,11 +151,6 @@
 <li class="toctree-l3"><a class="reference internal" href="mindee_http.html#mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2"><code class="docutils literal notranslate"><span class="pre">MindeeAPIV2</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="mindee_http.html#module-mindee.v2.mindee_http.response_validation_v2">Response Validation V2</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="mindee_http.html#mindee.v2.mindee_http.response_validation_v2.is_valid_get_response"><code class="docutils literal notranslate"><span class="pre">is_valid_get_response()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="mindee_http.html#mindee.v2.mindee_http.response_validation_v2.is_valid_post_response"><code class="docutils literal notranslate"><span class="pre">is_valid_post_response()</span></code></a></li>
-</ul>
-</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="parsing/index.html">V2 Parsing</a><ul>
@@ -181,6 +182,8 @@
 <li class="toctree-l3"><a class="reference internal" href="parsing/search.html#pagination">Pagination</a></li>
 <li class="toctree-l3"><a class="reference internal" href="parsing/search.html#search-model">Search Model</a></li>
 <li class="toctree-l3"><a class="reference internal" href="parsing/search.html#search-models">Search Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="parsing/search.html#search-rag-document">Search RAG Document</a></li>
+<li class="toctree-l3"><a class="reference internal" href="parsing/search.html#search-rag-documents">Search RAG Documents</a></li>
 <li class="toctree-l3"><a class="reference internal" href="parsing/search.html#search-response">Search Response</a></li>
 </ul>
 </li>
@@ -229,6 +232,25 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="search.html">V2 Search</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="search.html#model-search-parameters">Model Search Parameters</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="search.html#mindee.v2.search.models.model_search_parameters.ModelSearchParameters"><code class="docutils literal notranslate"><span class="pre">ModelSearchParameters</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="search.html#model-search-response">Model Search Response</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="search.html#mindee.v2.search.models.model_search_response.ModelSearchResponse"><code class="docutils literal notranslate"><span class="pre">ModelSearchResponse</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="search.html#rag-document-search-parameters">RAG Document Search Parameters</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="search.html#mindee.v2.search.rag_documents.rag_document_search_parameters.RagDocumentSearchParameters"><code class="docutils literal notranslate"><span class="pre">RagDocumentSearchParameters</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="search.html#rag-document-search-response">RAG Document Search Response</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="search.html#mindee.v2.search.rag_documents.rag_document_search_response.RagDocumentSearchResponse"><code class="docutils literal notranslate"><span class="pre">RagDocumentSearchResponse</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </div>
 </section>
@@ -266,7 +288,7 @@
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>input_source</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="../input.html#mindee.input.LocalInputSource" title="mindee.input.local_input_source.LocalInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalInputSource</span></code></a> | <a class="reference internal" href="../input.html#mindee.input.URLInputSource" title="mindee.input.url_input_source.URLInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">URLInputSource</span></code></a></span>) – The document/source file to use. Can be local or remote.</p></li>
-<li><p><strong>params</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="client_options.html#mindee.v2.client_options.base_parameters.BaseParameters" title="mindee.v2.client_options.base_parameters.BaseParameters"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseParameters</span></code></a></span>) – Parameters to set when sending a file.</p></li>
+<li><p><strong>params</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="client_options.html#mindee.v2.client_options.base_product_parameters.BaseProductParameters" title="mindee.v2.client_options.base_product_parameters.BaseProductParameters"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseProductParameters</span></code></a></span>) – Parameters to set when sending a file.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -286,28 +308,28 @@
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>input_source</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="../input.html#mindee.input.LocalInputSource" title="mindee.input.local_input_source.LocalInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalInputSource</span></code></a> | <a class="reference internal" href="../input.html#mindee.input.URLInputSource" title="mindee.input.url_input_source.URLInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">URLInputSource</span></code></a></span>) – The document/source file to use. Can be local or remote.</p></li>
-<li><p><strong>params</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="client_options.html#mindee.v2.client_options.base_parameters.BaseParameters" title="mindee.v2.client_options.base_parameters.BaseParameters"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseParameters</span></code></a></span>) – Parameters to set when sending a file.</p></li>
-<li><p><strong>response_type</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">TypeBaseResponse</span></code>, bound= <a class="reference internal" href="parsing/inference/index.html#mindee.v2.parsing.inference.base_response.BaseResponse" title="mindee.v2.parsing.inference.base_response.BaseResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseResponse</span></code></a>)]</span>) – The product class to use for the response object.</p></li>
+<li><p><strong>params</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="client_options.html#mindee.v2.client_options.base_product_parameters.BaseProductParameters" title="mindee.v2.client_options.base_product_parameters.BaseProductParameters"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseProductParameters</span></code></a></span>) – Parameters to set when sending a file.</p></li>
+<li><p><strong>response_type</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">TypeBaseInferenceResponse</span></code>, bound= <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseInferenceResponse</span></code>)]</span>) – The product class to use for the response object.</p></li>
 <li><p><strong>cancellation_token</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">CancellationToken</span></code> | <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – A cancellation token that can be used to cancel the</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><em>TypeBaseResponse</em></p>
+<dd class="field-even"><p><em>TypeBaseInferenceResponse</em></p>
 </dd>
 </dl>
 <p>request.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">TypeBaseResponse</span></code>, bound= <a class="reference internal" href="parsing/inference/index.html#mindee.v2.parsing.inference.base_response.BaseResponse" title="mindee.v2.parsing.inference.base_response.BaseResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseResponse</span></code></a>)</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">TypeBaseInferenceResponse</span></code>, bound= <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseInferenceResponse</span></code>)</span></p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A valid inference response.</p>
 </dd>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>response_type</strong> (<a class="reference internal" href="../v1/parsing/common.html#mindee.v1.parsing.common.execution.Execution.type" title="mindee.v1.parsing.common.execution.Execution.type"><em>type</em></a><em>[</em><em>TypeBaseResponse</em><em>]</em>)</p></li>
+<li><p><strong>response_type</strong> (<a class="reference internal" href="../v1/parsing/common.html#mindee.v1.parsing.common.execution.Execution.type" title="mindee.v1.parsing.common.execution.Execution.type"><em>type</em></a><em>[</em><em>TypeBaseInferenceResponse</em><em>]</em>)</p></li>
 <li><p><strong>input_source</strong> (<a class="reference internal" href="../input.html#mindee.input.LocalInputSource" title="mindee.input.local_input_source.LocalInputSource"><em>LocalInputSource</em></a><em> | </em><a class="reference internal" href="../input.html#mindee.input.URLInputSource" title="mindee.input.url_input_source.URLInputSource"><em>URLInputSource</em></a>)</p></li>
-<li><p><strong>params</strong> (<a class="reference internal" href="client_options.html#mindee.v2.client_options.base_parameters.BaseParameters" title="mindee.v2.client_options.base_parameters.BaseParameters"><em>BaseParameters</em></a>)</p></li>
+<li><p><strong>params</strong> (<a class="reference internal" href="client_options.html#mindee.v2.client_options.base_product_parameters.BaseProductParameters" title="mindee.v2.client_options.base_product_parameters.BaseProductParameters"><em>BaseProductParameters</em></a>)</p></li>
 <li><p><strong>cancellation_token</strong> (<em>CancellationToken</em><em> | </em><em>None</em>)</p></li>
 </ul>
 </dd>
@@ -335,17 +357,17 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="mindee.v2.client.Client.get_result">
 <span class="sig-name descname"><span class="pre">get_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inference_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.client.Client.get_result" title="Link to this definition"></a></dt>
-<dd><p>Get the result of an inference that was previously enqueued.</p>
+<dd><p>Get the result of an inference that was previously enqueued by its ID.</p>
 <p>The inference will only be available after it has finished processing.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>inference_id</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – UUID of the inference to retrieve.</p></li>
-<li><p><strong>response_type</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">TypeBaseResponse</span></code>, bound= <a class="reference internal" href="parsing/inference/index.html#mindee.v2.parsing.inference.base_response.BaseResponse" title="mindee.v2.parsing.inference.base_response.BaseResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseResponse</span></code></a>)]</span>) – Class of the product to instantiate.</p></li>
+<li><p><strong>response_type</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">TypeBaseInferenceResponse</span></code>, bound= <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseInferenceResponse</span></code>)]</span>) – Class of the product to instantiate.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">TypeBaseResponse</span></code>, bound= <a class="reference internal" href="parsing/inference/index.html#mindee.v2.parsing.inference.base_response.BaseResponse" title="mindee.v2.parsing.inference.base_response.BaseResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseResponse</span></code></a>)</span></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">TypeBaseInferenceResponse</span></code>, bound= <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseInferenceResponse</span></code>)</span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>An inference response.</p>
@@ -360,12 +382,12 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>response_type</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">TypeBaseResponse</span></code>, bound= <a class="reference internal" href="parsing/inference/index.html#mindee.v2.parsing.inference.base_response.BaseResponse" title="mindee.v2.parsing.inference.base_response.BaseResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseResponse</span></code></a>)]</span>) – Type of the response to return.</p></li>
+<li><p><strong>response_type</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">TypeBaseInferenceResponse</span></code>, bound= <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseInferenceResponse</span></code>)]</span>) – Type of the response to return.</p></li>
 <li><p><strong>url</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – URL of the inference to retrieve.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">TypeBaseResponse</span></code>, bound= <a class="reference internal" href="parsing/inference/index.html#mindee.v2.parsing.inference.base_response.BaseResponse" title="mindee.v2.parsing.inference.base_response.BaseResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseResponse</span></code></a>)</span></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">TypeBaseInferenceResponse</span></code>, bound= <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseInferenceResponse</span></code>)</span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The result of the inference.</p>
@@ -374,21 +396,37 @@
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.client.Client.search">
+<span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.client.Client.search" title="Link to this definition"></a></dt>
+<dd><p>Search for resources matching the given criteria.
+:type params: <span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="client_options.html#mindee.v2.client_options.base_search_parameters.BaseSearchParameters" title="mindee.v2.client_options.base_search_parameters.BaseSearchParameters"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseSearchParameters</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">TypeSearchResponse</span></code>, bound= <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseSearchResponse</span></code>)]</span>
+:param params: Search parameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">TypeSearchResponse</span></code>, bound= <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseSearchResponse</span></code>)</span></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A search response containing the matching resources</p>
+</dd>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>params</strong> (<a class="reference internal" href="client_options.html#mindee.v2.client_options.base_search_parameters.BaseSearchParameters" title="mindee.v2.client_options.base_search_parameters.BaseSearchParameters"><em>BaseSearchParameters</em></a><em>[</em><em>TypeSearchResponse</em><em>]</em>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="mindee.v2.client.Client.search_models">
 <span class="sig-name descname"><span class="pre">search_models</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.client.Client.search_models" title="Link to this definition"></a></dt>
-<dd><p>Get a list of models matching the provided name and type.</p>
+<dd><p>Deprecated. Use <cite>search</cite> instead.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code> | <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Name of the model to filter by.</p></li>
-<li><p><strong>model_type</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code> | <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – Type of the model to filter by.</p></li>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="parsing/search.html#mindee.v2.parsing.search.search_response.SearchResponse" title="mindee.v2.parsing.search.search_response.SearchResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">SearchResponse</span></code></a></span></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em><em> | </em><em>None</em>)</p></li>
+<li><p><strong>model_type</strong> (<em>str</em><em> | </em><em>None</em>)</p></li>
 </ul>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="parsing/search.html#mindee.v2.parsing.search.search_response.SearchResponse" title="mindee.v2.parsing.search.search_response.SearchResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">SearchResponse</span></code></a></span></p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A list of models matching the provided criteria.</p>
 </dd>
 </dl>
 </dd></dl>

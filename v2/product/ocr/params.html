@@ -75,6 +75,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../split/index.html">Split</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../search.html">V2 Search</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../index.html#client-v2">Client V2</a></li>
@@ -116,7 +117,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.v2.product.ocr.params.ocr_parameters.OCRParameters">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">OCRParameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">webhook_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">polling_options</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">close_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.product.ocr.params.ocr_parameters.OCRParameters" title="Link to this definition"></a></dt>
-<dd><p>Parameters accepted by the ocr utility v2 endpoint.</p>
+<dd><p>Parameters for sending a file to a Raw Text (OCR) product.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -140,8 +141,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="mindee.v2.product.ocr.params.ocr_parameters.OCRParameters.get_form_data">
-<span class="sig-name descname"><span class="pre">get_form_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.product.ocr.params.ocr_parameters.OCRParameters.get_form_data" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="mindee.v2.product.ocr.params.ocr_parameters.OCRParameters.get_request_parameters">
+<span class="sig-name descname"><span class="pre">get_request_parameters</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.product.ocr.params.ocr_parameters.OCRParameters.get_request_parameters" title="Link to this definition"></a></dt>
 <dd><p>Return the parameters as a config dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -156,7 +157,9 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.v2.product.ocr.params.ocr_parameters.OCRParameters.alias">
 <span class="sig-name descname"><span class="pre">alias</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#mindee.v2.product.ocr.params.ocr_parameters.OCRParameters.alias" title="Link to this definition"></a></dt>
-<dd><p>Use an alias to link the file to your own DB. If empty, no alias will be used.</p>
+<dd><p>Optional: a free-form string to tag the request with your own identifier.
+For example, an internal document ID, reference number, or database key.
+If set, it will be included in the job and result responses.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -168,7 +171,7 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.v2.product.ocr.params.ocr_parameters.OCRParameters.model_id">
 <span class="sig-name descname"><span class="pre">model_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#mindee.v2.product.ocr.params.ocr_parameters.OCRParameters.model_id" title="Link to this definition"></a></dt>
-<dd><p>ID of the model, required.</p>
+<dd><p>Model ID to use for the inference. Required.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -180,7 +183,8 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.v2.product.ocr.params.ocr_parameters.OCRParameters.webhook_ids">
 <span class="sig-name descname"><span class="pre">webhook_ids</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#mindee.v2.product.ocr.params.ocr_parameters.OCRParameters.webhook_ids" title="Link to this definition"></a></dt>
-<dd><p>IDs of webhooks to propagate the API response to.</p>
+<dd><p>Webhook IDs to call after all processing is finished.
+If empty, no webhooks will be used.</p>
 </dd></dl>
 
 </dd></dl>

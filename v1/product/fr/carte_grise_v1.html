@@ -115,10 +115,10 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">mindee</span><span class="w"> </span><span class="kn">import</span> <span class="n">PathInput</span>
 
 <span class="c1"># Init a new client</span>
-<span class="n">mindee_client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;my-api-key&quot;</span><span class="p">)</span>
+<span class="n">mindee_client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">"my-api-key"</span><span class="p">)</span>
 
 <span class="c1"># Load a file from disk</span>
-<span class="n">input_doc</span> <span class="o">=</span> <span class="n">PathInput</span><span class="p">(</span><span class="s2">&quot;/path/to/the/file.ext&quot;</span><span class="p">)</span>
+<span class="n">input_doc</span> <span class="o">=</span> <span class="n">PathInput</span><span class="p">(</span><span class="s2">"/path/to/the/file.ext"</span><span class="p">)</span>
 
 <span class="c1"># Load a file from disk and parse it.</span>
 <span class="n">result</span><span class="p">:</span> <span class="n">PredictResponse</span> <span class="o">=</span> <span class="n">mindee_client</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span>

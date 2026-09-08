@@ -123,18 +123,18 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">mindee</span><span class="w"> </span><span class="kn">import</span> <span class="n">PathInput</span>
 
 <span class="c1"># Init a new client</span>
-<span class="n">mindee_client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;my-api-key&quot;</span><span class="p">)</span>
+<span class="n">mindee_client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">"my-api-key"</span><span class="p">)</span>
 
 <span class="c1"># Add the corresponding endpoint (document).</span>
-<span class="c1"># Set the account_name to &quot;mindee&quot; if you are using OTS.</span>
+<span class="c1"># Set the account_name to "mindee" if you are using OTS.</span>
 <span class="n">my_endpoint</span> <span class="o">=</span> <span class="n">mindee_client</span><span class="o">.</span><span class="n">create_endpoint</span><span class="p">(</span>
-    <span class="n">account_name</span><span class="o">=</span><span class="s2">&quot;my-account&quot;</span><span class="p">,</span>
-    <span class="n">endpoint_name</span><span class="o">=</span><span class="s2">&quot;my-endpoint&quot;</span><span class="p">,</span>
-    <span class="n">version</span><span class="o">=</span><span class="s2">&quot;my-version&quot;</span>
+    <span class="n">account_name</span><span class="o">=</span><span class="s2">"my-account"</span><span class="p">,</span>
+    <span class="n">endpoint_name</span><span class="o">=</span><span class="s2">"my-endpoint"</span><span class="p">,</span>
+    <span class="n">version</span><span class="o">=</span><span class="s2">"my-version"</span>
 <span class="p">)</span>
 
 <span class="c1"># Load a file from disk</span>
-<span class="n">input_doc</span> <span class="o">=</span> <span class="n">PathInput</span><span class="p">(</span><span class="s2">&quot;/path/to/the/file.ext&quot;</span><span class="p">)</span>
+<span class="n">input_doc</span> <span class="o">=</span> <span class="n">PathInput</span><span class="p">(</span><span class="s2">"/path/to/the/file.ext"</span><span class="p">)</span>
 
 <span class="c1"># Parse the file.</span>
 <span class="c1"># The endpoint must be specified since it cannot be determined from the class.</span>
@@ -149,7 +149,7 @@
 
 <span class="c1"># # Iterate over all the fields in the document</span>
 <span class="c1"># for field_name, field_values in result.document.inference.prediction.fields.items():</span>
-<span class="c1">#     print(field_name, &quot;=&quot;, field_values)</span>
+<span class="c1">#     print(field_name, "=", field_values)</span>
 </pre></div>
 </div>
 <p><strong>Sample Code (async):</strong></p>
@@ -162,18 +162,18 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">mindee</span><span class="w"> </span><span class="kn">import</span> <span class="n">PathInput</span>
 
 <span class="c1"># Init a new client</span>
-<span class="n">mindee_client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">&quot;my-api-key&quot;</span><span class="p">)</span>
+<span class="n">mindee_client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="s2">"my-api-key"</span><span class="p">)</span>
 
 <span class="c1"># Add the corresponding endpoint (document).</span>
-<span class="c1"># Set the account_name to &quot;mindee&quot; if you are using OTS.</span>
+<span class="c1"># Set the account_name to "mindee" if you are using OTS.</span>
 <span class="n">my_endpoint</span> <span class="o">=</span> <span class="n">mindee_client</span><span class="o">.</span><span class="n">create_endpoint</span><span class="p">(</span>
-    <span class="n">account_name</span><span class="o">=</span><span class="s2">&quot;my-account&quot;</span><span class="p">,</span>
-    <span class="n">endpoint_name</span><span class="o">=</span><span class="s2">&quot;my-endpoint&quot;</span><span class="p">,</span>
-    <span class="n">version</span><span class="o">=</span><span class="s2">&quot;my-version&quot;</span>
+    <span class="n">account_name</span><span class="o">=</span><span class="s2">"my-account"</span><span class="p">,</span>
+    <span class="n">endpoint_name</span><span class="o">=</span><span class="s2">"my-endpoint"</span><span class="p">,</span>
+    <span class="n">version</span><span class="o">=</span><span class="s2">"my-version"</span>
 <span class="p">)</span>
 
 <span class="c1"># Load a file from disk</span>
-<span class="n">input_doc</span> <span class="o">=</span> <span class="n">PathInput</span><span class="p">(</span><span class="s2">&quot;/path/to/the/file.ext&quot;</span><span class="p">)</span>
+<span class="n">input_doc</span> <span class="o">=</span> <span class="n">PathInput</span><span class="p">(</span><span class="s2">"/path/to/the/file.ext"</span><span class="p">)</span>
 
 <span class="c1"># Parse the file.</span>
 <span class="c1"># The endpoint must be specified since it cannot be determined from the class.</span>
@@ -188,7 +188,7 @@
 
 <span class="c1"># # Iterate over all the fields in the document</span>
 <span class="c1"># for field_name, field_values in result.document.inference.prediction.fields.items():</span>
-<span class="c1">#     print(field_name, &quot;=&quot;, field_values)</span>
+<span class="c1">#     print(field_name, "=", field_values)</span>
 </pre></div>
 </div>
 <dl class="py class">

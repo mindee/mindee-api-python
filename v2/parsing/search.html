@@ -67,12 +67,15 @@
 <li class="toctree-l4"><a class="reference internal" href="#pagination">Pagination</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#search-model">Search Model</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#search-models">Search Models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#search-rag-document">Search RAG Document</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#search-rag-documents">Search RAG Documents</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#search-response">Search Response</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../product/index.html">V2 Products</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../search.html">V2 Search</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../index.html#client-v2">Client V2</a></li>
@@ -113,7 +116,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.v2.parsing.search.model_webhook.ModelWebhook">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">ModelWebhook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">server_response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.parsing.search.model_webhook.ModelWebhook" title="Link to this definition"></a></dt>
-<dd><p>Model webhook information.</p>
+<dd><p>Information about a model’s webhook.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>server_response</strong> (<em>dict</em>)</p>
@@ -145,7 +148,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.v2.parsing.search.pagination_metadata.PaginationMetadata">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">PaginationMetadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">server_response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.parsing.search.pagination_metadata.PaginationMetadata" title="Link to this definition"></a></dt>
-<dd><p>Pagination metadata.</p>
+<dd><p>Pagination metadata associated with searches.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>server_response</strong> (<em>dict</em>)</p>
@@ -160,19 +163,13 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.v2.parsing.search.pagination_metadata.PaginationMetadata.per_page">
 <span class="sig-name descname"><span class="pre">per_page</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="headerlink" href="#mindee.v2.parsing.search.pagination_metadata.PaginationMetadata.per_page" title="Link to this definition"></a></dt>
-<dd><p>Number of results per page.</p>
+<dd><p>Number of items per page.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.v2.parsing.search.pagination_metadata.PaginationMetadata.total_items">
 <span class="sig-name descname"><span class="pre">total_items</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="headerlink" href="#mindee.v2.parsing.search.pagination_metadata.PaginationMetadata.total_items" title="Link to this definition"></a></dt>
-<dd><p>Total number of items.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.v2.parsing.search.pagination_metadata.PaginationMetadata.total_items_unfiltered">
-<span class="sig-name descname"><span class="pre">total_items_unfiltered</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#mindee.v2.parsing.search.pagination_metadata.PaginationMetadata.total_items_unfiltered" title="Link to this definition"></a></dt>
-<dd><p>Total number of items, including unfiltered results.</p>
+<dd><p>Total items.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -195,28 +192,39 @@
 <dd class="field-odd"><p><strong>server_response</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>)</p>
 </dd>
 </dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.search_model.SearchModel.to_list_string">
+<span class="sig-name descname"><span class="pre">to_list_string</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.parsing.search.search_model.SearchModel.to_list_string" title="Link to this definition"></a></dt>
+<dd><p>String representation of the model as a list of lines.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.v2.parsing.search.search_model.SearchModel.id">
 <span class="sig-name descname"><span class="pre">id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#mindee.v2.parsing.search.search_model.SearchModel.id" title="Link to this definition"></a></dt>
-<dd><p>Model ID.</p>
+<dd><p>ID of the model.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.v2.parsing.search.search_model.SearchModel.model_type">
 <span class="sig-name descname"><span class="pre">model_type</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#mindee.v2.parsing.search.search_model.SearchModel.model_type" title="Link to this definition"></a></dt>
-<dd><p>Model type.</p>
+<dd><p>Type of the model.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.v2.parsing.search.search_model.SearchModel.name">
 <span class="sig-name descname"><span class="pre">name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#mindee.v2.parsing.search.search_model.SearchModel.name" title="Link to this definition"></a></dt>
-<dd><p>Model name.</p>
+<dd><p>Name of the model.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.v2.parsing.search.search_model.SearchModel.webhooks">
 <span class="sig-name descname"><span class="pre">webhooks</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#mindee.v2.parsing.search.model_webhook.ModelWebhook" title="mindee.v2.parsing.search.model_webhook.ModelWebhook"><span class="pre">ModelWebhook</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#mindee.v2.parsing.search.search_model.SearchModel.webhooks" title="Link to this definition"></a></dt>
-<dd><p>Webhooks associated with the model.</p>
+<dd><p>List of webhooks associated with the model.</p>
 </dd></dl>
 
 </dd></dl>
@@ -227,7 +235,7 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.v2.parsing.search.search_models.SearchModels">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">SearchModels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.parsing.search.search_models.SearchModels" title="Link to this definition"></a></dt>
-<dd><p>List of models.</p>
+<dd><p>List of search models.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>raw_response</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>)</p>
@@ -310,27 +318,188 @@ ascending or descending, according to their function values.</p>
 </dd></dl>
 
 </section>
+<section id="search-rag-document">
+<h2>Search RAG Document<a class="headerlink" href="#search-rag-document" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.search_rag_document.SearchRagDocument">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">SearchRagDocument</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">server_response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.parsing.search.search_rag_document.SearchRagDocument" title="Link to this definition"></a></dt>
+<dd><p>Individual RAG document information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>server_response</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>)</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.search_rag_document.SearchRagDocument.created_at">
+<span class="sig-name descname"><span class="pre">created_at</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span></span><a class="headerlink" href="#mindee.v2.parsing.search.search_rag_document.SearchRagDocument.created_at" title="Link to this definition"></a></dt>
+<dd><p>Date and time of the document creation.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.search_rag_document.SearchRagDocument.filename">
+<span class="sig-name descname"><span class="pre">filename</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#mindee.v2.parsing.search.search_rag_document.SearchRagDocument.filename" title="Link to this definition"></a></dt>
+<dd><p>Original filename of the uploaded document.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.search_rag_document.SearchRagDocument.id">
+<span class="sig-name descname"><span class="pre">id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#mindee.v2.parsing.search.search_rag_document.SearchRagDocument.id" title="Link to this definition"></a></dt>
+<dd><p>Unique identifier of the RAG document.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.search_rag_document.SearchRagDocument.last_match_at">
+<span class="sig-name descname"><span class="pre">last_match_at</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#mindee.v2.parsing.search.search_rag_document.SearchRagDocument.last_match_at" title="Link to this definition"></a></dt>
+<dd><p>Date and time of the latest matching inference, if any.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.search_rag_document.SearchRagDocument.model_id">
+<span class="sig-name descname"><span class="pre">model_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#mindee.v2.parsing.search.search_rag_document.SearchRagDocument.model_id" title="Link to this definition"></a></dt>
+<dd><p>Model identifier linked to the RAG document.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.search_rag_document.SearchRagDocument.status">
+<span class="sig-name descname"><span class="pre">status</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#mindee.v2.parsing.search.search_rag_document.SearchRagDocument.status" title="Link to this definition"></a></dt>
+<dd><p>Current status of the RAG document.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.search_rag_document.SearchRagDocument.total_matches">
+<span class="sig-name descname"><span class="pre">total_matches</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="headerlink" href="#mindee.v2.parsing.search.search_rag_document.SearchRagDocument.total_matches" title="Link to this definition"></a></dt>
+<dd><p>Number of times this document was used in an inference.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="search-rag-documents">
+<h2>Search RAG Documents<a class="headerlink" href="#search-rag-documents" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.search_rag_documents.SearchRagDocuments">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">SearchRagDocuments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.parsing.search.search_rag_documents.SearchRagDocuments" title="Link to this definition"></a></dt>
+<dd><p>List of RAG documents.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>raw_response</strong> (<em>list</em><em>[</em><em>dict</em><em>]</em>)</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.search_rag_documents.SearchRagDocuments.append">
+<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.parsing.search.search_rag_documents.SearchRagDocuments.append" title="Link to this definition"></a></dt>
+<dd><p>Append object to the end of the list.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.search_rag_documents.SearchRagDocuments.clear">
+<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.parsing.search.search_rag_documents.SearchRagDocuments.clear" title="Link to this definition"></a></dt>
+<dd><p>Remove all items from list.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.search_rag_documents.SearchRagDocuments.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.parsing.search.search_rag_documents.SearchRagDocuments.copy" title="Link to this definition"></a></dt>
+<dd><p>Return a shallow copy of the list.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.search_rag_documents.SearchRagDocuments.count">
+<span class="sig-name descname"><span class="pre">count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.parsing.search.search_rag_documents.SearchRagDocuments.count" title="Link to this definition"></a></dt>
+<dd><p>Return number of occurrences of value.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.search_rag_documents.SearchRagDocuments.extend">
+<span class="sig-name descname"><span class="pre">extend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterable</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.parsing.search.search_rag_documents.SearchRagDocuments.extend" title="Link to this definition"></a></dt>
+<dd><p>Extend list by appending elements from the iterable.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.search_rag_documents.SearchRagDocuments.index">
+<span class="sig-name descname"><span class="pre">index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9223372036854775807</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.parsing.search.search_rag_documents.SearchRagDocuments.index" title="Link to this definition"></a></dt>
+<dd><p>Return first index of value.</p>
+<p>Raises ValueError if the value is not present.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.search_rag_documents.SearchRagDocuments.insert">
+<span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.parsing.search.search_rag_documents.SearchRagDocuments.insert" title="Link to this definition"></a></dt>
+<dd><p>Insert object before index.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.search_rag_documents.SearchRagDocuments.pop">
+<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.parsing.search.search_rag_documents.SearchRagDocuments.pop" title="Link to this definition"></a></dt>
+<dd><p>Remove and return item at index (default last).</p>
+<p>Raises IndexError if list is empty or index is out of range.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.search_rag_documents.SearchRagDocuments.remove">
+<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="positional-only-separator o"><abbr title="Positional-only parameter separator (PEP 570)"><span class="pre">/</span></abbr></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.parsing.search.search_rag_documents.SearchRagDocuments.remove" title="Link to this definition"></a></dt>
+<dd><p>Remove first occurrence of value.</p>
+<p>Raises ValueError if the value is not present.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.search_rag_documents.SearchRagDocuments.reverse">
+<span class="sig-name descname"><span class="pre">reverse</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.parsing.search.search_rag_documents.SearchRagDocuments.reverse" title="Link to this definition"></a></dt>
+<dd><p>Reverse <em>IN PLACE</em>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.search_rag_documents.SearchRagDocuments.sort">
+<span class="sig-name descname"><span class="pre">sort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reverse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.parsing.search.search_rag_documents.SearchRagDocuments.sort" title="Link to this definition"></a></dt>
+<dd><p>Sort the list in ascending order and return None.</p>
+<p>The sort is in-place (i.e. the list itself is modified) and stable (i.e. the
+order of two equal elements is maintained).</p>
+<p>If a key function is given, apply it once to each list item and sort them,
+ascending or descending, according to their function values.</p>
+<p>The reverse flag can be set to sort in descending order.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
 <section id="search-response">
 <h2>Search Response<a class="headerlink" href="#search-response" title="Link to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.v2.parsing.search.search_response.SearchResponse">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">SearchResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.parsing.search.search_response.SearchResponse" title="Link to this definition"></a></dt>
-<dd><p>Models search response.</p>
+<dd><p>Deprecated: use <cite>ModelSearchResponse</cite> instead.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>raw_response</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>)</p>
 </dd>
 </dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.search_response.SearchResponse.body_lines">
+<span class="sig-name descname"><span class="pre">body_lines</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.parsing.search.search_response.SearchResponse.body_lines" title="Link to this definition"></a></dt>
+<dd><p>Lines composing the response-specific body (header + items).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.v2.parsing.search.search_response.SearchResponse.models">
 <span class="sig-name descname"><span class="pre">models</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.v2.parsing.search.search_models.SearchModels" title="mindee.v2.parsing.search.search_models.SearchModels"><span class="pre">SearchModels</span></a></span><a class="headerlink" href="#mindee.v2.parsing.search.search_response.SearchResponse.models" title="Link to this definition"></a></dt>
-<dd><p>Parsed search payload.</p>
+<dd><p>Paginated list of matching models.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.v2.parsing.search.search_response.SearchResponse.pagination">
 <span class="sig-name descname"><span class="pre">pagination</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.v2.parsing.search.pagination_metadata.PaginationMetadata" title="mindee.v2.parsing.search.pagination_metadata.PaginationMetadata"><span class="pre">PaginationMetadata</span></a></span><a class="headerlink" href="#mindee.v2.parsing.search.search_response.SearchResponse.pagination" title="Link to this definition"></a></dt>
-<dd><p>Pagination metadata for the search results.</p>
+<dd><p>Pagination metadata.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mindee.v2.parsing.search.search_response.SearchResponse.pagination_metadata">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">pagination_metadata</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.v2.parsing.search.pagination_metadata.PaginationMetadata" title="mindee.v2.parsing.search.pagination_metadata.PaginationMetadata"><span class="pre">PaginationMetadata</span></a></span><a class="headerlink" href="#mindee.v2.parsing.search.search_response.SearchResponse.pagination_metadata" title="Link to this definition"></a></dt>
+<dd><p>Pagination metadata (Obsolete).</p>
 </dd></dl>
 
 <dl class="py property">
