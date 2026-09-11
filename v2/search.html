@@ -19,7 +19,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Client Mixin" href="../client_mixin.html" />
+    <link rel="next" title="Mindee Logger" href="../logger.html" />
     <link rel="prev" title="Split Params" href="product/split/params.html" /> 
 </head>
 
@@ -82,7 +82,6 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="index.html#client-v2">Client V2</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../client_mixin.html">Client Mixin</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../logger.html">Mindee Logger</a></li>
 </ul>
 
@@ -244,7 +243,10 @@ If no search filters are given, all models belonging to the organization are ret
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.v2.search.rag_documents.rag_document_search_parameters.RagDocumentSearchParameters">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">RagDocumentSearchParameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">per_page</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_response_class</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;class</span> <span class="pre">'mindee.v2.search.rag_documents.rag_document_search_response.RagDocumentSearchResponse'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.search.rag_documents.rag_document_search_parameters.RagDocumentSearchParameters" title="Link to this definition"></a></dt>
-<dd><p>Search parameters for RAG Documents.</p>
+<dd><p>Search for RAG documents within the organization linked to the API key.</p>
+<p>The model ID is required, search filters are optional.
+If no search filters are given, all documents linked to the model are returned.</p>
+<p>Results are paginated.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -295,13 +297,13 @@ If no search filters are given, all models belonging to the organization are ret
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.v2.search.rag_documents.rag_document_search_parameters.RagDocumentSearchParameters.filename">
 <span class="sig-name descname"><span class="pre">filename</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#mindee.v2.search.rag_documents.rag_document_search_parameters.RagDocumentSearchParameters.filename" title="Link to this definition"></a></dt>
-<dd><p>Case-insensitive substring search on filename.</p>
+<dd><p>Filter documents by partial filename match, case-insensitive.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.v2.search.rag_documents.rag_document_search_parameters.RagDocumentSearchParameters.model_id">
 <span class="sig-name descname"><span class="pre">model_id</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#mindee.v2.search.rag_documents.rag_document_search_parameters.RagDocumentSearchParameters.model_id" title="Link to this definition"></a></dt>
-<dd><p>Model identifier to search in.</p>
+<dd><p>The exact Model UUID the document is linked to.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -369,7 +371,7 @@ If no search filters are given, all models belonging to the organization are ret
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="product/split/params.html" class="btn btn-neutral float-left" title="Split Params" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../client_mixin.html" class="btn btn-neutral float-right" title="Client Mixin" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../logger.html" class="btn btn-neutral float-right" title="Mindee Logger" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
