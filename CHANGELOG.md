@@ -1,5 +1,10 @@
 # Mindee Python Client Library Changelog
 
+## v5.3.1 - 2026-09-11
+### Changes
+* :memo: update docs for RAG search
+
+
 ## v5.3.0 - 2026-09-08
 ### Changes
 * :sparkles: add RAG search API
