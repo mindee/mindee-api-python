@@ -9,13 +9,20 @@ from mindee.v2.search.rag_documents.rag_document_search_response import (
 
 @dataclass(kw_only=True)
 class RagDocumentSearchParameters(BaseSearchParameters[RagDocumentSearchResponse]):
-    """Search parameters for RAG Documents."""
+    """
+    Search for RAG documents within the organization linked to the API key.
+
+    The model ID is required, search filters are optional.
+    If no search filters are given, all documents linked to the model are returned.
+
+    Results are paginated.
+    """
 
     model_id: str
-    """Model identifier to search in."""
+    """The exact Model UUID the document is linked to."""
 
     filename: str | None = None
-    """Case-insensitive substring search on filename."""
+    """Filter documents by partial filename match, case-insensitive."""
 
     _slug: ClassVar[str] = "rag-documents"
     _response_class: type[RagDocumentSearchResponse] = RagDocumentSearchResponse
