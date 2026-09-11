@@ -4,7 +4,6 @@ from typing import TypeVar
 
 import httpx
 
-from mindee.client_mixin import ClientMixin
 from mindee.client_options.polling_options import PollingOptions
 from mindee.error.mindee_error import MindeeError
 from mindee.input import URLInputSource
@@ -27,7 +26,7 @@ TypeBaseInferenceResponse = TypeVar(
 )
 
 
-class Client(ClientMixin):
+class Client:
     """
     Mindee API Client.
 
@@ -127,11 +126,7 @@ class Client(ClientMixin):
         """
         if not params.polling_options:
             params.polling_options = PollingOptions()
-        self._validate_async_params(
-            params.polling_options.initial_delay_sec,
-            params.polling_options.delay_sec,
-            params.polling_options.max_retries,
-        )
+        params.polling_options.validate_settings()
         enqueue_response = self.enqueue(input_source, params)
         logger.debug(
             "Successfully enqueued document with job ID: %s", enqueue_response.job.id

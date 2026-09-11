@@ -11,7 +11,7 @@ def v2_client() -> Client:
 
 @pytest.mark.integration
 @pytest.mark.v2
-def test_must_have_results(v2_client: Client):
+def test_search_must_have_results(v2_client: Client):
     response = v2_client.search(ModelSearchParameters())
 
     assert response is not None
@@ -27,7 +27,7 @@ def test_must_have_results(v2_client: Client):
 
 @pytest.mark.integration
 @pytest.mark.v2
-def test_must_return_empty(v2_client: Client):
+def test_search_must_return_empty(v2_client: Client):
     response = v2_client.search(ModelSearchParameters(name="je n'existe pas tralala"))
 
     assert response is not None

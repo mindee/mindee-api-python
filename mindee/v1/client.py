@@ -2,7 +2,7 @@ from time import sleep
 
 import httpx
 
-from mindee.client_mixin import ClientMixin
+from mindee.client_options.polling_options import PollingOptions
 from mindee.error.mindee_error import MindeeClientError, MindeeError
 from mindee.error.mindee_http_error import handle_error
 from mindee.input.local_input_source import LocalInputSource
@@ -53,7 +53,7 @@ def _clean_account_name(account_name: str) -> str:
     return account_name
 
 
-class Client(ClientMixin):
+class Client:
     """
     Mindee API Client.
 
@@ -353,7 +353,11 @@ class Client(ClientMixin):
         :param rag: If set, will enable Retrieval-Augmented Generation.
             Only works if a valid ``workflow_id`` is set.
         """
-        self._validate_async_params(initial_delay_sec, delay_sec, max_retries)
+        PollingOptions(
+            initial_delay_sec=initial_delay_sec,
+            delay_sec=delay_sec,
+            max_retries=max_retries,
+        ).validate_settings()
         if not endpoint:
             endpoint = self._initialize_ots_endpoint(product_class=product_class)
         queue_result = self.enqueue(
