@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from datetime import datetime
 
 import httpx
 import pytest
@@ -13,7 +14,9 @@ from mindee.v2.error.mindee_http_error_v2 import (
 )
 from mindee.v2.parsing import InferenceActiveOptions
 from mindee.v2.product.extraction.extraction_response import ExtractionResponse
-from tests.utils import FILE_TYPES_PATH, V2_PRODUCT_PATH
+from mindee.v2.product.split.params.split_parameters import SplitParameters
+from mindee.v2.product.split.split_response import SplitResponse
+from tests.utils import FILE_TYPES_DIR, V2_PRODUCT_PATH
 
 
 @pytest.fixture(scope="session")
@@ -164,6 +167,59 @@ def test_parse_file_filled_single_page_must_succeed(
     assert supplier_name.value == "John Smith"
     assert supplier_name.confidence is None
     assert len(supplier_name.locations) == 0
+
+
+def _assert_webhook_job_success(response, webhook_ids: list[str]) -> None:
+    assert response.inference is not None
+    assert response.inference.result is not None
+
+    assert response.job is not None
+    assert response.job.status == "Processed"
+    assert isinstance(response.job.completed_at, datetime)
+    assert response.job.error is None
+    assert len(response.job.webhooks) == 2
+    assert all(webhook.status in {"Completed", "Failed"} for webhook in response.job.webhooks)
+    assert {webhook.id for webhook in response.job.webhooks} == set(webhook_ids)
+
+
+@pytest.mark.integration
+@pytest.mark.v2
+def test_extraction_with_two_webhooks_must_complete_and_succeed(
+    v2_client: Client, findoc_model_id: str
+) -> None:
+    webhook_ids = [
+        "-aa11-aa11-bdc5-2f8496c5641aa2286ed9",
+        "b2286ed9-aa11-aa11-bdc5-2f8496c5641a",
+    ]
+
+    input_source = PathInput(
+        V2_PRODUCT_DATA_DIR / "extraction" / "financial_document" / "default_sample.jpg"
+    )
+    params = ExtractionParameters(model_id=findoc_model_id, webhook_ids=webhook_ids)
+
+    response = v2_client.enqueue_and_get_result(ExtractionResponse, input_source, params)
+
+    _assert_webhook_job_success(response, webhook_ids)
+    assert response.inference.result.fields["supplier_name"].value == "John Smith"
+
+
+@pytest.mark.integration
+@pytest.mark.v2
+def test_split_with_two_webhooks_must_complete_and_succeed(
+    v2_client: Client, split_model_id: str
+) -> None:
+    webhook_ids = [
+        "a2286ed9-aa11-aa11-bdc5-2f8496c5641a",
+        "b2286ed9-aa11-aa11-bdc5-2f8496c5641a",
+    ]
+
+    input_source = PathInput(V2_PRODUCT_DATA_DIR / "split" / "default_sample.pdf")
+    params = SplitParameters(model_id=split_model_id, webhook_ids=webhook_ids)
+
+    response = v2_client.enqueue_and_get_result(SplitResponse, input_source, params)
+
+    _assert_webhook_job_success(response, webhook_ids)
+    assert len(response.inference.result.splits) == 2
 
 
 @pytest.mark.integration
