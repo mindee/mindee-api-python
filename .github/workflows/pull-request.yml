@@ -10,12 +10,16 @@ permissions:
 jobs:
   workflow-lint:
     uses: ./.github/workflows/_workflow_lint.yml
+  build-bernard-ledit:
+    uses: ./.github/workflows/_build-bernard-ledit.yml
   static-analysis:
     uses: ./.github/workflows/_static-analysis.yml
-    needs: workflow-lint
+    needs:
+      - workflow-lint
+      - build-bernard-ledit
   test-units:
     uses: ./.github/workflows/_test-units.yml
-    needs: static-analysis
+    needs: build-bernard-ledit
     secrets: inherit
   test-regressions:
     uses: ./.github/workflows/_test-regressions.yml

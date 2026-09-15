@@ -9,7 +9,9 @@ from mindee.input.path_input import PathInput
 from mindee.v1.product.barcode_reader import BarcodeReaderV1
 from tests.utils import V1_PRODUCT_DATA_DIR
 
-Image = pytest.importorskip("PIL.Image")
+bernard_ledit = pytest.importorskip("bernard_ledit")
+
+bernard_image = bernard_ledit.image
 
 
 @pytest.fixture
@@ -39,8 +41,20 @@ def test_barcode_image_extraction(barcode_path, barcode_json_path):
     assert len(extracted_barcodes_2d) == 2
 
     assert extracted_barcodes_1d[0].as_input_source().filename.endswith("jpg")
-    assert Image.open(extracted_barcodes_1d[0].buffer).size == (353, 200)
-    assert Image.open(extracted_barcodes_2d[0].buffer).size == (214, 216)
+    extracted_barcodes_1d[0].buffer.seek(0)
+    assert bernard_image.decode(extracted_barcodes_1d[0].buffer.read()).size == (
+        353,
+        200,
+    )
+    extracted_barcodes_2d[0].buffer.seek(0)
+    assert bernard_image.decode(extracted_barcodes_2d[0].buffer.read()).size == (
+        214,
+        216,
+    )
     assert extracted_barcodes_2d[0].as_input_source().filename.endswith("jpg")
     assert extracted_barcodes_2d[1].as_input_source().filename.endswith("jpg")
-    assert Image.open(extracted_barcodes_2d[1].buffer).size == (193, 201)
+    extracted_barcodes_2d[1].buffer.seek(0)
+    assert bernard_image.decode(extracted_barcodes_2d[1].buffer.read()).size == (
+        193,
+        201,
+    )

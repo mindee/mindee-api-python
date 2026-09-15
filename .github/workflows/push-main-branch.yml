@@ -6,15 +6,20 @@ on:
       - main
 
 jobs:
+  build-bernard-ledit:
+    uses: mindee/mindee-api-python/.github/workflows/_build-bernard-ledit.yml@main
   static-analysis:
     uses: mindee/mindee-api-python/.github/workflows/_static-analysis.yml@main
+    needs: build-bernard-ledit
   test_units:
     uses: mindee/mindee-api-python/.github/workflows/_test-units.yml@main
-    needs: static-analysis
+    needs: build-bernard-ledit
     secrets: inherit
   tag:
     uses: mindee/client-lib-actions/.github/workflows/tag-version.yml@main
-    needs: test_units
+    needs:
+      - static-analysis
+      - test_units
   release:
     uses: mindee/client-lib-actions/.github/workflows/create-release.yml@main
     needs: tag

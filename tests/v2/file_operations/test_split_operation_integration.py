@@ -24,7 +24,7 @@ output_files = [
 ]
 
 
-@pytest.mark.pypdfium2
+@pytest.mark.bernard_ledit
 @pytest.mark.integration
 def test_pdf_should_extract_splits():
     client = Client()

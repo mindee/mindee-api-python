@@ -11,7 +11,8 @@ from mindee.v1.product.multi_receipts_detector.multi_receipts_detector_v1 import
 )
 from tests.utils import V1_PRODUCT_DATA_DIR
 
-Image = pytest.importorskip("PIL.Image")
+bernard_ledit = pytest.importorskip("bernard_ledit")
+bernard_image = bernard_ledit.image
 
 
 @pytest.fixture
@@ -56,32 +57,33 @@ def test_single_page_multi_receipt_split(
 
     assert extracted_receipts[0].page_id == 0
     assert extracted_receipts[0].element_id == 0
-    image_buffer_0 = Image.open(extracted_receipts[0].buffer)
+    extracted_receipts[0].buffer.seek(0)
+    image_buffer_0 = bernard_image.decode(extracted_receipts[0].buffer.read())
     assert image_buffer_0.size == (341, 505)
 
     assert extracted_receipts[1].page_id == 0
     assert extracted_receipts[1].element_id == 1
-    image_buffer_1 = Image.open(extracted_receipts[1].buffer)
+    image_buffer_1 = bernard_image.decode(extracted_receipts[1].buffer)
     assert image_buffer_1.size == (461, 908)
 
     assert extracted_receipts[2].page_id == 0
     assert extracted_receipts[2].element_id == 2
-    image_buffer_2 = Image.open(extracted_receipts[2].buffer)
+    image_buffer_2 = bernard_image.decode(extracted_receipts[2].buffer)
     assert image_buffer_2.size == (471, 790)
 
     assert extracted_receipts[3].page_id == 0
     assert extracted_receipts[3].element_id == 3
-    image_buffer_3 = Image.open(extracted_receipts[3].buffer)
+    image_buffer_3 = bernard_image.decode(extracted_receipts[3].buffer)
     assert image_buffer_3.size == (464, 1200)
 
     assert extracted_receipts[4].page_id == 0
     assert extracted_receipts[4].element_id == 4
-    image_buffer_4 = Image.open(extracted_receipts[4].buffer)
+    image_buffer_4 = bernard_image.decode(extracted_receipts[4].buffer)
     assert image_buffer_4.size == (530, 943)
 
     assert extracted_receipts[5].page_id == 0
     assert extracted_receipts[5].element_id == 5
-    image_buffer_5 = Image.open(extracted_receipts[5].buffer)
+    image_buffer_5 = bernard_image.decode(extracted_receipts[5].buffer)
     assert image_buffer_5.size == (367, 593)
 
 
@@ -97,25 +99,25 @@ def test_multi_page_receipt_split(
 
     assert extracted_receipts[0].page_id == 0
     assert extracted_receipts[0].element_id == 0
-    image_buffer_0 = Image.open(extracted_receipts[0].buffer)
+    image_buffer_0 = bernard_image.decode(extracted_receipts[0].buffer)
     assert image_buffer_0.size == (198, 566)
 
     assert extracted_receipts[1].page_id == 0
     assert extracted_receipts[1].element_id == 1
-    image_buffer_1 = Image.open(extracted_receipts[1].buffer)
+    image_buffer_1 = bernard_image.decode(extracted_receipts[1].buffer)
     assert image_buffer_1.size == (206, 382)
 
     assert extracted_receipts[2].page_id == 0
     assert extracted_receipts[2].element_id == 2
-    image_buffer_2 = Image.open(extracted_receipts[2].buffer)
+    image_buffer_2 = bernard_image.decode(extracted_receipts[2].buffer)
     assert image_buffer_2.size == (195, 231)
 
     assert extracted_receipts[3].page_id == 1
     assert extracted_receipts[3].element_id == 0
-    image_buffer_3 = Image.open(extracted_receipts[3].buffer)
+    image_buffer_3 = bernard_image.decode(extracted_receipts[3].buffer)
     assert image_buffer_3.size == (213, 356)
 
     assert extracted_receipts[4].page_id == 1
     assert extracted_receipts[4].element_id == 1
-    image_buffer_4 = Image.open(extracted_receipts[4].buffer)
+    image_buffer_4 = bernard_image.decode(extracted_receipts[4].buffer)
     assert image_buffer_4.size == (212, 516)
