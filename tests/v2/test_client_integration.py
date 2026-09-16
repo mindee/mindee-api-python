@@ -1,6 +1,6 @@
 import os
-from pathlib import Path
 from datetime import datetime
+from pathlib import Path
 
 import httpx
 import pytest
@@ -178,7 +178,9 @@ def _assert_webhook_job_success(response, webhook_ids: list[str]) -> None:
     assert isinstance(response.job.completed_at, datetime)
     assert response.job.error is None
     assert len(response.job.webhooks) == 2
-    assert all(webhook.status in {"Completed", "Failed"} for webhook in response.job.webhooks)
+    assert all(
+        webhook.status in {"Completed", "Failed"} for webhook in response.job.webhooks
+    )
     assert {webhook.id for webhook in response.job.webhooks} == set(webhook_ids)
 
 
@@ -197,7 +199,9 @@ def test_extraction_with_two_webhooks_must_complete_and_succeed(
     )
     params = ExtractionParameters(model_id=findoc_model_id, webhook_ids=webhook_ids)
 
-    response = v2_client.enqueue_and_get_result(ExtractionResponse, input_source, params)
+    response = v2_client.enqueue_and_get_result(
+        ExtractionResponse, input_source, params
+    )
 
     _assert_webhook_job_success(response, webhook_ids)
     assert response.inference.result.fields["supplier_name"].value == "John Smith"
