@@ -14,3 +14,9 @@ def force_gc():
 def findoc_model_id() -> str:
     """Identifier of the Financial Document model, supplied through an env var."""
     return os.getenv("MINDEE_V2_SE_TESTS_FINDOC_MODEL_ID", "")
+
+
+@pytest.fixture(scope="session")
+def split_model_id() -> str:
+    """Identifier of the Split model, supplied through an env var."""
+    return  os.getenv("MINDEE_V2_SE_TESTS_SPLIT_MODEL_ID", "")
