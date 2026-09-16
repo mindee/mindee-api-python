@@ -190,7 +190,7 @@ def test_extraction_with_two_webhooks_must_complete_and_succeed(
     v2_client: Client, findoc_model_id: str
 ) -> None:
     webhook_ids = [
-        "-aa11-aa11-bdc5-2f8496c5641aa2286ed9",
+        "a2286ed9-aa11-aa11-bdc5-2f8496c5641a",
         "b2286ed9-aa11-aa11-bdc5-2f8496c5641a",
     ]
 
