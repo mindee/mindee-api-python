@@ -5,7 +5,7 @@ import pytest
 
 from mindee.error.mindee_http_error import MindeeHTTPError
 from mindee.v1.commands import MindeeParser
-from tests.utils import FILE_TYPES_DIR, V1_PRODUCT_DATA_DIR, clear_envvars
+from tests.utils import FILE_TYPES_PATH, V1_PRODUCT_PATH, clear_envvars
 
 
 @pytest.fixture
@@ -22,7 +22,7 @@ def custom_doc(monkeypatch):
         input_type="path",
         output_type="summary",
         include_words=False,
-        path=FILE_TYPES_DIR / "pdf" / "blank.pdf",
+        path=FILE_TYPES_PATH / "pdf" / "blank.pdf",
         parse_type="parse",
         async_parse=False,
     )
@@ -42,7 +42,7 @@ def generated_doc_sync(monkeypatch):
         input_type="path",
         output_type="summary",
         include_words=False,
-        path=FILE_TYPES_DIR / "pdf" / "blank.pdf",
+        path=FILE_TYPES_PATH / "pdf" / "blank.pdf",
         parse_type="parse",
         async_parse=False,
     )
@@ -62,7 +62,7 @@ def generated_doc_async(monkeypatch):
         input_type="path",
         output_type="summary",
         include_words=False,
-        path=FILE_TYPES_DIR / "pdf" / "blank.pdf",
+        path=FILE_TYPES_PATH / "pdf" / "blank.pdf",
         parse_type="parse",
         async_parse=True,
     )
@@ -79,7 +79,7 @@ def ots_doc(monkeypatch):
         input_type="path",
         output_type="summary",
         include_words=False,
-        path=V1_PRODUCT_DATA_DIR / "invoices" / "invoice.pdf",
+        path=V1_PRODUCT_PATH / "invoices" / "invoice.pdf",
         parse_type="parse",
         async_parse=False,
     )
@@ -95,7 +95,7 @@ def ots_doc_enqueue_and_parse(monkeypatch):
         doc_pages=3,
         input_type="path",
         include_words=False,
-        path=V1_PRODUCT_DATA_DIR / "invoice_splitter" / "default_sample.pdf",
+        path=V1_PRODUCT_PATH / "invoice_splitter" / "default_sample.pdf",
         parse_type="parse",
         async_parse=True,
     )
@@ -115,7 +115,7 @@ def ots_doc_feedback(monkeypatch):
         queue_id="dummy-queue-id",
         call_method="parse-queued",
         input_type="path",
-        path=FILE_TYPES_DIR / "pdf" / "blank.pdf",
+        path=FILE_TYPES_PATH / "pdf" / "blank.pdf",
         parse_type="feedback",
         feedback=json.loads(dummy_feedback),
     )

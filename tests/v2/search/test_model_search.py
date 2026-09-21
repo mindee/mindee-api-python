@@ -2,12 +2,12 @@ import pytest
 
 from mindee.input import LocalResponse
 from mindee.v2.search.models.model_search_response import ModelSearchResponse
-from tests.utils import V2_DATA_DIR
+from tests.utils import V2_RESOURCE_PATH
 
 
 @pytest.mark.v2
 def test_should_load_search_models_locally():
-    file_path = V2_DATA_DIR / "search" / "models.json"
+    file_path = V2_RESOURCE_PATH / "search" / "models.json"
     local_response = LocalResponse(file_path)
     response = local_response.deserialize_response(ModelSearchResponse)
 

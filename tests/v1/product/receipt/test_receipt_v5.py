@@ -8,9 +8,9 @@ from mindee.v1.product.receipt.receipt_v5 import ReceiptV5
 from mindee.v1.product.receipt.receipt_v5_document import (
     ReceiptV5Document,
 )
-from tests.utils import V1_PRODUCT_DATA_DIR
+from tests.utils import V1_PRODUCT_PATH
 
-RESPONSE_DIR = V1_PRODUCT_DATA_DIR / "expense_receipts" / "response_v5"
+RESPONSE_DIR = V1_PRODUCT_PATH / "expense_receipts" / "response_v5"
 
 ReceiptV5DocumentType = Document[
     ReceiptV5Document,

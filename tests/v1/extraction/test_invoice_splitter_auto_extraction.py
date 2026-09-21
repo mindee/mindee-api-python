@@ -8,13 +8,13 @@ from mindee.v1.parsing.common import Document
 from mindee.v1.pdf.pdf_extractor import PDFExtractor
 from mindee.v1.product.invoice.invoice_v4 import InvoiceV4
 from mindee.v1.product.invoice_splitter.invoice_splitter_v1 import InvoiceSplitterV1
-from tests.utils import V1_PRODUCT_DATA_DIR, levenshtein_ratio
+from tests.utils import V1_PRODUCT_PATH, levenshtein_ratio
 from tests.v1.product import get_id, get_version
 
 
 @pytest.fixture
 def invoice_splitter_5p_path():
-    return V1_PRODUCT_DATA_DIR / "invoice_splitter" / "invoice_5p.pdf"
+    return V1_PRODUCT_PATH / "invoice_splitter" / "invoice_5p.pdf"
 
 
 def prepare_invoice_return(rst_file_path: Path, invoice_prediction: Document):
@@ -33,7 +33,7 @@ def prepare_invoice_return(rst_file_path: Path, invoice_prediction: Document):
 def test_pdf_should_extract_invoices_strict():
     client = Client()
     invoice_splitter_input = PathInput(
-        V1_PRODUCT_DATA_DIR / "invoice_splitter" / "default_sample.pdf"
+        V1_PRODUCT_PATH / "invoice_splitter" / "default_sample.pdf"
     )
     response = client.enqueue_and_parse(
         InvoiceSplitterV1, invoice_splitter_input, close_file=False
@@ -61,10 +61,7 @@ def test_pdf_should_extract_invoices_strict():
 
     invoice_0 = client.parse(InvoiceV4, extracted_pdfs_not_strict[0].as_input_source())
     test_string_rst_invoice_0 = prepare_invoice_return(
-        V1_PRODUCT_DATA_DIR
-        / "invoices"
-        / "response_v4"
-        / "summary_full_invoice_p1.rst",
+        V1_PRODUCT_PATH / "invoices" / "response_v4" / "summary_full_invoice_p1.rst",
         invoice_0.document,
     )
     assert levenshtein_ratio(test_string_rst_invoice_0, str(invoice_0.document)) >= 0.97

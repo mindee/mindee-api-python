@@ -8,17 +8,17 @@ from mindee.v1.mindee_http.base_settings import (
     REQUEST_TIMEOUT_ENV_NAME,
 )
 
-ROOT_DATA_DIR = Path(__file__).parent / "data"
-FILE_TYPES_DIR = ROOT_DATA_DIR / "file_types"
-OUTPUT_DIR = ROOT_DATA_DIR / "output"
+RESOURCE_PATH = Path(__file__).parent / "data"
+FILE_TYPES_PATH = RESOURCE_PATH / "file_types"
+OUTPUT_PATH = RESOURCE_PATH / "output"
 
-V1_DATA_DIR = ROOT_DATA_DIR / "v1"
-V1_ERROR_DATA_DIR = V1_DATA_DIR / "errors"
-V1_PRODUCT_DATA_DIR = V1_DATA_DIR / "products"
-V1_EXTRAS_DIR = V1_DATA_DIR / "extras"
+V1_RESOURCE_PATH = RESOURCE_PATH / "v1"
+V1_ERROR_PATH = V1_RESOURCE_PATH / "errors"
+V1_PRODUCT_PATH = V1_RESOURCE_PATH / "products"
+V1_EXTRAS_PATH = V1_RESOURCE_PATH / "extras"
 
-V2_DATA_DIR = ROOT_DATA_DIR / "v2"
-V2_PRODUCT_DATA_DIR = V2_DATA_DIR / "products"
+V2_RESOURCE_PATH = RESOURCE_PATH / "v2"
+V2_PRODUCT_PATH = V2_RESOURCE_PATH / "products"
 
 
 def clear_envvars(monkeypatch) -> None:
@@ -50,6 +50,6 @@ def levenshtein_ratio(ref_str: str, target_str: str) -> float:
 
 def cleanup_output_files(created_files):
     for file_path in created_files:
-        full_path = OUTPUT_DIR / file_path
+        full_path = OUTPUT_PATH / file_path
         if full_path.exists():
             os.remove(full_path)

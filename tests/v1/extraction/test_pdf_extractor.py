@@ -8,24 +8,24 @@ from mindee.v1.product.invoice_splitter.invoice_splitter_v1 import InvoiceSplitt
 from mindee.v1.product.invoice_splitter.invoice_splitter_v1_document import (
     InvoiceSplitterV1Document,
 )
-from tests.utils import OUTPUT_DIR, V1_PRODUCT_DATA_DIR
+from tests.utils import OUTPUT_PATH, V1_PRODUCT_PATH
 
 
 @pytest.fixture
 def invoice_default_sample_path():
-    return V1_PRODUCT_DATA_DIR / "invoices" / "default_sample.jpg"
+    return V1_PRODUCT_PATH / "invoices" / "default_sample.jpg"
 
 
 @pytest.fixture
 def invoice_splitter_5p_path():
-    return V1_PRODUCT_DATA_DIR / "invoice_splitter" / "invoice_5p.pdf"
+    return V1_PRODUCT_PATH / "invoice_splitter" / "invoice_5p.pdf"
 
 
 @pytest.fixture
 def loaded_prediction():
     dummy_client = Client("dummy_key")
     loaded_prediction_path = (
-        V1_PRODUCT_DATA_DIR / "invoice_splitter" / "response_v1" / "complete.json"
+        V1_PRODUCT_PATH / "invoice_splitter" / "response_v1" / "complete.json"
     )
     input_response = LocalResponse(loaded_prediction_path)
     response = dummy_client.load_prediction(InvoiceSplitterV1, input_response)
@@ -43,8 +43,8 @@ def test_image_should_extract_pdf(invoice_default_sample_path):
     assert extracted_pdf.page_count == 1
     assert extracted_pdf.page_indexes == [0]
     assert extracted_pdf.filename == "default_sample_pages-001-001.pdf"
-    extracted_pdf.write_to_file(OUTPUT_DIR)
-    assert (OUTPUT_DIR / extracted_pdf.filename).exists()
+    extracted_pdf.write_to_file(OUTPUT_PATH)
+    assert (OUTPUT_PATH / extracted_pdf.filename).exists()
 
 
 @pytest.mark.pillow

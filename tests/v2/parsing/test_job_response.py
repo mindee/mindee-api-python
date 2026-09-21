@@ -6,11 +6,11 @@ import pytest
 from mindee import JobResponse
 from mindee.v2.parsing.error.error_item import ErrorItem
 from mindee.v2.parsing.error.error_response import ErrorResponse
-from tests.utils import V2_DATA_DIR
+from tests.utils import V2_RESOURCE_PATH
 
 
 def _get_job_samples(json_file: str) -> dict:
-    json_path = V2_DATA_DIR / "job" / json_file
+    json_path = V2_RESOURCE_PATH / "job" / json_file
     with json_path.open("r", encoding="utf-8") as fh:
         json_sample = json.load(fh)
     return json_sample

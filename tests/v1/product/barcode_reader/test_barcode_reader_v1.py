@@ -8,9 +8,9 @@ from mindee.v1.product.barcode_reader import BarcodeReaderV1
 from mindee.v1.product.barcode_reader.barcode_reader_v1_document import (
     BarcodeReaderV1Document,
 )
-from tests.utils import V1_PRODUCT_DATA_DIR
+from tests.utils import V1_PRODUCT_PATH
 
-RESPONSE_DIR = V1_PRODUCT_DATA_DIR / "barcode_reader" / "response_v1"
+RESPONSE_DIR = V1_PRODUCT_PATH / "barcode_reader" / "response_v1"
 
 BarcodeReaderV1DocumentType = Document[
     BarcodeReaderV1Document,

@@ -12,11 +12,11 @@ from mindee.input import (
     PathInput,
     URLInputSource,
 )
-from tests.utils import FILE_TYPES_DIR
+from tests.utils import FILE_TYPES_PATH
 
 
 def test_pdf_read_contents():
-    input_source = PathInput(FILE_TYPES_DIR / "pdf" / "multipage.pdf")
+    input_source = PathInput(FILE_TYPES_PATH / "pdf" / "multipage.pdf")
     contents = input_source.read_contents(close_file=False)
     assert contents[0] == "multipage.pdf"
     assert isinstance(contents[1], bytes)
@@ -36,7 +36,7 @@ def test_pdf_read_contents():
     ],
 )
 def test_pdf_input_from_path(filename, page_count):
-    input_source = PathInput(FILE_TYPES_DIR / "pdf" / filename)
+    input_source = PathInput(FILE_TYPES_PATH / "pdf" / filename)
     assert input_source.file_mimetype == "application/pdf"
     assert input_source.is_pdf() is True
     assert input_source.page_count == page_count
@@ -70,14 +70,14 @@ def _assert_image(input_source: LocalInputSource, mimetype: str) -> None:
 @pytest.mark.pypdfium2
 @pytest.mark.parametrize(("filename", "mimetype"), TEST_IMAGES)
 def test_image_input_from_path(filename, mimetype):
-    input_source = PathInput(FILE_TYPES_DIR / filename)
+    input_source = PathInput(FILE_TYPES_PATH / filename)
     _assert_image(input_source, mimetype)
 
 
 @pytest.mark.pypdfium2
 @pytest.mark.parametrize(("filename", "mimetype"), TEST_IMAGES)
 def test_image_input_from_file(filename, mimetype):
-    with open(FILE_TYPES_DIR / filename, "rb") as fp:
+    with open(FILE_TYPES_PATH / filename, "rb") as fp:
         input_source = FileInput(fp)
         _assert_image(input_source, mimetype)
 
@@ -85,14 +85,14 @@ def test_image_input_from_file(filename, mimetype):
 @pytest.mark.pypdfium2
 @pytest.mark.parametrize(("filename", "mimetype"), TEST_IMAGES)
 def test_image_input_from_bytes(filename, mimetype):
-    with open(FILE_TYPES_DIR / filename, "rb") as file_bytes:
+    with open(FILE_TYPES_PATH / filename, "rb") as file_bytes:
         input_source = BytesInput(file_bytes.read(), filename=filename)
     _assert_image(input_source, mimetype)
 
 
 @pytest.mark.pypdfium2
 def test_image_input_from_base64():
-    with open(FILE_TYPES_DIR / "receipt.txt") as fp:
+    with open(FILE_TYPES_PATH / "receipt.txt") as fp:
         input_source = Base64Input(fp.read(), filename="receipt.jpg")
     _assert_image(input_source, mimetype="image/jpeg")
 
@@ -100,4 +100,4 @@ def test_image_input_from_base64():
 @pytest.mark.pypdfium2
 def test_txt_input_from_path():
     with pytest.raises(MimeTypeError):
-        PathInput(FILE_TYPES_DIR / "receipt.txt")
+        PathInput(FILE_TYPES_PATH / "receipt.txt")

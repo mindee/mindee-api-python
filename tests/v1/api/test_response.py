@@ -16,12 +16,12 @@ from mindee.v1.product.passport import PassportV1
 from mindee.v1.product.passport.passport_v1_document import PassportV1Document
 from mindee.v1.product.receipt.receipt_v5 import ReceiptV5
 from mindee.v1.product.receipt.receipt_v5_document import ReceiptV5Document
-from tests.utils import V1_PRODUCT_DATA_DIR
+from tests.utils import V1_PRODUCT_PATH
 
 
 def test_invoice_receipt_v5():
     with open(
-        V1_PRODUCT_DATA_DIR / "invoices" / "response_v4" / "complete.json"
+        V1_PRODUCT_PATH / "invoices" / "response_v4" / "complete.json"
     ) as json_file:
         response = json.load(json_file)
     parsed_response = PredictResponse(InvoiceV4, response)
@@ -33,7 +33,7 @@ def test_invoice_receipt_v5():
 
 def test_response_receipt_v5():
     with open(
-        V1_PRODUCT_DATA_DIR / "expense_receipts" / "response_v5" / "complete.json"
+        V1_PRODUCT_PATH / "expense_receipts" / "response_v5" / "complete.json"
     ) as json_file:
         response = json.load(json_file)
     parsed_response = PredictResponse(ReceiptV5, response)
@@ -45,10 +45,7 @@ def test_response_receipt_v5():
 
 def test_response_financial_doc_with_receipt():
     with open(
-        V1_PRODUCT_DATA_DIR
-        / "financial_document"
-        / "response_v1"
-        / "complete_receipt.json"
+        V1_PRODUCT_PATH / "financial_document" / "response_v1" / "complete_receipt.json"
     ) as json_file:
         response = json.load(json_file)
     parsed_response = PredictResponse(FinancialDocumentV1, response)
@@ -62,7 +59,7 @@ def test_response_financial_doc_with_receipt():
 
 def test_response_passport_v1():
     with open(
-        V1_PRODUCT_DATA_DIR / "passport" / "response_v1" / "complete.json"
+        V1_PRODUCT_PATH / "passport" / "response_v1" / "complete.json"
     ) as json_file:
         response = json.load(json_file)
     parsed_response = PredictResponse(PassportV1, response)
@@ -75,7 +72,7 @@ def test_response_passport_v1():
 
 def test_response_fr_idcard_v2():
     with open(
-        V1_PRODUCT_DATA_DIR / "idcard_fr" / "response_v2" / "complete.json"
+        V1_PRODUCT_PATH / "idcard_fr" / "response_v2" / "complete.json"
     ) as json_file:
         response = json.load(json_file)
     parsed_response = PredictResponse(IdCardV2, response)

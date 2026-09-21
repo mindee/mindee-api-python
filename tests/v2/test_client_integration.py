@@ -13,7 +13,7 @@ from mindee.v2.error.mindee_http_error_v2 import (
 )
 from mindee.v2.parsing import InferenceActiveOptions
 from mindee.v2.product.extraction.extraction_response import ExtractionResponse
-from tests.utils import FILE_TYPES_DIR, V2_PRODUCT_DATA_DIR
+from tests.utils import FILE_TYPES_PATH, V2_PRODUCT_PATH
 
 
 @pytest.fixture(scope="session")
@@ -46,7 +46,7 @@ def test_parse_file_empty_multiple_pages_must_succeed(
     Upload a 2-page almost blank PDF and make sure the returned inference contains the
     file & model metadata.
     """
-    input_path: Path = FILE_TYPES_DIR / "pdf" / "multipage_cut-2.pdf"
+    input_path: Path = FILE_TYPES_PATH / "pdf" / "multipage_cut-2.pdf"
 
     input_source = PathInput(input_path)
     params = ExtractionParameters(
@@ -88,7 +88,7 @@ def test_parse_file_empty_single_page_options_must_succeed(
     """
     Upload a blank PDF and make sure the options are set correctly.
     """
-    input_path: Path = FILE_TYPES_DIR / "pdf" / "blank_1.pdf"
+    input_path: Path = FILE_TYPES_PATH / "pdf" / "blank_1.pdf"
 
     input_source = PathInput(input_path)
     params = ExtractionParameters(
@@ -124,7 +124,7 @@ def test_parse_file_filled_single_page_must_succeed(
     Upload a filled single-page JPEG and verify that common fields are present.
     """
     input_path: Path = (
-        V2_PRODUCT_DATA_DIR / "extraction" / "financial_document" / "default_sample.jpg"
+        V2_PRODUCT_PATH / "extraction" / "financial_document" / "default_sample.jpg"
     )
 
     input_source = PathInput(input_path)
@@ -172,7 +172,7 @@ def test_invalid_uuid_must_throw_error(v2_client: Client) -> None:
     """
     Using an invalid model identifier must trigger a 422 HTTP error.
     """
-    input_path: Path = FILE_TYPES_DIR / "pdf" / "blank_1.pdf"
+    input_path: Path = FILE_TYPES_PATH / "pdf" / "blank_1.pdf"
 
     input_source = PathInput(input_path)
     params = ExtractionParameters(
@@ -195,7 +195,7 @@ def test_unknown_model_must_throw_error(v2_client: Client) -> None:
     """
     Using an unknown model identifier must trigger a 404 HTTP error.
     """
-    input_path: Path = FILE_TYPES_DIR / "pdf" / "blank_1.pdf"
+    input_path: Path = FILE_TYPES_PATH / "pdf" / "blank_1.pdf"
 
     input_source = PathInput(input_path)
     params = ExtractionParameters(model_id="fc405e37-4ba4-4d03-aeba-533a8d1f0f21")
@@ -218,7 +218,7 @@ def test_unknown_webhook_ids_must_throw_error(
     """
     Using an unknown webhook identifier must trigger an error.
     """
-    input_path: Path = FILE_TYPES_DIR / "pdf" / "blank_1.pdf"
+    input_path: Path = FILE_TYPES_PATH / "pdf" / "blank_1.pdf"
 
     input_source = PathInput(input_path)
     params = ExtractionParameters(
@@ -280,9 +280,9 @@ def test_data_schema_must_succeed(
     """
     Load a blank PDF from an HTTPS URL and make sure the inference call completes without raising any errors.
     """
-    input_path: Path = FILE_TYPES_DIR / "pdf" / "blank_1.pdf"
+    input_path: Path = FILE_TYPES_PATH / "pdf" / "blank_1.pdf"
     data_schema_replace_path = (
-        V2_PRODUCT_DATA_DIR / "extraction" / "data_schema_replace_param.json"
+        V2_PRODUCT_PATH / "extraction" / "data_schema_replace_param.json"
     )
 
     input_source = PathInput(input_path)
@@ -318,7 +318,7 @@ def test_custom_httpx_client_event_hook(
     httpx_client = httpx.Client(event_hooks={"request": [log_request]})
     client = Client(http_client=httpx_client)
 
-    input_path = FILE_TYPES_DIR / "pdf" / "blank_1.pdf"
+    input_path = FILE_TYPES_PATH / "pdf" / "blank_1.pdf"
     input_source = PathInput(input_path)
 
     params = ExtractionParameters(
@@ -343,10 +343,7 @@ def test_http2_client(findoc_model_id) -> None:
     httpx_client = httpx.Client(http2=True)
     with Client(http_client=httpx_client) as client:
         input_source = PathInput(
-            V2_PRODUCT_DATA_DIR
-            / "extraction"
-            / "financial_document"
-            / "default_sample.jpg"
+            V2_PRODUCT_PATH / "extraction" / "financial_document" / "default_sample.jpg"
         )
         params = ExtractionParameters(model_id=findoc_model_id)
         response = client.enqueue_and_get_result(

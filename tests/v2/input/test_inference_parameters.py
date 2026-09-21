@@ -6,10 +6,10 @@ from mindee import ExtractionParameters
 from mindee.v2.product.extraction.params.data_schema import DataSchema
 from mindee.v2.product.extraction.params.data_schema_field import DataSchemaField
 from mindee.v2.product.extraction.params.data_schema_replace import DataSchemaReplace
-from tests.utils import V2_PRODUCT_DATA_DIR
+from tests.utils import V2_PRODUCT_PATH
 
 expected_data_schema_dict = json.loads(
-    (V2_PRODUCT_DATA_DIR / "extraction" / "data_schema_replace_param.json").read_text()
+    (V2_PRODUCT_PATH / "extraction" / "data_schema_replace_param.json").read_text()
 )
 expected_data_schema_str = json.dumps(
     expected_data_schema_dict, indent=None, sort_keys=True

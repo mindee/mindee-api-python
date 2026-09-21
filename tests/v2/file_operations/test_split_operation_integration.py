@@ -10,7 +10,7 @@ from mindee import (
 )
 from mindee.input.path_input import PathInput
 from mindee.v2.client import Client
-from tests.utils import OUTPUT_DIR, V2_PRODUCT_DATA_DIR, cleanup_output_files
+from tests.utils import OUTPUT_PATH, V2_PRODUCT_PATH, cleanup_output_files
 
 
 def check_findoc_return(findoc_response: ExtractionResponse):
@@ -28,7 +28,7 @@ output_files = [
 @pytest.mark.integration
 def test_pdf_should_extract_splits():
     client = Client()
-    split_input = PathInput(V2_PRODUCT_DATA_DIR / "split" / "default_sample.pdf")
+    split_input = PathInput(V2_PRODUCT_PATH / "split" / "default_sample.pdf")
     response = client.enqueue_and_get_result(
         SplitResponse,
         split_input,
@@ -53,9 +53,9 @@ def test_pdf_should_extract_splits():
         ),
     )
     check_findoc_return(invoice_0)
-    extracted_splits.save_all_to_disk(OUTPUT_DIR)
+    extracted_splits.save_all_to_disk(OUTPUT_PATH)
     for i in range(len(extracted_splits)):
-        local_input = PathInput(OUTPUT_DIR / output_files[i])
+        local_input = PathInput(OUTPUT_PATH / output_files[i])
         try:
             assert local_input.page_count == extracted_splits[i].page_count
         finally:

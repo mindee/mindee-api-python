@@ -9,35 +9,30 @@ from mindee.v1.pdf.multi_receipts_extractor import extract_receipts
 from mindee.v1.product.multi_receipts_detector.multi_receipts_detector_v1 import (
     MultiReceiptsDetectorV1,
 )
-from tests.utils import V1_PRODUCT_DATA_DIR
+from tests.utils import V1_PRODUCT_PATH
 
 Image = pytest.importorskip("PIL.Image")
 
 
 @pytest.fixture
 def multi_receipts_single_page_path():
-    return V1_PRODUCT_DATA_DIR / "multi_receipts_detector" / "default_sample.jpg"
+    return V1_PRODUCT_PATH / "multi_receipts_detector" / "default_sample.jpg"
 
 
 @pytest.fixture
 def multi_receipts_single_page_json_path():
-    return (
-        V1_PRODUCT_DATA_DIR
-        / "multi_receipts_detector"
-        / "response_v1"
-        / "complete.json"
-    )
+    return V1_PRODUCT_PATH / "multi_receipts_detector" / "response_v1" / "complete.json"
 
 
 @pytest.fixture
 def multi_receipts_multi_page_path():
-    return V1_PRODUCT_DATA_DIR / "multi_receipts_detector" / "multipage_sample.pdf"
+    return V1_PRODUCT_PATH / "multi_receipts_detector" / "multipage_sample.pdf"
 
 
 @pytest.fixture
 def multi_receipts_multi_page_json_path():
     return (
-        V1_PRODUCT_DATA_DIR
+        V1_PRODUCT_PATH
         / "multi_receipts_detector"
         / "response_v1"
         / "multipage_sample.json"

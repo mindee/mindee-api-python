@@ -10,9 +10,9 @@ from mindee.v1.product.financial_document.financial_document_v1 import (
 from mindee.v1.product.financial_document.financial_document_v1_document import (
     FinancialDocumentV1Document,
 )
-from tests.utils import V1_PRODUCT_DATA_DIR
+from tests.utils import V1_PRODUCT_PATH
 
-RESPONSE_DIR = V1_PRODUCT_DATA_DIR / "financial_document" / "response_v1"
+RESPONSE_DIR = V1_PRODUCT_PATH / "financial_document" / "response_v1"
 
 FinancialDocumentV1DocumentType = Document[
     FinancialDocumentV1Document,
