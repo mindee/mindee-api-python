@@ -1,21 +1,11 @@
 from mindee.parsing.common import CommonResponse
 from mindee.parsing.common.string_dict import StringDict
 from mindee.v2.parsing.error.error_item import ErrorItem
+from mindee.v2.parsing.error.ierror_response import IErrorResponse
 
 
-class ErrorResponse(CommonResponse):
+class ErrorResponse(CommonResponse, IErrorResponse):
     """Error response detailing a problem. The format adheres to RFC 9457."""
-
-    status: int
-    """The HTTP status code returned by the server."""
-    detail: str
-    """A human-readable explanation specific to the occurrence of the problem."""
-    title: str
-    """A short, human-readable summary of the problem."""
-    code: str
-    """A machine-readable code specific to the occurrence of the problem."""
-    errors: list[ErrorItem]
-    """A list of explicit error details."""
 
     def __init__(self, raw_response: StringDict):
         super().__init__(raw_response)

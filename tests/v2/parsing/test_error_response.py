@@ -7,7 +7,7 @@ from tests.utils import V2_RESOURCE_PATH
 
 @pytest.mark.v2
 def test_rst_output_must_be_valid():
-    """should load and pretty print an error response"""
+    """Should load and pretty print an error response."""
 
     local_response = LocalResponse(
         V2_RESOURCE_PATH / "errors/error_422_invalid_fields.json"
