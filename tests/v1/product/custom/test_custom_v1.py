@@ -9,13 +9,13 @@ from mindee.v1.parsing.custom import ClassificationField, ListField, ListFieldVa
 from mindee.v1.product.custom.custom_v1 import CustomV1
 from mindee.v1.product.custom.custom_v1_document import CustomV1Document
 from mindee.v1.product.custom.custom_v1_page import CustomV1Page
-from tests.utils import V1_PRODUCT_DATA_DIR
+from tests.utils import V1_PRODUCT_PATH
 
 
 @pytest.fixture
 def custom_v1_complete_doc() -> Document[CustomV1Document, Page[CustomV1Page]]:
     with open(
-        V1_PRODUCT_DATA_DIR / "custom" / "response_v1" / "complete.json"
+        V1_PRODUCT_PATH / "custom" / "response_v1" / "complete.json"
     ) as json_file:
         json_data = json.load(json_file)
     return Document(CustomV1, json_data["document"])
@@ -23,9 +23,7 @@ def custom_v1_complete_doc() -> Document[CustomV1Document, Page[CustomV1Page]]:
 
 @pytest.fixture
 def custom_v1_empty_doc() -> Document[CustomV1Document, Page[CustomV1Page]]:
-    with open(
-        V1_PRODUCT_DATA_DIR / "custom" / "response_v1" / "empty.json"
-    ) as json_file:
+    with open(V1_PRODUCT_PATH / "custom" / "response_v1" / "empty.json") as json_file:
         json_data = json.load(json_file)
 
     return Document(CustomV1, json_data["document"])
@@ -34,7 +32,7 @@ def custom_v1_empty_doc() -> Document[CustomV1Document, Page[CustomV1Page]]:
 @pytest.fixture
 def custom_v1_complete_page_0() -> Page[CustomV1Page]:
     with open(
-        V1_PRODUCT_DATA_DIR / "custom" / "response_v1" / "complete.json"
+        V1_PRODUCT_PATH / "custom" / "response_v1" / "complete.json"
     ) as json_file:
         json_data = json.load(json_file)
 
@@ -44,7 +42,7 @@ def custom_v1_complete_page_0() -> Page[CustomV1Page]:
 @pytest.fixture
 def custom_v1_complete_page_1() -> Page[CustomV1Page]:
     with open(
-        V1_PRODUCT_DATA_DIR / "custom" / "response_v1" / "complete.json"
+        V1_PRODUCT_PATH / "custom" / "response_v1" / "complete.json"
     ) as json_file:
         json_data = json.load(json_file)
 
@@ -68,9 +66,7 @@ def test_empty_doc(custom_v1_empty_doc) -> None:
 
 def test_complete_doc(custom_v1_complete_doc) -> None:
     document_prediction: CustomV1Document = custom_v1_complete_doc.inference.prediction
-    with open(
-        V1_PRODUCT_DATA_DIR / "custom" / "response_v1" / "summary_full.rst"
-    ) as doc:
+    with open(V1_PRODUCT_PATH / "custom" / "response_v1" / "summary_full.rst") as doc:
         doc_str = doc.read()
     for field_name, field in document_prediction.fields.items():
         assert len(field_name) > 0
@@ -96,7 +92,7 @@ def test_complete_doc(custom_v1_complete_doc) -> None:
 def test_complete_page_0(custom_v1_complete_page_0):
     page_0_prediction = custom_v1_complete_page_0.prediction
     with open(
-        V1_PRODUCT_DATA_DIR / "custom" / "response_v1" / "summary_page0.rst"
+        V1_PRODUCT_PATH / "custom" / "response_v1" / "summary_page0.rst"
     ) as page0:
         page_0_str = page0.read()
     assert custom_v1_complete_page_0.orientation.value == 0
@@ -112,7 +108,7 @@ def test_complete_page_0(custom_v1_complete_page_0):
 def test_complete_page_1(custom_v1_complete_page_1):
     page_1_prediction = custom_v1_complete_page_1.prediction
     with open(
-        V1_PRODUCT_DATA_DIR / "custom" / "response_v1" / "summary_page1.rst"
+        V1_PRODUCT_PATH / "custom" / "response_v1" / "summary_page1.rst"
     ) as page1:
         page_1_str = page1.read()
     assert custom_v1_complete_page_1.orientation.value == 0

@@ -8,7 +8,7 @@ from mindee.input.path_input import PathInput
 from mindee.v2.product.crop.crop_response import (
     CropResponse,
 )
-from tests.utils import V2_PRODUCT_DATA_DIR
+from tests.utils import V2_PRODUCT_PATH
 
 Image = pytest.importorskip("PIL.Image")
 
@@ -16,8 +16,8 @@ Image = pytest.importorskip("PIL.Image")
 @pytest.mark.pillow
 @pytest.mark.pypdfium2
 def test_single_page_crop():
-    input_sample = PathInput(V2_PRODUCT_DATA_DIR / "crop" / "default_sample.jpg")
-    with open(V2_PRODUCT_DATA_DIR / "crop" / "default_sample.json", "rb") as f:
+    input_sample = PathInput(V2_PRODUCT_PATH / "crop" / "default_sample.jpg")
+    with open(V2_PRODUCT_PATH / "crop" / "default_sample.json", "rb") as f:
         response = CropResponse(json.load(f))
     extracted_crops = response.inference.result.extract_from_input_source(input_sample)
     assert len(extracted_crops) == 2
@@ -38,8 +38,8 @@ def test_single_page_crop():
 @pytest.mark.pillow
 @pytest.mark.pypdfium2
 def test_multi_page_crop():
-    input_sample = PathInput(V2_PRODUCT_DATA_DIR / "crop" / "multipage_sample.pdf")
-    with open(V2_PRODUCT_DATA_DIR / "crop" / "multipage_sample.json", "rb") as f:
+    input_sample = PathInput(V2_PRODUCT_PATH / "crop" / "multipage_sample.pdf")
+    with open(V2_PRODUCT_PATH / "crop" / "multipage_sample.json", "rb") as f:
         response = CropResponse(json.load(f))
     extracted_crops = response.inference.result.extract_from_input_source(input_sample)
     assert len(extracted_crops) == 5

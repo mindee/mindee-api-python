@@ -6,12 +6,12 @@ from mindee.input import LocalResponse
 from mindee.v2.search.rag_documents.rag_document_search_response import (
     RagDocumentSearchResponse,
 )
-from tests.utils import V2_DATA_DIR
+from tests.utils import V2_RESOURCE_PATH
 
 
 @pytest.mark.v2
 def test_should_load_search_rag_documents_locally():
-    file_path = V2_DATA_DIR / "search" / "rag_documents.json"
+    file_path = V2_RESOURCE_PATH / "search" / "rag_documents.json"
     local_response = LocalResponse(file_path)
     response = local_response.deserialize_response(RagDocumentSearchResponse)
 

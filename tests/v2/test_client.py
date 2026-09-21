@@ -22,7 +22,12 @@ from mindee.v2.error.mindee_http_error_v2 import (
 from mindee.v2.parsing.job.job import Job
 from mindee.v2.parsing.job.job_response import JobResponse
 from mindee.v2.product.extraction.extraction_inference import ExtractionInference
-from tests.utils import FILE_TYPES_DIR, V2_DATA_DIR, V2_PRODUCT_DATA_DIR, dummy_envvars
+from tests.utils import (
+    FILE_TYPES_PATH,
+    V2_PRODUCT_PATH,
+    V2_RESOURCE_PATH,
+    dummy_envvars,
+)
 
 # --- Fixtures & Helper Utilities ---
 
@@ -47,21 +52,19 @@ def dummy_url_client(monkeypatch) -> Client:
 
 @pytest.fixture
 def findoc_json() -> dict:
-    data_file = (
-        V2_PRODUCT_DATA_DIR / "extraction" / "financial_document" / "complete.json"
-    )
+    data_file = V2_PRODUCT_PATH / "extraction" / "financial_document" / "complete.json"
     return json.loads(data_file.read_text(encoding="utf-8"))
 
 
 @pytest.fixture
 def job_processing_json() -> dict:
-    data_file = V2_DATA_DIR / "job" / "ok_processing.json"
+    data_file = V2_RESOURCE_PATH / "job" / "ok_processing.json"
     return json.loads(data_file.read_text(encoding="utf-8"))
 
 
 @pytest.fixture
 def job_fail_422_json() -> dict:
-    data_file = V2_DATA_DIR / "job" / "fail_422.json"
+    data_file = V2_RESOURCE_PATH / "job" / "fail_422.json"
     return json.loads(data_file.read_text(encoding="utf-8"))
 
 
@@ -96,7 +99,7 @@ def test_enqueue_path_with_env_token(dummy_url_client, job_fail_422_json):
     assert dummy_url_client.mindee_api.base_headers["Authorization"] == "dummy"
     assert dummy_url_client.mindee_api.base_headers["User-Agent"] == USER_AGENT
 
-    input_doc: LocalInputSource = PathInput(f"{FILE_TYPES_DIR}/receipt.jpg")
+    input_doc: LocalInputSource = PathInput(f"{FILE_TYPES_PATH}/receipt.jpg")
     with pytest.raises(MindeeHTTPErrorV2):
         dummy_url_client.enqueue(input_doc, ExtractionParameters("dummy-model"))
 
@@ -109,7 +112,7 @@ def test_enqueue_and_parse_path_with_env_token(dummy_url_client, job_fail_422_js
         json=job_fail_422_json,
     )
 
-    input_doc: LocalInputSource = PathInput(f"{FILE_TYPES_DIR}/receipt.jpg")
+    input_doc: LocalInputSource = PathInput(f"{FILE_TYPES_PATH}/receipt.jpg")
     with pytest.raises(MindeeHTTPErrorV2):
         dummy_url_client.enqueue_and_get_result(
             ExtractionResponse,
@@ -119,7 +122,7 @@ def test_enqueue_and_parse_path_with_env_token(dummy_url_client, job_fail_422_js
                 text_context="ignore this message",
                 data_schema=json.loads(
                     (
-                        V2_PRODUCT_DATA_DIR
+                        V2_PRODUCT_PATH
                         / "extraction"
                         / "data_schema_replace_param.json"
                     ).read_text()
@@ -131,7 +134,7 @@ def test_enqueue_and_parse_path_with_env_token(dummy_url_client, job_fail_422_js
 @pytest.mark.v2
 def test_loads_from_prediction():
     input_inference = LocalResponse(
-        V2_PRODUCT_DATA_DIR / "extraction" / "financial_document" / "complete.json"
+        V2_PRODUCT_PATH / "extraction" / "financial_document" / "complete.json"
     )
     response = input_inference.deserialize_response(ExtractionResponse)
     _assert_findoc_inference(response)
@@ -186,7 +189,7 @@ def test_error_handling(dummy_url_client):
     with pytest.raises(MindeeHTTPErrorV2) as e:
         dummy_url_client.enqueue(
             PathInput(
-                V2_PRODUCT_DATA_DIR
+                V2_PRODUCT_PATH
                 / "extraction"
                 / "financial_document"
                 / "default_sample.jpg"
@@ -208,7 +211,7 @@ def test_error_handling_non_json_response(env_client):
     with pytest.raises(MindeeHTTPUnknownErrorV2) as e:
         env_client.enqueue(
             PathInput(
-                V2_PRODUCT_DATA_DIR
+                V2_PRODUCT_PATH
                 / "extraction"
                 / "financial_document"
                 / "default_sample.jpg"
@@ -258,10 +261,12 @@ def test_client_closes_httpx_connections() -> None:
 @respx.mock
 def test_httpx_multiple_calls_thread_safety() -> None:
     client = Client(api_key="dummy_key")
-    input_path = FILE_TYPES_DIR / "pdf" / "blank_1.pdf"
+    input_path = FILE_TYPES_PATH / "pdf" / "blank_1.pdf"
 
     def delayed_response(_: httpx.Request) -> httpx.Response:
-        job_json = json.loads((V2_DATA_DIR / "job" / "ok_processing.json").read_text())
+        job_json = json.loads(
+            (V2_RESOURCE_PATH / "job" / "ok_processing.json").read_text()
+        )
         time.sleep(0.1)
         return httpx.Response(201, json=job_json)
 
@@ -297,7 +302,7 @@ def test_explicit_timeout_failure(findoc_model_id) -> None:
     )
 
     client = Client(api_key="dummy")
-    input_source = PathInput(FILE_TYPES_DIR / "pdf" / "blank_1.pdf")
+    input_source = PathInput(FILE_TYPES_PATH / "pdf" / "blank_1.pdf")
     params = ExtractionParameters(model_id=findoc_model_id)
 
     with pytest.raises(httpx.ReadTimeout):
@@ -315,7 +320,7 @@ def test_explicit_500_server_error(findoc_model_id: str) -> None:
     )
 
     client = Client(api_key="dummy")
-    input_source = PathInput(FILE_TYPES_DIR / "pdf" / "blank_1.pdf")
+    input_source = PathInput(FILE_TYPES_PATH / "pdf" / "blank_1.pdf")
     params = ExtractionParameters(model_id=findoc_model_id)
     with pytest.raises(MindeeHTTPUnknownErrorV2) as exc_info:
         client.enqueue(input_source, params)

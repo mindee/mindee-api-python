@@ -4,12 +4,12 @@ import pytest
 
 from mindee import ExtractionResponse
 from mindee.input import LocalResponse
-from tests.utils import V2_PRODUCT_DATA_DIR
+from tests.utils import V2_PRODUCT_PATH
 
 
 @pytest.fixture
 def file_path() -> Path:
-    return V2_PRODUCT_DATA_DIR / "extraction" / "standard_field_types.json"
+    return V2_PRODUCT_PATH / "extraction" / "standard_field_types.json"
 
 
 def _assert_local_response(local_response):

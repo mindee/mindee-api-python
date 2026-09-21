@@ -6,28 +6,28 @@ from mindee.input.path_input import PathInput
 from mindee.v2.product.split.split_response import (
     SplitResponse,
 )
-from tests.utils import V2_PRODUCT_DATA_DIR
+from tests.utils import V2_PRODUCT_PATH
 
 
 @pytest.fixture
 def splits_5p():
-    return V2_PRODUCT_DATA_DIR / "split" / "invoice_5p.pdf"
+    return V2_PRODUCT_PATH / "split" / "invoice_5p.pdf"
 
 
 @pytest.fixture
 def splits_single_page_json_path():
-    return V2_PRODUCT_DATA_DIR / "split" / "split_single.json"
+    return V2_PRODUCT_PATH / "split" / "split_single.json"
 
 
 @pytest.fixture
 def splits_multi_page_json_path():
-    return V2_PRODUCT_DATA_DIR / "split" / "split_multiple.json"
+    return V2_PRODUCT_PATH / "split" / "split_multiple.json"
 
 
 @pytest.mark.pypdfium2
 def test_default_split():
-    input_sample = PathInput(V2_PRODUCT_DATA_DIR / "split" / "default_sample.pdf")
-    with open(V2_PRODUCT_DATA_DIR / "split" / "default_sample.json", "rb") as f:
+    input_sample = PathInput(V2_PRODUCT_PATH / "split" / "default_sample.pdf")
+    with open(V2_PRODUCT_PATH / "split" / "default_sample.json", "rb") as f:
         response = SplitResponse(json.load(f))
     extracted_splits = response.inference.result.extract_from_input_source(input_sample)
     assert len(extracted_splits) == 2

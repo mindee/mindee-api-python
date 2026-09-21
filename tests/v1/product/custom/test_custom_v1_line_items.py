@@ -6,7 +6,7 @@ from mindee.v1.parsing.common import Document
 from mindee.v1.parsing.common.page import Page
 from mindee.v1.product.custom.custom_v1 import CustomV1
 from mindee.v1.product.custom.custom_v1_page import CustomV1Page
-from tests.utils import V1_PRODUCT_DATA_DIR
+from tests.utils import V1_PRODUCT_PATH
 
 
 @pytest.mark.lineitems
@@ -26,7 +26,7 @@ def do_tests(line_items):
 @pytest.mark.lineitems
 def test_single_table_01():
     json_data_path = (
-        V1_PRODUCT_DATA_DIR
+        V1_PRODUCT_PATH
         / "custom"
         / "response_v1"
         / "line_items"
@@ -52,7 +52,7 @@ def test_single_table_01():
 @pytest.mark.lineitems
 def test_single_table_02():
     json_data_path = (
-        V1_PRODUCT_DATA_DIR
+        V1_PRODUCT_PATH
         / "custom"
         / "response_v2"
         / "line_items"

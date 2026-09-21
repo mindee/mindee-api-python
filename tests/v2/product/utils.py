@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-from tests.utils import V2_PRODUCT_DATA_DIR
+from tests.utils import V2_PRODUCT_PATH
 
 
 def get_samples(json_path: Path, rst_path: Path) -> tuple[dict, str]:
@@ -16,6 +16,6 @@ def get_samples(json_path: Path, rst_path: Path) -> tuple[dict, str]:
 
 
 def get_product_samples(product: str, file_name: str) -> tuple[dict, str]:
-    json_path = V2_PRODUCT_DATA_DIR / product / f"{file_name}.json"
-    rst_path = V2_PRODUCT_DATA_DIR / product / f"{file_name}.rst"
+    json_path = V2_PRODUCT_PATH / product / f"{file_name}.json"
+    rst_path = V2_PRODUCT_PATH / product / f"{file_name}.rst"
     return get_samples(json_path, rst_path)

@@ -4,14 +4,14 @@ from datetime import datetime
 import pytest
 
 from mindee.v2.parsing import FailedInferenceResponse
-from tests.utils import V2_DATA_DIR
+from tests.utils import V2_RESOURCE_PATH
 
 
 @pytest.mark.v2
 def test_should_load_when_failed():
     """Should load when the webhook didn't return a correct reply."""
 
-    json_path = V2_DATA_DIR / "errors" / "webhook_error_500_failed.json"
+    json_path = V2_RESOURCE_PATH / "errors" / "webhook_error_500_failed.json"
     with json_path.open("r", encoding="utf-8") as fh:
         json_sample = json.load(fh)
     response = FailedInferenceResponse(json_sample)

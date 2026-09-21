@@ -11,9 +11,9 @@ from mindee.v1.product.cropper.cropper_v1 import CropperV1
 from mindee.v1.product.cropper.cropper_v1_page import (
     CropperV1Page,
 )
-from tests.utils import V1_PRODUCT_DATA_DIR
+from tests.utils import V1_PRODUCT_PATH
 
-RESPONSE_DIR = V1_PRODUCT_DATA_DIR / "cropper" / "response_v1"
+RESPONSE_DIR = V1_PRODUCT_PATH / "cropper" / "response_v1"
 
 CropperV1DocumentType = Document[
     CropperV1Document,
