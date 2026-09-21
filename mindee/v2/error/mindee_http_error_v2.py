@@ -4,7 +4,7 @@ from mindee.parsing.common.string_dict import StringDict
 from mindee.v2.parsing import ErrorItem, ErrorResponse
 
 
-class MindeeHTTPErrorV2(RuntimeError, ErrorResponse):
+class MindeeHTTPErrorV2(RuntimeError):
     """An exception relating to HTTP calls."""
 
     def __init__(self, response: ErrorResponse) -> None:
