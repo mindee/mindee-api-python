@@ -12,7 +12,7 @@ from mindee import (
 from mindee.input.path_input import PathInput
 from mindee.v2.client import Client
 from mindee.v2.file_operations.crop import extract_multiple_crops
-from tests.utils import OUTPUT_DIR, V2_PRODUCT_DATA_DIR, cleanup_output_files
+from tests.utils import OUTPUT_PATH, V2_PRODUCT_PATH, cleanup_output_files
 
 
 def check_findoc_return(findoc_response: ExtractionResponse):
@@ -31,7 +31,7 @@ output_files = [
 @pytest.mark.integration
 def test_image_should_extract_crops():
     client = Client()
-    crop_input = PathInput(V2_PRODUCT_DATA_DIR / "crop" / "default_sample.jpg")
+    crop_input = PathInput(V2_PRODUCT_PATH / "crop" / "default_sample.jpg")
     response = client.enqueue_and_get_result(
         CropResponse,
         crop_input,
@@ -55,9 +55,9 @@ def test_image_should_extract_crops():
         ),
     )
     check_findoc_return(invoice_0)
-    extracted_crops.save_all_to_disk(OUTPUT_DIR)
-    crop0_size = os.path.getsize(OUTPUT_DIR / output_files[0])
-    crop1_size = os.path.getsize(OUTPUT_DIR / output_files[1])
+    extracted_crops.save_all_to_disk(OUTPUT_PATH)
+    crop0_size = os.path.getsize(OUTPUT_PATH / output_files[0])
+    crop1_size = os.path.getsize(OUTPUT_PATH / output_files[1])
     assert 180000 <= crop0_size <= 230000
     assert 190000 <= crop1_size <= 230000
 

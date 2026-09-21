@@ -1,10 +1,10 @@
 import json
 
 from mindee.parsing.common.string_dict import StringDict
-from mindee.v2.parsing import ErrorItem, ErrorResponse
+from mindee.v2.parsing.error import ErrorItem, ErrorResponse, IErrorResponse
 
 
-class MindeeHTTPErrorV2(RuntimeError, ErrorResponse):
+class MindeeHTTPErrorV2(RuntimeError, IErrorResponse):
     """An exception relating to HTTP calls."""
 
     def __init__(self, response: ErrorResponse) -> None:

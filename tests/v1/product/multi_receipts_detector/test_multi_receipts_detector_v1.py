@@ -10,9 +10,9 @@ from mindee.v1.product.multi_receipts_detector.multi_receipts_detector_v1 import
 from mindee.v1.product.multi_receipts_detector.multi_receipts_detector_v1_document import (
     MultiReceiptsDetectorV1Document,
 )
-from tests.utils import V1_PRODUCT_DATA_DIR
+from tests.utils import V1_PRODUCT_PATH
 
-RESPONSE_DIR = V1_PRODUCT_DATA_DIR / "multi_receipts_detector" / "response_v1"
+RESPONSE_DIR = V1_PRODUCT_PATH / "multi_receipts_detector" / "response_v1"
 
 MultiReceiptsDetectorV1DocumentType = Document[
     MultiReceiptsDetectorV1Document,

@@ -228,7 +228,7 @@ class MindeeAPIV2(SettingsMixin):
         self, name: str | None, model_type: str | None
     ) -> SearchResponse:
         """
-        Deprecated. Use `search` instead.
+        Deprecated. Use `req_search` instead.
         """
         get_caller: Callable
         if self.http_client is None or self.http_client.is_closed:

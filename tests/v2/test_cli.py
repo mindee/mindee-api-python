@@ -11,7 +11,7 @@ from mindee.v2.commands import (
     OutputType,
     SplitCommand,
 )
-from tests.utils import V2_PRODUCT_DATA_DIR, clear_envvars
+from tests.utils import V2_PRODUCT_PATH, clear_envvars
 
 
 @pytest.fixture
@@ -190,10 +190,7 @@ def test_v1_group_dispatches_to_v1_product(parser: MindeeParser):
             "--output-type",
             "summary",
             str(
-                V2_PRODUCT_DATA_DIR
-                / "extraction"
-                / "financial_document"
-                / "complete.json"
+                V2_PRODUCT_PATH / "extraction" / "financial_document" / "complete.json"
             ),
         ]
     )

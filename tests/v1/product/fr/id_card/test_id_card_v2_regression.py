@@ -3,7 +3,7 @@ import pytest
 from mindee import PathInput
 from mindee.v1.client import Client
 from mindee.v1.product.fr.id_card.id_card_v2 import IdCardV2
-from tests.utils import V1_PRODUCT_DATA_DIR
+from tests.utils import V1_PRODUCT_PATH
 from tests.v1.product import get_id, get_version
 
 
@@ -11,13 +11,13 @@ from tests.v1.product import get_id, get_version
 def test_default_sample():
     client = Client()
     with open(
-        V1_PRODUCT_DATA_DIR / "idcard_fr" / "response_v2" / "default_sample.rst",
+        V1_PRODUCT_PATH / "idcard_fr" / "response_v2" / "default_sample.rst",
         encoding="utf-8",
     ) as rst_file:
         rst_ref = rst_file.read()
 
     sample = PathInput(
-        V1_PRODUCT_DATA_DIR / "idcard_fr" / "default_sample.jpg",
+        V1_PRODUCT_PATH / "idcard_fr" / "default_sample.jpg",
     )
     response = client.parse(IdCardV2, sample)
     doc_response = response.document

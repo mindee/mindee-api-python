@@ -17,7 +17,6 @@
 * :sparkles: add simple fields typed accessors
 * :sparkles: allow passing a webhook to the CLI
 * :recycle: update internals and bump dependencies
-
 ### Fixes
 * :bug: :boom: rework extraction methods
 * :bug: :boom: harmonize Crop and Split

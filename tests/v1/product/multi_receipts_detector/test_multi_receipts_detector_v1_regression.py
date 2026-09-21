@@ -5,7 +5,7 @@ from mindee.v1.client import Client
 from mindee.v1.product.multi_receipts_detector.multi_receipts_detector_v1 import (
     MultiReceiptsDetectorV1,
 )
-from tests.utils import V1_PRODUCT_DATA_DIR
+from tests.utils import V1_PRODUCT_PATH
 from tests.v1.product import get_id, get_version
 
 
@@ -13,7 +13,7 @@ from tests.v1.product import get_id, get_version
 def test_default_sample():
     client = Client()
     with open(
-        V1_PRODUCT_DATA_DIR
+        V1_PRODUCT_PATH
         / "multi_receipts_detector"
         / "response_v1"
         / "default_sample.rst",
@@ -22,7 +22,7 @@ def test_default_sample():
         rst_ref = rst_file.read()
 
     sample = PathInput(
-        V1_PRODUCT_DATA_DIR / "multi_receipts_detector" / "default_sample.jpg",
+        V1_PRODUCT_PATH / "multi_receipts_detector" / "default_sample.jpg",
     )
     response = client.parse(MultiReceiptsDetectorV1, sample)
     doc_response = response.document
