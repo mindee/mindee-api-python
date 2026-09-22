@@ -7,14 +7,14 @@ from mindee.v2.parsing.inference.field import (
     FieldConfidence,
     InferenceFields,
     ListField,
+    ObjectField,
+    SimpleField,
 )
-from mindee.v2.parsing.inference.field.object_field import ObjectField
-from mindee.v2.parsing.inference.field.simple_field import SimpleField
 from mindee.v2.parsing.inference.inference_active_options import InferenceActiveOptions
 from mindee.v2.parsing.inference.inference_file import InferenceFile
 from mindee.v2.parsing.inference.inference_model import InferenceModel
 from mindee.v2.parsing.inference.rag_metadata import RAGMetadata
-from mindee.v2.product.extraction.extraction_inference import ExtractionInference
+from mindee.v2.product.extraction import ExtractionInference
 from tests.utils import V2_PRODUCT_PATH
 from tests.v2.product.utils import get_product_samples
 
