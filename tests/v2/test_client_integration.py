@@ -195,7 +195,7 @@ def test_extraction_with_two_webhooks_must_complete_and_succeed(
     ]
 
     input_source = PathInput(
-        V2_PRODUCT_DATA_DIR / "extraction" / "financial_document" / "default_sample.jpg"
+        V2_PRODUCT_PATH / "extraction" / "financial_document" / "default_sample.jpg"
     )
     params = ExtractionParameters(model_id=findoc_model_id, webhook_ids=webhook_ids)
 
@@ -217,7 +217,7 @@ def test_split_with_two_webhooks_must_complete_and_succeed(
         "b2286ed9-aa11-aa11-bdc5-2f8496c5641a",
     ]
 
-    input_source = PathInput(V2_PRODUCT_DATA_DIR / "split" / "default_sample.pdf")
+    input_source = PathInput(V2_PRODUCT_PATH / "split" / "default_sample.pdf")
     params = SplitParameters(model_id=split_model_id, webhook_ids=webhook_ids)
 
     response = v2_client.enqueue_and_get_result(SplitResponse, input_source, params)
