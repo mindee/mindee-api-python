@@ -1,4 +1,5 @@
 from enum import Enum
+from typing import TYPE_CHECKING, ClassVar, TypeAlias, Union
 
 from mindee.parsing.common.string_dict import StringDict
 from mindee.v2.parsing.inference.field.field_confidence import FieldConfidence
@@ -13,17 +14,33 @@ class FieldType(str, Enum):
     SIMPLE = "SimpleField"
 
 
+if TYPE_CHECKING:
+    from mindee.v2.parsing.inference.field.list_field import ListField
+    from mindee.v2.parsing.inference.field.object_field import ObjectField
+    from mindee.v2.parsing.inference.field.simple_field import SimpleField
+
+
+ResultFieldsType: TypeAlias = Union["SimpleField", "ObjectField", "ListField"]
+
+
 class BaseField:
-    """Field with base information."""
+    """Base class for V2 fields."""
 
     field_type: FieldType
-    _indent_level: int
+    """The type of field."""
     locations: list[FieldLocation]
+    """List of the location candidates for the value."""
     confidence: FieldConfidence | None
+    """Confidence associated with the field."""
+    _indent_level: int
+    """For pretty printing."""
+
+    _registry: ClassVar[dict[str, type[ResultFieldsType]]] = {}
 
     def __init__(
         self, field_type: FieldType, raw_response: StringDict, indent_level: int = 0
     ) -> None:
+
         self.field_type = field_type
         self._indent_level = indent_level
 
@@ -40,6 +57,27 @@ class BaseField:
             self.locations = []
             for location in raw_response["locations"]:
                 self.locations.append(FieldLocation(location))
+
+    @classmethod
+    def register(cls, discriminator_key: str):
+        """Class decorator: subclasses declare which JSON key identifies them."""
+
+        def decorator(subclass):
+            cls._registry[discriminator_key] = subclass
+            return subclass
+
+        return decorator
+
+    @classmethod
+    def build(cls, raw_response: dict, indent_level: int) -> ResultFieldsType:
+        """Build an instance of the appropriate subclass."""
+
+        if not isinstance(raw_response, dict):
+            raise ValueError("Field must be a dict")
+        for key, subclass in cls._registry.items():
+            if key in raw_response:
+                return subclass(raw_response, indent_level)
+        raise ValueError("Invalid structure for field")
 
     def multi_str(self) -> str:
         """String representation of the field in a list."""

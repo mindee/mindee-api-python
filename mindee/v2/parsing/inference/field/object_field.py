@@ -1,4 +1,3 @@
-from collections.abc import Callable
 from typing import TYPE_CHECKING, cast
 
 from mindee.parsing.common.string_dict import StringDict
@@ -10,19 +9,18 @@ if TYPE_CHECKING:
     from mindee.v2.parsing.inference.field.simple_field import SimpleField
 
 
+@BaseField.register("fields")
 class ObjectField(BaseField):
     """Object field containing multiple fields."""
 
     fields: InferenceFields
     """Fields contained in the object."""
 
-    def __init__(
-        self, raw_response: StringDict, parser_func: Callable, indent_level: int = 0
-    ):
+    def __init__(self, raw_response: StringDict, indent_level: int = 0):
         super().__init__(FieldType.OBJECT, raw_response, indent_level)
         inner_fields = raw_response.get("fields", raw_response)
 
-        self.fields = InferenceFields(inner_fields, parser_func, self._indent_level + 1)
+        self.fields = InferenceFields(inner_fields, self._indent_level + 1)
 
     def single_str(self) -> str:
         """String representation of a single object field."""

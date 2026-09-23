@@ -1,8 +1,11 @@
-from collections.abc import Callable
 from typing import TYPE_CHECKING, cast
 
 from mindee.parsing.common.string_dict import StringDict
-from mindee.v2.parsing.inference.field.base_field import BaseField, FieldType
+from mindee.v2.parsing.inference.field.base_field import (
+    BaseField,
+    FieldType,
+    ResultFieldsType,
+)
 
 if TYPE_CHECKING:
     from mindee.v2.parsing.inference.field.list_field import ListField
@@ -10,18 +13,17 @@ if TYPE_CHECKING:
     from mindee.v2.parsing.inference.field.simple_field import SimpleField
 
 
-class InferenceFields(dict[str, BaseField]):
+class InferenceFields(dict[str, ResultFieldsType]):
     """Inference fields dict."""
 
     def __init__(
         self,
         raw_response: StringDict,
-        parser_func: Callable[[StringDict, int], BaseField],
         indent_level: int = 0,
     ) -> None:
         super().__init__()
         for key, value in raw_response.items():
-            self[key] = parser_func(value, indent_level)
+            self[key] = BaseField.build(value, indent_level)
 
     def __getattr__(self, item):
         try:
