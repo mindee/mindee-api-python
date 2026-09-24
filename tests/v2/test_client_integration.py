@@ -171,13 +171,23 @@ def test_parse_file_filled_single_page_must_succeed(
     assert len(supplier_name.locations) == 0
 
 
+def _job_is_final(job: Job) -> bool:
+    if job.status == "Failed":
+        return True
+    if job.status != "Processed":
+        return False
+    # Webhook deliveries happen asynchronously after processing:
+    # wait until every webhook has reached a final status as well.
+    return all(webhook.status in {"Completed", "Failed"} for webhook in job.webhooks)
+
+
 def _enqueue_and_poll_job(v2_client: Client, input_source, params) -> Job:
-    """Enqueue a document and poll until the job reaches a final status."""
+    """Enqueue a document and poll until the job and its webhooks reach a final status."""
     job = v2_client.enqueue(input_source, params).job
     for _ in range(60):
         sleep(2)
         job = v2_client.get_job(job.id).job
-        if job.status in {"Processed", "Failed"}:
+        if _job_is_final(job):
             break
     return job
 
