@@ -1,5 +1,7 @@
 import os
+from datetime import datetime
 from pathlib import Path
+from time import sleep
 
 import httpx
 import pytest
@@ -12,7 +14,10 @@ from mindee.v2.error.mindee_http_error_v2 import (
     MindeeHTTPErrorV2,
 )
 from mindee.v2.parsing import InferenceActiveOptions
+from mindee.v2.parsing.job.job import Job
 from mindee.v2.product.extraction.extraction_response import ExtractionResponse
+from mindee.v2.product.split.params.split_parameters import SplitParameters
+from mindee.v2.product.split.split_response import SplitResponse
 from tests.utils import FILE_TYPES_PATH, V2_PRODUCT_PATH
 
 
@@ -164,6 +169,82 @@ def test_parse_file_filled_single_page_must_succeed(
     assert supplier_name.value == "John Smith"
     assert supplier_name.confidence is None
     assert len(supplier_name.locations) == 0
+
+
+def _job_is_final(job: Job) -> bool:
+    if job.status == "Failed":
+        return True
+    if job.status != "Processed":
+        return False
+    # Webhook deliveries happen asynchronously after processing:
+    # wait until every webhook has reached a final status as well.
+    return all(webhook.status in {"Completed", "Failed"} for webhook in job.webhooks)
+
+
+def _enqueue_and_poll_job(v2_client: Client, input_source, params) -> Job:
+    """Enqueue a document and poll until the job and its webhooks reach a final status."""
+    job = v2_client.enqueue(input_source, params).job
+    for _ in range(60):
+        sleep(2)
+        job = v2_client.get_job(job.id).job
+        if _job_is_final(job):
+            break
+    return job
+
+
+def _assert_webhook_job_success(job: Job, webhook_ids: list) -> None:
+    assert job.status == "Processed"
+    assert isinstance(job.completed_at, datetime)
+    assert job.error is None
+    assert len(job.webhooks) == len(webhook_ids)
+    assert all(webhook.status in {"Completed", "Failed"} for webhook in job.webhooks)
+    assert {webhook.id for webhook in job.webhooks} == set(webhook_ids)
+
+
+@pytest.mark.integration
+@pytest.mark.v2
+def test_extraction_with_two_webhooks_must_complete_and_succeed(
+    v2_client: Client, findoc_model_id: str
+) -> None:
+    webhook_ids = [
+        "9a0d88be-6913-484d-a019-9d2e16e2d3b9",
+        "32286ed9-fe40-4f42-bdc5-2f8496c5641a",
+    ]
+
+    input_source = PathInput(
+        V2_PRODUCT_PATH / "extraction" / "financial_document" / "default_sample.jpg"
+    )
+    params = ExtractionParameters(model_id=findoc_model_id, webhook_ids=webhook_ids)
+
+    job = _enqueue_and_poll_job(v2_client, input_source, params)
+    _assert_webhook_job_success(job, webhook_ids)
+
+    response = v2_client.get_result_from_url(ExtractionResponse, job.result_url)
+    assert response.inference is not None
+    assert response.inference.result is not None
+    assert response.inference.result.fields["supplier_name"].value == "John Smith"
+
+
+@pytest.mark.integration
+@pytest.mark.v2
+def test_split_with_two_webhooks_must_complete_and_succeed(
+    v2_client: Client, split_model_id: str
+) -> None:
+    webhook_ids = [
+        "b8fdfea3-24b6-438a-a6ca-7cd8c87a8875",
+        "d5bf36a9-1301-42c7-95be-03dc20d8f10e",
+    ]
+
+    input_source = PathInput(V2_PRODUCT_PATH / "split" / "default_sample.pdf")
+    params = SplitParameters(model_id=split_model_id, webhook_ids=webhook_ids)
+
+    job = _enqueue_and_poll_job(v2_client, input_source, params)
+    _assert_webhook_job_success(job, webhook_ids)
+
+    response = v2_client.get_result_from_url(SplitResponse, job.result_url)
+    assert response.inference is not None
+    assert response.inference.result is not None
+    assert len(response.inference.result.splits) == 2
 
 
 @pytest.mark.integration
