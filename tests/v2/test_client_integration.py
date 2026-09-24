@@ -16,7 +16,7 @@ from mindee.v2.parsing import InferenceActiveOptions
 from mindee.v2.product.extraction.extraction_response import ExtractionResponse
 from mindee.v2.product.split.params.split_parameters import SplitParameters
 from mindee.v2.product.split.split_response import SplitResponse
-from tests.utils import FILE_TYPES_DIR, V2_PRODUCT_PATH
+from tests.utils import FILE_TYPES_PATH, V2_PRODUCT_PATH
 
 
 @pytest.fixture(scope="session")
