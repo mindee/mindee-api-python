@@ -190,8 +190,8 @@ def test_extraction_with_two_webhooks_must_complete_and_succeed(
     v2_client: Client, findoc_model_id: str
 ) -> None:
     webhook_ids = [
-        "a2286ed9-aa11-aa11-bdc5-2f8496c5641a",
-        "b2286ed9-aa11-aa11-bdc5-2f8496c5641a",
+        "9a0d88be-6913-484d-a019-9d2e16e2d3b9",
+        "32286ed9-fe40-4f42-bdc5-2f8496c5641a",
     ]
 
     input_source = PathInput(
@@ -213,8 +213,8 @@ def test_split_with_two_webhooks_must_complete_and_succeed(
     v2_client: Client, split_model_id: str
 ) -> None:
     webhook_ids = [
-        "a2286ed9-aa11-aa11-bdc5-2f8496c5641a",
-        "b2286ed9-aa11-aa11-bdc5-2f8496c5641a",
+        "b8fdfea3-24b6-438a-a6ca-7cd8c87a8875",
+        "d5bf36a9-1301-42c7-95be-03dc20d8f10e",
     ]
 
     input_source = PathInput(V2_PRODUCT_PATH / "split" / "default_sample.pdf")
