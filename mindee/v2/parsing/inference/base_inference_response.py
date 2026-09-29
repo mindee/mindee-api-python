@@ -1,5 +1,5 @@
 from abc import ABC
-from typing import ClassVar
+from typing import ClassVar, TypeVar
 
 from mindee.parsing.common.common_response import CommonResponse
 from mindee.v2.parsing.inference.base_inference import BaseInference
@@ -21,3 +21,8 @@ class BaseInferenceResponse(ABC, CommonResponse):
     def get_result_slug(cls) -> str:
         """Getter for the inference slug."""
         return cls._slug
+
+
+TypeBaseInferenceResponse = TypeVar(
+    "TypeBaseInferenceResponse", bound=BaseInferenceResponse
+)

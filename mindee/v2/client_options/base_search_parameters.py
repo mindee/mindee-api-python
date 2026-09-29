@@ -1,10 +1,8 @@
 from abc import ABC
 from dataclasses import dataclass
-from typing import ClassVar, Generic, TypeVar
+from typing import ClassVar, Generic
 
-from mindee.v2.parsing.search.base_search_response import BaseSearchResponse
-
-TypeSearchResponse = TypeVar("TypeSearchResponse", bound=BaseSearchResponse)
+from mindee.v2.parsing.search.base_search_response import TypeSearchResponse
 
 
 @dataclass(kw_only=True)

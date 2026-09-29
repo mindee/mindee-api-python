@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import TypeVar
 
 from mindee.parsing.common import CommonResponse
 from mindee.parsing.common.string_dict import StringDict
@@ -24,3 +25,8 @@ class BaseRagAnnotationResponse(CommonResponse):
             raw_response["created_at"].replace("Z", "+00:00")
         )
         self.status = raw_response["status"]
+
+
+TypeRagAnnotationResponse = TypeVar(
+    "TypeRagAnnotationResponse", bound=BaseRagAnnotationResponse
+)

@@ -1,6 +1,7 @@
 import json
 from dataclasses import dataclass
 
+from mindee.parsing.common import StringDict
 from mindee.v2.product.extraction.params.data_schema_replace import DataSchemaReplace
 from mindee.v2.product.extraction.params.string_data_class import StringDataClass
 
@@ -9,7 +10,7 @@ from mindee.v2.product.extraction.params.string_data_class import StringDataClas
 class DataSchema(StringDataClass):
     """Modify the Data Schema."""
 
-    replace: DataSchemaReplace | dict | str | None = None
+    replace: DataSchemaReplace | StringDict | str | None = None
     """If set, completely replaces the data schema of the model."""
 
     def __post_init__(self) -> None:

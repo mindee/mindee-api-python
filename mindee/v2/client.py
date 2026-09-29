@@ -1,6 +1,5 @@
 import warnings
 from time import sleep
-from typing import TypeVar
 
 import httpx
 
@@ -17,13 +16,11 @@ from mindee.v2.client_options.base_search_parameters import (
     TypeSearchResponse,
 )
 from mindee.v2.mindee_http.mindee_api_v2 import MindeeAPIV2
-from mindee.v2.parsing.inference.base_inference_response import BaseInferenceResponse
+from mindee.v2.parsing.inference.base_inference_response import (
+    TypeBaseInferenceResponse,
+)
 from mindee.v2.parsing.job.job_response import JobResponse
 from mindee.v2.parsing.search.search_response import SearchResponse
-
-TypeBaseInferenceResponse = TypeVar(
-    "TypeBaseInferenceResponse", bound=BaseInferenceResponse
-)
 
 
 class Client:
