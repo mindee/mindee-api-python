@@ -42,3 +42,9 @@ class AnnotatedListField(AnnotatedBaseField):
             else:
                 raise ValueError("List item is not an AnnotatedObjectField field.")
         return object_items
+
+    def to_dict(self) -> StringDict:
+        """Convert to a ``dict``."""
+        out_dict = super().to_dict()
+        out_dict["items"] = [item.to_dict() for item in self.items]
+        return out_dict

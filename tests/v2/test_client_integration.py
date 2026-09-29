@@ -296,13 +296,17 @@ def test_data_schema_must_succeed(
         data_schema=data_schema_replace_path.read_text(),
         alias="py_integration_data_schema_replace",
     )
+    assert params["data_schema"] == {}
     response: ExtractionResponse = v2_client.enqueue_and_get_result(
         ExtractionResponse, input_source, params
     )
     _basic_assert_success(response=response, page_count=1, model_id=findoc_model_id)
     assert response.inference.active_options.data_schema.replace is True
     assert response.inference.result.fields["test_replace"] is not None
-    assert response.inference.result.fields["test_replace"].value == "a test value"
+    assert (
+        response.inference.result.fields.get_simple_field("test_replace").value
+        == "a test value"
+    )
 
 
 @pytest.mark.integration

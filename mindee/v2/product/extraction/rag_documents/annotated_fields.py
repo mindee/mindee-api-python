@@ -47,3 +47,10 @@ class AnnotatedFields(dict[str, AnnotatedFieldsType]):
         if field and field.field_type == FieldType.OBJECT:
             return cast("AnnotatedObjectField", field)
         raise ValueError(f"Field {field_name} is not an AnnotatedObjectField.")
+
+    def to_dict(self) -> StringDict:
+        """Convert to a ``dict``."""
+        ret = {}
+        for key, value in self.items():
+            ret[key] = value.to_dict()
+        return ret

@@ -10,3 +10,7 @@ class RagAnnotation:
 
     def __init__(self, raw_response: StringDict):
         self.fields = AnnotatedFields(raw_response["fields"])
+
+    def to_dict(self) -> StringDict:
+        """Convert to a ``dict``."""
+        return {"fields": self.fields.to_dict()}

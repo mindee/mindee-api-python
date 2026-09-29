@@ -2,7 +2,11 @@ import json
 
 import pytest
 
-from mindee.v2.product.extraction.rag_documents import ExtractionRagAnnotationResponse
+from mindee.v2.product.extraction.rag_documents import (
+    ExtractionRagAnnotationResponse,
+    RagDocumentAnnotationParameters,
+    RagDocumentUploadParameters,
+)
 from mindee.v2.product.extraction.rag_documents.annotated_list_field import (
     AnnotatedListField,
 )
@@ -13,6 +17,47 @@ from mindee.v2.product.extraction.rag_documents.annotated_simple_field import (
     AnnotatedSimpleField,
 )
 from tests.utils import V2_PRODUCT_PATH
+
+
+@pytest.mark.v2
+def test_post_parameters_must_init():
+    """Should init POST parameters."""
+    parameters = RagDocumentUploadParameters(model_id="invalid-model-id")
+    req_params = parameters.get_request_parameters()
+    assert req_params["model_id"] == "invalid-model-id"
+
+
+@pytest.mark.v2
+def test_patch_parameters_must_init_from_dict():
+    """Should init PATCH parameters from an annotation dict."""
+    annotation = {"fields": {"is_good": {"value": True}}}
+    parameters = RagDocumentAnnotationParameters(
+        document_id="invalid-document-id", status="Active", annotation=annotation
+    )
+    req_params = parameters.get_request_parameters()
+    assert parameters.document_id == "invalid-document-id"
+    assert req_params["status"] == "Active"
+    assert (
+        req_params["annotation"]
+        == '{"fields":{"is_good":{"guidelines":null,"selected":false,"value":true}}}'
+    )
+
+
+@pytest.mark.v2
+def test_patch_parameters_must_init_from_string():
+    """Should init PATCH parameters from an annotation string."""
+    parameters = RagDocumentAnnotationParameters(
+        document_id="invalid-document-id",
+        status="Active",
+        annotation='{"fields": {"is_good": {"value": true}}}',
+    )
+    req_params = parameters.get_request_parameters()
+    assert parameters.document_id == "invalid-document-id"
+    assert req_params["status"] == "Active"
+    assert (
+        req_params["annotation"]
+        == '{"fields":{"is_good":{"guidelines":null,"selected":false,"value":true}}}'
+    )
 
 
 @pytest.mark.v2

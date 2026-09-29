@@ -14,3 +14,9 @@ class AnnotatedSimpleField(AnnotatedBaseField):
     def __init__(self, raw_response: StringDict):
         super().__init__(FieldType.SIMPLE, raw_response)
         self.value = raw_response["value"]
+
+    def to_dict(self) -> StringDict:
+        """Convert to a ``dict``."""
+        out_dict = super().to_dict()
+        out_dict["value"] = self.value
+        return out_dict

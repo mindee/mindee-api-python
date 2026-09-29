@@ -28,8 +28,7 @@ class AnnotatedBaseField:
     guidelines: str | None = None
     """Guidelines or instructions for processing this field."""
 
-    field_type: FieldType
-
+    _field_type: FieldType
     _registry: ClassVar[dict[str, type[AnnotatedFieldsType]]] = {}
 
     def __init__(self, field_type: FieldType, raw_response: StringDict):
@@ -39,7 +38,12 @@ class AnnotatedBaseField:
         if "guidelines" in raw_response and raw_response["guidelines"] is not None:
             self.guidelines = raw_response.get("guidelines")
 
-        self.field_type = field_type
+        self._field_type = field_type
+
+    @property
+    def field_type(self) -> FieldType:
+        """The field type."""
+        return self._field_type
 
     @classmethod
     def register(cls, discriminator_key: str):
@@ -61,3 +65,10 @@ class AnnotatedBaseField:
             if key in raw_response:
                 return subclass(raw_response)
         raise ValueError("Invalid structure for field")
+
+    def to_dict(self) -> StringDict:
+        """Convert to a ``dict``."""
+        return {
+            "selected": self.selected,
+            "guidelines": self.guidelines,
+        }

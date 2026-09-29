@@ -26,3 +26,9 @@ class AnnotatedObjectField(AnnotatedBaseField):
     def get_object_field(self, field_name: str) -> "AnnotatedObjectField":
         """Retrieve an Object field by its name."""
         return self.fields.get_object_field(field_name)
+
+    def to_dict(self) -> StringDict:
+        """Convert to a ``dict``."""
+        ret = super().to_dict()
+        ret["fields"] = self.fields.to_dict()
+        return ret
