@@ -1,16 +1,18 @@
+from dataclasses import InitVar, dataclass, field
+
 from mindee.parsing.common.string_dict import StringDict
+from mindee.v2.parsing.string_data_class import StringDataClass
 from mindee.v2.product.extraction.rag_documents.annotated_fields import AnnotatedFields
 
 
-class RagAnnotation:
+@dataclass
+class RagAnnotation(StringDataClass):
     """A RAG annotation enriched with field-level configuration."""
 
-    fields: AnnotatedFields
+    raw_response: InitVar[StringDict]
+
+    fields: AnnotatedFields = field(init=False)
     """Annotated fields."""
 
-    def __init__(self, raw_response: StringDict):
+    def __post_init__(self, raw_response: StringDict):
         self.fields = AnnotatedFields(raw_response["fields"])
-
-    def to_dict(self) -> StringDict:
-        """Convert to a ``dict``."""
-        return {"fields": self.fields.to_dict()}

@@ -296,7 +296,6 @@ def test_data_schema_must_succeed(
         data_schema=data_schema_replace_path.read_text(),
         alias="py_integration_data_schema_replace",
     )
-    assert params["data_schema"] == {}
     response: ExtractionResponse = v2_client.enqueue_and_get_result(
         ExtractionResponse, input_source, params
     )

@@ -1,3 +1,6 @@
+from dataclasses import dataclass, field
+from typing import ClassVar
+
 from mindee.parsing.common.string_dict import StringDict
 from mindee.v2.parsing.inference.field.base_field import FieldType
 from mindee.v2.product.extraction.rag_documents.annotated_base_field import (
@@ -10,13 +13,15 @@ from mindee.v2.product.extraction.rag_documents.annotated_simple_field import (
 
 
 @AnnotatedBaseField.register("fields")
+@dataclass
 class AnnotatedObjectField(AnnotatedBaseField):
     """An ObjectField with additional configuration for annotation."""
 
-    fields: AnnotatedFields
+    _field_type: ClassVar[FieldType] = field(init=False, default=FieldType.OBJECT)
+    fields: AnnotatedFields = field(init=False)
 
-    def __init__(self, raw_response: StringDict):
-        super().__init__(FieldType.OBJECT, raw_response)
+    def __post_init__(self, raw_response: StringDict):
+        super().__post_init__(raw_response)
         self.fields = AnnotatedFields(raw_response["fields"])
 
     def get_simple_field(self, field_name: str) -> AnnotatedSimpleField:
@@ -26,9 +31,3 @@ class AnnotatedObjectField(AnnotatedBaseField):
     def get_object_field(self, field_name: str) -> "AnnotatedObjectField":
         """Retrieve an Object field by its name."""
         return self.fields.get_object_field(field_name)
-
-    def to_dict(self) -> StringDict:
-        """Convert to a ``dict``."""
-        ret = super().to_dict()
-        ret["fields"] = self.fields.to_dict()
-        return ret

@@ -1,3 +1,6 @@
+from dataclasses import dataclass, field
+from typing import ClassVar
+
 from mindee.parsing.common.string_dict import StringDict
 from mindee.v2.parsing.inference.field.base_field import FieldType
 from mindee.v2.product.extraction.rag_documents.annotated_base_field import (
@@ -12,13 +15,15 @@ from mindee.v2.product.extraction.rag_documents.annotated_simple_field import (
 
 
 @AnnotatedBaseField.register("items")
+@dataclass
 class AnnotatedListField(AnnotatedBaseField):
     """A ListField with additional configuration for annotation."""
 
-    items: list[AnnotatedBaseField]
+    _field_type: ClassVar[FieldType] = field(init=False, default=FieldType.LIST)
+    items: list[AnnotatedBaseField] = field(init=False)
 
-    def __init__(self, raw_response: StringDict):
-        super().__init__(FieldType.LIST, raw_response)
+    def __post_init__(self, raw_response: StringDict):
+        super().__post_init__(raw_response)
         self.items = [AnnotatedBaseField.build(item) for item in raw_response["items"]]
 
     @property
@@ -42,9 +47,3 @@ class AnnotatedListField(AnnotatedBaseField):
             else:
                 raise ValueError("List item is not an AnnotatedObjectField field.")
         return object_items
-
-    def to_dict(self) -> StringDict:
-        """Convert to a ``dict``."""
-        out_dict = super().to_dict()
-        out_dict["items"] = [item.to_dict() for item in self.items]
-        return out_dict

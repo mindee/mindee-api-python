@@ -1,4 +1,5 @@
-from typing import TYPE_CHECKING, cast
+from collections.abc import Iterable
+from typing import TYPE_CHECKING, Any, cast
 
 from mindee.parsing.common.string_dict import StringDict
 from mindee.v2.parsing.inference.field.base_field import FieldType
@@ -22,10 +23,20 @@ if TYPE_CHECKING:
 class AnnotatedFields(dict[str, AnnotatedFieldsType]):
     """A dictionary of field names and their corresponding annotation."""
 
-    def __init__(self, raw_response: StringDict):
+    def __init__(
+        self, raw_response: StringDict | Iterable[tuple[str, Any]] | None = None
+    ):
         super().__init__()
-        for key, value in raw_response.items():
-            self[key] = AnnotatedBaseField.build(value)
+        if raw_response is None:
+            return
+
+        # Handle standard instantiation with a raw JSON dict
+        if hasattr(raw_response, "items"):
+            for key, value in raw_response.items():
+                self[key] = AnnotatedBaseField.build(value)
+        # Handle the (key, value) generator passed recursively by dataclasses.asdict()
+        else:
+            self.update(raw_response)
 
     def get_simple_field(self, field_name: str) -> "AnnotatedSimpleField":
         """Retrieve a simple field by its name."""
@@ -47,10 +58,3 @@ class AnnotatedFields(dict[str, AnnotatedFieldsType]):
         if field and field.field_type == FieldType.OBJECT:
             return cast("AnnotatedObjectField", field)
         raise ValueError(f"Field {field_name} is not an AnnotatedObjectField.")
-
-    def to_dict(self) -> StringDict:
-        """Convert to a ``dict``."""
-        ret = {}
-        for key, value in self.items():
-            ret[key] = value.to_dict()
-        return ret

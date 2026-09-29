@@ -41,11 +41,6 @@ class RagDocumentAnnotationParameters(
             parameters["status"] = self.status
 
         if self.annotation is not None and isinstance(self.annotation, RagAnnotation):
-            parameters["annotation"] = json.dumps(
-                self.annotation.to_dict(),
-                indent=None,
-                sort_keys=True,
-                separators=(",", ":"),
-            )
+            parameters["annotation"] = str(self.annotation)
 
         return parameters

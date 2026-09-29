@@ -39,7 +39,7 @@ def test_patch_parameters_must_init_from_dict():
     assert req_params["status"] == "Active"
     assert (
         req_params["annotation"]
-        == '{"fields":{"is_good":{"guidelines":null,"selected":false,"value":true}}}'
+        == '{"fields":{"is_good":{"selected":false,"value":true}}}'
     )
 
 
@@ -56,7 +56,7 @@ def test_patch_parameters_must_init_from_string():
     assert req_params["status"] == "Active"
     assert (
         req_params["annotation"]
-        == '{"fields":{"is_good":{"guidelines":null,"selected":false,"value":true}}}'
+        == '{"fields":{"is_good":{"selected":false,"value":true}}}'
     )
 
 
