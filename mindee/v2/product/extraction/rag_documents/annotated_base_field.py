@@ -67,4 +67,4 @@ class AnnotatedBaseField(StringDataClass):
         for key, subclass in cls._registry.items():
             if key in raw_response:
                 return subclass(raw_response)
-        raise ValueError("Invalid structure for field")
+        raise ValueError(f"Invalid structure for field: '{raw_response}'")

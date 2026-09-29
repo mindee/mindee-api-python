@@ -11,7 +11,11 @@ from mindee.mindee_http.response_validation import is_valid_sync_response
 from mindee.mindee_http.settings_mixin import SettingsMixin
 from mindee.parsing.common.string_dict import StringDict
 from mindee.v1.mindee_http.base_settings import USER_AGENT
+from mindee.v2.client_options.base_annotation_parameters import BaseAnnotationParameters
 from mindee.v2.client_options.base_product_parameters import BaseProductParameters
+from mindee.v2.client_options.base_rag_document_upload_parameters import (
+    BaseRagDocumentUploadParameters,
+)
 from mindee.v2.client_options.base_search_parameters import (
     BaseSearchParameters,
     TypeSearchResponse,
@@ -21,6 +25,7 @@ from mindee.v2.error.mindee_http_error_v2 import (
     MindeeHTTPUnknownErrorV2,
     handle_error_v2,
 )
+from mindee.v2.parsing.base_rag_annotation_response import TypeRagAnnotationResponse
 from mindee.v2.parsing.inference.base_inference_response import (
     TypeBaseInferenceResponse,
 )
@@ -223,6 +228,74 @@ class MindeeAPIV2(SettingsMixin):
         if not is_valid_sync_response(response):
             handle_error_v2(dict_response)
         return SearchResponse(dict_response)
+
+    def req_post_rag_document(
+        self,
+        input_source: LocalInputSource,
+        params: BaseRagDocumentUploadParameters[TypeRagAnnotationResponse],
+    ) -> TypeRagAnnotationResponse:
+        """Add a document to the RAG database."""
+        response_class = params.get_response_class()
+        slug = response_class.get_product_slug()
+        response = self.post_caller(
+            url=f"{self.url_root}/v2/products/{slug}/rag-documents",
+            headers=self.base_headers,
+            files={"file": input_source.read_contents(params.close_file)},
+            data=params.get_request_parameters(),
+            follow_redirects=False,
+            timeout=self.request_timeout,
+        )
+        dict_response = self._response_json(response)
+        if not is_valid_sync_response(response):
+            handle_error_v2(dict_response)
+        return response_class(dict_response)
+
+    def req_get_rag_annotation(
+        self, response_class: type[TypeRagAnnotationResponse], document_id: str
+    ) -> TypeRagAnnotationResponse:
+        """Get a document's info and annotations from the RAG database."""
+        slug = response_class.get_product_slug()
+        response = self.get_caller(
+            url=f"{self.url_root}/v2/products/{slug}/rag-documents/{document_id}",
+            headers=self.base_headers,
+            follow_redirects=False,
+            timeout=self.request_timeout,
+        )
+        dict_response = self._response_json(response)
+        if not is_valid_sync_response(response):
+            handle_error_v2(dict_response)
+        return response_class(dict_response)
+
+    def req_patch_rag_annotation(
+        self, params: BaseAnnotationParameters[TypeRagAnnotationResponse]
+    ) -> TypeRagAnnotationResponse:
+        """Update a document's annotations in the RAG database."""
+        response_class = params.get_response_class()
+        slug = response_class.get_product_slug()
+        response = self.patch_caller(
+            url=f"{self.url_root}/v2/products/{slug}/rag-documents/{params.document_id}",
+            headers=self.base_headers,
+            timeout=self.request_timeout,
+            follow_redirects=False,
+            json=params.get_request_parameters(),
+        )
+        dict_response = self._response_json(response)
+        if not is_valid_sync_response(response):
+            handle_error_v2(dict_response)
+        return response_class(dict_response)
+
+    def req_delete_extraction_rag_document(self, document_id: str) -> bool:
+        """
+        Deletes a document from the RAG database.
+        For extraction models only.
+        """
+        response = self.delete_caller(
+            url=f"{self.url_root}/v2/products/extraction/rag-documents/{document_id}",
+            headers=self.base_headers,
+            timeout=self.request_timeout,
+            follow_redirects=False,
+        )
+        return response.is_success()
 
     @property
     def get_caller(self) -> Callable:
