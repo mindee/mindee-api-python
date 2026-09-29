@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import ClassVar, Generic
+from typing import Generic
 
 from mindee.v2.parsing.base_rag_annotation_response import TypeRagAnnotationResponse
 
@@ -12,9 +12,6 @@ class BaseAnnotationParameters(ABC, Generic[TypeRagAnnotationResponse]):
     # Note: DocumentId is included in the request URL path, it is not a parameter.
     document_id: str
     """UID of the annotated document."""
-
-    _slug: ClassVar[str]
-    """Slug of the product."""
 
     _response_class: type[TypeRagAnnotationResponse]
     """Response class for the annotation."""

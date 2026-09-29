@@ -18,8 +18,8 @@ class BaseInferenceResponse(ABC, CommonResponse):
         return str(self.inference)
 
     @classmethod
-    def get_result_slug(cls) -> str:
-        """Getter for the inference slug."""
+    def get_product_slug(cls) -> str:
+        """Get the product's slug."""
         return cls._slug
 
 

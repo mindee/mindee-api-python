@@ -1,7 +1,6 @@
 import json
 import os
 from collections.abc import Callable
-from typing import TypeVar
 
 import httpx
 
@@ -22,7 +21,9 @@ from mindee.v2.error.mindee_http_error_v2 import (
     MindeeHTTPUnknownErrorV2,
     handle_error_v2,
 )
-from mindee.v2.parsing import BaseInferenceResponse
+from mindee.v2.parsing.inference.base_inference_response import (
+    TypeBaseInferenceResponse,
+)
 from mindee.v2.parsing.job.job_response import JobResponse
 from mindee.v2.parsing.search.search_response import SearchResponse
 
@@ -35,8 +36,6 @@ BASE_URL_DEFAULT = "https://api-v2.mindee.net"
 REQUEST_TIMEOUT_ENV_NAME = "MINDEE_REQUEST_TIMEOUT"
 TIMEOUT_DEFAULT = 120
 
-ResponseT = TypeVar("ResponseT", bound=BaseInferenceResponse)
-
 
 class MindeeAPIV2(SettingsMixin):
     """Settings class relating to API V2 requests."""
@@ -45,7 +44,7 @@ class MindeeAPIV2(SettingsMixin):
     """Root of the URL to use for polling."""
     api_key: str | None
     """API Key for the client."""
-    http_client: httpx.Client | None
+    _http_client: httpx.Client | None
     """HTTP client for making requests."""
     request_timeout: float
 
@@ -65,7 +64,7 @@ class MindeeAPIV2(SettingsMixin):
                 f"'{API_KEY_V2_ENV_NAME}' environment variable."
             )
         self.url_root = f"{self.base_url.rstrip('/')}"
-        self.http_client = http_client
+        self._http_client = http_client
         self.request_timeout = float(
             os.environ.get(REQUEST_TIMEOUT_ENV_NAME, TIMEOUT_DEFAULT)
         )
@@ -113,13 +112,7 @@ class MindeeAPIV2(SettingsMixin):
         elif isinstance(input_source, URLInputSource):
             data["url"] = input_source.url
 
-        post_caller: Callable
-        if self.http_client is None or self.http_client.is_closed:
-            post_caller = httpx.post
-        else:
-            post_caller = self.http_client.post
-
-        response = post_caller(
+        response = self.post_caller(
             url,
             headers=self.base_headers,
             data=data,
@@ -138,13 +131,7 @@ class MindeeAPIV2(SettingsMixin):
 
         :param job_id: Job ID, returned by the enqueue request.
         """
-        get_caller: Callable
-        if self.http_client is None or self.http_client.is_closed:
-            get_caller = httpx.get
-        else:
-            get_caller = self.http_client.get
-
-        response = get_caller(
+        response = self.get_caller(
             url=f"{self.url_root}/v2/jobs/{job_id}",
             headers=self.base_headers,
             follow_redirects=False,
@@ -156,22 +143,16 @@ class MindeeAPIV2(SettingsMixin):
         return JobResponse(dict_response)
 
     def req_get_product_result_by_url(
-        self, response_type: type[ResponseT], url: str
-    ) -> ResponseT:
+        self, response_class: type[TypeBaseInferenceResponse], url: str
+    ) -> TypeBaseInferenceResponse:
         """
         Get the result of an inference that was previously enqueued.
 
         :param url: URL to use for the request.
-        :param response_type: Type of the response to return.
+        :param response_class: Type of the response to return.
         :return: Response object from the request.
         """
-        get_caller: Callable
-        if self.http_client is None or self.http_client.is_closed:
-            get_caller = httpx.get
-        else:
-            get_caller = self.http_client.get
-
-        response = get_caller(
+        response = self.get_caller(
             url=url,
             headers=self.base_headers,
             follow_redirects=False,
@@ -180,20 +161,20 @@ class MindeeAPIV2(SettingsMixin):
         dict_response = self._response_json(response)
         if not is_valid_sync_response(response):
             handle_error_v2(dict_response)
-        return response_type(dict_response)
+        return response_class(dict_response)
 
     def req_get_product_result_by_id(
-        self, response_type: type[ResponseT], inference_id: str
-    ) -> ResponseT:
+        self, response_class: type[TypeBaseInferenceResponse], inference_id: str
+    ) -> TypeBaseInferenceResponse:
         """
         Sends a request matching a given queue_id. Returns either a Job or a Document.
 
         :param inference_id: Inference ID, returned by the job request.
-        :param response_type: Type of the response to return.
+        :param response_class: Type of the response to return.
         """
-        slug = response_type.get_result_slug()
+        slug = response_class.get_product_slug()
         return self.req_get_product_result_by_url(
-            response_type=response_type,
+            response_class=response_class,
             url=f"{self.url_root}/v2/products/{slug}/results/{inference_id}",
         )
 
@@ -205,14 +186,9 @@ class MindeeAPIV2(SettingsMixin):
         :param params: Search parameters
         :return: A search response containing the matching resources
         """
-        get_caller: Callable
-        if self.http_client is None or self.http_client.is_closed:
-            get_caller = httpx.get
-        else:
-            get_caller = self.http_client.get
         slug = params.get_slug()
         response_class = params.get_response_class()
-        response = get_caller(
+        response = self.get_caller(
             url=f"{self.url_root}/v2/search/{slug}",
             headers=self.base_headers,
             params=params.get_request_parameters(),
@@ -228,20 +204,15 @@ class MindeeAPIV2(SettingsMixin):
         self, name: str | None, model_type: str | None
     ) -> SearchResponse:
         """
-        Deprecated. Use `req_search` instead.
+        Deprecated: use `req_search` instead.
         """
-        get_caller: Callable
-        if self.http_client is None or self.http_client.is_closed:
-            get_caller = httpx.get
-        else:
-            get_caller = self.http_client.get
         params = {}
         if name:
             params["name"] = name
         if model_type:
             params["model_type"] = model_type
 
-        response = get_caller(
+        response = self.get_caller(
             url=f"{self.url_root}/v2/search/models",
             headers=self.base_headers,
             params=params,
@@ -252,6 +223,34 @@ class MindeeAPIV2(SettingsMixin):
         if not is_valid_sync_response(response):
             handle_error_v2(dict_response)
         return SearchResponse(dict_response)
+
+    @property
+    def get_caller(self) -> Callable:
+        """Caller for GET requests."""
+        if self._http_client is None or self._http_client.is_closed:
+            return httpx.get
+        return self._http_client.get
+
+    @property
+    def post_caller(self) -> Callable:
+        """Caller for POST requests."""
+        if self._http_client is None or self._http_client.is_closed:
+            return httpx.post
+        return self._http_client.post
+
+    @property
+    def patch_caller(self) -> Callable:
+        """Caller for PATCH requests."""
+        if self._http_client is None or self._http_client.is_closed:
+            return httpx.patch
+        return self._http_client.patch
+
+    @property
+    def delete_caller(self) -> Callable:
+        """Caller for DELETE requests."""
+        if self._http_client is None or self._http_client.is_closed:
+            return httpx.delete
+        return self._http_client.delete
 
     @staticmethod
     def _response_json(response: httpx.Response) -> StringDict:
@@ -265,11 +264,11 @@ class MindeeAPIV2(SettingsMixin):
 
     def close(self) -> None:
         """Closes the underlying HTTP client."""
-        if self.http_client and not self.http_client.is_closed:
-            self.http_client.close()
+        if self._http_client and not self._http_client.is_closed:
+            self._http_client.close()
 
     def __enter__(self):
-        self.http_client = httpx.Client()
+        self._http_client = httpx.Client()
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
@@ -278,7 +277,7 @@ class MindeeAPIV2(SettingsMixin):
     def delete_http_client(self):
         """Delete the underlying HTTP client."""
         httpx_client = getattr(self, "http_client", None)
-        if httpx_client and not self.http_client.is_closed:
+        if httpx_client and not self._http_client.is_closed:
             logger.info("Force-closing unclosed Mindee Client (V2) %s.", str(self))
             self.close()
 

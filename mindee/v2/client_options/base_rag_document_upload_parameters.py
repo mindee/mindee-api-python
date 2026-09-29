@@ -1,6 +1,6 @@
 from abc import ABC
 from dataclasses import dataclass
-from typing import ClassVar, Generic
+from typing import Generic
 
 from mindee.v2.parsing.base_rag_annotation_response import TypeRagAnnotationResponse
 
@@ -12,8 +12,8 @@ class BaseRagDocumentUploadParameters(ABC, Generic[TypeRagAnnotationResponse]):
     model_id: str
     """UUID of the model that the uploaded RAG document is linked to."""
 
-    _slug: ClassVar[str]
-    """Slug of the product."""
+    close_file: bool = True
+    """Whether to close the file after uploading. Default: True."""
 
     _response_class: type[TypeRagAnnotationResponse]
     """Response class for the annotation."""

@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import TypeVar
+from typing import ClassVar, TypeVar
 
 from mindee.parsing.common import CommonResponse
 from mindee.parsing.common.string_dict import StringDict
@@ -17,6 +17,9 @@ class BaseRagAnnotationResponse(CommonResponse):
     status: str
     """Current status of the RAG document."""
 
+    _slug: ClassVar[str]
+    """Slug of the product."""
+
     def __init__(self, raw_response: StringDict) -> None:
         super().__init__(raw_response)
         self.id = raw_response["id"]
@@ -25,6 +28,11 @@ class BaseRagAnnotationResponse(CommonResponse):
             raw_response["created_at"].replace("Z", "+00:00")
         )
         self.status = raw_response["status"]
+
+    @classmethod
+    def get_product_slug(cls) -> str:
+        """Get the product's slug."""
+        return cls._slug
 
 
 TypeRagAnnotationResponse = TypeVar(

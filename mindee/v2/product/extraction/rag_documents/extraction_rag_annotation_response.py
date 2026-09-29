@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import ClassVar
 
 from mindee.parsing.common.string_dict import StringDict
 from mindee.v2.parsing.base_rag_annotation_response import BaseRagAnnotationResponse
@@ -10,12 +11,17 @@ class ExtractionRagAnnotationResponse(BaseRagAnnotationResponse):
 
     model_id: str
     """Model identifier linked to the RAG document."""
+
     total_matches: int
     """Number of times this document was used in an inference."""
+
     last_match_at: datetime | None = None
     """Date and time of the latest matching inference, if any."""
+
     annotation: RagAnnotation | None = None
     """Annotation metadata associated with the document."""
+
+    _slug: ClassVar[str] = "extraction"
 
     def __init__(self, raw_response: StringDict) -> None:
         super().__init__(raw_response)

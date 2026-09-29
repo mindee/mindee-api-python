@@ -180,7 +180,7 @@ class Client:
         self, name: str | None = None, model_type: str | None = None
     ) -> SearchResponse:
         """
-        Deprecated. Use `search` instead.
+        Deprecated: use `search` instead.
         """
         warnings.warn(
             "search_models is deprecated, use search instead.",
