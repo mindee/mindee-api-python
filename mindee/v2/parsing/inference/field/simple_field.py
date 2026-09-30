@@ -2,6 +2,7 @@ from mindee.parsing.common.string_dict import StringDict
 from mindee.v2.parsing.inference.field.base_field import BaseField, FieldType
 
 
+@BaseField.register("value")
 class SimpleField(BaseField):
     """Simple field containing a single value."""
 

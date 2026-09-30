@@ -10,6 +10,7 @@ class ExtractionResponse(BaseInferenceResponse):
 
     inference: ExtractionInference
     """Inference result."""
+
     _slug: ClassVar[str] = "extraction"
 
     def __init__(self, raw_response: StringDict) -> None:
@@ -18,8 +19,3 @@ class ExtractionResponse(BaseInferenceResponse):
 
     def __str__(self) -> str:
         return str(self.inference)
-
-    @classmethod
-    def get_result_slug(cls) -> str:
-        """Getter for the inference slug."""
-        return cls._slug

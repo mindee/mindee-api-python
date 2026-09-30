@@ -302,7 +302,10 @@ def test_data_schema_must_succeed(
     _basic_assert_success(response=response, page_count=1, model_id=findoc_model_id)
     assert response.inference.active_options.data_schema.replace is True
     assert response.inference.result.fields["test_replace"] is not None
-    assert response.inference.result.fields["test_replace"].value == "a test value"
+    assert (
+        response.inference.result.fields.get_simple_field("test_replace").value
+        == "a test value"
+    )
 
 
 @pytest.mark.integration
