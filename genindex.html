@@ -399,14 +399,14 @@
 </li>
       <li><a href="v1/parsing/custom.html#mindee.v1.parsing.custom.line_items.CustomLine.bbox">bbox (CustomLine attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="v1/product/financial_document_v1.html#mindee.v1.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.billing_address">billing_address (FinancialDocumentV1Document attribute)</a>
 
       <ul>
         <li><a href="v1/product/invoice_v4.html#mindee.v1.product.invoice.invoice_v4_document.InvoiceV4Document.billing_address">(InvoiceV4Document attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="v1/product/fr/id_card_v1.html#mindee.v1.product.fr.id_card.id_card_v1_document.IdCardV1Document.birth_date">birth_date (IdCardV1Document attribute)</a>
 
       <ul>
@@ -483,6 +483,16 @@
         <li><a href="v1/parsing/standard.html#mindee.v1.parsing.standard.text.StringField.bounding_box">(StringField attribute)</a>
 </li>
         <li><a href="v1/parsing/standard.html#mindee.v1.parsing.standard.tax.TaxField.bounding_box">(TaxField attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="v2/parsing/inference/field.html#mindee.v2.parsing.inference.field.base_field.BaseField.build">build() (BaseField class method)</a>
+
+      <ul>
+        <li><a href="v2/parsing/inference/field.html#mindee.v2.parsing.inference.field.list_field.ListField.build">(ListField class method)</a>
+</li>
+        <li><a href="v2/parsing/inference/field.html#mindee.v2.parsing.inference.field.object_field.ObjectField.build">(ObjectField class method)</a>
+</li>
+        <li><a href="v2/parsing/inference/field.html#mindee.v2.parsing.inference.field.simple_field.SimpleField.build">(SimpleField class method)</a>
 </li>
       </ul></li>
       <li><a href="input.html#mindee.input.BytesInput">BytesInput (class in mindee.input)</a>
@@ -658,7 +668,7 @@
 </li>
         <li><a href="v1/product/fr/bank_account_details_v2.html#mindee.v1.product.fr.bank_account_details.bank_account_details_v2_bban.BankAccountDetailsV2Bban.confidence">(BankAccountDetailsV2Bban attribute)</a>
 </li>
-        <li><a href="v1/parsing/standard.html#mindee.v1.parsing.standard.base.BaseField.confidence">(BaseField attribute)</a>
+        <li><a href="v1/parsing/standard.html#mindee.v1.parsing.standard.base.BaseField.confidence">(BaseField attribute)</a>, <a href="v2/parsing/inference/field.html#mindee.v2.parsing.inference.field.base_field.BaseField.confidence">[1]</a>
 </li>
         <li><a href="v1/parsing/standard.html#mindee.v1.parsing.standard.boolean.BooleanField.confidence">(BooleanField attribute)</a>
 </li>
@@ -678,11 +688,13 @@
 </li>
         <li><a href="v1/product/invoice_v4.html#mindee.v1.product.invoice.invoice_v4_line_item.InvoiceV4LineItem.confidence">(InvoiceV4LineItem attribute)</a>
 </li>
-        <li><a href="v1/parsing/custom.html#mindee.v1.parsing.custom.list.ListField.confidence">(ListField attribute)</a>
+        <li><a href="v1/parsing/custom.html#mindee.v1.parsing.custom.list.ListField.confidence">(ListField attribute)</a>, <a href="v2/parsing/inference/field.html#mindee.v2.parsing.inference.field.list_field.ListField.confidence">[1]</a>
 </li>
         <li><a href="v1/parsing/custom.html#mindee.v1.parsing.custom.list.ListFieldValue.confidence">(ListFieldValue attribute)</a>
 </li>
         <li><a href="v1/parsing/standard.html#mindee.v1.parsing.standard.locale.LocaleField.confidence">(LocaleField attribute)</a>
+</li>
+        <li><a href="v2/parsing/inference/field.html#mindee.v2.parsing.inference.field.object_field.ObjectField.confidence">(ObjectField attribute)</a>
 </li>
         <li><a href="v1/parsing/common.html#mindee.v1.parsing.common.ocr.ocr_word.OCRWord.confidence">(OCRWord attribute)</a>
 </li>
@@ -691,6 +703,8 @@
         <li><a href="v1/parsing/standard.html#mindee.v1.parsing.standard.position.PositionField.confidence">(PositionField attribute)</a>
 </li>
         <li><a href="v1/product/receipt_v5.html#mindee.v1.product.receipt.receipt_v5_line_item.ReceiptV5LineItem.confidence">(ReceiptV5LineItem attribute)</a>
+</li>
+        <li><a href="v2/parsing/inference/field.html#mindee.v2.parsing.inference.field.simple_field.SimpleField.confidence">(SimpleField attribute)</a>
 </li>
         <li><a href="v1/parsing/standard.html#mindee.v1.parsing.standard.text.StringField.confidence">(StringField attribute)</a>
 </li>
@@ -861,6 +875,10 @@
 </li>
       <li><a href="client_options.html#mindee.client_options.polling_options.PollingOptions.delay_sec">delay_sec (PollingOptions attribute)</a>
 </li>
+      <li><a href="v2/mindee_http.html#mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.delete_caller">delete_caller (MindeeAPIV2 property)</a>
+</li>
+      <li><a href="v2/index.html#mindee.v2.client.Client.delete_extraction_rag_document">delete_extraction_rag_document() (Client method)</a>
+</li>
       <li><a href="v2/mindee_http.html#mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.delete_http_client">delete_http_client() (MindeeAPIV2 method)</a>
 </li>
       <li><a href="v2/product/extraction/params.html#mindee.v2.product.extraction.params.data_schema_field.DataSchemaField.description">description (DataSchemaField attribute)</a>
@@ -875,6 +893,8 @@
       </ul></li>
       <li><a href="input.html#mindee.input.LocalResponse.deserialize_response">deserialize_response() (LocalResponse method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="v2/parsing/error.html#mindee.v2.parsing.error.error_item.ErrorItem.detail">detail (ErrorItem attribute)</a>
 
       <ul>
@@ -883,8 +903,6 @@
         <li><a href="v2/error.html#mindee.v2.error.mindee_http_error_v2.MindeeHTTPErrorV2.detail">(MindeeHTTPErrorV2 attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="v1/parsing/common.html#mindee.v1.parsing.common.document.Document">Document (class in mindee.v1.parsing.common.document)</a>
 </li>
       <li><a href="v1/parsing/common.html#mindee.v1.parsing.common.predict_response.PredictResponse.document">document (PredictResponse attribute)</a>
@@ -1179,6 +1197,16 @@
 </li>
       <li><a href="v1/parsing/common.html#mindee.v1.parsing.common.feedback_response.FeedbackResponse">FeedbackResponse (class in mindee.v1.parsing.common.feedback_response)</a>
 </li>
+      <li><a href="v2/parsing/inference/field.html#mindee.v2.parsing.inference.field.base_field.BaseField.field_type">field_type (BaseField property)</a>
+
+      <ul>
+        <li><a href="v2/parsing/inference/field.html#mindee.v2.parsing.inference.field.list_field.ListField.field_type">(ListField property)</a>
+</li>
+        <li><a href="v2/parsing/inference/field.html#mindee.v2.parsing.inference.field.object_field.ObjectField.field_type">(ObjectField property)</a>
+</li>
+        <li><a href="v2/parsing/inference/field.html#mindee.v2.parsing.inference.field.simple_field.SimpleField.field_type">(SimpleField property)</a>
+</li>
+      </ul></li>
       <li><a href="v2/parsing/inference/field.html#mindee.v2.parsing.inference.field.field_confidence.FieldConfidence">FieldConfidence (class in mindee.v2.parsing.inference.field.field_confidence)</a>
 </li>
       <li><a href="v2/parsing/inference/field.html#mindee.v2.parsing.inference.field.field_location.FieldLocation">FieldLocation (class in mindee.v2.parsing.inference.field.field_location)</a>
@@ -1363,6 +1391,8 @@
 </li>
       <li><a href="geometry.html#mindee.geometry.get_bounding_box">get_bounding_box() (in module mindee.geometry)</a>
 </li>
+      <li><a href="v2/mindee_http.html#mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.get_caller">get_caller (MindeeAPIV2 property)</a>
+</li>
       <li><a href="geometry.html#mindee.geometry.get_centroid">get_centroid() (in module mindee.geometry)</a>
 </li>
       <li><a href="v1/product/fr/bank_account_details_v1.html#mindee.v1.product.fr.bank_account_details.bank_account_details_v1.BankAccountDetailsV1.get_endpoint_info">get_endpoint_info() (BankAccountDetailsV1 static method)</a>
@@ -1419,14 +1449,14 @@
 </li>
       <li><a href="v2/index.html#mindee.v2.client.Client.get_job">get_job() (Client method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="v2/parsing/inference/field.html#mindee.v2.parsing.inference.field.inference_fields.InferenceFields.get_list_field">get_list_field() (InferenceFields method)</a>
 
       <ul>
         <li><a href="v2/parsing/inference/field.html#mindee.v2.parsing.inference.field.object_field.ObjectField.get_list_field">(ObjectField method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="v1/product/generated_v1.html#mindee.v1.product.generated.generated_v1.GeneratedV1Document.get_list_fields">get_list_fields() (GeneratedV1Document method)</a>
 
       <ul>
@@ -1449,6 +1479,22 @@
         <li><a href="v1/product/generated_v1.html#mindee.v1.product.generated.generated_v1.GeneratedV1Page.get_object_fields">(GeneratedV1Page method)</a>
 </li>
       </ul></li>
+      <li><a href="v2/product/classification/index.html#mindee.v2.product.classification.classification_response.ClassificationResponse.get_product_slug">get_product_slug() (ClassificationResponse class method)</a>
+
+      <ul>
+        <li><a href="v2/product/crop/index.html#mindee.v2.product.crop.crop_response.CropResponse.get_product_slug">(CropResponse class method)</a>
+</li>
+        <li><a href="v2/product/extraction/index.html#mindee.v2.product.extraction.extraction_response.ExtractionResponse.get_product_slug">(ExtractionResponse class method)</a>
+</li>
+        <li><a href="v2/product/ocr/index.html#mindee.v2.product.ocr.ocr_response.OCRResponse.get_product_slug">(OCRResponse class method)</a>
+</li>
+        <li><a href="v2/product/split/index.html#mindee.v2.product.split.split_response.SplitResponse.get_product_slug">(SplitResponse class method)</a>
+</li>
+      </ul></li>
+      <li><a href="v2/index.html#mindee.v2.client.Client.get_rag_document">get_rag_document() (Client method)</a>
+</li>
+      <li><a href="v2/index.html#mindee.v2.client.Client.get_ready_rag_document">get_ready_rag_document() (Client method)</a>
+</li>
       <li><a href="v2/client_options.html#mindee.v2.client_options.base_product_parameters.BaseProductParameters.get_request_parameters">get_request_parameters() (BaseProductParameters method)</a>
 
       <ul>
@@ -1481,18 +1527,6 @@
 </li>
       <li><a href="v2/index.html#mindee.v2.client.Client.get_result_from_url">get_result_from_url() (Client method)</a>
 </li>
-      <li><a href="v2/product/classification/index.html#mindee.v2.product.classification.classification_response.ClassificationResponse.get_result_slug">get_result_slug() (ClassificationResponse class method)</a>
-
-      <ul>
-        <li><a href="v2/product/crop/index.html#mindee.v2.product.crop.crop_response.CropResponse.get_result_slug">(CropResponse class method)</a>
-</li>
-        <li><a href="v2/product/extraction/index.html#mindee.v2.product.extraction.extraction_response.ExtractionResponse.get_result_slug">(ExtractionResponse class method)</a>
-</li>
-        <li><a href="v2/product/ocr/index.html#mindee.v2.product.ocr.ocr_response.OCRResponse.get_result_slug">(OCRResponse class method)</a>
-</li>
-        <li><a href="v2/product/split/index.html#mindee.v2.product.split.split_response.SplitResponse.get_result_slug">(SplitResponse class method)</a>
-</li>
-      </ul></li>
       <li><a href="v2/parsing/inference/field.html#mindee.v2.parsing.inference.field.inference_fields.InferenceFields.get_simple_field">get_simple_field() (InferenceFields method)</a>
 
       <ul>
@@ -1559,8 +1593,6 @@
         <li><a href="v1/client.html#mindee.v1.client.Client.http_client">(Client attribute)</a>
 </li>
         <li><a href="v1/mindee_http.html#mindee.v1.mindee_http.endpoint.Endpoint.http_client">(Endpoint attribute)</a>
-</li>
-        <li><a href="v2/mindee_http.html#mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.http_client">(MindeeAPIV2 attribute)</a>
 </li>
         <li><a href="v1/mindee_http.html#mindee.v1.mindee_http.workflow_endpoint.WorkflowEndpoint.http_client">(WorkflowEndpoint attribute)</a>
 </li>
@@ -1931,10 +1963,10 @@
         <li><a href="v2/parsing/inference/field.html#mindee.v2.parsing.inference.field.list_field.ListField">(class in mindee.v2.parsing.inference.field.list_field)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="v1/parsing/custom.html#mindee.v1.parsing.custom.list.ListFieldValue">ListFieldValue (class in mindee.v1.parsing.custom.list)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="v2/parsing/inference/field.html#mindee.v2.parsing.inference.field.field_confidence.FieldConfidence.ljust">ljust() (FieldConfidence method)</a>
 </li>
       <li><a href="v1/client.html#mindee.v1.client.Client.load_prediction">load_prediction() (Client method)</a>
@@ -1955,6 +1987,16 @@
 </li>
       <li><a href="v2/product/crop/index.html#mindee.v2.product.crop.crop_item.CropItem.location">location (CropItem attribute)</a>
 </li>
+      <li><a href="v2/parsing/inference/field.html#mindee.v2.parsing.inference.field.base_field.BaseField.locations">locations (BaseField attribute)</a>
+
+      <ul>
+        <li><a href="v2/parsing/inference/field.html#mindee.v2.parsing.inference.field.list_field.ListField.locations">(ListField attribute)</a>
+</li>
+        <li><a href="v2/parsing/inference/field.html#mindee.v2.parsing.inference.field.object_field.ObjectField.locations">(ObjectField attribute)</a>
+</li>
+        <li><a href="v2/parsing/inference/field.html#mindee.v2.parsing.inference.field.simple_field.SimpleField.locations">(SimpleField attribute)</a>
+</li>
+      </ul></li>
       <li><a href="v2/parsing/inference/field.html#mindee.v2.parsing.inference.field.field_confidence.FieldConfidence.lower">lower() (FieldConfidence method)</a>
 </li>
       <li><a href="v2/parsing/inference/field.html#mindee.v2.parsing.inference.field.field_confidence.FieldConfidence.lstrip">lstrip() (FieldConfidence method)</a>
@@ -2536,6 +2578,8 @@
 </li>
       <li><a href="v1/product/passport_v1.html#mindee.v1.product.passport.passport_v1_document.PassportV1Document">PassportV1Document (class in mindee.v1.product.passport.passport_v1_document)</a>
 </li>
+      <li><a href="v2/mindee_http.html#mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.patch_caller">patch_caller (MindeeAPIV2 property)</a>
+</li>
       <li><a href="input.html#mindee.input.PathInput">PathInput (class in mindee.input)</a>
 </li>
       <li><a href="v1/product/us/bank_check_v1.html#mindee.v1.product.us.bank_check.bank_check_v1_document.BankCheckV1Document.payees">payees (BankCheckV1Document attribute)</a>
@@ -2657,6 +2701,8 @@
       <li><a href="v2/parsing/inference/field.html#mindee.v2.parsing.inference.field.inference_fields.InferenceFields.popitem">popitem() (InferenceFields method)</a>
 </li>
       <li><a href="v1/parsing/standard.html#mindee.v1.parsing.standard.position.PositionField">PositionField (class in mindee.v1.parsing.standard.position)</a>
+</li>
+      <li><a href="v2/mindee_http.html#mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.post_caller">post_caller (MindeeAPIV2 property)</a>
 </li>
       <li><a href="v1/parsing/standard.html#mindee.v1.parsing.standard.address.AddressField.postal_code">postal_code (AddressField attribute)</a>
 </li>
@@ -2841,6 +2887,8 @@
 </li>
         <li><a href="v2/product/crop/index.html#mindee.v2.product.crop.crop_response.CropResponse.raw_http">(CropResponse property)</a>
 </li>
+        <li><a href="v2/parsing/error.html#mindee.v2.parsing.error.error_response.ErrorResponse.raw_http">(ErrorResponse property)</a>
+</li>
         <li><a href="v2/product/extraction/index.html#mindee.v2.product.extraction.extraction_response.ExtractionResponse.raw_http">(ExtractionResponse property)</a>
 </li>
         <li><a href="v2/parsing/job.html#mindee.v2.parsing.job.job_response.JobResponse.raw_http">(JobResponse property)</a>
@@ -2938,6 +2986,16 @@
         <li><a href="v1/product/invoice_v4.html#mindee.v1.product.invoice.invoice_v4_document.InvoiceV4Document.reference_numbers">(InvoiceV4Document attribute)</a>
 </li>
       </ul></li>
+      <li><a href="v2/parsing/inference/field.html#mindee.v2.parsing.inference.field.base_field.BaseField.register">register() (BaseField class method)</a>
+
+      <ul>
+        <li><a href="v2/parsing/inference/field.html#mindee.v2.parsing.inference.field.list_field.ListField.register">(ListField class method)</a>
+</li>
+        <li><a href="v2/parsing/inference/field.html#mindee.v2.parsing.inference.field.object_field.ObjectField.register">(ObjectField class method)</a>
+</li>
+        <li><a href="v2/parsing/inference/field.html#mindee.v2.parsing.inference.field.simple_field.SimpleField.register">(SimpleField class method)</a>
+</li>
+      </ul></li>
       <li><a href="geometry.html#mindee.geometry.Polygon.remove">remove() (Polygon method)</a>
 
       <ul>
@@ -2954,15 +3012,23 @@
 </li>
       <li><a href="v2/parsing/inference/field.html#mindee.v2.parsing.inference.field.field_confidence.FieldConfidence.replace">replace() (FieldConfidence method)</a>
 </li>
+      <li><a href="v2/mindee_http.html#mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.req_delete_extraction_rag_document">req_delete_extraction_rag_document() (MindeeAPIV2 method)</a>
+</li>
       <li><a href="v2/mindee_http.html#mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.req_get_job_by_id">req_get_job_by_id() (MindeeAPIV2 method)</a>
 </li>
       <li><a href="v2/mindee_http.html#mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.req_get_product_result_by_id">req_get_product_result_by_id() (MindeeAPIV2 method)</a>
 </li>
       <li><a href="v2/mindee_http.html#mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.req_get_product_result_by_url">req_get_product_result_by_url() (MindeeAPIV2 method)</a>
 </li>
+      <li><a href="v2/mindee_http.html#mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.req_get_rag_annotation">req_get_rag_annotation() (MindeeAPIV2 method)</a>
+</li>
       <li><a href="v2/mindee_http.html#mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.req_get_search_models">req_get_search_models() (MindeeAPIV2 method)</a>
 </li>
+      <li><a href="v2/mindee_http.html#mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.req_patch_rag_annotation">req_patch_rag_annotation() (MindeeAPIV2 method)</a>
+</li>
       <li><a href="v2/mindee_http.html#mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.req_post_product_enqueue">req_post_product_enqueue() (MindeeAPIV2 method)</a>
+</li>
+      <li><a href="v2/mindee_http.html#mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.req_post_rag_document">req_post_rag_document() (MindeeAPIV2 method)</a>
 </li>
       <li><a href="v2/mindee_http.html#mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.req_search">req_search() (MindeeAPIV2 method)</a>
 </li>
@@ -3183,8 +3249,6 @@
       <li><a href="v1/parsing/standard.html#mindee.v1.parsing.standard.address.AddressField.street_number">street_number (AddressField attribute)</a>
 </li>
       <li><a href="v2/parsing/inference/field.html#mindee.v2.parsing.inference.field.simple_field.SimpleField.string_value">string_value (SimpleField property)</a>
-</li>
-      <li><a href="v2/product/extraction/params.html#mindee.v2.product.extraction.params.string_data_class.StringDataClass">StringDataClass (class in mindee.v2.product.extraction.params.string_data_class)</a>
 </li>
       <li><a href="parsing/common.html#mindee.parsing.common.string_dict.StringDict">StringDict (in module mindee.parsing.common.string_dict)</a>
 </li>
@@ -3432,11 +3496,19 @@
         <li><a href="v1/product/receipt_v5.html#mindee.v1.product.receipt.receipt_v5_line_item.ReceiptV5LineItem.unit_price">(ReceiptV5LineItem attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="v2/parsing/inference/field.html#mindee.v2.parsing.inference.field.inference_fields.InferenceFields.update">update() (InferenceFields method)</a>
 </li>
+      <li><a href="v2/index.html#mindee.v2.client.Client.update_and_get_rag_annotations">update_and_get_rag_annotations() (Client method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="v1/parsing/custom.html#mindee.v1.parsing.custom.line_items.CustomLine.update_field">update_field() (CustomLine method)</a>
+</li>
+      <li><a href="v2/index.html#mindee.v2.client.Client.update_rag_annotations">update_rag_annotations() (Client method)</a>
+</li>
+      <li><a href="v2/index.html#mindee.v2.client.Client.upload_and_get_rag_document">upload_and_get_rag_document() (Client method)</a>
+</li>
+      <li><a href="v2/index.html#mindee.v2.client.Client.upload_rag_document">upload_rag_document() (Client method)</a>
 </li>
       <li><a href="v1/parsing/common.html#mindee.v1.parsing.common.execution.Execution.uploaded_at">uploaded_at (Execution attribute)</a>
 </li>
