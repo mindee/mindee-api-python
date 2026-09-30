@@ -3,7 +3,7 @@
 import re
 from pathlib import Path
 
-import toml
+import tomli
 
 
 def _test_version(versions_a, versions_b, key):
@@ -12,7 +12,9 @@ def _test_version(versions_a, versions_b, key):
 
 def test_style_pkg_versions():
     """Check black, flake8, isort and pydocstyle versions consistency."""
-    config = toml.load(Path(__file__).parent.parent.joinpath("pyproject.toml"))
+    config = tomli.loads(
+        Path(__file__).parent.parent.joinpath("pyproject.toml").read_text()
+    )
     line_sep = re.compile(r"(==|~=|>=)")
     requirements_versions = {}
     for line in config["project"]["optional-dependencies"]["lint"]:
@@ -21,7 +23,7 @@ def test_style_pkg_versions():
 
     # Get pre-commit versions
     pre_commit_versions = {}
-    config = toml.load(Path(__file__).parent.parent.joinpath("prek.toml"))
+    config = tomli.loads(Path(__file__).parent.parent.joinpath("prek.toml").read_text())
     for repo in config["repos"]:
         if not repo.get("rev"):
             continue

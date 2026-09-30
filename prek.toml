@@ -3,14 +3,14 @@
 #:schema https://www.schemastore.org/prek.json
 
 [[repos]]
-repo = "https://github.com/charliermarsh/ruff-pre-commit"
+repo = "https://github.com/astral-sh/ruff-pre-commit"
 rev = "v0.16.9"
 hooks = [
   {
     id = "ruff-check",
     args = [
       "--fix",
-      "--exit-non-zero-on-fix"
+      "--exit-non-zero-on-fix",
     ]
   },
   { id = "ruff-format" }
@@ -33,7 +33,7 @@ hooks = [
     entry = "pylint",
     language = "system",
     types = ["python"],
-    args = ["-j2"]
+    args = ["-j2"],
   }
 ]
 
@@ -45,7 +45,7 @@ hooks = [
     id = "pip-audit",
     args = ["."],
     files = '^(requirements.*\.txt|setup\.cfg|setup\.py|pyproject\.toml)$',
-    stages = ["pre-push"]
+    stages = ["pre-push"],
   }
 ]
 
@@ -55,15 +55,15 @@ rev = "v2.3.1"
 hooks = [
   {
     id = "mypy",
-    args = [
-    ],
+    args = [ ],
     exclude = "tests/|examples/|docs/",
     additional_dependencies = [
       "httpx",
       "types-setuptools",
       "importlib-metadata",
       "types-Pillow",
-      "types-toml"
+      "tomli",
+      "tomli_w",
     ]
   }
 ]
@@ -78,7 +78,7 @@ hooks = [
     language = "system",
     pass_filenames = false,
     files = '^docs/.*$|^mindee/.*\.py$',
-    stages = ["pre-push"]
+    stages = ["pre-push"],
   },
   {
     id = "sphinx-linkcheck",
@@ -87,6 +87,6 @@ hooks = [
     language = "system",
     pass_filenames = false,
     files = '^docs/.*$|^mindee/.*\.py$',
-    stages = ["pre-push"]
+    stages = ["pre-push"],
   }
 ]

@@ -1,12 +1,13 @@
 from typing import Any
 
-import toml
+import tomli
+import tomli_w
 
 
 def generate_lite() -> None:
     """Generates the mindee-lite version of pyproject.toml"""
-    with open("pyproject.toml", encoding="utf-8") as file_data:
-        data: dict[str, Any] = toml.load(file_data)
+    with open("pyproject.toml", encoding="utf-8") as read_handle:
+        data: dict[str, Any] = tomli.loads(read_handle.read())
 
     data["project"]["name"] = "mindee-lite"
     data["project"]["description"] = (
@@ -32,8 +33,8 @@ def generate_lite() -> None:
         "ini_options"
     ]["addopts"].replace(" lite", " pypdfium2 and not pillow")
 
-    with open("pyproject-lite.toml", "w", encoding="utf-8") as file_data:
-        toml.dump(data, file_data)
+    with open("pyproject-lite.toml", "w", encoding="utf-8") as write_handle:
+        write_handle.write(tomli_w.dumps(data))
 
     print("Successfully generated pyproject-lite.toml")
 

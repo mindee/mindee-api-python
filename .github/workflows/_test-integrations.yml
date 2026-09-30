@@ -100,7 +100,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip install toml
+        pip install 'tomli~=2.4.1' 'tomli-w~=1.2.0'
         python scripts/generate_lite_toml.py
         mv -f pyproject-lite.toml pyproject.toml
         pip install -e '.[test]'

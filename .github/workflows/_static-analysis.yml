@@ -50,7 +50,7 @@ jobs:
     - name: Cache pre-commit
       uses: actions/cache@v6
       with:
-        path: ~/.cache/pre-commit
+        path: ~/.cache/prek
         key: ${{ runner.os }}-prec-${{ hashFiles('prek.toml') }}
         restore-keys: |
           ${{ runner.os }}-prec-
