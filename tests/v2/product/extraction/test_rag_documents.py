@@ -4,6 +4,7 @@ import pytest
 
 from mindee.v2.product.extraction.rag_documents import (
     ExtractionRagAnnotationResponse,
+    RagAnnotation,
     RagDocumentAnnotationParameters,
     RagDocumentUploadParameters,
 )
@@ -18,6 +19,14 @@ from mindee.v2.product.extraction.rag_documents.annotated_simple_field import (
 )
 from tests.utils import V2_PRODUCT_PATH
 
+expected_annotation = {
+    "fields": {
+        "simple": {"selected": False, "guidelines": None, "value": True},
+        "list": {"selected": False, "guidelines": None, "items": []},
+        "object": {"selected": False, "guidelines": None, "fields": {}},
+    }
+}
+
 
 @pytest.mark.v2
 def test_post_parameters_must_init():
@@ -30,17 +39,41 @@ def test_post_parameters_must_init():
 @pytest.mark.v2
 def test_patch_parameters_must_init_from_dict():
     """Should init PATCH parameters from an annotation dict."""
-    annotation = {"fields": {"is_good": {"value": True}}}
+    annotation = {
+        "fields": {
+            "simple": {"value": True},
+            "list": {"items": []},
+            "object": {"fields": {}},
+        }
+    }
     parameters = RagDocumentAnnotationParameters(
         document_id="invalid-document-id", status="Active", annotation=annotation
     )
     req_params = parameters.get_request_parameters()
     assert parameters.document_id == "invalid-document-id"
     assert req_params["status"] == "Active"
-    assert (
-        req_params["annotation"]
-        == '{"fields":{"is_good":{"selected":false,"value":true}}}'
+    assert req_params["annotation"] == expected_annotation
+
+
+@pytest.mark.v2
+def test_patch_parameters_must_init_from_object():
+    """Should init PATCH parameters from an annotation instance."""
+    annotation = RagAnnotation(
+        {
+            "fields": {
+                "simple": {"value": True},
+                "list": {"items": []},
+                "object": {"fields": {}},
+            }
+        }
     )
+    parameters = RagDocumentAnnotationParameters(
+        document_id="invalid-document-id", status="Active", annotation=annotation
+    )
+    req_params = parameters.get_request_parameters()
+    assert parameters.document_id == "invalid-document-id"
+    assert req_params["status"] == "Active"
+    assert req_params["annotation"] == expected_annotation
 
 
 @pytest.mark.v2
@@ -49,15 +82,12 @@ def test_patch_parameters_must_init_from_string():
     parameters = RagDocumentAnnotationParameters(
         document_id="invalid-document-id",
         status="Active",
-        annotation='{"fields": {"is_good": {"value": true}}}',
+        annotation='{"fields": {"simple":{"value": true}, "list":{"items": []}, "object":{"fields": {}}}}',
     )
     req_params = parameters.get_request_parameters()
     assert parameters.document_id == "invalid-document-id"
     assert req_params["status"] == "Active"
-    assert (
-        req_params["annotation"]
-        == '{"fields":{"is_good":{"selected":false,"value":true}}}'
-    )
+    assert req_params["annotation"] == expected_annotation
 
 
 @pytest.mark.v2

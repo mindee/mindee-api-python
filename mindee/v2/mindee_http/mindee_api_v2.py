@@ -295,7 +295,7 @@ class MindeeAPIV2(SettingsMixin):
             timeout=self.request_timeout,
             follow_redirects=False,
         )
-        return response.is_success()
+        return response.is_success
 
     @property
     def get_caller(self) -> Callable:

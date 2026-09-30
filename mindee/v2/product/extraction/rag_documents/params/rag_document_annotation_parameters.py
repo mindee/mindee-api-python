@@ -1,5 +1,5 @@
 import json
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 from typing import Any, ClassVar
 
 from mindee.parsing.common.string_dict import StringDict
@@ -33,7 +33,7 @@ class RagDocumentAnnotationParameters(
         elif isinstance(self.annotation, dict):
             self.annotation = RagAnnotation(self.annotation)
 
-    def get_request_parameters(self) -> dict[str, str]:
+    def get_request_parameters(self) -> dict[str, str | StringDict]:
         """Gets the request parameters for the upload request."""
         parameters: dict[str, Any] = {}
 
@@ -41,6 +41,6 @@ class RagDocumentAnnotationParameters(
             parameters["status"] = self.status
 
         if self.annotation is not None and isinstance(self.annotation, RagAnnotation):
-            parameters["annotation"] = str(self.annotation)
+            parameters["annotation"] = asdict(self.annotation)
 
         return parameters

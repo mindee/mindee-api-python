@@ -295,14 +295,13 @@ class Client:
         while retry_count < max_retries:
             if cancellation_token and cancellation_token.is_canceled:
                 raise MindeeError("Request canceled through cancellation token.")
-
-            sleep(polling_options.delay_sec)
             logger.info("Poll attempt %s of %s", retry_count, max_retries)
 
             response = self.get_rag_document(type(initial_response), document_id)
             retry_count += 1
 
             if response.status == "Processing":
+                sleep(polling_options.delay_sec)
                 continue
             if response.status == "Failed":
                 raise MindeeError("Job failed without an error payload.")

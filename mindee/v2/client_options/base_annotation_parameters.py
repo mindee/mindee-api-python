@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import Generic
 
+from mindee.parsing.common.string_dict import StringDict
 from mindee.v2.parsing.base_rag_annotation_response import TypeRagAnnotationResponse
 
 
@@ -17,7 +18,7 @@ class BaseAnnotationParameters(ABC, Generic[TypeRagAnnotationResponse]):
     """Response class for the annotation."""
 
     @abstractmethod
-    def get_request_parameters(self) -> dict[str, str]:
+    def get_request_parameters(self) -> dict[str, str | StringDict]:
         """Gets the request parameters for the upload request."""
 
     def get_response_class(self) -> type[TypeRagAnnotationResponse]:

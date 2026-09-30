@@ -3,8 +3,8 @@ import os
 import pytest
 
 from mindee import PathInput
-from mindee.error.mindee_error import MindeeError
 from mindee.v2 import Client
+from mindee.v2.error import MindeeHTTPErrorV2
 from mindee.v2.product.extraction.rag_documents import (
     ExtractionRagAnnotationResponse,
     RagDocumentAnnotationParameters,
@@ -28,9 +28,8 @@ def test_rag_document_lifecycle_must_succeed():
     input_source = PathInput(
         V2_PRODUCT_PATH / "extraction" / "financial_document" / "default_sample.jpg"
     )
-    parameters = RagDocumentUploadParameters(model_id=extraction_model_id)
-
-    post_response = client.upload_and_get_rag_document(input_source, parameters)
+    post_parameters = RagDocumentUploadParameters(model_id=extraction_model_id)
+    post_response = client.upload_and_get_rag_document(input_source, post_parameters)
     assert post_response is not None
 
     post_annotation = post_response.annotation
@@ -101,5 +100,5 @@ def test_rag_document_lifecycle_must_succeed():
     delete_response = client.delete_extraction_rag_document(document_id)
     assert delete_response is True
 
-    with pytest.raises(MindeeError):
+    with pytest.raises(MindeeHTTPErrorV2):
         client.get_rag_document(ExtractionRagAnnotationResponse, document_id)
