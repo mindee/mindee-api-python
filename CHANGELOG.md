@@ -1,5 +1,11 @@
 # Mindee Python Client Library Changelog
 
+## v5.4.0 - 2026-09-30
+### Changes
+* :sparkles: add API for RAG operations
+* :sparkles: add error response rst output
+
+
 ## v5.3.1 - 2026-09-11
 ### Changes
 * :memo: update docs for RAG search
