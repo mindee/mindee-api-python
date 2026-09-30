@@ -349,7 +349,7 @@ class MindeeAPIV2(SettingsMixin):
 
     def delete_http_client(self):
         """Delete the underlying HTTP client."""
-        httpx_client = getattr(self, "http_client", None)
+        httpx_client = getattr(self, "_http_client", None)
         if httpx_client and not self._http_client.is_closed:
             logger.info("Force-closing unclosed Mindee Client (V2) %s.", str(self))
             self.close()

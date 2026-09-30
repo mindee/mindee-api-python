@@ -278,6 +278,7 @@ class Client:
         Poll until the document is finished processing or the max number of attempts is reached.
         """
         logger.info("Polling for RAG document ID: %s", initial_response.id)
+        polling_options.validate_settings()
         max_retries = polling_options.max_retries + 1
 
         logger.debug(
