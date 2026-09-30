@@ -12,7 +12,7 @@ expected_data_schema_dict = json.loads(
     (V2_PRODUCT_PATH / "extraction" / "data_schema_replace_param.json").read_text()
 )
 expected_data_schema_str = json.dumps(
-    expected_data_schema_dict, indent=None, sort_keys=True
+    expected_data_schema_dict, indent=None, sort_keys=True, separators=(",", ":")
 )
 
 

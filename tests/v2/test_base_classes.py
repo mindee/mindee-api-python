@@ -38,7 +38,7 @@ def test_base_inference():
 
 def test_base_response():
     class DummyResponse(BaseInferenceResponse):
-        _slug = "dummy/results"
+        _slug = "dummy"
 
         def __init__(self):
             self.inference = "dummy inference"
@@ -46,4 +46,4 @@ def test_base_response():
     response = DummyResponse()
 
     assert str(response) == "dummy inference"
-    assert response.get_result_slug() == "dummy/results"
+    assert response.get_product_slug() == "dummy"

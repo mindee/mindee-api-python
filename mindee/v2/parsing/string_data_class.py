@@ -13,5 +13,8 @@ class StringDataClass:
 
     def __str__(self) -> str:
         return json.dumps(
-            asdict(self, dict_factory=self._no_none_values), indent=None, sort_keys=True
+            asdict(self, dict_factory=self._no_none_values),
+            indent=None,
+            sort_keys=True,
+            separators=(",", ":"),
         )

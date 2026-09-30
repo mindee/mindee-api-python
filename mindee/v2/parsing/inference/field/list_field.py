@@ -1,11 +1,10 @@
-from collections.abc import Callable
-
 from mindee.parsing.common.string_dict import StringDict
 from mindee.v2.parsing.inference.field.base_field import BaseField, FieldType
 from mindee.v2.parsing.inference.field.object_field import ObjectField
 from mindee.v2.parsing.inference.field.simple_field import SimpleField
 
 
+@BaseField.register("items")
 class ListField(BaseField):
     """List field containing multiple fields."""
 
@@ -15,14 +14,13 @@ class ListField(BaseField):
     def __init__(
         self,
         raw_response: StringDict,
-        parser_func: Callable[[StringDict, int], BaseField],
         indent_level: int = 0,
     ):
         super().__init__(FieldType.LIST, raw_response, indent_level)
 
         self.items = []
         for item in raw_response["items"]:
-            self.items.append(parser_func(item, indent_level))
+            self.items.append(BaseField.build(item, indent_level))
 
     @property
     def simple_items(self) -> list[SimpleField]:

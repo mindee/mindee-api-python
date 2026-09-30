@@ -1,5 +1,6 @@
 import json
 
+from mindee.logger import logger
 from mindee.parsing.common.string_dict import StringDict
 from mindee.v2.parsing.error import ErrorItem, ErrorResponse, IErrorResponse
 
@@ -48,4 +49,6 @@ def handle_error_v2(raw_response: StringDict) -> None:
     """
     if "status" not in raw_response or "detail" not in raw_response:
         raise MindeeHTTPUnknownErrorV2(json.dumps(raw_response, indent=2))
-    raise MindeeHTTPErrorV2(ErrorResponse(raw_response))
+    error_response = ErrorResponse(raw_response)
+    logger.error("\n%s", error_response)
+    raise MindeeHTTPErrorV2(error_response)

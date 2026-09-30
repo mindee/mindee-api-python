@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import TypeVar
 
 from mindee.parsing.common import StringDict
 from mindee.parsing.common.common_response import CommonResponse
@@ -26,3 +27,6 @@ class BaseSearchResponse(CommonResponse, ABC):
         lines: list[str] = self.body_lines()
         lines += ["Pagination Metadata", "###################", str(self.pagination)]
         return "\n".join(lines)
+
+
+TypeSearchResponse = TypeVar("TypeSearchResponse", bound=BaseSearchResponse)

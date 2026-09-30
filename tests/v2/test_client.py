@@ -254,7 +254,7 @@ def test_client_closes_httpx_connections() -> None:
     with pytest.raises(
         AttributeError, match=r"'NoneType' object has no attribute 'get'"
     ):
-        client.mindee_api.http_client.get("https://google.com")
+        client.mindee_api._http_client.get("https://google.com")
 
 
 @pytest.mark.v2

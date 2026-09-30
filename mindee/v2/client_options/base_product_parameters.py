@@ -29,7 +29,7 @@ class BaseProductParameters(ABC):
     """Options for polling. Set only if having timeout issues."""
 
     close_file: bool = True
-    """Whether to close the file after product."""
+    """Whether to close the file after uploading. Default: True."""
 
     _slug: ClassVar[str]
     """Slug of the product."""

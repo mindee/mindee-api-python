@@ -1,6 +1,5 @@
 import warnings
 from time import sleep
-from typing import TypeVar
 
 import httpx
 
@@ -11,19 +10,24 @@ from mindee.input.local_input_source import LocalInputSource
 from mindee.logger import logger
 from mindee.mindee_http.cancellation_token import CancellationToken
 from mindee.parsing.common.common_response import CommonStatus
+from mindee.v2.client_options.base_annotation_parameters import BaseAnnotationParameters
 from mindee.v2.client_options.base_product_parameters import BaseProductParameters
+from mindee.v2.client_options.base_rag_document_upload_parameters import (
+    BaseRagDocumentUploadParameters,
+)
 from mindee.v2.client_options.base_search_parameters import (
     BaseSearchParameters,
     TypeSearchResponse,
 )
 from mindee.v2.mindee_http.mindee_api_v2 import MindeeAPIV2
-from mindee.v2.parsing.inference.base_inference_response import BaseInferenceResponse
+from mindee.v2.parsing.base_rag_annotation_response import (
+    TypeRagAnnotationResponse,
+)
+from mindee.v2.parsing.inference.base_inference_response import (
+    TypeBaseInferenceResponse,
+)
 from mindee.v2.parsing.job.job_response import JobResponse
 from mindee.v2.parsing.search.search_response import SearchResponse
-
-TypeBaseInferenceResponse = TypeVar(
-    "TypeBaseInferenceResponse", bound=BaseInferenceResponse
-)
 
 
 class Client:
@@ -169,6 +173,143 @@ class Client:
 
         raise MindeeError(f"Couldn't retrieve document after {try_counter + 1} tries.")
 
+    def upload_rag_document(
+        self,
+        input_source: LocalInputSource,
+        parameters: BaseRagDocumentUploadParameters[TypeRagAnnotationResponse],
+    ) -> TypeRagAnnotationResponse:
+        """
+        Not recommended for general use, prefer ``upload_and_get_rag_document``.
+        You will need to poll until the document is ready for use.
+        Add a document to the RAG database.
+        """
+        return self.mindee_api.req_post_rag_document(input_source, parameters)
+
+    def upload_and_get_rag_document(
+        self,
+        input_source: LocalInputSource,
+        parameters: BaseRagDocumentUploadParameters[TypeRagAnnotationResponse],
+        polling_options: PollingOptions | None = None,
+        cancellation_token: CancellationToken | None = None,
+    ) -> TypeRagAnnotationResponse:
+        """
+        Add a document to the RAG database and return the initial annotation.
+        """
+        initial_response = self.upload_rag_document(input_source, parameters)
+        if initial_response.status != "Processing":
+            return initial_response
+        if polling_options is None:
+            polling_options = PollingOptions()
+        return self._poll_for_rag_document(
+            initial_response, polling_options, cancellation_token
+        )
+
+    def get_rag_document(
+        self, response_type: type[TypeRagAnnotationResponse], document_id: str
+    ) -> TypeRagAnnotationResponse:
+        """
+        Not recommended for general use, prefer ``get_ready_rag_document``.
+        You will need to poll until the document is ready for use.
+        Get a document's info and annotations from the RAG database.
+        """
+        return self.mindee_api.req_get_rag_annotation(response_type, document_id)
+
+    def get_ready_rag_document(
+        self,
+        response_type: type[TypeRagAnnotationResponse],
+        document_id: str,
+        polling_options: PollingOptions | None = None,
+        cancellation_token: CancellationToken | None = None,
+    ):
+        """
+        Get a document's info and annotations from the RAG database.
+        """
+        initial_response = self.get_rag_document(response_type, document_id)
+        if initial_response.status != "Processing":
+            return initial_response
+        if polling_options is None:
+            polling_options = PollingOptions()
+        return self._poll_for_rag_document(
+            initial_response, polling_options, cancellation_token
+        )
+
+    def update_rag_annotations(
+        self, parameters: BaseAnnotationParameters[TypeRagAnnotationResponse]
+    ) -> TypeRagAnnotationResponse:
+        """
+        Not recommended for general use, prefer ``update_and_get_rag_annotations``.
+        You will need to poll until the document is ready for use.
+        Update a document's annotations in the RAG database.
+        """
+        return self.mindee_api.req_patch_rag_annotation(parameters)
+
+    def update_and_get_rag_annotations(
+        self,
+        parameters: BaseAnnotationParameters[TypeRagAnnotationResponse],
+        polling_options: PollingOptions | None = None,
+        cancellation_token: CancellationToken | None = None,
+    ) -> TypeRagAnnotationResponse:
+        """
+        Update a document's annotations in the RAG database.
+        """
+        initial_response = self.update_rag_annotations(parameters)
+        if initial_response.status != "Processing":
+            return initial_response
+        if polling_options is None:
+            polling_options = PollingOptions()
+        return self._poll_for_rag_document(
+            initial_response, polling_options, cancellation_token
+        )
+
+    def delete_extraction_rag_document(self, document_id: str) -> bool:
+        """
+        Delete a document from the RAG database.
+        For extraction models only.
+        """
+        return self.mindee_api.req_delete_extraction_rag_document(document_id)
+
+    def _poll_for_rag_document(
+        self,
+        initial_response: TypeRagAnnotationResponse,
+        polling_options: PollingOptions,
+        cancellation_token: CancellationToken | None = None,
+    ) -> TypeRagAnnotationResponse:
+        """
+        Poll until the document is finished processing or the max number of attempts is reached.
+        """
+        logger.info("Polling for RAG document ID: %s", initial_response.id)
+        polling_options.validate_settings()
+        max_retries = polling_options.max_retries + 1
+
+        logger.debug(
+            "Waiting %s seconds before attempting to retrieve the result...",
+            polling_options.initial_delay_sec,
+        )
+
+        if cancellation_token and cancellation_token.is_canceled:
+            raise MindeeError("Request canceled through cancellation token.")
+
+        sleep(polling_options.initial_delay_sec)
+        document_id = initial_response.id
+        retry_count = 1
+
+        while retry_count < max_retries:
+            if cancellation_token and cancellation_token.is_canceled:
+                raise MindeeError("Request canceled through cancellation token.")
+            logger.info("Poll attempt %s of %s", retry_count, max_retries)
+
+            response = self.get_rag_document(type(initial_response), document_id)
+            retry_count += 1
+
+            if response.status == "Processing":
+                sleep(polling_options.delay_sec)
+                continue
+            if response.status == "Failed":
+                raise MindeeError("Job failed without an error payload.")
+            return response
+
+        raise MindeeError(f"RAG polling not complete after {retry_count - 1} attempts.")
+
     def search(
         self, params: BaseSearchParameters[TypeSearchResponse]
     ) -> TypeSearchResponse:
@@ -183,7 +324,7 @@ class Client:
         self, name: str | None = None, model_type: str | None = None
     ) -> SearchResponse:
         """
-        Deprecated. Use `search` instead.
+        Deprecated: use `search` instead.
         """
         warnings.warn(
             "search_models is deprecated, use search instead.",
