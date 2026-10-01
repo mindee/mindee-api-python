@@ -10,7 +10,6 @@ import httpx
 from mindee.error.mindee_error import MindeeSourceError
 from mindee.input.bytes_input import BytesInput
 from mindee.logger import logger
-from mindee.mindee_http.response_validation import validate_url_for_source
 from mindee.parsing.common.string_dict import StringDict
 
 
@@ -26,11 +25,26 @@ class URLInputSource:
 
         :param url: URL to send, must be HTTPS.
         """
-        validate_url_for_source(url)
+        self._validate_url(url)
 
         logger.debug("URL input: %s", url)
 
         self.url = url
+
+    @staticmethod
+    def _validate_url(url: str) -> None:
+        """
+        Validates that a URL is safe to send to the Mindee server.
+
+        :param url: The URL string to validate.
+        :raises MindeeSourceError: If the URL fails any security check.
+        """
+        try:
+            parsed = urlparse(url)
+        except Exception as exc:
+            raise MindeeSourceError("Invalid URL") from exc
+        if parsed.scheme.lower() != "https":
+            raise MindeeSourceError("URL must be HTTPS")
 
     def __fetch_file_content(
         self,

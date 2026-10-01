@@ -1,28 +1,8 @@
 import json
-from urllib.parse import urlparse
 
 import httpx
 
-from mindee.error.mindee_error import MindeeSourceError
 from mindee.parsing.common.string_dict import StringDict
-
-
-def validate_url_for_source(url: str) -> None:
-    """
-    Validates that a URL is safe to send to the Mindee server.
-
-    Rejects any URL that is not HTTPS.
-
-    :param url: The URL string to validate.
-    :raises MindeeSourceError: If the URL fails any security check.
-    """
-    try:
-        parsed = urlparse(url)
-    except Exception as exc:
-        raise MindeeSourceError("Invalid URL") from exc
-
-    if parsed.scheme.lower() != "https":
-        raise MindeeSourceError("URL must be HTTPS")
 
 
 def is_valid_sync_response(response: httpx.Response) -> bool:
