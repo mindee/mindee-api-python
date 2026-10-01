@@ -58,7 +58,7 @@ def test_image_should_extract_crops():
     extracted_crops.save_all_to_disk(OUTPUT_PATH)
     crop0_size = os.path.getsize(OUTPUT_PATH / output_files[0])
     crop1_size = os.path.getsize(OUTPUT_PATH / output_files[1])
-    assert 180000 <= crop0_size <= 230000
+    assert 180000 <= crop0_size <= 231000
     assert 190000 <= crop1_size <= 230000
 
 

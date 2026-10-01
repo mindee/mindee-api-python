@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "mindee"
 authors = [
-    { name = "Mindee", email = "opensource@mindee.com" },
+  { name = "Mindee", email = "opensource@mindee.com" },
 ]
 dynamic = ["version"]
 description = "Mindee API helper library for Python"
@@ -13,24 +13,24 @@ readme = "README.md"
 license = "MIT"
 license-files = ["LICENSE"]
 classifiers = [
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.12",
-    "Programming Language :: Python :: 3.13",
-    "Programming Language :: Python :: 3.14",
-    "Operating System :: OS Independent",
-    "Development Status :: 5 - Production/Stable",
-    "Intended Audience :: Developers",
-    "Topic :: Software Development :: Libraries",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Operating System :: OS Independent",
+  "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: Developers",
+  "Topic :: Software Development :: Libraries",
 ]
 
 requires-python = ">=3.10"
 
 dependencies = [
-    "pypdfium2>=4.0,<6.0",
-    "Pillow>=12.2.0",
-    "httpx[http2]>=0.28.1,<1.0",
+  "pypdfium2>=4.0,<6.0",
+  "Pillow>=12.2.0",
+  "httpx[http2]>=0.28.1,<1.0",
 ]
 
 [project.urls]
@@ -42,26 +42,27 @@ Changelog = "https://github.com/mindee/mindee-api-python/blob/main/CHANGELOG.md"
 
 [project.optional-dependencies]
 lint = [
-    "pylint==4.1.1",
-    "prek~=0.5.4",
-    "pip-audit==2.10.1",
+  "pylint==4.1.1",
+  "prek~=0.5.4",
+  "pip-audit==2.10.1",
+  "pylic~=4.1.0",
 ]
 test = [
-    "tomli~=2.4.1",
-    "pytest>=9.0.3,<9.2.0",
-    "pytest-cov~=7.1.0",
-    "respx~=0.23.1"
+  "tomli~=2.4.1",
+  "pytest>=9.0.3,<9.2.0",
+  "pytest-cov~=7.1.0",
+  "respx~=0.23.1",
 ]
 docs = [
-    "sphinx~=9.1.0",
-    "sphinx_rtd_theme~=3.1.0",
-    "sphinx-autodoc-typehints>=3.10.4,<4.0.0",
+  "sphinx~=9.1.0",
+  "sphinx_rtd_theme~=3.1.0",
+  "sphinx-autodoc-typehints>=3.10.4,<4.0.0",
 ]
 build = [
-    "build",
-    "twine",
-    "tomli~=2.4.1",
-    "tomli-w~=1.2.0"
+  "build",
+  "twine",
+  "tomli~=2.4.1",
+  "tomli-w~=1.2.0",
 ]
 
 [project.scripts]
@@ -75,13 +76,14 @@ version = { attr = "mindee.versions.__version__" }
 
 [tool.setuptools.package-data]
 "mindee" = ["py.typed"]
+
 [tool.coverage.run]
 omit = [
-    "examples/*",
-    "scripts/*",
-    "mindee/cli.py",
-    "mindee/v1/commands/*",
-    "mindee/v2/commands/*",
+  "examples/*",
+  "scripts/*",
+  "mindee/cli.py",
+  "mindee/v1/commands/*",
+  "mindee/v2/commands/*",
 ]
 
 [tool.ruff]
@@ -115,13 +117,20 @@ ignore_missing_imports = true
 
 [tool.pylic]
 safe_licenses = [
-    "Apache Software License",
-    "MIT License",
-    "Mozilla Public License 2.0 (MPL 2.0)",
-    "BSD License",
-    "BSD-3-Clause, Apache-2.0, PdfiumThirdParty",
-    "Historical Permission Notice and Disclaimer (HPND)",
-    "CMU License (MIT-CMU)",
+  "Apache Software License",
+  "Apache-2.0",
+  "BSD License",
+  "BSD-2-Clause",
+  "BSD-3-Clause",
+  "BSD-3-Clause, Apache-2.0, dependency licenses",
+  "MIT-CMU",
+  "Historical Permission Notice and Disclaimer (HPND)",
+  "MIT",
+  "MIT License",
+  "Mozilla Public License 2.0 (MPL 2.0)",
+  "Public Domain",
+  "Python Software Foundation License",
+  "PSF-2.0",
 ]
 
 
@@ -130,14 +139,14 @@ addopts = "--pyargs --cov-report term:skip-covered --cov-report term-missing -m 
 python_files = "test*.py"
 junit_family = "xunit2"
 markers = [
-    "lineitems: debug line items",
-    "integration: integration tests that send calls to the API - select with '-m integration'",
-    "lite: tests for mindee-lite",
-    "v2: tests specific to version 2 of the API",
-    "pillow: tests that require the use of the Pillow (PIL) library",
-    "pypdfium2: tests that require the usage of the pypdfium2 library",
-    "regression: marks tests as regression tests - select with '-m regression'",
+  "lineitems: debug line items",
+  "integration: integration tests that send calls to the API - select with '-m integration'",
+  "lite: tests for mindee-lite",
+  "v2: tests specific to version 2 of the API",
+  "pillow: tests that require the use of the Pillow (PIL) library",
+  "pypdfium2: tests that require the usage of the pypdfium2 library",
+  "regression: marks tests as regression tests - select with '-m regression'",
 ]
 testpaths = [
-    "tests",
+  "tests",
 ]
