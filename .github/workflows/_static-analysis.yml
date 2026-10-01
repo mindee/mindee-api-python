@@ -15,6 +15,14 @@ jobs:
         python-version: ["3.12"]
     steps:
     - uses: actions/checkout@v7
+      with:
+        fetch-depth: 0
+
+    - name: Run Betterleaks
+      uses: dortort/betterleaks-action@v0.1.0
+      with:
+        version: "v1.9.0"
+        github-token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v7
@@ -33,21 +41,17 @@ jobs:
       run: |
         python -m pip install pip
         pip install pylic~=3.6.1
-        pip install -e '.'
+        pip install -e '.[lint]'
 
     - name: License check
       run: |
         pylic check --allow-extra-safe-licenses
 
-    - name: Install lint dependencies
-      run: |
-        pip install -e '.[lint]'
-
     - name: Cache pre-commit
       uses: actions/cache@v6
       with:
-        path: ~/.cache/pre-commit
-        key: ${{ runner.os }}-prec-${{ hashFiles('.pre-commit-config.yaml') }}
+        path: ~/.cache/prek
+        key: ${{ runner.os }}-prec-${{ hashFiles('prek.toml') }}
         restore-keys: |
           ${{ runner.os }}-prec-
 
@@ -55,4 +59,4 @@ jobs:
       env:
         SKIP: sphinx-html,sphinx-linkcheck
       run: |
-        pre-commit run --all-files
+        prek run --all-files
