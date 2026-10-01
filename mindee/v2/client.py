@@ -9,7 +9,6 @@ from mindee.input import URLInputSource
 from mindee.input.local_input_source import LocalInputSource
 from mindee.logger import logger
 from mindee.mindee_http.cancellation_token import CancellationToken
-from mindee.parsing.common.common_response import CommonStatus
 from mindee.v2.client_options.base_annotation_parameters import BaseAnnotationParameters
 from mindee.v2.client_options.base_product_parameters import BaseProductParameters
 from mindee.v2.client_options.base_rag_document_upload_parameters import (
@@ -139,19 +138,19 @@ class Client:
             polling_options = PollingOptions()
 
         return self._poll_for_result(
-            enqueue_response, response_type, polling_options, cancellation_token
+            initial_response=enqueue_response,
+            response_class=response_type,
+            polling_options=polling_options,
+            cancellation_token=cancellation_token,
         )
 
-    def _poll_for_result(
+    def _poll_on_job(
         self,
-        enqueue_response: JobResponse,
-        response_type: type[TypeBaseInferenceResponse],
+        initial_response: JobResponse,
         polling_options: PollingOptions,
+        wait_for_webhooks: bool,
         cancellation_token: CancellationToken | None = None,
-    ) -> TypeBaseInferenceResponse:
-        """
-        Poll until the inference is finished processing or the max number of attempts is reached.
-        """
+    ) -> JobResponse:
         if cancellation_token and cancellation_token.is_canceled:
             raise MindeeError("Request canceled through cancellation token.")
         sleep(polling_options.initial_delay_sec)
@@ -159,28 +158,29 @@ class Client:
         while try_counter < polling_options.max_retries:
             if cancellation_token and cancellation_token.is_canceled:
                 raise MindeeError("Request canceled through cancellation token.")
-            job_response = self.get_job(enqueue_response.job.id)
+
+            job_response = self.get_job(initial_response.job.id)
             assert isinstance(job_response, JobResponse)
 
-            if (
-                job_response.job.status == CommonStatus.PROCESSED.value
-                and job_response.job.result_url
-            ):
+            if job_response.job.status == "Processed":
                 logger.debug(
                     "Job ID %s completed processing at: %s",
                     job_response.job.id,
                     job_response.job.completed_at,
                 )
-                result = self.get_result_from_url(
-                    response_type, job_response.job.result_url
-                )
-                assert isinstance(result, response_type), (
-                    f'Invalid response type "{type(result)}"'
-                )
-                return result
+                if wait_for_webhooks:
+                    are_webhooks_done = all(
+                        webhook.status in {"Completed", "Failed"}
+                        for webhook in job_response.job.webhooks
+                    )
+                    logger.debug("All webhooks are done: %s", are_webhooks_done)
+                    if are_webhooks_done:
+                        return job_response
+                    continue
+                return job_response
 
             # normally the mindee_api will throw on error, this is a fallback
-            if job_response.job.status == CommonStatus.FAILED.value:
+            if job_response.job.status == "Failed":
                 if job_response.job.error:
                     detail = job_response.job.error.detail
                 else:
@@ -193,6 +193,26 @@ class Client:
             sleep(polling_options.delay_sec)
 
         raise MindeeError(f"Couldn't retrieve document after {try_counter + 1} tries.")
+
+    def _poll_for_result(
+        self,
+        initial_response: JobResponse,
+        response_class: type[TypeBaseInferenceResponse],
+        polling_options: PollingOptions,
+        wait_for_webhooks: bool = False,
+        cancellation_token: CancellationToken | None = None,
+    ) -> TypeBaseInferenceResponse:
+        """
+        Poll until the inference is finished processing or the max number of attempts is reached.
+        """
+        job_response = self._poll_on_job(
+            initial_response, polling_options, wait_for_webhooks, cancellation_token
+        )
+        if not job_response.job.result_url:
+            raise MindeeError(
+                "The result URL is undefined. This is a server error, try again later or contact support."
+            )
+        return self.get_result_from_url(response_class, job_response.job.result_url)
 
     def upload_rag_document(
         self,

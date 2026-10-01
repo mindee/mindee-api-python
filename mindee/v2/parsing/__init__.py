@@ -8,6 +8,7 @@ from mindee.v2.parsing.inference.failed_inference_response import (
 from mindee.v2.parsing.inference.inference_active_options import InferenceActiveOptions
 from mindee.v2.parsing.inference.inference_file import InferenceFile
 from mindee.v2.parsing.inference.inference_model import InferenceModel
+from mindee.v2.parsing.job.job import Job
 from mindee.v2.parsing.job.job_response import JobResponse
 from mindee.v2.product.extraction.extraction_inference import ExtractionInference
 from mindee.v2.product.extraction.extraction_response import ExtractionResponse
@@ -25,5 +26,6 @@ __all__ = [
     "InferenceActiveOptions",
     "InferenceFile",
     "InferenceModel",
+    "Job",
     "JobResponse",
 ]
