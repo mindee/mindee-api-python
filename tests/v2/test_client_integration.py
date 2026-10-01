@@ -21,11 +21,6 @@ from mindee.v2.product.split.split_response import SplitResponse
 from tests.utils import FILE_TYPES_PATH, V2_PRODUCT_PATH
 
 
-@pytest.fixture(scope="session")
-def v2_client() -> Client:
-    return Client()
-
-
 def _basic_assert_success(
     response: ExtractionResponse, page_count: int, model_id: str
 ) -> None:
@@ -423,7 +418,7 @@ def test_custom_httpx_client_event_hook(
 
 @pytest.mark.v2
 @pytest.mark.integration
-def test_http2_client(findoc_model_id) -> None:
+def test_http2_client(findoc_model_id: str) -> None:
     httpx_client = httpx.Client(http2=True)
     with Client(http_client=httpx_client) as client:
         input_source = PathInput(

@@ -1,5 +1,4 @@
 import os
-from os import getenv
 
 import pytest
 
@@ -29,13 +28,14 @@ output_files = [
 @pytest.mark.pillow
 @pytest.mark.pypdfium2
 @pytest.mark.integration
-def test_image_should_extract_crops():
-    client = Client()
+def test_image_should_extract_crops(
+    v2_client: Client, crop_model_id: str, findoc_model_id: str
+):
     crop_input = PathInput(V2_PRODUCT_PATH / "crop" / "default_sample.jpg")
-    response = client.enqueue_and_get_result(
+    response = v2_client.enqueue_and_get_result(
         CropResponse,
         crop_input,
-        CropParameters(getenv("MINDEE_V2_SE_TESTS_CROP_MODEL_ID"), close_file=False),
+        CropParameters(crop_model_id, close_file=False),
     )
     assert len(response.inference.result.crops) == 2
 
@@ -47,12 +47,10 @@ def test_image_should_extract_crops():
     assert extracted_crops[0].filename == output_files[0]
     assert extracted_crops[1].filename == output_files[1]
 
-    invoice_0 = client.enqueue_and_get_result(
+    invoice_0 = v2_client.enqueue_and_get_result(
         ExtractionResponse,
         extracted_crops[0].as_input_source(),
-        ExtractionParameters(
-            getenv("MINDEE_V2_SE_TESTS_FINDOC_MODEL_ID"), close_file=False
-        ),
+        ExtractionParameters(findoc_model_id, close_file=False),
     )
     check_findoc_return(invoice_0)
     extracted_crops.save_all_to_disk(OUTPUT_PATH)

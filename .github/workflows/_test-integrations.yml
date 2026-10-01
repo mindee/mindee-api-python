@@ -58,7 +58,7 @@ jobs:
         pip install -e '.[test]'
     - name: Run Integration Testing
       run: |
-        pytest --cov mindee -m integration
+        pytest --cov mindee -n 2 -m integration
 
     - name: Notify Slack Action on Failure
       uses: ravsamhq/notify-slack-action@2.5.0
@@ -71,7 +71,7 @@ jobs:
         SLACK_WEBHOOK_URL: ${{ secrets.PRODUCTION_ISSUES_SLACK_HOOK_URL }}
 
   pytest-lite:
-    name: Run Integration Tests
+    name: Run Integration Tests (Lite)
     timeout-minutes: 30
     strategy:
       matrix:
@@ -107,4 +107,4 @@ jobs:
       shell: bash
     - name: Run Integration Testing
       run: |
-        pytest -m "integration and not pypdfium2 and not pillow"
+        pytest -n 2 -m "integration and not pypdfium2 and not pillow"

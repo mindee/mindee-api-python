@@ -1,17 +1,9 @@
-import os
-
 import pytest
 
 from mindee.input.path_input import PathInput
 from mindee.v2 import CropParameters, CropResponse
 from mindee.v2.client import Client
 from tests.utils import V2_PRODUCT_PATH
-
-
-@pytest.fixture(scope="session")
-def crop_model_id() -> str:
-    """Identifier of the Financial Document model, supplied through an env var."""
-    return os.getenv("MINDEE_V2_SE_TESTS_CROP_MODEL_ID")
 
 
 @pytest.fixture(scope="session")
