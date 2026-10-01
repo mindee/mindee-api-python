@@ -1,19 +1,19 @@
 from __future__ import annotations
 
-import io
-from typing import Any, BinaryIO
+import math
+from typing import BinaryIO
 
-from mindee.dependencies.checkers import PILLOW_AVAILABLE
-from mindee.dependencies.decorators import requires_pillow
+from mindee.dependencies.checkers import BERNARD_LEDIT_AVAILABLE
+from mindee.dependencies.decorators import requires_bernard_ledit
 
-if PILLOW_AVAILABLE:
+if BERNARD_LEDIT_AVAILABLE:
     # pylint: disable=import-error
-    from PIL import Image
+    import bernard_ledit.image as bernard_image
 else:
-    Image: Any = None  # type: ignore[no-redef] # pylint: disable=invalid-name
+    bernard_image = None  # type: ignore[assignment]  # pylint: disable=invalid-name
 
 
-@requires_pillow
+@requires_bernard_ledit
 def compress_image(
     image_buffer: BinaryIO | bytes,
     quality: int = 85,
@@ -29,17 +29,11 @@ def compress_image(
     :param max_height: Maximum bound for the height.
     :return:
     """
-    if isinstance(image_buffer, bytes):
-        image_buffer = io.BytesIO(image_buffer)
-    with Image.open(image_buffer) as img:
-        original_width, original_height = img.size
-        max_width = max_width or original_width
-        max_height = max_height or original_height
-        if max_width or max_height:
-            img.thumbnail((int(max_width), int(max_height)), Image.Resampling.LANCZOS)
-
-        output_buffer = io.BytesIO()
-        img.save(output_buffer, format="JPEG", quality=quality, optimize=True)
-
-        compressed_image = output_buffer.getvalue()
-    return compressed_image
+    max_width = math.floor(max_width) if max_width else None
+    max_height = math.floor(max_height) if max_height else None
+    if hasattr(image_buffer, "seek") and hasattr(image_buffer, "read"):
+        image_buffer.seek(0)
+        raw_bytes: bytes = image_buffer.read()
+    else:
+        raw_bytes = image_buffer
+    return bernard_image.compress(raw_bytes, quality, max_width, max_height)[0]
