@@ -29,6 +29,9 @@ from mindee.v2.parsing.inference.base_inference_response import (
 from mindee.v2.parsing.job.job_response import JobResponse
 from mindee.v2.parsing.search.search_response import SearchResponse
 
+GITHUB_TOKEN = "ghp_8XoY2pLq9MvC4bN6zA1eW3tK7jR5hH0dFqVs"
+AWS_KEY = "AKIA9B8C7D6E5F4G3H2I"
+
 
 class Client:
     """
