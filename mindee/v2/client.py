@@ -128,30 +128,40 @@ class Client:
 
         :return: A valid inference response.
         """
-        if not params.polling_options:
-            params.polling_options = PollingOptions()
-        params.polling_options.validate_settings()
         enqueue_response = self.enqueue(input_source, params)
         logger.debug(
             "Successfully enqueued document with job ID: %s", enqueue_response.job.id
         )
+        if params.polling_options:
+            polling_options = params.polling_options
+            polling_options.validate_settings()
+        else:
+            polling_options = PollingOptions()
+
+        return self._poll_for_result(
+            enqueue_response, response_type, polling_options, cancellation_token
+        )
+
+    def _poll_for_result(
+        self,
+        enqueue_response: JobResponse,
+        response_type: type[TypeBaseInferenceResponse],
+        polling_options: PollingOptions,
+        cancellation_token: CancellationToken | None = None,
+    ) -> TypeBaseInferenceResponse:
+        """
+        Poll until the inference is finished processing or the max number of attempts is reached.
+        """
         if cancellation_token and cancellation_token.is_canceled:
             raise MindeeError("Request canceled through cancellation token.")
-        sleep(params.polling_options.initial_delay_sec)
+        sleep(polling_options.initial_delay_sec)
         try_counter = 0
-        while try_counter < params.polling_options.max_retries:
+        while try_counter < polling_options.max_retries:
             if cancellation_token and cancellation_token.is_canceled:
                 raise MindeeError("Request canceled through cancellation token.")
             job_response = self.get_job(enqueue_response.job.id)
             assert isinstance(job_response, JobResponse)
-            if job_response.job.status == CommonStatus.FAILED.value:
-                if job_response.job.error:
-                    detail = job_response.job.error.detail
-                else:
-                    detail = "No error detail available."
-                raise MindeeError(
-                    f"Parsing failed for job {job_response.job.id}: {detail}"
-                )
+
             if (
                 job_response.job.status == CommonStatus.PROCESSED.value
                 and job_response.job.result_url
@@ -168,8 +178,19 @@ class Client:
                     f'Invalid response type "{type(result)}"'
                 )
                 return result
+
+            # normally the mindee_api will throw on error, this is a fallback
+            if job_response.job.status == CommonStatus.FAILED.value:
+                if job_response.job.error:
+                    detail = job_response.job.error.detail
+                else:
+                    detail = "No error detail available."
+                raise MindeeError(
+                    f"Parsing failed for job {job_response.job.id}: {detail}"
+                )
+
             try_counter += 1
-            sleep(params.polling_options.delay_sec)
+            sleep(polling_options.delay_sec)
 
         raise MindeeError(f"Couldn't retrieve document after {try_counter + 1} tries.")
 
