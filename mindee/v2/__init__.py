@@ -34,7 +34,6 @@ __all__ = [
     "SplitParameters",
     "SplitResponse",
     "extract_multiple_crops",
-    "extract_multiple_crops",
     "extract_multiple_splits",
     "extract_single_crop",
 ]

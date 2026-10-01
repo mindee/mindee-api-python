@@ -1,0 +1,92 @@
+# Configuration file for `prek`, a git hook framework written in Rust.
+# See https://prek.j178.dev for more information.
+#:schema https://www.schemastore.org/prek.json
+
+[[repos]]
+repo = "https://github.com/astral-sh/ruff-pre-commit"
+rev = "v0.16.9"
+hooks = [
+  {
+    id = "ruff-check",
+    args = [
+      "--fix",
+      "--exit-non-zero-on-fix",
+    ]
+  },
+  { id = "ruff-format" }
+]
+
+[[repos]]
+repo = "https://github.com/betterleaks/betterleaks"
+rev = "v1.9.0"
+hooks = [
+  { id = "betterleaks" }
+]
+
+[[repos]]
+repo = "https://github.com/PyCQA/pylint"
+rev = "v4.1.1"
+hooks = [
+  {
+    id = "pylint",
+    name = "pylint",
+    entry = "pylint",
+    language = "system",
+    types = ["python"],
+    args = ["-j2"],
+  }
+]
+
+[[repos]]
+repo = "https://github.com/pypa/pip-audit"
+rev = "v2.10.1"
+hooks = [
+  {
+    id = "pip-audit",
+    args = ["."],
+    files = '^(requirements.*\.txt|setup\.cfg|setup\.py|pyproject\.toml)$',
+    stages = ["pre-push"],
+  }
+]
+
+[[repos]]
+repo = "https://github.com/pre-commit/mirrors-mypy"
+rev = "v2.3.1"
+hooks = [
+  {
+    id = "mypy",
+    args = [ ],
+    exclude = "tests/|examples/|docs/",
+    additional_dependencies = [
+      "httpx",
+      "types-setuptools",
+      "importlib-metadata",
+      "types-Pillow",
+      "tomli",
+      "tomli_w",
+    ]
+  }
+]
+
+[[repos]]
+repo = "local"
+hooks = [
+  {
+    id = "sphinx-html",
+    name = "Sphinx HTML build",
+    entry = "make -C docs html",
+    language = "system",
+    pass_filenames = false,
+    files = '^docs/.*$|^mindee/.*\.py$',
+    stages = ["pre-push"],
+  },
+  {
+    id = "sphinx-linkcheck",
+    name = "Sphinx Linkcheck",
+    entry = "make -C docs linkcheck",
+    language = "system",
+    pass_filenames = false,
+    files = '^docs/.*$|^mindee/.*\.py$',
+    stages = ["pre-push"],
+  }
+]

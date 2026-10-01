@@ -42,12 +42,12 @@ Changelog = "https://github.com/mindee/mindee-api-python/blob/main/CHANGELOG.md"
 
 [project.optional-dependencies]
 lint = [
-    "pylint==4.0.6",
-    "pre-commit~=4.6.0",
+    "pylint==4.1.1",
+    "prek~=0.5.4",
     "pip-audit==2.10.1",
 ]
 test = [
-    "toml~=0.10.2",
+    "tomli~=2.4.1",
     "pytest>=9.0.3,<9.2.0",
     "pytest-cov~=7.1.0",
     "respx~=0.23.1"
@@ -60,7 +60,8 @@ docs = [
 build = [
     "build",
     "twine",
-    "toml"
+    "tomli~=2.4.1",
+    "tomli-w~=1.2.0"
 ]
 
 [project.scripts]

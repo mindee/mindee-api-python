@@ -4,6 +4,7 @@
 # These files are always considered text and should use LF.
 # See core.whitespace @ https://git-scm.com/docs/git-config for whitespace flags.
 *.py    text eol=lf whitespace=blank-at-eol,space-before-tab,tab-in-indent,tabwidth=4 diff=python
+*.json  text eol=lf whitespace=blank-at-eol,space-before-tab,tab-in-indent,tabwidth=2
 *.sh    text eol=lf whitespace=blank-at-eol diff=bash
 *.md    text eol=lf whitespace=blank-at-eol diff=markdown
 *.rst   text eol=lf whitespace=blank-at-eol
