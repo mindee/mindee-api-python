@@ -151,8 +151,7 @@ class Client:
         Checks if all webhooks associated with a job have finished processing.
         """
         are_webhooks_done = all(
-            webhook.status in {"Completed", "Failed"}
-            for webhook in job_response.job.webhooks
+            webhook.status != "Processing" for webhook in job_response.job.webhooks
         )
         if are_webhooks_done:
             logger.debug("All webhooks are completed.")

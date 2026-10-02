@@ -66,7 +66,7 @@ def _assert_webhook_job_success(job: Job, webhook_ids: list) -> None:
     assert isinstance(job.completed_at, datetime)
     assert job.error is None
     assert len(job.webhooks) == len(webhook_ids)
-    assert all(webhook.status in {"Completed", "Failed"} for webhook in job.webhooks)
+    assert all(webhook.status in {"Processed", "Failed"} for webhook in job.webhooks)
     assert {webhook.id for webhook in job.webhooks} == set(webhook_ids)
 
 
