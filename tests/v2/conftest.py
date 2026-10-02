@@ -12,9 +12,9 @@ def v2_client() -> Client:
 
 @pytest.fixture(scope="session")
 def findoc_model_id() -> str:
-    """Identifier of the Financial Document model, supplied through an env var."""
+    """Identifier of the Financial Document extraction model, supplied through an env var."""
     findoc_model_id = os.getenv("MINDEE_V2_SE_TESTS_FINDOC_MODEL_ID", "")
-    if findoc_model_id is None:
+    if not findoc_model_id:
         raise ValueError(
             "MINDEE_V2_SE_TESTS_FINDOC_MODEL_ID environment variable is not set"
         )
@@ -25,7 +25,7 @@ def findoc_model_id() -> str:
 def split_model_id() -> str:
     """Identifier of the Split model, supplied through an env var."""
     split_model_id = os.getenv("MINDEE_V2_SE_TESTS_SPLIT_MODEL_ID", "")
-    if split_model_id is None:
+    if not split_model_id:
         raise ValueError(
             "MINDEE_V2_SE_TESTS_SPLIT_MODEL_ID environment variable is not set"
         )
@@ -34,9 +34,9 @@ def split_model_id() -> str:
 
 @pytest.fixture(scope="session")
 def crop_model_id() -> str:
-    """Identifier of the Financial Document model, supplied through an env var."""
+    """Identifier of the Crop model, supplied through an env var."""
     crop_model_id = os.getenv("MINDEE_V2_SE_TESTS_CROP_MODEL_ID")
-    if crop_model_id is None:
+    if not crop_model_id:
         raise ValueError(
             "MINDEE_V2_SE_TESTS_CROP_MODEL_ID environment variable is not set"
         )

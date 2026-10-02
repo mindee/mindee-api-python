@@ -127,15 +127,16 @@ class Client:
 
         :return: A valid inference response.
         """
-        enqueue_response = self.enqueue(input_source, params)
-        logger.debug(
-            "Successfully enqueued document with job ID: %s", enqueue_response.job.id
-        )
         if params.polling_options:
             polling_options = params.polling_options
             polling_options.validate_settings()
         else:
             polling_options = PollingOptions()
+
+        enqueue_response = self.enqueue(input_source, params)
+        logger.debug(
+            "Successfully enqueued document with job ID: %s", enqueue_response.job.id
+        )
 
         return self._poll_for_result(
             initial_response=enqueue_response,
@@ -173,9 +174,12 @@ class Client:
                         webhook.status in {"Completed", "Failed"}
                         for webhook in job_response.job.webhooks
                     )
-                    logger.debug("All webhooks are done: %s", are_webhooks_done)
                     if are_webhooks_done:
+                        logger.debug("All webhooks are completed.")
                         return job_response
+                    logger.debug("Not all webhooks are completed.")
+                    try_counter += 1
+                    sleep(polling_options.delay_sec)
                     continue
                 return job_response
 
@@ -236,11 +240,14 @@ class Client:
         """
         Add a document to the RAG database and return the initial annotation.
         """
+        if polling_options is None:
+            polling_options = PollingOptions()
+        else:
+            polling_options = PollingOptions()
+
         initial_response = self.upload_rag_document(input_source, parameters)
         if initial_response.status != "Processing":
             return initial_response
-        if polling_options is None:
-            polling_options = PollingOptions()
         return self._poll_for_rag_document(
             initial_response, polling_options, cancellation_token
         )
@@ -265,11 +272,14 @@ class Client:
         """
         Get a document's info and annotations from the RAG database.
         """
+        if polling_options is None:
+            polling_options = PollingOptions()
+        else:
+            polling_options = PollingOptions()
+
         initial_response = self.get_rag_document(response_type, document_id)
         if initial_response.status != "Processing":
             return initial_response
-        if polling_options is None:
-            polling_options = PollingOptions()
         return self._poll_for_rag_document(
             initial_response, polling_options, cancellation_token
         )
@@ -293,11 +303,14 @@ class Client:
         """
         Update a document's annotations in the RAG database.
         """
+        if polling_options is None:
+            polling_options = PollingOptions()
+        else:
+            polling_options = PollingOptions()
+
         initial_response = self.update_rag_annotations(parameters)
         if initial_response.status != "Processing":
             return initial_response
-        if polling_options is None:
-            polling_options = PollingOptions()
         return self._poll_for_rag_document(
             initial_response, polling_options, cancellation_token
         )
@@ -319,7 +332,6 @@ class Client:
         Poll until the document is finished processing or the max number of attempts is reached.
         """
         logger.info("Polling for RAG document ID: %s", initial_response.id)
-        polling_options.validate_settings()
         max_retries = polling_options.max_retries + 1
 
         logger.debug(
