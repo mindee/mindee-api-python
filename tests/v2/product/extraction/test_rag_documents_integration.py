@@ -15,7 +15,7 @@ from tests.utils import V2_PRODUCT_PATH
 
 @pytest.mark.integration
 @pytest.mark.v2
-def test_rag_document_lifecycle_must_succeed():
+def test_rag_document_lifecycle_must_succeed(v2_client: Client):
     """Should perform the entire lifecycle of a RAG document."""
     extraction_model_id = os.getenv("MINDEE_V2_SE_TESTS_FINDOC_MODEL_ID")
     if extraction_model_id is None:
@@ -23,13 +23,11 @@ def test_rag_document_lifecycle_must_succeed():
             "MINDEE_V2_SE_TESTS_FINDOC_MODEL_ID environment variable is not set"
         )
 
-    client = Client()
-
     input_source = PathInput(
         V2_PRODUCT_PATH / "extraction" / "financial_document" / "default_sample.jpg"
     )
     post_parameters = RagDocumentUploadParameters(model_id=extraction_model_id)
-    post_response = client.upload_and_get_rag_document(input_source, post_parameters)
+    post_response = v2_client.upload_and_get_rag_document(input_source, post_parameters)
     assert post_response is not None
 
     post_annotation = post_response.annotation
@@ -47,7 +45,7 @@ def test_rag_document_lifecycle_must_succeed():
         "invoice_number"
     ).guidelines = "koo koo katchoo!"
 
-    patch_annotation_response = client.update_rag_annotations(
+    patch_annotation_response = v2_client.update_rag_annotations(
         RagDocumentAnnotationParameters(
             document_id=document_id,
             annotation=post_annotation,
@@ -68,7 +66,7 @@ def test_rag_document_lifecycle_must_succeed():
     )
     assert patch_annotation.fields.get_simple_field("invoice_number").selected is True
 
-    get_response = client.get_ready_rag_document(
+    get_response = v2_client.get_ready_rag_document(
         ExtractionRagAnnotationResponse, document_id
     )
     assert get_response is not None
@@ -88,7 +86,7 @@ def test_rag_document_lifecycle_must_succeed():
     )
     assert get_annotation.fields.get_simple_field("invoice_number").selected is True
 
-    patch_status_response = client.update_and_get_rag_annotations(
+    patch_status_response = v2_client.update_and_get_rag_annotations(
         RagDocumentAnnotationParameters(
             document_id=document_id,
             status="Active",
@@ -97,8 +95,8 @@ def test_rag_document_lifecycle_must_succeed():
     assert patch_status_response is not None
     assert patch_status_response.status == "Active"
 
-    delete_response = client.delete_extraction_rag_document(document_id)
+    delete_response = v2_client.delete_extraction_rag_document(document_id)
     assert delete_response is True
 
     with pytest.raises(MindeeHTTPErrorV2):
-        client.get_rag_document(ExtractionRagAnnotationResponse, document_id)
+        v2_client.get_rag_document(ExtractionRagAnnotationResponse, document_id)

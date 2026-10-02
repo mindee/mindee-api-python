@@ -1,21 +1,7 @@
-import os
-
 import pytest
 
 from mindee.v2.client import Client
 from mindee.v2.search.rag_documents import RagDocumentSearchParameters
-
-
-@pytest.fixture(scope="session")
-def v2_client() -> Client:
-    return Client()
-
-
-@pytest.fixture(scope="session")
-def findoc_model_id() -> str:
-    findoc_model_id = os.getenv("MINDEE_V2_SE_TESTS_FINDOC_MODEL_ID")
-    assert findoc_model_id, "MINDEE_V2_SE_TESTS_FINDOC_MODEL_ID must be set"
-    return findoc_model_id
 
 
 @pytest.mark.integration

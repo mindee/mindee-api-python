@@ -12,12 +12,10 @@ from tests.utils import V2_PRODUCT_PATH
 @pytest.fixture(scope="session")
 def ocr_model_id() -> str:
     """Identifier of the Financial Document model, supplied through an env var."""
-    return os.getenv("MINDEE_V2_SE_TESTS_OCR_MODEL_ID")
-
-
-@pytest.fixture(scope="session")
-def v2_client() -> Client:
-    return Client()
+    ocr_model_id = os.getenv("MINDEE_V2_SE_TESTS_OCR_MODEL_ID")
+    if ocr_model_id is None:
+        raise ValueError("MINDEE_V2_SE_TESTS_OCR_MODEL_ID environment variable not set")
+    return ocr_model_id
 
 
 @pytest.mark.integration

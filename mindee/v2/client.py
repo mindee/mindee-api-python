@@ -9,7 +9,6 @@ from mindee.input import URLInputSource
 from mindee.input.local_input_source import LocalInputSource
 from mindee.logger import logger
 from mindee.mindee_http.cancellation_token import CancellationToken
-from mindee.parsing.common.common_response import CommonStatus
 from mindee.v2.client_options.base_annotation_parameters import BaseAnnotationParameters
 from mindee.v2.client_options.base_product_parameters import BaseProductParameters
 from mindee.v2.client_options.base_rag_document_upload_parameters import (
@@ -128,23 +127,80 @@ class Client:
 
         :return: A valid inference response.
         """
-        if not params.polling_options:
-            params.polling_options = PollingOptions()
-        params.polling_options.validate_settings()
+        if params.polling_options:
+            polling_options = params.polling_options
+            polling_options.validate_settings()
+        else:
+            polling_options = PollingOptions()
+
         enqueue_response = self.enqueue(input_source, params)
         logger.debug(
             "Successfully enqueued document with job ID: %s", enqueue_response.job.id
         )
+
+        return self._poll_for_result(
+            initial_response=enqueue_response,
+            response_class=response_type,
+            polling_options=polling_options,
+            cancellation_token=cancellation_token,
+        )
+
+    @staticmethod
+    def __check_webhooks_done(job_response: JobResponse) -> bool:
+        """
+        Checks if all webhooks associated with a job have finished processing.
+        """
+        are_webhooks_done = all(
+            webhook.status != "Processing" for webhook in job_response.job.webhooks
+        )
+        if are_webhooks_done:
+            logger.debug("All webhooks are completed.")
+            return True
+
+        logger.debug("Not all webhooks are completed.")
+        return False
+
+    def _poll_on_job(
+        self,
+        initial_response: JobResponse,
+        polling_options: PollingOptions,
+        wait_for_webhooks: bool,
+        cancellation_token: CancellationToken | None = None,
+    ) -> JobResponse:
+        """Polls a job until it is processed or the maximum number of tries is reached."""
+        logger.debug(
+            "Waiting %s seconds before attempting to retrieve the result...",
+            polling_options.initial_delay_sec,
+        )
+
         if cancellation_token and cancellation_token.is_canceled:
             raise MindeeError("Request canceled through cancellation token.")
-        sleep(params.polling_options.initial_delay_sec)
+
+        sleep(polling_options.initial_delay_sec)
         try_counter = 0
-        while try_counter < params.polling_options.max_retries:
+
+        while try_counter < polling_options.max_retries:
             if cancellation_token and cancellation_token.is_canceled:
                 raise MindeeError("Request canceled through cancellation token.")
-            job_response = self.get_job(enqueue_response.job.id)
+
+            logger.debug(
+                "Poll attempt %s of %s", try_counter + 1, polling_options.max_retries
+            )
+
+            job_response = self.get_job(initial_response.job.id)
             assert isinstance(job_response, JobResponse)
-            if job_response.job.status == CommonStatus.FAILED.value:
+
+            if job_response.job.status == "Processed":
+                logger.debug(
+                    "Job ID %s completed processing at: %s",
+                    job_response.job.id,
+                    job_response.job.completed_at,
+                )
+                if not wait_for_webhooks or self.__check_webhooks_done(job_response):
+                    return job_response
+
+            # normally the mindee_api will throw on error, this is a fallback
+            if job_response.job.status == "Failed":
                 if job_response.job.error:
                     detail = job_response.job.error.detail
                 else:
@@ -152,26 +208,31 @@ class Client:
                 raise MindeeError(
                     f"Parsing failed for job {job_response.job.id}: {detail}"
                 )
-            if (
-                job_response.job.status == CommonStatus.PROCESSED.value
-                and job_response.job.result_url
-            ):
-                logger.debug(
-                    "Job ID %s completed processing at: %s",
-                    job_response.job.id,
-                    job_response.job.completed_at,
-                )
-                result = self.get_result_from_url(
-                    response_type, job_response.job.result_url
-                )
-                assert isinstance(result, response_type), (
-                    f'Invalid response type "{type(result)}"'
-                )
-                return result
-            try_counter += 1
-            sleep(params.polling_options.delay_sec)
 
-        raise MindeeError(f"Couldn't retrieve document after {try_counter + 1} tries.")
+            try_counter += 1
+            sleep(polling_options.delay_sec)
+
+        raise MindeeError(f"Couldn't retrieve document after {try_counter} tries.")
+
+    def _poll_for_result(
+        self,
+        initial_response: JobResponse,
+        response_class: type[TypeBaseInferenceResponse],
+        polling_options: PollingOptions,
+        wait_for_webhooks: bool = False,
+        cancellation_token: CancellationToken | None = None,
+    ) -> TypeBaseInferenceResponse:
+        """
+        Poll until the inference is finished processing or the max number of attempts is reached.
+        """
+        job_response = self._poll_on_job(
+            initial_response, polling_options, wait_for_webhooks, cancellation_token
+        )
+        if not job_response.job.result_url:
+            raise MindeeError(
+                "The result URL is undefined. This is a server error, try again later or contact support."
+            )
+        return self.get_result_from_url(response_class, job_response.job.result_url)
 
     def upload_rag_document(
         self,
@@ -183,6 +244,7 @@ class Client:
         You will need to poll until the document is ready for use.
         Add a document to the RAG database.
         """
+        logger.debug("Adding a document to the RAG database")
         return self.mindee_api.req_post_rag_document(input_source, parameters)
 
     def upload_and_get_rag_document(
@@ -195,11 +257,14 @@ class Client:
         """
         Add a document to the RAG database and return the initial annotation.
         """
+        if polling_options is None:
+            polling_options = PollingOptions()
+        else:
+            polling_options.validate_settings()
+
         initial_response = self.upload_rag_document(input_source, parameters)
         if initial_response.status != "Processing":
             return initial_response
-        if polling_options is None:
-            polling_options = PollingOptions()
         return self._poll_for_rag_document(
             initial_response, polling_options, cancellation_token
         )
@@ -212,6 +277,7 @@ class Client:
         You will need to poll until the document is ready for use.
         Get a document's info and annotations from the RAG database.
         """
+        logger.debug("Getting RAG document ID: %s", document_id)
         return self.mindee_api.req_get_rag_annotation(response_type, document_id)
 
     def get_ready_rag_document(
@@ -224,11 +290,14 @@ class Client:
         """
         Get a document's info and annotations from the RAG database.
         """
+        if polling_options is None:
+            polling_options = PollingOptions()
+        else:
+            polling_options.validate_settings()
+
         initial_response = self.get_rag_document(response_type, document_id)
         if initial_response.status != "Processing":
             return initial_response
-        if polling_options is None:
-            polling_options = PollingOptions()
         return self._poll_for_rag_document(
             initial_response, polling_options, cancellation_token
         )
@@ -241,6 +310,7 @@ class Client:
         You will need to poll until the document is ready for use.
         Update a document's annotations in the RAG database.
         """
+        logger.debug("Updating RAG document ID: %s", parameters.document_id)
         return self.mindee_api.req_patch_rag_annotation(parameters)
 
     def update_and_get_rag_annotations(
@@ -252,11 +322,14 @@ class Client:
         """
         Update a document's annotations in the RAG database.
         """
+        if polling_options is None:
+            polling_options = PollingOptions()
+        else:
+            polling_options.validate_settings()
+
         initial_response = self.update_rag_annotations(parameters)
         if initial_response.status != "Processing":
             return initial_response
-        if polling_options is None:
-            polling_options = PollingOptions()
         return self._poll_for_rag_document(
             initial_response, polling_options, cancellation_token
         )
@@ -266,6 +339,7 @@ class Client:
         Delete a document from the RAG database.
         For extraction models only.
         """
+        logger.debug("Deleting RAG document ID: %s", document_id)
         return self.mindee_api.req_delete_extraction_rag_document(document_id)
 
     def _poll_for_rag_document(
@@ -277,12 +351,11 @@ class Client:
         """
         Poll until the document is finished processing or the max number of attempts is reached.
         """
-        logger.info("Polling for RAG document ID: %s", initial_response.id)
-        polling_options.validate_settings()
+        logger.debug("Polling for RAG document ID: %s", initial_response.id)
         max_retries = polling_options.max_retries + 1
 
         logger.debug(
-            "Waiting %s seconds before attempting to retrieve the result...",
+            "Waiting %s seconds before attempting to retrieve the document...",
             polling_options.initial_delay_sec,
         )
 
@@ -296,7 +369,7 @@ class Client:
         while retry_count < max_retries:
             if cancellation_token and cancellation_token.is_canceled:
                 raise MindeeError("Request canceled through cancellation token.")
-            logger.info("Poll attempt %s of %s", retry_count, max_retries)
+            logger.debug("Poll attempt %s of %s", retry_count, max_retries)
 
             response = self.get_rag_document(type(initial_response), document_id)
             retry_count += 1
@@ -305,7 +378,7 @@ class Client:
                 sleep(polling_options.delay_sec)
                 continue
             if response.status == "Failed":
-                raise MindeeError("Job failed without an error payload.")
+                raise MindeeError("RAG failed without an error payload.")
             return response
 
         raise MindeeError(f"RAG polling not complete after {retry_count - 1} attempts.")

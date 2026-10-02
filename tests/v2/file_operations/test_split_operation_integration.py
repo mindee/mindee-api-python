@@ -1,5 +1,3 @@
-from os import getenv
-
 import pytest
 
 from mindee import (
@@ -26,14 +24,15 @@ output_files = [
 
 @pytest.mark.pypdfium2
 @pytest.mark.integration
-def test_pdf_should_extract_splits():
-    client = Client()
+def test_pdf_should_extract_splits(
+    v2_client: Client, split_model_id: str, findoc_model_id: str
+):
     split_input = PathInput(V2_PRODUCT_PATH / "split" / "default_sample.pdf")
-    response = client.enqueue_and_get_result(
+    response = v2_client.enqueue_and_get_result(
         SplitResponse,
         split_input,
         SplitParameters(
-            getenv("MINDEE_V2_SE_TESTS_SPLIT_MODEL_ID"),
+            split_model_id,
             close_file=False,
         ),
     )
@@ -45,12 +44,10 @@ def test_pdf_should_extract_splits():
     assert extracted_splits[0].filename == output_files[0]
     assert extracted_splits[1].filename == output_files[1]
 
-    invoice_0 = client.enqueue_and_get_result(
+    invoice_0 = v2_client.enqueue_and_get_result(
         ExtractionResponse,
         extracted_splits[0].as_input_source(),
-        ExtractionParameters(
-            getenv("MINDEE_V2_SE_TESTS_FINDOC_MODEL_ID"), close_file=False
-        ),
+        ExtractionParameters(findoc_model_id, close_file=False),
     )
     check_findoc_return(invoice_0)
     extracted_splits.save_all_to_disk(OUTPUT_PATH)

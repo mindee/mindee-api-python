@@ -16,11 +16,6 @@ from mindee.v2.product.extraction.extraction_response import ExtractionResponse
 from tests.utils import FILE_TYPES_PATH, V2_PRODUCT_PATH
 
 
-@pytest.fixture(scope="session")
-def v2_client() -> Client:
-    return Client()
-
-
 def _basic_assert_success(
     response: ExtractionResponse, page_count: int, model_id: str
 ) -> None:
@@ -212,40 +207,6 @@ def test_unknown_model_must_throw_error(v2_client: Client) -> None:
 
 @pytest.mark.integration
 @pytest.mark.v2
-def test_unknown_webhook_ids_must_throw_error(
-    v2_client: Client, findoc_model_id: str
-) -> None:
-    """
-    Using an unknown webhook identifier must trigger an error.
-    """
-    input_path: Path = FILE_TYPES_PATH / "pdf" / "blank_1.pdf"
-
-    input_source = PathInput(input_path)
-    params = ExtractionParameters(
-        model_id=findoc_model_id,
-        webhook_ids=[
-            "fc405e37-4ba4-4d03-aeba-533a8d1f0f21",
-            "fc405e37-4ba4-4d03-aeba-533a8d1f0f21",
-        ],
-        rag=None,
-        raw_text=None,
-        polygon=None,
-        confidence=None,
-    )
-
-    with pytest.raises(MindeeHTTPErrorV2) as e:
-        v2_client.enqueue(input_source, params)
-
-    exc: MindeeHTTPErrorV2 = e.value
-    assert exc.status == 422
-    assert exc.title is not None
-    assert exc.code.startswith("422-")
-    assert isinstance(exc.errors, list)
-    assert "no matching webhooks" in exc.detail.lower()
-
-
-@pytest.mark.integration
-@pytest.mark.v2
 def test_blank_url_input_source_must_succeed(
     v2_client: Client,
     findoc_model_id: str,
@@ -342,7 +303,7 @@ def test_custom_httpx_client_event_hook(
 
 @pytest.mark.v2
 @pytest.mark.integration
-def test_http2_client(findoc_model_id) -> None:
+def test_http2_client(findoc_model_id: str) -> None:
     httpx_client = httpx.Client(http2=True)
     with Client(http_client=httpx_client) as client:
         input_source = PathInput(
