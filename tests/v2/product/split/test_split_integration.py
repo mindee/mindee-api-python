@@ -1,22 +1,9 @@
-import os
-
 import pytest
 
 from mindee.input.path_input import PathInput
 from mindee.v2 import SplitParameters, SplitResponse
 from mindee.v2.client import Client
 from tests.utils import V2_PRODUCT_PATH
-
-
-@pytest.fixture(scope="session")
-def split_model_id() -> str:
-    """Identifier of the Financial Document model, supplied through an env var."""
-    return os.getenv("MINDEE_V2_SE_TESTS_SPLIT_MODEL_ID")
-
-
-@pytest.fixture(scope="session")
-def v2_client() -> Client:
-    return Client()
 
 
 @pytest.mark.integration

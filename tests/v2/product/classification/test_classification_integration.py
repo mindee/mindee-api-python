@@ -11,7 +11,12 @@ from tests.utils import V2_PRODUCT_PATH
 @pytest.fixture(scope="session")
 def classification_model_id() -> str:
     """Identifier of the Financial Document model, supplied through an env var."""
-    return os.getenv("MINDEE_V2_SE_TESTS_CLASSIFICATION_MODEL_ID")
+    classification_model_id = os.getenv("MINDEE_V2_SE_TESTS_CLASSIFICATION_MODEL_ID")
+    if classification_model_id is None:
+        raise ValueError(
+            "MINDEE_V2_SE_TESTS_CLASSIFICATION_MODEL_ID environment variable is not set"
+        )
+    return classification_model_id
 
 
 @pytest.fixture(scope="session")

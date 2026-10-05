@@ -4,11 +4,6 @@ from mindee.v2.client import Client
 from mindee.v2.search.models.model_search_parameters import ModelSearchParameters
 
 
-@pytest.fixture(scope="session")
-def v2_client() -> Client:
-    return Client()
-
-
 @pytest.mark.integration
 @pytest.mark.v2
 def test_search_must_have_results(v2_client: Client):
