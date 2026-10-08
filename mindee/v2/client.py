@@ -212,7 +212,7 @@ class Client:
             try_counter += 1
             sleep(polling_options.delay_sec)
 
-        raise MindeeError(f"Couldn't retrieve document after {try_counter} tries.")
+        raise MindeeError(f"Couldn't retrieve the result after {try_counter} tries.")
 
     def _poll_for_result(
         self,

@@ -21,7 +21,8 @@ jobs:
     - name: Run Betterleaks
       id: betterleaks
       continue-on-error: true
-      uses: dortort/betterleaks-action@v0.1.0
+      # version 0.1.0
+      uses: dortort/betterleaks-action@cd0b905aa4befb8f42f8b1ab98150180c9e77515
       with:
         version: "v1.9.0"
         github-token: ${{ secrets.GITHUB_TOKEN }}
