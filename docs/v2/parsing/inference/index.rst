@@ -14,9 +14,9 @@ Base Inference
     :members:
     :inherited-members:
 
-Base Response
-=============
-.. autoclass:: mindee.v2.parsing.inference.base_response.BaseResponse
+Base Inference Response
+=======================
+.. autoclass:: mindee.v2.parsing.inference.base_inference_response.BaseInferenceResponse
     :members:
     :inherited-members:
 
