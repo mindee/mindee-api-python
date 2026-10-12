@@ -23,5 +23,4 @@ https://developers.mindee.com/docs/python-sdk
    pdf
    v1/index
    v2/index
-   client_mixin
    logger

@@ -187,18 +187,6 @@ def test_cli_passport(ots_doc):
         parser.call_parse()
 
 
-def test_cli_us_bank_check(ots_doc):
-    ots_doc.product_name = "us-bank-check"
-    ots_doc.api_key = ""
-    parser = MindeeParser(parsed_args=ots_doc)
-    with pytest.raises(RuntimeError):
-        parser.call_parse()
-    ots_doc.api_key = "dummy"
-    parser = MindeeParser(parsed_args=ots_doc)
-    with pytest.raises(MindeeHTTPError):
-        parser.call_parse()
-
-
 def test_cli_invoice_splitter_enqueue(ots_doc_enqueue_and_parse):
     ots_doc_enqueue_and_parse.product_name = "invoice-splitter"
     ots_doc_enqueue_and_parse.api_key = ""

@@ -28,12 +28,6 @@ PRODUCTS: dict[str, CommandConfig] = {
         is_sync=True,
         is_async=True,
     ),
-    "barcode-reader": CommandConfig(
-        help="Barcode Reader",
-        doc_class=product.BarcodeReaderV1,
-        is_sync=True,
-        is_async=False,
-    ),
     "cropper": CommandConfig(
         help="Cropper",
         doc_class=product.CropperV1,
@@ -99,11 +93,5 @@ PRODUCTS: dict[str, CommandConfig] = {
         doc_class=product.ReceiptV5,
         is_sync=True,
         is_async=True,
-    ),
-    "us-bank-check": CommandConfig(
-        help="Bank Check",
-        doc_class=product.us.BankCheckV1,
-        is_sync=True,
-        is_async=False,
     ),
 }
