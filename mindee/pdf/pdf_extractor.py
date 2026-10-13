@@ -34,7 +34,7 @@ class PDFExtractor:
         if local_input.is_pdf():
             self._source_pdf = local_input.file_object
         else:
-            pdf_image = bernard_image.decode(local_input.file_object)
+            pdf_image = bernard_image.Image(local_input.file_object.read())  # type: ignore[call-arg]
             self._source_pdf = io.BytesIO()
             pdf_image.save(self._source_pdf, format="PDF")
 
@@ -54,7 +54,7 @@ class PDFExtractor:
 
         self._source_pdf.seek(0)
         new_pdf = bernard_pdf.PdfDocument.new()
-        pdf = bernard_pdf.PdfDocument(self._source_pdf)
+        pdf = bernard_pdf.PdfDocument(self._source_pdf.read())
         new_pdf.import_pages(pdf, page_indexes)
         bytes_io = io.BytesIO()
         new_pdf.save(bytes_io)

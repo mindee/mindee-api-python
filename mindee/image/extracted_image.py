@@ -69,7 +69,7 @@ class ExtractedImage:
             if file_format is None:
                 out_file_path.write_bytes(self.buffer.read())
             else:
-                image = bernard_image.decode(self.buffer)
+                image = bernard_image.Image(self.buffer.read())  # type: ignore[call-arg]
                 image.save(out_file_path, format=file_format)
             logger.info("File saved successfully to '%s'.", out_file_path)
         except Exception as e:

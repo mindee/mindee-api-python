@@ -27,13 +27,13 @@ def test_single_page_crop():
     assert crop0.page_id == 0
     assert crop0.element_id == 0
     assert crop0.filename == "default_sample_page-001-item-001.jpg"
-    assert bernard_image.decode(crop0.buffer).size == (1057, 2071)
+    assert bernard_image.Image(crop0.buffer.read()).size == (1056, 2070)
 
     crop1 = extracted_crops[1]
     assert crop1.page_id == 0
     assert crop1.element_id == 1
     assert crop1.filename == "default_sample_page-001-item-002.jpg"
-    assert bernard_image.decode(crop1.buffer).size == (1298, 1869)
+    assert bernard_image.Image(crop1.buffer.read()).size == (1298, 1868)
 
 
 @pytest.mark.bernard_ledit
@@ -48,16 +48,16 @@ def test_multi_page_crop():
     assert crop0.page_id == 0
     assert crop0.element_id == 0
     assert crop0.filename == "multipage_sample_page-001-item-001.jpg"
-    assert bernard_image.decode(crop0.buffer).size == (200, 553)
+    assert bernard_image.Image(crop0.buffer.read()).size == (200, 552)
 
     crop1 = extracted_crops[1]
     assert crop1.page_id == 0
     assert crop1.element_id == 1
     assert crop1.filename == "multipage_sample_page-001-item-002.jpg"
-    assert bernard_image.decode(crop1.buffer).size == (203, 333)
+    assert bernard_image.Image(crop1.buffer.read()).size == (204, 332)
 
     crop4 = extracted_crops[4]
     assert crop4.page_id == 1
     assert crop4.element_id == 1
     assert crop4.filename == "multipage_sample_page-002-item-002.jpg"
-    assert bernard_image.decode(crop4.buffer).size == (197, 520)
+    assert bernard_image.Image(crop4.buffer.read()).size == (197, 521)

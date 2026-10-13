@@ -10,17 +10,15 @@ from mindee.dependencies import requires_bernard_ledit
 from mindee.dependencies.checkers import BERNARD_LEDIT_AVAILABLE
 from mindee.error.mimetype_error import MimeTypeError
 from mindee.error.mindee_error import MindeeError, MindeeSourceError
-from mindee.image.image_compressor import compress_image
 from mindee.input.page_options import KEEP_ONLY, REMOVE, PageOptions
 from mindee.logger import logger
-from mindee.pdf.pdf_compressor import compress_pdf
 from mindee.pdf.pdf_utils import pdf_has_source_text
 
 if BERNARD_LEDIT_AVAILABLE:
     # pylint: disable=import-error
-    import bernard_ledit.pdf as bernard_pdf
+    import bernard_ledit as bernard
 else:
-    bernard_pdf = None  # type: ignore[assignment]  # pylint: disable=invalid-name
+    bernard = None  # type: ignore[assignment]  # pylint: disable=invalid-name
 
 mimetypes.add_type("image/heic", ".heic")
 mimetypes.add_type("image/heif", ".heif")
@@ -56,9 +54,9 @@ class LocalInputSource:
             # Some broken (yet fixable) PDFs can cause Bernard to crash on open.
             if BERNARD_LEDIT_AVAILABLE:
                 try:
-                    pdf = bernard_pdf.PdfDocument(self.file_object)
+                    pdf = bernard.pdf.PdfDocument(self.file_object)
                     self.page_count = len(pdf)
-                except bernard_pdf.PdfiumError as e:
+                except bernard.pdf.PdfiumError as e:
                     logger.warning(
                         "Could not open PDF file: %s due to %s", self.filename, e
                     )
@@ -139,7 +137,7 @@ class LocalInputSource:
             page_options.page_indexes,
         )
         self.file_object.seek(0)
-        pdf = bernard_pdf.PdfDocument(self.file_object)
+        pdf = bernard.pdf.PdfDocument(self.file_object)
         self.page_count = len(pdf)
         pdf.close()
 
@@ -187,8 +185,8 @@ class LocalInputSource:
         :return: None
         """
         self.file_object.seek(0)
-        new_pdf = bernard_pdf.PdfDocument.new()
-        pdf = bernard_pdf.PdfDocument(self.file_object)
+        new_pdf = bernard.pdf.PdfDocument.new()
+        pdf = bernard.pdf.PdfDocument(self.file_object)
         new_pdf.import_pages(pdf, list(page_numbers))
         self.file_object.close()
         bytes_io = io.BytesIO()
@@ -207,7 +205,7 @@ class LocalInputSource:
         :return: ``True`` if the PDF is empty
         """
         self.file_object.seek(0)
-        with bernard_pdf.PdfDocument(self.file_object) as pdf:
+        with bernard.pdf.PdfDocument(self.file_object) as pdf:
             return pdf.has_no_content()
         raise MindeeSourceError(f"PDF couldn't be accessed: {self.filename}")
 
@@ -248,8 +246,6 @@ class LocalInputSource:
         quality: int = 85,
         max_width: int | None = None,
         max_height: int | None = None,
-        force_source_text: bool = False,
-        disable_source_text: bool = True,
     ) -> None:
         """
         Compresses the file object, either as a PDF or an image.
@@ -258,20 +254,17 @@ class LocalInputSource:
             For PDFs, this affects image quality within the PDF.
         :param max_width: Maximum width for image resizing. Ignored for PDFs.
         :param max_height: Maximum height for image resizing. Ignored for PDFs.
-        :param force_source_text: For PDFs, whether to force compression even if source text is present.
-        :param disable_source_text: For PDFs, whether to disable source text during compression.
         """
-        new_file_bytes: bytes
-        if self.is_pdf():
-            new_file_bytes = compress_pdf(
-                self.file_object, quality, force_source_text, disable_source_text
-            )
-        else:
-            new_file_bytes = compress_image(
-                self.file_object, quality, max_width, max_height
-            )
 
-        self.file_object = io.BytesIO(new_file_bytes)
+        self.file_object.seek(0)
+        data = self.file_object.read()
+        if self.is_pdf():
+            compressed = bernard.pdf.compress(data, quality)
+        else:
+            compressed = bernard.image.compress(data, quality, max_width, max_height)
+
+        self.file_object = io.BytesIO(compressed)
+        self.file_object.seek(0)
 
     def __enter__(self):
         """Allows the class to be used as a context manager."""
