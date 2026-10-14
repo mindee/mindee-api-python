@@ -296,14 +296,14 @@ def test_httpx_multiple_calls_thread_safety() -> None:
 
 @pytest.mark.v2
 @respx.mock
-def test_explicit_timeout_failure(findoc_model_id) -> None:
+def test_explicit_timeout_failure() -> None:
     respx.post("https://api-v2.mindee.net/v2/products/extraction/enqueue").mock(
         side_effect=httpx.ReadTimeout("Simulated Read Timeout")
     )
 
     client = Client(api_key="dummy")
     input_source = PathInput(FILE_TYPES_PATH / "pdf" / "blank_1.pdf")
-    params = ExtractionParameters(model_id=findoc_model_id)
+    params = ExtractionParameters(model_id="toto")
 
     with pytest.raises(httpx.ReadTimeout):
         client.enqueue(input_source, params)
@@ -311,7 +311,7 @@ def test_explicit_timeout_failure(findoc_model_id) -> None:
 
 @pytest.mark.v2
 @respx.mock
-def test_explicit_500_server_error(findoc_model_id: str) -> None:
+def test_explicit_500_server_error() -> None:
     respx.post(re.compile(r"https://api-v2\.mindee\.net/v2/.+/enqueue")).mock(
         return_value=httpx.Response(
             500,
@@ -321,7 +321,7 @@ def test_explicit_500_server_error(findoc_model_id: str) -> None:
 
     client = Client(api_key="dummy")
     input_source = PathInput(FILE_TYPES_PATH / "pdf" / "blank_1.pdf")
-    params = ExtractionParameters(model_id=findoc_model_id)
+    params = ExtractionParameters(model_id="toto")
     with pytest.raises(MindeeHTTPUnknownErrorV2) as exc_info:
         client.enqueue(input_source, params)
 
