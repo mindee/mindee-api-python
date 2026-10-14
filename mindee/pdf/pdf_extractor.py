@@ -13,17 +13,15 @@ from mindee.pdf.extracted_pdfs import ExtractedPDFs
 
 if BERNARD_LEDIT_AVAILABLE:
     # pylint: disable=import-error
-    import bernard_ledit.image as bernard_image
     import bernard_ledit.pdf as bernard_pdf
 else:
     bernard_pdf = None  # type: ignore[assignment]  # pylint: disable=invalid-name
-    bernard_image = None  # type: ignore[assignment]  # pylint: disable=invalid-name
 
 
 class PDFExtractor:
     """PDF extraction class."""
 
-    _source_pdf: BinaryIO
+    _source: BinaryIO
     _filename: str
     _page_count: int
 
@@ -31,12 +29,7 @@ class PDFExtractor:
     def __init__(self, local_input: LocalInputSource):
         self._filename = local_input.filename
         self._page_count = local_input.page_count
-        if local_input.is_pdf():
-            self._source_pdf = local_input.file_object
-        else:
-            pdf_image = bernard_image.Image(local_input.file_object.read())  # type: ignore[call-arg]
-            self._source_pdf = io.BytesIO()
-            pdf_image.save(self._source_pdf, format="PDF")
+        self._source = local_input.file_object
 
     @requires_bernard_ledit
     def extract_single_document(self, page_indexes: list[int]) -> ExtractedPDF:
@@ -46,26 +39,11 @@ class PDFExtractor:
         :param page_indexes: List of pages number to use for merging in the original PDF.
         :return: The buffer containing the new PDF.
         """
+
         if not page_indexes or len(page_indexes) == 0:
             raise MindeeError("Empty indexes aren't allowed for extraction.")
-        for page_index in page_indexes:
-            if page_index > self._page_count:
-                raise MindeeError(f"Index {page_index} is out of range.")
-
-        self._source_pdf.seek(0)
-        new_pdf = bernard_pdf.PdfDocument.new()
-        pdf = bernard_pdf.PdfDocument(self._source_pdf.read())
-        new_pdf.import_pages(pdf, page_indexes)
-        bytes_io = io.BytesIO()
-        new_pdf.save(bytes_io)
-
-        first_page = page_indexes[0]
-        last_page = page_indexes[len(page_indexes) - 1]
-        return ExtractedPDF(
-            pdf_byte_stream=bytes_io,
-            filename=self._make_filename(first_page, last_page),
-            page_indexes=page_indexes,
-        )
+        self._check_indexes(page_indexes)
+        return self._extract([page_indexes])[0]
 
     @requires_bernard_ledit
     def extract_multiple_documents(
@@ -79,10 +57,33 @@ class PDFExtractor:
         """
         if len(page_indexes) < 1:
             raise MindeeError("No indexes provided.")
-        extracted_pdfs: list[ExtractedPDF] = []
-        for page_index_elem in page_indexes:
-            extracted_pdfs.append(self.extract_single_document(page_index_elem))
-        return ExtractedPDFs(extracted_pdfs)
+        for group in page_indexes:
+            if not group:
+                raise MindeeError("Empty indexes aren't allowed for extraction.")
+            self._check_indexes(group)
+        return ExtractedPDFs(self._extract(page_indexes))
+
+    def _check_indexes(self, page_indexes: list[int]) -> None:
+        for page_index in page_indexes:
+            if page_index < 0 or page_index >= self._page_count:
+                raise MindeeError(f"Index {page_index} is out of range.")
+
+    def _extract(self, groups: list[list[int]]) -> list[ExtractedPDF]:
+        self._source.seek(0)
+        docs = bernard_pdf.extract_documents(self._source, groups)  # type: ignore[attr-defined]
+        extracted: list[ExtractedPDF] = []
+        for doc, indexes in zip(docs, groups, strict=True):
+            with doc:
+                bytes_io = io.BytesIO()
+                doc.save(bytes_io)
+            extracted.append(
+                ExtractedPDF(
+                    pdf_byte_stream=bytes_io,
+                    filename=self._make_filename(indexes[0], indexes[-1]),
+                    page_indexes=indexes,
+                )
+            )
+        return extracted
 
     def _make_filename(self, first_page: int, last_page: int) -> str:
         stem = Path(self._filename).stem
