@@ -16,24 +16,22 @@ from tests.utils import FILE_TYPES_PATH, V1_PRODUCT_PATH
 bernard_ledit = pytest.importorskip("bernard_ledit")
 bernard_pdf = bernard_ledit.pdf
 
+def _page_texts(doc) -> list[str]:
+    return [doc[i].text().replace("\r\n", "") for i in range(len(doc))]
+
 
 def _assert_page_options(input_source: LocalInputSource, numb_pages: int):
     assert input_source.is_pdf() is True
-    # Currently the least verbose way of comparing pages with pdfium
-    # I.e., each page is read and rendered as a rasterized image.
-    # These images are then compared as raw byte sequences.
     input_source.file_object.seek(0)
-    cut_pdf = bernard_pdf.PdfDocument(input_source.file_object)
-    pdf = bernard_pdf.PdfDocument(
-        FILE_TYPES_PATH / "pdf" / f"multipage_cut-{numb_pages}.pdf"
-    )
-    for idx in range(len(pdf)):
-        pdf_page_render = pdf.rasterize_page(idx, 100)
-        cut_pdf_page_render = cut_pdf.rasterize_page(idx, 100)
-
-        assert bytes(pdf_page_render) == bytes(cut_pdf_page_render)
-    cut_pdf.close()
-    pdf.close()
+    with (
+        bernard_pdf.PdfDocument(input_source.file_object) as cut_pdf,
+        bernard_pdf.PdfDocument(
+            FILE_TYPES_PATH / "pdf" / f"multipage_cut-{numb_pages}.pdf"
+        ) as expected,
+    ):
+        assert len(cut_pdf) == len(expected) == numb_pages
+        assert input_source.page_count == numb_pages
+        assert _page_texts(cut_pdf) == _page_texts(expected)
 
 
 def test_pdf_reconstruct_ok():
