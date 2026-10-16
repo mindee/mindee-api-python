@@ -119,19 +119,17 @@ class LocalInputSource:
                 page_options.on_min_pages,
                 list(page_options.page_indexes),
             )
+            page_count = len(doc)
         except bernard.pdf.PageOptionsError as e:
             raise MindeeSourceError(f"{e} ({self.filename})") from e
         for page_id in skipped:
             logger.warning("Page index not in source document: %s", page_id)
         if doc is None:
             return
-        with doc:
-            buf = io.BytesIO()
-            doc.save(buf)
-            self.page_count = len(doc)
-        buf.seek(0)
         self.file_object.close()
-        self.file_object = buf
+        with doc:
+            self.file_object = io.BytesIO(doc.as_bytes())
+        self.page_count = page_count
 
     @requires_bernard_ledit
     def is_pdf_empty(self) -> bool:

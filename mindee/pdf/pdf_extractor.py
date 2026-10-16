@@ -74,15 +74,13 @@ class PDFExtractor:
         extracted: list[ExtractedPDF] = []
         for doc, indexes in zip(docs, groups, strict=True):
             with doc:
-                bytes_io = io.BytesIO()
-                doc.save(bytes_io)
-            extracted.append(
-                ExtractedPDF(
-                    pdf_byte_stream=bytes_io,
-                    filename=self._make_filename(indexes[0], indexes[-1]),
-                    page_indexes=indexes,
+                extracted.append(
+                    ExtractedPDF(
+                        pdf_byte_stream=io.BytesIO(doc.as_bytes()),
+                        filename=self._make_filename(indexes[0], indexes[-1]),
+                        page_indexes=indexes,
+                    )
                 )
-            )
         return extracted
 
     def _make_filename(self, first_page: int, last_page: int) -> str:
