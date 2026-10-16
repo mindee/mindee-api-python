@@ -33,7 +33,7 @@ def extract_multiple_images_from_source(
     stem = Path(input_source.filename).stem
     input_source.file_object.seek(0)
     pts = [[(p.x, p.y) for p in poly] for poly in polygons]
-    images = bernard_image.extract_polygons(input_source.file_object, page_id, pts)  # type: ignore[attr-defined]
+    images = bernard_image.extract_from_polygons(input_source.file_object, page_id, pts)  # type: ignore[attr-defined]
 
     extracted = []
     for element_id, img in enumerate(images):
