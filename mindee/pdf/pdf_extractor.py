@@ -70,7 +70,7 @@ class PDFExtractor:
 
     def _extract(self, groups: list[list[int]]) -> list[ExtractedPDF]:
         self._source.seek(0)
-        docs = bernard_pdf.extract_from_page_ranges(self._source, groups)  # type: ignore[attr-defined]
+        docs = bernard_pdf.extract_from_page_ranges(self._source, groups)
         extracted: list[ExtractedPDF] = []
         for doc, indexes in zip(docs, groups, strict=True):
             with doc:

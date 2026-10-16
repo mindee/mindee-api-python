@@ -16,6 +16,7 @@ from tests.utils import FILE_TYPES_PATH, V1_PRODUCT_PATH
 bernard_ledit = pytest.importorskip("bernard_ledit")
 bernard_pdf = bernard_ledit.pdf
 
+
 def _page_texts(doc) -> list[str]:
     return [doc[i].text().replace("\r\n", "") for i in range(len(doc))]
 
