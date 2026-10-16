@@ -130,10 +130,12 @@ class Client:
             and page_options
             and input_source.is_pdf()
         ):
-            input_source.process_pdf(
-                page_options.operation,
-                page_options.on_min_pages,
-                page_options.page_indexes,
+            input_source.apply_page_options(
+                PageOptions(
+                    operation=page_options.operation,
+                    on_min_pages=page_options.on_min_pages,
+                    page_indexes=page_options.page_indexes,
+                )
             )
         options = PredictOptions(cropper, full_text, include_words)
         return self._make_request(
@@ -204,10 +206,12 @@ class Client:
             and page_options
             and input_source.is_pdf()
         ):
-            input_source.process_pdf(
-                page_options.operation,
-                page_options.on_min_pages,
-                page_options.page_indexes,
+            input_source.apply_page_options(
+                PageOptions(
+                    operation=page_options.operation,
+                    on_min_pages=page_options.on_min_pages,
+                    page_indexes=page_options.page_indexes,
+                )
             )
         options = AsyncPredictOptions(
             cropper, full_text, include_words, workflow_id, rag
@@ -282,10 +286,12 @@ class Client:
             and page_options
             and input_source.is_pdf()
         ):
-            input_source.process_pdf(
-                page_options.operation,
-                page_options.on_min_pages,
-                page_options.page_indexes,
+            input_source.apply_page_options(
+                PageOptions(
+                    operation=page_options.operation,
+                    on_min_pages=page_options.on_min_pages,
+                    page_indexes=page_options.page_indexes,
+                )
             )
 
         if not options:

@@ -50,21 +50,24 @@ hooks = [
 ]
 
 [[repos]]
-repo = "https://github.com/pre-commit/mirrors-mypy"
-rev = "v2.3.1"
+repo = "local"
 hooks = [
   {
     id = "mypy",
-    args = [ ],
+    name = "mypy",
+    entry = "mypy",
+    language = "python",
+    language_version = "python3.10",
+    types = ["python"],
     exclude = "tests/|examples/|docs/",
     additional_dependencies = [
+      "mypy",
       "httpx",
       "types-setuptools",
       "importlib-metadata",
-      "types-Pillow",
       "tomli",
       "tomli_w",
-    ]
+    ],
   }
 ]
 
