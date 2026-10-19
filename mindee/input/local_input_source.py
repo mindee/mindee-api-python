@@ -14,9 +14,11 @@ from mindee.pdf.pdf_utils import pdf_has_source_text
 
 if BERNARD_LEDIT_AVAILABLE:
     # pylint: disable=import-error
-    import bernard_ledit as bernard
+    import bernard_ledit.image as bernard_image
+    import bernard_ledit.pdf as bernard_pdf
 else:
-    bernard = None  # type: ignore[assignment]  # pylint: disable=invalid-name
+    bernard_pdf = None  # type: ignore[assignment]  # pylint: disable=invalid-name
+    bernard_image = None  # type: ignore[assignment]  # pylint: disable=invalid-name
 
 mimetypes.add_type("image/heic", ".heic")
 mimetypes.add_type("image/heif", ".heif")
@@ -52,9 +54,9 @@ class LocalInputSource:
             # Some broken (yet fixable) PDFs can cause Bernard to crash on open.
             if BERNARD_LEDIT_AVAILABLE:
                 try:
-                    pdf = bernard.pdf.PdfDocument(self.file_object)
+                    pdf = bernard_pdf.PdfDocument(self.file_object)
                     self.page_count = len(pdf)
-                except bernard.pdf.PdfiumError as e:
+                except bernard_pdf.PdfiumError as e:
                     logger.warning(
                         "Could not open PDF file: %s due to %s", self.filename, e
                     )
@@ -100,8 +102,8 @@ class LocalInputSource:
             raise MindeeError("Can't set maximum offset for pdf-fixing to less than 0.")
         self.file_object.seek(0)
         try:
-            fixed = bernard.pdf.fix_pdf(self.file_object, maximum_offset)
-        except bernard.pdf.PdfFixError as e:
+            fixed = bernard_pdf.fix_pdf(self.file_object, maximum_offset)
+        except bernard_pdf.PdfFixError as e:
             raise MimeTypeError(str(e)) from e
         self.file_object = io.BytesIO(fixed)
         self.file_mimetype = "application/pdf"
@@ -113,14 +115,14 @@ class LocalInputSource:
             raise MindeeSourceError(f"File is not a PDF: {self.filename}")
         self.file_object.seek(0)
         try:
-            doc, skipped = bernard.pdf.apply_page_options(
+            doc, skipped = bernard_pdf.apply_page_options(
                 self.file_object,
                 page_options.operation,
                 page_options.on_min_pages,
                 list(page_options.page_indexes),
             )
-            page_count = len(doc)
-        except bernard.pdf.PageOptionsError as e:
+            page_count = len(doc or [])
+        except bernard_pdf.PageOptionsError as e:
             raise MindeeSourceError(f"{e} ({self.filename})") from e
         for page_id in skipped:
             logger.warning("Page index not in source document: %s", page_id)
@@ -139,8 +141,9 @@ class LocalInputSource:
         :return: ``True`` if the PDF is empty
         """
         self.file_object.seek(0)
-        with bernard.pdf.PdfDocument(self.file_object) as pdf:
+        with bernard_pdf.PdfDocument(self.file_object) as pdf:
             return pdf.has_no_content()
+        raise MindeeSourceError("Failed to read PDF")
 
     def read_contents(self, close_file: bool) -> tuple[str, bytes]:
         """
@@ -192,9 +195,9 @@ class LocalInputSource:
         self.file_object.seek(0)
         data = self.file_object.read()
         if self.is_pdf():
-            compressed = bernard.pdf.compress(data, quality)
+            compressed = bernard_pdf.compress(data, quality)
         else:
-            compressed = bernard.image.compress(data, quality, max_width, max_height)
+            compressed = bernard_image.compress(data, quality, max_width, max_height)
 
         self.file_object = io.BytesIO(compressed)
         self.file_object.seek(0)
