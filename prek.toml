@@ -57,6 +57,7 @@ hooks = [
     name = "mypy",
     entry = "mypy",
     language = "python",
+    require_serial = true,
     language_version = "python3.10",
     types = ["python"],
     exclude = "tests/|examples/|docs/",
