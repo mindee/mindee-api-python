@@ -1,8 +1,10 @@
+import re
 from pathlib import Path
 
 import pytest
 
 from mindee.input.path_input import PathInput
+from mindee.pdf.extracted_pdf import ExtractedPDF
 from mindee.v1.client import Client
 from mindee.v1.parsing.common import Document
 from mindee.v1.pdf.pdf_extractor import PDFExtractor
@@ -25,6 +27,16 @@ def prepare_invoice_return(rst_file_path: Path, invoice_prediction: Document):
     rst_content = rst_content.replace(get_version(rst_content), parsing_version)
     rst_content = rst_content.replace(get_id(rst_content), parsing_id)
     return rst_content
+
+
+_VOLATILE = re.compile(
+    rb"/ID\s*\[<[0-9A-Fa-f]*>\s*<[0-9A-Fa-f]*>\]|/CreationDate\s*\([^)]*\)|/ModDate\s*\([^)]*\)"
+)
+
+
+def _pdf_fingerprint(pdf: ExtractedPDF) -> bytes:
+    pdf.buffer.seek(0)
+    return _VOLATILE.sub(b"", pdf.buffer.read())
 
 
 @pytest.mark.bernard_ledit
@@ -51,8 +63,10 @@ def test_pdf_should_extract_invoices_strict():
         [int_list.page_indexes for int_list in inference.prediction.invoice_page_groups]
     )
     for i, extracted_pdf in enumerate(extracted_base_pdfs):
-        assert extracted_pdf.filename == extracted_pdfs_strict[i].filename
-        assert extracted_pdf.buffer.read() == extracted_pdfs_strict[i].buffer.read()
+        strict = extracted_pdfs_strict[i]
+        assert extracted_pdf.filename == strict.filename
+        assert extracted_pdf.page_indexes == strict.page_indexes
+        assert _pdf_fingerprint(extracted_pdf) == _pdf_fingerprint(strict)
 
     assert len(extracted_pdfs_not_strict) == 2
     assert extracted_pdfs_not_strict[0].filename == "default_sample_pages-001-001.pdf"
