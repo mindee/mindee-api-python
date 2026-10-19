@@ -32,7 +32,10 @@ jobs:
       - name: Resolve bernard-ledit submodule commit
         id: bernard
         shell: bash
-        run: echo "sha=$(git -C bernard-ledit rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+        run: |
+          echo "sha=$(git -C bernard-ledit rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          rel="$(tr -d '[:space:]' < bernard-ledit/core/pdfium-release)"
+          echo "pdfium_dir=${rel//\//_}" >> "$GITHUB_OUTPUT"
 
       # Skip the whole Rust/maturin build when the submodule pointer is unchanged.
       - name: Restore cached bernard-ledit build
@@ -40,16 +43,14 @@ jobs:
         uses: actions/cache@v5
         with:
           path: ./.github/artifacts/bernard-ledit
-          key: bernard-ledit-${{ runner.os }}-${{ steps.bernard.outputs.sha }}
+          key: bernard-ledit-v2-${{ runner.os }}-${{ steps.bernard.outputs.sha }}
 
       - name: Cache downloaded PDFium binary
         if: steps.cache.outputs.cache-hit != 'true'
         uses: actions/cache@v5
         with:
           path: bernard-ledit/core/.pdfium_cache
-          key: pdfium-${{ runner.os }}-${{ hashFiles('bernard-ledit/core/build.rs') }}
-          restore-keys: |
-            pdfium-${{ runner.os }}-
+          key: pdfium-${{ runner.os }}-${{ runner.arch }}-${{ steps.bernard.outputs.pdfium_dir }}
 
       - name: Cache Rust build
         if: steps.cache.outputs.cache-hit != 'true'
