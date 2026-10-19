@@ -71,13 +71,21 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         shell: bash
         run: |
-          lib=$(find bernard-ledit/core/.pdfium_cache \( -name 'libpdfium.*' -o -name 'pdfium.dll' \) -print | head -n 1)
-          if [ -z "$lib" ]; then
-            echo "::error::PDFium library not found under bernard-ledit/core/.pdfium_cache after build"
+          base="bernard-ledit/core/.pdfium_cache/${{ steps.bernard.outputs.pdfium_dir }}"
+          case "${{ runner.os }}-${{ runner.arch }}" in
+            Linux-X64)   lib="$base/linux-x64/lib/libpdfium.so" ;;
+            Linux-ARM64) lib="$base/linux-arm64/lib/libpdfium.so" ;;
+            macOS-ARM64) lib="$base/mac-arm64/lib/libpdfium.dylib" ;;
+            macOS-X64)   lib="$base/mac-x64/lib/libpdfium.dylib" ;;
+            Windows-X64) lib="$base/win-x64/bin/pdfium.dll" ;;
+            *) echo "::error::unsupported runner ${{ runner.os }}-${{ runner.arch }}"; exit 1 ;;
+          esac
+          if [ ! -f "$lib" ]; then
+            echo "::error::Expected PDFium library not found: $lib"
             exit 1
           fi
           cp "$lib" ./.github/artifacts/bernard-ledit/
-          echo "Bundled PDFium library: $(basename "$lib")"
+          echo "Bundled PDFium library: $lib"
 
       - name: Upload bernard-ledit build
         uses: actions/upload-artifact@v4
