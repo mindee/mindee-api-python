@@ -2,25 +2,23 @@ from __future__ import annotations
 
 import io
 import mimetypes
-import tempfile
-from collections.abc import Sequence
 from typing import BinaryIO
 
-from mindee.dependencies import requires_pypdfium2
-from mindee.dependencies.checkers import PYPDFIUM2_AVAILABLE
+from mindee.dependencies import requires_bernard_ledit
+from mindee.dependencies.checkers import BERNARD_LEDIT_AVAILABLE
 from mindee.error.mimetype_error import MimeTypeError
 from mindee.error.mindee_error import MindeeError, MindeeSourceError
-from mindee.image.image_compressor import compress_image
-from mindee.input.page_options import KEEP_ONLY, REMOVE, PageOptions
+from mindee.input.page_options import PageOptions
 from mindee.logger import logger
-from mindee.pdf.pdf_compressor import compress_pdf
 from mindee.pdf.pdf_utils import pdf_has_source_text
 
-if PYPDFIUM2_AVAILABLE:
+if BERNARD_LEDIT_AVAILABLE:
     # pylint: disable=import-error
-    import pypdfium2 as pdfium
+    import bernard_ledit.image as bernard_image
+    import bernard_ledit.pdf as bernard_pdf
 else:
-    pdfium = None  # pylint: disable=invalid-name
+    bernard_pdf = None  # type: ignore[assignment]  # pylint: disable=invalid-name
+    bernard_image = None  # type: ignore[assignment]  # pylint: disable=invalid-name
 
 mimetypes.add_type("image/heic", ".heic")
 mimetypes.add_type("image/heif", ".heif")
@@ -53,12 +51,12 @@ class LocalInputSource:
         self._check_mimetype()
         if self.is_pdf():
             self.file_object.seek(0)
-            # Some broken (yet fixable) PDFs can cause pdfium to crash on open.
-            if PYPDFIUM2_AVAILABLE:
+            # Some broken (yet fixable) PDFs can cause Bernard to crash on open.
+            if BERNARD_LEDIT_AVAILABLE:
                 try:
-                    pdf = pdfium.PdfDocument(self.file_object)
+                    pdf = bernard_pdf.PdfDocument(self.file_object)
                     self.page_count = len(pdf)
-                except pdfium.PdfiumError as e:
+                except bernard_pdf.PdfiumError as e:
                     logger.warning(
                         "Could not open PDF file: %s due to %s", self.filename, e
                     )
@@ -83,6 +81,11 @@ class LocalInputSource:
             file_types = ", ".join(ALLOWED_MIME_TYPES)
             raise MimeTypeError(f"File type not allowed, must be one of {file_types}.")
 
+    def is_pdf(self) -> bool:
+        """:return: True if the file is a PDF."""
+        return self.file_mimetype == "application/pdf"
+
+    @requires_bernard_ledit
     def fix_pdf(self, maximum_offset: int = 500) -> None:
         """
         Fix a potentially broken pdf file.
@@ -98,107 +101,40 @@ class LocalInputSource:
         """
         if maximum_offset < 0:
             raise MindeeError("Can't set maximum offset for pdf-fixing to less than 0.")
+        self.file_object.seek(0)
         try:
-            buf = self.file_object.read()
-            self.file_object.seek(0)
-            pos: int = buf.find(b"%PDF-")
-            if pos != -1 and pos < maximum_offset:
-                self.file_object.seek(pos)
-                raw_bytes = self.file_object.read()
-                with tempfile.TemporaryFile() as temp_file:
-                    temp_file.write(raw_bytes)
-                    temp_file.seek(0)
-                    self.file_object = io.BytesIO(temp_file.read())
-            else:
-                if pos < 0:
-                    raise MimeTypeError(
-                        "Provided stream isn't a valid PDF-like object."
-                    )
-                raise MimeTypeError(
-                    f"PDF couldn't be fixed. PDF tag was found at position {pos}."
-                )
-            self.file_mimetype = "application/pdf"
-        except MimeTypeError as e:
-            raise e
-        except Exception as e:
-            logger.error("Attempt to fix pdf raised exception %s.", e)
-            raise e
+            fixed = bernard_pdf.fix_pdf(self.file_object, maximum_offset)
+        except bernard_pdf.PdfFixError as e:
+            raise MimeTypeError(str(e)) from e
+        self.file_object = io.BytesIO(fixed)
+        self.file_mimetype = "application/pdf"
 
-    def is_pdf(self) -> bool:
-        """:return: True if the file is a PDF."""
-        return self.file_mimetype == "application/pdf"
-
-    @requires_pypdfium2
+    @requires_bernard_ledit
     def apply_page_options(self, page_options: PageOptions) -> None:
         """Apply cut and merge options on multipage documents."""
         if not self.is_pdf():
             raise MindeeSourceError(f"File is not a PDF: {self.filename}")
-        self.process_pdf(
-            page_options.operation,
-            page_options.on_min_pages,
-            page_options.page_indexes,
-        )
         self.file_object.seek(0)
-        pdf = pdfium.PdfDocument(self.file_object)
-        self.page_count = len(pdf)
-        pdf.close()
-
-    def process_pdf(
-        self,
-        behavior: str,
-        on_min_pages: int,
-        page_indexes: Sequence[int],
-    ) -> None:
-        """Run any required processing on a PDF file."""
-        if self.is_pdf_empty():
-            raise MindeeSourceError(f"PDF pages are empty in: {self.filename}")
-        page_count = self.page_count
-        if on_min_pages > page_count:
+        try:
+            doc, skipped = bernard_pdf.apply_page_options(
+                self.file_object,
+                page_options.operation,
+                page_options.on_min_pages,
+                list(page_options.page_indexes),
+            )
+            page_count = len(doc or [])
+        except bernard_pdf.PageOptionsError as e:
+            raise MindeeSourceError(f"{e} ({self.filename})") from e
+        for page_id in skipped:
+            logger.warning("Page index not in source document: %s", page_id)
+        if doc is None:
             return
-        all_pages = list(range(page_count))
-        if behavior == KEEP_ONLY:
-            pages_to_keep = set()
-            for page_id in page_indexes:
-                try:
-                    pages_to_keep.add(all_pages[page_id])
-                except IndexError:
-                    logger.warning("Page index not in source document: %s", page_id)
-        elif behavior == REMOVE:
-            pages_to_remove = set()
-            for page_id in page_indexes:
-                try:
-                    pages_to_remove.add(all_pages[page_id])
-                except IndexError:
-                    logger.warning("Page index not in source document: %s", page_id)
-            pages_to_keep = pages_to_remove.symmetric_difference(set(all_pages))
-        else:
-            raise MindeeSourceError(f"Invalid cut behavior specified: {behavior}")
-
-        if len(pages_to_keep) < 1:
-            raise MindeeSourceError("Resulting PDF would have no pages left.")
-        self.merge_pdf_pages(pages_to_keep)
-
-    @requires_pypdfium2
-    def merge_pdf_pages(self, page_numbers: set) -> None:
-        """
-        Create a new PDF from pages and set it to ``file_object``.
-
-        :param page_numbers: List of page numbers to use for merging in the original PDF.
-        :return: None
-        """
-        self.file_object.seek(0)
-        new_pdf = pdfium.PdfDocument.new()
-        pdf = pdfium.PdfDocument(self.file_object)
-        new_pdf.import_pages(pdf, list(page_numbers))
         self.file_object.close()
-        bytes_io = io.BytesIO()
-        new_pdf.save(bytes_io)
-        self.file_object = bytes_io
-        self.page_count = len(new_pdf)
-        new_pdf.close()
-        pdf.close()
+        with doc:
+            self.file_object = io.BytesIO(doc.as_bytes())
+        self.page_count = page_count
 
-    @requires_pypdfium2
+    @requires_bernard_ledit
     def is_pdf_empty(self) -> bool:
         """
         Check if the PDF is empty.
@@ -206,11 +142,9 @@ class LocalInputSource:
         :return: ``True`` if the PDF is empty
         """
         self.file_object.seek(0)
-        pdf = pdfium.PdfDocument(self.file_object)
-        for page in pdf:
-            for _ in page.get_objects():
-                return False
-        return True
+        with bernard_pdf.PdfDocument(self.file_object) as pdf:
+            return pdf.has_no_content()
+        raise MindeeSourceError("Failed to read PDF")
 
     def read_contents(self, close_file: bool) -> tuple[str, bytes]:
         """
@@ -243,14 +177,12 @@ class LocalInputSource:
             return False
         return pdf_has_source_text(self.file_object.read())
 
-    @requires_pypdfium2
+    @requires_bernard_ledit
     def compress(
         self,
         quality: int = 85,
         max_width: int | None = None,
         max_height: int | None = None,
-        force_source_text: bool = False,
-        disable_source_text: bool = True,
     ) -> None:
         """
         Compresses the file object, either as a PDF or an image.
@@ -259,20 +191,17 @@ class LocalInputSource:
             For PDFs, this affects image quality within the PDF.
         :param max_width: Maximum width for image resizing. Ignored for PDFs.
         :param max_height: Maximum height for image resizing. Ignored for PDFs.
-        :param force_source_text: For PDFs, whether to force compression even if source text is present.
-        :param disable_source_text: For PDFs, whether to disable source text during compression.
         """
-        new_file_bytes: bytes
-        if self.is_pdf():
-            new_file_bytes = compress_pdf(
-                self.file_object, quality, force_source_text, disable_source_text
-            )
-        else:
-            new_file_bytes = compress_image(
-                self.file_object, quality, max_width, max_height
-            )
 
-        self.file_object = io.BytesIO(new_file_bytes)
+        self.file_object.seek(0)
+        data = self.file_object.read()
+        if self.is_pdf():
+            compressed = bernard_pdf.compress(data, quality)
+        else:
+            compressed = bernard_image.compress(data, quality, max_width, max_height)
+
+        self.file_object = io.BytesIO(compressed)
+        self.file_object.seek(0)
 
     def __enter__(self):
         """Allows the class to be used as a context manager."""
