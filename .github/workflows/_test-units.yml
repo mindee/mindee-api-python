@@ -62,6 +62,15 @@ jobs:
         python -c "from pathlib import Path; import subprocess, sys; wheels = sorted(Path('.github/artifacts/bernard-ledit').glob('*.whl')); subprocess.check_call([sys.executable, '-m', 'pip', 'install', str(wheels[0]) if wheels else 'bernard-ledit/bindings/python/'])"
         pip install -e '.[test]'
 
+
+    - name: Debug PDFium versions
+      shell: bash
+      run: |
+        echo "--- release file:"; cat bernard-ledit/core/pdfium-release || true
+        echo "--- cache contents:"; find bernard-ledit/core/.pdfium_cache -name 'libpdfium*' || true
+        echo "--- shipped library:"
+        nm -D .github/artifacts/bernard-ledit/libpdfium.so | grep -c FPDFTextObj_SetFontSize || echo "symbol MISSING"
+
     - name: Unit testing with pytest
       run: |
         pytest --cov mindee --cov-fail-under 87
@@ -104,14 +113,6 @@ jobs:
         mv -f pyproject-lite.toml pyproject.toml
         pip install -e '.[test]'
       shell: bash
-
-    - name: Debug PDFium versions
-      shell: bash
-      run: |
-        echo "--- release file:"; cat bernard-ledit/core/pdfium-release || true
-        echo "--- cache contents:"; find bernard-ledit/core/.pdfium_cache -name 'libpdfium*' || true
-        echo "--- shipped library:"
-        nm -D .github/artifacts/bernard-ledit/libpdfium.so | grep -c FPDFTextObj_SetFontSize || echo "symbol MISSING"
 
     - name: Unit testing with pytest
       run: |
