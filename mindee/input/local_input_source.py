@@ -85,6 +85,7 @@ class LocalInputSource:
         """:return: True if the file is a PDF."""
         return self.file_mimetype == "application/pdf"
 
+    @requires_bernard_ledit
     def fix_pdf(self, maximum_offset: int = 500) -> None:
         """
         Fix a potentially broken pdf file.
