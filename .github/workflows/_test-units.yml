@@ -105,6 +105,14 @@ jobs:
         pip install -e '.[test]'
       shell: bash
 
+    - name: Debug PDFium versions
+      shell: bash
+      run: |
+        echo "--- release file:"; cat bernard-ledit/core/pdfium-release || true
+        echo "--- cache contents:"; find bernard-ledit/core/.pdfium_cache -name 'libpdfium*' || true
+        echo "--- shipped library:"
+        nm -D .github/artifacts/bernard-ledit/libpdfium.so | grep -c FPDFTextObj_SetFontSize || echo "symbol MISSING"
+
     - name: Unit testing with pytest
       run: |
         pytest
