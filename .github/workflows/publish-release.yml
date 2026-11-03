@@ -6,12 +6,12 @@ on:
 
 jobs:
   publish-docs:
-    uses: ./.github/workflows/_publish-docs.yml@main
+    uses: ./.github/workflows/_publish-docs.yml
     secrets: inherit
   publish-guide:
-    uses: ./.github/workflows/_publish-guide.yml@main
+    uses: ./.github/workflows/_publish-guide.yml
     needs: publish-docs
     secrets: inherit
   publish-code:
-    uses: ./.github/workflows/_publish-code.yml@main
+    uses: ./.github/workflows/_publish-code.yml
     secrets: inherit
