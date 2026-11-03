@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   workflow-lint:
-    uses: ./.github/workflows/_workflow_lint.yml
+    uses: mindee/client-lib-actions/.github/workflows/workflow-lint.yml@main
   static-analysis:
     uses: ./.github/workflows/_static-analysis.yml
     needs: workflow-lint

@@ -17,26 +17,14 @@ jobs:
         # history rather than the default shallow clone.
         fetch-depth: 0
 
-    - name: Run Betterleaks (git)
-      id: betterleaks-git
+    - name: Run Betterleaks
+      id: betterleaks
       continue-on-error: true
       # version 0.1.0
       uses: dortort/betterleaks-action@cd0b905aa4befb8f42f8b1ab98150180c9e77515
       with:
         version: "v1.9.0"
-        scan-mode: git
-        report-path: betterleaks-git-report.sarif
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Run Betterleaks (dir)
-      id: betterleaks-dir
-      continue-on-error: true
-      # version 0.1.0
-      uses: dortort/betterleaks-action@cd0b905aa4befb8f42f8b1ab98150180c9e77515
-      with:
-        version: "v1.9.0"
-        scan-mode: dir
-        report-path: betterleaks-dir-report.sarif
+        report-path: betterleaks-report.sarif
         github-token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Upload Betterleaks report
@@ -45,12 +33,10 @@ jobs:
       with:
         name: betterleaks-report
         if-no-files-found: warn
-        path: |
-          ${{ steps.betterleaks-git.outputs.report-path }}
-          ${{ steps.betterleaks-dir.outputs.report-path }}
+        path: ${{ steps.betterleaks.outputs.report-path }}
 
     - name: Fail if Betterleaks found leaks
-      if: steps.betterleaks-git.outcome == 'failure' || steps.betterleaks-dir.outcome == 'failure'
+      if: steps.betterleaks.outcome == 'failure'
       run: |
         echo "Betterleaks reported a failure in at least one scan."
         exit 1
