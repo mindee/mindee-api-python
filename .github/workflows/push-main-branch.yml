@@ -10,9 +10,9 @@ jobs:
     uses: mindee/client-lib-actions/.github/workflows/betterleaks.yml@main
     secrets: inherit
   static-analysis:
-    uses: mindee/mindee-api-ruby/.github/workflows/_static-analysis.yml@main
+    uses: ./.github/workflows/_static-analysis.yml@main
   test-units:
-    uses: mindee/mindee-api-ruby/.github/workflows/_test-units.yml@main
+    uses: ./.github/workflows/_test-units.yml@main
     needs: [ betterleaks, static-analysis ]
     secrets: inherit
   tag:
