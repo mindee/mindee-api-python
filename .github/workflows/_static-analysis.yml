@@ -12,34 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v7
-      with:
-        # Betterleaks scans git history across refs, so it needs the full
-        # history rather than the default shallow clone.
-        fetch-depth: 0
-
-    - name: Run Betterleaks
-      id: betterleaks
-      continue-on-error: true
-      # version 0.1.0
-      uses: dortort/betterleaks-action@cd0b905aa4befb8f42f8b1ab98150180c9e77515
-      with:
-        version: "v1.9.0"
-        report-path: betterleaks-report.sarif
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Upload Betterleaks report
-      uses: actions/upload-artifact@v7
-      if: always()
-      with:
-        name: betterleaks-report
-        if-no-files-found: warn
-        path: ${{ steps.betterleaks.outputs.report-path }}
-
-    - name: Fail if Betterleaks found leaks
-      if: steps.betterleaks.outcome == 'failure'
-      run: |
-        echo "Betterleaks reported a failure in at least one scan."
-        exit 1
 
     - name: Set up Python
       uses: actions/setup-python@v7
@@ -73,6 +45,7 @@ jobs:
 
     - name: Run all static analysis
       env:
+        # betterleaks is run in a separate workflow
         SKIP: betterleaks,sphinx-html,sphinx-linkcheck
       run: |
         prek run --all-files

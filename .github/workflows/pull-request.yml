@@ -10,12 +10,16 @@ permissions:
 jobs:
   workflow-lint:
     uses: mindee/client-lib-actions/.github/workflows/workflow-lint.yml@main
+  betterleaks:
+    uses: mindee/client-lib-actions/.github/workflows/betterleaks.yml@main
+    needs: workflow-lint
+    secrets: inherit
   static-analysis:
     uses: ./.github/workflows/_static-analysis.yml
     needs: workflow-lint
   test-units:
     uses: ./.github/workflows/_test-units.yml
-    needs: static-analysis
+    needs: [ betterleaks, static-analysis ]
     secrets: inherit
   test-regressions:
     uses: ./.github/workflows/_test-regressions.yml
