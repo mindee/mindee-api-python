@@ -13,8 +13,10 @@ from mindee.input.local_input_source import LocalInputSource
 if BERNARD_LEDIT_AVAILABLE:
     # pylint: disable=import-error
     import bernard_ledit.image as bernard_image
+    import bernard_ledit.pdf as bernard_pdf
 else:
     bernard_image = None  # type: ignore[assignment]  # pylint: disable=invalid-name
+    bernard_pdf = None  # type: ignore[assignment]  # pylint: disable=invalid-name
 
 
 @requires_bernard_ledit
@@ -33,7 +35,12 @@ def extract_multiple_images_from_source(
     stem = Path(input_source.filename).stem
     input_source.file_object.seek(0)
     pts = [[(p.x, p.y) for p in poly] for poly in polygons]
-    images = bernard_image.extract_from_polygons(input_source.file_object, page_id, pts)
+    if input_source.is_pdf():
+        with bernard_pdf.PdfDocument(input_source.file_object) as pdf:
+            source_image = pdf.rasterize_page(page_id)
+    else:
+        source_image = bernard_image.Image(input_source.file_object)
+    images = [source_image.crop_polygon(polygon) for polygon in pts]
 
     extracted = []
     for element_id, img in enumerate(images):

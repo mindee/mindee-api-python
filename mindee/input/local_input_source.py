@@ -196,9 +196,13 @@ class LocalInputSource:
         self.file_object.seek(0)
         data = self.file_object.read()
         if self.is_pdf():
-            compressed = bernard_pdf.compress(data, quality)
+            compressed = bernard_pdf.compress_to_jpeg(data, quality)
         else:
-            compressed = bernard_image.compress(data, quality, max_width, max_height)
+            compressed = bernard_image.Image(data).compress_to_jpeg(
+                quality=quality,
+                max_width=max_width,
+                max_height=max_height,
+            )
 
         self.file_object = io.BytesIO(compressed)
         self.file_object.seek(0)
