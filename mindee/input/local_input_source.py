@@ -131,7 +131,7 @@ class LocalInputSource:
             return
         self.file_object.close()
         with doc:
-            self.file_object = io.BytesIO(doc.as_bytes())
+            self.file_object = io.BytesIO(doc.to_bytes())
         self.page_count = page_count
 
     @requires_bernard_ledit

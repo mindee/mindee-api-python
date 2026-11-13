@@ -76,7 +76,7 @@ class PDFExtractor:
             with doc:
                 extracted.append(
                     ExtractedPDF(
-                        pdf_byte_stream=io.BytesIO(doc.as_bytes()),
+                        pdf_byte_stream=io.BytesIO(doc.to_bytes()),
                         filename=self._make_filename(indexes[0], indexes[-1]),
                         page_indexes=indexes,
                     )
