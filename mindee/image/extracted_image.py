@@ -12,8 +12,10 @@ from mindee.logger import logger
 if BERNARD_LEDIT_AVAILABLE:
     # pylint: disable=import-error
     import bernard_ledit.image as bernard_image
+    import bernard_ledit.common as bernard_common
 else:
     bernard_image = None  # type: ignore[assignment]  # pylint: disable=invalid-name
+    bernard_common = None  # type: ignore[assignment]  # pylint: disable=invalid-name
 
 
 class ExtractedImage:
@@ -52,12 +54,12 @@ class ExtractedImage:
         """
         Saves the document to a file.
 
-        When no format conversion is requested the buffer is written directly
-        to avoid a lossy decode → re-encode cycle.
+        When no format is provided, the output filename's extension determines
+        the format. If it matches the buffer's format, the bytes are written as-is.
 
         :param output_path: Path to save the file to.
-        :param file_format: Format of the file to save. If omitted the buffer is
-            written as-is; pass an explicit format to force a conversion.
+        :param file_format: Format of the file to save. If omitted, infer it from
+            the filename extension (JPEG when there is no extension).
         :raises MindeeError: If an invalid path or filename is provided.
         """
         out_path = Path(output_path)
@@ -66,11 +68,18 @@ class ExtractedImage:
         out_file_path = out_path / self.filename
         try:
             self.buffer.seek(0)
-            if file_format is None:
-                out_file_path.write_bytes(self.buffer.read())
+            image_bytes = self.buffer.read()
+            image = bernard_image.Image(image_bytes)
+            output_format = (
+                file_format
+                if file_format is not None
+                else bernard_common.format_from_extension(out_file_path.suffix)
+            )
+            if file_format is None and image.format == output_format:
+                encoded = image_bytes
             else:
-                image = bernard_image.Image(self.buffer.read())
-                image.save(out_file_path, format=file_format)
+                encoded = image.encode(output_format)
+            out_file_path.write_bytes(encoded)
             logger.info("File saved successfully to '%s'.", out_file_path)
         except Exception as e:
             raise MindeeError(f"Could not save file {Path(output_path).name}.") from e

@@ -3,8 +3,15 @@ from __future__ import annotations
 from pathlib import Path
 from typing import BinaryIO
 
+from mindee.dependencies.checkers import BERNARD_LEDIT_AVAILABLE
 from mindee.error.mindee_error import MindeeError
 from mindee.input.bytes_input import BytesInput
+
+if BERNARD_LEDIT_AVAILABLE:
+    # pylint: disable=import-error
+    import bernard_ledit.common as bernard_common
+else:
+    bernard_common = None  # type: ignore[assignment]  # pylint: disable=invalid-name
 
 
 class ExtractedPDF:
@@ -28,12 +35,19 @@ class ExtractedPDF:
         Writes the contents of the current PDF object to a file.
 
         :param output_path: Path of the destination file.
-        If no extension is provided, '.pdf' will be appended by default.
+        If the extension doesn't identify a PDF, '.pdf' is appended.
         """
         out_path = Path(output_path)
         if not out_path.resolve().is_dir():
             raise MindeeError("Provided path is not a directory.")
         out_file_path = out_path / self.filename
+        is_pdf = (
+            bernard_common.format_from_extension(out_file_path.suffix) == "PDF"
+            if bernard_common is not None
+            else out_file_path.suffix.lower() == ".pdf"
+        )
+        if not is_pdf:
+            out_file_path = out_file_path.with_name(f"{out_file_path.name}.pdf")
 
         try:
             self.buffer.seek(0)

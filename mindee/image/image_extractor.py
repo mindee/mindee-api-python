@@ -44,9 +44,9 @@ def extract_multiple_images_from_source(
 
     extracted = []
     for element_id, img in enumerate(images):
-        buf = io.BytesIO()
-        img.save(buf)
-        fmt = str(img.format).lower() if img.format else "jpeg"
+        image_format = img.format or "JPEG"
+        buf = io.BytesIO(img.encode(image_format))
+        fmt = image_format.lower()
         fmt = fmt if fmt != "jpeg" else "jpg"
         extracted.append(
             ExtractedImage(
