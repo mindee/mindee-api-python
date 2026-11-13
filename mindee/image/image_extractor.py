@@ -37,7 +37,7 @@ def extract_multiple_images_from_source(
     pts = [[(p.x, p.y) for p in poly] for poly in polygons]
     if input_source.is_pdf():
         with bernard_pdf.PdfDocument(input_source.file_object) as pdf:
-            source_image = pdf.rasterize_page(page_id)
+            source_image = pdf.get_page(page_id).render()
     else:
         source_image = bernard_image.Image(input_source.file_object)
     images = [source_image.crop_polygon(polygon) for polygon in pts]
