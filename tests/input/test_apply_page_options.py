@@ -25,9 +25,9 @@ def _assert_page_options(input_source: LocalInputSource, numb_pages: int):
     assert input_source.is_pdf() is True
     input_source.file_object.seek(0)
     with (
-        bernard_pdf.PdfDocument(input_source.file_object) as cut_pdf,
+        bernard_pdf.PdfDocument(input_source.file_object.read()) as cut_pdf,
         bernard_pdf.PdfDocument(
-            FILE_TYPES_PATH / "pdf" / f"multipage_cut-{numb_pages}.pdf"
+            (FILE_TYPES_PATH / "pdf" / f"multipage_cut-{numb_pages}.pdf").read_bytes()
         ) as expected,
     ):
         assert len(cut_pdf) == len(expected) == numb_pages

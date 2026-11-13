@@ -54,7 +54,7 @@ class LocalInputSource:
             # Some broken (yet fixable) PDFs can cause Bernard to crash on open.
             if BERNARD_LEDIT_AVAILABLE:
                 try:
-                    pdf = bernard_pdf.PdfDocument(self.file_object)
+                    pdf = bernard_pdf.PdfDocument(self.file_object.read())
                     self.page_count = len(pdf)
                 except bernard_pdf.PdfiumError as e:
                     logger.warning(
@@ -103,7 +103,7 @@ class LocalInputSource:
             raise MindeeError("Can't set maximum offset for pdf-fixing to less than 0.")
         self.file_object.seek(0)
         try:
-            fixed = bernard_pdf.fix_pdf(self.file_object, maximum_offset)
+            fixed = bernard_pdf.fix_pdf(self.file_object.read(), maximum_offset)
         except bernard_pdf.PdfFixError as e:
             raise MimeTypeError(str(e)) from e
         self.file_object = io.BytesIO(fixed)
@@ -117,7 +117,7 @@ class LocalInputSource:
         self.file_object.seek(0)
         try:
             doc, skipped = bernard_pdf.apply_page_options(
-                self.file_object,
+                self.file_object.read(),
                 page_options.operation,
                 page_options.on_min_pages,
                 list(page_options.page_indexes),
@@ -142,7 +142,7 @@ class LocalInputSource:
         :return: ``True`` if the PDF is empty
         """
         self.file_object.seek(0)
-        with bernard_pdf.PdfDocument(self.file_object) as pdf:
+        with bernard_pdf.PdfDocument(self.file_object.read()) as pdf:
             return pdf.has_no_content()
         raise MindeeSourceError("Failed to read PDF")
 
