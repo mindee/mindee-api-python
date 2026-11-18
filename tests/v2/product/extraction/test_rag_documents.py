@@ -105,11 +105,20 @@ def test_rag_documents_post_must_have_valid_properties():
 def test_rag_documents_get_draft_must_have_valid_properties():
     """Should load a GET response from a JSON string."""
 
-    response = _get_response("extraction/rag_documents/get_response_draft.json")
+    path = "extraction/rag_documents/get_response_draft.json"
+    response = _get_response(path)
     assert response is not None
     assert response.id == "cc831599-c545-48b7-aa27-6d7ccd5b8d32"
     assert response.status == "Draft"
     assert response.annotation is not None
+
+    with open(V2_PRODUCT_PATH / path, encoding="utf-8") as fh:
+        response_dict = json.load(fh)
+
+    actual = response.annotation.to_dict()
+    expected = response_dict["annotation"]
+    assert actual.keys() == expected.keys()
+
     fields = response.annotation.fields
     assert fields is not None
 
@@ -194,6 +203,6 @@ def test_rag_documents_get_draft_must_have_valid_properties():
 
 def _get_response(path: str) -> ExtractionRagAnnotationResponse:
     file_path = V2_PRODUCT_PATH / path
-    with open(file_path, encoding="utf-8") as f:
-        response_dict = json.load(f)
+    with open(file_path, encoding="utf-8") as fh:
+        response_dict = json.load(fh)
     return ExtractionRagAnnotationResponse(response_dict)

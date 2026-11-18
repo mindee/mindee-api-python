@@ -1,4 +1,4 @@
-from dataclasses import InitVar, dataclass, field
+from dataclasses import InitVar, asdict, dataclass, field
 
 from mindee.parsing.common.string_dict import StringDict
 from mindee.v2.parsing.string_data_class import StringDataClass
@@ -16,3 +16,7 @@ class RagAnnotation(StringDataClass):
 
     def __post_init__(self, raw_response: StringDict):
         self.fields = AnnotatedFields(raw_response["fields"])
+
+    def to_dict(self) -> StringDict:
+        """Return the annotation as a dictionary."""
+        return asdict(self)

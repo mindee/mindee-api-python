@@ -27,7 +27,10 @@ def test_rag_document_lifecycle_must_succeed(v2_client: Client):
         V2_PRODUCT_PATH / "extraction" / "financial_document" / "default_sample.jpg"
     )
     post_parameters = RagDocumentUploadParameters(model_id=extraction_model_id)
-    post_response = v2_client.upload_and_get_rag_document(input_source, post_parameters)
+    post_response = v2_client.upload_and_get_rag_document(
+        input_source=input_source,
+        post_parameters=post_parameters,
+    )
     assert post_response is not None
 
     post_annotation = post_response.annotation
