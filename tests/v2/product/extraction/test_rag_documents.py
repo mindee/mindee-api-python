@@ -19,13 +19,21 @@ from mindee.v2.product.extraction.rag_documents.annotated_simple_field import (
 )
 from tests.utils import V2_PRODUCT_PATH
 
-expected_annotation = {
-    "fields": {
-        "simple": {"selected": False, "guidelines": None, "value": True},
-        "list": {"selected": False, "guidelines": None, "items": []},
-        "object": {"selected": False, "guidelines": None, "fields": {}},
-    }
-}
+with open(
+    V2_PRODUCT_PATH / "extraction/rag_documents/test_annotation.json",
+    encoding="utf-8",
+) as fh:
+    expected_annotation = json.load(fh)
+
+
+def _assert_patch_parameters(annotation):
+    parameters = RagDocumentAnnotationParameters(
+        document_id="invalid-document-id", status="Active", annotation=annotation
+    )
+    req_params = parameters.get_request_parameters()
+    assert parameters.document_id == "invalid-document-id"
+    assert req_params["status"] == "Active"
+    assert req_params["annotation"] == expected_annotation
 
 
 @pytest.mark.v2
@@ -34,6 +42,42 @@ def test_post_parameters_must_init():
     parameters = RagDocumentUploadParameters(model_id="invalid-model-id")
     req_params = parameters.get_request_parameters()
     assert req_params["model_id"] == "invalid-model-id"
+
+
+@pytest.mark.v2
+def test_patch_parameters_must_init_from_file():
+    """Should init PATCH parameters from an annotation file handle."""
+    with open(
+        V2_PRODUCT_PATH / "extraction/rag_documents/test_annotation.json",
+        encoding="utf-8",
+    ) as fh:
+        _assert_patch_parameters(fh)
+
+
+@pytest.mark.v2
+def test_patch_parameters_must_init_from_binary_file():
+    """Should init PATCH parameters from an annotation binary file handle."""
+    with open(
+        V2_PRODUCT_PATH / "extraction/rag_documents/test_annotation.json",
+        "rb",
+    ) as fh:
+        _assert_patch_parameters(fh)
+
+
+@pytest.mark.v2
+def test_patch_parameters_must_init_from_string():
+    """Should init PATCH parameters from an annotation string."""
+    _assert_patch_parameters(
+        '{"fields": {"simple":{"value": true}, "list":{"items": []}, "object":{"fields": {}}}}'
+    )
+
+
+@pytest.mark.v2
+def test_patch_parameters_must_init_from_bytes():
+    """Should init PATCH parameters from annotation bytes."""
+    _assert_patch_parameters(
+        b'{"fields": {"simple":{"value": true}, "list":{"items": []}, "object":{"fields": {}}}}'
+    )
 
 
 @pytest.mark.v2
@@ -46,13 +90,7 @@ def test_patch_parameters_must_init_from_dict():
             "object": {"fields": {}},
         }
     }
-    parameters = RagDocumentAnnotationParameters(
-        document_id="invalid-document-id", status="Active", annotation=annotation
-    )
-    req_params = parameters.get_request_parameters()
-    assert parameters.document_id == "invalid-document-id"
-    assert req_params["status"] == "Active"
-    assert req_params["annotation"] == expected_annotation
+    _assert_patch_parameters(annotation)
 
 
 @pytest.mark.v2
@@ -67,27 +105,7 @@ def test_patch_parameters_must_init_from_object():
             }
         }
     )
-    parameters = RagDocumentAnnotationParameters(
-        document_id="invalid-document-id", status="Active", annotation=annotation
-    )
-    req_params = parameters.get_request_parameters()
-    assert parameters.document_id == "invalid-document-id"
-    assert req_params["status"] == "Active"
-    assert req_params["annotation"] == expected_annotation
-
-
-@pytest.mark.v2
-def test_patch_parameters_must_init_from_string():
-    """Should init PATCH parameters from an annotation string."""
-    parameters = RagDocumentAnnotationParameters(
-        document_id="invalid-document-id",
-        status="Active",
-        annotation='{"fields": {"simple":{"value": true}, "list":{"items": []}, "object":{"fields": {}}}}',
-    )
-    req_params = parameters.get_request_parameters()
-    assert parameters.document_id == "invalid-document-id"
-    assert req_params["status"] == "Active"
-    assert req_params["annotation"] == expected_annotation
+    _assert_patch_parameters(annotation)
 
 
 @pytest.mark.v2
