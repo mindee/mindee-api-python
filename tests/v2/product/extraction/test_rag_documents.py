@@ -34,6 +34,7 @@ def _assert_patch_parameters(annotation):
     assert parameters.document_id == "invalid-document-id"
     assert req_params["status"] == "Active"
     assert req_params["annotation"] == expected_annotation
+    assert parameters.annotation.to_dict() == expected_annotation
 
 
 @pytest.mark.v2
