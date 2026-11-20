@@ -1,6 +1,7 @@
 # IDE
 .vscode/
 .idea
+.junie/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

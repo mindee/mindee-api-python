@@ -24,15 +24,3 @@ MindeeAPI
 .. autoclass:: mindee.v1.mindee_http.mindee_api.MindeeAPI
     :members:
     :inherited-members:
-
-Workflow Endpoint
-=================
-.. autoclass:: mindee.v1.mindee_http.workflow_endpoint.WorkflowEndpoint
-    :members:
-    :inherited-members:
-
-Workflow Settings
-=================
-.. autoclass:: mindee.v1.mindee_http.workflow_settings.WorkflowSettings
-    :members:
-    :inherited-members:
