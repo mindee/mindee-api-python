@@ -41,8 +41,6 @@ def is_valid_async_response(response: httpx.Response) -> bool:
         return False
     if "job" in response_json:
         return not response_json["job"].get("error")
-    if "execution" in response_json:
-        return not response_json["execution"].get("error")
     return False
 
 

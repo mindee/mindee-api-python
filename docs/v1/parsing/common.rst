@@ -76,24 +76,6 @@ FeedbackResponse
 .. autoclass:: mindee.v1.parsing.common.feedback_response.FeedbackResponse
     :members:
 
-Workflow Parsing
-================
-
-Execution
----------
-.. autoclass:: mindee.v1.parsing.common.execution.Execution
-    :members:
-
-Execution File
---------------
-.. autoclass:: mindee.v1.parsing.common.execution_file.ExecutionFile
-    :members:
-
-WorkflowResponse
-----------------
-.. autoclass:: mindee.v1.parsing.common.workflow_response.WorkflowResponse
-    :members:
-
 
 OCR Extraction
 ==============

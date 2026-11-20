@@ -17,17 +17,12 @@ from mindee.mindee_http.response_validation import (
 )
 from mindee.parsing.common.string_dict import StringDict
 from mindee.v1.client_options.predict_options import AsyncPredictOptions, PredictOptions
-from mindee.v1.client_options.workflow_options import WorkflowOptions
 from mindee.v1.mindee_http.endpoint import CustomEndpoint, Endpoint
 from mindee.v1.mindee_http.mindee_api import MindeeAPI
-from mindee.v1.mindee_http.workflow_endpoint import WorkflowEndpoint
-from mindee.v1.mindee_http.workflow_settings import WorkflowSettings
 from mindee.v1.parsing.common.async_predict_response import AsyncPredictResponse
 from mindee.v1.parsing.common.feedback_response import FeedbackResponse
 from mindee.v1.parsing.common.inference import Inference
 from mindee.v1.parsing.common.predict_response import PredictResponse
-from mindee.v1.parsing.common.workflow_response import WorkflowResponse
-from mindee.v1.product import GeneratedV1
 
 OTS_OWNER = "mindee"
 
@@ -258,43 +253,6 @@ class Client:
 
         return self._get_queued_document(product_class, endpoint, queue_id)
 
-    def execute_workflow(
-        self,
-        input_source: LocalInputSource | URLInputSource,
-        workflow_id: str,
-        options: WorkflowOptions | None = None,
-        page_options: PageOptions | None = None,
-    ) -> WorkflowResponse:
-        """
-        Send the document to a workflow execution.
-
-        :param input_source: The document/source file to use.
-            Has to be created beforehand.
-        :param workflow_id: ID of the workflow.
-        :param page_options: If set, remove pages from the document as specified.
-            This is done before sending the file to the server.
-            It is useful to avoid page limitations.
-        :param options: Options for the workflow.
-        :return:
-        """
-        if (
-            isinstance(input_source, LocalInputSource)
-            and page_options
-            and input_source.is_pdf()
-        ):
-            input_source.process_pdf(
-                page_options.operation,
-                page_options.on_min_pages,
-                page_options.page_indexes,
-            )
-
-        if not options:
-            options = WorkflowOptions(
-                alias=None, priority=None, full_text=False, public_url=None, rag=False
-            )
-        logger.debug("Sending document to workflow: %s", workflow_id)
-        return self._send_to_workflow(GeneratedV1, input_source, workflow_id, options)
-
     def enqueue_and_parse(  # pylint: disable=too-many-locals
         self,
         product_class: type[Inference],
@@ -511,45 +469,6 @@ class Client:
             )
 
         return AsyncPredictResponse(product_class, queue_response.json())
-
-    def _send_to_workflow(
-        self,
-        product_class: type[Inference],
-        input_source: LocalInputSource | URLInputSource,
-        workflow_id: str,
-        options: WorkflowOptions,
-    ) -> WorkflowResponse:
-        """
-        Sends a document to a workflow.
-
-        :param product_class: The document class to use.
-            The response object will be instantiated based on this parameter.
-
-        :param input_source: The document/source file to use.
-            Has to be created beforehand.
-        :param workflow_id: ID of the workflow.
-        :param options: Optional options for the workflow.
-        :return:
-        """
-        if input_source is None:
-            raise MindeeClientError("No input document provided")
-
-        workflow_endpoint = WorkflowEndpoint(
-            WorkflowSettings(api_key=self.api_key, workflow_id=workflow_id),
-            self.http_client,
-        )
-
-        response = workflow_endpoint.workflow_execution_post(input_source, options)
-
-        dict_response = response.json()
-
-        if not is_valid_async_response(response):
-            clean_response = clean_request_json(response)
-            raise handle_error(
-                str(product_class.endpoint_name),
-                clean_response,
-            )
-        return WorkflowResponse(product_class, dict_response)
 
     def _initialize_ots_endpoint(self, product_class: type[Inference]) -> Endpoint:
         if product_class.__name__ == "CustomV1":
