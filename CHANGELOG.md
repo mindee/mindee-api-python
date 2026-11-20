@@ -1,21 +1,25 @@
 # Mindee Python Client Library Changelog
 
+## v5.5.0 - 2026-11-20
+### Changes
+* :sparkles: load RAG annotation from file
+* :coffin: remove obsolete v1 workflows
+* :coffin: remove dead v1 products
+* :recycle: simpler URL check
+
 ## v5.4.0 - 2026-09-30
 ### Changes
 * :sparkles: add API for RAG operations
 * :sparkles: add error response rst output
 
-
 ## v5.3.1 - 2026-09-11
 ### Changes
 * :memo: update docs for RAG search
-
 
 ## v5.3.0 - 2026-09-08
 ### Changes
 * :sparkles: add RAG search API
 * :recycle: cleanup and uniformize search implementation
-
 
 ## v5.2.0 - 2026-07-20
 ### Changes
@@ -28,12 +32,10 @@
 * :bug: :boom: harmonize Crop and Split
 * :bug: fix issues with tests and add better tests for URL input source
 
-
 ## v5.1.1 - 2026-06-19
 ### Fixes
 * :bug: fix building docs
 * :bug: fix search imports
-
 
 ## v5.1.0 - 2026-06-19
 ### Changes
@@ -45,7 +47,6 @@
 * :sparkles: add `--verbose/-v` flag on the CLI (repeat for debug-level output)
 * :sparkles: `SearchResponse` now extends `CommonResponse` and exposes `raw_http`
 * :white_check_mark: add `tests/test_v1_cli.sh` and `tests/test_v2_cli.sh` integration scripts and a `_test-cli.yml` workflow mirroring the .NET CLI test setup
-
 
 ## v5.0.0 - 2026-06-17
 ### ¡Breaking Changes!
@@ -94,11 +95,9 @@
 * :bug: fix some circular import shenanigans
 * :bug: fix memory leak issues when altering PDF pages
 
-
 ## v5.0.0.alpha2 - 2026-06-11
 ### Changes
 * :wrench: auto-publish mindee-lite
-
 
 ## v5.0.0.alpha1 - 2026-06-11
 ### ¡Breaking Changes!
@@ -146,21 +145,17 @@
 * :bug: fix some circular import shenanigans
 * :bug: fix memory leak issues when altering PDF pages
 
-
 ## v4.36.1 - 2026-05-28
 ### Fixes
 * :bug: fix typing of extraction response when chained
-
 
 ## v4.36.0 - 2026-05-26
 ### Changes
 * :sparkles: add support for extraction in crop, split, and classification
 
-
 ## v4.35.1 - 2026-03-31
 ### Fixes
 * :bug: fix split feature adding additional pages to output files
-
 
 ## v4.35.0 - 2026-03-31
 ### Changes
@@ -171,35 +166,29 @@
 * :bug: fix file saves from crop/split extractors breaking in some instances
 * :recycle: fix cron
 
-
 ## v4.34.0 - 2026-02-23
 ### Changes
 * :sparkles: add job information to the inference object
 * :sparkles: add completed_at property to job
 
-
 ## v4.33.1 - 2026-02-11
 ### Changes
 * :bug: fix missing class property
-
 
 ## v4.33.0 - 2026-02-11
 ### Changes
 * :sparkles: add support for V2 Split, Classification, Crop, and OCR utilities
 * :sparkles: add object field convenience accessors
 
-
 ## v4.32.1 - 2025-12-17
 ### Changes
 * :sparkles: allow use of str, dict, or object to create a data schema replace
-
 
 ## v4.32.0 - 2025-12-16
 ### Changes
 * :sparkles: add support for text_context on v2
 * :sparkles: add support for data schema replace on v2
 * :coffin: remove unused feedback calls from CLI
-
 
 ## v4.31.0 - 2025-11-04
 ### Changes
@@ -208,32 +197,26 @@
 * :sparkles: improved v2 error messages and exceptions
 * :recycle: migrate to ruff for linting
 
-
 ## v4.30.0 - 2025-10-29
 ### Changes
 * :sparkles: add support for python 3.14
 
-
 ## v4.29.1 - 2025-10-13
 ### Changes
 * :recycle: harmonize getting page count from a local input source
-
 
 ## v4.29.0 - 2025-10-07
 ### Changes
 * :sparkles: allow comparing v2 field confidence
 * :coffin: remove obsolete US Mail V2
 
-
 ## v4.28.2 - 2025-09-12
 ### Fixes
 * :bug: fix for multiple webhooks
 
-
 ## v4.28.1 - 2025-09-03
 ### Fixes
 * :bug: inference options should default to None
-
 
 ## v4.28.0 - 2025-09-02
 ### Changes
@@ -243,13 +226,11 @@
 ### ¡Breaking Changes!
 * :recycle: :boom: update raw text output from server
 
-
 ## v4.27.1 - 2025-08-22
 ### Changes
 * :recycle: use direct import of input classes
 * :bug: fix broken location & confidence data for V2 fields
 * :recycle:  make importing v2 classes easier
-
 
 ## v4.27.0 - 2025-07-30
 ### Changes
@@ -258,16 +239,13 @@
 * :bug: fix jobs not deserializing webhook information into their proper class
 * :bug: fix typo in `InferenceFile` class: `alais` => `alias`
 
-
 ## v4.26.0 - 2025-07-29
 ### Changes
 * :sparkles: add support for URL inputs for V2
 
-
 ## v4.25.0 - 2025-07-18
 ### Changes
 * :sparkles: add generic response loader
-
 
 ## v4.24.0 - 2025-07-17
 ### Changes
@@ -275,7 +253,6 @@
 * :wrench: Tweak CI & testing
 * :recycle: Uniformize variable naming across files
 * :boom: remove support for Python 3.7
-
 
 ## v4.24.0-rc2 - 2025-07-09
 ### Changes
@@ -285,14 +262,12 @@
 * :recycle: remove deprecated files
 * :art: touch up string representation for most objects.
 
-
 ## v4.24.0-rc1 - 2025-07-07
 ### Changes
 * :sparkles: add support for mindee API V2 client & features
 * :recycle: remove support for python 3.7
 * :wrench: tweak CI & testing
 * :recycle: uniformize variable naming across files
-
 
 ## v4.23.0 - 2025-06-03
 ### Changes
@@ -301,21 +276,17 @@
 * :sparkles: add support for Invoices V4.10
 * :sparkles: add support for US Healthcare Cards V1.2
 
-
 ## v4.22.0 - 2025-04-29
 ### Changes
 * :sparkles: add support for workflow polling
-
 
 ## v4.21.1 - 2025-04-28
 ### Fixes
 * :bug: fix for Python 3.10 and lower: server uses 'Z' in date string
 
-
 ## v4.21.0 - 2025-04-16
 ### Changes
 * :sparkles: add support for RAG parameter in workflow executions
-
 
 ## v4.20.0 - 2025-04-08
 ### Changes
@@ -323,11 +294,9 @@
 * :sparkles: add support for Invoices V4.10
 * :sparkles: add support for US Healthcare Cards V1.2
 
-
 ## v4.19.1 - 2025-03-27
 ### Fixes
 * :bug: fix for null objects in extras
-
 
 ## v4.19.0 - 2025-03-27
 ### Changes
@@ -345,29 +314,24 @@
 * :recycle: add missing imports for some products
 * :arrow_down: downgrade pypdfium dependency due to very rare errors in local character extraction
 
-
 ## v4.18.0 - 2025-02-21
 ### Changes
 * :sparkles: add support for image and pdf compression
 * :recycle: increase async retry timers
-
 
 ## v4.17.0 - 2024-12-13
 ### Changes
 * :sparkles: add support for us mail v3
 * :art: linting fixes
 
-
 ## v4.16.0 - 2024-12-13
 ### Changes
 * :sparkles: allow local downloading of remote sources
 * :coffin: remove support for (FR) Carte Vitale V1 in favor of French Health Card V1
 
-
 ## v4.15.1 - 2024-11-28
 ### Changes
 * :arrow_up: update pylint
-
 
 ## v4.15.0 - 2024-11-28
 ### Changes
@@ -376,11 +340,9 @@
 * :sparkles: add support for Driver License V1
 * :sparkles: add support for Payslip FR V3
 
-
 ## v4.14.2 - 2024-11-26
 ### Fixes
 * :bug: fix circular imports error on install
-
 
 ## v4.14.1 - 2024-11-22
 ### Changes
@@ -390,7 +352,6 @@
 
 ### Fixes
 * :bug: fix potential circular import issues
-
 
 ## v4.14.0 - 2024-11-14
 ### Changes
@@ -402,12 +363,10 @@
 * :recycle: adjust default values for async delays
 * :arrow_up: fully migrate project to pyproject.toml
 
-
 ## v4.13.0 - 2024-10-11
 ### Changes
 * :sparkles: add support for Financial Document v1.10
 * :sparkles: add support for Invoice v4.8
-
 
 ## v4.12.0 - 2024-09-18
 ### Changes
@@ -424,7 +383,6 @@
 * :memo: fix a few documentation errors & typos
 * :wrench: updated CI dependencies
 
-
 ## v4.11.0 - 2024-09-04
 ### Changes
 * :sparkles: add support for full text OCR extra
@@ -435,7 +393,6 @@
 * :memo: update documentation
 * :recycle: fix many typos in product internals
 * :recycle: add a few missing `__init__.py` files
-
 
 ## v4.10.0 - 2024-07-24
 ### Changes
@@ -449,7 +406,6 @@
 ### Fixes
 * :bug: fix invalid display when trying to cast null amount fields to string
 
-
 ## v4.9.0 - 2024-06-17
 ### Changes
 * :sparkles: add support for complete multi-receipt extraction (#240)
@@ -457,22 +413,18 @@
 ### Fixes
 * :recycle: fix miscellaneous typos (#241)
 
-
 ## v4.8.0 - 2024-05-24
 ### Changes
 * :sparkles: add support for webhooks responses & HMAC validation
 * :recycle: replaced PikePDF with PyPdfium2
 
-
 ## v4.7.0 - 2024-05-16
 ### Changes
 * :sparkles: update receipt to 5.2 and financial document to 1.7
 
-
 ## v4.6.0 - 2024-04-30
 ### Changes
 * :sparkles: add support for financial document v1.6 and invoice 4.6
-
 
 ## v4.5.0 - 2024-03-15
 ### Changes
@@ -480,12 +432,10 @@
 ### Fixes
 * :bug: fix invalid error code handling for some errors (#227)
 
-
 ## v4.4.1 - 2024-03-05
 ### Changes
 * :recycle: update error handling to account for future evolutions
 * :memo: update some documentation
-
 
 ## v4.4.0 - 2024-02-21
 ### Changes
@@ -495,12 +445,10 @@
 ### Fixes
 * :memo: fix miscellaneous documentation issues
 
-
 ## v4.3.0 - 2024-01-30
 ### Changes
 * :arrow_up: update invoices to v4.4
 * :sparkles: add support for `raw_value` in string fields
-
 
 ## v4.2.0 - 2024-01-18
 ### Changes
@@ -513,7 +461,6 @@
 * :bug: fix sphinx doc from mistakenly looking for static files
 * :bug: fix default async config to avoid timeouts on larger files
 * :bug: fix for build badges
-
 
 ## v4.1.0 - 2023-10-17
 ### Changes
@@ -531,11 +478,9 @@
 ### Fixes
 * :bug: fix crashes when trying to parse from newer custom APIs
 
-
 ## v4.0.1 - 2023-10-30
 ### Fixes
 * :bug: add missing internal imports for some products
-
 
 ## v4.0.0 - 2023-10-30
 ### ¡Breaking Changes!
@@ -561,16 +506,13 @@
 ### Fixes
 * :bug: fix `raw_http` attribute displaying a python dict instead of raw JSON
 
-
 ## v3.13.2 - 2023-10-18
 ### Changes
 * :arrow_up: update `urllib` & `pillow` dependencies
 
-
 ## v3.13.1 - 2023-10-03
 ### Changes
 * :arrow_up: update `urllib`, `charset-normalizer` & `package` dependencies
-
 
 ## v3.13.0 - 2023-09-21
 ### Changes
@@ -579,11 +521,9 @@
 * :sparkles: add support for US W9 V1
 * :recycle: small internal tweaks to accomodate for new products
 
-
 ## v3.12.0 - 2023-09-15
 ### Changes
 * :sparkles: add support for FR ID card v2
-
 
 ## v3.11.1 - 2023-07-13
 ### Changes
@@ -594,12 +534,10 @@
 * :bug: fix full_name for multiple given names
 * :bug: fix for parsing OCR response in CLI
 
-
 ## v3.11.0 - 2023-07-03
 ### Changes
 * :sparkles: add basic support for line items
 * :sparkles: add support for FR bank account details v2
-
 
 ## v3.10.0 - 2023-06-26
 ### Changes
@@ -611,11 +549,9 @@
 ### Fixes
 * :bug: fix potential problem where the words can be re-arranged by the user when calculating lines.
 
-
 ## v3.9.1 - 2023-06-07
 ### Changes
 * :memo: add documentation for OCR extraction
-
 
 ## v3.9.0 - 2023-06-06
 ### Changes
@@ -623,35 +559,29 @@
 * :sparkles: add support for handling OCR return
 * :recycle: update printing of receipt, invoice, financial doc
 
-
 ## v3.8.2 - 2023-05-23
 ### Changes
 * :recycle: add a specific class for classifications, which are never None
 ### Fixes
 * :bug: fix for tax base amount
 
-
 ## v3.8.1 - 2023-05-11
 ### Fixes
 * :bug: fix naming of job ID property
-
 
 ## v3.8.0 - 2023-05-10
 ### Changes
 * :sparkles: add support for Invoice Splitter V1
 * :sparkles: add support for asynchronous requests
 
-
 ## v3.7.1 - 2023-04-20
 ### Fixes
 * :bug: fix EU imports, use short imports in tests
-
 
 ## v3.7.0 - 2023-04-18
 ### Changes
 * :sparkles: add support for receipt v5
 * :white_check_mark: use code samples for integration testing
-
 
 ## v3.6.0 - 2023-03-10
 ### Changes
@@ -659,7 +589,6 @@
 * :memo: add proof of address documentation
 ### Fixes
 * :bug: fix file extension for sample code inclusion
-
 
 ## v3.5.0 - 2023-02-17
 ### Changes
@@ -672,7 +601,6 @@
 * :memo: add sample code for all supported APIs
 ### Fixes
 * :bug: fix for null classification field on custom APIs
-
 
 ## v3.4.0 - 2023-02-01
 ### Changes
@@ -687,11 +615,9 @@ It's still usable with no code modifications but will be **removed** in a future
 All users are encouraged to move to `FinancialDocumentV1` which has much better performance.
 Also field names in `FinancialDocumentV1` now match those of `Invoice` and `Receipt`.
 
-
 ## v3.3.0 - 2023-01-27
 ### Changes
 * sparkles: Add French carte grise v1 support
-
 
 ## v3.2.1 - 2023-01-18
 ### Changes
@@ -699,7 +625,6 @@ Also field names in `FinancialDocumentV1` now match those of `Invoice` and `Rece
 * :sparkles: Add support for Python 3.11
 ### Fixes
 * :bug: Fix misleading docstrings
-
 
 ## v3.2.0 - 2023-01-06
 ### Changes
@@ -710,11 +635,9 @@ Also field names in `FinancialDocumentV1` now match those of `Invoice` and `Rece
 * :memo: reorganize docs a bit
 * :arrow_up: update dependencies
 
-
 ## v3.1.1 - 2022-12-02
 ### Fixes
 * :bug: fix for invoice v4 URL
-
 
 ## v3.1.0 - 2022-12-01
 ### Changes
@@ -726,7 +649,6 @@ Also field names in `FinancialDocumentV1` now match those of `Invoice` and `Rece
 * :sparkles: Add Invoice V4 (clearer field names, line items) (#107)
 ### Fixes
 * :bug: page_n should always be set when available (#106)
-
 
 ## v3.0.0 - 2022-11-07
 ### ¡Breaking Changes!
@@ -743,7 +665,6 @@ Also field names in `FinancialDocumentV1` now match those of `Invoice` and `Rece
 * :bug: Make sure the user is specified when calling custom docs on CLI
 * :bug: Add default timeout of 120 seconds for endpoints.
 
-
 ## v2.6.0 - 2022-10-10
 ### Fixes
 * :bug: don't print "None" when filename is empty
@@ -755,11 +676,9 @@ Also field names in `FinancialDocumentV1` now match those of `Invoice` and `Rece
 * :sparkles: allow setting only the `MINDEE_API_KEY` environment variable
 * :arrow_up: update pikepdf
 
-
 ## v2.5.1 - 2022-08-30
 ### Fixes
 * :bug: never use mutable defaults in class definitions (#96)
-
 
 ## v2.5.0 - 2022-08-11
 ### Changes
@@ -767,7 +686,6 @@ Also field names in `FinancialDocumentV1` now match those of `Invoice` and `Rece
 * :arrow_up: general dependencies upgrade (#92)
 * :sparkles: add functions for working with centroids (#93)
 * :sparkles: Add bank checks documents (beta, US only) (#94)
-
 
 ## v2.4.0 - 2022-06-20
 ### Fixes
@@ -779,7 +697,6 @@ Also field names in `FinancialDocumentV1` now match those of `Invoice` and `Rece
 * :sparkles: Add real bounding boxes
 * :memo: publish documentation to pages
 
-
 ## v2.3.0 - 2022-05-23
 ### Fixes
 * :bug: make sure the 'Token' keyword is sent in the auth headers
@@ -790,7 +707,6 @@ Also field names in `FinancialDocumentV1` now match those of `Invoice` and `Rece
 * :recycle: minor cleanup / refactor
 * :memo: Add basic automated class documentation
 
-
 ## v2.2.0 - 2022-03-24
 ### Fixes
 * :bug: :boom: fix for customer_company_registration being a list of values
@@ -798,7 +714,6 @@ Also field names in `FinancialDocumentV1` now match those of `Invoice` and `Rece
 * :sparkles: allow specifying file closing behavior
 * :arrow_up: loosen setup.py requirements; update pinned dependencies
 * :white_check_mark: better testing of PDF pages
-
 
 ## v2.1.1 - 2022-03-15
 ### Fixes
@@ -811,14 +726,12 @@ Also field names in `FinancialDocumentV1` now match those of `Invoice` and `Rece
 * :technologist: add pre-commit to ensure proper code formatting
 * :art: fixes to import order (isort) and documentation (pydocstyle)
 
-
 ## v2.1.0 - 2022-03-02
 ### Changes
 * :sparkles: update to Invoices API v3
 * :recycle: refactor `Endpoint` classes and document building
 * :arrow_up: Update PikePDF to 5.0.1
 * :sparkles: add a basic logger
-
 
 ## v2.0.2 - 2022-02-21
 ### Fixes
@@ -827,7 +740,6 @@ Also field names in `FinancialDocumentV1` now match those of `Invoice` and `Rece
 * :sparkles: allow getting OCR return in CLI
 * :sparkles: Make sure all document information is printed
 
-
 ## v2.0.1 - 2022-02-15
 ### Fixes
 * :bug: fix for invoice to string
@@ -835,7 +747,6 @@ Also field names in `FinancialDocumentV1` now match those of `Invoice` and `Rece
 ### Changes
 * :arrow_up: Update PikePDF to 4.5.0
 * :arrow_up: Update Pillow to 9.0.1 (security fix)
-
 
 ## v2.0.0 - 2022-02-14
 ### New Features
@@ -849,14 +760,12 @@ Also field names in `FinancialDocumentV1` now match those of `Invoice` and `Rece
 * :arrow_up: Upgrade pikepdf to 4.4.1
 * :memo: Documentation migrated mainly to https://developers.mindee.com/docs
 
-
 ## v1.3.1 - 2022-02-03
 ### Fixes
 * :bug: fix probabilities not loaded from API
   [#49](https://github.com/mindee/mindee-api-python/issues/49)
 ### Changes
 * :sparkles: add CLI tool for testing
-
 
 ## v1.3.0 - 2022-01-17
 ### Fixes
@@ -871,13 +780,11 @@ Also field names in `FinancialDocumentV1` now match those of `Invoice` and `Rece
 * :pushpin: use `pip-tools` and `setup.py` to pin all dependencies
 * :page_facing_up: change to MIT license
 
-
 ## v1.2.3 - 2021-12-22
 ### Fixes
 * :arrow_up: upgrade pymupdf to 1.18.17
 * :bug: handle few PDF files considered blank
 * :white_check_mark: re-initialize file cursor in test
-
 
 ## v1.2.2 - 2021-10-11
 ### Fixes
@@ -886,12 +793,10 @@ Also field names in `FinancialDocumentV1` now match those of `Invoice` and `Rece
 * :sparkles: Added pdf page number parameter for multi-pages pdfs
 * :sparkles: Added a blank pages only PDF detection & error raising
 
-
 ## v1.2.1 - 2021-09-23
 ### Fixes
 * :bug: Forward uploaded file name for file verification rules
 * :bug: Change token management for new header format
-
 
 ## v1.2.0 - 2021-08-25
 ### Changes
@@ -900,31 +805,25 @@ Also field names in `FinancialDocumentV1` now match those of `Invoice` and `Rece
 * :heavy_minus_sign: Removed Numpy dependency
 * :white_check_mark: Updated tests with new data
 
-
 ## v1.1.3 - 2021-02-21
 ### Fixes
 * :zap: FinancialDoc attributes have same type from invoice or receipt
-
 
 ## v1.1.2 - 2021-02-19
 ### Fix
 * :bug: Fixed FinancialDoc invoice version and reconstruction
 
-
 ## v1.1.1 - 2021-01-31
 ### Changes
 * Updated total tax reconstruction for invoice
-
 
 ## v1.1.0 - 2020-12-02
 ### Changes
 * Updated invoice API endpoint to V2
 
-
 ## v1.0.2 - 2020-12-01
 ### Fix
 * Fixed null tax rate issue
-
 
 ## v1.0.0 - 2020-10-28
 * :tada: First release!
