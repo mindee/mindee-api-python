@@ -1,5 +1,5 @@
 import json
-from dataclasses import InitVar, dataclass, field
+from dataclasses import InitVar, asdict, dataclass, field
 from typing import IO
 
 from mindee.parsing.common.string_dict import StringDict
@@ -25,3 +25,7 @@ class RagAnnotation(StringDataClass):
             self.fields = AnnotatedFields(json.loads(raw_response)["fields"])
         else:
             self.fields = AnnotatedFields(json.load(raw_response)["fields"])
+
+    def to_dict(self) -> dict:
+        """Return a dictionary of the annotation."""
+        return asdict(self)

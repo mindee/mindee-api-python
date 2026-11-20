@@ -21,7 +21,7 @@ class RagDocumentAnnotationParameters(
     status: str | None = None
     """New public status to apply to the document (for example, to deactivate it)."""
 
-    annotation: RagAnnotation | TypeRagAnnotationInput | None = None
+    annotation: RagAnnotation | None = None
     """Field-level RAG annotation and guidelines configuration for the document."""
 
     _slug: ClassVar[str] = "extraction"
@@ -29,11 +29,27 @@ class RagDocumentAnnotationParameters(
         ExtractionRagAnnotationResponse
     )
 
-    def __post_init__(self) -> None:
-        if self.annotation is not None and not isinstance(
-            self.annotation, RagAnnotation
-        ):
-            self.annotation = RagAnnotation(self.annotation)
+    def __init__(
+        self,
+        *,
+        document_id: str,
+        status: str | None = None,
+        annotation: TypeRagAnnotationInput | RagAnnotation | None = None,
+        _response_class: type[
+            ExtractionRagAnnotationResponse
+        ] = ExtractionRagAnnotationResponse,
+    ) -> None:
+        super().__init__(
+            document_id=document_id,
+            _response_class=_response_class,
+        )
+        self.status = status
+        if isinstance(annotation, RagAnnotation):
+            self.annotation = annotation
+        elif annotation is not None:
+            self.annotation = RagAnnotation(annotation)
+        else:
+            self.annotation = None
 
     def get_request_parameters(self) -> dict[str, str | StringDict]:
         """Gets the request parameters for the upload request."""
