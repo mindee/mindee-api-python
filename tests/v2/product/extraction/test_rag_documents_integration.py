@@ -7,6 +7,7 @@ from mindee.v2 import Client
 from mindee.v2.error import MindeeHTTPErrorV2
 from mindee.v2.product.extraction.rag_documents import (
     ExtractionRagAnnotationResponse,
+    RagAnnotation,
     RagDocumentAnnotationParameters,
     RagDocumentUploadParameters,
 )
@@ -30,7 +31,7 @@ def test_rag_document_lifecycle_must_succeed(v2_client: Client):
     post_response = v2_client.upload_and_get_rag_document(input_source, post_parameters)
     assert post_response is not None
 
-    post_annotation = post_response.annotation
+    post_annotation: RagAnnotation = post_response.annotation
     assert post_annotation is not None
 
     document_id = post_response.id
@@ -40,6 +41,7 @@ def test_rag_document_lifecycle_must_succeed(v2_client: Client):
 
     post_annotation.fields["supplier_name"].selected = True
     post_annotation.fields["supplier_name"].guidelines = "I am the walrus!"
+    post_annotation.fields["supplier_name"].value = "Odobenus rosmarus"
     post_annotation.fields.get_simple_field("invoice_number").selected = True
     post_annotation.fields.get_simple_field(
         "invoice_number"
@@ -55,16 +57,20 @@ def test_rag_document_lifecycle_must_succeed(v2_client: Client):
     patch_annotation = patch_annotation_response.annotation
     assert patch_annotation is not None
 
+    assert patch_annotation.fields.get_simple_field("supplier_name").selected is True
     assert (
         patch_annotation.fields.get_simple_field("supplier_name").guidelines
         == "I am the walrus!"
     )
-    assert patch_annotation.fields.get_simple_field("supplier_name").selected is True
+    assert (
+        patch_annotation.fields.get_simple_field("supplier_name").value
+        == "Odobenus rosmarus"
+    )
+    assert patch_annotation.fields.get_simple_field("invoice_number").selected is True
     assert (
         patch_annotation.fields.get_simple_field("invoice_number").guidelines
         == "koo koo katchoo!"
     )
-    assert patch_annotation.fields.get_simple_field("invoice_number").selected is True
 
     get_response = v2_client.get_ready_rag_document(
         ExtractionRagAnnotationResponse, document_id
