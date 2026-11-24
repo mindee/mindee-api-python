@@ -9,6 +9,7 @@
   <title>V1 Mindee HTTP &mdash; Mindee Python Client  documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_autodoc_typehints.css?v=057ac668" />
 
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
@@ -71,14 +72,6 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#mindeeapi">MindeeAPI</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#mindee.v1.mindee_http.mindee_api.MindeeAPI"><code class="docutils literal notranslate"><span class="pre">MindeeAPI</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#workflow-endpoint">Workflow Endpoint</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#mindee.v1.mindee_http.workflow_endpoint.WorkflowEndpoint"><code class="docutils literal notranslate"><span class="pre">WorkflowEndpoint</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#workflow-settings">Workflow Settings</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#mindee.v1.mindee_http.workflow_settings.WorkflowSettings"><code class="docutils literal notranslate"><span class="pre">WorkflowSettings</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -166,7 +159,7 @@
 <dd><p>Set the base URL for all requests.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><span class="highlight sphinx_autodoc_typehints-value"><code class="xref py py-obj docutils literal notranslate"><span class="kc"><span class="pre">None</span></span></code></span></span></p>
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>value</strong> (<em>str</em>)</p>
@@ -180,7 +173,7 @@
 <dd><p>Set various parameters from environment variables, if present.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><span class="highlight sphinx_autodoc_typehints-value"><code class="xref py py-obj docutils literal notranslate"><span class="kc"><span class="pre">None</span></span></code></span></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -191,7 +184,7 @@
 <dd><p>Set the timeout for all requests.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><span class="highlight sphinx_autodoc_typehints-value"><code class="xref py py-obj docutils literal notranslate"><span class="kc"><span class="pre">None</span></span></code></span></span></p>
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>value</strong> (<em>str</em><em> | </em><em>int</em>)</p>
@@ -293,10 +286,10 @@
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>input_source</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="../input.html#mindee.input.LocalInputSource" title="mindee.input.local_input_source.LocalInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalInputSource</span></code></a> | <a class="reference internal" href="../input.html#mindee.input.URLInputSource" title="mindee.input.url_input_source.URLInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">URLInputSource</span></code></a></span>) – Input object</p></li>
-<li><p><strong>include_words</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Include raw OCR words in the response</p></li>
-<li><p><strong>close_file</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">True</span></code>) – Whether to <cite>close()</cite> the file after parsing it.</p></li>
-<li><p><strong>cropper</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Including Mindee cropping results.</p></li>
-<li><p><strong>full_text</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Whether to include the full OCR text response in compatible</p></li>
+<li><p><strong>include_words</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>, default: <span class="highlight sphinx_autodoc_typehints-value"><code class="docutils literal notranslate"><span class="kc"><span class="pre">False</span></span></code></span>) – Include raw OCR words in the response</p></li>
+<li><p><strong>close_file</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>, default: <span class="highlight sphinx_autodoc_typehints-value"><code class="docutils literal notranslate"><span class="kc"><span class="pre">True</span></span></code></span>) – Whether to <cite>close()</cite> the file after parsing it.</p></li>
+<li><p><strong>cropper</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>, default: <span class="highlight sphinx_autodoc_typehints-value"><code class="docutils literal notranslate"><span class="kc"><span class="pre">False</span></span></code></span>) – Including Mindee cropping results.</p></li>
+<li><p><strong>full_text</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>, default: <span class="highlight sphinx_autodoc_typehints-value"><code class="docutils literal notranslate"><span class="kc"><span class="pre">False</span></span></code></span>) – Whether to include the full OCR text response in compatible</p></li>
 <li><p><strong>workflow_id</strong> (<em>str</em><em> | </em><em>None</em>)</p></li>
 <li><p><strong>rag</strong> (<em>bool</em>)</p></li>
 </ul>
@@ -306,9 +299,9 @@
 </dd>
 </dl>
 <p>APIs.
-:type workflow_id: <span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code> | <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>
+:type workflow_id: <span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code> | <span class="highlight sphinx_autodoc_typehints-value"><code class="xref py py-obj docutils literal notranslate"><span class="kc"><span class="pre">None</span></span></code></span></span>, default: <span class="highlight sphinx_autodoc_typehints-value"><code class="docutils literal notranslate"><span class="kc"><span class="pre">None</span></span></code></span>
 :param workflow_id: Workflow ID.
-:type rag: <span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>
+:type rag: <span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>, default: <span class="highlight sphinx_autodoc_typehints-value"><code class="docutils literal notranslate"><span class="kc"><span class="pre">False</span></span></code></span>
 :param rag: If set, will enable Retrieval-Augmented Generation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -339,10 +332,10 @@
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>input_source</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="../input.html#mindee.input.LocalInputSource" title="mindee.input.local_input_source.LocalInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalInputSource</span></code></a> | <a class="reference internal" href="../input.html#mindee.input.URLInputSource" title="mindee.input.url_input_source.URLInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">URLInputSource</span></code></a></span>) – Input object</p></li>
-<li><p><strong>include_words</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Include raw OCR words in the response</p></li>
-<li><p><strong>close_file</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">True</span></code>) – Whether to <cite>close()</cite> the file after parsing it.</p></li>
-<li><p><strong>cropper</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Including Mindee cropping results.</p></li>
-<li><p><strong>full_text</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">False</span></code>) – Whether to include the full OCR text response in compatible</p></li>
+<li><p><strong>include_words</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>, default: <span class="highlight sphinx_autodoc_typehints-value"><code class="docutils literal notranslate"><span class="kc"><span class="pre">False</span></span></code></span>) – Include raw OCR words in the response</p></li>
+<li><p><strong>close_file</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>, default: <span class="highlight sphinx_autodoc_typehints-value"><code class="docutils literal notranslate"><span class="kc"><span class="pre">True</span></span></code></span>) – Whether to <cite>close()</cite> the file after parsing it.</p></li>
+<li><p><strong>cropper</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>, default: <span class="highlight sphinx_autodoc_typehints-value"><code class="docutils literal notranslate"><span class="kc"><span class="pre">False</span></span></code></span>) – Including Mindee cropping results.</p></li>
+<li><p><strong>full_text</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span>, default: <span class="highlight sphinx_autodoc_typehints-value"><code class="docutils literal notranslate"><span class="kc"><span class="pre">False</span></span></code></span>) – Whether to include the full OCR text response in compatible</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -406,7 +399,7 @@
 <dd><p>Set the base URL for all requests.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><span class="highlight sphinx_autodoc_typehints-value"><code class="xref py py-obj docutils literal notranslate"><span class="kc"><span class="pre">None</span></span></code></span></span></p>
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>value</strong> (<em>str</em>)</p>
@@ -420,7 +413,7 @@
 <dd><p>Set various parameters from environment variables, if present.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><span class="highlight sphinx_autodoc_typehints-value"><code class="xref py py-obj docutils literal notranslate"><span class="kc"><span class="pre">None</span></span></code></span></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -431,7 +424,7 @@
 <dd><p>Set the timeout for all requests.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><span class="highlight sphinx_autodoc_typehints-value"><code class="xref py py-obj docutils literal notranslate"><span class="kc"><span class="pre">None</span></span></code></span></span></p>
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>value</strong> (<em>str</em><em> | </em><em>int</em>)</p>
@@ -460,133 +453,6 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="mindee.v1.mindee_http.mindee_api.MindeeAPI.request_timeout">
 <span class="sig-name descname"><span class="pre">request_timeout</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="headerlink" href="#mindee.v1.mindee_http.mindee_api.MindeeAPI.request_timeout" title="Link to this definition"></a></dt>
-<dd><p>Timeout for all requests.</p>
-</dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="workflow-endpoint">
-<h2>Workflow Endpoint<a class="headerlink" href="#workflow-endpoint" title="Link to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="mindee.v1.mindee_http.workflow_endpoint.WorkflowEndpoint">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">WorkflowEndpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">http_client</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v1.mindee_http.workflow_endpoint.WorkflowEndpoint" title="Link to this definition"></a></dt>
-<dd><p>Workflow endpoint.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>settings</strong> (<a class="reference internal" href="#mindee.v1.mindee_http.workflow_settings.WorkflowSettings" title="mindee.v1.mindee_http.workflow_settings.WorkflowSettings"><em>WorkflowSettings</em></a>)</p></li>
-<li><p><strong>http_client</strong> (<em>Client</em><em> | </em><em>None</em>)</p></li>
-</ul>
-</dd>
-</dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="mindee.v1.mindee_http.workflow_endpoint.WorkflowEndpoint.workflow_execution_post">
-<span class="sig-name descname"><span class="pre">workflow_execution_post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v1.mindee_http.workflow_endpoint.WorkflowEndpoint.workflow_execution_post" title="Link to this definition"></a></dt>
-<dd><p>Sends the document to the workflow.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>input_source</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="../input.html#mindee.input.LocalInputSource" title="mindee.input.local_input_source.LocalInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalInputSource</span></code></a> | <a class="reference internal" href="../input.html#mindee.input.URLInputSource" title="mindee.input.url_input_source.URLInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">URLInputSource</span></code></a></span>) – The document/source file to use.
-Has to be created beforehand.</p></li>
-<li><p><strong>options</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="client_options.html#mindee.v1.client_options.workflow_options.WorkflowOptions" title="mindee.v1.client_options.workflow_options.WorkflowOptions"><code class="xref py py-class docutils literal notranslate"><span class="pre">WorkflowOptions</span></code></a></span>) – Options for the workflow.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.v1.mindee_http.workflow_endpoint.WorkflowEndpoint.http_client">
-<span class="sig-name descname"><span class="pre">http_client</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Client</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#mindee.v1.mindee_http.workflow_endpoint.WorkflowEndpoint.http_client" title="Link to this definition"></a></dt>
-<dd><p>HTTP client for making requests.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.v1.mindee_http.workflow_endpoint.WorkflowEndpoint.settings">
-<span class="sig-name descname"><span class="pre">settings</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.v1.mindee_http.workflow_settings.WorkflowSettings" title="mindee.v1.mindee_http.workflow_settings.WorkflowSettings"><span class="pre">WorkflowSettings</span></a></span><a class="headerlink" href="#mindee.v1.mindee_http.workflow_endpoint.WorkflowEndpoint.settings" title="Link to this definition"></a></dt>
-<dd><p>Settings object.</p>
-</dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="workflow-settings">
-<h2>Workflow Settings<a class="headerlink" href="#workflow-settings" title="Link to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="mindee.v1.mindee_http.workflow_settings.WorkflowSettings">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">WorkflowSettings</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">api_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">workflow_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v1.mindee_http.workflow_settings.WorkflowSettings" title="Link to this definition"></a></dt>
-<dd><p>Settings class relating to workflow requests.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>api_key</strong> (<em>str</em><em> | </em><em>None</em>)</p></li>
-<li><p><strong>workflow_id</strong> (<em>str</em>)</p></li>
-</ul>
-</dd>
-</dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="mindee.v1.mindee_http.workflow_settings.WorkflowSettings.set_base_url">
-<span class="sig-name descname"><span class="pre">set_base_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v1.mindee_http.workflow_settings.WorkflowSettings.set_base_url" title="Link to this definition"></a></dt>
-<dd><p>Set the base URL for all requests.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
-</dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>value</strong> (<em>str</em>)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="mindee.v1.mindee_http.workflow_settings.WorkflowSettings.set_from_env">
-<span class="sig-name descname"><span class="pre">set_from_env</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v1.mindee_http.workflow_settings.WorkflowSettings.set_from_env" title="Link to this definition"></a></dt>
-<dd><p>Set various parameters from environment variables, if present.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="mindee.v1.mindee_http.workflow_settings.WorkflowSettings.set_timeout">
-<span class="sig-name descname"><span class="pre">set_timeout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v1.mindee_http.workflow_settings.WorkflowSettings.set_timeout" title="Link to this definition"></a></dt>
-<dd><p>Set the timeout for all requests.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
-</dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>value</strong> (<em>str</em><em> | </em><em>int</em>)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.v1.mindee_http.workflow_settings.WorkflowSettings.api_key">
-<span class="sig-name descname"><span class="pre">api_key</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><a class="headerlink" href="#mindee.v1.mindee_http.workflow_settings.WorkflowSettings.api_key" title="Link to this definition"></a></dt>
-<dd><p>API Key for the client.</p>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="mindee.v1.mindee_http.workflow_settings.WorkflowSettings.base_headers">
-<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">base_headers</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#mindee.v1.mindee_http.workflow_settings.WorkflowSettings.base_headers" title="Link to this definition"></a></dt>
-<dd><p>Base headers to send with all API requests.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.v1.mindee_http.workflow_settings.WorkflowSettings.base_url">
-<span class="sig-name descname"><span class="pre">base_url</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#mindee.v1.mindee_http.workflow_settings.WorkflowSettings.base_url" title="Link to this definition"></a></dt>
-<dd><p>Base URL for all V2 requests.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="mindee.v1.mindee_http.workflow_settings.WorkflowSettings.request_timeout">
-<span class="sig-name descname"><span class="pre">request_timeout</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></span><a class="headerlink" href="#mindee.v1.mindee_http.workflow_settings.WorkflowSettings.request_timeout" title="Link to this definition"></a></dt>
 <dd><p>Timeout for all requests.</p>
 </dd></dl>
 

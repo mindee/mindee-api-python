@@ -8,6 +8,7 @@
   <title>Index &mdash; Mindee Python Client  documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/sphinx_autodoc_typehints.css?v=057ac668" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
@@ -115,18 +116,10 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="v1/product/fr/carte_grise_v1.html#mindee.v1.product.fr.carte_grise.carte_grise_v1_document.CarteGriseV1Document.a">a (CarteGriseV1Document attribute)</a>
 </li>
-      <li><a href="v1/product/fr/bank_account_details_v1.html#mindee.v1.product.fr.bank_account_details.bank_account_details_v1_document.BankAccountDetailsV1Document.account_holder_name">account_holder_name (BankAccountDetailsV1Document attribute)</a>
-</li>
       <li><a href="v1/product/fr/bank_account_details_v2.html#mindee.v1.product.fr.bank_account_details.bank_account_details_v2_document.BankAccountDetailsV2Document.account_holders_names">account_holders_names (BankAccountDetailsV2Document attribute)</a>
 </li>
-      <li><a href="v1/product/us/bank_check_v1.html#mindee.v1.product.us.bank_check.bank_check_v1_document.BankCheckV1Document.account_number">account_number (BankCheckV1Document attribute)</a>
-
-      <ul>
-        <li><a href="v1/product/us/bank_check_v1.html#mindee.v1.product.us.bank_check.bank_check_v1_page.BankCheckV1Page.account_number">(BankCheckV1Page attribute)</a>
+      <li><a href="v1/parsing/standard.html#mindee.v1.parsing.standard.payment_details.PaymentDetailsField.account_number">account_number (PaymentDetailsField attribute)</a>
 </li>
-        <li><a href="v1/parsing/standard.html#mindee.v1.parsing.standard.payment_details.PaymentDetailsField.account_number">(PaymentDetailsField attribute)</a>
-</li>
-      </ul></li>
       <li><a href="v2/product/extraction/index.html#mindee.v2.product.extraction.extraction_inference.ExtractionInference.active_options">active_options (ExtractionInference attribute)</a>
 </li>
       <li><a href="v1/parsing/common.html#mindee.v1.parsing.common.extras.extras.Extras.add_artificial_extra">add_artificial_extra() (Extras method)</a>
@@ -172,8 +165,6 @@
 </li>
         <li><a href="v2/product/crop/params.html#mindee.v2.product.crop.params.crop_parameters.CropParameters.alias">(CropParameters attribute)</a>
 </li>
-        <li><a href="v1/parsing/common.html#mindee.v1.parsing.common.execution_file.ExecutionFile.alias">(ExecutionFile attribute)</a>
-</li>
         <li><a href="v2/product/extraction/params.html#mindee.v2.product.extraction.params.extraction_parameters.ExtractionParameters.alias">(ExtractionParameters attribute)</a>
 </li>
         <li><a href="v2/parsing/inference/index.html#mindee.v2.parsing.inference.inference_file.InferenceFile.alias">(InferenceFile attribute)</a>
@@ -184,8 +175,6 @@
 </li>
         <li><a href="v2/product/split/params.html#mindee.v2.product.split.params.split_parameters.SplitParameters.alias">(SplitParameters attribute)</a>
 </li>
-        <li><a href="v1/client_options.html#mindee.v1.client_options.workflow_options.WorkflowOptions.alias">(WorkflowOptions attribute)</a>
-</li>
       </ul></li>
       <li><a href="v1/parsing/common.html#mindee.v1.parsing.common.ocr.ocr_page.OCRPage.all_lines">all_lines (OCRPage property)</a>
 </li>
@@ -195,12 +184,6 @@
 
       <ul>
         <li><a href="v1/product/fr/id_card_v2.html#mindee.v1.product.fr.id_card.id_card_v2_page.IdCardV2Page.alternate_name">(IdCardV2Page attribute)</a>
-</li>
-      </ul></li>
-      <li><a href="v1/product/us/bank_check_v1.html#mindee.v1.product.us.bank_check.bank_check_v1_document.BankCheckV1Document.amount">amount (BankCheckV1Document attribute)</a>
-
-      <ul>
-        <li><a href="v1/product/us/bank_check_v1.html#mindee.v1.product.us.bank_check.bank_check_v1_page.BankCheckV1Page.amount">(BankCheckV1Page attribute)</a>
 </li>
       </ul></li>
       <li><a href="v1/parsing/standard.html#mindee.v1.parsing.standard.amount.AmountField">AmountField (class in mindee.v1.parsing.standard.amount)</a>
@@ -231,8 +214,6 @@
         <li><a href="v1/mindee_http.html#mindee.v1.mindee_http.mindee_api.MindeeAPI.api_key">(MindeeAPI attribute)</a>
 </li>
         <li><a href="v2/mindee_http.html#mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.api_key">(MindeeAPIV2 attribute)</a>
-</li>
-        <li><a href="v1/mindee_http.html#mindee.v1.mindee_http.workflow_settings.WorkflowSettings.api_key">(WorkflowSettings attribute)</a>
 </li>
       </ul></li>
       <li><a href="error.html#mindee.error.MindeeHTTPClientError.api_message">api_message (MindeeHTTPClientError attribute)</a>
@@ -297,22 +278,14 @@
 </li>
       <li><a href="v1/parsing/common.html#mindee.v1.parsing.common.async_predict_response.AsyncPredictResponse">AsyncPredictResponse (class in mindee.v1.parsing.common.async_predict_response)</a>
 </li>
-      <li><a href="v1/product/fr/id_card_v1.html#mindee.v1.product.fr.id_card.id_card_v1_document.IdCardV1Document.authority">authority (IdCardV1Document attribute)</a>
+      <li><a href="v1/product/fr/id_card_v2.html#mindee.v1.product.fr.id_card.id_card_v2_document.IdCardV2Document.authority">authority (IdCardV2Document attribute)</a>
 
       <ul>
-        <li><a href="v1/product/fr/id_card_v1.html#mindee.v1.product.fr.id_card.id_card_v1_page.IdCardV1Page.authority">(IdCardV1Page attribute)</a>
-</li>
-        <li><a href="v1/product/fr/id_card_v2.html#mindee.v1.product.fr.id_card.id_card_v2_document.IdCardV2Document.authority">(IdCardV2Document attribute)</a>
-</li>
         <li><a href="v1/product/fr/id_card_v2.html#mindee.v1.product.fr.id_card.id_card_v2_page.IdCardV2Page.authority">(IdCardV2Page attribute)</a>
 </li>
       </ul></li>
-      <li><a href="v1/parsing/common.html#mindee.v1.parsing.common.execution.Execution.available_at">available_at (Execution attribute)</a>
-
-      <ul>
-        <li><a href="v1/parsing/common.html#mindee.v1.parsing.common.job.Job.available_at">(Job attribute)</a>
+      <li><a href="v1/parsing/common.html#mindee.v1.parsing.common.job.Job.available_at">available_at (Job attribute)</a>
 </li>
-      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -321,25 +294,11 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="v1/product/fr/carte_grise_v1.html#mindee.v1.product.fr.carte_grise.carte_grise_v1_document.CarteGriseV1Document.b">b (CarteGriseV1Document attribute)</a>
 </li>
-      <li><a href="v1/product/fr/bank_account_details_v1.html#mindee.v1.product.fr.bank_account_details.bank_account_details_v1.BankAccountDetailsV1">BankAccountDetailsV1 (class in mindee.v1.product.fr.bank_account_details.bank_account_details_v1)</a>
-</li>
-      <li><a href="v1/product/fr/bank_account_details_v1.html#mindee.v1.product.fr.bank_account_details.bank_account_details_v1_document.BankAccountDetailsV1Document">BankAccountDetailsV1Document (class in mindee.v1.product.fr.bank_account_details.bank_account_details_v1_document)</a>
-</li>
       <li><a href="v1/product/fr/bank_account_details_v2.html#mindee.v1.product.fr.bank_account_details.bank_account_details_v2.BankAccountDetailsV2">BankAccountDetailsV2 (class in mindee.v1.product.fr.bank_account_details.bank_account_details_v2)</a>
 </li>
       <li><a href="v1/product/fr/bank_account_details_v2.html#mindee.v1.product.fr.bank_account_details.bank_account_details_v2_bban.BankAccountDetailsV2Bban">BankAccountDetailsV2Bban (class in mindee.v1.product.fr.bank_account_details.bank_account_details_v2_bban)</a>
 </li>
       <li><a href="v1/product/fr/bank_account_details_v2.html#mindee.v1.product.fr.bank_account_details.bank_account_details_v2_document.BankAccountDetailsV2Document">BankAccountDetailsV2Document (class in mindee.v1.product.fr.bank_account_details.bank_account_details_v2_document)</a>
-</li>
-      <li><a href="v1/product/us/bank_check_v1.html#mindee.v1.product.us.bank_check.bank_check_v1.BankCheckV1">BankCheckV1 (class in mindee.v1.product.us.bank_check.bank_check_v1)</a>
-</li>
-      <li><a href="v1/product/us/bank_check_v1.html#mindee.v1.product.us.bank_check.bank_check_v1_document.BankCheckV1Document">BankCheckV1Document (class in mindee.v1.product.us.bank_check.bank_check_v1_document)</a>
-</li>
-      <li><a href="v1/product/us/bank_check_v1.html#mindee.v1.product.us.bank_check.bank_check_v1_page.BankCheckV1Page">BankCheckV1Page (class in mindee.v1.product.us.bank_check.bank_check_v1_page)</a>
-</li>
-      <li><a href="v1/product/barcode_reader_v1.html#mindee.v1.product.barcode_reader.barcode_reader_v1.BarcodeReaderV1">BarcodeReaderV1 (class in mindee.v1.product.barcode_reader.barcode_reader_v1)</a>
-</li>
-      <li><a href="v1/product/barcode_reader_v1.html#mindee.v1.product.barcode_reader.barcode_reader_v1_document.BarcodeReaderV1Document">BarcodeReaderV1Document (class in mindee.v1.product.barcode_reader.barcode_reader_v1_document)</a>
 </li>
       <li><a href="input.html#mindee.input.Base64Input">Base64Input (class in mindee.input)</a>
 </li>
@@ -350,8 +309,6 @@
 </li>
         <li><a href="v2/mindee_http.html#mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.base_headers">(MindeeAPIV2 property)</a>
 </li>
-        <li><a href="v1/mindee_http.html#mindee.v1.mindee_http.workflow_settings.WorkflowSettings.base_headers">(WorkflowSettings property)</a>
-</li>
       </ul></li>
       <li><a href="v1/mindee_http.html#mindee.v1.mindee_http.base_settings.BaseSettings.base_url">base_url (BaseSettings attribute)</a>
 
@@ -361,8 +318,6 @@
         <li><a href="v2/mindee_http.html#mindee.v2.mindee_http.mindee_api_v2.MindeeAPIV2.base_url">(MindeeAPIV2 attribute)</a>
 </li>
         <li><a href="mindee_http.html#mindee.mindee_http.settings_mixin.SettingsMixin.base_url">(SettingsMixin attribute)</a>
-</li>
-        <li><a href="v1/mindee_http.html#mindee.v1.mindee_http.workflow_settings.WorkflowSettings.base_url">(WorkflowSettings attribute)</a>
 </li>
       </ul></li>
       <li><a href="v1/mindee_http.html#mindee.v1.mindee_http.base_endpoint.BaseEndpoint">BaseEndpoint (class in mindee.v1.mindee_http.base_endpoint)</a>
@@ -375,6 +330,8 @@
       </ul></li>
       <li><a href="v2/parsing/inference/index.html#mindee.v2.parsing.inference.base_inference.BaseInference">BaseInference (class in mindee.v2.parsing.inference.base_inference)</a>
 </li>
+      <li><a href="v2/parsing/inference/index.html#mindee.v2.parsing.inference.base_inference_response.BaseInferenceResponse">BaseInferenceResponse (class in mindee.v2.parsing.inference.base_inference_response)</a>
+</li>
       <li><a href="v2/client_options.html#mindee.v2.client_options.base_product_parameters.BaseProductParameters">BaseProductParameters (class in mindee.v2.client_options.base_product_parameters)</a>
 </li>
       <li><a href="v2/client_options.html#mindee.v2.client_options.base_search_parameters.BaseSearchParameters">BaseSearchParameters (class in mindee.v2.client_options.base_search_parameters)</a>
@@ -382,8 +339,6 @@
       <li><a href="v1/mindee_http.html#mindee.v1.mindee_http.base_settings.BaseSettings">BaseSettings (class in mindee.v1.mindee_http.base_settings)</a>
 </li>
       <li><a href="v1/parsing/standard.html#mindee.v1.parsing.standard.tax.TaxField.basis">basis (TaxField attribute)</a>
-</li>
-      <li><a href="v1/parsing/common.html#mindee.v1.parsing.common.execution.Execution.batch_name">batch_name (Execution attribute)</a>
 </li>
       <li><a href="v1/product/fr/bank_account_details_v2.html#mindee.v1.product.fr.bank_account_details.bank_account_details_v2_document.BankAccountDetailsV2Document.bban">bban (BankAccountDetailsV2Document attribute)</a>
 </li>
@@ -405,15 +360,9 @@
         <li><a href="v1/product/invoice_v4.html#mindee.v1.product.invoice.invoice_v4_document.InvoiceV4Document.billing_address">(InvoiceV4Document attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="v1/product/fr/id_card_v1.html#mindee.v1.product.fr.id_card.id_card_v1_document.IdCardV1Document.birth_date">birth_date (IdCardV1Document attribute)</a>
+      <li><a href="v1/product/fr/id_card_v2.html#mindee.v1.product.fr.id_card.id_card_v2_document.IdCardV2Document.birth_date">birth_date (IdCardV2Document attribute)</a>
 
       <ul>
-        <li><a href="v1/product/fr/id_card_v1.html#mindee.v1.product.fr.id_card.id_card_v1_page.IdCardV1Page.birth_date">(IdCardV1Page attribute)</a>
-</li>
-        <li><a href="v1/product/fr/id_card_v2.html#mindee.v1.product.fr.id_card.id_card_v2_document.IdCardV2Document.birth_date">(IdCardV2Document attribute)</a>
-</li>
         <li><a href="v1/product/fr/id_card_v2.html#mindee.v1.product.fr.id_card.id_card_v2_page.IdCardV2Page.birth_date">(IdCardV2Page attribute)</a>
 </li>
         <li><a href="v1/product/international_id_v2.html#mindee.v1.product.international_id.international_id_v2_document.InternationalIdV2Document.birth_date">(InternationalIdV2Document attribute)</a>
@@ -421,13 +370,11 @@
         <li><a href="v1/product/passport_v1.html#mindee.v1.product.passport.passport_v1_document.PassportV1Document.birth_date">(PassportV1Document attribute)</a>
 </li>
       </ul></li>
-      <li><a href="v1/product/fr/id_card_v1.html#mindee.v1.product.fr.id_card.id_card_v1_document.IdCardV1Document.birth_place">birth_place (IdCardV1Document attribute)</a>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="v1/product/fr/id_card_v2.html#mindee.v1.product.fr.id_card.id_card_v2_document.IdCardV2Document.birth_place">birth_place (IdCardV2Document attribute)</a>
 
       <ul>
-        <li><a href="v1/product/fr/id_card_v1.html#mindee.v1.product.fr.id_card.id_card_v1_page.IdCardV1Page.birth_place">(IdCardV1Page attribute)</a>
-</li>
-        <li><a href="v1/product/fr/id_card_v2.html#mindee.v1.product.fr.id_card.id_card_v2_document.IdCardV2Document.birth_place">(IdCardV2Document attribute)</a>
-</li>
         <li><a href="v1/product/fr/id_card_v2.html#mindee.v1.product.fr.id_card.id_card_v2_page.IdCardV2Page.birth_place">(IdCardV2Page attribute)</a>
 </li>
         <li><a href="v1/product/international_id_v2.html#mindee.v1.product.international_id.international_id_v2_document.InternationalIdV2Document.birth_place">(InternationalIdV2Document attribute)</a>
@@ -543,14 +490,6 @@
       </ul></li>
       <li><a href="pdf.html#mindee.pdf.PDFCharData.char">char (PDFCharData attribute)</a>
 </li>
-      <li><a href="v1/product/us/bank_check_v1.html#mindee.v1.product.us.bank_check.bank_check_v1_document.BankCheckV1Document.check_number">check_number (BankCheckV1Document attribute)</a>
-
-      <ul>
-        <li><a href="v1/product/us/bank_check_v1.html#mindee.v1.product.us.bank_check.bank_check_v1_page.BankCheckV1Page.check_number">(BankCheckV1Page attribute)</a>
-</li>
-      </ul></li>
-      <li><a href="v1/product/us/bank_check_v1.html#mindee.v1.product.us.bank_check.bank_check_v1_page.BankCheckV1Page.check_position">check_position (BankCheckV1Page attribute)</a>
-</li>
       <li><a href="v1/parsing/standard.html#mindee.v1.parsing.standard.address.AddressField.city">city (AddressField attribute)</a>
 </li>
       <li><a href="v2/product/extraction/params.html#mindee.v2.product.extraction.params.data_schema_field.DataSchemaField.classification_values">classification_values (DataSchemaField attribute)</a>
@@ -631,10 +570,6 @@
         <li><a href="v1/parsing/standard.html#mindee.v1.parsing.standard.tax.TaxField.code">(TaxField attribute)</a>
 </li>
       </ul></li>
-      <li><a href="v1/product/barcode_reader_v1.html#mindee.v1.product.barcode_reader.barcode_reader_v1_document.BarcodeReaderV1Document.codes_1d">codes_1d (BarcodeReaderV1Document attribute)</a>
-</li>
-      <li><a href="v1/product/barcode_reader_v1.html#mindee.v1.product.barcode_reader.barcode_reader_v1_document.BarcodeReaderV1Document.codes_2d">codes_2d (BarcodeReaderV1Document attribute)</a>
-</li>
       <li><a href="v1/product/custom_v1.html#mindee.v1.product.custom.custom_v1.CustomV1Document.columns_to_line_items">columns_to_line_items() (CustomV1Document method)</a>
 
       <ul>
@@ -769,11 +704,9 @@
 </li>
       <li><a href="v1/client.html#mindee.v1.client.Client.create_endpoint">create_endpoint() (Client method)</a>
 </li>
-      <li><a href="v1/parsing/common.html#mindee.v1.parsing.common.execution.Execution.created_at">created_at (Execution attribute)</a>
+      <li><a href="v2/parsing/job.html#mindee.v2.parsing.job.job.Job.created_at">created_at (Job attribute)</a>
 
       <ul>
-        <li><a href="v2/parsing/job.html#mindee.v2.parsing.job.job.Job.created_at">(Job attribute)</a>
-</li>
         <li><a href="v2/parsing/job.html#mindee.v2.parsing.job.job_webhook.JobWebhook.created_at">(JobWebhook attribute)</a>
 </li>
         <li><a href="v2/parsing/search.html#mindee.v2.parsing.search.search_rag_document.SearchRagDocument.created_at">(SearchRagDocument attribute)</a>
@@ -857,13 +790,9 @@
 </li>
       <li><a href="v2/product/extraction/params.html#mindee.v2.product.extraction.params.data_schema_replace.DataSchemaReplace">DataSchemaReplace (class in mindee.v2.product.extraction.params.data_schema_replace)</a>
 </li>
-      <li><a href="v1/product/us/bank_check_v1.html#mindee.v1.product.us.bank_check.bank_check_v1_document.BankCheckV1Document.date">date (BankCheckV1Document attribute)</a>
+      <li><a href="v1/product/financial_document_v1.html#mindee.v1.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.date">date (FinancialDocumentV1Document attribute)</a>
 
       <ul>
-        <li><a href="v1/product/us/bank_check_v1.html#mindee.v1.product.us.bank_check.bank_check_v1_page.BankCheckV1Page.date">(BankCheckV1Page attribute)</a>
-</li>
-        <li><a href="v1/product/financial_document_v1.html#mindee.v1.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.date">(FinancialDocumentV1Document attribute)</a>
-</li>
         <li><a href="v1/product/invoice_v4.html#mindee.v1.product.invoice.invoice_v4_document.InvoiceV4Document.date">(InvoiceV4Document attribute)</a>
 </li>
         <li><a href="v1/product/receipt_v5.html#mindee.v1.product.receipt.receipt_v5_document.ReceiptV5Document.date">(ReceiptV5Document attribute)</a>
@@ -893,8 +822,6 @@
       </ul></li>
       <li><a href="input.html#mindee.input.LocalResponse.deserialize_response">deserialize_response() (LocalResponse method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="v2/parsing/error.html#mindee.v2.parsing.error.error_item.ErrorItem.detail">detail (ErrorItem attribute)</a>
 
       <ul>
@@ -903,6 +830,8 @@
         <li><a href="v2/error.html#mindee.v2.error.mindee_http_error_v2.MindeeHTTPErrorV2.detail">(MindeeHTTPErrorV2 attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="v1/parsing/common.html#mindee.v1.parsing.common.document.Document">Document (class in mindee.v1.parsing.common.document)</a>
 </li>
       <li><a href="v1/parsing/common.html#mindee.v1.parsing.common.predict_response.PredictResponse.document">document (PredictResponse attribute)</a>
@@ -921,12 +850,8 @@
       </ul></li>
       <li><a href="v1/mindee_http.html#mindee.v1.mindee_http.endpoint.Endpoint.document_queue_req_get">document_queue_req_get() (Endpoint method)</a>
 </li>
-      <li><a href="v1/product/fr/id_card_v1.html#mindee.v1.product.fr.id_card.id_card_v1_page.IdCardV1Page.document_side">document_side (IdCardV1Page attribute)</a>
-
-      <ul>
-        <li><a href="v1/product/fr/id_card_v2.html#mindee.v1.product.fr.id_card.id_card_v2_page.IdCardV2Page.document_side">(IdCardV2Page attribute)</a>
+      <li><a href="v1/product/fr/id_card_v2.html#mindee.v1.product.fr.id_card.id_card_v2_page.IdCardV2Page.document_side">document_side (IdCardV2Page attribute)</a>
 </li>
-      </ul></li>
       <li><a href="v2/product/classification/index.html#mindee.v2.product.classification.classification_classifier.ClassificationClassifier.document_type">document_type (ClassificationClassifier attribute)</a>
 
       <ul>
@@ -967,15 +892,9 @@
 </li>
       <li><a href="v1/mindee_http.html#mindee.v1.mindee_http.endpoint.Endpoint">Endpoint (class in mindee.v1.mindee_http.endpoint)</a>
 </li>
-      <li><a href="v1/product/fr/bank_account_details_v1.html#mindee.v1.product.fr.bank_account_details.bank_account_details_v1.BankAccountDetailsV1.endpoint_name">endpoint_name (BankAccountDetailsV1 attribute)</a>
+      <li><a href="v1/product/fr/bank_account_details_v2.html#mindee.v1.product.fr.bank_account_details.bank_account_details_v2.BankAccountDetailsV2.endpoint_name">endpoint_name (BankAccountDetailsV2 attribute)</a>
 
       <ul>
-        <li><a href="v1/product/fr/bank_account_details_v2.html#mindee.v1.product.fr.bank_account_details.bank_account_details_v2.BankAccountDetailsV2.endpoint_name">(BankAccountDetailsV2 attribute)</a>
-</li>
-        <li><a href="v1/product/us/bank_check_v1.html#mindee.v1.product.us.bank_check.bank_check_v1.BankCheckV1.endpoint_name">(BankCheckV1 attribute)</a>
-</li>
-        <li><a href="v1/product/barcode_reader_v1.html#mindee.v1.product.barcode_reader.barcode_reader_v1.BarcodeReaderV1.endpoint_name">(BarcodeReaderV1 attribute)</a>
-</li>
         <li><a href="v1/product/fr/carte_grise_v1.html#mindee.v1.product.fr.carte_grise.carte_grise_v1.CarteGriseV1.endpoint_name">(CarteGriseV1 attribute)</a>
 </li>
         <li><a href="v1/product/cropper_v1.html#mindee.v1.product.cropper.cropper_v1.CropperV1.endpoint_name">(CropperV1 attribute)</a>
@@ -985,8 +904,6 @@
         <li><a href="v1/product/financial_document_v1.html#mindee.v1.product.financial_document.financial_document_v1.FinancialDocumentV1.endpoint_name">(FinancialDocumentV1 attribute)</a>
 </li>
         <li><a href="v1/product/generated_v1.html#mindee.v1.product.generated.generated_v1.GeneratedV1.endpoint_name">(GeneratedV1 attribute)</a>
-</li>
-        <li><a href="v1/product/fr/id_card_v1.html#mindee.v1.product.fr.id_card.id_card_v1.IdCardV1.endpoint_name">(IdCardV1 attribute)</a>
 </li>
         <li><a href="v1/product/fr/id_card_v2.html#mindee.v1.product.fr.id_card.id_card_v2.IdCardV2.endpoint_name">(IdCardV2 attribute)</a>
 </li>
@@ -1003,15 +920,9 @@
         <li><a href="v1/product/receipt_v5.html#mindee.v1.product.receipt.receipt_v5.ReceiptV5.endpoint_name">(ReceiptV5 attribute)</a>
 </li>
       </ul></li>
-      <li><a href="v1/product/fr/bank_account_details_v1.html#mindee.v1.product.fr.bank_account_details.bank_account_details_v1.BankAccountDetailsV1.endpoint_version">endpoint_version (BankAccountDetailsV1 attribute)</a>
+      <li><a href="v1/product/fr/bank_account_details_v2.html#mindee.v1.product.fr.bank_account_details.bank_account_details_v2.BankAccountDetailsV2.endpoint_version">endpoint_version (BankAccountDetailsV2 attribute)</a>
 
       <ul>
-        <li><a href="v1/product/fr/bank_account_details_v2.html#mindee.v1.product.fr.bank_account_details.bank_account_details_v2.BankAccountDetailsV2.endpoint_version">(BankAccountDetailsV2 attribute)</a>
-</li>
-        <li><a href="v1/product/us/bank_check_v1.html#mindee.v1.product.us.bank_check.bank_check_v1.BankCheckV1.endpoint_version">(BankCheckV1 attribute)</a>
-</li>
-        <li><a href="v1/product/barcode_reader_v1.html#mindee.v1.product.barcode_reader.barcode_reader_v1.BarcodeReaderV1.endpoint_version">(BarcodeReaderV1 attribute)</a>
-</li>
         <li><a href="v1/product/fr/carte_grise_v1.html#mindee.v1.product.fr.carte_grise.carte_grise_v1.CarteGriseV1.endpoint_version">(CarteGriseV1 attribute)</a>
 </li>
         <li><a href="v1/product/cropper_v1.html#mindee.v1.product.cropper.cropper_v1.CropperV1.endpoint_version">(CropperV1 attribute)</a>
@@ -1021,8 +932,6 @@
         <li><a href="v1/product/financial_document_v1.html#mindee.v1.product.financial_document.financial_document_v1.FinancialDocumentV1.endpoint_version">(FinancialDocumentV1 attribute)</a>
 </li>
         <li><a href="v1/product/generated_v1.html#mindee.v1.product.generated.generated_v1.GeneratedV1.endpoint_version">(GeneratedV1 attribute)</a>
-</li>
-        <li><a href="v1/product/fr/id_card_v1.html#mindee.v1.product.fr.id_card.id_card_v1.IdCardV1.endpoint_version">(IdCardV1 attribute)</a>
 </li>
         <li><a href="v1/product/fr/id_card_v2.html#mindee.v1.product.fr.id_card.id_card_v2.IdCardV2.endpoint_version">(IdCardV2 attribute)</a>
 </li>
@@ -1063,25 +972,11 @@
         <li><a href="v2/error.html#mindee.v2.error.mindee_http_error_v2.MindeeHTTPErrorV2.errors">(MindeeHTTPErrorV2 attribute)</a>
 </li>
       </ul></li>
-      <li><a href="v1/client.html#mindee.v1.client.Client.execute_workflow">execute_workflow() (Client method)</a>
-</li>
-      <li><a href="v1/parsing/common.html#mindee.v1.parsing.common.execution.Execution">Execution (class in mindee.v1.parsing.common.execution)</a>
-</li>
-      <li><a href="v1/parsing/common.html#mindee.v1.parsing.common.workflow_response.WorkflowResponse.execution">execution (WorkflowResponse attribute)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="v1/parsing/common.html#mindee.v1.parsing.common.execution_file.ExecutionFile">ExecutionFile (class in mindee.v1.parsing.common.execution_file)</a>
-</li>
       <li><a href="v2/parsing/inference/field.html#mindee.v2.parsing.inference.field.field_confidence.FieldConfidence.expandtabs">expandtabs() (FieldConfidence method)</a>
 </li>
-      <li><a href="v1/product/fr/id_card_v1.html#mindee.v1.product.fr.id_card.id_card_v1_document.IdCardV1Document.expiry_date">expiry_date (IdCardV1Document attribute)</a>
+      <li><a href="v1/product/fr/id_card_v2.html#mindee.v1.product.fr.id_card.id_card_v2_document.IdCardV2Document.expiry_date">expiry_date (IdCardV2Document attribute)</a>
 
       <ul>
-        <li><a href="v1/product/fr/id_card_v1.html#mindee.v1.product.fr.id_card.id_card_v1_page.IdCardV1Page.expiry_date">(IdCardV1Page attribute)</a>
-</li>
-        <li><a href="v1/product/fr/id_card_v2.html#mindee.v1.product.fr.id_card.id_card_v2_document.IdCardV2Document.expiry_date">(IdCardV2Document attribute)</a>
-</li>
         <li><a href="v1/product/fr/id_card_v2.html#mindee.v1.product.fr.id_card.id_card_v2_page.IdCardV2Page.expiry_date">(IdCardV2Page attribute)</a>
 </li>
         <li><a href="v1/product/international_id_v2.html#mindee.v1.product.international_id.international_id_v2_document.InternationalIdV2Document.expiry_date">(InternationalIdV2Document attribute)</a>
@@ -1089,6 +984,8 @@
         <li><a href="v1/product/passport_v1.html#mindee.v1.product.passport.passport_v1_document.PassportV1Document.expiry_date">(PassportV1Document attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="geometry.html#mindee.geometry.Polygon.extend">extend() (Polygon method)</a>
 
       <ul>
@@ -1141,15 +1038,9 @@
 </li>
       <li><a href="v2/product/extraction/index.html#mindee.v2.product.extraction.extraction_result.ExtractionResult">ExtractionResult (class in mindee.v2.product.extraction.extraction_result)</a>
 </li>
-      <li><a href="v1/product/fr/bank_account_details_v1.html#mindee.v1.product.fr.bank_account_details.bank_account_details_v1.BankAccountDetailsV1.extras">extras (BankAccountDetailsV1 attribute)</a>
+      <li><a href="v1/product/fr/bank_account_details_v2.html#mindee.v1.product.fr.bank_account_details.bank_account_details_v2.BankAccountDetailsV2.extras">extras (BankAccountDetailsV2 attribute)</a>
 
       <ul>
-        <li><a href="v1/product/fr/bank_account_details_v2.html#mindee.v1.product.fr.bank_account_details.bank_account_details_v2.BankAccountDetailsV2.extras">(BankAccountDetailsV2 attribute)</a>
-</li>
-        <li><a href="v1/product/us/bank_check_v1.html#mindee.v1.product.us.bank_check.bank_check_v1.BankCheckV1.extras">(BankCheckV1 attribute)</a>
-</li>
-        <li><a href="v1/product/barcode_reader_v1.html#mindee.v1.product.barcode_reader.barcode_reader_v1.BarcodeReaderV1.extras">(BarcodeReaderV1 attribute)</a>
-</li>
         <li><a href="v1/product/fr/carte_grise_v1.html#mindee.v1.product.fr.carte_grise.carte_grise_v1.CarteGriseV1.extras">(CarteGriseV1 attribute)</a>
 </li>
       </ul></li>
@@ -1165,8 +1056,6 @@
         <li><a href="v1/product/financial_document_v1.html#mindee.v1.product.financial_document.financial_document_v1.FinancialDocumentV1.extras">(FinancialDocumentV1 attribute)</a>
 </li>
         <li><a href="v1/product/generated_v1.html#mindee.v1.product.generated.generated_v1.GeneratedV1.extras">(GeneratedV1 attribute)</a>
-</li>
-        <li><a href="v1/product/fr/id_card_v1.html#mindee.v1.product.fr.id_card.id_card_v1.IdCardV1.extras">(IdCardV1 attribute)</a>
 </li>
         <li><a href="v1/product/fr/id_card_v2.html#mindee.v1.product.fr.id_card.id_card_v2.IdCardV2.extras">(IdCardV2 attribute)</a>
 </li>
@@ -1233,8 +1122,6 @@
         <li><a href="v2/product/classification/index.html#mindee.v2.product.classification.classification_inference.ClassificationInference.file">(ClassificationInference attribute)</a>
 </li>
         <li><a href="v2/product/crop/index.html#mindee.v2.product.crop.crop_inference.CropInference.file">(CropInference attribute)</a>
-</li>
-        <li><a href="v1/parsing/common.html#mindee.v1.parsing.common.execution.Execution.file">(Execution attribute)</a>
 </li>
         <li><a href="v2/product/extraction/index.html#mindee.v2.product.extraction.extraction_inference.ExtractionInference.file">(ExtractionInference attribute)</a>
 </li>
@@ -1347,8 +1234,6 @@
 </li>
       <li><a href="v2/parsing/inference/field.html#mindee.v2.parsing.inference.field.inference_fields.InferenceFields.fromkeys">fromkeys() (InferenceFields class method)</a>
 </li>
-      <li><a href="v1/client_options.html#mindee.v1.client_options.workflow_options.WorkflowOptions.full_text">full_text (WorkflowOptions attribute)</a>
-</li>
       <li><a href="v1/parsing/common.html#mindee.v1.parsing.common.extras.full_text_ocr_extra.FullTextOCRExtra">FullTextOCRExtra (class in mindee.v1.parsing.common.extras.full_text_ocr_extra)</a>
 </li>
   </ul></td>
@@ -1361,13 +1246,9 @@
 </li>
       <li><a href="v1/product/fr/carte_grise_v1.html#mindee.v1.product.fr.carte_grise.carte_grise_v1_document.CarteGriseV1Document.g1">g1 (CarteGriseV1Document attribute)</a>
 </li>
-      <li><a href="v1/product/fr/id_card_v1.html#mindee.v1.product.fr.id_card.id_card_v1_document.IdCardV1Document.gender">gender (IdCardV1Document attribute)</a>
+      <li><a href="v1/product/fr/id_card_v2.html#mindee.v1.product.fr.id_card.id_card_v2_document.IdCardV2Document.gender">gender (IdCardV2Document attribute)</a>
 
       <ul>
-        <li><a href="v1/product/fr/id_card_v1.html#mindee.v1.product.fr.id_card.id_card_v1_page.IdCardV1Page.gender">(IdCardV1Page attribute)</a>
-</li>
-        <li><a href="v1/product/fr/id_card_v2.html#mindee.v1.product.fr.id_card.id_card_v2_document.IdCardV2Document.gender">(IdCardV2Document attribute)</a>
-</li>
         <li><a href="v1/product/fr/id_card_v2.html#mindee.v1.product.fr.id_card.id_card_v2_page.IdCardV2Page.gender">(IdCardV2Page attribute)</a>
 </li>
         <li><a href="v1/product/passport_v1.html#mindee.v1.product.passport.passport_v1_document.PassportV1Document.gender">(PassportV1Document attribute)</a>
@@ -1395,15 +1276,9 @@
 </li>
       <li><a href="geometry.html#mindee.geometry.get_centroid">get_centroid() (in module mindee.geometry)</a>
 </li>
-      <li><a href="v1/product/fr/bank_account_details_v1.html#mindee.v1.product.fr.bank_account_details.bank_account_details_v1.BankAccountDetailsV1.get_endpoint_info">get_endpoint_info() (BankAccountDetailsV1 static method)</a>
+      <li><a href="v1/product/fr/bank_account_details_v2.html#mindee.v1.product.fr.bank_account_details.bank_account_details_v2.BankAccountDetailsV2.get_endpoint_info">get_endpoint_info() (BankAccountDetailsV2 static method)</a>
 
       <ul>
-        <li><a href="v1/product/fr/bank_account_details_v2.html#mindee.v1.product.fr.bank_account_details.bank_account_details_v2.BankAccountDetailsV2.get_endpoint_info">(BankAccountDetailsV2 static method)</a>
-</li>
-        <li><a href="v1/product/us/bank_check_v1.html#mindee.v1.product.us.bank_check.bank_check_v1.BankCheckV1.get_endpoint_info">(BankCheckV1 static method)</a>
-</li>
-        <li><a href="v1/product/barcode_reader_v1.html#mindee.v1.product.barcode_reader.barcode_reader_v1.BarcodeReaderV1.get_endpoint_info">(BarcodeReaderV1 static method)</a>
-</li>
         <li><a href="v1/product/fr/carte_grise_v1.html#mindee.v1.product.fr.carte_grise.carte_grise_v1.CarteGriseV1.get_endpoint_info">(CarteGriseV1 static method)</a>
 </li>
         <li><a href="v1/product/cropper_v1.html#mindee.v1.product.cropper.cropper_v1.CropperV1.get_endpoint_info">(CropperV1 static method)</a>
@@ -1413,8 +1288,6 @@
         <li><a href="v1/product/financial_document_v1.html#mindee.v1.product.financial_document.financial_document_v1.FinancialDocumentV1.get_endpoint_info">(FinancialDocumentV1 static method)</a>
 </li>
         <li><a href="v1/product/generated_v1.html#mindee.v1.product.generated.generated_v1.GeneratedV1.get_endpoint_info">(GeneratedV1 static method)</a>
-</li>
-        <li><a href="v1/product/fr/id_card_v1.html#mindee.v1.product.fr.id_card.id_card_v1.IdCardV1.get_endpoint_info">(IdCardV1 static method)</a>
 </li>
         <li><a href="v1/product/fr/id_card_v2.html#mindee.v1.product.fr.id_card.id_card_v2.IdCardV2.get_endpoint_info">(IdCardV2 static method)</a>
 </li>
@@ -1455,14 +1328,14 @@
         <li><a href="v2/parsing/inference/field.html#mindee.v2.parsing.inference.field.object_field.ObjectField.get_list_field">(ObjectField method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="v1/product/generated_v1.html#mindee.v1.product.generated.generated_v1.GeneratedV1Document.get_list_fields">get_list_fields() (GeneratedV1Document method)</a>
 
       <ul>
         <li><a href="v1/product/generated_v1.html#mindee.v1.product.generated.generated_v1.GeneratedV1Page.get_list_fields">(GeneratedV1Page method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="geometry.html#mindee.geometry.get_min_max_x">get_min_max_x() (in module mindee.geometry)</a>
 </li>
       <li><a href="geometry.html#mindee.geometry.get_min_max_y">get_min_max_y() (in module mindee.geometry)</a>
@@ -1479,9 +1352,11 @@
         <li><a href="v1/product/generated_v1.html#mindee.v1.product.generated.generated_v1.GeneratedV1Page.get_object_fields">(GeneratedV1Page method)</a>
 </li>
       </ul></li>
-      <li><a href="v2/product/classification/index.html#mindee.v2.product.classification.classification_response.ClassificationResponse.get_product_slug">get_product_slug() (ClassificationResponse class method)</a>
+      <li><a href="v2/parsing/inference/index.html#mindee.v2.parsing.inference.base_inference_response.BaseInferenceResponse.get_product_slug">get_product_slug() (BaseInferenceResponse class method)</a>
 
       <ul>
+        <li><a href="v2/product/classification/index.html#mindee.v2.product.classification.classification_response.ClassificationResponse.get_product_slug">(ClassificationResponse class method)</a>
+</li>
         <li><a href="v2/product/crop/index.html#mindee.v2.product.crop.crop_response.CropResponse.get_product_slug">(CropResponse class method)</a>
 </li>
         <li><a href="v2/product/extraction/index.html#mindee.v2.product.extraction.extraction_response.ExtractionResponse.get_product_slug">(ExtractionResponse class method)</a>
@@ -1547,13 +1422,9 @@
         <li><a href="v2/search.html#mindee.v2.search.rag_documents.rag_document_search_parameters.RagDocumentSearchParameters.get_slug">(RagDocumentSearchParameters method)</a>
 </li>
       </ul></li>
-      <li><a href="v1/product/fr/id_card_v1.html#mindee.v1.product.fr.id_card.id_card_v1_document.IdCardV1Document.given_names">given_names (IdCardV1Document attribute)</a>
+      <li><a href="v1/product/fr/id_card_v2.html#mindee.v1.product.fr.id_card.id_card_v2_document.IdCardV2Document.given_names">given_names (IdCardV2Document attribute)</a>
 
       <ul>
-        <li><a href="v1/product/fr/id_card_v1.html#mindee.v1.product.fr.id_card.id_card_v1_page.IdCardV1Page.given_names">(IdCardV1Page attribute)</a>
-</li>
-        <li><a href="v1/product/fr/id_card_v2.html#mindee.v1.product.fr.id_card.id_card_v2_document.IdCardV2Document.given_names">(IdCardV2Document attribute)</a>
-</li>
         <li><a href="v1/product/fr/id_card_v2.html#mindee.v1.product.fr.id_card.id_card_v2_page.IdCardV2Page.given_names">(IdCardV2Page attribute)</a>
 </li>
         <li><a href="v1/product/international_id_v2.html#mindee.v1.product.international_id.international_id_v2_document.InternationalIdV2Document.given_names">(InternationalIdV2Document attribute)</a>
@@ -1594,8 +1465,6 @@
 </li>
         <li><a href="v1/mindee_http.html#mindee.v1.mindee_http.endpoint.Endpoint.http_client">(Endpoint attribute)</a>
 </li>
-        <li><a href="v1/mindee_http.html#mindee.v1.mindee_http.workflow_endpoint.WorkflowEndpoint.http_client">(WorkflowEndpoint attribute)</a>
-</li>
       </ul></li>
   </ul></td>
 </tr></table>
@@ -1605,11 +1474,9 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="v1/product/fr/carte_grise_v1.html#mindee.v1.product.fr.carte_grise.carte_grise_v1_document.CarteGriseV1Document.i">i (CarteGriseV1Document attribute)</a>
 </li>
-      <li><a href="v1/product/fr/bank_account_details_v1.html#mindee.v1.product.fr.bank_account_details.bank_account_details_v1_document.BankAccountDetailsV1Document.iban">iban (BankAccountDetailsV1Document attribute)</a>
+      <li><a href="v1/product/fr/bank_account_details_v2.html#mindee.v1.product.fr.bank_account_details.bank_account_details_v2_document.BankAccountDetailsV2Document.iban">iban (BankAccountDetailsV2Document attribute)</a>
 
       <ul>
-        <li><a href="v1/product/fr/bank_account_details_v2.html#mindee.v1.product.fr.bank_account_details.bank_account_details_v2_document.BankAccountDetailsV2Document.iban">(BankAccountDetailsV2Document attribute)</a>
-</li>
         <li><a href="v1/parsing/standard.html#mindee.v1.parsing.standard.payment_details.PaymentDetailsField.iban">(PaymentDetailsField attribute)</a>
 </li>
       </ul></li>
@@ -1621,8 +1488,6 @@
         <li><a href="v2/product/crop/index.html#mindee.v2.product.crop.crop_inference.CropInference.id">(CropInference attribute)</a>
 </li>
         <li><a href="v1/parsing/common.html#mindee.v1.parsing.common.document.Document.id">(Document attribute)</a>
-</li>
-        <li><a href="v1/parsing/common.html#mindee.v1.parsing.common.execution.Execution.id">(Execution attribute)</a>
 </li>
         <li><a href="v2/product/extraction/index.html#mindee.v2.product.extraction.extraction_inference.ExtractionInference.id">(ExtractionInference attribute)</a>
 </li>
@@ -1645,19 +1510,7 @@
         <li><a href="v2/product/split/index.html#mindee.v2.product.split.split_inference.SplitInference.id">(SplitInference attribute)</a>
 </li>
       </ul></li>
-      <li><a href="v1/product/fr/id_card_v1.html#mindee.v1.product.fr.id_card.id_card_v1_document.IdCardV1Document.id_number">id_number (IdCardV1Document attribute)</a>
-
-      <ul>
-        <li><a href="v1/product/fr/id_card_v1.html#mindee.v1.product.fr.id_card.id_card_v1_page.IdCardV1Page.id_number">(IdCardV1Page attribute)</a>
-</li>
-        <li><a href="v1/product/passport_v1.html#mindee.v1.product.passport.passport_v1_document.PassportV1Document.id_number">(PassportV1Document attribute)</a>
-</li>
-      </ul></li>
-      <li><a href="v1/product/fr/id_card_v1.html#mindee.v1.product.fr.id_card.id_card_v1.IdCardV1">IdCardV1 (class in mindee.v1.product.fr.id_card.id_card_v1)</a>
-</li>
-      <li><a href="v1/product/fr/id_card_v1.html#mindee.v1.product.fr.id_card.id_card_v1_document.IdCardV1Document">IdCardV1Document (class in mindee.v1.product.fr.id_card.id_card_v1_document)</a>
-</li>
-      <li><a href="v1/product/fr/id_card_v1.html#mindee.v1.product.fr.id_card.id_card_v1_page.IdCardV1Page">IdCardV1Page (class in mindee.v1.product.fr.id_card.id_card_v1_page)</a>
+      <li><a href="v1/product/passport_v1.html#mindee.v1.product.passport.passport_v1_document.PassportV1Document.id_number">id_number (PassportV1Document attribute)</a>
 </li>
       <li><a href="v1/product/fr/id_card_v2.html#mindee.v1.product.fr.id_card.id_card_v2.IdCardV2">IdCardV2 (class in mindee.v1.product.fr.id_card.id_card_v2)</a>
 </li>
@@ -1685,14 +1538,14 @@
         <li><a href="v2/parsing/search.html#mindee.v2.parsing.search.search_rag_documents.SearchRagDocuments.index">(SearchRagDocuments method)</a>
 </li>
       </ul></li>
-      <li><a href="v2/product/classification/index.html#mindee.v2.product.classification.classification_response.ClassificationResponse.inference">inference (ClassificationResponse attribute)</a>
+      <li><a href="v2/parsing/inference/index.html#mindee.v2.parsing.inference.base_inference_response.BaseInferenceResponse.inference">inference (BaseInferenceResponse attribute)</a>
 
       <ul>
+        <li><a href="v2/product/classification/index.html#mindee.v2.product.classification.classification_response.ClassificationResponse.inference">(ClassificationResponse attribute)</a>
+</li>
         <li><a href="v2/product/crop/index.html#mindee.v2.product.crop.crop_response.CropResponse.inference">(CropResponse attribute)</a>
 </li>
         <li><a href="v1/parsing/common.html#mindee.v1.parsing.common.document.Document.inference">(Document attribute)</a>
-</li>
-        <li><a href="v1/parsing/common.html#mindee.v1.parsing.common.execution.Execution.inference">(Execution attribute)</a>
 </li>
         <li><a href="v2/product/extraction/index.html#mindee.v2.product.extraction.extraction_response.ExtractionResponse.inference">(ExtractionResponse attribute)</a>
 </li>
@@ -1735,12 +1588,12 @@
 </li>
       <li><a href="v1/product/invoice_splitter_v1.html#mindee.v1.product.invoice_splitter.invoice_splitter_v1_document.InvoiceSplitterV1Document">InvoiceSplitterV1Document (class in mindee.v1.product.invoice_splitter.invoice_splitter_v1_document)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="v1/product/invoice_splitter_v1.html#mindee.v1.product.invoice_splitter.invoice_splitter_v1_invoice_page_group.InvoiceSplitterV1InvoicePageGroup">InvoiceSplitterV1InvoicePageGroup (class in mindee.v1.product.invoice_splitter.invoice_splitter_v1_invoice_page_group)</a>
 </li>
       <li><a href="v1/product/invoice_v4.html#mindee.v1.product.invoice.invoice_v4.InvoiceV4">InvoiceV4 (class in mindee.v1.product.invoice.invoice_v4)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="v1/product/invoice_v4.html#mindee.v1.product.invoice.invoice_v4_document.InvoiceV4Document">InvoiceV4Document (class in mindee.v1.product.invoice.invoice_v4_document)</a>
 </li>
       <li><a href="v1/product/invoice_v4.html#mindee.v1.product.invoice.invoice_v4_line_item.InvoiceV4LineItem">InvoiceV4LineItem (class in mindee.v1.product.invoice.invoice_v4_line_item)</a>
@@ -1787,15 +1640,9 @@
         <li><a href="geometry.html#mindee.geometry.Polygon.is_point_in_y">(Polygon method)</a>
 </li>
       </ul></li>
-      <li><a href="v1/product/fr/bank_account_details_v1.html#mindee.v1.product.fr.bank_account_details.bank_account_details_v1.BankAccountDetailsV1.is_rotation_applied">is_rotation_applied (BankAccountDetailsV1 attribute)</a>
+      <li><a href="v1/product/fr/bank_account_details_v2.html#mindee.v1.product.fr.bank_account_details.bank_account_details_v2.BankAccountDetailsV2.is_rotation_applied">is_rotation_applied (BankAccountDetailsV2 attribute)</a>
 
       <ul>
-        <li><a href="v1/product/fr/bank_account_details_v2.html#mindee.v1.product.fr.bank_account_details.bank_account_details_v2.BankAccountDetailsV2.is_rotation_applied">(BankAccountDetailsV2 attribute)</a>
-</li>
-        <li><a href="v1/product/us/bank_check_v1.html#mindee.v1.product.us.bank_check.bank_check_v1.BankCheckV1.is_rotation_applied">(BankCheckV1 attribute)</a>
-</li>
-        <li><a href="v1/product/barcode_reader_v1.html#mindee.v1.product.barcode_reader.barcode_reader_v1.BarcodeReaderV1.is_rotation_applied">(BarcodeReaderV1 attribute)</a>
-</li>
         <li><a href="v1/product/fr/carte_grise_v1.html#mindee.v1.product.fr.carte_grise.carte_grise_v1.CarteGriseV1.is_rotation_applied">(CarteGriseV1 attribute)</a>
 </li>
         <li><a href="v1/product/cropper_v1.html#mindee.v1.product.cropper.cropper_v1.CropperV1.is_rotation_applied">(CropperV1 attribute)</a>
@@ -1805,8 +1652,6 @@
         <li><a href="v1/product/financial_document_v1.html#mindee.v1.product.financial_document.financial_document_v1.FinancialDocumentV1.is_rotation_applied">(FinancialDocumentV1 attribute)</a>
 </li>
         <li><a href="v1/product/generated_v1.html#mindee.v1.product.generated.generated_v1.GeneratedV1.is_rotation_applied">(GeneratedV1 attribute)</a>
-</li>
-        <li><a href="v1/product/fr/id_card_v1.html#mindee.v1.product.fr.id_card.id_card_v1.IdCardV1.is_rotation_applied">(IdCardV1 attribute)</a>
 </li>
         <li><a href="v1/product/fr/id_card_v2.html#mindee.v1.product.fr.id_card.id_card_v2.IdCardV2.is_rotation_applied">(IdCardV2 attribute)</a>
 </li>
@@ -2235,10 +2080,6 @@
       <li><a href="v1/product/fr/carte_grise_v1.html#mindee.v1.product.fr.carte_grise.carte_grise_v1_document.CarteGriseV1Document.mrz1">mrz1 (CarteGriseV1Document attribute)</a>
 
       <ul>
-        <li><a href="v1/product/fr/id_card_v1.html#mindee.v1.product.fr.id_card.id_card_v1_document.IdCardV1Document.mrz1">(IdCardV1Document attribute)</a>
-</li>
-        <li><a href="v1/product/fr/id_card_v1.html#mindee.v1.product.fr.id_card.id_card_v1_page.IdCardV1Page.mrz1">(IdCardV1Page attribute)</a>
-</li>
         <li><a href="v1/product/fr/id_card_v2.html#mindee.v1.product.fr.id_card.id_card_v2_document.IdCardV2Document.mrz1">(IdCardV2Document attribute)</a>
 </li>
         <li><a href="v1/product/fr/id_card_v2.html#mindee.v1.product.fr.id_card.id_card_v2_page.IdCardV2Page.mrz1">(IdCardV2Page attribute)</a>
@@ -2249,10 +2090,6 @@
       <li><a href="v1/product/fr/carte_grise_v1.html#mindee.v1.product.fr.carte_grise.carte_grise_v1_document.CarteGriseV1Document.mrz2">mrz2 (CarteGriseV1Document attribute)</a>
 
       <ul>
-        <li><a href="v1/product/fr/id_card_v1.html#mindee.v1.product.fr.id_card.id_card_v1_document.IdCardV1Document.mrz2">(IdCardV1Document attribute)</a>
-</li>
-        <li><a href="v1/product/fr/id_card_v1.html#mindee.v1.product.fr.id_card.id_card_v1_page.IdCardV1Page.mrz2">(IdCardV1Page attribute)</a>
-</li>
         <li><a href="v1/product/fr/id_card_v2.html#mindee.v1.product.fr.id_card.id_card_v2_document.IdCardV2Document.mrz2">(IdCardV2Document attribute)</a>
 </li>
         <li><a href="v1/product/fr/id_card_v2.html#mindee.v1.product.fr.id_card.id_card_v2_page.IdCardV2Page.mrz2">(IdCardV2Page attribute)</a>
@@ -2301,8 +2138,6 @@
       <li><a href="v2/product/extraction/params.html#mindee.v2.product.extraction.params.data_schema_field.DataSchemaField.name">name (DataSchemaField attribute)</a>
 
       <ul>
-        <li><a href="v1/parsing/common.html#mindee.v1.parsing.common.execution_file.ExecutionFile.name">(ExecutionFile attribute)</a>
-</li>
         <li><a href="v2/parsing/inference/index.html#mindee.v2.parsing.inference.inference_file.InferenceFile.name">(InferenceFile attribute)</a>
 </li>
         <li><a href="v2/search.html#mindee.v2.search.models.model_search_parameters.ModelSearchParameters.name">(ModelSearchParameters attribute)</a>
@@ -2427,13 +2262,7 @@
       <ul>
         <li><a href="v1/parsing/standard.html#mindee.v1.parsing.standard.amount.AmountField.page_id">(AmountField attribute)</a>
 </li>
-        <li><a href="v1/product/fr/bank_account_details_v1.html#mindee.v1.product.fr.bank_account_details.bank_account_details_v1.BankAccountDetailsV1.page_id">(BankAccountDetailsV1 attribute)</a>
-</li>
         <li><a href="v1/product/fr/bank_account_details_v2.html#mindee.v1.product.fr.bank_account_details.bank_account_details_v2.BankAccountDetailsV2.page_id">(BankAccountDetailsV2 attribute)</a>
-</li>
-        <li><a href="v1/product/us/bank_check_v1.html#mindee.v1.product.us.bank_check.bank_check_v1.BankCheckV1.page_id">(BankCheckV1 attribute)</a>
-</li>
-        <li><a href="v1/product/barcode_reader_v1.html#mindee.v1.product.barcode_reader.barcode_reader_v1.BarcodeReaderV1.page_id">(BarcodeReaderV1 attribute)</a>
 </li>
         <li><a href="v1/parsing/standard.html#mindee.v1.parsing.standard.base.BaseField.page_id">(BaseField attribute)</a>
 </li>
@@ -2454,8 +2283,6 @@
         <li><a href="v1/product/financial_document_v1.html#mindee.v1.product.financial_document.financial_document_v1.FinancialDocumentV1.page_id">(FinancialDocumentV1 attribute)</a>
 </li>
         <li><a href="v1/product/generated_v1.html#mindee.v1.product.generated.generated_v1.GeneratedV1.page_id">(GeneratedV1 attribute)</a>
-</li>
-        <li><a href="v1/product/fr/id_card_v1.html#mindee.v1.product.fr.id_card.id_card_v1.IdCardV1.page_id">(IdCardV1 attribute)</a>
 </li>
         <li><a href="v1/product/fr/id_card_v2.html#mindee.v1.product.fr.id_card.id_card_v2.IdCardV2.page_id">(IdCardV2 attribute)</a>
 </li>
@@ -2508,15 +2335,9 @@
 </li>
       <li><a href="input.html#mindee.input.PageOptions">PageOptions (class in mindee.input)</a>
 </li>
-      <li><a href="v1/product/fr/bank_account_details_v1.html#mindee.v1.product.fr.bank_account_details.bank_account_details_v1.BankAccountDetailsV1.pages">pages (BankAccountDetailsV1 attribute)</a>
+      <li><a href="v1/product/fr/bank_account_details_v2.html#mindee.v1.product.fr.bank_account_details.bank_account_details_v2.BankAccountDetailsV2.pages">pages (BankAccountDetailsV2 attribute)</a>
 
       <ul>
-        <li><a href="v1/product/fr/bank_account_details_v2.html#mindee.v1.product.fr.bank_account_details.bank_account_details_v2.BankAccountDetailsV2.pages">(BankAccountDetailsV2 attribute)</a>
-</li>
-        <li><a href="v1/product/us/bank_check_v1.html#mindee.v1.product.us.bank_check.bank_check_v1.BankCheckV1.pages">(BankCheckV1 attribute)</a>
-</li>
-        <li><a href="v1/product/barcode_reader_v1.html#mindee.v1.product.barcode_reader.barcode_reader_v1.BarcodeReaderV1.pages">(BarcodeReaderV1 attribute)</a>
-</li>
         <li><a href="v1/product/fr/carte_grise_v1.html#mindee.v1.product.fr.carte_grise.carte_grise_v1.CarteGriseV1.pages">(CarteGriseV1 attribute)</a>
 </li>
         <li><a href="v1/product/cropper_v1.html#mindee.v1.product.cropper.cropper_v1.CropperV1.pages">(CropperV1 attribute)</a>
@@ -2526,8 +2347,6 @@
         <li><a href="v1/product/financial_document_v1.html#mindee.v1.product.financial_document.financial_document_v1.FinancialDocumentV1.pages">(FinancialDocumentV1 attribute)</a>
 </li>
         <li><a href="v1/product/generated_v1.html#mindee.v1.product.generated.generated_v1.GeneratedV1.pages">(GeneratedV1 attribute)</a>
-</li>
-        <li><a href="v1/product/fr/id_card_v1.html#mindee.v1.product.fr.id_card.id_card_v1.IdCardV1.pages">(IdCardV1 attribute)</a>
 </li>
         <li><a href="v1/product/fr/id_card_v2.html#mindee.v1.product.fr.id_card.id_card_v2.IdCardV2.pages">(IdCardV2 attribute)</a>
 </li>
@@ -2564,12 +2383,8 @@
 </li>
       <li><a href="v1/client.html#mindee.v1.client.Client.parse">parse() (Client method)</a>
 </li>
-      <li><a href="v1/parsing/common.html#mindee.v1.parsing.common.execution.Execution.parse_date">parse_date() (Execution static method)</a>
-
-      <ul>
-        <li><a href="v2/parsing/job.html#mindee.v2.parsing.job.job_webhook.JobWebhook.parse_date">(JobWebhook static method)</a>
+      <li><a href="v2/parsing/job.html#mindee.v2.parsing.job.job_webhook.JobWebhook.parse_date">parse_date() (JobWebhook static method)</a>
 </li>
-      </ul></li>
       <li><a href="v1/client.html#mindee.v1.client.Client.parse_queued">parse_queued() (Client method)</a>
 </li>
       <li><a href="v2/parsing/inference/field.html#mindee.v2.parsing.inference.field.field_confidence.FieldConfidence.partition">partition() (FieldConfidence method)</a>
@@ -2582,12 +2397,6 @@
 </li>
       <li><a href="input.html#mindee.input.PathInput">PathInput (class in mindee.input)</a>
 </li>
-      <li><a href="v1/product/us/bank_check_v1.html#mindee.v1.product.us.bank_check.bank_check_v1_document.BankCheckV1Document.payees">payees (BankCheckV1Document attribute)</a>
-
-      <ul>
-        <li><a href="v1/product/us/bank_check_v1.html#mindee.v1.product.us.bank_check.bank_check_v1_page.BankCheckV1Page.payees">(BankCheckV1Page attribute)</a>
-</li>
-      </ul></li>
       <li><a href="v1/product/financial_document_v1.html#mindee.v1.product.financial_document.financial_document_v1_document.FinancialDocumentV1Document.payment_date">payment_date (FinancialDocumentV1Document attribute)</a>
 
       <ul>
@@ -2710,15 +2519,9 @@
 </li>
       <li><a href="v1/mindee_http.html#mindee.v1.mindee_http.endpoint.Endpoint.predict_req_post">predict_req_post() (Endpoint method)</a>
 </li>
-      <li><a href="v1/product/fr/bank_account_details_v1.html#mindee.v1.product.fr.bank_account_details.bank_account_details_v1.BankAccountDetailsV1.prediction">prediction (BankAccountDetailsV1 attribute)</a>
+      <li><a href="v1/product/fr/bank_account_details_v2.html#mindee.v1.product.fr.bank_account_details.bank_account_details_v2.BankAccountDetailsV2.prediction">prediction (BankAccountDetailsV2 attribute)</a>
 
       <ul>
-        <li><a href="v1/product/fr/bank_account_details_v2.html#mindee.v1.product.fr.bank_account_details.bank_account_details_v2.BankAccountDetailsV2.prediction">(BankAccountDetailsV2 attribute)</a>
-</li>
-        <li><a href="v1/product/us/bank_check_v1.html#mindee.v1.product.us.bank_check.bank_check_v1.BankCheckV1.prediction">(BankCheckV1 attribute)</a>
-</li>
-        <li><a href="v1/product/barcode_reader_v1.html#mindee.v1.product.barcode_reader.barcode_reader_v1.BarcodeReaderV1.prediction">(BarcodeReaderV1 attribute)</a>
-</li>
         <li><a href="v1/product/fr/carte_grise_v1.html#mindee.v1.product.fr.carte_grise.carte_grise_v1.CarteGriseV1.prediction">(CarteGriseV1 attribute)</a>
 </li>
       </ul></li>
@@ -2732,8 +2535,6 @@
         <li><a href="v1/product/financial_document_v1.html#mindee.v1.product.financial_document.financial_document_v1.FinancialDocumentV1.prediction">(FinancialDocumentV1 attribute)</a>
 </li>
         <li><a href="v1/product/generated_v1.html#mindee.v1.product.generated.generated_v1.GeneratedV1.prediction">(GeneratedV1 attribute)</a>
-</li>
-        <li><a href="v1/product/fr/id_card_v1.html#mindee.v1.product.fr.id_card.id_card_v1.IdCardV1.prediction">(IdCardV1 attribute)</a>
 </li>
         <li><a href="v1/product/fr/id_card_v2.html#mindee.v1.product.fr.id_card.id_card_v2.IdCardV2.prediction">(IdCardV2 attribute)</a>
 </li>
@@ -2760,12 +2561,6 @@
 </li>
       <li><a href="v1/parsing/standard.html#mindee.v1.parsing.standard.company_registration.CompanyRegistrationField.printable_values">printable_values() (CompanyRegistrationField method)</a>
 </li>
-      <li><a href="v1/parsing/common.html#mindee.v1.parsing.common.execution.Execution.priority">priority (Execution attribute)</a>
-
-      <ul>
-        <li><a href="v1/client_options.html#mindee.v1.client_options.workflow_options.WorkflowOptions.priority">(WorkflowOptions attribute)</a>
-</li>
-      </ul></li>
       <li><a href="input.html#mindee.input.Base64Input.process_pdf">process_pdf() (Base64Input method)</a>
 
       <ul>
@@ -2778,15 +2573,9 @@
         <li><a href="input.html#mindee.input.PathInput.process_pdf">(PathInput method)</a>
 </li>
       </ul></li>
-      <li><a href="v1/product/fr/bank_account_details_v1.html#mindee.v1.product.fr.bank_account_details.bank_account_details_v1.BankAccountDetailsV1.product">product (BankAccountDetailsV1 attribute)</a>
+      <li><a href="v1/product/fr/bank_account_details_v2.html#mindee.v1.product.fr.bank_account_details.bank_account_details_v2.BankAccountDetailsV2.product">product (BankAccountDetailsV2 attribute)</a>
 
       <ul>
-        <li><a href="v1/product/fr/bank_account_details_v2.html#mindee.v1.product.fr.bank_account_details.bank_account_details_v2.BankAccountDetailsV2.product">(BankAccountDetailsV2 attribute)</a>
-</li>
-        <li><a href="v1/product/us/bank_check_v1.html#mindee.v1.product.us.bank_check.bank_check_v1.BankCheckV1.product">(BankCheckV1 attribute)</a>
-</li>
-        <li><a href="v1/product/barcode_reader_v1.html#mindee.v1.product.barcode_reader.barcode_reader_v1.BarcodeReaderV1.product">(BarcodeReaderV1 attribute)</a>
-</li>
         <li><a href="v1/product/fr/carte_grise_v1.html#mindee.v1.product.fr.carte_grise.carte_grise_v1.CarteGriseV1.product">(CarteGriseV1 attribute)</a>
 </li>
       </ul></li>
@@ -2800,8 +2589,6 @@
         <li><a href="v1/product/financial_document_v1.html#mindee.v1.product.financial_document.financial_document_v1.FinancialDocumentV1.product">(FinancialDocumentV1 attribute)</a>
 </li>
         <li><a href="v1/product/generated_v1.html#mindee.v1.product.generated.generated_v1.GeneratedV1.product">(GeneratedV1 attribute)</a>
-</li>
-        <li><a href="v1/product/fr/id_card_v1.html#mindee.v1.product.fr.id_card.id_card_v1.IdCardV1.product">(IdCardV1 attribute)</a>
 </li>
         <li><a href="v1/product/fr/id_card_v2.html#mindee.v1.product.fr.id_card.id_card_v2.IdCardV2.product">(IdCardV2 attribute)</a>
 </li>
@@ -2824,8 +2611,6 @@
         <li><a href="v1/product/invoice_v4.html#mindee.v1.product.invoice.invoice_v4_line_item.InvoiceV4LineItem.product_code">(InvoiceV4LineItem attribute)</a>
 </li>
       </ul></li>
-      <li><a href="v1/client_options.html#mindee.v1.client_options.workflow_options.WorkflowOptions.public_url">public_url (WorkflowOptions attribute)</a>
-</li>
   </ul></td>
 </tr></table>
 
@@ -2863,8 +2648,6 @@
 </li>
         <li><a href="v2/parsing/inference/index.html#mindee.v2.parsing.inference.inference_active_options.InferenceActiveOptions.rag">(InferenceActiveOptions attribute)</a>
 </li>
-        <li><a href="v1/client_options.html#mindee.v1.client_options.workflow_options.WorkflowOptions.rag">(WorkflowOptions attribute)</a>
-</li>
       </ul></li>
       <li><a href="v2/search.html#mindee.v2.search.rag_documents.rag_document_search_response.RagDocumentSearchResponse.rag_documents">rag_documents (RagDocumentSearchResponse attribute)</a>
 </li>
@@ -2881,6 +2664,8 @@
       <li><a href="v1/parsing/common.html#mindee.v1.parsing.common.api_response.ApiResponse.raw_http">raw_http (ApiResponse property)</a>
 
       <ul>
+        <li><a href="v2/parsing/inference/index.html#mindee.v2.parsing.inference.base_inference_response.BaseInferenceResponse.raw_http">(BaseInferenceResponse property)</a>
+</li>
         <li><a href="v2/product/classification/index.html#mindee.v2.product.classification.classification_response.ClassificationResponse.raw_http">(ClassificationResponse property)</a>
 </li>
         <li><a href="parsing/common.html#mindee.parsing.common.common_response.CommonResponse.raw_http">(CommonResponse property)</a>
@@ -3041,8 +2826,6 @@
 </li>
         <li><a href="mindee_http.html#mindee.mindee_http.settings_mixin.SettingsMixin.request_timeout">(SettingsMixin attribute)</a>
 </li>
-        <li><a href="v1/mindee_http.html#mindee.v1.mindee_http.workflow_settings.WorkflowSettings.request_timeout">(WorkflowSettings attribute)</a>
-</li>
       </ul></li>
       <li><a href="input.html#mindee.input.LocalResponse.ResponseT">ResponseT (LocalResponse attribute)</a>
 </li>
@@ -3070,10 +2853,6 @@
         <li><a href="v2/parsing/search.html#mindee.v2.parsing.search.search_rag_documents.SearchRagDocuments.reverse">(SearchRagDocuments method)</a>
 </li>
       </ul></li>
-      <li><a href="v1/parsing/common.html#mindee.v1.parsing.common.execution.Execution.reviewed_at">reviewed_at (Execution attribute)</a>
-</li>
-      <li><a href="v1/parsing/common.html#mindee.v1.parsing.common.execution.Execution.reviewed_prediction">reviewed_prediction (Execution attribute)</a>
-</li>
       <li><a href="v2/parsing/inference/field.html#mindee.v2.parsing.inference.field.field_confidence.FieldConfidence.rfind">rfind() (FieldConfidence method)</a>
 </li>
       <li><a href="pdf.html#mindee.pdf.PDFCharData.right">right (PDFCharData attribute)</a>
@@ -3082,14 +2861,8 @@
 </li>
       <li><a href="v2/parsing/inference/field.html#mindee.v2.parsing.inference.field.field_confidence.FieldConfidence.rjust">rjust() (FieldConfidence method)</a>
 </li>
-      <li><a href="v1/product/us/bank_check_v1.html#mindee.v1.product.us.bank_check.bank_check_v1_document.BankCheckV1Document.routing_number">routing_number (BankCheckV1Document attribute)</a>
-
-      <ul>
-        <li><a href="v1/product/us/bank_check_v1.html#mindee.v1.product.us.bank_check.bank_check_v1_page.BankCheckV1Page.routing_number">(BankCheckV1Page attribute)</a>
+      <li><a href="v1/parsing/standard.html#mindee.v1.parsing.standard.payment_details.PaymentDetailsField.routing_number">routing_number (PaymentDetailsField attribute)</a>
 </li>
-        <li><a href="v1/parsing/standard.html#mindee.v1.parsing.standard.payment_details.PaymentDetailsField.routing_number">(PaymentDetailsField attribute)</a>
-</li>
-      </ul></li>
       <li><a href="v1/parsing/custom.html#mindee.v1.parsing.custom.line_items.CustomLine.row_number">row_number (CustomLine attribute)</a>
 </li>
       <li><a href="v2/parsing/inference/field.html#mindee.v2.parsing.inference.field.field_confidence.FieldConfidence.rpartition">rpartition() (FieldConfidence method)</a>
@@ -3135,15 +2908,11 @@
 </li>
         <li><a href="mindee_http.html#mindee.mindee_http.settings_mixin.SettingsMixin.set_base_url">(SettingsMixin method)</a>
 </li>
-        <li><a href="v1/mindee_http.html#mindee.v1.mindee_http.workflow_settings.WorkflowSettings.set_base_url">(WorkflowSettings method)</a>
-</li>
       </ul></li>
       <li><a href="v1/mindee_http.html#mindee.v1.mindee_http.base_settings.BaseSettings.set_from_env">set_from_env() (BaseSettings method)</a>
 
       <ul>
         <li><a href="v1/mindee_http.html#mindee.v1.mindee_http.mindee_api.MindeeAPI.set_from_env">(MindeeAPI method)</a>
-</li>
-        <li><a href="v1/mindee_http.html#mindee.v1.mindee_http.workflow_settings.WorkflowSettings.set_from_env">(WorkflowSettings method)</a>
 </li>
       </ul></li>
       <li><a href="v1/mindee_http.html#mindee.v1.mindee_http.base_settings.BaseSettings.set_timeout">set_timeout() (BaseSettings method)</a>
@@ -3155,8 +2924,6 @@
 </li>
         <li><a href="mindee_http.html#mindee.mindee_http.settings_mixin.SettingsMixin.set_timeout">(SettingsMixin method)</a>
 </li>
-        <li><a href="v1/mindee_http.html#mindee.v1.mindee_http.workflow_settings.WorkflowSettings.set_timeout">(WorkflowSettings method)</a>
-</li>
       </ul></li>
       <li><a href="v2/parsing/inference/field.html#mindee.v2.parsing.inference.field.inference_fields.InferenceFields.setdefault">setdefault() (InferenceFields method)</a>
 </li>
@@ -3164,8 +2931,6 @@
 
       <ul>
         <li><a href="v1/mindee_http.html#mindee.v1.mindee_http.endpoint.Endpoint.settings">(Endpoint attribute)</a>
-</li>
-        <li><a href="v1/mindee_http.html#mindee.v1.mindee_http.workflow_endpoint.WorkflowEndpoint.settings">(WorkflowEndpoint attribute)</a>
 </li>
       </ul></li>
       <li><a href="mindee_http.html#mindee.mindee_http.settings_mixin.SettingsMixin">SettingsMixin (class in mindee.mindee_http.settings_mixin)</a>
@@ -3178,8 +2943,6 @@
         <li><a href="v1/product/invoice_v4.html#mindee.v1.product.invoice.invoice_v4_document.InvoiceV4Document.shipping_address">(InvoiceV4Document attribute)</a>
 </li>
       </ul></li>
-      <li><a href="v1/product/us/bank_check_v1.html#mindee.v1.product.us.bank_check.bank_check_v1_page.BankCheckV1Page.signatures_positions">signatures_positions (BankCheckV1Page attribute)</a>
-</li>
       <li><a href="v2/parsing/inference/field.html#mindee.v2.parsing.inference.field.object_field.ObjectField.simple_fields">simple_fields (ObjectField property)</a>
 </li>
       <li><a href="v2/parsing/inference/field.html#mindee.v2.parsing.inference.field.list_field.ListField.simple_items">simple_items (ListField property)</a>
@@ -3223,8 +2986,6 @@
       <li><a href="v2/parsing/error.html#mindee.v2.parsing.error.error_response.ErrorResponse.status">status (ErrorResponse attribute)</a>
 
       <ul>
-        <li><a href="v1/parsing/common.html#mindee.v1.parsing.common.execution.Execution.status">(Execution attribute)</a>
-</li>
         <li><a href="v1/parsing/common.html#mindee.v1.parsing.common.job.Job.status">(Job attribute)</a>, <a href="v2/parsing/job.html#mindee.v2.parsing.job.job.Job.status">[1]</a>
 </li>
         <li><a href="v2/parsing/job.html#mindee.v2.parsing.job.job_webhook.JobWebhook.status">(JobWebhook attribute)</a>
@@ -3314,13 +3075,9 @@
         <li><a href="v1/product/invoice_v4.html#mindee.v1.product.invoice.invoice_v4_document.InvoiceV4Document.supplier_website">(InvoiceV4Document attribute)</a>
 </li>
       </ul></li>
-      <li><a href="v1/product/fr/id_card_v1.html#mindee.v1.product.fr.id_card.id_card_v1_document.IdCardV1Document.surname">surname (IdCardV1Document attribute)</a>
+      <li><a href="v1/product/fr/id_card_v2.html#mindee.v1.product.fr.id_card.id_card_v2_document.IdCardV2Document.surname">surname (IdCardV2Document attribute)</a>
 
       <ul>
-        <li><a href="v1/product/fr/id_card_v1.html#mindee.v1.product.fr.id_card.id_card_v1_page.IdCardV1Page.surname">(IdCardV1Page attribute)</a>
-</li>
-        <li><a href="v1/product/fr/id_card_v2.html#mindee.v1.product.fr.id_card.id_card_v2_document.IdCardV2Document.surname">(IdCardV2Document attribute)</a>
-</li>
         <li><a href="v1/product/fr/id_card_v2.html#mindee.v1.product.fr.id_card.id_card_v2_page.IdCardV2Page.surname">(IdCardV2Page attribute)</a>
 </li>
         <li><a href="v1/product/passport_v1.html#mindee.v1.product.passport.passport_v1_document.PassportV1Document.surname">(PassportV1Document attribute)</a>
@@ -3330,12 +3087,8 @@
 </li>
       <li><a href="v2/parsing/inference/field.html#mindee.v2.parsing.inference.field.field_confidence.FieldConfidence.swapcase">swapcase() (FieldConfidence method)</a>
 </li>
-      <li><a href="v1/product/fr/bank_account_details_v1.html#mindee.v1.product.fr.bank_account_details.bank_account_details_v1_document.BankAccountDetailsV1Document.swift">swift (BankAccountDetailsV1Document attribute)</a>
-
-      <ul>
-        <li><a href="v1/parsing/standard.html#mindee.v1.parsing.standard.payment_details.PaymentDetailsField.swift">(PaymentDetailsField attribute)</a>
+      <li><a href="v1/parsing/standard.html#mindee.v1.parsing.standard.payment_details.PaymentDetailsField.swift">swift (PaymentDetailsField attribute)</a>
 </li>
-      </ul></li>
       <li><a href="v1/product/fr/bank_account_details_v2.html#mindee.v1.product.fr.bank_account_details.bank_account_details_v2_document.BankAccountDetailsV2Document.swift_code">swift_code (BankAccountDetailsV2Document attribute)</a>
 </li>
   </ul></td>
@@ -3467,8 +3220,6 @@
       <ul>
         <li><a href="v2/product/extraction/params.html#mindee.v2.product.extraction.params.data_schema_field.DataSchemaField.type">(DataSchemaField attribute)</a>
 </li>
-        <li><a href="v1/parsing/common.html#mindee.v1.parsing.common.execution.Execution.type">(Execution attribute)</a>
-</li>
       </ul></li>
   </ul></td>
 </tr></table>
@@ -3498,10 +3249,10 @@
       </ul></li>
       <li><a href="v2/parsing/inference/field.html#mindee.v2.parsing.inference.field.inference_fields.InferenceFields.update">update() (InferenceFields method)</a>
 </li>
-      <li><a href="v2/index.html#mindee.v2.client.Client.update_and_get_rag_annotations">update_and_get_rag_annotations() (Client method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="v2/index.html#mindee.v2.client.Client.update_and_get_rag_annotations">update_and_get_rag_annotations() (Client method)</a>
+</li>
       <li><a href="v1/parsing/custom.html#mindee.v1.parsing.custom.line_items.CustomLine.update_field">update_field() (CustomLine method)</a>
 </li>
       <li><a href="v2/index.html#mindee.v2.client.Client.update_rag_annotations">update_rag_annotations() (Client method)</a>
@@ -3509,8 +3260,6 @@
       <li><a href="v2/index.html#mindee.v2.client.Client.upload_and_get_rag_document">upload_and_get_rag_document() (Client method)</a>
 </li>
       <li><a href="v2/index.html#mindee.v2.client.Client.upload_rag_document">upload_rag_document() (Client method)</a>
-</li>
-      <li><a href="v1/parsing/common.html#mindee.v1.parsing.common.execution.Execution.uploaded_at">uploaded_at (Execution attribute)</a>
 </li>
       <li><a href="v2/parsing/inference/field.html#mindee.v2.parsing.inference.field.field_confidence.FieldConfidence.upper">upper() (FieldConfidence method)</a>
 </li>
@@ -3533,8 +3282,6 @@
       <li><a href="v1/product/fr/carte_grise_v1.html#mindee.v1.product.fr.carte_grise.carte_grise_v1_document.CarteGriseV1Document.v7">v7 (CarteGriseV1Document attribute)</a>
 </li>
       <li><a href="client_options.html#mindee.client_options.polling_options.PollingOptions.validate_settings">validate_settings() (PollingOptions method)</a>
-</li>
-      <li><a href="mindee_http.html#mindee.mindee_http.response_validation.validate_url_for_source">validate_url_for_source() (in module mindee.mindee_http.response_validation)</a>
 </li>
       <li><a href="v1/parsing/standard.html#mindee.v1.parsing.standard.address.AddressField.value">value (AddressField attribute)</a>
 
@@ -3629,18 +3376,6 @@
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="v2/product/ocr/index.html#mindee.v2.product.ocr.ocr_page.OCRPage.words">words (OCRPage attribute)</a>
-</li>
-      <li><a href="v1/mindee_http.html#mindee.v1.mindee_http.workflow_endpoint.WorkflowEndpoint.workflow_execution_post">workflow_execution_post() (WorkflowEndpoint method)</a>
-</li>
-      <li><a href="v1/parsing/common.html#mindee.v1.parsing.common.execution.Execution.workflow_id">workflow_id (Execution attribute)</a>
-</li>
-      <li><a href="v1/mindee_http.html#mindee.v1.mindee_http.workflow_endpoint.WorkflowEndpoint">WorkflowEndpoint (class in mindee.v1.mindee_http.workflow_endpoint)</a>
-</li>
-      <li><a href="v1/client_options.html#mindee.v1.client_options.workflow_options.WorkflowOptions">WorkflowOptions (class in mindee.v1.client_options.workflow_options)</a>
-</li>
-      <li><a href="v1/parsing/common.html#mindee.v1.parsing.common.workflow_response.WorkflowResponse">WorkflowResponse (class in mindee.v1.parsing.common.workflow_response)</a>
-</li>
-      <li><a href="v1/mindee_http.html#mindee.v1.mindee_http.workflow_settings.WorkflowSettings">WorkflowSettings (class in mindee.v1.mindee_http.workflow_settings)</a>
 </li>
   </ul></td>
 </tr></table>

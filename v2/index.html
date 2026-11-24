@@ -9,6 +9,7 @@
   <title>V2 Utilities &mdash; Mindee Python Client  documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_autodoc_typehints.css?v=057ac668" />
 
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
@@ -143,13 +144,11 @@
 <li class="toctree-l3"><a class="reference internal" href="file_operations.html#mindee.v2.file_operations.crop.extract_single_crop"><code class="docutils literal notranslate"><span class="pre">extract_single_crop()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="file_operations.html#crop-files">Crop Files</a></li>
 <li class="toctree-l2"><a class="reference internal" href="file_operations.html#module-mindee.v2.file_operations.split">Split</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="file_operations.html#mindee.v2.file_operations.split.extract_multiple_splits"><code class="docutils literal notranslate"><span class="pre">extract_multiple_splits()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="file_operations.html#mindee.v2.file_operations.split.extract_single_split"><code class="docutils literal notranslate"><span class="pre">extract_single_split()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="file_operations.html#split-files">Split Files</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="mindee_http.html">V2 Mindee HTTP</a><ul>
@@ -163,7 +162,7 @@
 <li class="toctree-l2"><a class="reference internal" href="parsing/inference/index.html">Inference V2</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="parsing/inference/field.html">Inference Field</a></li>
 <li class="toctree-l3"><a class="reference internal" href="parsing/inference/index.html#base-inference">Base Inference</a></li>
-<li class="toctree-l3"><a class="reference internal" href="parsing/inference/index.html#base-response">Base Response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="parsing/inference/index.html#base-inference-response">Base Inference Response</a></li>
 <li class="toctree-l3"><a class="reference internal" href="parsing/inference/index.html#inference-active-options">Inference Active Options</a></li>
 <li class="toctree-l3"><a class="reference internal" href="parsing/inference/index.html#inference-file">Inference File</a></li>
 <li class="toctree-l3"><a class="reference internal" href="parsing/inference/index.html#inference-model">Inference Model</a></li>
@@ -281,7 +280,7 @@
 <dd><p>Closes the underlying HTTP client.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><span class="highlight sphinx_autodoc_typehints-value"><code class="xref py py-obj docutils literal notranslate"><span class="kc"><span class="pre">None</span></span></code></span></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -330,8 +329,8 @@ For extraction models only.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>input_source</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="../input.html#mindee.input.LocalInputSource" title="mindee.input.local_input_source.LocalInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">LocalInputSource</span></code></a> | <a class="reference internal" href="../input.html#mindee.input.URLInputSource" title="mindee.input.url_input_source.URLInputSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">URLInputSource</span></code></a></span>) – The document/source file to use. Can be local or remote.</p></li>
 <li><p><strong>params</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="client_options.html#mindee.v2.client_options.base_product_parameters.BaseProductParameters" title="mindee.v2.client_options.base_product_parameters.BaseProductParameters"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseProductParameters</span></code></a></span>) – Parameters to set when sending a file.</p></li>
-<li><p><strong>response_type</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">TypeBaseInferenceResponse</span></code>, bound= <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseInferenceResponse</span></code>)]</span>) – The product class to use for the response object.</p></li>
-<li><p><strong>cancellation_token</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">CancellationToken</span></code> | <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span>, default: <code class="docutils literal notranslate"><span class="pre">None</span></code>) – A cancellation token that can be used to cancel the</p></li>
+<li><p><strong>response_type</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code>[<code class="docutils literal notranslate"><span class="pre">TypeBaseInferenceResponse</span></code>]</span>) – The product class to use for the response object.</p></li>
+<li><p><strong>cancellation_token</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">CancellationToken</span></code> | <span class="highlight sphinx_autodoc_typehints-value"><code class="xref py py-obj docutils literal notranslate"><span class="kc"><span class="pre">None</span></span></code></span></span>, default: <span class="highlight sphinx_autodoc_typehints-value"><code class="docutils literal notranslate"><span class="kc"><span class="pre">None</span></span></code></span>) – A cancellation token that can be used to cancel the</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -341,14 +340,14 @@ For extraction models only.</p>
 <p>request.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">TypeBaseInferenceResponse</span></code>, bound= <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseInferenceResponse</span></code>)</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="docutils literal notranslate"><span class="pre">TypeBaseInferenceResponse</span></code></span></p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A valid inference response.</p>
 </dd>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>response_type</strong> (<a class="reference internal" href="../v1/parsing/common.html#mindee.v1.parsing.common.execution.Execution.type" title="mindee.v1.parsing.common.execution.Execution.type"><em>type</em></a><em>[</em><em>TypeBaseInferenceResponse</em><em>]</em>)</p></li>
+<li><p><strong>response_type</strong> (<a class="reference internal" href="../v1/parsing/standard.html#mindee.v1.parsing.standard.company_registration.CompanyRegistrationField.type" title="mindee.v1.parsing.standard.company_registration.CompanyRegistrationField.type"><em>type</em></a><em>[</em><em>TypeBaseInferenceResponse</em><em>]</em>)</p></li>
 <li><p><strong>input_source</strong> (<a class="reference internal" href="../input.html#mindee.input.LocalInputSource" title="mindee.input.local_input_source.LocalInputSource"><em>LocalInputSource</em></a><em> | </em><a class="reference internal" href="../input.html#mindee.input.URLInputSource" title="mindee.input.url_input_source.URLInputSource"><em>URLInputSource</em></a>)</p></li>
 <li><p><strong>params</strong> (<a class="reference internal" href="client_options.html#mindee.v2.client_options.base_product_parameters.BaseProductParameters" title="mindee.v2.client_options.base_product_parameters.BaseProductParameters"><em>BaseProductParameters</em></a>)</p></li>
 <li><p><strong>cancellation_token</strong> (<em>CancellationToken</em><em> | </em><em>None</em>)</p></li>
@@ -383,11 +382,11 @@ You will need to poll until the document is ready for use.
 Get a document’s info and annotations from the RAG database.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">TypeRagAnnotationResponse</span></code>, bound= <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseRagAnnotationResponse</span></code>)</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="docutils literal notranslate"><span class="pre">TypeRagAnnotationResponse</span></code></span></p>
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
-<li><p><strong>response_type</strong> (<a class="reference internal" href="../v1/parsing/common.html#mindee.v1.parsing.common.execution.Execution.type" title="mindee.v1.parsing.common.execution.Execution.type"><em>type</em></a><em>[</em><em>TypeRagAnnotationResponse</em><em>]</em>)</p></li>
+<li><p><strong>response_type</strong> (<a class="reference internal" href="../v1/parsing/standard.html#mindee.v1.parsing.standard.company_registration.CompanyRegistrationField.type" title="mindee.v1.parsing.standard.company_registration.CompanyRegistrationField.type"><em>type</em></a><em>[</em><em>TypeRagAnnotationResponse</em><em>]</em>)</p></li>
 <li><p><strong>document_id</strong> (<em>str</em>)</p></li>
 </ul>
 </dd>
@@ -401,7 +400,7 @@ Get a document’s info and annotations from the RAG database.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>response_type</strong> (<a class="reference internal" href="../v1/parsing/common.html#mindee.v1.parsing.common.execution.Execution.type" title="mindee.v1.parsing.common.execution.Execution.type"><em>type</em></a><em>[</em><em>TypeRagAnnotationResponse</em><em>]</em>)</p></li>
+<li><p><strong>response_type</strong> (<a class="reference internal" href="../v1/parsing/standard.html#mindee.v1.parsing.standard.company_registration.CompanyRegistrationField.type" title="mindee.v1.parsing.standard.company_registration.CompanyRegistrationField.type"><em>type</em></a><em>[</em><em>TypeRagAnnotationResponse</em><em>]</em>)</p></li>
 <li><p><strong>document_id</strong> (<em>str</em>)</p></li>
 <li><p><strong>polling_options</strong> (<a class="reference internal" href="../client_options.html#mindee.client_options.polling_options.PollingOptions" title="mindee.client_options.polling_options.PollingOptions"><em>PollingOptions</em></a><em> | </em><em>None</em>)</p></li>
 <li><p><strong>cancellation_token</strong> (<em>CancellationToken</em><em> | </em><em>None</em>)</p></li>
@@ -419,11 +418,11 @@ Get a document’s info and annotations from the RAG database.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>inference_id</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – UUID of the inference to retrieve.</p></li>
-<li><p><strong>response_type</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">TypeBaseInferenceResponse</span></code>, bound= <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseInferenceResponse</span></code>)]</span>) – Class of the product to instantiate.</p></li>
+<li><p><strong>response_type</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code>[<code class="docutils literal notranslate"><span class="pre">TypeBaseInferenceResponse</span></code>]</span>) – Class of the product to instantiate.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">TypeBaseInferenceResponse</span></code>, bound= <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseInferenceResponse</span></code>)</span></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="docutils literal notranslate"><span class="pre">TypeBaseInferenceResponse</span></code></span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>An inference response.</p>
@@ -438,12 +437,12 @@ Get a document’s info and annotations from the RAG database.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>response_type</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">TypeBaseInferenceResponse</span></code>, bound= <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseInferenceResponse</span></code>)]</span>) – Type of the response to return.</p></li>
+<li><p><strong>response_type</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code>[<code class="docutils literal notranslate"><span class="pre">TypeBaseInferenceResponse</span></code>]</span>) – Type of the response to return.</p></li>
 <li><p><strong>url</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – URL of the inference to retrieve.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">TypeBaseInferenceResponse</span></code>, bound= <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseInferenceResponse</span></code>)</span></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="docutils literal notranslate"><span class="pre">TypeBaseInferenceResponse</span></code></span></p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The result of the inference.</p>
@@ -455,11 +454,11 @@ Get a document’s info and annotations from the RAG database.</p>
 <dt class="sig sig-object py" id="mindee.v2.client.Client.search">
 <span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.client.Client.search" title="Link to this definition"></a></dt>
 <dd><p>Search for resources matching the given criteria.
-:type params: <span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="client_options.html#mindee.v2.client_options.base_search_parameters.BaseSearchParameters" title="mindee.v2.client_options.base_search_parameters.BaseSearchParameters"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseSearchParameters</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">TypeSearchResponse</span></code>, bound= <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseSearchResponse</span></code>)]</span>
+:type params: <span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="client_options.html#mindee.v2.client_options.base_search_parameters.BaseSearchParameters" title="mindee.v2.client_options.base_search_parameters.BaseSearchParameters"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseSearchParameters</span></code></a>[<code class="docutils literal notranslate"><span class="pre">TypeSearchResponse</span></code>]</span>
 :param params: Search parameters</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">TypeSearchResponse</span></code>, bound= <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseSearchResponse</span></code>)</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="docutils literal notranslate"><span class="pre">TypeSearchResponse</span></code></span></p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A search response containing the matching resources</p>
@@ -493,7 +492,7 @@ Get a document’s info and annotations from the RAG database.</p>
 <dd><p>Update a document’s annotations in the RAG database.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">TypeRagAnnotationResponse</span></code>, bound= <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseRagAnnotationResponse</span></code>)</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="docutils literal notranslate"><span class="pre">TypeRagAnnotationResponse</span></code></span></p>
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
@@ -513,7 +512,7 @@ You will need to poll until the document is ready for use.
 Update a document’s annotations in the RAG database.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">TypeRagAnnotationResponse</span></code>, bound= <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseRagAnnotationResponse</span></code>)</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="docutils literal notranslate"><span class="pre">TypeRagAnnotationResponse</span></code></span></p>
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>parameters</strong> (<em>BaseAnnotationParameters</em><em>[</em><em>TypeRagAnnotationResponse</em><em>]</em>)</p>
@@ -527,7 +526,7 @@ Update a document’s annotations in the RAG database.</p>
 <dd><p>Add a document to the RAG database and return the initial annotation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">TypeRagAnnotationResponse</span></code>, bound= <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseRagAnnotationResponse</span></code>)</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="docutils literal notranslate"><span class="pre">TypeRagAnnotationResponse</span></code></span></p>
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">
@@ -548,7 +547,7 @@ You will need to poll until the document is ready for use.
 Add a document to the RAG database.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">TypeRagAnnotationResponse</span></code>, bound= <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseRagAnnotationResponse</span></code>)</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="docutils literal notranslate"><span class="pre">TypeRagAnnotationResponse</span></code></span></p>
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
 <dd class="field-even"><ul class="simple">

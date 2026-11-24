@@ -9,6 +9,7 @@
   <title>V1 Utilities &mdash; Mindee Python Client  documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_autodoc_typehints.css?v=057ac668" />
 
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
@@ -101,7 +102,6 @@
 <li class="toctree-l3"><a class="reference internal" href="client.html#mindee.v1.client.Client.create_endpoint"><code class="docutils literal notranslate"><span class="pre">Client.create_endpoint()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="client.html#mindee.v1.client.Client.enqueue"><code class="docutils literal notranslate"><span class="pre">Client.enqueue()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="client.html#mindee.v1.client.Client.enqueue_and_parse"><code class="docutils literal notranslate"><span class="pre">Client.enqueue_and_parse()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="client.html#mindee.v1.client.Client.execute_workflow"><code class="docutils literal notranslate"><span class="pre">Client.execute_workflow()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="client.html#mindee.v1.client.Client.load_prediction"><code class="docutils literal notranslate"><span class="pre">Client.load_prediction()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="client.html#mindee.v1.client.Client.parse"><code class="docutils literal notranslate"><span class="pre">Client.parse()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="client.html#mindee.v1.client.Client.parse_queued"><code class="docutils literal notranslate"><span class="pre">Client.parse_queued()</span></code></a></li>
@@ -116,10 +116,6 @@
 <li class="toctree-l1"><a class="reference internal" href="client_options.html">V1 Client Options</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="client_options.html#predict-options">Predict Options</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="client_options.html#mindee.v1.client_options.predict_options.PredictOptions"><code class="docutils literal notranslate"><span class="pre">PredictOptions</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="client_options.html#workflow-options">Workflow Options</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="client_options.html#mindee.v1.client_options.workflow_options.WorkflowOptions"><code class="docutils literal notranslate"><span class="pre">WorkflowOptions</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -152,14 +148,6 @@
 <li class="toctree-l3"><a class="reference internal" href="mindee_http.html#mindee.v1.mindee_http.mindee_api.MindeeAPI"><code class="docutils literal notranslate"><span class="pre">MindeeAPI</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="mindee_http.html#workflow-endpoint">Workflow Endpoint</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="mindee_http.html#mindee.v1.mindee_http.workflow_endpoint.WorkflowEndpoint"><code class="docutils literal notranslate"><span class="pre">WorkflowEndpoint</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="mindee_http.html#workflow-settings">Workflow Settings</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="mindee_http.html#mindee.v1.mindee_http.workflow_settings.WorkflowSettings"><code class="docutils literal notranslate"><span class="pre">WorkflowSettings</span></code></a></li>
-</ul>
-</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="parsing/index.html">V1 Parsing Utilities</a><ul>
@@ -185,7 +173,6 @@
 <li class="toctree-l3"><a class="reference internal" href="parsing/common.html#api">API</a></li>
 <li class="toctree-l3"><a class="reference internal" href="parsing/common.html#asynchronous-parsing">Asynchronous Parsing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="parsing/common.html#miscellaneous-parsing">Miscellaneous Parsing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="parsing/common.html#workflow-parsing">Workflow Parsing</a></li>
 <li class="toctree-l3"><a class="reference internal" href="parsing/common.html#ocr-extraction">OCR Extraction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="parsing/common.html#extras">Extras</a></li>
 </ul>
@@ -217,11 +204,9 @@
 <li class="toctree-l1"><a class="reference internal" href="product/index.html">V1 Products</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="product/index.html#region-specific">Region-Specific</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="product/fr/index.html">France</a></li>
-<li class="toctree-l3"><a class="reference internal" href="product/us/index.html">United States</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="product/index.html#international">International</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="product/barcode_reader_v1.html">Barcode Reader V1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="product/cropper_v1.html">Cropper V1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="product/custom_v1.html">Custom V1</a></li>
 <li class="toctree-l3"><a class="reference internal" href="product/financial_document_v1.html">Financial Document V1</a></li>

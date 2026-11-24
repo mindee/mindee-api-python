@@ -9,6 +9,7 @@
   <title>V2 Search &mdash; Mindee Python Client  documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_autodoc_typehints.css?v=057ac668" />
 
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
@@ -126,7 +127,7 @@ If no search filters are given, all models belonging to the organization are ret
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>page</strong> (<em>int</em><em> | </em><em>None</em>)</p></li>
 <li><p><strong>per_page</strong> (<em>int</em><em> | </em><em>None</em>)</p></li>
-<li><p><strong>_response_class</strong> (<a class="reference internal" href="../v1/parsing/common.html#mindee.v1.parsing.common.execution.Execution.type" title="mindee.v1.parsing.common.execution.Execution.type"><em>type</em></a><em>[</em><a class="reference internal" href="#mindee.v2.search.models.model_search_response.ModelSearchResponse" title="mindee.v2.search.models.model_search_response.ModelSearchResponse"><em>ModelSearchResponse</em></a><em>]</em>)</p></li>
+<li><p><strong>_response_class</strong> (<a class="reference internal" href="../v1/parsing/standard.html#mindee.v1.parsing.standard.company_registration.CompanyRegistrationField.type" title="mindee.v1.parsing.standard.company_registration.CompanyRegistrationField.type"><em>type</em></a><em>[</em><a class="reference internal" href="#mindee.v2.search.models.model_search_response.ModelSearchResponse" title="mindee.v2.search.models.model_search_response.ModelSearchResponse"><em>ModelSearchResponse</em></a><em>]</em>)</p></li>
 <li><p><strong>name</strong> (<em>str</em><em> | </em><em>None</em>)</p></li>
 <li><p><strong>model_type</strong> (<em>str</em><em> | </em><em>None</em>)</p></li>
 </ul>
@@ -152,7 +153,7 @@ If no search filters are given, all models belonging to the organization are ret
 <dd><p>Gets the response class for the search.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">TypeSearchResponse</span></code>, bound= <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseSearchResponse</span></code>)]</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code>[<a class="reference internal" href="#mindee.v2.search.models.model_search_response.ModelSearchResponse" title="mindee.v2.search.models.model_search_response.ModelSearchResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelSearchResponse</span></code></a>]</span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -252,7 +253,7 @@ If no search filters are given, all documents linked to the model are returned.<
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>page</strong> (<em>int</em><em> | </em><em>None</em>)</p></li>
 <li><p><strong>per_page</strong> (<em>int</em><em> | </em><em>None</em>)</p></li>
-<li><p><strong>_response_class</strong> (<a class="reference internal" href="../v1/parsing/common.html#mindee.v1.parsing.common.execution.Execution.type" title="mindee.v1.parsing.common.execution.Execution.type"><em>type</em></a><em>[</em><a class="reference internal" href="#mindee.v2.search.rag_documents.rag_document_search_response.RagDocumentSearchResponse" title="mindee.v2.search.rag_documents.rag_document_search_response.RagDocumentSearchResponse"><em>RagDocumentSearchResponse</em></a><em>]</em>)</p></li>
+<li><p><strong>_response_class</strong> (<a class="reference internal" href="../v1/parsing/standard.html#mindee.v1.parsing.standard.company_registration.CompanyRegistrationField.type" title="mindee.v1.parsing.standard.company_registration.CompanyRegistrationField.type"><em>type</em></a><em>[</em><a class="reference internal" href="#mindee.v2.search.rag_documents.rag_document_search_response.RagDocumentSearchResponse" title="mindee.v2.search.rag_documents.rag_document_search_response.RagDocumentSearchResponse"><em>RagDocumentSearchResponse</em></a><em>]</em>)</p></li>
 <li><p><strong>model_id</strong> (<em>str</em>)</p></li>
 <li><p><strong>filename</strong> (<em>str</em><em> | </em><em>None</em>)</p></li>
 </ul>
@@ -278,7 +279,7 @@ If no search filters are given, all documents linked to the model are returned.<
 <dd><p>Gets the response class for the search.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">TypeSearchResponse</span></code>, bound= <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseSearchResponse</span></code>)]</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code>[<a class="reference internal" href="#mindee.v2.search.rag_documents.rag_document_search_response.RagDocumentSearchResponse" title="mindee.v2.search.rag_documents.rag_document_search_response.RagDocumentSearchResponse"><code class="xref py py-class docutils literal notranslate"><span class="pre">RagDocumentSearchResponse</span></code></a>]</span></p>
 </dd>
 </dl>
 </dd></dl>

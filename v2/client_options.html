@@ -9,6 +9,7 @@
   <title>V2 Client Options &mdash; Mindee Python Client  documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx_autodoc_typehints.css?v=057ac668" />
 
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
@@ -186,14 +187,14 @@ If empty, no webhooks will be used.</p>
 <h2>Base Search Parameters<a class="headerlink" href="#base-search-parameters" title="Link to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="mindee.v2.client_options.base_search_parameters.BaseSearchParameters">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">BaseSearchParameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">per_page</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_response_class</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.client_options.base_search_parameters.BaseSearchParameters" title="Link to this definition"></a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">BaseSearchParameters</span></span><span class="sig-paren">[</span><em class="sig-param"><span class="n"><span class="pre">TypeSearchResponse</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">BaseSearchResponse</span></span></em><span class="sig-paren">]</span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">per_page</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_response_class</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.client_options.base_search_parameters.BaseSearchParameters" title="Link to this definition"></a></dt>
 <dd><p>Base parameters for searches.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>page</strong> (<em>int</em><em> | </em><em>None</em>)</p></li>
 <li><p><strong>per_page</strong> (<em>int</em><em> | </em><em>None</em>)</p></li>
-<li><p><strong>_response_class</strong> (<a class="reference internal" href="../v1/parsing/common.html#mindee.v1.parsing.common.execution.Execution.type" title="mindee.v1.parsing.common.execution.Execution.type"><em>type</em></a><em>[</em><em>TypeSearchResponse</em><em>]</em>)</p></li>
+<li><p><strong>_response_class</strong> (<a class="reference internal" href="../v1/parsing/standard.html#mindee.v1.parsing.standard.company_registration.CompanyRegistrationField.type" title="mindee.v1.parsing.standard.company_registration.CompanyRegistrationField.type"><em>type</em></a><em>[</em><em>TypeSearchResponse</em><em>]</em>)</p></li>
 </ul>
 </dd>
 </dl>
@@ -217,7 +218,7 @@ If empty, no webhooks will be used.</p>
 <dd><p>Gets the response class for the search.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code>(<code class="docutils literal notranslate"><span class="pre">TypeSearchResponse</span></code>, bound= <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseSearchResponse</span></code>)]</span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code>[<code class="docutils literal notranslate"><span class="pre">TypeSearchResponse</span></code>]</span></p>
 </dd>
 </dl>
 </dd></dl>

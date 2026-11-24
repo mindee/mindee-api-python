@@ -9,6 +9,7 @@
   <title>Mindee HTTP &mdash; Mindee Python Client  documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/sphinx_autodoc_typehints.css?v=057ac668" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
@@ -54,7 +55,6 @@
 <li class="toctree-l3"><a class="reference internal" href="#mindee.mindee_http.response_validation.clean_request_json"><code class="docutils literal notranslate"><span class="pre">clean_request_json()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#mindee.mindee_http.response_validation.is_valid_async_response"><code class="docutils literal notranslate"><span class="pre">is_valid_async_response()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#mindee.mindee_http.response_validation.is_valid_sync_response"><code class="docutils literal notranslate"><span class="pre">is_valid_sync_response()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#mindee.mindee_http.response_validation.validate_url_for_source"><code class="docutils literal notranslate"><span class="pre">validate_url_for_source()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#settings-mixin">Settings Mixin</a><ul>
@@ -157,24 +157,6 @@
 </dl>
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="mindee.mindee_http.response_validation.validate_url_for_source">
-<span class="sig-name descname"><span class="pre">validate_url_for_source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.mindee_http.response_validation.validate_url_for_source" title="Link to this definition"></a></dt>
-<dd><p>Validates that a URL is safe to send to the Mindee server.</p>
-<p>Rejects any URL that follow non-HTTPS schemes.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>url</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The URL string to validate.</p>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>MindeeSourceError</strong> – If the URL fails any security check.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
-</dd>
-</dl>
-</dd></dl>
-
 </section>
 <section id="settings-mixin">
 <h2>Settings Mixin<a class="headerlink" href="#settings-mixin" title="Link to this heading"></a></h2>
@@ -188,7 +170,7 @@
 <dd><p>Set the base URL for all requests.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><span class="highlight sphinx_autodoc_typehints-value"><code class="xref py py-obj docutils literal notranslate"><span class="kc"><span class="pre">None</span></span></code></span></span></p>
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>value</strong> (<em>str</em>)</p>
@@ -202,7 +184,7 @@
 <dd><p>Set the timeout for all requests.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><span class="highlight sphinx_autodoc_typehints-value"><code class="xref py py-obj docutils literal notranslate"><span class="kc"><span class="pre">None</span></span></code></span></span></p>
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>value</strong> (<em>str</em><em> | </em><em>int</em>)</p>

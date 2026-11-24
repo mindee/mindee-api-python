@@ -9,6 +9,7 @@
   <title>Inference V2 &mdash; Mindee Python Client  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx_autodoc_typehints.css?v=057ac668" />
 
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
@@ -62,7 +63,7 @@
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Inference V2</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="field.html">Inference Field</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#base-inference">Base Inference</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#base-response">Base Response</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#base-inference-response">Base Inference Response</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#inference-active-options">Inference Active Options</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#inference-file">Inference File</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#inference-model">Inference Model</a></li>
@@ -185,8 +186,42 @@
 </dd></dl>
 
 </section>
-<section id="base-response">
-<h2>Base Response<a class="headerlink" href="#base-response" title="Link to this heading"></a></h2>
+<section id="base-inference-response">
+<h2>Base Inference Response<a class="headerlink" href="#base-inference-response" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="mindee.v2.parsing.inference.base_inference_response.BaseInferenceResponse">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">BaseInferenceResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">raw_response</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.parsing.inference.base_inference_response.BaseInferenceResponse" title="Link to this definition"></a></dt>
+<dd><p>Base class for V2 inference responses.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>raw_response</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>)</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="mindee.v2.parsing.inference.base_inference_response.BaseInferenceResponse.get_product_slug">
+<span class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">get_product_slug</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mindee.v2.parsing.inference.base_inference_response.BaseInferenceResponse.get_product_slug" title="Link to this definition"></a></dt>
+<dd><p>Get the product’s slug.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="mindee.v2.parsing.inference.base_inference_response.BaseInferenceResponse.inference">
+<span class="sig-name descname"><span class="pre">inference</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#mindee.v2.parsing.inference.base_inference.BaseInference" title="mindee.v2.parsing.inference.base_inference.BaseInference"><span class="pre">BaseInference</span></a></span><a class="headerlink" href="#mindee.v2.parsing.inference.base_inference_response.BaseInferenceResponse.inference" title="Link to this definition"></a></dt>
+<dd><p>The inference result for a split utility request</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="mindee.v2.parsing.inference.base_inference_response.BaseInferenceResponse.raw_http">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">raw_http</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#mindee.v2.parsing.inference.base_inference_response.BaseInferenceResponse.raw_http" title="Link to this definition"></a></dt>
+<dd><p>Displays the result of the raw response as json string.</p>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 <section id="inference-active-options">
 <h2>Inference Active Options<a class="headerlink" href="#inference-active-options" title="Link to this heading"></a></h2>
