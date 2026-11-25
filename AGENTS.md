@@ -1,3 +1,6 @@
+## Code Linting
+- Run `prek run -a` to lint and format the code.*
+
 ## Releases
 - A release must be in a separate branch called `release/X.X.X` where X.X.X is the version number.
 - The version number is defined in `__version__` of the `mindee/versions.py` file.
