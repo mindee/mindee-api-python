@@ -1,5 +1,12 @@
+## Code Converting
+- When given code in another language for conversion, keep the original's overall naming for class, variable, and function names.
+  Only adjust as needed to conform to Python conventions, ex `myMethod` becomes `my_method`.
+
 ## Code Linting
-- Run `prek run -a` to lint and format the code.*
+- Run `prek run -a` to lint and format the code.
+
+## Testing
+- Test fixtures are located in the `./tests/data` directory.
 
 ## Releases
 - A release must be in a separate branch called `release/X.X.X` where X.X.X is the version number.

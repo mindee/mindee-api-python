@@ -14,7 +14,7 @@ from tests.v2.product.utils import get_product_samples
 
 @pytest.mark.v2
 def test_classification_single():
-    json_sample, _ = get_product_samples(
+    json_sample, rst_sample = get_product_samples(
         product="classification", file_name="default_sample"
     )
     response = ClassificationResponse(json_sample)
@@ -25,6 +25,8 @@ def test_classification_single():
         ClassificationClassifier,
     )
     assert response.inference.result.classification.document_type == "invoice"
+
+    assert rst_sample == str(response)
 
 
 @pytest.mark.v2
