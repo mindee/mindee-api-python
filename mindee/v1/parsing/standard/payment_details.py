@@ -13,6 +13,8 @@ class PaymentDetailsField(FieldPositionMixin, BaseField):
     """Account routing number"""
     swift: str | None
     """Bank's SWIFT code"""
+    sort_code: str | None
+    """The UK and Irish sort code (6 digits)."""
 
     def __init__(
         self,
@@ -80,6 +82,14 @@ class PaymentDetailsField(FieldPositionMixin, BaseField):
         except (KeyError, AssertionError):
             self.swift = None
 
+        try:
+            assert isinstance(raw_prediction["sort_code"], str)
+            self.sort_code = str(raw_prediction["sort_code"])
+            if self.sort_code == "N/A":
+                self.sort_code = None
+        except (KeyError, AssertionError):
+            self.sort_code = None
+
     def __str__(self) -> str:
         out_str = ""
         if self.account_number is not None:
@@ -90,4 +100,6 @@ class PaymentDetailsField(FieldPositionMixin, BaseField):
             out_str += str(self.routing_number) + "; "
         if self.swift is not None:
             out_str += str(self.swift) + "; "
+        if self.sort_code is not None:
+            out_str += str(self.sort_code) + "; "
         return out_str.strip()
