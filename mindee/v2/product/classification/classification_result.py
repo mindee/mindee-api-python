@@ -13,4 +13,4 @@ class ClassificationResult:
         self.classification = ClassificationClassifier(raw_response["classification"])
 
     def __str__(self) -> str:
-        return f"Classification\n======{self.classification}"
+        return f"Classification\n==============\n{self.classification}"
