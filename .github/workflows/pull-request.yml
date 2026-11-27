@@ -9,9 +9,13 @@ permissions:
 
 jobs:
   workflow-lint:
-    uses: ./.github/workflows/_workflow_lint.yml
+    uses: mindee/client-lib-actions/.github/workflows/workflow-lint.yml@main
   build-bernard-ledit:
     uses: ./.github/workflows/_build-bernard-ledit.yml
+  betterleaks:
+    uses: mindee/client-lib-actions/.github/workflows/betterleaks.yml@main
+    needs: workflow-lint
+    secrets: inherit
   static-analysis:
     uses: ./.github/workflows/_static-analysis.yml
     needs:
@@ -19,7 +23,7 @@ jobs:
       - build-bernard-ledit
   test-units:
     uses: ./.github/workflows/_test-units.yml
-    needs: build-bernard-ledit
+    needs: [ build-bernard-ledit, betterleaks, static-analysis ]
     secrets: inherit
   test-regressions:
     uses: ./.github/workflows/_test-regressions.yml

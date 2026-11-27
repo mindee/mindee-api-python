@@ -7,19 +7,20 @@ on:
 
 jobs:
   build-bernard-ledit:
-    uses: mindee/mindee-api-python/.github/workflows/_build-bernard-ledit.yml@main
+    uses: ./.github/workflows/_build-bernard-ledit.yml
+  betterleaks:
+    uses: mindee/client-lib-actions/.github/workflows/betterleaks.yml@main
+    secrets: inherit
   static-analysis:
-    uses: mindee/mindee-api-python/.github/workflows/_static-analysis.yml@main
+    uses: ./.github/workflows/_static-analysis.yml
     needs: build-bernard-ledit
-  test_units:
-    uses: mindee/mindee-api-python/.github/workflows/_test-units.yml@main
-    needs: build-bernard-ledit
+  test-units:
+    uses: ./.github/workflows/_test-units.yml
+    needs: [ build-bernard-ledit, betterleaks, static-analysis ]
     secrets: inherit
   tag:
     uses: mindee/client-lib-actions/.github/workflows/tag-version.yml@main
-    needs:
-      - static-analysis
-      - test_units
+    needs: test-units
   release:
     uses: mindee/client-lib-actions/.github/workflows/create-release.yml@main
     needs: tag

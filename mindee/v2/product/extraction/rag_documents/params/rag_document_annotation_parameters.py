@@ -1,4 +1,3 @@
-import json
 from dataclasses import asdict, dataclass
 from typing import Any, ClassVar
 
@@ -7,7 +6,10 @@ from mindee.v2.client_options.base_annotation_parameters import BaseAnnotationPa
 from mindee.v2.product.extraction.rag_documents.extraction_rag_annotation_response import (
     ExtractionRagAnnotationResponse,
 )
-from mindee.v2.product.extraction.rag_documents.rag_annotation import RagAnnotation
+from mindee.v2.product.extraction.rag_documents.rag_annotation import (
+    RagAnnotation,
+    TypeRagAnnotationInput,
+)
 
 
 @dataclass(kw_only=True)
@@ -19,7 +21,7 @@ class RagDocumentAnnotationParameters(
     status: str | None = None
     """New public status to apply to the document (for example, to deactivate it)."""
 
-    annotation: RagAnnotation | StringDict | str | None = None
+    annotation: RagAnnotation | None = None
     """Field-level RAG annotation and guidelines configuration for the document."""
 
     _slug: ClassVar[str] = "extraction"
@@ -27,11 +29,27 @@ class RagDocumentAnnotationParameters(
         ExtractionRagAnnotationResponse
     )
 
-    def __post_init__(self) -> None:
-        if isinstance(self.annotation, str):
-            self.annotation = RagAnnotation(json.loads(self.annotation))
-        elif isinstance(self.annotation, dict):
-            self.annotation = RagAnnotation(self.annotation)
+    def __init__(
+        self,
+        *,
+        document_id: str,
+        status: str | None = None,
+        annotation: TypeRagAnnotationInput | RagAnnotation | None = None,
+        _response_class: type[
+            ExtractionRagAnnotationResponse
+        ] = ExtractionRagAnnotationResponse,
+    ) -> None:
+        super().__init__(
+            document_id=document_id,
+            _response_class=_response_class,
+        )
+        self.status = status
+        if isinstance(annotation, RagAnnotation):
+            self.annotation = annotation
+        elif annotation is not None:
+            self.annotation = RagAnnotation(annotation)
+        else:
+            self.annotation = None
 
     def get_request_parameters(self) -> dict[str, str | StringDict]:
         """Gets the request parameters for the upload request."""

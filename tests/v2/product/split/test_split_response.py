@@ -10,7 +10,9 @@ from tests.v2.product.utils import get_product_samples
 
 @pytest.mark.v2
 def test_split_single():
-    json_sample, _ = get_product_samples(product="split", file_name="split_single")
+    json_sample, rst_sample = get_product_samples(
+        product="split", file_name="split_single"
+    )
     response = SplitResponse(json_sample)
 
     assert isinstance(response.inference, SplitInference)
@@ -20,10 +22,14 @@ def test_split_single():
     assert response.inference.result.splits[0].page_range[1] == 0
     assert response.inference.result.splits[0].document_type == "receipt"
 
+    assert rst_sample == str(response)
+
 
 @pytest.mark.v2
 def test_split_multiple():
-    json_sample, _ = get_product_samples(product="split", file_name="split_multiple")
+    json_sample, rst_sample = get_product_samples(
+        product="split", file_name="split_multiple"
+    )
     response = SplitResponse(json_sample)
     assert isinstance(response.inference, SplitInference)
     assert isinstance(response.inference.result, SplitResult)
@@ -44,6 +50,8 @@ def test_split_multiple():
     assert response.inference.result.splits[2].page_range[0] == 4
     assert response.inference.result.splits[2].page_range[1] == 4
     assert response.inference.result.splits[2].document_type == "receipt"
+
+    assert rst_sample == str(response)
 
 
 @pytest.mark.v2

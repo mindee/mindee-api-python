@@ -10,40 +10,16 @@ jobs:
   static-check:
     name: Run Static Analysis
     runs-on: ubuntu-24.04
-    strategy:
-      matrix:
-        python-version: ["3.12"]
     steps:
     - uses: actions/checkout@v7
       with:
         submodules: recursive
         fetch-depth: 0
 
-    - name: Run Betterleaks
-      id: betterleaks
-      continue-on-error: true
-      # version 0.1.0
-      uses: dortort/betterleaks-action@cd0b905aa4befb8f42f8b1ab98150180c9e77515
-      with:
-        version: "v1.9.0"
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Upload Betterleaks report
-      if: always()
-      uses: actions/upload-artifact@v7
-      with:
-        name: betterleaks-report
-        path: betterleaks-report.sarif
-        if-no-files-found: warn
-
-    - name: Fail if Betterleaks found leaks
-      if: steps.betterleaks.outcome == 'failure'
-      run: exit 1
-
-    - name: Set up Python ${{ matrix.python-version }}
+    - name: Set up Python
       uses: actions/setup-python@v7
       with:
-        python-version: ${{ matrix.python-version }}
+        python-version: "3.12"
 
     - name: Cache dependencies
       uses: actions/cache@v6
@@ -85,6 +61,7 @@ jobs:
 
     - name: Run all static analysis
       env:
-        SKIP: sphinx-html,sphinx-linkcheck
+        # betterleaks is run in a separate workflow
+        SKIP: betterleaks,sphinx-html,sphinx-linkcheck
       run: |
         prek run --all-files

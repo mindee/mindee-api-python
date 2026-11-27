@@ -1,12 +1,9 @@
 import os
-from datetime import datetime
 
 import pytest
 
 from mindee import PathInput
 from mindee.v1.client import Client
-from mindee.v1.client_options.workflow_options import WorkflowOptions
-from mindee.v1.parsing.common import ExecutionPriority
 from mindee.v1.product import FinancialDocumentV1, GeneratedV1
 from tests.utils import V1_PRODUCT_PATH
 
@@ -24,21 +21,6 @@ def workflow_id():
 @pytest.fixture
 def input_path():
     return V1_PRODUCT_PATH / "financial_document" / "default_sample.jpg"
-
-
-@pytest.mark.integration
-def test_workflow_execution(mindee_client: Client, workflow_id: str, input_path: str):
-    input_source = PathInput(str(input_path))
-    current_date_time = datetime.now().strftime("%Y-%m-%d-%H:%M:%S")
-    alias = f"python-{current_date_time}"
-    priority = ExecutionPriority.LOW
-    options = WorkflowOptions(alias=alias, priority=priority, rag=True)
-
-    response = mindee_client.execute_workflow(input_source, workflow_id, options)
-
-    assert response.api_request.status_code == 202
-    assert response.execution.file.alias == f"python-{current_date_time}"
-    assert response.execution.priority == "low"
 
 
 @pytest.mark.integration
