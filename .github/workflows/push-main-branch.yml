@@ -6,14 +6,17 @@ on:
       - main
 
 jobs:
+  build-bernard-ledit:
+    uses: ./.github/workflows/_build-bernard-ledit.yml
   betterleaks:
     uses: mindee/client-lib-actions/.github/workflows/betterleaks.yml@main
     secrets: inherit
   static-analysis:
     uses: ./.github/workflows/_static-analysis.yml
+    needs: build-bernard-ledit
   test-units:
     uses: ./.github/workflows/_test-units.yml
-    needs: [ betterleaks, static-analysis ]
+    needs: [ build-bernard-ledit, betterleaks, static-analysis ]
     secrets: inherit
   tag:
     uses: mindee/client-lib-actions/.github/workflows/tag-version.yml@main

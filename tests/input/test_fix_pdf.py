@@ -5,20 +5,21 @@ from mindee.error import MimeTypeError
 from tests.utils import FILE_TYPES_PATH
 
 
-@pytest.mark.pypdfium2
+@pytest.mark.bernard_ledit
 def test_broken_unfixable_pdf():
     input_source = PathInput(FILE_TYPES_PATH / "pdf" / "broken_unfixable.pdf")
     with pytest.raises(MimeTypeError):
         input_source.fix_pdf()
 
 
-@pytest.mark.pypdfium2
+@pytest.mark.bernard_ledit
 def test_broken_fixable_pdf():
     input_source = PathInput(FILE_TYPES_PATH / "pdf" / "broken_fixable.pdf")
     input_source.fix_pdf()
     assert input_source.page_count == 1
 
 
+@pytest.mark.bernard_ledit
 def test_broken_fixable_invoice_pdf():
     input_source = PathInput(FILE_TYPES_PATH / "pdf" / "broken_invoice.pdf")
     input_source.fix_pdf()

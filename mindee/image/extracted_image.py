@@ -1,19 +1,21 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any, BinaryIO
+from typing import BinaryIO
 
-from mindee.dependencies.checkers import PILLOW_AVAILABLE
-from mindee.dependencies.decorators import requires_pillow
+from mindee.dependencies.checkers import BERNARD_LEDIT_AVAILABLE
+from mindee.dependencies.decorators import requires_bernard_ledit
 from mindee.error.mindee_error import MindeeError
 from mindee.input.bytes_input import BytesInput
 from mindee.logger import logger
 
-if PILLOW_AVAILABLE:
+if BERNARD_LEDIT_AVAILABLE:
     # pylint: disable=import-error
-    from PIL import Image
+    import bernard_ledit.common as bernard_common
+    import bernard_ledit.image as bernard_image
 else:
-    Image: Any = None  # type: ignore[no-redef] # pylint: disable=invalid-name
+    bernard_image = None  # type: ignore[assignment]  # pylint: disable=invalid-name
+    bernard_common = None  # type: ignore[assignment]  # pylint: disable=invalid-name
 
 
 class ExtractedImage:
@@ -47,12 +49,17 @@ class ExtractedImage:
         self._page_id = page_id
         self._element_id = 0 if element_id is None else element_id
 
-    @requires_pillow
-    def write_to_file(self, output_path: Path | str):
+    @requires_bernard_ledit
+    def write_to_file(self, output_path: Path | str, file_format: str | None = None):
         """
         Saves the document to a file.
 
+        When no format is provided, the output filename's extension determines
+        the format. If it matches the buffer's format, the bytes are written as-is.
+
         :param output_path: Path to save the file to.
+        :param file_format: Format of the file to save. If omitted, infer it from
+            the filename extension (JPEG when there is no extension).
         :raises MindeeError: If an invalid path or filename is provided.
         """
         out_path = Path(output_path)
@@ -61,11 +68,20 @@ class ExtractedImage:
         out_file_path = out_path / self.filename
         try:
             self.buffer.seek(0)
-            image = Image.open(self.buffer)
-            image.save(out_file_path)
+            image_bytes = self.buffer.read()
+            image = bernard_image.Image(image_bytes)
+            output_format = (
+                file_format
+                if file_format is not None
+                else bernard_common.format_from_extension(out_file_path.suffix)
+            )
+            if file_format is None and image.format == output_format:
+                encoded = image_bytes
+            else:
+                encoded = image.encode(output_format)
+            out_file_path.write_bytes(encoded)
             logger.info("File saved successfully to '%s'.", out_file_path)
         except Exception as e:
-            print(e)
             raise MindeeError(f"Could not save file {Path(output_path).name}.") from e
 
     def as_input_source(self) -> BytesInput:
