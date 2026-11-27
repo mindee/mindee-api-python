@@ -62,6 +62,25 @@ Please follow these steps to have your contribution considered by the maintainer
 
 While the prerequisites above must be satisfied prior to having your pull request reviewed, the reviewer(s) may ask you to complete additional design work, tests, or other changes before your pull request can be ultimately accepted.
 
+### Bernard l'Édit
+
+Initialize the submodules before you build or test:
+
+```bash
+git submodule update --init --recursive
+```
+
+Follow the [Bernard build prerequisites](bernard-ledit/README.md#development), then install the
+Python binding from the submodule:
+
+```bash
+python -m pip install -e ./bernard-ledit/bindings/python
+python -m pip install -e '.[test]'
+```
+
+CI builds the same submodule commit. To use a newer commit from `refacto`, update the submodule
+and commit its new revision.
+
 ## Styleguides
 
 ### Git Commit Messages
