@@ -135,7 +135,7 @@ def test_pdf_compress_from_input_source():
         V1_RESOURCE_PATH / "products" / "invoice_splitter" / "default_sample.pdf"
     )
 
-    pdf_resize_input.compress(75, True)
+    pdf_resize_input.compress(50, True)
     with open(OUTPUT_PATH / "resize_indirect.pdf", "wb") as f:
         f.write(pdf_resize_input.file_object.read())
 
@@ -154,8 +154,8 @@ def test_pdf_compress_from_compressor():
 
     pdf_inputs = {
         85: PathInput(file_path),
-        75: PathInput(file_path),
         50: PathInput(file_path),
+        30: PathInput(file_path),
         10: PathInput(file_path),
     }
 
@@ -163,8 +163,8 @@ def test_pdf_compress_from_compressor():
 
     file_names = [
         "compress85.pdf",
-        "compress75.pdf",
         "compress50.pdf",
+        "compress30.pdf",
         "compress10.pdf",
     ]
     for i, compressed in enumerate(list(pdf_inputs.values())):
@@ -199,8 +199,8 @@ def cleanup():
     cleanup_output_files(
         [
             "compress10.pdf",
+            "compress30.pdf",
             "compress50.pdf",
-            "compress75.pdf",
             "compress85.pdf",
             "resize_indirect.pdf",
             "compress1.jpg",
