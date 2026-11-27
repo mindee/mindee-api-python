@@ -11,8 +11,8 @@ from mindee.logger import logger
 
 if BERNARD_LEDIT_AVAILABLE:
     # pylint: disable=import-error
-    import bernard_ledit.image as bernard_image
     import bernard_ledit.common as bernard_common
+    import bernard_ledit.image as bernard_image
 else:
     bernard_image = None  # type: ignore[assignment]  # pylint: disable=invalid-name
     bernard_common = None  # type: ignore[assignment]  # pylint: disable=invalid-name
